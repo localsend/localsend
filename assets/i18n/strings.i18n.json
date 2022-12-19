@@ -1,0 +1,30 @@
+{
+  "appName": "LocalSend",
+  "general": {
+    "advanced": "Advanced",
+    "hide": "Hide",
+    "unknown": "Unknown"
+  },
+  "receive": {
+    "title": "Receive",
+    "advanced": {
+      "ip": "IP:",
+      "server": "Server:",
+      "subnetMask": "Subnet mask:",
+      "alias": "Alias:"
+    }
+  },
+  "send": {
+    "title": "Send"
+  },
+  "settings": {
+    "title": "Settings",
+    "alias": "Alias",
+    "theme": "Theme",
+    "themeOptions": {
+      "system": "System",
+      "dark": "Dark",
+      "light": "Light"
+    }
+  }
+}
