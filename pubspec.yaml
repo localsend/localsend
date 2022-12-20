@@ -15,6 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   network_info_plus: 3.0.1
+  file_picker: 5.2.4
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
   json_annotation: 4.7.0

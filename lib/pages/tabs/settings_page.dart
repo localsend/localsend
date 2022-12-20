@@ -20,9 +20,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         _SettingsEntry(
           label: t.settings.alias,
           child: SizedBox(
-            width: 200,
-            child: TextField(
-              onChanged: (s) {},
+            width: 150,
+            child: TextFormField(
+              initialValue: settings.alias,
+              textAlign: TextAlign.center,
+              onChanged: (s) async {
+                await ref.read(settingsProvider.notifier).setAlias(s);
+              },
             ),
           ),
         ),

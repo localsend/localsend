@@ -15,7 +15,11 @@
     }
   },
   "send": {
-    "title": "Send"
+    "title": "Send",
+    "files": "Files",
+    "filesWithCount": "Files ({count})",
+    "selectFiles": "Select files",
+    "nearbyDevices": "Nearby devices"
   },
   "settings": {
     "title": "Settings",

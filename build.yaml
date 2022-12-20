@@ -8,3 +8,4 @@ targets:
           input_directory: assets/i18n
           input_file_pattern: .i18n.json
           output_directory: lib/gen
+          string_interpolation: braces
