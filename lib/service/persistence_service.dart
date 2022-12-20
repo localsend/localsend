@@ -4,9 +4,12 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _aliasKey = 'alias';
-const _themeKey = 'theme';
-const _localeKey = 'locale';
+const _aliasKey = 'ls_alias';
+const _themeKey = 'ls_theme';
+const _localeKey = 'ls_locale';
+const _portKey = 'ls_port';
+
+const defaultPort = 53317;
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -62,5 +65,13 @@ class PersistenceService {
     } else {
       await _prefs.setString(_localeKey, locale.languageTag);
     }
+  }
+
+  int getPort() {
+    return _prefs.getInt(_portKey) ?? defaultPort;
+  }
+
+  Future<void> setPort(int port) async {
+    await _prefs.setInt(_portKey, port);
   }
 }

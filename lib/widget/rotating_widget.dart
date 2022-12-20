@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 
 class RotatingWidget extends StatefulWidget {
   final Duration duration;
+  final bool spinning;
   final Widget child;
 
-  const RotatingWidget({required this.duration, required this.child, super.key});
+  const RotatingWidget({required this.duration, this.spinning = true, required this.child, super.key});
 
   @override
-  State<RotatingWidget> createState() => _RotatingWidgetState();
+  State<RotatingWidget> createState() => RotatingWidgetState();
 }
 
-class _RotatingWidgetState extends State<RotatingWidget> with TickerProviderStateMixin{
+class RotatingWidgetState extends State<RotatingWidget> with TickerProviderStateMixin{
 
   late final AnimationController _controller = AnimationController(
     duration: widget.duration,
     vsync: this,
-  )..repeat();
+  );
 
   late final Animation<double> _animation = CurvedAnimation(
     parent: _controller,
@@ -23,9 +24,27 @@ class _RotatingWidgetState extends State<RotatingWidget> with TickerProviderStat
   );
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.spinning) {
+      _controller.repeat();
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(RotatingWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.spinning && !widget.spinning) {
+      _controller.stop();
+    } else if (!oldWidget.spinning && widget.spinning) {
+      _controller.repeat();
+    }
   }
 
   @override

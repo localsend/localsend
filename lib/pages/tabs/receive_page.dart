@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
-import 'package:localsend_app/provider/receiver_provider.dart';
+import 'package:localsend_app/provider/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
@@ -23,8 +22,12 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(receiverProvider.notifier).startServer();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final settings = ref.read(settingsProvider);
+      await ref.read(serverProvider.notifier).startServer(
+            alias: settings.alias,
+            port: settings.port,
+          );
     });
   }
 
@@ -32,6 +35,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkInfoProvider);
+    final serverState = ref.watch(serverProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -46,21 +50,67 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                   children: [
                     RotatingWidget(
                       duration: const Duration(seconds: 15),
+                      spinning: serverState != null,
                       child: Assets.img.logo512.image(width: 200),
                     ),
-                    Text(networkInfo?.localIp?.visualId ?? t.general.unknown, style: const TextStyle(fontSize: 48)),
-                    Text(settings.alias, style: const TextStyle(fontSize: 24)),
+                    Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
+                    Text(
+                      serverState == null ? t.receive.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
+                      style: const TextStyle(fontSize: 24),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          Center(
-            child: TextButton(
-              onPressed: () {
-                setState(() => _advanced = !_advanced);
-              },
-              child: Text(_advanced ? t.general.hide : t.general.advanced),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20, top: 20),
+            child: Center(
+              child: Card(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (serverState == null)
+                      IconButton(
+                        onPressed: () async {
+                          await ref.read(serverProvider.notifier).startServer(
+                                alias: settings.alias,
+                                port: settings.port,
+                              );
+                        },
+                        tooltip: t.receive.start,
+                        icon: const Icon(Icons.play_arrow),
+                      )
+                    else
+                      IconButton(
+                        onPressed: () async {
+                          await ref.read(serverProvider.notifier).restartServer(
+                                alias: settings.alias,
+                                port: settings.port,
+                              );
+                        },
+                        tooltip: t.receive.restart,
+                        icon: const Icon(Icons.refresh),
+                      ),
+                    IconButton(
+                      onPressed: serverState == null
+                          ? null
+                          : () async {
+                              await ref.read(serverProvider.notifier).stopServer();
+                            },
+                      tooltip: t.receive.stop,
+                      icon: const Icon(Icons.stop),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() => _advanced = !_advanced);
+                      },
+                      tooltip: t.receive.info,
+                      icon: const Icon(Icons.info),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           AnimatedCrossFade(
@@ -79,28 +129,28 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                   children: [
                     TableRow(
                       children: [
-                        Text(t.receive.advanced.alias),
+                        Text(t.receive.infoBox.alias),
                         const SizedBox(width: 10),
-                        Text(settings.alias),
+                        Text(serverState?.alias ?? '-'),
                       ],
                     ),
                     TableRow(
                       children: [
-                        Text(t.receive.advanced.ip),
+                        Text(t.receive.infoBox.ip),
                         const SizedBox(width: 10),
                         Text(networkInfo?.localIp ?? t.general.unknown),
                       ],
                     ),
                     TableRow(
                       children: [
-                        Text(t.receive.advanced.server),
+                        Text(t.receive.infoBox.port),
                         const SizedBox(width: 10),
-                        Text(networkInfo?.localIp == null ? t.general.unknown : '${networkInfo!.localIp}:${Constants.defaultPort}/localsend'),
+                        Text(serverState?.port.toString() ?? '-'),
                       ],
                     ),
                     TableRow(
                       children: [
-                        Text(t.receive.advanced.subnetMask),
+                        Text(t.receive.infoBox.subnetMask),
                         const SizedBox(width: 10),
                         Text(networkInfo?.netMask ?? t.general.unknown),
                       ],

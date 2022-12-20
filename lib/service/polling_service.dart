@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/util/sleep.dart';
@@ -16,10 +15,11 @@ const _concurrentRequests = 50;
 
 class PollingService {
   final List<String> _possibleIps;
+  final int port;
   int _requestCount = 0;
   bool _running = false;
 
-  PollingService(String ipPrefix) : _possibleIps = List.generate(256, (i) => '$ipPrefix.$i');
+  PollingService(String ipPrefix, this.port) : _possibleIps = List.generate(256, (i) => '$ipPrefix.$i');
 
   Stream<List<Device>> startPolling() async* {
     if (_running) {
@@ -62,7 +62,7 @@ class PollingService {
 
     final String currentIp = _possibleIps[index];
     // print('Requesting $currentIp');
-    final url = 'http://$currentIp:${Constants.defaultPort}/localsend/v1/info';
+    final url = 'http://$currentIp:$port/localsend/v1/info';
     Device? device;
     try {
       final response = await _dio.get(url);

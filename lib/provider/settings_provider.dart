@@ -18,6 +18,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
       alias: service.getAlias(),
       theme: service.getTheme(),
       locale: service.getLocale(),
+      port: service.getPort(),
     );
   }
 
@@ -39,6 +40,13 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setLocale(locale);
     state = state.copyWith(
       locale: locale,
+    );
+  }
+
+  Future<void> setPort(int port) async {
+    await _service.setPort(port);
+    state = state.copyWith(
+      port: port,
     );
   }
 }

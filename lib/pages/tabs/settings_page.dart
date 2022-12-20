@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -11,9 +12,21 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
+  final _aliasController = TextEditingController();
+  final _portController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final settings = ref.read(settingsProvider);
+    _aliasController.text = settings.alias;
+    _portController.text = settings.port.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
+    final serverState = ref.watch(serverProvider);
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
       children: [
@@ -22,18 +35,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           child: Text(t.settings.title, style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center),
         ),
         const SizedBox(height: 30),
-        _SettingsEntry(
-          label: t.settings.alias,
-          child: TextFormField(
-            initialValue: settings.alias,
-            textAlign: TextAlign.center,
-            onChanged: (s) async {
-              await ref.read(settingsProvider.notifier).setAlias(s);
-            },
-          ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: Text(t.settings.general.title, style: Theme.of(context).textTheme.subtitle1),
         ),
+        const SizedBox(height: 10),
         _SettingsEntry(
-          label: t.settings.theme,
+          label: t.settings.general.theme,
           child: DropdownButton<ThemeMode>(
             value: settings.theme,
             isExpanded: true,
@@ -52,7 +60,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           ),
         ),
         _SettingsEntry(
-          label: t.settings.language,
+          label: t.settings.general.language,
           child: DropdownButton<AppLocale?>(
             value: settings.locale,
             isExpanded: true,
@@ -60,7 +68,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               DropdownMenuItem(
                 value: null,
                 alignment: Alignment.center,
-                child: Text(t.settings.languageOptions.system),
+                child: Text(t.settings.general.languageOptions.system),
               ),
               ...AppLocale.values.map((locale) {
                 return DropdownMenuItem(
@@ -76,6 +84,64 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 LocaleSettings.useDeviceLocale();
               } else {
                 LocaleSettings.setLocale(locale);
+              }
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: Text(t.settings.network.title, style: Theme.of(context).textTheme.subtitle1),
+        ),
+        const SizedBox(height: 10),
+        if (serverState != null && (serverState.alias != settings.alias || serverState.port != settings.port))
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final newServerState = await ref.read(serverProvider.notifier).restartServer(
+                    alias: settings.alias,
+                    port: settings.port,
+                  );
+
+                  if (newServerState != null) {
+                    // the new state is always valid, so we can "repair" user's setting
+                    _aliasController.text = newServerState.alias;
+                    _portController.text = newServerState.port.toString();
+                    await ref.read(settingsProvider.notifier).setAlias(newServerState.alias);
+                    await ref.read(settingsProvider.notifier).setPort(newServerState.port);
+                  }
+                },
+                child: Text(t.settings.network.restart),
+              ),
+            ),
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 10),
+            child: Text(t.settings.network.info),
+          ),
+        const SizedBox(height: 10),
+        _SettingsEntry(
+          label: t.settings.network.alias,
+          child: TextFormField(
+            controller: _aliasController,
+            textAlign: TextAlign.center,
+            onChanged: (s) async {
+              await ref.read(settingsProvider.notifier).setAlias(s);
+            },
+          ),
+        ),
+        _SettingsEntry(
+          label: t.settings.network.port,
+          child: TextFormField(
+            controller: _portController,
+            textAlign: TextAlign.center,
+            onChanged: (s) async {
+              final port = int.tryParse(s);
+              if (port != null) {
+                await ref.read(settingsProvider.notifier).setPort(port);
               }
             },
           ),
@@ -119,11 +185,11 @@ extension on ThemeMode {
   String get humanName {
     switch (this) {
       case ThemeMode.system:
-        return t.settings.themeOptions.system;
+        return t.settings.general.themeOptions.system;
       case ThemeMode.light:
-        return t.settings.themeOptions.light;
+        return t.settings.general.themeOptions.light;
       case ThemeMode.dark:
-        return t.settings.themeOptions.dark;
+        return t.settings.general.themeOptions.dark;
     }
   }
 }

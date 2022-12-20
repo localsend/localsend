@@ -10,5 +10,6 @@ class Settings with _$Settings {
     required String alias,
     required ThemeMode theme,
     required AppLocale? locale,
+    required int port,
   }) = _Settings;
 }

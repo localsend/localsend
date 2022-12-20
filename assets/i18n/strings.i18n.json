@@ -1,15 +1,18 @@
 {
   "appName": "LocalSend",
   "general": {
-    "advanced": "Advanced",
-    "hide": "Hide",
     "unknown": "Unknown"
   },
   "receive": {
     "title": "Receive",
-    "advanced": {
+    "offline": "Offline",
+    "start": "Start",
+    "restart": "Restart",
+    "stop": "Stop",
+    "info": "Info",
+    "infoBox": {
       "ip": "IP:",
-      "server": "Server:",
+      "port": "Port:",
       "subnetMask": "Subnet mask:",
       "alias": "Alias:"
     }
@@ -23,16 +26,25 @@
   },
   "settings": {
     "title": "Settings",
-    "alias": "Alias",
-    "theme": "Theme",
-    "themeOptions": {
-      "system": "System",
-      "dark": "Dark",
-      "light": "Light"
+    "general": {
+      "title": "General",
+      "theme": "Theme",
+      "themeOptions": {
+        "system": "System",
+        "dark": "Dark",
+        "light": "Light"
+      },
+      "language": "Language",
+      "languageOptions": {
+        "system": "System"
+      }
     },
-    "language": "Language",
-    "languageOptions": {
-      "system": "System"
+    "network": {
+      "title": "Network",
+      "info": "After change, the server needs to be restarted.",
+      "restart": "Restart server",
+      "alias": "Alias",
+      "port": "Port"
     }
   }
 }
