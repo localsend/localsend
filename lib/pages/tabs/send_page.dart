@@ -30,7 +30,7 @@ class _SendPageState extends ConsumerState<SendPage> {
       children: [
         Text(
           selectedFiles.isEmpty ? t.send.files : t.send.filesWithCount(count: selectedFiles.length),
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
         const SizedBox(height: 10),
         ...selectedFiles.mapIndexed((index, file) {
@@ -81,7 +81,7 @@ class _SendPageState extends ConsumerState<SendPage> {
           ),
         ),
         const SizedBox(height: 20),
-        Text(t.send.nearbyDevices, style: Theme.of(context).textTheme.headline6),
+        Text(t.send.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
         const SizedBox(height: 10),
         ...devices.when(
           data: (data) {

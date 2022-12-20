@@ -29,6 +29,10 @@
       "system": "System",
       "dark": "Dark",
       "light": "Light"
+    },
+    "language": "Language",
+    "languageOptions": {
+      "system": "System"
     }
   }
 }

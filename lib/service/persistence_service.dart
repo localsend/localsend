@@ -1,10 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _aliasKey = 'alias';
 const _themeKey = 'theme';
+const _localeKey = 'locale';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -44,5 +46,21 @@ class PersistenceService {
 
   Future<void> setTheme(ThemeMode theme) async {
     await _prefs.setString(_themeKey, theme.name);
+  }
+
+  AppLocale? getLocale() {
+    final value = _prefs.getString(_localeKey);
+    if (value == null) {
+      return null;
+    }
+    return AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == value);
+  }
+
+  Future<void> setLocale(AppLocale? locale) async {
+    if (locale == null) {
+      await _prefs.remove(_localeKey);
+    } else {
+      await _prefs.setString(_localeKey, locale.languageTag);
+    }
   }
 }

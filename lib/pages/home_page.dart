@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Translations.of(context); // rebuild on locale change
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(

@@ -45,7 +45,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RotatingWidget(
-                      duration: const Duration(seconds: 10),
+                      duration: const Duration(seconds: 15),
                       child: Assets.img.logo512.image(width: 200),
                     ),
                     Text(networkInfo?.localIp?.visualId ?? t.general.unknown, style: const TextStyle(fontSize: 48)),

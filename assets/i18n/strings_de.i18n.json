@@ -1,0 +1,38 @@
+{
+  "appName": "LocalSend",
+  "general": {
+    "advanced": "Erweitert",
+    "hide": "Verstecken",
+    "unknown": "Unbekannt"
+  },
+  "receive": {
+    "title": "Empfangen",
+    "advanced": {
+      "ip": "IP:",
+      "server": "Server:",
+      "subnetMask": "Subnetzmaske:",
+      "alias": "Alias:"
+    }
+  },
+  "send": {
+    "title": "Senden",
+    "files": "Dateien",
+    "filesWithCount": "Dateien ({count})",
+    "selectFiles": "Dateien auswählen",
+    "nearbyDevices": "Geräte in der Nähe"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "alias": "Alias",
+    "theme": "Oberfläche",
+    "themeOptions": {
+      "system": "System",
+      "dark": "Dunkel",
+      "light": "Hell"
+    },
+    "language": "Sprache",
+    "languageOptions": {
+      "system": "System"
+    }
+  }
+}

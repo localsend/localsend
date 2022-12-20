@@ -10,7 +10,6 @@ import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
 
   if (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows) {
     await windowManager.ensureInitialized();
@@ -18,11 +17,21 @@ Future<void> main() async {
   }
 
   final persistenceService = await PersistenceService.initialize();
-  runApp(ProviderScope(
-    overrides: [
-      settingsProvider.overrideWith((ref) => SettingsNotifier(persistenceService)),
-    ],
-    child: const LocalSendApp(),
+
+  final locale = persistenceService.getLocale();
+  if (locale == null) {
+    LocaleSettings.useDeviceLocale();
+  } else {
+    LocaleSettings.setLocale(locale);
+  }
+
+  runApp(TranslationProvider(
+    child: ProviderScope(
+      overrides: [
+        settingsProvider.overrideWith((ref) => SettingsNotifier(persistenceService)),
+      ],
+      child: const LocalSendApp(),
+    ),
   ));
 }
 

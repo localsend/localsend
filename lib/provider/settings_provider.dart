@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/settings.dart';
 import 'package:localsend_app/service/persistence_service.dart';
 
@@ -16,6 +17,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
     return Settings(
       alias: service.getAlias(),
       theme: service.getTheme(),
+      locale: service.getLocale(),
     );
   }
 
@@ -30,6 +32,13 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setTheme(theme);
     state = state.copyWith(
       theme: theme,
+    );
+  }
+
+  Future<void> setLocale(AppLocale? locale) async {
+    await _service.setLocale(locale);
+    state = state.copyWith(
+      locale: locale,
     );
   }
 }
