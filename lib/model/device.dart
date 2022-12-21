@@ -18,6 +18,7 @@ enum DeviceType {
 class Device with _$Device {
   const factory Device({
     required String ip,
+    required int port,
     required String alias,
     required String? deviceModel,
     required DeviceType deviceType,

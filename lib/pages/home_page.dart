@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/pages/tabs/receive_page.dart';
-import 'package:localsend_app/pages/tabs/send_page.dart';
-import 'package:localsend_app/pages/tabs/settings_page.dart';
+import 'package:localsend_app/pages/tabs/receive_tab.dart';
+import 'package:localsend_app/pages/tabs/send_tab.dart';
+import 'package:localsend_app/pages/tabs/settings_tab.dart';
 
 enum _Tab {
   receive(Icons.wifi),
@@ -43,9 +43,9 @@ class _HomePageState extends State<HomePage> {
         child: IndexedStack(
           index: _currentTab.index,
           children: const [
-            ReceivePage(),
-            SendPage(),
-            SettingsPage(),
+            ReceiveTab(),
+            SendTab(),
+            SettingsTab(),
           ],
         ),
       ),

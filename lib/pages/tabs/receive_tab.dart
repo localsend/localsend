@@ -8,14 +8,14 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 
-class ReceivePage extends ConsumerStatefulWidget {
-  const ReceivePage({Key? key}) : super(key: key);
+class ReceiveTab extends ConsumerStatefulWidget {
+  const ReceiveTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ReceivePage> createState() => _ReceivePageState();
+  ConsumerState<ReceiveTab> createState() => _ReceiveTagState();
 }
 
-class _ReceivePageState extends ConsumerState<ReceivePage> {
+class _ReceiveTagState extends ConsumerState<ReceiveTab> {
   bool _advanced = false;
 
   @override

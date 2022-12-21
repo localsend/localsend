@@ -67,12 +67,7 @@ class PollingService {
     try {
       final response = await _dio.get(url);
       final dto = InfoDto.fromJson(response.data);
-      device = Device(
-        ip: currentIp,
-        alias: dto.alias,
-        deviceModel: dto.deviceModel,
-        deviceType: dto.deviceType,
-      );
+      device = dto.toDevice(currentIp, port);
     } on DioError catch (e) {
       device = null;
       // print('$url: ${e.error}');

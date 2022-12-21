@@ -14,3 +14,15 @@ class InfoDto with _$InfoDto {
 
   factory InfoDto.fromJson(Map<String, Object?> json) => _$InfoDtoFromJson(json);
 }
+
+extension InfoToDeviceExt on InfoDto {
+  Device toDevice(String ip, int port) {
+    return Device(
+      ip: ip,
+      port: port,
+      alias: alias,
+      deviceModel: deviceModel,
+      deviceType: deviceType,
+    );
+  }
+}

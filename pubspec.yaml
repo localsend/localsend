@@ -18,12 +18,14 @@ dependencies:
   file_picker: 5.2.4
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
+  go_router: 6.0.0
   json_annotation: 4.7.0
   shared_preferences: 2.0.15
   shelf: 1.4.0
   shelf_router: 1.1.3
   slang: 3.7.0
   slang_flutter: 3.7.0
+  uuid: 3.0.7
   window_manager: 0.2.8
 
 dev_dependencies:
@@ -31,6 +33,7 @@ dev_dependencies:
   flutter_gen_runner: 5.1.0+1
   flutter_lints: 2.0.1
   freezed: 2.3.2
+  go_router_builder: 1.0.15
   json_serializable: 6.5.4
   slang_build_runner: 3.7.0
 

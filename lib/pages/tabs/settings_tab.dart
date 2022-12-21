@@ -4,14 +4,14 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 
-class SettingsPage extends ConsumerStatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class SettingsTab extends ConsumerStatefulWidget {
+  const SettingsTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SettingsPage> createState() => _SettingsPageState();
+  ConsumerState<SettingsTab> createState() => _SettingsTabState();
 }
 
-class _SettingsPageState extends ConsumerState<SettingsPage> {
+class _SettingsTabState extends ConsumerState<SettingsTab> {
   final _aliasController = TextEditingController();
   final _portController = TextEditingController();
 

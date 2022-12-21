@@ -1,21 +1,26 @@
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/dto/info_dto.dart';
+import 'package:localsend_app/model/dto/send_request_dto.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/widget/device_widget.dart';
+import 'package:localsend_app/widget/device_list_tile.dart';
 
-class SendPage extends ConsumerStatefulWidget {
-  const SendPage({Key? key}) : super(key: key);
+class SendTab extends ConsumerStatefulWidget {
+  const SendTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SendPage> createState() => _SendPageState();
+  ConsumerState<SendTab> createState() => _SendTabState();
 }
 
-class _SendPageState extends ConsumerState<SendPage> {
+class _SendTabState extends ConsumerState<SendTab> {
   @override
   void initState() {
     super.initState();
@@ -23,6 +28,8 @@ class _SendPageState extends ConsumerState<SendPage> {
 
   @override
   Widget build(BuildContext context) {
+    final deviceInfo = ref.watch(deviceInfoProvider);
+    final settings = ref.watch(settingsProvider);
     final selectedFiles = ref.watch(selectedFilesProvider);
     final devices = ref.watch(nearbyDevicesProvider);
     return ListView(
@@ -88,7 +95,30 @@ class _SendPageState extends ConsumerState<SendPage> {
             return data.map((device) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
-                child: DeviceWidget(device: device),
+                child: DeviceListTile(
+                  device: device,
+                  onTap: () async {
+                    final url = 'http://${device.ip}:${device.port}/localsend/v1/send-request';
+                    final dio = Dio(BaseOptions(
+                      connectTimeout: 30 * 1000,
+                      sendTimeout: 30 * 1000,
+                    ));
+                    try {
+                      final response = await dio.post(url,
+                          data: SendRequestDto(
+                            info: InfoDto(
+                              alias: settings.alias,
+                              deviceModel: deviceInfo.deviceModel,
+                              deviceType: deviceInfo.deviceType,
+                            ),
+                            files: [],
+                          ).toJson());
+                      print('Response: ${response.statusCode}, ${response.data.runtimeType}');
+                    } on DioError catch (e) {
+                      print(e);
+                    }
+                  },
+                ),
               );
             });
           },

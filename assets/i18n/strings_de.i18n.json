@@ -1,6 +1,8 @@
 {
   "appName": "LocalSend",
   "general": {
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen",
     "unknown": "Unbekannt"
   },
   "receive": {
@@ -45,6 +47,12 @@
       "restart": "Server neustarten",
       "alias": "Alias",
       "port": "Port"
+    }
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "möchte dir eine Datei senden.",
+      "other": "möchte dir {n} Dateien senden."
     }
   }
 }
