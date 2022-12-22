@@ -115,7 +115,9 @@ class _SendTabState extends ConsumerState<SendTab> {
                           ).toJson());
                       print('Response: ${response.statusCode}, ${response.data.runtimeType}');
                     } on DioError catch (e) {
-                      print(e);
+                      if (e.type != DioErrorType.response) {
+                        print(e);
+                      }
                     }
                   },
                 ),

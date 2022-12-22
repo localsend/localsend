@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
-import 'package:localsend_app/provider/server_provider.dart';
+import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
@@ -55,7 +55,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> {
                     ),
                     Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
                     Text(
-                      serverState == null ? t.receive.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
+                      serverState == null ? t.general.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
                       style: const TextStyle(fontSize: 24),
                     ),
                   ],
@@ -63,54 +63,13 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20, top: 20),
-            child: Center(
-              child: Card(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (serverState == null)
-                      IconButton(
-                        onPressed: () async {
-                          await ref.read(serverProvider.notifier).startServer(
-                                alias: settings.alias,
-                                port: settings.port,
-                              );
-                        },
-                        tooltip: t.receive.start,
-                        icon: const Icon(Icons.play_arrow),
-                      )
-                    else
-                      IconButton(
-                        onPressed: () async {
-                          await ref.read(serverProvider.notifier).restartServer(
-                                alias: settings.alias,
-                                port: settings.port,
-                              );
-                        },
-                        tooltip: t.receive.restart,
-                        icon: const Icon(Icons.refresh),
-                      ),
-                    IconButton(
-                      onPressed: serverState == null
-                          ? null
-                          : () async {
-                              await ref.read(serverProvider.notifier).stopServer();
-                            },
-                      tooltip: t.receive.stop,
-                      icon: const Icon(Icons.stop),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        setState(() => _advanced = !_advanced);
-                      },
-                      tooltip: t.receive.info,
-                      icon: const Icon(Icons.info),
-                    ),
-                  ],
-                ),
-              ),
+          Center(
+            child: TextButton(
+              key: ValueKey('toggle-$_advanced'),
+              onPressed: () {
+                setState(() => _advanced = !_advanced);
+              },
+              child: Text(_advanced ? t.general.hide : t.general.advanced),
             ),
           ),
           AnimatedCrossFade(

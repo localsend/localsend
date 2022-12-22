@@ -20,6 +20,7 @@ import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:uuid/uuid.dart';
 
+/// This provider manages receiving file requests.
 final serverProvider = StateNotifierProvider<ServerNotifier, ServerState?>((ref) {
   final deviceInfo = ref.watch(deviceInfoProvider);
   return ServerNotifier(deviceInfo);

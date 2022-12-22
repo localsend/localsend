@@ -20,6 +20,7 @@ dependencies:
   freezed_annotation: 2.2.0
   go_router: 6.0.0
   json_annotation: 4.7.0
+  package_info_plus: 3.0.2
   shared_preferences: 2.0.15
   shelf: 1.4.0
   shelf_router: 1.1.3

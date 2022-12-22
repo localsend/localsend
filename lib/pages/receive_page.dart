@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/provider/server_provider.dart';
+import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 
@@ -68,7 +68,7 @@ class ReceivePage extends ConsumerWidget {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
-                      foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onError
+                      foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
                     ),
                     onPressed: () {
                       ref.read(serverProvider.notifier).declineFileRequest();

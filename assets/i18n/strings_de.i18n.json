@@ -2,12 +2,15 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Akzeptieren",
+    "advanced": "Erweitert",
     "decline": "Ablehnen",
+    "hide": "Verstecken",
+    "offline": "Offline",
+    "online": "Online",
     "unknown": "Unbekannt"
   },
   "receive": {
     "title": "Empfangen",
-    "offline": "Offline",
     "start": "Start",
     "restart": "Neustarten",
     "stop": "Stop",
@@ -43,8 +46,8 @@
     },
     "network": {
       "title": "Netzwerk",
-      "info": "Bei Änderungen muss der Server neugestartet werden.",
-      "restart": "Server neustarten",
+      "needRestart": "Starte den Server neu, um die Änderungen zu übernehmen!",
+      "server": "Server",
       "alias": "Alias",
       "port": "Port"
     }
