@@ -6,6 +6,7 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/device_list_tile.dart';
 
 class SendPage extends ConsumerStatefulWidget {
@@ -18,6 +19,20 @@ class SendPage extends ConsumerStatefulWidget {
 class _SendPageState extends ConsumerState<SendPage> {
   Device? _myDevice;
   Device? _targetDevice;
+
+  // show name of sender after one second
+  bool _showName = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    sleepAsync(1000).then((value) {
+      if (mounted) {
+        setState(() => _showName = true);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +57,7 @@ class _SendPageState extends ConsumerState<SendPage> {
                       tag: 'this-device',
                       child: DeviceListTile(
                         device: myDevice,
+                        thisDevice: !_showName,
                       ),
                     ),
                     const SizedBox(height: 20),
