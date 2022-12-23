@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/model/send_files/send_state.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/widget/device_list_tile.dart';
+
+class SendPage extends ConsumerStatefulWidget {
+  const SendPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<SendPage> createState() => _SendPageState();
+}
+
+class _SendPageState extends ConsumerState<SendPage> {
+  Device? _myDevice;
+  Device? _targetDevice;
+
+  @override
+  Widget build(BuildContext context) {
+    final sendState = ref.watch(sendProvider);
+    if (sendState == null && _myDevice == null && _targetDevice == null) {
+      return Scaffold(
+        body: Container(),
+      );
+    }
+    final myDevice = ref.watch(deviceInfoProvider);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Hero(
+                      tag: 'this-device',
+                      child: DeviceListTile(
+                        device: myDevice,
+                        thisDevice: true,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Icon(Icons.arrow_downward),
+                    const SizedBox(height: 20),
+                    Hero(
+                      tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
+                      child: DeviceListTile(
+                        device: sendState?.target ?? _targetDevice!,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (sendState != null)
+                ...[
+                  if (sendState.status == SendStatus.waiting)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                    )
+                  else if (sendState.status == SendStatus.declined)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                    ),
+                  Center(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _myDevice = myDevice;
+                          _targetDevice = sendState.target;
+                        });
+                        ref.read(sendProvider.notifier).cancel();
+                        context.pop();
+                      },
+                      icon: Icon(sendState.status == SendStatus.declined ? Icons.check_circle : Icons.close),
+                      label: Text(sendState.status == SendStatus.declined ? t.general.finish : t.general.cancel),
+                    ),
+                  ),
+                ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

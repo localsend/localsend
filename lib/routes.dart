@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
+import 'package:localsend_app/pages/send_page.dart';
 
 part 'routes.g.dart';
 
@@ -19,4 +20,12 @@ class ReceiveRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const ReceivePage();
+}
+
+@TypedGoRoute<SendRoute>(path: '/send')
+class SendRoute extends GoRouteData {
+  const SendRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const SendPage();
 }

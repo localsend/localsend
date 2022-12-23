@@ -10,7 +10,7 @@ part 'temp_request.freezed.dart';
 class TempRequest with _$TempRequest {
   const factory TempRequest({
     required Device sender,
-    required List<FileDto> files,
+    required Map<String, FileDto> files,
     required StreamController<bool> responseHandler, // use this to accept / decline the request
   }) = _TempRequest;
 }

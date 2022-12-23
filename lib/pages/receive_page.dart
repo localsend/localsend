@@ -84,7 +84,7 @@ class ReceivePage extends ConsumerWidget {
                         foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                     ),
                     onPressed: () {
-                      ref.read(serverProvider.notifier).acceptFileRequest();
+                      ref.read(serverProvider.notifier).acceptFileRequest(tempRequest.files.values.map((f) => f.id).toSet());
                       context.pop();
                     },
                     icon: const Icon(Icons.check_circle),

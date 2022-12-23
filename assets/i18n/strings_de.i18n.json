@@ -3,7 +3,9 @@
   "general": {
     "accept": "Akzeptieren",
     "advanced": "Erweitert",
+    "cancel": "Abbrechen",
     "decline": "Ablehnen",
+    "finish": "Abschließen",
     "hide": "Verstecken",
     "offline": "Offline",
     "online": "Online",
@@ -27,7 +29,8 @@
     "files": "Dateien",
     "filesWithCount": "Dateien ({count})",
     "selectFiles": "Dateien auswählen",
-    "nearbyDevices": "Geräte in der Nähe"
+    "nearbyDevices": "Geräte in der Nähe",
+    "thisDevice": "Dieses Gerät"
   },
   "settings": {
     "title": "Einstellungen",
@@ -57,5 +60,9 @@
       "one": "möchte dir eine Datei senden.",
       "other": "möchte dir {n} Dateien senden."
     }
+  },
+  "sendPage": {
+    "waiting": "Warte auf Antwort...",
+    "rejected": "Der Empfänger hat die Anfrage abgelehnt."
   }
 }

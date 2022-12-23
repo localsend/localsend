@@ -3,7 +3,9 @@
   "general": {
     "accept": "Accept",
     "advanced": "Advanced",
+    "cancel": "Cancel",
     "decline": "Decline",
+    "finish": "Finish",
     "hide": "Hide",
     "offline": "Offline",
     "online": "Online",
@@ -27,7 +29,8 @@
     "files": "Files",
     "filesWithCount": "Files ({count})",
     "selectFiles": "Select files",
-    "nearbyDevices": "Nearby devices"
+    "nearbyDevices": "Nearby devices",
+    "thisDevice": "This Device"
   },
   "settings": {
     "title": "Settings",
@@ -57,5 +60,9 @@
       "one": "wants to send you a file.",
       "other": "wants to send you {n} files."
     }
+  },
+  "sendPage": {
+    "waiting": "Waiting for response...",
+    "rejected": "The recipient has rejected the request."
   }
 }

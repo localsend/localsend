@@ -9,7 +9,7 @@ part 'send_request_dto.g.dart';
 class SendRequestDto with _$SendRequestDto {
   const factory SendRequestDto({
     required InfoDto info,
-    required List<FileDto> files,
+    required Map<String, FileDto> files,
   }) = _SendRequestDto;
 
   factory SendRequestDto.fromJson(Map<String, Object?> json) => _$SendRequestDtoFromJson(json);

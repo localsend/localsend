@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/main.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
-import 'package:localsend_app/model/server/expected_file.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
+import 'package:localsend_app/model/server/receiving_file.dart';
 import 'package:localsend_app/model/server/server_state.dart';
 import 'package:localsend_app/model/server/temp_request.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -22,7 +22,7 @@ import 'package:uuid/uuid.dart';
 
 /// This provider manages receiving file requests.
 final serverProvider = StateNotifierProvider<ServerNotifier, ServerState?>((ref) {
-  final deviceInfo = ref.watch(deviceInfoProvider);
+  final deviceInfo = ref.watch(deviceRawInfoProvider);
   return ServerNotifier(deviceInfo);
 });
 
@@ -84,7 +84,10 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       // Delayed response (waiting for user's decision)
       final result = await streamController.stream.first;
       if (result) {
-        return Response.ok('');
+        return Response.ok(jsonEncode({
+          for (final file in state!.receiveState!.files.values)
+            file.file.id: file.token,
+        }), headers: {'Content-Type': 'application/json'});
       } else {
         return Response.badRequest();
       }
@@ -120,28 +123,29 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     return await startServer(alias: alias, port: port);
   }
 
-  void acceptFileRequest() {
+  void acceptFileRequest(Set<String> fileIds) {
     final tempRequest = state?.tempRequest;
     if (tempRequest == null) {
       return;
     }
-    tempRequest.responseHandler.add(true);
-    tempRequest.responseHandler.close();
 
     state = state?.copyWith(
       tempRequest: null,
       receiveState: ReceiveState(
         sender: tempRequest.sender,
         files: {
-          for (final file in tempRequest.files)
-            file.id: ExpectedFile(
+          for (final file in tempRequest.files.values)
+            file.id: ReceivingFile(
               token: _uuid.v4(),
               file: file,
-              tempPath: null,
+              tempPath: fileIds.contains(file.id) ? _uuid.v4() : null,
             ),
         },
       ),
     );
+
+    tempRequest.responseHandler.add(true);
+    tempRequest.responseHandler.close();
   }
 
   void declineFileRequest() {
@@ -149,11 +153,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     if (controller == null) {
       return;
     }
-    controller.add(false);
-    controller.close();
+
     state = state?.copyWith(
       tempRequest: null,
       receiveState: null,
     );
+
+    controller.add(false);
+    controller.close();
   }
 }

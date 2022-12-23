@@ -33,7 +33,7 @@ Future<void> main() async {
   runApp(TranslationProvider(
     child: ProviderScope(
       overrides: [
-        deviceInfoProvider.overrideWithValue(deviceInfo),
+        deviceRawInfoProvider.overrideWithValue(deviceInfo),
         settingsProvider.overrideWith((ref) => SettingsNotifier(persistenceService)),
       ],
       child: const LocalSendApp(),
