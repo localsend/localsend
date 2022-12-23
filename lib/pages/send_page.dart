@@ -42,7 +42,6 @@ class _SendPageState extends ConsumerState<SendPage> {
                       tag: 'this-device',
                       child: DeviceListTile(
                         device: myDevice,
-                        thisDevice: true,
                       ),
                     ),
                     const SizedBox(height: 20),

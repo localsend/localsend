@@ -31,7 +31,7 @@ class DeviceListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FittedBox(
-                      child: Text('${device.alias}${thisDevice ? ' (${t.send.thisDevice})' : ''}', style: const TextStyle(fontSize: 20)),
+                      child: Text(thisDevice ? t.send.thisDevice : device.alias, style: const TextStyle(fontSize: 20)),
                     ),
                     const SizedBox(height: 5),
                     Wrap(
