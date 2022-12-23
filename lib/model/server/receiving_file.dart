@@ -7,7 +7,7 @@ part 'receiving_file.freezed.dart';
 class ReceivingFile with _$ReceivingFile {
   const factory ReceivingFile({
     required FileDto file,
-    required String token,
+    required String? token,
     required String? tempPath, // file is saved to a temporary path first
   }) = _ReceivingFile;
 }

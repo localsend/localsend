@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
-import 'package:localsend_app/model/server/temp_request.dart';
 
 part 'server_state.freezed.dart';
 
@@ -12,7 +11,6 @@ class ServerState with _$ServerState {
     required HttpServer httpServer,
     required String alias,
     required int port,
-    required TempRequest? tempRequest, // will become a [ReceiveState] on accept
     required ReceiveState? receiveState,
   }) = _ServerState;
 }

@@ -9,7 +9,7 @@ part 'sending_file.freezed.dart';
 class SendingFile with _$SendingFile {
   const factory SendingFile({
     required FileDto file,
-    required Future<Uint8List> Function() read,
     required String? token,
+    required Future<Uint8List> Function() read,
   }) = _SendingFile;
 }

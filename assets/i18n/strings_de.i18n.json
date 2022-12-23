@@ -4,8 +4,8 @@
     "accept": "Akzeptieren",
     "advanced": "Erweitert",
     "cancel": "Abbrechen",
+    "close": "Schließen",
     "decline": "Ablehnen",
-    "finish": "Abschließen",
     "hide": "Verstecken",
     "offline": "Offline",
     "online": "Online",
@@ -59,7 +59,8 @@
     "subTitle": {
       "one": "möchte dir eine Datei senden.",
       "other": "möchte dir {n} Dateien senden."
-    }
+    },
+    "canceled": "Der Absender hat die Anfrage abgebrochen."
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",

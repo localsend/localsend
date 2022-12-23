@@ -9,7 +9,7 @@ import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/server/receiving_file.dart';
 import 'package:localsend_app/model/server/server_state.dart';
-import 'package:localsend_app/model/server/temp_request.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/service/persistence_service.dart';
@@ -61,7 +61,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     });
 
     app.post('$_basePath/send-request', (Request request) async {
-      if (state!.tempRequest != null || state!.receiveState != null) {
+      if (state!.receiveState != null) {
         // block incoming requests when we are already in a session
         return Response.badRequest();
       }
@@ -71,9 +71,17 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       final dto = SendRequestDto.fromJson(jsonDecode(payload));
       final streamController = StreamController<bool>();
       state = state!.copyWith(
-        tempRequest: TempRequest(
+        receiveState: ReceiveState(
+          status: SessionStatus.waiting,
           sender: dto.info.toDevice(ip.remoteAddress.address, port),
-          files: dto.files,
+          files: {
+            for (final file in dto.files.values)
+              file.id: ReceivingFile(
+                file: file,
+                token: null,
+                tempPath: null,
+              ),
+          },
           responseHandler: streamController,
         ),
       );
@@ -93,6 +101,16 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
     });
 
+    app.post('$_basePath/cancel', (Request request) {
+      final ip = request.context['shelf.io.connection_info'] as HttpConnectionInfo;
+
+      if (state?.receiveState?.sender.ip == ip.remoteAddress.address) {
+        _cancelBySender();
+      }
+
+      return Response.ok('');
+    });
+
     print('Starting server...');
     ServerState? newServerState;
     try {
@@ -100,7 +118,6 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         httpServer: await serve(app, '0.0.0.0', port),
         alias: alias,
         port: port,
-        tempRequest: null,
         receiveState: null,
       );
       print('Server started. (Port: ${newServerState.port})');
@@ -124,42 +141,56 @@ class ServerNotifier extends StateNotifier<ServerState?> {
   }
 
   void acceptFileRequest(Set<String> fileIds) {
-    final tempRequest = state?.tempRequest;
-    if (tempRequest == null) {
+    final receiveState = state?.receiveState;
+    if (receiveState == null) {
+      return;
+    }
+
+    final responseHandler = receiveState.responseHandler;
+    if (responseHandler == null) {
       return;
     }
 
     state = state?.copyWith(
-      tempRequest: null,
-      receiveState: ReceiveState(
-        sender: tempRequest.sender,
+      receiveState: receiveState.copyWith(
         files: {
-          for (final file in tempRequest.files.values)
-            file.id: ReceivingFile(
-              token: _uuid.v4(),
-              file: file,
-              tempPath: fileIds.contains(file.id) ? _uuid.v4() : null,
+          for (final file in receiveState.files.values)
+            file.file.id: ReceivingFile(
+              file: file.file,
+              token: fileIds.contains(file.file.id) ? _uuid.v4() : null,
+              tempPath: null,
             ),
         },
+        responseHandler: null,
       ),
     );
 
-    tempRequest.responseHandler.add(true);
-    tempRequest.responseHandler.close();
+    responseHandler.add(true);
+    responseHandler.close();
   }
 
   void declineFileRequest() {
-    final controller = state?.tempRequest?.responseHandler;
+    final controller = state?.receiveState?.responseHandler;
     if (controller == null) {
       return;
     }
 
-    state = state?.copyWith(
-      tempRequest: null,
-      receiveState: null,
-    );
-
     controller.add(false);
     controller.close();
+    closeSession();
+  }
+
+  void _cancelBySender() {
+    state = state?.copyWith(
+      receiveState: state?.receiveState?.copyWith(
+        status: SessionStatus.canceledBySender,
+      ),
+    );
+  }
+
+  void closeSession() {
+    state = state?.copyWith(
+      receiveState: null,
+    );
   }
 }

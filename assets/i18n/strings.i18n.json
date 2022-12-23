@@ -4,8 +4,8 @@
     "accept": "Accept",
     "advanced": "Advanced",
     "cancel": "Cancel",
+    "close": "Close",
     "decline": "Decline",
-    "finish": "Finish",
     "hide": "Hide",
     "offline": "Offline",
     "online": "Online",
@@ -59,7 +59,8 @@
     "subTitle": {
       "one": "wants to send you a file.",
       "other": "wants to send you {n} files."
-    }
+    },
+    "canceled": "The sender has canceled the request."
   },
   "sendPage": {
     "waiting": "Waiting for response...",

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/send_files/send_state.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/widget/device_list_tile.dart';
@@ -58,12 +58,12 @@ class _SendPageState extends ConsumerState<SendPage> {
               ),
               if (sendState != null)
                 ...[
-                  if (sendState.status == SendStatus.waiting)
+                  if (sendState.status == SessionStatus.waiting)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
                     )
-                  else if (sendState.status == SendStatus.declined)
+                  else if (sendState.status == SessionStatus.declined)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
@@ -78,8 +78,8 @@ class _SendPageState extends ConsumerState<SendPage> {
                         ref.read(sendProvider.notifier).cancel();
                         context.pop();
                       },
-                      icon: Icon(sendState.status == SendStatus.declined ? Icons.check_circle : Icons.close),
-                      label: Text(sendState.status == SendStatus.declined ? t.general.finish : t.general.cancel),
+                      icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
+                      label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
                     ),
                   ),
                 ],

@@ -7,8 +7,9 @@ import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/send_files/send_state.dart';
-import 'package:localsend_app/model/send_files/sending_file.dart';
+import 'package:localsend_app/model/send/send_state.dart';
+import 'package:localsend_app/model/send/sending_file.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/routes.dart';
 import 'package:uuid/uuid.dart';
@@ -35,7 +36,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     final cancelToken = CancelToken();
 
     final requestState = SendState(
-      status: SendStatus.waiting,
+      status: SessionStatus.waiting,
       target: target,
       files: Map.fromEntries(files.map((file) {
         final id = _uuid.v4();
@@ -84,7 +85,7 @@ class SendNotifier extends StateNotifier<SendState?> {
 
       final responseMap = response.data as Map;
       state = requestState.copyWith(
-        status: SendStatus.sending,
+        status: SessionStatus.sending,
         files: {
           for (final file in requestState.files.values)
             file.file.id: responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file,
@@ -97,13 +98,20 @@ class SendNotifier extends StateNotifier<SendState?> {
         print(e);
       }
       state = state?.copyWith(
-        status: SendStatus.declined,
+        status: SessionStatus.declined,
       );
     }
   }
 
-  void cancel() {
+  Future<void> cancel() async {
+    final target = state?.target;
+    if (target == null) {
+      return;
+    }
     state?.cancelToken?.cancel();
     state = null;
+    try {
+      await Dio().post('http://${target.ip}:${target.port}/localsend/v1/cancel');
+    } catch (_) {}
   }
 }
