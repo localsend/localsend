@@ -14,6 +14,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/service/persistence_service.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -26,7 +27,6 @@ final serverProvider = StateNotifierProvider<ServerNotifier, ServerState?>((ref)
   return ServerNotifier(deviceInfo);
 });
 
-const _basePath = '/localsend/v1';
 const _uuid = Uuid();
 
 class ServerNotifier extends StateNotifier<ServerState?> {
@@ -51,7 +51,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
     final app = Router();
 
-    app.get('$_basePath/info', (Request request) {
+    app.get(ApiRoute.info.path, (Request request) {
       final dto = InfoDto(
         alias: alias,
         deviceModel: deviceInfo.deviceModel,
@@ -60,7 +60,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       return Response.ok(jsonEncode(dto.toJson()), headers: {'Content-Type': 'application/json'});
     });
 
-    app.post('$_basePath/send-request', (Request request) async {
+    app.post(ApiRoute.sendRequest.path, (Request request) async {
       if (state!.receiveState != null) {
         // block incoming requests when we are already in a session
         return Response.badRequest();
@@ -101,7 +101,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
     });
 
-    app.post('$_basePath/cancel', (Request request) {
+    app.post(ApiRoute.cancel.path, (Request request) {
       final ip = request.context['shelf.io.connection_info'] as HttpConnectionInfo;
 
       if (state?.receiveState?.sender.ip == ip.remoteAddress.address) {

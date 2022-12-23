@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
+import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
@@ -62,7 +63,7 @@ class PollingService {
 
     final String currentIp = _possibleIps[index];
     // print('Requesting $currentIp');
-    final url = 'http://$currentIp:$port/localsend/v1/info';
+    final url = ApiRoute.info.targetRaw(currentIp, port);
     Device? device;
     try {
       final response = await _dio.get(url);

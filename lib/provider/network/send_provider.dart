@@ -12,6 +12,7 @@ import 'package:localsend_app/model/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/routes.dart';
+import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -28,7 +29,6 @@ class SendNotifier extends StateNotifier<SendState?> {
     required Device target,
     required List<PlatformFile> files,
   }) async {
-    final url = 'http://${target.ip}:${target.port}/localsend/v1/send-request';
     final dio = Dio(BaseOptions(
       connectTimeout: 30 * 1000,
       sendTimeout: 30 * 1000,
@@ -78,7 +78,7 @@ class SendNotifier extends StateNotifier<SendState?> {
       const SendRoute().push(LocalSendApp.routerContext);
 
       final response = await dio.post(
-        url,
+        ApiRoute.sendRequest.target(target),
         data: requestDto.toJson(),
         cancelToken: cancelToken,
       );
@@ -111,7 +111,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     state?.cancelToken?.cancel();
     state = null;
     try {
-      await Dio().post('http://${target.ip}:${target.port}/localsend/v1/cancel');
+      await Dio().post(ApiRoute.cancel.target(target));
     } catch (_) {}
   }
 }
