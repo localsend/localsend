@@ -179,19 +179,33 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       print('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       final destinationFile = File(destinationPath).openWrite();
+      int lastNotifyBytes = 0;
       int currByte = 0;
       final subscription = request.read().listen((event) {
         destinationFile.add(event);
-        currByte++;
-        if (currByte % (100 * 1024) == 0 && receivingFile.file.size != 0) {
+        currByte += event.length;
+        if (currByte - lastNotifyBytes >= 100 * 1024 && receivingFile.file.size != 0) {
           // update progress every 100 KB
+          lastNotifyBytes = currByte;
           _ref.read(progressProvider.notifier).setProgress(fileId, currByte / receivingFile.file.size);
         }
       });
       await subscription.asFuture();
       await destinationFile.close();
       print('Saved ${receivingFile.file.fileName}.');
-      _ref.read(progressProvider.notifier).setProgress(fileId, 1);
+
+      final progressNotifier = _ref.read(progressProvider.notifier);
+      progressNotifier.setProgress(fileId, 1);
+
+      if (receiveState.files.values.every((f) => f.token == null || progressNotifier.getProgress(f.file.id) == 1)) {
+        state = state?.copyWith(
+          receiveState: receiveState.copyWith(
+            status: SessionStatus.finished,
+          ),
+        );
+        print('Received all files.');
+      }
+
       return Response.ok('');
     });
 

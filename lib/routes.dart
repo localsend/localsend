@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 
@@ -28,4 +29,14 @@ class SendRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const SendPage();
+}
+
+@TypedGoRoute<ProgressRoute>(path: '/progress')
+class ProgressRoute extends GoRouteData {
+  const ProgressRoute();
+
+  @override
+  Page<Function> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: ProgressPage());
+  }
 }

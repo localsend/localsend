@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 
@@ -104,7 +105,7 @@ class ReceivePage extends ConsumerWidget {
                     ),
                     onPressed: () {
                       ref.read(serverProvider.notifier).acceptFileRequest(receiveState.files.values.map((f) => f.file.id).toSet());
-                      context.pop();
+                      const ProgressRoute().push(context);
                     },
                     icon: const Icon(Icons.check_circle),
                     label: Text(t.general.accept),

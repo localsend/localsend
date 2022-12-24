@@ -17,8 +17,17 @@ class ProgressNotifier extends ChangeNotifier  {
     return _progressMap[fileId] ?? 0.0;
   }
 
+  int getFinishedCount() {
+    return _progressMap.values.fold(0, (prev, curr) => curr == 1 ? prev + 1 : prev);
+  }
+
   void reset() {
     _progressMap.clear();
     notifyListeners();
+  }
+
+  /// Only for debug purposes
+  Map<String, double> getData() {
+    return _progressMap;
   }
 }

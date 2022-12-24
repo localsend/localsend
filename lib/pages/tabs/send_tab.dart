@@ -8,7 +8,7 @@ import 'package:localsend_app/provider/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/widget/device_list_tile.dart';
+import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 
 class SendTab extends ConsumerStatefulWidget {
   const SendTab({Key? key}) : super(key: key);

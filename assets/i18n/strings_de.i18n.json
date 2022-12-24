@@ -6,6 +6,7 @@
     "cancel": "Abbrechen",
     "close": "Schließen",
     "decline": "Ablehnen",
+    "done": "Fertig",
     "hide": "Verstecken",
     "offline": "Offline",
     "online": "Online",
@@ -65,5 +66,15 @@
   "sendPage": {
     "waiting": "Warte auf Antwort...",
     "rejected": "Der Empfänger hat die Anfrage abgelehnt."
+  },
+  "progressPage": {
+    "title": {
+      "total": "Gesamtfortschritt",
+      "count": {
+        "one": "{curr} / {n} Datei",
+        "other": "{curr} / {n} Dateien"
+      },
+      "size": "{curr} / {n}"
+    }
   }
 }
