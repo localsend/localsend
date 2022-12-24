@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 
@@ -10,6 +8,7 @@ class SendingFile with _$SendingFile {
   const factory SendingFile({
     required FileDto file,
     required String? token,
-    required Future<Uint8List> Function() read,
+    required String? path, // android, iOS, desktop
+    required List<int>? bytes, // web
   }) = _SendingFile;
 }

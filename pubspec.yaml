@@ -12,15 +12,16 @@ dependencies:
   collection: 1.16.0
   device_info_plus: 8.0.0
   dio: 4.0.6
+  file_picker: 5.2.4
   flutter:
     sdk: flutter
-  network_info_plus: 3.0.1
-  file_picker: 5.2.4
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
   go_router: 6.0.0
   json_annotation: 4.7.0
+  network_info_plus: 3.0.1
   package_info_plus: 3.0.2
+  path_provider: 2.0.11
   shared_preferences: 2.0.15
   shelf: 1.4.0
   shelf_router: 1.1.3

@@ -20,14 +20,14 @@ class _SendPageState extends ConsumerState<SendPage> {
   Device? _myDevice;
   Device? _targetDevice;
 
-  // show name of sender after one second
+  // show name of sender after a delay
   bool _showName = false;
 
   @override
   void initState() {
     super.initState();
 
-    sleepAsync(1000).then((value) {
+    sleepAsync(500).then((value) {
       if (mounted) {
         setState(() => _showName = true);
       }

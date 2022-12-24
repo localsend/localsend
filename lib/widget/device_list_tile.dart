@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/util/ip_helper.dart';
+import 'package:localsend_app/widget/animated_opacity_cross_fade.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 
 class DeviceListTile extends StatelessWidget {
@@ -31,10 +32,9 @@ class DeviceListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FittedBox(
-                      child: AnimatedCrossFade(
+                      child: AnimatedOpacityCrossFade(
                         crossFadeState: thisDevice ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                        alignment: Alignment.topLeft,
-                        duration: const Duration(milliseconds: 200),
+                        durationMillis: 300,
                         firstChild: Text(t.send.thisDevice, style: const TextStyle(fontSize: 20)),
                         secondChild: Text(device.alias, style: const TextStyle(fontSize: 20)),
                       ),

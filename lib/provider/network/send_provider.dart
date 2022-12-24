@@ -1,18 +1,21 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/main.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/send/send_state.dart';
 import 'package:localsend_app/model/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
+import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -49,8 +52,9 @@ class SendNotifier extends StateNotifier<SendState?> {
               size: file.size,
               fileType: file.name.guessFileType(),
             ),
-            read: () async => file.bytes!,
             token: null,
+            path: kIsWeb ? null : file.path,
+            bytes: file.bytes,
           ),
         );
       })),
@@ -84,15 +88,16 @@ class SendNotifier extends StateNotifier<SendState?> {
       );
 
       final responseMap = response.data as Map;
+      final sendingFiles = {
+        for (final file in requestState.files.values)
+          file.file.id: responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file,
+      };
       state = requestState.copyWith(
         status: SessionStatus.sending,
-        files: {
-          for (final file in requestState.files.values)
-            file.file.id: responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file,
-        }
+        files: sendingFiles,
       );
 
-      print('Response: ${response.statusCode}, ${response.data}, ${response.data.runtimeType}');
+      await _send(target, sendingFiles);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response && e.type != DioErrorType.cancel) {
         print(e);
@@ -101,6 +106,39 @@ class SendNotifier extends StateNotifier<SendState?> {
         status: SessionStatus.declined,
       );
     }
+  }
+
+  Future<void> _send(Device target, Map<String, SendingFile> files) async {
+    for (final file in files.values) {
+      final token = file.token;
+      if (token == null) {
+        continue;
+      }
+
+      print('Sending ${file.file.fileName}');
+
+      try {
+        await Dio().post(
+          ApiRoute.send.target(target, query: {
+            'fileId': file.file.id,
+            'token': token,
+          }),
+          options: Options(
+            headers: {
+              'Content-Length': file.file.size,
+            }
+          ),
+          data: file.path != null ? File(file.path!).openRead() : file.bytes!,
+        );
+      } on DioError catch (e) {
+        print(e);
+      }
+    }
+
+    state = state?.copyWith(
+      status: SessionStatus.finished,
+    );
+    print('Files sent successfully.');
   }
 
   Future<void> cancel() async {
