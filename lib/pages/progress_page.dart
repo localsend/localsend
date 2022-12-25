@@ -63,70 +63,61 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     return Scaffold(
       body: Stack(
         children: [
-          CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: SizedBox(height: MediaQuery.of(context).padding.top + 20),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final file = _files[index];
-                      final progress = progressNotifier.getProgress(file.id);
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(Icons.description, size: 46),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          file.fileName,
-                                          style: const TextStyle(fontSize: 16),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16)),
-                                    ],
-                                  ),
-                                  if (progress == 1)
-                                    Text(t.general.done, style: TextStyle(color: Theme.of(context).colorScheme.tertiaryContainer))
-                                  else
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5, right: 20),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: LinearProgressIndicator(
-                                          value: progress,
-                                          minHeight: 10,
-                                        ),
-                                      ),
-                                    ),
-                                ],
+          ListView.builder(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 20,
+              bottom: 150,
+              left: 15,
+              right: 30,
+            ),
+            itemCount: _files.length,
+            itemBuilder: (context, index) {
+              final file = _files[index];
+              final progress = progressNotifier.getProgress(file.id);
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(file.fileType.icon, size: 46),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  file.fileName,
+                                  style: const TextStyle(fontSize: 16),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16)),
+                            ],
+                          ),
+                          if (progress == 1)
+                            Text(t.general.done, style: TextStyle(color: Theme.of(context).colorScheme.tertiaryContainer))
+                          else
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: LinearProgressIndicator(
+                                  value: progress,
+                                  minHeight: 10,
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                    childCount: _files.length,
-                  ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 150),
-              ),
-            ],
+              );
+            },
           ),
           SafeArea(
             child: Align(
@@ -161,9 +152,11 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                           onPressed: () {
                             if (receiveState != null) {
                               ref.read(serverProvider.notifier).closeSession();
-                              ref.read(progressProvider.notifier).reset();
-                              const HomeRoute().go(context);
+                            } else if (sendState != null) {
+                              ref.read(sendProvider.notifier).cancel();
                             }
+                            ref.read(progressProvider.notifier).reset();
+                            const HomeRoute().go(context);
                           },
                           icon: const Icon(Icons.check_circle),
                           label: Text(t.general.done),

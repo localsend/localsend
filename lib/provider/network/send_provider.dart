@@ -13,6 +13,7 @@ import 'package:localsend_app/model/send/send_state.dart';
 import 'package:localsend_app/model/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
@@ -92,6 +93,10 @@ class SendNotifier extends StateNotifier<SendState?> {
         for (final file in requestState.files.values)
           file.file.id: responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file,
       };
+
+      // ignore: use_build_context_synchronously
+      const ProgressRoute().go(LocalSendApp.routerContext);
+
       state = requestState.copyWith(
         status: SessionStatus.sending,
         files: sendingFiles,
@@ -129,6 +134,9 @@ class SendNotifier extends StateNotifier<SendState?> {
             }
           ),
           data: file.path != null ? File(file.path!).openRead() : file.bytes!,
+          onSendProgress: (curr, total) {
+            _ref.read(progressProvider.notifier).setProgress(file.file.id, curr / total);
+          }
         );
       } on DioError catch (e) {
         print(e);

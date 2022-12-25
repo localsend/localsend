@@ -272,11 +272,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
   }
 
   void _cancelBySender() {
-    state = state?.copyWith(
-      receiveState: state?.receiveState?.copyWith(
-        status: SessionStatus.canceledBySender,
-      ),
-    );
+    final currentStatus = state?.receiveState?.status;
+    if (currentStatus != null && (currentStatus == SessionStatus.waiting || currentStatus == SessionStatus.sending)) {
+      state = state?.copyWith(
+        receiveState: state?.receiveState?.copyWith(
+          status: SessionStatus.canceledBySender,
+        ),
+      );
+    }
   }
 
   void closeSession() {
