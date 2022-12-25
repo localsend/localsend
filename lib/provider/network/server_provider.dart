@@ -19,6 +19,7 @@ import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_app/util/file_saver.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -93,7 +94,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     return newServerState;
   }
 
-  void _configureRoutes(Router router, String alias, int port, String tempDir) {
+  void _configureRoutes(Router router, String alias, int port, String destinationDir) {
     router.get(ApiRoute.info.path, (Request request) {
       final dto = InfoDto(
         alias: alias,
@@ -167,33 +168,23 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       // begin of actual file transfer
-      String destinationPath = '$tempDir/${receivingFile.file.fileName}';
-      File testFile;
-      int counter = 1;
-      do {
-        destinationPath = counter == 1 ? '$tempDir/${receivingFile.file.fileName}' : '$tempDir/${receivingFile.file.fileName.withCount(counter)}';
-        testFile = File(destinationPath);
-        counter++;
-      } while(await testFile.exists());
+      final destinationPath = await _digestFilePath(
+        dir: destinationDir,
+        fileName: receivingFile.file.fileName,
+      );
 
       print('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-      final bytes = <int>[];
-      int lastNotifyBytes = 0;
-      int currByte = 0;
-      await request.read().forEach((event) {
-        bytes.addAll(event);
-
-        currByte += event.length;
-        if (currByte - lastNotifyBytes >= 100 * 1024 && receivingFile.file.size != 0) {
-          // update progress every 100 KB
-          lastNotifyBytes = currByte;
-          _ref.read(progressProvider.notifier).setProgress(fileId, currByte / receivingFile.file.size);
-        }
-      });
-
       try {
-        await File(destinationPath).writeAsBytes(bytes);
+        await saveFile(
+          destinationPath: destinationPath,
+          stream: request.read(),
+          onProgress: (savedBytes) {
+            if (receivingFile.file.size != 0) {
+              _ref.read(progressProvider.notifier).setProgress(fileId, savedBytes / receivingFile.file.size);
+            }
+          },
+        );
       } catch (e, st) {
         print(e);
         print(st);
@@ -300,4 +291,15 @@ extension on Request {
   String get ip {
     return (context['shelf.io.connection_info'] as HttpConnectionInfo).remoteAddress.address;
   }
+}
+
+/// If there is a file with the same name, then it appends a number to its file name
+Future<String> _digestFilePath({required String dir, required String fileName}) async {
+  String destinationPath;
+  int counter = 1;
+  do {
+    destinationPath = counter == 1 ? '$dir/$fileName' : '$dir/${fileName.withCount(counter)}';
+    counter++;
+  } while (await File(destinationPath).exists());
+  return destinationPath;
 }
