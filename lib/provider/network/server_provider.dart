@@ -178,11 +178,12 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
       print('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-      final destinationFile = File(destinationPath).openWrite();
+      final bytes = <int>[];
       int lastNotifyBytes = 0;
       int currByte = 0;
-      final subscription = request.read().listen((event) {
-        destinationFile.add(event);
+      await request.read().forEach((event) {
+        bytes.addAll(event);
+
         currByte += event.length;
         if (currByte - lastNotifyBytes >= 100 * 1024 && receivingFile.file.size != 0) {
           // update progress every 100 KB
@@ -190,8 +191,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           _ref.read(progressProvider.notifier).setProgress(fileId, currByte / receivingFile.file.size);
         }
       });
-      await subscription.asFuture();
-      await destinationFile.close();
+
+      try {
+        await File(destinationPath).writeAsBytes(bytes);
+      } catch (e, st) {
+        print(e);
+        print(st);
+      }
+
       print('Saved ${receivingFile.file.fileName}.');
 
       final progressNotifier = _ref.read(progressProvider.notifier);
