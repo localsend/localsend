@@ -33,6 +33,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _pageController = PageController();
   _Tab _currentTab = _Tab.receive;
 
   @override
@@ -40,8 +41,9 @@ class _HomePageState extends State<HomePage> {
     Translations.of(context); // rebuild on locale change
     return Scaffold(
       body: SafeArea(
-        child: IndexedStack(
-          index: _currentTab.index,
+        child: PageView(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
           children: const [
             ReceiveTab(),
             SendTab(),
@@ -54,6 +56,7 @@ class _HomePageState extends State<HomePage> {
         onDestinationSelected: (index) {
           setState(() {
             _currentTab = _Tab.values[index];
+            _pageController.jumpToPage(_currentTab.index);
           });
         },
         destinations: _Tab.values.map((tab) {

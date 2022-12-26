@@ -1,49 +1,61 @@
 import 'dart:async';
 import 'dart:collection';
 
-// https://stackoverflow.com/questions/62878704/how-to-implement-an-async-task-queue-with-multiple-concurrent-workers-async-in
-class TaskRunner<A, B> {
-  final Queue<A> _input = Queue();
-  final StreamController<B> _streamController = StreamController();
-  final Future<B> Function(A) task;
+typedef FutureFunction<T> = Future<T> Function();
 
-  final int maxConcurrentTasks;
-  int runningTasks = 0;
+class TaskRunner<T> {
+  final StreamController<T> _streamController = StreamController();
+  final Queue<FutureFunction<T>> _queue;
+
+  final int concurrency;
+  int _runnerCount = 0;
+
+  /// If [true], then the stream will be closed as soon as every task has been finished.
+  /// By default, it is [false] when [initialTasks] is provided with a non-empty list.
+  final bool _stayAlive;
+
+  final void Function()? onFinish;
 
   TaskRunner({
-    required this.task,
-    required this.maxConcurrentTasks,
-  });
-
-  Stream<B> get stream => _streamController.stream;
-
-  void add(A value) {
-    _input.add(value);
-    _startExecution();
+    required this.concurrency,
+    List<FutureFunction<T>>? initialTasks,
+    bool? stayAlive,
+    this.onFinish,
+  })  : _queue = Queue()..addAll(initialTasks ?? []),
+        _stayAlive = stayAlive ?? initialTasks == null || initialTasks.isEmpty  {
+    _fireRunners();
   }
 
-  void addAll(Iterable<A> iterable) {
-    _input.addAll(iterable);
-    _startExecution();
+  void addAll(Iterable<FutureFunction<T>> iterable) {
+    _queue.addAll(iterable);
+    _fireRunners();
   }
 
-  void _startExecution() {
-    if (runningTasks == maxConcurrentTasks || _input.isEmpty) {
-      return;
+  Stream<T> get stream => _streamController.stream;
+
+  /// Starts multiple runners until [concurrency].
+  void _fireRunners() {
+    while (_queue.isNotEmpty && _runnerCount < concurrency && !_streamController.isClosed) {
+      _runnerCount++;
+
+      _runner(
+        onFinish: () {
+          _runnerCount--;
+          if (_runnerCount == 0 && !_stayAlive) {
+            _streamController.close();
+            onFinish?.call();
+          }
+        },
+      );
     }
+  }
 
-    while (_input.isNotEmpty && runningTasks < maxConcurrentTasks) {
-      runningTasks++;
-
-      task(_input.removeFirst()).then((value) async {
-        _streamController.add(value);
-
-        while (_input.isNotEmpty) {
-          _streamController.add(await task(_input.removeFirst()));
-        }
-
-        runningTasks--;
-      });
+  /// Processes the queue one by one.
+  Future<void> _runner({required void Function() onFinish}) async {
+    while (_queue.isNotEmpty) {
+      final task = _queue.removeFirst();
+      _streamController.add(await task());
     }
+    onFinish();
   }
 }

@@ -89,7 +89,10 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
             itemBuilder: (context, index) {
               if (index == 0) {
                 // title
-                return Text(receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending, style: Theme.of(context).textTheme.headline6);
+                return Text(
+                  receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
+                  style: Theme.of(context).textTheme.headline6,
+                );
               }
 
               final file = _files[index - 1];
@@ -149,10 +152,11 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                            t.progressPage.total.title(
-                              time: endTime != null ? t.general.done : (remainingTime ?? '-'),
-                            ),
-                            style: const TextStyle(fontSize: 20)),
+                          t.progressPage.total.title(
+                            time: endTime != null ? t.general.done : (remainingTime ?? '-'),
+                          ),
+                          style: const TextStyle(fontSize: 20),
+                        ),
                         const SizedBox(height: 5),
                         CustomProgressBar(
                           progress: _totalBytes == 0 ? 0 : currBytes / _totalBytes,

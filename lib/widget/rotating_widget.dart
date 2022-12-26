@@ -3,25 +3,30 @@ import 'package:flutter/material.dart';
 class RotatingWidget extends StatefulWidget {
   final Duration duration;
   final bool spinning;
+  final bool reverse;
   final Widget child;
 
-  const RotatingWidget({required this.duration, this.spinning = true, required this.child, super.key});
+  const RotatingWidget({required this.duration, this.spinning = true, this.reverse = false, required this.child, super.key});
 
   @override
   State<RotatingWidget> createState() => RotatingWidgetState();
 }
 
-class RotatingWidgetState extends State<RotatingWidget> with TickerProviderStateMixin{
-
+class RotatingWidgetState extends State<RotatingWidget> with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: widget.duration,
     vsync: this,
   );
 
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.linear,
-  );
+  late final Animation<double> _animation = widget.reverse
+      ? ReverseAnimation(CurvedAnimation(
+          parent: _controller,
+          curve: Curves.linear.flipped,
+        ))
+      : CurvedAnimation(
+          parent: _controller,
+          curve: Curves.linear.flipped,
+        );
 
   @override
   void initState() {
