@@ -74,8 +74,7 @@
     "titleSending": "Sende Dateien",
     "titleReceiving": "Empfange Dateien",
     "total": {
-      "title": "Gesamtfortschritt",
-      "titleWithTime": "@:progressPage.total.title ({time})",
+      "title": "Gesamtfortschritt ({time})",
       "count": "Dateien: {curr} / {n}",
       "size": "Größe: {curr} / {n}",
       "speed": "Geschwindigkeit: {speed}/s"

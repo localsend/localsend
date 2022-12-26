@@ -149,11 +149,9 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                            endTime != null || remainingTime == null
-                                ? t.progressPage.total.title
-                                : t.progressPage.total.titleWithTime(
-                                    time: remainingTime,
-                                  ),
+                            t.progressPage.total.title(
+                              time: endTime != null ? t.general.done : (remainingTime ?? '-'),
+                            ),
                             style: const TextStyle(fontSize: 20)),
                         const SizedBox(height: 5),
                         CustomProgressBar(
