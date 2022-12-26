@@ -17,10 +17,12 @@ const _concurrentRequests = 50;
 class PollingService {
   final List<String> _possibleIps;
   final int port;
+  final String myIp;
   int _requestCount = 0;
   bool _running = false;
 
-  PollingService(String ipPrefix, this.port) : _possibleIps = List.generate(256, (i) => '$ipPrefix.$i');
+  PollingService(this.myIp, this.port)
+      : _possibleIps = List.generate(256, (i) => '${myIp.split('.').take(3).join('.')}.$i').where((ip) => ip != myIp).toList();
 
   Stream<List<Device>> startPolling() async* {
     if (_running) {
@@ -49,15 +51,15 @@ class PollingService {
       if (_running) {
         _requestCount++;
         // print('#$_requestCount');
-        runner.add((result.index + _concurrentRequests) % 256);
+        runner.add((result.index + _concurrentRequests) % _possibleIps.length);
       }
     }
   }
 
   Future<_RunnerResult> _doRequest(int index) async {
-    if (_requestCount > 512) {
+    if (_requestCount > _possibleIps.length * 2) {
       await sleepAsync(2000);
-    } else if (_requestCount > 256) {
+    } else if (_requestCount > _possibleIps.length) {
       await sleepAsync(1000);
     }
 

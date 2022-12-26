@@ -13,5 +13,5 @@ final nearbyDevicesProvider = StreamProvider.autoDispose<List<Device>>((ref) {
     return Stream.value([]);
   }
 
-  return PollingService(localIp.split('.').take(3).join('.'), port).startPolling();
+  return PollingService(localIp, port).startPolling();
 });

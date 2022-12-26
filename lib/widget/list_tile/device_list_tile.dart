@@ -20,7 +20,13 @@ class DeviceListTile extends StatelessWidget {
       title: AnimatedOpacityCrossFade(
         crossFadeState: thisDevice ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         durationMillis: 300,
-        firstChild: Text(t.send.thisDevice, style: const TextStyle(fontSize: 20)),
+        firstChild: Row(
+          children: [
+            Text(t.send.thisDevice, style: const TextStyle(fontSize: 20)),
+            const SizedBox(width: 5),
+            const Icon(Icons.star, size: 16),
+          ],
+        ),
         secondChild: Text(device.alias, style: const TextStyle(fontSize: 20)),
       ),
       subTitle: Wrap(
