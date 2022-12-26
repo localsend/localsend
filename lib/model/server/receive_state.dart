@@ -13,6 +13,8 @@ class ReceiveState with _$ReceiveState {
     required SessionStatus status,
     required Device sender,
     required Map<String, ReceivingFile> files,
+    required int? startTime,
+    required int? endTime,
     required StreamController<bool>? responseHandler, // use this to accept / decline the request
   }) = _ReceiveState;
 }

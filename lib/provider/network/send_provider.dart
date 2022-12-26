@@ -9,6 +9,7 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
+import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/send/send_state.dart';
 import 'package:localsend_app/model/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
@@ -27,6 +28,7 @@ final sendProvider = StateNotifierProvider<SendNotifier, SendState?>((ref) {
 
 class SendNotifier extends StateNotifier<SendState?> {
   final Ref _ref;
+
   SendNotifier(this._ref) : super(null);
 
   Future<void> sendRequest({
@@ -53,12 +55,15 @@ class SendNotifier extends StateNotifier<SendState?> {
               size: file.size,
               fileType: file.name.guessFileType(),
             ),
+            status: FileStatus.queue,
             token: null,
             path: kIsWeb ? null : file.path,
             bytes: file.bytes,
           ),
         );
       })),
+      startTime: null,
+      endTime: null,
       cancelToken: cancelToken,
     );
 
@@ -71,8 +76,7 @@ class SendNotifier extends StateNotifier<SendState?> {
         deviceType: originDevice.deviceType,
       ),
       files: {
-        for (final file in requestState.files.values)
-          file.file.id: file.file,
+        for (final file in requestState.files.values) file.file.id: file.file,
       },
     );
 
@@ -91,7 +95,8 @@ class SendNotifier extends StateNotifier<SendState?> {
       final responseMap = response.data as Map;
       final sendingFiles = {
         for (final file in requestState.files.values)
-          file.file.id: responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file,
+          file.file.id:
+              responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
       };
 
       // ignore: use_build_context_synchronously
@@ -114,6 +119,14 @@ class SendNotifier extends StateNotifier<SendState?> {
   }
 
   Future<void> _send(Device target, Map<String, SendingFile> files) async {
+    if (state == null) {
+      return;
+    }
+
+    bool hasError = false;
+
+    state = state?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch);
+
     for (final file in files.values) {
       final token = file.token;
       if (token == null) {
@@ -121,7 +134,9 @@ class SendNotifier extends StateNotifier<SendState?> {
       }
 
       print('Sending ${file.file.fileName}');
+      state = state?.withFileStatus(file.file.id, FileStatus.sending);
 
+      bool hasErrorForFile = false;
       try {
         await Dio().post(
           ApiRoute.send.target(target, query: {
@@ -131,20 +146,30 @@ class SendNotifier extends StateNotifier<SendState?> {
           options: Options(
             headers: {
               'Content-Length': file.file.size,
-            }
+            },
           ),
           data: file.path != null ? File(file.path!).openRead() : file.bytes!,
           onSendProgress: (curr, total) {
             _ref.read(progressProvider.notifier).setProgress(file.file.id, curr / total);
-          }
+          },
         );
       } on DioError catch (e) {
+        hasErrorForFile = true;
+        hasError = true;
         print(e);
+      } catch (e, st) {
+        hasErrorForFile = true;
+        hasError = true;
+        print(e);
+        print(st);
       }
+
+      state = state?.withFileStatus(file.file.id, hasErrorForFile ? FileStatus.failed : FileStatus.finished);
     }
 
     state = state?.copyWith(
-      status: SessionStatus.finished,
+      status: hasError ? SessionStatus.finishedWithErrors : SessionStatus.finished,
+      endTime: DateTime.now().millisecondsSinceEpoch,
     );
     print('Files sent successfully.');
   }
@@ -159,5 +184,13 @@ class SendNotifier extends StateNotifier<SendState?> {
     try {
       await Dio().post(ApiRoute.cancel.target(target));
     } catch (_) {}
+  }
+}
+
+extension on SendState {
+  SendState withFileStatus(String fileId, FileStatus status) {
+    return copyWith(
+      files: {...files}..update(fileId, (file) => file.copyWith(status: status)),
+    );
   }
 }

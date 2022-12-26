@@ -7,9 +7,12 @@
     "close": "Close",
     "decline": "Decline",
     "done": "Done",
+    "error": "Error",
     "hide": "Hide",
     "offline": "Offline",
     "online": "Online",
+    "queue": "Queue",
+    "skipped": "Skipped",
     "unknown": "Unknown"
   },
   "receive": {
@@ -68,13 +71,14 @@
     "rejected": "The recipient has rejected the request."
   },
   "progressPage": {
-    "title": {
-      "total": "Total progress",
-      "count": {
-        "one": "{curr} / {n} file",
-        "other": "{curr} / {n} files"
-      },
-      "size": "{curr} / {n}"
+    "titleSending": "Sending files",
+    "titleReceiving": "Receiving files",
+    "total": {
+      "title": "Total progress",
+      "titleWithTime": "@:progressPage.total.title ({time})",
+      "count": "Files: {curr} / {n}",
+      "size": "Size: {curr} / {n}",
+      "speed": "Speed: {speed}/s"
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/main.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
+import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/server/receiving_file.dart';
 import 'package:localsend_app/model/server/server_state.dart';
@@ -121,10 +122,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             for (final file in dto.files.values)
               file.id: ReceivingFile(
                 file: file,
+                status: FileStatus.queue,
                 token: null,
                 tempPath: null,
               ),
           },
+          startTime: null,
+          endTime: null,
           responseHandler: streamController,
         ),
       );
@@ -135,10 +139,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       // Delayed response (waiting for user's decision)
       final result = await streamController.stream.first;
       if (result) {
-        return Response.ok(jsonEncode({
-          for (final file in state!.receiveState!.files.values)
-            file.file.id: file.token,
-        }), headers: {'Content-Type': 'application/json'});
+        return Response.ok(
+            jsonEncode({
+              for (final file in state!.receiveState!.files.values) file.file.id: file.token,
+            }),
+            headers: {'Content-Type': 'application/json'});
       } else {
         return Response.badRequest();
       }
@@ -168,6 +173,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       // begin of actual file transfer
+      state = state?.copyWith(
+        receiveState: receiveState.copyWith(
+          files: {...receiveState.files}..update(fileId, (_) => receivingFile.copyWith(status: FileStatus.sending)),
+          startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
+        ),
+      );
+
       final destinationPath = await _digestFilePath(
         dir: destinationDir,
         fileName: receivingFile.file.fileName,
@@ -185,7 +197,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             }
           },
         );
+        state = state?.copyWith(
+          receiveState: state?.receiveState?.withFileStatus(fileId, FileStatus.finished),
+        );
       } catch (e, st) {
+        state = state?.copyWith(
+          receiveState: state?.receiveState?.withFileStatus(fileId, FileStatus.failed),
+        );
         print(e);
         print(st);
       }
@@ -195,22 +213,23 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       final progressNotifier = _ref.read(progressProvider.notifier);
       progressNotifier.setProgress(fileId, 1);
 
-      if (receiveState.files.values.every((f) => f.token == null || progressNotifier.getProgress(f.file.id) == 1)) {
+      if (state!.receiveState!.files.values
+          .every((f) => f.status == FileStatus.finished || f.status == FileStatus.skipped || f.status == FileStatus.failed)) {
+        final hasError = state!.receiveState!.files.values.any((f) => f.status == FileStatus.failed);
         state = state?.copyWith(
-          receiveState: receiveState.copyWith(
-            status: SessionStatus.finished,
+          receiveState: state!.receiveState!.copyWith(
+            status: hasError ? SessionStatus.finishedWithErrors : SessionStatus.finished,
+            endTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
         print('Received all files.');
       }
 
-      return Response.ok('');
+      return state?.receiveState?.files[fileId]?.status == FileStatus.finished ? Response.ok('') : Response.internalServerError();
     });
 
     router.post(ApiRoute.cancel.path, (Request request) {
-      final ip = request.context['shelf.io.connection_info'] as HttpConnectionInfo;
-
-      if (state?.receiveState?.sender.ip == ip.remoteAddress.address) {
+      if (state?.receiveState?.sender.ip == request.ip) {
         _cancelBySender();
       }
 
@@ -246,6 +265,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           for (final file in receiveState.files.values)
             file.file.id: ReceivingFile(
               file: file.file,
+              status: fileIds.contains(file.file.id) ? FileStatus.queue : FileStatus.skipped,
               token: fileIds.contains(file.file.id) ? _uuid.v4() : null,
               tempPath: null,
             ),
@@ -302,4 +322,10 @@ Future<String> _digestFilePath({required String dir, required String fileName}) 
     counter++;
   } while (await File(destinationPath).exists());
   return destinationPath;
+}
+
+extension on ReceiveState {
+  ReceiveState withFileStatus(String fileId, FileStatus status) {
+    return copyWith(files: {...files}..update(fileId, (file) => file.copyWith(status: status)));
+  }
 }

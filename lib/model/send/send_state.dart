@@ -12,6 +12,8 @@ class SendState with _$SendState {
     required SessionStatus status,
     required Device target,
     required Map<String, SendingFile> files, // file id as key
+    required int? startTime,
+    required int? endTime,
     required CancelToken? cancelToken,
   }) = _SendState;
 }

@@ -7,9 +7,12 @@
     "close": "Schließen",
     "decline": "Ablehnen",
     "done": "Fertig",
+    "error": "Fehler",
     "hide": "Verstecken",
     "offline": "Offline",
     "online": "Online",
+    "queue": "Warteschlange",
+    "skipped": "Übersprungen",
     "unknown": "Unbekannt"
   },
   "receive": {
@@ -68,13 +71,14 @@
     "rejected": "Der Empfänger hat die Anfrage abgelehnt."
   },
   "progressPage": {
-    "title": {
-      "total": "Gesamtfortschritt",
-      "count": {
-        "one": "{curr} / {n} Datei",
-        "other": "{curr} / {n} Dateien"
-      },
-      "size": "{curr} / {n}"
+    "titleSending": "Sende Dateien",
+    "titleReceiving": "Empfange Dateien",
+    "total": {
+      "title": "Gesamtfortschritt",
+      "titleWithTime": "@:progressPage.total.title ({time})",
+      "count": "Dateien: {curr} / {n}",
+      "size": "Größe: {curr} / {n}",
+      "speed": "Geschwindigkeit: {speed}/s"
     }
   }
 }
