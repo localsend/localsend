@@ -139,6 +139,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       // Delayed response (waiting for user's decision)
       final result = await streamController.stream.first;
       if (result) {
+        state = state?.copyWith(
+          receiveState: state?.receiveState?.copyWith(
+            status: SessionStatus.sending,
+          ),
+        );
         return Response.ok(
             jsonEncode({
               for (final file in state!.receiveState!.files.values) file.file.id: file.token,
@@ -151,9 +156,9 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
     router.post(ApiRoute.send.path, (Request request) async {
       final receiveState = state?.receiveState;
-      if (receiveState == null || request.ip != receiveState.sender.ip) {
+      if (receiveState == null || request.ip != receiveState.sender.ip || receiveState.status != SessionStatus.sending) {
         // reject because there is no session or IP does not match session
-        print('No session or wrong IP');
+        print('No session or wrong IP. Current status: ${receiveState?.status}');
         return Response.badRequest();
       }
 
@@ -197,9 +202,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             }
           },
         );
+        if (state?.receiveState == null || state!.receiveState!.status != SessionStatus.sending) {
+          return Response.badRequest();
+        }
         state = state?.copyWith(
           receiveState: state?.receiveState?.withFileStatus(fileId, FileStatus.finished),
         );
+        print('Saved ${receivingFile.file.fileName}.');
       } catch (e, st) {
         state = state?.copyWith(
           receiveState: state?.receiveState?.withFileStatus(fileId, FileStatus.failed),
@@ -207,8 +216,6 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print(e);
         print(st);
       }
-
-      print('Saved ${receivingFile.file.fileName}.');
 
       final progressNotifier = _ref.read(progressProvider.notifier);
       progressNotifier.setProgress(fileId, 1);
@@ -298,6 +305,19 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         ),
       );
     }
+  }
+
+  /// In addition to [closeSession], this method also cancels incoming requests.
+  void cancelSession() {
+    final tempState = state;
+    if (tempState == null) {
+      // the server is not running
+      return;
+    }
+    closeSession();
+
+    // TODO: cancel incoming requests (https://github.com/dart-lang/shelf/issues/319)
+    // restartServer(alias: tempState.alias, port: tempState.port);
   }
 
   void closeSession() {

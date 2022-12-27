@@ -5,9 +5,11 @@
     "advanced": "Erweitert",
     "cancel": "Abbrechen",
     "close": "Schließen",
+    "continueStr": "Weiter",
     "decline": "Ablehnen",
     "done": "Fertig",
     "error": "Fehler",
+    "finished": "Abgeschlossen",
     "hide": "Verstecken",
     "offline": "Offline",
     "online": "Online",
@@ -74,10 +76,21 @@
     "titleSending": "Sende Dateien",
     "titleReceiving": "Empfange Dateien",
     "total": {
-      "title": "Gesamtfortschritt ({time})",
+      "title": {
+        "sending": "Gesamtfortschritt ({time})",
+        "finishedError": "Abgeschlossen mit Fehler",
+        "canceledSender": "Abgebrochen durch Absender",
+        "canceledReceiver": "Abgebrochen durch Empfänger"
+      },
       "count": "Dateien: {curr} / {n}",
       "size": "Größe: {curr} / {n}",
       "speed": "Geschwindigkeit: {speed}/s"
+    }
+  },
+  "dialogs": {
+    "cancelSession": {
+      "title": "Dateiübertragung abbrechen",
+      "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
     }
   }
 }

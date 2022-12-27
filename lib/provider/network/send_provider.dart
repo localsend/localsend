@@ -32,7 +32,7 @@ class SendNotifier extends StateNotifier<SendState?> {
 
   SendNotifier(this._ref) : super(null);
 
-  Future<void> sendRequest({
+  Future<void> startSession({
     required Device target,
     required List<PlatformFile> files,
   }) async {
@@ -101,7 +101,10 @@ class SendNotifier extends StateNotifier<SendState?> {
       };
 
       // ignore: use_build_context_synchronously
-      Routerino.context.push(() => const ProgressPage());
+      Routerino.context.pushAndRemoveUntilImmediately(
+        removeUntil: SendPage,
+        builder: () => const ProgressPage(),
+      );
 
       state = requestState.copyWith(
         status: SessionStatus.sending,
@@ -139,6 +142,8 @@ class SendNotifier extends StateNotifier<SendState?> {
 
       bool hasErrorForFile = false;
       try {
+        final cancelToken = CancelToken();
+        state = state?.copyWith(cancelToken: cancelToken);
         await Dio().post(
           ApiRoute.send.target(target, query: {
             'fileId': file.file.id,
@@ -153,6 +158,7 @@ class SendNotifier extends StateNotifier<SendState?> {
           onSendProgress: (curr, total) {
             _ref.read(progressProvider.notifier).setProgress(file.file.id, curr / total);
           },
+          cancelToken: cancelToken,
         );
       } on DioError catch (e) {
         hasErrorForFile = true;
@@ -165,7 +171,12 @@ class SendNotifier extends StateNotifier<SendState?> {
         print(st);
       }
 
-      state = state?.withFileStatus(file.file.id, hasErrorForFile ? FileStatus.failed : FileStatus.finished);
+      if (state == null) {
+        // session already closed
+        return;
+      } else {
+        state = state?.withFileStatus(file.file.id, hasErrorForFile ? FileStatus.failed : FileStatus.finished);
+      }
     }
 
     state = state?.copyWith(
@@ -175,12 +186,13 @@ class SendNotifier extends StateNotifier<SendState?> {
     print('Files sent successfully.');
   }
 
-  Future<void> cancel() async {
+  /// Closes the send-session and sends a cancel event to the receiver.
+  Future<void> cancelSession() async {
     final target = state?.target;
     if (target == null) {
       return;
     }
-    state?.cancelToken?.cancel();
+    state?.cancelToken?.cancel(); // cancel current request
     state = null;
     try {
       await Dio().post(ApiRoute.cancel.target(target));

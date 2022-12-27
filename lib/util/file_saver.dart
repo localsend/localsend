@@ -8,18 +8,33 @@ Future<void> saveFile({
   required void Function(int savedBytes) onProgress,
 }) async {
   final sink = File(destinationPath).openWrite();
-  int lastNotifyBytes = 0;
-  int savedBytes = 0;
-  await stream.forEach((event) {
-    sink.add(event);
+  try {
+    int lastNotifyBytes = 0;
+    int savedBytes = 0;
+    await stream.forEach((event) {
+      sink.add(event);
 
-    savedBytes += event.length;
-    if (savedBytes - lastNotifyBytes >= 100 * 1024) {
-      lastNotifyBytes = savedBytes;
-      onProgress(savedBytes);
+      savedBytes += event.length;
+      if (savedBytes - lastNotifyBytes >= 100 * 1024) {
+        lastNotifyBytes = savedBytes;
+        onProgress(savedBytes);
+      }
+    });
+
+    onProgress(savedBytes); // always emit final event
+  } catch (_) {
+    try {
+      await sink.close();
+      await File(destinationPath).delete();
+    } catch (e) {
+      print(e);
     }
-  });
-
-  onProgress(savedBytes); // always emit final event
-  await sink.close();
+    rethrow;
+  } finally {
+    try {
+      await sink.close();
+    } catch (e) {
+      print(e);
+    }
+  }
 }

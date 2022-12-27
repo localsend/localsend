@@ -138,7 +138,7 @@ class _SendTabState extends ConsumerState<SendTab> {
               child: DeviceListTile(
                 device: device,
                 onTap: () {
-                  ref.read(sendProvider.notifier).sendRequest(
+                  ref.read(sendProvider.notifier).startSession(
                         target: device,
                         files: ref.read(selectedFilesProvider),
                       );

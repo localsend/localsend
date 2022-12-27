@@ -5,9 +5,11 @@
     "advanced": "Advanced",
     "cancel": "Cancel",
     "close": "Close",
+    "continueStr": "Continue",
     "decline": "Decline",
     "done": "Done",
     "error": "Error",
+    "finished": "Finished",
     "hide": "Hide",
     "offline": "Offline",
     "online": "Online",
@@ -74,10 +76,21 @@
     "titleSending": "Sending files",
     "titleReceiving": "Receiving files",
     "total": {
-      "title": "Total progress ({time})",
+      "title": {
+        "sending": "Total progress ({time})",
+        "finishedError": "Finished with error",
+        "canceledSender": "Canceled by sender",
+        "canceledReceiver": "Canceled by receiver"
+      },
       "count": "Files: {curr} / {n}",
       "size": "Size: {curr} / {n}",
       "speed": "Speed: {speed}/s"
+    }
+  },
+  "dialogs": {
+    "cancelSession": {
+      "title": "Cancel file transfer",
+      "content": "Do you really want to cancel the file transfer?"
     }
   }
 }

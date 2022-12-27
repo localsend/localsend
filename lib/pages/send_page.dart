@@ -34,6 +34,21 @@ class _SendPageState extends ConsumerState<SendPage> {
     });
   }
 
+  void _cancel() {
+    // the state will be lost so we store them temporarily (only for UI)
+    final myDevice = ref.read(deviceInfoProvider);
+    final sendState = ref.read(sendProvider);
+    if (sendState == null) {
+      return;
+    }
+
+    setState(() {
+      _myDevice = myDevice;
+      _targetDevice = sendState.target;
+    });
+    ref.read(sendProvider.notifier).cancelSession();
+  }
+
   @override
   Widget build(BuildContext context) {
     final sendState = ref.watch(sendProvider);
@@ -44,62 +59,64 @@ class _SendPageState extends ConsumerState<SendPage> {
     }
     final myDevice = ref.watch(deviceInfoProvider);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Hero(
-                      tag: 'this-device',
-                      child: DeviceListTile(
-                        device: myDevice,
-                        thisDevice: !_showName,
+    return WillPopScope(
+      onWillPop: () async {
+        _cancel();
+        return true;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Hero(
+                        tag: 'this-device',
+                        child: DeviceListTile(
+                          device: myDevice,
+                          thisDevice: !_showName,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Icon(Icons.arrow_downward),
-                    const SizedBox(height: 20),
-                    Hero(
-                      tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
-                      child: DeviceListTile(
-                        device: sendState?.target ?? _targetDevice!,
+                      const SizedBox(height: 20),
+                      const Icon(Icons.arrow_downward),
+                      const SizedBox(height: 20),
+                      Hero(
+                        tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
+                        child: DeviceListTile(
+                          device: sendState?.target ?? _targetDevice!,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (sendState != null)
+                  ...[
+                    if (sendState.status == SessionStatus.waiting)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                      )
+                    else if (sendState.status == SessionStatus.declined)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                      ),
+                    Center(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          _cancel();
+                          context.pop();
+                        },
+                        icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
+                        label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
                       ),
                     ),
                   ],
-                ),
-              ),
-              if (sendState != null)
-                ...[
-                  if (sendState.status == SessionStatus.waiting)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
-                    )
-                  else if (sendState.status == SessionStatus.declined)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
-                    ),
-                  Center(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          _myDevice = myDevice;
-                          _targetDevice = sendState.target;
-                        });
-                        ref.read(sendProvider.notifier).cancel();
-                        context.pop();
-                      },
-                      icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
-                      label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
-                    ),
-                  ),
-                ],
-            ],
+              ],
+            ),
           ),
         ),
       ),

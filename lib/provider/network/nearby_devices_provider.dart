@@ -21,9 +21,11 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     state = state.copyWith(running: true);
 
     await _getStream(localIp, port).forEach((device) {
-      state = state.copyWith(
-        devices: [...state.devices, device],
-      );
+      if (state.devices.every((d) => d.ip != device.ip)) {
+        state = state.copyWith(
+          devices: [...state.devices, device],
+        );
+      }
     });
 
     state = state.copyWith(running: false);
