@@ -17,11 +17,11 @@ dependencies:
     sdk: flutter
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
-  go_router: 6.0.0
   json_annotation: 4.7.0
   network_info_plus: 3.0.1
   package_info_plus: 3.0.2
   path_provider: 2.0.11
+  routerino: 0.2.0
   shared_preferences: 2.0.15
   shelf: 1.4.0
   shelf_router: 1.1.3
@@ -35,7 +35,6 @@ dev_dependencies:
   flutter_gen_runner: 5.1.0+1
   flutter_lints: 2.0.1
   freezed: 2.3.2
-  go_router_builder: 1.0.15
   json_serializable: 6.5.4
   slang_build_runner: 3.7.0
 

@@ -4,13 +4,14 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
-import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
+import 'package:routerino/routerino.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
   const ProgressPage({Key? key}) : super(key: key);
@@ -210,7 +211,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                   ref.read(sendProvider.notifier).cancel();
                                 }
                                 ref.read(progressProvider.notifier).reset();
-                                const HomeRoute().go(context);
+                                context.pushRootImmediately(() => const HomePage());
                               },
                               icon: const Icon(Icons.check_circle),
                               label: Text(t.general.done),

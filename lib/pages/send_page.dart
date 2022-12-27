@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/session_status.dart';
@@ -8,6 +7,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
+import 'package:routerino/routerino.dart';
 
 class SendPage extends ConsumerStatefulWidget {
   const SendPage({Key? key}) : super(key: key);

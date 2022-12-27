@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
-import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/device_bage.dart';
+import 'package:routerino/routerino.dart';
 
 class ReceivePage extends ConsumerWidget {
   const ReceivePage({Key? key}) : super(key: key);
@@ -105,7 +105,7 @@ class ReceivePage extends ConsumerWidget {
                     ),
                     onPressed: () {
                       ref.read(serverProvider.notifier).acceptFileRequest(receiveState.files.values.map((f) => f.file.id).toSet());
-                      const ProgressRoute().push(context);
+                      context.pushImmediately(() => const ProgressPage());
                     },
                     icon: const Icon(Icons.check_circle),
                     label: Text(t.general.accept),

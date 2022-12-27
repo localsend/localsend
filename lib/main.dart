@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/service/persistence_service.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
+import 'package:routerino/routerino.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -42,21 +42,19 @@ Future<void> main() async {
 }
 
 class LocalSendApp extends ConsumerWidget {
-  static final router = GoRouter(routes: $appRoutes);
-  static BuildContext get routerContext => router.routerDelegate.navigatorKey.currentContext!;
-
   const LocalSendApp();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(settingsProvider.select((settings) => settings.theme));
-    return MaterialApp.router(
+    return MaterialApp(
       title: t.appName,
       debugShowCheckedModeBanner: false,
       theme: getTheme(Brightness.light),
       darkTheme: getTheme(Brightness.dark),
       themeMode: themeMode,
-      routerConfig: router,
+      navigatorKey: Routerino.navigatorKey,
+      home: const HomePage(),
     );
   }
 }

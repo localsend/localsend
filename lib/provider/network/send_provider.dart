@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/main.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
@@ -13,11 +12,13 @@ import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/send/send_state.dart';
 import 'package:localsend_app/model/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/progress_page.dart';
+import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
-import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -84,7 +85,7 @@ class SendNotifier extends StateNotifier<SendState?> {
       state = requestState;
 
       // ignore: use_build_context_synchronously
-      const SendRoute().push(LocalSendApp.routerContext);
+      Routerino.context.push(() => const SendPage());
 
       final response = await dio.post(
         ApiRoute.sendRequest.target(target),
@@ -100,7 +101,7 @@ class SendNotifier extends StateNotifier<SendState?> {
       };
 
       // ignore: use_build_context_synchronously
-      const ProgressRoute().go(LocalSendApp.routerContext);
+      Routerino.context.push(() => const ProgressPage());
 
       state = requestState.copyWith(
         status: SessionStatus.sending,

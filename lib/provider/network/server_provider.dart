@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/main.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
@@ -12,9 +11,9 @@ import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/server/receiving_file.dart';
 import 'package:localsend_app/model/server/server_state.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
-import 'package:localsend_app/routes.dart';
 import 'package:localsend_app/service/persistence_service.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
@@ -22,6 +21,7 @@ import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
 import 'package:path_provider/path_provider.dart' as path;
+import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -134,7 +134,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       );
 
       // ignore: use_build_context_synchronously
-      const ReceiveRoute().push(LocalSendApp.routerContext);
+      Routerino.context.push(() => const ReceivePage());
 
       // Delayed response (waiting for user's decision)
       final result = await streamController.stream.first;
