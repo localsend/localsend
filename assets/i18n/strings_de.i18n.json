@@ -34,7 +34,12 @@
     "title": "Senden",
     "files": "Dateien",
     "filesWithCount": "Dateien ({count})",
-    "selectFiles": "Dateien auswählen",
+    "picker": {
+      "file": "Datei",
+      "image": "Bild",
+      "video": "Video",
+      "text": "Text"
+    },
     "nearbyDevices": "Geräte in der Nähe",
     "thisDevice": "Dieses Gerät"
   },

@@ -52,5 +52,11 @@
        <string>de</string>
        <string>en</string>
     </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app requires access to the photo library.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>This app requires access to the camera.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>This app requires access to the microphone.</string>
 </dict>
 </plist>

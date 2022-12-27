@@ -6,6 +6,7 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 
 class SettingsTab extends ConsumerStatefulWidget {
@@ -56,6 +57,10 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 onChanged: (theme) async {
                   if (theme != null) {
                     await ref.read(settingsProvider.notifier).setTheme(theme);
+                    await sleepAsync(500); // workaround: brightness takes some time to be updated
+                    if (mounted) {
+                      updateSystemOverlayStyle(context);
+                    }
                   }
                 },
               ),

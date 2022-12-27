@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
@@ -6,6 +7,7 @@ import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/theme.dart';
 
 enum _Tab {
   receive(Icons.wifi),
@@ -43,13 +45,19 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final settings = ref.read(settingsProvider);
-      await ref.read(serverProvider.notifier).startServer(
-        alias: settings.alias,
-        port: settings.port,
-      );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _init();
     });
+  }
+
+  Future<void> _init() async {
+    updateSystemOverlayStyle(context);
+
+    final settings = ref.read(settingsProvider);
+    await ref.read(serverProvider.notifier).startServer(
+      alias: settings.alias,
+      port: settings.port,
+    );
   }
 
   @override

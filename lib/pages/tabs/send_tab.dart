@@ -1,8 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
@@ -86,20 +89,89 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           );
         }),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: ElevatedButton.icon(
-              onPressed: () async {
-                final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-                if (result != null) {
-                  ref.read(selectedFilesProvider.notifier).state = [...selectedFiles, ...result.files];
-                }
-              },
-              icon: const Icon(Icons.add),
-              label: Text(t.send.selectFiles),
-            ),
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: _BigButton(
+                  icon: Icons.description,
+                  label: t.send.picker.file,
+                  onTap: () async {
+                    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+                    if (result != null) {
+                      ref.read(selectedFilesProvider.notifier).state = [
+                        ...selectedFiles,
+                        ...result.files.map((f) {
+                          return CrossFile(
+                            name: f.name,
+                            size: f.size,
+                            path: kIsWeb ? null : f.path,
+                            bytes: kIsWeb ? f.bytes : null,
+                          );
+                        }),
+                      ];
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: _BigButton(
+                  icon: Icons.image,
+                  label: t.send.picker.image,
+                  onTap: () async {
+                    final images = await ImagePicker().pickMultiImage();
+                    ref.read(selectedFilesProvider.notifier).state = [
+                      ...selectedFiles,
+                      ...await Future.wait(images.map((file) async {
+                        return CrossFile(
+                            name: file.name,
+                            size: await file.length(),
+                            path: kIsWeb ? null : file.path,
+                            bytes: kIsWeb ? await file.readAsBytes() : null,
+                          );
+                        })
+                      ),
+                    ];
+                  },
+                ),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: _BigButton(
+                  icon: Icons.movie,
+                  label: t.send.picker.video,
+                  onTap: () async {
+                    final file = await ImagePicker().pickVideo(source: ImageSource.gallery);
+                    if (file != null) {
+                      ref.read(selectedFilesProvider.notifier).state = [
+                        ...selectedFiles,
+                        CrossFile(
+                          name: file.name,
+                          size: await file.length(),
+                          path: kIsWeb ? null : file.path,
+                          bytes: kIsWeb ? await file.readAsBytes() : null,
+                        ),
+                      ];
+                    }
+                  },
+                ),
+              ),
+              // const SizedBox(width: 15),
+              // Expanded(
+              //   child: _BigButton(
+              //     icon: Icons.subject,
+              //     label: t.send.picker.text,
+              //     onTap: () async {
+              //       final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+              //       if (result != null) {
+              //         ref.read(selectedFilesProvider.notifier).state = [...selectedFiles, ...result.files];
+              //       }
+              //     },
+              //   ),
+              // ),
+            ],
           ),
         ),
         const SizedBox(height: 20),
@@ -121,7 +193,6 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ],
         ),
-        const SizedBox(height: 10),
         Hero(
           tag: 'this-device',
           child: DeviceListTile(
@@ -148,6 +219,43 @@ class _SendTabState extends ConsumerState<SendTab> {
           );
         }),
       ],
+    );
+  }
+}
+
+class _BigButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _BigButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      onPressed: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(icon),
+          const SizedBox(height: 5),
+          Expanded(
+            child: FittedBox(
+              child: Text(label, maxLines: 1),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

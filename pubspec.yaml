@@ -17,6 +17,7 @@ dependencies:
     sdk: flutter
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
+  image_picker: 0.8.6
   json_annotation: 4.7.0
   network_info_plus: 3.0.1
   package_info_plus: 3.0.2

@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
@@ -34,7 +33,7 @@ class SendNotifier extends StateNotifier<SendState?> {
 
   Future<void> startSession({
     required Device target,
-    required List<PlatformFile> files,
+    required List<CrossFile> files,
   }) async {
     final dio = Dio(BaseOptions(
       connectTimeout: 30 * 1000,
@@ -58,7 +57,7 @@ class SendNotifier extends StateNotifier<SendState?> {
             ),
             status: FileStatus.queue,
             token: null,
-            path: kIsWeb ? null : file.path,
+            path: file.path,
             bytes: file.bytes,
           ),
         );

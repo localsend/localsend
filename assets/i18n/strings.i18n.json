@@ -34,7 +34,12 @@
     "title": "Send",
     "files": "Files",
     "filesWithCount": "Files ({count})",
-    "selectFiles": "Select files",
+    "picker": {
+      "file": "File",
+      "image": "Image",
+      "video": "Video",
+      "text": "Text"
+    },
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device"
   },

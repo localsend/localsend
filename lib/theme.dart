@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
@@ -32,7 +33,22 @@ ThemeData getTheme(Brightness brightness) {
       enabledBorder: brightness == Brightness.light ? _lightInputBorder : _darkInputBorder,
       contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: brightness == Brightness.dark ? Colors.white : null,
+      ),
+    ),
   );
+}
+
+void updateSystemOverlayStyle(BuildContext context) {
+  final brightness = Theme.of(context).brightness;
+  final style = SystemUiOverlayStyle(
+    // statusBarColor: Colors.white, // android
+    statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light, // android
+    statusBarBrightness: brightness, // iOS
+  );
+  SystemChrome.setSystemUIOverlayStyle(style);
 }
 
 extension ThemeDataExt on ThemeData {
