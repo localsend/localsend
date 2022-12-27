@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
+import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 
 enum _Tab {
   receive(Icons.wifi),
@@ -25,16 +28,29 @@ enum _Tab {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   final _pageController = PageController();
   _Tab _currentTab = _Tab.receive;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final settings = ref.read(settingsProvider);
+      await ref.read(serverProvider.notifier).startServer(
+        alias: settings.alias,
+        port: settings.port,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

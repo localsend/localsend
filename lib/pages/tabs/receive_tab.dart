@@ -19,19 +19,6 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> {
   bool _advanced = false;
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final settings = ref.read(settingsProvider);
-      await ref.read(serverProvider.notifier).startServer(
-            alias: settings.alias,
-            port: settings.port,
-          );
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkInfoProvider);
