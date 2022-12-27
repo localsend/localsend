@@ -37,14 +37,14 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 8),
-          child: Text(t.settings.title, style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center),
+          child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center),
         ),
         const SizedBox(height: 30),
         _SettingsSection(
-          title: t.settings.general.title,
+          title: t.settingsTab.general.title,
           children: [
             _SettingsEntry(
-              label: t.settings.general.theme,
+              label: t.settingsTab.general.theme,
               child: CustomDropdownButton<ThemeMode>(
                 value: settings.theme,
                 items: ThemeMode.values.map((theme) {
@@ -66,14 +66,14 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             _SettingsEntry(
-              label: t.settings.general.language,
+              label: t.settingsTab.general.language,
               child: CustomDropdownButton<AppLocale?>(
                 value: settings.locale,
                 items: [
                   DropdownMenuItem(
                     value: null,
                     alignment: Alignment.center,
-                    child: Text(t.settings.general.languageOptions.system),
+                    child: Text(t.settingsTab.general.languageOptions.system),
                   ),
                   ...AppLocale.values.map((locale) {
                     return DropdownMenuItem(
@@ -96,7 +96,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
           ],
         ),
         _SettingsSection(
-          title: t.settings.network.title,
+          title: t.settingsTab.network.title,
           children: [
             AnimatedCrossFade(
               crossFadeState: serverState != null && (serverState.alias != settings.alias || serverState.port != settings.port)
@@ -107,11 +107,11 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               firstChild: Container(),
               secondChild: Padding(
                 padding: const EdgeInsets.only(bottom: 15),
-                child: Text(t.settings.network.needRestart, style: const TextStyle(fontSize: 16, color: Colors.orange)),
+                child: Text(t.settingsTab.network.needRestart, style: const TextStyle(fontSize: 16, color: Colors.orange)),
               ),
             ),
             _SettingsEntry(
-              label: '${t.settings.network.server}${serverState == null ? ' (${t.general.offline})' : ''}',
+              label: '${t.settingsTab.network.server}${serverState == null ? ' (${t.general.offline})' : ''}',
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: Theme.of(context).inputDecorationTheme.fillColor,
@@ -128,7 +128,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                                 port: settings.port,
                               );
                         },
-                        tooltip: t.receive.start,
+                        tooltip: t.general.start,
                         icon: const Icon(Icons.play_arrow),
                       )
                     else
@@ -147,7 +147,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                             await ref.read(settingsProvider.notifier).setPort(newServerState.port);
                           }
                         },
-                        tooltip: t.receive.restart,
+                        tooltip: t.general.restart,
                         icon: const Icon(Icons.refresh),
                       ),
                     IconButton(
@@ -156,7 +156,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                           : () async {
                               await ref.read(serverProvider.notifier).stopServer();
                             },
-                      tooltip: t.receive.stop,
+                      tooltip: t.general.stop,
                       icon: const Icon(Icons.stop),
                     ),
                   ],
@@ -164,7 +164,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             _SettingsEntry(
-              label: t.settings.network.alias,
+              label: t.settingsTab.network.alias,
               child: TextFormField(
                 controller: _aliasController,
                 textAlign: TextAlign.center,
@@ -174,7 +174,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             _SettingsEntry(
-              label: t.settings.network.port,
+              label: t.settingsTab.network.port,
               child: TextFormField(
                 controller: _portController,
                 textAlign: TextAlign.center,
@@ -275,11 +275,11 @@ extension on ThemeMode {
   String get humanName {
     switch (this) {
       case ThemeMode.system:
-        return t.settings.general.themeOptions.system;
+        return t.settingsTab.general.themeOptions.system;
       case ThemeMode.light:
-        return t.settings.general.themeOptions.light;
+        return t.settingsTab.general.themeOptions.light;
       case ThemeMode.dark:
-        return t.settings.general.themeOptions.dark;
+        return t.settingsTab.general.themeOptions.dark;
     }
   }
 }

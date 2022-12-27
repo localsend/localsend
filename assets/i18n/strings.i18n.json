@@ -14,15 +14,14 @@
     "offline": "Offline",
     "online": "Online",
     "queue": "Queue",
+    "restart": "Restart",
     "skipped": "Skipped",
+    "start": "Start",
+    "stop": "Stop",
     "unknown": "Unknown"
   },
-  "receive": {
+  "receiveTab": {
     "title": "Receive",
-    "start": "Start",
-    "restart": "Restart",
-    "stop": "Stop",
-    "info": "Info",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
@@ -30,10 +29,10 @@
       "alias": "Alias:"
     }
   },
-  "send": {
+  "sendTab": {
     "title": "Send",
-    "files": "Files",
-    "filesWithCount": "Files ({count})",
+    "selection": "Selection",
+    "selectionWithCount": "Selection ({count})",
     "picker": {
       "file": "File",
       "image": "Image",
@@ -43,7 +42,7 @@
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device"
   },
-  "settings": {
+  "settingsTab": {
     "title": "Settings",
     "general": {
       "title": "General",

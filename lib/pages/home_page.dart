@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
@@ -21,11 +20,11 @@ enum _Tab {
   String get label {
     switch (this) {
       case _Tab.receive:
-        return t.receive.title;
+        return t.receiveTab.title;
       case _Tab.send:
-        return t.send.title;
+        return t.sendTab.title;
       case _Tab.settings:
-        return t.settings.title;
+        return t.settingsTab.title;
     }
   }
 }

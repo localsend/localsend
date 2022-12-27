@@ -54,7 +54,7 @@ class _SendTabState extends ConsumerState<SendTab> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       children: [
         Text(
-          selectedFiles.isEmpty ? t.send.files : t.send.filesWithCount(count: selectedFiles.length),
+          selectedFiles.isEmpty ? t.sendTab.selection : t.sendTab.selectionWithCount(count: selectedFiles.length),
           style: Theme.of(context).textTheme.subtitle1,
         ),
         const SizedBox(height: 10),
@@ -96,7 +96,7 @@ class _SendTabState extends ConsumerState<SendTab> {
               Expanded(
                 child: _BigButton(
                   icon: Icons.description,
-                  label: t.send.picker.file,
+                  label: t.sendTab.picker.file,
                   onTap: () async {
                     final result = await FilePicker.platform.pickFiles(allowMultiple: true);
                     if (result != null) {
@@ -116,48 +116,54 @@ class _SendTabState extends ConsumerState<SendTab> {
                 ),
               ),
               const SizedBox(width: 15),
-              Expanded(
-                child: _BigButton(
-                  icon: Icons.image,
-                  label: t.send.picker.image,
-                  onTap: () async {
-                    final images = await ImagePicker().pickMultiImage();
-                    ref.read(selectedFilesProvider.notifier).state = [
-                      ...selectedFiles,
-                      ...await Future.wait(images.map((file) async {
-                        return CrossFile(
+              if (defaultTargetPlatform == TargetPlatform.iOS)
+                Expanded(
+                  child: _BigButton(
+                    icon: Icons.image,
+                    label: t.sendTab.picker.image,
+                    onTap: () async {
+                      final images = await ImagePicker().pickMultiImage();
+                      ref.read(selectedFilesProvider.notifier).state = [
+                        ...selectedFiles,
+                        ...await Future.wait(images.map((file) async {
+                          return CrossFile(
+                              name: file.name,
+                              size: await file.length(),
+                              path: kIsWeb ? null : file.path,
+                              bytes: kIsWeb ? await file.readAsBytes() : null,
+                            );
+                          })
+                        ),
+                      ];
+                    },
+                  ),
+                )
+              else
+                Expanded(child: Container()),
+              const SizedBox(width: 15),
+              if (defaultTargetPlatform == TargetPlatform.iOS)
+                Expanded(
+                  child: _BigButton(
+                    icon: Icons.movie,
+                    label: t.sendTab.picker.video,
+                    onTap: () async {
+                      final file = await ImagePicker().pickVideo(source: ImageSource.gallery);
+                      if (file != null) {
+                        ref.read(selectedFilesProvider.notifier).state = [
+                          ...selectedFiles,
+                          CrossFile(
                             name: file.name,
                             size: await file.length(),
                             path: kIsWeb ? null : file.path,
                             bytes: kIsWeb ? await file.readAsBytes() : null,
-                          );
-                        })
-                      ),
-                    ];
-                  },
-                ),
-              ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: _BigButton(
-                  icon: Icons.movie,
-                  label: t.send.picker.video,
-                  onTap: () async {
-                    final file = await ImagePicker().pickVideo(source: ImageSource.gallery);
-                    if (file != null) {
-                      ref.read(selectedFilesProvider.notifier).state = [
-                        ...selectedFiles,
-                        CrossFile(
-                          name: file.name,
-                          size: await file.length(),
-                          path: kIsWeb ? null : file.path,
-                          bytes: kIsWeb ? await file.readAsBytes() : null,
-                        ),
-                      ];
-                    }
-                  },
-                ),
-              ),
+                          ),
+                        ];
+                      }
+                    },
+                  ),
+                )
+              else
+                Expanded(child: Container()),
               // const SizedBox(width: 15),
               // Expanded(
               //   child: _BigButton(
@@ -177,7 +183,7 @@ class _SendTabState extends ConsumerState<SendTab> {
         const SizedBox(height: 20),
         Row(
           children: [
-            Text(t.send.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
+            Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
             RotatingWidget(
               duration: const Duration(seconds: 2),
               spinning: nearbyDevicesState.running,
@@ -238,7 +244,7 @@ class _BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: defaultTargetPlatform == TargetPlatform.windows ? 20 : 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

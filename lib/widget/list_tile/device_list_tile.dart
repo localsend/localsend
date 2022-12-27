@@ -22,7 +22,7 @@ class DeviceListTile extends StatelessWidget {
         durationMillis: 300,
         firstChild: Row(
           children: [
-            Text(t.send.thisDevice, style: const TextStyle(fontSize: 20)),
+            Text(t.sendTab.thisDevice, style: const TextStyle(fontSize: 20)),
             const SizedBox(width: 5),
             const Icon(Icons.star, size: 16),
           ],

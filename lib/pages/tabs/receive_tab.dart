@@ -75,28 +75,28 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> {
                   children: [
                     TableRow(
                       children: [
-                        Text(t.receive.infoBox.alias),
+                        Text(t.receiveTab.infoBox.alias),
                         const SizedBox(width: 10),
                         Text(serverState?.alias ?? '-'),
                       ],
                     ),
                     TableRow(
                       children: [
-                        Text(t.receive.infoBox.ip),
+                        Text(t.receiveTab.infoBox.ip),
                         const SizedBox(width: 10),
                         Text(networkInfo?.localIp ?? t.general.unknown),
                       ],
                     ),
                     TableRow(
                       children: [
-                        Text(t.receive.infoBox.port),
+                        Text(t.receiveTab.infoBox.port),
                         const SizedBox(width: 10),
                         Text(serverState?.port.toString() ?? '-'),
                       ],
                     ),
                     TableRow(
                       children: [
-                        Text(t.receive.infoBox.subnetMask),
+                        Text(t.receiveTab.infoBox.subnetMask),
                         const SizedBox(width: 10),
                         Text(networkInfo?.netMask ?? t.general.unknown),
                       ],
