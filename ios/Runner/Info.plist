@@ -60,5 +60,9 @@
     <string>This app requires access to the microphone.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>This app requires photo library permission to save received media.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app requires the local IP to communicate.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app requires the local IP to communicate.</string>
 </dict>
 </plist>
