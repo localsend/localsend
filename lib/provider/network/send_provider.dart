@@ -14,6 +14,7 @@ import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:routerino/routerino.dart';
@@ -34,10 +35,8 @@ class SendNotifier extends StateNotifier<SendState?> {
     required Device target,
     required List<CrossFile> files,
   }) async {
-    final dio = Dio(BaseOptions(
-      connectTimeout: 30 * 1000,
-      sendTimeout: 30 * 1000,
-    ));
+    final requestDio = _ref.read(dioProvider(30 * 1000));
+    final uploadDio = _ref.read(dioProvider(2000));
     final cancelToken = CancelToken();
 
     final requestState = SendState(
@@ -85,7 +84,7 @@ class SendNotifier extends StateNotifier<SendState?> {
       // ignore: use_build_context_synchronously
       Routerino.context.push(() => const SendPage());
 
-      final response = await dio.post(
+      final response = await requestDio.post(
         ApiRoute.sendRequest.target(target),
         data: requestDto.toJson(),
         cancelToken: cancelToken,
@@ -109,7 +108,7 @@ class SendNotifier extends StateNotifier<SendState?> {
         files: sendingFiles,
       );
 
-      await _send(target, sendingFiles);
+      await _send(uploadDio, target, sendingFiles);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response && e.type != DioErrorType.cancel) {
         print(e);
@@ -120,7 +119,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     }
   }
 
-  Future<void> _send(Device target, Map<String, SendingFile> files) async {
+  Future<void> _send(Dio dio, Device target, Map<String, SendingFile> files) async {
     if (state == null) {
       return;
     }
@@ -142,7 +141,7 @@ class SendNotifier extends StateNotifier<SendState?> {
       try {
         final cancelToken = CancelToken();
         state = state?.copyWith(cancelToken: cancelToken);
-        await Dio().post(
+        await dio.post(
           ApiRoute.send.target(target, query: {
             'fileId': file.file.id,
             'token': token,
@@ -193,7 +192,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     state?.cancelToken?.cancel(); // cancel current request
     state = null;
     try {
-      await Dio().post(ApiRoute.cancel.target(target));
+      await _ref.read(dioProvider(2000)).post(ApiRoute.cancel.target(target));
     } catch (_) {}
   }
 }

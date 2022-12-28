@@ -21,6 +21,7 @@ import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
+import 'package:localsend_app/util/security_helper.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -80,9 +81,15 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
     print('Starting server...');
     ServerState? newServerState;
+
+    final securityContextResult = generateSecurityContext();
+
     try {
       newServerState = ServerState(
-        httpServer: await serve(router, '0.0.0.0', port),
+        httpServer: await serve(router, '0.0.0.0', port, securityContext: SecurityContext()
+          ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
+          ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)
+        ),
         alias: alias,
         port: port,
         receiveState: null,

@@ -9,6 +9,7 @@ environment:
   sdk: '>=2.18.5 <3.0.0'
 
 dependencies:
+  basic_utils: 5.4.2
   collection: 1.16.0
   device_info_plus: 8.0.0
   dio: 4.0.6

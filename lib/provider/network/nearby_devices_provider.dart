@@ -3,15 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/nearby_devices_state.dart';
+import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
 final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>((ref) {
-  return NearbyDevicesNotifier();
+  final dio = ref.watch(dioProvider(2000));
+  return NearbyDevicesNotifier(dio);
 });
 
 class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
-  NearbyDevicesNotifier() : super(const NearbyDevicesState(running: false, devices: []));
+  final Dio dio;
+  NearbyDevicesNotifier(this.dio) : super(const NearbyDevicesState(running: false, devices: []));
 
   Future<void> startScan({required int port, required String localIp}) async {
     if (state.running) {
@@ -36,7 +39,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     final runner = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
-        (index) => () => _doRequest(ipList[index], port),
+        (index) => () => _doRequest(dio, ipList[index], port),
       ),
       concurrency: 50,
     );
@@ -45,19 +48,12 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   }
 }
 
-final _dio = Dio(
-  BaseOptions(
-    connectTimeout: 2000,
-    sendTimeout: 2000,
-  ),
-);
-
-Future<Device?> _doRequest(String currentIp, int port) async {
+Future<Device?> _doRequest(Dio dio, String currentIp, int port) async {
   print('Requesting $currentIp');
   final url = ApiRoute.info.targetRaw(currentIp, port);
   Device? device;
   try {
-    final response = await _dio.get(url);
+    final response = await dio.get(url);
     final dto = InfoDto.fromJson(response.data);
     device = dto.toDevice(currentIp, port);
   } on DioError catch (_) {
