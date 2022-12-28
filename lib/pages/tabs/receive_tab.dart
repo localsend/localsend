@@ -6,6 +6,7 @@ import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
+import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 
 class ReceiveTab extends ConsumerStatefulWidget {
@@ -15,11 +16,16 @@ class ReceiveTab extends ConsumerStatefulWidget {
   ConsumerState<ReceiveTab> createState() => _ReceiveTagState();
 }
 
-class _ReceiveTagState extends ConsumerState<ReceiveTab> {
+class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAliveClientMixin {
   bool _advanced = false;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkInfoProvider);
     final serverState = ref.watch(serverProvider);
@@ -35,15 +41,26 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RotatingWidget(
-                      duration: const Duration(seconds: 15),
-                      spinning: serverState != null,
-                      child: Assets.img.logo512.image(width: 200),
+                    InitialFadeTransition(
+                      duration: const Duration(milliseconds: 300),
+                      delay: const Duration(milliseconds: 200),
+                      child: RotatingWidget(
+                        duration: const Duration(seconds: 15),
+                        spinning: serverState != null,
+                        child: SizedBox(
+                          height: 200,
+                          child: Assets.img.logo512.image(height: 200),
+                        ),
+                      ),
                     ),
                     Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
-                    Text(
-                      serverState == null ? t.general.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
-                      style: const TextStyle(fontSize: 24),
+                    InitialFadeTransition(
+                      duration: const Duration(milliseconds: 300),
+                      delay: const Duration(milliseconds: 500),
+                      child: Text(
+                        serverState == null ? t.general.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
+                        style: const TextStyle(fontSize: 24),
+                      ),
                     ),
                   ],
                 ),

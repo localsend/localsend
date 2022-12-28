@@ -107,6 +107,10 @@
     "title": "Changelog"
   },
   "dialogs": {
+    "noFiles": {
+      "title": "No file selected",
+      "content": "Please select at least one file."
+    },
     "cancelSession": {
       "title": "Cancel file transfer",
       "content": "Do you really want to cancel the file transfer?"

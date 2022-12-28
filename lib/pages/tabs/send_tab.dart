@@ -12,6 +12,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
+import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
@@ -211,9 +212,15 @@ class _SendTabState extends ConsumerState<SendTab> {
               child: DeviceListTile(
                 device: device,
                 onTap: () {
+                  final files = ref.read(selectedFilesProvider);
+                  if (files.isEmpty) {
+                    context.pushBottomSheet(() => const NoFilesDialog());
+                   return;
+                  }
+
                   ref.read(sendProvider.notifier).startSession(
                         target: device,
-                        files: ref.read(selectedFilesProvider),
+                        files: files,
                       );
                 },
               ),

@@ -107,6 +107,10 @@
     "title": "Changelog"
   },
   "dialogs": {
+    "noFiles": {
+      "title": "Keine Datei ausgewählt",
+      "content": "Bitte wähle mindestens eine Datei aus."
+    },
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
       "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"

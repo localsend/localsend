@@ -6,6 +6,7 @@ import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:routerino/routerino.dart';
 
@@ -81,7 +82,11 @@ class _SendPageState extends ConsumerState<SendPage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Icon(Icons.arrow_downward),
+                      const InitialFadeTransition(
+                        duration: Duration(milliseconds: 300),
+                        delay: Duration(milliseconds: 400),
+                        child: Icon(Icons.arrow_downward),
+                      ),
                       const SizedBox(height: 20),
                       Hero(
                         tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
@@ -93,28 +98,34 @@ class _SendPageState extends ConsumerState<SendPage> {
                   ),
                 ),
                 if (sendState != null)
-                  ...[
-                    if (sendState.status == SessionStatus.waiting)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
-                      )
-                    else if (sendState.status == SessionStatus.declined)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
-                      ),
-                    Center(
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          _cancel();
-                          context.pop();
-                        },
-                        icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
-                        label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
-                      ),
+                  InitialFadeTransition(
+                    duration: const Duration(milliseconds: 300),
+                    delay: const Duration(milliseconds: 400),
+                    child: Column(
+                      children: [
+                        if (sendState.status == SessionStatus.waiting)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                          )
+                        else if (sendState.status == SessionStatus.declined)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                          ),
+                        Center(
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              _cancel();
+                              context.pop();
+                            },
+                            icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
+                            label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
               ],
             ),
           ),
