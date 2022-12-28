@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 /// Saves the data [stream] to the [destinationPath].
 /// [onProgress] will be called on every 100 KB.
 Future<void> saveFile({
   required String destinationPath,
+  required bool saveToGallery,
   required Stream<List<int>> stream,
   required void Function(int savedBytes) onProgress,
 }) async {
@@ -21,6 +24,13 @@ Future<void> saveFile({
       }
     });
 
+    await sink.close();
+
+    if (saveToGallery) {
+      await ImageGallerySaver.saveFile(destinationPath);
+      await File(destinationPath).delete();
+    }
+
     onProgress(savedBytes); // always emit final event
   } catch (_) {
     try {
@@ -30,11 +40,5 @@ Future<void> saveFile({
       print(e);
     }
     rethrow;
-  } finally {
-    try {
-      await sink.close();
-    } catch (e) {
-      print(e);
-    }
   }
 }

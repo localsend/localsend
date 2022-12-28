@@ -58,5 +58,7 @@
     <string>This app requires access to the camera.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app requires access to the microphone.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>This app requires photo library permission to save received media.</string>
 </dict>
 </plist>

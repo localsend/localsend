@@ -18,6 +18,7 @@ dependencies:
   flutter_markdown: 0.6.13
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
+  image_gallery_saver: 1.7.1
   image_picker: 0.8.6
   json_annotation: 4.7.0
   network_info_plus: 3.0.1

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
+import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/server/receiving_file.dart';
 import 'package:localsend_app/model/server/server_state.dart';
@@ -195,6 +196,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       try {
         await saveFile(
           destinationPath: destinationPath,
+          saveToGallery: (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) &&
+              (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video),
           stream: request.read(),
           onProgress: (savedBytes) {
             if (receivingFile.file.size != 0) {
