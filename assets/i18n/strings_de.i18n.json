@@ -45,7 +45,8 @@
       "text": "Text"
     },
     "nearbyDevices": "Geräte in der Nähe",
-    "thisDevice": "Dieses Gerät"
+    "thisDevice": "Dieses Gerät",
+    "help": "Bitte stelle sicher, dass sich das gewünschte Ziel auch im selben WLAN-Netzwerk befindet."
   },
   "settingsTab": {
     "title": "Einstellungen",

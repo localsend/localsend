@@ -45,7 +45,8 @@
       "text": "Text"
     },
     "nearbyDevices": "Nearby devices",
-    "thisDevice": "This Device"
+    "thisDevice": "This Device",
+    "help": "Please ensure that the desired target is also in the same wifi network."
   },
   "settingsTab": {
     "title": "Settings",

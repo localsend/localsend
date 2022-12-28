@@ -54,8 +54,9 @@ class _SendTabState extends ConsumerState<SendTab> {
     final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       children: [
+        const SizedBox(height: 20),
         if (selectedFiles.isEmpty)
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
@@ -298,6 +299,9 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           );
         }),
+        const SizedBox(height: 20),
+        Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+        const SizedBox(height: 50),
       ],
     );
   }
