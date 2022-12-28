@@ -71,6 +71,9 @@
       "port": "Port"
     }
   },
+  "selectedFilesPage": {
+    "deleteAll": "Delete all"
+  },
   "receivePage": {
     "subTitle": {
       "one": "wants to send you a file.",
