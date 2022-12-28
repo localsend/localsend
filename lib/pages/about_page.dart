@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/pages/debug_page.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -57,8 +58,15 @@ class AboutPage extends StatelessWidget {
                 },
                 child: const Text('License Notices'),
               ),
+              TextButton(
+                onPressed: () {
+                  context.push(() => const DebugPage());
+                },
+                child: const Text('Debugging'),
+              ),
             ],
           ),
+          const SizedBox(height: 50),
         ],
       ),
     );

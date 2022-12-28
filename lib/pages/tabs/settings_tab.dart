@@ -191,30 +191,32 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             ),
           ],
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton.icon(
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.onSurface,
+        Theme(
+          data: Theme.of(context).copyWith(
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
-            onPressed: () {
-              context.push(() => const AboutPage());
-            },
-            icon: const Icon(Icons.info),
-            label: Text(t.aboutPage.title),
           ),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton.icon(
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.onSurface,
-            ),
-            onPressed: () {
-              context.push(() => const ChangelogPage());
-            },
-            icon: const Icon(Icons.history),
-            label: Text(t.changelogPage.title),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  context.push(() => const AboutPage());
+                },
+                icon: const Icon(Icons.info),
+                label: Text(t.aboutPage.title),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  context.push(() => const ChangelogPage());
+                },
+                icon: const Icon(Icons.history),
+                label: Text(t.changelogPage.title),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 40),
