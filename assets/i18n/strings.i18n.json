@@ -96,6 +96,12 @@
       "speed": "Speed: {speed}/s"
     }
   },
+  "aboutPage": {
+    "title": "About LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
   "dialogs": {
     "cancelSession": {
       "title": "Cancel file transfer",

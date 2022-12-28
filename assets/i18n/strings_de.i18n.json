@@ -96,6 +96,12 @@
       "speed": "Geschwindigkeit: {speed}/s"
     }
   },
+  "aboutPage": {
+    "title": "Über LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
   "dialogs": {
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",

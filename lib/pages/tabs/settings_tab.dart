@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/pages/about_page.dart';
+import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
+import 'package:localsend_app/widget/local_send_logo.dart';
+import 'package:routerino/routerino.dart';
 
 class SettingsTab extends ConsumerStatefulWidget {
   const SettingsTab({Key? key}) : super(key: key);
@@ -135,9 +138,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       IconButton(
                         onPressed: () async {
                           final newServerState = await ref.read(serverProvider.notifier).restartServer(
-                            alias: settings.alias,
-                            port: settings.port,
-                          );
+                                alias: settings.alias,
+                                port: settings.port,
+                              );
 
                           if (newServerState != null) {
                             // the new state is always valid, so we can "repair" user's setting
@@ -188,29 +191,47 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             ),
           ],
         ),
-        const SizedBox(height: 20),
-        Assets.img.logo512.image(
-          width: 200,
-          height: 200,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+            ),
+            onPressed: () {
+              context.push(() => const AboutPage());
+            },
+            icon: const Icon(Icons.info),
+            label: Text(t.aboutPage.title),
+          ),
         ),
-        const Text(
-          'LocalSend',
-          style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+            ),
+            onPressed: () {
+              context.push(() => const ChangelogPage());
+            },
+            icon: const Icon(Icons.history),
+            label: Text(t.changelogPage.title),
+          ),
         ),
+        const SizedBox(height: 40),
+        const LocalSendLogo(),
         const SizedBox(height: 5),
         ref.watch(versionProvider).maybeWhen(
-          data: (version) => Text(
-            'Version: $version',
-            textAlign: TextAlign.center,
-          ),
-          orElse: () => Container(),
-        ),
+              data: (version) => Text(
+                'Version: $version',
+                textAlign: TextAlign.center,
+              ),
+              orElse: () => Container(),
+            ),
         Text(
           '© ${DateTime.now().year} Tien Do Nam',
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 80),
       ],
     );
   }
@@ -229,7 +250,7 @@ class _SettingsEntry extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(label, style: const TextStyle(fontSize: 16)),
+            child: Text(label),
           ),
           SizedBox(
             width: 150,
@@ -256,7 +277,7 @@ class _SettingsSection extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
