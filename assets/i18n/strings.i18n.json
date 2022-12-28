@@ -2,12 +2,14 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
+    "add": "Add",
     "advanced": "Advanced",
     "cancel": "Cancel",
     "close": "Close",
     "continueStr": "Continue",
     "decline": "Decline",
     "done": "Done",
+    "edit": "Edit",
     "error": "Error",
     "finished": "Finished",
     "hide": "Hide",
@@ -31,8 +33,11 @@
   },
   "sendTab": {
     "title": "Send",
-    "selection": "Selection",
-    "selectionWithCount": "Selection ({count})",
+    "selection": {
+      "title": "Selection",
+      "files": "Files: {files}",
+      "size": "Size: {size}"
+    },
     "picker": {
       "file": "File",
       "image": "Image",

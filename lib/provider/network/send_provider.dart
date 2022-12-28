@@ -16,7 +16,6 @@ import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 
@@ -53,7 +52,7 @@ class SendNotifier extends StateNotifier<SendState?> {
               id: id,
               fileName: file.name,
               size: file.size,
-              fileType: file.name.guessFileType(),
+              fileType: file.fileType,
             ),
             status: FileStatus.queue,
             token: null,
