@@ -2,6 +2,9 @@
 *.gen.dart
 *.freezed.dart
 
+/private_key.pepk
+/upload-keystore.jks
+
 # Miscellaneous
 *.class
 *.log
