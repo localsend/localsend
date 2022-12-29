@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 /// Saves the data [stream] to the [destinationPath].
 /// [onProgress] will be called on every 100 KB.
@@ -10,6 +11,12 @@ Future<void> saveFile({
   required Stream<List<int>> stream,
   required void Function(int savedBytes) onProgress,
 }) async {
+  try {
+    await Permission.storage.request();
+  } catch (e) {
+    print(e);
+  }
+
   final sink = File(destinationPath).openWrite();
   try {
     int lastNotifyBytes = 0;

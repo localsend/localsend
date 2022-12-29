@@ -25,6 +25,7 @@ dependencies:
   network_info_plus: 3.0.1
   package_info_plus: 3.0.2
   path_provider: 2.0.11
+  permission_handler: 10.2.0
   routerino: 0.2.0
   shared_preferences: 2.0.15
   shelf: 1.4.0
