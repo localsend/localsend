@@ -42,6 +42,7 @@ dev_dependencies:
   flutter_lints: 2.0.1
   freezed: 2.3.2
   json_serializable: 6.5.4
+  msix: 3.7.0
   slang_build_runner: 3.7.0
 
 flutter:
@@ -50,3 +51,11 @@ flutter:
   assets:
     - assets/img/
     - CHANGELOG.md
+
+msix_config:
+  display_name: LocalSend
+  publisher_display_name: Tien Do Nam
+  publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
+  identity_name: 11157TienDoNam.LocalSend
+  logo_path: assets\img\logo-512.png
+  languages: en-us, de-de
