@@ -53,16 +53,12 @@
        <string>en</string>
     </array>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires access to the photo library.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>This app requires access to the camera.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>This app requires access to the microphone.</string>
+    <string>The app needs photo library access so that the user can select photos to share.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>This app requires photo library permission to save received media.</string>
+    <string>The app saves received media to the photo library.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>This app requires the local IP to communicate.</string>
+    <string>The app requires the local IP to communicate.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app requires the local IP to communicate.</string>
+    <string>The app requires the local IP to communicate.</string>
 </dict>
 </plist>
