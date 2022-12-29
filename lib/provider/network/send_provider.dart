@@ -36,7 +36,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     required List<CrossFile> files,
   }) async {
     final requestDio = _ref.read(dioProvider(30 * 1000));
-    final uploadDio = _ref.read(dioProvider(2000));
+    final uploadDio = _ref.read(dioProvider(30 * 24 * 60 * 60 * 1000)); // assuming someone sends a large file over several days
     final cancelToken = CancelToken();
 
     final requestState = SendState(
