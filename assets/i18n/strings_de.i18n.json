@@ -40,8 +40,7 @@
     },
     "picker": {
       "file": "Datei",
-      "image": "Bild",
-      "video": "Video",
+      "media": "Medien",
       "text": "Text"
     },
     "nearbyDevices": "Geräte in der Nähe",

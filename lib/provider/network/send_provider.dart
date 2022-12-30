@@ -42,7 +42,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     final requestState = SendState(
       status: SessionStatus.waiting,
       target: target,
-      files: Map.fromEntries(files.map((file) {
+      files: Map.fromEntries(await Future.wait(files.map((file) async {
         final id = _uuid.v4();
         return MapEntry(
           id,
@@ -56,10 +56,10 @@ class SendNotifier extends StateNotifier<SendState?> {
             status: FileStatus.queue,
             token: null,
             path: file.path,
-            bytes: file.bytes,
+            bytes: file.bytes != null ? await file.bytes!() : null,
           ),
         );
-      })),
+      }))),
       startTime: null,
       endTime: null,
       cancelToken: cancelToken,

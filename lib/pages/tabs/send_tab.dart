@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -9,6 +10,7 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
@@ -52,11 +54,9 @@ class _SendTabState extends ConsumerState<SendTab> {
     final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
-      AddOption.file,
-      if (defaultTargetPlatform == TargetPlatform.iOS) ...[
-        AddOption.image,
-        AddOption.video,
-      ],
+      FilePickerOption.file,
+      if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS].contains(defaultTargetPlatform))
+        FilePickerOption.media,
     ];
 
     return ListView(
@@ -84,7 +84,10 @@ class _SendTabState extends ConsumerState<SendTab> {
                           : BigButton(
                               icon: option.icon,
                               label: option.label,
-                              onTap: () => option.select(ref),
+                              onTap: () => option.select(
+                                context: context,
+                                ref: ref,
+                              ),
                             ),
                     ),
                     const SizedBox(width: 15),
@@ -126,10 +129,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                         ...selectedFiles.map((file) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: Opacity(
-                              opacity: 1,
-                              child: Icon(file.fileType.icon, size: 32),
-                            ),
+                            child: file.asset != null ? file.asset!.thumbnailWidget : Icon(file.fileType.icon, size: 32),
                           );
                         }),
                       ],
@@ -158,7 +158,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                       ),
                       onPressed: () {
                         if (addOptions.length == 1) {
-                          addOptions.first.select(ref); // open directly
+                          addOptions.first.select(context: context, ref: ref); // open directly
                           return;
                         }
                         context.pushBottomSheet(() => AddFileDialog(

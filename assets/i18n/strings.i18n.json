@@ -40,8 +40,7 @@
     },
     "picker": {
       "file": "File",
-      "image": "Image",
-      "video": "Video",
+      "media": "Media",
       "text": "Text"
     },
     "nearbyDevices": "Nearby devices",

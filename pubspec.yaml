@@ -16,6 +16,8 @@ dependencies:
   file_picker: 5.2.4
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_markdown: 0.6.13
   flutter_riverpod: 2.1.1
   freezed_annotation: 2.2.0
@@ -34,6 +36,7 @@ dependencies:
   slang_flutter: 3.7.0
   url_launcher: 6.1.7
   uuid: 3.0.7
+  wechat_assets_picker: 8.3.0
   window_manager: 0.2.8
 
 dev_dependencies:

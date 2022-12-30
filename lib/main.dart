@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -9,6 +10,7 @@ import 'package:localsend_app/service/persistence_service.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:routerino/routerino.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -17,6 +19,14 @@ Future<void> main() async {
   if (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setMinimumSize(const Size(400, 500));
+  }
+
+  if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS].contains(defaultTargetPlatform)) {
+    try {
+      PhotoManager.clearFileCache();
+    } catch (e) {
+      print(e);
+    }
   }
 
   final persistenceService = await PersistenceService.initialize();
@@ -49,6 +59,9 @@ class LocalSendApp extends ConsumerWidget {
     final themeMode = ref.watch(settingsProvider.select((settings) => settings.theme));
     return MaterialApp(
       title: t.appName,
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: LocaleSettings.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
       theme: getTheme(Brightness.light),
       darkTheme: getTheme(Brightness.dark),

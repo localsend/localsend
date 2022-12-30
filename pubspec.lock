@@ -176,6 +176,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.2"
   csv:
     dependency: transitive
     description:
@@ -225,6 +232,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  extended_image:
+    dependency: transitive
+    description:
+      name: extended_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.3.4"
+  extended_image_library:
+    dependency: transitive
+    description:
+      name: extended_image_library
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.1"
   ffi:
     dependency: transitive
     description:
@@ -279,6 +300,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_markdown:
     dependency: "direct main"
     description:
@@ -347,6 +373,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.1"
   http:
     dependency: transitive
     description:
@@ -354,6 +387,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.5"
+  http_client_helper:
+    dependency: transitive
+    description:
+      name: http_client_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   http_methods:
     dependency: transitive
     description:
@@ -424,6 +464,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.2"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   io:
     dependency: transitive
     description:
@@ -515,6 +562,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.7.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   network_info_plus:
     dependency: "direct main"
     description:
@@ -655,6 +709,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0"
+  photo_manager:
+    dependency: transitive
+    description:
+      name: photo_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.5.2"
   platform:
     dependency: transitive
     description:
@@ -690,6 +751,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.5"
   pub_semver:
     dependency: transitive
     description:
@@ -982,6 +1050,41 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  video_player:
+    dependency: transitive
+    description:
+      name: video_player
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.10"
+  video_player_android:
+    dependency: transitive
+    description:
+      name: video_player_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.10"
+  video_player_avfoundation:
+    dependency: transitive
+    description:
+      name: video_player_avfoundation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.8"
+  video_player_platform_interface:
+    dependency: transitive
+    description:
+      name: video_player_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.1"
+  video_player_web:
+    dependency: transitive
+    description:
+      name: video_player_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.13"
   watcher:
     dependency: transitive
     description:
@@ -996,6 +1099,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  wechat_assets_picker:
+    dependency: "direct main"
+    description:
+      name: wechat_assets_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.3.0"
   win32:
     dependency: transitive
     description:
@@ -1033,4 +1143,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.18.5 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"

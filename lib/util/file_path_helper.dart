@@ -45,6 +45,7 @@ extension FilePathStringExt on String {
     switch (extension) {
       case 'jpg':
       case 'jpeg':
+      case 'heic':
       case 'png':
       case 'gif':
       case 'svg':

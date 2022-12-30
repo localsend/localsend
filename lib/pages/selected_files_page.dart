@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:routerino/routerino.dart';
@@ -51,6 +52,8 @@ class SelectedFilesPage extends ConsumerWidget {
                     padding: const EdgeInsets.all(10),
                     child: Row(
                       children: [
+                        file.asset != null ? file.asset!.thumbnailWidget : Icon(file.fileType.icon, size: 32),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
