@@ -7,7 +7,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 part 'cross_file.freezed.dart';
 
-/// Common file model to merge file_picker and image_picker results.
+/// Common file model to avoid any third party libraries in the core logic.
 @freezed
 class CrossFile with _$CrossFile {
   const factory CrossFile({

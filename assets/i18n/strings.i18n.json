@@ -45,7 +45,8 @@
     },
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device",
-    "help": "Please ensure that the desired target is also in the same wifi network."
+    "help": "Please ensure that the desired target is also in the same wifi network.",
+    "placeItems": "Place items to share."
   },
   "settingsTab": {
     "title": "Settings",

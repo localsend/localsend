@@ -35,7 +35,7 @@ class SelectedFilesPage extends ConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  ref.read(selectedFilesProvider.notifier).state = [];
+                  ref.read(selectedFilesProvider.notifier).reset();
                   context.popUntilRoot();
                 },
                 child: Text(t.selectedFilesPage.deleteAll),
@@ -65,9 +65,7 @@ class SelectedFilesPage extends ConsumerWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            final newList = [...selectedFiles];
-                            newList.removeAt(index);
-                            ref.read(selectedFilesProvider.notifier).state = newList;
+                            ref.read(selectedFilesProvider.notifier).removeAt(index);
                           },
                           icon: const Icon(Icons.delete),
                         ),
