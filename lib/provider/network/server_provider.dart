@@ -84,20 +84,16 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
     final securityContextResult = generateSecurityContext();
 
-    try {
-      newServerState = ServerState(
-        httpServer: await serve(router, '0.0.0.0', port, securityContext: SecurityContext()
-          ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
-          ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)
-        ),
-        alias: alias,
-        port: port,
-        receiveState: null,
-      );
-      print('Server started. (Port: ${newServerState.port})');
-    } catch (e) {
-      print(e);
-    }
+    newServerState = ServerState(
+      httpServer: await serve(router, '0.0.0.0', port, securityContext: SecurityContext()
+        ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
+        ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)
+      ),
+      alias: alias,
+      port: port,
+      receiveState: null,
+    );
+    print('Server started. (Port: ${newServerState.port})');
 
     state = newServerState;
     return newServerState;

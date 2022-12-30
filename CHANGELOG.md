@@ -2,6 +2,7 @@
 
 - feat(android): add media picker
 - feat(iOS): merge image and video to common media picker
+- fix(android): missing internet permission
 
 ## 1.0.0 (2022-12-29)
 

@@ -4,9 +4,10 @@ extension SnackbarExt on BuildContext {
   void showSnackBar(String text) {
     final scaffold = ScaffoldMessenger.of(this);
     scaffold.removeCurrentSnackBar();
-    scaffold.showSnackBar(SnackBar(
-      content: Text(text),
-      backgroundColor: Colors.lightGreen.shade900),
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/snackbar.dart';
 
 enum _Tab {
   receive(Icons.wifi),
@@ -53,10 +54,14 @@ class _HomePageState extends ConsumerState<HomePage> {
     updateSystemOverlayStyle(context);
 
     final settings = ref.read(settingsProvider);
-    await ref.read(serverProvider.notifier).startServer(
-      alias: settings.alias,
-      port: settings.port,
-    );
+    try {
+      await ref.read(serverProvider.notifier).startServer(
+        alias: settings.alias,
+        port: settings.port,
+      );
+    } catch (e) {
+      context.showSnackBar(e.toString());
+    }
   }
 
   @override

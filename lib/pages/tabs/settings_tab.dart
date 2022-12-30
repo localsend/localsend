@@ -8,6 +8,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:routerino/routerino.dart';
@@ -126,10 +127,14 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     if (serverState == null)
                       IconButton(
                         onPressed: () async {
-                          await ref.read(serverProvider.notifier).startServer(
-                                alias: settings.alias,
-                                port: settings.port,
-                              );
+                          try {
+                            await ref.read(serverProvider.notifier).startServer(
+                              alias: settings.alias,
+                              port: settings.port,
+                            );
+                          } catch (e) {
+                            context.showSnackBar(e.toString());
+                          }
                         },
                         tooltip: t.general.start,
                         icon: const Icon(Icons.play_arrow),
@@ -137,17 +142,21 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     else
                       IconButton(
                         onPressed: () async {
-                          final newServerState = await ref.read(serverProvider.notifier).restartServer(
-                                alias: settings.alias,
-                                port: settings.port,
-                              );
+                          try {
+                            final newServerState = await ref.read(serverProvider.notifier).restartServer(
+                              alias: settings.alias,
+                              port: settings.port,
+                            );
 
-                          if (newServerState != null) {
-                            // the new state is always valid, so we can "repair" user's setting
-                            _aliasController.text = newServerState.alias;
-                            _portController.text = newServerState.port.toString();
-                            await ref.read(settingsProvider.notifier).setAlias(newServerState.alias);
-                            await ref.read(settingsProvider.notifier).setPort(newServerState.port);
+                            if (newServerState != null) {
+                              // the new state is always valid, so we can "repair" user's setting
+                              _aliasController.text = newServerState.alias;
+                              _portController.text = newServerState.port.toString();
+                              await ref.read(settingsProvider.notifier).setAlias(newServerState.alias);
+                              await ref.read(settingsProvider.notifier).setPort(newServerState.port);
+                            }
+                          } catch (e) {
+                            context.showSnackBar(e.toString());
                           }
                         },
                         tooltip: t.general.restart,
