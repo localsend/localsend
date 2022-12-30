@@ -7,9 +7,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 final _body = '''
           LocalSend is an open source app to share files and messages between nearby devices using the local wifi network.
-          There is no external server needed as the device itself is the server (peer-to-peer).
+          The communication between devices is entirely end-to-end encrypted via HTTPS.
+          No Internet required. No tracking*. No ads.
           
-          Currently, this app is available on Android and iOS. More platforms will follow soon.
+          Currently, this app is available on Android, iOS and Windows. More platforms will follow soon. You can find all download options on the official homepage.
+
+          *The operating system may still gather usage data.
           '''.splitMapJoin(
   RegExp(r'^', multiLine: true),
   onMatch: (_) => '\n',
@@ -30,27 +33,40 @@ class AboutPage extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           const LocalSendLogo(),
-          const SizedBox(height: 5),
           Text(
             '© ${DateTime.now().year} Tien Do Nam',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                launchUrl(Uri.parse('https://localsend.org'));
+              },
+              child: const Text('localsend.org'),
+            ),
+          ),
           Text(_body),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton(
                 onPressed: () {
-                  launchUrl(Uri.parse('https://opensource.org/licenses/MIT'));
+                  launchUrl(Uri.parse('https://localsend.org'));
                 },
-                child: const Text('MIT License'),
+                child: const Text('Homepage'),
               ),
               TextButton(
                 onPressed: () {
                   launchUrl(Uri.parse('https://github.com/localsend/localsend'), mode: LaunchMode.externalApplication);
                 },
                 child: const Text('Source Code (Github)'),
+              ),
+              TextButton(
+                onPressed: () {
+                  launchUrl(Uri.parse('https://opensource.org/licenses/MIT'));
+                },
+                child: const Text('MIT License'),
               ),
               TextButton(
                 onPressed: () {
