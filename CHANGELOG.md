@@ -1,4 +1,4 @@
-## 1.2.0
+## 1.2.0 (2022-12-31)
 
 - feat: drag and drop files
 - feat: share plain messages

@@ -3,7 +3,7 @@ description: An open source cross-platform alternative to AirDrop
 
 publish_to: 'none'
 
-version: 1.1.0+8
+version: 1.2.0+9
 
 environment:
   sdk: '>=2.18.5 <3.0.0'
