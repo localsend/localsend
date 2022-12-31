@@ -117,6 +117,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
       final payload = await request.readAsString();
       final dto = SendRequestDto.fromJson(jsonDecode(payload));
+      if (dto.files.isEmpty) {
+        // block empty requests (at least one file is required)
+        return Response.badRequest();
+      }
+
       final streamController = StreamController<bool>();
       state = state!.copyWith(
         receiveState: ReceiveState(
@@ -143,6 +148,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       // Delayed response (waiting for user's decision)
       final result = await streamController.stream.first;
       if (result) {
+        if (state!.receiveState!.files.values.every((file) => file.token == null)) {
+          // nothing selected, send this to sender and close session
+          closeSession();
+          return Response.ok(
+            jsonEncode({}),
+            headers: {'Content-Type': 'application/json'},
+          );
+        }
         state = state?.copyWith(
           receiveState: state?.receiveState?.copyWith(
             status: SessionStatus.sending,

@@ -65,7 +65,11 @@ class SelectedFilesPage extends ConsumerWidget {
                         ),
                         IconButton(
                           onPressed: () {
+                            final currCount = ref.read(selectedFilesProvider).length;
                             ref.read(selectedFilesProvider.notifier).removeAt(index);
+                            if (currCount == 1) {
+                              context.popUntilRoot();
+                            }
                           },
                           icon: const Icon(Icons.delete),
                         ),

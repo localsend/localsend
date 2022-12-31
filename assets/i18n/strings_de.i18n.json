@@ -6,7 +6,9 @@
     "advanced": "Erweitert",
     "cancel": "Abbrechen",
     "close": "Schließen",
+    "confirm": "Bestätigen",
     "continueStr": "Weiter",
+    "copy": "Kopieren",
     "decline": "Ablehnen",
     "done": "Fertig",
     "edit": "Bearbeiten",
@@ -20,6 +22,7 @@
     "skipped": "Übersprungen",
     "start": "Start",
     "stop": "Stop",
+    "save": "Speichern",
     "unknown": "Unbekannt"
   },
   "receiveTab": {
@@ -79,6 +82,7 @@
       "one": "möchte dir eine Datei senden.",
       "other": "möchte dir {n} Dateien senden."
     },
+    "subTitleMessage": "sendet dir eine Nachricht:",
     "canceled": "Der Absender hat die Anfrage abgebrochen."
   },
   "sendPage": {
@@ -114,6 +118,9 @@
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
       "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
+    },
+    "messageInput": {
+      "title": "Nachricht eingeben"
     }
   }
 }

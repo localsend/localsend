@@ -6,7 +6,9 @@
     "advanced": "Advanced",
     "cancel": "Cancel",
     "close": "Close",
+    "confirm": "Confirm",
     "continueStr": "Continue",
+    "copy": "Copy",
     "decline": "Decline",
     "done": "Done",
     "edit": "Edit",
@@ -20,6 +22,7 @@
     "skipped": "Skipped",
     "start": "Start",
     "stop": "Stop",
+    "save": "Save",
     "unknown": "Unknown"
   },
   "receiveTab": {
@@ -79,6 +82,7 @@
       "one": "wants to send you a file.",
       "other": "wants to send you {n} files."
     },
+    "subTitleMessage": "sent you a message:",
     "canceled": "The sender has canceled the request."
   },
   "sendPage": {
@@ -114,6 +118,9 @@
     "cancelSession": {
       "title": "Cancel file transfer",
       "content": "Do you really want to cancel the file transfer?"
+    },
+    "messageInput": {
+      "title": "Type message"
     }
   }
 }

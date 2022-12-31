@@ -2,31 +2,28 @@ import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
-import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/theme.dart';
-import 'package:localsend_app/util/snackbar.dart';
 
-enum _Tab {
+enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
   settings(Icons.settings);
 
-  const _Tab(this.icon);
+  const HomeTab(this.icon);
 
   final IconData icon;
 
   String get label {
     switch (this) {
-      case _Tab.receive:
+      case HomeTab.receive:
         return t.receiveTab.title;
-      case _Tab.send:
+      case HomeTab.send:
         return t.sendTab.title;
-      case _Tab.settings:
+      case HomeTab.settings:
         return t.settingsTab.title;
     }
   }
@@ -41,7 +38,7 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final _pageController = PageController();
-  _Tab _currentTab = _Tab.receive;
+  HomeTab _currentTab = HomeTab.receive;
 
   bool _dragAndDropIndicator = false;
 
@@ -50,27 +47,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _init();
+      postInit(context, ref, _goToPage);
     });
-  }
-
-  Future<void> _init() async {
-    updateSystemOverlayStyle(context);
-
-    final settings = ref.read(settingsProvider);
-    try {
-      await ref.read(serverProvider.notifier).startServer(
-        alias: settings.alias,
-        port: settings.port,
-      );
-    } catch (e) {
-      context.showSnackBar(e.toString());
-    }
   }
 
   void _goToPage(int index) {
     setState(() {
-      _currentTab = _Tab.values[index];
+      _currentTab = HomeTab.values[index];
       _pageController.jumpToPage(_currentTab.index);
     });
   }
@@ -94,7 +77,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           files: event.files,
           converter: CrossFileConverters.convertXFile,
         );
-        _goToPage(_Tab.send.index);
+        _goToPage(HomeTab.send.index);
       },
       child: Scaffold(
         body: SafeArea(
@@ -130,7 +113,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentTab.index,
           onDestinationSelected: _goToPage,
-          destinations: _Tab.values.map((tab) {
+          destinations: HomeTab.values.map((tab) {
             return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
           }).toList(),
         ),

@@ -30,6 +30,7 @@ dependencies:
   path_provider: 2.0.11
   permission_handler: 10.2.0
   routerino: 0.2.0
+  share_handler: 0.0.16
   shared_preferences: 2.0.15
   shelf: 1.4.0
   shelf_router: 1.1.3

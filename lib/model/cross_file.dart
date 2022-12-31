@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/file_type.dart';
@@ -16,7 +14,7 @@ class CrossFile with _$CrossFile {
     required int size,
     required AssetEntity? asset, // for thumbnails
     required String? path,
-    required Future<Uint8List> Function()? bytes,
+    required Future<List<int>> Function()? bytes, // always UTF-8 encoded for messages
   }) = _CrossFile;
 }
 

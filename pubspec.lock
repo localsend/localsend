@@ -800,6 +800,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
+  share_handler:
+    dependency: "direct main"
+    description:
+      name: share_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.16"
+  share_handler_android:
+    dependency: transitive
+    description:
+      name: share_handler_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
+  share_handler_ios:
+    dependency: transitive
+    description:
+      name: share_handler_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.9"
+  share_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: share_handler_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   shared_preferences:
     dependency: "direct main"
     description:

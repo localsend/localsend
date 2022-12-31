@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 enum FilePickerOption {
   file(Icons.description),
-  media(Icons.image);
+  media(Icons.image),
+  text(Icons.subject);
 
   const FilePickerOption(this.icon);
 
@@ -19,6 +21,8 @@ enum FilePickerOption {
         return t.sendTab.picker.file;
       case FilePickerOption.media:
         return t.sendTab.picker.media;
+      case FilePickerOption.text:
+        return t.sendTab.picker.text;
     }
   }
 
@@ -49,7 +53,13 @@ enum FilePickerOption {
             converter: CrossFileConverters.convertAssetEntity,
           );
         }
-        return;
+        break;
+      case FilePickerOption.text:
+        final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
+        if (result != null) {
+          ref.read(selectedFilesProvider.notifier).addMessage(result);
+        }
+        break;
     }
   }
 }

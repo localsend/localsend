@@ -11,6 +11,7 @@ class FileDto with _$FileDto {
     required String fileName,
     required int size,
     required FileType fileType,
+    required String? preview,
   }) = _FileDto;
 
   factory FileDto.fromJson(Map<String, Object?> json) => _$FileDtoFromJson(json);

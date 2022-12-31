@@ -13,6 +13,10 @@ extension FilePathStringExt on String {
     }
   }
 
+  String get fileName {
+    return replaceAll('\\', '/').split('/').last;
+  }
+
   String withExtension(String ext) {
     if (ext == '') {
       return this;

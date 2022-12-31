@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -8,9 +9,11 @@ import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
+import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/send/send_state.dart';
 import 'package:localsend_app/model/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -35,7 +38,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     required Device target,
     required List<CrossFile> files,
   }) async {
-    final requestDio = _ref.read(dioProvider(30 * 1000));
+    final requestDio = _ref.read(dioProvider(5 * 60 * 1000));
     final uploadDio = _ref.read(dioProvider(30 * 24 * 60 * 60 * 1000)); // assuming someone sends a large file over several days
     final cancelToken = CancelToken();
 
@@ -52,6 +55,9 @@ class SendNotifier extends StateNotifier<SendState?> {
               fileName: file.name,
               size: file.size,
               fileType: file.fileType,
+              preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
+                  ? utf8.decode(await files.first.bytes!()) // send simple message by embedding it into the preview
+                  : null,
             ),
             status: FileStatus.queue,
             token: null,
@@ -91,6 +97,15 @@ class SendNotifier extends StateNotifier<SendState?> {
       );
 
       final responseMap = response.data as Map;
+      if (responseMap.isEmpty) {
+        // receiver has nothing selected
+
+        // ignore: use_build_context_synchronously
+        Routerino.context.pushRootImmediately(() => const HomePage());
+        state = null;
+        return;
+      }
+
       final sendingFiles = {
         for (final file in requestState.files.values)
           file.file.id:
@@ -151,7 +166,7 @@ class SendNotifier extends StateNotifier<SendState?> {
               'Content-Length': file.file.size,
             },
           ),
-          data: file.path != null ? File(file.path!).openRead() : file.bytes!,
+          data: file.path != null ? File(file.path!).openRead() : Stream.fromIterable([file.bytes!]),
           onSendProgress: (curr, total) {
             _ref.read(progressProvider.notifier).setProgress(file.file.id, curr / total);
           },

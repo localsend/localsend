@@ -1,6 +1,8 @@
 ## 1.2.0
 
 - feat: drag and drop files
+- feat: share plain messages
+- feat(android): receive share intent
 
 ## 1.1.0 (2022-12-30)
 

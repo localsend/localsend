@@ -57,6 +57,7 @@ class _SendTabState extends ConsumerState<SendTab> {
       FilePickerOption.file,
       if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS].contains(defaultTargetPlatform))
         FilePickerOption.media,
+      FilePickerOption.text,
     ];
 
     return ListView(

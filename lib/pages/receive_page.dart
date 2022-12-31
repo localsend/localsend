@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -12,7 +14,11 @@ import 'package:routerino/routerino.dart';
 class ReceivePage extends ConsumerWidget {
   const ReceivePage({Key? key}) : super(key: key);
 
-  void _accept(WidgetRef ref, ReceiveState receiveState) {
+  void _acceptNothing(WidgetRef ref, ReceiveState receiveState) {
+    ref.read(serverProvider.notifier).acceptFileRequest({});
+  }
+
+  void _acceptAll(WidgetRef ref, ReceiveState receiveState) {
     ref.read(serverProvider.notifier).acceptFileRequest(receiveState.files.values.map((f) => f.file.id).toSet());
   }
 
@@ -29,6 +35,11 @@ class ReceivePage extends ConsumerWidget {
         body: Container(),
       );
     }
+
+    final firstFile = receiveState.files.values.first.file;
+    // show message if there is only one text file
+    final message = receiveState.files.length == 1 && firstFile.fileType == FileType.text && firstFile.preview != null ? firstFile.preview : null;
+
     return WillPopScope(
       onWillPop: () async {
         _decline(ref);
@@ -71,10 +82,41 @@ class ReceivePage extends ConsumerWidget {
                       ),
                       const SizedBox(height: 40),
                       Text(
-                        t.receivePage.subTitle(n: receiveState.files.length),
+                        message != null ? t.receivePage.subTitleMessage : t.receivePage.subTitle(n: receiveState.files.length),
                         style: Theme.of(context).textTheme.headline6,
                         textAlign: TextAlign.center,
                       ),
+                      if (message != null)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: SizedBox(
+                                height: 100,
+                                child: Card(
+                                  child: SingleChildScrollView(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: SelectableText(
+                                        message,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(text: message));
+                                },
+                                child: Text(t.general.copy),
+                              ),
+                            )
+                          ],
+                        ),
                     ],
                   ),
                 ),
@@ -95,40 +137,73 @@ class ReceivePage extends ConsumerWidget {
                       ),
                     ),
                   ]
-                else
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
-                        foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
+                else if (message != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton.icon(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        onPressed: () {
+                          _acceptNothing(ref, receiveState);
+                          context.pop();
+                        },
+                        icon: const Icon(Icons.close),
+                        label: Text(t.general.close),
                       ),
-                      onPressed: () {
-                        _decline(ref);
-                        context.pop();
-                      },
-                      icon: const Icon(Icons.close),
-                      label: Text(t.general.decline),
-                    ),
-                    const SizedBox(width: 20),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
+                      const SizedBox(width: 20),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                           foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                        ),
+                        onPressed: () {
+                          _acceptAll(ref, receiveState);
+                          context.pushAndRemoveUntilImmediately(
+                            removeUntil: ReceivePage,
+                            builder: () => const ProgressPage(),
+                          );
+                        },
+                        icon: const Icon(Icons.save),
+                        label: Text(t.general.save),
                       ),
-                      onPressed: () {
-                        _accept(ref, receiveState);
-                        context.pushAndRemoveUntilImmediately(
-                          removeUntil: ReceivePage,
-                          builder: () => const ProgressPage(),
-                        );
-                      },
-                      icon: const Icon(Icons.check_circle),
-                      label: Text(t.general.accept),
-                    ),
-                  ],
-                ),
+                    ],
+                  )
+                else
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
+                          foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
+                        ),
+                        onPressed: () {
+                          _decline(ref);
+                          context.pop();
+                        },
+                        icon: const Icon(Icons.close),
+                        label: Text(t.general.decline),
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+                          foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                        ),
+                        onPressed: () {
+                          _acceptAll(ref, receiveState);
+                          context.pushAndRemoveUntilImmediately(
+                            removeUntil: ReceivePage,
+                            builder: () => const ProgressPage(),
+                          );
+                        },
+                        icon: const Icon(Icons.check_circle),
+                        label: Text(t.general.accept),
+                      ),
+                    ],
+                  ),
               ],
             ),
           ),
