@@ -16,6 +16,7 @@
     "example": "Example",
     "finished": "Finished",
     "hide": "Hide",
+    "no": "No",
     "offline": "Offline",
     "online": "Online",
     "queue": "Queue",
@@ -24,7 +25,8 @@
     "start": "Start",
     "stop": "Stop",
     "save": "Save",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "yes": "Yes"
   },
   "receiveTab": {
     "title": "Receive",
@@ -67,6 +69,11 @@
       "languageOptions": {
         "system": "System"
       }
+    },
+    "receive": {
+      "title": "Receive",
+      "destination": "Destination",
+      "saveToGallery": "Save media to gallery"
     },
     "network": {
       "title": "Network",

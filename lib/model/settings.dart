@@ -11,5 +11,7 @@ class Settings with _$Settings {
     required ThemeMode theme,
     required AppLocale? locale,
     required int port,
+    required String? destination, // null = default
+    required bool saveToGallery, // only Android, iOS
   }) = _Settings;
 }

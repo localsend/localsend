@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:routerino/routerino.dart';
@@ -205,6 +206,8 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                     Text(t.progressPage.total.speed(
                                       speed: speedInBytes.asReadableFileSize,
                                     )),
+                                  if (checkPlatformWithFileSystem() && receiveState != null)
+                                    Text('${t.settingsTab.receive.destination}: ${receiveState.destinationDirectory}'),
                                 ],
                               ),
                             ),

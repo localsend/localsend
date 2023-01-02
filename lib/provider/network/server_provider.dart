@@ -16,11 +16,13 @@ import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:routerino/routerino.dart';
@@ -59,25 +61,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     }
 
     final router = Router();
-
-    final String destinationDir;
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        destinationDir = '/storage/emulated/0/Download';
-        break;
-      case TargetPlatform.iOS:
-        destinationDir = (await path.getApplicationDocumentsDirectory()).path;
-        break;
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-      case TargetPlatform.fuchsia:
-        destinationDir = (await path.getDownloadsDirectory())!.path;
-        break;
-    }
-
-    print('Destination Directory: $destinationDir');
-    _configureRoutes(router, alias, port, destinationDir);
+    _configureRoutes(router, alias, port);
 
     print('Starting server...');
     ServerState? newServerState;
@@ -99,7 +83,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     return newServerState;
   }
 
-  void _configureRoutes(Router router, String alias, int port, String destinationDir) {
+  void _configureRoutes(Router router, String alias, int port) {
     router.get(ApiRoute.info.path, (Request request) {
       final dto = InfoDto(
         alias: alias,
@@ -122,6 +106,26 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return Response.badRequest();
       }
 
+      String? destinationDir = _ref.read(settingsProvider).destination;
+      if (destinationDir == null) {
+        switch (defaultTargetPlatform) {
+          case TargetPlatform.android:
+            destinationDir = '/storage/emulated/0/Download';
+            break;
+          case TargetPlatform.iOS:
+            destinationDir = (await path.getApplicationDocumentsDirectory()).path;
+            break;
+          case TargetPlatform.linux:
+          case TargetPlatform.macOS:
+          case TargetPlatform.windows:
+          case TargetPlatform.fuchsia:
+            destinationDir = (await path.getDownloadsDirectory())!.path;
+            break;
+        }
+      }
+
+      print('Destination Directory: $destinationDir');
+
       final streamController = StreamController<bool>();
       state = state!.copyWith(
         receiveState: ReceiveState(
@@ -138,6 +142,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           },
           startTime: null,
           endTime: null,
+          destinationDirectory: destinationDir,
           responseHandler: streamController,
         ),
       );
@@ -203,7 +208,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       );
 
       final destinationPath = await _digestFilePath(
-        dir: destinationDir,
+        dir: receiveState.destinationDirectory,
         fileName: receivingFile.file.fileName,
       );
 
@@ -212,7 +217,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       try {
         await saveFile(
           destinationPath: destinationPath,
-          saveToGallery: (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) &&
+          saveToGallery: checkPlatformWithGallery() && _ref.read(settingsProvider).saveToGallery &&
               (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video),
           stream: request.read(),
           onProgress: (savedBytes) {

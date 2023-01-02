@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -13,6 +12,7 @@ import 'package:localsend_app/provider/selected_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
@@ -57,7 +57,7 @@ class _SendTabState extends ConsumerState<SendTab> {
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
       FilePickerOption.file,
-      if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS].contains(defaultTargetPlatform))
+      if (checkPlatformWithGallery())
         FilePickerOption.media,
       FilePickerOption.text,
     ];

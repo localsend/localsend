@@ -16,6 +16,7 @@
     "example": "Beispiel",
     "finished": "Abgeschlossen",
     "hide": "Verstecken",
+    "no": "Nein",
     "offline": "Offline",
     "online": "Online",
     "queue": "Warteschlange",
@@ -24,7 +25,8 @@
     "start": "Start",
     "stop": "Stop",
     "save": "Speichern",
-    "unknown": "Unbekannt"
+    "unknown": "Unbekannt",
+    "yes": "Ja"
   },
   "receiveTab": {
     "title": "Empfangen",
@@ -67,6 +69,11 @@
       "languageOptions": {
         "system": "System"
       }
+    },
+    "receive": {
+      "title": "Empfangen",
+      "destination": "Ziel-Ordner",
+      "saveToGallery": "Medien in die Gallerie speichern"
     },
     "network": {
       "title": "Netzwerk",

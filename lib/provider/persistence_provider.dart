@@ -13,6 +13,8 @@ const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
+const _destinationKey = 'ls_destination';
+const _saveToGallery = 'ls_save_to_gallery';
 
 const defaultPort = 53317;
 
@@ -78,5 +80,25 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  String? getDestination() {
+    return _prefs.getString(_destinationKey);
+  }
+
+  Future<void> setDestination(String? destination) async {
+    if (destination == null) {
+      await _prefs.remove(_destinationKey);
+    } else {
+      await _prefs.setString(_destinationKey, destination);
+    }
+  }
+
+  bool isSaveToGallery() {
+    return _prefs.getBool(_saveToGallery) ?? true;
+  }
+
+  Future<void> setSaveToGallery(bool saveToGallery) async {
+    await _prefs.setBool(_saveToGallery, saveToGallery);
   }
 }

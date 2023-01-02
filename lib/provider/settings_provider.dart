@@ -20,6 +20,8 @@ class SettingsNotifier extends StateNotifier<Settings> {
       theme: service.getTheme(),
       locale: service.getLocale(),
       port: service.getPort(),
+      destination: service.getDestination(),
+      saveToGallery: service.isSaveToGallery(),
     );
   }
 
@@ -48,6 +50,20 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setPort(port);
     state = state.copyWith(
       port: port,
+    );
+  }
+
+  Future<void> setDestination(String? destination) async {
+    await _service.setDestination(destination);
+    state = state.copyWith(
+      destination: destination,
+    );
+  }
+
+  Future<void> setSaveToGallery(bool saveToGallery) async {
+    await _service.setSaveToGallery(saveToGallery);
+    state = state.copyWith(
+      saveToGallery: saveToGallery,
     );
   }
 }

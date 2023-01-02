@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -19,12 +20,12 @@ import 'package:window_manager/window_manager.dart';
 Future<PersistenceService> preInit() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows) {
+  if (!kIsWeb && checkPlatform([TargetPlatform.windows])) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setMinimumSize(const Size(400, 500));
   }
 
-  if ([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS].contains(defaultTargetPlatform)) {
+  if (checkPlatformWithGallery()) {
     try {
       PhotoManager.clearFileCache();
     } catch (e) {
@@ -60,7 +61,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
     context.showSnackBar(e.toString());
   }
 
-  if (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
+  if (checkPlatformCanReceiveShareIntent()) {
     final shareHandler = ShareHandlerPlatform.instance;
     final initialSharedPayload = await shareHandler.getInitialSharedMedia();
     if (initialSharedPayload != null) {

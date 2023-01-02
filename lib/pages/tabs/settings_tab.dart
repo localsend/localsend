@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -7,6 +8,7 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
@@ -100,6 +102,53 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
           ],
         ),
         _SettingsSection(
+          title: t.settingsTab.receive.title,
+          children: [
+            if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]))
+              _SettingsEntry(
+                label: t.settingsTab.receive.destination,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                    shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  onPressed: () async {
+                    if (settings.destination != null) {
+                      await ref.read(settingsProvider.notifier).setDestination(null);
+                      return;
+                    }
+
+                    final directory = await FilePicker.platform.getDirectoryPath();
+                    if (directory != null) {
+                      await ref.read(settingsProvider.notifier).setDestination(directory);
+                    }
+                  },
+                  child: Text(settings.destination ?? '(Downloads)'),
+                ),
+              ),
+            if (checkPlatformWithGallery())
+              _SettingsEntry(
+                label: t.settingsTab.receive.saveToGallery,
+                child: CustomDropdownButton<bool>(
+                  value: settings.saveToGallery,
+                  items: [false, true].map((b) {
+                    return DropdownMenuItem(
+                      value: b,
+                      alignment: Alignment.center,
+                      child: Text(b ? t.general.yes : t.general.no),
+                    );
+                  }).toList(),
+                  onChanged: (b) async {
+                    if (b != null) {
+                      await ref.read(settingsProvider.notifier).setSaveToGallery(b);
+                    }
+                  },
+                ),
+              ),
+          ],
+        ),
+        _SettingsSection(
           title: t.settingsTab.network.title,
           children: [
             AnimatedCrossFade(
@@ -132,9 +181,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                           onPressed: () async {
                             try {
                               await ref.read(serverProvider.notifier).startServer(
-                                alias: settings.alias,
-                                port: settings.port,
-                              );
+                                    alias: settings.alias,
+                                    port: settings.port,
+                                  );
                             } catch (e) {
                               context.showSnackBar(e.toString());
                             }
@@ -150,9 +199,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                           onPressed: () async {
                             try {
                               final newServerState = await ref.read(serverProvider.notifier).restartServer(
-                                alias: settings.alias,
-                                port: settings.port,
-                              );
+                                    alias: settings.alias,
+                                    port: settings.port,
+                                  );
 
                               if (newServerState != null) {
                                 // the new state is always valid, so we can "repair" user's setting
@@ -272,6 +321,7 @@ class _SettingsEntry extends StatelessWidget {
           Expanded(
             child: Text(label),
           ),
+          const SizedBox(width: 10),
           SizedBox(
             width: 150,
             child: child,
