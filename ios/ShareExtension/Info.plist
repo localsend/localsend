@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>NSExtensionActivationRule</key>
+			<dict>
+				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
+				<integer>999</integer>
+				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+				<integer>999</integer>
+				<key>NSExtensionActivationSupportsMovieWithMaxCount</key>
+				<integer>999</integer>
+				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
+				<integer>999</integer>
+				<key>NSExtensionActivationSupportsFileWithMaxCount</key>
+				<integer>999</integer>
+				<key>NSExtensionActivationSupportsAttachmentsWithMaxCount</key>
+				<integer>999</integer>
+				<key>NSExtensionActivationSupportsText</key>
+				<true/>
+			</dict>
+			<key>PHSupportedMediaTypes</key>
+			<array>
+				<string>Video</string>
+				<string>Image</string>
+			</array>
+		</dict>
+		<key>NSExtensionMainStoryboard</key>
+		<string>MainInterface</string>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.share-services</string>
+	</dict>
+</dict>
+</plist>

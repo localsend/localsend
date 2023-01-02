@@ -60,5 +60,18 @@
     <string>The app requires the local IP to communicate.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>The app requires the local IP to communicate.</string>
+
+    <!-- share_handler -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>ShareMedia-$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

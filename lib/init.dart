@@ -79,7 +79,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
 
 void _handleSharedIntent(SharedMedia payload, WidgetRef ref) {
   final message = payload.content;
-  if (message != null) {
+  if (message != null && message.trim().isNotEmpty) {
     ref.read(selectedFilesProvider.notifier).addMessage(message);
   }
   ref.read(selectedFilesProvider.notifier).addFiles(
