@@ -63,7 +63,8 @@ class SelectedFilesPage extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        IconButton(
+                        TextButton(
+                          style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                           onPressed: () {
                             final currCount = ref.read(selectedFilesProvider).length;
                             ref.read(selectedFilesProvider.notifier).removeAt(index);
@@ -71,7 +72,7 @@ class SelectedFilesPage extends ConsumerWidget {
                               context.popUntilRoot();
                             }
                           },
-                          icon: const Icon(Icons.delete),
+                          child: const Icon(Icons.delete),
                         ),
                       ],
                     ),

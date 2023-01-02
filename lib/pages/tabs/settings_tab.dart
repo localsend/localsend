@@ -125,51 +125,60 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     if (serverState == null)
-                      IconButton(
-                        onPressed: () async {
-                          try {
-                            await ref.read(serverProvider.notifier).startServer(
-                              alias: settings.alias,
-                              port: settings.port,
-                            );
-                          } catch (e) {
-                            context.showSnackBar(e.toString());
-                          }
-                        },
-                        tooltip: t.general.start,
-                        icon: const Icon(Icons.play_arrow),
+                      Tooltip(
+                        message: t.general.start,
+                        child: TextButton(
+                          style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                          onPressed: () async {
+                            try {
+                              await ref.read(serverProvider.notifier).startServer(
+                                alias: settings.alias,
+                                port: settings.port,
+                              );
+                            } catch (e) {
+                              context.showSnackBar(e.toString());
+                            }
+                          },
+                          child: const Icon(Icons.play_arrow),
+                        ),
                       )
                     else
-                      IconButton(
-                        onPressed: () async {
-                          try {
-                            final newServerState = await ref.read(serverProvider.notifier).restartServer(
-                              alias: settings.alias,
-                              port: settings.port,
-                            );
+                      Tooltip(
+                        message: t.general.restart,
+                        child: TextButton(
+                          style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                          onPressed: () async {
+                            try {
+                              final newServerState = await ref.read(serverProvider.notifier).restartServer(
+                                alias: settings.alias,
+                                port: settings.port,
+                              );
 
-                            if (newServerState != null) {
-                              // the new state is always valid, so we can "repair" user's setting
-                              _aliasController.text = newServerState.alias;
-                              _portController.text = newServerState.port.toString();
-                              await ref.read(settingsProvider.notifier).setAlias(newServerState.alias);
-                              await ref.read(settingsProvider.notifier).setPort(newServerState.port);
+                              if (newServerState != null) {
+                                // the new state is always valid, so we can "repair" user's setting
+                                _aliasController.text = newServerState.alias;
+                                _portController.text = newServerState.port.toString();
+                                await ref.read(settingsProvider.notifier).setAlias(newServerState.alias);
+                                await ref.read(settingsProvider.notifier).setPort(newServerState.port);
+                              }
+                            } catch (e) {
+                              context.showSnackBar(e.toString());
                             }
-                          } catch (e) {
-                            context.showSnackBar(e.toString());
-                          }
-                        },
-                        tooltip: t.general.restart,
-                        icon: const Icon(Icons.refresh),
+                          },
+                          child: const Icon(Icons.refresh),
+                        ),
                       ),
-                    IconButton(
-                      onPressed: serverState == null
-                          ? null
-                          : () async {
-                              await ref.read(serverProvider.notifier).stopServer();
-                            },
-                      tooltip: t.general.stop,
-                      icon: const Icon(Icons.stop),
+                    Tooltip(
+                      message: t.general.stop,
+                      child: TextButton(
+                        style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                        onPressed: serverState == null
+                            ? null
+                            : () async {
+                                await ref.read(serverProvider.notifier).stopServer();
+                              },
+                        child: const Icon(Icons.stop),
+                      ),
                     ),
                   ],
                 ),

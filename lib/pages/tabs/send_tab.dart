@@ -144,7 +144,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton.icon(
-                      style: IconButton.styleFrom(
+                      style: TextButton.styleFrom(
                         foregroundColor: Theme.of(context).colorScheme.onSurface,
                       ),
                       onPressed: () {
@@ -155,7 +155,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                     ),
                     const SizedBox(width: 15),
                     ElevatedButton.icon(
-                      style: IconButton.styleFrom(
+                      style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       ),
