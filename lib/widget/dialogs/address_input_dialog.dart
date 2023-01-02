@@ -34,6 +34,32 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
   bool _fetching = false;
   bool _failed = false;
 
+  Future<void> _submit(String? ipPrefix, int port) async {
+    final String ip;
+    final String input = _addressController.text.trim();
+    if (_mode == _InputMode.ip) {
+      ip = input;
+    } else {
+      ip = '$ipPrefix.$input';
+    }
+
+    setState(() {
+      _fetching = true;
+    });
+
+    final device = await ref.read(targetedDiscoveryProvider).discover(ip, port);
+    if (device != null) {
+      if (mounted) {
+        context.pop(device);
+      }
+    } else {
+      setState(() {
+        _fetching = false;
+        _failed = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final localIp = ref.watch(networkInfoProvider.select((info) => info?.localIp));
@@ -72,6 +98,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             decoration: InputDecoration(
               prefixText: _mode == _InputMode.hashtag ? '# ' : 'IP: ',
             ),
+            onFieldSubmitted: (s) => _submit(ipPrefix, settings.port),
           ),
           const SizedBox(height: 10),
           Text('${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${ipPrefix ?? '192.168.2'}.123'}'),
@@ -95,31 +122,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
             foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
           ),
-          onPressed: _fetching ? null : () async {
-            final String ip;
-            final String input = _addressController.text.trim();
-            if (_mode == _InputMode.ip) {
-              ip = input;
-            } else {
-              ip = '$ipPrefix.$input';
-            }
-
-            setState(() {
-              _fetching = true;
-            });
-
-            final device = await ref.read(targetedDiscoveryProvider).discover(ip, settings.port);
-            if (device != null) {
-              if (mounted) {
-                context.pop(device);
-              }
-            } else {
-              setState(() {
-                _fetching = false;
-                _failed = true;
-              });
-            }
-          },
+          onPressed: _fetching ? null : () => _submit(ipPrefix, settings.port),
           child: Text(t.general.confirm),
         ),
       ],

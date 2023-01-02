@@ -19,6 +19,7 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
       content: TextField(
         keyboardType: TextInputType.multiline,
         maxLines: null,
+        autofocus: true,
         onChanged: (s) {
           setState(() => _text = s);
         },
