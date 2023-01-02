@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,6 +37,12 @@ ThemeData getTheme(Brightness brightness) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: brightness == Brightness.dark ? Colors.white : null,
+        padding: defaultTargetPlatform == TargetPlatform.windows ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : null,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        padding: defaultTargetPlatform == TargetPlatform.windows ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : null,
       ),
     ),
   );

@@ -1,3 +1,8 @@
+## 1.3.0 (2023-01-)
+
+- feat: enter custom target address
+- fix: update nearby device attributes when scan again
+
 ## 1.2.0 (2022-12-31)
 
 - feat: drag and drop files

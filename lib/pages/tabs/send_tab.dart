@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -14,6 +15,7 @@ import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
+import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
@@ -182,17 +184,52 @@ class _SendTabState extends ConsumerState<SendTab> {
         Row(
           children: [
             Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
-            RotatingWidget(
-              duration: const Duration(seconds: 2),
-              spinning: nearbyDevicesState.running,
-              reverse: true,
+            const SizedBox(width: 10),
+            Tooltip(
+              message: t.sendTab.scan,
+              child: RotatingWidget(
+                duration: const Duration(seconds: 2),
+                spinning: nearbyDevicesState.running,
+                reverse: true,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    minimumSize: Size.zero,
+                    shape: const CircleBorder(),
+                  ),
+                  onPressed: _scan,
+                  child: const Icon(Icons.sync),
+                ),
+              ),
+            ),
+            Tooltip(
+              message: t.dialogs.addressInput.title,
               child: TextButton(
                 style: TextButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: Size.zero,
                   shape: const CircleBorder(),
                 ),
-                onPressed: _scan,
-                child: const Icon(Icons.sync),
+                onPressed: () async {
+                  final files = ref.read(selectedFilesProvider);
+                  if (files.isEmpty) {
+                    context.pushBottomSheet(() => const NoFilesDialog());
+                    return;
+                  }
+                  final device = await showDialog<Device?>(
+                    context: context,
+                    builder: (_) => const AddressInputDialog(),
+                  );
+                  if (device != null && mounted) {
+                    ref.read(sendProvider.notifier).startSession(
+                      target: device,
+                      files: files,
+                    );
+                  }
+                },
+                child: const Icon(Icons.ads_click),
               ),
             ),
           ],
@@ -205,7 +242,7 @@ class _SendTabState extends ConsumerState<SendTab> {
           ),
         ),
         const SizedBox(height: 10),
-        ...nearbyDevicesState.devices.map((device) {
+        ...nearbyDevicesState.devices.values.map((device) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Hero(

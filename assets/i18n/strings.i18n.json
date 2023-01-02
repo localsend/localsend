@@ -13,6 +13,7 @@
     "done": "Done",
     "edit": "Edit",
     "error": "Error",
+    "example": "Example",
     "finished": "Finished",
     "hide": "Hide",
     "offline": "Offline",
@@ -48,6 +49,7 @@
     },
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device",
+    "scan": "Look for devices",
     "help": "Please ensure that the desired target is also in the same wifi network.",
     "placeItems": "Place items to share."
   },
@@ -121,6 +123,11 @@
     },
     "messageInput": {
       "title": "Type message"
+    },
+    "addressInput": {
+      "title": "Enter address",
+      "hashtag": "Hashtag",
+      "ip": "IP"
     }
   }
 }

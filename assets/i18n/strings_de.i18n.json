@@ -13,6 +13,7 @@
     "done": "Fertig",
     "edit": "Bearbeiten",
     "error": "Fehler",
+    "example": "Beispiel",
     "finished": "Abgeschlossen",
     "hide": "Verstecken",
     "offline": "Offline",
@@ -48,6 +49,7 @@
     },
     "nearbyDevices": "Geräte in der Nähe",
     "thisDevice": "Dieses Gerät",
+    "scan": "Geräte suchen",
     "help": "Bitte stelle sicher, dass sich das gewünschte Ziel auch im selben WLAN-Netzwerk befindet.",
     "placeItems": "Dateien ablegen, um zu teilen."
   },
@@ -121,6 +123,11 @@
     },
     "messageInput": {
       "title": "Nachricht eingeben"
+    },
+    "addressInput": {
+      "title": "Adresse eingeben",
+      "hashtag": "Hashtag",
+      "ip": "IP"
     }
   }
 }

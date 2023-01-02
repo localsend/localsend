@@ -1,8 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+final persistenceProvider = Provider<PersistenceService>((ref) {
+  throw Exception('persistenceProvider not initialized');
+});
 
 const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme';

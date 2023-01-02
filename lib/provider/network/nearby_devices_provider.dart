@@ -14,7 +14,7 @@ final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, Nearb
 
 class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   final Dio dio;
-  NearbyDevicesNotifier(this.dio) : super(const NearbyDevicesState(running: false, devices: []));
+  NearbyDevicesNotifier(this.dio) : super(const NearbyDevicesState(running: false, devices: {}));
 
   Future<void> startScan({required int port, required String localIp}) async {
     if (state.running) {
@@ -24,11 +24,9 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     state = state.copyWith(running: true);
 
     await _getStream(localIp, port).forEach((device) {
-      if (state.devices.every((d) => d.ip != device.ip)) {
-        state = state.copyWith(
-          devices: [...state.devices, device],
-        );
-      }
+      state = state.copyWith(
+        devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
+      );
     });
 
     state = state.copyWith(running: false);

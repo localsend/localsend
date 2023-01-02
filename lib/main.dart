@@ -5,6 +5,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
     child: ProviderScope(
       overrides: [
         deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
-        settingsProvider.overrideWith((ref) => SettingsNotifier(persistenceService)),
+        persistenceProvider.overrideWithValue(persistenceService),
       ],
       child: const LocalSendApp(),
     ),

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/settings.dart';
-import 'package:localsend_app/service/persistence_service.dart';
+import 'package:localsend_app/provider/persistence_provider.dart';
 
 final settingsProvider = StateNotifierProvider<SettingsNotifier, Settings>((ref) {
-  throw Exception('settingsProvider not initialized');
+  final persistenceService = ref.watch(persistenceProvider);
+  return SettingsNotifier(persistenceService);
 });
 
 class SettingsNotifier extends StateNotifier<Settings> {
