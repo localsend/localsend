@@ -13,6 +13,7 @@ import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
@@ -118,44 +119,57 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
 
                 final file = _files[index - 1];
                 final fileStatus = receiveState?.files[file.id]?.status ?? sendState!.files[file.id]!.status;
+                final savedToGallery = receiveState?.files[file.id]?.savedToGallery ?? false;
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(file.fileType.icon, size: 46),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    file.fileName,
-                                    style: const TextStyle(fontSize: 16),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    splashFactory: NoSplash.splashFactory,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: fileStatus == FileStatus.finished && receiveState != null && !savedToGallery
+                        ? () => OpenFilex.open(receiveState.files[file.id]!.path)
+                        : null,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(file.fileType.icon, size: 46),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      file.fileName,
+                                      style: const TextStyle(fontSize: 16),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
+                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16)),
+                                ],
+                              ),
+                              if (fileStatus == FileStatus.sending)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: CustomProgressBar(
+                                    progress: progressNotifier.getProgress(file.id),
+                                  ),
+                                )
+                              else
+                                Text(
+                                  savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
+                                  style: TextStyle(color: fileStatus.getColor(context)),
                                 ),
-                                Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16)),
-                              ],
-                            ),
-                            if (fileStatus == FileStatus.sending)
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: CustomProgressBar(
-                                  progress: progressNotifier.getProgress(file.id),
-                                ),
-                              )
-                            else
-                              Text(fileStatus.label, style: TextStyle(color: fileStatus.getColor(context))),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

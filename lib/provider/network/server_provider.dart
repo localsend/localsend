@@ -137,7 +137,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
                 file: file,
                 status: FileStatus.queue,
                 token: null,
-                tempPath: null,
+                path: null,
+                savedToGallery: false,
               ),
           },
           startTime: null,
@@ -215,10 +216,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       print('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       try {
+        final saveToGallery = checkPlatformWithGallery() && _ref.read(settingsProvider).saveToGallery &&
+            (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
-          saveToGallery: checkPlatformWithGallery() && _ref.read(settingsProvider).saveToGallery &&
-              (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video),
+          saveToGallery: saveToGallery,
           stream: request.read(),
           onProgress: (savedBytes) {
             if (receivingFile.file.size != 0) {
@@ -230,12 +232,22 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           return Response.badRequest();
         }
         state = state?.copyWith(
-          receiveState: state?.receiveState?.withFileStatus(fileId, FileStatus.finished),
+          receiveState: state?.receiveState?.fileFinished(
+            fileId: fileId,
+            status: FileStatus.finished,
+            path: saveToGallery ? null : destinationPath,
+            savedToGallery: saveToGallery,
+          ),
         );
         print('Saved ${receivingFile.file.fileName}.');
       } catch (e, st) {
         state = state?.copyWith(
-          receiveState: state?.receiveState?.withFileStatus(fileId, FileStatus.failed),
+          receiveState: state?.receiveState?.fileFinished(
+            fileId: fileId,
+            status: FileStatus.failed,
+            path: null,
+            savedToGallery: false,
+          ),
         );
         print(e);
         print(st);
@@ -298,7 +310,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
               file: file.file,
               status: fileIds.contains(file.file.id) ? FileStatus.queue : FileStatus.skipped,
               token: fileIds.contains(file.file.id) ? _uuid.v4() : null,
-              tempPath: null,
+              path: null,
+              savedToGallery: false,
             ),
         },
         responseHandler: null,
@@ -369,7 +382,16 @@ Future<String> _digestFilePath({required String dir, required String fileName}) 
 }
 
 extension on ReceiveState {
-  ReceiveState withFileStatus(String fileId, FileStatus status) {
-    return copyWith(files: {...files}..update(fileId, (file) => file.copyWith(status: status)));
+  ReceiveState fileFinished({
+    required String fileId,
+    required FileStatus status,
+    required String? path,
+    required bool savedToGallery,
+  }) {
+    return copyWith(files: {...files}..update(fileId, (file) => file.copyWith(
+      status: status,
+      path: path,
+      savedToGallery: savedToGallery,
+    )));
   }
 }

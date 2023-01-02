@@ -27,6 +27,7 @@ dependencies:
   image_picker: 0.8.6
   json_annotation: 4.7.0
   network_info_plus: 3.0.1
+  open_filex: 4.3.2
   package_info_plus: 3.0.2
   path_provider: 2.0.11
   permission_handler: 10.2.0

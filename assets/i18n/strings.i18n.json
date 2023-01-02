@@ -101,6 +101,7 @@
   "progressPage": {
     "titleSending": "Sending files",
     "titleReceiving": "Receiving files",
+    "savedToGallery": "Saved in Photos",
     "total": {
       "title": {
         "sending": "Total progress ({time})",

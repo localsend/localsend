@@ -1,6 +1,8 @@
 ## 1.3.0 (2023-01-)
 
 - feat: enter custom target address
+- feat(windows): set destination folder
+- feat: tap to open received file
 - fix: update nearby device attributes when scan again
 
 ## 1.2.0 (2022-12-31)
@@ -12,7 +14,7 @@
 ## 1.1.0 (2022-12-30)
 
 - feat(android): add media picker
-- feat(iOS): merge image and video to common media picker
+- feat(ios): merge image and video to common media picker
 - fix(android): missing internet permission
 
 ## 1.0.0 (2022-12-29)

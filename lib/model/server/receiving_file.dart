@@ -10,6 +10,7 @@ class ReceivingFile with _$ReceivingFile {
     required FileDto file,
     required FileStatus status,
     required String? token,
-    required String? tempPath, // file is saved to a temporary path first
+    required String? path, // when finished
+    required bool savedToGallery, // when finished
   }) = _ReceivingFile;
 }
