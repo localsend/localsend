@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  connectivity_plus
   desktop_drop
   network_info_plus
   permission_handler_windows
