@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 enum FileType {
   image(Icons.image),
   video(Icons.movie),
-  pdf(Icons.picture_as_pdf),
+  pdf(Icons.description),
   text(Icons.subject),
-  other(Icons.description);
+  other(Icons.file_present_sharp);
 
   const FileType(this.icon);
 
