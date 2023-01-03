@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,6 +36,17 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
       mask = await info.getWifiSubmask();
     } catch (e) {
       print(e);
+    }
+
+    if (!kIsWeb && ip == null) {
+      try {
+        // fallback with dart:io NetworkInterface
+        final result = (await NetworkInterface.list()).map((networkInterface) => networkInterface.addresses).expand((ip) => ip);
+        ip = result.firstWhereOrNull((ip) => ip.type == InternetAddressType.IPv4)?.address;
+      } catch (e, st) {
+        print(e);
+        print(st);
+      }
     }
 
     print('New network state: $ip ($mask)');
