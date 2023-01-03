@@ -1,16 +1,43 @@
-# localsend_app
+# LocalSend
 
-A new Flutter project.
+Share files to nearby devices. Free, open source, cross-platform. [Homepage](https://localsend.org)
 
-## Getting Started
+# Screenshots
 
-This project is a starting point for a Flutter application.
+<img src="https://localsend.org/img/screenshot-iphone.png" alt="screenshot1" width="200"/>
 
-A few resources to get you started if this is your first Flutter project:
+<img src="https://localsend.org/img/screenshot-pc.png" alt="screenshot2" width="200"/>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Run
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```shell
+flutter pub get
+flutter pub run build_runner build
+flutter run
+```
+
+# Build
+
+Android
+
+```shell
+flutter build appbundle
+```
+
+iOS
+
+```shell
+flutter build ipa
+```
+
+MacOS
+
+```shell
+flutter build macos
+```
+
+Windows
+
+```shell
+flutter pub run msix:create --store
+```
