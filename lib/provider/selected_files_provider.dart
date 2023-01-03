@@ -33,7 +33,7 @@ class SelectedFilesNotifier extends StateNotifier<List<CrossFile>> {
         size: bytes.length,
         asset: null,
         path: null,
-        bytes: () async => bytes,
+        bytes: bytes,
       ),
     ]);
   }
@@ -69,7 +69,7 @@ class CrossFileConverters {
       size: file.size,
       asset: null,
       path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? () async => file.bytes! : null,
+      bytes: kIsWeb ? file.bytes! : null,
     );
   }
 
@@ -92,7 +92,7 @@ class CrossFileConverters {
       size: await file.length(),
       asset: null,
       path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? () => file.readAsBytes() : null,
+      bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
     );
   }
 

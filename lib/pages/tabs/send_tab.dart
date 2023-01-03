@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -17,6 +16,7 @@ import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
+import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
@@ -132,7 +132,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                         ...selectedFiles.map((file) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: file.asset != null ? file.asset!.thumbnailWidget : Icon(file.fileType.icon, size: 32),
+                            child: FileThumbnail(file),
                           );
                         }),
                       ],
@@ -143,18 +143,17 @@ class _SendTabState extends ConsumerState<SendTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton.icon(
+                    TextButton(
                       style: TextButton.styleFrom(
                         foregroundColor: Theme.of(context).colorScheme.onSurface,
                       ),
                       onPressed: () {
                         context.push(() => const SelectedFilesPage());
                       },
-                      icon: const Icon(Icons.edit),
-                      label: Text(t.general.edit),
+                      child: Text(t.general.edit),
                     ),
                     const SizedBox(width: 15),
-                    ElevatedButton.icon(
+                    ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -169,8 +168,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                               options: addOptions,
                             ));
                       },
-                      icon: const Icon(Icons.add),
-                      label: Text(t.general.add),
+                      child: Text(t.general.add),
                     ),
                     const SizedBox(width: 15),
                   ],

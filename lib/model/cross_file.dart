@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -14,17 +13,6 @@ class CrossFile with _$CrossFile {
     required int size,
     required AssetEntity? asset, // for thumbnails
     required String? path,
-    required Future<List<int>> Function()? bytes, // always UTF-8 encoded for messages
+    required List<int>? bytes, // if type message, then UTF-8 encoded
   }) = _CrossFile;
-}
-
-extension AssetEntityExt on AssetEntity {
-  Widget get thumbnailWidget {
-    return AssetEntityImage(
-      this,
-      isOriginal: false,
-      thumbnailSize: const ThumbnailSize.square(32),
-      thumbnailFormat: ThumbnailFormat.jpeg,
-    );
-  }
 }

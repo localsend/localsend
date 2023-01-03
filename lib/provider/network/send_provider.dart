@@ -56,13 +56,13 @@ class SendNotifier extends StateNotifier<SendState?> {
               size: file.size,
               fileType: file.fileType,
               preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
-                  ? utf8.decode(await files.first.bytes!()) // send simple message by embedding it into the preview
+                  ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
                   : null,
             ),
             status: FileStatus.queue,
             token: null,
             path: file.path,
-            bytes: file.bytes != null ? await file.bytes!() : null,
+            bytes: file.bytes,
           ),
         );
       }))),
