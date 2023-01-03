@@ -52,6 +52,12 @@
        <string>de</string>
        <string>en</string>
     </array>
+
+    <!-- Make downloaded files visible to the user -->
+    <key>UISupportsDocumentBrowser</key>
+    <true/>
+
+    <!-- Permissions -->
     <key>NSPhotoLibraryUsageDescription</key>
     <string>The app needs photo library access so that the user can select photos to share.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
