@@ -1,8 +1,10 @@
-## 1.3.0 (2023-01-)
+## 1.3.0 (2023-01-03)
 
 - feat: enter custom target address
-- feat(windows): set destination folder
 - feat: tap to open received file
+- feat: responsive UI
+- feat(ios): receive share intent
+- feat(windows): set destination folder
 - fix: update nearby device attributes when scan again
 
 ## 1.2.0 (2022-12-31)
