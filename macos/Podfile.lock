@@ -1,0 +1,90 @@
+PODS:
+  - connectivity_plus (0.0.1):
+    - FlutterMacOS
+    - ReachabilitySwift
+  - desktop_drop (0.0.1):
+    - FlutterMacOS
+  - device_info_plus (0.0.1):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+  - network_info_plus (0.0.1):
+    - FlutterMacOS
+  - package_info_plus (0.0.1):
+    - FlutterMacOS
+  - path_provider_macos (0.0.1):
+    - FlutterMacOS
+  - photo_manager (2.0.0):
+    - Flutter
+    - FlutterMacOS
+  - ReachabilitySwift (5.0.0)
+  - screen_retriever (0.0.1):
+    - FlutterMacOS
+  - shared_preferences_macos (0.0.1):
+    - FlutterMacOS
+  - url_launcher_macos (0.0.1):
+    - FlutterMacOS
+  - window_manager (0.2.0):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
+  - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
+  - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - network_info_plus (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos`)
+  - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
+  - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+  - photo_manager (from `Flutter/ephemeral/.symlinks/plugins/photo_manager/macos`)
+  - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
+  - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
+  - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
+  - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
+
+SPEC REPOS:
+  trunk:
+    - ReachabilitySwift
+
+EXTERNAL SOURCES:
+  connectivity_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
+  desktop_drop:
+    :path: Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos
+  device_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  network_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos
+  package_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
+  path_provider_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+  photo_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/photo_manager/macos
+  screen_retriever:
+    :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
+  shared_preferences_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
+  url_launcher_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
+  window_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
+
+SPEC CHECKSUMS:
+  connectivity_plus: 18d3c32514c886e046de60e9c13895109866c747
+  desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
+  device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
+  FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
+  network_info_plus: f4fbc7877ab7b3294500d9441dfa53cd54972d05
+  package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
+  path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
+  photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
+  shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
+  window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
+
+PODFILE CHECKSUM: 0d3963a09fc94f580682bd88480486da345dc3f0
+
+COCOAPODS: 1.10.1

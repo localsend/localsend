@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+    <string>LocalSend</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -28,5 +30,21 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.utilities</string>
+
+	<key>CFBundleLocalizations</key>
+    <array>
+       <string>de</string>
+       <string>en</string>
+    </array>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>The app needs photo library access so that the user can select photos to share.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>The app saves received media to the photo library.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>The app requires the local IP to communicate.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>The app requires the local IP to communicate.</string>
 </dict>
 </plist>

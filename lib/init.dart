@@ -20,7 +20,7 @@ import 'package:window_manager/window_manager.dart';
 Future<PersistenceService> preInit() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb && checkPlatform([TargetPlatform.windows])) {
+  if (!kIsWeb && checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setMinimumSize(const Size(400, 500));
   }

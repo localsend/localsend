@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/util/platform_check.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
@@ -37,12 +37,12 @@ ThemeData getTheme(Brightness brightness) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: brightness == Brightness.dark ? Colors.white : null,
-        padding: defaultTargetPlatform == TargetPlatform.windows ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: checkPlatform([TargetPlatform.macOS]) ? const EdgeInsets.all(16) : (checkPlatform([TargetPlatform.windows]) ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: defaultTargetPlatform == TargetPlatform.windows ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.all(8),
+        padding: checkPlatform([TargetPlatform.windows, TargetPlatform.macOS]) ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.all(8),
       ),
     ),
   );

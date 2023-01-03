@@ -14,7 +14,7 @@ bool checkPlatformCanReceiveShareIntent() {
 
 /// This platform has a gallery
 bool checkPlatformWithGallery() {
-  return checkPlatform([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS]);
+  return checkPlatform([TargetPlatform.android, TargetPlatform.iOS]);
 }
 
 /// This platform has access to file system
