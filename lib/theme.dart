@@ -37,7 +37,7 @@ ThemeData getTheme(Brightness brightness) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: brightness == Brightness.dark ? Colors.white : null,
-        padding: checkPlatform([TargetPlatform.macOS]) ? const EdgeInsets.all(16) : (checkPlatform([TargetPlatform.windows]) ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+        padding: checkPlatform([TargetPlatform.windows, TargetPlatform.macOS]) ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
