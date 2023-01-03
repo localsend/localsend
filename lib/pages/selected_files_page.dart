@@ -8,6 +8,7 @@ import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 
 class SelectedFilesPage extends ConsumerWidget {
@@ -21,7 +22,7 @@ class SelectedFilesPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(t.sendTab.selection.title),
       ),
-      body: ListView(
+      body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         children: [
           Row(

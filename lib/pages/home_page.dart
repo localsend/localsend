@@ -7,6 +7,9 @@ import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 enum HomeTab {
   receive(Icons.wifi),
@@ -74,49 +77,80 @@ class _HomePageState extends ConsumerState<HomePage> {
       },
       onDragDone: (event) {
         ref.read(selectedFilesProvider.notifier).addFiles(
-          files: event.files,
-          converter: CrossFileConverters.convertXFile,
-        );
+              files: event.files,
+              converter: CrossFileConverters.convertXFile,
+            );
         _goToPage(HomeTab.send.index);
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            children: [
-              PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  ReceiveTab(),
-                  SendTab(),
-                  SettingsTab(),
+      child: ResponsiveBuilder(
+        breakpoints: ResponsiveListView.defaultBreakpoints,
+        builder: (context, sizingInformation) {
+          return Scaffold(
+            body: SafeArea(
+              child: Row(
+                children: [
+                  if (!sizingInformation.isMobile)
+                    NavigationRail(
+                      selectedIndex: _currentTab.index,
+                      onDestinationSelected: _goToPage,
+                      extended: sizingInformation.isDesktop,
+                      backgroundColor: Theme.of(context).cardColorWithElevation,
+                      leading: sizingInformation.isDesktop ? Column(
+                        children: const [
+                          SizedBox(height: 20),
+                          Text('LocalSend', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                          SizedBox(height: 20),
+                        ],
+                      ) : null,
+                      destinations: HomeTab.values.map((tab) {
+                        return NavigationRailDestination(
+                          icon: Icon(tab.icon),
+                          label: Text(tab.label),
+                        );
+                      }).toList(),
+                    ),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        PageView(
+                          controller: _pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: const [
+                            ReceiveTab(),
+                            SendTab(),
+                            SettingsTab(),
+                          ],
+                        ),
+                        if (_dragAndDropIndicator)
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.file_download, size: 128),
+                                const SizedBox(height: 30),
+                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.headline6),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              if (_dragAndDropIndicator)
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.file_download, size: 128),
-                      const SizedBox(height: 30),
-                      Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.headline6),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _currentTab.index,
-          onDestinationSelected: _goToPage,
-          destinations: HomeTab.values.map((tab) {
-            return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
-          }).toList(),
-        ),
+            ),
+            bottomNavigationBar: sizingInformation.isMobile ? NavigationBar(
+              selectedIndex: _currentTab.index,
+              onDestinationSelected: _goToPage,
+              destinations: HomeTab.values.map((tab) {
+                return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+              }).toList(),
+            ) : null,
+          );
+        },
       ),
     );
   }

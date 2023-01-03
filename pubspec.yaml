@@ -31,6 +31,7 @@ dependencies:
   package_info_plus: 3.0.2
   path_provider: 2.0.11
   permission_handler: 10.2.0
+  responsive_builder: 0.4.3
   routerino: 0.2.0
   share_handler: 0.0.16
   shared_preferences: 2.0.15

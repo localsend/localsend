@@ -7,6 +7,7 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
+import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 
 class ReceiveTab extends ConsumerStatefulWidget {
@@ -29,102 +30,107 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkInfoProvider);
     final serverState = ref.watch(serverProvider);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InitialFadeTransition(
-                      duration: const Duration(milliseconds: 300),
-                      delay: const Duration(milliseconds: 200),
-                      child: RotatingWidget(
-                        duration: const Duration(seconds: 15),
-                        spinning: serverState != null,
-                        child: SizedBox(
-                          height: 200,
-                          child: Assets.img.logo512.image(height: 200),
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InitialFadeTransition(
+                          duration: const Duration(milliseconds: 300),
+                          delay: const Duration(milliseconds: 200),
+                          child: RotatingWidget(
+                            duration: const Duration(seconds: 15),
+                            spinning: serverState != null,
+                            child: SizedBox(
+                              height: 200,
+                              child: Assets.img.logo512.image(height: 200),
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
+                        InitialFadeTransition(
+                          duration: const Duration(milliseconds: 300),
+                          delay: const Duration(milliseconds: 500),
+                          child: Text(
+                            serverState == null ? t.general.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
-                    InitialFadeTransition(
-                      duration: const Duration(milliseconds: 300),
-                      delay: const Duration(milliseconds: 500),
-                      child: Text(
-                        serverState == null ? t.general.offline : '#${networkInfo?.localIp?.visualId ?? '?'}',
-                        style: const TextStyle(fontSize: 24),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          Center(
-            child: TextButton(
-              key: ValueKey('toggle-$_advanced'),
-              onPressed: () {
-                setState(() => _advanced = !_advanced);
-              },
-              child: Text(_advanced ? t.general.hide : t.general.advanced),
-            ),
-          ),
-          AnimatedCrossFade(
-            crossFadeState: _advanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-            duration: const Duration(milliseconds: 200),
-            firstChild: Container(),
-            secondChild: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Table(
-                  columnWidths: const {
-                    0: IntrinsicColumnWidth(),
-                    1: IntrinsicColumnWidth(),
-                    2: FlexColumnWidth(),
+              Center(
+                child: TextButton(
+                  key: ValueKey('toggle-$_advanced'),
+                  onPressed: () {
+                    setState(() => _advanced = !_advanced);
                   },
-                  children: [
-                    TableRow(
-                      children: [
-                        Text(t.receiveTab.infoBox.alias),
-                        const SizedBox(width: 10),
-                        Text(serverState?.alias ?? '-'),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Text(t.receiveTab.infoBox.ip),
-                        const SizedBox(width: 10),
-                        Text(networkInfo?.localIp ?? t.general.unknown),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Text(t.receiveTab.infoBox.port),
-                        const SizedBox(width: 10),
-                        Text(serverState?.port.toString() ?? '-'),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Text(t.receiveTab.infoBox.subnetMask),
-                        const SizedBox(width: 10),
-                        Text(networkInfo?.netMask ?? t.general.unknown),
-                      ],
-                    ),
-                  ],
+                  child: Text(_advanced ? t.general.hide : t.general.advanced),
                 ),
               ),
-            ),
+              AnimatedCrossFade(
+                crossFadeState: _advanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                duration: const Duration(milliseconds: 200),
+                firstChild: Container(),
+                secondChild: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Table(
+                      columnWidths: const {
+                        0: IntrinsicColumnWidth(),
+                        1: IntrinsicColumnWidth(),
+                        2: FlexColumnWidth(),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Text(t.receiveTab.infoBox.alias),
+                            const SizedBox(width: 10),
+                            Text(serverState?.alias ?? '-'),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            Text(t.receiveTab.infoBox.ip),
+                            const SizedBox(width: 10),
+                            Text(networkInfo?.localIp ?? t.general.unknown),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            Text(t.receiveTab.infoBox.port),
+                            const SizedBox(width: 10),
+                            Text(serverState?.port.toString() ?? '-'),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            Text(t.receiveTab.infoBox.subnetMask),
+                            const SizedBox(width: 10),
+                            Text(networkInfo?.netMask ?? t.general.unknown),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+            ],
           ),
-          const SizedBox(height: 15),
-        ],
+        ),
       ),
     );
   }

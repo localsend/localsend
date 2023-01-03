@@ -13,6 +13,7 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
+import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 
 class SettingsTab extends ConsumerStatefulWidget {
@@ -38,7 +39,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final serverState = ref.watch(serverProvider);
-    return ListView(
+    return ResponsiveListView(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
       children: [
         Padding(
