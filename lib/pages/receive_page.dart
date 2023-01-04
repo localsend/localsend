@@ -51,165 +51,175 @@ class ReceivePage extends ConsumerWidget {
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(receiveState.sender.deviceType.icon, size: 64),
-                          const SizedBox(height: 10),
-                          Text(
-                            receiveState.sender.alias,
-                            style: const TextStyle(fontSize: 48),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
+              child: Builder(
+                builder: (context) {
+                  final height = MediaQuery.of(context).size.height;
+                  final smallUi = message != null && height < 600;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              DeviceBadge(
-                                color: Theme.of(context).colorScheme.tertiaryContainer,
-                                label: '#${receiveState.sender.ip.visualId}',
-                              ),
-                              if (receiveState.sender.deviceModel != null)
+                              if (!smallUi)
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: DeviceBadge(
-                                    color: Theme.of(context).colorScheme.tertiaryContainer,
-                                    label: receiveState.sender.deviceModel!,
-                                  ),
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Icon(receiveState.sender.deviceType.icon, size: 64),
                                 ),
-                            ],
-                          ),
-                          const SizedBox(height: 40),
-                          Text(
-                            message != null ? t.receivePage.subTitleMessage : t.receivePage.subTitle(n: receiveState.files.length),
-                            style: Theme.of(context).textTheme.headline6,
-                            textAlign: TextAlign.center,
-                          ),
-                          if (message != null)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: SizedBox(
-                                    height: 100,
-                                    child: Card(
-                                      child: SingleChildScrollView(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: SelectableText(
-                                            message,
+                              FittedBox(
+                                child: Text(
+                                  receiveState.sender.alias,
+                                  style: TextStyle(fontSize: smallUi ? 32 : 48),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  DeviceBadge(
+                                    color: Theme.of(context).colorScheme.tertiaryContainer,
+                                    label: '#${receiveState.sender.ip.visualId}',
+                                  ),
+                                  if (receiveState.sender.deviceModel != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: DeviceBadge(
+                                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                                        label: receiveState.sender.deviceModel!,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              const SizedBox(height: 40),
+                              Text(
+                                message != null ? t.receivePage.subTitleMessage : t.receivePage.subTitle(n: receiveState.files.length),
+                                style: smallUi ? null : Theme.of(context).textTheme.headline6,
+                                textAlign: TextAlign.center,
+                              ),
+                              if (message != null)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: SizedBox(
+                                        height: 100,
+                                        child: Card(
+                                          child: SingleChildScrollView(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: SelectableText(
+                                                message,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    const SizedBox(height: 10),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Clipboard.setData(ClipboardData(text: message));
+                                        },
+                                        child: Text(t.general.copy),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                const SizedBox(height: 10),
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Clipboard.setData(ClipboardData(text: message));
-                                    },
-                                    child: Text(t.general.copy),
-                                  ),
-                                )
-                              ],
+                            ],
+                          ),
+                        ),
+                        if (receiveState.status == SessionStatus.canceledBySender)
+                          ...[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
                             ),
-                        ],
-                      ),
+                            Center(
+                              child: ElevatedButton.icon(
+                                onPressed: () {
+                                  ref.read(serverProvider.notifier).closeSession();
+                                  context.pop();
+                                },
+                                icon: const Icon(Icons.check_circle),
+                                label: Text(t.general.close),
+                              ),
+                            ),
+                          ]
+                        else if (message != null)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextButton.icon(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: () {
+                                  _acceptNothing(ref, receiveState);
+                                  context.pop();
+                                },
+                                icon: const Icon(Icons.close),
+                                label: Text(t.general.close),
+                              ),
+                              const SizedBox(width: 20),
+                              TextButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: () {
+                                  _acceptAll(ref, receiveState);
+                                  context.pushAndRemoveUntilImmediately(
+                                    removeUntil: ReceivePage,
+                                    builder: () => const ProgressPage(),
+                                  );
+                                },
+                                icon: const Icon(Icons.save),
+                                label: Text(t.general.save),
+                              ),
+                            ],
+                          )
+                        else
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
+                                  foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
+                                ),
+                                onPressed: () {
+                                  _decline(ref);
+                                  context.pop();
+                                },
+                                icon: const Icon(Icons.close),
+                                label: Text(t.general.decline),
+                              ),
+                              const SizedBox(width: 20),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+                                  foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                                ),
+                                onPressed: () {
+                                  _acceptAll(ref, receiveState);
+                                  context.pushAndRemoveUntilImmediately(
+                                    removeUntil: ReceivePage,
+                                    builder: () => const ProgressPage(),
+                                  );
+                                },
+                                icon: const Icon(Icons.check_circle),
+                                label: Text(t.general.accept),
+                              ),
+                            ],
+                          ),
+                      ],
                     ),
-                    if (receiveState.status == SessionStatus.canceledBySender)
-                      ...[
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
-                        ),
-                        Center(
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              ref.read(serverProvider.notifier).closeSession();
-                              context.pop();
-                            },
-                            icon: const Icon(Icons.check_circle),
-                            label: Text(t.general.close),
-                          ),
-                        ),
-                      ]
-                    else if (message != null)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton.icon(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            onPressed: () {
-                              _acceptNothing(ref, receiveState);
-                              context.pop();
-                            },
-                            icon: const Icon(Icons.close),
-                            label: Text(t.general.close),
-                          ),
-                          const SizedBox(width: 20),
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                              foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-                            ),
-                            onPressed: () {
-                              _acceptAll(ref, receiveState);
-                              context.pushAndRemoveUntilImmediately(
-                                removeUntil: ReceivePage,
-                                builder: () => const ProgressPage(),
-                              );
-                            },
-                            icon: const Icon(Icons.save),
-                            label: Text(t.general.save),
-                          ),
-                        ],
-                      )
-                    else
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
-                              foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
-                            ),
-                            onPressed: () {
-                              _decline(ref);
-                              context.pop();
-                            },
-                            icon: const Icon(Icons.close),
-                            label: Text(t.general.decline),
-                          ),
-                          const SizedBox(width: 20),
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                              foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-                            ),
-                            onPressed: () {
-                              _acceptAll(ref, receiveState);
-                              context.pushAndRemoveUntilImmediately(
-                                removeUntil: ReceivePage,
-                                builder: () => const ProgressPage(),
-                              );
-                            },
-                            icon: const Icon(Icons.check_circle),
-                            label: Text(t.general.accept),
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
+                  );
+                }
               ),
             ),
           ),

@@ -44,8 +44,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
         deviceModel = deviceInfo.localizedModel;
         break;
       case TargetPlatform.linux:
-        final info = await plugin.linuxInfo;
-        deviceModel = info.name;
+        deviceModel = 'Linux';
         break;
       case TargetPlatform.macOS:
         deviceModel = 'MacOS';
