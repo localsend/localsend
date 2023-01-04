@@ -1,14 +1,36 @@
 # LocalSend
 
-Share files to nearby devices. Free, open source, cross-platform. [Homepage](https://localsend.org)
+Links: [Homepage](https://localsend.org)
+| [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app)
+| [App Store](https://apps.apple.com/us/app/localsend/id1661733229)
+| [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)
 
-# Screenshots
+## About
 
-<img src="https://localsend.org/img/screenshot-iphone.png" alt="screenshot1" width="200"/>
+Share files to nearby devices. Free, open source, cross-platform.
 
-<img src="https://localsend.org/img/screenshot-pc.png" alt="screenshot2" width="200"/>
+This app allows you to send files and messages over the local LAN network.
 
-# Run
+No internet required, no external servers needed.
+
+## Screenshots
+
+<div style="display:flex">
+<img src="https://localsend.org/img/screenshot-iphone.png" alt="screenshot1" height="300"/>
+<img src="https://localsend.org/img/screenshot-pc.png" alt="screenshot2" height="300"/>
+</div>
+
+## Protocol
+
+Devices communicate with each other using a REST API. 
+
+Everything is sent securely over HTTPS. The TLS/SSL certificate is generated on the fly on each device.
+
+For more information: [LocalSend Protocol v1](https://github.com/localsend/protocol)
+
+## Run
+
+After you have installed [Flutter](https://flutter.dev), then you can start this app by typing the following commands: 
 
 ```shell
 flutter pub get
@@ -16,28 +38,60 @@ flutter pub run build_runner build
 flutter run
 ```
 
-# Build
+## Build
 
-Android
+These commands are mostly for the maintainers.
+
+Please ensure that `flutter pub run build_runner build` has been run. Otherwise, files will be missing.
+
+### Android
 
 ```shell
 flutter build appbundle
 ```
 
-iOS
+### iOS
 
 ```shell
 flutter build ipa
 ```
 
-MacOS
+### MacOS
 
 ```shell
 flutter build macos
 ```
 
-Windows
+### Windows
+
+**Traditional**
+
+```shell
+flutter build windows
+```
+
+**Local MSIX App**
+
+```shell
+flutter pub run msix:create
+```
+
+**Store ready**
 
 ```shell
 flutter pub run msix:create --store
+```
+
+### Linux
+
+**Traditional**
+
+```shell
+flutter build linux
+```
+
+**AppImage**
+
+```shell
+appimage-builder --recipe AppImageBuilder.yml
 ```
