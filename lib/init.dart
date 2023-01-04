@@ -20,7 +20,7 @@ import 'package:window_manager/window_manager.dart';
 Future<PersistenceService> preInit() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb && checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) {
+  if (!kIsWeb && checkPlatformIsDesktop()) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setMinimumSize(const Size(400, 500));
   }
@@ -54,9 +54,9 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
   final settings = ref.read(settingsProvider);
   try {
     await ref.read(serverProvider.notifier).startServer(
-      alias: settings.alias,
-      port: settings.port,
-    );
+          alias: settings.alias,
+          port: settings.port,
+        );
   } catch (e) {
     context.showSnackBar(e.toString());
   }
@@ -83,7 +83,7 @@ void _handleSharedIntent(SharedMedia payload, WidgetRef ref) {
     ref.read(selectedFilesProvider.notifier).addMessage(message);
   }
   ref.read(selectedFilesProvider.notifier).addFiles(
-    files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-    converter: CrossFileConverters.convertSharedAttachment,
-  );
+        files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+        converter: CrossFileConverters.convertSharedAttachment,
+      );
 }

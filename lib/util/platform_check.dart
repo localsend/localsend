@@ -7,6 +7,11 @@ bool checkPlatform(List<TargetPlatform> platforms, {bool web = false}) {
   return platforms.contains(defaultTargetPlatform);
 }
 
+/// This platform runs on a "traditional" computer
+bool checkPlatformIsDesktop() {
+  return checkPlatform([TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.macOS]);
+}
+
 /// This platform can receive share intents
 bool checkPlatformCanReceiveShareIntent() {
   return checkPlatform([TargetPlatform.android, TargetPlatform.iOS]);

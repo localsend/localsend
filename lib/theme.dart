@@ -22,10 +22,12 @@ ThemeData getTheme(Brightness brightness) {
     primarySwatch: Colors.teal,
     useMaterial3: true,
     scaffoldBackgroundColor: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
-    navigationBarTheme: brightness == Brightness.dark ? NavigationBarThemeData(
-      indicatorColor: Colors.teal,
-      iconTheme: MaterialStateProperty.all(const IconThemeData(color: Colors.white)),
-    ) : null,
+    navigationBarTheme: brightness == Brightness.dark
+        ? NavigationBarThemeData(
+            indicatorColor: Colors.teal,
+            iconTheme: MaterialStateProperty.all(const IconThemeData(color: Colors.white)),
+          )
+        : null,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: brightness == Brightness.light ? _lightInputColor : _darkInputColor,
@@ -37,12 +39,12 @@ ThemeData getTheme(Brightness brightness) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: brightness == Brightness.dark ? Colors.white : null,
-        padding: checkPlatform([TargetPlatform.windows, TargetPlatform.macOS]) ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: checkPlatform([TargetPlatform.windows, TargetPlatform.macOS]) ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.all(8),
+        padding: checkPlatformIsDesktop() ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.all(8),
       ),
     ),
   );
