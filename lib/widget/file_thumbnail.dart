@@ -23,9 +23,7 @@ class FileThumbnail extends StatelessWidget {
     } else if (file.path != null && file.fileType == FileType.image) {
       thumbnail = Image.file(
         File(file.path!),
-        fit: BoxFit.fill,
-        cacheWidth: 64, // reduce memory with low cached size
-        cacheHeight: 64,
+        cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
       );
     }
 
