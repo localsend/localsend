@@ -49,6 +49,7 @@
       "media": "Medien",
       "text": "Text"
     },
+    "shareIntentInfo": "Du kannst auch die native \"Teilen\"-Funktion nutzen, um Dateien einfacher auszuwählen.",
     "nearbyDevices": "Geräte in der Nähe",
     "thisDevice": "Dieses Gerät",
     "scan": "Geräte suchen",

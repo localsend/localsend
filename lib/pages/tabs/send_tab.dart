@@ -265,6 +265,11 @@ class _SendTabState extends ConsumerState<SendTab> {
           );
         }),
         const SizedBox(height: 20),
+        if (checkPlatformCanReceiveShareIntent())
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+          ),
         Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
         const SizedBox(height: 50),
       ],
