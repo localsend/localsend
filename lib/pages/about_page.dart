@@ -11,7 +11,7 @@ final _body = '''
           The communication between devices is entirely end-to-end encrypted via HTTPS.
           No Internet required. No tracking*. No ads.
           
-          Currently, this app is available on Android, iOS and Windows. More platforms will follow soon. You can find all download options on the official homepage.
+          Currently, this app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.
 
           *The operating system may still gather usage data.
           '''.splitMapJoin(
