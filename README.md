@@ -95,3 +95,7 @@ flutter build linux
 ```shell
 appimage-builder --recipe AppImageBuilder.yml
 ```
+
+**Snap**
+
+Feel free to open a pull request. There is a  `snap` branch to play with.
