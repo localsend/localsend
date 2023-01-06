@@ -41,6 +41,7 @@ dependencies:
   slang_flutter: 3.7.0
   url_launcher: 6.1.7
   uuid: 3.0.7
+  wakelock: 0.6.2
   wechat_assets_picker: 8.3.0
   window_manager: 0.2.8
 

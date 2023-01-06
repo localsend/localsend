@@ -1,3 +1,7 @@
+## 1.5.0 (2023-01-)
+
+- feat: keep screen on during file transfer
+
 ## 1.4.0 (2023-01-06)
 
 - feat: support multiple local IP addresses

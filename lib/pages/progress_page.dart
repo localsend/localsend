@@ -15,6 +15,7 @@ import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
+import 'package:wakelock/wakelock.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
   const ProgressPage({Key? key}) : super(key: key);
@@ -36,6 +37,10 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
 
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      try {
+        Wakelock.enable();
+      } catch (_) {}
+
       final receiveState = ref.read(serverProvider.select((state) => state?.receiveState));
       if (receiveState != null) {
         _files = receiveState.files.values.map((f) => f.file).toList();
@@ -50,6 +55,14 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
 
       _totalBytes = _files.where((f) => _filesWithToken.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    try {
+      Wakelock.disable();
+    } catch (_) {}
   }
 
   Future<bool> _askCancelConfirmation(SessionStatus status) async {
