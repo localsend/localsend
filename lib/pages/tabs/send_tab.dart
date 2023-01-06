@@ -13,6 +13,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
@@ -60,8 +61,7 @@ class _SendTabState extends ConsumerState<SendTab> {
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
       FilePickerOption.file,
-      if (checkPlatformWithGallery())
-        FilePickerOption.media,
+      if (checkPlatformWithGallery()) FilePickerOption.media,
       FilePickerOption.text,
     ];
 
@@ -226,9 +226,9 @@ class _SendTabState extends ConsumerState<SendTab> {
                   );
                   if (device != null && mounted) {
                     ref.read(sendProvider.notifier).startSession(
-                      target: device,
-                      files: files,
-                    );
+                          target: device,
+                          files: files,
+                        );
                   }
                 },
                 child: const Icon(Icons.ads_click),
@@ -295,7 +295,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   final files = ref.read(selectedFilesProvider);
                   if (files.isEmpty) {
                     context.pushBottomSheet(() => const NoFilesDialog());
-                   return;
+                    return;
                   }
 
                   ref.read(sendProvider.notifier).startSession(
@@ -308,12 +308,14 @@ class _SendTabState extends ConsumerState<SendTab> {
           );
         }),
         const SizedBox(height: 20),
-        if (checkPlatformCanReceiveShareIntent())
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
-          ),
-        Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+        OpacitySlideshow(
+          durationMillis: 7000,
+          children: [
+            Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+            if (checkPlatformCanReceiveShareIntent())
+              Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+          ],
+        ),
         const SizedBox(height: 50),
       ],
     );
