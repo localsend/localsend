@@ -9,6 +9,7 @@
     "confirm": "Bestätigen",
     "continueStr": "Weiter",
     "copy": "Kopieren",
+    "copiedToClipboard": "In die Zwischenablage kopiert",
     "decline": "Ablehnen",
     "done": "Fertig",
     "edit": "Bearbeiten",
@@ -19,6 +20,7 @@
     "no": "Nein",
     "offline": "Offline",
     "online": "Online",
+    "open": "Öffnen",
     "queue": "Warteschlange",
     "restart": "Neustarten",
     "skipped": "Übersprungen",
@@ -93,6 +95,7 @@
       "other": "möchte dir {n} Dateien senden."
     },
     "subTitleMessage": "sendet dir eine Nachricht:",
+    "subTitleLink": "sendet dir einen Link:",
     "canceled": "Der Absender hat die Anfrage abgebrochen."
   },
   "sendPage": {

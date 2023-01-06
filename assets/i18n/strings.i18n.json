@@ -9,6 +9,7 @@
     "confirm": "Confirm",
     "continueStr": "Continue",
     "copy": "Copy",
+    "copiedToClipboard": "Copied to Clipboard",
     "decline": "Decline",
     "done": "Done",
     "edit": "Edit",
@@ -19,6 +20,7 @@
     "no": "No",
     "offline": "Offline",
     "online": "Online",
+    "open": "Open",
     "queue": "Queue",
     "restart": "Restart",
     "skipped": "Skipped",
@@ -93,6 +95,7 @@
       "other": "wants to send you {n} files."
     },
     "subTitleMessage": "sent you a message:",
+    "subTitleLink": "sent you a link:",
     "canceled": "The sender has canceled the request."
   },
   "sendPage": {

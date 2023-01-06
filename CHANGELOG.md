@@ -1,6 +1,7 @@
 ## 1.4.0 (2023-01-)
 
 - feat: support multiple local IP addresses
+- feat: detect if message is a link and add a button to open the link
 
 ## 1.3.1 (2023-01-03)
 

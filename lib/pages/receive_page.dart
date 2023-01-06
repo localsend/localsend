@@ -8,9 +8,12 @@ import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
+import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReceivePage extends ConsumerWidget {
   const ReceivePage({Key? key}) : super(key: key);
@@ -40,6 +43,7 @@ class ReceivePage extends ConsumerWidget {
     final firstFile = receiveState.files.values.first.file;
     // show message if there is only one text file
     final message = receiveState.files.length == 1 && firstFile.fileType == FileType.text && firstFile.preview != null ? firstFile.preview : null;
+    final isLink = message != null && (message.startsWith('http://') || message.startsWith('https'));
 
     return WillPopScope(
       onWillPop: () async {
@@ -95,7 +99,7 @@ class ReceivePage extends ConsumerWidget {
                               ),
                               const SizedBox(height: 40),
                               Text(
-                                message != null ? t.receivePage.subTitleMessage : t.receivePage.subTitle(n: receiveState.files.length),
+                                message != null ? (isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage) : t.receivePage.subTitle(n: receiveState.files.length),
                                 style: smallUi ? null : Theme.of(context).textTheme.headline6,
                                 textAlign: TextAlign.center,
                               ),
@@ -120,14 +124,34 @@ class ReceivePage extends ConsumerWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 10),
-                                    Center(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Clipboard.setData(ClipboardData(text: message));
-                                        },
-                                        child: Text(t.general.copy),
-                                      ),
-                                    )
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Clipboard.setData(ClipboardData(text: message));
+                                            if (checkPlatformIsDesktop()) {
+                                              context.showSnackBar(t.general.copiedToClipboard);
+                                            }
+                                          },
+                                          child: Text(t.general.copy),
+                                        ),
+                                        if (isLink)
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 20),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+                                                foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                                              ),
+                                              onPressed: () {
+                                                launchUrl(Uri.parse(message));
+                                              },
+                                              child: Text(t.general.open),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                             ],
@@ -151,36 +175,18 @@ class ReceivePage extends ConsumerWidget {
                             ),
                           ]
                         else if (message != null)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextButton.icon(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                ),
-                                onPressed: () {
-                                  _acceptNothing(ref, receiveState);
-                                  context.pop();
-                                },
-                                icon: const Icon(Icons.close),
-                                label: Text(t.general.close),
+                          Center(
+                            child: TextButton.icon(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
-                              const SizedBox(width: 20),
-                              TextButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                ),
-                                onPressed: () {
-                                  _acceptAll(ref, receiveState);
-                                  context.pushAndRemoveUntilImmediately(
-                                    removeUntil: ReceivePage,
-                                    builder: () => const ProgressPage(),
-                                  );
-                                },
-                                icon: const Icon(Icons.save),
-                                label: Text(t.general.save),
-                              ),
-                            ],
+                              onPressed: () {
+                                _acceptNothing(ref, receiveState);
+                                context.pop();
+                              },
+                              icon: const Icon(Icons.close),
+                              label: Text(t.general.close),
+                            ),
                           )
                         else
                           Row(
