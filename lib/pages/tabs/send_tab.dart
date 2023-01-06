@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -37,15 +38,15 @@ class _SendTabState extends ConsumerState<SendTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        _scan();
+        _scan(null);
       }
     });
   }
 
-  void _scan() {
+  void _scan(String? localIp) {
     final port = ref.read(settingsProvider.select((settings) => settings.port));
     final networkInfo = ref.read(networkInfoProvider);
-    final localIp = networkInfo?.localIp;
+    localIp ??= networkInfo?.localIps.firstOrNull;
     if (localIp != null) {
       ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp);
     }
@@ -54,6 +55,7 @@ class _SendTabState extends ConsumerState<SendTab> {
   @override
   Widget build(BuildContext context) {
     final selectedFiles = ref.watch(selectedFilesProvider);
+    final networkInfo = ref.watch(networkInfoProvider);
     final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
@@ -184,24 +186,25 @@ class _SendTabState extends ConsumerState<SendTab> {
           children: [
             Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
             const SizedBox(width: 10),
-            Tooltip(
-              message: t.sendTab.scan,
-              child: RotatingWidget(
-                duration: const Duration(seconds: 2),
-                spinning: nearbyDevicesState.running,
-                reverse: true,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onSurface,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    minimumSize: Size.zero,
-                    shape: const CircleBorder(),
+            if (networkInfo?.localIps.length == 1)
+              Tooltip(
+                message: t.sendTab.scan,
+                child: RotatingWidget(
+                  duration: const Duration(seconds: 2),
+                  spinning: nearbyDevicesState.runningIps.isNotEmpty,
+                  reverse: true,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      minimumSize: Size.zero,
+                      shape: const CircleBorder(),
+                    ),
+                    onPressed: () => _scan(null),
+                    child: const Icon(Icons.sync),
                   ),
-                  onPressed: _scan,
-                  child: const Icon(Icons.sync),
                 ),
               ),
-            ),
             Tooltip(
               message: t.dialogs.addressInput.title,
               child: TextButton(
@@ -233,6 +236,46 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ],
         ),
+        if ((networkInfo?.localIps.length ?? 0) > 1)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15),
+            child: Wrap(
+              spacing: 15,
+              runSpacing: 15,
+              children: networkInfo!.localIps.map((ip) {
+                return Card(
+                  margin: EdgeInsets.zero,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Tooltip(
+                          message: t.sendTab.scan,
+                          child: RotatingWidget(
+                            duration: const Duration(seconds: 2),
+                            spinning: nearbyDevicesState.runningIps.contains(ip),
+                            reverse: true,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                minimumSize: Size.zero,
+                                shape: const CircleBorder(),
+                              ),
+                              onPressed: () => _scan(ip),
+                              child: const Icon(Icons.sync),
+                            ),
+                          ),
+                        ),
+                        Text(ip),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
         Hero(
           tag: 'this-device',
           child: DeviceListTile(

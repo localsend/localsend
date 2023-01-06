@@ -136,7 +136,7 @@
     "addressInput": {
       "title": "Adresse eingeben",
       "hashtag": "Hashtag",
-      "ip": "IP"
+      "ip": "IP-Adresse"
     }
   }
 }

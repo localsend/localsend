@@ -9,6 +9,7 @@ class TaskRunner<T> {
 
   final int concurrency;
   int _runnerCount = 0;
+  bool _stopped = false;
 
   /// If [true], then the stream will be closed as soon as every task has been finished.
   /// By default, it is [false] when [initialTasks] is provided with a non-empty list.
@@ -31,6 +32,10 @@ class TaskRunner<T> {
     _fireRunners();
   }
 
+  void stop() {
+    _stopped = true;
+  }
+
   Stream<T> get stream => _streamController.stream;
 
   /// Starts multiple runners until [concurrency].
@@ -41,7 +46,7 @@ class TaskRunner<T> {
       _runner(
         onFinish: () {
           _runnerCount--;
-          if (_runnerCount == 0 && !_stayAlive) {
+          if (_stopped || (_runnerCount == 0 && !_stayAlive)) {
             _streamController.close();
             onFinish?.call();
           }

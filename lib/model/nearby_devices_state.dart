@@ -6,7 +6,7 @@ part 'nearby_devices_state.freezed.dart';
 @freezed
 class NearbyDevicesState with _$NearbyDevicesState {
   const factory NearbyDevicesState({
-    required bool running,
+    required Set<String> runningIps, // list of local ips
     required Map<String, Device> devices, // ip -> device
   }) = _NearbyDevicesState;
 }

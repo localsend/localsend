@@ -12,16 +12,19 @@ final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, Nearb
   return NearbyDevicesNotifier(dio);
 });
 
+Map<String, TaskRunner> _runners = {};
+
 class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   final Dio dio;
-  NearbyDevicesNotifier(this.dio) : super(const NearbyDevicesState(running: false, devices: {}));
+  NearbyDevicesNotifier(this.dio) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
 
   Future<void> startScan({required int port, required String localIp}) async {
-    if (state.running) {
+    if (state.runningIps.contains(localIp)) {
+      // already running for the same localIp
       return;
     }
 
-    state = state.copyWith(running: true);
+    state = state.copyWith(runningIps: {...state.runningIps, localIp});
 
     await _getStream(localIp, port).forEach((device) {
       state = state.copyWith(
@@ -29,12 +32,13 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
       );
     });
 
-    state = state.copyWith(running: false);
+    state = state.copyWith(runningIps: state.runningIps.where((ip) => ip != localIp).toSet());
   }
 
   Stream<Device> _getStream(String localIp, int port) {
     final ipList = List.generate(256, (i) => '${localIp.split('.').take(3).join('.')}.$i').where((ip) => ip != localIp).toList();
-    final runner = TaskRunner<Device?>(
+    _runners[localIp]?.stop();
+    _runners[localIp] = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
         (index) => () => _doRequest(dio, ipList[index], port),
@@ -42,7 +46,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
       concurrency: 50,
     );
 
-    return runner.stream.where((device) => device != null).cast<Device>();
+    return _runners[localIp]!.stream.where((device) => device != null).cast<Device>();
   }
 }
 

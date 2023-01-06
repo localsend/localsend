@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
@@ -13,7 +14,7 @@ final deviceInfoProvider = Provider((ref) {
   final serverState = ref.watch(serverProvider);
   final rawInfo = ref.watch(deviceRawInfoProvider);
   return Device(
-    ip: networkInfo?.localIp ?? '-',
+    ip: networkInfo?.localIps.firstOrNull ?? '-',
     port: serverState?.port ?? -1,
     alias: serverState?.alias ?? '-',
     deviceModel: rawInfo.deviceModel,

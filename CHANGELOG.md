@@ -1,3 +1,7 @@
+## 1.4.0 (2023-01-)
+
+- feat: support multiple local IP addresses
+
 ## 1.3.1 (2023-01-03)
 
 - fix: local IP sometimes not found

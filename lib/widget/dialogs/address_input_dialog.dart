@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -28,15 +29,15 @@ class AddressInputDialog extends ConsumerStatefulWidget {
 }
 
 class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
-  final _addressController = TextEditingController();
   final _selected = List.generate(_InputMode.values.length, (index) => index == 0);
   _InputMode _mode = _InputMode.hashtag;
+  String _input = '';
   bool _fetching = false;
   bool _failed = false;
 
   Future<void> _submit(String? ipPrefix, int port) async {
     final String ip;
-    final String input = _addressController.text.trim();
+    final String input = _input.trim();
     if (_mode == _InputMode.ip) {
       ip = input;
     } else {
@@ -62,8 +63,8 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final localIp = ref.watch(networkInfoProvider.select((info) => info?.localIp));
-    final ipPrefix = localIp?.split('.').take(3).join('.');
+    final localIps = ref.watch(networkInfoProvider.select((info) => info?.localIps));
+    final ipPrefix = localIps?.firstOrNull?.split('.').take(3).join('.');
     final settings = ref.watch(settingsProvider);
 
     return AlertDialog(
@@ -83,25 +84,37 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
               });
             },
             borderRadius: BorderRadius.circular(10),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
             children: _InputMode.values.map((mode) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Text(mode.label),
               );
             }).toList(),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           TextFormField(
-            controller: _addressController,
             autofocus: true,
             enabled: !_fetching,
             decoration: InputDecoration(
               prefixText: _mode == _InputMode.hashtag ? '# ' : 'IP: ',
             ),
+            onChanged: (s) {
+              setState(() => _input = s);
+            },
             onFieldSubmitted: (s) => _submit(ipPrefix, settings.port),
           ),
           const SizedBox(height: 10),
-          Text('${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${ipPrefix ?? '192.168.2'}.123'}'),
+          Text(
+            '${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${ipPrefix ?? '192.168.2'}.123'}',
+            style: const TextStyle(color: Colors.grey),
+          ),
+          if (_mode == _InputMode.hashtag)
+            Text(
+              '${t.dialogs.addressInput.ip}: ${ipPrefix ?? '192.168.2'}.$_input',
+              style: const TextStyle(color: Colors.grey),
+            ),
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
