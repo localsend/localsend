@@ -6,6 +6,7 @@ const _fruit = [
   'Apple',
   'Avocado',
   'Banana',
+  'Blackberry',
   'Blueberry',
   'Cherry',
   'Coconut',
@@ -14,8 +15,13 @@ const _fruit = [
   'Mango',
   'Melon',
   'Orange',
+  'Papaya',
+  'Peach',
+  'Pear',
   'Pineapple',
+  'Raspberry',
   'Strawberry',
+  'Tomato',
 ];
 
 String generateRandomAlias() {
