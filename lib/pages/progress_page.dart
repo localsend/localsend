@@ -124,18 +124,23 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
               itemBuilder: (context, index) {
                 if (index == 0) {
                   // title
-                  return Text(
-                    receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
-                    style: Theme.of(context).textTheme.headline6,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Text(
+                      receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   );
                 }
 
                 final file = _files[index - 1];
+                final String fileName = receiveState?.files[file.id]?.desiredName ?? file.fileName;
+
                 final fileStatus = receiveState?.files[file.id]?.status ?? sendState!.files[file.id]!.status;
                 final savedToGallery = receiveState?.files[file.id]?.savedToGallery ?? false;
 
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     splashFactory: NoSplash.splashFactory,
@@ -157,7 +162,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 children: [
                                   Flexible(
                                     child: Text(
-                                      file.fileName,
+                                      fileName,
                                       style: const TextStyle(fontSize: 16),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,

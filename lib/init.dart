@@ -7,7 +7,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
-import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/platform_check.dart';
@@ -80,9 +80,9 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
 void _handleSharedIntent(SharedMedia payload, WidgetRef ref) {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
-    ref.read(selectedFilesProvider.notifier).addMessage(message);
+    ref.read(selectedSendingFilesProvider.notifier).addMessage(message);
   }
-  ref.read(selectedFilesProvider.notifier).addFiles(
+  ref.read(selectedSendingFilesProvider.notifier).addFiles(
         files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
         converter: CrossFileConverters.convertSharedAttachment,
       );

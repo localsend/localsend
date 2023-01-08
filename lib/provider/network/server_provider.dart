@@ -69,10 +69,10 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     final securityContextResult = generateSecurityContext();
 
     newServerState = ServerState(
-      httpServer: await serve(router, '0.0.0.0', port, securityContext: SecurityContext()
-        ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
-        ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)
-      ),
+      httpServer: await serve(router, '0.0.0.0', port,
+          securityContext: SecurityContext()
+            ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
+            ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)),
       alias: alias,
       port: port,
       receiveState: null,
@@ -119,14 +119,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           case TargetPlatform.macOS:
           case TargetPlatform.windows:
           case TargetPlatform.fuchsia:
-            destinationDir = (await path.getDownloadsDirectory())!.path;
+            destinationDir = (await path.getDownloadsDirectory())!.path.replaceAll('\\', '/');
             break;
         }
       }
 
       print('Destination Directory: $destinationDir');
 
-      final streamController = StreamController<bool>();
+      final streamController = StreamController<Map<String, String>?>();
       state = state!.copyWith(
         receiveState: ReceiveState(
           status: SessionStatus.waiting,
@@ -137,6 +137,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
                 file: file,
                 status: FileStatus.queue,
                 token: null,
+                desiredName: null,
                 path: null,
                 savedToGallery: false,
               ),
@@ -153,8 +154,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
       // Delayed response (waiting for user's decision)
       final result = await streamController.stream.first;
-      if (result) {
-        if (state!.receiveState!.files.values.every((file) => file.token == null)) {
+
+      if (state?.receiveState == null) {
+        // somehow this state is already disposed
+        return Response.internalServerError();
+      }
+
+      if (result != null) {
+        if (result.isEmpty) {
           // nothing selected, send this to sender and close session
           closeSession();
           return Response.ok(
@@ -162,14 +169,33 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             headers: {'Content-Type': 'application/json'},
           );
         }
-        state = state?.copyWith(
-          receiveState: state?.receiveState?.copyWith(
+
+        final receiveState = state!.receiveState!;
+        state = state!.copyWith(
+          receiveState: receiveState.copyWith(
             status: SessionStatus.sending,
+            files: Map.fromEntries(
+              receiveState.files.values.map((entry) {
+                final desiredName = result[entry.file.id];
+                return MapEntry(
+                  entry.file.id,
+                  ReceivingFile(
+                    file: entry.file,
+                    status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
+                    token: desiredName != null ? _uuid.v4() : null,
+                    desiredName: desiredName,
+                    path: null,
+                    savedToGallery: false,
+                  ),
+                );
+              }),
+            ),
+            responseHandler: null,
           ),
         );
         return Response.ok(
             jsonEncode({
-              for (final file in state!.receiveState!.files.values) file.file.id: file.token,
+              for (final file in state!.receiveState!.files.values.where((f) => f.token != null)) file.file.id: file.token,
             }),
             headers: {'Content-Type': 'application/json'});
       } else {
@@ -203,20 +229,24 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       // begin of actual file transfer
       state = state?.copyWith(
         receiveState: receiveState.copyWith(
-          files: {...receiveState.files}..update(fileId, (_) => receivingFile.copyWith(status: FileStatus.sending)),
+          files: {...receiveState.files}..update(fileId, (_) => receivingFile.copyWith(
+            status: FileStatus.sending,
+            token: null, // remove token to reject further uploads of the same file
+          )),
           startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
         ),
       );
 
       final destinationPath = await _digestFilePath(
         dir: receiveState.destinationDirectory,
-        fileName: receivingFile.file.fileName,
+        fileName: receivingFile.desiredName!,
       );
 
       print('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       try {
-        final saveToGallery = checkPlatformWithGallery() && _ref.read(settingsProvider).saveToGallery &&
+        final saveToGallery = checkPlatformWithGallery() &&
+            _ref.read(settingsProvider).saveToGallery &&
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
@@ -291,35 +321,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     return await startServer(alias: alias, port: port);
   }
 
-  void acceptFileRequest(Set<String> fileIds) {
-    final receiveState = state?.receiveState;
-    if (receiveState == null) {
+  void acceptFileRequest(Map<String, String> fileNameMap) {
+    final controller = state?.receiveState?.responseHandler;
+    if (controller == null) {
       return;
     }
 
-    final responseHandler = receiveState.responseHandler;
-    if (responseHandler == null) {
-      return;
-    }
-
-    state = state?.copyWith(
-      receiveState: receiveState.copyWith(
-        files: {
-          for (final file in receiveState.files.values)
-            file.file.id: ReceivingFile(
-              file: file.file,
-              status: fileIds.contains(file.file.id) ? FileStatus.queue : FileStatus.skipped,
-              token: fileIds.contains(file.file.id) ? _uuid.v4() : null,
-              path: null,
-              savedToGallery: false,
-            ),
-        },
-        responseHandler: null,
-      ),
-    );
-
-    responseHandler.add(true);
-    responseHandler.close();
+    controller.add(fileNameMap);
+    controller.close();
   }
 
   void declineFileRequest() {
@@ -328,14 +337,24 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       return;
     }
 
-    controller.add(false);
+    controller.add(null);
     controller.close();
     closeSession();
+  }
+
+  /// Updates the destination directory for the current session.
+  void setSessionDestinationDir(String destinationDirectory) {
+    state = state?.copyWith(
+      receiveState: state?.receiveState?.copyWith(
+        destinationDirectory: destinationDirectory.replaceAll('\\', '/'),
+      ),
+    );
   }
 
   void _cancelBySender() {
     final currentStatus = state?.receiveState?.status;
     if (currentStatus != null && (currentStatus == SessionStatus.waiting || currentStatus == SessionStatus.sending)) {
+      Routerino.context.popUntil(ReceivePage); // pop just in case if use is in [ReceiveOptionsPage]
       state = state?.copyWith(
         receiveState: state?.receiveState?.copyWith(
           status: SessionStatus.canceledBySender,

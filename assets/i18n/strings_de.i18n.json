@@ -15,6 +15,7 @@
     "edit": "Bearbeiten",
     "error": "Fehler",
     "example": "Beispiel",
+    "files": "Dateien",
     "finished": "Abgeschlossen",
     "hide": "Verstecken",
     "no": "Nein",
@@ -22,11 +23,14 @@
     "online": "Online",
     "open": "Öffnen",
     "queue": "Warteschlange",
+    "renamed": "Umbenannt",
+    "reset": "Zurücksetzen",
     "restart": "Neustarten",
     "skipped": "Übersprungen",
     "start": "Start",
     "stop": "Stop",
     "save": "Speichern",
+    "unchanged": "Unverändert",
     "unknown": "Unbekannt",
     "yes": "Ja"
   },
@@ -98,6 +102,10 @@
     "subTitleLink": "sendet dir einen Link:",
     "canceled": "Der Absender hat die Anfrage abgebrochen."
   },
+  "receiveOptionsPage": {
+    "title": "Optionen",
+    "destination": "@:settingsTab.receive.destination"
+  },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
     "rejected": "Der Empfänger hat die Anfrage abgelehnt."
@@ -125,21 +133,33 @@
     "title": "Changelog"
   },
   "dialogs": {
-    "noFiles": {
-      "title": "Keine Datei ausgewählt",
-      "content": "Bitte wähle mindestens eine Datei aus."
+    "addressInput": {
+      "title": "Adresse eingeben",
+      "hashtag": "Hashtag",
+      "ip": "IP-Adresse"
     },
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
       "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
     },
+    "fileNameInput": {
+      "title": "Dateiname eingeben",
+      "original": "Original: {original}"
+    },
     "messageInput": {
       "title": "Nachricht eingeben"
     },
-    "addressInput": {
-      "title": "Adresse eingeben",
-      "hashtag": "Hashtag",
-      "ip": "IP-Adresse"
+    "noFiles": {
+      "title": "Keine Datei ausgewählt",
+      "content": "Bitte wähle mindestens eine Datei aus."
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Zähler",
+      "prefix": "Prefix",
+      "padZero": "Mit Nullen auffüllen",
+      "sortBeforeCount": "Vorher alphabetisch sortieren",
+      "random": "Zufall"
     }
   }
 }

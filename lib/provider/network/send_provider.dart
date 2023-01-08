@@ -38,8 +38,8 @@ class SendNotifier extends StateNotifier<SendState?> {
     required Device target,
     required List<CrossFile> files,
   }) async {
-    final requestDio = _ref.read(dioProvider(5 * 60 * 1000));
-    final uploadDio = _ref.read(dioProvider(30 * 24 * 60 * 60 * 1000)); // assuming someone sends a large file over several days
+    final requestDio = _ref.read(dioProvider(DioType.longLiving));
+    final uploadDio = _ref.read(dioProvider(DioType.longLiving));
     final cancelToken = CancelToken();
 
     final requestState = SendState(
@@ -207,7 +207,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     state?.cancelToken?.cancel(); // cancel current request
     state = null;
     try {
-      await _ref.read(dioProvider(2000)).post(ApiRoute.cancel.target(target));
+      await _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(target));
     } catch (_) {}
   }
 }

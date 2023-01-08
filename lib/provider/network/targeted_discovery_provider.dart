@@ -6,7 +6,7 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 
 final targetedDiscoveryProvider = Provider((ref) {
-  final dio = ref.watch(dioProvider(2 * 1000));
+  final dio = ref.watch(dioProvider(DioType.discovery));
   return TargetedDiscoveryService(dio);
 });
 

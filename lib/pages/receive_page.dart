@@ -6,7 +6,9 @@ import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
+import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
@@ -15,15 +17,45 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ReceivePage extends ConsumerWidget {
+class ReceivePage extends ConsumerStatefulWidget {
   const ReceivePage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<ReceivePage> createState() => _ReceivePageState();
+}
+
+class _ReceivePageState extends ConsumerState<ReceivePage> {
+  String? _message;
+  bool _isLink = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
+  }
+
+  Future<void> _init() async {
+    final receiveState = ref.watch(serverProvider)?.receiveState;
+    if (receiveState == null) {
+      return;
+    }
+
+    ref.read(selectedReceivingFilesProvider.notifier).init(receiveState.files.values.map((f) => f.file).toList());
+    setState(() {
+      final firstFile = receiveState.files.values.first.file;
+      // show message if there is only one text file
+      _message = receiveState.files.length == 1 && firstFile.fileType == FileType.text && firstFile.preview != null ? firstFile.preview : null;
+      _isLink = _message != null && (_message!.startsWith('http://') || _message!.startsWith('https'));
+    });
+  }
 
   void _acceptNothing(WidgetRef ref, ReceiveState receiveState) {
     ref.read(serverProvider.notifier).acceptFileRequest({});
   }
 
-  void _acceptAll(WidgetRef ref, ReceiveState receiveState) {
-    ref.read(serverProvider.notifier).acceptFileRequest(receiveState.files.values.map((f) => f.file.id).toSet());
+  void _accept(WidgetRef ref, ReceiveState receiveState) {
+    final selectedFiles = ref.read(selectedReceivingFilesProvider);
+    ref.read(serverProvider.notifier).acceptFileRequest(selectedFiles);
   }
 
   void _decline(WidgetRef ref) {
@@ -31,7 +63,7 @@ class ReceivePage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final receiveState = ref.watch(serverProvider)?.receiveState;
     if (receiveState == null) {
       // when declining/accepting the request, there is a short frame where tempRequest is null
@@ -39,11 +71,7 @@ class ReceivePage extends ConsumerWidget {
         body: Container(),
       );
     }
-
-    final firstFile = receiveState.files.values.first.file;
-    // show message if there is only one text file
-    final message = receiveState.files.length == 1 && firstFile.fileType == FileType.text && firstFile.preview != null ? firstFile.preview : null;
-    final isLink = message != null && (message.startsWith('http://') || message.startsWith('https'));
+    final selectedFiles = ref.watch(selectedReceivingFilesProvider);
 
     return WillPopScope(
       onWillPop: () async {
@@ -58,7 +86,7 @@ class ReceivePage extends ConsumerWidget {
               child: Builder(
                 builder: (context) {
                   final height = MediaQuery.of(context).size.height;
-                  final smallUi = message != null && height < 600;
+                  final smallUi = _message != null && height < 600;
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
                     child: Column(
@@ -99,11 +127,11 @@ class ReceivePage extends ConsumerWidget {
                               ),
                               const SizedBox(height: 40),
                               Text(
-                                message != null ? (isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage) : t.receivePage.subTitle(n: receiveState.files.length),
+                                _message != null ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage) : t.receivePage.subTitle(n: receiveState.files.length),
                                 style: smallUi ? null : Theme.of(context).textTheme.headline6,
                                 textAlign: TextAlign.center,
                               ),
-                              if (message != null)
+                              if (_message != null)
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
@@ -116,7 +144,7 @@ class ReceivePage extends ConsumerWidget {
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: SelectableText(
-                                                message,
+                                                _message!,
                                               ),
                                             ),
                                           ),
@@ -129,14 +157,14 @@ class ReceivePage extends ConsumerWidget {
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
-                                            Clipboard.setData(ClipboardData(text: message));
+                                            Clipboard.setData(ClipboardData(text: _message));
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
                                             }
                                           },
                                           child: Text(t.general.copy),
                                         ),
-                                        if (isLink)
+                                        if (_isLink)
                                           Padding(
                                             padding: const EdgeInsets.only(left: 20),
                                             child: ElevatedButton(
@@ -145,7 +173,7 @@ class ReceivePage extends ConsumerWidget {
                                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                               ),
                                               onPressed: () {
-                                                launchUrl(Uri.parse(message));
+                                                launchUrl(Uri.parse(_message!));
                                               },
                                               child: Text(t.general.open),
                                             ),
@@ -157,6 +185,19 @@ class ReceivePage extends ConsumerWidget {
                             ],
                           ),
                         ),
+                        if (receiveState.status == SessionStatus.waiting && _message == null)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              onPressed: () {
+                                context.push(() => const ReceiveOptionsPage());
+                              },
+                              child: Text(t.receiveOptionsPage.title),
+                            ),
+                          ),
                         if (receiveState.status == SessionStatus.canceledBySender)
                           ...[
                             Padding(
@@ -174,7 +215,7 @@ class ReceivePage extends ConsumerWidget {
                               ),
                             ),
                           ]
-                        else if (message != null)
+                        else if (_message != null)
                           Center(
                             child: TextButton.icon(
                               style: TextButton.styleFrom(
@@ -210,8 +251,8 @@ class ReceivePage extends ConsumerWidget {
                                   backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                   foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                 ),
-                                onPressed: () {
-                                  _acceptAll(ref, receiveState);
+                                onPressed: selectedFiles.isEmpty ? null : () {
+                                  _accept(ref, receiveState);
                                   context.pushAndRemoveUntilImmediately(
                                     removeUntil: ReceivePage,
                                     builder: () => const ProgressPage(),

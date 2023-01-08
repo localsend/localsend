@@ -6,7 +6,7 @@ import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
-import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -76,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         });
       },
       onDragDone: (event) {
-        ref.read(selectedFilesProvider.notifier).addFiles(
+        ref.read(selectedSendingFilesProvider.notifier).addFiles(
               files: event.files,
               converter: CrossFileConverters.convertXFile,
             );

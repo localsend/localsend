@@ -1,5 +1,8 @@
 ## 1.5.0 (2023-01-)
 
+- feat: allow accepting requests partially
+- feat: allow setting destination directory during accept phase
+- feat: allow renaming incoming files
 - feat: keep screen on during file transfer
 
 ## 1.4.0 (2023-01-06)

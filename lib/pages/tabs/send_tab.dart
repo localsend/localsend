@@ -8,7 +8,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
-import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
@@ -55,7 +55,7 @@ class _SendTabState extends ConsumerState<SendTab> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedFiles = ref.watch(selectedFilesProvider);
+    final selectedFiles = ref.watch(selectedSendingFilesProvider);
     final networkInfo = ref.watch(networkInfoProvider);
     final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
@@ -215,7 +215,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   shape: const CircleBorder(),
                 ),
                 onPressed: () async {
-                  final files = ref.read(selectedFilesProvider);
+                  final files = ref.read(selectedSendingFilesProvider);
                   if (files.isEmpty) {
                     context.pushBottomSheet(() => const NoFilesDialog());
                     return;
@@ -292,7 +292,7 @@ class _SendTabState extends ConsumerState<SendTab> {
               child: DeviceListTile(
                 device: device,
                 onTap: () {
-                  final files = ref.read(selectedFilesProvider);
+                  final files = ref.read(selectedSendingFilesProvider);
                   if (files.isEmpty) {
                     context.pushBottomSheet(() => const NoFilesDialog());
                     return;

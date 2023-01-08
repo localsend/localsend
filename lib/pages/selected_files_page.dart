@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/provider/selected_files_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -16,7 +16,7 @@ class SelectedFilesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedFiles = ref.watch(selectedFilesProvider);
+    final selectedFiles = ref.watch(selectedSendingFilesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +39,7 @@ class SelectedFilesPage extends ConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  ref.read(selectedFilesProvider.notifier).reset();
+                  ref.read(selectedSendingFilesProvider.notifier).reset();
                   context.popUntilRoot();
                 },
                 child: Text(t.selectedFilesPage.deleteAll),
@@ -76,8 +76,8 @@ class SelectedFilesPage extends ConsumerWidget {
                         TextButton(
                           style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                           onPressed: () {
-                            final currCount = ref.read(selectedFilesProvider).length;
-                            ref.read(selectedFilesProvider.notifier).removeAt(index);
+                            final currCount = ref.read(selectedSendingFilesProvider).length;
+                            ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
                             if (currCount == 1) {
                               context.popUntilRoot();
                             }

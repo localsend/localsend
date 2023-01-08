@@ -14,12 +14,14 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 const _uuid = Uuid();
 
-final selectedFilesProvider = StateNotifierProvider<SelectedFilesNotifier, List<CrossFile>>((ref) {
-  return SelectedFilesNotifier();
+/// Manages files selected for sending.
+/// Will stay alive even after a session has been completed to send the same files to another device.
+final selectedSendingFilesProvider = StateNotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
+  return SelectedSendingFilesNotifier();
 });
 
-class SelectedFilesNotifier extends StateNotifier<List<CrossFile>> {
-  SelectedFilesNotifier() : super([]);
+class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
+  SelectedSendingFilesNotifier() : super([]);
 
   /// Add a simple message
   /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8

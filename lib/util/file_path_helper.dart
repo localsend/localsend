@@ -17,6 +17,10 @@ extension FilePathStringExt on String {
     return replaceAll('\\', '/').split('/').last;
   }
 
+  String withFileNameKeepExtension(String fileNameWithoutExt) {
+    return '$fileNameWithoutExt.$extension';
+  }
+
   String withExtension(String ext) {
     if (ext == '') {
       return this;

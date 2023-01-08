@@ -10,6 +10,7 @@ class ReceivingFile with _$ReceivingFile {
     required FileDto file,
     required FileStatus status,
     required String? token,
+    required String? desiredName, // not null when accepted
     required String? path, // when finished
     required bool savedToGallery, // when finished
   }) = _ReceivingFile;

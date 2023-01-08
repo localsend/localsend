@@ -8,7 +8,7 @@ import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
 final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>((ref) {
-  final dio = ref.watch(dioProvider(2000));
+  final dio = ref.watch(dioProvider(DioType.discovery));
   return NearbyDevicesNotifier(dio);
 });
 

@@ -16,6 +16,9 @@ class ReceiveState with _$ReceiveState {
     required int? startTime,
     required int? endTime,
     required String destinationDirectory,
-    required StreamController<bool>? responseHandler, // use this to accept / decline the request
+
+    // use this to accept / decline the request, empty map == decline
+    // FileId -> File Name
+    required StreamController<Map<String, String>?>? responseHandler,
   }) = _ReceiveState;
 }
