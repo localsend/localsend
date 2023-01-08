@@ -12,6 +12,7 @@ import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/server/receiving_file.dart';
 import 'package:localsend_app/model/server/server_state.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -106,7 +107,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return Response.badRequest();
       }
 
-      String? destinationDir = _ref.read(settingsProvider).destination;
+      final settings = _ref.read(settingsProvider);
+      String? destinationDir = settings.destination;
       if (destinationDir == null) {
         switch (defaultTargetPlatform) {
           case TargetPlatform.android:
@@ -149,19 +151,28 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         ),
       );
 
-      // ignore: use_build_context_synchronously
-      Routerino.context.push(() => const ReceivePage());
+      final Map<String, String>? selection;
+      if (settings.quickSave) {
+        // accept all files
+        selection = {
+          for (final f in dto.files.values)
+            f.id: f.fileName,
+        };
+      } else {
+        // ignore: use_build_context_synchronously
+        Routerino.context.push(() => const ReceivePage());
 
-      // Delayed response (waiting for user's decision)
-      final result = await streamController.stream.first;
+        // Delayed response (waiting for user's decision)
+        selection = await streamController.stream.first;
+      }
 
       if (state?.receiveState == null) {
         // somehow this state is already disposed
         return Response.internalServerError();
       }
 
-      if (result != null) {
-        if (result.isEmpty) {
+      if (selection != null) {
+        if (selection.isEmpty) {
           // nothing selected, send this to sender and close session
           closeSession();
           return Response.ok(
@@ -176,7 +187,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             status: SessionStatus.sending,
             files: Map.fromEntries(
               receiveState.files.values.map((entry) {
-                final desiredName = result[entry.file.id];
+                final desiredName = selection![entry.file.id];
                 return MapEntry(
                   entry.file.id,
                   ReceivingFile(
@@ -193,6 +204,12 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             responseHandler: null,
           ),
         );
+
+        if (settings.quickSave) {
+          // ignore: use_build_context_synchronously
+          Routerino.context.pushImmediately(() => const ProgressPage());
+        }
+
         return Response.ok(
             jsonEncode({
               for (final file in state!.receiveState!.files.values.where((f) => f.token != null)) file.file.id: file.token,
@@ -295,6 +312,14 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             endTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
+        if (_ref.read(settingsProvider).quickSave) {
+          // close the session after return of the response
+          Future.delayed(Duration.zero, () {
+            closeSession();
+            // ignore: use_build_context_synchronously
+            Routerino.context.popUntilRoot();
+          });
+        }
         print('Received all files.');
       }
 

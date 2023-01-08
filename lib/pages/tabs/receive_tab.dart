@@ -7,6 +7,8 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
+import 'package:localsend_app/widget/custom_icon_button.dart';
+import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 
@@ -30,61 +32,90 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkInfoProvider);
     final serverState = ref.watch(serverProvider);
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Center(
+    return Stack(
+      children: [
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InitialFadeTransition(
-                          duration: const Duration(milliseconds: 300),
-                          delay: const Duration(milliseconds: 200),
-                          child: RotatingWidget(
-                            duration: const Duration(seconds: 15),
-                            spinning: serverState != null,
-                            child: SizedBox(
-                              height: 200,
-                              child: Assets.img.logo512.image(height: 200),
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InitialFadeTransition(
+                                    duration: const Duration(milliseconds: 300),
+                                    delay: const Duration(milliseconds: 200),
+                                    child: RotatingWidget(
+                                      duration: const Duration(seconds: 15),
+                                      spinning: serverState != null,
+                                      child: SizedBox(
+                                        height: 200,
+                                        child: Assets.img.logo512.image(height: 200),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
+                                  InitialFadeTransition(
+                                    duration: const Duration(milliseconds: 300),
+                                    delay: const Duration(milliseconds: 500),
+                                    child: Text(
+                                      serverState == null ? t.general.offline : networkInfo?.localIps.map((ip) => '#${ip.visualId}').toSet().join(' ') ?? '?',
+                                      style: const TextStyle(fontSize: 24),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                        Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
-                        InitialFadeTransition(
-                          duration: const Duration(milliseconds: 300),
-                          delay: const Duration(milliseconds: 500),
-                          child: Text(
-                            serverState == null ? t.general.offline : networkInfo?.localIps.map((ip) => '#${ip.visualId}').toSet().join(' ') ?? '?',
-                            style: const TextStyle(fontSize: 24),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20, top: 10),
+                    child: Center(
+                      child: ElevatedButton(
+                        style: settings.quickSave ? ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+                          foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                        ) : null,
+                        onPressed: () {
+                          ref.read(settingsProvider.notifier).setQuickSave(!settings.quickSave);
+                          if (!settings.quickSave) {
+                            QuickSaveNotice.open(context);
+                          }
+                        },
+                        child: Text('${t.general.quickSave}: ${settings.quickSave ? t.general.on : t.general.off}'),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                ],
               ),
-              Center(
-                child: TextButton(
-                  key: ValueKey('toggle-$_advanced'),
-                  onPressed: () {
-                    setState(() => _advanced = !_advanced);
-                  },
-                  child: Text(_advanced ? t.general.hide : t.general.advanced),
-                ),
-              ),
-              AnimatedCrossFade(
-                crossFadeState: _advanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                duration: const Duration(milliseconds: 200),
-                firstChild: Container(),
-                secondChild: Card(
+            ),
+          ),
+        ),
+        AnimatedCrossFade(
+          crossFadeState: _advanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 200),
+          firstChild: Container(),
+          secondChild: Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Table(
@@ -134,11 +165,22 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                   ),
                 ),
               ),
-              const SizedBox(height: 15),
-            ],
+            ),
           ),
         ),
-      ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: CustomIconButton(
+              onPressed: () {
+                setState(() => _advanced = !_advanced);
+              },
+              child: const Icon(Icons.info),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

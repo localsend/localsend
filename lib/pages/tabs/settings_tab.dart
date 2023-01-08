@@ -12,6 +12,7 @@ import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
+import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
@@ -105,6 +106,27 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
         _SettingsSection(
           title: t.settingsTab.receive.title,
           children: [
+            _SettingsEntry(
+              label: t.settingsTab.receive.quickSave,
+              child: CustomDropdownButton<bool>(
+                value: settings.quickSave,
+                items: [false, true].map((b) {
+                  return DropdownMenuItem(
+                    value: b,
+                    alignment: Alignment.center,
+                    child: Text(b ? t.general.on : t.general.off),
+                  );
+                }).toList(),
+                onChanged: (b) async {
+                  if (b != null) {
+                    await ref.read(settingsProvider.notifier).setQuickSave(b);
+                    if (b && mounted) {
+                      QuickSaveNotice.open(context);
+                    }
+                  }
+                },
+              ),
+            ),
             if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]))
               _SettingsEntry(
                 label: t.settingsTab.receive.destination,
@@ -125,7 +147,10 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       await ref.read(settingsProvider.notifier).setDestination(directory);
                     }
                   },
-                  child: Text(settings.destination ?? '(Downloads)'),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(settings.destination ?? '(Downloads)'),
+                  ),
                 ),
               ),
             if (checkPlatformWithGallery())
@@ -137,7 +162,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     return DropdownMenuItem(
                       value: b,
                       alignment: Alignment.center,
-                      child: Text(b ? t.general.yes : t.general.no),
+                      child: Text(b ? t.general.on : t.general.off),
                     );
                   }).toList(),
                   onChanged: (b) async {

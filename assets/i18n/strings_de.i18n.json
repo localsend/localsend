@@ -18,11 +18,13 @@
     "files": "Dateien",
     "finished": "Abgeschlossen",
     "hide": "Verstecken",
-    "no": "Nein",
+    "off": "Aus",
     "offline": "Offline",
+    "on": "An",
     "online": "Online",
     "open": "Öffnen",
     "queue": "Warteschlange",
+    "quickSave": "Quick Save",
     "renamed": "Umbenannt",
     "reset": "Zurücksetzen",
     "restart": "Neustarten",
@@ -31,8 +33,7 @@
     "stop": "Stop",
     "save": "Speichern",
     "unchanged": "Unverändert",
-    "unknown": "Unbekannt",
-    "yes": "Ja"
+    "unknown": "Unbekannt"
   },
   "receiveTab": {
     "title": "Empfangen",
@@ -79,6 +80,7 @@
     },
     "receive": {
       "title": "Empfangen",
+      "quickSave": "@:general.quickSave",
       "destination": "Ziel-Ordner",
       "saveToGallery": "Medien in die Gallerie speichern"
     },
@@ -160,6 +162,10 @@
       "padZero": "Mit Nullen auffüllen",
       "sortBeforeCount": "Vorher alphabetisch sortieren",
       "random": "Zufall"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
     }
   }
 }

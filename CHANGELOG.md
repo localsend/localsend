@@ -1,5 +1,6 @@
-## 1.5.0 (2023-01-)
+## 1.5.0 (2023-01-09)
 
+- feat: quick save mode
 - feat: accept requests partially
 - feat: set destination directory during accept phase
 - feat: rename incoming files

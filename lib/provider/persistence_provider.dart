@@ -15,6 +15,7 @@ const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
+const _quickSave = 'ls_quick_save';
 
 const defaultPort = 53317;
 
@@ -100,5 +101,13 @@ class PersistenceService {
 
   Future<void> setSaveToGallery(bool saveToGallery) async {
     await _prefs.setBool(_saveToGallery, saveToGallery);
+  }
+
+  bool isQuickSave() {
+    return _prefs.getBool(_quickSave) ?? false;
+  }
+
+  Future<void> setQuickSave(bool quickSave) async {
+    await _prefs.setBool(_quickSave, quickSave);
   }
 }

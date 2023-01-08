@@ -22,6 +22,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
       port: service.getPort(),
       destination: service.getDestination(),
       saveToGallery: service.isSaveToGallery(),
+      quickSave: service.isQuickSave(),
     );
   }
 
@@ -64,6 +65,13 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setSaveToGallery(saveToGallery);
     state = state.copyWith(
       saveToGallery: saveToGallery,
+    );
+  }
+
+  Future<void> setQuickSave(bool quickSave) async {
+    await _service.setQuickSave(quickSave);
+    state = state.copyWith(
+      quickSave: quickSave,
     );
   }
 }

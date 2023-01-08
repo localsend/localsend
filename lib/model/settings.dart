@@ -13,5 +13,6 @@ class Settings with _$Settings {
     required int port,
     required String? destination, // null = default
     required bool saveToGallery, // only Android, iOS
+    required bool quickSave, // automatically accept file requests
   }) = _Settings;
 }
