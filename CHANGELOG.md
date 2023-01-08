@@ -1,9 +1,10 @@
 ## 1.5.0 (2023-01-)
 
-- feat: allow accepting requests partially
-- feat: allow setting destination directory during accept phase
-- feat: allow renaming incoming files
+- feat: accept requests partially
+- feat: set destination directory during accept phase
+- feat: rename incoming files
 - feat: keep screen on during file transfer
+- feat: tap to open selected file before sending
 
 ## 1.4.0 (2023-01-06)
 

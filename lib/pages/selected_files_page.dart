@@ -9,6 +9,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
 
 class SelectedFilesPage extends ConsumerWidget {
@@ -51,41 +52,50 @@ class SelectedFilesPage extends ConsumerWidget {
             (index, file) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        FileThumbnail(file),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                file.fileType == FileType.text && file.bytes != null
-                                    ? '"${utf8.decode(file.bytes!).replaceAll('\n', ' ')}"'
-                                    : file.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.fade,
-                                softWrap: false,
-                              ),
-                              Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.caption),
-                            ],
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  splashFactory: NoSplash.splashFactory,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onTap: file.path != null
+                      ? () => OpenFilex.open(file.path)
+                      : null,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          FileThumbnail(file),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  file.fileType == FileType.text && file.bytes != null
+                                      ? '"${utf8.decode(file.bytes!).replaceAll('\n', ' ')}"'
+                                      : file.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.fade,
+                                  softWrap: false,
+                                ),
+                                Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.caption),
+                              ],
+                            ),
                           ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
-                          onPressed: () {
-                            final currCount = ref.read(selectedSendingFilesProvider).length;
-                            ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
-                            if (currCount == 1) {
-                              context.popUntilRoot();
-                            }
-                          },
-                          child: const Icon(Icons.delete),
-                        ),
-                      ],
+                          TextButton(
+                            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                            onPressed: () {
+                              final currCount = ref.read(selectedSendingFilesProvider).length;
+                              ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
+                              if (currCount == 1) {
+                                context.popUntilRoot();
+                              }
+                            },
+                            child: const Icon(Icons.delete),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
