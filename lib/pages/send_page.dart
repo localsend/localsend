@@ -8,6 +8,7 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
+import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 
 class SendPage extends ConsumerStatefulWidget {
@@ -28,7 +29,7 @@ class _SendPageState extends ConsumerState<SendPage> {
   void initState() {
     super.initState();
 
-    sleepAsync(500).then((value) {
+    sleepAsync(800).then((value) {
       if (mounted) {
         setState(() => _showName = true);
       }
@@ -67,66 +68,71 @@ class _SendPageState extends ConsumerState<SendPage> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Hero(
-                        tag: 'this-device',
-                        child: DeviceListTile(
-                          device: myDevice,
-                          thisDevice: !_showName,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const InitialFadeTransition(
-                        duration: Duration(milliseconds: 300),
-                        delay: Duration(milliseconds: 400),
-                        child: Icon(Icons.arrow_downward),
-                      ),
-                      const SizedBox(height: 20),
-                      Hero(
-                        tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
-                        child: DeviceListTile(
-                          device: sendState?.target ?? _targetDevice!,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (sendState != null)
-                  InitialFadeTransition(
-                    duration: const Duration(milliseconds: 300),
-                    delay: const Duration(milliseconds: 400),
-                    child: Column(
-                      children: [
-                        if (sendState.status == SessionStatus.waiting)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
-                          )
-                        else if (sendState.status == SessionStatus.declined)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Hero(
+                            tag: 'this-device',
+                            child: DeviceListTile(
+                              device: myDevice,
+                              thisDevice: !_showName,
+                            ),
                           ),
-                        Center(
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              _cancel();
-                              context.pop();
-                            },
-                            icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
-                            label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
+                          const SizedBox(height: 20),
+                          const InitialFadeTransition(
+                            duration: Duration(milliseconds: 300),
+                            delay: Duration(milliseconds: 400),
+                            child: Icon(Icons.arrow_downward),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 20),
+                          Hero(
+                            tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
+                            child: DeviceListTile(
+                              device: sendState?.target ?? _targetDevice!,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-              ],
+                    if (sendState != null)
+                      InitialFadeTransition(
+                        duration: const Duration(milliseconds: 300),
+                        delay: const Duration(milliseconds: 400),
+                        child: Column(
+                          children: [
+                            if (sendState.status == SessionStatus.waiting)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                              )
+                            else if (sendState.status == SessionStatus.declined)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                              ),
+                            Center(
+                              child: ElevatedButton.icon(
+                                onPressed: () {
+                                  _cancel();
+                                  context.pop();
+                                },
+                                icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
+                                label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

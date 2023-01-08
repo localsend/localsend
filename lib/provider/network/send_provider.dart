@@ -88,7 +88,7 @@ class SendNotifier extends StateNotifier<SendState?> {
       state = requestState;
 
       // ignore: use_build_context_synchronously
-      Routerino.context.push(() => const SendPage());
+      Routerino.context.push(() => const SendPage(), transition: RouterinoTransition.fade);
 
       final response = await requestDio.post(
         ApiRoute.sendRequest.target(target),

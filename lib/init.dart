@@ -12,6 +12,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
+import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:window_manager/window_manager.dart';
@@ -23,6 +24,9 @@ Future<PersistenceService> preInit() async {
   if (!kIsWeb && checkPlatformIsDesktop()) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setMinimumSize(const Size(400, 500));
+
+    // use the "slide" transition for desktop
+    Routerino.transition = RouterinoTransition.cupertino;
   }
 
   if (checkPlatformWithGallery()) {
