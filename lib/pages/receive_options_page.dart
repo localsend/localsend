@@ -5,6 +5,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_actions_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -38,13 +39,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
             children: [
               Text(t.receiveOptionsPage.destination, style: Theme.of(context).textTheme.headline6),
               const SizedBox(width: 10),
-              TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  minimumSize: Size.zero,
-                  shape: const CircleBorder(),
-                ),
+              CustomIconButton(
                 onPressed: () async {
                   final directory = await FilePicker.platform.getDirectoryPath();
                   if (directory != null) {
@@ -64,13 +59,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
               const SizedBox(width: 10),
               Tooltip(
                 message: t.dialogs.quickActions.title,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onSurface,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    minimumSize: Size.zero,
-                    shape: const CircleBorder(),
-                  ),
+                child: CustomIconButton(
                   onPressed: () {
                     showDialog(context: context, builder: (_) => const QuickActionsDialog());
                   },
@@ -80,13 +69,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
               const SizedBox(width: 10),
               Tooltip(
                 message: t.general.reset,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onSurface,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    minimumSize: Size.zero,
-                    shape: const CircleBorder(),
-                  ),
+                child: CustomIconButton(
                   onPressed: () async {
                     ref.read(selectedReceivingFilesProvider.notifier).init(receiveState.files.values.map((f) => f.file).toList());
                   },
@@ -112,7 +95,8 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
                           selectState[file.file.id] ?? file.file.fileName,
                           style: const TextStyle(fontSize: 16),
                           maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
                         ),
                         Text(
                         '${!selectState.containsKey(file.file.id)
@@ -131,13 +115,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.onSurface,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          minimumSize: Size.zero,
-                          shape: const CircleBorder(),
-                        ),
+                      CustomIconButton(
                         onPressed: selectState[file.file.id] == null ? null : () async {
                           final result = await showDialog<String>(
                             context: context,
@@ -155,6 +133,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
                       Checkbox(
                         value: selectState.containsKey(file.file.id),
                         activeColor: Theme.of(context).colorScheme.onSurface,
+                        checkColor: Theme.of(context).colorScheme.surface,
                         onChanged: (selected) {
                           if (selected == true) {
                             ref.read(selectedReceivingFilesProvider.notifier).select(file.file);

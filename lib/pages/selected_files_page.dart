@@ -67,7 +67,8 @@ class SelectedFilesPage extends ConsumerWidget {
                                     ? '"${utf8.decode(file.bytes!).replaceAll('\n', ' ')}"'
                                     : file.name,
                                 maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
                               ),
                               Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.caption),
                             ],

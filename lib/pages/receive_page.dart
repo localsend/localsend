@@ -188,14 +188,15 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                         if (receiveState.status == SessionStatus.waiting && _message == null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
-                            child: TextButton(
+                            child: TextButton.icon(
                               style: TextButton.styleFrom(
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
                               onPressed: () {
                                 context.push(() => const ReceiveOptionsPage());
                               },
-                              child: Text(t.receiveOptionsPage.title),
+                              icon: const Icon(Icons.settings),
+                              label: Text(t.receiveOptionsPage.title),
                             ),
                           ),
                         if (receiveState.status == SessionStatus.canceledBySender)

@@ -13,6 +13,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
@@ -156,7 +157,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                       child: Text(t.general.edit),
                     ),
                     const SizedBox(width: 15),
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -171,7 +172,8 @@ class _SendTabState extends ConsumerState<SendTab> {
                               options: addOptions,
                             ));
                       },
-                      child: Text(t.general.add),
+                      icon: const Icon(Icons.add),
+                      label: Text(t.general.add),
                     ),
                     const SizedBox(width: 15),
                   ],
@@ -193,13 +195,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   duration: const Duration(seconds: 2),
                   spinning: nearbyDevicesState.runningIps.isNotEmpty,
                   reverse: true,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.onSurface,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      minimumSize: Size.zero,
-                      shape: const CircleBorder(),
-                    ),
+                  child: CustomIconButton(
                     onPressed: () => _scan(null),
                     child: const Icon(Icons.sync),
                   ),
@@ -207,13 +203,7 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             Tooltip(
               message: t.dialogs.addressInput.title,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  minimumSize: Size.zero,
-                  shape: const CircleBorder(),
-                ),
+              child: CustomIconButton(
                 onPressed: () async {
                   final files = ref.read(selectedSendingFilesProvider);
                   if (files.isEmpty) {
@@ -256,13 +246,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                             duration: const Duration(seconds: 2),
                             spinning: nearbyDevicesState.runningIps.contains(ip),
                             reverse: true,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                minimumSize: Size.zero,
-                                shape: const CircleBorder(),
-                              ),
+                            child: CustomIconButton(
                               onPressed: () => _scan(ip),
                               child: const Icon(Icons.sync),
                             ),
@@ -309,7 +293,7 @@ class _SendTabState extends ConsumerState<SendTab> {
         }),
         const SizedBox(height: 20),
         OpacitySlideshow(
-          durationMillis: 7000,
+          durationMillis: 6000,
           children: [
             Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
             if (checkPlatformCanReceiveShareIntent())

@@ -44,7 +44,7 @@ ThemeData getTheme(Brightness brightness) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: checkPlatformIsDesktop() ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16) : const EdgeInsets.all(8),
+        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
   );
