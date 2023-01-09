@@ -5,6 +5,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_actions_dialog.dart';
@@ -38,20 +39,23 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
           Row(
             children: [
               Text(t.receiveOptionsPage.destination, style: Theme.of(context).textTheme.headline6),
-              const SizedBox(width: 10),
-              CustomIconButton(
-                onPressed: () async {
-                  final directory = await FilePicker.platform.getDirectoryPath();
-                  if (directory != null) {
-                    ref.read(serverProvider.notifier).setSessionDestinationDir(directory);
-                  }
-                },
-                child: const Icon(Icons.edit),
-              ),
+              if (checkPlatformWithFileSystem())
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: CustomIconButton(
+                    onPressed: () async {
+                      final directory = await FilePicker.platform.getDirectoryPath();
+                      if (directory != null) {
+                        ref.read(serverProvider.notifier).setSessionDestinationDir(directory);
+                      }
+                    },
+                    child: const Icon(Icons.edit),
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 5),
-          Text(receiveState.destinationDirectory),
+          Text(checkPlatformWithFileSystem() ? receiveState.destinationDirectory : t.receiveOptionsPage.appDirectory),
           const SizedBox(height: 20),
           Row(
             children: [

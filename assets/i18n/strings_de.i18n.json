@@ -106,7 +106,8 @@
   },
   "receiveOptionsPage": {
     "title": "Optionen",
-    "destination": "@:settingsTab.receive.destination"
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName-Ordner)"
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
