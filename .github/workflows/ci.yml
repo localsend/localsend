@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.10'
+          channel: 'stable'
+      - name: Dependencies
+        run: flutter pub get
+      - name: Build generated files
+        run: flutter pub run build_runner build -d
+      - name: Analyze
+        run: flutter analyze
+      - name: Test
+        run: flutter test

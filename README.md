@@ -1,5 +1,7 @@
 # LocalSend
 
+![ci](https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg)
+
 Links: [Homepage](https://localsend.org)
 | [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app)
 | [App Store](https://apps.apple.com/us/app/localsend/id1661733229)
