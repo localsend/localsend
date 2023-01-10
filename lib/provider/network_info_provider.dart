@@ -6,11 +6,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/network_info.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
 
 final networkInfoProvider = StateNotifierProvider<NetworkInfoNotifier, NetworkInfo?>((ref) => NetworkInfoNotifier());
 
-StreamSubscription<ConnectivityResult>? _subscription;
+StreamSubscription? _subscription;
 
 class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
   NetworkInfoNotifier() : super(null) {
@@ -20,9 +21,18 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
   Future<void> init() async {
     if (!kIsWeb) {
       _subscription?.cancel();
-      _subscription = Connectivity().onConnectivityChanged.listen((_) async  {
-        state = await _getInfo();
-      });
+      if (checkPlatform([TargetPlatform.windows])) {
+        // https://github.com/localsend/localsend/issues/12
+        _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
+          final s = Stopwatch()..start();
+          state = await _getInfo();
+          print('fetch: ${s.elapsedMilliseconds}');
+        });
+      } else {
+        _subscription = Connectivity().onConnectivityChanged.listen((_) async  {
+          state = await _getInfo();
+        });
+      }
     }
     state = await _getInfo();
   }
