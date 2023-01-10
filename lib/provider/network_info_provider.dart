@@ -40,10 +40,8 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
   Future<NetworkInfo> _getInfo() async {
     final info = plugin.NetworkInfo();
     String? ip;
-    String? mask;
     try {
       ip = await info.getWifiIP();
-      mask = await info.getWifiSubmask();
     } catch (e) {
       print(e);
     }
@@ -60,11 +58,10 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
       }
     }
 
-    print('New network state: $ip ($mask)');
+    print('New network state: $ip');
 
     return NetworkInfo(
       localIps: rankIpAddresses(nativeResult, ip),
-      netMask: mask,
     );
   }
 }

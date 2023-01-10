@@ -40,7 +40,6 @@
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "subnetMask": "Subnetzmaske:",
       "alias": "Alias:"
     }
   },

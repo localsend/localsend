@@ -153,13 +153,6 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                             Text(serverState?.port.toString() ?? '-'),
                           ],
                         ),
-                        TableRow(
-                          children: [
-                            Text(t.receiveTab.infoBox.subnetMask),
-                            const SizedBox(width: 10),
-                            Text(networkInfo?.netMask ?? t.general.unknown),
-                          ],
-                        ),
                       ],
                     ),
                   ),
