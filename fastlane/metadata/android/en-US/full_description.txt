@@ -1,0 +1,7 @@
+LocalSend is an open source app to share files and messages between nearby devices using the local wifi network.
+The communication between devices is entirely end-to-end encrypted via HTTPS.
+No Internet required. No tracking*. No ads.
+
+Currently, this app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.
+
+*The operating system may still gather usage data.
