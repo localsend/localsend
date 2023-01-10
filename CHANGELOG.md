@@ -1,3 +1,7 @@
+## 1.5.1 (2023-01-10)
+
+- fix(windows): app sometimes crash on start
+
 ## 1.5.0 (2023-01-09)
 
 - feat: quick save mode

@@ -24,9 +24,7 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
         _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
-          final s = Stopwatch()..start();
           state = await _getInfo();
-          print('fetch: ${s.elapsedMilliseconds}');
         });
       } else {
         _subscription = Connectivity().onConnectivityChanged.listen((_) async  {
