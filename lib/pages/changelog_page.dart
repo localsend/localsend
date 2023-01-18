@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 
 class ChangelogPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class ChangelogPage extends StatelessWidget {
         title: Text(t.changelogPage.title),
       ),
       body: FutureBuilder(
-        future: rootBundle.loadString('CHANGELOG.md'),
+        future: rootBundle.loadString(Assets.changelog),
         builder: (context, data) {
           if (!data.hasData) {
             return Container();
