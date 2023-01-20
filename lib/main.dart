@@ -41,7 +41,7 @@ class LocalSendApp extends ConsumerWidget {
       child: MaterialApp(
         title: t.appName,
         locale: TranslationProvider.of(context).flutterLocale,
-        supportedLocales: LocaleSettings.supportedLocales,
+        supportedLocales: AppLocaleUtils.supportedLocales,
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         debugShowCheckedModeBanner: false,
         theme: getTheme(Brightness.light),
