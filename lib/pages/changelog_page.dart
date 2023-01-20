@@ -22,7 +22,7 @@ class ChangelogPage extends StatelessWidget {
           return Markdown(
             data: data.data!,
           );
-        }
+        },
       ),
     );
   }

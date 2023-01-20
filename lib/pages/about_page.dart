@@ -14,7 +14,8 @@ final _body = '''
           Currently, this app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.
 
           *The operating system may still gather usage data.
-          '''.splitMapJoin(
+          '''
+    .splitMapJoin(
   RegExp(r'^', multiLine: true),
   onMatch: (_) => '\n',
   onNonMatch: (n) => n.trim(),

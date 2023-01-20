@@ -23,7 +23,7 @@ class TaskRunner<T> {
     bool? stayAlive,
     this.onFinish,
   })  : _queue = Queue()..addAll(initialTasks ?? []),
-        _stayAlive = stayAlive ?? initialTasks == null || initialTasks.isEmpty  {
+        _stayAlive = stayAlive ?? initialTasks == null || initialTasks.isEmpty {
     _fireRunners();
   }
 

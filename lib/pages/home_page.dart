@@ -95,13 +95,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                       onDestinationSelected: _goToPage,
                       extended: sizingInformation.isDesktop,
                       backgroundColor: Theme.of(context).cardColorWithElevation,
-                      leading: sizingInformation.isDesktop ? Column(
-                        children: const [
-                          SizedBox(height: 20),
-                          Text('LocalSend', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                          SizedBox(height: 20),
-                        ],
-                      ) : null,
+                      leading: sizingInformation.isDesktop
+                          ? Column(
+                              children: const [
+                                SizedBox(height: 20),
+                                Text(
+                                  'LocalSend',
+                                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 20),
+                              ],
+                            )
+                          : null,
                       destinations: HomeTab.values.map((tab) {
                         return NavigationRailDestination(
                           icon: Icon(tab.icon),
@@ -142,13 +148,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ],
               ),
             ),
-            bottomNavigationBar: sizingInformation.isMobile ? NavigationBar(
-              selectedIndex: _currentTab.index,
-              onDestinationSelected: _goToPage,
-              destinations: HomeTab.values.map((tab) {
-                return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
-              }).toList(),
-            ) : null,
+            bottomNavigationBar: sizingInformation.isMobile
+                ? NavigationBar(
+                    selectedIndex: _currentTab.index,
+                    onDestinationSelected: _goToPage,
+                    destinations: HomeTab.values.map((tab) {
+                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+                    }).toList(),
+                  )
+                : null,
           );
         },
       ),

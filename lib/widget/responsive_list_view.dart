@@ -29,16 +29,17 @@ class ResponsiveListView extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxWidth),
           child: ResponsiveBuilder(
-              breakpoints: defaultBreakpoints,
-              builder: (context, sizingInformation) {
-            return Padding(
-              padding: sizingInformation.isDesktop ? desktopPadding : padding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: children,
-              ),
-            );
-          }),
+            breakpoints: defaultBreakpoints,
+            builder: (context, sizingInformation) {
+              return Padding(
+                padding: sizingInformation.isDesktop ? desktopPadding : padding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: children,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

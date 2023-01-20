@@ -35,9 +35,9 @@ enum FilePickerOption {
         final result = await FilePicker.platform.pickFiles(allowMultiple: true);
         if (result != null) {
           ref.read(selectedSendingFilesProvider.notifier).addFiles(
-            files: result.files,
-            converter: CrossFileConverters.convertPlatformFile,
-          );
+                files: result.files,
+                converter: CrossFileConverters.convertPlatformFile,
+              );
         }
         break;
       case FilePickerOption.media:
@@ -49,9 +49,9 @@ enum FilePickerOption {
         );
         if (result != null) {
           ref.read(selectedSendingFilesProvider.notifier).addFiles(
-            files: result,
-            converter: CrossFileConverters.convertAssetEntity,
-          );
+                files: result,
+                converter: CrossFileConverters.convertAssetEntity,
+              );
         }
         break;
       case FilePickerOption.text:

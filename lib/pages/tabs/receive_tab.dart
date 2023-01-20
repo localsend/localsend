@@ -69,7 +69,9 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                     duration: const Duration(milliseconds: 300),
                                     delay: const Duration(milliseconds: 500),
                                     child: Text(
-                                      serverState == null ? t.general.offline : networkInfo?.localIps.map((ip) => '#${ip.visualId}').toSet().join(' ') ?? '?',
+                                      serverState == null
+                                          ? t.general.offline
+                                          : networkInfo?.localIps.map((ip) => '#${ip.visualId}').toSet().join(' ') ?? '?',
                                       style: const TextStyle(fontSize: 24),
                                     ),
                                   ),
@@ -85,10 +87,12 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                     padding: const EdgeInsets.only(bottom: 20, top: 10),
                     child: Center(
                       child: ElevatedButton(
-                        style: settings.quickSave ? ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                          foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-                        ) : null,
+                        style: settings.quickSave
+                            ? ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+                                foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                              )
+                            : null,
                         onPressed: () {
                           ref.read(settingsProvider.notifier).setQuickSave(!settings.quickSave);
                           if (!settings.quickSave) {
@@ -139,8 +143,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (networkInfo?.localIps.isEmpty ?? true)
-                                  Text(t.general.unknown),
+                                if (networkInfo?.localIps.isEmpty ?? true) Text(t.general.unknown),
                                 ...?networkInfo?.localIps.map((ip) => Text(ip)),
                               ],
                             ),

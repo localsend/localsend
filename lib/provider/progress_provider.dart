@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// It is implemented as [ChangeNotifier] for performance reasons.
 final progressProvider = ChangeNotifierProvider((ref) => ProgressNotifier());
 
-class ProgressNotifier extends ChangeNotifier  {
+class ProgressNotifier extends ChangeNotifier {
   final _progressMap = <String, double>{}; // file id -> 0..1
 
   void setProgress(String fileId, double progress) {

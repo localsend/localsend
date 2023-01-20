@@ -18,7 +18,6 @@ class InitialFadeTransition extends StatefulWidget {
 }
 
 class _InitialFadeTransitionState extends State<InitialFadeTransition> {
-  
   double _opacity = 0;
 
   @override

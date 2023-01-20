@@ -27,7 +27,7 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo?> {
           state = await _getInfo();
         });
       } else {
-        _subscription = Connectivity().onConnectivityChanged.listen((_) async  {
+        _subscription = Connectivity().onConnectivityChanged.listen((_) async {
           state = await _getInfo();
         });
       }

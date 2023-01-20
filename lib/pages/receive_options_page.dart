@@ -103,9 +103,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
                           softWrap: false,
                         ),
                         Text(
-                        '${!selectState.containsKey(file.file.id)
-                              ? t.general.skipped
-                              : (selectState[file.file.id] == file.file.fileName ? t.general.unchanged : t.general.renamed)} - ${file.file.size.asReadableFileSize}',
+                          '${!selectState.containsKey(file.file.id) ? t.general.skipped : (selectState[file.file.id] == file.file.fileName ? t.general.unchanged : t.general.renamed)} - ${file.file.size.asReadableFileSize}',
                           style: TextStyle(
                               color: !selectState.containsKey(file.file.id)
                                   ? Colors.grey
@@ -120,18 +118,20 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       CustomIconButton(
-                        onPressed: selectState[file.file.id] == null ? null : () async {
-                          final result = await showDialog<String>(
-                            context: context,
-                            builder: (_) => FileNameInputDialog(
-                              originalName: file.file.fileName,
-                              initialName: selectState[file.file.id]!,
-                            ),
-                          );
-                          if (result != null) {
-                            ref.read(selectedReceivingFilesProvider.notifier).rename(file.file.id, result);
-                          }
-                        },
+                        onPressed: selectState[file.file.id] == null
+                            ? null
+                            : () async {
+                                final result = await showDialog<String>(
+                                  context: context,
+                                  builder: (_) => FileNameInputDialog(
+                                    originalName: file.file.fileName,
+                                    initialName: selectState[file.file.id]!,
+                                  ),
+                                );
+                                if (result != null) {
+                                  ref.read(selectedReceivingFilesProvider.notifier).rename(file.file.id, result);
+                                }
+                              },
                         child: const Icon(Icons.edit),
                       ),
                       Checkbox(

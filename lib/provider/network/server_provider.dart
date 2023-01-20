@@ -155,8 +155,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       if (settings.quickSave) {
         // accept all files
         selection = {
-          for (final f in dto.files.values)
-            f.id: f.fileName,
+          for (final f in dto.files.values) f.id: f.fileName,
         };
       } else {
         // ignore: use_build_context_synchronously
@@ -248,10 +247,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       // begin of actual file transfer
       state = state?.copyWith(
         receiveState: receiveState.copyWith(
-          files: {...receiveState.files}..update(fileId, (_) => receivingFile.copyWith(
-            status: FileStatus.sending,
-            token: null, // remove token to reject further uploads of the same file
-          )),
+          files: {...receiveState.files}..update(
+              fileId,
+              (_) => receivingFile.copyWith(
+                status: FileStatus.sending,
+                token: null, // remove token to reject further uploads of the same file
+              ),
+            ),
           startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
         ),
       );
@@ -434,10 +436,15 @@ extension on ReceiveState {
     required String? path,
     required bool savedToGallery,
   }) {
-    return copyWith(files: {...files}..update(fileId, (file) => file.copyWith(
-      status: status,
-      path: path,
-      savedToGallery: savedToGallery,
-    )));
+    return copyWith(
+      files: {...files}..update(
+          fileId,
+          (file) => file.copyWith(
+            status: status,
+            path: path,
+            savedToGallery: savedToGallery,
+          ),
+        ),
+    );
   }
 }

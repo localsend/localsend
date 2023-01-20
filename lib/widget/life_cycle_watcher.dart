@@ -10,7 +10,7 @@ class LifeCycleWatcher extends StatefulWidget {
   State<LifeCycleWatcher> createState() => _LifeCycleWatcherState();
 }
 
-class _LifeCycleWatcherState extends State<LifeCycleWatcher> with WidgetsBindingObserver  {
+class _LifeCycleWatcherState extends State<LifeCycleWatcher> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return widget.child;

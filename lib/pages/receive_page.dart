@@ -127,7 +127,9 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               ),
                               const SizedBox(height: 40),
                               Text(
-                                _message != null ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage) : t.receivePage.subTitle(n: receiveState.files.length),
+                                _message != null
+                                    ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
+                                    : t.receivePage.subTitle(n: receiveState.files.length),
                                 style: smallUi ? null : Theme.of(context).textTheme.headline6,
                                 textAlign: TextAlign.center,
                               ),
@@ -199,24 +201,22 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               label: Text(t.receiveOptionsPage.title),
                             ),
                           ),
-                        if (receiveState.status == SessionStatus.canceledBySender)
-                          ...[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                        if (receiveState.status == SessionStatus.canceledBySender) ...[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                          ),
+                          Center(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                ref.read(serverProvider.notifier).closeSession();
+                                context.pop();
+                              },
+                              icon: const Icon(Icons.check_circle),
+                              label: Text(t.general.close),
                             ),
-                            Center(
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  ref.read(serverProvider.notifier).closeSession();
-                                  context.pop();
-                                },
-                                icon: const Icon(Icons.check_circle),
-                                label: Text(t.general.close),
-                              ),
-                            ),
-                          ]
-                        else if (_message != null)
+                          ),
+                        ] else if (_message != null)
                           Center(
                             child: TextButton.icon(
                               style: TextButton.styleFrom(
@@ -252,13 +252,15 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                   backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                   foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                 ),
-                                onPressed: selectedFiles.isEmpty ? null : () {
-                                  _accept(ref, receiveState);
-                                  context.pushAndRemoveUntilImmediately(
-                                    removeUntil: ReceivePage,
-                                    builder: () => const ProgressPage(),
-                                  );
-                                },
+                                onPressed: selectedFiles.isEmpty
+                                    ? null
+                                    : () {
+                                        _accept(ref, receiveState);
+                                        context.pushAndRemoveUntilImmediately(
+                                          removeUntil: ReceivePage,
+                                          builder: () => const ProgressPage(),
+                                        );
+                                      },
                                 icon: const Icon(Icons.check_circle),
                                 label: Text(t.general.accept),
                               ),
@@ -267,7 +269,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                       ],
                     ),
                   );
-                }
+                },
               ),
             ),
           ),

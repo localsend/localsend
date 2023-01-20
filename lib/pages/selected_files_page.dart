@@ -57,9 +57,7 @@ class SelectedFilesPage extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: file.path != null
-                      ? () => OpenFilex.open(file.path)
-                      : null,
+                  onTap: file.path != null ? () => OpenFilex.open(file.path) : null,
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10),
