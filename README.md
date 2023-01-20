@@ -48,6 +48,14 @@ Please ensure that `flutter pub run build_runner build` has been run. Otherwise,
 
 ### Android
 
+Traditional APK
+
+```shell
+flutter build apk
+```
+
+AppBundle for Google Play
+
 ```shell
 flutter build appbundle
 ```
