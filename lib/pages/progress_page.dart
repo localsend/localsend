@@ -76,7 +76,6 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
       } else if (sendState != null) {
         ref.read(sendProvider.notifier).cancelSession();
       }
-      ref.read(progressProvider.notifier).reset();
     }
     return result;
   }

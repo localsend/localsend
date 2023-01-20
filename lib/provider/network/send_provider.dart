@@ -142,6 +142,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     bool hasError = false;
 
     state = state?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch);
+    _ref.read(progressProvider.notifier).reset();
 
     for (final file in files.values) {
       final token = file.token;

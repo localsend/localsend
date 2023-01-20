@@ -205,6 +205,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           ),
         );
 
+        _ref.read(progressProvider.notifier).reset();
+
         if (settings.quickSave) {
           // ignore: use_build_context_synchronously
           Routerino.context.pushImmediately(() => const ProgressPage());
