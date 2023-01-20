@@ -86,21 +86,27 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20, top: 10),
                     child: Center(
-                      child: ElevatedButton(
-                        style: settings.quickSave
-                            ? ElevatedButton.styleFrom(
+                      child: settings.quickSave
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-                              )
-                            : null,
-                        onPressed: () {
-                          ref.read(settingsProvider.notifier).setQuickSave(!settings.quickSave);
-                          if (!settings.quickSave) {
-                            QuickSaveNotice.open(context);
-                          }
-                        },
-                        child: Text('${t.general.quickSave}: ${settings.quickSave ? t.general.on : t.general.off}'),
-                      ),
+                              ),
+                              onPressed: () {
+                                ref.read(settingsProvider.notifier).setQuickSave(false);
+                              },
+                              child: Text('${t.general.quickSave}: ${t.general.on}'),
+                            )
+                          : TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.grey,
+                              ),
+                              onPressed: () {
+                                ref.read(settingsProvider.notifier).setQuickSave(true);
+                                QuickSaveNotice.open(context);
+                              },
+                              child: Text('${t.general.quickSave}: ${t.general.off}'),
+                            ),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -117,47 +123,47 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
             alignment: Alignment.topRight,
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Table(
-                      columnWidths: const {
-                        0: IntrinsicColumnWidth(),
-                        1: IntrinsicColumnWidth(),
-                        2: FlexColumnWidth(),
-                      },
-                      children: [
-                        TableRow(
-                          children: [
-                            Text(t.receiveTab.infoBox.alias),
-                            const SizedBox(width: 10),
-                            Text(serverState?.alias ?? '-'),
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            Text(t.receiveTab.infoBox.ip),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (networkInfo?.localIps.isEmpty ?? true) Text(t.general.unknown),
-                                ...?networkInfo?.localIps.map((ip) => Text(ip)),
-                              ],
-                            ),
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            Text(t.receiveTab.infoBox.port),
-                            const SizedBox(width: 10),
-                            Text(serverState?.port.toString() ?? '-'),
-                          ],
-                        ),
-                      ],
-                    ),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(),
+                      1: IntrinsicColumnWidth(),
+                      2: IntrinsicColumnWidth(),
+                    },
+                    children: [
+                      TableRow(
+                        children: [
+                          Text(t.receiveTab.infoBox.alias),
+                          const SizedBox(width: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Text(serverState?.alias ?? '-'),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Text(t.receiveTab.infoBox.ip),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (networkInfo?.localIps.isEmpty ?? true) Text(t.general.unknown),
+                              ...?networkInfo?.localIps.map((ip) => Text(ip)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Text(t.receiveTab.infoBox.port),
+                          const SizedBox(width: 10),
+                          Text(serverState?.port.toString() ?? '-'),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
