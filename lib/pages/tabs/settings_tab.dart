@@ -119,8 +119,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 }).toList(),
                 onChanged: (b) async {
                   if (b != null) {
+                    final old = settings.quickSave;
                     await ref.read(settingsProvider.notifier).setQuickSave(b);
-                    if (b && mounted) {
+                    if (!old && b && mounted) {
                       QuickSaveNotice.open(context);
                     }
                   }
