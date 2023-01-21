@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
@@ -15,6 +19,7 @@ import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:routerino/routerino.dart';
 
 class SettingsTab extends ConsumerStatefulWidget {
@@ -101,32 +106,61 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 },
               ),
             ),
+            if (checkPlatformIsDesktop()) ...[
+              _BooleanEntry(
+                label: t.settingsTab.general.minimizeToTray,
+                value: settings.minimizeToTray,
+                onChanged: (b) async {
+                  await ref.read(settingsProvider.notifier).setMinimizeToTray(b);
+                },
+              ),
+              _BooleanEntry(
+                label: t.settingsTab.general.launchAtStartup,
+                value: settings.launchAtStartup,
+                onChanged: (b) async {
+                  try {
+                    final packageInfo = await PackageInfo.fromPlatform();
+
+                    launchAtStartup.setup(
+                      appName: packageInfo.appName,
+                      appPath: Platform.resolvedExecutable,
+                      args: [launchAtStartupArg],
+                    );
+                    if (b) {
+                      await launchAtStartup.enable();
+                    } else {
+                      await launchAtStartup.disable();
+                    }
+                    await ref.read(settingsProvider.notifier).setLaunchAtStartup(b);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+              if (settings.launchAtStartup)
+                _BooleanEntry(
+                  label: t.settingsTab.general.launchMinimized,
+                  value: settings.launchMinimized,
+                  onChanged: (b) async {
+                    await ref.read(settingsProvider.notifier).setLaunchMinimized(b);
+                  },
+                ),
+            ],
           ],
         ),
         _SettingsSection(
           title: t.settingsTab.receive.title,
           children: [
-            _SettingsEntry(
+            _BooleanEntry(
               label: t.settingsTab.receive.quickSave,
-              child: CustomDropdownButton<bool>(
-                value: settings.quickSave,
-                items: [false, true].map((b) {
-                  return DropdownMenuItem(
-                    value: b,
-                    alignment: Alignment.center,
-                    child: Text(b ? t.general.on : t.general.off),
-                  );
-                }).toList(),
-                onChanged: (b) async {
-                  if (b != null) {
-                    final old = settings.quickSave;
-                    await ref.read(settingsProvider.notifier).setQuickSave(b);
-                    if (!old && b && mounted) {
-                      QuickSaveNotice.open(context);
-                    }
-                  }
-                },
-              ),
+              value: settings.quickSave,
+              onChanged: (b) async {
+                final old = settings.quickSave;
+                await ref.read(settingsProvider.notifier).setQuickSave(b);
+                if (!old && b && mounted) {
+                  QuickSaveNotice.open(context);
+                }
+              },
             ),
             if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]))
               _SettingsEntry(
@@ -155,23 +189,12 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 ),
               ),
             if (checkPlatformWithGallery())
-              _SettingsEntry(
+              _BooleanEntry(
                 label: t.settingsTab.receive.saveToGallery,
-                child: CustomDropdownButton<bool>(
-                  value: settings.saveToGallery,
-                  items: [false, true].map((b) {
-                    return DropdownMenuItem(
-                      value: b,
-                      alignment: Alignment.center,
-                      child: Text(b ? t.general.on : t.general.off),
-                    );
-                  }).toList(),
-                  onChanged: (b) async {
-                    if (b != null) {
-                      await ref.read(settingsProvider.notifier).setSaveToGallery(b);
-                    }
-                  },
-                ),
+                value: settings.saveToGallery,
+                onChanged: (b) async {
+                  await ref.read(settingsProvider.notifier).setSaveToGallery(b);
+                },
               ),
           ],
         ),
@@ -354,6 +377,40 @@ class _SettingsEntry extends StatelessWidget {
             child: child,
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// A specialized version of [_SettingsEntry].
+class _BooleanEntry extends StatelessWidget {
+  final String label;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+  const _BooleanEntry({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _SettingsEntry(
+      label: label,
+      child: CustomDropdownButton<bool>(
+        value: value,
+        items: [false, true].map((b) {
+          return DropdownMenuItem(
+            value: b,
+            alignment: Alignment.center,
+            child: Text(b ? t.general.on : t.general.off),
+          );
+        }).toList(),
+        onChanged: (b) {
+          if (b != null) {
+            onChanged(b);
+          }
+        },
       ),
     );
   }

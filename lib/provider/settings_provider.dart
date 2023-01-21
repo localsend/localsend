@@ -23,6 +23,9 @@ class SettingsNotifier extends StateNotifier<Settings> {
       destination: service.getDestination(),
       saveToGallery: service.isSaveToGallery(),
       quickSave: service.isQuickSave(),
+      minimizeToTray: service.isMinimizeToTray(),
+      launchAtStartup: service.isLaunchAtStartup(),
+      launchMinimized: service.isLaunchMinimized(),
     );
   }
 
@@ -72,6 +75,27 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setQuickSave(quickSave);
     state = state.copyWith(
       quickSave: quickSave,
+    );
+  }
+
+  Future<void> setMinimizeToTray(bool minimizeToTray) async {
+    await _service.setMinimizeToTray(minimizeToTray);
+    state = state.copyWith(
+      minimizeToTray: minimizeToTray,
+    );
+  }
+
+  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
+    await _service.setLaunchAtStartup(launchAtStartup);
+    state = state.copyWith(
+      launchAtStartup: launchAtStartup,
+    );
+  }
+
+  Future<void> setLaunchMinimized(bool launchMinimized) async {
+    await _service.setLaunchMinimized(launchMinimized);
+    state = state.copyWith(
+      launchMinimized: launchMinimized,
     );
   }
 }

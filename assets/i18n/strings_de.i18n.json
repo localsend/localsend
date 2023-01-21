@@ -75,7 +75,10 @@
       "language": "Sprache",
       "languageOptions": {
         "system": "System"
-      }
+      },
+      "minimizeToTray": "In Symbolleiste minimieren",
+      "launchAtStartup": "Autostart nach Login",
+      "launchMinimized": "Versteckt starten"
     },
     "receive": {
       "title": "Empfangen",

@@ -31,6 +31,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:uuid/uuid.dart';
+import 'package:window_manager/window_manager.dart';
 
 /// This provider manages receiving file requests.
 final serverProvider = StateNotifierProvider<ServerNotifier, ServerState?>((ref) {
@@ -158,6 +159,10 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           for (final f in dto.files.values) f.id: f.fileName,
         };
       } else {
+        if (checkPlatformIsDesktop() && (await windowManager.isMinimized() || !(await windowManager.isVisible()))) {
+          await windowManager.show();
+        }
+
         // ignore: use_build_context_synchronously
         Routerino.context.push(() => const ReceivePage());
 

@@ -4,6 +4,7 @@ import FlutterMacOS
 @NSApplicationMain
 class AppDelegate: FlutterAppDelegate {
   override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-    return true
+    // LocalSend handles the close event manually
+    return false
   }
 }

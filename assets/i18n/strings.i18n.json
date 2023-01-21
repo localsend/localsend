@@ -75,7 +75,10 @@
       "language": "Language",
       "languageOptions": {
         "system": "System"
-      }
+      },
+      "minimizeToTray": "Minimize to tray",
+      "launchAtStartup": "Autostart after login",
+      "launchMinimized": "Start hidden"
     },
     "receive": {
       "title": "Receive",
