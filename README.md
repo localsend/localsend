@@ -4,6 +4,7 @@
 
 Links: [Homepage](https://localsend.org)
 | [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app)
+| [F-Droid](https://f-droid.org/packages/org.localsend.localsend_app)
 | [App Store](https://apps.apple.com/us/app/localsend/id1661733229)
 | [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)
 
