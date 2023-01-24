@@ -38,7 +38,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -84,7 +84,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20, top: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Center(
                       child: settings.quickSave
                           ? ElevatedButton(
