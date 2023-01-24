@@ -114,37 +114,39 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   await ref.read(settingsProvider.notifier).setMinimizeToTray(b);
                 },
               ),
-              _BooleanEntry(
-                label: t.settingsTab.general.launchAtStartup,
-                value: settings.launchAtStartup,
-                onChanged: (b) async {
-                  try {
-                    final packageInfo = await PackageInfo.fromPlatform();
-
-                    launchAtStartup.setup(
-                      appName: packageInfo.appName,
-                      appPath: Platform.resolvedExecutable,
-                      args: [launchAtStartupArg],
-                    );
-                    if (b) {
-                      await launchAtStartup.enable();
-                    } else {
-                      await launchAtStartup.disable();
-                    }
-                    await ref.read(settingsProvider.notifier).setLaunchAtStartup(b);
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-              ),
-              if (settings.launchAtStartup)
+              if (checkPlatform([TargetPlatform.windows, TargetPlatform.linux])) ...[
                 _BooleanEntry(
-                  label: t.settingsTab.general.launchMinimized,
-                  value: settings.launchMinimized,
+                  label: t.settingsTab.general.launchAtStartup,
+                  value: settings.launchAtStartup,
                   onChanged: (b) async {
-                    await ref.read(settingsProvider.notifier).setLaunchMinimized(b);
+                    try {
+                      final packageInfo = await PackageInfo.fromPlatform();
+
+                      launchAtStartup.setup(
+                        appName: packageInfo.appName,
+                        appPath: Platform.resolvedExecutable,
+                        args: [launchAtStartupArg],
+                      );
+                      if (b) {
+                        await launchAtStartup.enable();
+                      } else {
+                        await launchAtStartup.disable();
+                      }
+                      await ref.read(settingsProvider.notifier).setLaunchAtStartup(b);
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                 ),
+                if (settings.launchAtStartup)
+                  _BooleanEntry(
+                    label: t.settingsTab.general.launchMinimized,
+                    value: settings.launchMinimized,
+                    onChanged: (b) async {
+                      await ref.read(settingsProvider.notifier).setLaunchMinimized(b);
+                    },
+                  ),
+              ],
             ],
           ],
         ),
@@ -387,6 +389,7 @@ class _BooleanEntry extends StatelessWidget {
   final String label;
   final bool value;
   final ValueChanged<bool> onChanged;
+
   const _BooleanEntry({
     required this.label,
     required this.value,
