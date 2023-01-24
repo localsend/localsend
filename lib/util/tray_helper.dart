@@ -4,6 +4,11 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:tray_manager/tray_manager.dart';
 
+enum TrayEntry {
+  open,
+  close,
+}
+
 Future<void> initTray() async {
   if (!checkPlatformIsDesktop()) {
     return;
@@ -14,7 +19,11 @@ Future<void> initTray() async {
     );
     final items = [
       MenuItem(
-        key: 'exit_app',
+        key: TrayEntry.open.name,
+        label: t.general.open,
+      ),
+      MenuItem(
+        key: TrayEntry.close.name,
         label: t.general.close,
       ),
     ];
