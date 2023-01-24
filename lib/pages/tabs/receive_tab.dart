@@ -139,7 +139,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                           const SizedBox(width: 10),
                           Padding(
                             padding: const EdgeInsets.only(right: 30),
-                            child: Text(serverState?.alias ?? '-'),
+                            child: SelectableText(serverState?.alias ?? '-'),
                           ),
                         ],
                       ),
@@ -151,7 +151,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (networkInfo?.localIps.isEmpty ?? true) Text(t.general.unknown),
-                              ...?networkInfo?.localIps.map((ip) => Text(ip)),
+                              ...?networkInfo?.localIps.map((ip) => SelectableText(ip)),
                             ],
                           ),
                         ],
@@ -160,7 +160,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                         children: [
                           Text(t.receiveTab.infoBox.port),
                           const SizedBox(width: 10),
-                          Text(serverState?.port.toString() ?? '-'),
+                          SelectableText(serverState?.port.toString() ?? '-'),
                         ],
                       ),
                     ],
