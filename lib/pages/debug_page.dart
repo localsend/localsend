@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/util/snackbar.dart';
 
 const _headerStyle = TextStyle(fontWeight: FontWeight.bold);
@@ -13,6 +14,7 @@ class DebugPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appArguments = ref.watch(appArgumentsProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Debugging'),
@@ -22,6 +24,12 @@ class DebugPage extends ConsumerWidget {
         children: [
           const Text('Debug Mode', style: _headerStyle),
           Text(kDebugMode.toString()),
+          const SizedBox(height: 20),
+          const Text('App Arguments', style: _headerStyle),
+          _CopyableText(
+            name: 'App Arguments',
+            value: appArguments.isEmpty ? null : appArguments.join(' '),
+          ),
           const SizedBox(height: 20),
           const Text('Dart SDK', style: _headerStyle),
           _CopyableText(
@@ -46,10 +54,12 @@ class _CopyableText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Clipboard.setData(ClipboardData(text: value));
-        context.showSnackBar('Copied $name to clipboard!');
-      },
+      onTap: value == null
+          ? null
+          : () {
+              Clipboard.setData(ClipboardData(text: value));
+              context.showSnackBar('Copied $name to clipboard!');
+            },
       child: Text(value ?? '-'),
     );
   }

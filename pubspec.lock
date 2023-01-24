@@ -607,9 +607,11 @@ packages:
   msix:
     dependency: "direct dev"
     description:
-      name: msix
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "207eddfe797225ab2736001cbdb8fafd04946b38"
+      resolved-ref: "207eddfe797225ab2736001cbdb8fafd04946b38"
+      url: "https://github.com/Tienisto/msix.git"
+    source: git
     version: "3.7.0"
   nested:
     dependency: transitive

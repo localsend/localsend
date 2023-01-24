@@ -53,7 +53,11 @@ dev_dependencies:
   flutter_lints: 2.0.1
   freezed: 2.3.2
   json_serializable: 6.5.4
-  msix: 3.7.0
+  msix:
+    # https://github.com/YehudaKremer/msix/pull/174
+    git:
+      url: https://github.com/Tienisto/msix.git
+      ref: 207eddfe797225ab2736001cbdb8fafd04946b38
   slang_build_runner: 3.9.0
   test: 1.22.1
 
@@ -71,4 +75,7 @@ msix_config:
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
   languages: en-us, de-de
-  enable_at_startup: true
+  startup_task:
+    task_id: localsend
+    enabled: false
+    parameters: autostart

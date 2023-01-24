@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -26,6 +27,7 @@ Future<void> main(List<String> args) async {
       overrides: [
         deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
         persistenceProvider.overrideWithValue(persistenceService),
+        appArgumentsProvider.overrideWith((ref) => args),
       ],
       child: const LocalSendApp(),
     ),
