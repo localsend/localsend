@@ -1,76 +1,10 @@
-import 'dart:math';
+import "dart:math";
 
-const _adj = [
-  'Adorable',
-  'Beautiful',
-  'Big',
-  'Bright',
-  'Clean',
-  'Clever',
-  'Cool',
-  'Cute',
-  'Cunning',
-  'Determined',
-  'Energetic',
-  'Efficient',
-  'Fantastic',
-  'Fast',
-  'Fine',
-  'Fresh',
-  'Good',
-  'Gorgeous',
-  'Great',
-  'Handsome',
-  'Hot',
-  'Kind',
-  'Lovely',
-  'Mystic',
-  'Neat',
-  'Nice',
-  'Patient',
-  'Pretty',
-  'Powerful',
-  'Rich',
-  'Secret',
-  'Smart',
-  'Solid',
-  'Special',
-  'Strategic',
-  'Strong',
-  'Tidy',
-  'Wise',
-];
-
-const _fruit = [
-  'Apple',
-  'Avocado',
-  'Banana',
-  'Blackberry',
-  'Blueberry',
-  'Broccoli',
-  'Carrot',
-  'Cherry',
-  'Coconut',
-  'Grape',
-  'Lemon',
-  'Lettuce',
-  'Mango',
-  'Melon',
-  'Mushroom',
-  'Onion',
-  'Orange',
-  'Papaya',
-  'Peach',
-  'Pear',
-  'Pineapple',
-  'Potato',
-  'Pumpkin',
-  'Raspberry',
-  'Strawberry',
-  'Tomato',
-];
+import 'package:localsend_app/gen/strings.g.dart';
 
 String generateRandomAlias() {
   final random = Random();
-  return '${_adj[random.nextInt(_adj.length)]} ${_fruit[random.nextInt(_adj.length)]}';
+  final adj = t.aliasGenerator.adjectives;
+  final fruits = t.aliasGenerator.fruits;
+  return "${adj[random.nextInt(adj.length)]} ${fruits[random.nextInt(fruits.length)]}";
 }

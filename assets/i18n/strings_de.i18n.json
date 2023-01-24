@@ -137,6 +137,9 @@
   "changelogPage": {
     "title": "Changelog"
   },
+  "aliasGenerator": {
+    "@info": "Uses English version"
+  },
   "dialogs": {
     "addressInput": {
       "title": "Adresse eingeben",
