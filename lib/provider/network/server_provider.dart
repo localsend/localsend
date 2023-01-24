@@ -15,6 +15,7 @@ import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -63,7 +64,12 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     }
 
     final router = Router();
-    _configureRoutes(router, alias, port);
+    _configureRoutes(
+      router: router,
+      alias: alias,
+      port: port,
+      fingerprint: _ref.read(fingerprintProvider),
+    );
 
     print('Starting server...');
     ServerState? newServerState;
@@ -85,13 +91,25 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     return newServerState;
   }
 
-  void _configureRoutes(Router router, String alias, int port) {
+  void _configureRoutes({
+    required Router router,
+    required String alias,
+    required int port,
+    required String fingerprint,
+  }) {
     router.get(ApiRoute.info.path, (Request request) {
       final dto = InfoDto(
         alias: alias,
         deviceModel: deviceInfo.deviceModel,
         deviceType: deviceInfo.deviceType,
       );
+
+      final senderFingerprint = request.url.queryParameters['fingerprint'];
+      if (senderFingerprint == fingerprint) {
+        // "I talked to myself lol"
+        return Response.badRequest();
+      }
+
       return Response.ok(jsonEncode(dto.toJson()), headers: {'Content-Type': 'application/json'});
     });
 
