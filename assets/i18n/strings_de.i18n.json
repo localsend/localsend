@@ -152,7 +152,8 @@
       "original": "Original: {original}"
     },
     "messageInput": {
-      "title": "Nachricht eingeben"
+      "title": "Nachricht eingeben",
+      "multiline": "Mehrzeilig"
     },
     "noFiles": {
       "title": "Keine Datei ausgewählt",

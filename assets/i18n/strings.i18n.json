@@ -152,7 +152,8 @@
       "original": "Original: {original}"
     },
     "messageInput": {
-      "title": "Type message"
+      "title": "Type message",
+      "multiline": "Multiline"
     },
     "noFiles": {
       "title": "No file selected",
