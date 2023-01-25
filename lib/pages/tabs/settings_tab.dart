@@ -451,11 +451,6 @@ extension on ThemeMode {
 
 extension on AppLocale {
   String get humanName {
-    switch (this) {
-      case AppLocale.de:
-        return 'Deutsch';
-      case AppLocale.en:
-        return 'English';
-    }
+    return LocaleSettings.instance.translationMap[this]!.locale;
   }
 }
