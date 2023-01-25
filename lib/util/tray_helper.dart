@@ -14,9 +14,14 @@ Future<void> initTray() async {
     return;
   }
   try {
-    await trayManager.setIcon(
-      checkPlatform([TargetPlatform.windows]) ? Assets.img.logo32Ico : Assets.img.logo32Png.path,
-    );
+    if (checkPlatform([TargetPlatform.windows])) {
+      await trayManager.setIcon(Assets.img.logo32Ico,);
+    } else if (checkPlatform([TargetPlatform.macOS])) {
+      await trayManager.setIcon(Assets.img.logo32BlackWhite.path, isTemplate: true);
+    } else {
+      await trayManager.setIcon(Assets.img.logo32Png.path);
+    }
+
     final items = [
       MenuItem(
         key: TrayEntry.open.name,
