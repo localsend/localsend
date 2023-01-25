@@ -210,6 +210,9 @@
     ]
   },
   "dialogs": {
+    "addFile": {
+      "content": "What do you want to add?"
+    },
     "addressInput": {
       "title": "Enter address",
       "hashtag": "Hashtag",

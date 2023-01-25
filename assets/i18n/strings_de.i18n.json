@@ -142,6 +142,9 @@
     "@info": "Uses English version"
   },
   "dialogs": {
+    "addFile": {
+      "content": "Was möchtest du zum Senden hinzufügen?"
+    },
     "addressInput": {
       "title": "Adresse eingeben",
       "hashtag": "Hashtag",

@@ -91,6 +91,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                           : BigButton(
                               icon: option.icon,
                               label: option.label,
+                              filled: false,
                               onTap: () => option.select(
                                 context: context,
                                 ref: ref,
@@ -167,10 +168,11 @@ class _SendTabState extends ConsumerState<SendTab> {
                           addOptions.first.select(context: context, ref: ref); // open directly
                           return;
                         }
-                        context.pushBottomSheet(() => AddFileDialog(
-                              parentRef: ref,
-                              options: addOptions,
-                            ));
+                        AddFileDialog.open(
+                          context: context,
+                          parentRef: ref,
+                          options: addOptions,
+                        );
                       },
                       icon: const Icon(Icons.add),
                       label: Text(t.general.add),
