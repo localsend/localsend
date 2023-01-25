@@ -49,6 +49,7 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
     switch (entry) {
       case TrayEntry.open:
         await windowManager.show();
+        await windowManager.setSkipTaskbar(false);
         break;
       case TrayEntry.close:
         exit(0);

@@ -179,6 +179,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       } else {
         if (checkPlatformIsDesktop() && (await windowManager.isMinimized() || !(await windowManager.isVisible()))) {
           await windowManager.show();
+          await windowManager.setSkipTaskbar(false);
         }
 
         // ignore: use_build_context_synchronously

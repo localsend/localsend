@@ -49,6 +49,7 @@ class LocalSendApp extends ConsumerWidget {
           try {
             if (ref.read(settingsProvider).minimizeToTray) {
               await windowManager.hide();
+              await windowManager.setSkipTaskbar(true); // We need this in MacOS
             } else {
               exit(0);
             }
