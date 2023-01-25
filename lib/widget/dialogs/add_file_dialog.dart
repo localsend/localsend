@@ -18,7 +18,7 @@ class AddFileDialog extends StatelessWidget {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(t.general.add),
+          title: Text(t.dialogs.addFile.title),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class AddFileDialog extends StatelessWidget {
       );
     } else {
       context.pushBottomSheet(() => CustomBottomSheet(
-        title: t.general.add,
+        title: t.dialogs.addFile.title,
         description: t.dialogs.addFile.content,
         child: AddFileDialog(parentRef: parentRef, options: options),
       ));

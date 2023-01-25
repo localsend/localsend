@@ -143,6 +143,7 @@
   },
   "dialogs": {
     "addFile": {
+      "title": "Zur Auswahl hinzufügen",
       "content": "Was möchtest du zum Senden hinzufügen?"
     },
     "addressInput": {

@@ -211,6 +211,7 @@
   },
   "dialogs": {
     "addFile": {
+      "title": "Add to selection",
       "content": "What do you want to add?"
     },
     "addressInput": {
