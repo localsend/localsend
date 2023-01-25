@@ -12,21 +12,64 @@ class FileThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget? thumbnail;
     if (file.asset != null) {
-      thumbnail = AssetEntityImage(
-        file.asset!,
-        isOriginal: false,
-        thumbnailSize: const ThumbnailSize.square(64),
-        thumbnailFormat: ThumbnailFormat.jpeg,
+      return _FileThumbnail(
+        thumbnail: AssetEntityImage(
+          file.asset!,
+          isOriginal: false,
+          thumbnailSize: const ThumbnailSize.square(64),
+          thumbnailFormat: ThumbnailFormat.jpeg,
+        ),
+        icon: file.fileType.icon,
       );
-    } else if (file.path != null && file.fileType == FileType.image) {
-      thumbnail = Image.file(
-        File(file.path!),
-        cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
+    } else {
+      return FilePathThumbnail(
+        path: file.path,
+        fileType: file.fileType,
       );
     }
+  }
+}
 
+class FilePathThumbnail extends StatelessWidget {
+  final String? path;
+  final FileType fileType;
+
+  const FilePathThumbnail({
+    required this.path,
+    required this.fileType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget? thumbnail;
+    if (path != null && fileType == FileType.image) {
+      thumbnail = Image.file(
+        File(path!),
+        cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
+      );
+    } else {
+      thumbnail = null;
+    }
+
+    return _FileThumbnail(
+      thumbnail: thumbnail,
+      icon: fileType.icon,
+    );
+  }
+}
+
+class _FileThumbnail extends StatelessWidget {
+  final Widget? thumbnail;
+  final IconData? icon;
+
+  const _FileThumbnail({
+    required this.thumbnail,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       width: 50,
       height: 50,
@@ -35,7 +78,7 @@ class FileThumbnail extends StatelessWidget {
         child: ColoredBox(
           color: Theme.of(context).inputDecorationTheme.fillColor!,
           child: thumbnail == null
-              ? Icon(file.fileType.icon, size: 32)
+              ? Icon(icon!, size: 32)
               : FittedBox(
                   fit: BoxFit.cover,
                   clipBehavior: Clip.hardEdge,

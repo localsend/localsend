@@ -13,6 +13,7 @@ import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
+import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
@@ -125,9 +126,22 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                   // title
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 5),
-                    child: Text(
-                      receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
-                      style: Theme.of(context).textTheme.headline6,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        if (checkPlatformWithFileSystem() && receiveState != null)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              '${t.settingsTab.receive.destination}: ${receiveState.destinationDirectory}',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                      ],
                     ),
                   );
                 }
@@ -138,6 +152,15 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                 final fileStatus = receiveState?.files[file.id]?.status ?? sendState!.files[file.id]!.status;
                 final savedToGallery = receiveState?.files[file.id]?.savedToGallery ?? false;
 
+                final String? filePath;
+                if (receiveState != null && fileStatus == FileStatus.finished && !savedToGallery) {
+                  filePath = receiveState.files[file.id]!.path;
+                } else if (sendState != null) {
+                  filePath = sendState.files[file.id]!.path;
+                } else {
+                  filePath = null;
+                }
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: InkWell(
@@ -145,13 +168,14 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     splashFactory: NoSplash.splashFactory,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: fileStatus == FileStatus.finished && receiveState != null && !savedToGallery
-                        ? () => OpenFilex.open(receiveState.files[file.id]!.path)
-                        : null,
+                    onTap: filePath != null && receiveState != null ? () => OpenFilex.open(filePath) : null,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(file.fileType.icon, size: 46),
+                        FilePathThumbnail(
+                          path: filePath,
+                          fileType: file.fileType,
+                        ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(
@@ -238,8 +262,6 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                     Text(t.progressPage.total.speed(
                                       speed: speedInBytes.asReadableFileSize,
                                     )),
-                                  if (checkPlatformWithFileSystem() && receiveState != null)
-                                    Text('${t.settingsTab.receive.destination}: ${receiveState.destinationDirectory}'),
                                 ],
                               ),
                             ),
