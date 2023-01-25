@@ -41,6 +41,34 @@ flutter pub run build_runner build
 flutter run
 ```
 
+## Contributing
+
+### Translation
+
+You can help translating this app to other languages!
+
+Checkout locale codes [here](https://saimana.com/list-of-country-locale-code/).
+
+1. Fork this repository
+2. Create or update the translation file in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n) (format: `strings_XXX.i18n.json`)
+3. Optional: Re-run this app
+   1. Make sure you have [run](#run) this app once.
+   2. Update translations via `flutter pub run slang`
+   3. Run app via `flutter run`
+4. Open a pull request
+
+For convenience, you can use this link: https://github.com/localsend/localsend/new/main/assets/i18n
+
+### Bug fixes
+
+Any bug fix is welcome! Please describe how and why your fix is needed in the PR.
+
+### Improvements
+
+This app is very simple and should stay that way.
+
+Please create an issue first so we can discuss why this improvement is needed.
+
 ## Build
 
 These commands are mostly for the maintainers.
