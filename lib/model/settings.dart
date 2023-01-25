@@ -15,7 +15,6 @@ class Settings with _$Settings {
     required bool saveToGallery, // only Android, iOS
     required bool quickSave, // automatically accept file requests
     required bool minimizeToTray, // minimize to tray instead of exiting the app
-    required bool launchAtStartup, // launch on start / login
-    required bool launchMinimized, // start hidden in tray (only available when launchAtStartup is true)
+    required bool autoStartLaunchMinimized, // start hidden in tray (only available when launchAtStartup is true)
   }) = _Settings;
 }

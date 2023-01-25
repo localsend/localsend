@@ -24,8 +24,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
       saveToGallery: service.isSaveToGallery(),
       quickSave: service.isQuickSave(),
       minimizeToTray: service.isMinimizeToTray(),
-      launchAtStartup: service.isLaunchAtStartup(),
-      launchMinimized: service.isLaunchMinimized(),
+      autoStartLaunchMinimized: service.isAutoStartLaunchMinimized(),
     );
   }
 
@@ -85,17 +84,10 @@ class SettingsNotifier extends StateNotifier<Settings> {
     );
   }
 
-  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
-    await _service.setLaunchAtStartup(launchAtStartup);
+  Future<void> setAutoStartLaunchMinimized(bool launchMinimized) async {
+    await _service.setAutoStartLaunchMinimized(launchMinimized);
     state = state.copyWith(
-      launchAtStartup: launchAtStartup,
-    );
-  }
-
-  Future<void> setLaunchMinimized(bool launchMinimized) async {
-    await _service.setLaunchMinimized(launchMinimized);
-    state = state.copyWith(
-      launchMinimized: launchMinimized,
+      autoStartLaunchMinimized: launchMinimized,
     );
   }
 }

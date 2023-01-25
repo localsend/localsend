@@ -1,17 +1,14 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/autostart_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/snackbar.dart';
@@ -19,7 +16,6 @@ import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:routerino/routerino.dart';
 
 class SettingsTab extends ConsumerStatefulWidget {
@@ -114,38 +110,29 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   await ref.read(settingsProvider.notifier).setMinimizeToTray(b);
                 },
               ),
-              if (checkPlatform([TargetPlatform.windows, TargetPlatform.linux])) ...[
-                _BooleanEntry(
+              if (checkPlatform([TargetPlatform.windows])) ...[
+                _SettingsEntry(
                   label: t.settingsTab.general.launchAtStartup,
-                  value: settings.launchAtStartup,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                      shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    onPressed: () => initAutoStartAndOpenSettings(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Text(t.general.settings),
+                    ),
+                  ),
+                ),
+                _BooleanEntry(
+                  label: t.settingsTab.general.launchMinimized,
+                  value: settings.autoStartLaunchMinimized,
                   onChanged: (b) async {
-                    try {
-                      final packageInfo = await PackageInfo.fromPlatform();
-
-                      launchAtStartup.setup(
-                        appName: packageInfo.appName,
-                        appPath: Platform.resolvedExecutable,
-                        args: [launchAtStartupArg],
-                      );
-                      if (b) {
-                        await launchAtStartup.enable();
-                      } else {
-                        await launchAtStartup.disable();
-                      }
-                      await ref.read(settingsProvider.notifier).setLaunchAtStartup(b);
-                    } catch (e) {
-                      print(e);
-                    }
+                    await ref.read(settingsProvider.notifier).setAutoStartLaunchMinimized(b);
                   },
                 ),
-                if (settings.launchAtStartup)
-                  _BooleanEntry(
-                    label: t.settingsTab.general.launchMinimized,
-                    value: settings.launchMinimized,
-                    onChanged: (b) async {
-                      await ref.read(settingsProvider.notifier).setLaunchMinimized(b);
-                    },
-                  ),
               ],
             ],
           ],

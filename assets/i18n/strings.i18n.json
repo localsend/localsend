@@ -28,6 +28,7 @@
     "renamed": "Umbenannt",
     "reset": "Reset",
     "restart": "Restart",
+    "settings": "Settings",
     "skipped": "Skipped",
     "start": "Start",
     "stop": "Stop",
@@ -76,9 +77,9 @@
       "languageOptions": {
         "system": "System"
       },
-      "minimizeToTray": "Minimize to tray",
+      "minimizeToTray": "Close: Minimize to tray",
       "launchAtStartup": "Autostart after login",
-      "launchMinimized": "Start hidden"
+      "launchMinimized": "Autostart: Start hidden"
     },
     "receive": {
       "title": "Receive",

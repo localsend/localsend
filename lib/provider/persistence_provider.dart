@@ -17,8 +17,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _quickSave = 'ls_quick_save';
 const _minimizeToTray = 'ls_minimize_to_tray';
-const _launchAtStartup = 'ls_launch_at_startup';
-const _launchMinimized = 'ls_start_minimized';
+const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
 
 const defaultPort = 53317;
 
@@ -122,19 +121,11 @@ class PersistenceService {
     await _prefs.setBool(_minimizeToTray, minimizeToTray);
   }
 
-  bool isLaunchAtStartup() {
-    return _prefs.getBool(_launchAtStartup) ?? false;
+  bool isAutoStartLaunchMinimized() {
+    return _prefs.getBool(_autoStartLaunchMinimized) ?? true;
   }
 
-  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
-    await _prefs.setBool(_launchAtStartup, launchAtStartup);
-  }
-
-  bool isLaunchMinimized() {
-    return _prefs.getBool(_launchMinimized) ?? true;
-  }
-
-  Future<void> setLaunchMinimized(bool launchMinimized) async {
-    await _prefs.setBool(_launchMinimized, launchMinimized);
+  Future<void> setAutoStartLaunchMinimized(bool launchMinimized) async {
+    await _prefs.setBool(_autoStartLaunchMinimized, launchMinimized);
   }
 }

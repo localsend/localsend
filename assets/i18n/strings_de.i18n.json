@@ -28,6 +28,7 @@
     "renamed": "Umbenannt",
     "reset": "Zurücksetzen",
     "restart": "Neustarten",
+    "settings": "Einstellungen",
     "skipped": "Übersprungen",
     "start": "Start",
     "stop": "Stop",
@@ -76,9 +77,9 @@
       "languageOptions": {
         "system": "System"
       },
-      "minimizeToTray": "In Symbolleiste minimieren",
+      "minimizeToTray": "Schließen: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
-      "launchMinimized": "Versteckt starten"
+      "launchMinimized": "Autostart: versteckt starten"
     },
     "receive": {
       "title": "Empfangen",

@@ -52,7 +52,7 @@ Future<PersistenceService> preInit(List<String> args) async {
     // initialize tray AFTER i18n has been initialized
     await initTray();
 
-    if (!args.contains(launchAtStartupArg) || !persistenceService.isLaunchMinimized()) {
+    if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
       await windowManager.show();
