@@ -51,6 +51,7 @@
     <array>
        <string>de</string>
        <string>en</string>
+       <string>zh-Hans</string>
     </array>
 
     <!-- Make downloaded files visible to the user -->

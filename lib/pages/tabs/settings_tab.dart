@@ -88,7 +88,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     return DropdownMenuItem(
                       value: locale,
                       alignment: Alignment.center,
-                      child: Text(locale.humanName),
+                      child: Text(locale.humanName, textAlign: TextAlign.center),
                     );
                   }),
                 ],

@@ -37,7 +37,9 @@
     <array>
        <string>de</string>
        <string>en</string>
+       <string>zh-Hans</string>
     </array>
+
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>The app needs photo library access so that the user can select photos to share.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
