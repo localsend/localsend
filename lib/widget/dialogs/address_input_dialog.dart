@@ -2,9 +2,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/task_runner.dart';
 import 'package:routerino/routerino.dart';
 
 enum _InputMode {
@@ -35,25 +37,39 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
   bool _fetching = false;
   bool _failed = false;
 
-  Future<void> _submit(String? ipPrefix, int port) async {
-    final String ip;
+  Future<void> _submit(List<String> localIps, int port) async {
+    final List<String> candidates;
     final String input = _input.trim();
     if (_mode == _InputMode.ip) {
-      ip = input;
+      candidates = [input];
     } else {
-      ip = '$ipPrefix.$input';
+      candidates = localIps.map((ip) => '${ip.ipPrefix}.$_input').toList();
     }
 
     setState(() {
       _fetching = true;
     });
 
-    final device = await ref.read(targetedDiscoveryProvider).discover(ip, port);
-    if (device != null) {
-      if (mounted) {
-        context.pop(device);
+    final results = TaskRunner<Device?>(
+      concurrency: 10,
+      initialTasks: [
+        for (final ip in candidates)
+          () => ref.read(targetedDiscoveryProvider).discover(ip, port),
+      ],
+    ).stream;
+
+    bool found = false;
+
+    await results.forEach((device) {
+      if (!found && device != null) {
+        found = true;
+        if (mounted) {
+          context.pop(device);
+        }
       }
-    } else {
+    });
+
+    if (!found && mounted) {
       setState(() {
         _fetching = false;
         _failed = true;
@@ -63,8 +79,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final localIps = ref.watch(networkInfoProvider.select((info) => info?.localIps));
-    final ipPrefix = localIps?.firstOrNull?.split('.').take(3).join('.');
+    final localIps = (ref.watch(networkInfoProvider.select((info) => info?.localIps)) ?? []).uniqueIpPrefix;
     final settings = ref.watch(settingsProvider);
 
     return AlertDialog(
@@ -95,26 +110,43 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
           ),
           const SizedBox(height: 15),
           TextFormField(
+            key: ValueKey('input-$_mode'),
             autofocus: true,
             enabled: !_fetching,
+            keyboardType: _mode == _InputMode.hashtag ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               prefixText: _mode == _InputMode.hashtag ? '# ' : 'IP: ',
             ),
             onChanged: (s) {
               setState(() => _input = s);
             },
-            onFieldSubmitted: (s) => _submit(ipPrefix, settings.port),
+            onFieldSubmitted: (s) => _submit(localIps, settings.port),
           ),
           const SizedBox(height: 10),
           Text(
-            '${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${ipPrefix ?? '192.168.2'}.123'}',
+            '${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123'}',
             style: const TextStyle(color: Colors.grey),
           ),
           if (_mode == _InputMode.hashtag)
-            Text(
-              '${t.dialogs.addressInput.ip}: ${ipPrefix ?? '192.168.2'}.$_input',
-              style: const TextStyle(color: Colors.grey),
-            ),
+            ...[
+              if (localIps.length <= 1)
+                Text(
+                  '${t.dialogs.addressInput.ip}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.$_input',
+                  style: const TextStyle(color: Colors.grey),
+                )
+              else
+                ...[
+                  Text(
+                    '${t.dialogs.addressInput.ip}:',
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                  for (final ip in localIps)
+                    Text(
+                      '- ${ip.ipPrefix}.$_input',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                ],
+            ],
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -135,10 +167,23 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
             foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
           ),
-          onPressed: _fetching ? null : () => _submit(ipPrefix, settings.port),
+          onPressed: _fetching ? null : () => _submit(localIps, settings.port),
           child: Text(t.general.confirm),
         ),
       ],
     );
+  }
+}
+
+extension on String {
+  String get ipPrefix {
+    return split('.').take(3).join('.');
+  }
+}
+
+extension on List<String> {
+  List<String> get uniqueIpPrefix {
+    final seen = <String>{};
+    return where((s) => seen.add(s.ipPrefix)).toList();
   }
 }
