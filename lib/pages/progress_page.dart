@@ -170,17 +170,25 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     hoverColor: Colors.transparent,
                     onTap: filePath != null && receiveState != null ? () => OpenFilex.open(filePath) : null,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FilePathThumbnail(
-                          path: filePath,
-                          fileType: file.fileType,
-                        ),
+                        if (sendState != null && sendState.files[file.id]?.asset != null)
+                          // Special handling for assets
+                          AssetThumbnail(
+                            asset: sendState.files[file.id]!.asset!,
+                            fileType: file.fileType,
+                          )
+                        else
+                          FilePathThumbnail(
+                            path: filePath,
+                            fileType: file.fileType,
+                          ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              const SizedBox(height: 5),
                               Row(
                                 children: [
                                   Flexible(

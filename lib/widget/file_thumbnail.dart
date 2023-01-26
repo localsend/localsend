@@ -5,22 +5,17 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class FileThumbnail extends StatelessWidget {
+class CrossFileThumbnail extends StatelessWidget {
   final CrossFile file;
 
-  const FileThumbnail(this.file);
+  const CrossFileThumbnail(this.file);
 
   @override
   Widget build(BuildContext context) {
     if (file.asset != null) {
-      return _FileThumbnail(
-        thumbnail: AssetEntityImage(
-          file.asset!,
-          isOriginal: false,
-          thumbnailSize: const ThumbnailSize.square(64),
-          thumbnailFormat: ThumbnailFormat.jpeg,
-        ),
-        icon: file.fileType.icon,
+      return AssetThumbnail(
+        asset: file.asset!,
+        fileType: file.fileType,
       );
     } else {
       return FilePathThumbnail(
@@ -28,6 +23,29 @@ class FileThumbnail extends StatelessWidget {
         fileType: file.fileType,
       );
     }
+  }
+}
+
+class AssetThumbnail extends StatelessWidget {
+  final AssetEntity asset;
+  final FileType fileType;
+
+  const AssetThumbnail({
+    required this.asset,
+    required this.fileType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _FileThumbnail(
+      thumbnail: AssetEntityImage(
+        asset,
+        isOriginal: false,
+        thumbnailSize: const ThumbnailSize.square(64),
+        thumbnailFormat: ThumbnailFormat.jpeg,
+      ),
+      icon: fileType.icon,
+    );
   }
 }
 

@@ -137,7 +137,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                         ...selectedFiles.map((file) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: FileThumbnail(file),
+                            child: CrossFileThumbnail(file),
                           );
                         }),
                       ],

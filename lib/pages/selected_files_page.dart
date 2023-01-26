@@ -65,7 +65,7 @@ class SelectedFilesPage extends ConsumerWidget {
                       padding: const EdgeInsets.all(10),
                       child: Row(
                         children: [
-                          FileThumbnail(file),
+                          CrossFileThumbnail(file),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Column(

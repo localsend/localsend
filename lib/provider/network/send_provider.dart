@@ -61,6 +61,7 @@ class SendNotifier extends StateNotifier<SendState?> {
             ),
             status: FileStatus.queue,
             token: null,
+            asset: file.asset,
             path: file.path,
             bytes: file.bytes,
           ),
