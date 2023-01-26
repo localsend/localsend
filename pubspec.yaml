@@ -40,7 +40,11 @@ dependencies:
   shelf_router: 1.1.3
   slang: 3.9.0
   slang_flutter: 3.9.0
-  tray_manager: 0.2.0
+  tray_manager:
+    # https://github.com/leanflutter/tray_manager/issues/30
+    git:
+      url: https://github.com/Tienisto/tray_manager.git
+      ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
   url_launcher: 6.1.7
   uuid: 3.0.7
   wakelock: 0.6.2

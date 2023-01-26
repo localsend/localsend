@@ -103,13 +103,15 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             if (checkPlatformIsDesktop()) ...[
-              _BooleanEntry(
-                label: t.settingsTab.general.minimizeToTray,
-                value: settings.minimizeToTray,
-                onChanged: (b) async {
-                  await ref.read(settingsProvider.notifier).setMinimizeToTray(b);
-                },
-              ),
+              if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) ...[
+                _BooleanEntry(
+                  label: t.settingsTab.general.minimizeToTray,
+                  value: settings.minimizeToTray,
+                  onChanged: (b) async {
+                    await ref.read(settingsProvider.notifier).setMinimizeToTray(b);
+                  },
+                ),
+              ],
               if (checkPlatform([TargetPlatform.windows])) ...[
                 _SettingsEntry(
                   label: t.settingsTab.general.launchAtStartup,

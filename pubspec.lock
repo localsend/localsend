@@ -1132,9 +1132,11 @@ packages:
   tray_manager:
     dependency: "direct main"
     description:
-      name: tray_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
+      resolved-ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
+      url: "https://github.com/Tienisto/tray_manager.git"
+    source: git
     version: "0.2.0"
   typed_data:
     dependency: transitive

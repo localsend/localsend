@@ -10,7 +10,7 @@ enum TrayEntry {
 }
 
 Future<void> initTray() async {
-  if (!checkPlatformIsDesktop()) {
+  if (!checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) {
     return;
   }
   try {
