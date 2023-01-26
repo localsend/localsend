@@ -1,0 +1,184 @@
+{
+  "locale": "Chinese (Simplified)",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "接受",
+    "add": "添加",
+    "advanced": "高级",
+    "cancel": "取消",
+    "close": "关闭",
+    "confirm": "确认",
+    "continueStr": "继续",
+    "copy": "复制",
+    "copiedToClipboard": "已复制到剪贴板",
+    "decline": "拒绝",
+    "done": "完成",
+    "edit": "编辑",
+    "error": "错误",
+    "example": "示例",
+    "files": "文件",
+    "finished": "已完成",
+    "hide": "隐藏",
+    "off": "关",
+    "offline": "离线",
+    "on": "开",
+    "online": "在线",
+    "open": "打开",
+    "queue": "队列",
+    "quickSave": "快速保存",
+    "renamed": "已重命名",
+    "reset": "重置",
+    "restart": "重启",
+    "settings": "设置",
+    "skipped": "已跳过",
+    "start": "开始",
+    "stop": "停止",
+    "save": "保存",
+    "unchanged": "未更改",
+    "unknown": "未知"
+  },
+  "receiveTab": {
+    "title": "接收",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "端口:",
+      "alias": "别名:"
+    }
+  },
+  "sendTab": {
+    "title": "发送",
+    "selection": {
+      "title": "选择",
+      "files": "文件: {files}",
+      "size": "大小: {size}"
+    },
+    "picker": {
+      "file": "文件",
+      "media": "媒体",
+      "text": "文本"
+    },
+    "shareIntentInfo": "你也可以使用你的移动设备中的 “分享” 功能来更简单的选择文件。",
+    "nearbyDevices": "附近的设备",
+    "thisDevice": "这台设备",
+    "scan": "扫描设备",
+    "help": "请确保目标连接的是同一个 Wi-Fi 网络。",
+    "placeItems": "列出要分享的文件。"
+  },
+  "settingsTab": {
+    "title": "设置",
+    "general": {
+      "title": "通用",
+      "theme": "主题",
+      "themeOptions": {
+        "system": "跟随系统",
+        "dark": "暗色",
+        "light": "亮色"
+      },
+      "language": "语言",
+      "languageOptions": {
+        "system": "跟随系统"
+      },
+      "minimizeToTray": "关闭：最小化到系统托盘",
+      "launchAtStartup": "登录系统后自动启动程序",
+      "launchMinimized": "静默自启：只启动托盘服务"
+    },
+    "receive": {
+      "title": "接收",
+      "quickSave": "@:general.quickSave",
+      "destination": "目标",
+      "saveToGallery": "保存到相册"
+    },
+    "network": {
+      "title": "网络",
+      "needRestart": "重启服务器生效！",
+      "server": "服务器",
+      "alias": "别名",
+      "port": "端口"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "全部删除"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "想要发送给你一个文件。",
+      "other": "想要发送给你 {n} 个文件。"
+    },
+    "subTitleMessage": "发送给你了一条消息：",
+    "subTitleLink": "发送给你了一个链接：",
+    "canceled": "发送者取消了请求。"
+  },
+  "receiveOptionsPage": {
+    "title": "设置",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName-文件夹)"
+  },
+  "sendPage": {
+    "waiting": "等待响应中...",
+    "rejected": "对方拒绝了请求。"
+  },
+  "progressPage": {
+    "titleSending": "正在发送文件",
+    "titleReceiving": "正在接收文件",
+    "savedToGallery": "已保存到相册",
+    "total": {
+      "title": {
+        "sending": "总进度 ({time})",
+        "finishedError": "已完成，但发生错误",
+        "canceledSender": "发送者已取消",
+        "canceledReceiver": "接收者已取消"
+      },
+      "count": "文件: {curr} / {n}",
+      "size": "大小: {curr} / {n}",
+      "speed": "速度: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "关于 LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator": {
+    "@info": "Uses English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "加入文件",
+      "content": "你想加入什么文件？"
+    },
+    "addressInput": {
+      "title": "输入地址",
+      "hashtag": "Hashtag",
+      "ip": "IP 地址"
+    },
+    "cancelSession": {
+      "title": "取消文件传输",
+      "content": "要取消文件传输吗？"
+    },
+    "fileNameInput": {
+      "title": "输入文件名",
+      "original": "原名：{original}"
+    },
+    "messageInput": {
+      "title": "输入消息",
+      "multiline": "多行"
+    },
+    "noFiles": {
+      "title": "没有选择文件",
+      "content": "请最少选择一个文件。"
+    },
+    "quickActions": {
+      "title": "快速操作",
+      "counter": "计数器",
+      "prefix": "前缀",
+      "padZero": "以零填充",
+      "sortBeforeCount": "事先以字母顺序排序",
+      "random": "随机"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
+    }
+  }
+}
