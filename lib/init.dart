@@ -9,12 +9,12 @@ import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/util/tray_helper.dart';
 import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:window_manager/window_manager.dart';
 
 const launchAtStartupArg = 'autostart';
@@ -32,11 +32,7 @@ Future<PersistenceService> preInit(List<String> args) async {
   }
 
   if (checkPlatformWithGallery()) {
-    try {
-      PhotoManager.clearFileCache();
-    } catch (e) {
-      print(e);
-    }
+    clearCache();
   }
 
   final persistenceService = await PersistenceService.initialize();
