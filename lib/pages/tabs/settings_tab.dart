@@ -122,7 +122,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     onPressed: () => initAutoStartAndOpenSettings(),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Text(t.general.settings),
+                      child: Text(t.general.settings, style: Theme.of(context).textTheme.subtitle1),
                     ),
                   ),
                 ),
@@ -173,7 +173,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Text(settings.destination ?? '(Downloads)'),
+                    child: Text(settings.destination ?? '(Downloads)', style: Theme.of(context).textTheme.subtitle1),
                   ),
                 ),
               ),
