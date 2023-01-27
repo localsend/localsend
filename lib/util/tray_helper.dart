@@ -26,11 +26,11 @@ Future<void> initTray() async {
     final items = [
       MenuItem(
         key: TrayEntry.open.name,
-        label: t.general.open,
+        label: t.tray.open,
       ),
       MenuItem(
         key: TrayEntry.close.name,
-        label: t.general.close,
+        label: t.tray.close,
       ),
     ];
     await trayManager.setContextMenu(Menu(items: items));

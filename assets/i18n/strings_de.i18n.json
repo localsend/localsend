@@ -180,5 +180,9 @@
       "title": "@:general.quickSave",
       "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
     }
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "LocalSend beenden"
   }
 }

@@ -248,5 +248,10 @@
       "title": "@:general.quickSave",
       "content": "File requests are automatically accepted. Be aware that everyone in the local network can send you files."
     }
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Quit LocalSend"
   }
 }
