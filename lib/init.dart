@@ -31,10 +31,6 @@ Future<PersistenceService> preInit(List<String> args) async {
     Routerino.transition = RouterinoTransition.cupertino;
   }
 
-  if (checkPlatformWithGallery()) {
-    clearCache();
-  }
-
   final persistenceService = await PersistenceService.initialize();
 
   final locale = persistenceService.getLocale();
@@ -74,10 +70,13 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
     context.showSnackBar(e.toString());
   }
 
+  bool hasInitialShare = false;
+
   if (checkPlatformCanReceiveShareIntent()) {
     final shareHandler = ShareHandlerPlatform.instance;
     final initialSharedPayload = await shareHandler.getInitialSharedMedia();
     if (initialSharedPayload != null) {
+      hasInitialShare = true;
       _handleSharedIntent(initialSharedPayload, ref);
       goToPage(HomeTab.send.index);
     }
@@ -87,6 +86,12 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
       _handleSharedIntent(payload, ref);
       goToPage(HomeTab.send.index);
     });
+  }
+
+  if (!hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
+    // Clear cache on every app start.
+    // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
+    clearCache();
   }
 }
 

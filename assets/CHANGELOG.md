@@ -1,6 +1,7 @@
-## 1.6.1 (2023-01-)
+## 1.6.1 (2023-01-27)
 
 - fix(windows): app crashes when minimized to tray
+- fix: share intent sometimes not working
 
 ## 1.6.0 (2023-01-27)
 
