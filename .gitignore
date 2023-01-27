@@ -1,5 +1,9 @@
 /.fvm/flutter_sdk
 
+# Linux AppImage
+/AppDir
+/appimage-build
+
 *.g.dart
 *.gen.dart
 *.freezed.dart
