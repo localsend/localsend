@@ -78,7 +78,7 @@
       "languageOptions": {
         "system": "System"
       },
-      "minimizeToTray": "Close: Minimize to tray",
+      "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden"
     },
