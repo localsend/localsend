@@ -291,7 +291,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 onPressed: () async {
                                   final result = await _askCancelConfirmation(status);
                                   if (result && mounted) {
-                                    context.pushRootImmediately(() => const HomePage());
+                                    context.pushRootImmediately(() => const HomePage(doPostInit: false));
                                   }
                                 },
                                 icon: Icon(status == SessionStatus.sending ? Icons.close : Icons.check_circle),

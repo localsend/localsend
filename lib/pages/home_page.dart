@@ -33,7 +33,10 @@ enum HomeTab {
 }
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  /// Only do post init when the app started
+  final bool doPostInit;
+
+  const HomePage({required this.doPostInit, super.key});
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -49,9 +52,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      postInit(context, ref, _goToPage);
-    });
+    if (widget.doPostInit) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        postInit(context, ref, _goToPage);
+      });
+    }
   }
 
   void _goToPage(int index) {

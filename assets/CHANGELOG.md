@@ -1,8 +1,9 @@
 ## 1.6.1 (2023-01-27)
 
 - fix(windows): app crashes when minimized to tray
-- fix: share intent sometimes not working
-- fix: scan not triggered when coming from share intent
+- fix(android, ios): share intent sometimes not working
+- fix(android, ios): scan not triggered when coming from share intent
+- fix(android, ios): share intent produced duplicates after finishing a transfer
 
 ## 1.6.0 (2023-01-27)
 
