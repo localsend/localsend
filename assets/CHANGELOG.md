@@ -2,6 +2,7 @@
 
 - fix(windows): app crashes when minimized to tray
 - fix: share intent sometimes not working
+- fix: scan not triggered when coming from share intent
 
 ## 1.6.0 (2023-01-27)
 

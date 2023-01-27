@@ -6,5 +6,7 @@ part 'network_info.freezed.dart';
 class NetworkInfo with _$NetworkInfo {
   const factory NetworkInfo({
     required List<String> localIps,
+    required bool initialized,
+    required bool scanWhenInitialized,
   }) = _NetworkInfo;
 }

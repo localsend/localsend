@@ -14,7 +14,7 @@ final deviceInfoProvider = Provider((ref) {
   final serverState = ref.watch(serverProvider);
   final rawInfo = ref.watch(deviceRawInfoProvider);
   return Device(
-    ip: networkInfo?.localIps.firstOrNull ?? '-',
+    ip: networkInfo.localIps.firstOrNull ?? '-',
     port: serverState?.port ?? -1,
     alias: serverState?.alias ?? '-',
     deviceModel: rawInfo.deviceModel,

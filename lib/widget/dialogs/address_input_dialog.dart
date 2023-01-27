@@ -79,7 +79,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final localIps = (ref.watch(networkInfoProvider.select((info) => info?.localIps)) ?? []).uniqueIpPrefix;
+    final localIps = (ref.watch(networkInfoProvider.select((info) => info.localIps))).uniqueIpPrefix;
     final settings = ref.watch(settingsProvider);
 
     return AlertDialog(

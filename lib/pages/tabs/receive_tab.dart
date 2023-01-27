@@ -71,7 +71,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                     child: Text(
                                       serverState == null
                                           ? t.general.offline
-                                          : networkInfo?.localIps.map((ip) => '#${ip.visualId}').toSet().join(' ') ?? '?',
+                                          : networkInfo.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
                                       style: const TextStyle(fontSize: 24),
                                     ),
                                   ),
@@ -150,8 +150,8 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (networkInfo?.localIps.isEmpty ?? true) Text(t.general.unknown),
-                              ...?networkInfo?.localIps.map((ip) => SelectableText(ip)),
+                              if (networkInfo.localIps.isEmpty) Text(t.general.unknown),
+                              ...networkInfo.localIps.map((ip) => SelectableText(ip)),
                             ],
                           ),
                         ],

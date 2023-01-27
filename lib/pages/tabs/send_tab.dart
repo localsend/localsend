@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -46,11 +45,11 @@ class _SendTabState extends ConsumerState<SendTab> {
   }
 
   void _scan(String? localIp) {
-    final port = ref.read(settingsProvider.select((settings) => settings.port));
-    final networkInfo = ref.read(networkInfoProvider);
-    localIp ??= networkInfo?.localIps.firstOrNull;
     if (localIp != null) {
+      final port = ref.read(settingsProvider.select((settings) => settings.port));
       ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp);
+    } else {
+      ref.read(networkInfoProvider.notifier).scanWhenInitialized();
     }
   }
 
@@ -190,7 +189,7 @@ class _SendTabState extends ConsumerState<SendTab> {
           children: [
             Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
             const SizedBox(width: 10),
-            if (networkInfo?.localIps.length == 1)
+            if (networkInfo.localIps.length == 1)
               Tooltip(
                 message: t.sendTab.scan,
                 child: RotatingWidget(
@@ -228,13 +227,13 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ],
         ),
-        if ((networkInfo?.localIps.length ?? 0) > 1)
+        if (networkInfo.localIps.length > 1)
           Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Wrap(
               spacing: 15,
               runSpacing: 15,
-              children: networkInfo!.localIps.map((ip) {
+              children: networkInfo.localIps.map((ip) {
                 return Card(
                   margin: EdgeInsets.zero,
                   child: Padding(
