@@ -72,7 +72,7 @@ class LocalSendApp extends ConsumerWidget {
             darkTheme: getTheme(Brightness.dark),
             themeMode: themeMode,
             navigatorKey: Routerino.navigatorKey,
-            home: const HomePage(doPostInit: true),
+            home: const HomePage(appStart: true),
           ),
         ),
       ),

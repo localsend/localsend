@@ -57,7 +57,7 @@ Future<PersistenceService> preInit(List<String> args) async {
 StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
-Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) goToPage) async {
+Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void Function(int) goToPage) async {
   updateSystemOverlayStyle(context);
 
   final settings = ref.read(settingsProvider);
@@ -74,11 +74,14 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
 
   if (checkPlatformCanReceiveShareIntent()) {
     final shareHandler = ShareHandlerPlatform.instance;
-    final initialSharedPayload = await shareHandler.getInitialSharedMedia();
-    if (initialSharedPayload != null) {
-      hasInitialShare = true;
-      _handleSharedIntent(initialSharedPayload, ref);
-      goToPage(HomeTab.send.index);
+
+    if (appStart) {
+      final initialSharedPayload = await shareHandler.getInitialSharedMedia();
+      if (initialSharedPayload != null) {
+        hasInitialShare = true;
+        _handleSharedIntent(initialSharedPayload, ref);
+        goToPage(HomeTab.send.index);
+      }
     }
 
     _sharedMediaSubscription?.cancel();
@@ -88,7 +91,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, void Function(int) go
     });
   }
 
-  if (!hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
+  if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
     clearCache();

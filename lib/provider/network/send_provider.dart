@@ -102,7 +102,7 @@ class SendNotifier extends StateNotifier<SendState?> {
         // receiver has nothing selected
 
         // ignore: use_build_context_synchronously
-        Routerino.context.pushRootImmediately(() => const HomePage(doPostInit: false));
+        Routerino.context.pushRootImmediately(() => const HomePage(appStart: false));
         state = null;
         return;
       }

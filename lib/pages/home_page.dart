@@ -33,10 +33,11 @@ enum HomeTab {
 }
 
 class HomePage extends ConsumerStatefulWidget {
-  /// Only do post init when the app started
-  final bool doPostInit;
+  /// It is important for the initializing step
+  /// because the first init clears the cache
+  final bool appStart;
 
-  const HomePage({required this.doPostInit, super.key});
+  const HomePage({required this.appStart, super.key});
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -52,11 +53,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
 
-    if (widget.doPostInit) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        postInit(context, ref, _goToPage);
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      postInit(context, ref, widget.appStart, _goToPage);
+    });
   }
 
   void _goToPage(int index) {
