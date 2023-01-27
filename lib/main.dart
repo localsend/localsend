@@ -14,11 +14,11 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/tray_helper.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:routerino/routerino.dart';
-import 'package:window_manager/window_manager.dart';
 
 Future<void> main(List<String> args) async {
   final persistenceService = await preInit(args);
@@ -48,8 +48,7 @@ class LocalSendApp extends ConsumerWidget {
           }
           try {
             if (ref.read(settingsProvider).minimizeToTray) {
-              await windowManager.hide();
-              await windowManager.setSkipTaskbar(true); // We need this in MacOS
+              await hideToTray();
             } else {
               exit(0);
             }

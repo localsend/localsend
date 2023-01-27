@@ -26,6 +26,7 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:localsend_app/util/tray_helper.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -177,9 +178,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           for (final f in dto.files.values) f.id: f.fileName,
         };
       } else {
-        if (checkPlatformIsDesktop() && (await windowManager.isMinimized() || !(await windowManager.isVisible()))) {
-          await windowManager.show();
-          await windowManager.setSkipTaskbar(false);
+        if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible())) || !(await windowManager.isFocused())) {
+          await showFromTray();
         }
 
         // ignore: use_build_context_synchronously

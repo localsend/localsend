@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide MenuItem;
 import 'package:localsend_app/util/tray_helper.dart';
 import 'package:tray_manager/tray_manager.dart';
-import 'package:window_manager/window_manager.dart';
 
 class TrayWatcher extends StatefulWidget {
   final Widget child;
@@ -48,8 +47,7 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
     final entry = TrayEntry.values.firstWhereOrNull((e) => e.name == menuItem.key);
     switch (entry) {
       case TrayEntry.open:
-        await windowManager.show();
-        await windowManager.setSkipTaskbar(false);
+        await showFromTray();
         break;
       case TrayEntry.close:
         exit(0);

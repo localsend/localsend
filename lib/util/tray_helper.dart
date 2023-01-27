@@ -3,6 +3,7 @@ import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
 
 enum TrayEntry {
   open,
@@ -10,7 +11,7 @@ enum TrayEntry {
 }
 
 Future<void> initTray() async {
-  if (!checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) {
+  if (!checkPlatformHasTray()) {
     return;
   }
   try {
@@ -36,5 +37,23 @@ Future<void> initTray() async {
     await trayManager.setToolTip(t.appName);
   } catch (e) {
     print(e);
+  }
+}
+
+Future<void> hideToTray() async {
+  await windowManager.hide();
+  if (checkPlatform([TargetPlatform.macOS])) {
+    // This will crash on Windows
+    // https://github.com/localsend/localsend/issues/32
+    await windowManager.setSkipTaskbar(true);
+  }
+}
+
+Future<void> showFromTray() async {
+  await windowManager.show();
+  if (checkPlatform([TargetPlatform.macOS])) {
+    // This will crash on Windows
+    // https://github.com/localsend/localsend/issues/32
+    await windowManager.setSkipTaskbar(false);
   }
 }
