@@ -1,6 +1,15 @@
-## 1.6.0 (2023-)
+## 1.6.0 (2023-01-27)
 
+- feat: show thumbnail in progress page
+- feat: improve cache clearing mechanism
+- feat: hashtag input now tries all combinations when multiple subnets are given
+- feat(desktop): show dialog instead of bottom sheet when adding files
+- feat(windows, mac): minimize to tray
+- feat(windows): launch on login
+- feat: add multiline toggle to message input
 - fix: show correct file count in progress page
+- fix: add self-discovering prevention
+- i18n: add Simplified Chinese
 
 ## 1.5.2 (2023-01-14)
 
