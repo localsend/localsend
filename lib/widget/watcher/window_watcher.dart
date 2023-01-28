@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide MenuItem;
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:window_manager/window_manager.dart';
 
 class WindowWatcher extends StatefulWidget {
@@ -25,14 +26,16 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener {
   void initState() {
     super.initState();
     windowManager.addListener(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        // always handle close actions manually
-        await windowManager.setPreventClose(true);
-      } catch (e) {
-        print(e);
-      }
-    });
+    if (checkPlatformIsDesktop()) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        try {
+          // always handle close actions manually
+          await windowManager.setPreventClose(true);
+        } catch (e) {
+          print(e);
+        }
+      });
+    }
   }
 
   @override
