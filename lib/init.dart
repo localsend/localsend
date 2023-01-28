@@ -40,6 +40,29 @@ Future<PersistenceService> preInit(List<String> args) async {
     LocaleSettings.setLocale(locale);
   }
 
+  // Register default plural resolver
+  for (final locale in AppLocale.values) {
+    if ([AppLocale.en, AppLocale.de].contains(locale)) {
+      continue;
+    }
+
+    LocaleSettings.setPluralResolver(
+      locale: locale,
+      cardinalResolver: (n, {zero, one, two, few, many, other}) {
+        if (n == 0) {
+          return zero ?? other ?? n.toString();
+        }
+        if (n == 1) {
+          return one ?? other ?? n.toString();
+        }
+        return other ?? n.toString();
+      },
+      ordinalResolver: (n, {zero, one, two, few, many, other}) {
+        return other ?? n.toString();
+      },
+    );
+  }
+
   if (checkPlatformIsDesktop()) {
     // initialize tray AFTER i18n has been initialized
     await initTray();
