@@ -868,11 +868,9 @@ packages:
   share_handler:
     dependency: "direct main"
     description:
-      path: share_handler
-      ref: "630cf945524dfbae1bc63ed83b28559b47b25ffa"
-      resolved-ref: "630cf945524dfbae1bc63ed83b28559b47b25ffa"
-      url: "https://github.com/ShoutSocial/share_handler.git"
-    source: git
+      name: share_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.16"
   share_handler_android:
     dependency: transitive
@@ -889,11 +887,13 @@ packages:
     source: hosted
     version: "0.0.9"
   share_handler_platform_interface:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: share_handler_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: share_handler_platform_interface
+      ref: "630cf945524dfbae1bc63ed83b28559b47b25ffa"
+      resolved-ref: "630cf945524dfbae1bc63ed83b28559b47b25ffa"
+      url: "https://github.com/ShoutSocial/share_handler.git"
+    source: git
     version: "0.0.5"
   shared_preferences:
     dependency: "direct main"

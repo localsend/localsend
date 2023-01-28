@@ -1,3 +1,8 @@
+## 1.6.2 (2023-01-28)
+
+- fix: cannot receive files when Chinese language is active
+- fix(android, ios): share files with non-English names
+
 ## 1.6.1 (2023-01-27)
 
 - fix(windows): app crashes when minimized to tray

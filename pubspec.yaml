@@ -34,13 +34,7 @@ dependencies:
   permission_handler: 10.2.0
   responsive_builder: 0.4.3
   routerino: 0.3.0
-  share_handler:
-    # https://github.com/ShoutSocial/share_handler/pull/39
-    # Remove this when next release is published
-    git:
-      url: https://github.com/ShoutSocial/share_handler.git
-      path: share_handler
-      ref: 630cf945524dfbae1bc63ed83b28559b47b25ffa
+  share_handler: 0.0.16
   shared_preferences: 2.0.15
   shelf: 1.4.0
   shelf_router: 1.1.3
@@ -71,6 +65,15 @@ dev_dependencies:
       ref: 207eddfe797225ab2736001cbdb8fafd04946b38
   slang_build_runner: 3.10.0
   test: 1.22.1
+
+dependency_overrides:
+  share_handler_platform_interface:
+    # https://github.com/ShoutSocial/share_handler/pull/39
+    # Remove this when next release is published
+    git:
+      url: https://github.com/ShoutSocial/share_handler.git
+      path: share_handler_platform_interface
+      ref: 630cf945524dfbae1bc63ed83b28559b47b25ffa
 
 flutter:
   uses-material-design: true
