@@ -85,7 +85,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
-      "destination": "目标",
+      "destination": "保存目录",
       "saveToGallery": "保存到相册"
     },
     "network": {
@@ -137,7 +137,7 @@
     "title": "关于 LocalSend"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "更新日志"
   },
   "aliasGenerator": {
     "@info": "Uses English version"
