@@ -868,9 +868,11 @@ packages:
   share_handler:
     dependency: "direct main"
     description:
-      name: share_handler
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: share_handler
+      ref: "630cf945524dfbae1bc63ed83b28559b47b25ffa"
+      resolved-ref: "630cf945524dfbae1bc63ed83b28559b47b25ffa"
+      url: "https://github.com/ShoutSocial/share_handler.git"
+    source: git
     version: "0.0.16"
   share_handler_android:
     dependency: transitive
@@ -1002,21 +1004,21 @@ packages:
       name: slang
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.9.0"
+    version: "3.10.0"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.9.0"
+    version: "3.10.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.9.0"
+    version: "3.10.0"
   source_gen:
     dependency: transitive
     description:
