@@ -1,5 +1,6 @@
 ## 1.6.2 (2023-01-28)
 
+- fix(desktop): close current instance when another is already open
 - fix: cannot receive files when Chinese language is active
 - fix(android, ios): share files with non-English names
 

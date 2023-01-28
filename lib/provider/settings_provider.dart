@@ -16,6 +16,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
 
   static Settings _loadFromPersistence(PersistenceService service) {
     return Settings(
+      showToken: service.getShowToken(),
       alias: service.getAlias(),
       theme: service.getTheme(),
       locale: service.getLocale(),

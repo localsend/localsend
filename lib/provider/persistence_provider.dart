@@ -4,11 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
 });
 
+const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme';
 const _localeKey = 'ls_locale';
@@ -30,6 +32,10 @@ class PersistenceService {
   static Future<PersistenceService> initialize() async {
     final prefs = await SharedPreferences.getInstance();
 
+    if (prefs.getString(_showToken) == null) {
+      await prefs.setString(_showToken, const Uuid().v4());
+    }
+
     if (prefs.getString(_aliasKey) == null) {
       await prefs.setString(_aliasKey, generateRandomAlias());
     }
@@ -39,6 +45,10 @@ class PersistenceService {
     }
 
     return PersistenceService._(prefs);
+  }
+
+  String getShowToken() {
+    return _prefs.getString(_showToken)!;
   }
 
   String getAlias() {

@@ -7,7 +7,8 @@ enum ApiRoute {
   info('/info'),
   sendRequest('/send-request'),
   send('/send'),
-  cancel('/cancel');
+  cancel('/cancel'),
+  show('/show');
 
   const ApiRoute(String path) : path = '$_basePath$path';
 

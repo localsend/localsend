@@ -7,6 +7,7 @@ part 'settings.freezed.dart';
 @freezed
 class Settings with _$Settings {
   const factory Settings({
+    required String showToken, // the token to show / maximize the window because only one instance is allowed
     required String alias,
     required ThemeMode theme,
     required AppLocale? locale,

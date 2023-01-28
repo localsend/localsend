@@ -70,6 +70,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       alias: alias,
       port: port,
       fingerprint: _ref.read(fingerprintProvider),
+      showToken: _ref.read(settingsProvider.select((s) => s.showToken)),
     );
 
     print('Starting server...');
@@ -97,6 +98,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     required String alias,
     required int port,
     required String fingerprint,
+    required String showToken,
   }) {
     router.get(ApiRoute.info.path, (Request request) {
       final dto = InfoDto(
@@ -361,6 +363,19 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       return Response.ok('');
+    });
+
+    router.post(ApiRoute.show.path, (Request request) async {
+      final senderToken = request.url.queryParameters['token'];
+      if (senderToken == showToken && checkPlatformIsDesktop()) {
+        showFromTray().catchError((e) {
+          // don't wait for it
+          print(e);
+        });
+        return Response.ok('');
+      }
+
+      return Response.badRequest();
     });
   }
 

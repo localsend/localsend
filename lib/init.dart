@@ -1,14 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
@@ -61,6 +64,20 @@ Future<PersistenceService> preInit(List<String> args) async {
         return other ?? n.toString();
       },
     );
+  }
+
+  if (checkPlatformIsDesktop()) {
+    // Check if this app is already open and let it "show up".
+    // If this is the case, then exit the current instance.
+
+    final dio = createDio(DioType.startupCheckAnotherInstance);
+
+    try {
+      await dio.post(ApiRoute.show.targetRaw('127.0.0.1', persistenceService.getPort()), queryParameters: {
+        'token': persistenceService.getShowToken(),
+      });
+      exit(0); // Another instance does exist because no error is thrown
+    } catch (_) {}
   }
 
   if (checkPlatformIsDesktop()) {
