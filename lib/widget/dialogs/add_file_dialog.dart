@@ -40,10 +40,10 @@ class AddFileDialog extends StatelessWidget {
       );
     } else {
       context.pushBottomSheet(() => CustomBottomSheet(
-        title: t.dialogs.addFile.title,
-        description: t.dialogs.addFile.content,
-        child: AddFileDialog(parentRef: parentRef, options: options),
-      ));
+            title: t.dialogs.addFile.title,
+            description: t.dialogs.addFile.content,
+            child: AddFileDialog(parentRef: parentRef, options: options),
+          ));
     }
   }
 
@@ -63,17 +63,17 @@ class AddFileDialog extends StatelessWidget {
                     child: option == null
                         ? Container()
                         : BigButton(
-                      icon: option.icon,
-                      label: option.label,
-                      filled: true,
-                      onTap: () {
-                        context.popUntilRoot();
-                        option.select(
-                          context: context,
-                          ref: parentRef,
-                        );
-                      },
-                    ),
+                            icon: option.icon,
+                            label: option.label,
+                            filled: true,
+                            onTap: () {
+                              context.popUntilRoot();
+                              option.select(
+                                context: context,
+                                ref: parentRef,
+                              );
+                            },
+                          ),
                   ),
                   const SizedBox(width: 15),
                 ];

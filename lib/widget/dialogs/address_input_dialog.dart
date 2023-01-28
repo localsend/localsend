@@ -53,8 +53,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
-        for (final ip in candidates)
-          () => ref.read(targetedDiscoveryProvider).discover(ip, port),
+        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip, port),
       ],
     ).stream;
 
@@ -127,26 +126,24 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             '${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123'}',
             style: const TextStyle(color: Colors.grey),
           ),
-          if (_mode == _InputMode.hashtag)
-            ...[
-              if (localIps.length <= 1)
+          if (_mode == _InputMode.hashtag) ...[
+            if (localIps.length <= 1)
+              Text(
+                '${t.dialogs.addressInput.ip}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.$_input',
+                style: const TextStyle(color: Colors.grey),
+              )
+            else ...[
+              Text(
+                '${t.dialogs.addressInput.ip}:',
+                style: const TextStyle(color: Colors.grey),
+              ),
+              for (final ip in localIps)
                 Text(
-                  '${t.dialogs.addressInput.ip}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.$_input',
+                  '- ${ip.ipPrefix}.$_input',
                   style: const TextStyle(color: Colors.grey),
-                )
-              else
-                ...[
-                  Text(
-                    '${t.dialogs.addressInput.ip}:',
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                  for (final ip in localIps)
-                    Text(
-                      '- ${ip.ipPrefix}.$_input',
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                ],
+                ),
             ],
+          ],
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),

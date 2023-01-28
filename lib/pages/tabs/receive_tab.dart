@@ -69,9 +69,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                     duration: const Duration(milliseconds: 300),
                                     delay: const Duration(milliseconds: 500),
                                     child: Text(
-                                      serverState == null
-                                          ? t.general.offline
-                                          : networkInfo.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                                      serverState == null ? t.general.offline : networkInfo.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
                                       style: const TextStyle(fontSize: 24),
                                     ),
                                   ),

@@ -8,10 +8,15 @@ void main() {
       final results = TaskRunner<String?>(
         concurrency: 10,
         initialTasks: [
-          for (final data in [[10, null], [30, 'a'], [20, 'b'], [40, 'c']])
+          for (final data in [
+            [10, null],
+            [30, 'a'],
+            [20, 'b'],
+            [40, 'c']
+          ])
             () async {
-            final delay = data[0] as int;
-            final result = data[1] as String?;
+              final delay = data[0] as int;
+              final result = data[1] as String?;
               await sleepAsync(delay);
               return result;
             },

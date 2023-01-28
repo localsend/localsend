@@ -22,7 +22,6 @@ Future<void> initAutoStartAndOpenSettings() async {
     } else {
       await launchAtStartup.disable();
     }
-
   } catch (e) {
     print(e);
   }

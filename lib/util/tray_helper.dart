@@ -16,7 +16,9 @@ Future<void> initTray() async {
   }
   try {
     if (checkPlatform([TargetPlatform.windows])) {
-      await trayManager.setIcon(Assets.img.logo32Ico,);
+      await trayManager.setIcon(
+        Assets.img.logo32Ico,
+      );
     } else if (checkPlatform([TargetPlatform.macOS])) {
       await trayManager.setIcon(Assets.img.logo32BlackWhite.path, isTemplate: true);
     } else {
