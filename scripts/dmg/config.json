@@ -1,0 +1,15 @@
+{
+  "title": "LocalSend",
+  "icon": "icon.icns",
+  "background-color": "#90a4ae",
+  "window": {
+    "size":{
+      "width": 600,
+      "height": 400
+    }
+  },
+  "contents": [
+    { "x": 400, "y": 140, "type": "link", "path": "/Applications" },
+    { "x": 200, "y": 140, "type": "file", "path": "../../build/macos/Build/Products/Release/LocalSend.app" }
+  ]
+}
