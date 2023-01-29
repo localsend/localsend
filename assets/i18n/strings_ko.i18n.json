@@ -1,0 +1,188 @@
+{
+  "locale": "한국어",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "수락",
+    "add": "추가",
+    "advanced": "상세",
+    "cancel": "취소",
+    "close": "닫기",
+    "confirm": "확인",
+    "continueStr": "계속",
+    "copy": "복사",
+    "copiedToClipboard": "클립보드에 복사하였습니다",
+    "decline": "거부",
+    "done": "완료",
+    "edit": "편집",
+    "error": "에러",
+    "example": "예시",
+    "files": "파일",
+    "finished": "완료되었습니다",
+    "hide": "숨기기",
+    "off": "꺼짐",
+    "offline": "오프라인",
+    "on": "켜짐",
+    "online": "온라인",
+    "open": "열기",
+    "queue": "대기 중",
+    "quickSave": "빠른 저장",
+    "renamed": "이름 변경됨",
+    "reset": "리셋",
+    "restart": "재시작",
+    "settings": "설정",
+    "skipped": "스킵됨",
+    "start": "시작",
+    "stop": "정지",
+    "save": "저장",
+    "unchanged": "변경 안됨",
+    "unknown": "알 수 없음"
+  },
+  "receiveTab": {
+    "title": "수신",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "포트:",
+      "alias": "별명:"
+    }
+  },
+  "sendTab": {
+    "title": "송신",
+    "selection": {
+      "title": "선택",
+      "files": "파일 수: {files}",
+      "size": "크기: {size}"
+    },
+    "picker": {
+      "file": "파일",
+      "media": "미디어",
+      "text": "텍스트"
+    },
+    "shareIntentInfo": "휴대전화의 '공유' 기능을 사용하면 보다 편리하게 파일을 선택할 수 있습니다",
+    "nearbyDevices": "근처의 기기",
+    "thisDevice": "이 기기",
+    "scan": "기기를 검색하는 중",
+    "help": "보낼 기기가 같은 Wi-Fi 네트워크에 연결되었는지 확인해주세요",
+    "placeItems": "드롭해서 공유"
+  },
+  "settingsTab": {
+    "title": "설정",
+    "general": {
+      "title": "일반",
+      "theme": "테마",
+      "themeOptions": {
+        "system": "시스템",
+        "dark": "어두움",
+        "light": "밝음"
+      },
+      "language": "언어",
+      "languageOptions": {
+        "system": "시스템"
+      },
+      "minimizeToTray": "종료 시 시스템 트레이로 최소화",
+      "launchAtStartup": "로그인 시 자동으로 시작",
+      "launchMinimized": "최소화된 상태로 시작"
+    },
+    "receive": {
+      "title": "수신",
+      "quickSave": "@:general.quickSave",
+      "destination": "저장 위치",
+      "saveToGallery": "미디어를 갤러리에 저장"
+    },
+    "network": {
+      "title": "네트워크",
+      "needRestart": "서버를 재시작해야 변경된 설정이 반영됩니다",
+      "server": "서버",
+      "alias": "별명",
+      "port": "포트"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "모두 삭제"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "에서 파일을 보내려고 합니다",
+      "other": "에서 {n}개의 파일을 보내려고 합니다"
+    },
+    "subTitleMessage": "에서 메시지를 보냈습니다:",
+    "subTitleLink": "에서 링크를 보냈습니다:",
+    "canceled": "보내는 사람이 요청을 취소했습니다"
+  },
+  "receiveOptionsPage": {
+    "title": "옵션",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName 폴더)"
+  },
+  "sendPage": {
+    "waiting": "답변을 기다리는 중…",
+    "rejected": "받는 사람이 요청을 거부했습니다"
+  },
+  "progressPage": {
+    "titleSending": "파일을 보내는 중",
+    "titleReceiving": "파일을 받는 중",
+    "savedToGallery": "갤러리에 저장했습니다.",
+    "total": {
+      "title": {
+        "sending": "진행 시간 ({time})",
+        "finishedError": "에러로 인해 종료되었습니다",
+        "canceledSender": "보내는 사람이 취소했습니다",
+        "canceledReceiver": "받는 사람이 취소했습니다"
+      },
+      "count": "파일: {curr} / {n}",
+      "size": "크기: {curr} / {n}",
+      "speed": "속도: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "LocalSend에 대해"
+  },
+  "changelogPage": {
+    "title": "업데이트 이력"
+  },
+  "aliasGenerator": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "선택 목록에 추가",
+      "content": "무엇을 추가할까요?"
+    },
+    "addressInput": {
+      "title": "주소를 입력",
+      "hashtag": "해시태그",
+      "ip": "IP 주소"
+    },
+    "cancelSession": {
+      "title": "파일 전송을 취소",
+      "content": "정말로 파일 전송을 취소할까요?"
+    },
+    "fileNameInput": {
+      "title": "파일 이름을 입력하세요",
+      "original": "기존 이름: {original}"
+    },
+    "messageInput": {
+      "title": "메시지를 입력하세요",
+      "multiline": "여러줄"
+    },
+    "noFiles": {
+      "title": "파일이 선택되지 않았습니다",
+      "content": "적어도 하나 이상의 파일을 선택해주세요"
+    },
+    "quickActions": {
+      "title": "퀵 액션",
+      "counter": "카운터",
+      "prefix": "접두어",
+      "padZero": "0으로 채우기",
+      "sortBeforeCount": "미리 알파벳순으로 정렬",
+      "random": "무작위"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "파일 요청이 자동으로 수락됩니다. 로컬 네트워크의 누구나 파일을 보낼 수 있게되므로 주의해 주세요."
+    }
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "LocalSend 종료"
+  }
+}
