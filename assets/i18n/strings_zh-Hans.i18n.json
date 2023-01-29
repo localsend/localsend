@@ -41,23 +41,23 @@
     "title": "接收",
     "infoBox": {
       "ip": "IP:",
-      "port": "端口:",
-      "alias": "别名:"
+      "port": "端口：",
+      "alias": "别名："
     }
   },
   "sendTab": {
     "title": "发送",
     "selection": {
       "title": "选择",
-      "files": "文件: {files}",
-      "size": "大小: {size}"
+      "files": "文件：{files}",
+      "size": "大小：{size}"
     },
     "picker": {
       "file": "文件",
       "media": "媒体",
       "text": "文本"
     },
-    "shareIntentInfo": "你也可以使用你的移动设备中的 “分享” 功能来更简单的选择文件。",
+    "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件。",
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
@@ -128,9 +128,9 @@
         "canceledSender": "发送者已取消",
         "canceledReceiver": "接收者已取消"
       },
-      "count": "文件: {curr} / {n}",
-      "size": "大小: {curr} / {n}",
-      "speed": "速度: {speed}/s"
+      "count": "文件：{curr} / {n}",
+      "size": "大小：{curr} / {n}",
+      "speed": "速度：{speed}/s"
     }
   },
   "aboutPage": {
@@ -180,5 +180,9 @@
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
     }
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "退出 LocalSend"
   }
 }

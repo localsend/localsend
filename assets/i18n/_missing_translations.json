@@ -4,10 +4,5 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=<locale>' to quickly apply the newly added translations."
   ],
   "de": {},
-  "zh-Hans": {
-    "tray": {
-      "open": "@:general.open",
-      "close": "Quit LocalSend"
-    }
-  }
+  "zh-Hans": {}
 }
