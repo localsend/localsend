@@ -180,5 +180,9 @@
       "title": "@:general.quickSave",
       "content": "自動接受所有文件傳輸請求。請注意，這會讓此網路中的所有人都可以向你發送文件。"
     }
+  },
+    "tray": {
+    "open": "@:general.open",
+    "close": "退出 LocalSend"
   }
 }
