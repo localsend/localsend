@@ -1,0 +1,257 @@
+{
+  "locale": "Hungarian",
+  "appName": "LocalSend HU",
+  "general": {
+    "accept": "Elfogad",
+    "add": "Hozzáad",
+    "advanced": "Haladó",
+    "cancel": "Mégse",
+    "close": "Bezár",
+    "confirm": "Megerősít",
+    "continueStr": "Folytat",
+    "copy": "Másol",
+    "copiedToClipboard": "Másolva a vágólapra",
+    "decline": "Elutasít",
+    "done": "Kész",
+    "edit": "Szerkeszt",
+    "error": "Hiba",
+    "example": "Példa",
+    "files": "Fájlok",
+    "finished": "Befejezve",
+    "hide": "Elrejt",
+    "off": "Ki",
+    "offline": "Offline",
+    "on": "Be",
+    "online": "Online",
+    "open": "Megnyit",
+    "queue": "Várósor",
+    "quickSave": "Gyors mentés",
+    "renamed": "Átnevezve",
+    "reset": "Reset",
+    "restart": "Újraindít",
+    "settings": "Beállítások",
+    "skipped": "Kihagyva",
+    "start": "Start",
+    "stop": "Stop",
+    "save": "Ment",
+    "unchanged": "Változatlan",
+    "unknown": "Ismeretlen"
+  },
+  "receiveTab": {
+    "title": "Fogad",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Álnév:"
+    }
+  },
+  "sendTab": {
+    "title": "Küld",
+    "selection": {
+      "title": "Selection",
+      "files": "Fájlok: {files}",
+      "size": "Méret: {size}"
+    },
+    "picker": {
+      "file": "Fájl",
+      "media": "Média",
+      "text": "Szöveg"
+    },
+    "shareIntentInfo": "A fájlok könnyebb kiválasztásához használhatja mobileszköze \"Megosztás\" funkcióját is.",
+    "nearbyDevices": "Közeli eszközök",
+    "thisDevice": "Ez az eszköz",
+    "scan": "Keressen eszközöket",
+    "help": "Győződjön meg arról, hogy a kívánt cél is ugyanazon a wifi hálózaton van.",
+    "placeItems": "Helyezze el a megosztandó elemeket."
+  },
+  "settingsTab": {
+    "title": "Beállítások",
+    "general": {
+      "title": "Általános",
+      "theme": "Téma",
+      "themeOptions": {
+        "system": "Rendszer",
+        "dark": "Sötét",
+        "light": "Világos"
+      },
+      "language": "Nyelv",
+      "languageOptions": {
+        "system": "Rendszer"
+      },
+      "minimizeToTray": "Kilépés: Minimalizálás a tálcára",
+      "launchAtStartup": "Auto. indítás bejelentkezés után",
+      "launchMinimized": "Auto. indítás: Kezdje rejtve"
+    },
+    "receive": {
+      "title": "Fogad",
+      "quickSave": "@:general.quickSave",
+      "destination": "Cél",
+      "saveToGallery": "Média mentése a galériába"
+    },
+    "network": {
+      "title": "Hálózat",
+      "needRestart": "A beállítások alkalmazásához indítsa újra a szervert!",
+      "server": "Szerver",
+      "alias": "Álnév",
+      "port": "Port"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Összes törlése"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "fájlt szeretne küldeni.",
+      "other": "{n} fájlt szeretne küldeni."
+    },
+    "subTitleMessage": "üzenetet küldött:",
+    "subTitleLink": "Linket küldött:",
+    "canceled": "A feladó visszavonta a kérést."
+  },
+  "receiveOptionsPage": {
+    "title": "Opciók",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName folder)"
+  },
+  "sendPage": {
+    "waiting": "Válaszra várva...",
+    "rejected": "A fogadó elutasította a kérelmet."
+  },
+  "progressPage": {
+    "titleSending": "Fájlok küldése",
+    "titleReceiving": "Fájlok fogadása",
+    "savedToGallery": "Mentve a Fotók közé",
+    "total": {
+      "title": {
+        "sending": "Teljes folyamat ({time})",
+        "finishedError": "Hibával befejezve",
+        "canceledSender": "A feladó törölte",
+        "canceledReceiver": "A fogadó törölte"
+      },
+      "count": "Fájlok: {curr} / {n}",
+      "size": "Méret: {curr} / {n}",
+      "speed": "Sebesség: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "A LocalSend-ről"
+  },
+  "changelogPage": {
+    "title": "Változásnapló"
+  },
+  "aliasGenerator": {
+    "@info": "A különböző nyelvterületeken eltérő szavak lehetnek, és előfordulhat, hogy nem egyezik 1:1 arányban",
+    "adjectives": [
+      "Adorable",
+      "Beautiful",
+      "Big",
+      "Bright",
+      "Clean",
+      "Clever",
+      "Cool",
+      "Cute",
+      "Cunning",
+      "Determined",
+      "Energetic",
+      "Efficient",
+      "Fantastic",
+      "Fast",
+      "Fine",
+      "Fresh",
+      "Good",
+      "Gorgeous",
+      "Great",
+      "Handsome",
+      "Hot",
+      "Kind",
+      "Lovely",
+      "Mystic",
+      "Neat",
+      "Nice",
+      "Patient",
+      "Pretty",
+      "Powerful",
+      "Rich",
+      "Secret",
+      "Smart",
+      "Solid",
+      "Special",
+      "Strategic",
+      "Strong",
+      "Tidy",
+      "Wise"
+    ],
+    "fruits": [
+      "Apple",
+      "Avocado",
+      "Banana",
+      "Blackberry",
+      "Blueberry",
+      "Broccoli",
+      "Carrot",
+      "Cherry",
+      "Coconut",
+      "Grape",
+      "Lemon",
+      "Lettuce",
+      "Mango",
+      "Melon",
+      "Mushroom",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Peach",
+      "Pear",
+      "Pineapple",
+      "Potato",
+      "Pumpkin",
+      "Raspberry",
+      "Strawberry",
+      "Tomato"
+    ]
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Hozzáadás a kijelöléshez",
+      "content": "Mit szeretne hozzáfűzni?"
+    },
+    "addressInput": {
+      "title": "Adja meg a címet",
+      "hashtag": "Hashtag",
+      "ip": "IP cím"
+    },
+    "cancelSession": {
+      "title": "Fájlátvitel megszakítása",
+      "content": "Valóban meg akarja szakítani a fájlátvitelt?"
+    },
+    "fileNameInput": {
+      "title": "Írja be a fájl nevét",
+      "original": "Eredeti: {original}"
+    },
+    "messageInput": {
+      "title": "Írja be az üzenetét",
+      "multiline": "Többsoros"
+    },
+    "noFiles": {
+      "title": "Nincs fájl kiválasztva",
+      "content": "Kérjük válasszon legalább egy fájlt."
+    },
+    "quickActions": {
+      "title": "Gyors műveletek",
+      "counter": "Számláló",
+      "prefix": "Előtag",
+      "padZero": "Pad nullákkal",
+      "sortBeforeCount": "Előzetesen rendezze ábécé sorrendbe",
+      "random": "Véletlen"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "A fájlkérések auto. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
+    }
+  },
+  "tray": {
+    "@info": "Az Apple irányelvei nagyon szigorúak a 'közeli' megfogalmazással kapcsolatban.",
+    "open": "@:general.open",
+    "close": "Kilép a LocalSend-ből"
+  }
+}
