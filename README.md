@@ -142,3 +142,6 @@ appimage-builder --recipe AppImageBuilder.yml
 **Snap**
 
 Feel free to open a pull request. There is a  `snap` branch to play with.
+
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=localsend/localsend&type=Date)](https://star-history.com/#localsend/localsend&Date)
