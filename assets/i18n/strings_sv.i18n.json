@@ -1,0 +1,257 @@
+{
+  "locale": "Svenska",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Acceptera",
+    "add": "Lägg till",
+    "advanced": "Avancerat",
+    "cancel": "Avbryt",
+    "close": "Stäng",
+    "confirm": "Bekräfta",
+    "continueStr": "Vidare",
+    "copy": "Kopiera",
+    "copiedToClipboard": "Kopierat till urklipp",
+    "decline": "Avböj",
+    "done": "Klar",
+    "edit": "Redigera",
+    "error": "Fel",
+    "example": "Exempel",
+    "files": "Filer",
+    "finished": "Färdig",
+    "hide": "Göm",
+    "off": "Av",
+    "offline": "Offline",
+    "on": "På",
+    "online": "Online",
+    "open": "Öppen",
+    "queue": "Kö",
+    "quickSave": "Snabbspara",
+    "renamed": "Bytt namn",
+    "reset": "Återställ",
+    "restart": "Starta om",
+    "settings": "Inställningar",
+    "skipped": "Hoppad över",
+    "start": "Börja",
+    "stop": "Avsluta",
+    "save": "Spara",
+    "unchanged": "Oförändrad",
+    "unknown": "Okänd"
+  },
+  "receiveTab": {
+    "title": "Ta emot",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    }
+  },
+  "sendTab": {
+    "title": "Skicka",
+    "selection": {
+      "title": "Val",
+      "files": "Filer: {files}",
+      "size": "Storlek: {size}"
+    },
+    "picker": {
+      "file": "Fil",
+      "media": "Media",
+      "text": "Text"
+    },
+    "shareIntentInfo": "Du kan också använda \"Dela\"-funtionen i din mobiltelefon för att lättare välja filer.",
+    "nearbyDevices": "Närbelägna enhter",
+    "thisDevice": "Denna Enhet",
+    "scan": "Leta efter enheter",
+    "help": "Kontrollera att den sökta enheten är uppkopplad till samma wifi nätverk som din enhet.",
+    "placeItems": "Placera objekt att dela"
+  },
+  "settingsTab": {
+    "title": "Inställningar",
+    "general": {
+      "title": "Allmänt",
+      "theme": "Tema",
+      "themeOptions": {
+        "system": "System",
+        "dark": "Mörkt",
+        "light": "Ljust"
+      },
+      "language": "Språk",
+      "languageOptions": {
+        "system": "System"
+      },
+      "minimizeToTray": "Lämna: minimera till tray",
+      "launchAtStartup": "Starta automatiskt efter inloggning",
+      "launchMinimized": "Starta automatiskt: starta gömd"
+    },
+    "receive": {
+      "title": "Ta emot",
+      "quickSave": "@:general.quickSave",
+      "destination": "Destination",
+      "saveToGallery": "Spara media i galleriet"
+    },
+    "network": {
+      "title": "Nätverk",
+      "needRestart": "Starta om servern för att tillämpa inställningarna!",
+      "server": "Server",
+      "alias": "Alias",
+      "port": "Port"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Radera alla"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "vill skicka en fil till dig.",
+      "other": "Vill skick {n} filer till dig."
+    },
+    "subTitleMessage": "skickade ett meddelande till dig:",
+    "subTitleLink": "skickade en länk till dig:",
+    "canceled": "Sändaren har avbrutit begäran."
+  },
+  "receiveOptionsPage": {
+    "title": "Alternativ",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName-mappen)"
+  },
+  "sendPage": {
+    "waiting": "Väntar på svar...",
+    "rejected": "Mottagaren har avvisat begäran."
+  },
+  "progressPage": {
+    "titleSending": "Skickar filer",
+    "titleReceiving": "Tar emot filer",
+    "savedToGallery": "Sparat i Foton",
+    "total": {
+      "title": {
+        "sending": "Total  ({time})",
+        "finishedError": "Avslutad med fel",
+        "canceledSender": "Avbruten av sändaren",
+        "canceledReceiver": "Avbruten av mottagaren"
+      },
+      "count": "Filer: {curr} / {n}",
+      "size": "Storlek: {curr} / {n}",
+      "speed": "Hastighet: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "Om LocalSend"
+  },
+  "changelogPage": {
+    "title": "Ändringslog"
+  },
+  "aliasGenerator": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Bedårande",
+      "Vacker",
+      "Stor",
+      "Ljus",
+      "Ren",
+      "Klyftig",
+      "Cool",
+      "Söt",
+      "Listig",
+      "Bestämd",
+      "Energisk",
+      "Effektiv",
+      "Fantastisk",
+      "Snabb",
+      "Fint",
+      "Fräsch",
+      "Bra",
+      "Underbar",
+      "Jättebra",
+      "Stilig",
+      "Het",
+      "Snäll",
+      "Underbar",
+      "Mystiker",
+      "Prydlig",
+      "Trevlig",
+      "Tålmodig",
+      "Snygg",
+      "Kraftfull",
+      "Rik",
+      "Hemlig",
+      "Smart",
+      "Solid",
+      "Speciell",
+      "Strategisk",
+      "Stark",
+      "Ordentlig",
+      "Vis"
+    ],
+    "fruits": [
+      "Äpple",
+      "Avocado",
+      "Banan",
+      "Björnbär",
+      "Blåbär",
+      "Broccoli",
+      "Morot",
+      "Körsbär",
+      "Kokosnöt",
+      "Druva",
+      "Citron",
+      "Sallad",
+      "Mango",
+      "Melon",
+      "Svamp",
+      "Lök",
+      "Apelsin",
+      "Papaya",
+      "Persika",
+      "Päron",
+      "Ananas",
+      "Potatis",
+      "Pumpa",
+      "Hallon",
+      "Jordgubbe",
+      "Tomat"
+    ]
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Lägg till i val",
+      "content": "Vad vill du lägga till?"
+    },
+    "addressInput": {
+      "title": "Skriv in adress",
+      "hashtag": "Hashtag",
+      "ip": "IP Address"
+    },
+    "cancelSession": {
+      "title": "Avbryt filöverföring",
+      "content": "Vill du verkligen avbryta filöverföringen?"
+    },
+    "fileNameInput": {
+      "title": "Skriv in filnamn",
+      "original": "Orginal: {original}"
+    },
+    "messageInput": {
+      "title": "Skriv meddelande",
+      "multiline": "Flerlinje"
+    },
+    "noFiles": {
+      "title": "Ingen fil vald",
+      "content": "Var god välj minst en fil."
+    },
+    "quickActions": {
+      "title": "Snabba Handlingar",
+      "counter": "Disken",
+      "prefix": "Prefix",
+      "padZero": "Stoppa med nollor",
+      "sortBeforeCount": "Sortera alphabetiskt innan",
+      "random": "Slumpmässig"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Filförfrågningar accepteras automatiskt. Observera att alla i lokala nätverket kan skicka filer till dig."
+    }
+  },
+  "tray": {
+    "@info": "Apples Riktlinjer är väldigt strikta kring 'stäng' formuleringen.",
+    "open": "@:general.open",
+    "close": "Avsluta LocalSend"
+  }
+}
