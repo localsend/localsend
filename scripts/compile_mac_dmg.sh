@@ -1,5 +1,6 @@
-git reset --hard origin/main
-git pull
+# UNCOMMENT THESE LINES TO BUILD FROM LATEST COMMIT
+# git reset --hard origin/main
+# git pull
 
 fvm flutter clean
 fvm flutter pub get
