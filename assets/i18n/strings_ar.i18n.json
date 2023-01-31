@@ -1,0 +1,257 @@
+{
+	"locale": "العربية",
+	"appName": "LocalSend",
+	"general": {
+	  "accept": "قبول",
+	  "add": "اضف",
+	  "advanced": "متقدم",
+	  "cancel": "إلغاء",
+	  "close": "أغلق",
+	  "confirm": "أكد",
+	  "continueStr": "أكمل",
+	  "copy": "إنسخ",
+	  "copiedToClipboard": "نسخ إلى الحافظة",
+	  "decline": "ارفض",
+	  "done": "انتهى",
+	  "edit": "تعديل",
+	  "error": "خطأ",
+	  "example": "مثال",
+	  "files": "ملفات",
+	  "finished": "انتهى",
+	  "hide": "إخفاء",
+	  "off": "إيقاف",
+	  "offline": "غير متصل بالانترنت",
+	  "on": "تشغيل",
+	  "online": "متصل بالانترنت",
+	  "open": "مفتوح",
+	  "queue": "طابور",
+	  "quickSave": "حفظ سريع",
+	  "renamed": "اعادة تسمية",
+	  "reset": "إعادة ضبط",
+	  "restart": "إعادة تشغيل",
+	  "settings": "إعدادات",
+	  "skipped": "تم تخطيه",
+	  "start": "ابدأ",
+	  "stop": "قف",
+	  "save": "احفظ",
+	  "unchanged": "دون تغيير",
+	  "unknown": "مجهول"
+	},
+	"receiveTab": {
+	  "title": "استلام",
+	  "infoBox": {
+		"ip": "IP:",
+		"port": "منفذ:",
+		"alias": "اسم مستعار:"
+	  }
+	},
+	"sendTab": {
+	  "title": "إرسال",
+	  "selection": {
+		"title": "اختيار",
+		"files": "ملفات: {files}",
+		"size": "حجم: {size}"
+	  },
+	  "picker": {
+		"file": "ملف",
+		"media": "وسائط",
+		"text": "نص"
+	  },
+	  "shareIntentInfo": "يمكنك أيضًا استخدام ميزة \"مشاركة\" بجهازك المحمول لتحديد الملفات بسهولة.",
+	  "nearbyDevices": "الأجهزة القريبة",
+	  "thisDevice": "هذا الجهاز",
+	  "scan": "ابحث عن أجهزة",
+	  "help": "يرجى التأكد من أن الهدف المطلوب موجود أيضًا في نفس شبكة wifi.",
+	  "placeItems": "ضع العناصر للمشاركة."
+	},
+	"settingsTab": {
+	  "title": "إعدادات",
+	  "general": {
+		"title": "عام",
+		"theme": "مظهر",
+		"themeOptions": {
+		  "system": "نظام",
+		  "dark": "داكن",
+		  "light": "فاتح"
+		},
+		"language": "لغة",
+		"languageOptions": {
+		  "system": "نظام"
+		},
+		"minimizeToTray": "إنهاء: تصغير إلى صينية",
+		"launchAtStartup": "تشغيل تلقائي بعد تسجيل الدخول",
+		"launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا"
+	  },
+	  "receive": {
+		"title": "استلم",
+		"quickSave": "@:general.quickSave",
+		"destination": "المكان المقصود",
+		"saveToGallery": "حفظ الوسائط في المعرض"
+	  },
+	  "network": {
+		"title": "شبكة الاتصال",
+		"needRestart": "أعد تشغيل الخادم لتطبيق الإعدادات!",
+		"server": "الخادم",
+		"alias": "اسم مستعار",
+		"port": "منفذ"
+	  }
+	},
+	"selectedFilesPage": {
+	  "deleteAll": "حذف الكل"
+	},
+	"receivePage": {
+	  "subTitle": {
+		"one": "يريد أن يرسل لك ملف.",
+		"other": "يريد أن يرسل لك {n} ملفات."
+	  },
+	  "subTitleMessage": "أرسل لك رسالة:",
+	  "subTitleLink": "أرسل لك ارتباط:",
+	  "canceled": "ألغى المرسل الطلب."
+	},
+	"receiveOptionsPage": {
+	  "title": "خيارات",
+	  "destination": "@:settingsTab.receive.destination",
+	  "appDirectory": "(@:appName folder)"
+	},
+	"sendPage": {
+	  "waiting": "بإنتظار الرد...",
+	  "rejected": "المستلم رفض الطلب."
+	},
+	"progressPage": {
+	  "titleSending": "يتم إرسال الملفات",
+	  "titleReceiving": "يتم استلام الملفات",
+	  "savedToGallery": "تم الحفظ في الصور",
+	  "total": {
+		"title": {
+		  "sending": "التقدم الكلي ({time})",
+		  "finishedError": "انتهى مع وجود خطأ",
+		  "canceledSender": "ألغي من قبل المرسل",
+		  "canceledReceiver": "ألغي من قبل المتلقي"
+		},
+		"count": "ملفات: {curr} / {n}",
+		"size": "حجم: {curr} / {n}",
+		"speed": "سرعة: {speed}/ثانية"
+	  }
+	},
+	"aboutPage": {
+	  "title": "عن LocalSend"
+	},
+	"changelogPage": {
+	  "title": "التغييرات"
+	},
+	"aliasGenerator": {
+	  "@info": "قد تحتوي المناطق المختلفة على كلمات مختلفة ، وقد لا تتطابق 1:1",
+	  "adjectives": [
+		"محبوب",
+		"جميل",
+		"كبير",
+		"ساطع",
+		"نظيف",
+		"ذكي",
+		"رائع",
+		"جذاب",
+		"ماكر",
+		"مصمم",
+		"نشيط",
+		"فعال",
+		"خيالي",
+		"سريع",
+		"جيد",
+		"طازج",
+		"حسن",
+		"خلاب",
+		"رائع",
+		"جميل المظهر",
+		"حار",
+		"حنون",
+		"محبوب",
+		"صوفي",
+		"مرتب",
+		"لطيف",
+		"صبور",
+		"جميل",
+		"قوي",
+		"ثري",
+		"سري",
+		"ذكي",
+		"صلب",
+		"مميز",
+		"استراتيجي",
+		"قوي",
+		"مرتب",
+		"حكيم"
+	  ],
+	  "fruits": [
+		"تفاح",
+		"أفوكادو",
+		"موز",
+		"بلاك بيري",
+		"توت",
+		"بروكلي",
+		"جزر",
+		"كرز",
+		"جوز الهند",
+		"عنب",
+		"ليمون",
+		"خَسّ",
+		"مانجو",
+		"شمام",
+		"فطر",
+		"بصل",
+		"برتقال",
+		"بابايا",
+		"خَوخ",
+		"إجاص",
+		"أناناس",
+		"بطاطس",
+		"يقطين",
+		"توت العُليق",
+		"فراولة",
+		"طماطم"
+	  ]
+	},
+	"dialogs": {
+	  "addFile": {
+		"title": "أضف إلى الاختيار",
+		"content": "ماذا تريد أن تضيف؟"
+	  },
+	  "addressInput": {
+		"title": "أدخل العنوان",
+		"hashtag": "رابطة هاشتاق",
+		"ip": "عنوان IP"
+	  },
+	  "cancelSession": {
+		"title": "إلغاء نقل الملف",
+		"content": "هل تريد حقًا إلغاء نقل الملف؟"
+	  },
+	  "fileNameInput": {
+		"title": "أدخل اسم الملف",
+		"original": "أصلي: {original}"
+	  },
+	  "messageInput": {
+		"title": "اكتب رسالة",
+		"multiline": "متعدد الأسطر"
+	  },
+	  "noFiles": {
+		"title": "لم يتم اختيار اي ملف",
+		"content": "الرجاء تحديد ملف واحد على الأقل."
+	  },
+	  "quickActions": {
+		"title": "إجراءات سريعة",
+		"counter": "عداد",
+		"prefix": "بادئة",
+		"padZero": "بدأ مع أصفار",
+		"sortBeforeCount": "قم بالفرز أبجديًا مسبقًا",
+		"random": "عشوائي"
+	  },
+	  "quickSaveNotice": {
+		"title": "@:general.quickSave",
+		"content": "يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك."
+	  }
+	},
+	"tray": {
+	  "@info": "إرشادات Apple صارمة للغاية بشأن صياغة 'الإغلاق'.",
+	  "open": "@:general.open",
+	  "close": "أغلق LocalSend"
+	}
+  }
