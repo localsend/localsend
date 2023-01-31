@@ -1,3 +1,9 @@
+## 1.7.0 (2023-)
+
+- feat: add unencrypted HTTP mode
+- feat: message input is horizontally scrollable when multiline is unselected
+- i18n: add ar, fr, hu, it, ja, ko, pl, ru, sv, zh-Hant (Thanks to all the contributors!)
+
 ## 1.6.2 (2023-01-28)
 
 - fix(desktop): close current instance when another is already open
