@@ -186,8 +186,9 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         ),
       );
 
+      final quickSave = settings.quickSave && state?.receiveState?.message == null;
       final Map<String, String>? selection;
-      if (settings.quickSave) {
+      if (quickSave) {
         // accept all files
         selection = {
           for (final f in dto.files.values) f.id: f.fileName,
@@ -246,7 +247,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
         _ref.read(progressProvider.notifier).reset();
 
-        if (settings.quickSave) {
+        if (quickSave) {
           // ignore: use_build_context_synchronously
           Routerino.context.pushImmediately(() => const ProgressPage());
         }
@@ -356,7 +357,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             endTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
-        if (_ref.read(settingsProvider).quickSave) {
+        if (_ref.read(settingsProvider).quickSave && state?.receiveState?.message == null) {
           // close the session after return of the response
           Future.delayed(Duration.zero, () {
             closeSession();

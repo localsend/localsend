@@ -2,6 +2,7 @@
 
 - feat: add unencrypted HTTP mode
 - feat: message input is horizontally scrollable when multiline is unselected
+- feat: open message normally in QuickSave mode (instead of saving it into a file)
 - i18n: add ar, fr, hu, it, ja, ko, pl, ru, sv, zh-Hant (Thanks to all the contributors!)
 
 ## 1.6.2 (2023-01-28)
