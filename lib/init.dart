@@ -73,7 +73,7 @@ Future<PersistenceService> preInit(List<String> args) async {
     final dio = createDio(DioType.startupCheckAnotherInstance);
 
     try {
-      await dio.post(ApiRoute.show.targetRaw('127.0.0.1', persistenceService.getPort()), queryParameters: {
+      await dio.post(ApiRoute.show.targetRaw('127.0.0.1', persistenceService.getPort(), persistenceService.isHttps()), queryParameters: {
         'token': persistenceService.getShowToken(),
       });
       exit(0); // Another instance does exist because no error is thrown
@@ -105,6 +105,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
     await ref.read(serverProvider.notifier).startServer(
           alias: settings.alias,
           port: settings.port,
+          https: settings.https,
         );
   } catch (e) {
     context.showSnackBar(e.toString());

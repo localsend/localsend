@@ -76,9 +76,15 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
       return;
     }
 
-    final port = _ref.read(settingsProvider.select((settings) => settings.port));
+    final settings = _ref.read(settingsProvider);
+    final port = settings.port;
+    final https = settings.https;
     state = state.copyWith(scanWhenInitialized: false);
-    await _ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp);
+    await _ref.read(nearbyDevicesProvider.notifier).startScan(
+          port: port,
+          localIp: localIp,
+          https: https,
+        );
   }
 
   Future<List<String>> _getIp() async {

@@ -93,7 +93,9 @@
       "needRestart": "Starte den Server neu, um die Änderungen zu übernehmen!",
       "server": "Server",
       "alias": "Alias",
-      "port": "Port"
+      "port": "Port",
+      "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
+      "encryption": "Verschlüsselung"
     }
   },
   "selectedFilesPage": {
@@ -155,6 +157,10 @@
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
       "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Verschlüsselung deaktiviert",
+      "content": "Die Kommunikation erfolgt nun über das unverschlüsselte HTTP-Protokoll. Um HTTPS zu verwenden, aktiviere wieder die Verschlüsselung."
     },
     "fileNameInput": {
       "title": "Dateiname eingeben",

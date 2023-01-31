@@ -26,6 +26,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
       quickSave: service.isQuickSave(),
       minimizeToTray: service.isMinimizeToTray(),
       autoStartLaunchMinimized: service.isAutoStartLaunchMinimized(),
+      https: service.isHttps(),
     );
   }
 
@@ -89,6 +90,13 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setAutoStartLaunchMinimized(launchMinimized);
     state = state.copyWith(
       autoStartLaunchMinimized: launchMinimized,
+    );
+  }
+
+  Future<void> setHttps(bool https) async {
+    await _service.setHttps(https);
+    state = state.copyWith(
+      https: https,
     );
   }
 }

@@ -16,10 +16,11 @@ class InfoDto with _$InfoDto {
 }
 
 extension InfoToDeviceExt on InfoDto {
-  Device toDevice(String ip, int port) {
+  Device toDevice(String ip, int port, bool https) {
     return Device(
       ip: ip,
       port: port,
+      https: https,
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType,

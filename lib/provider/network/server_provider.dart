@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
@@ -16,7 +17,6 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
-import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -49,7 +49,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
   ServerNotifier(this._ref, this.deviceInfo) : super(null);
 
-  Future<ServerState?> startServer({required String alias, required int port}) async {
+  Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
     if (state != null) {
       print('Server already running.');
       return null;
@@ -69,6 +69,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       router: router,
       alias: alias,
       port: port,
+      https: https,
       fingerprint: _ref.read(fingerprintProvider),
       showToken: _ref.read(settingsProvider.select((s) => s.showToken)),
     );
@@ -76,18 +77,29 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     print('Starting server...');
     ServerState? newServerState;
 
-    final securityContextResult = generateSecurityContext();
-
-    newServerState = ServerState(
-      httpServer: await serve(router, '0.0.0.0', port,
-          securityContext: SecurityContext()
-            ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
-            ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)),
-      alias: alias,
-      port: port,
-      receiveState: null,
-    );
-    print('Server started. (Port: ${newServerState.port})');
+    if (https) {
+      final securityContextResult = generateSecurityContext();
+      newServerState = ServerState(
+        httpServer: await serve(router, '0.0.0.0', port,
+            securityContext: SecurityContext()
+              ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
+              ..useCertificateChainBytes(securityContextResult.certificate.codeUnits)),
+        alias: alias,
+        port: port,
+        https: true,
+        receiveState: null,
+      );
+      print('Server started. (Port: ${newServerState.port}, HTTPS only)');
+    } else {
+      newServerState = ServerState(
+        httpServer: await serve(router, '0.0.0.0', port),
+        alias: alias,
+        port: port,
+        https: false,
+        receiveState: null,
+      );
+      print('Server started. (Port: ${newServerState.port}, HTTP only)');
+    }
 
     state = newServerState;
     return newServerState;
@@ -97,6 +109,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     required Router router,
     required String alias,
     required int port,
+    required bool https,
     required String fingerprint,
     required String showToken,
   }) {
@@ -154,7 +167,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       state = state!.copyWith(
         receiveState: ReceiveState(
           status: SessionStatus.waiting,
-          sender: dto.info.toDevice(request.ip, port),
+          sender: dto.info.toDevice(request.ip, port, https),
           files: {
             for (final file in dto.files.values)
               file.id: ReceivingFile(
@@ -385,9 +398,9 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     print('Server stopped.');
   }
 
-  Future<ServerState?> restartServer({required String alias, required int port}) async {
+  Future<ServerState?> restartServer({required String alias, required int port, required bool https}) async {
     await stopServer();
-    return await startServer(alias: alias, port: port);
+    return await startServer(alias: alias, port: port, https: https);
   }
 
   void acceptFileRequest(Map<String, String> fileNameMap) {

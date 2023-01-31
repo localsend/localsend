@@ -19,15 +19,15 @@ class TargetedDiscoveryService {
 
   TargetedDiscoveryService(this._dio, this._fingerprint);
 
-  Future<Device?> discover(String ip, int port) async {
-    final url = ApiRoute.info.targetRaw(ip, port);
+  Future<Device?> discover(String ip, int port, bool https) async {
+    final url = ApiRoute.info.targetRaw(ip, port, https);
     Device? device;
     try {
       final response = await _dio.get(url, queryParameters: {
         'fingerprint': _fingerprint,
       });
       final dto = InfoDto.fromJson(response.data);
-      device = dto.toDevice(ip, port);
+      device = dto.toDevice(ip, port, https);
     } on DioError catch (e) {
       device = null;
       print('$url: ${e.error}');

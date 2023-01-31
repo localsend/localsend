@@ -50,10 +50,11 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
       _fetching = true;
     });
 
+    final https = ref.read(settingsProvider.select((s) => s.https));
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
-        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip, port),
+        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip, port, https),
       ],
     ).stream;
 
