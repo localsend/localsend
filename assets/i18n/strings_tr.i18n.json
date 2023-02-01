@@ -113,7 +113,7 @@
     "receiveOptionsPage": {
       "title": "Seçenekler",
       "destination": "@:settingsTab.receive.destination",
-      "appDirectory": "(@:appName folder)"
+      "appDirectory": "(@:appName klasörü)"
     },
     "sendPage": {
       "waiting": "Alıcıdan cevap bekleniyor...",
