@@ -78,7 +78,7 @@
         "languageOptions": {
           "system": "Sistem dili"
         },
-        "minimizeToTray": "Quit: Minimize to tray",
+        "minimizeToTray": "Çıkış: Simge durumuna küçült",
         "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
         "launchMinimized": "Otomatik başlatma: Gizli Başlatma"
       },
