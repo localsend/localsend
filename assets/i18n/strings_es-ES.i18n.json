@@ -50,14 +50,14 @@
     "selection": {
       "title": "Selección",
       "files": "Ficheros: {files}",
-      "size": "Tamaño:: {size}"
+      "size": "Tamaño: {size}"
     },
     "picker": {
       "file": "Fichero",
       "media": "Media",
       "text": "Texto"
     },
-    "shareIntentInfo": "También puedes usar la opción \"Share\" de tu dispositivo para seleccionar ficheros más facilmente.",
+    "shareIntentInfo": "También puedes usar la opción \"Compartir\" de tu dispositivo para seleccionar ficheros más fácilmente.",
     "nearbyDevices": "Dispositivos Cercanos",
     "thisDevice": "Este dispositivo",
     "scan": "Buscar dispositivos",
@@ -140,75 +140,7 @@
     "title": "Changelog"
   },
   "aliasGenerator": {
-    "@info": "Locales diferentes pueden tener palabras diferentes, pueden no coincidir 1:1",
-    "adjectives": [
-      "Adorable",
-      "Bonito",
-      "Grande",
-      "Brillante",
-      "Limpio",
-      "Inteligente",
-      "Guay",
-      "Lindo",
-      "Astuto",
-      "Determinado",
-      "Energético",
-      "Eficiente",
-      "Fantástico",
-      "Rápido",
-      "Buen",
-      "Fresco",
-      "Bueno",
-      "Espléndido",
-      "Genial",
-      "Guapo",
-      "Caliente",
-      "Amable",
-      "Encantador",
-      "Místico",
-      "Ordenado",
-      "Hermoso",
-      "Paciente",
-      "Precioso",
-      "Poderoso",
-      "Rico",
-      "Secreto",
-      "Listo",
-      "Sólido",
-      "Especial",
-      "Stratégico",
-      "Fuerte",
-      "Arreglado",
-      "Sabio"
-    ],
-    "fruits": [
-      "Manzana",
-      "Aguacate",
-      "Plátano",
-      "Mora",
-      "Arándano",
-      "Brócoli",
-      "Zanahoria",
-      "Cereza",
-      "Coco",
-      "Uva",
-      "Limón",
-      "Lechuga",
-      "Mango",
-      "Melón",
-      "Seta",
-      "Cebolla",
-      "Naranja",
-      "Papaya",
-      "Melocotón",
-      "Pera",
-      "Piña",
-      "Patata",
-      "Calabaz",
-      "Frambuesa",
-      "Fresa",
-      "Tomate"
-    ]
+    "@info": "Uses English version",
   },
   "dialogs": {
     "addFile": {
@@ -246,7 +178,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local puede enviarte ficheros."
+      "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte ficheros."
     }
   },
   "tray": {
