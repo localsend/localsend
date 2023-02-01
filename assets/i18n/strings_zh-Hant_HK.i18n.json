@@ -1,0 +1,188 @@
+{
+  "locale": "繁體中文 – 香港",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "接受",
+    "add": "新增",
+    "advanced": "進階",
+    "cancel": "取消",
+    "close": "關閉",
+    "confirm": "確認",
+    "continueStr": "繼續",
+    "copy": "複製",
+    "copiedToClipboard": "已複製到剪貼簿",
+    "decline": "拒絕",
+    "done": "完成",
+    "edit": "編輯",
+    "error": "錯誤",
+    "example": "範例",
+    "files": "檔案",
+    "finished": "已完成",
+    "hide": "隱藏",
+    "off": "閂",
+    "offline": "離線",
+    "on": "開",
+    "online": "線上",
+    "open": "開啟",
+    "queue": "佇列",
+    "quickSave": "快速儲存",
+    "renamed": "改咗名",
+    "reset": "重設",
+    "restart": "重新啟動",
+    "settings": "設定",
+    "skipped": "已跳過",
+    "start": "開始",
+    "stop": "停止",
+    "save": "儲存",
+    "unchanged": "冇改過",
+    "unknown": "未知"
+  },
+  "receiveTab": {
+    "title": "接收",
+    "infoBox": {
+      "ip": "IP：",
+      "port": "埠：",
+      "alias": "別名："
+    }
+  },
+  "sendTab": {
+    "title": "傳送",
+    "selection": {
+      "title": "揀選",
+      "files": "檔案：{files}",
+      "size": "大細：{size}"
+    },
+    "picker": {
+      "file": "檔案",
+      "media": "媒體",
+      "text": "文字"
+    },
+    "shareIntentInfo": "用你裝置嘅「分享」功能以更方便揀選檔案。",
+    "nearbyDevices": "附近裝置",
+    "thisDevice": "此裝置",
+    "scan": "掃描裝置",
+    "help": "請確保目標裝置駁緊同一個 Wi-Fi 網路。",
+    "placeItems": "將要分享嘅檔案拉過嚟呢度"
+  },
+  "settingsTab": {
+    "title": "設定",
+    "general": {
+      "title": "一般",
+      "theme": "主題",
+      "themeOptions": {
+        "system": "跟機",
+        "dark": "暗色",
+        "light": "亮色"
+      },
+      "language": "語言",
+      "languageOptions": {
+        "system": "跟機"
+      },
+      "minimizeToTray": "退出嗰陣縮細做通知圖示",
+      "launchAtStartup": "開機自動啟動",
+      "launchMinimized": "自動啟動成通知圖示"
+    },
+    "receive": {
+      "title": "接收",
+      "quickSave": "@:general.quickSave",
+      "destination": "儲存位置",
+      "saveToGallery": "save 落相簿"
+    },
+    "network": {
+      "title": "網路",
+      "needRestart": "重新啟動伺服器以使設定生效",
+      "server": "伺服器",
+      "alias": "別名",
+      "port": "埠"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "全部刪除"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "想 send 1 個檔案畀你。",
+      "other": "想 send {n} 個檔案畀你。"
+    },
+    "subTitleMessage": "send 咗條訊息畀你：",
+    "subTitleLink": "send 咗條 link 畀你：",
+    "canceled": "對方取消咗個請求。"
+  },
+  "receiveOptionsPage": {
+    "title": "設定",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "（@:appName 資料夾）"
+  },
+  "sendPage": {
+    "waiting": "等緊回應……",
+    "rejected": "對方拒絕咗個請求。"
+  },
+  "progressPage": {
+    "titleSending": "send 緊……",
+    "titleReceiving": "接收緊……",
+    "savedToGallery": "成功 save 咗落相簿",
+    "total": {
+      "title": {
+        "sending": "進度：{time}",
+        "finishedError": "搞掂，不過有 error",
+        "canceledSender": "傳送者取消咗",
+        "canceledReceiver": "接收者取消咗"
+      },
+      "count": "檔案：{curr} / {n}",
+      "size": "大細：{curr} / {n}",
+      "speed": "速度：{speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "關於 LocalSend"
+  },
+  "changelogPage": {
+    "title": "更新記錄"
+  },
+  "aliasGenerator": {
+    "@info": "Uses English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "將檔案加至選擇",
+      "content": "揀選要加入嘅檔案"
+    },
+    "addressInput": {
+      "title": "輸入地址",
+      "hashtag": "Hashtag",
+      "ip": "IP 地址"
+    },
+    "cancelSession": {
+      "title": "取消檔案傳輸",
+      "content": "你係咪要放棄傳輸檔案？"
+    },
+    "fileNameInput": {
+      "title": "輸入檔案名稱",
+      "original": "原名：{original}"
+    },
+    "messageInput": {
+      "title": "輸入訊息",
+      "multiline": "多行"
+    },
+    "noFiles": {
+      "title": "冇揀選檔案",
+      "content": "最少需要揀選一個檔案。"
+    },
+    "quickActions": {
+      "title": "快速動作",
+      "counter": "計數器",
+      "prefix": "前綴",
+      "padZero": "補零",
+      "sortBeforeCount": "事前跟字母排序",
+      "random": "隨機"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。"
+    }
+  },
+    "tray": {
+    "open": "@:general.open",
+    "close": "退出 LocalSend"
+  }
+}
