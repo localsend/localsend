@@ -1,0 +1,263 @@
+{
+  "locale": "বাংলা",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "মেনে নিন",
+    "add": "যোগ করুন",
+    "advanced": "উন্নত করা হয়েছে",
+    "cancel": "বাতিল করুন",
+    "close": "বন্ধ করুন ",
+    "confirm": "নিশ্চিত করুন",
+    "continueStr": "চালিয়ে যান",
+    "copy": "কপি করুন",
+    "copiedToClipboard": "ক্লিপবোর্ডে কপি করা হয়েছে",
+    "decline": "প্রত্যাখ্যান করুন",
+    "done": "সম্পন্ন",
+    "edit": "বাহির হোন",
+    "error": "ভুল হয়েছে",
+    "example": "উদাহরণ",
+    "files": "ফাইল সমূহ",
+    "finished": "শেষ হয়েছে",
+    "hide": "আড়াল করুন",
+    "off": "বন্ধ",
+    "offline": "অফলাইন",
+    "on": "চালু",
+    "online": "অনলাইন",
+    "open": "খোলা",
+    "queue": "সারিবদ্ধ",
+    "quickSave": "দ্রুত সেভ করুন",
+    "renamed": "নাম পরিবর্তন করা হয়েছে",
+    "reset": "রিসেট করুন",
+    "restart": "পুনরায় চালু করুন",
+    "settings": "সেটিংস",
+    "skipped": "স্কিপ করা হয়েছে",
+    "start": "শুরু করুন",
+    "stop": "বন্ধ করুন",
+    "save": "সেভ করুন",
+    "unchanged": "অপরিবর্তিত",
+    "unknown": "অজানা"
+  },
+  "receiveTab": {
+    "title": "Receive",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    }
+  },
+  "sendTab": {
+    "title": "Send",
+    "selection": {
+      "title": "Selection",
+      "files": "Files: {files}",
+      "size": "Size: {size}"
+    },
+    "picker": {
+      "file": "File",
+      "media": "Media",
+      "text": "Text"
+    },
+    "shareIntentInfo": "You can also use the \"Share\" feature of your mobile device to select files more easily.",
+    "nearbyDevices": "Nearby devices",
+    "thisDevice": "This Device",
+    "scan": "Look for devices",
+    "help": "Please ensure that the desired target is also in the same wifi network.",
+    "placeItems": "Place items to share."
+  },
+  "settingsTab": {
+    "title": "Settings",
+    "general": {
+      "title": "General",
+      "theme": "Theme",
+      "themeOptions": {
+        "system": "System",
+        "dark": "Dark",
+        "light": "Light"
+      },
+      "language": "Language",
+      "languageOptions": {
+        "system": "System"
+      },
+      "minimizeToTray": "Quit: Minimize to tray",
+      "launchAtStartup": "Autostart after login",
+      "launchMinimized": "Autostart: Start hidden"
+    },
+    "receive": {
+      "title": "Receive",
+      "quickSave": "@:general.quickSave",
+      "destination": "Destination",
+      "saveToGallery": "Save media to gallery"
+    },
+    "network": {
+      "title": "Network",
+      "needRestart": "Restart the server to apply the settings!",
+      "server": "Server",
+      "alias": "Alias",
+      "port": "Port",
+      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+      "encryption": "Encryption"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Delete all"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "wants to send you a file.",
+      "other": "wants to send you {n} files."
+    },
+    "subTitleMessage": "sent you a message:",
+    "subTitleLink": "sent you a link:",
+    "canceled": "The sender has canceled the request."
+  },
+  "receiveOptionsPage": {
+    "title": "Options",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName folder)"
+  },
+  "sendPage": {
+    "waiting": "Waiting for response...",
+    "rejected": "The recipient has rejected the request."
+  },
+  "progressPage": {
+    "titleSending": "Sending files",
+    "titleReceiving": "Receiving files",
+    "savedToGallery": "Saved in Photos",
+    "total": {
+      "title": {
+        "sending": "Total progress ({time})",
+        "finishedError": "Finished with error",
+        "canceledSender": "Canceled by sender",
+        "canceledReceiver": "Canceled by receiver"
+      },
+      "count": "Files: {curr} / {n}",
+      "size": "Size: {curr} / {n}",
+      "speed": "Speed: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "About LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Adorable",
+      "Beautiful",
+      "Big",
+      "Bright",
+      "Clean",
+      "Clever",
+      "Cool",
+      "Cute",
+      "Cunning",
+      "Determined",
+      "Energetic",
+      "Efficient",
+      "Fantastic",
+      "Fast",
+      "Fine",
+      "Fresh",
+      "Good",
+      "Gorgeous",
+      "Great",
+      "Handsome",
+      "Hot",
+      "Kind",
+      "Lovely",
+      "Mystic",
+      "Neat",
+      "Nice",
+      "Patient",
+      "Pretty",
+      "Powerful",
+      "Rich",
+      "Secret",
+      "Smart",
+      "Solid",
+      "Special",
+      "Strategic",
+      "Strong",
+      "Tidy",
+      "Wise"
+    ],
+    "fruits": [
+      "Apple",
+      "Avocado",
+      "Banana",
+      "Blackberry",
+      "Blueberry",
+      "Broccoli",
+      "Carrot",
+      "Cherry",
+      "Coconut",
+      "Grape",
+      "Lemon",
+      "Lettuce",
+      "Mango",
+      "Melon",
+      "Mushroom",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Peach",
+      "Pear",
+      "Pineapple",
+      "Potato",
+      "Pumpkin",
+      "Raspberry",
+      "Strawberry",
+      "Tomato"
+    ]
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Add to selection",
+      "content": "What do you want to add?"
+    },
+    "addressInput": {
+      "title": "Enter address",
+      "hashtag": "Hashtag",
+      "ip": "IP Address"
+    },
+    "cancelSession": {
+      "title": "Cancel file transfer",
+      "content": "Do you really want to cancel the file transfer?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption disabled",
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+    },
+    "fileNameInput": {
+      "title": "Enter file name",
+      "original": "Original: {original}"
+    },
+    "messageInput": {
+      "title": "Type message",
+      "multiline": "Multiline"
+    },
+    "noFiles": {
+      "title": "No file selected",
+      "content": "Please select at least one file."
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Counter",
+      "prefix": "Prefix",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "Sort alphabetically beforehand",
+      "random": "Random"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "File requests are automatically accepted. Be aware that everyone in the local network can send you files."
+    }
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Quit LocalSend"
+  }
+}
