@@ -19,20 +19,7 @@
   },
   "de": {},
   "fr-FR": {},
-  "hu": {
-    "settingsTab": {
-      "network": {
-        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
-      }
-    },
-    "dialogs": {
-      "encryptionDisabledNotice": {
-        "title": "Encryption disabled",
-        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
-      }
-    }
-  },
+  "hu": {},
   "it": {
     "settingsTab": {
       "network": {
