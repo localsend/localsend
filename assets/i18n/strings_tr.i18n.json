@@ -1,0 +1,196 @@
+{
+    "locale": "Türkçe",
+    "appName": "LocalSend",
+    "general": {
+      "accept": "Kabul et",
+      "add": "Ekle",
+      "advanced": "Gelişmiş",
+      "cancel": "İptal et",
+      "close": "Kapat",
+      "confirm": "Onayla",
+      "continueStr": "Devam et",
+      "copy": "Kopyala",
+      "copiedToClipboard": "Panoya kopyalandı",
+      "decline": "Reddet",
+      "done": "Bitir",
+      "edit": "Düzenle",
+      "error": "Hata",
+      "example": "Örnek",
+      "files": "Dosyalar",
+      "finished": "Sonlandırıldı",
+      "hide": "Gizle",
+      "off": "Kapalı",
+      "offline": "Çevrim dışı",
+      "on": "Açık",
+      "online": "Çevrim içi",
+      "open": "Aç",
+      "queue": "Sıra",
+      "quickSave": "Hızlı Kaydetme",
+      "renamed": "Yeniden Adlandırıldı",
+      "reset": "Sıfırla",
+      "restart": "Yeniden Başlat",
+      "settings": "Ayarlar",
+      "skipped": "Geçildi",
+      "start": "Başlat",
+      "stop": "Durdur",
+      "save": "Kaydet",
+      "unchanged": "Değiştirilmemiş",
+      "unknown": "Bilinmiyor"
+    },
+    "receiveTab": {
+      "title": "Alım",
+      "infoBox": {
+        "ip": "IP:",
+        "port": "Port:",
+        "alias": "Takma İsminiz:"
+      }
+    },
+    "sendTab": {
+      "title": "Gönder",
+      "selection": {
+        "title": "Seçiminiz",
+        "files": "Dosyalar: {files}",
+        "size": "Boyut: {size}"
+      },
+      "picker": {
+        "file": "Dosya",
+        "media": "Medya",
+        "text": "Metin"
+      },
+      "shareIntentInfo": "Dosyalarınızı daha kolay seçmek için cihazınızın \"Paylaş\" özelliğini kullanabilirsiniz.",
+      "nearbyDevices": "Yakınınızdaki cihazlar",
+      "thisDevice": "Cihazınız",
+      "scan": "Cihazları tara",
+      "help": "Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.",
+      "placeItems": "Paylaşmak istediğiniz dosyayı yerleştiriniz."
+    },
+    "settingsTab": {
+      "title": "Ayarlar",
+      "general": {
+        "title": "Genel",
+        "theme": "Tema",
+        "themeOptions": {
+          "system": "Sistem teması",
+          "dark": "Koyu",
+          "light": "Açık"
+        },
+        "language": "Dil",
+        "languageOptions": {
+          "system": "Sistem dili"
+        },
+        "minimizeToTray": "Quit: Minimize to tray",
+        "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
+        "launchMinimized": "Otomatik başlatma: Gizli Başlatma"
+      },
+      "receive": {
+        "title": "Alım",
+        "quickSave": "@:general.quickSave",
+        "destination": "Hedef klasör",
+        "saveToGallery": "Medyayı galeriye kaydet"
+      },
+      "network": {
+        "title": "Ağ",
+        "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
+        "server": "Sunucu",
+        "alias": "Takma İsminiz",
+        "port": "Port",
+        "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
+        "encryption": "Şifreleme"
+      }
+    },
+    "selectedFilesPage": {
+      "deleteAll": "Hepsini sil"
+    },
+    "receivePage": {
+      "subTitle": {
+        "one": "sana bir dosya göndermek istiyor.",
+        "other": "sana {n} tane dosya göndermek istiyor."
+      },
+      "subTitleMessage": "bir mesaj gönderdi:",
+      "subTitleLink": "bir bağlantı gönderdi:",
+      "canceled": "Gönderici isteği iptal etti."
+    },
+    "receiveOptionsPage": {
+      "title": "Seçenekler",
+      "destination": "@:settingsTab.receive.destination",
+      "appDirectory": "(@:appName folder)"
+    },
+    "sendPage": {
+      "waiting": "Alıcıdan cevap bekleniyor...",
+      "rejected": "Alıcı isteği reddetti."
+    },
+    "progressPage": {
+      "titleSending": "Dosyalar gönderiliyor",
+      "titleReceiving": "Dosyalar alınıyor",
+      "savedToGallery": "Galeriye kaydedildi",
+      "total": {
+        "title": {
+          "sending": "Toplam ilerleme ({time})",
+          "finishedError": "İşlem hatayla sonuçlandı",
+          "canceledSender": "Gönderici tarafından iptal edildi",
+          "canceledReceiver": "Alıcı tarafından iptal edildi"
+        },
+        "count": "Dosyalar: {curr} / {n}",
+        "size": "Boyut: {curr} / {n}",
+        "speed": "Hız: {speed}/s"
+      }
+    },
+    "aboutPage": {
+      "title": "LocalSend Hakkında"
+    },
+    "changelogPage": {
+      "title": "Değişiklik Günlüğü"
+    },
+    "aliasGenerator": {
+        "@info": "Uses English version"
+    },
+    "dialogs": {
+      "addFile": {
+        "title": "Seçime ekle",
+        "content": "Ne eklemek istiyorsunuz ?"
+      },
+      "addressInput": {
+        "title": "Adresi giriniz",
+        "hashtag": "Hashtag",
+        "ip": "IP Adresi"
+      },
+      "cancelSession": {
+        "title": "Dosya transferini iptal et",
+        "content": "Gerçekten dosya transferini iptal etmek istiyor musunuz?"
+      },
+      "encryptionDisabledNotice": {
+        "title": "Şifrelem devre dışı bırakıldı",
+        "content": "Artık iletişim şifrelenmemiş HTTP protokolü aracılığıyla gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi yeniden aktif edin."
+      },
+      "fileNameInput": {
+        "title": "Dosya adını giriniz",
+        "original": "Orijinal: {original}"
+      },
+      "messageInput": {
+        "title": "Mesaj Yazınız",
+        "multiline": "Çok satırlı mesaj"
+      },
+      "noFiles": {
+        "title": "Herhangi bir dosya seçilmedi",
+        "content": "Lütfen en az bir dosyayı seçiniz."
+      },
+      "quickActions": {
+        "title": "Hızlı Eylemler",
+        "counter": "Sayaç",
+        "prefix": "Ön ek",
+        "padZero": "Sıfırlar ile doldurun",
+        "sortBeforeCount": "Önceden alfabetik olarak sırala",
+        "random": "Rastgele"
+      },
+      "quickSaveNotice": {
+        "title": "@:general.quickSave",
+        "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
+      }
+    },
+    "tray": {
+      "@info": "Apple'ın Yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
+      "open": "@:general.open",
+      "close": "LocalSend'den çık"
+    }
+  }
+  
