@@ -93,7 +93,9 @@
             "needRestart": "Riavvia il server per applicare le modifiche!",
             "server": "Server",
             "alias": "Alias",
-            "port": "Porta"
+            "port": "Porta",
+            "portWarning": "Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: {defaultPort})",
+            "encryption": "Crittografia"
         }
     },
     "selectedFilesPage": {
@@ -179,6 +181,10 @@
         "quickSaveNotice": {
             "title": "@:general.quickSave",
             "content": "Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file."
+        },
+        "encryptionDisabledNotice": {
+            "title": "Crittografia disabiitata",
+            "content": "La comunicazione ora avviene tramite il protocollo HTTP non crittografato. Per usare il protocollo crittografato HTTPS, abilita la crittografia."
         }
     },
     "tray": {
