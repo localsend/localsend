@@ -172,7 +172,7 @@
       },
       "noFiles": {
         "title": "Herhangi bir dosya seçilmedi",
-        "content": "Lütfen en az bir dosyayı seçiniz."
+        "content": "Lütfen bir dosya seçiniz."
       },
       "quickActions": {
         "title": "Hızlı Eylemler",
