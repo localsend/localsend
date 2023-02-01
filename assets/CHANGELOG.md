@@ -1,3 +1,11 @@
+## 1.7.0 (2023-)
+
+- feat: add unencrypted HTTP mode
+- feat: message input is horizontally scrollable when multiline is unselected
+- feat: open message normally in QuickSave mode (instead of saving it into a file)
+- feat(windows): use "Microsoft YaHei UI" font in Windows which works better with Chinese characters
+- i18n: add ar, fr, hu, it, ja, ko, pl, ru, sv, zh-Hant (Thanks to all the contributors!)
+
 ## 1.6.2 (2023-01-28)
 
 - fix(desktop): close current instance when another is already open

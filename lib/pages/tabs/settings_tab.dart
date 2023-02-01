@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
@@ -13,6 +14,7 @@ import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
+import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -193,7 +195,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
           title: t.settingsTab.network.title,
           children: [
             AnimatedCrossFade(
-              crossFadeState: serverState != null && (serverState.alias != settings.alias || serverState.port != settings.port)
+              crossFadeState: serverState != null &&
+                      (serverState.alias != settings.alias || serverState.port != settings.port || serverState.https != settings.https)
                   ? CrossFadeState.showSecond
                   : CrossFadeState.showFirst,
               duration: const Duration(milliseconds: 200),
@@ -201,7 +204,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               firstChild: Container(),
               secondChild: Padding(
                 padding: const EdgeInsets.only(bottom: 15),
-                child: Text(t.settingsTab.network.needRestart, style: const TextStyle(fontSize: 16, color: Colors.orange)),
+                child: Text(t.settingsTab.network.needRestart, style: const TextStyle(color: Colors.orange)),
               ),
             ),
             _SettingsEntry(
@@ -224,6 +227,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                               await ref.read(serverProvider.notifier).startServer(
                                     alias: settings.alias,
                                     port: settings.port,
+                                    https: settings.https,
                                   );
                             } catch (e) {
                               context.showSnackBar(e.toString());
@@ -242,6 +246,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                               final newServerState = await ref.read(serverProvider.notifier).restartServer(
                                     alias: settings.alias,
                                     port: settings.port,
+                                    https: settings.https,
                                   );
 
                               if (newServerState != null) {
@@ -295,6 +300,29 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     await ref.read(settingsProvider.notifier).setPort(port);
                   }
                 },
+              ),
+            ),
+            _BooleanEntry(
+              label: t.settingsTab.network.encryption,
+              value: settings.https,
+              onChanged: (b) async {
+                final old = settings.https;
+                await ref.read(settingsProvider.notifier).setHttps(b);
+                if (old && !b && mounted) {
+                  EncryptionDisabledNotice.open(context);
+                }
+              },
+            ),
+            AnimatedCrossFade(
+              crossFadeState: settings.port != defaultPort
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              duration: const Duration(milliseconds: 200),
+              alignment: Alignment.topLeft,
+              firstChild: Container(),
+              secondChild: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Text(t.settingsTab.network.portWarning(defaultPort: defaultPort), style: const TextStyle(color: Colors.grey)),
               ),
             ),
           ],

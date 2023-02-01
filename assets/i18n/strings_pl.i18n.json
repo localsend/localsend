@@ -1,0 +1,257 @@
+{
+  "locale": "Polska",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Akceptuj",
+    "add": "Dodaj",
+    "advanced": "Zaawansowane",
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "confirm": "Potwierdź",
+    "continueStr": "Dalej",
+    "copy": "Kopiuj",
+    "copiedToClipboard": "Skopiowane do Schowka",
+    "decline": "Odrzuć",
+    "done": "Gotowe",
+    "edit": "Edytuj",
+    "error": "Błąd",
+    "example": "Przykład",
+    "files": "Pliki",
+    "finished": "Skończone",
+    "hide": "Schowaj",
+    "off": "Wyłączony",
+    "offline": "Offline",
+    "on": "Włączony",
+    "online": "Online",
+    "open": "Otwórz",
+    "queue": "Kolejka",
+    "quickSave": "Szybki Zapis",
+    "renamed": "Przemianowany",
+    "reset": "Resetowanie",
+    "restart": "Restartuj",
+    "settings": "Ustawienia",
+    "skipped": "Pominięty",
+    "start": "Zacznij",
+    "stop": "Zatrzymaj",
+    "save": "Zapisz",
+    "unchanged": "Bez Zmian",
+    "unknown": "Nieznany"
+  },
+  "receiveTab": {
+    "title": "Odbierz",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    }
+  },
+  "sendTab": {
+    "title": "Wyślij",
+    "selection": {
+      "title": "Wybór",
+      "files": "Pliki: {files}",
+      "size": "Wielkość: {size}"
+    },
+    "picker": {
+      "file": "Plik",
+      "media": "Media",
+      "text": "Tekst"
+    },
+    "shareIntentInfo": "Możesz także skorzystać z funkcji „Udostępnij” swojego urządzenia mobilnego, aby łatwiej wybierać pliki.",
+    "nearbyDevices": "Urządzenia w pobliżu",
+    "thisDevice": "To urządzenie",
+    "scan": "Szukaj urządzeń",
+    "help": "Upewnij się, że żądany cel również znajduje się w tej samej sieci Wi-Fi.",
+    "placeItems": "Umieść elementy do udostępnienia."
+  },
+  "settingsTab": {
+    "title": "Ustawienia",
+    "general": {
+      "title": "Ogólne",
+      "theme": "Motyw",
+      "themeOptions": {
+        "system": "System",
+        "dark": "Ciemny",
+        "light": "Jasny"
+      },
+      "language": "Język",
+      "languageOptions": {
+        "system": "System"
+      },
+      "minimizeToTray": "Quit: Minimize to tray",
+      "launchAtStartup": "Autostart po zalogowaniu",
+      "launchMinimized": "Autostart: Start ukryty"
+    },
+    "receive": {
+      "title": "Odbierz",
+      "quickSave": "@:general.quickSave",
+      "destination": "Miejsce docelowe",
+      "saveToGallery": "Zapisz multimedia w galerii"
+    },
+    "network": {
+      "title": "Sieć",
+      "needRestart": "Uruchom ponownie serwer, aby zastosować ustawienia!",
+      "server": "Serwer",
+      "alias": "Alias",
+      "port": "Port"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Usuń wszystko"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "chce wysłać ci plik.",
+      "other": "chce wysłać ci {n} plików."
+    },
+    "subTitleMessage": "wysłał ci wiadomość:",
+    "subTitleLink": "wysłał ci link:",
+    "canceled": "Nadawca anulował żądanie."
+  },
+  "receiveOptionsPage": {
+    "title": "Opcje",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName folder)"
+  },
+  "sendPage": {
+    "waiting": "Czekanie na odpowiedź...",
+    "rejected": "Odbiorca odrzucił żądanie."
+  },
+  "progressPage": {
+    "titleSending": "Wysyłanie plików",
+    "titleReceiving": "Odbieranie plików",
+    "savedToGallery": "Zapisane w Zdjęciach",
+    "total": {
+      "title": {
+        "sending": "Całkowity postęp ({time})",
+        "finishedError": "Zakończono z błędem",
+        "canceledSender": "Anulowane przez nadawcę",
+        "canceledReceiver": "Anulowane przez odbiorcę"
+      },
+      "count": "Pliki: {curr} / {n}",
+      "size": "Wielkość: {curr} / {n}",
+      "speed": "Prędkość: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "O LocalSend"
+  },
+  "changelogPage": {
+    "title": "Dziennik Zmian"
+  },
+  "aliasGenerator": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Uroczy",
+      "Piękny",
+      "Duży",
+      "Jasny",
+      "Czysty",
+      "Sprytny",
+      "Fajny",
+      "Słodki",
+      "Podstępny",
+      "Określony",
+      "Energetyczny",
+      "Wydajny",
+      "Fantastyczny",
+      "Szybki",
+      "Pogodny",
+      "Świeży",
+      "Dobry",
+      "Przepiękny",
+      "Świetny",
+      "Przystojny",
+      "Gorący",
+      "Miły",
+      "Śliczny",
+      "Mistyk",
+      "Schludny",
+      "Ładny",
+      "Cierpliwy",
+      "Przyjemny",
+      "Potężny",
+      "Bogaty",
+      "Sekretny",
+      "Sprytny",
+      "Solidny",
+      "Specjalny",
+      "Strategiczny",
+      "Silny",
+      "Uporządkowany",
+      "Mądry"
+    ],
+    "fruits": [
+      "Jabłko",
+      "Awokado",
+      "Banan",
+      "Jeżyna",
+      "Jagoda",
+      "Brokuł",
+      "Marchewka",
+      "Wiśnia",
+      "Kokos",
+      "Winogrono",
+      "Cytryna",
+      "Sałata",
+      "Mango",
+      "Melon",
+      "Pieczarka",
+      "Cebula",
+      "Pomarańcza",
+      "Papaja",
+      "Brzoskwinia",
+      "Gruszka",
+      "Ananas",
+      "Ziemniak",
+      "Dynia",
+      "Malina",
+      "Truskawka",
+      "Pomidor"
+    ]
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Dodaj do wyboru",
+      "content": "Co chcesz dodać?"
+    },
+    "addressInput": {
+      "title": "Wpisz adres",
+      "hashtag": "Hashtag",
+      "ip": "Adres IP"
+    },
+    "cancelSession": {
+      "title": "Anuluj transfer plików",
+      "content": "Czy na pewno?"
+    },
+    "fileNameInput": {
+      "title": "Wpisz imię",
+      "original": "Oryginalny: {original}"
+    },
+    "messageInput": {
+      "title": "Wpisz wiadomość",
+      "multiline": "Wieloliniowy"
+    },
+    "noFiles": {
+      "title": "Nie wybrano pliku",
+      "content": "Proszę wybierz jeden plik."
+    },
+    "quickActions": {
+      "title": "Szybkie akcje",
+      "counter": "Licznik",
+      "prefix": "Prefiks",
+      "padZero": "Wypchnij zerami",
+      "sortBeforeCount": "Wcześniej posortuj alfabetycznie",
+      "random": "Losowy"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać ci pliki."
+    }
+  },
+  "tray": {
+    "@info": "Wytyczne Apple są bardzo surowe, jeśli chodzi o „zamknięte” sformułowanie.",
+    "open": "@:general.open",
+    "close": "Zamknij LocalSend"
+  }
+}

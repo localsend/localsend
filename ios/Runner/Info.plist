@@ -49,9 +49,19 @@
 	<true/>
 	<key>CFBundleLocalizations</key>
     <array>
-       <string>de</string>
-       <string>en</string>
-       <string>zh-Hans</string>
+        <string>ar</string>
+        <string>de</string>
+        <string>en</string>
+        <string>fr-FR</string>
+        <string>hu</string>
+        <string>it</string>
+        <string>ja</string>
+        <string>ko</string>
+        <string>pl</string>
+        <string>ru</string>
+        <string>sv</string>
+        <string>zh-Hans</string>
+        <string>zh-Hant-TW</string>
     </array>
 
     <!-- Make downloaded files visible to the user -->

@@ -4,16 +4,16 @@ import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
 
-class QuickSaveNotice extends StatelessWidget {
-  const QuickSaveNotice({Key? key}) : super(key: key);
+class EncryptionDisabledNotice extends StatelessWidget {
+  const EncryptionDisabledNotice({Key? key}) : super(key: key);
 
   static void open(BuildContext context) {
     if (checkPlatformIsDesktop()) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(t.dialogs.quickSaveNotice.title),
-          content: Text(t.dialogs.quickSaveNotice.content),
+          title: Text(t.dialogs.encryptionDisabledNotice.title),
+          content: Text(t.dialogs.encryptionDisabledNotice.content),
           actions: [
             TextButton(
               onPressed: () => context.pop(),
@@ -23,15 +23,15 @@ class QuickSaveNotice extends StatelessWidget {
         ),
       );
     } else {
-      context.pushBottomSheet(() => const QuickSaveNotice());
+      context.pushBottomSheet(() => const EncryptionDisabledNotice());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomBottomSheet(
-      title: t.dialogs.quickSaveNotice.title,
-      description: t.dialogs.quickSaveNotice.content,
+      title: t.dialogs.encryptionDisabledNotice.title,
+      description: t.dialogs.encryptionDisabledNotice.content,
       child: Center(
         child: ElevatedButton(
           onPressed: () => context.popUntilRoot(),

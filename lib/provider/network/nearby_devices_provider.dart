@@ -22,7 +22,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
 
   NearbyDevicesNotifier(this._dio, this._fingerprint) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
 
-  Future<void> startScan({required int port, required String localIp}) async {
+  Future<void> startScan({required int port, required String localIp, required bool https}) async {
     if (state.runningIps.contains(localIp)) {
       // already running for the same localIp
       return;
@@ -30,7 +30,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
 
     state = state.copyWith(runningIps: {...state.runningIps, localIp});
 
-    await _getStream(localIp, port, _fingerprint).forEach((device) {
+    await _getStream(localIp, port, https, _fingerprint).forEach((device) {
       state = state.copyWith(
         devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
       );
@@ -39,13 +39,13 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     state = state.copyWith(runningIps: state.runningIps.where((ip) => ip != localIp).toSet());
   }
 
-  Stream<Device> _getStream(String localIp, int port, String fingerprint) {
+  Stream<Device> _getStream(String localIp, int port, bool https, String fingerprint) {
     final ipList = List.generate(256, (i) => '${localIp.split('.').take(3).join('.')}.$i').where((ip) => ip != localIp).toList();
     _runners[localIp]?.stop();
     _runners[localIp] = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
-        (index) => () => _doRequest(_dio, ipList[index], port, fingerprint),
+        (index) => () => _doRequest(_dio, ipList[index], port, https, fingerprint),
       ),
       concurrency: 50,
     );
@@ -54,16 +54,16 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   }
 }
 
-Future<Device?> _doRequest(Dio dio, String currentIp, int port, String fingerprint) async {
+Future<Device?> _doRequest(Dio dio, String currentIp, int port, bool https, String fingerprint) async {
   print('Requesting $currentIp');
-  final url = ApiRoute.info.targetRaw(currentIp, port);
+  final url = ApiRoute.info.targetRaw(currentIp, port, https);
   Device? device;
   try {
     final response = await dio.get(url, queryParameters: {
       'fingerprint': fingerprint,
     });
     final dto = InfoDto.fromJson(response.data);
-    device = dto.toDevice(currentIp, port);
+    device = dto.toDevice(currentIp, port, https);
   } on DioError catch (_) {
     device = null;
     // print('$url: ${e.error}');

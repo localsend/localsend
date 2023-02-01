@@ -11,6 +11,7 @@ class ServerState with _$ServerState {
     required HttpServer httpServer,
     required String alias,
     required int port,
+    required bool https,
     required ReceiveState? receiveState,
   }) = _ServerState;
 }

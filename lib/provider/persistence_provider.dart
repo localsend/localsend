@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,8 +21,7 @@ const _saveToGallery = 'ls_save_to_gallery';
 const _quickSave = 'ls_quick_save';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
-
-const defaultPort = 53317;
+const _https = 'ls_https';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -137,5 +137,13 @@ class PersistenceService {
 
   Future<void> setAutoStartLaunchMinimized(bool launchMinimized) async {
     await _prefs.setBool(_autoStartLaunchMinimized, launchMinimized);
+  }
+
+  bool isHttps() {
+    return _prefs.getBool(_https) ?? true;
+  }
+
+  Future<void> setHttps(bool https) async {
+    await _prefs.setBool(_https, https);
   }
 }

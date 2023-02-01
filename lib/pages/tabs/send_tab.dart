@@ -46,8 +46,10 @@ class _SendTabState extends ConsumerState<SendTab> {
 
   void _scan(String? localIp) {
     if (localIp != null) {
-      final port = ref.read(settingsProvider.select((settings) => settings.port));
-      ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp);
+      final settings = ref.read(settingsProvider);
+      final port = settings.port;
+      final https = settings.https;
+      ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
     } else {
       ref.read(networkInfoProvider.notifier).scanWhenInitialized();
     }

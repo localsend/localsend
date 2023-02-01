@@ -17,6 +17,7 @@ final deviceInfoProvider = Provider((ref) {
     ip: networkInfo.localIps.firstOrNull ?? '-',
     port: serverState?.port ?? -1,
     alias: serverState?.alias ?? '-',
+    https: serverState?.https ?? true,
     deviceModel: rawInfo.deviceModel,
     deviceType: rawInfo.deviceType,
   );

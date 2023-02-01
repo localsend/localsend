@@ -17,5 +17,6 @@ class Settings with _$Settings {
     required bool quickSave, // automatically accept file requests
     required bool minimizeToTray, // minimize to tray instead of exiting the app
     required bool autoStartLaunchMinimized, // start hidden in tray (only available when launchAtStartup is true)
+    required bool https,
   }) = _Settings;
 }

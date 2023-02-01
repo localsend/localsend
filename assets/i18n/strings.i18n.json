@@ -93,7 +93,9 @@
       "needRestart": "Restart the server to apply the settings!",
       "server": "Server",
       "alias": "Alias",
-      "port": "Port"
+      "port": "Port",
+      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+      "encryption": "Encryption"
     }
   },
   "selectedFilesPage": {
@@ -223,6 +225,10 @@
     "cancelSession": {
       "title": "Cancel file transfer",
       "content": "Do you really want to cancel the file transfer?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption disabled",
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
     },
     "fileNameInput": {
       "title": "Enter file name",

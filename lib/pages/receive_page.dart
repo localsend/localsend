@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/server/receive_state.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -42,9 +41,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
 
     ref.read(selectedReceivingFilesProvider.notifier).init(receiveState.files.values.map((f) => f.file).toList());
     setState(() {
-      final firstFile = receiveState.files.values.first.file;
       // show message if there is only one text file
-      _message = receiveState.files.length == 1 && firstFile.fileType == FileType.text && firstFile.preview != null ? firstFile.preview : null;
+      _message = receiveState.message;
       _isLink = _message != null && (_message!.startsWith('http://') || _message!.startsWith('https'));
     });
   }

@@ -47,6 +47,9 @@ ThemeData getTheme(Brightness brightness) {
         padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
+
+    // https://github.com/localsend/localsend/issues/52
+    fontFamily: checkPlatform([TargetPlatform.windows]) ? 'Microsoft YaHei UI' : null,
   );
 }
 
