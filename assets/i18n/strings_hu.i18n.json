@@ -93,7 +93,9 @@
       "needRestart": "A beállítások alkalmazásához indítsa újra a szervert!",
       "server": "Szerver",
       "alias": "Álnév",
-      "port": "Port"
+      "port": "Port",
+      "portWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
+      "encryption": "Titkosítás"
     }
   },
   "selectedFilesPage": {
@@ -179,6 +181,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "A fájlkérések auto. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
+    },
+    "encryptionDisabledNotice": {
+      "title": "A titkosítás letiltva",
+      "content": "A kommunikáció most a titkosítatlan HTTP protokollon keresztül történik. A HTTPS használatához engedélyezze újra a titkosítást."
     }
   },
   "tray": {
