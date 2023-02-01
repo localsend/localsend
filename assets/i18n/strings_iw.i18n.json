@@ -1,0 +1,258 @@
+{
+	"locale": "עִברִית",
+	"appName": "LocalSend",
+	"general": {
+	  "accept": "קבל",
+	  "add": "הוסף",
+	  "advanced": "מִתקַדֵם",
+	  "cancel": "בַטֵל",
+	  "close": "סגור",
+	  "confirm": "אשר",
+	  "continueStr": "המשך",
+	  "copy": "הֶעתֵק",
+	  "copiedToClipboard": "הועתק ללוח",
+	  "decline": "סרב",
+	  "done": "בוצע",
+	  "edit": "ערוך",
+	  "error": "שְׁגִיאָה",
+	  "example": "דוגמא",
+	  "files": "קבצים",
+	  "finished": "נִגמָר",
+	  "hide": "הסתר",
+	  "off": "לא פעיל",
+	  "offline": "אין אינטרנט",
+	  "on": "פעיל",
+	  "online": "יש אינטרנט",
+	  "open": "פתוח",
+	  "queue": "תוֹר",
+	  "quickSave": "שמירה מהירה",
+	  "renamed": "שונה שם",
+	  "reset": "אִתחוּל",
+	  "restart": "הפעל מחדש",
+	  "settings": "הגדרות",
+	  "skipped": "דילג",
+	  "start": "התחל",
+	  "stop": "עֲצוֹר",
+	  "save": "שמור",
+	  "unchanged": "ללא שינוי",
+	  "unknown": "לא ידוע"
+	},
+	"receiveTab": {
+	  "title": "קבל",
+	  "infoBox": {
+		"ip": "IP:",
+		"port": "יציאה:",
+		"alias": "כינוי:"
+	  }
+	},
+	"sendTab": {
+	  "title": "שלח",
+	  "selection": {
+		"title": "בְּחִירָה",
+		"files": "קבצים: {files}",
+		"size": "גודל: {size}"
+	  },
+	  "picker": {
+		"file": "קוֹבֶץ",
+		"media": "מדיה",
+		"text": "טֶקסט"
+	  },
+	  "shareIntentInfo": "תוכל גם להשתמש בתכונה \"שתף\" של המכשיר הנייד שלך כדי לבחור קבצים ביתר קלות.",
+	  "nearbyDevices": "מכשירים בקרבת מקום",
+	  "thisDevice": "המכשיר הזה",
+	  "scan": "חפש מכשירים",
+	  "help": "אנא ודא שגם היעד הרצוי נמצא באותה רשת wifi.",
+	  "placeItems": "הצב פריטים לשיתוף."
+	},
+	"settingsTab": {
+	  "title": "הגדרות",
+	  "general": {
+		"title": "כללי",
+		"theme": "ערכת נושא",
+		"themeOptions": {
+		  "system": "מערכת",
+		  "dark": "כֵּהֶה",
+		  "light": "בָּהִיר"
+		},
+		"language": "שפה",
+		"languageOptions": {
+		  "system": "מערכת"
+		},
+		"minimizeToTray": "יציאה: מזעור למגש",
+		"launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
+		"launchMinimized": "הפעלה אוטומטית: התחל מוסתר"
+	  },
+	  "receive": {
+		"title": "קבל",
+		"quickSave": "@:general.quickSave",
+		"destination": "יַעַד",
+		"saveToGallery": "שמור מדיה לגלריה"
+	  },
+	  "network": {
+		"title": "רֶשֶׁת",
+		"needRestart": "הפעל מחדש את השרת כדי להחיל את ההגדרות!",
+		"server": "שרת",
+		"alias": "כינוי",
+		"port": "יציאה"
+	  }
+	},
+	"selectedFilesPage": {
+	  "deleteAll": "מחק הכל"
+	},
+	"receivePage": {
+	  "subTitle": {
+		"one": "רוצה לשלוח לך קובץ.",
+		"other": "רוצה לשלוח לך {n} קבצים."
+	  },
+	  "subTitleMessage": "שלח לך הודעה:",
+	  "subTitleLink": "שלח לך קישור:",
+	  "canceled": "השולח ביטל את הבקשה."
+	},
+	"receiveOptionsPage": {
+	  "title": "אפשרויות",
+	  "destination": "@:settingsTab.receive.destination",
+	  "appDirectory": "(@:appName folder)"
+	},
+	"sendPage": {
+	  "waiting": "מחכה לתגובה...",
+	  "rejected": "הנמען דחה את הבקשה."
+	},
+	"progressPage": {
+	  "titleSending": "שולח קבצים",
+	  "titleReceiving": "מקבל קבצים",
+	  "savedToGallery": "נשמר בתמונות",
+	  "total": {
+		"title": {
+		  "sending": "סה\"כ התקדמות ({time})",
+		  "finishedError": "הסתיים עם שגיאה",
+		  "canceledSender": "בוטל על ידי השולח",
+		  "canceledReceiver": "בוטל על ידי הצד המקבל"
+		},
+		"count": "קבצים: {curr} / {n}",
+		"size": "גודל: {curr} / {n}",
+		"speed": "מְהִירוּת: {speed}/שְׁנִיָה"
+	  }
+	},
+	"aboutPage": {
+	  "title": "אודות LocalSend"
+	},
+	"changelogPage": {
+	  "title": "יומן שינויים"
+	},
+	"aliasGenerator": {
+	  "@info": "למקומים שונים עשויות להיות מילים שונות, ייתכן שהן לא תואמות 1:1",
+	  "adjectives": [
+		"מקסים",
+		"יפה",
+		"גָדוֹל",
+		"בָּהִיר",
+		"נָקִי",
+		"נבון",
+		"קריר",
+		"חָמוּד",
+		"עַרמוּמִי",
+		"נחושה בדעתה",
+		"נִמרָץ",
+		"יָעִיל",
+		"פַנטַסטִי",
+		"מָהִיר",
+		"בסדר גמור",
+		"טָרִי",
+		"טוֹב",
+		"מאוד יפה",
+		"נהדר",
+		"נאה",
+		"חַם",
+		"טוֹב לֵב",
+		"חביב",
+		"מִיסטִי",
+		"מְסוּדָר וְנָקִי",
+		"נֶחְמָד",
+		"סבלני",
+		"יפה",
+		"חָזָק",
+		"עָשִׁיר",
+		"סודי",
+		"חכם",
+		"מוצק",
+		"מיוחד",
+		"אסטרטגי",
+		"חָזָק",
+		"מסודר",
+		"חכם"
+	  ],
+	  "fruits": [
+		"תפוח עץ",
+		"אבוקדו",
+		"בננה",
+		"אוכמניות",
+		"אוכמניות",
+		"ברוקולי",
+		"גזר",
+		"דובדבן",
+		"קוקוס",
+		"ענבים",
+		"לימון",
+		"חסה",
+		"מנגו",
+		"מֵלוֹן",
+		"פטריות",
+		"בצל",
+		"תפוז",
+		"פפאיה",
+		"אפרסק",
+		"אגס",
+		"אננס",
+		"תפוח אדמה",
+		"דלעת",
+		"פֶּטֶל",
+		"תּוּת",
+		"עגבניות"
+	  ]
+	},
+	"dialogs": {
+	  "addFile": {
+		"title": "הוסף לבחירה",
+		"content": "מה אתה רוצה להוסיף?"
+	  },
+	  "addressInput": {
+		"title": "הכנס כתובת",
+		"hashtag": "סולמית",
+		"ip": "כתובת ה - IP"
+	  },
+	  "cancelSession": {
+		"title": "בטל את העברת הקבצים",
+		"content": "האם אתה באמת רוצה לבטל את העברת הקבצים?"
+	  },
+	  "fileNameInput": {
+		"title": "הזן את שם הקובץ",
+		"original": "מְקוֹרִי: {original}"
+	  },
+	  "messageInput": {
+		"title": "הקלד הודעה",
+		"multiline": "מרובה שורות"
+	  },
+	  "noFiles": {
+		"title": "אף קובץ לא נבחר",
+		"content": "אנא בחר קובץ אחד לפחות."
+	  },
+	  "quickActions": {
+		"title": "פעולות מהירות",
+		"counter": "מוֹנֶה",
+		"prefix": "קידומת",
+		"padZero": "רפידה עם אפסים",
+		"sortBeforeCount": "מיון לפי אלפביתי מראש",
+		"random": "אַקרַאִי"
+	  },
+	  "quickSaveNotice": {
+		"title": "@:general.quickSave",
+		"content": "בקשות לקבצים מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יכול לשלוח לך קבצים."
+	  }
+	},
+	"tray": {
+	  "@info": "הנחיות אפל מקפידות מאוד על הניסוח 'קרוב'.",
+	  "open": "@:general.open",
+	  "close": "צא מ-LocalSend"
+	}
+  }
+  
