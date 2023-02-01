@@ -1,68 +1,68 @@
 {
-  "locale": "繁體中文-台灣",
+  "locale": "繁體中文 – 台灣",
   "appName": "LocalSend",
   "general": {
     "accept": "接受",
-    "add": "添加",
-    "advanced": "高級",
+    "add": "新增",
+    "advanced": "高階",
     "cancel": "取消",
     "close": "關閉",
     "confirm": "確認",
     "continueStr": "繼續",
     "copy": "複製",
-    "copiedToClipboard": "已複製到剪貼板",
+    "copiedToClipboard": "已複製到剪貼簿",
     "decline": "拒絕",
     "done": "完成",
     "edit": "編輯",
     "error": "錯誤",
-    "example": "範例",
-    "files": "文件",
+    "example": "示例",
+    "files": "檔案",
     "finished": "已完成",
     "hide": "隱藏",
     "off": "關",
     "offline": "離線",
     "on": "開",
-    "online": "在線",
-    "open": "打開",
-    "queue": "隊列",
-    "quickSave": "快速保存",
-    "renamed": "已重命名",
-    "reset": "重設",
+    "online": "線上",
+    "open": "開啟",
+    "queue": "佇列",
+    "quickSave": "快速儲存",
+    "renamed": "已重新命名",
+    "reset": "重置",
     "restart": "重啟",
     "settings": "設定",
     "skipped": "已跳過",
     "start": "開始",
     "stop": "停止",
-    "save": "保存",
+    "save": "儲存",
     "unchanged": "未更改",
     "unknown": "未知"
   },
   "receiveTab": {
     "title": "接收",
     "infoBox": {
-      "ip": "IP:",
-      "port": "埠:",
-      "alias": "別名:"
+      "ip": "IP：",
+      "port": "埠：",
+      "alias": "別名："
     }
   },
   "sendTab": {
-    "title": "發送",
+    "title": "傳送",
     "selection": {
       "title": "選擇",
-      "files": "文件: {files}",
-      "size": "大小: {size}"
+      "files": "檔案：{files}",
+      "size": "大小：{size}"
     },
     "picker": {
-      "file": "文件",
+      "file": "檔案",
       "media": "媒體",
       "text": "文字"
     },
-    "shareIntentInfo": "你也可以使用你的行動裝置中的 “分享” 功能來更簡單的選擇文件。",
-    "nearbyDevices": "附近的設備",
-    "thisDevice": "這台設備",
-    "scan": "掃描設備",
-    "help": "請確保目標連接的是同一個 Wi-Fi 網路。",
-    "placeItems": "列出要分享的文件。"
+    "shareIntentInfo": "你也可以使用你的移動裝置中的「分享」功能來更簡單的選擇檔案。",
+    "nearbyDevices": "附近的裝置",
+    "thisDevice": "這台裝置",
+    "scan": "掃描裝置",
+    "help": "請確保目標連線的是同一個 Wi-Fi 網路。",
+    "placeItems": "列出要分享的檔案。"
   },
   "settingsTab": {
     "title": "設定",
@@ -71,22 +71,22 @@
       "theme": "主題",
       "themeOptions": {
         "system": "跟隨系統",
-        "dark": "黑暗",
-        "light": "明亮"
+        "dark": "暗色",
+        "light": "亮色"
       },
       "language": "語言",
       "languageOptions": {
         "system": "跟隨系統"
       },
-      "minimizeToTray": "關閉行為 : 最小化",
-      "launchAtStartup": "隨系統啟動",
-      "launchMinimized": "以最小化啟動"
+      "minimizeToTray": "關閉行為：最小化至系統匣",
+      "launchAtStartup": "登入系統後自動啟動程式",
+      "launchMinimized": "自動啟動程式至系統匣"
     },
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
-      "destination": "保存目錄",
-      "saveToGallery": "保存到相冊"
+      "destination": "儲存目錄",
+      "saveToGallery": "儲存到相簿"
     },
     "network": {
       "title": "網路",
@@ -101,36 +101,36 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "想要發送給你一個文件。",
-      "other": "想要發送給你 {n} 個文件。"
+      "one": "想要傳送給你一個檔案。",
+      "other": "想要傳送給你 {n} 個檔案。"
     },
-    "subTitleMessage": "發送給你了一條消息：",
-    "subTitleLink": "發送給你了一個連結：",
-    "canceled": "發送者取消了請求。"
+    "subTitleMessage": "傳送給你了一條訊息：",
+    "subTitleLink": "傳送給你了一個連結：",
+    "canceled": "傳送者取消了請求。"
   },
   "receiveOptionsPage": {
     "title": "設定",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName-文件夾)"
+    "appDirectory": "（@:appName 資料夾）"
   },
   "sendPage": {
-    "waiting": "等待響應中...",
+    "waiting": "等待響應中……",
     "rejected": "對方拒絕了請求。"
   },
   "progressPage": {
-    "titleSending": "正在發送文件",
-    "titleReceiving": "正在接收文件",
-    "savedToGallery": "已保存到相冊",
+    "titleSending": "正在傳送檔案",
+    "titleReceiving": "正在接收檔案",
+    "savedToGallery": "已儲存到相簿",
     "total": {
       "title": {
         "sending": "總進度 ({time})",
         "finishedError": "已完成，但發生錯誤",
-        "canceledSender": "發送者已取消",
+        "canceledSender": "傳送者已取消",
         "canceledReceiver": "接收者已取消"
       },
-      "count": "文件: {curr} / {n}",
-      "size": "大小: {curr} / {n}",
-      "speed": "速度: {speed}/s"
+      "count": "檔案：{curr} / {n}",
+      "size": "大小：{curr} / {n}",
+      "speed": "速度：{speed}/s"
     }
   },
   "aboutPage": {
@@ -144,8 +144,8 @@
   },
   "dialogs": {
     "addFile": {
-      "title": "加入文件",
-      "content": "你想加入什麼文件？"
+      "title": "加入檔案",
+      "content": "你想加入什麼檔案？"
     },
     "addressInput": {
       "title": "輸入地址",
@@ -153,35 +153,35 @@
       "ip": "IP 地址"
     },
     "cancelSession": {
-      "title": "取消文件傳輸",
-      "content": "要取消文件傳輸嗎？"
+      "title": "取消檔案傳輸",
+      "content": "要取消檔案傳輸嗎？"
     },
     "fileNameInput": {
-      "title": "輸入檔案名",
+      "title": "輸入檔名",
       "original": "原名：{original}"
     },
     "messageInput": {
-      "title": "輸入消息",
+      "title": "輸入訊息",
       "multiline": "多行"
     },
     "noFiles": {
-      "title": "沒有選擇文件",
-      "content": "請最少選擇一個文件。"
+      "title": "沒有選擇檔案",
+      "content": "請最少選擇一個檔案。"
     },
     "quickActions": {
       "title": "快速操作",
       "counter": "計數器",
       "prefix": "前綴",
-      "padZero": "以零填充",
+      "padZero": "補零",
       "sortBeforeCount": "事先以字母順序排序",
       "random": "隨機"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "自動接受所有文件傳輸請求。請注意，這會讓此網路中的所有人都可以向你發送文件。"
+      "content": "自動接受所有檔案傳輸請求。請注意，這會讓此網路中的所有人都可以向你傳送檔案。"
     }
   },
-    "tray": {
+  "tray": {
     "open": "@:general.open",
     "close": "退出 LocalSend"
   }
