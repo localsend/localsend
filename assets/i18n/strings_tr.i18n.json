@@ -159,7 +159,7 @@
         "content": "Gerçekten dosya transferini iptal etmek istiyor musunuz?"
       },
       "encryptionDisabledNotice": {
-        "title": "Şifrelem devre dışı bırakıldı",
+        "title": "Şifreleme devre dışı bırakıldı",
         "content": "Artık iletişim şifrelenmemiş HTTP protokolü aracılığıyla gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi yeniden aktif edin."
       },
       "fileNameInput": {
