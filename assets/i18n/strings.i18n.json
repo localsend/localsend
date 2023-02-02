@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(LocalSend folder)"
   },
   "sendPage": {
     "waiting": "Waiting for response...",
@@ -210,7 +210,9 @@
       "Raspberry",
       "Strawberry",
       "Tomato"
-    ]
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {

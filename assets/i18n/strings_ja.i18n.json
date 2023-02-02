@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "オプション",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName フォルダー)"
+    "appDirectory": "(LocalSend フォルダー)"
   },
   "sendPage": {
     "waiting": "返答を待っています...",

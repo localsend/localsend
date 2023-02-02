@@ -111,7 +111,7 @@
   "receiveOptionsPage": {
     "title": "Alternativ",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName-mappen)"
+    "appDirectory": "(LocalSend-mappen)"
   },
   "sendPage": {
     "waiting": "Väntar på svar...",
@@ -208,7 +208,9 @@
       "Hallon",
       "Jordgubbe",
       "Tomat"
-    ]
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {

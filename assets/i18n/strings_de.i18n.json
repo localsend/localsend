@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "Optionen",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName-Ordner)"
+    "appDirectory": "(LocalSend-Ordner)"
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
@@ -142,7 +142,7 @@
     "title": "Changelog"
   },
   "aliasGenerator": {
-    "@info": "Uses English version"
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {

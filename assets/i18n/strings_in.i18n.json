@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "Opsi",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(LocalSend folder)"
   },
   "sendPage": {
     "waiting": "Menunggu respon...",
@@ -210,7 +210,9 @@
       "Rasberi",
       "Stroberi",
       "Tomat"
-    ]
+    ],
+    "combination": "{fruit} {adjective}",
+    "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {

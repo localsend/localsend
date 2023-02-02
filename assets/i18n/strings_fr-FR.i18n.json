@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(LocalSend folder)"
   },
   "sendPage": {
     "waiting": "En attente d'une réponse...",
@@ -142,71 +142,7 @@
     "title": "Historique des mises à jour"
   },
   "aliasGenerator": {
-    "@info": "Different locales may have different words, it may not match 1:1",
-    "adjectives": [
-      "Adorable",
-      "Magnifique",
-      "Grand",
-      "Brillant",
-      "Propre",
-      "Intelligent",
-      "Cool",
-      "Mignon",
-      "Rusé",
-      "Déterminé",
-      "Énergique",
-      "Efficace",
-      "Fantastique",
-      "Rapide",
-      "Fin",
-      "Frais",
-      "Bon",
-      "Superbe",
-      "Joli",
-      "Chaud",
-      "Kind",
-      "Charmant",
-      "Mystique",
-      "Patient",
-      "Puissant",
-      "Riche",
-      "Secret",
-      "Intelligent",
-      "Solide",
-      "Spécial",
-      "Stratégique",
-      "Fort",
-      "Ordonné",
-      "Sage"
-    ],
-    "fruits": [
-      "Pomme",
-      "Avocat",
-      "Banane",
-      "Mûre",
-      "Myrtille",
-      "Brocoli",
-      "Carotte",
-      "Cerise",
-      "Noix de coco",
-      "Raisin",
-      "Citron",
-      "Laitue",
-      "Mangue",
-      "Melon",
-      "Champignon",
-      "Oignon",
-      "Orange",
-      "Papaye",
-      "Pêche",
-      "Poire",
-      "Ananas",
-      "Pomme de terre",
-      "Citrouille",
-      "Framboise",
-      "Fraise",
-      "Tomate"
-    ]
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {

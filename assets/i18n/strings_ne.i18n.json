@@ -111,7 +111,7 @@
   "receiveOptionsPage": {
     "title": "विकल्पहरू",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName फोल्डर)"
+    "appDirectory": "(LocalSend फोल्डर)"
   },
   "sendPage": {
     "waiting": "प्रतिक्रियाको प्रतीक्षा गर्दै...",
@@ -208,7 +208,9 @@
       "रास्पबेरी",
       "स्ट्रबेरी",
       "टमाटर"
-    ]
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {

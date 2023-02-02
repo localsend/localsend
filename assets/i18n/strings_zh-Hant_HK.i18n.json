@@ -111,7 +111,7 @@
   "receiveOptionsPage": {
     "title": "設定",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "（@:appName 資料夾）"
+    "appDirectory": "（LocalSend 資料夾）"
   },
   "sendPage": {
     "waiting": "等緊回應……",
@@ -140,7 +140,7 @@
     "title": "更新記錄"
   },
   "aliasGenerator": {
-    "@info": "Uses English version"
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {

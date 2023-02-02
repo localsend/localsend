@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "Opciók",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(LocalSend folder)"
   },
   "sendPage": {
     "waiting": "Válaszra várva...",

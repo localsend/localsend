@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "옵션",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName 폴더)"
+    "appDirectory": "(LocalSend 폴더)"
   },
   "sendPage": {
     "waiting": "답변을 기다리는 중…",
