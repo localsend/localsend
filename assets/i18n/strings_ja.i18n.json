@@ -93,7 +93,9 @@
       "needRestart": "設定を反映するにはサーバーを再起動してください！",
       "server": "サーバー",
       "alias": "エイリアス",
-      "port": "ポート"
+      "port": "ポート",
+      "portWarning": "カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: {defaultPort})",
+      "encryption": "暗号化"
     }
   },
   "selectedFilesPage": {
@@ -155,6 +157,10 @@
     "cancelSession": {
       "title": "ファイル転送をキャンセル",
       "content": "本当にファイル転送をキャンセルしますか？"
+    },
+    "encryptionDisabledNotice": {
+      "title": "暗号化は無効です",
+      "content": "これより、通信は暗号化されていないHTTPプロトコルで行われます。HTTPSを使用するには、暗号化を再度有効にしてください。"
     },
     "fileNameInput": {
       "title": "ファイル名を入力",
