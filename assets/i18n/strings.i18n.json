@@ -141,7 +141,7 @@
   "changelogPage": {
     "title": "Changelog"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
       "Adorable",

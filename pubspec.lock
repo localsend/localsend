@@ -1004,21 +1004,21 @@ packages:
       name: slang
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.10.0"
+    version: "3.11.1"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.10.0"
+    version: "3.11.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.10.0"
+    version: "3.11.0"
   source_gen:
     dependency: transitive
     description:

@@ -18,10 +18,11 @@
     }
   },
   "de": {},
-  "fr-FR": {}
+  "fr-FR": {},
   "hu": {},
+  "in": {},
   "it": {},
-  "ja": {
+  "iw": {
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
@@ -35,10 +36,22 @@
       }
     }
   },
+  "ja": {},
   "ko": {},
-  "ne": {},
-  "sv": {},
-  "zh-Hans": {},
+  "ne": {
+    "settingsTab": {
+      "network": {
+        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+        "encryption": "Encryption"
+      }
+    },
+    "dialogs": {
+      "encryptionDisabledNotice": {
+        "title": "Encryption disabled",
+        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      }
+    }
+  },
   "pl": {
     "settingsTab": {
       "network": {
@@ -81,7 +94,9 @@
       }
     }
   },
-  "zh-Hans": {
+  "tr": {},
+  "zh-Hans": {},
+  "zh-Hant-HK": {
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
