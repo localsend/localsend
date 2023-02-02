@@ -25,6 +25,7 @@ dependencies:
   freezed_annotation: 2.2.0
   image_gallery_saver: 1.7.1
   image_picker: 0.8.6
+  intl: 0.17.0
   json_annotation: 4.7.0
   launch_at_startup: 0.2.1
   network_info_plus: 3.0.1

@@ -98,6 +98,14 @@
       "encryption": "Encryption"
     }
   },
+  "receiveHistoryPage": {
+    "title": "History",
+    "entryActions": {
+      "open": "@:general.open",
+      "info": "Info",
+      "deleteFromHistory": "Delete from history"
+    }
+  },
   "selectedFilesPage": {
     "deleteAll": "Delete all"
   },
@@ -227,6 +235,10 @@
     "cancelSession": {
       "title": "Cancel file transfer",
       "content": "Do you really want to cancel the file transfer?"
+    },
+    "cannotOpenFile": {
+      "title": "Cannot open file",
+      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
     },
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
