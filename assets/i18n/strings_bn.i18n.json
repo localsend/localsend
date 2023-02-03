@@ -38,226 +38,226 @@
     "unknown": "অজানা"
   },
   "receiveTab": {
-    "title": "Receive",
+    "title": "গ্রহণ",
     "infoBox": {
-      "ip": "IP:",
-      "port": "Port:",
-      "alias": "Alias:"
+      "ip": "আইপি:",
+      "port": "পোর্ট:",
+      "alias": "উপনাম:"
     }
   },
   "sendTab": {
-    "title": "Send",
+    "title": "পাঠান",
     "selection": {
-      "title": "Selection",
-      "files": "Files: {files}",
-      "size": "Size: {size}"
+      "title": "সিলেকশন",
+      "files": "ফাইলসমূহ: {files}",
+      "size": "সাইজ: {size}"
     },
     "picker": {
-      "file": "File",
-      "media": "Media",
-      "text": "Text"
+      "file": "ফাইল",
+      "media": "মিডিয়া",
+      "text": "টেক্সট"
     },
-    "shareIntentInfo": "You can also use the \"Share\" feature of your mobile device to select files more easily.",
-    "nearbyDevices": "Nearby devices",
-    "thisDevice": "This Device",
-    "scan": "Look for devices",
-    "help": "Please ensure that the desired target is also in the same wifi network.",
-    "placeItems": "Place items to share."
+    "shareIntentInfo": "আরো সহজে ফাইলসমূহ সিলেক্ট করার জন্য আপনি আপনার মোবাইলের \"Share\" ফিচারটি ব্যবহার করতে পারেন",
+    "nearbyDevices": "আশেপাশের ডিভাইসসমূহ",
+    "thisDevice": "এই ডিভাইস",
+    "scan": "ডিভাইসসমূহ সন্ধান করুন",
+    "help": "অনুগ্রহ করে নিশ্চিত করুন যে অন্য ডিভাসটিও একই ওয়াইফাই নেটওয়ার্কে রয়েছে।",
+    "placeItems": "শেয়ার করার জন্য ফাইল রাখুন।"
   },
   "settingsTab": {
-    "title": "Settings",
+    "title": "সেটিংস",
     "general": {
-      "title": "General",
-      "theme": "Theme",
+      "title": "জেনারেল",
+      "theme": "থিম",
       "themeOptions": {
-        "system": "System",
-        "dark": "Dark",
-        "light": "Light"
+        "system": "সিস্টেম",
+        "dark": "ডার্ক",
+        "light": "লাইট"
       },
-      "language": "Language",
+      "language": "ভাষা",
       "languageOptions": {
-        "system": "System"
+        "system": "সিস্টেম"
       },
-      "minimizeToTray": "Quit: Minimize to tray",
-      "launchAtStartup": "Autostart after login",
-      "launchMinimized": "Autostart: Start hidden"
+      "minimizeToTray": "প্রস্থান করুন: ট্রেতে মিনিমাইজ করুন",
+      "launchAtStartup": "লগইন করার পরে অটোস্টার্ট করুন",
+      "launchMinimized": "অটোস্টার্ট: হিডেন থেকে শুরু করুন"
     },
     "receive": {
-      "title": "Receive",
+      "title": "গ্রহণ করুন",
       "quickSave": "@:general.quickSave",
-      "destination": "Destination",
-      "saveToGallery": "Save media to gallery"
+      "destination": "গন্তব্য",
+      "saveToGallery": "গ্যালারিতে মিডিয়া সেভ করুন"
     },
     "network": {
-      "title": "Network",
-      "needRestart": "Restart the server to apply the settings!",
-      "server": "Server",
-      "alias": "Alias",
-      "port": "Port",
-      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption"
+      "title": "নেটওয়ার্ক",
+      "needRestart": "সেটিংস প্রয়োগ করতে সার্ভার রিস্টার্ট করুন!",
+      "server": "সার্ভার",
+      "alias": "উপনাম",
+      "port": "পোর্ট",
+      "portWarning": "আপনি একটি কাস্টম পোর্ট ব্যবহার করছেন তাই আপনি অন্য ডিভাইস থেকে এই ডিভাইকে খুঁজে নাও হতে পারে. (default: {defaultPort})",
+      "encryption": "এনক্রিপশন"
     }
   },
   "selectedFilesPage": {
-    "deleteAll": "Delete all"
+    "deleteAll": "সব ডিলিট করুন"
   },
   "receivePage": {
     "subTitle": {
-      "one": "wants to send you a file.",
-      "other": "wants to send you {n} files."
+      "one": "আপনাকে একটি ফাইল পাঠাতে চায়।",
+      "other": "আপনাকে {n}টি ফাইল পাঠাতে চায়।"
     },
-    "subTitleMessage": "sent you a message:",
-    "subTitleLink": "sent you a link:",
-    "canceled": "The sender has canceled the request."
+    "subTitleMessage": "আপনাকে একটি বার্তা পাঠিয়েছে:",
+    "subTitleLink": "আপনাকে একটি লিঙ্ক পাঠিয়েছে:",
+    "canceled": "সেন্ডার রিকুয়েস্টটি কেন্সেল করেছে।"
   },
   "receiveOptionsPage": {
-    "title": "Options",
+    "title": "অপশনসমূহ",
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(@:appName folder)"
   },
   "sendPage": {
-    "waiting": "Waiting for response...",
-    "rejected": "The recipient has rejected the request."
+    "waiting": "রেস্পন্সের অপেক্ষায় ...",
+    "rejected": "প্রাপক অনুরোধ প্রত্যাখ্যান করেছেন।"
   },
   "progressPage": {
-    "titleSending": "Sending files",
-    "titleReceiving": "Receiving files",
-    "savedToGallery": "Saved in Photos",
+    "titleSending": "ফাইল পাঠানো হচ্ছে",
+    "titleReceiving": "ফাইল গ্রহণ করা হচ্ছে",
+    "savedToGallery": "Photos এ সেভ করা হয়েছে",
     "total": {
       "title": {
-        "sending": "Total progress ({time})",
-        "finishedError": "Finished with error",
-        "canceledSender": "Canceled by sender",
-        "canceledReceiver": "Canceled by receiver"
+        "sending": "মোট অগ্রগতি ({time})",
+        "finishedError": "ত্রুটি সহ সমাপ্ত হয়েছে",
+        "canceledSender": "সেন্ডারের দ্বারা বাতিল করা হয়েছে",
+        "canceledReceiver": "রিসিভার দ্বারা বাতিল করা হয়েছে"
       },
-      "count": "Files: {curr} / {n}",
-      "size": "Size: {curr} / {n}",
-      "speed": "Speed: {speed}/s"
+      "count": "ফাইলসমূহ: {curr} / {n}",
+      "size": "সাইজ: {curr} / {n}",
+      "speed": "স্পীড: {speed}/s"
     }
   },
   "aboutPage": {
-    "title": "About LocalSend"
+    "title": "LocalSend সম্পর্কে"
   },
   "changelogPage": {
     "title": "Changelog"
   },
   "aliasGenerator": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "বিভিন্ন ভাষায় বিভিন্ন শব্দ থাকতে পারে, এটি 1:1 এর মতো নাও মিলতে পারে",
     "adjectives": [
-      "Adorable",
-      "Beautiful",
-      "Big",
-      "Bright",
-      "Clean",
-      "Clever",
-      "Cool",
-      "Cute",
-      "Cunning",
-      "Determined",
-      "Energetic",
-      "Efficient",
-      "Fantastic",
-      "Fast",
-      "Fine",
-      "Fresh",
-      "Good",
-      "Gorgeous",
-      "Great",
-      "Handsome",
-      "Hot",
-      "Kind",
-      "Lovely",
-      "Mystic",
-      "Neat",
-      "Nice",
-      "Patient",
-      "Pretty",
-      "Powerful",
-      "Rich",
-      "Secret",
-      "Smart",
-      "Solid",
-      "Special",
-      "Strategic",
-      "Strong",
-      "Tidy",
-      "Wise"
+      "আরাধ্য",
+      "সুন্দর",
+      "বড়",
+      "উজ্জ্বল",
+      "পরিষ্কার",
+      "চতুর",
+      "ঠান্ডা",
+      "চতুর",
+      "ধূর্ত",
+      "নির্ধারিত",
+      "অনলস",
+      "দক্ষ",
+      "অসাধারণ",
+      "দ্রুত",
+      "ভালো",
+      "তাজা",
+      "ভাল",
+      "চমৎকার",
+      "দারুণ",
+      "সুদর্শন",
+      "গরম",
+      "দয়াময়",
+      "সুন্দর",
+      "রহস্যময়",
+      "পরিচ্ছন্ন",
+      "সুন্দর",
+      "রোগী",
+      "সুন্দর",
+      "ক্ষমতাশালী",
+      "ধনী",
+      "গোপন",
+      "স্মার্ট",
+      "কঠিন",
+      "বিশেষ",
+      "কৌশলগত",
+      "শক্তিশালী",
+      "পরিপাটি",
+      "জ্ঞানী"
     ],
     "fruits": [
-      "Apple",
-      "Avocado",
-      "Banana",
-      "Blackberry",
-      "Blueberry",
-      "Broccoli",
-      "Carrot",
-      "Cherry",
-      "Coconut",
-      "Grape",
-      "Lemon",
-      "Lettuce",
-      "Mango",
-      "Melon",
-      "Mushroom",
-      "Onion",
-      "Orange",
-      "Papaya",
-      "Peach",
-      "Pear",
-      "Pineapple",
-      "Potato",
-      "Pumpkin",
-      "Raspberry",
-      "Strawberry",
-      "Tomato"
+      "আপেল",
+      "অ্যাভোকাডো",
+      "কলা",
+      "ব্ল্যাকবেরি",
+      "ব্লুবেরি",
+      "ব্রকলি",
+      "গাজর",
+      "চেরি",
+      "নারকেল",
+      "আঙ্গুর",
+      "লেবু",
+      "লেটুস",
+      "আম",
+      "তরমুজ",
+      "মাশরুম",
+      "পেঁয়াজ",
+      "কমলা",
+      "পেঁপে",
+      "পীচ",
+      "নাশপাতি",
+      "আনারস",
+      "আলু",
+      "কুমড়া",
+      "রাস্পবেরি",
+      "স্ট্রবেরি",
+      "টমেটো"
     ]
   },
   "dialogs": {
     "addFile": {
-      "title": "Add to selection",
-      "content": "What do you want to add?"
+      "title": "সিলেকশনে যুক্ত করুন",
+      "content": "আপনি কি যোগ করতে চান?"
     },
     "addressInput": {
-      "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address"
+      "title": "এড্রেস লিখুন",
+      "hashtag": "হ্যাশট্যাগ",
+      "ip": "আইপি অ্যাড্রেস"
     },
     "cancelSession": {
-      "title": "Cancel file transfer",
-      "content": "Do you really want to cancel the file transfer?"
+      "title": "ফাইল ট্রান্সফার বাতিল করুন",
+      "content": "আপনি কি সত্যিই ফাইল ট্রান্সফার বাতিল করতে চান?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "Encryption বন্ধ করা হয়েছে",
+      "content": "এখন কমিউনিকেশন আনএনক্রিপ্টেড HTTP প্রটোকলের মাধ্যমে করা হচ্ছে। HTTPS ব্যবহার করার জন্য আবার এনক্রিপশন চালু করুন"
     },
     "fileNameInput": {
-      "title": "Enter file name",
-      "original": "Original: {original}"
+      "title": "ফাইলের নাম লিখুন",
+      "original": "আসল: {original}"
     },
     "messageInput": {
-      "title": "Type message",
-      "multiline": "Multiline"
+      "title": "মেসেজ লিখুন",
+      "multiline": "মাল্টিলাইন"
     },
     "noFiles": {
-      "title": "No file selected",
-      "content": "Please select at least one file."
+      "title": "কোনো ফাইল সিলেক্ট করা হয়নি",
+      "content": "অন্তত একটি ফাইল সিলেক্ট করুন। "
     },
     "quickActions": {
-      "title": "Quick Actions",
-      "counter": "Counter",
-      "prefix": "Prefix",
-      "padZero": "Pad with zeros",
-      "sortBeforeCount": "Sort alphabetically beforehand",
-      "random": "Random"
+      "title": "কুইক একশন্স",
+      "counter": "কাউন্টার",
+      "prefix": "উপসর্গ",
+      "padZero": "শূন্য সহ প্যাড",
+      "sortBeforeCount": "আগে থেকে বর্ণানুক্রমিকভাবে সাজান",
+      "random": "এলোমেলো"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "File requests are automatically accepted. Be aware that everyone in the local network can send you files."
+      "content": "ফাইল অনুরোধ স্বয়ংক্রিয়ভাবে এক্সেপ্ট করা হয়। সচেতন থাকুন যেনা লোকাল নেটওয়ার্কের সবাই আপনাকে ফাইল পাঠাতে পারে।"
     }
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "অ্যাপলের নির্দেশিকাগুলি 'ক্লোজ' শব্দের বিষয়ে খুবই কঠোর।",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "LocalSend থেকে প্রস্থান করুন"
   }
 }
