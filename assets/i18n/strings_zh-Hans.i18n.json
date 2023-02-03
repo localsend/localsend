@@ -93,7 +93,17 @@
       "needRestart": "重启服务器生效！",
       "server": "服务器",
       "alias": "别名",
-      "port": "端口"
+      "port": "端口",
+      "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
+      "encryption": "加密"
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "历史",
+    "entryActions": {
+      "open": "@:general.open",
+      "info": "信息",
+      "deleteFromHistory": "从历史记录中删除"
     }
   },
   "selectedFilesPage": {
@@ -111,7 +121,7 @@
   "receiveOptionsPage": {
     "title": "设置",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName-文件夹)"
+    "appDirectory": "(LocalSend-文件夹)"
   },
   "sendPage": {
     "waiting": "等待响应中...",
@@ -140,7 +150,7 @@
     "title": "更新日志"
   },
   "aliasGenerator": {
-    "@info": "Uses English version"
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -155,6 +165,14 @@
     "cancelSession": {
       "title": "取消文件传输",
       "content": "要取消文件传输吗？"
+    },
+    "cannotOpenFile": {
+      "title": "无法打开文件",
+      "content": "无法打开 \"{file}\"。这个文件是否已被移动、重命名或删除？"
+    },
+    "encryptionDisabledNotice": {
+      "title": "加密已关闭",
+      "content": "正在通过未加密的 HTTP 协议连接。要使用 HTTPS 协议，请开启加密选项。"
     },
     "fileNameInput": {
       "title": "输入文件名",

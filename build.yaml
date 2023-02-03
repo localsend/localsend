@@ -9,3 +9,4 @@ targets:
           input_file_pattern: .i18n.json
           string_interpolation: braces
           timestamp: false # for F-Droid Reproducible Builds
+          flat_map: false

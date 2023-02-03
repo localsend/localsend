@@ -7,12 +7,12 @@
     "advanced": "Zaawansowane",
     "cancel": "Anuluj",
     "close": "Zamknij",
-    "confirm": "Potwierdzij",
+    "confirm": "Potwierdź",
     "continueStr": "Dalej",
     "copy": "Kopiuj",
-    "copiedToClipboard": "Z Kopiowane do Schowka",
-    "decline": "Odrzuc",
-    "done": "Gotowy",
+    "copiedToClipboard": "Skopiowane do Schowka",
+    "decline": "Odrzuć",
+    "done": "Gotowe",
     "edit": "Edytuj",
     "error": "Błąd",
     "example": "Przykład",
@@ -31,14 +31,14 @@
     "restart": "Restartuj",
     "settings": "Ustawienia",
     "skipped": "Pominięty",
-    "start": "Zaczni",
-    "stop": "Zatrzymać",
-    "save": "Zapisaj",
+    "start": "Zacznij",
+    "stop": "Zatrzymaj",
+    "save": "Zapisz",
     "unchanged": "Bez Zmian",
     "unknown": "Nieznany"
   },
   "receiveTab": {
-    "title": "Odbieraj",
+    "title": "Odbierz",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
@@ -68,10 +68,10 @@
     "title": "Ustawienia",
     "general": {
       "title": "Ogólne",
-      "theme": "Temat",
+      "theme": "Motyw",
       "themeOptions": {
         "system": "System",
-        "dark": "Cziemny",
+        "dark": "Ciemny",
         "light": "Jasny"
       },
       "language": "Język",
@@ -83,7 +83,7 @@
       "launchMinimized": "Autostart: Start ukryty"
     },
     "receive": {
-      "title": "Odbieraj",
+      "title": "Odbierz",
       "quickSave": "@:general.quickSave",
       "destination": "Miejsce docelowe",
       "saveToGallery": "Zapisz multimedia w galerii"
@@ -111,7 +111,7 @@
   "receiveOptionsPage": {
     "title": "Opcje",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(LocalSend folder)"
   },
   "sendPage": {
     "waiting": "Czekanie na odpowiedź...",
@@ -140,75 +140,7 @@
     "title": "Dziennik Zmian"
   },
   "aliasGenerator": {
-    "@info": "Different locales may have different words, it may not match 1:1",
-    "adjectives": [
-      "Uroczy",
-      "Piękny",
-      "Duży",
-      "Jasny",
-      "Czysty",
-      "Sprytny",
-      "Fajny",
-      "Słodki",
-      "Podstępny",
-      "Określony",
-      "Energetyczny",
-      "Wydajny",
-      "Fantastyczny",
-      "Szybki",
-      "Pogodny",
-      "Świeży",
-      "Dobry",
-      "Przepiękny",
-      "Świetny",
-      "Przystojny",
-      "Gorący",
-      "Miły",
-      "Śliczny",
-      "Mistyk",
-      "Schludny",
-      "Ładny",
-      "Cierpliwy",
-      "Przyjemny",
-      "Potężny",
-      "Bogaty",
-      "Sekretny",
-      "Sprytny",
-      "Solidny",
-      "Specjalny",
-      "Strategiczny",
-      "Silny",
-      "Uporządkowany",
-      "Mądry"
-    ],
-    "fruits": [
-      "Jabko",
-      "Awokado",
-      "Banan",
-      "Jeżyna",
-      "Jagoda",
-      "Brokuły",
-      "Marchewka",
-      "Wiśnia",
-      "Kokos",
-      "Winogron",
-      "Cytryna",
-      "Sałata",
-      "Mango",
-      "Melon",
-      "Pieczarka",
-      "Cebula",
-      "Pomarańcz",
-      "Papaja",
-      "Brzoskwinia",
-      "Gruszka",
-      "Ananas",
-      "Ziemniak",
-      "Dynia",
-      "Malina",
-      "Truskawka",
-      "Pomidor"
-    ]
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -222,7 +154,7 @@
     },
     "cancelSession": {
       "title": "Anuluj transfer plików",
-      "content": "Czy napewno?"
+      "content": "Czy na pewno?"
     },
     "fileNameInput": {
       "title": "Wpisz imię",
@@ -240,7 +172,7 @@
       "title": "Szybkie akcje",
       "counter": "Licznik",
       "prefix": "Prefiks",
-      "padZero": "Podkładka z zerami",
+      "padZero": "Wypchnij zerami",
       "sortBeforeCount": "Wcześniej posortuj alfabetycznie",
       "random": "Losowy"
     },

@@ -18,7 +18,11 @@
     }
   },
   "de": {},
-  "fr-FR": {
+  "fr-FR": {},
+  "hu": {},
+  "in": {},
+  "it": {},
+  "iw": {
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
@@ -32,49 +36,9 @@
       }
     }
   },
-  "hu": {
-    "settingsTab": {
-      "network": {
-        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
-      }
-    },
-    "dialogs": {
-      "encryptionDisabledNotice": {
-        "title": "Encryption disabled",
-        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
-      }
-    }
-  },
-  "it": {
-    "settingsTab": {
-      "network": {
-        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
-      }
-    },
-    "dialogs": {
-      "encryptionDisabledNotice": {
-        "title": "Encryption disabled",
-        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
-      }
-    }
-  },
-  "ja": {
-    "settingsTab": {
-      "network": {
-        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
-      }
-    },
-    "dialogs": {
-      "encryptionDisabledNotice": {
-        "title": "Encryption disabled",
-        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
-      }
-    }
-  },
-  "ko": {
+  "ja": {},
+  "ko": {},
+  "ne": {
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
@@ -130,7 +94,9 @@
       }
     }
   },
-  "zh-Hans": {
+  "tr": {},
+  "zh-Hans": {},
+  "zh-Hant-HK": {
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
