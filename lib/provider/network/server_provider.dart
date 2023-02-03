@@ -18,6 +18,7 @@ import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
@@ -331,6 +332,19 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             savedToGallery: saveToGallery,
           ),
         );
+
+        // Track it in history
+        await _ref.read(receiveHistoryProvider.notifier).addEntry(
+          id: fileId,
+          fileName: receivingFile.desiredName ?? receivingFile.file.fileName,
+          fileType: receivingFile.file.fileType,
+          path: saveToGallery ? null : destinationPath,
+          savedToGallery: saveToGallery,
+          fileSize: receivingFile.file.size,
+          senderAlias: receiveState.sender.alias,
+          timestamp: DateTime.now().toUtc(),
+        );
+
         print('Saved ${receivingFile.file.fileName}.');
       } catch (e, st) {
         state = state?.copyWith(

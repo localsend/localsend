@@ -11,16 +11,11 @@ import 'package:localsend_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_actions_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 
-class ReceiveOptionsPage extends ConsumerStatefulWidget {
+class ReceiveOptionsPage extends ConsumerWidget {
   const ReceiveOptionsPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ReceiveOptionsPage> createState() => _ReceiveOptionsPageState();
-}
-
-class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final receiveState = ref.watch(serverProvider.select((s) => s?.receiveState));
     if (receiveState == null) {
       return Scaffold(

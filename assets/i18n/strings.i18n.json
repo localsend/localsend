@@ -98,6 +98,14 @@
       "encryption": "Encryption"
     }
   },
+  "receiveHistoryPage": {
+    "title": "History",
+    "entryActions": {
+      "open": "@:general.open",
+      "info": "Info",
+      "deleteFromHistory": "Delete from history"
+    }
+  },
   "selectedFilesPage": {
     "deleteAll": "Delete all"
   },
@@ -113,7 +121,7 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(LocalSend folder)"
   },
   "sendPage": {
     "waiting": "Waiting for response...",
@@ -141,7 +149,7 @@
   "changelogPage": {
     "title": "Changelog"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
       "Adorable",
@@ -210,7 +218,9 @@
       "Raspberry",
       "Strawberry",
       "Tomato"
-    ]
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {
@@ -225,6 +235,10 @@
     "cancelSession": {
       "title": "Cancel file transfer",
       "content": "Do you really want to cancel the file transfer?"
+    },
+    "cannotOpenFile": {
+      "title": "Cannot open file",
+      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
     },
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",

@@ -1,188 +1,194 @@
 {
-    "locale": "Italiano",
-    "appName": "LocalSend",
-    "general": {
-        "accept": "Accetta",
-        "add": "Aggiungi",
-        "advanced": "Avanzate",
-        "cancel": "Interrompi",
-        "close": "Chiudi",
-        "confirm": "Conferma",
-        "continueStr": "Continua",
-        "copy": "Copia",
-        "copiedToClipboard": "Copiato negli Appunti",
-        "decline": "Rifiuta",
-        "done": "Eseguito",
-        "edit": "Modifica",
-        "error": "Errore",
-        "example": "Esempio",
-        "files": "File",
-        "finished": "Completato",
-        "hide": "Nascondi",
-        "off": "Disattivato",
-        "offline": "Non in linea",
-        "on": "Attivato",
-        "online": "In linea",
-        "open": "Apri",
-        "queue": "Coda",
-        "quickSave": "Salva rapido",
-        "renamed": "Rinominato",
-        "reset": "Reset",
-        "restart": "Riavvia",
-        "settings": "Impostazioni",
-        "skipped": "Saltato",
-        "start": "Inizia",
-        "stop": "Arresta",
-        "save": "Salva",
-        "unchanged": "Invariato",
-        "unknown": "Sconosciuto"
-    },
-    "receiveTab": {
-        "title": "Ricevi",
-        "infoBox": {
-            "ip": "IP:",
-            "port": "Porta:",
-            "alias": "Alias:"
-        }
-    },
-    "sendTab": {
-        "title": "Invia",
-        "selection": {
-            "title": "Selezione",
-            "files": "File: {files}",
-            "size": "Dimensione: {size}"
-        },
-        "picker": {
-            "file": "File",
-            "media": "Multimedia",
-            "text": "Testo"
-        },
-        "shareIntentInfo": "Puoi anche usare la funzionalità \"Condividi\" sul tuo dispositivo mobile per selezionare file in modo più semplice.",
-        "nearbyDevices": "Dispositivi vicini",
-        "thisDevice": "Questo Dispositivo",
-        "scan": "Cerca dispositivi",
-        "help": "Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.",
-        "placeItems": "Inserire gli oggetti da condividere."
-    },
-    "settingsTab": {
-        "title": "Impostazioni",
-        "general": {
-            "title": "Generale",
-            "theme": "Tema",
-            "themeOptions": {
-                "system": "Sistema",
-                "dark": "Scuro",
-                "light": "Chiaro"
-            },
-            "language": "Lingua",
-            "languageOptions": {
-                "system": "Sistema"
-            },
-            "minimizeToTray": "Esci: Riduci ad icona nel vassoio",
-            "launchAtStartup": "Avvio automatico dopo il login",
-            "launchMinimized": "Avvio automatico: Avvio nascosto"
-        },
-        "receive": {
-            "title": "Ricevi",
-            "quickSave": "@:general.quickSave",
-            "destination": "Destinazione",
-            "saveToGallery": "Salva i dati nella galleria"
-        },
-        "network": {
-            "title": "Rete",
-            "needRestart": "Riavvia il server per applicare le modifiche!",
-            "server": "Server",
-            "alias": "Alias",
-            "port": "Porta"
-        }
-    },
-    "selectedFilesPage": {
-        "deleteAll": "Elimina tutti"
-    },
-    "receivePage": {
-        "subTitle": {
-            "one": "vuole inviarti un file.",
-            "other": "vuole inviarti {n} files."
-        },
-        "subTitleMessage": "ti ha inviato un messaggio:",
-        "subTitleLink": "ti ha inviato un link:",
-        "canceled": "Il mittente ha cancellato la richiesta."
-    },
-    "receiveOptionsPage": {
-        "title": "Opzioni",
-        "destination": "@:settingsTab.receive.destination",
-        "appDirectory": "(@:appName cartella)"
-    },
-    "sendPage": {
-        "waiting": "In attesa di risposta...",
-        "rejected": "Il destinatario ha rifiutato la richiesta."
-    },
-    "progressPage": {
-        "titleSending": "Invio di file in corso",
-        "titleReceiving": "Ricezione di file in corso",
-        "savedToGallery": "Salvato in Galleria",
-        "total": {
-            "title": {
-                "sending": "Progresso complessivo ({time})",
-                "finishedError": "Terminato con errore",
-                "canceledSender": "Cancellato dal mittente",
-                "canceledReceiver": "Cancellato dal destinatario"
-            },
-            "count": "File: {curr} / {n}",
-            "size": "Dimensione: {curr} / {n}",
-            "speed": "Velocità: {speed}/s"
-        }
-    },
-    "aboutPage": {
-        "title": "Riguardo LocalSend"
-    },
-    "changelogPage": {
-        "title": "Changelog"
-    },
-    "aliasGenerator": {
-        "@info": "Uses English version"
-    },
-    "dialogs": {
-        "addFile": {
-            "title": "Aggiungi alla selezione",
-            "content": "Cosa vuoi aggiungere?"
-        },
-        "addressInput": {
-            "title": "Inserisci l'indirizzo",
-            "hashtag": "Hashtag",
-            "ip": "Indirizzo IP"
-        },
-        "cancelSession": {
-            "title": "Interrompi trasferimento",
-            "content": "Sei sicuro di voler interromper il trasferimento?"
-        },
-        "fileNameInput": {
-            "title": "Inserisci un nome del file",
-            "original": "Originale: {original}"
-        },
-        "messageInput": {
-            "title": "Scrivi un messaggio",
-            "multiline": "Multilinea"
-        },
-        "noFiles": {
-            "title": "Nessun file selezionato",
-            "content": "Seleziona almeno un file."
-        },
-        "quickActions": {
-            "title": "Azioni Rapide",
-            "counter": "Contatore",
-            "prefix": "Prefisso",
-            "padZero": "Riempi con zero",
-            "sortBeforeCount": "Preordina alfabeticamente",
-            "random": "Casuale"
-        },
-        "quickSaveNotice": {
-            "title": "@:general.quickSave",
-            "content": "Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file."
-        }
-    },
-    "tray": {
-        "open": "@:general.open",
-        "close": "Chiudi LocalSend"
+  "locale": "Italiano",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Accetta",
+    "add": "Aggiungi",
+    "advanced": "Avanzate",
+    "cancel": "Interrompi",
+    "close": "Chiudi",
+    "confirm": "Conferma",
+    "continueStr": "Continua",
+    "copy": "Copia",
+    "copiedToClipboard": "Copiato negli Appunti",
+    "decline": "Rifiuta",
+    "done": "Eseguito",
+    "edit": "Modifica",
+    "error": "Errore",
+    "example": "Esempio",
+    "files": "File",
+    "finished": "Completato",
+    "hide": "Nascondi",
+    "off": "Disattivato",
+    "offline": "Non in linea",
+    "on": "Attivato",
+    "online": "In linea",
+    "open": "Apri",
+    "queue": "Coda",
+    "quickSave": "Salva rapido",
+    "renamed": "Rinominato",
+    "reset": "Reset",
+    "restart": "Riavvia",
+    "settings": "Impostazioni",
+    "skipped": "Saltato",
+    "start": "Inizia",
+    "stop": "Arresta",
+    "save": "Salva",
+    "unchanged": "Invariato",
+    "unknown": "Sconosciuto"
+  },
+  "receiveTab": {
+    "title": "Ricevi",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Porta:",
+      "alias": "Alias:"
     }
+  },
+  "sendTab": {
+    "title": "Invia",
+    "selection": {
+      "title": "Selezione",
+      "files": "File: {files}",
+      "size": "Dimensione: {size}"
+    },
+    "picker": {
+      "file": "File",
+      "media": "Multimedia",
+      "text": "Testo"
+    },
+    "shareIntentInfo": "Puoi anche usare la funzionalità \"Condividi\" sul tuo dispositivo mobile per selezionare file in modo più semplice.",
+    "nearbyDevices": "Dispositivi vicini",
+    "thisDevice": "Questo Dispositivo",
+    "scan": "Cerca dispositivi",
+    "help": "Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.",
+    "placeItems": "Inserire gli oggetti da condividere."
+  },
+  "settingsTab": {
+    "title": "Impostazioni",
+    "general": {
+      "title": "Generale",
+      "theme": "Tema",
+      "themeOptions": {
+        "system": "Sistema",
+        "dark": "Scuro",
+        "light": "Chiaro"
+      },
+      "language": "Lingua",
+      "languageOptions": {
+        "system": "Sistema"
+      },
+      "minimizeToTray": "Esci: Riduci ad icona nel vassoio",
+      "launchAtStartup": "Avvio automatico dopo il login",
+      "launchMinimized": "Avvio automatico: Avvio nascosto"
+    },
+    "receive": {
+      "title": "Ricevi",
+      "quickSave": "@:general.quickSave",
+      "destination": "Destinazione",
+      "saveToGallery": "Salva i dati nella galleria"
+    },
+    "network": {
+      "title": "Rete",
+      "needRestart": "Riavvia il server per applicare le modifiche!",
+      "server": "Server",
+      "alias": "Alias",
+      "port": "Porta",
+      "portWarning": "Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: {defaultPort})",
+      "encryption": "Crittografia"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Elimina tutti"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "vuole inviarti un file.",
+      "other": "vuole inviarti {n} files."
+    },
+    "subTitleMessage": "ti ha inviato un messaggio:",
+    "subTitleLink": "ti ha inviato un link:",
+    "canceled": "Il mittente ha cancellato la richiesta."
+  },
+  "receiveOptionsPage": {
+    "title": "Opzioni",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend cartella)"
+  },
+  "sendPage": {
+    "waiting": "In attesa di risposta...",
+    "rejected": "Il destinatario ha rifiutato la richiesta."
+  },
+  "progressPage": {
+    "titleSending": "Invio di file in corso",
+    "titleReceiving": "Ricezione di file in corso",
+    "savedToGallery": "Salvato in Galleria",
+    "total": {
+      "title": {
+        "sending": "Progresso complessivo ({time})",
+        "finishedError": "Terminato con errore",
+        "canceledSender": "Cancellato dal mittente",
+        "canceledReceiver": "Cancellato dal destinatario"
+      },
+      "count": "File: {curr} / {n}",
+      "size": "Dimensione: {curr} / {n}",
+      "speed": "Velocità: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "Riguardo LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Aggiungi alla selezione",
+      "content": "Cosa vuoi aggiungere?"
+    },
+    "addressInput": {
+      "title": "Inserisci l'indirizzo",
+      "hashtag": "Hashtag",
+      "ip": "Indirizzo IP"
+    },
+    "cancelSession": {
+      "title": "Interrompi trasferimento",
+      "content": "Sei sicuro di voler interromper il trasferimento?"
+    },
+    "fileNameInput": {
+      "title": "Inserisci un nome del file",
+      "original": "Originale: {original}"
+    },
+    "messageInput": {
+      "title": "Scrivi un messaggio",
+      "multiline": "Multilinea"
+    },
+    "noFiles": {
+      "title": "Nessun file selezionato",
+      "content": "Seleziona almeno un file."
+    },
+    "quickActions": {
+      "title": "Azioni Rapide",
+      "counter": "Contatore",
+      "prefix": "Prefisso",
+      "padZero": "Riempi con zero",
+      "sortBeforeCount": "Preordina alfabeticamente",
+      "random": "Casuale"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file."
+    },
+    "encryptionDisabledNotice": {
+      "title": "Crittografia disabiitata",
+      "content": "La comunicazione ora avviene tramite il protocollo HTTP non crittografato. Per usare il protocollo crittografato HTTPS, abilita la crittografia."
+    }
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "Chiudi LocalSend"
+  }
 }

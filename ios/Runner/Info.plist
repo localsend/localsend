@@ -54,13 +54,18 @@
         <string>en</string>
         <string>fr-FR</string>
         <string>hu</string>
+        <string>in</string>
         <string>it</string>
+        <string>iw</string>
         <string>ja</string>
         <string>ko</string>
+        <string>ne</string>
         <string>pl</string>
         <string>ru</string>
         <string>sv</string>
+        <string>tr</string>
         <string>zh-Hans</string>
+        <string>zh-Hant-HK</string>
         <string>zh-Hant-TW</string>
     </array>
 
