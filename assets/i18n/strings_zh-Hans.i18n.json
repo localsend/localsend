@@ -98,6 +98,14 @@
       "encryption": "加密"
     }
   },
+  "receiveHistoryPage": {
+    "title": "历史",
+    "entryActions": {
+      "open": "@:general.open",
+      "info": "信息",
+      "deleteFromHistory": "从历史记录中删除"
+    }
+  },
   "selectedFilesPage": {
     "deleteAll": "全部删除"
   },
@@ -157,6 +165,10 @@
     "cancelSession": {
       "title": "取消文件传输",
       "content": "要取消文件传输吗？"
+    },
+    "cannotOpenFile": {
+      "title": "无法打开文件",
+      "content": "无法打开 \"{file}\"。这个文件是否已被移动、重命名或删除？"
     },
     "encryptionDisabledNotice": {
       "title": "加密已关闭",
