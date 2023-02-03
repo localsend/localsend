@@ -142,7 +142,7 @@
     "title": "Changelog"
   },
   "aliasGenerator": {
-    "@info": "Inherits from the English version"
+    "@info": "Eredita dalla versione inglese"
   },
   "dialogs": {
     "addFile": {
