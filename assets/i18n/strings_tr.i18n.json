@@ -25,10 +25,10 @@
     "online": "Çevrim içi",
     "open": "Aç",
     "queue": "Sıra",
-    "quickSave": "Hızlı Kaydetme",
-    "renamed": "Yeniden Adlandırıldı",
+    "quickSave": "Hızlı kaydetme",
+    "renamed": "Yeniden adlandırıldı",
     "reset": "Sıfırla",
-    "restart": "Yeniden Başlat",
+    "restart": "Yeniden başlat",
     "settings": "Ayarlar",
     "skipped": "Geçildi",
     "start": "Başlat",
@@ -42,7 +42,7 @@
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Takma İsminiz:"
+      "alias": "Takma isminiz:"
     }
   },
   "sendTab": {
@@ -92,7 +92,7 @@
       "title": "Ağ",
       "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
       "server": "Sunucu",
-      "alias": "Takma İsminiz",
+      "alias": "Takma isminiz",
       "port": "Port",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme"
@@ -136,10 +136,10 @@
     }
   },
   "aboutPage": {
-    "title": "LocalSend Hakkında"
+    "title": "LocalSend hakkında"
   },
   "changelogPage": {
-    "title": "Değişiklik Günlüğü"
+    "title": "Değişiklik günlüğü"
   },
   "aliasGenerator": {
     "@info": "Inherits from the English version"
@@ -152,7 +152,7 @@
     "addressInput": {
       "title": "Adresi giriniz",
       "hashtag": "Hashtag",
-      "ip": "IP Adresi"
+      "ip": "IP adresi"
     },
     "cancelSession": {
       "title": "Dosya transferini iptal et",
@@ -167,7 +167,7 @@
       "original": "Orijinal: {original}"
     },
     "messageInput": {
-      "title": "Mesaj Yazınız",
+      "title": "Mesaj yazınız",
       "multiline": "Çok satırlı mesaj"
     },
     "noFiles": {
@@ -175,7 +175,7 @@
       "content": "Lütfen bir dosya seçiniz."
     },
     "quickActions": {
-      "title": "Hızlı Eylemler",
+      "title": "Hızlı eylemler",
       "counter": "Sayaç",
       "prefix": "Ön ek",
       "padZero": "Sıfırlar ile doldurun",
@@ -188,7 +188,7 @@
     }
   },
   "tray": {
-    "@info": "Apple'ın Yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
+    "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
     "open": "@:general.open",
     "close": "LocalSend'den çık"
   }
