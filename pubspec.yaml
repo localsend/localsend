@@ -89,7 +89,7 @@ msix_config:
   publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
-  languages: en, ar, de, fr-FR, hu, in, it, iw, ja, ko, ne, pl, ru, sv, tr, zh-hans, zh-hant-hk, zh-hant-tw
+  languages: en, ar, de, fr-FR, hu, in, it, iw, ja, ko, ne, pl, pt-BR, ru, sv, tr, zh-hans, zh-hant-hk, zh-hant-tw
   startup_task:
     task_id: localsend
     enabled: false
