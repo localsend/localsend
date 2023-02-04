@@ -48,8 +48,8 @@
   "sendTab": {
     "title": "Küld",
     "selection": {
-      "title": "Selection",
-      "files": "Fájlok: {files}",
+      "title": "Kiválasztás",
+      "files": "Fájl(ok): {files}",
       "size": "Méret: {size}"
     },
     "picker": {
@@ -113,7 +113,7 @@
   "receiveOptionsPage": {
     "title": "Opciók",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend mappa)"
   },
   "sendPage": {
     "waiting": "Válaszra várva...",
@@ -136,13 +136,13 @@
     }
   },
   "aboutPage": {
-    "title": "A LocalSend-ről"
+    "title": "A LocalSend"
   },
   "changelogPage": {
     "title": "Változásnapló"
   },
   "aliasGenerator": {
-    "@info": "Inherits from the English version"
+    "@info": "Az angol változatból örökölt"
   },
   "dialogs": {
     "addFile": {
@@ -180,7 +180,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "A fájlkérések auto. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
+      "content": "A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
     },
     "encryptionDisabledNotice": {
       "title": "A titkosítás letiltva",
