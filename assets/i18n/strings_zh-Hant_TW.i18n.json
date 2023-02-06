@@ -4,7 +4,7 @@
   "general": {
     "accept": "接受",
     "add": "新增",
-    "advanced": "高階",
+    "advanced": "進階",
     "cancel": "取消",
     "close": "關閉",
     "confirm": "確認",
@@ -15,7 +15,7 @@
     "done": "完成",
     "edit": "編輯",
     "error": "錯誤",
-    "example": "示例",
+    "example": "範例",
     "files": "檔案",
     "finished": "已完成",
     "hide": "隱藏",
@@ -27,8 +27,8 @@
     "queue": "佇列",
     "quickSave": "快速儲存",
     "renamed": "已重新命名",
-    "reset": "重置",
-    "restart": "重啟",
+    "reset": "重設",
+    "restart": "重新啟動",
     "settings": "設定",
     "skipped": "已跳過",
     "start": "開始",
@@ -71,8 +71,8 @@
       "theme": "主題",
       "themeOptions": {
         "system": "跟隨系統",
-        "dark": "暗色",
-        "light": "亮色"
+        "dark": "黑暗",
+        "light": "明亮"
       },
       "language": "語言",
       "languageOptions": {
@@ -90,7 +90,7 @@
     },
     "network": {
       "title": "網路",
-      "needRestart": "重啟伺服器生效！",
+      "needRestart": "重新啟動伺服器生效！",
       "server": "伺服器",
       "alias": "別名",
       "port": "埠"
@@ -114,7 +114,7 @@
     "appDirectory": "（LocalSend 資料夾）"
   },
   "sendPage": {
-    "waiting": "等待響應中……",
+    "waiting": "等待回應中……",
     "rejected": "對方拒絕了請求。"
   },
   "progressPage": {
