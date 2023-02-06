@@ -17,7 +17,7 @@
         "error": "Erro",
         "example": "Exemplo",
         "files": "Arquivos",
-        "finished": "Terminado",
+        "finished": "Concluido",
         "hide": "Ocultar",
         "off": "Desabilitado",
         "offline": "Offline",
@@ -61,7 +61,7 @@
         "nearbyDevices": "Dispositivos próximos",
         "thisDevice": "Este dispositivo",
         "scan": "Procurar dispositivos",
-        "help": "Por favor, certifique-se de que o dispositivo desejado também está na mesma rede wifi.",
+        "help": "Por favor, certifique-se de que o dispositivo desejado também está na mesma rede.",
         "placeItems": "Coloque os itens para compartilhar."
     },
     "settingsTab": {
@@ -78,7 +78,7 @@
             "languageOptions": {
                 "system": "Sistema"
             },
-            "minimizeToTray": "Sair: Minimizar para a bandeja",
+            "minimizeToTray": "Minimizar para a bandeja",
             "launchAtStartup": "Inicializar automaticamente após o login",
             "launchMinimized": "Início automático: Inicializar minimizado"
         },
