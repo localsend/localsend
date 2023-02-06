@@ -66,7 +66,20 @@
       }
     }
   },
-  "pt-BR": {},
+  "pt-BR": {
+    "settingsTab": {
+      "network": {
+        "portWarning": "Você pode não ser detectado por outros dispositivos porque está usando uma porta personalizada. (Padrão: {defaultPort})",
+        "encryption": "Criptografia"
+      }
+    },
+    "dialogs": {
+      "encryptionDisabledNotice": {
+        "title": "Criptografia disabilitada",
+        "content": "A comunicação agora ocorre através do protocolo HTTP não criptografado. Para usar HTTPS, habilite a criptografia novamente."
+      }
+    }
+  },
   "ru": {
     "settingsTab": {
       "network": {

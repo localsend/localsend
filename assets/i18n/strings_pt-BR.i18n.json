@@ -211,7 +211,7 @@
             "Tomate"
         ],
         "combination": "{fruit} {adjective}",
-        "@combination": "In some languages, the adjective must be last."
+        "@combination": "Em alguns idiomas, o adjetivo deve ficar por último."
     },
     "dialogs": {
         "addFile": {
@@ -261,7 +261,7 @@
         }
     },
     "tray": {
-        "@info": "Apple Guidelines are very strict about the 'close' wording.",
+        "@info": "As Diretrizes da Apple são muito rígidas sobre o texto 'fechar'.",
         "open": "@:general.open",
         "close": "Fechar LocalSend"
     }
