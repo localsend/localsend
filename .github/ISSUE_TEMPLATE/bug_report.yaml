@@ -58,8 +58,3 @@ body:
     attributes:
       label: Additional context
       description: Add any other context about the problem here
-  - type: markdown
-    attributes:
-      value: |
-        **Want to contribute?**
-        We love contributions from the Ethereum community! Please comment on an issue if you're interested in helping out with a PR.
