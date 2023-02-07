@@ -40,8 +40,8 @@ class ReceiveHistoryNotifier extends StateNotifier<List<ReceiveHistoryEntry>> {
     state = updated;
   }
 
-  Future<void> removeEntry(int index) async {
-    final updated = [...state]..removeAt(index);
+  Future<void> removeEntry(String id) async {
+    final updated = [...state]..removeWhere((e) => e.id == id);
     await _service.setReceiveHistory(updated);
     state = updated;
   }

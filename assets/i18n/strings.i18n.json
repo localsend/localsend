@@ -100,9 +100,10 @@
   },
   "receiveHistoryPage": {
     "title": "History",
+    "empty": "The history is empty.",
     "entryActions": {
-      "open": "@:general.open",
-      "info": "Info",
+      "open": "Open file",
+      "info": "Information",
       "deleteFromHistory": "Delete from history"
     }
   },
@@ -243,6 +244,14 @@
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
       "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+    },
+    "fileInfo": {
+      "title": "File information",
+      "fileName": "File name:",
+      "path": "Path:",
+      "size": "Size:",
+      "sender": "Sender:",
+      "time": "Time:"
     },
     "fileNameInput": {
       "title": "Enter file name",

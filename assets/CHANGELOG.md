@@ -1,5 +1,6 @@
 ## 1.7.0 (2023-)
 
+- feat: received file history
 - feat: add unencrypted HTTP mode
 - feat: message input is horizontally scrollable when multiline is unselected
 - feat: open message normally in QuickSave mode (instead of saving it into a file)
