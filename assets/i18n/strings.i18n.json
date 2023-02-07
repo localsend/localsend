@@ -231,7 +231,8 @@
     "addressInput": {
       "title": "Enter address",
       "hashtag": "Hashtag",
-      "ip": "IP Address"
+      "ip": "IP Address",
+      "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
       "title": "Cancel file transfer",

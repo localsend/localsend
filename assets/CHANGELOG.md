@@ -1,6 +1,7 @@
 ## 1.7.0 (2023-)
 
 - feat: received file history
+- feat: show recent IP addresses in manual IP input
 - feat: add unencrypted HTTP mode (for debugging)
 - feat: separate language settings page
 - feat: message input is horizontally scrollable when multiline is unselected
