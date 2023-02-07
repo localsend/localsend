@@ -50,7 +50,8 @@
     "selection": {
       "title": "Selección",
       "files": "Ficheros: {files}",
-      "size": "Tamaño: {size}",
+      "size": "Tamaño: {size}"
+    },
     "picker": {
       "file": "Fichero",
       "media": "Media",
@@ -185,5 +186,4 @@
     "open": "@:general.open",
     "close": "Cerrar LocalSend"
   }
-}
 }

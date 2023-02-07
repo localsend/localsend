@@ -69,6 +69,44 @@
       }
     }
   },
+  "es-ES": {
+    "settingsTab": {
+      "network": {
+        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+        "encryption": "Encryption"
+      }
+    },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "encryptionDisabledNotice": {
+        "title": "Encryption disabled",
+        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
   "fr-FR": {
     "receiveHistoryPage": {
       "title": "History",
