@@ -10,18 +10,177 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
-  "de": {},
-  "fr-FR": {},
-  "hu": {},
-  "in": {},
-  "it": {},
+  "de": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
+  "fr-FR": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
+  "hu": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
+  "in": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
+  "it": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
   "iw": {
     "settingsTab": {
       "network": {
@@ -29,15 +188,93 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
-  "ja": {},
-  "ko": {},
+  "ja": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
+  "ko": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
   "ne": {
     "settingsTab": {
       "network": {
@@ -45,10 +282,34 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
@@ -59,14 +320,52 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
-  "pt-BR": {},
+  "pt-BR": {
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
   "ru": {
     "settingsTab": {
       "network": {
@@ -74,10 +373,34 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
@@ -88,15 +411,83 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
-  "tr": {},
-  "zh-Hans": {},
+  "tr": {
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
+  "zh-Hans": {
+    "receiveHistoryPage": {
+      "empty": "The history is empty."
+    },
+    "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
+      }
+    }
+  },
   "zh-Hant-HK": {
     "settingsTab": {
       "network": {
@@ -104,10 +495,34 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   },
@@ -118,10 +533,34 @@
         "encryption": "Encryption"
       }
     },
+    "receiveHistoryPage": {
+      "title": "History",
+      "empty": "The history is empty.",
+      "entryActions": {
+        "open": "Open file",
+        "info": "Information",
+        "deleteFromHistory": "Delete from history"
+      }
+    },
     "dialogs": {
+      "addressInput": {
+        "recentlyUsed": "Recently used: "
+      },
+      "cannotOpenFile": {
+        "title": "Cannot open file",
+        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "fileInfo": {
+        "title": "File information",
+        "fileName": "File name:",
+        "path": "Path:",
+        "size": "Size:",
+        "sender": "Sender:",
+        "time": "Time:"
       }
     }
   }
