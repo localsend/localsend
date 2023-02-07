@@ -5,6 +5,7 @@ import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
+import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
@@ -78,30 +79,22 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             ),
             _SettingsEntry(
               label: t.settingsTab.general.language,
-              child: CustomDropdownButton<AppLocale?>(
-                value: settings.locale,
-                items: [
-                  DropdownMenuItem(
-                    value: null,
-                    alignment: Alignment.center,
-                    child: Text(t.settingsTab.general.languageOptions.system),
-                  ),
-                  ...AppLocale.values.map((locale) {
-                    return DropdownMenuItem(
-                      value: locale,
-                      alignment: Alignment.center,
-                      child: Text(locale.humanName, textAlign: TextAlign.center),
-                    );
-                  }),
-                ],
-                onChanged: (locale) async {
-                  await ref.read(settingsProvider.notifier).setLocale(locale);
-                  if (locale == null) {
-                    LocaleSettings.useDeviceLocale();
-                  } else {
-                    LocaleSettings.setLocale(locale);
-                  }
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                  shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  context.push(() => const LanguagePage());
                 },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    settings.locale?.humanName ?? t.settingsTab.general.languageOptions.system,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
               ),
             ),
             if (checkPlatformIsDesktop()) ...[
@@ -314,9 +307,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               },
             ),
             AnimatedCrossFade(
-              crossFadeState: settings.port != defaultPort
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
+              crossFadeState: settings.port != defaultPort ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               duration: const Duration(milliseconds: 200),
               alignment: Alignment.topLeft,
               firstChild: Container(),
@@ -476,11 +467,5 @@ extension on ThemeMode {
       case ThemeMode.dark:
         return t.settingsTab.general.themeOptions.dark;
     }
-  }
-}
-
-extension on AppLocale {
-  String get humanName {
-    return LocaleSettings.instance.translationMap[this]!.locale;
   }
 }

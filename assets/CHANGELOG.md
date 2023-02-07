@@ -1,7 +1,8 @@
 ## 1.7.0 (2023-)
 
 - feat: received file history
-- feat: add unencrypted HTTP mode
+- feat: add unencrypted HTTP mode (for debugging)
+- feat: separate language settings page
 - feat: message input is horizontally scrollable when multiline is unselected
 - feat: open message normally in QuickSave mode (instead of saving it into a file)
 - feat(windows): use "Microsoft YaHei UI" font in Windows which works better with Chinese characters
