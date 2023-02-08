@@ -37,7 +37,7 @@ After you have installed [Flutter](https://flutter.dev), then you can start this
 
 ```shell
 flutter pub get
-flutter pub run build_runner build
+flutter pub run build_runner build -d
 flutter run
 ```
 
@@ -47,12 +47,10 @@ flutter run
 
 You can help translating this app to other languages!
 
-
-
-1. Preparation
-   1. Add missing translations in existing languages: [assets/i18n/_missing_translations.json](https://github.com/localsend/localsend/blob/main/assets/i18n/_missing_translations.json)
-   2. Fix existing translations in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   3. Add new languages: [locale codes](https://saimana.com/list-of-country-locale-code/).
+1. Preparation (Choose one)
+   - Add missing translations in existing languages: [assets/i18n/_missing_translations.json](https://github.com/localsend/localsend/blob/main/assets/i18n/_missing_translations.json)
+   - Fix existing translations in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Add new languages: [locale codes](https://saimana.com/list-of-country-locale-code/).
 2. Fork this repository
 3. Create or update the translation file in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n) (format: `strings_XXX.i18n.json`)
 4. Optional: Re-run this app
@@ -60,6 +58,8 @@ You can help translating this app to other languages!
    2. Update translations via `flutter pub run slang`
    3. Run app via `flutter run`
 5. Open a pull request
+
+**Important:** Do not translate keys starting with `@`. These are comments and should stay in English!
 
 For convenience, you can use this link: https://github.com/localsend/localsend/new/main/assets/i18n
 
