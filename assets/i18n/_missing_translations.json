@@ -110,29 +110,29 @@
   },
   "hu": {
     "receiveHistoryPage": {
-      "title": "History",
-      "empty": "The history is empty.",
+      "title": "Előzmény",
+      "empty": "Az előzmény üres.",
       "entryActions": {
-        "open": "Open file",
-        "info": "Information",
-        "deleteFromHistory": "Delete from history"
+        "open": "Fájl megnyitás",
+        "info": "Információ",
+        "deleteFromHistory": "Törlés az előzményből"
       }
     },
     "dialogs": {
       "addressInput": {
-        "recentlyUsed": "Recently used: "
+        "recentlyUsed": "Nemrég használt: "
       },
       "cannotOpenFile": {
-        "title": "Cannot open file",
-        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+        "title": "A fájl nem nyitható meg",
+        "content": "Nem sikerült megnyitni a(z) \"{file}\" fájlt. Ezt a fájlt áthelyezték, átnevezték vagy törölték?"
       },
       "fileInfo": {
-        "title": "File information",
-        "fileName": "File name:",
-        "path": "Path:",
-        "size": "Size:",
-        "sender": "Sender:",
-        "time": "Time:"
+        "title": "Fájl információ",
+        "fileName": "Fájl neve:",
+        "path": "Útvonal:",
+        "size": "Méret:",
+        "sender": "Feladó:",
+        "time": "Idő:"
       }
     }
   },
