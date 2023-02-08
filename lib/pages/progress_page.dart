@@ -13,6 +13,7 @@ import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
@@ -161,6 +162,15 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                   filePath = null;
                 }
 
+                final String? errorMessage;
+                if (receiveState != null) {
+                  errorMessage = receiveState.files[file.id]!.errorMessage;
+                } else if (sendState != null) {
+                  errorMessage = sendState.files[file.id]!.errorMessage;
+                } else {
+                  errorMessage = null;
+                }
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: InkWell(
@@ -211,9 +221,31 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                   ),
                                 )
                               else
-                                Text(
-                                  savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
-                                  style: TextStyle(color: fileStatus.getColor(context)),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
+                                        style: TextStyle(color: fileStatus.getColor(context)),
+                                      ),
+                                    ),
+                                    if (errorMessage != null)
+                                      ...[
+                                        const SizedBox(width: 5),
+                                        InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (_) => ErrorDialog(error: errorMessage!),
+                                            );
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 5),
+                                            child: Icon(Icons.info, color: Colors.orange, size: 20),
+                                          ),
+                                        ),
+                                      ],
+                                  ],
                                 ),
                             ],
                           ),

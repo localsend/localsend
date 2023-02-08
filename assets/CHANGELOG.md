@@ -2,6 +2,7 @@
 
 - feat: received file history
 - feat: show recent IP addresses in manual IP input
+- feat: improve error handling and add possibility to show exact error message for debugging
 - feat: add unencrypted HTTP mode (for debugging)
 - feat: separate language settings page
 - feat: message input is horizontally scrollable when multiline is unselected

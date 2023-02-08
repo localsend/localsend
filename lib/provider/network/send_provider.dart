@@ -64,6 +64,7 @@ class SendNotifier extends StateNotifier<SendState?> {
             asset: file.asset,
             path: file.path,
             bytes: file.bytes,
+            errorMessage: null,
           ),
         );
       }))),
@@ -163,9 +164,9 @@ class SendNotifier extends StateNotifier<SendState?> {
       }
 
       print('Sending ${file.file.fileName}');
-      state = state?.withFileStatus(file.file.id, FileStatus.sending);
+      state = state?.withFileStatus(file.file.id, FileStatus.sending, null);
 
-      bool hasErrorForFile = false;
+      String? fileError;
       try {
         final cancelToken = CancelToken();
         state = state?.copyWith(cancelToken: cancelToken);
@@ -185,12 +186,8 @@ class SendNotifier extends StateNotifier<SendState?> {
           },
           cancelToken: cancelToken,
         );
-      } on DioError catch (e) {
-        hasErrorForFile = true;
-        hasError = true;
-        print(e);
       } catch (e, st) {
-        hasErrorForFile = true;
+        fileError = e.humanErrorMessage;
         hasError = true;
         print(e);
         print(st);
@@ -200,7 +197,7 @@ class SendNotifier extends StateNotifier<SendState?> {
         // session already closed
         return;
       } else {
-        state = state?.withFileStatus(file.file.id, hasErrorForFile ? FileStatus.failed : FileStatus.finished);
+        state = state?.withFileStatus(file.file.id, fileError != null ? FileStatus.failed : FileStatus.finished, fileError);
       }
     }
 
@@ -226,9 +223,12 @@ class SendNotifier extends StateNotifier<SendState?> {
 }
 
 extension on SendState {
-  SendState withFileStatus(String fileId, FileStatus status) {
+  SendState withFileStatus(String fileId, FileStatus status, String? errorMessage) {
     return copyWith(
-      files: {...files}..update(fileId, (file) => file.copyWith(status: status)),
+      files: {...files}..update(fileId, (file) => file.copyWith(
+        status: status,
+        errorMessage: errorMessage,
+      )),
     );
   }
 }

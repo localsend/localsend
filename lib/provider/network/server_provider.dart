@@ -184,6 +184,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
                 desiredName: null,
                 path: null,
                 savedToGallery: false,
+                errorMessage: null,
               ),
           },
           startTime: null,
@@ -241,6 +242,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
                     desiredName: desiredName,
                     path: null,
                     savedToGallery: false,
+                    errorMessage: null,
                   ),
                 );
               }),
@@ -340,6 +342,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             status: FileStatus.finished,
             path: saveToGallery ? null : destinationPath,
             savedToGallery: saveToGallery,
+            errorMessage: null,
           ),
         );
 
@@ -363,6 +366,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             status: FileStatus.failed,
             path: null,
             savedToGallery: false,
+            errorMessage: e.toString(),
           ),
         );
         print(e);
@@ -522,6 +526,7 @@ extension on ReceiveState {
     required FileStatus status,
     required String? path,
     required bool savedToGallery,
+    required String? errorMessage,
   }) {
     return copyWith(
       files: {...files}..update(
@@ -530,6 +535,7 @@ extension on ReceiveState {
             status: status,
             path: path,
             savedToGallery: savedToGallery,
+            errorMessage: errorMessage,
           ),
         ),
     );

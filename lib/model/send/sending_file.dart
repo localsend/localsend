@@ -14,5 +14,6 @@ class SendingFile with _$SendingFile {
     required AssetEntity? asset, // for thumbnails
     required String? path, // android, iOS, desktop
     required List<int>? bytes, // web
+    required String? errorMessage, // when status == failed
   }) = _SendingFile;
 }
