@@ -83,7 +83,7 @@
       "launchMinimized": "Inicio automático: Iniciar minimizado"
     },
     "receive": {
-      "title": "Recivir",
+      "title": "Recibir",
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
       "saveToGallery": "Guardar media en la galería"
@@ -93,11 +93,22 @@
       "needRestart": "Reiniciar el servidor para aplicar los ajustes.",
       "server": "Servidor",
       "alias": "Alias",
-      "port": "Puerto"
+      "port": "Puerto",
+      "portWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando un puerto personalizado. (Puerto por defecto: {defaultPort})",
+      "encryption": "Encriptación"
     }
   },
   "selectedFilesPage": {
     "deleteAll": "Eliminar todo"
+  },
+  "receiveHistoryPage": {
+    "title": "Historial",
+    "empty": "El historial está vacío.",
+    "entryActions": {
+      "open": "Abrir fichero",
+      "info": "Información",
+      "deleteFromHistory": "Borrar del historial"
+    }
   },
   "receivePage": {
     "subTitle": {
@@ -105,7 +116,7 @@
       "other": "quiere enviarte {n} ficheros."
     },
     "subTitleMessage": "te ha enviado un mensaje:",
-    "subTitleLink": "te ha enviado un link:",
+    "subTitleLink": "te ha enviado un enlace:",
     "canceled": "El remitente ha cancelado la petición."
   },
   "receiveOptionsPage": {
@@ -119,7 +130,7 @@
   },
   "progressPage": {
     "titleSending": "Enviando ficheros",
-    "titleReceiving": "Reciviendo ficheros",
+    "titleReceiving": "Recibiendo ficheros",
     "savedToGallery": "Guardado en fotos",
     "total": {
       "title": {
@@ -137,7 +148,7 @@
     "title": "Sobre LocalSend"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "Registro de cambios"
   },
   "aliasGenerator": {
     "@info": "Uses English version"
@@ -150,12 +161,29 @@
     "addressInput": {
       "title": "Introducir dirección",
       "hashtag": "Hashtag",
-      "ip": "Dirección IP"
+      "ip": "Dirección IP",
+      "recentlyUsed": "Usados recientemente: "
+    },
+    "cannotOpenFile": {
+      "title": "No se puede abrir el fichero",
+      "content": "No se ha podido abrir \"{file}\". ¿Es posible que el fichero se haya movido, renombrado o elimnado?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encriptación deshabilitada",
+      "content": "La comunicación ahora tiene lugar mediante un protocolo HTTP sin encriptar. Para usar HTTPS, vuelve a habilitar la encriptación."
     },
     "cancelSession": {
       "title": "Cancelar transferencia de archivos",
       "content": "¿Realmente quieres cancelar la transferencia de archivos?"
     },
+    "fileInfo": {
+      "title": "Información del fichero",
+      "fileName": "Nombre del fichero:",
+      "path": "Ruta:",
+      "size": "Tamaño:",
+      "sender": "Emisor:",
+      "time": "Hora:"
+    }
     "fileNameInput": {
       "title": "Introduce el nombre",
       "original": "Original: {original}"
