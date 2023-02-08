@@ -177,7 +177,7 @@
       "content": "Die Kommunikation erfolgt nun über das unverschlüsselte HTTP-Protokoll. Um HTTPS zu verwenden, aktiviere wieder die Verschlüsselung."
     },
     "fileInfo": {
-      "title": "Dateiinformation",
+      "title": "Datei-Information",
       "fileName": "Dateiname:",
       "path": "Pfad:",
       "size": "Größe:",
