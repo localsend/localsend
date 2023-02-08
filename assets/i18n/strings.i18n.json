@@ -126,7 +126,8 @@
   },
   "sendPage": {
     "waiting": "Waiting for response...",
-    "rejected": "The recipient has rejected the request."
+    "rejected": "The recipient has rejected the request.",
+    "busy": "The recipient is busy with another request."
   },
   "progressPage": {
     "titleSending": "Sending files",
@@ -245,6 +246,9 @@
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
       "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
     },
     "fileInfo": {
       "title": "File information",
