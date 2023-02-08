@@ -8,7 +8,7 @@
 - feat: message input is horizontally scrollable when multiline is unselected
 - feat: open message normally in QuickSave mode (instead of saving it into a file)
 - feat(windows): use "Microsoft YaHei UI" font in Windows which works better with Chinese characters
-- i18n: add ar, fr, hu, it, ja, ko, pl, ru, sv, zh-Hant (Thanks to all the contributors!)
+- i18n: add ar, es-ES, fr-FR, hu, in, it, iw, ja, ko, ne, pl, pt-BR, ru, sv, tr, zh-Hant-HK, zh-Hant-TW (Thanks to all the contributors!)
 
 ## 1.6.2 (2023-01-28)
 
