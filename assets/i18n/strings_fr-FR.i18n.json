@@ -95,7 +95,7 @@
       "alias": "Alias",
       "port": "Port",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
-      "encryption": "Chiffrement" 
+      "encryption": "Chiffrement"
     }
   },
   "selectedFilesPage": {
@@ -152,7 +152,8 @@
     "addressInput": {
       "title": "Entrez l'adresse",
       "hashtag": "Hashtag",
-      "ip": "Adresse IP"
+      "ip": "Adresse IP",
+      "recentlyUsed": "Récemment utilisé :"
     },
     "cancelSession": {
       "title": "Annuler le transfert de fichiers",
@@ -185,11 +186,32 @@
     "encryptionDisabledNotice": {
       "title": "Chiffrement désactivé",
       "content": "La communication s'effectue désormais via le protocole HTTP non crypté. Pour utiliser HTTPS, réactivez le chiffrement."
+    },
+    "cannotOpenFile": {
+      "title": "Ne peut pas ouvrir le fichier",
+      "content": "Ne peut pas ouvrir \"{file}\". Ce fichier a-t-il été déplacé, renommé ou supprimé ?"
+    },
+    "fileInfo": {
+      "title": "Informations sur le fichier",
+      "fileName": "Nom du fichier :",
+      "path": "Chemin :",
+      "size": "Taille :",
+      "sender": "Éxpéditeur :",
+      "time": "Temps :"
     }
   },
   "tray": {
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
     "open": "@:general.open",
     "close": "Quitter LocalSend"
+  },
+  "receiveHistoryPage": {
+    "title": "Historique",
+    "empty": "L'historique est vide.",
+    "entryActions": {
+      "open": "Ouvrir le fichier",
+      "info": "Information",
+      "deleteFromHistory": "Supprimer de l'historique"
+    }
   }
 }
