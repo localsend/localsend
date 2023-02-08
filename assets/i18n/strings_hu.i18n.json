@@ -98,6 +98,15 @@
       "encryption": "Titkosítás"
     }
   },
+  "receiveHistoryPage": {
+    "title": "Előzmény",
+    "empty": "Az előzmény üres.",
+    "entryActions": {
+      "open": "Fájl megnyitás",
+      "info": "Információ",
+      "deleteFromHistory": "Törlés az előzményből"
+    }
+  },
   "selectedFilesPage": {
     "deleteAll": "Összes törlése"
   },
@@ -152,11 +161,28 @@
     "addressInput": {
       "title": "Adja meg a címet",
       "hashtag": "Hashtag",
-      "ip": "IP cím"
+      "ip": "IP cím",
+      "recentlyUsed": "Nemrég használt: "
     },
     "cancelSession": {
       "title": "Fájlátvitel megszakítása",
       "content": "Valóban meg akarja szakítani a fájlátvitelt?"
+    },
+    "cannotOpenFile": {
+      "title": "A fájl nem nyitható meg",
+      "content": "Nem sikerült megnyitni a(z) \"{file}\" fájlt. Ezt a fájlt áthelyezték, átnevezték vagy törölték?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "A titkosítás letiltva",
+      "content": "A kommunikáció most a titkosítatlan HTTP protokollon keresztül történik. A HTTPS használatához engedélyezze újra a titkosítást."
+    },
+    "fileInfo": {
+      "title": "Fájl információ",
+      "fileName": "Fájl neve:",
+      "path": "Útvonal:",
+      "size": "Méret:",
+      "sender": "Feladó:",
+      "time": "Idő:"
     },
     "fileNameInput": {
       "title": "Írja be a fájl nevét",
@@ -181,10 +207,6 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
-    },
-    "encryptionDisabledNotice": {
-      "title": "A titkosítás letiltva",
-      "content": "A kommunikáció most a titkosítatlan HTTP protokollon keresztül történik. A HTTPS használatához engedélyezze újra a titkosítást."
     }
   },
   "tray": {
