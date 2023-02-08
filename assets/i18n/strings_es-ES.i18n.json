@@ -183,7 +183,7 @@
       "size": "Tamaño:",
       "sender": "Emisor:",
       "time": "Hora:"
-    }
+    },
     "fileNameInput": {
       "title": "Introduce el nombre",
       "original": "Original: {original}"

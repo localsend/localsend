@@ -19,6 +19,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -31,6 +34,9 @@
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
       },
+      "errorDialog": {
+        "title": "@:general.error"
+      },
       "fileInfo": {
         "title": "File information",
         "fileName": "File name:",
@@ -41,71 +47,43 @@
       }
     }
   },
-  "de": {},
+  "de": {
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
+    "dialogs": {
+      "errorDialog": {
+        "title": "@:general.error"
+      }
+    }
+  },
   "es-ES": {
-    "settingsTab": {
-      "network": {
-        "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
-      }
-    },
-    "receiveHistoryPage": {
-      "title": "History",
-      "empty": "The history is empty.",
-      "entryActions": {
-        "open": "Open file",
-        "info": "Information",
-        "deleteFromHistory": "Delete from history"
-      }
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
     },
     "dialogs": {
-      "addressInput": {
-        "recentlyUsed": "Recently used: "
-      },
-      "cannotOpenFile": {
-        "title": "Cannot open file",
-        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
-      },
-      "encryptionDisabledNotice": {
-        "title": "Encryption disabled",
-        "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
-      },
-      "fileInfo": {
-        "title": "File information",
-        "fileName": "File name:",
-        "path": "Path:",
-        "size": "Size:",
-        "sender": "Sender:",
-        "time": "Time:"
+      "errorDialog": {
+        "title": "@:general.error"
       }
     }
   },
-  "fr-FR": {},
-  "hu": {
-    "receiveHistoryPage": {
-      "title": "Előzmény",
-      "empty": "Az előzmény üres.",
-      "entryActions": {
-        "open": "Fájl megnyitás",
-        "info": "Információ",
-        "deleteFromHistory": "Törlés az előzményből"
-      }
+  "fr-FR": {
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
     },
     "dialogs": {
-      "addressInput": {
-        "recentlyUsed": "Nemrég használt: "
-      },
-      "cannotOpenFile": {
-        "title": "A fájl nem nyitható meg",
-        "content": "Nem sikerült megnyitni a(z) \"{file}\" fájlt. Ezt a fájlt áthelyezték, átnevezték vagy törölték?"
-      },
-      "fileInfo": {
-        "title": "Fájl információ",
-        "fileName": "Fájl neve:",
-        "path": "Útvonal:",
-        "size": "Méret:",
-        "sender": "Feladó:",
-        "time": "Idő:"
+      "errorDialog": {
+        "title": "@:general.error"
+      }
+    }
+  },
+  "hu": {
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
+    "dialogs": {
+      "errorDialog": {
+        "title": "@:general.error"
       }
     }
   },
@@ -119,6 +97,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -126,6 +107,9 @@
       "cannotOpenFile": {
         "title": "Cannot open file",
         "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -147,6 +131,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -154,6 +141,9 @@
       "cannotOpenFile": {
         "title": "Cannot open file",
         "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -181,6 +171,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -193,6 +186,9 @@
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
       },
+      "errorDialog": {
+        "title": "@:general.error"
+      },
       "fileInfo": {
         "title": "File information",
         "fileName": "File name:",
@@ -203,7 +199,16 @@
       }
     }
   },
-  "ja": {},
+  "ja": {
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
+    "dialogs": {
+      "errorDialog": {
+        "title": "@:general.error"
+      }
+    }
+  },
   "ko": {
     "receiveHistoryPage": {
       "title": "History",
@@ -214,6 +219,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -221,6 +229,9 @@
       "cannotOpenFile": {
         "title": "Cannot open file",
         "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -248,6 +259,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -259,6 +273,9 @@
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -286,6 +303,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -298,6 +318,9 @@
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
       },
+      "errorDialog": {
+        "title": "@:general.error"
+      },
       "fileInfo": {
         "title": "File information",
         "fileName": "File name:",
@@ -309,9 +332,15 @@
     }
   },
   "pt-BR": {
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -339,6 +368,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -350,6 +382,9 @@
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -377,6 +412,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -388,6 +426,9 @@
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -409,6 +450,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -416,6 +460,9 @@
       "cannotOpenFile": {
         "title": "Cannot open file",
         "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -431,9 +478,15 @@
     "receiveHistoryPage": {
       "empty": "The history is empty."
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -461,6 +514,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -472,6 +528,9 @@
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
@@ -499,6 +558,9 @@
         "deleteFromHistory": "Delete from history"
       }
     },
+    "sendPage": {
+      "busy": "The recipient is busy with another request."
+    },
     "dialogs": {
       "addressInput": {
         "recentlyUsed": "Recently used: "
@@ -510,6 +572,9 @@
       "encryptionDisabledNotice": {
         "title": "Encryption disabled",
         "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      },
+      "errorDialog": {
+        "title": "@:general.error"
       },
       "fileInfo": {
         "title": "File information",
