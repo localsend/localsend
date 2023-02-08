@@ -42,8 +42,7 @@ body:
       label: Desktop (please complete the following information)
       placeholder: |
         - OS: [e.g. iOS]
-        - Browser: [e.g. chrome, safari]
-        - Version: [e.g. 22]
+        - Version: [e.g. 1.6.2]
   - type: textarea
     id: bug_report_smartphone
     attributes:
@@ -51,8 +50,7 @@ body:
       placeholder: |
         - Device: [e.g. iPhone6]
         - OS: [e.g. iOS8.1]
-        - Browser: [e.g. stock browser, safari]
-        - Version: [e.g. 22]
+        - Version: [e.g. 1.6.2]
   - type: textarea
     id: bug_report_additional_context
     attributes:
