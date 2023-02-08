@@ -98,6 +98,15 @@
       "encryption": "Verschlüsselung"
     }
   },
+  "receiveHistoryPage": {
+    "title": "Verlauf",
+    "empty": "Der Verlauf ist leer.",
+    "entryActions": {
+      "open": "Datei öffnen",
+      "info": "Information",
+      "deleteFromHistory": "Vom Verlauf entfernen"
+    }
+  },
   "selectedFilesPage": {
     "deleteAll": "Alle löschen"
   },
@@ -152,15 +161,28 @@
     "addressInput": {
       "title": "Adresse eingeben",
       "hashtag": "Hashtag",
-      "ip": "IP-Adresse"
+      "ip": "IP-Adresse",
+      "recentlyUsed": "Zuletzt verwendet: "
     },
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
       "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
     },
+    "cannotOpenFile": {
+      "title": "Öffnen fehlgeschlagen",
+      "content": "Die Datei \"{file}\" konnte nicht geöffnet werden. Wurde diese Datei verschoben, umbenannt oder gelöscht?"
+    },
     "encryptionDisabledNotice": {
       "title": "Verschlüsselung deaktiviert",
       "content": "Die Kommunikation erfolgt nun über das unverschlüsselte HTTP-Protokoll. Um HTTPS zu verwenden, aktiviere wieder die Verschlüsselung."
+    },
+    "fileInfo": {
+      "title": "Dateiinformation",
+      "fileName": "Dateiname:",
+      "path": "Pfad:",
+      "size": "Größe:",
+      "sender": "Absender:",
+      "time": "Zeit:"
     },
     "fileNameInput": {
       "title": "Dateiname eingeben",

@@ -41,34 +41,7 @@
       }
     }
   },
-  "de": {
-    "receiveHistoryPage": {
-      "title": "History",
-      "empty": "The history is empty.",
-      "entryActions": {
-        "open": "Open file",
-        "info": "Information",
-        "deleteFromHistory": "Delete from history"
-      }
-    },
-    "dialogs": {
-      "addressInput": {
-        "recentlyUsed": "Recently used: "
-      },
-      "cannotOpenFile": {
-        "title": "Cannot open file",
-        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
-      },
-      "fileInfo": {
-        "title": "File information",
-        "fileName": "File name:",
-        "path": "Path:",
-        "size": "Size:",
-        "sender": "Sender:",
-        "time": "Time:"
-      }
-    }
-  },
+  "de": {},
   "es-ES": {
     "settingsTab": {
       "network": {
@@ -257,34 +230,7 @@
       }
     }
   },
-  "ja": {
-    "receiveHistoryPage": {
-      "title": "History",
-      "empty": "The history is empty.",
-      "entryActions": {
-        "open": "Open file",
-        "info": "Information",
-        "deleteFromHistory": "Delete from history"
-      }
-    },
-    "dialogs": {
-      "addressInput": {
-        "recentlyUsed": "Recently used: "
-      },
-      "cannotOpenFile": {
-        "title": "Cannot open file",
-        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
-      },
-      "fileInfo": {
-        "title": "File information",
-        "fileName": "File name:",
-        "path": "Path:",
-        "size": "Size:",
-        "sender": "Sender:",
-        "time": "Time:"
-      }
-    }
-  },
+  "ja": {},
   "ko": {
     "receiveHistoryPage": {
       "title": "History",
