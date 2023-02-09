@@ -98,6 +98,15 @@
       "encryption": "Şifreleme"
     }
   },
+  "receiveHistoryPage": {
+    "title": "Geçmiş",
+    "empty": "Geçmiş yok.",
+    "entryActions": {
+      "open": "Dosya aç",
+      "info": "Bilgi",
+      "deleteFromHistory": "Geçmişten sil"
+    }
+  },
   "selectedFilesPage": {
     "deleteAll": "Hepsini sil"
   },
@@ -117,7 +126,8 @@
   },
   "sendPage": {
     "waiting": "Alıcıdan cevap bekleniyor...",
-    "rejected": "Alıcı isteği reddetti."
+    "rejected": "Alıcı isteği reddetti.",
+    "busy": "Alıcı başka bir istekle meşgul."
   },
   "progressPage": {
     "titleSending": "Dosyalar gönderiliyor",
@@ -152,15 +162,31 @@
     "addressInput": {
       "title": "Adresi giriniz",
       "hashtag": "Hashtag",
-      "ip": "IP adresi"
+      "ip": "IP adresi",
+      "recentlyUsed": "Daha önce kullanılmış: "
     },
     "cancelSession": {
       "title": "Dosya transferini iptal et",
       "content": "Gerçekten dosya transferini iptal etmek istiyor musunuz?"
     },
+    "cannotOpenFile": {
+      "title": "Dosya açılamadı",
+      "content": "\"{file}\" dosyası açılamadı. Dosya taşınmış, silinmiş veya ismi değiştirilmiş olabilir mi?"
+    },
     "encryptionDisabledNotice": {
       "title": "Şifreleme devre dışı bırakıldı",
       "content": "Artık iletişim şifrelenmemiş HTTP protokolü aracılığıyla gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi yeniden aktif edin."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "Dosya bilgileri",
+      "fileName": "Dosya adı:",
+      "path": "Yolu:",
+      "size": "Boyutu:",
+      "sender": "Gönderen:",
+      "time": "Zaman:"
     },
     "fileNameInput": {
       "title": "Dosya adını giriniz",
