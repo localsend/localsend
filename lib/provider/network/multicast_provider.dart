@@ -40,6 +40,7 @@ class MulticastService {
     final fingerprint = _ref.read(fingerprintProvider);
     final multicastEndpoint = Endpoint.multicast(InternetAddress(_multicastGroup), port: Port(settings.port));
     final receiver = await UDP.bind(multicastEndpoint);
+    _receiver = receiver;
 
     // Tell everyone in the network that I am online
     sendAnnouncement();
