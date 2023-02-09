@@ -6,23 +6,19 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/network_info.dart';
-import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
 
-final networkInfoProvider = StateNotifierProvider<NetworkInfoNotifier, NetworkInfo>((ref) => NetworkInfoNotifier(ref));
+final networkInfoProvider = StateNotifierProvider<NetworkInfoNotifier, NetworkInfo>((ref) => NetworkInfoNotifier());
 
 StreamSubscription? _subscription;
 
 class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
-  final Ref _ref;
 
-  NetworkInfoNotifier(this._ref)
+  NetworkInfoNotifier()
       : super(const NetworkInfo(
           localIps: [],
           initialized: false,
-          scanWhenInitialized: false,
         )) {
     init();
   }
@@ -36,7 +32,6 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
           state = NetworkInfo(
             localIps: await _getIp(),
             initialized: true,
-            scanWhenInitialized: state.scanWhenInitialized,
           );
         });
       } else {
@@ -44,7 +39,6 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
           state = NetworkInfo(
             localIps: await _getIp(),
             initialized: true,
-            scanWhenInitialized: state.scanWhenInitialized,
           );
         });
       }
@@ -52,39 +46,7 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
     state = NetworkInfo(
       localIps: await _getIp(),
       initialized: true,
-      scanWhenInitialized: state.scanWhenInitialized,
     );
-
-    if (state.scanWhenInitialized) {
-      await _scan();
-    }
-  }
-
-  Future<void> scanWhenInitialized() async {
-    if (state.initialized) {
-      // scan right away
-      await _scan();
-    } else {
-      // scan when IP addresses are fetched
-      state = state.copyWith(scanWhenInitialized: true);
-    }
-  }
-
-  Future<void> _scan() async {
-    final localIp = state.localIps.firstOrNull;
-    if (localIp == null) {
-      return;
-    }
-
-    final settings = _ref.read(settingsProvider);
-    final port = settings.port;
-    final https = settings.https;
-    state = state.copyWith(scanWhenInitialized: false);
-    await _ref.read(nearbyDevicesProvider.notifier).startScan(
-          port: port,
-          localIp: localIp,
-          https: https,
-        );
   }
 
   Future<List<String>> _getIp() async {

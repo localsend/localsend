@@ -1,5 +1,6 @@
 ## 1.7.0 (2023-)
 
+- feat: improve device discovery by enabling multicast
 - feat: received file history
 - feat: show recent IP addresses in manual IP input
 - feat: improve error handling and add possibility to show exact error message for debugging

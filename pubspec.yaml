@@ -47,6 +47,7 @@ dependencies:
     git:
       url: https://github.com/Tienisto/tray_manager.git
       ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
+  udp: 5.0.3
   url_launcher: 6.1.7
   uuid: 3.0.7
   wakelock: 0.6.2

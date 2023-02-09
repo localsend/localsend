@@ -51,7 +51,7 @@ class _SendTabState extends ConsumerState<SendTab> {
       final https = settings.https;
       ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
     } else {
-      ref.read(networkInfoProvider.notifier).scanWhenInitialized();
+      ref.read(nearbyDevicesProvider.notifier).startMulticastScan();
     }
   }
 
@@ -188,7 +188,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   spinning: nearbyDevicesState.runningIps.isNotEmpty,
                   reverse: true,
                   child: CustomIconButton(
-                    onPressed: () => _scan(null),
+                    onPressed: () => _scan(networkInfo.localIps.first),
                     child: const Icon(Icons.sync),
                   ),
                 ),

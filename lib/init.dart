@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
+import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
@@ -109,6 +110,12 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
         );
   } catch (e) {
     context.showSnackBar(e.toString());
+  }
+
+  try {
+    ref.read(nearbyDevicesProvider.notifier).startMulticastListener();
+  } catch (e) {
+    print(e);
   }
 
   bool hasInitialShare = false;
