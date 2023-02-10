@@ -5,10 +5,10 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
@@ -36,23 +36,13 @@ class _SendTabState extends ConsumerState<SendTab> {
   void initState() {
     super.initState();
 
+    // Automatically scan the network when visiting the scan tab
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        _scan(null);
+        ref.read(scanProvider).startSmartScan();
       }
     });
-  }
-
-  void _scan(String? localIp) {
-    if (localIp != null) {
-      final settings = ref.read(settingsProvider);
-      final port = settings.port;
-      final https = settings.https;
-      ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
-    } else {
-      ref.read(nearbyDevicesProvider.notifier).startMulticastScan();
-    }
   }
 
   @override
@@ -188,7 +178,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   spinning: nearbyDevicesState.runningIps.isNotEmpty,
                   reverse: true,
                   child: CustomIconButton(
-                    onPressed: () => _scan(networkInfo.localIps.first),
+                    onPressed: () => ref.read(scanProvider).startLegacySubnetScan(networkInfo.localIps.first),
                     child: const Icon(Icons.sync),
                   ),
                 ),
@@ -239,7 +229,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                             spinning: nearbyDevicesState.runningIps.contains(ip),
                             reverse: true,
                             child: CustomIconButton(
-                              onPressed: () => _scan(ip),
+                              onPressed: () => ref.read(scanProvider).startLegacySubnetScan(ip),
                               child: const Icon(Icons.sync),
                             ),
                           ),
