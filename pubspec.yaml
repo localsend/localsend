@@ -76,6 +76,9 @@ dependency_overrides:
       path: share_handler_platform_interface
       ref: 630cf945524dfbae1bc63ed83b28559b47b25ffa
 
+  # cannot open windows settings in 3.0.3
+  url_launcher_windows: 3.0.2
+
 flutter:
   uses-material-design: true
 

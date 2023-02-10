@@ -1183,12 +1183,12 @@ packages:
     source: hosted
     version: "2.0.14"
   url_launcher_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: url_launcher_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.2"
   uuid:
     dependency: "direct main"
     description:
