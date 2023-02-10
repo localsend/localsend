@@ -837,13 +837,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
-  responsive_builder:
-    dependency: "direct main"
-    description:
-      name: responsive_builder
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.3"
   riverpod:
     dependency: transitive
     description:
@@ -859,12 +852,12 @@ packages:
     source: hosted
     version: "0.3.0"
   screen_retriever:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: screen_retriever
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.6"
   share_handler:
     dependency: "direct main"
     description:

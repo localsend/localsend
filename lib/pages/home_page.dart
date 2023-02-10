@@ -8,8 +8,7 @@ import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
-import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 
 enum HomeTab {
   receive(Icons.wifi),
@@ -87,8 +86,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         _goToPage(HomeTab.send.index);
       },
       child: ResponsiveBuilder(
-        breakpoints: ResponsiveListView.defaultBreakpoints,
-        builder: (context, sizingInformation) {
+        builder: (sizingInformation) {
           return Scaffold(
             body: SafeArea(
               child: Row(

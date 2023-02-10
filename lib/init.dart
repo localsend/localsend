@@ -18,6 +18,7 @@ import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/util/tray_helper.dart';
 import 'package:routerino/routerino.dart';
+import 'package:screen_retriever/screen_retriever.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -79,15 +80,21 @@ Future<PersistenceService> preInit(List<String> args) async {
       });
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
-  }
 
-  if (checkPlatformIsDesktop()) {
     // initialize tray AFTER i18n has been initialized
     await initTray();
 
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
+
+      final primaryDisplay = await screenRetriever.getPrimaryDisplay();
+      final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
+      if (width >= 1200) {
+        // make initial window size bigger as our display is big enough
+        windowManager.setSize(const Size(900, 600));
+      }
+      await windowManager.center();
       await windowManager.show();
     }
   }
