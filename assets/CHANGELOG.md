@@ -1,4 +1,4 @@
-## 1.7.0 (2023-02-10)
+## 1.7.0 (2023-02-11)
 
 - feat: improve device discovery by enabling multicast
 - feat: received file history
