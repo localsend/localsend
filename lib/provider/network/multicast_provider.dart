@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,11 +7,11 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
+import 'package:localsend_app/provider/multicast_logs_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
-import 'package:udp/udp.dart';
 
 const _multicastGroup = '224.0.245.133';
 
@@ -23,85 +24,91 @@ final multicastProvider = Provider((ref) {
 class MulticastService {
   final Ref _ref;
   final DeviceInfoResult _deviceInfo;
-
-  UDP? _receiver;
+  bool _listening = false;
 
   MulticastService(this._ref, this._deviceInfo);
 
   /// Binds the UDP port and listen to UDP multicast packages
   /// It will automatically answer announcement messages
   Stream<Device> startListener() async* {
-    if (_receiver != null) {
+    if (_listening) {
       print('Multicast receiver already running.');
       return;
     }
 
+    _listening = true;
+
+    final streamController = StreamController<Device>();
     final settings = _ref.read(settingsProvider);
     final fingerprint = _ref.read(fingerprintProvider);
-    final multicastEndpoint = Endpoint.multicast(InternetAddress(_multicastGroup), port: Port(settings.port));
-    final receiver = await UDP.bind(multicastEndpoint);
-    _receiver = receiver;
+
+    final sockets = await _getSockets(_multicastGroup, settings.port);
+    for (final socket in sockets) {
+      socket.socket.listen((_) {
+        final datagram = socket.socket.receive();
+        if (datagram == null) {
+          return;
+        }
+
+        try {
+          final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
+          if (dto.fingerprint == fingerprint) {
+            return;
+          }
+
+          final ip = datagram.address.address;
+          streamController.add(dto.toDevice(ip, settings.port, settings.https));
+          _ref.read(multicastLogsProvider.notifier).addLog('Received UDP: ${dto.alias} ($ip)');
+          if (dto.announcement && _ref.read(serverProvider) != null) {
+            // only respond when server is running
+            _answerAnnouncement();
+          }
+        } catch (e) {
+          _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+        }
+      });
+      _ref.read(multicastLogsProvider.notifier).addLog('Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: $_multicastGroup, port: ${settings.port})');
+    }
 
     // Tell everyone in the network that I am online
     sendAnnouncement();
 
-    print('Listening to multicast messages ($_multicastGroup, port: ${settings.port})');
-    await for (final datagram in receiver.asStream()) {
-      if (datagram == null) {
-        continue;
-      }
-      try {
-        final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
-        if (dto.fingerprint == fingerprint) {
-          continue;
-        }
-
-        final ip = datagram.address.address;
-        yield dto.toDevice(ip, settings.port, settings.https);
-        print('Received UDP: ${dto.alias} ($ip)');
-        if (dto.announcement && _ref.read(serverProvider) != null) {
-          // only respond when server is running
-          print('Answering announcement');
-          _answerAnnouncement();
-        }
-      } catch (e) {
-        print(e);
-      }
-    }
+    yield* streamController.stream;
   }
 
   /// Sends an announcement which triggers a response on every LocalSend member of the network.
   Future<void> sendAnnouncement() async {
-    try {
-      final settings = _ref.read(settingsProvider);
-      final multicastEndpoint = Endpoint.multicast(InternetAddress(_multicastGroup), port: Port(settings.port));
-      final sender = await UDP.bind(Endpoint.any());
-      final dto = _getDto(announcement: true);
+    final settings = _ref.read(settingsProvider);
+    final sockets = await _getSockets(_multicastGroup);
+    final dto = _getDto(announcement: true);
+    for (final wait in [100, 500, 1000, 2000]) {
+      await sleepAsync(wait);
 
-      for (final wait in [100, 500, 1000, 2000]) {
-        await sleepAsync(wait);
-        print('Sending announcement');
-        await sender.send(dto, multicastEndpoint);
+      _ref.read(multicastLogsProvider.notifier).addLog('Sending announcement');
+      for (final socket in sockets) {
+        try {
+          socket.socket.send(dto, InternetAddress(_multicastGroup), settings.port);
+          socket.socket.close();
+        } catch (e) {
+          _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+        }
       }
-      sender.close();
-    } catch (e, st) {
-      print(e);
-      print(st);
     }
   }
 
   /// Responds to an announcement.
   Future<void> _answerAnnouncement() async {
-    try {
-      final settings = _ref.read(settingsProvider);
-      final multicastEndpoint = Endpoint.multicast(InternetAddress(_multicastGroup), port: Port(settings.port));
-      final sender = await UDP.bind(Endpoint.any());
-      final dto = _getDto(announcement: false);
-      await sender.send(dto, multicastEndpoint);
-      sender.close();
-    } catch (e, st) {
-      print(e);
-      print(st);
+    _ref.read(multicastLogsProvider.notifier).addLog('Answering announcement');
+    final settings = _ref.read(settingsProvider);
+    final sockets = await _getSockets(_multicastGroup);
+    final dto = _getDto(announcement: false);
+    for (final socket in sockets) {
+      try {
+        socket.socket.send(dto, InternetAddress(_multicastGroup), settings.port);
+        socket.socket.close();
+      } catch (e) {
+        _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+      }
     }
   }
 
@@ -119,4 +126,27 @@ class MulticastService {
     );
     return utf8.encode(jsonEncode(dto.toJson()));
   }
+}
+
+class _SocketResult {
+  final NetworkInterface interface;
+  final RawDatagramSocket socket;
+
+  _SocketResult(this.interface, this.socket);
+}
+
+Future<List<_SocketResult>> _getSockets(String multicastGroup, [int? port]) async {
+  final interfaces = await NetworkInterface.list();
+  final sockets = <_SocketResult>[];
+  for (final interface in interfaces) {
+    try {
+      final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
+      socket.joinMulticast(InternetAddress(multicastGroup), interface);
+      sockets.add(_SocketResult(interface, socket));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  return sockets;
 }

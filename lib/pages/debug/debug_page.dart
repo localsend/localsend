@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/pages/debug/multicast_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
-import 'package:localsend_app/util/snackbar.dart';
+import 'package:localsend_app/widget/copyable_text.dart';
+import 'package:routerino/routerino.dart';
 
 const _headerStyle = TextStyle(fontWeight: FontWeight.bold);
 
@@ -40,6 +41,19 @@ class DebugPage extends ConsumerWidget {
             name: 'Dart SDK',
             value: Platform.version,
           ),
+          const SizedBox(height: 20),
+          const Text('More', style: _headerStyle),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  context.push(() => const MulticastDebugPage());
+                },
+                child: const Text('Multicast'),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -62,34 +76,11 @@ class _DebugEntry extends StatelessWidget {
       children: [
         const SizedBox(height: 20),
         Text(name, style: _headerStyle),
-        _CopyableText(
+        CopyableText(
           name: name,
           value: value,
         ),
       ],
-    );
-  }
-}
-
-class _CopyableText extends StatelessWidget {
-  final String name;
-  final String? value;
-
-  const _CopyableText({
-    required this.name,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: value == null
-          ? null
-          : () {
-              Clipboard.setData(ClipboardData(text: value));
-              context.showSnackBar('Copied $name to clipboard!');
-            },
-      child: Text(value ?? '-'),
     );
   }
 }
