@@ -19,17 +19,17 @@ Future<void> saveFile({
 
   final sink = File(destinationPath).openWrite();
   try {
-    int lastNotifyBytes = 0;
     int savedBytes = 0;
-    await stream.forEach((event) {
+    final stopwatch = Stopwatch()..start();
+    await for (final event in stream) {
       sink.add(event);
 
       savedBytes += event.length;
-      if (savedBytes - lastNotifyBytes >= 100 * 1024) {
-        lastNotifyBytes = savedBytes;
+      if (stopwatch.elapsedMilliseconds >= 100) {
+        stopwatch.reset();
         onProgress(savedBytes);
       }
-    });
+    }
 
     await sink.close();
 
