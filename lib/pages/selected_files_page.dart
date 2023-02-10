@@ -42,7 +42,7 @@ class SelectedFilesPage extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () {
                   ref.read(selectedSendingFilesProvider.notifier).reset();
-                  clearCache(onlyFilePicker: true);
+                  clearCache();
                   context.popUntilRoot();
                 },
                 child: Text(t.selectedFilesPage.deleteAll),
@@ -89,7 +89,7 @@ class SelectedFilesPage extends ConsumerWidget {
                               final currCount = ref.read(selectedSendingFilesProvider).length;
                               ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
                               if (currCount == 1) {
-                                clearCache(onlyFilePicker: true);
+                                clearCache();
                                 context.popUntilRoot();
                               }
                             },
