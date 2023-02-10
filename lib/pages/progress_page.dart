@@ -28,6 +28,8 @@ class ProgressPage extends ConsumerStatefulWidget {
 
 class _ProgressPageState extends ConsumerState<ProgressPage> {
   int _totalBytes = double.maxFinite.toInt();
+  int _lastRemainingTimeUpdate = 0; // millis since epoch
+  String? _remainingTime;
   List<FileDto> _files = []; // also contains declined files (files without token)
   Set<String> _filesWithToken = {};
 
@@ -100,13 +102,16 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     final startTime = receiveState?.startTime ?? sendState?.startTime;
     final endTime = receiveState?.endTime ?? sendState?.endTime;
     final int? speedInBytes;
-    final String? remainingTime;
     if (startTime != null && currBytes >= 500 * 1024) {
       speedInBytes = getFileSpeed(start: startTime, end: endTime ?? DateTime.now().millisecondsSinceEpoch, bytes: currBytes);
-      remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+
+      final now = DateTime.now().millisecondsSinceEpoch;
+      if (now - _lastRemainingTimeUpdate >= 1000) {
+        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+        _lastRemainingTimeUpdate = now;
+      }
     } else {
       speedInBytes = null;
-      remainingTime = null;
     }
 
     return WillPopScope(
@@ -270,7 +275,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                         children: [
                           Text(
                             status.getLabel(
-                              remainingTime: remainingTime ?? '-',
+                              remainingTime: _remainingTime ?? '-',
                             ),
                             style: const TextStyle(fontSize: 20),
                           ),
