@@ -95,6 +95,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   child: Text(
                     settings.locale?.humanName ?? t.settingsTab.general.languageOptions.system,
                     style: Theme.of(context).textTheme.subtitle1,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
