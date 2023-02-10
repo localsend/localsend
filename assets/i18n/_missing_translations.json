@@ -86,11 +86,11 @@
     "settingsTab": {
       "network": {
         "multicastGroup": "Multicast",
-        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+        "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
       }
     },
     "sendPage": {
-      "busy": "The recipient is busy with another request."
+      "busy": "A címzett más kéréssel van elfoglalva."
     },
     "dialogs": {
       "errorDialog": {
