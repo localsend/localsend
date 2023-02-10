@@ -165,10 +165,15 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ),
         ],
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Row(
           children: [
-            Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
+              ),
+            ),
             const SizedBox(width: 10),
             if (networkInfo.localIps.length == 1)
               Tooltip(
