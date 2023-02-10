@@ -185,7 +185,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     hoverColor: Colors.transparent,
                     onTap: filePath != null && receiveState != null ? () => OpenFilex.open(filePath) : null,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         if (sendState != null && sendState.files[file.id]?.asset != null)
                           // Special handling for assets
@@ -203,21 +203,21 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 5),
                               Row(
                                 children: [
                                   Flexible(
                                     child: Text(
                                       fileName,
-                                      style: const TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16, height: 1),
                                       maxLines: 1,
                                       overflow: TextOverflow.fade,
                                       softWrap: false,
                                     ),
                                   ),
-                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16)),
+                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16, height: 1)),
                                 ],
                               ),
+                              const SizedBox(height: 5),
                               if (fileStatus == FileStatus.sending)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
@@ -231,7 +231,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                     Flexible(
                                       child: Text(
                                         savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
-                                        style: TextStyle(color: fileStatus.getColor(context)),
+                                        style: TextStyle(color: fileStatus.getColor(context), height: 1),
                                       ),
                                     ),
                                     if (errorMessage != null)
