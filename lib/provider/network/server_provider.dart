@@ -325,6 +325,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
+          name: receivingFile.desiredName!,
           saveToGallery: saveToGallery,
           stream: request.read(),
           onProgress: (savedBytes) {
@@ -349,7 +350,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         // Track it in history
         await _ref.read(receiveHistoryProvider.notifier).addEntry(
               id: fileId,
-              fileName: receivingFile.desiredName ?? receivingFile.file.fileName,
+              fileName: receivingFile.desiredName!,
               fileType: receivingFile.file.fileType,
               path: saveToGallery ? null : destinationPath,
               savedToGallery: saveToGallery,
