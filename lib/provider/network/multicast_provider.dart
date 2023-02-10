@@ -13,8 +13,6 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
 
-const _multicastGroup = '224.0.245.133';
-
 final multicastProvider = Provider((ref) {
   final deviceInfo = ref.watch(deviceRawInfoProvider);
   return MulticastService(ref, deviceInfo);
@@ -42,7 +40,7 @@ class MulticastService {
     final settings = _ref.read(settingsProvider);
     final fingerprint = _ref.read(fingerprintProvider);
 
-    final sockets = await _getSockets(_multicastGroup, settings.port);
+    final sockets = await _getSockets(settings.multicastGroup, settings.port);
     for (final socket in sockets) {
       socket.socket.listen((_) {
         final datagram = socket.socket.receive();
@@ -67,7 +65,7 @@ class MulticastService {
           _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
         }
       });
-      _ref.read(multicastLogsProvider.notifier).addLog('Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: $_multicastGroup, port: ${settings.port})');
+      _ref.read(multicastLogsProvider.notifier).addLog('Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${settings.multicastGroup}, port: ${settings.port})');
     }
 
     // Tell everyone in the network that I am online
@@ -79,7 +77,7 @@ class MulticastService {
   /// Sends an announcement which triggers a response on every LocalSend member of the network.
   Future<void> sendAnnouncement() async {
     final settings = _ref.read(settingsProvider);
-    final sockets = await _getSockets(_multicastGroup);
+    final sockets = await _getSockets(settings.multicastGroup);
     final dto = _getDto(announcement: true);
     for (final wait in [100, 500, 1000, 2000]) {
       await sleepAsync(wait);
@@ -87,7 +85,7 @@ class MulticastService {
       _ref.read(multicastLogsProvider.notifier).addLog('Sending announcement');
       for (final socket in sockets) {
         try {
-          socket.socket.send(dto, InternetAddress(_multicastGroup), settings.port);
+          socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
           _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
@@ -100,11 +98,11 @@ class MulticastService {
   Future<void> _answerAnnouncement() async {
     _ref.read(multicastLogsProvider.notifier).addLog('Answering announcement');
     final settings = _ref.read(settingsProvider);
-    final sockets = await _getSockets(_multicastGroup);
+    final sockets = await _getSockets(settings.multicastGroup);
     final dto = _getDto(announcement: false);
     for (final socket in sockets) {
       try {
-        socket.socket.send(dto, InternetAddress(_multicastGroup), settings.port);
+        socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
         socket.socket.close();
       } catch (e) {
         _ref.read(multicastLogsProvider.notifier).addLog(e.toString());

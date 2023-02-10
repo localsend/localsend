@@ -7,7 +7,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -47,17 +49,14 @@
       }
     }
   },
-  "de": {
-    "sendPage": {
-      "busy": "The recipient is busy with another request."
-    },
-    "dialogs": {
-      "errorDialog": {
-        "title": "@:general.error"
-      }
-    }
-  },
+  "de": {},
   "es-ES": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "sendPage": {
       "busy": "The recipient is busy with another request."
     },
@@ -68,6 +67,12 @@
     }
   },
   "fr-FR": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "sendPage": {
       "busy": "The recipient is busy with another request."
     },
@@ -78,6 +83,12 @@
     }
   },
   "hu": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "sendPage": {
       "busy": "The recipient is busy with another request."
     },
@@ -88,6 +99,12 @@
     }
   },
   "in": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "receiveHistoryPage": {
       "title": "History",
       "empty": "The history is empty.",
@@ -122,6 +139,12 @@
     }
   },
   "it": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "receiveHistoryPage": {
       "title": "History",
       "empty": "The history is empty.",
@@ -159,7 +182,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -200,6 +225,12 @@
     }
   },
   "ja": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "sendPage": {
       "busy": "The recipient is busy with another request."
     },
@@ -210,6 +241,12 @@
     }
   },
   "ko": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "receiveHistoryPage": {
       "title": "History",
       "empty": "The history is empty.",
@@ -247,7 +284,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -291,7 +330,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -332,6 +373,12 @@
     }
   },
   "pt-BR": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "sendPage": {
       "busy": "The recipient is busy with another request."
     },
@@ -356,7 +403,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -400,7 +449,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -441,40 +492,20 @@
     }
   },
   "tr": {
-    "receiveHistoryPage": {
-      "title": "History",
-      "empty": "The history is empty.",
-      "entryActions": {
-        "open": "Open file",
-        "info": "Information",
-        "deleteFromHistory": "Delete from history"
-      }
-    },
-    "sendPage": {
-      "busy": "The recipient is busy with another request."
-    },
-    "dialogs": {
-      "addressInput": {
-        "recentlyUsed": "Recently used: "
-      },
-      "cannotOpenFile": {
-        "title": "Cannot open file",
-        "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
-      },
-      "errorDialog": {
-        "title": "@:general.error"
-      },
-      "fileInfo": {
-        "title": "File information",
-        "fileName": "File name:",
-        "path": "Path:",
-        "size": "Size:",
-        "sender": "Sender:",
-        "time": "Time:"
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     }
   },
   "zh-Hans": {
+    "settingsTab": {
+      "network": {
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      }
+    },
     "receiveHistoryPage": {
       "empty": "The history is empty."
     },
@@ -502,7 +533,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {
@@ -546,7 +579,9 @@
     "settingsTab": {
       "network": {
         "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-        "encryption": "Encryption"
+        "encryption": "Encryption",
+        "multicastGroup": "Multicast",
+        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
       }
     },
     "receiveHistoryPage": {

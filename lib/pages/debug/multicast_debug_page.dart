@@ -26,6 +26,11 @@ class MulticastDebugPage extends ConsumerWidget {
                 onPressed: () => ref.read(nearbyDevicesProvider.notifier).startMulticastScan(),
                 child: const Text('Announce'),
               ),
+              const SizedBox(width: 20),
+              ElevatedButton(
+                onPressed: () => ref.read(multicastLogsProvider.notifier).clear(),
+                child: const Text('Clear'),
+              ),
             ],
           ),
           const SizedBox(height: 20),

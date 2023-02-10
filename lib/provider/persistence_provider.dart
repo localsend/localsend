@@ -26,6 +26,7 @@ const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
+const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _quickSave = 'ls_quick_save';
@@ -117,6 +118,14 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  String getMulticastGroup() {
+    return _prefs.getString(_multicastGroupKey) ?? defaultMulticastGroup;
+  }
+
+  Future<void> setMulticastGroup(String group) async {
+    await _prefs.setString(_multicastGroupKey, group);
   }
 
   String? getDestination() {

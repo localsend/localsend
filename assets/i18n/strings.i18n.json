@@ -95,7 +95,9 @@
       "alias": "Alias",
       "port": "Port",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption"
+      "encryption": "Encryption",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     }
   },
   "receiveHistoryPage": {

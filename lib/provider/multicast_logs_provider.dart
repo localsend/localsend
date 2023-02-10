@@ -14,4 +14,8 @@ class MulticastLogsNotifier extends StateNotifier<List<LogEntry>> {
       LogEntry(timestamp: DateTime.now(), log: log),
     ].take(200).toList();
   }
+
+  void clear() {
+    state = [];
+  }
 }

@@ -31,6 +31,7 @@ class SettingsTab extends ConsumerStatefulWidget {
 class _SettingsTabState extends ConsumerState<SettingsTab> {
   final _aliasController = TextEditingController();
   final _portController = TextEditingController();
+  final _multicastController = TextEditingController();
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
     final settings = ref.read(settingsProvider);
     _aliasController.text = settings.alias;
     _portController.text = settings.port.toString();
+    _multicastController.text = settings.multicastGroup;
   }
 
   @override
@@ -306,6 +308,16 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 }
               },
             ),
+            _SettingsEntry(
+              label: t.settingsTab.network.multicastGroup,
+              child: TextFormField(
+                controller: _multicastController,
+                textAlign: TextAlign.center,
+                onChanged: (s) async {
+                  await ref.read(settingsProvider.notifier).setMulticastGroup(s);
+                },
+              ),
+            ),
             AnimatedCrossFade(
               crossFadeState: settings.port != defaultPort ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               duration: const Duration(milliseconds: 200),
@@ -313,7 +325,23 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               firstChild: Container(),
               secondChild: Padding(
                 padding: const EdgeInsets.only(bottom: 15),
-                child: Text(t.settingsTab.network.portWarning(defaultPort: defaultPort), style: const TextStyle(color: Colors.grey)),
+                child: Text(
+                  t.settingsTab.network.portWarning(defaultPort: defaultPort),
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ),
+            ),
+            AnimatedCrossFade(
+              crossFadeState: settings.multicastGroup != defaultMulticastGroup ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              duration: const Duration(milliseconds: 200),
+              alignment: Alignment.topLeft,
+              firstChild: Container(),
+              secondChild: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Text(
+                  t.settingsTab.network.multicastGroupWarning(defaultMulticast: defaultMulticastGroup),
+                  style: const TextStyle(color: Colors.grey),
+                ),
               ),
             ),
           ],

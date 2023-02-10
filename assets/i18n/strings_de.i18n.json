@@ -95,7 +95,9 @@
       "alias": "Alias",
       "port": "Port",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
-      "encryption": "Verschlüsselung"
+      "encryption": "Verschlüsselung",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
     }
   },
   "receiveHistoryPage": {
@@ -126,7 +128,8 @@
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
-    "rejected": "Der Empfänger hat die Anfrage abgelehnt."
+    "rejected": "Der Empfänger hat die Anfrage abgelehnt.",
+    "busy": "Der Empfänger ist mit einer anderen Anfrage beschäftigt."
   },
   "progressPage": {
     "titleSending": "Sende Dateien",
@@ -175,6 +178,9 @@
     "encryptionDisabledNotice": {
       "title": "Verschlüsselung deaktiviert",
       "content": "Die Kommunikation erfolgt nun über das unverschlüsselte HTTP-Protokoll. Um HTTPS zu verwenden, aktiviere wieder die Verschlüsselung."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
     },
     "fileInfo": {
       "title": "Datei-Information",
