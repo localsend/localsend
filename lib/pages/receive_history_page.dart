@@ -28,6 +28,9 @@ enum _EntryOption {
   }
 }
 
+const _optionsAll = _EntryOption.values;
+final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
+
 class ReceiveHistoryPage extends ConsumerWidget {
   const ReceiveHistoryPage({Key? key}) : super(key: key);
 
@@ -117,7 +120,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                         },
                         color: Theme.of(context).cardColorWithElevation,
                         itemBuilder: (BuildContext context) {
-                          return _EntryOption.values.map((e) {
+                          return (entry.path != null ? _optionsAll : _optionsWithoutOpen).map((e) {
                             return PopupMenuItem<_EntryOption>(
                               value: e,
                               child: Text(e.label),
