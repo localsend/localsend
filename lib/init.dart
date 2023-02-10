@@ -84,17 +84,18 @@ Future<PersistenceService> preInit(List<String> args) async {
     // initialize tray AFTER i18n has been initialized
     await initTray();
 
+    // initialize size and position
+    final primaryDisplay = await screenRetriever.getPrimaryDisplay();
+    final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
+    if (width >= 1200) {
+      // make initial window size bigger as our display is big enough
+      windowManager.setSize(const Size(900, 600));
+    }
+    await windowManager.center();
+
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
-
-      final primaryDisplay = await screenRetriever.getPrimaryDisplay();
-      final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
-      if (width >= 1200) {
-        // make initial window size bigger as our display is big enough
-        windowManager.setSize(const Size(900, 600));
-      }
-      await windowManager.center();
       await windowManager.show();
     }
   }
