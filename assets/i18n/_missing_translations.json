@@ -82,22 +82,7 @@
       }
     }
   },
-  "hu": {
-    "settingsTab": {
-      "network": {
-        "multicastGroup": "Multicast",
-        "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
-      }
-    },
-    "sendPage": {
-      "busy": "A címzett más kéréssel van elfoglalva."
-    },
-    "dialogs": {
-      "errorDialog": {
-        "title": "@:general.error"
-      }
-    }
-  },
+  "hu": {},
   "in": {
     "settingsTab": {
       "network": {

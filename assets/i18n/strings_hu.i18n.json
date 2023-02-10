@@ -95,7 +95,9 @@
       "alias": "Álnév",
       "port": "Port",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
-      "encryption": "Titkosítás"
+      "encryption": "Titkosítás",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
     }
   },
   "receiveHistoryPage": {
@@ -126,7 +128,8 @@
   },
   "sendPage": {
     "waiting": "Válaszra várva...",
-    "rejected": "A fogadó elutasította a kérelmet."
+    "rejected": "A fogadó elutasította a kérelmet.",
+    "busy": "A címzett más kéréssel van elfoglalva."
   },
   "progressPage": {
     "titleSending": "Fájlok küldése",
@@ -175,6 +178,9 @@
     "encryptionDisabledNotice": {
       "title": "A titkosítás letiltva",
       "content": "A kommunikáció most a titkosítatlan HTTP protokollon keresztül történik. A HTTPS használatához engedélyezze újra a titkosítást."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
     },
     "fileInfo": {
       "title": "Fájl információ",
