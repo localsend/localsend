@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/file_type.dart';
 
 part 'receive_history_entry.freezed.dart';
@@ -26,6 +27,6 @@ class ReceiveHistoryEntry with _$ReceiveHistoryEntry {
   /// Because the raw timestamp is saved in UTC, we need to transform it to local time zone first.
   String get timestampString {
     final localTimestamp = timestamp.toLocal();
-    return '${DateFormat.yMd().format(localTimestamp)} ${DateFormat.jm().format(localTimestamp)}';
+    return '${DateFormat.yMd(LocaleSettings.currentLocale.languageTag).format(localTimestamp)} ${DateFormat.jm(LocaleSettings.currentLocale.languageTag).format(localTimestamp)}';
   }
 }
