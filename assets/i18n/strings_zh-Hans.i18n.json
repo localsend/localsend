@@ -95,11 +95,14 @@
       "alias": "别名",
       "port": "端口",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
-      "encryption": "加密"
+      "encryption": "加密",
+      "multicastGroup": "多播",
+      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     }
   },
   "receiveHistoryPage": {
     "title": "历史",
+    "empty": "无历史记录。",
     "entryActions": {
       "open": "@:general.open",
       "info": "信息",
@@ -125,7 +128,8 @@
   },
   "sendPage": {
     "waiting": "等待响应中...",
-    "rejected": "对方拒绝了请求。"
+    "rejected": "对方拒绝了请求。",
+    "busy": "对方正在处理另一个请求。"
   },
   "progressPage": {
     "titleSending": "正在发送文件",
@@ -160,7 +164,8 @@
     "addressInput": {
       "title": "输入地址",
       "hashtag": "Hashtag",
-      "ip": "IP 地址"
+      "ip": "IP 地址",
+      "recentlyUsed": "最近使用："
     },
     "cancelSession": {
       "title": "取消文件传输",
@@ -173,6 +178,14 @@
     "encryptionDisabledNotice": {
       "title": "加密已关闭",
       "content": "正在通过未加密的 HTTP 协议连接。要使用 HTTPS 协议，请开启加密选项。"
+    },
+    "fileInfo": {
+      "title": "文件信息",
+      "fileName": "文件名：",
+      "path": "路径：",
+      "size": "大小：",
+      "sender": "发送者：",
+      "time": "时间："
     },
     "fileNameInput": {
       "title": "输入文件名",
