@@ -179,6 +179,9 @@
       "title": "加密已关闭",
       "content": "正在通过未加密的 HTTP 协议连接。要使用 HTTPS 协议，请开启加密选项。"
     },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
     "fileInfo": {
       "title": "文件信息",
       "fileName": "文件名：",

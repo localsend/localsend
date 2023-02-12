@@ -484,36 +484,7 @@
       }
     }
   },
-  "zh-Hans": {
-    "settingsTab": {
-      "network": {
-        "multicastGroup": "Multicast",
-        "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
-      }
-    },
-    "receiveHistoryPage": {
-      "empty": "The history is empty."
-    },
-    "sendPage": {
-      "busy": "The recipient is busy with another request."
-    },
-    "dialogs": {
-      "addressInput": {
-        "recentlyUsed": "Recently used: "
-      },
-      "errorDialog": {
-        "title": "@:general.error"
-      },
-      "fileInfo": {
-        "title": "File information",
-        "fileName": "File name:",
-        "path": "Path:",
-        "size": "Size:",
-        "sender": "Sender:",
-        "time": "Time:"
-      }
-    }
-  },
+  "zh-Hans": {},
   "zh-Hant-HK": {
     "settingsTab": {
       "network": {
