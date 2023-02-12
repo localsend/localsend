@@ -3,6 +3,14 @@
 # By default, it will install everything to "/opt/android-sdk". This path is important!
 # Furthermore, the Flutter version from the submodule is used.
 
+# Check Build ID via "readelf --wide --notes libapp.so"
+
+# REQUIREMENTS
+# (1) sudo apt install sdkmanager
+# (2) sudo chown -R <user> /opt/android-sdk
+# (3) sdkmanager "platform-tools" "platforms;android-33"
+# (4) sdkmanager --licenses
+
 # UNCOMMENT THESE LINES TO BUILD FROM LATEST COMMIT
 # git reset --hard origin/main
 # git pull
