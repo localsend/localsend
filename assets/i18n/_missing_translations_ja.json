@@ -1,0 +1,20 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <ja>.",
+    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
+  ],
+  "settingsTab": {
+    "network": {
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+    }
+  },
+  "sendPage": {
+    "busy": "The recipient is busy with another request."
+  },
+  "dialogs": {
+    "errorDialog": {
+      "title": "@:general.error"
+    }
+  }
+}

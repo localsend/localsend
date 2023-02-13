@@ -47,17 +47,16 @@ flutter run
 
 You can help translating this app to other languages!
 
-1. Preparation (Choose one)
-   - Add missing translations in existing languages: [assets/i18n/_missing_translations.json](https://github.com/localsend/localsend/blob/main/assets/i18n/_missing_translations.json)
-   - Fix existing translations in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Add new languages: [locale codes](https://saimana.com/list-of-country-locale-code/).
-2. Fork this repository
-3. Create or update the translation file in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n) (format: `strings_XXX.i18n.json`)
-4. Optional: Re-run this app
+1. Fork this repository
+2. Choose one
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
+3. Optional: Re-run this app
    1. Make sure you have [run](#run) this app once.
    2. Update translations via `flutter pub run slang`
    3. Run app via `flutter run`
-5. Open a pull request
+4. Open a pull request
 
 **Important:** Do not translate keys starting with `@`. These are comments and should stay in English!
 
