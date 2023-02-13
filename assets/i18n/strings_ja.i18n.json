@@ -95,7 +95,9 @@
       "alias": "エイリアス",
       "port": "ポート",
       "portWarning": "カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: {defaultPort})",
-      "encryption": "暗号化"
+      "encryption": "暗号化",
+      "multicastGroup": "マルチキャスト",
+      "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
     }
   },
   "receiveHistoryPage": {
@@ -126,7 +128,8 @@
   },
   "sendPage": {
     "waiting": "返答を待っています...",
-    "rejected": "受信者がリクエストを拒否しました。"
+    "rejected": "受信者がリクエストを拒否しました。",
+    "busy": "受信者は他のリクエストでビジー状態です。"
   },
   "progressPage": {
     "titleSending": "ファイルを送信中",
@@ -150,7 +153,7 @@
   "changelogPage": {
     "title": "更新履歴"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -175,6 +178,9 @@
     "encryptionDisabledNotice": {
       "title": "暗号化は無効です",
       "content": "これより、通信は暗号化されていないHTTPプロトコルで行われます。HTTPSを使用するには、暗号化を再度有効にしてください。"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
     },
     "fileInfo": {
       "title": "ファイルの情報",

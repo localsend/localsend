@@ -1,50 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-Hant-TW>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-TW' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "network": {
-      "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂埠號. (預設值: {defaultPort})",
-      "encryption": "加密",
-      "multicastGroup": "多播",
-      "multicastGroupWarning": "您可能無法偵測到其他設備,因為您正在使用自訂多播位址. (預設值: {defaultMulticast})"
-    }
-  },
-  "receiveHistoryPage": {
-    "title": "紀錄",
-    "empty": "沒有紀錄.",
-    "entryActions": {
-      "open": "開啟檔案",
-      "info": "資訊",
-      "deleteFromHistory": "從記錄刪除"
-    }
-  },
-  "sendPage": {
-    "busy": "接收端正在處另一項傳輸請求."
-  },
-  "dialogs": {
-    "addressInput": {
-      "recentlyUsed": "最近使用: "
-    },
-    "cannotOpenFile": {
-      "title": "無法開啟檔案",
-      "content": "無卡開啟 \"{file}\". 這個檔案被移動,更名或刪除了嗎?"
-    },
-    "encryptionDisabledNotice": {
-      "title": "停用加密",
-      "content": "使用未加密的HTTP協定進行傳輸. 啟用加密以再次使用HTTPS加密協定."
-    },
-    "errorDialog": {
-      "title": "@:general.error"
-    },
-    "fileInfo": {
-      "title": "檔案資訊",
-      "fileName": "檔案名稱:",
-      "path": "路徑:",
-      "size": "大小:",
-      "sender": "傳送者:",
-      "time": "時間:"
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-TW' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }

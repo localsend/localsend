@@ -1,20 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "network": {
-      "multicastGroup": "マルチキャスト",
-      "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
-    }
-  },
-  "sendPage": {
-    "busy": "受信者は他のリクエストでビジー状態です。"
-  },
-  "dialogs": {
-    "errorDialog": {
-      "title": "@:general.error"
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
