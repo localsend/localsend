@@ -5,12 +5,12 @@
   ],
   "settingsTab": {
     "network": {
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "multicastGroup": "マルチキャスト",
+      "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
     }
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "受信者は他のリクエストでビジー状態です。"
   },
   "dialogs": {
     "errorDialog": {
