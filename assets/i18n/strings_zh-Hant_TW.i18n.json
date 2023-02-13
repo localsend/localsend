@@ -41,7 +41,7 @@
     "title": "接收",
     "infoBox": {
       "ip": "IP：",
-      "port": "埠：",
+      "port": "埠號：",
       "alias": "別名："
     }
   },
@@ -57,7 +57,7 @@
       "media": "媒體",
       "text": "文字"
     },
-    "shareIntentInfo": "你也可以使用你的移動裝置中的「分享」功能來更簡單的選擇檔案。",
+    "shareIntentInfo": "你也可以使用你的行動裝置中的「分享」功能來更簡單的選擇檔案。",
     "nearbyDevices": "附近的裝置",
     "thisDevice": "這台裝置",
     "scan": "掃描裝置",
@@ -68,15 +68,15 @@
     "title": "設定",
     "general": {
       "title": "通用",
-      "theme": "主題",
+      "theme": "介面風格",
       "themeOptions": {
-        "system": "跟隨系統",
+        "system": "遵循系統設定",
         "dark": "黑暗",
         "light": "明亮"
       },
       "language": "語言",
       "languageOptions": {
-        "system": "跟隨系統"
+        "system": "遵循系統設定"
       },
       "minimizeToTray": "關閉行為：最小化至系統匣",
       "launchAtStartup": "登入系統後自動啟動程式",
@@ -93,7 +93,7 @@
       "needRestart": "重新啟動伺服器生效！",
       "server": "伺服器",
       "alias": "別名",
-      "port": "埠"
+      "port": "埠號"
     }
   },
   "selectedFilesPage": {
@@ -150,7 +150,7 @@
     "addressInput": {
       "title": "輸入地址",
       "hashtag": "Hashtag",
-      "ip": "IP 地址"
+      "ip": "IP 位址"
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
@@ -158,7 +158,7 @@
     },
     "fileNameInput": {
       "title": "輸入檔名",
-      "original": "原名：{original}"
+      "original": "原始檔名：{original}"
     },
     "messageInput": {
       "title": "輸入訊息",
