@@ -5,46 +5,46 @@
   ],
   "settingsTab": {
     "network": {
-      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂埠號. (預設值: {defaultPort})",
+      "encryption": "加密",
+      "multicastGroup": "多播",
+      "multicastGroupWarning": "您可能無法偵測到其他設備,因為您正在使用自訂多播位址. (預設值: {defaultMulticast})"
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "empty": "The history is empty.",
+    "title": "紀錄",
+    "empty": "沒有紀錄.",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "開啟檔案",
+      "info": "資訊",
+      "deleteFromHistory": "從記錄刪除"
     }
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "接收端正在處另一項傳輸請求."
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "最近使用: "
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "無法開啟檔案",
+      "content": "無卡開啟 \"{file}\". 這個檔案被移動,更名或刪除了嗎?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "停用加密",
+      "content": "使用未加密的HTTP協定進行傳輸. 啟用加密以再次使用HTTPS加密協定."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "檔案資訊",
+      "fileName": "檔案名稱:",
+      "path": "路徑:",
+      "size": "大小:",
+      "sender": "傳送者:",
+      "time": "時間:"
     }
   }
 }
