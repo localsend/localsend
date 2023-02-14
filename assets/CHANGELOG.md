@@ -1,13 +1,17 @@
+## 1.8.0 (2023-)
+
+- feat: add troubleshoot page
+
 ## 1.7.0 (2023-02-11)
 
 - feat: improve device discovery by enabling multicast
-- feat: received file history
+- feat: received files history
 - feat: show recent IP addresses in manual IP input
-- feat: improve error handling and add possibility to show exact error message for debugging
-- feat: add unencrypted HTTP mode (for debugging)
 - feat: separate language settings page
 - feat: message input is horizontally scrollable when multiline is unselected
 - feat: open message normally in QuickSave mode (instead of saving it into a file)
+- feat: improve error handling and add possibility to show exact error message for debugging
+- feat: add unencrypted HTTP mode (for debugging)
 - feat(android): keep file name when saving to photos
 - feat(desktop): use bigger default window size if display is big enough
 - feat(windows): use "Microsoft YaHei UI" font in Windows which works better with Chinese characters

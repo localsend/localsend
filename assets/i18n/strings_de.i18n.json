@@ -100,6 +100,21 @@
       "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
     }
   },
+  "troubleshootTab": {
+    "title": "Fehlerbehebung",
+    "subTitle": "Diese App funktioniert nicht wie erwartet? Hier findest du häufige Lösungsansätze.",
+    "solution": "Lösung:",
+    "fixButton": "Automatisch beheben",
+    "firewall": {
+      "symptom": "Diese App kann Dateien an andere Geräte senden, aber nicht umgekehrt.",
+      "solution": "Dies ist höchstwahrscheinlich ein Firewall-Problem. Du kannst es lösen, indem du eingehende Verbindungen (UDP und TCP) auf Port {port} zulässt.",
+      "openFirewall": "Firewall öffnen"
+    },
+    "noConnection": {
+      "symptom": "Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.",
+      "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt. In diesem Fall muss am Router diese Option aktiviert werden."
+    }
+  },
   "receiveHistoryPage": {
     "title": "Verlauf",
     "empty": "Der Verlauf ist leer.",
