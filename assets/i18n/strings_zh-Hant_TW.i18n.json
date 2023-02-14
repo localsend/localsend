@@ -94,7 +94,7 @@
       "server": "伺服器",
       "alias": "別名",
       "port": "埠號",
-	  "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂埠號. (預設值: {defaultPort})",
+      "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂埠號. (預設值: {defaultPort})",
       "encryption": "加密傳輸",
       "multicastGroup": "多播",
       "multicastGroupWarning": "您可能無法偵測到其他設備,因為您正在使用自訂多播位址. (預設值: {defaultMulticast})"
@@ -108,7 +108,7 @@
       "info": "資訊",
       "deleteFromHistory": "從記錄刪除"
     }
-  }, 
+  },
   "selectedFilesPage": {
     "deleteAll": "全部刪除"
   },
@@ -129,7 +129,7 @@
   "sendPage": {
     "waiting": "等待回應中……",
     "rejected": "對方拒絕了請求。",
-	"busy": "接收端正在處另一項傳輸請求."
+    "busy": "接收端正在處另一項傳輸請求."
   },
   "progressPage": {
     "titleSending": "正在傳送檔案",
@@ -153,78 +153,8 @@
   "changelogPage": {
     "title": "更新日誌"
   },
-    "aliasGenerator(ignoreMissing)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
-    "adjectives": [
-      "Adorable",
-      "Beautiful",
-      "Big",
-      "Bright",
-      "Clean",
-      "Clever",
-      "Cool",
-      "Cute",
-      "Cunning",
-      "Determined",
-      "Energetic",
-      "Efficient",
-      "Fantastic",
-      "Fast",
-      "Fine",
-      "Fresh",
-      "Good",
-      "Gorgeous",
-      "Great",
-      "Handsome",
-      "Hot",
-      "Kind",
-      "Lovely",
-      "Mystic",
-      "Neat",
-      "Nice",
-      "Patient",
-      "Pretty",
-      "Powerful",
-      "Rich",
-      "Secret",
-      "Smart",
-      "Solid",
-      "Special",
-      "Strategic",
-      "Strong",
-      "Tidy",
-      "Wise"
-    ],
-    "fruits": [
-      "Apple",
-      "Avocado",
-      "Banana",
-      "Blackberry",
-      "Blueberry",
-      "Broccoli",
-      "Carrot",
-      "Cherry",
-      "Coconut",
-      "Grape",
-      "Lemon",
-      "Lettuce",
-      "Mango",
-      "Melon",
-      "Mushroom",
-      "Onion",
-      "Orange",
-      "Papaya",
-      "Peach",
-      "Pear",
-      "Pineapple",
-      "Potato",
-      "Pumpkin",
-      "Raspberry",
-      "Strawberry",
-      "Tomato"
-    ],
-    "combination": "{adjective} {fruit}",
-    "@combination": "In some languages, the adjective must be last."
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -235,24 +165,24 @@
       "title": "輸入地址",
       "hashtag": "Hashtag",
       "ip": "IP 位址",
-	  "recentlyUsed": "最近使用: "
+      "recentlyUsed": "最近使用: "
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
       "content": "要取消檔案傳輸嗎？"
     },
-	 "cannotOpenFile": {
+    "cannotOpenFile": {
       "title": "無法開啟檔案",
       "content": "無法開啟 \"{file}\". 這個檔案被移動,改名或刪除了嗎?"
     },
-	"encryptionDisabledNotice": {
+    "encryptionDisabledNotice": {
       "title": "已停用加密",
       "content": "傳輸將使用未加密的HTTP協定. 啟用加密以再次使用HTTPS加密協定."
     },
-	"errorDialog": {
+    "errorDialog": {
       "title": "@:general.error"
     },
-	"fileInfo": {
+    "fileInfo": {
       "title": "檔案資訊",
       "fileName": "檔案名稱:",
       "path": "路徑:",
