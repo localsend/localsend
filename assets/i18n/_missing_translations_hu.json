@@ -1,21 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <hu>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations."
-  ],
-  "troubleshootTab": {
-    "title": "Hibaelhárítás",
-    "subTitle": "Ez az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.",
-    "solution": "Megoldás:",
-    "fixButton": "Autom. javítás",
-    "firewall": {
-      "symptom": "Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.",
-      "solution": "Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a {port} porton.",
-      "openFirewall": "Tűzfal megnyitás"
-    },
-    "noConnection": {
-      "symptom": "A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.",
-      "solution": "A probléma mindkét oldalon létezik? Akkor meg kell győződnie arról, hogy mindkét eszköz ugyanabban a wifi hálózatban van, és ugyanazt a konfigurációt használja (port, multicast cím, titkosítás). Előfordulhat, hogy a Wifi nem teszi lehetővé a résztvevők közötti kommunikációt. Ebben az esetben ezt az opciót engedélyezni kell a routeren.."
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
