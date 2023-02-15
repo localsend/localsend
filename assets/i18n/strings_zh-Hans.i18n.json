@@ -100,11 +100,26 @@
       "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     }
   },
+  "troubleshootTab": {
+    "title": "故障排除",
+    "subTitle": "该应用没有按预期工作？您可以在这里找到常用解决方案。",
+    "solution": "解决方案：",
+    "fixButton": "自动修复",
+    "firewall": {
+      "symptom": "此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。",
+      "solution": "这最有可能是由防火墙引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP 的）传入请求来解决这个问题。",
+      "openFirewall": "打开防火墙"
+    },
+    "noConnection": {
+      "symptom": "双方设备均无法发现对方或者分享文件。",
+      "solution": "这个问题发生在双方设备上时，需要确认双方设备处于同一 WiFi 网络内，且有相同的（端口、多播地址、加密选项）配置。这个 WiFi 可能不允许参与者间通信，在这种情况下，请在路由器中开启这个选项。"
+    }
+  },
   "receiveHistoryPage": {
     "title": "历史",
     "empty": "无历史记录。",
     "entryActions": {
-      "open": "@:general.open",
+      "open": "打开文件",
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
     }
