@@ -4,18 +4,18 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-TW' to quickly apply the newly added translations."
   ],
   "troubleshootTab": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "title": "疑難排解",
+    "subTitle": "這個應用程式沒有按預期運作？在這裡您可以找到常見的解決方案。",
+    "solution": "解決方案:",
+    "fixButton": "自動修復",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。",
+      "solution": "這很可能是防火牆問題。您可以透過允許端口 {port} 上的傳入連接（UDP 和 TCP）來解決此問題。",
+      "openFirewall": "開啟防火牆"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "兩台裝置無法相互發現，也無法共享檔案。",
+      "solution": "雙方都存在問題？然後你需要確保兩個裝置都在同一個 wifi 網路中並共享相同的配置（埠、多播地址、加密傳輸）。 wifi 可能不允許參與者之間進行通訊。在這種情況下，必須在路由器上啟用此選項。"
     }
   }
 }
