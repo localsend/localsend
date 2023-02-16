@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,15 +8,16 @@ import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
+import 'package:localsend_app/pages/tabs/troubleshooting_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
-import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 
 enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
-  settings(Icons.settings);
+  settings(Icons.settings),
+  troubleshoot(Icons.healing);
 
   const HomeTab(this.icon);
 
@@ -28,6 +31,8 @@ enum HomeTab {
         return t.sendTab.title;
       case HomeTab.settings:
         return t.settingsTab.title;
+      case HomeTab.troubleshoot:
+        return t.troubleshootTab.title;
     }
   }
 }
@@ -87,8 +92,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         _goToPage(HomeTab.send.index);
       },
       child: ResponsiveBuilder(
-        breakpoints: ResponsiveListView.defaultBreakpoints,
-        builder: (context, sizingInformation) {
+        builder: (sizingInformation) {
           return Scaffold(
             body: SafeArea(
               child: Row(
@@ -129,6 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ReceiveTab(),
                             SendTab(),
                             SettingsTab(),
+                            TroubleshootingTab(),
                           ],
                         ),
                         if (_dragAndDropIndicator)
@@ -154,9 +159,15 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             bottomNavigationBar: sizingInformation.isMobile
                 ? NavigationBar(
-                    selectedIndex: _currentTab.index,
+                    selectedIndex: sizingInformation.isMobile ? min(_currentTab.index, 2) : _currentTab.index,
                     onDestinationSelected: _goToPage,
-                    destinations: HomeTab.values.map((tab) {
+                    destinations: [
+                      HomeTab.receive,
+                      HomeTab.send,
+                      HomeTab.settings,
+                      if (sizingInformation.isTablet)
+                        HomeTab.troubleshoot,
+                    ].map((tab) {
                       return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
                     }).toList(),
                   )

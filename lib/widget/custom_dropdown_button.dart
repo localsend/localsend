@@ -16,11 +16,9 @@ class CustomDropdownButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).inputDecorationTheme.fillColor,
-        borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
-      ),
+    return Material(
+      color: Theme.of(context).inputDecorationTheme.fillColor,
+      shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
       child: DropdownButton<T>(
         value: value,
         isExpanded: true,

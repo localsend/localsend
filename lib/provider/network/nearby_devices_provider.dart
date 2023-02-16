@@ -5,13 +5,15 @@ import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/nearby_devices_state.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
+import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
 final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>((ref) {
   final dio = ref.watch(dioProvider(DioType.discovery));
   final fingerprint = ref.watch(fingerprintProvider);
-  return NearbyDevicesNotifier(dio, fingerprint);
+  final multicastService = ref.watch(multicastProvider);
+  return NearbyDevicesNotifier(dio, fingerprint, multicastService);
 });
 
 Map<String, TaskRunner> _runners = {};
@@ -19,8 +21,20 @@ Map<String, TaskRunner> _runners = {};
 class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   final Dio _dio;
   final String _fingerprint;
+  final MulticastService _multicastService;
 
-  NearbyDevicesNotifier(this._dio, this._fingerprint) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
+  NearbyDevicesNotifier(this._dio, this._fingerprint, this._multicastService) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
+
+  void startMulticastListener() {
+    _multicastService.startListener().listen(_addDevice);
+  }
+
+  /// It does not really "scan".
+  /// It just sends an announcement which will cause a response on every other LocalSend member of the network.
+  /// The responses have to be listened to by calling [startMulticastListener] first.
+  void startMulticastScan() {
+    _multicastService.sendAnnouncement();
+  }
 
   Future<void> startScan({required int port, required String localIp, required bool https}) async {
     if (state.runningIps.contains(localIp)) {
@@ -30,11 +44,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
 
     state = state.copyWith(runningIps: {...state.runningIps, localIp});
 
-    await _getStream(localIp, port, https, _fingerprint).forEach((device) {
-      state = state.copyWith(
-        devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
-      );
-    });
+    await _getStream(localIp, port, https, _fingerprint).forEach(_addDevice);
 
     state = state.copyWith(runningIps: state.runningIps.where((ip) => ip != localIp).toSet());
   }
@@ -51,6 +61,12 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     );
 
     return _runners[localIp]!.stream.where((device) => device != null).cast<Device>();
+  }
+
+  void _addDevice(Device device) {
+    state = state.copyWith(
+      devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
+    );
   }
 }
 

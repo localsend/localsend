@@ -95,7 +95,18 @@
       "alias": "エイリアス",
       "port": "ポート",
       "portWarning": "カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: {defaultPort})",
-      "encryption": "暗号化"
+      "encryption": "暗号化",
+      "multicastGroup": "マルチキャスト",
+      "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "履歴",
+    "empty": "履歴には何もありません。",
+    "entryActions": {
+      "open": "ファイルを開く",
+      "info": "情報",
+      "deleteFromHistory": "履歴から削除"
     }
   },
   "selectedFilesPage": {
@@ -117,7 +128,8 @@
   },
   "sendPage": {
     "waiting": "返答を待っています...",
-    "rejected": "受信者がリクエストを拒否しました。"
+    "rejected": "受信者がリクエストを拒否しました。",
+    "busy": "受信者は他のリクエストでビジー状態です。"
   },
   "progressPage": {
     "titleSending": "ファイルを送信中",
@@ -141,7 +153,7 @@
   "changelogPage": {
     "title": "更新履歴"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -152,15 +164,31 @@
     "addressInput": {
       "title": "アドレスを入力",
       "hashtag": "ハッシュタグ",
-      "ip": "IPアドレス"
+      "ip": "IPアドレス",
+      "recentlyUsed": "最近使用したアドレス: "
     },
     "cancelSession": {
       "title": "ファイル転送をキャンセル",
       "content": "本当にファイル転送をキャンセルしますか？"
     },
+    "cannotOpenFile": {
+      "title": "ファイルを開けません",
+      "content": "\"{file}\"を開けませんでした。ファイルが移動、改名、削除された可能性があります。"
+    },
     "encryptionDisabledNotice": {
       "title": "暗号化は無効です",
       "content": "これより、通信は暗号化されていないHTTPプロトコルで行われます。HTTPSを使用するには、暗号化を再度有効にしてください。"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "ファイルの情報",
+      "fileName": "ファイル名:",
+      "path": "ファイルパス:",
+      "size": "サイズ:",
+      "sender": "送信者:",
+      "time": "時間:"
     },
     "fileNameInput": {
       "title": "ファイル名を入力",

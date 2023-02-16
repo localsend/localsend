@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -37,13 +39,15 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
   bool _fetching = false;
   bool _failed = false;
 
-  Future<void> _submit(List<String> localIps, int port) async {
+  Future<void> _submit(List<String> localIps, int port, [String? candidate]) async {
     final List<String> candidates;
     final String input = _input.trim();
-    if (_mode == _InputMode.ip) {
+    if (candidate != null) {
+      candidates = [candidate];
+    } else if (_mode == _InputMode.ip) {
       candidates = [input];
     } else {
-      candidates = localIps.map((ip) => '${ip.ipPrefix}.$_input').toList();
+      candidates = localIps.map((ip) => '${ip.ipPrefix}.$input').toList();
     }
 
     setState(() {
@@ -64,6 +68,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
       if (!found && device != null) {
         found = true;
         if (mounted) {
+          ref.read(lastDevicesProvider.notifier).addDevice(device);
           context.pop(device);
         }
       }
@@ -81,6 +86,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
   Widget build(BuildContext context) {
     final localIps = (ref.watch(networkInfoProvider.select((info) => info.localIps))).uniqueIpPrefix;
     final settings = ref.watch(settingsProvider);
+    final lastDevices = ref.watch(lastDevicesProvider);
 
     return AlertDialog(
       title: Text(t.dialogs.addressInput.title),
@@ -123,11 +129,11 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             onFieldSubmitted: (s) => _submit(localIps, settings.port),
           ),
           const SizedBox(height: 10),
-          Text(
-            '${t.general.example}: ${_mode == _InputMode.hashtag ? '123' : '${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123'}',
-            style: const TextStyle(color: Colors.grey),
-          ),
           if (_mode == _InputMode.hashtag) ...[
+            Text(
+              '${t.general.example}: 123',
+              style: const TextStyle(color: Colors.grey),
+            ),
             if (localIps.length <= 1)
               Text(
                 '${t.dialogs.addressInput.ip}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.$_input',
@@ -144,6 +150,33 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
                   style: const TextStyle(color: Colors.grey),
                 ),
             ],
+          ] else ...[
+            if (lastDevices.isEmpty)
+              Text(
+                '${t.general.example}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123',
+                style: const TextStyle(color: Colors.grey),
+              )
+            else
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(text: t.dialogs.addressInput.recentlyUsed),
+                    ...lastDevices.mapIndexed((index, device) {
+                      return [
+                        if (index != 0) const TextSpan(text: ', '),
+                        TextSpan(
+                          text: device.ip,
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _submit(localIps, settings.port, device.ip);
+                            },
+                        )
+                      ];
+                    }).expand((e) => e),
+                  ],
+                ),
+              ),
           ],
           if (_failed)
             Padding(

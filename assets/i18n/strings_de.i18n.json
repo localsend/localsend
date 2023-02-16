@@ -95,7 +95,33 @@
       "alias": "Alias",
       "port": "Port",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
-      "encryption": "Verschlüsselung"
+      "encryption": "Verschlüsselung",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
+    }
+  },
+  "troubleshootTab": {
+    "title": "Fehlerbehebung",
+    "subTitle": "Diese App funktioniert nicht wie erwartet? Hier findest du häufige Lösungsansätze.",
+    "solution": "Lösung:",
+    "fixButton": "Automatisch beheben",
+    "firewall": {
+      "symptom": "Diese App kann Dateien an andere Geräte senden, aber nicht umgekehrt.",
+      "solution": "Dies ist höchstwahrscheinlich ein Firewall-Problem. Du kannst es lösen, indem du eingehende Verbindungen (UDP und TCP) auf Port {port} zulässt.",
+      "openFirewall": "Firewall öffnen"
+    },
+    "noConnection": {
+      "symptom": "Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.",
+      "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt. In diesem Fall muss am Router diese Option aktiviert werden."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Verlauf",
+    "empty": "Der Verlauf ist leer.",
+    "entryActions": {
+      "open": "Datei öffnen",
+      "info": "Information",
+      "deleteFromHistory": "Vom Verlauf entfernen"
     }
   },
   "selectedFilesPage": {
@@ -117,7 +143,8 @@
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
-    "rejected": "Der Empfänger hat die Anfrage abgelehnt."
+    "rejected": "Der Empfänger hat die Anfrage abgelehnt.",
+    "busy": "Der Empfänger ist mit einer anderen Anfrage beschäftigt."
   },
   "progressPage": {
     "titleSending": "Sende Dateien",
@@ -152,15 +179,31 @@
     "addressInput": {
       "title": "Adresse eingeben",
       "hashtag": "Hashtag",
-      "ip": "IP-Adresse"
+      "ip": "IP-Adresse",
+      "recentlyUsed": "Zuletzt verwendet: "
     },
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
       "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
     },
+    "cannotOpenFile": {
+      "title": "Öffnen fehlgeschlagen",
+      "content": "Die Datei \"{file}\" konnte nicht geöffnet werden. Wurde diese Datei verschoben, umbenannt oder gelöscht?"
+    },
     "encryptionDisabledNotice": {
       "title": "Verschlüsselung deaktiviert",
       "content": "Die Kommunikation erfolgt nun über das unverschlüsselte HTTP-Protokoll. Um HTTPS zu verwenden, aktiviere wieder die Verschlüsselung."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "Datei-Information",
+      "fileName": "Dateiname:",
+      "path": "Pfad:",
+      "size": "Größe:",
+      "sender": "Absender:",
+      "time": "Zeit:"
     },
     "fileNameInput": {
       "title": "Dateiname eingeben",

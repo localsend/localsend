@@ -21,6 +21,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
       theme: service.getTheme(),
       locale: service.getLocale(),
       port: service.getPort(),
+      multicastGroup: service.getMulticastGroup(),
       destination: service.getDestination(),
       saveToGallery: service.isSaveToGallery(),
       quickSave: service.isQuickSave(),
@@ -55,6 +56,13 @@ class SettingsNotifier extends StateNotifier<Settings> {
     await _service.setPort(port);
     state = state.copyWith(
       port: port,
+    );
+  }
+
+  Future<void> setMulticastGroup(String group) async {
+    await _service.setMulticastGroup(group);
+    state = state.copyWith(
+      multicastGroup: group,
     );
   }
 

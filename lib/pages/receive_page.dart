@@ -114,13 +114,13 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                     label: '#${receiveState.sender.ip.visualId}',
                                   ),
                                   if (receiveState.sender.deviceModel != null)
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: DeviceBadge(
+                                    ...[
+                                      const SizedBox(width: 10),
+                                      DeviceBadge(
                                         color: Theme.of(context).colorScheme.tertiaryContainer,
                                         label: receiveState.sender.deviceModel!,
                                       ),
-                                    ),
+                                    ],
                                 ],
                               ),
                               const SizedBox(height: 40),

@@ -7,6 +7,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
@@ -60,6 +61,7 @@ class _SendPageState extends ConsumerState<SendPage> {
       );
     }
     final myDevice = ref.watch(deviceInfoProvider);
+    final waiting = sendState?.status == SessionStatus.waiting;
 
     return WillPopScope(
       onWillPop: () async {
@@ -116,6 +118,34 @@ class _SendPageState extends ConsumerState<SendPage> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
                                 child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                              )
+                            else if (sendState.status == SessionStatus.recipientBusy)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(t.sendPage.busy, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                              )
+                            else if (sendState.status == SessionStatus.finishedWithErrors)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(t.general.error, style: const TextStyle(color: Colors.orange)),
+                                    if (sendState.errorMessage != null)
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: Colors.orange,
+                                        ),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (_) => ErrorDialog(error: sendState.errorMessage!),
+                                          );
+                                        },
+                                        child: const Icon(Icons.info),
+                                      ),
+                                  ],
+                                ),
                               ),
                             Center(
                               child: ElevatedButton.icon(
@@ -123,8 +153,8 @@ class _SendPageState extends ConsumerState<SendPage> {
                                   _cancel();
                                   context.pop();
                                 },
-                                icon: Icon(sendState.status == SessionStatus.declined ? Icons.check_circle : Icons.close),
-                                label: Text(sendState.status == SessionStatus.declined ? t.general.close : t.general.cancel),
+                                icon: Icon(waiting ? Icons.close : Icons.check_circle),
+                                label: Text(waiting ? t.general.cancel : t.general.close),
                               ),
                             ),
                           ],

@@ -1,10 +1,23 @@
-## 1.7.0 (2023-)
+## 1.8.0 (2023-)
 
-- feat: add unencrypted HTTP mode
+- feat: Android TV support
+- feat: add troubleshoot page
+
+## 1.7.0 (2023-02-11)
+
+- feat: improve device discovery by enabling multicast
+- feat: received files history
+- feat: show recent IP addresses in manual IP input
+- feat: separate language settings page
 - feat: message input is horizontally scrollable when multiline is unselected
 - feat: open message normally in QuickSave mode (instead of saving it into a file)
+- feat: improve error handling and add possibility to show exact error message for debugging
+- feat: add unencrypted HTTP mode (for debugging)
+- feat(android): keep file name when saving to photos
+- feat(desktop): use bigger default window size if display is big enough
 - feat(windows): use "Microsoft YaHei UI" font in Windows which works better with Chinese characters
-- i18n: add ar, fr, hu, it, ja, ko, pl, ru, sv, zh-Hant (Thanks to all the contributors!)
+- fix: cache cleanup on iOS
+- i18n: add ar, es-ES, fr-FR, hu, in, it, iw, ja, ko, ne, pl, pt-BR, ru, sv, tr, zh-Hant-HK, zh-Hant-TW (Thanks to all the contributors!)
 
 ## 1.6.2 (2023-01-28)
 

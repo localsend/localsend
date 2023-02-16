@@ -48,8 +48,8 @@
   "sendTab": {
     "title": "Küld",
     "selection": {
-      "title": "Selection",
-      "files": "Fájlok: {files}",
+      "title": "Kiválasztás",
+      "files": "Fájl(ok): {files}",
       "size": "Méret: {size}"
     },
     "picker": {
@@ -95,7 +95,33 @@
       "alias": "Álnév",
       "port": "Port",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
-      "encryption": "Titkosítás"
+      "encryption": "Titkosítás",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
+    }
+  },
+  "troubleshootTab": {
+    "title": "Hibaelhárítás",
+    "subTitle": "Ez az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.",
+    "solution": "Megoldás:",
+    "fixButton": "Autom. javítás",
+    "firewall": {
+      "symptom": "Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.",
+      "solution": "Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a {port} porton.",
+      "openFirewall": "Tűzfal megnyitás"
+    },
+    "noConnection": {
+      "symptom": "A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.",
+      "solution": "A probléma mindkét oldalon létezik? Akkor meg kell győződnie arról, hogy mindkét eszköz ugyanabban a wifi hálózatban van, és ugyanazt a konfigurációt használja (port, multicast cím, titkosítás). Előfordulhat, hogy a Wifi nem teszi lehetővé a résztvevők közötti kommunikációt. Ebben az esetben ezt az opciót engedélyezni kell a routeren.."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Előzmény",
+    "empty": "Az előzmény üres.",
+    "entryActions": {
+      "open": "Fájl megnyitás",
+      "info": "Információ",
+      "deleteFromHistory": "Törlés az előzményből"
     }
   },
   "selectedFilesPage": {
@@ -113,11 +139,12 @@
   "receiveOptionsPage": {
     "title": "Opciók",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend mappa)"
   },
   "sendPage": {
     "waiting": "Válaszra várva...",
-    "rejected": "A fogadó elutasította a kérelmet."
+    "rejected": "A fogadó elutasította a kérelmet.",
+    "busy": "A címzett más kéréssel van elfoglalva."
   },
   "progressPage": {
     "titleSending": "Fájlok küldése",
@@ -136,12 +163,12 @@
     }
   },
   "aboutPage": {
-    "title": "A LocalSend-ről"
+    "title": "A LocalSend"
   },
   "changelogPage": {
     "title": "Változásnapló"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -152,11 +179,31 @@
     "addressInput": {
       "title": "Adja meg a címet",
       "hashtag": "Hashtag",
-      "ip": "IP cím"
+      "ip": "IP cím",
+      "recentlyUsed": "Nemrég használt: "
     },
     "cancelSession": {
       "title": "Fájlátvitel megszakítása",
       "content": "Valóban meg akarja szakítani a fájlátvitelt?"
+    },
+    "cannotOpenFile": {
+      "title": "A fájl nem nyitható meg",
+      "content": "Nem sikerült megnyitni a(z) \"{file}\" fájlt. Ezt a fájlt áthelyezték, átnevezték vagy törölték?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "A titkosítás letiltva",
+      "content": "A kommunikáció most a titkosítatlan HTTP protokollon keresztül történik. A HTTPS használatához engedélyezze újra a titkosítást."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "Fájl információ",
+      "fileName": "Fájl neve:",
+      "path": "Útvonal:",
+      "size": "Méret:",
+      "sender": "Feladó:",
+      "time": "Idő:"
     },
     "fileNameInput": {
       "title": "Írja be a fájl nevét",
@@ -180,11 +227,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "A fájlkérések auto. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
-    },
-    "encryptionDisabledNotice": {
-      "title": "A titkosítás letiltva",
-      "content": "A kommunikáció most a titkosítatlan HTTP protokollon keresztül történik. A HTTPS használatához engedélyezze újra a titkosítást."
+      "content": "A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
     }
   },
   "tray": {

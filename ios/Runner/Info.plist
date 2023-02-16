@@ -52,6 +52,7 @@
         <string>ar</string>
         <string>de</string>
         <string>en</string>
+        <string>es-ES</string>
         <string>fr-FR</string>
         <string>hu</string>
         <string>in</string>
@@ -61,6 +62,7 @@
         <string>ko</string>
         <string>ne</string>
         <string>pl</string>
+		<string>pt-BR</string>
         <string>ru</string>
         <string>sv</string>
         <string>tr</string>

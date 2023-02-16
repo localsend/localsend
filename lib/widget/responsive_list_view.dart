@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 
 class ResponsiveListView extends StatelessWidget {
   static const defaultMaxWidth = 550.0;
-  static const defaultBreakpoints = ScreenBreakpoints(tablet: 600, desktop: 700, watch: 300);
 
   final double maxWidth;
   final ScrollController? controller;
@@ -18,7 +17,7 @@ class ResponsiveListView extends StatelessWidget {
     EdgeInsets? tabletPadding,
     required this.children,
     Key? key,
-  })  : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+  })  : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         super(key: key);
 
   @override
@@ -29,8 +28,7 @@ class ResponsiveListView extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxWidth),
           child: ResponsiveBuilder(
-            breakpoints: defaultBreakpoints,
-            builder: (context, sizingInformation) {
+            builder: (sizingInformation) {
               return Padding(
                 padding: sizingInformation.isDesktop ? desktopPadding : padding,
                 child: Column(

@@ -13,5 +13,6 @@ class ReceivingFile with _$ReceivingFile {
     required String? desiredName, // not null when accepted
     required String? path, // when finished
     required bool savedToGallery, // when finished
+    required String? errorMessage, // when status == failed
   }) = _ReceivingFile;
 }

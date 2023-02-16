@@ -95,14 +95,32 @@
       "alias": "Alias",
       "port": "Port",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption"
+      "encryption": "Encryption",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+    }
+  },
+  "troubleshootTab": {
+    "title": "Troubleshoot",
+    "subTitle": "This app does not work as expected? Here you can find common solutions.",
+    "solution": "Solution:",
+    "fixButton": "Fix automatically",
+    "firewall": {
+      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
+      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
+      "openFirewall": "Open Firewall"
+    },
+    "noConnection": {
+      "symptom": "Both devices cannot discover each other nor can they share files.",
+      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
     }
   },
   "receiveHistoryPage": {
     "title": "History",
+    "empty": "The history is empty.",
     "entryActions": {
-      "open": "@:general.open",
-      "info": "Info",
+      "open": "Open file",
+      "info": "Information",
       "deleteFromHistory": "Delete from history"
     }
   },
@@ -125,7 +143,8 @@
   },
   "sendPage": {
     "waiting": "Waiting for response...",
-    "rejected": "The recipient has rejected the request."
+    "rejected": "The recipient has rejected the request.",
+    "busy": "The recipient is busy with another request."
   },
   "progressPage": {
     "titleSending": "Sending files",
@@ -230,7 +249,8 @@
     "addressInput": {
       "title": "Enter address",
       "hashtag": "Hashtag",
-      "ip": "IP Address"
+      "ip": "IP Address",
+      "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
       "title": "Cancel file transfer",
@@ -243,6 +263,17 @@
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
       "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "File information",
+      "fileName": "File name:",
+      "path": "Path:",
+      "size": "Size:",
+      "sender": "Sender:",
+      "time": "Time:"
     },
     "fileNameInput": {
       "title": "Enter file name",

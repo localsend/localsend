@@ -15,5 +15,6 @@ class SendState with _$SendState {
     required int? startTime,
     required int? endTime,
     required CancelToken? cancelToken,
+    required String? errorMessage,
   }) = _SendState;
 }

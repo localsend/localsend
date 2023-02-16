@@ -95,13 +95,31 @@
       "alias": "别名",
       "port": "端口",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
-      "encryption": "加密"
+      "encryption": "加密",
+      "multicastGroup": "多播",
+      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
+    }
+  },
+  "troubleshootTab": {
+    "title": "故障排除",
+    "subTitle": "该应用没有按预期工作？您可以在这里找到常用解决方案。",
+    "solution": "解决方案：",
+    "fixButton": "自动修复",
+    "firewall": {
+      "symptom": "此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。",
+      "solution": "这最有可能是由防火墙引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP 的）传入请求来解决这个问题。",
+      "openFirewall": "打开防火墙"
+    },
+    "noConnection": {
+      "symptom": "双方设备均无法发现对方或者分享文件。",
+      "solution": "这个问题发生在双方设备上时，需要确认双方设备处于同一 WiFi 网络内，且有相同的（端口、多播地址、加密选项）配置。这个 WiFi 可能不允许参与者间通信，在这种情况下，请在路由器中开启这个选项。"
     }
   },
   "receiveHistoryPage": {
     "title": "历史",
+    "empty": "无历史记录。",
     "entryActions": {
-      "open": "@:general.open",
+      "open": "打开文件",
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
     }
@@ -125,7 +143,8 @@
   },
   "sendPage": {
     "waiting": "等待响应中...",
-    "rejected": "对方拒绝了请求。"
+    "rejected": "对方拒绝了请求。",
+    "busy": "对方正在处理另一个请求。"
   },
   "progressPage": {
     "titleSending": "正在发送文件",
@@ -160,7 +179,8 @@
     "addressInput": {
       "title": "输入地址",
       "hashtag": "Hashtag",
-      "ip": "IP 地址"
+      "ip": "IP 地址",
+      "recentlyUsed": "最近使用："
     },
     "cancelSession": {
       "title": "取消文件传输",
@@ -173,6 +193,17 @@
     "encryptionDisabledNotice": {
       "title": "加密已关闭",
       "content": "正在通过未加密的 HTTP 协议连接。要使用 HTTPS 协议，请开启加密选项。"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "文件信息",
+      "fileName": "文件名：",
+      "path": "路径：",
+      "size": "大小：",
+      "sender": "发送者：",
+      "time": "时间："
     },
     "fileNameInput": {
       "title": "输入文件名",

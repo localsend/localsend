@@ -5,10 +5,10 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
@@ -36,23 +36,13 @@ class _SendTabState extends ConsumerState<SendTab> {
   void initState() {
     super.initState();
 
+    // Automatically scan the network when visiting the scan tab
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        _scan(null);
+        ref.read(scanProvider).startSmartScan();
       }
     });
-  }
-
-  void _scan(String? localIp) {
-    if (localIp != null) {
-      final settings = ref.read(settingsProvider);
-      final port = settings.port;
-      final https = settings.https;
-      ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
-    } else {
-      ref.read(networkInfoProvider.notifier).scanWhenInitialized();
-    }
   }
 
   @override
@@ -109,87 +99,81 @@ class _SendTabState extends ConsumerState<SendTab> {
         ] else ...[
           Card(
             margin: EdgeInsets.zero,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 15),
-                  child: Text(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
                     t.sendTab.selection.title,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
-                ),
-                const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Text(t.sendTab.selection.files(files: selectedFiles.length)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: SingleChildScrollView(
+                  const SizedBox(height: 5),
+                  Text(t.sendTab.selection.files(files: selectedFiles.length)),
+                  Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                  const SizedBox(height: 10),
+                  SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
                         ...selectedFiles.map((file) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: CrossFileThumbnail(file),
-                          );
-                        }),
+                          return [
+                            CrossFileThumbnail(file),
+                            const SizedBox(width: 10),
+                          ];
+                        }).expand((e) => e),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        onPressed: () {
+                          context.push(() => const SelectedFilesPage());
+                        },
+                        child: Text(t.general.edit),
                       ),
-                      onPressed: () {
-                        context.push(() => const SelectedFilesPage());
-                      },
-                      child: Text(t.general.edit),
-                    ),
-                    const SizedBox(width: 15),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      const SizedBox(width: 15),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                        onPressed: () {
+                          if (addOptions.length == 1) {
+                            addOptions.first.select(context: context, ref: ref); // open directly
+                            return;
+                          }
+                          AddFileDialog.open(
+                            context: context,
+                            parentRef: ref,
+                            options: addOptions,
+                          );
+                        },
+                        icon: const Icon(Icons.add),
+                        label: Text(t.general.add),
                       ),
-                      onPressed: () {
-                        if (addOptions.length == 1) {
-                          addOptions.first.select(context: context, ref: ref); // open directly
-                          return;
-                        }
-                        AddFileDialog.open(
-                          context: context,
-                          parentRef: ref,
-                          options: addOptions,
-                        );
-                      },
-                      icon: const Icon(Icons.add),
-                      label: Text(t.general.add),
-                    ),
-                    const SizedBox(width: 15),
-                  ],
-                ),
-                const SizedBox(height: 15),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Row(
           children: [
-            Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
+              ),
+            ),
             const SizedBox(width: 10),
             if (networkInfo.localIps.length == 1)
               Tooltip(
@@ -199,7 +183,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   spinning: nearbyDevicesState.runningIps.isNotEmpty,
                   reverse: true,
                   child: CustomIconButton(
-                    onPressed: () => _scan(null),
+                    onPressed: () => ref.read(scanProvider).startLegacySubnetScan(networkInfo.localIps.first),
                     child: const Icon(Icons.sync),
                   ),
                 ),
@@ -250,7 +234,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                             spinning: nearbyDevicesState.runningIps.contains(ip),
                             reverse: true,
                             child: CustomIconButton(
-                              onPressed: () => _scan(ip),
+                              onPressed: () => ref.read(scanProvider).startLegacySubnetScan(ip),
                               child: const Icon(Icons.sync),
                             ),
                           ),
