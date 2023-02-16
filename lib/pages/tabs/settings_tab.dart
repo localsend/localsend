@@ -17,6 +17,7 @@ import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
+import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
@@ -277,9 +278,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             ),
             _SettingsEntry(
               label: t.settingsTab.network.alias,
-              child: TextFormField(
+              child: TextFieldTv(
+                name: t.settingsTab.network.alias,
                 controller: _aliasController,
-                textAlign: TextAlign.center,
                 onChanged: (s) async {
                   await ref.read(settingsProvider.notifier).setAlias(s);
                 },
@@ -287,9 +288,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             ),
             _SettingsEntry(
               label: t.settingsTab.network.port,
-              child: TextFormField(
+              child: TextFieldTv(
+                name: t.settingsTab.network.port,
                 controller: _portController,
-                textAlign: TextAlign.center,
                 onChanged: (s) async {
                   final port = int.tryParse(s);
                   if (port != null) {
@@ -311,9 +312,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             ),
             _SettingsEntry(
               label: t.settingsTab.network.multicastGroup,
-              child: TextFormField(
+              child: TextFieldTv(
+                name: t.settingsTab.network.multicastGroup,
                 controller: _multicastController,
-                textAlign: TextAlign.center,
                 onChanged: (s) async {
                   await ref.read(settingsProvider.notifier).setMulticastGroup(s);
                 },

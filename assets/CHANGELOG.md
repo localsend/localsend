@@ -1,5 +1,6 @@
 ## 1.8.0 (2023-)
 
+- feat: Android TV support
 - feat: add troubleshoot page
 
 ## 1.7.0 (2023-02-11)
