@@ -1,156 +1,123 @@
 <#
-.SYNOPSIS
-Downloads any free app and its dependencies from the Microsoft Store.
 
-.DESCRIPTION
-This script downloads any free app and its dependencies from the Microsoft Store, given a valid Store URL. The downloaded files are saved to the specified directory.
+Update 2020-02-18
+Thanks @BruceDawson0xB for pointing out the flaw in the regex pattern. if %tmp% began with a lowercase char the script would fail.
 
-.PARAMETER StoreURL
-The URL of the Microsoft Store page for the app to download.
+Update 2020-02-14
+Thanks @jarwidmark for letting me know that this had Office as a dependency and for testing the workaround.
+	-The script now works even if you don't have Office installed.
 
-.PARAMETER SavePathRoot
-The root directory where the downloaded files should be saved. The default value is "%tmp%".
+Downloads any free app and its dependencies from the Microsoft store.
 
-.EXAMPLE
-pwsh .\msix_downloader.ps1 -StoreURL "https://www.microsoft.com/store/productId/9NCB4Z0TZ6RR"
+Drivers are starting to implement store apps to be fully functional.
+The analogue 3.5mm headphone connector not working on some models without the app.
+The driver package from the manufacturer only contains a batch file which opens the store in your web browser.
+And I can't find the app in the business store...
 
-Downloads the Microsoft Solitaire Collection app and its dependencies from the Microsoft Store, and saves the files to the default directory.
+Also heard of a similar case with the thunderbolt app.
 
-.NOTES
-Author: beholdenkey
-Date: 2023-02-16
+If the manufacturers would include these in their driver packages I wouldn't have to do this.
+But I can see why they don't..
+
+There's this "small" issue with deploying .Appx and AppxBundles during an OSD.
+But that script will be done and uploaded in a cuple of days or so. :)
+
+
+The real heroes here are the ppl behind this site:
+https://store.rg-adguard.net
+
+I'm just poking their API.
+
+-StoreURL Examples:
+
+-StoreURL https://www.microsoft.com/store/apps/9n6f0jv38ph1
+-StoreURL https://www.microsoft.com/en-us/p/thunderbolt-control-center/9n6f0jv38ph1
 #>
 
-[CmdletBinding()]
-param (
-    [Parameter(Mandatory = $true, Position = 0, HelpMessage = "The URL of the Microsoft Store page for the app to download.")]
-    [ValidateNotNullOrEmpty()]
+Param (
+    [Parameter(Mandatory = $True)]
     [string] $StoreURL,
-
-    [Parameter(Mandatory = $false, Position = 1, HelpMessage = "The root directory where the downloaded files should be saved. The default value is the system temporary directory.")]
-    [ValidateNotNullOrEmpty()]
-    [string] $SavePathRoot = [System.IO.Path]::GetTempPath()
+    [Parameter(Mandatory = $False)]
+    $SavePathRoot = "%tmp%"
 )
 
-
-# Set up error handling
-$ErrorActionPreference = "Stop"
-$ErrorMessage = ""
+#
 
 if ($StoreURL.EndsWith("/")) {
-    $StoreURL = $StoreURL.Substring(0, $StoreURL.Length - 1)
+    #write-host "Ends with '/'"
+    $StoreURL = $StoreURL.Remove($StoreUrl.Length - 1, 1)
 }
 
-# Query the API to get the download links for the app
-$wc = [System.Net.WebClient]::new()
+$wchttp = [System.Net.WebClient]::new()
 $URI = "https://store.rg-adguard.net/api/GetFiles"
 $myParameters = "type=url&url=$($StoreURL)"
-$wc.Headers[[System.Net.HttpRequestHeader]::ContentType] = "application/x-www-form-urlencoded"
-$HtmlResult = $wc.UploadString($URI, $myParameters)
+#&ring=Retail&lang=sv-SE"
 
-# Parse the HTML response to get the download links
-$start = $HtmlResult.IndexOf("<p>The links were successfully received from the Microsoft Store server.</p>")
-if ($start -eq -1) {
-    throw "Could not get the links, please check the StoreURL."
+$wchttp.Headers[[System.Net.HttpRequestHeader]::ContentType] = "application/x-www-form-urlencoded"
+$HtmlResult = $wchttp.UploadString($URI, $myParameters)
+
+$Start = $HtmlResult.IndexOf("<p>The links were successfully received from the Microsoft Store server.</p>")
+#write-host $start
+
+if ($Start -eq -1) {
+    write-host "Could not get the links, please check the StoreURL."
+    exit
 }
 
-$tableEnd = ($HtmlResult.LastIndexOf("</table>") + 8)
-$semiCleaned = $HtmlResult.Substring($start, $tableEnd - $start)
+$TableEnd = ($HtmlResult.LastIndexOf("</table>") + 8)
 
+
+$SemiCleaned = $HtmlResult.Substring($start, $TableEnd - $start)
+
+#https://stackoverflow.com/questions/46307976/unable-to-use-ihtmldocument2
 $newHtml = New-Object -ComObject "HTMLFile"
 try {
     # This works in PowerShell with Office installed
-    $newHtml.IHTMLDocument2_write($semiCleaned)
+    $newHtml.IHTMLDocument2_write($SemiCleaned)
 }
 catch {
-    # This works when Office is not installed
-    $src = [System.Text.Encoding]::Unicode.GetBytes($semiCleaned)
+    # This works when Office is not installed    
+    $src = [System.Text.Encoding]::Unicode.GetBytes($SemiCleaned)
     $newHtml.write($src)
 }
 
-$toDownload = $newHtml.getElementsByTagName("a") | Select-Object textContent, href
+$ToDownload = $newHtml.getElementsByTagName("a") | Select-Object textContent, href
 
-# Create the directory to save the downloaded files
 $SavePathRoot = $([System.Environment]::ExpandEnvironmentVariables("$SavePathRoot"))
-$lastFrontSlash = $StoreURL.LastIndexOf("/")
-$productID = $StoreURL.Substring($lastFrontSlash + 1, $StoreURL.Length - $lastFrontSlash - 1)
-$path = Join-Path $SavePathRoot $productID
 
-if ($StoreURL.EndsWith("/")) {
-    $StoreURL = $StoreURL.Substring(0, $StoreURL.Length - 1)
-}
-# Query the API to get the download links for the app
-$wc = [System.Net.WebClient]::new()
-$URI = "https://store.rg-adguard.net/api/GetFiles"
-$myParameters = "type=url&url=$($StoreURL)"
-$wc.Headers[[System.Net.HttpRequestHeader]::ContentType] = "application/x-www-form-urlencoded"
-$HtmlResult = $wc.UploadString($URI, $myParameters)
+$LastFrontSlash = $StoreURL.LastIndexOf("/")
+$ProductID = $StoreURL.Substring($LastFrontSlash + 1, $StoreURL.Length - $LastFrontSlash - 1)
 
-# Parse the HTML response to get the download links
-$start = $HtmlResult.IndexOf("<p>The links were successfully received from the Microsoft Store server.</p>")
-if ($start -eq -1) {
-    throw "Could not get the links, please check the StoreURL."
+# OldRegEx   Failed when the %tmp% started with a lowercase char
+#if ([regex]::IsMatch("$SavePathRoot\$ProductID","([,!@?#$%^&*()\[\]]+|\\\.\.|\\\\\.|\.\.\\\|\.\\\|\.\.\/|\.\/|\/\.\.|\/\.|;|(?<![A-Z]):)|^\w+:(\w|.*:)"))
+
+if ([regex]::IsMatch("$SavePathRoot\$ProductID", "([,!@?#$%^&*()\[\]]+|\\\.\.|\\\\\.|\.\.\\\|\.\\\|\.\.\/|\.\/|\/\.\.|\/\.|;|(?<![A-Za-z]):)|^\w+:(\w|.*:)")) {
+    write-host "Invalid characters in path"$SavePathRoot\$ProductID""
+    exit
 }
 
-$tableEnd = ($HtmlResult.LastIndexOf("</table>") + 8)
-$semiCleaned = $HtmlResult.Substring($start, $tableEnd - $start)
 
-$newHtml = New-Object -ComObject "HTMLFile"
-try {
-    # This works in PowerShell with Office installed
-    $newHtml.IHTMLDocument2_write($semiCleaned)
-}
-catch {
-    # This works when Office is not installed
-    $src = [System.Text.Encoding]::Unicode.GetBytes($semiCleaned)
-    $newHtml.write($src)
-}
+if (!(test-path "$SavePathRoot\$ProductID")) {
+    write-host "Creating Directorty"$SavePathRoot\$ProductID""
 
-$toDownload = $newHtml.getElementsByTagName("a") | Select-Object textContent, href
-
-# Create the directory to save the downloaded files
-$SavePathRoot = $([System.Environment]::ExpandEnvironmentVariables("$SavePathRoot"))
-$lastFrontSlash = $StoreURL.LastIndexOf("/")
-$productID = $StoreURL.Substring($lastFrontSlash + 1, $StoreURL.Length - $lastFrontSlash - 1)
-$path = Join-Path $SavePathRoot $productID
-
-if (!(Test-Path $path)) {
-    New-Item -ItemType Directory $path -ErrorAction Stop | Out-Null
-    Write-Verbose "Created directory $path."
-}
-
-# Download the files
-$currentSize = 0
-$totalSize = $toDownload | Where-Object { $_.href -match '\d+' } | Measure-Object -Property href -Sum | Select-Object -ExpandProperty Sum
-
-foreach ($download in $toDownload) {
-    # Check if the href is a number before downloading
-    if ($download.href -match '\d+') {
-        $downloadPath = Join-Path $path $download.textContent
-        $progressLabel = "Downloading $($download.textContent)..."
-        $progressPercentage = [math]::Round(($currentSize / $totalSize) * 100, 0)
-
-        Write-Progress -Activity "Downloading files" -Status $progressLabel -PercentComplete $progressPercentage
-
-        try {
-            $wc.DownloadFile($download.href, $downloadPath)
-            Write-Verbose "Downloaded $($download.textContent) to $downloadPath."
-            
-            # Get the file size and add it to the current size
-            $contentLength = $wc.ResponseHeaders["Content-Length"]
-            if ($null -ne $contentLength -and $contentLength -is [int]) {
-                $currentSize += $contentLength
-            }
-            else {
-                Write-Warning "Could not get the size of $($download.textContent)."
-            }
-        }
-        catch {
-            $ErrorMessage = "Failed to download $($download.textContent): $_"
-            Write-Error $ErrorMessage
-        }
+    try {
+        New-Item -ItemType Directory "$SavePathRoot\$ProductID" -ErrorAction Stop | Out-Null
+    }
+    catch {
+        write-host "Failed to create directory.$([System.environment]::NewLine)$_"
+        write-host "Exiting..."
+        exit
     }
 }
 
-# Open the directory where the files were saved
-Write-Verbose "Download complete. Opening directory $path."
+Foreach ($Download in $ToDownload) {
+    Write-host "Downloading $($Download.textContent)..."
+    $wchttp.DownloadFile($Download.href, "$SavePathRoot\$ProductID\$($Download.textContent)")
+    
+}
+write-host "---------------------------------------"
+write-host ""
+Write-host "Download is complete..." 
+write-host "Opening Folder"
+(Start-Sleep -s 3)
+(Start "$SavePathRoot\$ProductID\")
