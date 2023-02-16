@@ -1,6 +1,8 @@
 # LocalSend
 
-![ci](https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg)
+LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
+
+[![CI status](https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg)](https://github.com/localsend/localsend/actions/workflows/ci.yml)
 
 Links: [Homepage](https://localsend.org)
 | [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app)
@@ -8,99 +10,79 @@ Links: [Homepage](https://localsend.org)
 | [App Store](https://apps.apple.com/us/app/localsend/id1661733229)
 | [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)
 
+- [LocalSend](#localsend)
+  - [About](#about)
+  - [Screenshots](#screenshots)
+  - [How it Works](#how-it-works)
+  - [Getting Started](#getting-started)
+  - [Contributing](#contributing)
+  - [Building](#building)
+    - [Android](#android)
+    - [iOS](#ios)
+    - [MacOS](#macos)
+    - [Windows](#windows)
+    - [Linux](#linux)
+
 ## About
 
-Share files to nearby devices. Free, open source, cross-platform.
-
-This app allows you to send files and messages over the local LAN network.
-
-No internet required, no external servers needed.
+LocalSend is a cross-platform app that enables secure communication between devices using a REST API and HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
 
 ## Screenshots
 
-<div style="display:flex">
-<img src="https://localsend.org/img/screenshot-iphone.png" alt="screenshot1" height="300"/>
-<img src="https://localsend.org/img/screenshot-pc.png" alt="screenshot2" height="300"/>
-</div>
+<img src="https://localsend.org/img/screenshot-iphone.png" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.png" alt="PC screenshot" height="300"/>
 
-## Protocol
+## How it Works
 
-Devices communicate with each other using a REST API.
+LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
 
-Everything is sent securely over HTTPS. The TLS/SSL certificate is generated on the fly on each device.
+For more information on the LocalSend Protocol, see the [documentation](https://github.com/localsend/protocol).
 
-For more information: [LocalSend Protocol v1](https://github.com/localsend/protocol)
+## Getting Started
 
-## Run
+To get started with LocalSend, follow these steps:
 
-After you have installed [Flutter](https://flutter.dev), then you can start this app by typing the following commands:
-
-```shell
-flutter pub get
-flutter pub run build_runner build -d
-flutter run
-```
+1. Install [Flutter](https://flutter.dev)
+2. Clone the LocalSend repository
+3. Run `flutter pub get` to download dependencies
+4. Run `flutter pub run build_runner build -d` to generate code
+5. Run `flutter run` to start the app
 
 ## Contributing
 
-### Translation
+We welcome contributions from anyone who is interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
 
-You can help translating this app to other languages!
+- **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
+- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first so we can discuss why the improvement is needed.
 
-1. Fork this repository
-2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
-3. Optional: Re-run this app
-   1. Make sure you have [run](#run) this app once.
-   2. Update translations via `flutter pub run slang`
-   3. Run app via `flutter run`
-4. Open a pull request
+For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-**Important:** Do not translate keys starting with `@`. These are comments and should stay in English!
+## Building
 
-For convenience, you can use this link: https://github.com/localsend/localsend/new/main/assets/i18n
-
-### Bug fixes
-
-Any bug fix is welcome! Please describe how and why your fix is needed in the PR.
-
-### Improvements
-
-This app is very simple and should stay that way.
-
-Please create an issue first so we can discuss why this improvement is needed.
-
-## Build
-
-These commands are mostly for the maintainers.
-
-Please ensure that `flutter pub run build_runner build` has been run. Otherwise, files will be missing.
+These commands are intended for maintainers only.
 
 ### Android
 
 Traditional APK
 
-```shell
+```bash
 flutter build apk
 ```
 
 AppBundle for Google Play
 
-```shell
+```bash
 flutter build appbundle
 ```
 
 ### iOS
 
-```shell
+```bash
 flutter build ipa
 ```
 
 ### MacOS
 
-```shell
+```bash
 flutter build macos
 ```
 
@@ -108,19 +90,19 @@ flutter build macos
 
 **Traditional**
 
-```shell
+```bash
 flutter build windows
 ```
 
 **Local MSIX App**
 
-```shell
+```bash
 flutter pub run msix:create
 ```
 
 **Store ready**
 
-```shell
+```bash
 flutter pub run msix:create --store
 ```
 
@@ -128,13 +110,13 @@ flutter pub run msix:create --store
 
 **Traditional**
 
-```shell
+```bash
 flutter build linux
 ```
 
 **AppImage**
 
-```shell
+```bash
 appimage-builder --recipe AppImageBuilder.yml
 ```
 
