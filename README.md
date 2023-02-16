@@ -25,7 +25,7 @@ No internet required, no external servers needed.
 
 ## Protocol
 
-Devices communicate with each other using a REST API. 
+Devices communicate with each other using a REST API.
 
 Everything is sent securely over HTTPS. The TLS/SSL certificate is generated on the fly on each device.
 
@@ -33,7 +33,7 @@ For more information: [LocalSend Protocol v1](https://github.com/localsend/proto
 
 ## Run
 
-After you have installed [Flutter](https://flutter.dev), then you can start this app by typing the following commands: 
+After you have installed [Flutter](https://flutter.dev), then you can start this app by typing the following commands:
 
 ```shell
 flutter pub get
@@ -140,4 +140,4 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Feel free to open a pull request. There is a  `snap` branch to play with.
+Feel free to open a pull request. There is a `snap` branch to play with.
