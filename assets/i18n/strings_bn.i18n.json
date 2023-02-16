@@ -1,0 +1,195 @@
+{
+  "locale": "বাংলা",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "মেনে নিন",
+    "add": "যোগ করুন",
+    "advanced": "উন্নত করা হয়েছে",
+    "cancel": "বাতিল করুন",
+    "close": "বন্ধ করুন ",
+    "confirm": "নিশ্চিত করুন",
+    "continueStr": "চালিয়ে যান",
+    "copy": "কপি করুন",
+    "copiedToClipboard": "ক্লিপবোর্ডে কপি করা হয়েছে",
+    "decline": "প্রত্যাখ্যান করুন",
+    "done": "সম্পন্ন",
+    "edit": "বাহির হোন",
+    "error": "ভুল হয়েছে",
+    "example": "উদাহরণ",
+    "files": "ফাইল সমূহ",
+    "finished": "শেষ হয়েছে",
+    "hide": "আড়াল করুন",
+    "off": "বন্ধ",
+    "offline": "অফলাইন",
+    "on": "চালু",
+    "online": "অনলাইন",
+    "open": "খোলা",
+    "queue": "সারিবদ্ধ",
+    "quickSave": "দ্রুত সেভ করুন",
+    "renamed": "নাম পরিবর্তন করা হয়েছে",
+    "reset": "রিসেট করুন",
+    "restart": "পুনরায় চালু করুন",
+    "settings": "সেটিংস",
+    "skipped": "স্কিপ করা হয়েছে",
+    "start": "শুরু করুন",
+    "stop": "বন্ধ করুন",
+    "save": "সেভ করুন",
+    "unchanged": "অপরিবর্তিত",
+    "unknown": "অজানা"
+  },
+  "receiveTab": {
+    "title": "গ্রহণ",
+    "infoBox": {
+      "ip": "আইপি:",
+      "port": "পোর্ট:",
+      "alias": "উপনাম:"
+    }
+  },
+  "sendTab": {
+    "title": "পাঠান",
+    "selection": {
+      "title": "সিলেকশন",
+      "files": "ফাইলসমূহ: {files}",
+      "size": "সাইজ: {size}"
+    },
+    "picker": {
+      "file": "ফাইল",
+      "media": "মিডিয়া",
+      "text": "টেক্সট"
+    },
+    "shareIntentInfo": "আরো সহজে ফাইলসমূহ সিলেক্ট করার জন্য আপনি আপনার মোবাইলের \"Share\" ফিচারটি ব্যবহার করতে পারেন",
+    "nearbyDevices": "আশেপাশের ডিভাইসসমূহ",
+    "thisDevice": "এই ডিভাইস",
+    "scan": "ডিভাইসসমূহ সন্ধান করুন",
+    "help": "অনুগ্রহ করে নিশ্চিত করুন যে অন্য ডিভাসটিও একই ওয়াইফাই নেটওয়ার্কে রয়েছে।",
+    "placeItems": "শেয়ার করার জন্য ফাইল রাখুন।"
+  },
+  "settingsTab": {
+    "title": "সেটিংস",
+    "general": {
+      "title": "জেনারেল",
+      "theme": "থিম",
+      "themeOptions": {
+        "system": "সিস্টেম",
+        "dark": "ডার্ক",
+        "light": "লাইট"
+      },
+      "language": "ভাষা",
+      "languageOptions": {
+        "system": "সিস্টেম"
+      },
+      "minimizeToTray": "প্রস্থান করুন: ট্রেতে মিনিমাইজ করুন",
+      "launchAtStartup": "লগইন করার পরে অটোস্টার্ট করুন",
+      "launchMinimized": "অটোস্টার্ট: হিডেন থেকে শুরু করুন"
+    },
+    "receive": {
+      "title": "গ্রহণ করুন",
+      "quickSave": "@:general.quickSave",
+      "destination": "গন্তব্য",
+      "saveToGallery": "গ্যালারিতে মিডিয়া সেভ করুন"
+    },
+    "network": {
+      "title": "নেটওয়ার্ক",
+      "needRestart": "সেটিংস প্রয়োগ করতে সার্ভার রিস্টার্ট করুন!",
+      "server": "সার্ভার",
+      "alias": "উপনাম",
+      "port": "পোর্ট",
+      "portWarning": "আপনি একটি কাস্টম পোর্ট ব্যবহার করছেন তাই আপনি অন্য ডিভাইস থেকে এই ডিভাইকে খুঁজে নাও হতে পারে. (default: {defaultPort})",
+      "encryption": "এনক্রিপশন"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "সব ডিলিট করুন"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "আপনাকে একটি ফাইল পাঠাতে চায়।",
+      "other": "আপনাকে {n}টি ফাইল পাঠাতে চায়।"
+    },
+    "subTitleMessage": "আপনাকে একটি বার্তা পাঠিয়েছে:",
+    "subTitleLink": "আপনাকে একটি লিঙ্ক পাঠিয়েছে:",
+    "canceled": "সেন্ডার রিকুয়েস্টটি কেন্সেল করেছে।"
+  },
+  "receiveOptionsPage": {
+    "title": "অপশনসমূহ",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName folder)"
+  },
+  "sendPage": {
+    "waiting": "রেস্পন্সের অপেক্ষায় ...",
+    "rejected": "প্রাপক অনুরোধ প্রত্যাখ্যান করেছেন।"
+  },
+  "progressPage": {
+    "titleSending": "ফাইল পাঠানো হচ্ছে",
+    "titleReceiving": "ফাইল গ্রহণ করা হচ্ছে",
+    "savedToGallery": "Photos এ সেভ করা হয়েছে",
+    "total": {
+      "title": {
+        "sending": "মোট অগ্রগতি ({time})",
+        "finishedError": "ত্রুটি সহ সমাপ্ত হয়েছে",
+        "canceledSender": "সেন্ডারের দ্বারা বাতিল করা হয়েছে",
+        "canceledReceiver": "রিসিভার দ্বারা বাতিল করা হয়েছে"
+      },
+      "count": "ফাইলসমূহ: {curr} / {n}",
+      "size": "সাইজ: {curr} / {n}",
+      "speed": "স্পীড: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "LocalSend সম্পর্কে"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "সিলেকশনে যুক্ত করুন",
+      "content": "আপনি কি যোগ করতে চান?"
+    },
+    "addressInput": {
+      "title": "এড্রেস লিখুন",
+      "hashtag": "হ্যাশট্যাগ",
+      "ip": "আইপি অ্যাড্রেস"
+    },
+    "cancelSession": {
+      "title": "ফাইল ট্রান্সফার বাতিল করুন",
+      "content": "আপনি কি সত্যিই ফাইল ট্রান্সফার বাতিল করতে চান?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption বন্ধ করা হয়েছে",
+      "content": "এখন কমিউনিকেশন আনএনক্রিপ্টেড HTTP প্রটোকলের মাধ্যমে করা হচ্ছে। HTTPS ব্যবহার করার জন্য আবার এনক্রিপশন চালু করুন"
+    },
+    "fileNameInput": {
+      "title": "ফাইলের নাম লিখুন",
+      "original": "আসল: {original}"
+    },
+    "messageInput": {
+      "title": "মেসেজ লিখুন",
+      "multiline": "মাল্টিলাইন"
+    },
+    "noFiles": {
+      "title": "কোনো ফাইল সিলেক্ট করা হয়নি",
+      "content": "অন্তত একটি ফাইল সিলেক্ট করুন। "
+    },
+    "quickActions": {
+      "title": "কুইক একশন্স",
+      "counter": "কাউন্টার",
+      "prefix": "উপসর্গ",
+      "padZero": "শূন্য সহ প্যাড",
+      "sortBeforeCount": "আগে থেকে বর্ণানুক্রমিকভাবে সাজান",
+      "random": "এলোমেলো"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "ফাইল অনুরোধ স্বয়ংক্রিয়ভাবে এক্সেপ্ট করা হয়। সচেতন থাকুন যেনা লোকাল নেটওয়ার্কের সবাই আপনাকে ফাইল পাঠাতে পারে।"
+    }
+  },
+  "tray": {
+    "@info": "অ্যাপলের নির্দেশিকাগুলি 'ক্লোজ' শব্দের বিষয়ে খুবই কঠোর।",
+    "open": "@:general.open",
+    "close": "LocalSend থেকে প্রস্থান করুন"
+  }
+}
