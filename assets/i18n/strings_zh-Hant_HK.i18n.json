@@ -181,7 +181,7 @@
       "content": "自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。"
     }
   },
-    "tray": {
+  "tray": {
     "open": "@:general.open",
     "close": "退出 LocalSend"
   }

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -14,8 +14,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
+          flutter-version: "3.3.10"
+          channel: "stable"
       - name: Dependencies
         run: flutter pub get
       - name: Build generated files
