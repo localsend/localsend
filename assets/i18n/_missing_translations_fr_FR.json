@@ -6,26 +6,26 @@
   "settingsTab": {
     "network": {
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
     }
   },
   "troubleshootTab": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
+    "title": "Dépannage",
+    "subTitle": "Cette application ne marche pas comme vous l'espérez? Vous pouvez ici trouver des solutions à des problèmes communs.",
     "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "fixButton": "Régler automatiquement",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "Cet appareil peut envoyer des fichiers à d'autres appareils, mais d'autres appareils ne peuvent pas en envoyer à cet appareil.",
+      "solution": "Le problème est probablement dû à votre pare-feu. Vous pouvez le régler en autorisant les connections entrantes (UDP et TCP) sur le port {port}.",
+      "openFirewall": "Ouvrir le pare-feu"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.",
+      "solution": "Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils sont connectés au même réseau wifi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Le wifi peut ne pas autoriser les communications entre appareils. Dans ce cas, l'option doit être activée dans les paramètres du routeur."
     }
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "Le destinataire est occupé avec une autre requête."
   },
   "dialogs": {
     "errorDialog": {
