@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'network_info.freezed.dart';
+part 'network_state.freezed.dart';
 
 @freezed
-class NetworkInfo with _$NetworkInfo {
-  const factory NetworkInfo({
+class NetworkState with _$NetworkState {
+  const factory NetworkState({
     required List<String> localIps,
     required bool initialized,
-  }) = _NetworkInfo;
+  }) = _NetworkState;
 }

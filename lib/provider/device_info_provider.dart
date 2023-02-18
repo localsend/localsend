@@ -10,7 +10,7 @@ final deviceRawInfoProvider = Provider<DeviceInfoResult>((ref) {
 });
 
 final deviceInfoProvider = Provider((ref) {
-  final networkInfo = ref.watch(networkInfoProvider);
+  final networkInfo = ref.watch(networkStateProvider);
   final serverState = ref.watch(serverProvider);
   final rawInfo = ref.watch(deviceRawInfoProvider);
   return Device(

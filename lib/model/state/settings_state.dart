@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 
-part 'settings.freezed.dart';
+part 'settings_state.freezed.dart';
 
 @freezed
-class Settings with _$Settings {
-  const factory Settings({
+class SettingsState with _$SettingsState {
+  const factory SettingsState({
     required String showToken, // the token to show / maximize the window because only one instance is allowed
     required String alias,
     required ThemeMode theme,
@@ -19,5 +19,5 @@ class Settings with _$Settings {
     required bool minimizeToTray, // minimize to tray instead of exiting the app
     required bool autoStartLaunchMinimized, // start hidden in tray (only available when launchAtStartup is true)
     required bool https,
-  }) = _Settings;
+  }) = _SettingsState;
 }

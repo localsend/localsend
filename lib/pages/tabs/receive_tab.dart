@@ -34,7 +34,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
     super.build(context);
 
     final settings = ref.watch(settingsProvider);
-    final networkInfo = ref.watch(networkInfoProvider);
+    final networkInfo = ref.watch(networkStateProvider);
     final serverState = ref.watch(serverProvider);
     return Stack(
       children: [

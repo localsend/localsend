@@ -48,7 +48,7 @@ class _SendTabState extends ConsumerState<SendTab> {
   @override
   Widget build(BuildContext context) {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
-    final networkInfo = ref.watch(networkInfoProvider);
+    final networkInfo = ref.watch(networkStateProvider);
     final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [

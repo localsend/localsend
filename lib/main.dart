@@ -62,7 +62,7 @@ class LocalSendApp extends ConsumerWidget {
         child: LifeCycleWatcher(
           onChangedState: (AppLifecycleState state) {
             if (state == AppLifecycleState.resumed) {
-              ref.read(networkInfoProvider.notifier).init();
+              ref.read(networkStateProvider.notifier).init();
             }
           },
           child: Shortcuts(

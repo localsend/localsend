@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/server/receive_state.dart';
+import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
@@ -34,24 +34,24 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
   }
 
   Future<void> _init() async {
-    final receiveState = ref.watch(serverProvider)?.receiveState;
-    if (receiveState == null) {
+    final receiveSession = ref.watch(serverProvider)?.session;
+    if (receiveSession == null) {
       return;
     }
 
-    ref.read(selectedReceivingFilesProvider.notifier).init(receiveState.files.values.map((f) => f.file).toList());
+    ref.read(selectedReceivingFilesProvider.notifier).init(receiveSession.files.values.map((f) => f.file).toList());
     setState(() {
       // show message if there is only one text file
-      _message = receiveState.message;
+      _message = receiveSession.message;
       _isLink = _message != null && (_message!.startsWith('http://') || _message!.startsWith('https'));
     });
   }
 
-  void _acceptNothing(WidgetRef ref, ReceiveState receiveState) {
+  void _acceptNothing(WidgetRef ref, ReceiveSessionState receiveState) {
     ref.read(serverProvider.notifier).acceptFileRequest({});
   }
 
-  void _accept(WidgetRef ref, ReceiveState receiveState) {
+  void _accept(WidgetRef ref, ReceiveSessionState receiveState) {
     final selectedFiles = ref.read(selectedReceivingFilesProvider);
     ref.read(serverProvider.notifier).acceptFileRequest(selectedFiles);
   }
@@ -62,8 +62,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
 
   @override
   Widget build(BuildContext context) {
-    final receiveState = ref.watch(serverProvider)?.receiveState;
-    if (receiveState == null) {
+    final receiveSession = ref.watch(serverProvider)?.session;
+    if (receiveSession == null) {
       // when declining/accepting the request, there is a short frame where tempRequest is null
       return Scaffold(
         body: Container(),
@@ -96,11 +96,11 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               if (!smallUi)
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
-                                  child: Icon(receiveState.sender.deviceType.icon, size: 64),
+                                  child: Icon(receiveSession.sender.deviceType.icon, size: 64),
                                 ),
                               FittedBox(
                                 child: Text(
-                                  receiveState.sender.alias,
+                                  receiveSession.sender.alias,
                                   style: TextStyle(fontSize: smallUi ? 32 : 48),
                                   textAlign: TextAlign.center,
                                 ),
@@ -111,14 +111,14 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 children: [
                                   DeviceBadge(
                                     color: Theme.of(context).colorScheme.tertiaryContainer,
-                                    label: '#${receiveState.sender.ip.visualId}',
+                                    label: '#${receiveSession.sender.ip.visualId}',
                                   ),
-                                  if (receiveState.sender.deviceModel != null)
+                                  if (receiveSession.sender.deviceModel != null)
                                     ...[
                                       const SizedBox(width: 10),
                                       DeviceBadge(
                                         color: Theme.of(context).colorScheme.tertiaryContainer,
-                                        label: receiveState.sender.deviceModel!,
+                                        label: receiveSession.sender.deviceModel!,
                                       ),
                                     ],
                                 ],
@@ -127,7 +127,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               Text(
                                 _message != null
                                     ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
-                                    : t.receivePage.subTitle(n: receiveState.files.length),
+                                    : t.receivePage.subTitle(n: receiveSession.files.length),
                                 style: smallUi ? null : Theme.of(context).textTheme.headline6,
                                 textAlign: TextAlign.center,
                               ),
@@ -185,7 +185,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                             ],
                           ),
                         ),
-                        if (receiveState.status == SessionStatus.waiting && _message == null)
+                        if (receiveSession.status == SessionStatus.waiting && _message == null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: TextButton.icon(
@@ -199,7 +199,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               label: Text(t.receiveOptionsPage.title),
                             ),
                           ),
-                        if (receiveState.status == SessionStatus.canceledBySender) ...[
+                        if (receiveSession.status == SessionStatus.canceledBySender) ...[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
@@ -221,7 +221,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
                               onPressed: () {
-                                _acceptNothing(ref, receiveState);
+                                _acceptNothing(ref, receiveSession);
                                 context.pop();
                               },
                               icon: const Icon(Icons.close),
@@ -253,7 +253,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 onPressed: selectedFiles.isEmpty
                                     ? null
                                     : () {
-                                        _accept(ref, receiveState);
+                                        _accept(ref, receiveSession);
                                         context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
                                           builder: () => const ProgressPage(),
