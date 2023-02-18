@@ -2,6 +2,7 @@
 
 - feat: Android TV support
 - feat: add troubleshoot page
+- fix: missing app icon on Android 7
 
 ## 1.7.0 (2023-02-11)
 
