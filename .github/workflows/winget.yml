@@ -7,7 +7,7 @@ jobs:
   publish:
     runs-on: windows-latest
     steps:
-      - uses: vedantmgoyal2009/winget-releaser@v1
+      - uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: LocalSend.LocalSend
           token: ${{ secrets.WINGET_TOKEN }}

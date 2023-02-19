@@ -5,24 +5,20 @@ import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/model/network_info.dart';
-import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/model/state/network_state.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
 
-final networkInfoProvider = StateNotifierProvider<NetworkInfoNotifier, NetworkInfo>((ref) => NetworkInfoNotifier(ref));
+final networkStateProvider = StateNotifierProvider<NetworkStateNotifier, NetworkState>((ref) => NetworkStateNotifier());
 
 StreamSubscription? _subscription;
 
-class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
-  final Ref _ref;
+class NetworkStateNotifier extends StateNotifier<NetworkState> {
 
-  NetworkInfoNotifier(this._ref)
-      : super(const NetworkInfo(
+  NetworkStateNotifier()
+      : super(const NetworkState(
           localIps: [],
           initialized: false,
-          scanWhenInitialized: false,
         )) {
     init();
   }
@@ -33,58 +29,24 @@ class NetworkInfoNotifier extends StateNotifier<NetworkInfo> {
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
         _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
-          state = NetworkInfo(
+          state = NetworkState(
             localIps: await _getIp(),
             initialized: true,
-            scanWhenInitialized: state.scanWhenInitialized,
           );
         });
       } else {
         _subscription = Connectivity().onConnectivityChanged.listen((_) async {
-          state = NetworkInfo(
+          state = NetworkState(
             localIps: await _getIp(),
             initialized: true,
-            scanWhenInitialized: state.scanWhenInitialized,
           );
         });
       }
     }
-    state = NetworkInfo(
+    state = NetworkState(
       localIps: await _getIp(),
       initialized: true,
-      scanWhenInitialized: state.scanWhenInitialized,
     );
-
-    if (state.scanWhenInitialized) {
-      await _scan();
-    }
-  }
-
-  Future<void> scanWhenInitialized() async {
-    if (state.initialized) {
-      // scan right away
-      await _scan();
-    } else {
-      // scan when IP addresses are fetched
-      state = state.copyWith(scanWhenInitialized: true);
-    }
-  }
-
-  Future<void> _scan() async {
-    final localIp = state.localIps.firstOrNull;
-    if (localIp == null) {
-      return;
-    }
-
-    final settings = _ref.read(settingsProvider);
-    final port = settings.port;
-    final https = settings.https;
-    state = state.copyWith(scanWhenInitialized: false);
-    await _ref.read(nearbyDevicesProvider.notifier).startScan(
-          port: port,
-          localIp: localIp,
-          https: https,
-        );
   }
 
   Future<List<String>> _getIp() async {

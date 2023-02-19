@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/server/receiving_file.dart';
+import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 
-part 'receive_state.freezed.dart';
+part 'receive_session_state.freezed.dart';
 
 @freezed
-class ReceiveState with _$ReceiveState {
-  const ReceiveState._(); // allow custom getters
+class ReceiveSessionState with _$ReceiveSessionState {
+  const ReceiveSessionState._(); // allow custom getters
 
-  const factory ReceiveState({
+  const factory ReceiveSessionState({
     required SessionStatus status,
     required Device sender,
     required Map<String, ReceivingFile> files,
@@ -23,7 +23,7 @@ class ReceiveState with _$ReceiveState {
     // use this to accept / decline the request, empty map == decline
     // FileId -> File Name
     required StreamController<Map<String, String>?>? responseHandler,
-  }) = _ReceiveState;
+  }) = _ReceiveSessionState;
 
   /// Returns the message of this request if this is a "message request".
   /// Message requests must contain a single text file with preview included.

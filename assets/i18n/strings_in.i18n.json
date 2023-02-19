@@ -1,0 +1,265 @@
+{
+  "locale": "Indonesian",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Terima",
+    "add": "Tambah",
+    "advanced": "Advanced",
+    "cancel": "Batal",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "continueStr": "Lanjut",
+    "copy": "Salin",
+    "copiedToClipboard": "Disalin ke Papanklip",
+    "decline": "Tolak",
+    "done": "Selesai",
+    "edit": "Ubah",
+    "error": "Kesalahan",
+    "example": "Contoh",
+    "files": "File",
+    "finished": "Selesai",
+    "hide": "Bersembunyi",
+    "off": "Mati",
+    "offline": "Offline",
+    "on": "Hidup",
+    "online": "Online",
+    "open": "Buka",
+    "queue": "Antrian",
+    "quickSave": "Penyimpanan Cepat",
+    "renamed": "Berganti nama",
+    "reset": "Mengatur Ulang",
+    "restart": "Mengulang Kembali",
+    "settings": "Pengaturan",
+    "skipped": "Dilewati",
+    "start": "Mulai",
+    "stop": "Berhenti",
+    "save": "Simpan",
+    "unchanged": "Tidak berubah",
+    "unknown": "Tidak dikenal"
+  },
+  "receiveTab": {
+    "title": "Menerima",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    }
+  },
+  "sendTab": {
+    "title": "Kirim",
+    "selection": {
+      "title": "Pilihan",
+      "files": "File: {files}",
+      "size": "Ukuran: {size}"
+    },
+    "picker": {
+      "file": "File",
+      "media": "Media",
+      "text": "Teks"
+    },
+    "shareIntentInfo": "Anda juga dapat menggunakan fitur \"Berbagi\" untuk memilih file dengan lebih mudah.",
+    "nearbyDevices": "Perangkat terdekat",
+    "thisDevice": "Perangkat ini",
+    "scan": "Cari perangkat",
+    "help": "Pastikan perangkat terkoneksi pada jaringan yang sama.",
+    "placeItems": "Tempatkan item untuk dibagikan."
+  },
+  "settingsTab": {
+    "title": "Pengaturan",
+    "general": {
+      "title": "Umum",
+      "theme": "Tema",
+      "themeOptions": {
+        "system": "Sistem",
+        "dark": "Gelap",
+        "light": "Terang"
+      },
+      "language": "Bahasa",
+      "languageOptions": {
+        "system": "Sistem"
+      },
+      "minimizeToTray": "Keluar: Perkecil ke pojok bawah",
+      "launchAtStartup": "Mulai otomatis setelah masuk",
+      "launchMinimized": "Mulai otomatis: Berjalan di belakang"
+    },
+    "receive": {
+      "title": "Menerima",
+      "quickSave": "@:general.quickSave",
+      "destination": "Tujuan",
+      "saveToGallery": "Simpan media ke galeri"
+    },
+    "network": {
+      "title": "Jaringan",
+      "needRestart": "Mulai ulang untuk menerapkan!",
+      "server": "Server",
+      "alias": "Alias",
+      "port": "Port",
+      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+      "encryption": "Encryption"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Hapus semua"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ingin mengirim file.",
+      "other": "ingin mengirim {n} file."
+    },
+    "subTitleMessage": "mengirim pesan:",
+    "subTitleLink": "mengirim link:",
+    "canceled": "Pengirim membatalkan permintaan."
+  },
+  "receiveOptionsPage": {
+    "title": "Opsi",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)"
+  },
+  "sendPage": {
+    "waiting": "Menunggu respon...",
+    "rejected": "Penerima menolak permintaan."
+  },
+  "progressPage": {
+    "titleSending": "Mengirim file",
+    "titleReceiving": "Menerima file",
+    "savedToGallery": "Simpan ke galeri",
+    "total": {
+      "title": {
+        "sending": "Total proses ({time})",
+        "finishedError": "Selesai dengan kesalahan",
+        "canceledSender": "Dibatalkan oleh pengirim",
+        "canceledReceiver": "Dibatalkan oleh penerima"
+      },
+      "count": "File: {curr} / {n}",
+      "size": "Ukuran: {curr} / {n}",
+      "speed": "Kecepatan: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "Tentang LocalSend"
+  },
+  "changelogPage": {
+    "title": "Catatan Perubahan"
+  },
+  "aliasGenerator": {
+    "@info": "Lokasi yang berbeda mungkin memiliki kata yang berbeda, memungkinkan ketidakcocokan 1:1",
+    "adjectives": [
+      "Menarik",
+      "Cantik",
+      "Besar",
+      "Cerah",
+      "Bersih",
+      "Cerdik",
+      "Keren",
+      "Imut",
+      "Licik",
+      "Tekun",
+      "Giat",
+      "Efisien",
+      "Luar biasa",
+      "Cepat",
+      "Baik",
+      "Segar",
+      "Bagus",
+      "Menawan",
+      "Sangat Bagus",
+      "Tampan",
+      "Panas",
+      "Baik",
+      "Menyenangkan",
+      "Mistik",
+      "Rapi",
+      "Bagus",
+      "Sabar",
+      "Cantik",
+      "Kuat",
+      "Kaya",
+      "Rahasia",
+      "Cerdas",
+      "Kukuh",
+      "Khusus",
+      "Strategis",
+      "Tangguh",
+      "Rapi",
+      "Bijak"
+    ],
+    "fruits": [
+      "Apel",
+      "Alpukat",
+      "Pisan",
+      "Blackberry",
+      "Blueberry",
+      "Brokoli",
+      "Wortel",
+      "Ceri",
+      "Kelapa",
+      "Anggur",
+      "Lemon",
+      "Selada",
+      "Mangga",
+      "Melon",
+      "Jamur",
+      "Bawang",
+      "Jeruk",
+      "Pepaya",
+      "Persik",
+      "Pir",
+      "Nanas",
+      "Kentang",
+      "Labu",
+      "Rasberi",
+      "Stroberi",
+      "Tomat"
+    ],
+    "combination": "{fruit} {adjective}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Tambah dalam pilihan",
+      "content": "Apa yang akan ditambahkan?"
+    },
+    "addressInput": {
+      "title": "Masukan Alamat",
+      "hashtag": "Hashtag",
+      "ip": "Alamat IP"
+    },
+    "cancelSession": {
+      "title": "Batalkan transfer file",
+      "content": "Apakah Anda yakin untuk membatalkan pengiriman file?"
+    },
+    "fileNameInput": {
+      "title": "Masukan nama file",
+      "original": "Asli: {original}"
+    },
+    "messageInput": {
+      "title": "Ketik pesan",
+      "multiline": "Multiline"
+    },
+    "noFiles": {
+      "title": "Tidak ada file yang dipilih",
+      "content": "Pilih setidaknya satu file."
+    },
+    "quickActions": {
+      "title": "Tindakan Cepat",
+      "counter": "Counter",
+      "prefix": "Awalan",
+      "padZero": "Pad dengan nol",
+      "sortBeforeCount": "Urutkan berdasarkan abjad sebelumnya",
+      "random": "Acak"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim file."
+    },
+    "encryptionDisabledNotice": {
+      "title": "Enkripsi dinonaktifkan",
+      "content": "Komunikasi sekarang terjadi melalui protokol HTTP yang tidak terenkripsi. Untuk menggunakan HTTPS, aktifkan kembali enkripsi."
+    }
+  },
+  "tray": {
+    "@info": "Pedoman Apple sangat ketat tentang kata-kata 'tutup'.",
+    "open": "@:general.open",
+    "close": "Tutup LocalSend"
+  }
+}

@@ -1,19 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/send/sending_file.dart';
+import 'package:localsend_app/model/state/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 
-part 'send_state.freezed.dart';
+part 'send_session_state.freezed.dart';
 
 @freezed
-class SendState with _$SendState {
-  const factory SendState({
+class SendSessionState with _$SendSessionState {
+  const factory SendSessionState({
     required SessionStatus status,
     required Device target,
     required Map<String, SendingFile> files, // file id as key
     required int? startTime,
     required int? endTime,
     required CancelToken? cancelToken,
-  }) = _SendState;
+    required String? errorMessage,
+  }) = _SendSessionState;
 }

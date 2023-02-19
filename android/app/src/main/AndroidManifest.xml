@@ -11,10 +11,15 @@
 
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
+    <!-- Android TV -->
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
     <application
         android:label="LocalSend"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
+        android:banner="@drawable/banner"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"> <!-- localsend: image_gallery_saver requires requestLegacyExternalStorage -->
 
@@ -38,6 +43,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+
+                <!-- enable Android TV -->
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
 
             <!-- localsend: Receive share intent (share_handler) -->

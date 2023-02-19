@@ -32,10 +32,10 @@ class CustomListTile extends StatelessWidget {
           child: Row(
             children: [
               if (icon != null)
-                Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: icon,
-                ),
+                ...[
+                  icon!,
+                  const SizedBox(width: 15),
+                ],
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

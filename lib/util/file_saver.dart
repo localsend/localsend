@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 /// [onProgress] will be called on every 100 KB.
 Future<void> saveFile({
   required String destinationPath,
+  required String name,
   required bool saveToGallery,
   required Stream<List<int>> stream,
   required void Function(int savedBytes) onProgress,
@@ -19,22 +20,22 @@ Future<void> saveFile({
 
   final sink = File(destinationPath).openWrite();
   try {
-    int lastNotifyBytes = 0;
     int savedBytes = 0;
-    await stream.forEach((event) {
+    final stopwatch = Stopwatch()..start();
+    await for (final event in stream) {
       sink.add(event);
 
       savedBytes += event.length;
-      if (savedBytes - lastNotifyBytes >= 100 * 1024) {
-        lastNotifyBytes = savedBytes;
+      if (stopwatch.elapsedMilliseconds >= 100) {
+        stopwatch.reset();
         onProgress(savedBytes);
       }
-    });
+    }
 
     await sink.close();
 
     if (saveToGallery) {
-      await ImageGallerySaver.saveFile(destinationPath);
+      await ImageGallerySaver.saveFile(destinationPath, name: name);
       await File(destinationPath).delete();
     }
 

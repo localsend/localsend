@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/pages/receive_history_page.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
+import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:routerino/routerino.dart';
 
 class ReceiveTab extends ConsumerStatefulWidget {
   const ReceiveTab({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class ReceiveTab extends ConsumerStatefulWidget {
 
 class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAliveClientMixin {
   bool _advanced = false;
+  bool _showHistoryButton = true;
 
   @override
   bool get wantKeepAlive => true;
@@ -30,7 +34,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
     super.build(context);
 
     final settings = ref.watch(settingsProvider);
-    final networkInfo = ref.watch(networkInfoProvider);
+    final networkInfo = ref.watch(networkStateProvider);
     final serverState = ref.watch(serverProvider);
     return Stack(
       children: [
@@ -172,11 +176,39 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
           alignment: Alignment.topRight,
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: CustomIconButton(
-              onPressed: () {
-                setState(() => _advanced = !_advanced);
-              },
-              child: const Icon(Icons.info),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (!_advanced)
+                  AnimatedOpacity(
+                    opacity: _showHistoryButton ? 1 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: CustomIconButton(
+                      onPressed: () {
+                        context.push(() => const ReceiveHistoryPage());
+                      },
+                      child: const Icon(Icons.history),
+                    ),
+                  ),
+                CustomIconButton(
+                  key: const ValueKey('info-btn'),
+                  onPressed: () async {
+                    if (_advanced) {
+                      setState(() => _advanced = false);
+                      await sleepAsync(200);
+                      if (mounted) {
+                        setState(() => _showHistoryButton = true);
+                      }
+                    } else {
+                      setState(() {
+                        _advanced = true;
+                        _showHistoryButton = false;
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.info),
+                ),
+              ],
             ),
           ),
         ),

@@ -11,18 +11,13 @@ import 'package:localsend_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_actions_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 
-class ReceiveOptionsPage extends ConsumerStatefulWidget {
+class ReceiveOptionsPage extends ConsumerWidget {
   const ReceiveOptionsPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ReceiveOptionsPage> createState() => _ReceiveOptionsPageState();
-}
-
-class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
-  @override
-  Widget build(BuildContext context) {
-    final receiveState = ref.watch(serverProvider.select((s) => s?.receiveState));
-    if (receiveState == null) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    if (receiveSession == null) {
       return Scaffold(
         body: Container(),
       );
@@ -55,7 +50,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
             ],
           ),
           const SizedBox(height: 5),
-          Text(checkPlatformWithFileSystem() ? receiveState.destinationDirectory : t.receiveOptionsPage.appDirectory),
+          Text(checkPlatformWithFileSystem() ? receiveSession.destinationDirectory : t.receiveOptionsPage.appDirectory),
           const SizedBox(height: 20),
           Row(
             children: [
@@ -75,7 +70,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
                 message: t.general.reset,
                 child: CustomIconButton(
                   onPressed: () async {
-                    ref.read(selectedReceivingFilesProvider.notifier).init(receiveState.files.values.map((f) => f.file).toList());
+                    ref.read(selectedReceivingFilesProvider.notifier).init(receiveSession.files.values.map((f) => f.file).toList());
                   },
                   child: const Icon(Icons.undo),
                 ),
@@ -83,7 +78,7 @@ class _ReceiveOptionsPageState extends ConsumerState<ReceiveOptionsPage> {
             ],
           ),
           const SizedBox(height: 5),
-          ...receiveState.files.values.map((file) {
+          ...receiveSession.files.values.map((file) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Row(

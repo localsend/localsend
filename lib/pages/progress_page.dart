@@ -13,6 +13,7 @@ import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
@@ -27,6 +28,8 @@ class ProgressPage extends ConsumerStatefulWidget {
 
 class _ProgressPageState extends ConsumerState<ProgressPage> {
   int _totalBytes = double.maxFinite.toInt();
+  int _lastRemainingTimeUpdate = 0; // millis since epoch
+  String? _remainingTime;
   List<FileDto> _files = []; // also contains declined files (files without token)
   Set<String> _filesWithToken = {};
 
@@ -42,15 +45,15 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
         Wakelock.enable();
       } catch (_) {}
 
-      final receiveState = ref.read(serverProvider.select((state) => state?.receiveState));
-      if (receiveState != null) {
-        _files = receiveState.files.values.map((f) => f.file).toList();
-        _filesWithToken = receiveState.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+      final receiveSession = ref.read(serverProvider.select((state) => state?.session));
+      if (receiveSession != null) {
+        _files = receiveSession.files.values.map((f) => f.file).toList();
+        _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
       } else {
-        final sendState = ref.read(sendProvider);
-        if (sendState != null) {
-          _files = sendState.files.values.map((f) => f.file).toList();
-          _filesWithToken = sendState.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+        final sendSession = ref.read(sendProvider);
+        if (sendSession != null) {
+          _files = sendSession.files.values.map((f) => f.file).toList();
+          _filesWithToken = sendSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
         }
       }
 
@@ -69,10 +72,10 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
   Future<bool> _askCancelConfirmation(SessionStatus status) async {
     final bool result = status == SessionStatus.sending ? await context.pushBottomSheet(() => const CancelSessionDialog()) : true;
     if (result) {
-      final receiveState = ref.read(serverProvider.select((s) => s?.receiveState));
+      final receiveSession = ref.read(serverProvider.select((s) => s?.session));
       final sendState = ref.read(sendProvider);
 
-      if (receiveState != null) {
+      if (receiveSession != null) {
         ref.read(serverProvider.notifier).cancelSession();
       } else if (sendState != null) {
         ref.read(sendProvider.notifier).cancelSession();
@@ -86,26 +89,29 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     final ProgressNotifier progressNotifier = ref.watch(progressProvider);
     final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(curr.id) * curr.size).round()));
 
-    final receiveState = ref.watch(serverProvider.select((s) => s?.receiveState));
-    final sendState = ref.watch(sendProvider);
+    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    final sendSession = ref.watch(sendProvider);
 
-    final SessionStatus? status = receiveState?.status ?? sendState?.status;
+    final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
     if (status == null) {
       return Scaffold(
         body: Container(),
       );
     }
 
-    final startTime = receiveState?.startTime ?? sendState?.startTime;
-    final endTime = receiveState?.endTime ?? sendState?.endTime;
+    final startTime = receiveSession?.startTime ?? sendSession?.startTime;
+    final endTime = receiveSession?.endTime ?? sendSession?.endTime;
     final int? speedInBytes;
-    final String? remainingTime;
     if (startTime != null && currBytes >= 500 * 1024) {
       speedInBytes = getFileSpeed(start: startTime, end: endTime ?? DateTime.now().millisecondsSinceEpoch, bytes: currBytes);
-      remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+
+      final now = DateTime.now().millisecondsSinceEpoch;
+      if (now - _lastRemainingTimeUpdate >= 1000) {
+        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+        _lastRemainingTimeUpdate = now;
+      }
     } else {
       speedInBytes = null;
-      remainingTime = null;
     }
 
     return WillPopScope(
@@ -130,14 +136,14 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          receiveState != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
+                          receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
                           style: Theme.of(context).textTheme.headline6,
                         ),
-                        if (checkPlatformWithFileSystem() && receiveState != null)
+                        if (checkPlatformWithFileSystem() && receiveSession != null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text(
-                              '${t.settingsTab.receive.destination}: ${receiveState.destinationDirectory}',
+                              '${t.settingsTab.receive.destination}: ${receiveSession.destinationDirectory}',
                               style: const TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -147,18 +153,27 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                 }
 
                 final file = _files[index - 1];
-                final String fileName = receiveState?.files[file.id]?.desiredName ?? file.fileName;
+                final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
 
-                final fileStatus = receiveState?.files[file.id]?.status ?? sendState!.files[file.id]!.status;
-                final savedToGallery = receiveState?.files[file.id]?.savedToGallery ?? false;
+                final fileStatus = receiveSession?.files[file.id]?.status ?? sendSession!.files[file.id]!.status;
+                final savedToGallery = receiveSession?.files[file.id]?.savedToGallery ?? false;
 
                 final String? filePath;
-                if (receiveState != null && fileStatus == FileStatus.finished && !savedToGallery) {
-                  filePath = receiveState.files[file.id]!.path;
-                } else if (sendState != null) {
-                  filePath = sendState.files[file.id]!.path;
+                if (receiveSession != null && fileStatus == FileStatus.finished && !savedToGallery) {
+                  filePath = receiveSession.files[file.id]!.path;
+                } else if (sendSession != null) {
+                  filePath = sendSession.files[file.id]!.path;
                 } else {
                   filePath = null;
+                }
+
+                final String? errorMessage;
+                if (receiveSession != null) {
+                  errorMessage = receiveSession.files[file.id]!.errorMessage;
+                } else if (sendSession != null) {
+                  errorMessage = sendSession.files[file.id]!.errorMessage;
+                } else {
+                  errorMessage = null;
                 }
 
                 return Padding(
@@ -168,14 +183,14 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     splashFactory: NoSplash.splashFactory,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: filePath != null && receiveState != null ? () => OpenFilex.open(filePath) : null,
+                    onTap: filePath != null && receiveSession != null ? () => OpenFilex.open(filePath) : null,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if (sendState != null && sendState.files[file.id]?.asset != null)
+                        if (sendSession != null && sendSession.files[file.id]?.asset != null)
                           // Special handling for assets
                           AssetThumbnail(
-                            asset: sendState.files[file.id]!.asset!,
+                            asset: sendSession.files[file.id]!.asset!,
                             fileType: file.fileType,
                           )
                         else
@@ -188,21 +203,21 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 5),
                               Row(
                                 children: [
                                   Flexible(
                                     child: Text(
                                       fileName,
-                                      style: const TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16, height: 1),
                                       maxLines: 1,
                                       overflow: TextOverflow.fade,
                                       softWrap: false,
                                     ),
                                   ),
-                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16)),
+                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16, height: 1)),
                                 ],
                               ),
+                              const SizedBox(height: 5),
                               if (fileStatus == FileStatus.sending)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
@@ -211,9 +226,31 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                   ),
                                 )
                               else
-                                Text(
-                                  savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
-                                  style: TextStyle(color: fileStatus.getColor(context)),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
+                                        style: TextStyle(color: fileStatus.getColor(context), height: 1),
+                                      ),
+                                    ),
+                                    if (errorMessage != null)
+                                      ...[
+                                        const SizedBox(width: 5),
+                                        InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (_) => ErrorDialog(error: errorMessage!),
+                                            );
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 5),
+                                            child: Icon(Icons.info, color: Colors.orange, size: 20),
+                                          ),
+                                        ),
+                                      ],
+                                  ],
                                 ),
                             ],
                           ),
@@ -238,7 +275,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                         children: [
                           Text(
                             status.getLabel(
-                              remainingTime: remainingTime ?? '-',
+                              remainingTime: _remainingTime ?? '-',
                             ),
                             style: const TextStyle(fontSize: 20),
                           ),

@@ -10,8 +10,8 @@ import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/send/send_state.dart';
-import 'package:localsend_app/model/send/sending_file.dart';
+import 'package:localsend_app/model/state/send/send_session_state.dart';
+import 'package:localsend_app/model/state/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -25,11 +25,13 @@ import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
-final sendProvider = StateNotifierProvider<SendNotifier, SendState?>((ref) {
+/// The provider for **sending** files.
+/// The opposite of [serverProvider].
+final sendProvider = StateNotifierProvider<SendNotifier, SendSessionState?>((ref) {
   return SendNotifier(ref);
 });
 
-class SendNotifier extends StateNotifier<SendState?> {
+class SendNotifier extends StateNotifier<SendSessionState?> {
   final Ref _ref;
 
   SendNotifier(this._ref) : super(null);
@@ -42,7 +44,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     final uploadDio = _ref.read(dioProvider(DioType.longLiving));
     final cancelToken = CancelToken();
 
-    final requestState = SendState(
+    final requestState = SendSessionState(
       status: SessionStatus.waiting,
       target: target,
       files: Map.fromEntries(await Future.wait(files.map((file) async {
@@ -64,12 +66,14 @@ class SendNotifier extends StateNotifier<SendState?> {
             asset: file.asset,
             path: file.path,
             bytes: file.bytes,
+            errorMessage: null,
           ),
         );
       }))),
       startTime: null,
       endTime: null,
       cancelToken: cancelToken,
+      errorMessage: null,
     );
 
     final originDevice = _ref.read(deviceInfoProvider);
@@ -85,54 +89,64 @@ class SendNotifier extends StateNotifier<SendState?> {
       },
     );
 
+    state = requestState;
+
+    // ignore: use_build_context_synchronously
+    Routerino.context.push(() => const SendPage(), transition: RouterinoTransition.fade);
+
+    final Response response;
     try {
-      state = requestState;
-
-      // ignore: use_build_context_synchronously
-      Routerino.context.push(() => const SendPage(), transition: RouterinoTransition.fade);
-
-      final response = await requestDio.post(
+      response = await requestDio.post(
         ApiRoute.sendRequest.target(target),
         data: requestDto.toJson(),
         cancelToken: cancelToken,
       );
-
-      final responseMap = response.data as Map;
-      if (responseMap.isEmpty) {
-        // receiver has nothing selected
-
-        // ignore: use_build_context_synchronously
-        Routerino.context.pushRootImmediately(() => const HomePage(appStart: false));
-        state = null;
-        return;
+    } catch (e) {
+      if (e is DioError && e.response?.statusCode == 403) {
+        state = state?.copyWith(
+          status: SessionStatus.declined,
+        );
+      } else if (e is DioError && e.response?.statusCode == 409) {
+        state = state?.copyWith(
+          status: SessionStatus.recipientBusy,
+        );
+      } else {
+        state = state?.copyWith(
+          status: SessionStatus.finishedWithErrors,
+          errorMessage: e.humanErrorMessage,
+        );
       }
+      return;
+    }
 
-      final sendingFiles = {
-        for (final file in requestState.files.values)
-          file.file.id:
-              responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
-      };
+    final responseMap = response.data as Map;
+    if (responseMap.isEmpty) {
+      // receiver has nothing selected
 
       // ignore: use_build_context_synchronously
-      Routerino.context.pushAndRemoveUntilImmediately(
-        removeUntil: SendPage,
-        builder: () => const ProgressPage(),
-      );
-
-      state = requestState.copyWith(
-        status: SessionStatus.sending,
-        files: sendingFiles,
-      );
-
-      await _send(uploadDio, target, sendingFiles);
-    } on DioError catch (e) {
-      if (e.type != DioErrorType.response && e.type != DioErrorType.cancel) {
-        print(e);
-      }
-      state = state?.copyWith(
-        status: SessionStatus.declined,
-      );
+      Routerino.context.pushRootImmediately(() => const HomePage(appStart: false));
+      state = null;
+      return;
     }
+
+    final sendingFiles = {
+      for (final file in requestState.files.values)
+        file.file.id:
+            responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
+    };
+
+    // ignore: use_build_context_synchronously
+    Routerino.context.pushAndRemoveUntilImmediately(
+      removeUntil: SendPage,
+      builder: () => const ProgressPage(),
+    );
+
+    state = requestState.copyWith(
+      status: SessionStatus.sending,
+      files: sendingFiles,
+    );
+
+    await _send(uploadDio, target, sendingFiles);
   }
 
   Future<void> _send(Dio dio, Device target, Map<String, SendingFile> files) async {
@@ -152,9 +166,9 @@ class SendNotifier extends StateNotifier<SendState?> {
       }
 
       print('Sending ${file.file.fileName}');
-      state = state?.withFileStatus(file.file.id, FileStatus.sending);
+      state = state?.withFileStatus(file.file.id, FileStatus.sending, null);
 
-      bool hasErrorForFile = false;
+      String? fileError;
       try {
         final cancelToken = CancelToken();
         state = state?.copyWith(cancelToken: cancelToken);
@@ -174,12 +188,8 @@ class SendNotifier extends StateNotifier<SendState?> {
           },
           cancelToken: cancelToken,
         );
-      } on DioError catch (e) {
-        hasErrorForFile = true;
-        hasError = true;
-        print(e);
       } catch (e, st) {
-        hasErrorForFile = true;
+        fileError = e.humanErrorMessage;
         hasError = true;
         print(e);
         print(st);
@@ -189,7 +199,7 @@ class SendNotifier extends StateNotifier<SendState?> {
         // session already closed
         return;
       } else {
-        state = state?.withFileStatus(file.file.id, hasErrorForFile ? FileStatus.failed : FileStatus.finished);
+        state = state?.withFileStatus(file.file.id, fileError != null ? FileStatus.failed : FileStatus.finished, fileError);
       }
     }
 
@@ -214,10 +224,31 @@ class SendNotifier extends StateNotifier<SendState?> {
   }
 }
 
-extension on SendState {
-  SendState withFileStatus(String fileId, FileStatus status) {
+extension on SendSessionState {
+  SendSessionState withFileStatus(String fileId, FileStatus status, String? errorMessage) {
     return copyWith(
-      files: {...files}..update(fileId, (file) => file.copyWith(status: status)),
+      files: {...files}..update(fileId, (file) => file.copyWith(
+        status: status,
+        errorMessage: errorMessage,
+      )),
     );
+  }
+}
+
+extension on Object {
+  String get humanErrorMessage {
+    final e = this;
+    if (e is DioError && e.response != null) {
+      final body = e.response!.data;
+      String message;
+      try {
+        message = (body as Map)['message'];
+      } catch (_) {
+        message = body;
+      }
+      return '[${e.response!.statusCode}] $message';
+    }
+
+    return e.toString();
   }
 }

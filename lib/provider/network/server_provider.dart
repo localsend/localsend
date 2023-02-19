@@ -9,15 +9,16 @@ import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/server/receive_state.dart';
-import 'package:localsend_app/model/server/receiving_file.dart';
-import 'package:localsend_app/model/server/server_state.dart';
+import 'package:localsend_app/model/state/server/receive_session_state.dart';
+import 'package:localsend_app/model/state/server/receiving_file.dart';
+import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
@@ -87,7 +88,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         alias: alias,
         port: port,
         https: true,
-        receiveState: null,
+        session: null,
       );
       print('Server started. (Port: ${newServerState.port}, HTTPS only)');
     } else {
@@ -96,7 +97,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         alias: alias,
         port: port,
         https: false,
-        receiveState: null,
+        session: null,
       );
       print('Server started. (Port: ${newServerState.port}, HTTP only)');
     }
@@ -114,32 +115,38 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     required String showToken,
   }) {
     router.get(ApiRoute.info.path, (Request request) {
+      final senderFingerprint = request.url.queryParameters['fingerprint'];
+      if (senderFingerprint == fingerprint) {
+        // "I talked to myself lol"
+        return _response(412, message: 'Self-discovered');
+      }
+
       final dto = InfoDto(
         alias: alias,
         deviceModel: deviceInfo.deviceModel,
         deviceType: deviceInfo.deviceType,
       );
 
-      final senderFingerprint = request.url.queryParameters['fingerprint'];
-      if (senderFingerprint == fingerprint) {
-        // "I talked to myself lol"
-        return Response.badRequest();
-      }
-
-      return Response.ok(jsonEncode(dto.toJson()), headers: {'Content-Type': 'application/json'});
+      return _response(200, body: dto.toJson());
     });
 
     router.post(ApiRoute.sendRequest.path, (Request request) async {
-      if (state!.receiveState != null) {
+      if (state!.session != null) {
         // block incoming requests when we are already in a session
-        return Response.badRequest();
+        return _response(409, message: 'Blocked by another session');
       }
 
       final payload = await request.readAsString();
-      final dto = SendRequestDto.fromJson(jsonDecode(payload));
+      final SendRequestDto dto;
+      try {
+        dto = SendRequestDto.fromJson(jsonDecode(payload));
+      } catch (e) {
+        return _response(400, message: 'Request body malformed');
+      }
+
       if (dto.files.isEmpty) {
         // block empty requests (at least one file is required)
-        return Response.badRequest();
+        return _response(400, message: 'Request must contain at least one file');
       }
 
       final settings = _ref.read(settingsProvider);
@@ -165,7 +172,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
       final streamController = StreamController<Map<String, String>?>();
       state = state!.copyWith(
-        receiveState: ReceiveState(
+        session: ReceiveSessionState(
           status: SessionStatus.waiting,
           sender: dto.info.toDevice(request.ip, port, https),
           files: {
@@ -177,6 +184,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
                 desiredName: null,
                 path: null,
                 savedToGallery: false,
+                errorMessage: null,
               ),
           },
           startTime: null,
@@ -186,7 +194,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         ),
       );
 
-      final quickSave = settings.quickSave && state?.receiveState?.message == null;
+      final quickSave = settings.quickSave && state?.session?.message == null;
       final Map<String, String>? selection;
       if (quickSave) {
         // accept all files
@@ -206,24 +214,21 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         selection = await streamController.stream.first;
       }
 
-      if (state?.receiveState == null) {
+      if (state?.session == null) {
         // somehow this state is already disposed
-        return Response.internalServerError();
+        return _response(500, message: 'Server is in invalid state');
       }
 
       if (selection != null) {
         if (selection.isEmpty) {
           // nothing selected, send this to sender and close session
           closeSession();
-          return Response.ok(
-            jsonEncode({}),
-            headers: {'Content-Type': 'application/json'},
-          );
+          return _response(200);
         }
 
-        final receiveState = state!.receiveState!;
+        final receiveState = state!.session!;
         state = state!.copyWith(
-          receiveState: receiveState.copyWith(
+          session: receiveState.copyWith(
             status: SessionStatus.sending,
             files: Map.fromEntries(
               receiveState.files.values.map((entry) {
@@ -237,6 +242,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
                     desiredName: desiredName,
                     path: null,
                     savedToGallery: false,
+                    errorMessage: null,
                   ),
                 );
               }),
@@ -252,22 +258,29 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           Routerino.context.pushImmediately(() => const ProgressPage());
         }
 
-        return Response.ok(
-            jsonEncode({
-              for (final file in state!.receiveState!.files.values.where((f) => f.token != null)) file.file.id: file.token,
-            }),
-            headers: {'Content-Type': 'application/json'});
+        return _response(200, body: {
+          for (final file in state!.session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
+        });
       } else {
-        return Response.badRequest();
+        closeSession();
+        return _response(403, message: 'File request declined by recipient');
       }
     });
 
     router.post(ApiRoute.send.path, (Request request) async {
-      final receiveState = state?.receiveState;
-      if (receiveState == null || request.ip != receiveState.sender.ip || receiveState.status != SessionStatus.sending) {
-        // reject because there is no session or IP does not match session
-        print('No session or wrong IP. Current status: ${receiveState?.status}');
-        return Response.badRequest();
+      final receiveState = state?.session;
+      if (receiveState == null) {
+        return _response(409, message: 'No session');
+      }
+
+      if (request.ip != receiveState.sender.ip) {
+        print('Invalid ip address: ${request.ip} (expected: ${receiveState.sender.ip})');
+        return _response(403, message: 'Invalid IP address: ${request.ip}');
+      }
+
+      if (receiveState.status != SessionStatus.sending) {
+        print('Wrong state: ${receiveState.status} (expected: ${SessionStatus.sending})');
+        return _response(409, message: 'Recipient is in wrong state');
       }
 
       final fileId = request.url.queryParameters['fileId'];
@@ -275,19 +288,19 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       if (fileId == null || token == null) {
         // reject because of missing parameters
         print('Missing parameters');
-        return Response.badRequest();
+        return _response(400, message: 'Missing parameters');
       }
 
       final receivingFile = receiveState.files[fileId];
       if (receivingFile == null || receivingFile.token != token) {
         // reject because there is no file or token does not match
-        print('Wrong token');
-        return Response.badRequest();
+        print('Wrong token: $token (expected: ${receivingFile?.token})');
+        return _response(403, message: 'Invalid token');
       }
 
       // begin of actual file transfer
       state = state?.copyWith(
-        receiveState: receiveState.copyWith(
+        session: receiveState.copyWith(
           files: {...receiveState.files}..update(
               fileId,
               (_) => receivingFile.copyWith(
@@ -312,6 +325,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
+          name: receivingFile.desiredName!,
           saveToGallery: saveToGallery,
           stream: request.read(),
           onProgress: (savedBytes) {
@@ -320,25 +334,40 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             }
           },
         );
-        if (state?.receiveState == null || state!.receiveState!.status != SessionStatus.sending) {
-          return Response.badRequest();
+        if (state?.session == null || state!.session!.status != SessionStatus.sending) {
+          return _response(500, message: 'Server is in invalid state');
         }
         state = state?.copyWith(
-          receiveState: state?.receiveState?.fileFinished(
+          session: state?.session?.fileFinished(
             fileId: fileId,
             status: FileStatus.finished,
             path: saveToGallery ? null : destinationPath,
             savedToGallery: saveToGallery,
+            errorMessage: null,
           ),
         );
+
+        // Track it in history
+        await _ref.read(receiveHistoryProvider.notifier).addEntry(
+              id: fileId,
+              fileName: receivingFile.desiredName!,
+              fileType: receivingFile.file.fileType,
+              path: saveToGallery ? null : destinationPath,
+              savedToGallery: saveToGallery,
+              fileSize: receivingFile.file.size,
+              senderAlias: receiveState.sender.alias,
+              timestamp: DateTime.now().toUtc(),
+            );
+
         print('Saved ${receivingFile.file.fileName}.');
       } catch (e, st) {
         state = state?.copyWith(
-          receiveState: state?.receiveState?.fileFinished(
+          session: state?.session?.fileFinished(
             fileId: fileId,
             status: FileStatus.failed,
             path: null,
             savedToGallery: false,
+            errorMessage: e.toString(),
           ),
         );
         print(e);
@@ -348,16 +377,16 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       final progressNotifier = _ref.read(progressProvider.notifier);
       progressNotifier.setProgress(fileId, 1);
 
-      if (state!.receiveState!.files.values
+      if (state!.session!.files.values
           .every((f) => f.status == FileStatus.finished || f.status == FileStatus.skipped || f.status == FileStatus.failed)) {
-        final hasError = state!.receiveState!.files.values.any((f) => f.status == FileStatus.failed);
+        final hasError = state!.session!.files.values.any((f) => f.status == FileStatus.failed);
         state = state?.copyWith(
-          receiveState: state!.receiveState!.copyWith(
+          session: state!.session!.copyWith(
             status: hasError ? SessionStatus.finishedWithErrors : SessionStatus.finished,
             endTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
-        if (_ref.read(settingsProvider).quickSave && state?.receiveState?.message == null) {
+        if (_ref.read(settingsProvider).quickSave && state?.session?.message == null) {
           // close the session after return of the response
           Future.delayed(Duration.zero, () {
             closeSession();
@@ -368,15 +397,17 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print('Received all files.');
       }
 
-      return state?.receiveState?.files[fileId]?.status == FileStatus.finished ? Response.ok('') : Response.internalServerError();
+      return state?.session?.files[fileId]?.status == FileStatus.finished
+          ? _response(200)
+          : _response(500, message: 'Could not save file');
     });
 
     router.post(ApiRoute.cancel.path, (Request request) {
-      if (state?.receiveState?.sender.ip == request.ip) {
+      if (state?.session?.sender.ip == request.ip) {
         _cancelBySender();
       }
 
-      return Response.ok('');
+      return _response(200);
     });
 
     router.post(ApiRoute.show.path, (Request request) async {
@@ -386,10 +417,10 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           // don't wait for it
           print(e);
         });
-        return Response.ok('');
+        return _response(200);
       }
 
-      return Response.badRequest();
+      return _response(403, message: 'Invalid token');
     });
   }
 
@@ -405,7 +436,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
   }
 
   void acceptFileRequest(Map<String, String> fileNameMap) {
-    final controller = state?.receiveState?.responseHandler;
+    final controller = state?.session?.responseHandler;
     if (controller == null) {
       return;
     }
@@ -415,31 +446,30 @@ class ServerNotifier extends StateNotifier<ServerState?> {
   }
 
   void declineFileRequest() {
-    final controller = state?.receiveState?.responseHandler;
+    final controller = state?.session?.responseHandler;
     if (controller == null) {
       return;
     }
 
     controller.add(null);
     controller.close();
-    closeSession();
   }
 
   /// Updates the destination directory for the current session.
   void setSessionDestinationDir(String destinationDirectory) {
     state = state?.copyWith(
-      receiveState: state?.receiveState?.copyWith(
+      session: state?.session?.copyWith(
         destinationDirectory: destinationDirectory.replaceAll('\\', '/'),
       ),
     );
   }
 
   void _cancelBySender() {
-    final currentStatus = state?.receiveState?.status;
+    final currentStatus = state?.session?.status;
     if (currentStatus != null && (currentStatus == SessionStatus.waiting || currentStatus == SessionStatus.sending)) {
       Routerino.context.popUntil(ReceivePage); // pop just in case if use is in [ReceiveOptionsPage]
       state = state?.copyWith(
-        receiveState: state?.receiveState?.copyWith(
+        session: state?.session?.copyWith(
           status: SessionStatus.canceledBySender,
         ),
       );
@@ -461,9 +491,17 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
   void closeSession() {
     state = state?.copyWith(
-      receiveState: null,
+      session: null,
     );
   }
+}
+
+Response _response(int code, {String? message, Map<String, dynamic>? body}) {
+  return Response(
+    code,
+    body: jsonEncode(message != null ? {'message': message} : (body ?? {})),
+    headers: {'content-type': 'application/json'},
+  );
 }
 
 extension on Request {
@@ -483,12 +521,13 @@ Future<String> _digestFilePath({required String dir, required String fileName}) 
   return destinationPath;
 }
 
-extension on ReceiveState {
-  ReceiveState fileFinished({
+extension on ReceiveSessionState {
+  ReceiveSessionState fileFinished({
     required String fileId,
     required FileStatus status,
     required String? path,
     required bool savedToGallery,
+    required String? errorMessage,
   }) {
     return copyWith(
       files: {...files}..update(
@@ -497,6 +536,7 @@ extension on ReceiveState {
             status: status,
             path: path,
             savedToGallery: savedToGallery,
+            errorMessage: errorMessage,
           ),
         ),
     );

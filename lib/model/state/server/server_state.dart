@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:localsend_app/model/server/receive_state.dart';
+import 'package:localsend_app/model/state/server/receive_session_state.dart';
 
 part 'server_state.freezed.dart';
 
@@ -12,6 +12,6 @@ class ServerState with _$ServerState {
     required String alias,
     required int port,
     required bool https,
-    required ReceiveState? receiveState,
+    required ReceiveSessionState? session,
   }) = _ServerState;
 }

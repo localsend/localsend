@@ -4,6 +4,8 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.networking.multicast</key>
+	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.org.localsend.localsendApp</string>

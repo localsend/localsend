@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/platform_check.dart';
 
 final _borderRadius = BorderRadius.circular(5);
@@ -47,6 +48,13 @@ ThemeData getTheme(Brightness brightness) {
         padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
+
+    // https://github.com/localsend/localsend/issues/52
+    fontFamily: checkPlatform([TargetPlatform.windows])
+        ? ([AppLocale.zhHans, AppLocale.zhHantHk, AppLocale.zhHantTw, AppLocale.ko, AppLocale.ja].contains(LocaleSettings.currentLocale)
+            ? 'Microsoft YaHei UI'
+            : 'Segoe UI Variable Display')
+        : null,
   );
 }
 
