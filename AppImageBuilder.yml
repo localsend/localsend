@@ -11,7 +11,7 @@ AppDir:
     exec_args: $@
   apt:
     arch:
-    - amd64
+      - amd64
     allow_unauthenticated: true
     sources:
       - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy main restricted
@@ -20,7 +20,8 @@ AppDir:
       - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates universe
       - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy multiverse
       - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates multiverse
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy-backports main restricted
+      - sourceline:
+          deb http://de.archive.ubuntu.com/ubuntu/ jammy-backports main restricted
           universe multiverse
       - sourceline: deb http://security.ubuntu.com/ubuntu jammy-security main restricted
       - sourceline: deb http://security.ubuntu.com/ubuntu jammy-security universe
@@ -30,11 +31,11 @@ AppDir:
   files:
     include: []
     exclude:
-    - usr/share/man
-    - usr/share/doc/*/README.*
-    - usr/share/doc/*/changelog.*
-    - usr/share/doc/*/NEWS.*
-    - usr/share/doc/*/TODO.*
+      - usr/share/man
+      - usr/share/doc/*/README.*
+      - usr/share/doc/*/changelog.*
+      - usr/share/doc/*/NEWS.*
+      - usr/share/doc/*/TODO.*
   test:
     fedora-30:
       image: appimagecrafters/tests-env:fedora-30

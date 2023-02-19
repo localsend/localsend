@@ -16,8 +16,8 @@ class ReceiveOptionsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final receiveState = ref.watch(serverProvider.select((s) => s?.receiveState));
-    if (receiveState == null) {
+    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    if (receiveSession == null) {
       return Scaffold(
         body: Container(),
       );
@@ -50,7 +50,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Text(checkPlatformWithFileSystem() ? receiveState.destinationDirectory : t.receiveOptionsPage.appDirectory),
+          Text(checkPlatformWithFileSystem() ? receiveSession.destinationDirectory : t.receiveOptionsPage.appDirectory),
           const SizedBox(height: 20),
           Row(
             children: [
@@ -70,7 +70,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                 message: t.general.reset,
                 child: CustomIconButton(
                   onPressed: () async {
-                    ref.read(selectedReceivingFilesProvider.notifier).init(receiveState.files.values.map((f) => f.file).toList());
+                    ref.read(selectedReceivingFilesProvider.notifier).init(receiveSession.files.values.map((f) => f.file).toList());
                   },
                   child: const Icon(Icons.undo),
                 ),
@@ -78,7 +78,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 5),
-          ...receiveState.files.values.map((file) {
+          ...receiveSession.files.values.map((file) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Row(

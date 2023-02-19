@@ -28,14 +28,6 @@ const launchAtStartupArg = 'autostart';
 Future<PersistenceService> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (checkPlatformIsDesktop()) {
-    await windowManager.ensureInitialized();
-    WindowManager.instance.setMinimumSize(const Size(400, 500));
-
-    // use the "slide" transition for desktop
-    Routerino.transition = RouterinoTransition.cupertino;
-  }
-
   final persistenceService = await PersistenceService.initialize();
 
   final locale = persistenceService.getLocale();
@@ -81,10 +73,15 @@ Future<PersistenceService> preInit(List<String> args) async {
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
 
+    // use the "slide" transition for desktop
+    Routerino.transition = RouterinoTransition.cupertino;
+
     // initialize tray AFTER i18n has been initialized
     await initTray();
 
     // initialize size and position
+    await WindowManager.instance.ensureInitialized();
+    await WindowManager.instance.setMinimumSize(const Size(400, 500));
     final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
     final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
     if (width >= 1200) {

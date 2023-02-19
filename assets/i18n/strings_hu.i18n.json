@@ -100,6 +100,21 @@
       "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
     }
   },
+  "troubleshootTab": {
+    "title": "Hibaelhárítás",
+    "subTitle": "Ez az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.",
+    "solution": "Megoldás:",
+    "fixButton": "Autom. javítás",
+    "firewall": {
+      "symptom": "Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.",
+      "solution": "Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a {port} porton.",
+      "openFirewall": "Tűzfal megnyitás"
+    },
+    "noConnection": {
+      "symptom": "A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.",
+      "solution": "A probléma mindkét oldalon létezik? Akkor meg kell győződnie arról, hogy mindkét eszköz ugyanabban a wifi hálózatban van, és ugyanazt a konfigurációt használja (port, multicast cím, titkosítás). Előfordulhat, hogy a Wifi nem teszi lehetővé a résztvevők közötti kommunikációt. Ebben az esetben ezt az opciót engedélyezni kell a routeren.."
+    }
+  },
   "receiveHistoryPage": {
     "title": "Előzmény",
     "empty": "Az előzmény üres.",
@@ -153,8 +168,8 @@
   "changelogPage": {
     "title": "Változásnapló"
   },
-  "aliasGenerator": {
-    "@info": "Az angol változatból örökölt"
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {

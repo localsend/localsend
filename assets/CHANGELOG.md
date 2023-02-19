@@ -1,6 +1,10 @@
 ## 1.8.0 (2023-)
 
+- feat: Android TV support
 - feat: add troubleshoot page
+- feat(windows): left click on tray icon opens app
+- fix: missing app icon on Android 7
+- i18n: add ua
 
 ## 1.7.0 (2023-02-11)
 

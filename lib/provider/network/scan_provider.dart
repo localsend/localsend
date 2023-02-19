@@ -23,7 +23,7 @@ class ScanFacade {
     // If no devices has been found, then switch to legacy discovery mode
     // which is purely HTTP/TCP based.
     if (_ref.read(nearbyDevicesProvider).devices.isEmpty) {
-      final localIp = _ref.read(networkInfoProvider).localIps.firstOrNull;
+      final localIp = _ref.read(networkStateProvider).localIps.firstOrNull;
       if (localIp != null) {
         await startLegacySubnetScan(localIp);
       }

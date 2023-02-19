@@ -48,7 +48,7 @@ class _SendTabState extends ConsumerState<SendTab> {
   @override
   Widget build(BuildContext context) {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
-    final networkInfo = ref.watch(networkInfoProvider);
+    final networkInfo = ref.watch(networkStateProvider);
     final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
@@ -222,26 +222,24 @@ class _SendTabState extends ConsumerState<SendTab> {
               children: networkInfo.localIps.map((ip) {
                 return Card(
                   margin: EdgeInsets.zero,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Tooltip(
-                          message: t.sendTab.scan,
-                          child: RotatingWidget(
-                            duration: const Duration(seconds: 2),
-                            spinning: nearbyDevicesState.runningIps.contains(ip),
-                            reverse: true,
-                            child: CustomIconButton(
-                              onPressed: () => ref.read(scanProvider).startLegacySubnetScan(ip),
-                              child: const Icon(Icons.sync),
-                            ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Tooltip(
+                        message: t.sendTab.scan,
+                        child: RotatingWidget(
+                          duration: const Duration(seconds: 2),
+                          spinning: nearbyDevicesState.runningIps.contains(ip),
+                          reverse: true,
+                          child: CustomIconButton(
+                            onPressed: () => ref.read(scanProvider).startLegacySubnetScan(ip),
+                            child: const Icon(Icons.sync),
                           ),
                         ),
-                        Text(ip),
-                      ],
-                    ),
+                      ),
+                      Text(ip),
+                      const SizedBox(width: 8),
+                    ],
                   ),
                 );
               }).toList(),

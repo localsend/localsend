@@ -1,35 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <fr-FR>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "network": {
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
-    }
-  },
-  "troubleshootTab": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
-    "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
-    },
-    "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
-    }
-  },
-  "sendPage": {
-    "busy": "The recipient is busy with another request."
-  },
-  "dialogs": {
-    "errorDialog": {
-      "title": "@:general.error"
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }

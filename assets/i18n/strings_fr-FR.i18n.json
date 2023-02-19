@@ -95,7 +95,33 @@
       "alias": "Alias",
       "port": "Port",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
-      "encryption": "Chiffrement"
+      "encryption": "Chiffrement",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
+    }
+  },
+  "troubleshootTab": {
+    "title": "Dépannage",
+    "subTitle": "Cette application ne marche pas comme vous l'espérez? Vous pouvez ici trouver des solutions à des problèmes communs.",
+    "solution": "Solution:",
+    "fixButton": "Régler automatiquement",
+    "firewall": {
+      "symptom": "Cet appareil peut envoyer des fichiers à d'autres appareils, mais d'autres appareils ne peuvent pas en envoyer à cet appareil.",
+      "solution": "Le problème est probablement dû à votre pare-feu. Vous pouvez le régler en autorisant les connections entrantes (UDP et TCP) sur le port {port}.",
+      "openFirewall": "Ouvrir le pare-feu"
+    },
+    "noConnection": {
+      "symptom": "Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.",
+      "solution": "Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils sont connectés au même réseau wifi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Le wifi peut ne pas autoriser les communications entre appareils. Dans ce cas, l'option doit être activée dans les paramètres du routeur."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Historique",
+    "empty": "L'historique est vide.",
+    "entryActions": {
+      "open": "Ouvrir le fichier",
+      "info": "Information",
+      "deleteFromHistory": "Supprimer de l'historique"
     }
   },
   "selectedFilesPage": {
@@ -117,7 +143,8 @@
   },
   "sendPage": {
     "waiting": "En attente d'une réponse...",
-    "rejected": "Le destinataire a rejeté la demande."
+    "rejected": "Le destinataire a rejeté la demande.",
+    "busy": "Le destinataire est occupé avec une autre requête."
   },
   "progressPage": {
     "titleSending": "Envoi de fichiers",
@@ -141,7 +168,7 @@
   "changelogPage": {
     "title": "Historique des mises à jour"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -158,6 +185,25 @@
     "cancelSession": {
       "title": "Annuler le transfert de fichiers",
       "content": "Voulez-vous vraiment annuler le transfert de fichiers ?"
+    },
+    "cannotOpenFile": {
+      "title": "Ne peut pas ouvrir le fichier",
+      "content": "Ne peut pas ouvrir \"{file}\". Ce fichier a-t-il été déplacé, renommé ou supprimé ?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Chiffrement désactivé",
+      "content": "La communication s'effectue désormais via le protocole HTTP non crypté. Pour utiliser HTTPS, réactivez le chiffrement."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "Informations sur le fichier",
+      "fileName": "Nom du fichier :",
+      "path": "Chemin :",
+      "size": "Taille :",
+      "sender": "Éxpéditeur :",
+      "time": "Temps :"
     },
     "fileNameInput": {
       "title": "Entrez le nom du fichier",
@@ -182,36 +228,11 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers."
-    },
-    "encryptionDisabledNotice": {
-      "title": "Chiffrement désactivé",
-      "content": "La communication s'effectue désormais via le protocole HTTP non crypté. Pour utiliser HTTPS, réactivez le chiffrement."
-    },
-    "cannotOpenFile": {
-      "title": "Ne peut pas ouvrir le fichier",
-      "content": "Ne peut pas ouvrir \"{file}\". Ce fichier a-t-il été déplacé, renommé ou supprimé ?"
-    },
-    "fileInfo": {
-      "title": "Informations sur le fichier",
-      "fileName": "Nom du fichier :",
-      "path": "Chemin :",
-      "size": "Taille :",
-      "sender": "Éxpéditeur :",
-      "time": "Temps :"
     }
   },
   "tray": {
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
     "open": "@:general.open",
     "close": "Quitter LocalSend"
-  },
-  "receiveHistoryPage": {
-    "title": "Historique",
-    "empty": "L'historique est vide.",
-    "entryActions": {
-      "open": "Ouvrir le fichier",
-      "info": "Information",
-      "deleteFromHistory": "Supprimer de l'historique"
-    }
   }
 }

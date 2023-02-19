@@ -10,8 +10,8 @@ import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/send/send_state.dart';
-import 'package:localsend_app/model/send/sending_file.dart';
+import 'package:localsend_app/model/state/send/send_session_state.dart';
+import 'package:localsend_app/model/state/send/sending_file.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -25,11 +25,13 @@ import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
-final sendProvider = StateNotifierProvider<SendNotifier, SendState?>((ref) {
+/// The provider for **sending** files.
+/// The opposite of [serverProvider].
+final sendProvider = StateNotifierProvider<SendNotifier, SendSessionState?>((ref) {
   return SendNotifier(ref);
 });
 
-class SendNotifier extends StateNotifier<SendState?> {
+class SendNotifier extends StateNotifier<SendSessionState?> {
   final Ref _ref;
 
   SendNotifier(this._ref) : super(null);
@@ -42,7 +44,7 @@ class SendNotifier extends StateNotifier<SendState?> {
     final uploadDio = _ref.read(dioProvider(DioType.longLiving));
     final cancelToken = CancelToken();
 
-    final requestState = SendState(
+    final requestState = SendSessionState(
       status: SessionStatus.waiting,
       target: target,
       files: Map.fromEntries(await Future.wait(files.map((file) async {
@@ -222,8 +224,8 @@ class SendNotifier extends StateNotifier<SendState?> {
   }
 }
 
-extension on SendState {
-  SendState withFileStatus(String fileId, FileStatus status, String? errorMessage) {
+extension on SendSessionState {
+  SendSessionState withFileStatus(String fileId, FileStatus status, String? errorMessage) {
     return copyWith(
       files: {...files}..update(fileId, (file) => file.copyWith(
         status: status,

@@ -1,12 +1,12 @@
 name: localsend_app
 description: An open source cross-platform alternative to AirDrop
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.7.0+26
 
 environment:
-  sdk: '>=2.18.5 <3.0.0'
+  sdk: ">=2.18.5 <3.0.0"
 
 dependencies:
   basic_utils: 5.4.2
