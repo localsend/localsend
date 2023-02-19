@@ -11,7 +11,7 @@ Future<bool> checkIfTv() async {
   if (checkPlatform([TargetPlatform.android])) {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return androidInfo.systemFeatures.contains('android.software.leanback_only');
+    return androidInfo.systemFeatures.contains('android.software.leanback');
   } else {
     return false;
   }
