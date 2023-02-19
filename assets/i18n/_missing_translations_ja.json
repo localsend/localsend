@@ -1,21 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "troubleshootTab": {
-    "title": "トラブルシューティング",
-    "subTitle": "アプリが期待通りに動作しませんか？ここでは一般的な解決策を紹介します。",
-    "solution": "解決策:",
-    "fixButton": "自動で修正する",
-    "firewall": {
-      "symptom": "このアプリから他のデバイスへはファイルを送信できるのに、他のデバイスからこのデバイスへはファイルが送信できない。",
-      "solution": "ファイアウォールに問題があると思われます。ポート{port}の受け入れ(UDPとTCP)を許可することでこの問題を解決できます。",
-      "openFirewall": "ファイアウォールを開く"
-    },
-    "noConnection": {
-      "symptom": "どちらのデバイスからもお互いが見つけられず、ファイルも共有できません。",
-      "solution": "双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、同じ設定(ポート、マルチキャストアドレス、暗号化)を共有していることを確認してください。Wi-Fiが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。"
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
