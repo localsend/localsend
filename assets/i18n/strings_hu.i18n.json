@@ -25,7 +25,7 @@
     "online": "Online",
     "open": "Megnyit",
     "queue": "Várósor",
-    "quickSave": "Gyors mentés",
+    "quickSave": "Autom. mentés",
     "renamed": "Átnevezve",
     "reset": "Reset",
     "restart": "Újraindít",
@@ -38,7 +38,7 @@
     "unknown": "Ismeretlen"
   },
   "receiveTab": {
-    "title": "Fogad",
+    "title": "Fogadás",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
@@ -46,7 +46,7 @@
     }
   },
   "sendTab": {
-    "title": "Küld",
+    "title": "Küldés",
     "selection": {
       "title": "Kiválasztás",
       "files": "Fájl(ok): {files}",
@@ -61,7 +61,7 @@
     "nearbyDevices": "Közeli eszközök",
     "thisDevice": "Ez az eszköz",
     "scan": "Keressen eszközöket",
-    "help": "Győződjön meg arról, hogy a kívánt cél is ugyanazon a wifi hálózaton van.",
+    "help": "Győződjön meg arról, hogy a kívánt eszköz is ugyanazon a wifi hálózaton van.",
     "placeItems": "Helyezze el a megosztandó elemeket."
   },
   "settingsTab": {
@@ -78,14 +78,14 @@
       "languageOptions": {
         "system": "Rendszer"
       },
-      "minimizeToTray": "Kilépés: Minimalizálás a tálcára",
+      "minimizeToTray": "Kilépés: Minimalizálja a tálcára",
       "launchAtStartup": "Auto. indítás bejelentkezés után",
-      "launchMinimized": "Auto. indítás: Kezdje rejtve"
+      "launchMinimized": "Auto. indítás: Kis méretben"
     },
     "receive": {
-      "title": "Fogad",
+      "title": "Fogadás",
       "quickSave": "@:general.quickSave",
-      "destination": "Cél",
+      "destination": "Mentés helye",
       "saveToGallery": "Média mentése a galériába"
     },
     "network": {
@@ -94,15 +94,15 @@
       "server": "Szerver",
       "alias": "Álnév",
       "port": "Port",
-      "portWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
+      "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik Önt, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
+      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
     }
   },
   "troubleshootTab": {
     "title": "Hibaelhárítás",
-    "subTitle": "Ez az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.",
+    "subTitle": "Az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.",
     "solution": "Megoldás:",
     "fixButton": "Autom. javítás",
     "firewall": {
@@ -117,7 +117,7 @@
   },
   "receiveHistoryPage": {
     "title": "Előzmény",
-    "empty": "Az előzmény üres.",
+    "empty": "Még nincs előzmény.",
     "entryActions": {
       "open": "Fájl megnyitás",
       "info": "Információ",
@@ -144,17 +144,17 @@
   "sendPage": {
     "waiting": "Válaszra várva...",
     "rejected": "A fogadó elutasította a kérelmet.",
-    "busy": "A címzett más kéréssel van elfoglalva."
+    "busy": "A fogadó más kéréssel van elfoglalva."
   },
   "progressPage": {
     "titleSending": "Fájlok küldése",
     "titleReceiving": "Fájlok fogadása",
-    "savedToGallery": "Mentve a Fotók közé",
+    "savedToGallery": "Mentve a Galériába",
     "total": {
       "title": {
         "sending": "Teljes folyamat ({time})",
         "finishedError": "Hibával befejezve",
-        "canceledSender": "A feladó törölte",
+        "canceledSender": "A küldő törölte",
         "canceledReceiver": "A fogadó törölte"
       },
       "count": "Fájlok: {curr} / {n}",
@@ -169,7 +169,7 @@
     "title": "Változásnapló"
   },
   "aliasGenerator(ignoreMissing)": {
-    "@info": "Inherits from the English version"
+    "@info": "Az angol változatból örökölte"
   },
   "dialogs": {
     "addFile": {
@@ -188,7 +188,7 @@
     },
     "cannotOpenFile": {
       "title": "A fájl nem nyitható meg",
-      "content": "Nem sikerült megnyitni a(z) \"{file}\" fájlt. Ezt a fájlt áthelyezték, átnevezték vagy törölték?"
+      "content": "Nem sikerült megnyitni a(z) \"{file}\" fájlt. A fájlt áthelyezték, átnevezték vagy törölték?"
     },
     "encryptionDisabledNotice": {
       "title": "A titkosítás letiltva",
@@ -202,7 +202,7 @@
       "fileName": "Fájl neve:",
       "path": "Útvonal:",
       "size": "Méret:",
-      "sender": "Feladó:",
+      "sender": "Küldő:",
       "time": "Idő:"
     },
     "fileNameInput": {
@@ -211,7 +211,7 @@
     },
     "messageInput": {
       "title": "Írja be az üzenetét",
-      "multiline": "Többsoros"
+      "multiline": "Több soros"
     },
     "noFiles": {
       "title": "Nincs fájl kiválasztva",
@@ -221,7 +221,7 @@
       "title": "Gyors műveletek",
       "counter": "Számláló",
       "prefix": "Előtag",
-      "padZero": "Pad nullákkal",
+      "padZero": "Kitöltés nullákkal",
       "sortBeforeCount": "Előzetesen rendezze ábécé sorrendbe",
       "random": "Véletlen"
     },
