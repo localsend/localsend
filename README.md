@@ -10,18 +10,19 @@ Links: [Homepage](https://localsend.org)
 | [App Store](https://apps.apple.com/us/app/localsend/id1661733229)
 | [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)
 
-- [LocalSend](#localsend)
-  - [About](#about)
-  - [Screenshots](#screenshots)
-  - [How it Works](#how-it-works)
-  - [Getting Started](#getting-started)
-  - [Contributing](#contributing)
-  - [Building](#building)
-    - [Android](#android)
-    - [iOS](#ios)
-    - [MacOS](#macos)
-    - [Windows](#windows)
-    - [Linux](#linux)
+- [About](#about)
+- [Screenshots](#screenshots)
+- [How it Works](#how-it-works)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+  - [Translation](#translation)
+  - [Bug fixes and improvements](#bug-fixes-and-improvements)
+- [Building](#building)
+  - [Android](#android)
+  - [iOS](#ios)
+  - [MacOS](#macos)
+  - [Windows](#windows)
+  - [Linux](#linux)
 
 ## About
 
@@ -50,6 +51,23 @@ To get started with LocalSend, follow these steps:
 ## Contributing
 
 We welcome contributions from anyone who is interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+
+### Translation
+
+You can help translating this app to other languages!
+
+1. Fork this repository
+2. Choose one
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
+3. Optional: Re-run this app
+   1. Make sure you have [run](#getting-started) this app once.
+   2. Update translations via `flutter pub run slang`
+   3. Run app via `flutter run`
+4. Open a pull request
+
+### Bug fixes and improvements
 
 - **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
 - **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first so we can discuss why the improvement is needed.
