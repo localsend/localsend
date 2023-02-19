@@ -1,0 +1,189 @@
+{
+  "locale": "Українська",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Прийняти",
+    "add": "Додати",
+    "advanced": "Поліпшений",
+    "cancel": "Скасувати",
+    "close": "Закрити",
+    "confirm": "Підтвердити",
+    "continueStr": "Продовжити",
+    "copy": "Копіювати",
+    "copiedToClipboard": "Скопійовано до буферу обміну",
+    "decline": "Відхилити",
+    "done": "Виконано",
+    "edit": "Редагувати",
+    "error": "Помилка",
+    "example": "Приклад",
+    "files": "Файли",
+    "finished": "Виконано",
+    "hide": "Приховати",
+    "off": "Вимкнено",
+    "offline": "Не в мережі",
+    "on": "Увімкнено",
+    "online": "В мережі",
+    "open": "Відкрити",
+    "queue": "Черга",
+    "quickSave": "Швидке збереження",
+    "renamed": "Перейменовано",
+    "reset": "Скидання налаштувань",
+    "restart": "Перезавантаження",
+    "settings": "Налаштування",
+    "skipped": "Пропущено",
+    "start": "Запуск",
+    "stop": "Зупинити",
+    "save": "Зберегти",
+    "unchanged": "Не змінювалося",
+    "unknown": "Невідомо"
+  },
+  "receiveTab": {
+    "title": "Отримання",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Порт:",
+      "alias": "Скорочення:"
+    }
+  },
+  "sendTab": {
+    "title": "Надсилання",
+    "selection": {
+      "title": "Вибірка",
+      "files": "Файли: {files}",
+      "size": "Розмір: {size}"
+    },
+    "picker": {
+      "file": "Файл",
+      "media": "Медіа",
+      "text": "Текст"
+    },
+    "shareIntentInfo": "Ви також можете використовувати кнопку \"Share\" свого мобільного телефону для швидкого вибору файлів",
+    "nearbyDevices": "Найближчі знайдені пристрої",
+    "thisDevice": "Цей пристрій",
+    "scan": "Пошук пристроїв",
+    "help": "Будь ласка, упевніться, що одержувач перебуває в тій же мережі Wi-Fi, що і відправник",
+    "placeItems": "Додайте сюди файли, щоб поділитися"
+  },
+  "settingsTab": {
+    "title": "Налаштування",
+    "general": {
+      "title": "Загальні",
+      "theme": "Тема",
+      "themeOptions": {
+        "system": "Системна",
+        "dark": "Темна",
+        "light": "Світла"
+      },
+      "language": "Мова",
+      "languageOptions": {
+        "system": "Системна"
+      },
+      "minimizeToTray": "Вихід: Програма залишиться запущена у треї",
+      "launchAtStartup": "Автозапуск після входу",
+      "launchMinimized": "Прихований автозапуск"
+    },
+    "receive": {
+      "title": "Отримання",
+      "quickSave": "@:general.quickSave",
+      "destination": "Одержувач",
+      "saveToGallery": "Зберігати медіафайли до галереї"
+    },
+    "network": {
+      "title": "Мережа",
+      "needRestart": "Для застосування змін необхідно перезапустити сервер!",
+      "server": "Сервер",
+      "alias": "Скорочене найменування цього пристрою",
+      "port": "Порт"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Видалити все"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "хоче надіслати Вам файл",
+      "other": "хоче відправити {n} файлів"
+    },
+    "subTitleMessage": "надіслав Вам повідомлення:",
+    "subTitleLink": "відправив Вам посилання:",
+    "canceled": "Відправник скасував запит на передачу файлів"
+  },
+  "receiveOptionsPage": {
+    "title": "Опції отримання повідомлення",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)"
+  },
+  "sendPage": {
+    "waiting": "Очікування відповіді",
+    "rejected": "Отримувач скасував прийом файлів"
+  },
+  "progressPage": {
+    "titleSending": "Надсилання файлів",
+    "titleReceiving": "Отримання файлів",
+    "savedToGallery": "Збережено у галереї",
+    "total": {
+      "title": {
+        "sending": "Загальний час передачі ({time})",
+        "finishedError": "Завершено з помилкою",
+        "canceledSender": "Скасовано відправником",
+        "canceledReceiver": "Скасовано одержувачем"
+      },
+      "count": "Файлів: {curr} / {n}",
+      "size": "Розмір: {curr} / {n}",
+      "speed": "Швидкість: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "Про LocalSend"
+  },
+  "changelogPage": {
+    "title": "Історія змін"
+  },
+  "aliasGenerator": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Додати до обраних",
+      "content": "Що Ви бажаєте додати?"
+    },
+    "addressInput": {
+      "title": "Введіть адресу",
+      "hashtag": "Хеш тег",
+      "ip": "IP Адреса"
+    },
+    "cancelSession": {
+      "title": "Скасувати надсилання файлів",
+      "content": "Ви дійсно хочете скасувати надсилання файлів?"
+    },
+    "fileNameInput": {
+      "title": "Введіть ім'я файлу",
+      "original": "Оригінальне ім'я файлу: {original}"
+    },
+    "messageInput": {
+      "title": "Введіть повідомлення",
+      "multiline": "Декілька рядків"
+    },
+    "noFiles": {
+      "title": "Файли не обрано!",
+      "content": "Будь ласка, додайте як мінімум один файл"
+    },
+    "quickActions": {
+      "title": "Швидкі дії",
+      "counter": "Лічильник",
+      "prefix": "Префікс",
+      "padZero": "Додати нулі на початку",
+      "sortBeforeCount": "Відсортувати за алфавітом (А-Я)",
+      "random": "Випадково"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Запити на передачу файлів прийматимуться автоматично. Будьте обережні - кожен усередині цієї мережі може надіслати файли"
+    }
+  },
+  "tray": {
+    "@info": "Посібник з розробки від Apple (Apple Guidelines) дуже суворо ставиться до формулювання 'закрити'",
+    "open": "@:general.open",
+    "close": "Вихід із LocalSend"
+  }
+}
