@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   basic_utils: 5.4.2
-  collection: 1.16.0
+  collection: ^1.17.0
   connectivity_plus: 3.0.3
   desktop_drop: 0.4.0
   device_apps: 2.2.0
