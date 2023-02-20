@@ -4,7 +4,4 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "/"
-    schedule:
-      interval: "daily"
+
