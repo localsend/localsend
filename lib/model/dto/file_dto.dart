@@ -8,9 +8,15 @@ part 'file_dto.g.dart';
 class FileDto with _$FileDto {
   const factory FileDto({
     required String id, // unique inside send session
+
     required String fileName,
+
     required int size,
+
+    // ignore: invalid_annotation_target
+    @JsonKey(unknownEnumValue: FileType.other)
     required FileType fileType,
+
     required String? preview,
   }) = _FileDto;
 

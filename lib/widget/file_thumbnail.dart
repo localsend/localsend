@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
@@ -12,7 +13,12 @@ class CrossFileThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (file.asset != null) {
+    if (file.thumbnail != null) {
+      return MemoryThumbnail(
+        bytes: file.thumbnail!,
+        fileType: file.fileType,
+      );
+    } else if (file.asset != null) {
       return AssetThumbnail(
         asset: file.asset!,
         fileType: file.fileType,
@@ -37,7 +43,7 @@ class AssetThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _FileThumbnail(
+    return _Thumbnail(
       thumbnail: AssetEntityImage(
         asset,
         isOriginal: false,
@@ -74,18 +80,52 @@ class FilePathThumbnail extends StatelessWidget {
       thumbnail = null;
     }
 
-    return _FileThumbnail(
+    return _Thumbnail(
       thumbnail: thumbnail,
       icon: fileType.icon,
     );
   }
 }
 
-class _FileThumbnail extends StatelessWidget {
+class MemoryThumbnail extends StatelessWidget {
+  final Uint8List? bytes;
+  final FileType fileType;
+
+  const MemoryThumbnail({
+    required this.bytes,
+    required this.fileType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget? thumbnail;
+    if (bytes != null) {
+      thumbnail = Padding(
+        padding: fileType == FileType.apk ? const EdgeInsets.all(50) : EdgeInsets.zero,
+        child: Image.memory(
+          bytes!,
+          errorBuilder: (_, __, ___) => Padding(
+            padding: const EdgeInsets.all(10),
+            child: Icon(fileType.icon, size: 32),
+          ),
+        ),
+      );
+    } else {
+      thumbnail = null;
+    }
+
+    return _Thumbnail(
+      thumbnail: thumbnail,
+      icon: fileType.icon,
+    );
+  }
+}
+
+class _Thumbnail extends StatelessWidget {
   final Widget? thumbnail;
   final IconData? icon;
 
-  const _FileThumbnail({
+  const _Thumbnail({
     required this.thumbnail,
     required this.icon,
   });

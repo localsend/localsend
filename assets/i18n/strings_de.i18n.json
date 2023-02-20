@@ -55,7 +55,8 @@
     "picker": {
       "file": "Datei",
       "media": "Medien",
-      "text": "Text"
+      "text": "Text",
+      "app": "App"
     },
     "shareIntentInfo": "Du kannst auch die \"Teilen\"-Funktion deines mobilen Geräts nutzen, um Dateien einfacher auszuwählen.",
     "nearbyDevices": "Geräte in der Nähe",
@@ -124,6 +125,12 @@
       "deleteFromHistory": "Vom Verlauf entfernen"
     }
   },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "System-Apps ausschließen",
+    "excludeAppsWithoutLaunchIntent": "Nicht-startbare Apps ausschließen",
+    "apps": "{n} Apps"
+  },
   "selectedFilesPage": {
     "deleteAll": "Alle löschen"
   },
@@ -168,7 +175,7 @@
   "changelogPage": {
     "title": "Changelog"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {

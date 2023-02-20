@@ -24,6 +24,8 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
 
+const _horizontalPadding = 15.0;
+
 class SendTab extends ConsumerStatefulWidget {
   const SendTab({Key? key}) : super(key: key);
 
@@ -55,50 +57,47 @@ class _SendTabState extends ConsumerState<SendTab> {
       FilePickerOption.file,
       if (checkPlatformWithGallery()) FilePickerOption.media,
       FilePickerOption.text,
+      if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,
     ];
 
     return ResponsiveListView(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.zero,
       children: [
         const SizedBox(height: 20),
         if (selectedFiles.isEmpty) ...[
           Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
             child: Text(
               t.sendTab.selection.title,
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
-          IntrinsicHeight(
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                ...List.generate(3, (index) {
-                  final option = index < addOptions.length ? addOptions[index] : null;
-                  return [
-                    Expanded(
-                      child: option == null
-                          ? Container()
-                          : BigButton(
-                              icon: option.icon,
-                              label: option.label,
-                              filled: false,
-                              onTap: () => option.select(
-                                context: context,
-                                ref: ref,
-                              ),
-                            ),
+                const SizedBox(width: 10),
+                ...addOptions.map((option) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    child: BigButton(
+                      icon: option.icon,
+                      label: option.label,
+                      filled: false,
+                      onTap: () => option.select(
+                        context: context,
+                        ref: ref,
+                      ),
                     ),
-                    const SizedBox(width: 15),
-                  ];
-                }).expand((e) => e).toList()
-                  ..removeLast(),
+                  );
+                }),
+                const SizedBox(width: 10),
               ],
             ),
           ),
         ] else ...[
           Card(
-            margin: EdgeInsets.zero,
+            margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
@@ -165,9 +164,9 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ),
         ],
-        const SizedBox(height: 10),
         Row(
           children: [
+            const SizedBox(width: _horizontalPadding),
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -215,7 +214,7 @@ class _SendTabState extends ConsumerState<SendTab> {
         ),
         if (networkInfo.localIps.length > 1)
           Padding(
-            padding: const EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.only(bottom: 15, left: _horizontalPadding, right: _horizontalPadding),
             child: Wrap(
               spacing: 15,
               runSpacing: 15,
@@ -245,17 +244,20 @@ class _SendTabState extends ConsumerState<SendTab> {
               }).toList(),
             ),
           ),
-        Hero(
-          tag: 'this-device',
-          child: DeviceListTile(
-            device: myDevice,
-            thisDevice: true,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+          child: Hero(
+            tag: 'this-device',
+            child: DeviceListTile(
+              device: myDevice,
+              thisDevice: true,
+            ),
           ),
         ),
         const SizedBox(height: 10),
         ...nearbyDevicesState.devices.values.map((device) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Hero(
               tag: 'device-${device.ip}',
               child: DeviceListTile(
@@ -277,13 +279,16 @@ class _SendTabState extends ConsumerState<SendTab> {
           );
         }),
         const SizedBox(height: 20),
-        OpacitySlideshow(
-          durationMillis: 6000,
-          children: [
-            Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
-            if (checkPlatformCanReceiveShareIntent())
-              Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+          child: OpacitySlideshow(
+            durationMillis: 6000,
+            children: [
+              Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+              if (checkPlatformCanReceiveShareIntent())
+                Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+            ],
+          ),
         ),
         const SizedBox(height: 50),
       ],

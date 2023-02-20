@@ -1,7 +1,17 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <fr-FR>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations.",
-    "Congratulations! There are no missing translations! :)"
-  ]
+    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
+  ],
+  "sendTab": {
+    "picker": {
+      "app": "App"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Exclude system apps",
+    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "apps": "{n} Apps"
+  }
 }

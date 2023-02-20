@@ -55,7 +55,8 @@
     "picker": {
       "file": "File",
       "media": "Media",
-      "text": "Text"
+      "text": "Text",
+      "app": "App"
     },
     "shareIntentInfo": "You can also use the \"Share\" feature of your mobile device to select files more easily.",
     "nearbyDevices": "Nearby devices",
@@ -123,6 +124,12 @@
       "info": "Information",
       "deleteFromHistory": "Delete from history"
     }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Exclude system apps",
+    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "apps": "{n} Apps"
   },
   "selectedFilesPage": {
     "deleteAll": "Delete all"

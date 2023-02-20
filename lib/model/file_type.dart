@@ -7,6 +7,7 @@ enum FileType {
   video(Icons.movie),
   pdf(Icons.description),
   text(Icons.subject),
+  apk(Icons.android),
   other(Icons.file_present_sharp);
 
   const FileType(this.icon);

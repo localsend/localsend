@@ -49,39 +49,24 @@ class AddFileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Wrap(
+      spacing: 15,
+      runSpacing: 15,
       children: [
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ...List.generate(3, (index) {
-                final option = index < options.length ? options[index] : null;
-                return [
-                  Expanded(
-                    child: option == null
-                        ? Container()
-                        : BigButton(
-                            icon: option.icon,
-                            label: option.label,
-                            filled: true,
-                            onTap: () {
-                              context.popUntilRoot();
-                              option.select(
-                                context: context,
-                                ref: parentRef,
-                              );
-                            },
-                          ),
-                  ),
-                  const SizedBox(width: 15),
-                ];
-              }).expand((e) => e).toList()
-                ..removeLast(),
-            ],
-          ),
-        ),
+        ...options.map((option) {
+          return BigButton(
+            icon: option.icon,
+            label: option.label,
+            filled: true,
+            onTap: () {
+              context.popUntilRoot();
+              option.select(
+                context: context,
+                ref: parentRef,
+              );
+            },
+          );
+        }),
       ],
     );
   }

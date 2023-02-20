@@ -8,38 +8,65 @@ class ResponsiveListView extends StatelessWidget {
   final ScrollController? controller;
   final EdgeInsets padding;
   final EdgeInsets desktopPadding;
-  final List<Widget> children;
+  final List<Widget>? children;
+  final Widget? child;
+
+  const ResponsiveListView.single({
+    this.maxWidth = defaultMaxWidth,
+    this.controller,
+    required this.padding,
+    EdgeInsets? tabletPadding,
+    required Widget this.child,
+    super.key,
+  })  : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+        children = null;
 
   const ResponsiveListView({
     this.maxWidth = defaultMaxWidth,
     this.controller,
     required this.padding,
     EdgeInsets? tabletPadding,
-    required this.children,
-    Key? key,
+    required List<Widget> this.children,
+    super.key,
   })  : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-        super(key: key);
+        child = null;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: controller,
-      child: Center(
+    if (children != null) {
+      return SingleChildScrollView(
+        controller: controller,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: maxWidth),
+            child: ResponsiveBuilder(
+              builder: (sizingInformation) {
+                return Padding(
+                  padding: sizingInformation.isDesktop ? desktopPadding : padding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: children!,
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxWidth),
           child: ResponsiveBuilder(
             builder: (sizingInformation) {
               return Padding(
                 padding: sizingInformation.isDesktop ? desktopPadding : padding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: children,
-                ),
+                child: child!,
               );
             },
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 }

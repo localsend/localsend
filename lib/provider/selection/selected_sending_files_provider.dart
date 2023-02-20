@@ -1,6 +1,7 @@
 import 'dart:convert' show utf8;
 import 'dart:io';
 
+import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart' as file_picker;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,6 +34,7 @@ class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
         name: '${_uuid.v4()}.txt',
         fileType: FileType.text,
         size: bytes.length,
+        thumbnail: null,
         asset: null,
         path: null,
         bytes: bytes,
@@ -69,6 +71,7 @@ class CrossFileConverters {
       name: file.name,
       fileType: file.name.guessFileType(),
       size: file.size,
+      thumbnail: null,
       asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? file.bytes! : null,
@@ -81,6 +84,7 @@ class CrossFileConverters {
       name: await asset.titleAsync,
       fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
       size: await file.length(),
+      thumbnail: null,
       asset: asset,
       path: file.path,
       bytes: null,
@@ -92,6 +96,7 @@ class CrossFileConverters {
       name: file.name,
       fileType: file.name.guessFileType(),
       size: await file.length(),
+      thumbnail: null,
       asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
@@ -105,8 +110,22 @@ class CrossFileConverters {
       name: fileName,
       fileType: fileName.guessFileType(),
       size: await file.length(),
+      thumbnail: null,
       asset: null,
       path: file.path,
+      bytes: null,
+    );
+  }
+
+  static Future<CrossFile> convertApplication(Application app) async {
+    final file = File(app.apkFilePath);
+    return CrossFile(
+      name: '${app.appName}.apk',
+      fileType: FileType.apk,
+      thumbnail: app is ApplicationWithIcon ? app.icon : null,
+      size: await file.length(),
+      asset: null,
+      path: app.apkFilePath,
       bytes: null,
     );
   }

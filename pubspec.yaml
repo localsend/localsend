@@ -13,6 +13,7 @@ dependencies:
   collection: 1.16.0
   connectivity_plus: 3.0.3
   desktop_drop: 0.4.0
+  device_apps: 2.2.0
   device_info_plus: 8.1.0
   dio: 4.0.6
   file_picker: 5.2.5
@@ -92,7 +93,7 @@ msix_config:
   publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
-  languages: en, ar, de, es-ES, fr-FR, hu, in, it, iw, ja, ko, ne, pl, pt-BR, ru, sv, tr, zh-Hans, zh-Hant-HK, zh-Hant-TW
+  languages: en, ar, de, es-ES, fr-FR, hu, in, it, iw, ja, ko, ne, pl, pt-BR, ru, sv, tr, uk, zh-Hans, zh-Hant-HK, zh-Hant-TW
   startup_task:
     task_id: localsend
     enabled: false

@@ -3,6 +3,11 @@
     "Here are translations that exist in <en> but not in <ru>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=ru' to quickly apply the newly added translations."
   ],
+  "sendTab": {
+    "picker": {
+      "app": "App"
+    }
+  },
   "settingsTab": {
     "network": {
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
@@ -34,6 +39,12 @@
       "info": "Information",
       "deleteFromHistory": "Delete from history"
     }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Exclude system apps",
+    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "apps": "{n} Apps"
   },
   "sendPage": {
     "busy": "The recipient is busy with another request."

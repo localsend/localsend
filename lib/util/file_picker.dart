@@ -2,14 +2,17 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
+import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 enum FilePickerOption {
   file(Icons.description),
   media(Icons.image),
-  text(Icons.subject);
+  text(Icons.subject),
+  app(Icons.apps);
 
   const FilePickerOption(this.icon);
 
@@ -23,6 +26,8 @@ enum FilePickerOption {
         return t.sendTab.picker.media;
       case FilePickerOption.text:
         return t.sendTab.picker.text;
+      case FilePickerOption.app:
+        return t.sendTab.picker.app;
     }
   }
 
@@ -59,6 +64,10 @@ enum FilePickerOption {
         if (result != null) {
           ref.read(selectedSendingFilesProvider.notifier).addMessage(result);
         }
+        break;
+      case FilePickerOption.app:
+        // Currently, only Android APK
+        context.push(() => const ApkPickerPage());
         break;
     }
   }
