@@ -55,7 +55,8 @@
     "picker": {
       "file": "文件",
       "media": "媒体",
-      "text": "文本"
+      "text": "文本",
+      "app": "应用"
     },
     "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件。",
     "nearbyDevices": "附近的设备",
@@ -123,6 +124,12 @@
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
     }
+  },
+  "apkPickerPage": {
+    "title": "应用（APK）",
+    "excludeSystemApps": "排除系统应用",
+    "excludeAppsWithoutLaunchIntent": "排除无法启动的应用",
+    "apps": "{n} 个应用"
   },
   "selectedFilesPage": {
     "deleteAll": "全部删除"
