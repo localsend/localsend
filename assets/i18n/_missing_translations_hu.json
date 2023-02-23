@@ -9,9 +9,9 @@
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Appok (APK)",
+    "excludeSystemApps": "Rendszerappok kivételével",
+    "excludeAppsWithoutLaunchIntent": "Nem-indítható appok kivételével",
+    "apps": "{n} App"
   }
 }
