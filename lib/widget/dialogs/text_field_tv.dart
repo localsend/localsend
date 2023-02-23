@@ -63,7 +63,7 @@ class _TextFieldTvState extends ConsumerState<TextFieldTv> {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(widget.controller.text, style: Theme.of(context).textTheme.subtitle1),
+          child: Text(widget.controller.text, style: Theme.of(context).textTheme.titleMedium),
         ),
       );
     } else {

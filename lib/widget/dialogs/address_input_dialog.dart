@@ -8,6 +8,7 @@ import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/task_runner.dart';
 import 'package:routerino/routerino.dart';
 
@@ -181,7 +182,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error, style: const TextStyle(color: Colors.orange)),
+              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
             ),
         ],
       ),

@@ -6,11 +6,12 @@ publish_to: "none"
 version: 1.7.0+26
 
 environment:
-  sdk: ">=2.18.5 <3.0.0"
+  flutter: '>=3.7.4'
+  sdk: ">=2.19.2 <3.0.0"
 
 dependencies:
   basic_utils: 5.4.2
-  collection: 1.16.0
+  collection: 1.17.0
   connectivity_plus: 3.0.3
   desktop_drop: 0.4.0
   device_apps: 2.2.0
@@ -34,7 +35,7 @@ dependencies:
   package_info_plus: 3.0.3
   path_provider: 2.0.11
   permission_handler: 10.2.0
-  routerino: 0.3.0
+  routerino: 0.3.1
   screen_retriever: 0.1.6
   share_handler: 0.0.16
   shared_preferences: 2.0.17

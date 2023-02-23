@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
-import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/widget/dialogs/cannot_open_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
@@ -54,7 +53,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
       body: Builder(builder: (context) {
         if (entries.isEmpty) {
           return Center(
-            child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headline4),
+            child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium),
           );
         }
 
@@ -118,7 +117,6 @@ class ReceiveHistoryPage extends ConsumerWidget {
                               break;
                           }
                         },
-                        color: Theme.of(context).cardColorWithElevation,
                         itemBuilder: (BuildContext context) {
                           return (entry.path != null ? _optionsAll : _optionsWithoutOpen).map((e) {
                             return PopupMenuItem<_EntryOption>(

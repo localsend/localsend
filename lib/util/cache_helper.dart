@@ -7,7 +7,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 /// Clears the cache.
 /// It is written in a "fire-and-forget" way, so we don't need to wait until everything is cleared.
 void clearCache() {
-  FilePicker.platform.clearTemporaryFiles().catchError((error) {
+  FilePicker.platform.clearTemporaryFiles().then((_) {}).catchError((error) {
     print(error);
   });
   PhotoManager.clearFileCache().catchError((error) => print(error));
@@ -15,7 +15,7 @@ void clearCache() {
   getTemporaryDirectory().then((cacheDir) {
     cacheDir.list().listen((event) {
       if (event is File) {
-        event.delete().catchError((error) {
+        event.delete().then((_) {}).catchError((error) {
           print(error);
         });
       }

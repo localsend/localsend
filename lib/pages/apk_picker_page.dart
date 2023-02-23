@@ -138,7 +138,10 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                                           data: (size) => '${size.asReadableFileSize} - ',
                                           orElse: () => '',
                                         );
-                                        return Text('$appSizeString${app.versionName ?? '?'} - ${app.packageName}', style: Theme.of(context).textTheme.caption);
+                                        return Text(
+                                          '$appSizeString${app.versionName ?? '?'} - ${app.packageName}',
+                                          style: Theme.of(context).textTheme.bodySmall,
+                                        );
                                       },
                                     ),
                                   ],

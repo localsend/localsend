@@ -19,10 +19,12 @@ final _darkInputBorder = OutlineInputBorder(
 
 ThemeData getTheme(Brightness brightness) {
   return ThemeData(
-    brightness: brightness,
-    primarySwatch: Colors.teal,
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: Colors.teal,
+      brightness: brightness,
+      backgroundColor: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
+    ),
     useMaterial3: true,
-    scaffoldBackgroundColor: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
     navigationBarTheme: brightness == Brightness.dark
         ? NavigationBarThemeData(
             indicatorColor: Colors.teal,
@@ -72,6 +74,12 @@ extension ThemeDataExt on ThemeData {
   /// This is the actual [cardColor] being used.
   Color get cardColorWithElevation {
     return ElevationOverlay.applySurfaceTint(cardColor, colorScheme.surfaceTint, 1);
+  }
+}
+
+extension ColorSchemeExt on ColorScheme {
+  Color get warning {
+    return Colors.orange;
   }
 }
 

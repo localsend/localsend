@@ -147,7 +147,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               children: [
                                 const Icon(Icons.file_download, size: 128),
                                 const SizedBox(height: 30),
-                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.headline6),
+                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
                               ],
                             ),
                           ),

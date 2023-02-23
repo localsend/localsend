@@ -33,7 +33,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Text(t.receiveOptionsPage.destination, style: Theme.of(context).textTheme.headline6),
+              Text(t.receiveOptionsPage.destination, style: Theme.of(context).textTheme.titleLarge),
               if (checkPlatformWithFileSystem())
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
@@ -54,7 +54,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
           const SizedBox(height: 20),
           Row(
             children: [
-              Text(t.general.files, style: Theme.of(context).textTheme.headline6),
+              Text(t.general.files, style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(width: 10),
               Tooltip(
                 message: t.dialogs.quickActions.title,

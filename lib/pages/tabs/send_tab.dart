@@ -69,7 +69,7 @@ class _SendTabState extends ConsumerState<SendTab> {
             padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
             child: Text(
               t.sendTab.selection.title,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           SingleChildScrollView(
@@ -105,7 +105,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                 children: [
                   Text(
                     t.sendTab.selection.title,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 5),
                   Text(t.sendTab.selection.files(files: selectedFiles.length)),
@@ -170,7 +170,7 @@ class _SendTabState extends ConsumerState<SendTab> {
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.subtitle1),
+                child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.titleMedium),
               ),
             ),
             const SizedBox(width: 10),

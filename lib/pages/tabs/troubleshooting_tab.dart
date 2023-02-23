@@ -18,7 +18,7 @@ class TroubleshootingTab extends ConsumerWidget {
     return ResponsiveListView(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
       children: [
-        Text(t.troubleshootTab.title, style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center),
+        Text(t.troubleshootTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
         const SizedBox(height: 20),
         Text(t.troubleshootTab.subTitle, textAlign: TextAlign.center),
         const SizedBox(height: 5),
@@ -99,7 +99,7 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                 ),
               Wrap(
                 children: [
-                  Text(widget.symptomText, style: Theme.of(context).textTheme.subtitle1),
+                  Text(widget.symptomText, style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
               const SizedBox(height: 10),

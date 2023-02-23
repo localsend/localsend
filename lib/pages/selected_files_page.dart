@@ -79,7 +79,7 @@ class SelectedFilesPage extends ConsumerWidget {
                                   overflow: TextOverflow.fade,
                                   softWrap: false,
                                 ),
-                                Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.caption),
+                                Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.bodySmall),
                               ],
                             ),
                           ),

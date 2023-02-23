@@ -8,6 +8,7 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
@@ -128,7 +129,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 _message != null
                                     ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
                                     : t.receivePage.subTitle(n: receiveSession.files.length),
-                                style: smallUi ? null : Theme.of(context).textTheme.headline6,
+                                style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
                                 textAlign: TextAlign.center,
                               ),
                               if (_message != null)
@@ -202,7 +203,11 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                         if (receiveSession.status == SessionStatus.canceledBySender) ...[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                            child: Text(
+                              t.receivePage.canceled,
+                              style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           Center(
                             child: ElevatedButton.icon(
@@ -234,7 +239,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                             children: [
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
+                                  backgroundColor: Theme.of(context).colorScheme.error,
                                   foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
                                 ),
                                 onPressed: () {

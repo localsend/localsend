@@ -8,6 +8,7 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
@@ -137,7 +138,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                       children: [
                         Text(
                           receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         if (checkPlatformWithFileSystem() && receiveSession != null)
                           Padding(
@@ -244,9 +245,9 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                               builder: (_) => ErrorDialog(error: errorMessage!),
                                             );
                                           },
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 5),
-                                            child: Icon(Icons.info, color: Colors.orange, size: 20),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                                            child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
                                           ),
                                         ),
                                       ],
@@ -375,7 +376,7 @@ extension on FileStatus {
       case FileStatus.sending:
         return Theme.of(context).colorScheme.tertiaryContainer;
       case FileStatus.failed:
-        return Colors.orange;
+        return Theme.of(context).colorScheme.warning;
       case FileStatus.finished:
         return Theme.of(context).colorScheme.tertiaryContainer;
     }

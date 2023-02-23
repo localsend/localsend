@@ -5,6 +5,7 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -117,12 +118,12 @@ class _SendPageState extends ConsumerState<SendPage> {
                             else if (sendState.status == SessionStatus.declined)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.rejected, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                                child: Text(t.sendPage.rejected, style: TextStyle(color: Theme.of(context).colorScheme.warning), textAlign: TextAlign.center),
                               )
                             else if (sendState.status == SessionStatus.recipientBusy)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.busy, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                                child: Text(t.sendPage.busy, style: TextStyle(color: Theme.of(context).colorScheme.warning), textAlign: TextAlign.center),
                               )
                             else if (sendState.status == SessionStatus.finishedWithErrors)
                               Padding(
@@ -130,11 +131,11 @@ class _SendPageState extends ConsumerState<SendPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(t.general.error, style: const TextStyle(color: Colors.orange)),
+                                    Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
                                     if (sendState.errorMessage != null)
                                       TextButton(
                                         style: TextButton.styleFrom(
-                                          foregroundColor: Colors.orange,
+                                          foregroundColor: Theme.of(context).colorScheme.warning,
                                         ),
                                         onPressed: () {
                                           showDialog(
