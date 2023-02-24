@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -18,6 +17,7 @@ import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/tray_helper.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
+import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:routerino/routerino.dart';
@@ -65,11 +65,7 @@ class LocalSendApp extends ConsumerWidget {
               ref.read(networkStateProvider.notifier).init();
             }
           },
-          child: Shortcuts(
-            shortcuts: {
-              // The select button on AndroidTV needs this to work
-              LogicalKeySet(LogicalKeyboardKey.select): const ActivateIntent(),
-            },
+          child: ShortcutWatcher(
             child: MaterialApp(
               title: t.appName,
               locale: TranslationProvider.of(context).flutterLocale,
