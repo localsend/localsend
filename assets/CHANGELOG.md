@@ -5,6 +5,7 @@
 - feat: add troubleshoot page
 - feat(windows): left click on tray icon opens app
 - fix(android): missing app icon on Android 7
+- fix(android,ios): show error message when saving to gallery failed
 - i18n: add uk
 
 ## 1.7.0 (2023-02-11)
