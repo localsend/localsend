@@ -63,6 +63,11 @@ class NetworkStateNotifier extends StateNotifier<NetworkState> {
       try {
         // fallback with dart:io NetworkInterface
         final result = (await NetworkInterface.list()).map((networkInterface) => networkInterface.addresses).expand((ip) => ip);
+
+        for (final i in await NetworkInterface.list()) {
+          print('INTERFACE: ${i.index} - ${i.name} - ${i.addresses.firstWhereOrNull((element) => element.type == InternetAddressType.IPv4)}');
+        }
+
         nativeResult = result.where((ip) => ip.type == InternetAddressType.IPv4).map((address) => address.address).toList();
       } catch (e, st) {
         print(e);
@@ -91,6 +96,40 @@ List<String> rankIpAddresses(List<String> nativeResult, String? thirdPartyResult
     return {thirdPartyResult, ...nativeResult}.toList()._rankIpAddresses(thirdPartyResult);
   }
 }
+
+// List<NetworkInterface> rankNetworkInterfaces(List<NetworkInterface> interfaces) {
+//
+// }
+
+/// Maps network interface names to a score.
+/// The higher, the more relevant to the user.
+///
+/// In summary, hotspots are preferred over wifi
+/// and wifi are preferred over unidentified interfaces (they have score 0)
+final _networkInterfaceScore = {
+  if (checkPlatform([TargetPlatform.windows]))
+    ...{
+      'Local Area Connection': 2, // hotspot
+      'Wi-Fi': 1, // wifi
+      'WLAN': 1, // wifi
+    },
+  if (checkPlatform([TargetPlatform.macOS, TargetPlatform.iOS]))
+    ...{
+      'bridge': 2, // hotspot
+      'en':1 , // wifi
+    },
+  if (checkPlatform([TargetPlatform.linux]))
+    ...{
+      'hotspot': 3, // hotspot
+      'eth': 2, // ethernet
+      'wl': 1, // wifi
+    },
+  if (checkPlatform([TargetPlatform.android]))
+    ...{
+      'swlan0': 2, // hotspot
+      'wlan0': 1, // wifi
+    },
+};
 
 /// Sorts Ip addresses with first being the most likely primary local address
 /// Currently,
