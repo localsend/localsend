@@ -132,7 +132,6 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                                     ),
                                     Consumer(
                                       builder: (context, ref, _) {
-                                        print('read: ${app.appName}');
                                         final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
                                         final appSizeString = appSize.maybeWhen(
                                           data: (size) => '${size.asReadableFileSize} - ',
