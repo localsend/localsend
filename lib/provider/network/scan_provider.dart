@@ -37,5 +37,8 @@ class ScanFacade {
     final https = settings.https;
 
     _ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
+
+    // send announcement in parallel
+    _ref.read(nearbyDevicesProvider.notifier).startMulticastScan();
   }
 }
