@@ -224,6 +224,10 @@
       "title": "没有选择文件",
       "content": "请最少选择一个文件。"
     },
+    "notAvailableOnPlatform": {
+      "title": "不可用",
+      "content": "这一功能只在以下平台可用："
+    },
     "quickActions": {
       "title": "快速操作",
       "counter": "计数器",
