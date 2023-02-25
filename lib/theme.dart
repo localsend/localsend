@@ -5,7 +5,7 @@ import 'package:localsend_app/util/platform_check.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
-final _lightInputColor = Color.lerp(Colors.teal.shade100, Colors.white, 0.5)!;
+final _lightInputColor = Color.lerp(Colors.teal.shade100, Colors.white, 0.4)!;
 final _lightInputBorder = OutlineInputBorder(
   borderSide: BorderSide(color: _lightInputColor),
   borderRadius: _borderRadius,
