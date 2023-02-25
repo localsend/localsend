@@ -134,7 +134,7 @@
     },
     "subTitleMessage": "üzenetet küldött:",
     "subTitleLink": "Linket küldött:",
-    "canceled": "A feladó visszavonta a kérést."
+    "canceled": "A küldő visszavonta a kérést."
   },
   "receiveOptionsPage": {
     "title": "Opciók",
@@ -157,19 +157,19 @@
         "canceledSender": "A küldő törölte",
         "canceledReceiver": "A fogadó törölte"
       },
-      "count": "Fájlok: {curr} / {n}",
+      "count": "Fájl: {curr} / {n}",
       "size": "Méret: {curr} / {n}",
       "speed": "Sebesség: {speed}/s"
     }
   },
   "aboutPage": {
-    "title": "A LocalSend"
+    "title": "A LocalSendről"
   },
   "changelogPage": {
     "title": "Változásnapló"
   },
   "aliasGenerator(ignoreMissing)": {
-    "@info": "Az angol változatból örökölte"
+    "@info": "Az angol változatból örökölve"
   },
   "dialogs": {
     "addFile": {
@@ -233,6 +233,6 @@
   "tray": {
     "@info": "Az Apple irányelvei nagyon szigorúak a 'közeli' megfogalmazással kapcsolatban.",
     "open": "@:general.open",
-    "close": "Kilép a LocalSend-ből"
+    "close": "Kilépés"
   }
 }
