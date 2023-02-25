@@ -294,6 +294,10 @@
       "title": "No file selected",
       "content": "Please select at least one file."
     },
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    },
     "quickActions": {
       "title": "Quick Actions",
       "counter": "Counter",

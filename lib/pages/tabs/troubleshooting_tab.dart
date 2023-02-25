@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -7,6 +8,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/cmd_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
+import 'package:localsend_app/widget/dialogs/not_available_on_platform_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 
 class TroubleshootingTab extends ConsumerWidget {
@@ -25,15 +27,31 @@ class TroubleshootingTab extends ConsumerWidget {
         _TroubleshootItem(
           symptomText: t.troubleshootTab.firewall.symptom,
           solutionText: t.troubleshootTab.firewall.solution(port: settings.port),
-          platforms: const [TargetPlatform.windows, TargetPlatform.linux],
-          commands: checkPlatform([TargetPlatform.windows]) ? [
-            'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=TCP localport=${settings.port}',
-            'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=UDP localport=${settings.port}',
-          ] : null,
-          secondaryButton: checkPlatform([TargetPlatform.windows]) ? t.troubleshootTab.firewall.openFirewall : null,
-          secondaryAction: checkPlatform([TargetPlatform.windows]) ? () async {
-            await Process.run('wf', [], runInShell: true);
-          } : null,
+          primaryButton: _FixButton(
+            label: t.troubleshootTab.fixButton,
+            onTapMap: {
+              TargetPlatform.windows: _CommandFixAction(
+                adminPrivileges: true,
+                commands: [
+                  'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=TCP localport=${settings.port}',
+                  'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=UDP localport=${settings.port}',
+                ],
+              ),
+            },
+          ),
+          secondaryButton: _FixButton(
+            label: t.troubleshootTab.firewall.openFirewall,
+            onTapMap: {
+              TargetPlatform.windows: _CommandFixAction(
+                adminPrivileges: false,
+                commands: ['wf'],
+              ),
+              TargetPlatform.macOS: _CommandFixAction(
+                adminPrivileges: false,
+                commands: ['wf'],
+              ),
+            },
+          ),
         ),
         _TroubleshootItem(
           symptomText: t.troubleshootTab.noConnection.symptom,
@@ -47,18 +65,14 @@ class TroubleshootingTab extends ConsumerWidget {
 class _TroubleshootItem extends StatefulWidget {
   final String symptomText;
   final String solutionText;
-  final List<TargetPlatform>? platforms;
-  final List<String>? commands;
-  final String? secondaryButton;
-  final VoidCallback? secondaryAction;
+  final _FixButton? primaryButton;
+  final _FixButton? secondaryButton;
 
   const _TroubleshootItem({
     required this.symptomText,
     required this.solutionText,
-    this.platforms,
-    this.commands,
+    this.primaryButton,
     this.secondaryButton,
-    this.secondaryAction,
   });
 
   @override
@@ -78,69 +92,31 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (widget.platforms != null)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Wrap(
-                    children: widget.platforms!.map((p) {
-                      return [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(p.humanName, style: const TextStyle(color: Colors.white)),
-                        ),
-                        const SizedBox(width: 10),
-                      ];
-                    }).expand((element) => element).toList(),
-                  ),
-                ),
-              Wrap(
-                children: [
-                  Text(widget.symptomText, style: Theme.of(context).textTheme.titleMedium),
-                ],
-              ),
+              Text(widget.symptomText, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 10),
               Text(t.troubleshootTab.solution),
               Text(widget.solutionText),
-              if (widget.commands != null)
+              if (widget.primaryButton != null)
                 ...[
                   const SizedBox(height: 10),
                   Wrap(
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                          foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-                        ),
-                        onPressed: () async {
-                          if (checkPlatform([TargetPlatform.windows])) {
-                            await runWindowsCommandAsAdmin(widget.commands!);
-                          }
-                        },
-                        child: Text(t.troubleshootTab.fixButton),
-                      ),
+                      widget.primaryButton!,
                       if (widget.secondaryButton != null)
                         ...[
                           const SizedBox(width: 10),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                              foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-                            ),
-                            onPressed: widget.secondaryAction!,
-                            child: Text(widget.secondaryButton!),
+                          widget.secondaryButton!,
+                        ],
+                      if (widget.primaryButton!.onTap?.commands != null)
+                        ...[
+                          const SizedBox(width: 10),
+                          CustomIconButton(
+                            onPressed: () {
+                              setState(() => _showCommands = !_showCommands);
+                            },
+                            child: const Icon(Icons.info),
                           ),
                         ],
-                      const SizedBox(width: 10),
-                      CustomIconButton(
-                        onPressed: () {
-                          setState(() => _showCommands = !_showCommands);
-                        },
-                        child: const Icon(Icons.info),
-                      ),
                     ],
                   ),
                   AnimatedCrossFade(
@@ -149,12 +125,14 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                     firstChild: Container(),
                     secondChild: SelectionArea(
                       child: Column(
-                        children: widget.commands!.map((cmd) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Text(cmd, style: const TextStyle(fontFamily: 'RobotoMono')),
-                          );
-                        }).toList(),
+                        children: [
+                          ...?widget.primaryButton?.onTap?.commands?.map((cmd) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(cmd, style: const TextStyle(fontFamily: 'RobotoMono')),
+                            );
+                          }),
+                        ],
                       ),
                     ),
                   ),
@@ -167,21 +145,68 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
   }
 }
 
-extension on TargetPlatform {
-  String get humanName {
-    switch (this) {
-      case TargetPlatform.android:
-        return 'Android';
-      case TargetPlatform.fuchsia:
-        return 'Fuchsia';
-      case TargetPlatform.iOS:
-        return 'iOS';
-      case TargetPlatform.linux:
-        return 'Linux';
-      case TargetPlatform.macOS:
-        return 'MacOS';
-      case TargetPlatform.windows:
-        return 'Windows';
+class _FixButton extends StatelessWidget {
+  final String label;
+  final Map<TargetPlatform, _FixAction> onTapMap;
+  final _FixAction? onTap;
+
+  _FixButton({
+    required this.label,
+    required this.onTapMap,
+  }) : onTap = onTapMap[defaultTargetPlatform];
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+        foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+      ),
+      onPressed: () {
+        if (onTap != null) {
+          onTap!.runFix();
+        } else {
+          showDialog(
+            context: context,
+            builder: (_) => NotAvailableOnPlatformDialog(platforms: onTapMap.keys.toList()),
+          );
+        }
+      },
+      child: Text(label),
+    );
+  }
+}
+
+abstract class _FixAction {
+  void runFix();
+
+  List<String>? get commands;
+}
+
+class _CommandFixAction extends _FixAction {
+  final bool adminPrivileges;
+
+  @override
+  final List<String> commands;
+
+  _CommandFixAction({
+    required this.adminPrivileges,
+    required this.commands,
+  });
+
+  @override
+  void runFix() async {
+    if (adminPrivileges) {
+      if (checkPlatform([TargetPlatform.windows])) {
+        await runWindowsCommandAsAdmin(commands);
+      } else {
+        throw 'Admin privileges are only implemented on Windows.';
+      }
+    } else {
+      for (final c in commands) {
+        await Process.run(c, [], runInShell: true);
+      }
     }
   }
 }
+

@@ -224,6 +224,10 @@
       "title": "Keine Datei ausgewählt",
       "content": "Bitte wähle mindestens eine Datei aus."
     },
+    "notAvailableOnPlatform": {
+      "title": "Nicht verfügbar",
+      "content": "Diese Funktion ist nur verfügbar auf:"
+    },
     "quickActions": {
       "title": "Quick Actions",
       "counter": "Zähler",
