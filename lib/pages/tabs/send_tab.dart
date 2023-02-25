@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
+import 'package:localsend_app/pages/troubleshoot_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
@@ -20,6 +21,7 @@ import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
@@ -278,6 +280,25 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           );
         }),
+        ResponsiveBuilder(
+          builder: (sizingInformation) {
+            if (sizingInformation.isMobile) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.push(() => const TroubleshootPage());
+                    },
+                    child: Text(t.troubleshootTab.title),
+                  ),
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),

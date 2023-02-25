@@ -11,8 +11,10 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/not_available_on_platform_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 
-class TroubleshootingTab extends ConsumerWidget {
-  const TroubleshootingTab({Key? key}) : super(key: key);
+class TroubleshootTab extends ConsumerWidget {
+  final bool showTitle;
+
+  const TroubleshootTab({required this.showTitle});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,8 +22,11 @@ class TroubleshootingTab extends ConsumerWidget {
     return ResponsiveListView(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
       children: [
-        Text(t.troubleshootTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
-        const SizedBox(height: 20),
+        if (showTitle)
+          ...[
+            Text(t.troubleshootTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+            const SizedBox(height: 20),
+          ],
         Text(t.troubleshootTab.subTitle, textAlign: TextAlign.center),
         const SizedBox(height: 5),
         _TroubleshootItem(
@@ -43,10 +48,6 @@ class TroubleshootingTab extends ConsumerWidget {
             label: t.troubleshootTab.firewall.openFirewall,
             onTapMap: {
               TargetPlatform.windows: _CommandFixAction(
-                adminPrivileges: false,
-                commands: ['wf'],
-              ),
-              TargetPlatform.macOS: _CommandFixAction(
                 adminPrivileges: false,
                 commands: ['wf'],
               ),
@@ -100,6 +101,7 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                 ...[
                   const SizedBox(height: 10),
                   Wrap(
+                    runSpacing: 10,
                     children: [
                       widget.primaryButton!,
                       if (widget.secondaryButton != null)

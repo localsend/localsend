@@ -8,7 +8,7 @@ import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
-import 'package:localsend_app/pages/tabs/troubleshooting_tab.dart';
+import 'package:localsend_app/pages/tabs/troubleshoot_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
@@ -133,7 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ReceiveTab(),
                             SendTab(),
                             SettingsTab(),
-                            TroubleshootingTab(),
+                            TroubleshootTab(showTitle: true),
                           ],
                         ),
                         if (_dragAndDropIndicator)
@@ -165,7 +165,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       HomeTab.receive,
                       HomeTab.send,
                       HomeTab.settings,
-                      if (sizingInformation.isTablet)
+                      if (sizingInformation.isTabletOrDesktop)
                         HomeTab.troubleshoot,
                     ].map((tab) {
                       return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
