@@ -18,18 +18,9 @@ class NotAvailableOnPlatformDialog extends StatelessWidget {
         children: [
           Text(t.dialogs.notAvailableOnPlatform.content),
           const SizedBox(height: 10),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: [
-              ...platforms.map((p) {
-                return Chip(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  label: Text(p.humanName, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
-                );
-              }),
-            ],
-          ),
+          ...platforms.map((p) {
+            return Text('- ${p.humanName}');
+          }),
         ],
       ),
       actions: [
