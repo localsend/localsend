@@ -176,12 +176,9 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             ),
             const SizedBox(width: 10),
-            Tooltip(
-              message: t.sendTab.scan,
-              child: ScanButton(
-                ips: networkInfo.localIps,
-                onSelect: (ip) => ref.read(scanProvider).startLegacySubnetScan(ip),
-              ),
+            ScanButton(
+              ips: networkInfo.localIps,
+              onSelect: (ip) => ref.read(scanProvider).startLegacySubnetScan(ip),
             ),
             Tooltip(
               message: t.dialogs.addressInput.title,

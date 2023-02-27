@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
@@ -36,12 +37,15 @@ class ScanButton extends ConsumerWidget {
         child: PopupMenuButton(
           offset: const Offset(60, 40),
           onSelected: (ip) => onSelect(ip),
+          tooltip: t.sendTab.scan,
           itemBuilder: (_) {
             return [
               ...ips.map(
                 (ip) => PopupMenuItem(
                   value: ip,
+                  padding: const EdgeInsets.only(left: 12, right: 8),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       _RotatingSyncIcon(ip),
                       const SizedBox(width: 10),
