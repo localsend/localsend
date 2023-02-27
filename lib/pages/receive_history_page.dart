@@ -4,11 +4,10 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/widget/dialogs/cannot_open_file_dialog.dart';
+import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:open_filex/open_filex.dart';
 
 enum _EntryOption {
   open,
@@ -34,11 +33,8 @@ class ReceiveHistoryPage extends ConsumerWidget {
   const ReceiveHistoryPage({Key? key}) : super(key: key);
 
   Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry) async {
-    final result = await OpenFilex.open(entry.path);
-    if (result.type != ResultType.done) {
-      // TODO: use context.mounted when migrated to Flutter 3.7
-      // ignore: use_build_context_synchronously
-      CannotOpenFileDialog.open(context, entry.path!);
+    if (entry.path != null) {
+      openFile(context, entry.fileType, entry.path!);
     }
   }
 

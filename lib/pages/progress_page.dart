@@ -11,12 +11,12 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
+import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
-import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -184,7 +184,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     splashFactory: NoSplash.splashFactory,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: filePath != null && receiveSession != null ? () => OpenFilex.open(filePath) : null,
+                    onTap: filePath != null && receiveSession != null ? () => openFile(context, file.fileType, filePath!) : null,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

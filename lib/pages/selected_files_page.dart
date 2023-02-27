@@ -8,9 +8,9 @@ import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
 
 class SelectedFilesPage extends ConsumerWidget {
@@ -59,7 +59,7 @@ class SelectedFilesPage extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: file.path != null ? () => OpenFilex.open(file.path) : null,
+                  onTap: file.path != null ? () => openFile(context, file.fileType, file.path!) : null,
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10),
