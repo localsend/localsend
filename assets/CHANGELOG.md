@@ -1,8 +1,9 @@
 ## 1.8.0 (2023-)
 
+- feat: add troubleshoot page
+- feat: cleanup scan UI by hiding multiple network interfaces inside the scan button
 - feat(android): share apk
 - feat(android): Android TV support
-- feat: add troubleshoot page
 - feat(windows): left click on tray icon opens app
 - feat(linux): add Control+Q shortcut to exit app
 - fix: also scan multicast when pressing on a subnet sync button

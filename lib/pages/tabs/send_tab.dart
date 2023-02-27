@@ -23,7 +23,7 @@ import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:localsend_app/widget/scan_button.dart';
 import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
@@ -176,19 +176,13 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             ),
             const SizedBox(width: 10),
-            if (networkInfo.localIps.length == 1)
-              Tooltip(
-                message: t.sendTab.scan,
-                child: RotatingWidget(
-                  duration: const Duration(seconds: 2),
-                  spinning: nearbyDevicesState.runningIps.isNotEmpty,
-                  reverse: true,
-                  child: CustomIconButton(
-                    onPressed: () => ref.read(scanProvider).startLegacySubnetScan(networkInfo.localIps.first),
-                    child: const Icon(Icons.sync),
-                  ),
-                ),
+            Tooltip(
+              message: t.sendTab.scan,
+              child: ScanButton(
+                ips: networkInfo.localIps,
+                onSelect: (ip) => ref.read(scanProvider).startLegacySubnetScan(ip),
               ),
+            ),
             Tooltip(
               message: t.dialogs.addressInput.title,
               child: CustomIconButton(
@@ -214,38 +208,6 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ],
         ),
-        if (networkInfo.localIps.length > 1)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 15, left: _horizontalPadding, right: _horizontalPadding),
-            child: Wrap(
-              spacing: 15,
-              runSpacing: 15,
-              children: networkInfo.localIps.map((ip) {
-                return Card(
-                  margin: EdgeInsets.zero,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Tooltip(
-                        message: t.sendTab.scan,
-                        child: RotatingWidget(
-                          duration: const Duration(seconds: 2),
-                          spinning: nearbyDevicesState.runningIps.contains(ip),
-                          reverse: true,
-                          child: CustomIconButton(
-                            onPressed: () => ref.read(scanProvider).startLegacySubnetScan(ip),
-                            child: const Icon(Icons.sync),
-                          ),
-                        ),
-                      ),
-                      Text(ip),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
           child: Hero(
