@@ -5,13 +5,13 @@
   ],
   "sendTab": {
     "picker": {
-      "app": "App"
+      "app": "Application"
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Application (APK)",
+    "excludeSystemApps": "Exclure les applications système",
+    "excludeAppsWithoutLaunchIntent": "Exclure les applications non-lançables",
+    "apps": "{n} Applications"
   }
 }
