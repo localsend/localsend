@@ -62,6 +62,12 @@
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
+    "sendMode": "发送模式",
+    "sendModes": {
+      "single": "单个接收者",
+      "multiple": "多个接收者",
+      "link": "通过链接分享"
+    },
     "help": "请确保目标连接的是同一个 Wi-Fi 网络。",
     "placeItems": "列出要分享的文件。"
   },
@@ -87,6 +93,7 @@
       "title": "接收",
       "quickSave": "@:general.quickSave",
       "destination": "保存目录",
+      "downloads": "(下载)",
       "saveToGallery": "保存到相册"
     },
     "network": {
@@ -118,6 +125,8 @@
   },
   "receiveHistoryPage": {
     "title": "历史",
+    "openFolder": "打开目录",
+    "deleteHistory": "删除历史",
     "empty": "无历史记录。",
     "entryActions": {
       "open": "打开文件",
@@ -174,9 +183,6 @@
   },
   "changelogPage": {
     "title": "更新日志"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -244,5 +250,8 @@
   "tray": {
     "open": "@:general.open",
     "close": "退出 LocalSend"
+  },
+  "aliasGenerator": {
+    "@info": "Inherits from the English version"
   }
 }
