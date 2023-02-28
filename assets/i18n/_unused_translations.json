@@ -8,6 +8,15 @@
     "general": {
       "online": "Online",
       "save": "Save"
+    },
+    "sendTab": {
+      "sendModes": {
+        "link": "Share via link"
+      }
+    },
+    "receiveHistoryPage": {
+      "openFolder": "Open folder",
+      "deleteHistory": "Delete history"
     }
   },
   "ar": {},

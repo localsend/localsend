@@ -55,7 +55,8 @@
     "picker": {
       "file": "Fichier",
       "media": "Média",
-      "text": "Texte"
+      "text": "Texte",
+      "app": "Application"
     },
     "shareIntentInfo": "Vous pouvez également utiliser la fonction \"Partager\" de votre appareil pour sélectionner des fichiers plus facilement.",
     "nearbyDevices": "Appareils à proximité",
@@ -123,6 +124,12 @@
       "info": "Information",
       "deleteFromHistory": "Supprimer de l'historique"
     }
+  },
+  "apkPickerPage": {
+    "title": "Application (APK)",
+    "excludeSystemApps": "Exclure les applications système",
+    "excludeAppsWithoutLaunchIntent": "Exclure les applications non-lançables",
+    "apps": "{n} Applications"
   },
   "selectedFilesPage": {
     "deleteAll": "Tout supprimer"

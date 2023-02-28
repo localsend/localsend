@@ -6,12 +6,33 @@
   "sendTab": {
     "picker": {
       "app": "App"
+    },
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Single recipient",
+      "multiple": "Multiple recipients",
+      "link": "Share via link"
     }
   },
+  "settingsTab": {
+    "receive": {
+      "downloads": "(Downloads)"
+    }
+  },
+  "receiveHistoryPage": {
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history"
+  },
   "apkPickerPage": {
-    "title": "Appok (APK)",
-    "excludeSystemApps": "Rendszerappok kivételével",
-    "excludeAppsWithoutLaunchIntent": "Nem-indítható appok kivételével",
-    "apps": "{n} App"
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Exclude system apps",
+    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "apps": "{n} Apps"
+  },
+  "dialogs": {
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    }
   }
 }

@@ -174,7 +174,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Text(settings.destination ?? '(Downloads)', style: Theme.of(context).textTheme.titleMedium),
+                    child: Text(settings.destination ?? t.settingsTab.receive.downloads, style: Theme.of(context).textTheme.titleMedium),
                   ),
                 ),
               ),

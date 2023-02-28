@@ -10,7 +10,7 @@ import desktop_drop
 import device_info_plus
 import network_info_plus
 import package_info_plus
-import path_provider_macos
+import path_provider_foundation
 import photo_manager
 import screen_retriever
 import shared_preferences_foundation

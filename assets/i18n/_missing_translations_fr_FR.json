@@ -4,14 +4,26 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "picker": {
-      "app": "App"
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Single recipient",
+      "multiple": "Multiple recipients",
+      "link": "Share via link"
     }
   },
-  "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+  "settingsTab": {
+    "receive": {
+      "downloads": "(Downloads)"
+    }
+  },
+  "receiveHistoryPage": {
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history"
+  },
+  "dialogs": {
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    }
   }
 }

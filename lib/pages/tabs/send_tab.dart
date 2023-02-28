@@ -176,19 +176,10 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             ),
             const SizedBox(width: 10),
-            if (networkInfo.localIps.length == 1)
-              Tooltip(
-                message: t.sendTab.scan,
-                child: RotatingWidget(
-                  duration: const Duration(seconds: 2),
-                  spinning: nearbyDevicesState.runningIps.isNotEmpty,
-                  reverse: true,
-                  child: CustomIconButton(
-                    onPressed: () => ref.read(scanProvider).startLegacySubnetScan(networkInfo.localIps.first),
-                    child: const Icon(Icons.sync),
-                  ),
-                ),
-              ),
+            _ScanButton(
+              ips: networkInfo.localIps,
+              onSelect: (ip) => ref.read(scanProvider).startLegacySubnetScan(ip),
+            ),
             Tooltip(
               message: t.dialogs.addressInput.title,
               child: CustomIconButton(
@@ -212,40 +203,45 @@ class _SendTabState extends ConsumerState<SendTab> {
                 child: const Icon(Icons.ads_click),
               ),
             ),
+            Tooltip(
+              message: t.sendTab.sendMode,
+              child: _CircularPopupButton(
+                tooltip: t.sendTab.sendMode,
+                onSelected: (i) => print('SEL $i'),
+                itemBuilder: (_) => [
+                  PopupMenuItem(
+                    value: 0,
+                    // padding: const EdgeInsets.only(left: 12, right: 2),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.send),
+                        const SizedBox(width: 10),
+                        Text(t.sendTab.sendModes.single),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 1,
+                    // padding: const EdgeInsets.only(left: 12, right: 2),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.share),
+                        const SizedBox(width: 10),
+                        Text(t.sendTab.sendModes.multiple),
+                      ],
+                    ),
+                  ),
+                ],
+                child: const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(Icons.settings),
+                ),
+              ),
+            ),
           ],
         ),
-        if (networkInfo.localIps.length > 1)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 15, left: _horizontalPadding, right: _horizontalPadding),
-            child: Wrap(
-              spacing: 15,
-              runSpacing: 15,
-              children: networkInfo.localIps.map((ip) {
-                return Card(
-                  margin: EdgeInsets.zero,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Tooltip(
-                        message: t.sendTab.scan,
-                        child: RotatingWidget(
-                          duration: const Duration(seconds: 2),
-                          spinning: nearbyDevicesState.runningIps.contains(ip),
-                          reverse: true,
-                          child: CustomIconButton(
-                            onPressed: () => ref.read(scanProvider).startLegacySubnetScan(ip),
-                            child: const Icon(Icons.sync),
-                          ),
-                        ),
-                      ),
-                      Text(ip),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
           child: Hero(
@@ -313,6 +309,115 @@ class _SendTabState extends ConsumerState<SendTab> {
         ),
         const SizedBox(height: 50),
       ],
+    );
+  }
+}
+
+class _CircularPopupButton<T> extends StatelessWidget {
+  final String tooltip;
+  final PopupMenuItemBuilder<T> itemBuilder;
+  final PopupMenuItemSelected<T>? onSelected;
+  final Widget child;
+
+  const _CircularPopupButton({
+    required this.tooltip,
+    required this.onSelected,
+    required this.itemBuilder,
+    required this.child,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(9999),
+      child: Material(
+        type: MaterialType.transparency,
+        child: PopupMenuButton(
+          offset: const Offset(60, 40),
+          onSelected: onSelected,
+          tooltip: tooltip,
+          itemBuilder: itemBuilder,
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class _ScanButton extends ConsumerWidget {
+  final List<String> ips;
+  final void Function(String ip) onSelect;
+
+  const _ScanButton({
+    required this.ips,
+    required this.onSelect,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+
+    if (ips.length <= 1) {
+      return RotatingWidget(
+        duration: const Duration(seconds: 2),
+        spinning: scanningIps.isNotEmpty,
+        reverse: true,
+        child: CustomIconButton(
+          onPressed: () => onSelect(ips.first),
+          child: const Icon(Icons.sync),
+        ),
+      );
+    }
+
+    return _CircularPopupButton(
+      tooltip: t.sendTab.scan,
+      onSelected: (ip) => onSelect(ip),
+      itemBuilder: (_) {
+        return [
+          ...ips.map(
+            (ip) => PopupMenuItem(
+              value: ip,
+              padding: const EdgeInsets.only(left: 12, right: 8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _RotatingSyncIcon(ip),
+                  const SizedBox(width: 10),
+                  Text(ip),
+                ],
+              ),
+            ),
+          ),
+        ];
+      },
+      child: RotatingWidget(
+        duration: const Duration(seconds: 2),
+        spinning: scanningIps.isNotEmpty,
+        reverse: true,
+        child: const Padding(
+          padding: EdgeInsets.all(8),
+          child: Icon(Icons.sync),
+        ),
+      ),
+    );
+  }
+}
+
+/// A separate widget, so it gets the latest data from provider.
+class _RotatingSyncIcon extends ConsumerWidget {
+  final String ip;
+
+  const _RotatingSyncIcon(this.ip);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+    return RotatingWidget(
+      duration: const Duration(seconds: 2),
+      spinning: scanningIps.contains(ip),
+      reverse: true,
+      child: const Icon(Icons.sync),
     );
   }
 }

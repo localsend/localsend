@@ -6,9 +6,18 @@
   "sendTab": {
     "picker": {
       "app": "App"
+    },
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Single recipient",
+      "multiple": "Multiple recipients",
+      "link": "Share via link"
     }
   },
   "settingsTab": {
+    "receive": {
+      "downloads": "(Downloads)"
+    },
     "network": {
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
@@ -28,6 +37,10 @@
       "symptom": "Both devices cannot discover each other nor can they share files.",
       "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
     }
+  },
+  "receiveHistoryPage": {
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history"
   },
   "apkPickerPage": {
     "title": "Apps (APK)",
@@ -52,6 +65,10 @@
       "size": "Size:",
       "sender": "Sender:",
       "time": "Time:"
+    },
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
     }
   }
 }
