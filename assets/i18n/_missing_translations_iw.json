@@ -15,6 +15,9 @@
     }
   },
   "settingsTab": {
+    "receive": {
+      "downloads": "(Downloads)"
+    },
     "network": {
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",

@@ -93,6 +93,7 @@
       "title": "Empfangen",
       "quickSave": "@:general.quickSave",
       "destination": "Ziel-Ordner",
+      "downloads": "(Downloads)",
       "saveToGallery": "Medien in die Gallerie speichern"
     },
     "network": {

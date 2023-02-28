@@ -11,6 +11,11 @@
       "link": "Share via link"
     }
   },
+  "settingsTab": {
+    "receive": {
+      "downloads": "(Downloads)"
+    }
+  },
   "receiveHistoryPage": {
     "openFolder": "Open folder",
     "deleteHistory": "Delete history"
