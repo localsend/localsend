@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
@@ -25,10 +24,10 @@ import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
+import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/tray_helper.dart';
-import 'package:path_provider/path_provider.dart' as path;
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -150,23 +149,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       final settings = _ref.read(settingsProvider);
-      String? destinationDir = settings.destination;
-      if (destinationDir == null) {
-        switch (defaultTargetPlatform) {
-          case TargetPlatform.android:
-            destinationDir = '/storage/emulated/0/Download';
-            break;
-          case TargetPlatform.iOS:
-            destinationDir = (await path.getApplicationDocumentsDirectory()).path;
-            break;
-          case TargetPlatform.linux:
-          case TargetPlatform.macOS:
-          case TargetPlatform.windows:
-          case TargetPlatform.fuchsia:
-            destinationDir = (await path.getDownloadsDirectory())!.path.replaceAll('\\', '/');
-            break;
-        }
-      }
+      final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
 
       print('Destination Directory: $destinationDir');
 

@@ -1,6 +1,7 @@
 ## 1.8.0 (2023-)
 
 - feat: add troubleshoot page
+- feat: add 2 buttons to receive history: open folder + delete history
 - feat: cleanup scan UI by hiding multiple network interfaces inside the scan button
 - feat(android): share apk and install apk
 - feat(android): Android TV support

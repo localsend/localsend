@@ -3,8 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -46,16 +50,34 @@ class ReceiveHistoryPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(t.receiveHistoryPage.title),
       ),
-      body: Builder(builder: (context) {
-        if (entries.isEmpty) {
-          return Center(
-            child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium),
-          );
-        }
-
-        return ResponsiveListView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          children: [
+      body: ResponsiveListView(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        children: [
+          Row(
+            children: [
+              ElevatedButton.icon(
+                onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
+                  final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
+                  openFolder(destination);
+                },
+                icon: const Icon(Icons.folder),
+                label: Text(t.receiveHistoryPage.openFolder),
+              ),
+              const SizedBox(width: 20),
+              ElevatedButton.icon(
+                onPressed: entries.isEmpty ? null : () => ref.read(receiveHistoryProvider.notifier).removeAll(),
+                icon: const Icon(Icons.delete),
+                label: Text(t.receiveHistoryPage.deleteHistory),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          if (entries.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium)),
+            )
+          else
             ...entries.map((entry) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
@@ -127,9 +149,8 @@ class ReceiveHistoryPage extends ConsumerWidget {
                 ),
               );
             }),
-          ],
-        );
-      }),
+        ],
+      ),
     );
   }
 }
