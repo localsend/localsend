@@ -6,6 +6,12 @@
   "sendTab": {
     "picker": {
       "app": "App"
+    },
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Single recipient",
+      "multiple": "Multiple recipients",
+      "link": "Share via link"
     }
   },
   "settingsTab": {
@@ -31,6 +37,8 @@
   },
   "receiveHistoryPage": {
     "title": "History",
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history",
     "empty": "The history is empty.",
     "entryActions": {
       "open": "Open file",
@@ -65,6 +73,10 @@
       "size": "Size:",
       "sender": "Sender:",
       "time": "Time:"
+    },
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
     }
   }
 }

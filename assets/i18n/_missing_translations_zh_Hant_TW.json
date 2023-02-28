@@ -6,12 +6,28 @@
   "sendTab": {
     "picker": {
       "app": "App"
+    },
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Single recipient",
+      "multiple": "Multiple recipients",
+      "link": "Share via link"
     }
+  },
+  "receiveHistoryPage": {
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history"
   },
   "apkPickerPage": {
     "title": "Apps (APK)",
     "excludeSystemApps": "Exclude system apps",
     "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
     "apps": "{n} Apps"
+  },
+  "dialogs": {
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    }
   }
 }

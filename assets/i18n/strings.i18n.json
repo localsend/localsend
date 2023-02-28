@@ -62,6 +62,12 @@
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device",
     "scan": "Look for devices",
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Single recipient",
+      "multiple": "Multiple recipients",
+      "link": "Share via link"
+    },
     "help": "Please ensure that the desired target is also in the same wifi network.",
     "placeItems": "Place items to share."
   },
@@ -118,6 +124,8 @@
   },
   "receiveHistoryPage": {
     "title": "History",
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history",
     "empty": "The history is empty.",
     "entryActions": {
       "open": "Open file",

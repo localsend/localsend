@@ -62,6 +62,12 @@
     "nearbyDevices": "Geräte in der Nähe",
     "thisDevice": "Dieses Gerät",
     "scan": "Geräte suchen",
+    "sendMode": "Sende-Modus",
+    "sendModes": {
+      "single": "Einzelner Empfänger",
+      "multiple": "Mehrere Empfänger",
+      "link": "Per Link teilen"
+    },
     "help": "Bitte stelle sicher, dass sich das gewünschte Ziel auch im selben WLAN-Netzwerk befindet.",
     "placeItems": "Dateien ablegen, um zu teilen."
   },
@@ -118,6 +124,8 @@
   },
   "receiveHistoryPage": {
     "title": "Verlauf",
+    "openFolder": "Ordner öffnen",
+    "deleteHistory": "Verlauf löschen",
     "empty": "Der Verlauf ist leer.",
     "entryActions": {
       "open": "Datei öffnen",
