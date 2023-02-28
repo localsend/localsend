@@ -4,20 +4,20 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hans' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "sendMode": "Send mode",
+    "sendMode": "发送模式",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "单个接收者",
+      "multiple": "多个接收者",
+      "link": "通过链接分享"
     }
   },
   "settingsTab": {
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(下载)"
     }
   },
   "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
+    "openFolder": "打开目录",
+    "deleteHistory": "删除历史"
   }
 }
