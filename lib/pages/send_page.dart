@@ -14,7 +14,9 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 
 class SendPage extends ConsumerStatefulWidget {
-  const SendPage({Key? key}) : super(key: key);
+  final String sessionId;
+
+  const SendPage({required this.sessionId});
 
   @override
   ConsumerState<SendPage> createState() => _SendPageState();
@@ -41,7 +43,7 @@ class _SendPageState extends ConsumerState<SendPage> {
   void _cancel() {
     // the state will be lost so we store them temporarily (only for UI)
     final myDevice = ref.read(deviceInfoProvider);
-    final sendState = ref.read(sendProvider);
+    final sendState = ref.read(sendProvider)[widget.sessionId];
     if (sendState == null) {
       return;
     }
@@ -50,12 +52,12 @@ class _SendPageState extends ConsumerState<SendPage> {
       _myDevice = myDevice;
       _targetDevice = sendState.target;
     });
-    ref.read(sendProvider.notifier).cancelSession();
+    ref.read(sendProvider.notifier).cancelSession(widget.sessionId);
   }
 
   @override
   Widget build(BuildContext context) {
-    final sendState = ref.watch(sendProvider);
+    final sendState = ref.watch(sendProvider)[widget.sessionId];
     if (sendState == null && _myDevice == null && _targetDevice == null) {
       return Scaffold(
         body: Container(),

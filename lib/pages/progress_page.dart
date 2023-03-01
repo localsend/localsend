@@ -23,7 +23,9 @@ import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
-  const ProgressPage({Key? key}) : super(key: key);
+  final String sessionId;
+
+  const ProgressPage({required this.sessionId});
 
   @override
   ConsumerState<ProgressPage> createState() => _ProgressPageState();
@@ -53,7 +55,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
         _files = receiveSession.files.values.map((f) => f.file).toList();
         _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
       } else {
-        final sendSession = ref.read(sendProvider);
+        final sendSession = ref.read(sendProvider)[widget.sessionId];
         if (sendSession != null) {
           _files = sendSession.files.values.map((f) => f.file).toList();
           _filesWithToken = sendSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
@@ -76,12 +78,12 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     final bool result = status == SessionStatus.sending ? await context.pushBottomSheet(() => const CancelSessionDialog()) : true;
     if (result) {
       final receiveSession = ref.read(serverProvider.select((s) => s?.session));
-      final sendState = ref.read(sendProvider);
+      final sendState = ref.read(sendProvider)[widget.sessionId];
 
       if (receiveSession != null) {
         ref.read(serverProvider.notifier).cancelSession();
       } else if (sendState != null) {
-        ref.read(sendProvider.notifier).cancelSession();
+        ref.read(sendProvider.notifier).cancelSession(widget.sessionId);
       }
     }
     return result;
@@ -90,10 +92,10 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
   @override
   Widget build(BuildContext context) {
     final ProgressNotifier progressNotifier = ref.watch(progressProvider);
-    final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(curr.id) * curr.size).round()));
+    final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
-    final sendSession = ref.watch(sendProvider);
+    final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
     final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
     if (status == null) {
@@ -243,7 +245,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: CustomProgressBar(
-                                    progress: progressNotifier.getProgress(file.id),
+                                    progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
                                   ),
                                 )
                               else
@@ -316,7 +318,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(t.progressPage.total.count(
-                                    curr: progressNotifier.getFinishedCount(),
+                                    curr: progressNotifier.getFinishedCount(widget.sessionId),
                                     n: _filesWithToken.length,
                                   )),
                                   Text(t.progressPage.total.size(
