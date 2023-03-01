@@ -8,6 +8,7 @@
 - feat(android): Android TV support
 - feat(windows): left click on tray icon opens app
 - feat(linux): add Control+Q shortcut to exit app
+- fix: handshake error in unencrypted mode
 - fix: also scan multicast when pressing on a subnet sync button
 - fix(android): missing app icon on Android 7
 - fix(android,ios): show error message when saving to gallery failed
