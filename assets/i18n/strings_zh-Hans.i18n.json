@@ -184,6 +184,9 @@
   "changelogPage": {
     "title": "更新日志"
   },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
+  },
   "dialogs": {
     "addFile": {
       "title": "加入文件",
@@ -250,8 +253,5 @@
   "tray": {
     "open": "@:general.open",
     "close": "退出 LocalSend"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   }
 }
