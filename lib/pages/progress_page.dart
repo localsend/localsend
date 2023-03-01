@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -12,6 +13,7 @@ import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
@@ -143,9 +145,27 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                         if (checkPlatformWithFileSystem() && receiveSession != null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              '${t.settingsTab.receive.destination}: ${receiveSession.destinationDirectory}',
-                              style: const TextStyle(color: Colors.grey),
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${t.settingsTab.receive.destination}: ',
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                  TextSpan(
+                                    text: receiveSession.destinationDirectory,
+                                    style: TextStyle(
+                                      color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.tertiary,
+                                    ),
+                                    recognizer: checkPlatform([TargetPlatform.iOS])
+                                        ? null
+                                        : (TapGestureRecognizer()
+                                          ..onTap = () {
+                                            openFolder(receiveSession.destinationDirectory);
+                                          }),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                       ],
@@ -235,22 +255,21 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                         style: TextStyle(color: fileStatus.getColor(context), height: 1),
                                       ),
                                     ),
-                                    if (errorMessage != null)
-                                      ...[
-                                        const SizedBox(width: 5),
-                                        InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (_) => ErrorDialog(error: errorMessage!),
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                                            child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
-                                          ),
+                                    if (errorMessage != null) ...[
+                                      const SizedBox(width: 5),
+                                      InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (_) => ErrorDialog(error: errorMessage!),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
                                         ),
-                                      ],
+                                      ),
+                                    ],
                                   ],
                                 ),
                             ],

@@ -3,6 +3,7 @@
 - feat: add troubleshoot page
 - feat: add 2 buttons to receive history: open folder + delete history
 - feat: cleanup scan UI by hiding multiple network interfaces inside the scan button
+- feat(ex. iOS): pressing destination directory in progress page will open the directory
 - feat(android): share apk and install apk
 - feat(android): Android TV support
 - feat(windows): left click on tray icon opens app
