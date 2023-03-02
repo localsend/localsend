@@ -5,41 +5,41 @@
   ],
   "sendTab": {
     "picker": {
-      "app": "App"
+      "app": "アプリ"
     },
-    "sendMode": "Send mode",
+    "sendMode": "送信モード",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "一対一送信",
+      "multiple": "一対多送信",
+      "link": "リンク経由で共有"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "説明"
   },
   "settingsTab": {
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(ダウンロード)"
     }
   },
   "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
+    "openFolder": "フォルダを開く",
+    "deleteHistory": "履歴を消去"
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "アプリ (APK)",
+    "excludeSystemApps": "システムアプリを除外",
+    "excludeAppsWithoutLaunchIntent": "起動できないアプリを除外",
+    "apps": "{n} 個"
   },
   "dialogs": {
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "利用不可",
+      "content": "この機能は次のプラットフォームでのみ利用できます:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "送信モード",
+      "single": "単一の受信者にファイルを送信します。ファイルの転送完了後、選択は解除されます。",
+      "multiple": "複数の受信者にファイルを送信します。ファイルの選択は解除されません。",
+      "link": "LocalSendをインストールしていない受信者でも、ブラウザでリンクを開くことで選択したファイルをダウンロードできます。"
     }
   }
 }
