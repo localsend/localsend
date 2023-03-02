@@ -68,6 +68,7 @@
       "multiple": "多个接收者",
       "link": "通过链接分享"
     },
+    "sendModeHelp": "解释",
     "help": "请确保目标连接的是同一个 Wi-Fi 网络。",
     "placeItems": "列出要分享的文件。"
   },
@@ -248,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
+    },
+    "sendModeHelp": {
+      "title": "发送模式",
+      "single": "发送文件给一个接收者。已选择的文件稍后会取消选择。",
+      "multiple": "发送文件给多个接收者。发送后不会取消选择已选择的文件。",
+      "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
     }
   },
   "tray": {
