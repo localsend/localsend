@@ -55,12 +55,20 @@
     "picker": {
       "file": "ファイル",
       "media": "メディア",
-      "text": "テキスト"
+      "text": "テキスト",
+      "app": "アプリ"
     },
     "shareIntentInfo": "モバイルデバイスの「共有」機能を使うと、より簡単にファイルを選択できます。",
     "nearbyDevices": "近くのデバイス",
     "thisDevice": "このデバイス",
     "scan": "デバイスを検索",
+    "sendMode": "送信モード",
+    "sendModes": {
+      "single": "一対一送信",
+      "multiple": "一対多送信",
+      "link": "リンク経由で共有"
+    },
+    "sendModeHelp": "説明",
     "help": "目標のデバイスが同じWi-Fiネットワーク内にあることを確認してください。",
     "placeItems": "ドロップして共有します。"
   },
@@ -86,6 +94,7 @@
       "title": "受信",
       "quickSave": "@:general.quickSave",
       "destination": "保存先",
+      "downloads": "(ダウンロード)",
       "saveToGallery": "メディアをギャラリーに保存"
     },
     "network": {
@@ -117,12 +126,20 @@
   },
   "receiveHistoryPage": {
     "title": "履歴",
+    "openFolder": "フォルダを開く",
+    "deleteHistory": "履歴を消去",
     "empty": "履歴には何もありません。",
     "entryActions": {
       "open": "ファイルを開く",
       "info": "情報",
       "deleteFromHistory": "履歴から削除"
     }
+  },
+  "apkPickerPage": {
+    "title": "アプリ (APK)",
+    "excludeSystemApps": "システムアプリを除外",
+    "excludeAppsWithoutLaunchIntent": "起動できないアプリを除外",
+    "apps": "{n} 個"
   },
   "selectedFilesPage": {
     "deleteAll": "すべて削除"
@@ -217,6 +234,10 @@
       "title": "ファイルが選択されていません",
       "content": "少なくとも1つのファイルを選択してください。"
     },
+    "notAvailableOnPlatform": {
+      "title": "利用不可",
+      "content": "この機能は次のプラットフォームでのみ利用できます:"
+    },
     "quickActions": {
       "title": "クイックアクション",
       "counter": "カウンター",
@@ -228,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。"
+    },
+    "sendModeHelp": {
+      "title": "送信モード",
+      "single": "単一の受信者にファイルを送信します。ファイルの転送完了後、選択は解除されます。",
+      "multiple": "複数の受信者にファイルを送信します。ファイルの選択は解除されません。",
+      "link": "LocalSendをインストールしていない受信者でも、ブラウザでリンクを開くことで選択したファイルをダウンロードできます。"
     }
   },
   "tray": {

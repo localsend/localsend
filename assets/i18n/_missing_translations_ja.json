@@ -1,45 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "picker": {
-      "app": "アプリ"
-    },
-    "sendMode": "送信モード",
-    "sendModes": {
-      "single": "一対一送信",
-      "multiple": "一対多送信",
-      "link": "リンク経由で共有"
-    },
-    "sendModeHelp": "説明"
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(ダウンロード)"
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "フォルダを開く",
-    "deleteHistory": "履歴を消去"
-  },
-  "apkPickerPage": {
-    "title": "アプリ (APK)",
-    "excludeSystemApps": "システムアプリを除外",
-    "excludeAppsWithoutLaunchIntent": "起動できないアプリを除外",
-    "apps": "{n} 個"
-  },
-  "dialogs": {
-    "notAvailableOnPlatform": {
-      "title": "利用不可",
-      "content": "この機能は次のプラットフォームでのみ利用できます:"
-    },
-    "sendModeHelp": {
-      "title": "送信モード",
-      "single": "単一の受信者にファイルを送信します。ファイルの転送完了後、選択は解除されます。",
-      "multiple": "複数の受信者にファイルを送信します。ファイルの選択は解除されません。",
-      "link": "LocalSendをインストールしていない受信者でも、ブラウザでリンクを開くことで選択したファイルをダウンロードできます。"
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
