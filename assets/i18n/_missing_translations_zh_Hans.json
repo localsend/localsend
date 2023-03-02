@@ -2,16 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-Hans>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hans' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "sendModeHelp": "Explanation"
-  },
-  "dialogs": {
-    "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
-    }
-  }
+  ]
 }
