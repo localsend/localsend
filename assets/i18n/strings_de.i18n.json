@@ -252,7 +252,7 @@
     },
     "sendModeHelp": {
       "title": "Sendemodus",
-      "single": "Sende Dateien an einen Empfänger. Die Auswahl wird gelöscht, sobald die Übertragung abgeschlossen ist.",
+      "single": "Sende Dateien an einen Empfänger. Die Auswahl wird nach Abschluss der Dateiübertragung gelöscht.",
       "multiple": "Sende Dateien an mehrere Empfänger. Die Auswahl bleibt erhalten.",
       "link": "Empfänger, die LocalSend nicht installiert haben, können die ausgewählten Dateien herunterladen, in dem sie den Link im Browser öffnen."
     }
