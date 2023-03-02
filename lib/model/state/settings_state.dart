@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/send_mode.dart';
 
 part 'settings_state.freezed.dart';
 
@@ -19,5 +20,6 @@ class SettingsState with _$SettingsState {
     required bool minimizeToTray, // minimize to tray instead of exiting the app
     required bool autoStartLaunchMinimized, // start hidden in tray (only available when launchAtStartup is true)
     required bool https,
+    required SendMode sendMode,
   }) = _SettingsState;
 }

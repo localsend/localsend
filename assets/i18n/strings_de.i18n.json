@@ -62,12 +62,13 @@
     "nearbyDevices": "Geräte in der Nähe",
     "thisDevice": "Dieses Gerät",
     "scan": "Geräte suchen",
-    "sendMode": "Sende-Modus",
+    "sendMode": "Sendemodus",
     "sendModes": {
       "single": "Einzelner Empfänger",
       "multiple": "Mehrere Empfänger",
       "link": "Per Link teilen"
     },
+    "sendModeHelp": "Erklärung",
     "help": "Bitte stelle sicher, dass sich das gewünschte Ziel auch im selben WLAN-Netzwerk befindet.",
     "placeItems": "Dateien ablegen, um zu teilen."
   },
@@ -248,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
+    },
+    "sendModeHelp": {
+      "title": "Sendemodus",
+      "single": "Sende Dateien an einen Empfänger. Die Auswahl wird gelöscht, sobald die Übertragung abgeschlossen ist.",
+      "multiple": "Sende Dateien an mehrere Empfänger. Die Auswahl bleibt erhalten.",
+      "link": "Empfänger, die LocalSend nicht installiert haben, können die ausgewählten Dateien herunterladen, in dem sie den Link im Browser öffnen."
     }
   },
   "tray": {

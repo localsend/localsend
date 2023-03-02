@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 
@@ -28,6 +29,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       minimizeToTray: service.isMinimizeToTray(),
       autoStartLaunchMinimized: service.isAutoStartLaunchMinimized(),
       https: service.isHttps(),
+      sendMode: service.getSendMode(),
     );
   }
 
@@ -105,6 +107,13 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     await _service.setHttps(https);
     state = state.copyWith(
       https: https,
+    );
+  }
+
+  Future<void> setSendMode(SendMode mode) async {
+    await _service.setSendMode(mode);
+    state = state.copyWith(
+      sendMode: mode,
     );
   }
 }

@@ -10,10 +10,12 @@ import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
+import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
@@ -25,6 +27,8 @@ import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
+
+import '../../model/send_mode.dart';
 
 const _horizontalPadding = 15.0;
 
@@ -203,42 +207,8 @@ class _SendTabState extends ConsumerState<SendTab> {
                 child: const Icon(Icons.ads_click),
               ),
             ),
-            Tooltip(
-              message: t.sendTab.sendMode,
-              child: _CircularPopupButton(
-                tooltip: t.sendTab.sendMode,
-                onSelected: (i) => print('SEL $i'),
-                itemBuilder: (_) => [
-                  PopupMenuItem(
-                    value: 0,
-                    // padding: const EdgeInsets.only(left: 12, right: 2),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.send),
-                        const SizedBox(width: 10),
-                        Text(t.sendTab.sendModes.single),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 1,
-                    // padding: const EdgeInsets.only(left: 12, right: 2),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.share),
-                        const SizedBox(width: 10),
-                        Text(t.sendTab.sendModes.multiple),
-                      ],
-                    ),
-                  ),
-                ],
-                child: const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Icon(Icons.settings),
-                ),
-              ),
+            _SendModeButton(
+              onSelect: (mode) => ref.read(settingsProvider.notifier).setSendMode(mode),
             ),
           ],
         ),
@@ -418,6 +388,94 @@ class _RotatingSyncIcon extends ConsumerWidget {
       spinning: scanningIps.contains(ip),
       reverse: true,
       child: const Icon(Icons.sync),
+    );
+  }
+}
+
+class _SendModeButton extends StatelessWidget {
+  final void Function(SendMode mode) onSelect;
+
+  const _SendModeButton({required this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    return _CircularPopupButton<int>(
+      tooltip: t.sendTab.sendMode,
+      onSelected: (mode) {
+        switch (mode) {
+          case 0:
+            onSelect(SendMode.single);
+            break;
+          case 1:
+            onSelect(SendMode.multiple);
+            break;
+          case -1:
+            showDialog(context: context, builder: (_) => const SendModeHelpDialog());
+            break;
+        }
+      },
+      itemBuilder: (_) => [
+        PopupMenuItem(
+          value: 0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
+                  return Visibility(
+                    visible: sendMode == SendMode.single,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: const Icon(Icons.check_circle),
+                  );
+                },
+              ),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModes.single),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: 1,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
+                  return Visibility(
+                    visible: sendMode == SendMode.multiple,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: const Icon(Icons.check_circle),
+                  );
+                },
+              ),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModes.multiple),
+            ],
+          ),
+        ),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+          value: -1,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.help),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModeHelp),
+            ],
+          ),
+        ),
+      ],
+      child: const Padding(
+        padding: EdgeInsets.all(8),
+        child: Icon(Icons.settings),
+      ),
     );
   }
 }
