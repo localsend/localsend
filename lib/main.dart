@@ -24,14 +24,14 @@ import 'package:routerino/routerino.dart';
 
 Future<void> main(List<String> args) async {
   final persistenceService = await preInit(args);
-  runApp(TranslationProvider(
-    child: ProviderScope(
-      overrides: [
-        deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
-        persistenceProvider.overrideWithValue(persistenceService),
-        appArgumentsProvider.overrideWith((ref) => args),
-        tvProvider.overrideWithValue(await checkIfTv()),
-      ],
+  runApp(ProviderScope(
+    overrides: [
+      deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
+      persistenceProvider.overrideWithValue(persistenceService),
+      appArgumentsProvider.overrideWith((ref) => args),
+      tvProvider.overrideWithValue(await checkIfTv()),
+    ],
+    child: TranslationProvider(
       child: const LocalSendApp(),
     ),
   ));

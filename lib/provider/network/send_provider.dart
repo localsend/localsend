@@ -23,7 +23,6 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/cache_helper.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 

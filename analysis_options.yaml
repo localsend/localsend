@@ -10,6 +10,8 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  plugins:
+    - custom_lint
   exclude:
     - lib/**.g.dart
     - lib/**.freezed.dart
