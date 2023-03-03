@@ -1,0 +1,249 @@
+{
+    "locale": "Nederlands",
+    "appName": "LocalSend",
+    "general": {
+        "accept": "Accepteren",
+        "add": "Toevoegen",
+        "advanced": "Geavanceerd",
+        "cancel": "Annuleren",
+        "close": "Sluiten",
+        "confirm": "Bevestigen",
+        "continueStr": "Ga verder",
+        "copy": "Kopiëren",
+        "copiedToClipboard": "Gekopieerd naar het klembord",
+        "decline": "Weigeren",
+        "done": "Klaar",
+        "edit": "Bewerken",
+        "error": "Fout",
+        "example": "Voorbeeld",
+        "files": "Bestanden",
+        "finished": "Afgewerkt",
+        "hide": "Verbergen",
+        "off": "Uit",
+        "offline": "Offline",
+        "on": "Aan",
+        "online": "Online",
+        "open": "Openen",
+        "queue": "Wachtrij",
+        "quickSave": "Snel opslaan",
+        "renamed": "Hernoemd",
+        "reset": "Reset",
+        "restart": "Herstarten",
+        "settings": "Instellingen",
+        "skipped": "Overgeslagen",
+        "start": "Start",
+        "stop": "Stop",
+        "save": "Opslaan",
+        "unchanged": "Ongewijzigd",
+        "unknown": "Onbekend"
+    },
+    "receiveTab": {
+        "title": "Ontvangen",
+        "infoBox": {
+            "ip": "IP:",
+            "port": "Poort:",
+            "alias": "Alias:"
+        }
+    },
+    "sendTab": {
+        "title": "Verzenden",
+        "selection": {
+            "title": "Selectie",
+            "files": "Bestanden: {files}",
+            "size": "Grootte: {size}"
+        },
+        "picker": {
+            "file": "Bestand",
+            "media": "Media",
+            "text": "Tekst",
+            "app": "App"
+        },
+        "shareIntentInfo": "Je kan ook de  \"Delen\" functie van je telefoon gebruiken om bestanden gemakkelijker te selecteren.",
+        "nearbyDevices": "Apparaten in de buurt",
+        "thisDevice": "Dit apparaat",
+        "scan": "Zoek naar apparaten",
+        "help": "Zorg ervoor dat het gewenste doel zick ook in hetzelfde wifi netwerk bevindt.",
+        "placeItems": "Plaats items om te delen."
+    },
+    "settingsTab": {
+        "title": "Instellingen",
+        "general": {
+            "title": "Algemeen",
+            "theme": "Thema",
+            "themeOptions": {
+                "system": "Systeem",
+                "dark": "Donker",
+                "light": "Licht"
+            },
+            "language": "Taal",
+            "languageOptions": {
+                "system": "Systeem"
+            },
+            "minimizeToTray": "Stoppen: Minimaliseer naar systeemvak",
+            "launchAtStartup": "Autostart na inloggen",
+            "launchMinimized": "Autostart: Start verborgen"
+        },
+        "receive": {
+            "title": "Ontvangen",
+            "quickSave": "@:general.quickSave",
+            "destination": "Bestemming",
+            "saveToGallery": "Bewaar media in galerij"
+        },
+        "network": {
+            "title": "Netwerk",
+            "needRestart": "Server herstarten om instellingen toe te passen!",
+            "server": "Server",
+            "alias": "Alias",
+            "port": "Poort",
+            "portWarning": "Je wordt mogelijk niet gedetecteerd door andere apparaten omdat je een aagepaste poort gebruikt. (standaard: {defaultPort})",
+            "encryption": "Encryptie",
+            "multicastGroup": "Multicast",
+            "multicastGroupWarning": "Je wordt mogelijk niet gedetecteerd door andere apparaten omdate je een aangepaste multicast-addres gebruikt. (standaard: {defaultMulticast})"
+        }
+    },
+    "troubleshootTab": {
+        "title": "Probleem oplossen",
+        "subTitle": "Werkt de app niet als verwacht? Hier kan je algemene oplossingen vinden.",
+        "solution": "Oplossing:",
+        "fixButton": "Automatisch oplossen",
+        "firewall": {
+            "symptom": "Deze app kan bestanden verzenden naar andere apparaten maar andere apparaten kunnen geen bestanden verzenden naar dit apparaat.",
+            "solution": "Dit is hoogstwaarschijnlijk een firewall probleem. Je kan dit oplossen door inkomende verbindingen (UDP en TCP) toe te staan op poort {port}.",
+            "openFirewall": "Firewall openen"
+        },
+        "noConnection": {
+            "symptom": "Beide apparaten kunnen elkaar niet ontdekken en kunnen ook geen bestanden delen.",
+            "solution": "Het probleem doet zich aan beide kanten voor? Dan moet je ervoor zorgen dat beide apparaten zich in hetzelfde wifi-netwerk bevinden en dezelfde configuratie delen (poort, multicast-adres, encryptie). De wifi staat mogelijk geen communicatie tussen deelnemers toe. In dit geval moet deze optie op de router zijn ingeschakeld."
+        }
+    },
+    "receiveHistoryPage": {
+        "title": "Geschiedenis",
+        "empty": "De geschiedenis is leeg.",
+        "entryActions": {
+            "open": "Bestand openen",
+            "info": "Informatie",
+            "deleteFromHistory": "Uit geschiedenis verwijderen"
+        }
+    },
+    "apkPickerPage": {
+        "title": "Apps (APK)",
+        "excludeSystemApps": "Sluit systeem-apps uit",
+        "excludeAppsWithoutLaunchIntent": "Sluit niet-startbare apps uit",
+        "apps": "{n} Apps"
+    },
+    "selectedFilesPage": {
+        "deleteAll": "Verwijder alles"
+    },
+    "receivePage": {
+        "subTitle": {
+            "one": "wil je een bestand verzenden.",
+            "other": "wil je {n} bestanden verzenden."
+        },
+        "subTitleMessage": "heeft je een bericht verzonden:",
+        "subTitleLink": "heeft je een link verzonden:",
+        "canceled": "De verzender heeft het verzoek geannuleerd."
+    },
+    "receiveOptionsPage": {
+        "title": "Opties",
+        "destination": "@:settingsTab.receive.destination",
+        "appDirectory": "(LocalSend folder)"
+    },
+    "sendPage": {
+        "waiting": "Wachten op antwoord...",
+        "rejected": "De ontvanger heeft het verzoek geweigerd.",
+        "busy": "De ontvanger is met een ander verzoek bezig."
+    },
+    "progressPage": {
+        "titleSending": "Verzenden bestanden",
+        "titleReceiving": "Ontvangen bestanden",
+        "savedToGallery": "In foto's bewaard",
+        "total": {
+            "title": {
+                "sending": "Totale vooruitgang ({time})",
+                "finishedError": "Afgewerkt met een foutmelding",
+                "canceledSender": "Geannuleerd door de verzender",
+                "canceledReceiver": "Geannuleerd door de ontvanger"
+            },
+            "count": "Bestanden: {curr} / {n}",
+            "size": "Grootte: {curr} / {n}",
+            "speed": "Sneelheid: {speed}/s"
+        }
+    },
+    "aboutPage": {
+        "title": "Over LocalSend"
+    },
+    "changelogPage": {
+        "title": "Changelog"
+    },
+    "aliasGenerator(ignoreMissing)": {
+        "@info": "Inherits from the English version"
+    },
+    "dialogs": {
+        "addFile": {
+            "title": "Toevoegen aan selectie",
+            "content": "Wat wil je toevoegen?"
+        },
+        "addressInput": {
+            "title": "Adres ingeven",
+            "hashtag": "Hashtag",
+            "ip": "IP Adres",
+            "recentlyUsed": "Recent gebruikt: "
+        },
+        "cancelSession": {
+            "title": "Bestandsoverdracht annuleren",
+            "content": "Ben je zeker dat je de bestandsoverdracht wil annuleren?"
+        },
+        "cannotOpenFile": {
+            "title": "Openen mislukt",
+            "content": "Kan het bestand \"{file}\" niet openen. Is het bestand van plaats veranderd, hernoemd of verwijderd?"
+        },
+        "encryptionDisabledNotice": {
+            "title": "Encryptie uitgeschakeld",
+            "content": "Communicatie gebeurt nu via het onversleutelde HTTP-protocol. Schakel encryptie in om HTTPS opnieuw te gebruiken."
+        },
+        "errorDialog": {
+            "title": "@:general.error"
+        },
+        "fileInfo": {
+            "title": "Bestandsinformatie",
+            "fileName": "Bestandsnaam:",
+            "path": "Locatie:",
+            "size": "Groote:",
+            "sender": "Verzender:",
+            "time": "Tijdstip:"
+        },
+        "fileNameInput": {
+            "title": "Voer bestandsnaam in",
+            "original": "Origineel: {original}"
+        },
+        "messageInput": {
+            "title": "Typ bericht",
+            "multiline": "Meerdere lijnen"
+        },
+        "noFiles": {
+            "title": "Geen bestand geselecteerd",
+            "content": "Selecteer minstens één bestand."
+        },
+        "notAvailableOnPlatform": {
+            "title": "Niet beschikbaar",
+            "content": "Deze functie is enkel beschikbaar op:"
+        },
+        "quickActions": {
+            "title": "Snelle acties",
+            "counter": "Teller",
+            "prefix": "Prefix",
+            "padZero": "Met nullen aanvullen",
+            "sortBeforeCount": "Vooraf alfabetisch sorteren",
+            "random": "Willekeurig"
+        },
+        "quickSaveNotice": {
+            "title": "@:general.quickSave",
+            "content": "Bestandsoverdrachten worden automatisch geaccepteerd. Houd er rekening mee dat iedereen in het lokale netwerk je bestanden kan sturen."
+        }
+    },
+    "tray": {
+        "@info": "Apple Guidelines zijn zeer strikt met betrekking tot de 'close' formulering.",
+        "open": "@:general.open",
+        "close": "LocalSend afsluiten"
+    }
+}

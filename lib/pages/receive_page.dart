@@ -258,10 +258,18 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 onPressed: selectedFiles.isEmpty
                                     ? null
                                     : () {
+                                        final sessionId = ref.read(serverProvider)?.session?.sessionId;
+                                        if (sessionId == null) {
+                                          return;
+                                        }
                                         _accept(ref, receiveSession);
                                         context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
-                                          builder: () => const ProgressPage(),
+                                          builder: () => ProgressPage(
+                                            showAppBar: false,
+                                            closeSessionOnClose: true,
+                                            sessionId: sessionId,
+                                          ),
                                         );
                                       },
                                 icon: const Icon(Icons.check_circle),

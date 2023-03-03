@@ -7,6 +7,10 @@ bool checkPlatform(List<TargetPlatform> platforms, {bool web = false}) {
   return platforms.contains(defaultTargetPlatform);
 }
 
+bool checkPlatformIsNot(List<TargetPlatform> platforms, {bool web = false}) {
+  return !checkPlatform(platforms, web: web);
+}
+
 /// This platform runs on a "traditional" computer
 bool checkPlatformIsDesktop() {
   return checkPlatform([TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.macOS]);

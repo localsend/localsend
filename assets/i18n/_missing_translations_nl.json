@@ -1,12 +1,9 @@
 {
   "@@info": [
-    "Here are translations that exist in <en> but not in <zh-Hant-TW>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-TW' to quickly apply the newly added translations."
+    "Here are translations that exist in <en> but not in <nl>.",
+    "After editing this file, you can run 'flutter pub run slang apply --locale=nl' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "picker": {
-      "app": "App"
-    },
     "sendMode": "Send mode",
     "sendModes": {
       "single": "Single recipient",
@@ -24,17 +21,7 @@
     "openFolder": "Open folder",
     "deleteHistory": "Delete history"
   },
-  "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
-  },
   "dialogs": {
-    "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
-    },
     "sendModeHelp": {
       "title": "Send modes",
       "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",

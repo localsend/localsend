@@ -62,6 +62,13 @@
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
+    "sendMode": "发送模式",
+    "sendModes": {
+      "single": "单个接收者",
+      "multiple": "多个接收者",
+      "link": "通过链接分享"
+    },
+    "sendModeHelp": "解释",
     "help": "请确保目标连接的是同一个 Wi-Fi 网络。",
     "placeItems": "列出要分享的文件。"
   },
@@ -87,6 +94,7 @@
       "title": "接收",
       "quickSave": "@:general.quickSave",
       "destination": "保存目录",
+      "downloads": "(下载)",
       "saveToGallery": "保存到相册"
     },
     "network": {
@@ -118,6 +126,8 @@
   },
   "receiveHistoryPage": {
     "title": "历史",
+    "openFolder": "打开目录",
+    "deleteHistory": "删除历史",
     "empty": "无历史记录。",
     "entryActions": {
       "open": "打开文件",
@@ -175,7 +185,7 @@
   "changelogPage": {
     "title": "更新日志"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -239,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
+    },
+    "sendModeHelp": {
+      "title": "发送模式",
+      "single": "发送文件给一个接收者。已选择的文件稍后会取消选择。",
+      "multiple": "发送文件给多个接收者。发送后不会取消选择已选择的文件。",
+      "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
     }
   },
   "tray": {

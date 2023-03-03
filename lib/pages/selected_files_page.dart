@@ -9,6 +9,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
@@ -52,6 +53,13 @@ class SelectedFilesPage extends ConsumerWidget {
           const SizedBox(height: 10),
           ...selectedFiles.mapIndexed(
             (index, file) {
+              final String? message;
+              if (file.fileType == FileType.text && file.bytes != null) {
+                message = utf8.decode(file.bytes!);
+              } else {
+                message = null;
+              }
+
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: InkWell(
@@ -72,9 +80,7 @@ class SelectedFilesPage extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  file.fileType == FileType.text && file.bytes != null
-                                      ? '"${utf8.decode(file.bytes!).replaceAll('\n', ' ')}"'
-                                      : file.name,
+                                  message != null ? '"${message.replaceAll('\n', ' ')}"' : file.name,
                                   maxLines: 1,
                                   overflow: TextOverflow.fade,
                                   softWrap: false,
@@ -83,8 +89,24 @@ class SelectedFilesPage extends ConsumerWidget {
                               ],
                             ),
                           ),
+                          if (file.fileType == FileType.text && file.bytes != null)
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              onPressed: () async {
+                                final result = await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
+                                if (result != null) {
+                                  ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
+                                  ref.read(selectedSendingFilesProvider.notifier).addMessage(result, index: index);
+                                }
+                              },
+                              child: const Icon(Icons.edit),
+                            ),
                           TextButton(
-                            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            ),
                             onPressed: () {
                               final currCount = ref.read(selectedSendingFilesProvider).length;
                               ref.read(selectedSendingFilesProvider.notifier).removeAt(index);

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -12,6 +13,7 @@ import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
@@ -21,7 +23,15 @@ import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
-  const ProgressPage({Key? key}) : super(key: key);
+  final bool showAppBar;
+  final bool closeSessionOnClose;
+  final String sessionId;
+
+  const ProgressPage({
+    required this.showAppBar,
+    required this.closeSessionOnClose,
+    required this.sessionId,
+  });
 
   @override
   ConsumerState<ProgressPage> createState() => _ProgressPageState();
@@ -51,7 +61,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
         _files = receiveSession.files.values.map((f) => f.file).toList();
         _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
       } else {
-        final sendSession = ref.read(sendProvider);
+        final sendSession = ref.read(sendProvider)[widget.sessionId];
         if (sendSession != null) {
           _files = sendSession.files.values.map((f) => f.file).toList();
           _filesWithToken = sendSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
@@ -70,16 +80,30 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     } catch (_) {}
   }
 
+  Future<bool> _onWillPop() async {
+    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    final sendSession = ref.watch(sendProvider)[widget.sessionId];
+    final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
+    if (status == null) {
+      return true;
+    }
+    if (!widget.closeSessionOnClose && status == SessionStatus.sending) {
+      // keep session except [closeSessionOnClose] is true and the session is active
+      return true;
+    }
+    return _askCancelConfirmation(status);
+  }
+
   Future<bool> _askCancelConfirmation(SessionStatus status) async {
     final bool result = status == SessionStatus.sending ? await context.pushBottomSheet(() => const CancelSessionDialog()) : true;
     if (result) {
       final receiveSession = ref.read(serverProvider.select((s) => s?.session));
-      final sendState = ref.read(sendProvider);
+      final sendState = ref.read(sendProvider)[widget.sessionId];
 
       if (receiveSession != null) {
         ref.read(serverProvider.notifier).cancelSession();
       } else if (sendState != null) {
-        ref.read(sendProvider.notifier).cancelSession();
+        ref.read(sendProvider.notifier).cancelSession(widget.sessionId);
       }
     }
     return result;
@@ -87,11 +111,11 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ProgressNotifier progressNotifier = ref.watch(progressProvider);
-    final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(curr.id) * curr.size).round()));
+    final progressNotifier = ref.watch(progressProvider);
+    final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
-    final sendSession = ref.watch(sendProvider);
+    final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
     final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
     if (status == null) {
@@ -100,6 +124,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
       );
     }
 
+    final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
     final startTime = receiveSession?.startTime ?? sendSession?.startTime;
     final endTime = receiveSession?.endTime ?? sendSession?.endTime;
     final int? speedInBytes;
@@ -116,8 +141,11 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     }
 
     return WillPopScope(
-      onWillPop: () => _askCancelConfirmation(status),
+      onWillPop: _onWillPop,
       child: Scaffold(
+        appBar: widget.showAppBar ? AppBar(
+          title: Text(title),
+        ) : null,
         body: Stack(
           children: [
             ListView.builder(
@@ -136,16 +164,31 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                        Text(title, style: Theme.of(context).textTheme.titleLarge),
                         if (checkPlatformWithFileSystem() && receiveSession != null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              '${t.settingsTab.receive.destination}: ${receiveSession.destinationDirectory}',
-                              style: const TextStyle(color: Colors.grey),
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${t.settingsTab.receive.destination}: ',
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                  TextSpan(
+                                    text: receiveSession.destinationDirectory,
+                                    style: TextStyle(
+                                      color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.tertiary,
+                                    ),
+                                    recognizer: checkPlatform([TargetPlatform.iOS])
+                                        ? null
+                                        : (TapGestureRecognizer()
+                                          ..onTap = () {
+                                            openFolder(receiveSession.destinationDirectory);
+                                          }),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                       ],
@@ -223,7 +266,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: CustomProgressBar(
-                                    progress: progressNotifier.getProgress(file.id),
+                                    progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
                                   ),
                                 )
                               else
@@ -235,22 +278,21 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                         style: TextStyle(color: fileStatus.getColor(context), height: 1),
                                       ),
                                     ),
-                                    if (errorMessage != null)
-                                      ...[
-                                        const SizedBox(width: 5),
-                                        InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (_) => ErrorDialog(error: errorMessage!),
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                                            child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
-                                          ),
+                                    if (errorMessage != null) ...[
+                                      const SizedBox(width: 5),
+                                      InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (_) => ErrorDialog(error: errorMessage!),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
                                         ),
-                                      ],
+                                      ),
+                                    ],
                                   ],
                                 ),
                             ],
@@ -297,7 +339,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(t.progressPage.total.count(
-                                    curr: progressNotifier.getFinishedCount(),
+                                    curr: progressNotifier.getFinishedCount(widget.sessionId),
                                     n: _filesWithToken.length,
                                   )),
                                   Text(t.progressPage.total.size(

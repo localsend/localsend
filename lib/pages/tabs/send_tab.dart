@@ -1,19 +1,26 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
+import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
+import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
+import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
+import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
@@ -25,6 +32,8 @@ import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
+
+import '../../model/send_mode.dart';
 
 const _horizontalPadding = 15.0;
 
@@ -51,9 +60,9 @@ class _SendTabState extends ConsumerState<SendTab> {
 
   @override
   Widget build(BuildContext context) {
+    final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
     final networkInfo = ref.watch(networkStateProvider);
-    final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
       FilePickerOption.file,
@@ -197,82 +206,49 @@ class _SendTabState extends ConsumerState<SendTab> {
                     ref.read(sendProvider.notifier).startSession(
                           target: device,
                           files: files,
+                          background: false,
                         );
                   }
                 },
                 child: const Icon(Icons.ads_click),
               ),
             ),
-            Tooltip(
-              message: t.sendTab.sendMode,
-              child: _CircularPopupButton(
-                tooltip: t.sendTab.sendMode,
-                onSelected: (i) => print('SEL $i'),
-                itemBuilder: (_) => [
-                  PopupMenuItem(
-                    value: 0,
-                    // padding: const EdgeInsets.only(left: 12, right: 2),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.send),
-                        const SizedBox(width: 10),
-                        Text(t.sendTab.sendModes.single),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 1,
-                    // padding: const EdgeInsets.only(left: 12, right: 2),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.share),
-                        const SizedBox(width: 10),
-                        Text(t.sendTab.sendModes.multiple),
-                      ],
-                    ),
-                  ),
-                ],
-                child: const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Icon(Icons.settings),
-                ),
-              ),
+            _SendModeButton(
+              onSelect: (mode) => ref.read(settingsProvider.notifier).setSendMode(mode),
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-          child: Hero(
-            tag: 'this-device',
-            child: DeviceListTile(
-              device: myDevice,
-              thisDevice: true,
+        if (nearbyDevicesState.devices.isEmpty)
+          const Padding(
+            padding: EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+            child: Opacity(
+              opacity: 0.3,
+              child: DevicePlaceholderListTile(),
             ),
           ),
-        ),
-        const SizedBox(height: 10),
         ...nearbyDevicesState.devices.values.map((device) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Hero(
               tag: 'device-${device.ip}',
-              child: DeviceListTile(
-                device: device,
-                onTap: () {
-                  final files = ref.read(selectedSendingFilesProvider);
-                  if (files.isEmpty) {
-                    context.pushBottomSheet(() => const NoFilesDialog());
-                    return;
-                  }
+              child: sendMode == SendMode.multiple
+                  ? _MultiSendDeviceListTile(device: device)
+                  : DeviceListTile(
+                      device: device,
+                      onTap: () {
+                        final files = ref.read(selectedSendingFilesProvider);
+                        if (files.isEmpty) {
+                          context.pushBottomSheet(() => const NoFilesDialog());
+                          return;
+                        }
 
-                  ref.read(sendProvider.notifier).startSession(
-                        target: device,
-                        files: files,
-                      );
-                },
-              ),
+                        ref.read(sendProvider.notifier).startSession(
+                              target: device,
+                              files: files,
+                              background: false,
+                            );
+                      },
+                    ),
             ),
           );
         }),
@@ -333,12 +309,15 @@ class _CircularPopupButton<T> extends StatelessWidget {
       borderRadius: BorderRadius.circular(9999),
       child: Material(
         type: MaterialType.transparency,
-        child: PopupMenuButton(
-          offset: const Offset(60, 40),
-          onSelected: onSelected,
-          tooltip: tooltip,
-          itemBuilder: itemBuilder,
-          child: child,
+        child: DividerTheme(
+          data: DividerThemeData(color: Colors.teal.shade200),
+          child: PopupMenuButton(
+            offset: const Offset(0, 40),
+            onSelected: onSelected,
+            tooltip: tooltip,
+            itemBuilder: itemBuilder,
+            child: child,
+          ),
         ),
       ),
     );
@@ -419,5 +398,178 @@ class _RotatingSyncIcon extends ConsumerWidget {
       reverse: true,
       child: const Icon(Icons.sync),
     );
+  }
+}
+
+class _SendModeButton extends StatelessWidget {
+  final void Function(SendMode mode) onSelect;
+
+  const _SendModeButton({required this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    return _CircularPopupButton<int>(
+      tooltip: t.sendTab.sendMode,
+      onSelected: (mode) {
+        switch (mode) {
+          case 0:
+            onSelect(SendMode.single);
+            break;
+          case 1:
+            onSelect(SendMode.multiple);
+            break;
+          case -1:
+            showDialog(context: context, builder: (_) => const SendModeHelpDialog());
+            break;
+        }
+      },
+      itemBuilder: (_) => [
+        PopupMenuItem(
+          value: 0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
+                  return Visibility(
+                    visible: sendMode == SendMode.single,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: const Icon(Icons.check_circle),
+                  );
+                },
+              ),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModes.single),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: 1,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
+                  return Visibility(
+                    visible: sendMode == SendMode.multiple,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: const Icon(Icons.check_circle),
+                  );
+                },
+              ),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModes.multiple),
+            ],
+          ),
+        ),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+          value: -1,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.help),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModeHelp),
+            ],
+          ),
+        ),
+      ],
+      child: const Padding(
+        padding: EdgeInsets.all(8),
+        child: Icon(Icons.settings),
+      ),
+    );
+  }
+}
+
+/// An advanced list tile which shows the progress of the file transfer.
+class _MultiSendDeviceListTile extends ConsumerWidget {
+  final Device device;
+
+  const _MultiSendDeviceListTile({
+    required this.device,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final session = ref.watch(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
+    final double? progress;
+    if (session != null) {
+      final files = session.files.values.where((f) => f.token != null);
+      final progressNotifier = ref.watch(progressProvider);
+      final currBytes = files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()));
+      final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
+      progress = totalBytes == 0 ? 0 : currBytes / totalBytes;
+    } else {
+      progress = null;
+    }
+    return DeviceListTile(
+      device: device,
+      info: session?.status.humanString,
+      progress: progress,
+      onTap: () async {
+        if (session != null) {
+          if (session.status == SessionStatus.waiting) {
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            await context.push(() => SendPage(sessionId: session.sessionId), transition: RouterinoTransition.fade);
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            return;
+          } else if (session.status == SessionStatus.sending) {
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            return;
+          }
+        }
+
+        final files = ref.read(selectedSendingFilesProvider);
+        if (files.isEmpty) {
+          // ignore: use_build_context_synchronously
+          context.pushBottomSheet(() => const NoFilesDialog());
+          return;
+        }
+
+        if (session != null) {
+          // close old session
+          ref.read(sendProvider.notifier).cancelSession(session.sessionId);
+        }
+
+        ref.read(sendProvider.notifier).startSession(
+          target: device,
+          files: files,
+          background: true,
+        );
+      },
+    );
+  }
+}
+
+extension on SessionStatus {
+  String? get humanString {
+    switch (this) {
+      case SessionStatus.waiting:
+        return t.sendPage.waiting;
+      case SessionStatus.recipientBusy:
+        return t.sendPage.busy;
+      case SessionStatus.declined:
+        return t.sendPage.rejected;
+      case SessionStatus.sending:
+        return null;
+      case SessionStatus.finished:
+        return t.general.finished;
+      case SessionStatus.finishedWithErrors:
+        return t.progressPage.total.title.finishedError;
+      case SessionStatus.canceledBySender:
+        return t.progressPage.total.title.canceledSender;
+      case SessionStatus.canceledByReceiver:
+        return t.progressPage.total.title.canceledReceiver;
+    }
   }
 }

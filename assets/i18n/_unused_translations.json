@@ -14,9 +14,10 @@
         "link": "Share via link"
       }
     },
-    "receiveHistoryPage": {
-      "openFolder": "Open folder",
-      "deleteHistory": "Delete history"
+    "dialogs": {
+      "sendModeHelp": {
+        "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      }
     }
   },
   "ar": {},
@@ -31,6 +32,7 @@
   "ja": {},
   "ko": {},
   "ne": {},
+  "nl": {},
   "pl": {},
   "pt-BR": {},
   "ru": {},

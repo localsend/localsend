@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
+import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -33,6 +34,7 @@ const _quickSave = 'ls_quick_save';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
 const _https = 'ls_https';
+const _sendMode = 'ls_send_mode';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -178,5 +180,13 @@ class PersistenceService {
 
   Future<void> setHttps(bool https) async {
     await _prefs.setBool(_https, https);
+  }
+
+  SendMode getSendMode() {
+    return SendMode.values.firstWhereOrNull((m) => m.name == _prefs.getString(_sendMode)) ?? SendMode.single;
+  }
+
+  Future<void> setSendMode(SendMode mode) async {
+    await _prefs.setString(_sendMode, mode.name);
   }
 }

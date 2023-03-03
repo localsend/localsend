@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
@@ -25,10 +24,10 @@ import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
+import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/tray_helper.dart';
-import 'package:path_provider/path_provider.dart' as path;
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -150,29 +149,16 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       final settings = _ref.read(settingsProvider);
-      String? destinationDir = settings.destination;
-      if (destinationDir == null) {
-        switch (defaultTargetPlatform) {
-          case TargetPlatform.android:
-            destinationDir = '/storage/emulated/0/Download';
-            break;
-          case TargetPlatform.iOS:
-            destinationDir = (await path.getApplicationDocumentsDirectory()).path;
-            break;
-          case TargetPlatform.linux:
-          case TargetPlatform.macOS:
-          case TargetPlatform.windows:
-          case TargetPlatform.fuchsia:
-            destinationDir = (await path.getDownloadsDirectory())!.path.replaceAll('\\', '/');
-            break;
-        }
-      }
+      final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+      final sessionId = _uuid.v4();
 
+      print('Session Id: $sessionId');
       print('Destination Directory: $destinationDir');
 
       final streamController = StreamController<Map<String, String>?>();
       state = state!.copyWith(
         session: ReceiveSessionState(
+          sessionId: sessionId,
           status: SessionStatus.waiting,
           sender: dto.info.toDevice(request.ip, port, https),
           files: {
@@ -251,11 +237,13 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           ),
         );
 
-        _ref.read(progressProvider.notifier).reset();
-
         if (quickSave) {
           // ignore: use_build_context_synchronously
-          Routerino.context.pushImmediately(() => const ProgressPage());
+          Routerino.context.pushImmediately(() => ProgressPage(
+                showAppBar: false,
+                closeSessionOnClose: true,
+                sessionId: sessionId,
+              ));
         }
 
         return _response(200, body: {
@@ -330,7 +318,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           stream: request.read(),
           onProgress: (savedBytes) {
             if (receivingFile.file.size != 0) {
-              _ref.read(progressProvider.notifier).setProgress(fileId, savedBytes / receivingFile.file.size);
+              _ref.read(progressProvider.notifier).setProgress(
+                    sessionId: receiveState.sessionId,
+                    fileId: fileId,
+                    progress: savedBytes / receivingFile.file.size,
+                  );
             }
           },
         );
@@ -374,8 +366,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print(st);
       }
 
-      final progressNotifier = _ref.read(progressProvider.notifier);
-      progressNotifier.setProgress(fileId, 1);
+      _ref.read(progressProvider.notifier).setProgress(
+            sessionId: receiveState.sessionId,
+            fileId: fileId,
+            progress: 1,
+          );
 
       if (state!.session!.files.values
           .every((f) => f.status == FileStatus.finished || f.status == FileStatus.skipped || f.status == FileStatus.failed)) {
@@ -397,9 +392,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print('Received all files.');
       }
 
-      return state?.session?.files[fileId]?.status == FileStatus.finished
-          ? _response(200)
-          : _response(500, message: 'Could not save file');
+      return state?.session?.files[fileId]?.status == FileStatus.finished ? _response(200) : _response(500, message: 'Could not save file');
     });
 
     router.post(ApiRoute.cancel.path, (Request request) {
@@ -490,9 +483,15 @@ class ServerNotifier extends StateNotifier<ServerState?> {
   }
 
   void closeSession() {
-    state = state?.copyWith(
+    final sessionId = state?.session?.sessionId;
+    if (sessionId == null) {
+      return;
+    }
+
+    state = state!.copyWith(
       session: null,
     );
+    _ref.read(progressProvider.notifier).removeSession(sessionId);
   }
 }
 

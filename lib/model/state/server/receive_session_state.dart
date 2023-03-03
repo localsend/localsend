@@ -13,6 +13,7 @@ class ReceiveSessionState with _$ReceiveSessionState {
   const ReceiveSessionState._(); // allow custom getters
 
   const factory ReceiveSessionState({
+    required String sessionId,
     required SessionStatus status,
     required Device sender,
     required Map<String, ReceivingFile> files,

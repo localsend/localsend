@@ -1,38 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "picker": {
-      "app": "App"
-    },
-    "sendMode": "Send mode",
-    "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
-    }
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(Downloads)"
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
-  },
-  "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
-  },
-  "dialogs": {
-    "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }

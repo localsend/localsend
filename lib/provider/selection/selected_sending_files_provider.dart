@@ -26,20 +26,20 @@ class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
 
   /// Add a simple message
   /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8
-  void addMessage(String message) {
+  void addMessage(String message, {int? index}) {
     final List<int> bytes = utf8.encode(message);
+    final file = CrossFile(
+      name: '${_uuid.v4()}.txt',
+      fileType: FileType.text,
+      size: bytes.length,
+      thumbnail: null,
+      asset: null,
+      path: null,
+      bytes: bytes,
+    );
     state = List.unmodifiable([
       ...state,
-      CrossFile(
-        name: '${_uuid.v4()}.txt',
-        fileType: FileType.text,
-        size: bytes.length,
-        thumbnail: null,
-        asset: null,
-        path: null,
-        bytes: bytes,
-      ),
-    ]);
+    ]..insert(index ?? state.length, file));
   }
 
   Future<void> addFiles<T>({

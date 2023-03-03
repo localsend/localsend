@@ -12,7 +12,8 @@
       "single": "Single recipient",
       "multiple": "Multiple recipients",
       "link": "Share via link"
-    }
+    },
+    "sendModeHelp": "Explanation"
   },
   "settingsTab": {
     "receive": {
@@ -52,6 +53,12 @@
     "notAvailableOnPlatform": {
       "title": "Not available",
       "content": "This feature is only available on:"
+    },
+    "sendModeHelp": {
+      "title": "Send modes",
+      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
+      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
+      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
     }
   }
 }

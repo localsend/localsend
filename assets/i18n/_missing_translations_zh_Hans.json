@@ -1,23 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-Hans>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hans' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "sendMode": "Send mode",
-    "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
-    }
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(Downloads)"
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hans' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
