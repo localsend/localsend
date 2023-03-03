@@ -5,13 +5,10 @@ LocalSend is a free, open-source app that allows you to securely share files and
 [![CI status](https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg)](https://github.com/localsend/localsend/actions/workflows/ci.yml)
 
 Links: [Homepage](https://localsend.org)
-| [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app)
-| [F-Droid](https://f-droid.org/packages/org.localsend.localsend_app)
-| [App Store](https://apps.apple.com/us/app/localsend/id1661733229)
-| [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)
 
 - [About](#about)
 - [Screenshots](#screenshots)
+- [Installation](#installation)
 - [How it Works](#how-it-works)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
@@ -31,6 +28,19 @@ LocalSend is a cross-platform app that enables secure communication between devi
 ## Screenshots
 
 <img src="https://localsend.org/img/screenshot-iphone.png" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.png" alt="PC screenshot" height="300"/>
+
+## Installation
+
+It is recommended to download the app either from an app store or from a package manager because the app does not have auto-update.
+
+On Windows, the store version is not available anymore: https://github.com/localsend/localsend/issues/220
+
+| Windows                                                                                        | MacOS                                                             | Linux                                                                    | Andoid                                                                                  | iOS                                                               |
+|------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)                             | [App Store](https://apps.apple.com/us/app/localsend/id1661733229) | [Flathub](https://flathub.org/apps/details/org.localsend.localsend_app)  | [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app) | [App Store](https://apps.apple.com/us/app/localsend/id1661733229) |
+| [Winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend) | [DMG Installer](https://github.com/localsend/localsend/releases)  | [Arch User Repository](https://aur.archlinux.org/packages/localsend-bin) | [F-Droid](https://f-droid.org/packages/org.localsend.localsend_app)                     |                                                                   |
+| [MSIX Installer](https://github.com/localsend/localsend/releases)                              |                                                                   | [AppImage](https://github.com/localsend/localsend/releases)              | [APK](https://github.com/localsend/localsend/releases)                                  |                                                                   |
+| [Portable ZIP](https://github.com/localsend/localsend/releases)                                |                                                                   |                                                                          |                                                                                         |                                                                   |
 
 ## How it Works
 
