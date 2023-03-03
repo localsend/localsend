@@ -1,13 +1,18 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
+import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
+import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
@@ -55,6 +60,7 @@ class _SendTabState extends ConsumerState<SendTab> {
 
   @override
   Widget build(BuildContext context) {
+    final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
     final networkInfo = ref.watch(networkStateProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
@@ -200,6 +206,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                     ref.read(sendProvider.notifier).startSession(
                           target: device,
                           files: files,
+                          background: false,
                         );
                   }
                 },
@@ -224,21 +231,24 @@ class _SendTabState extends ConsumerState<SendTab> {
             padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Hero(
               tag: 'device-${device.ip}',
-              child: DeviceListTile(
-                device: device,
-                onTap: () {
-                  final files = ref.read(selectedSendingFilesProvider);
-                  if (files.isEmpty) {
-                    context.pushBottomSheet(() => const NoFilesDialog());
-                    return;
-                  }
+              child: sendMode == SendMode.multiple
+                  ? _MultiSendDeviceListTile(device: device)
+                  : DeviceListTile(
+                      device: device,
+                      onTap: () {
+                        final files = ref.read(selectedSendingFilesProvider);
+                        if (files.isEmpty) {
+                          context.pushBottomSheet(() => const NoFilesDialog());
+                          return;
+                        }
 
-                  ref.read(sendProvider.notifier).startSession(
-                        target: device,
-                        files: files,
-                      );
-                },
-              ),
+                        ref.read(sendProvider.notifier).startSession(
+                              target: device,
+                              files: files,
+                              background: false,
+                            );
+                      },
+                    ),
             ),
           );
         }),
@@ -476,5 +486,90 @@ class _SendModeButton extends StatelessWidget {
         child: Icon(Icons.settings),
       ),
     );
+  }
+}
+
+/// An advanced list tile which shows the progress of the file transfer.
+class _MultiSendDeviceListTile extends ConsumerWidget {
+  final Device device;
+
+  const _MultiSendDeviceListTile({
+    required this.device,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final session = ref.watch(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
+    final double? progress;
+    if (session != null) {
+      final files = session.files.values.where((f) => f.token != null);
+      final progressNotifier = ref.watch(progressProvider);
+      final currBytes = files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()));
+      final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
+      progress = totalBytes == 0 ? 0 : currBytes / totalBytes;
+    } else {
+      progress = null;
+    }
+    return DeviceListTile(
+      device: device,
+      info: session?.status.humanString,
+      progress: progress,
+      onTap: () async {
+        if (session != null) {
+          if (session.status == SessionStatus.waiting) {
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            await context.push(() => SendPage(sessionId: session.sessionId), transition: RouterinoTransition.fade);
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            return;
+          } else if (session.status == SessionStatus.sending) {
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
+            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            return;
+          }
+        }
+
+        final files = ref.read(selectedSendingFilesProvider);
+        if (files.isEmpty) {
+          // ignore: use_build_context_synchronously
+          context.pushBottomSheet(() => const NoFilesDialog());
+          return;
+        }
+
+        if (session != null) {
+          // close old session
+          ref.read(sendProvider.notifier).cancelSession(session.sessionId);
+        }
+
+        ref.read(sendProvider.notifier).startSession(
+          target: device,
+          files: files,
+          background: true,
+        );
+      },
+    );
+  }
+}
+
+extension on SessionStatus {
+  String? get humanString {
+    switch (this) {
+      case SessionStatus.waiting:
+        return t.sendPage.waiting;
+      case SessionStatus.recipientBusy:
+        return t.sendPage.busy;
+      case SessionStatus.declined:
+        return t.sendPage.rejected;
+      case SessionStatus.sending:
+        return null;
+      case SessionStatus.finished:
+        return t.general.finished;
+      case SessionStatus.finishedWithErrors:
+        return t.progressPage.total.title.finishedError;
+      case SessionStatus.canceledBySender:
+        return t.progressPage.total.title.canceledSender;
+      case SessionStatus.canceledByReceiver:
+        return t.progressPage.total.title.canceledReceiver;
+    }
   }
 }

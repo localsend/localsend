@@ -239,7 +239,11 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
         if (quickSave) {
           // ignore: use_build_context_synchronously
-          Routerino.context.pushImmediately(() => ProgressPage(sessionId: sessionId));
+          Routerino.context.pushImmediately(() => ProgressPage(
+                showAppBar: false,
+                closeSessionOnClose: true,
+                sessionId: sessionId,
+              ));
         }
 
         return _response(200, body: {
@@ -315,10 +319,10 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           onProgress: (savedBytes) {
             if (receivingFile.file.size != 0) {
               _ref.read(progressProvider.notifier).setProgress(
-                sessionId: receiveState.sessionId,
-                fileId: fileId,
-                progress: savedBytes / receivingFile.file.size,
-              );
+                    sessionId: receiveState.sessionId,
+                    fileId: fileId,
+                    progress: savedBytes / receivingFile.file.size,
+                  );
             }
           },
         );
@@ -363,10 +367,10 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       _ref.read(progressProvider.notifier).setProgress(
-        sessionId: receiveState.sessionId,
-        fileId: fileId,
-        progress: 1,
-      );
+            sessionId: receiveState.sessionId,
+            fileId: fileId,
+            progress: 1,
+          );
 
       if (state!.session!.files.values
           .every((f) => f.status == FileStatus.finished || f.status == FileStatus.skipped || f.status == FileStatus.failed)) {
@@ -388,9 +392,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print('Received all files.');
       }
 
-      return state?.session?.files[fileId]?.status == FileStatus.finished
-          ? _response(200)
-          : _response(500, message: 'Could not save file');
+      return state?.session?.files[fileId]?.status == FileStatus.finished ? _response(200) : _response(500, message: 'Could not save file');
     });
 
     router.post(ApiRoute.cancel.path, (Request request) {

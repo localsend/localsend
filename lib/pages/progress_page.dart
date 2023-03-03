@@ -23,9 +23,15 @@ import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
+  final bool showAppBar;
+  final bool closeSessionOnClose;
   final String sessionId;
 
-  const ProgressPage({required this.sessionId});
+  const ProgressPage({
+    required this.showAppBar,
+    required this.closeSessionOnClose,
+    required this.sessionId,
+  });
 
   @override
   ConsumerState<ProgressPage> createState() => _ProgressPageState();
@@ -74,6 +80,20 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     } catch (_) {}
   }
 
+  Future<bool> _onWillPop() async {
+    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    final sendSession = ref.watch(sendProvider)[widget.sessionId];
+    final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
+    if (status == null) {
+      return true;
+    }
+    if (!widget.closeSessionOnClose && status == SessionStatus.sending) {
+      // keep session except [closeSessionOnClose] is true and the session is active
+      return true;
+    }
+    return _askCancelConfirmation(status);
+  }
+
   Future<bool> _askCancelConfirmation(SessionStatus status) async {
     final bool result = status == SessionStatus.sending ? await context.pushBottomSheet(() => const CancelSessionDialog()) : true;
     if (result) {
@@ -91,7 +111,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ProgressNotifier progressNotifier = ref.watch(progressProvider);
+    final progressNotifier = ref.watch(progressProvider);
     final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
@@ -104,6 +124,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
       );
     }
 
+    final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
     final startTime = receiveSession?.startTime ?? sendSession?.startTime;
     final endTime = receiveSession?.endTime ?? sendSession?.endTime;
     final int? speedInBytes;
@@ -120,8 +141,11 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     }
 
     return WillPopScope(
-      onWillPop: () => _askCancelConfirmation(status),
+      onWillPop: _onWillPop,
       child: Scaffold(
+        appBar: widget.showAppBar ? AppBar(
+          title: Text(title),
+        ) : null,
         body: Stack(
           children: [
             ListView.builder(
@@ -140,10 +164,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                        Text(title, style: Theme.of(context).textTheme.titleLarge),
                         if (checkPlatformWithFileSystem() && receiveSession != null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),

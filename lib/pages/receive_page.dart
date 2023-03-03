@@ -265,7 +265,11 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                         _accept(ref, receiveSession);
                                         context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
-                                          builder: () => ProgressPage(sessionId: sessionId),
+                                          builder: () => ProgressPage(
+                                            showAppBar: false,
+                                            closeSessionOnClose: true,
+                                            sessionId: sessionId,
+                                          ),
                                         );
                                       },
                                 icon: const Icon(Icons.check_circle),

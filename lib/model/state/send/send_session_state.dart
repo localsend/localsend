@@ -9,6 +9,8 @@ part 'send_session_state.freezed.dart';
 @freezed
 class SendSessionState with _$SendSessionState {
   const factory SendSessionState({
+    required String sessionId,
+    required bool background,
     required SessionStatus status,
     required Device target,
     required Map<String, SendingFile> files, // file id as key
