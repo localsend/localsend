@@ -4,7 +4,6 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
@@ -16,6 +15,7 @@ import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
+import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
@@ -57,7 +57,6 @@ class _SendTabState extends ConsumerState<SendTab> {
   Widget build(BuildContext context) {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
     final networkInfo = ref.watch(networkStateProvider);
-    final myDevice = ref.watch(deviceInfoProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
       FilePickerOption.file,
@@ -212,17 +211,14 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-          child: Hero(
-            tag: 'this-device',
-            child: DeviceListTile(
-              device: myDevice,
-              thisDevice: true,
+        if (nearbyDevicesState.devices.isEmpty)
+          const Padding(
+            padding: EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+            child: Opacity(
+              opacity: 0.3,
+              child: DevicePlaceholderListTile(),
             ),
           ),
-        ),
-        const SizedBox(height: 10),
         ...nearbyDevicesState.devices.values.map((device) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
@@ -303,12 +299,15 @@ class _CircularPopupButton<T> extends StatelessWidget {
       borderRadius: BorderRadius.circular(9999),
       child: Material(
         type: MaterialType.transparency,
-        child: PopupMenuButton(
-          offset: const Offset(60, 40),
-          onSelected: onSelected,
-          tooltip: tooltip,
-          itemBuilder: itemBuilder,
-          child: child,
+        child: DividerTheme(
+          data: DividerThemeData(color: Colors.teal.shade200),
+          child: PopupMenuButton(
+            offset: const Offset(0, 40),
+            onSelected: onSelected,
+            tooltip: tooltip,
+            itemBuilder: itemBuilder,
+            child: child,
+          ),
         ),
       ),
     );
