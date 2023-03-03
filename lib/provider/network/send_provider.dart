@@ -271,7 +271,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     final target = sessionState.target;
     sessionState.cancelToken?.cancel(); // cancel current request
     state = state.removeSession(_ref, sessionId);
-    if (_ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
+    if (sessionState.status == SessionStatus.finished && _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
       // clear selected files
       _ref.read(selectedSendingFilesProvider.notifier).reset();
       clearCache();
