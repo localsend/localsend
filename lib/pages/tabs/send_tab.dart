@@ -518,7 +518,10 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
         if (session != null) {
           if (session.status == SessionStatus.waiting) {
             ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
-            await context.push(() => SendPage(sessionId: session.sessionId), transition: RouterinoTransition.fade);
+            await context.push(
+              () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
+              transition: RouterinoTransition.fade,
+            );
             ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
             return;
           } else if (session.status == SessionStatus.sending) {

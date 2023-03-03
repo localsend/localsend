@@ -14,9 +14,15 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 
 class SendPage extends ConsumerStatefulWidget {
+  final bool showAppBar;
+  final bool closeSessionOnClose;
   final String sessionId;
 
-  const SendPage({required this.sessionId});
+  const SendPage({
+    required this.showAppBar,
+    required this.closeSessionOnClose,
+    required this.sessionId,
+  });
 
   @override
   ConsumerState<SendPage> createState() => _SendPageState();
@@ -54,10 +60,13 @@ class _SendPageState extends ConsumerState<SendPage> {
 
     return WillPopScope(
       onWillPop: () async {
-        _cancel();
+        if (widget.closeSessionOnClose) {
+          _cancel();
+        }
         return true;
       },
       child: Scaffold(
+        appBar: widget.showAppBar ? AppBar() : null,
         body: SafeArea(
           child: Center(
             child: ConstrainedBox(

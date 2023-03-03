@@ -106,7 +106,10 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
 
     if (!background) {
       // ignore: use_build_context_synchronously
-      Routerino.context.push(() => SendPage(sessionId: sessionId), transition: RouterinoTransition.fade);
+      Routerino.context.push(
+        () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
+        transition: RouterinoTransition.fade,
+      );
     }
 
     final Response response;
@@ -166,8 +169,9 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       final background = _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
 
       // ignore: use_build_context_synchronously
-      Routerino.context.pushAndRemoveUntilImmediately(
-        removeUntil: SendPage,
+      Routerino.context.pushAndRemoveUntil(
+        removeUntil: HomePage,
+        transition: RouterinoTransition.fade, // immediately is not possible: https://github.com/flutter/flutter/issues/121910
         builder: () => ProgressPage(
           showAppBar: background,
           closeSessionOnClose: !background,
