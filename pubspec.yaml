@@ -26,10 +26,10 @@ dependencies:
   flutter_riverpod: 2.2.0
   freezed_annotation: 2.2.0
   image_gallery_saver: 1.7.1
-  image_picker: 0.8.6+3
+  image_picker: 0.8.6+4
   intl: 0.17.0
   json_annotation: 4.8.0
-  launch_at_startup: 0.2.1
+  launch_at_startup: 0.2.2
   network_info_plus: 3.0.2
   open_filex: 4.3.2
   package_info_plus: 3.0.3
@@ -53,7 +53,7 @@ dependencies:
   uuid: 3.0.7
   wakelock: 0.6.2
   wechat_assets_picker: 8.4.0
-  window_manager: 0.3.0
+  window_manager: 0.3.1
 
 dev_dependencies:
   build_runner: 2.3.3
