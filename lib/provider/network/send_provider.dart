@@ -278,7 +278,6 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     if (sessionState.status == SessionStatus.finished && _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
       // clear selected files
       _ref.read(selectedSendingFilesProvider.notifier).reset();
-      clearCache();
     }
 
     // notify the receiver

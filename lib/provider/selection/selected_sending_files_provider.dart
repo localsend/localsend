@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
+import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
@@ -57,10 +58,14 @@ class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
 
   void removeAt(int index) {
     state = List.unmodifiable([...state]..removeAt(index));
+    if (state.isEmpty) {
+      clearCache();
+    }
   }
 
   void reset() {
     state = List.empty(growable: false);
+    clearCache();
   }
 }
 

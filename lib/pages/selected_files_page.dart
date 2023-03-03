@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
@@ -43,7 +42,6 @@ class SelectedFilesPage extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () {
                   ref.read(selectedSendingFilesProvider.notifier).reset();
-                  clearCache();
                   context.popUntilRoot();
                 },
                 child: Text(t.selectedFilesPage.deleteAll),
@@ -111,7 +109,6 @@ class SelectedFilesPage extends ConsumerWidget {
                               final currCount = ref.read(selectedSendingFilesProvider).length;
                               ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
                               if (currCount == 1) {
-                                clearCache();
                                 context.popUntilRoot();
                               }
                             },
