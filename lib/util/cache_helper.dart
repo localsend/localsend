@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -12,15 +14,17 @@ void clearCache() {
   });
   PhotoManager.clearFileCache().catchError((error) => print(error));
 
-  getTemporaryDirectory().then((cacheDir) {
-    cacheDir.list().listen((event) {
-      if (event is File) {
-        event.delete().then((_) {}).catchError((error) {
-          print(error);
-        });
-      }
+  if (checkPlatform([TargetPlatform.iOS, TargetPlatform.android])) {
+    getTemporaryDirectory().then((cacheDir) {
+      cacheDir.list().listen((event) {
+        if (event is File) {
+          event.delete().then((_) {}).catchError((error) {
+            print(error);
+          });
+        }
+      });
+    }).catchError((error) {
+      print(error);
     });
-  }).catchError((error) {
-    print(error);
-  });
+  }
 }

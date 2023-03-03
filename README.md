@@ -8,7 +8,7 @@ Links: [Homepage](https://localsend.org)
 
 - [About](#about)
 - [Screenshots](#screenshots)
-- [Installation](#installation)
+- [Download](#download)
 - [How it Works](#how-it-works)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
@@ -29,7 +29,7 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 <img src="https://localsend.org/img/screenshot-iphone.png" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.png" alt="PC screenshot" height="300"/>
 
-## Installation
+## Download
 
 It is recommended to download the app either from an app store or from a package manager because the app does not have auto-update.
 
