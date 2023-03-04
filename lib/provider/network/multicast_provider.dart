@@ -6,10 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/multicast_logs_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
 
@@ -59,7 +61,7 @@ class MulticastService {
           _ref.read(multicastLogsProvider.notifier).addLog('Received UDP: ${dto.alias} ($ip)');
           if (dto.announcement && _ref.read(serverProvider) != null) {
             // only respond when server is running
-            _answerAnnouncement();
+            _answerAnnouncement(datagram.address.address);
           }
         } catch (e) {
           _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
@@ -95,17 +97,24 @@ class MulticastService {
   }
 
   /// Responds to an announcement.
-  Future<void> _answerAnnouncement() async {
+  Future<void> _answerAnnouncement(String ip) async {
     _ref.read(multicastLogsProvider.notifier).addLog('Answering announcement');
     final settings = _ref.read(settingsProvider);
-    final sockets = await _getSockets(settings.multicastGroup);
-    final dto = _getDto(announcement: false);
-    for (final socket in sockets) {
-      try {
-        socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
-        socket.socket.close();
-      } catch (e) {
-        _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+
+    try {
+      // Answer with TCP
+      await _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.register.targetRaw(ip, settings.port, settings.https));
+    } catch (e) {
+      // Fallback: Answer with UDP
+      final sockets = await _getSockets(settings.multicastGroup);
+      final dto = _getDto(announcement: false);
+      for (final socket in sockets) {
+        try {
+          socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
+          socket.socket.close();
+        } catch (e) {
+          _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+        }
       }
     }
   }

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
+import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
@@ -16,6 +17,7 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
+import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -127,6 +129,33 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       );
 
       return _response(200, body: dto.toJson());
+    });
+
+    // An upgraded version of /info
+    router.post(ApiRoute.register.path, (Request request) async {
+      final payload = await request.readAsString();
+      final RegisterDto requestDto;
+      try {
+        requestDto = RegisterDto.fromJson(jsonDecode(payload));
+      } catch (e) {
+        return _response(400, message: 'Request body malformed');
+      }
+
+      if (requestDto.fingerprint == fingerprint) {
+        // "I talked to myself lol"
+        return _response(412, message: 'Self-discovered');
+      }
+
+      // Save device information
+      _ref.read(nearbyDevicesProvider.notifier).registerDevice(requestDto.toDevice(request.ip, port, https));
+
+      final responseDto = InfoDto(
+        alias: alias,
+        deviceModel: deviceInfo.deviceModel,
+        deviceType: deviceInfo.deviceType,
+      );
+
+      return _response(200, body: responseDto.toJson());
     });
 
     router.post(ApiRoute.sendRequest.path, (Request request) async {

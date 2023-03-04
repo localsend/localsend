@@ -22,6 +22,8 @@ class Device with _$Device {
     required bool https,
     required String alias,
     required String? deviceModel,
+
+    @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
     required DeviceType deviceType,
   }) = _Device;
 

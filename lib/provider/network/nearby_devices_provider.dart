@@ -26,7 +26,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   NearbyDevicesNotifier(this._dio, this._fingerprint, this._multicastService) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
 
   void startMulticastListener() {
-    _multicastService.startListener().listen(_addDevice);
+    _multicastService.startListener().listen(registerDevice);
   }
 
   /// It does not really "scan".
@@ -44,7 +44,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
 
     state = state.copyWith(runningIps: {...state.runningIps, localIp});
 
-    await _getStream(localIp, port, https, _fingerprint).forEach(_addDevice);
+    await _getStream(localIp, port, https, _fingerprint).forEach(registerDevice);
 
     state = state.copyWith(runningIps: state.runningIps.where((ip) => ip != localIp).toSet());
   }
@@ -63,7 +63,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     return _runners[localIp]!.stream.where((device) => device != null).cast<Device>();
   }
 
-  void _addDevice(Device device) {
+  void registerDevice(Device device) {
     state = state.copyWith(
       devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
     );

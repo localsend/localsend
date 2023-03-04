@@ -5,6 +5,7 @@ const _basePath = '/api/localsend/v1';
 /// Type-safe API paths
 enum ApiRoute {
   info('/info'),
+  register('/register'),
   sendRequest('/send-request'),
   send('/send'),
   cancel('/cancel'),
