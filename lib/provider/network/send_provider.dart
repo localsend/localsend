@@ -285,6 +285,11 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     });
   }
 
+  void clearAllSessions() {
+    state = {};
+    _ref.read(progressProvider.notifier).removeAllSessions();
+  }
+
   void setBackground(String sessionId, bool background) {
     state = state.updateSession(sessionId: sessionId, state: (s) => s?.copyWith(background: background));
   }

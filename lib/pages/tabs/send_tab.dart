@@ -214,7 +214,12 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             ),
             _SendModeButton(
-              onSelect: (mode) => ref.read(settingsProvider.notifier).setSendMode(mode),
+              onSelect: (mode) {
+                ref.read(settingsProvider.notifier).setSendMode(mode);
+                if (mode != SendMode.multiple) {
+                  ref.read(sendProvider.notifier).clearAllSessions();
+                }
+              },
             ),
           ],
         ),
