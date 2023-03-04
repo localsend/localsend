@@ -21,7 +21,6 @@ final multicastProvider = Provider((ref) {
   return MulticastService(ref, deviceInfo);
 });
 
-
 class MulticastService {
   final Ref _ref;
   final DeviceInfoResult _deviceInfo;
@@ -62,7 +61,10 @@ class MulticastService {
           _ref.read(multicastLogsProvider.notifier).addLog('Received UDP: ${dto.alias} ($ip)');
           if (dto.announcement && _ref.read(serverProvider) != null) {
             // only respond when server is running
-            _answerAnnouncement(datagram.address.address);
+            _answerAnnouncement(
+              ip: datagram.address.address,
+              peerAlias: dto.alias,
+            );
           }
         } catch (e) {
           _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
@@ -82,7 +84,7 @@ class MulticastService {
     final settings = _ref.read(settingsProvider);
     final sockets = await _getSockets(settings.multicastGroup);
     final dto = _getMulticastDto(announcement: true);
-    for (final wait in [100, 500, 1000, 2000]) {
+    for (final wait in [100, 500, 2000]) {
       await sleepAsync(wait);
 
       _ref.read(multicastLogsProvider.notifier).addLog('Sending announcement');
@@ -98,8 +100,7 @@ class MulticastService {
   }
 
   /// Responds to an announcement.
-  Future<void> _answerAnnouncement(String ip) async {
-    _ref.read(multicastLogsProvider.notifier).addLog('Answering announcement');
+  Future<void> _answerAnnouncement({required String ip, required String peerAlias}) async {
     final settings = _ref.read(settingsProvider);
 
     try {
@@ -108,6 +109,7 @@ class MulticastService {
         ApiRoute.register.targetRaw(ip, settings.port, settings.https),
         data: _getRegisterDto().toJson(),
       );
+      _ref.read(multicastLogsProvider.notifier).addLog('Responded to announcement of $peerAlias via TCP successfully.');
     } catch (e) {
       // Fallback: Answer with UDP
       final sockets = await _getSockets(settings.multicastGroup);
@@ -120,6 +122,7 @@ class MulticastService {
           _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
         }
       }
+      _ref.read(multicastLogsProvider.notifier).addLog('Responded to announcement of $peerAlias with UDP because TCP failed.');
     }
   }
 
