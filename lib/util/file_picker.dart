@@ -40,6 +40,7 @@ enum FilePickerOption {
   }) async {
     switch (this) {
       case FilePickerOption.file:
+        ref.read(pickingStatusProvider.notifier).state = true;
         if (checkPlatform([TargetPlatform.android])) {
           // On android, the files are copied to the cache which takes some time.
           showDialog(
@@ -48,18 +49,14 @@ enum FilePickerOption {
             builder: (_) => const LoadingDialog(),
           );
         }
-        final result = await FilePicker.platform.pickFiles(
-          allowMultiple: true,
-          onFileLoading: (progress) {
-            ref.read(pickingStatusProvider.notifier).state = progress == FilePickerStatus.picking;
-          },
-        );
+        final result = await FilePicker.platform.pickFiles(allowMultiple: true);
         if (result != null) {
           ref.read(selectedSendingFilesProvider.notifier).addFiles(
                 files: result.files,
                 converter: CrossFileConverters.convertPlatformFile,
               );
         }
+        ref.read(pickingStatusProvider.notifier).state = false;
         break;
       case FilePickerOption.media:
         final List<AssetEntity>? result = await AssetPicker.pickAssets(
