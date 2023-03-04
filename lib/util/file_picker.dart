@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
+import 'package:localsend_app/provider/picking_status_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -37,7 +40,20 @@ enum FilePickerOption {
   }) async {
     switch (this) {
       case FilePickerOption.file:
-        final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+        if (checkPlatform([TargetPlatform.android])) {
+          // On android, the files are copied to the cache which takes some time.
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const LoadingDialog(),
+          );
+        }
+        final result = await FilePicker.platform.pickFiles(
+          allowMultiple: true,
+          onFileLoading: (progress) {
+            ref.read(pickingStatusProvider.notifier).state = progress == FilePickerStatus.picking;
+          },
+        );
         if (result != null) {
           ref.read(selectedSendingFilesProvider.notifier).addFiles(
                 files: result.files,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomProgressBar extends StatelessWidget {
-  final double progress;
+  final double? progress;
   final double borderRadius;
   final Color? color;
 
