@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
+import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
@@ -80,7 +81,7 @@ class MulticastService {
   Future<void> sendAnnouncement() async {
     final settings = _ref.read(settingsProvider);
     final sockets = await _getSockets(settings.multicastGroup);
-    final dto = _getDto(announcement: true);
+    final dto = _getMulticastDto(announcement: true);
     for (final wait in [100, 500, 1000, 2000]) {
       await sleepAsync(wait);
 
@@ -103,11 +104,14 @@ class MulticastService {
 
     try {
       // Answer with TCP
-      await _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.register.targetRaw(ip, settings.port, settings.https));
+      await _ref.read(dioProvider(DioType.discovery)).post(
+        ApiRoute.register.targetRaw(ip, settings.port, settings.https),
+        data: _getRegisterDto().toJson(),
+      );
     } catch (e) {
       // Fallback: Answer with UDP
       final sockets = await _getSockets(settings.multicastGroup);
-      final dto = _getDto(announcement: false);
+      final dto = _getMulticastDto(announcement: false);
       for (final socket in sockets) {
         try {
           socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
@@ -120,7 +124,7 @@ class MulticastService {
   }
 
   /// Returns the MulticastDto of this device in bytes.
-  List<int> _getDto({required bool announcement}) {
+  List<int> _getMulticastDto({required bool announcement}) {
     final settings = _ref.read(settingsProvider);
     final serverState = _ref.read(serverProvider);
     final fingerprint = _ref.read(fingerprintProvider);
@@ -132,6 +136,18 @@ class MulticastService {
       announcement: announcement,
     );
     return utf8.encode(jsonEncode(dto.toJson()));
+  }
+
+  RegisterDto _getRegisterDto() {
+    final settings = _ref.read(settingsProvider);
+    final serverState = _ref.read(serverProvider);
+    final fingerprint = _ref.read(fingerprintProvider);
+    return RegisterDto(
+      alias: serverState?.alias ?? settings.alias,
+      deviceModel: _deviceInfo.deviceModel,
+      deviceType: _deviceInfo.deviceType,
+      fingerprint: fingerprint,
+    );
   }
 }
 
