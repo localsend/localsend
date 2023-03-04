@@ -53,23 +53,26 @@ class ReceiveHistoryPage extends ConsumerWidget {
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         children: [
-          Row(
-            children: [
-              ElevatedButton.icon(
-                onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
-                  final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
-                  openFolder(destination);
-                },
-                icon: const Icon(Icons.folder),
-                label: Text(t.receiveHistoryPage.openFolder),
-              ),
-              const SizedBox(width: 20),
-              ElevatedButton.icon(
-                onPressed: entries.isEmpty ? null : () => ref.read(receiveHistoryProvider.notifier).removeAll(),
-                icon: const Icon(Icons.delete),
-                label: Text(t.receiveHistoryPage.deleteHistory),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
+                    final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
+                    openFolder(destination);
+                  },
+                  icon: const Icon(Icons.folder),
+                  label: Text(t.receiveHistoryPage.openFolder),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton.icon(
+                  onPressed: entries.isEmpty ? null : () => ref.read(receiveHistoryProvider.notifier).removeAll(),
+                  icon: const Icon(Icons.delete),
+                  label: Text(t.receiveHistoryPage.deleteHistory),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           if (entries.isEmpty)
