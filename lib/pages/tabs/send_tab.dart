@@ -315,7 +315,9 @@ class _CircularPopupButton<T> extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: DividerTheme(
-          data: DividerThemeData(color: Colors.teal.shade200),
+          data: DividerThemeData(
+            color: Theme.of(context).brightness == Brightness.light ? Colors.teal.shade100 : Colors.grey.shade700,
+          ),
           child: PopupMenuButton(
             offset: const Offset(0, 40),
             onSelected: onSelected,

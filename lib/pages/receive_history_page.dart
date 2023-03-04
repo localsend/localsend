@@ -51,12 +51,13 @@ class ReceiveHistoryPage extends ConsumerWidget {
         title: Text(t.receiveHistoryPage.title),
       ),
       body: ResponsiveListView(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
+                const SizedBox(width: 15),
                 ElevatedButton.icon(
                   onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
                     final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
@@ -83,7 +84,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
           else
             ...entries.map((entry) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,

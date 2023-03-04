@@ -80,7 +80,7 @@ class _SendPageState extends ConsumerState<SendPage> {
                         children: [
                           InitialSlideTransition(
                             origin: const Offset(0, -1),
-                            duration: const Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 400),
                             child: DeviceListTile(
                               device: myDevice,
                             ),
