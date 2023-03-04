@@ -151,7 +151,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
 
       if (state[sessionId]?.background == false) {
         // ignore: use_build_context_synchronously
-        Routerino.context.pushRootImmediately(() => const HomePage(appStart: false));
+        Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
       }
 
       state = state.removeSession(_ref, sessionId);
@@ -250,7 +250,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       );
     }
 
-    if (state[sessionId]?.background == true) {
+    if (!hasError && state[sessionId]?.background == true) {
       state = state.removeSession(_ref, sessionId);
     } else {
       state = state.updateSession(

@@ -56,19 +56,21 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
         Wakelock.enable();
       } catch (_) {}
 
-      final receiveSession = ref.read(serverProvider.select((state) => state?.session));
-      if (receiveSession != null) {
-        _files = receiveSession.files.values.map((f) => f.file).toList();
-        _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
-      } else {
-        final sendSession = ref.read(sendProvider)[widget.sessionId];
-        if (sendSession != null) {
-          _files = sendSession.files.values.map((f) => f.file).toList();
-          _filesWithToken = sendSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+      setState(() {
+        final receiveSession = ref.read(serverProvider.select((state) => state?.session));
+        if (receiveSession != null) {
+          _files = receiveSession.files.values.map((f) => f.file).toList();
+          _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+        } else {
+          final sendSession = ref.read(sendProvider)[widget.sessionId];
+          if (sendSession != null) {
+            _files = sendSession.files.values.map((f) => f.file).toList();
+            _filesWithToken = sendSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+          }
         }
-      }
 
-      _totalBytes = _files.where((f) => _filesWithToken.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
+        _totalBytes = _files.where((f) => _filesWithToken.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
+      });
     });
   }
 
@@ -87,7 +89,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     if (status == null) {
       return true;
     }
-    if (!widget.closeSessionOnClose && status == SessionStatus.sending) {
+    if (!widget.closeSessionOnClose && (status == SessionStatus.sending || status == SessionStatus.finishedWithErrors)) {
       // keep session except [closeSessionOnClose] is true and the session is active
       return true;
     }
@@ -155,10 +157,14 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                 left: 15,
                 right: 30,
               ),
-              itemCount: _files.length + 1,
+              itemCount: _files.length + 2,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   // title
+                  if (widget.showAppBar) {
+                    return Container();
+                  }
+
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 5),
                     child: Column(
@@ -196,7 +202,17 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                   );
                 }
 
-                final file = _files[index - 1];
+                if (index == 1) {
+                  // error card
+                  final errorMessage = sendSession?.errorMessage;
+                  if (errorMessage == null) {
+                    return Container();
+                  }
+
+                  return SelectableText(errorMessage, style: TextStyle(color: Theme.of(context).colorScheme.warning));
+                }
+
+                final file = _files[index - 2];
                 final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
 
                 final fileStatus = receiveSession?.files[file.id]?.status ?? sendSession!.files[file.id]!.status;
@@ -371,7 +387,8 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                 onPressed: () async {
                                   final result = await _askCancelConfirmation(status);
                                   if (result && mounted) {
-                                    context.pushRootImmediately(() => const HomePage(appStart: false));
+                                    final homeTab = receiveSession != null ? HomeTab.receive : HomeTab.send;
+                                    context.pushRootImmediately(() => HomePage(initialTab: homeTab, appStart: false));
                                   }
                                 },
                                 icon: Icon(status == SessionStatus.sending ? Icons.close : Icons.check_circle),

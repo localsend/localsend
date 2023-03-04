@@ -38,18 +38,24 @@ enum HomeTab {
 }
 
 class HomePage extends ConsumerStatefulWidget {
+  final HomeTab initialTab;
+
   /// It is important for the initializing step
   /// because the first init clears the cache
   final bool appStart;
 
-  const HomePage({required this.appStart, super.key});
+  const HomePage({
+    required this.initialTab,
+    required this.appStart,
+    super.key,
+  });
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  final _pageController = PageController();
+  late PageController _pageController;
   HomeTab _currentTab = HomeTab.receive;
 
   bool _dragAndDropIndicator = false;
@@ -57,6 +63,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    _pageController = PageController(initialPage: widget.initialTab.index);
+    _currentTab = widget.initialTab;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       postInit(context, ref, widget.appStart, _goToPage);
