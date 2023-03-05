@@ -1,45 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <hu>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "picker": {
-      "app": "App"
-    },
-    "sendMode": "Küldési mód",
-    "sendModes": {
-      "single": "Egyetlen címzett",
-      "multiple": "Több címzett",
-      "link": "Megosztás linkben"
-    },
-    "sendModeHelp": "Magyarázat"
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(Letöltések)"
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "Mappa megnyitása",
-    "deleteHistory": "Előzmény törlése"
-  },
-  "apkPickerPage": {
-    "title": "Appok (APK)",
-    "excludeSystemApps": "Rendszeralkalmazások kizárása",
-    "excludeAppsWithoutLaunchIntent": "A nem indítható alkalmazások kizárása",
-    "apps": "{n} app"
-  },
-  "dialogs": {
-    "notAvailableOnPlatform": {
-      "title": "Nem érhető el",
-      "content": "Ez a funkció csak itt érhető el:"
-    },
-    "sendModeHelp": {
-      "title": "Küldési módok",
-      "single": "Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.",
-      "multiple": "Fájlokat küld több címzettnek. A kijelölés nem törlődik.",
-      "link": "Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben."
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }

@@ -1,32 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <nl>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=nl' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "sendMode": "Send mode",
-    "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
-    },
-    "sendModeHelp": "Explanation"
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(Downloads)"
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
-  },
-  "dialogs": {
-    "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=nl' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }

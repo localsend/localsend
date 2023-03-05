@@ -10,6 +10,7 @@
       "save": "Save"
     },
     "sendTab": {
+      "thisDevice": "This Device",
       "sendModes": {
         "link": "Share via link"
       }
