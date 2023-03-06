@@ -41,7 +41,7 @@
     "title": "接收",
     "infoBox": {
       "ip": "IP：",
-      "port": "埠號：",
+      "port": "通訊埠：",
       "alias": "別名："
     }
   },
@@ -60,8 +60,8 @@
     "shareIntentInfo": "你也可以使用你的行動裝置中的「分享」功能來更簡單的選擇檔案。",
     "nearbyDevices": "附近的裝置",
     "thisDevice": "這台裝置",
-    "scan": "掃描裝置",
-    "help": "請確保目標連線的是同一個 Wi-Fi 網路。",
+    "scan": "搜尋裝置",
+    "help": "請確保連線目標的處於同一個 Wi-Fi 網路。",
     "placeItems": "列出要分享的檔案。"
   },
   "settingsTab": {
@@ -70,13 +70,13 @@
       "title": "一般設定",
       "theme": "介面風格",
       "themeOptions": {
-        "system": "遵循系統設定",
+        "system": "遵循系統",
         "dark": "黑暗",
         "light": "明亮"
       },
       "language": "語言",
       "languageOptions": {
-        "system": "遵循系統設定"
+        "system": "遵循系統"
       },
       "minimizeToTray": "關閉行為：最小化至系統匣",
       "launchAtStartup": "登入系統後自動啟動程式",
@@ -93,8 +93,8 @@
       "needRestart": "重新啟動伺服器使設定生效！",
       "server": "伺服器",
       "alias": "別名",
-      "port": "埠號",
-      "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂埠號. (預設值: {defaultPort})",
+      "port": "通訊埠",
+      "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂通訊埠. (預設值: {defaultPort})",
       "encryption": "加密傳輸",
       "multicastGroup": "多播",
       "multicastGroupWarning": "您可能無法偵測到其他設備,因為您正在使用自訂多播位址. (預設值: {defaultMulticast})"
@@ -102,17 +102,17 @@
   },
   "troubleshootTab": {
     "title": "疑難排解",
-    "subTitle": "這個應用程式沒有按預期運作？在這裡您可以找到常見的解決方案。",
+    "subTitle": "這個應用程式沒有如預期運作？在這裡您可以找到常見的解決方案。",
     "solution": "解決方案:",
     "fixButton": "自動修復",
     "firewall": {
       "symptom": "此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。",
-      "solution": "這很可能是防火牆問題。您可以透過允許端口 {port} 上的傳入連接（UDP 和 TCP）來解決此問題。",
+      "solution": "這很可能是防火牆問題。您可以透過允許通訊埠 {port} 上的連入連線（UDP 和 TCP）來解決此問題。",
       "openFirewall": "開啟防火牆"
     },
     "noConnection": {
-      "symptom": "兩台裝置無法相互發現，也無法共享檔案。",
-      "solution": "雙方都存在問題？然後你需要確保兩個裝置都在同一個 wifi 網路中並共享相同的配置（埠、多播地址、加密傳輸）。 wifi 可能不允許參與者之間進行通訊。在這種情況下，必須在路由器上啟用此選項。"
+      "symptom": "兩台裝置無法互相探詢，也無法共享檔案。",
+      "solution": "雙方都存在問題？然後你需要確保兩個裝置都在同一個 WiFi 網路中並共享相同的設定（通訊埠、多播地址、加密傳輸）。 WiFi 可能不允許參與者之間進行通訊。在這種情況下，必須在路由器上啟用此選項。"
     }
   },
   "receiveHistoryPage": {
