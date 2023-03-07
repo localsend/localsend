@@ -55,12 +55,20 @@
     "picker": {
       "file": "Arquivo",
       "media": "Mídia",
-      "text": "Texto"
+      "text": "Texto",
+      "app": "Aplicativo"
     },
     "shareIntentInfo": "Você também pode usar o recurso \"Compartilhar\" do seu dispositivo móvel para selecionar arquivos com mais facilidade.",
     "nearbyDevices": "Dispositivos próximos",
     "thisDevice": "Este dispositivo",
     "scan": "Procurar dispositivos",
+    "sendMode": "Modo de envio",
+    "sendModes": {
+      "single": "Único destinatário",
+      "multiple": "Múltiplos destinatários",
+      "link": "Compartilhe via link"
+    },
+    "sendModeHelp": "Explicação",
     "help": "Por favor, certifique-se de que o dispositivo desejado também está na mesma rede wifi.",
     "placeItems": "Coloque os itens para compartilhar."
   },
@@ -86,6 +94,7 @@
       "title": "Recebimento",
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
+      "downloads": "(Downloads)",
       "saveToGallery": "Salvar mídia na galeria"
     },
     "network": {
@@ -95,17 +104,42 @@
       "alias": "Nome",
       "port": "Porta",
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
-      "encryption": "Criptografia"
+      "encryption": "Criptografia",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
+    }
+  },
+  "troubleshootTab": {
+    "title": "Diagnostique problemas",
+    "subTitle": "Este aplicativo não está funcionando como esperado? Aqui você pode encontrar soluções comuns.",
+    "solution": "Solução:",
+    "fixButton": "Consertar automaticamente",
+    "firewall": {
+      "symptom": "Este aplicativo pode enviar arquivos para outros dispositivos, mas outros dispositivos não podem enviar arquivos para este dispositivo.",
+      "solution": "Provavelmente isso se trata de um problema de firewall. Você pode resolver isto permitindo conexões recebidas (UDP e TCP) na porta {port}.",
+      "openFirewall": "Abrir o Firewall"
+    },
+    "noConnection": {
+      "symptom": "Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.",
+      "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
     }
   },
   "receiveHistoryPage": {
     "title": "Histórico",
+    "openFolder": "Abrir pasta",
+    "deleteHistory": "Deletar histórico",
     "empty": "O histórico está vazio.",
     "entryActions": {
       "open": "Abrir arquivo",
       "info": "Informações",
       "deleteFromHistory": "Remover do histórico"
     }
+  },
+  "apkPickerPage": {
+    "title": "Aplicativos (APK)",
+    "excludeSystemApps": "Ocultar aplicativos do sistema",
+    "excludeAppsWithoutLaunchIntent": "Ocultar aplicativos não executáveis",
+    "apps": "{n} Aplicativos"
   },
   "selectedFilesPage": {
     "deleteAll": "Remover tudo"
@@ -126,7 +160,8 @@
   },
   "sendPage": {
     "waiting": "Aguardando resposta...",
-    "rejected": "O destinatário rejeitou a solicitação."
+    "rejected": "O destinatário rejeitou a solicitação.",
+    "busy": "O destinatário está ocupado com outra solicitação de transferência."
   },
   "progressPage": {
     "titleSending": "Enviando arquivos",
@@ -221,7 +256,8 @@
     "addressInput": {
       "title": "Digite o endereço",
       "hashtag": "Hashtag",
-      "ip": "Endereço IP"
+      "ip": "Endereço IP",
+      "recentlyUsed": "Recém conectado: "
     },
     "cancelSession": {
       "title": "Cancelar transferência de arquivos",
@@ -235,6 +271,17 @@
       "title": "Criptografia desativada",
       "content": "A comunicação agora ocorre via protocolo HTTP não criptografado. Para usar HTTPS, ative a criptografia novamente."
     },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "Informação do arquivo",
+      "fileName": "Nome do arquivo:",
+      "path": "Caminho:",
+      "size": "Tamanho:",
+      "sender": "Remetente:",
+      "time": "Data:"
+    },
     "fileNameInput": {
       "title": "Digite o nome do arquivo",
       "original": "Original: {original}"
@@ -247,6 +294,10 @@
       "title": "Nenhum arquivo selecionado",
       "content": "Por favor, selecione ao menos um arquivo."
     },
+    "notAvailableOnPlatform": {
+      "title": "Indisponível",
+      "content": "Essa função está disponível somente no: "
+    },
     "quickActions": {
       "title": "Ações Rápidas",
       "counter": "Contador",
@@ -258,6 +309,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você."
+    },
+    "sendModeHelp": {
+      "title": "Modos de envio",
+      "single": "Envia arquivos para um destinatário. A seleção será apagada após a conclusão da transferência dos arquivos.",
+      "multiple": "Envia arquivos para múltiplos destinatários. A seleção não será apagada.",
+      "link": "Os destinatários que não têm o LocalSend instalado podem baixar os arquivos selecionados abrindo o link fornecido no navegador."
     }
   },
   "tray": {
