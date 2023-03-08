@@ -5,15 +5,15 @@
   ],
   "sendTab": {
     "picker": {
-      "app": "App"
+      "app": "Aplicativo"
     },
-    "sendMode": "Send mode",
+    "sendMode": "Modo de envio",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "Único destinatário",
+      "multiple": "Múltiplos destinatários",
+      "link": "Compartilhe via link"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "Explicação"
   },
   "settingsTab": {
     "receive": {
@@ -21,61 +21,61 @@
     },
     "network": {
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
     }
   },
   "troubleshootTab": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "title": "Diagnostique problemas",
+    "subTitle": "Este aplicativo não está funcionando como esperado? Aqui você pode encontrar soluções comuns.",
+    "solution": "Solução:",
+    "fixButton": "Consertar automaticamente",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "Este aplicativo pode enviar arquivos para outros dispositivos, mas outros dispositivos não podem enviar arquivos para este dispositivo.",
+      "solution": "Provavelmente isso se trata de um problema de firewall. Você pode resolver isto permitindo conexões recebidas (UDP e TCP) na porta {port}.",
+      "openFirewall": "Abrir o Firewall"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.",
+      "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
     }
   },
   "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
+    "openFolder": "Abrir pasta",
+    "deleteHistory": "Deletar histórico"
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Aplicativos (APK)",
+    "excludeSystemApps": "Ocultar aplicativos do sistema",
+    "excludeAppsWithoutLaunchIntent": "Ocultar aplicativos não executáveis",
+    "apps": "{n} Aplicativos"
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "O destinatário está ocupado com outra solicitação de transferência."
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "Recém conectado: "
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "Informação do arquivo",
+      "fileName": "Nome do arquivo:",
+      "path": "Caminho:",
+      "size": "Tamanho:",
+      "sender": "Remetente:",
+      "time": "Data:"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Indisponível",
+      "content": "Essa função está disponível somente no: "
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Modos de envio",
+      "single": "Envia arquivos para um destinatário. A seleção será apagada após a conclusão da transferência dos arquivos.",
+      "multiple": "Envia arquivos para múltiplos destinatários. A seleção não será apagada.",
+      "link": "Os destinatários que não têm o LocalSend instalado podem baixar os arquivos selecionados abrindo o link fornecido no navegador."
     }
   }
 }
