@@ -5,41 +5,41 @@
   ],
   "sendTab": {
     "picker": {
-      "app": "App"
+      "app": "應用程式"
     },
-    "sendMode": "Send mode",
+    "sendMode": "傳輸模式",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "單次傳輸",
+      "multiple": "多次傳輸",
+      "link": "透過連結分享"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "詳細說明"
   },
   "settingsTab": {
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(下載)"
     }
   },
   "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
+    "openFolder": "開啟資料夾",
+    "deleteHistory": "刪除紀錄"
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "應用程式 (APK)",
+    "excludeSystemApps": "排除系統應用程式",
+    "excludeAppsWithoutLaunchIntent": "排除不可啟動的應用程式",
+    "apps": "{n} 應用程式"
   },
   "dialogs": {
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "不可使用",
+      "content": "此功能僅允許在:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "傳輸模式",
+      "single": "單次傳輸檔案到設備. 選中的檔案在傳輸完成後會被取消選取.",
+      "multiple": "多次傳輸檔案到設備. 選中的檔案在傳輸完成後不會被取消選取.",
+      "link": "未安裝 LocalSend 的接收方可以透過瀏覽器打開連結來下載選中的檔案."
     }
   }
 }
