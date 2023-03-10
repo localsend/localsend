@@ -55,12 +55,20 @@
     "picker": {
       "file": "檔案",
       "media": "媒體",
-      "text": "文字"
+      "text": "文字",
+      "app": "應用程式"
     },
     "shareIntentInfo": "你也可以使用你的行動裝置中的「分享」功能來更簡單的選擇檔案。",
     "nearbyDevices": "附近的裝置",
     "thisDevice": "這台裝置",
     "scan": "搜尋裝置",
+    "sendMode": "傳輸模式",
+    "sendModes": {
+      "single": "單次傳輸",
+      "multiple": "多次傳輸",
+      "link": "透過連結分享"
+    },
+    "sendModeHelp": "詳細說明",
     "help": "請確保連線目標的處於同一個 Wi-Fi 網路。",
     "placeItems": "列出要分享的檔案。"
   },
@@ -86,6 +94,7 @@
       "title": "接收設定",
       "quickSave": "@:general.quickSave",
       "destination": "儲存目錄",
+      "downloads": "(下載)",
       "saveToGallery": "儲存到相簿"
     },
     "network": {
@@ -117,12 +126,20 @@
   },
   "receiveHistoryPage": {
     "title": "接收紀錄",
+    "openFolder": "開啟資料夾",
+    "deleteHistory": "刪除紀錄",
     "empty": "沒有紀錄.",
     "entryActions": {
       "open": "開啟檔案",
       "info": "資訊",
       "deleteFromHistory": "從記錄刪除"
     }
+  },
+  "apkPickerPage": {
+    "title": "應用程式 (APK)",
+    "excludeSystemApps": "排除系統應用程式",
+    "excludeAppsWithoutLaunchIntent": "排除不可啟動的應用程式",
+    "apps": "{n} 應用程式"
   },
   "selectedFilesPage": {
     "deleteAll": "全部刪除"
@@ -217,6 +234,10 @@
       "title": "沒有選擇檔案",
       "content": "請最少選擇一個檔案。"
     },
+    "notAvailableOnPlatform": {
+      "title": "不可使用",
+      "content": "此功能僅允許在:"
+    },
     "quickActions": {
       "title": "快速操作",
       "counter": "計數器",
@@ -228,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自動接受所有檔案傳輸請求。請注意，這會讓此網路中的所有人都可以直接向您傳送檔案。"
+    },
+    "sendModeHelp": {
+      "title": "傳輸模式",
+      "single": "單次傳輸檔案到設備. 選中的檔案在傳輸完成後會被取消選取.",
+      "multiple": "多次傳輸檔案到設備. 選中的檔案在傳輸完成後不會被取消選取.",
+      "link": "未安裝 LocalSend 的接收方可以透過瀏覽器打開連結來下載選中的檔案."
     }
   },
   "tray": {
