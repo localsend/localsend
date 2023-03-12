@@ -55,12 +55,20 @@
     "picker": {
       "file": "Fichero",
       "media": "Media",
-      "text": "Texto"
+      "text": "Texto",
+      "app": "App"
     },
     "shareIntentInfo": "También puedes usar la opción \"Compartir\" de tu dispositivo para seleccionar ficheros más fácilmente.",
     "nearbyDevices": "Dispositivos Cercanos",
     "thisDevice": "Este dispositivo",
     "scan": "Buscar dispositivos",
+    "sendMode": "Modo de envío",
+    "sendModes": {
+      "single": "Solo un destino",
+      "multiple": "Múltiples destinos",
+      "link": "Compartir enlace"
+    },
+    "sendModeHelp": "Explicación",
     "help": "Asegúrate de que el destino elegido está en la misma red Wi-Fi.",
     "placeItems": "Selecciona items para compartir."
   },
@@ -86,6 +94,7 @@
       "title": "Recibir",
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
+      "downloads": "(Descargas)",
       "saveToGallery": "Guardar media en la galería"
     },
     "network": {
@@ -95,20 +104,45 @@
       "alias": "Alias",
       "port": "Puerto",
       "portWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando un puerto personalizado. (Puerto por defecto: {defaultPort})",
-      "encryption": "Encriptación"
+      "encryption": "Encriptación",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})"
     }
   },
-  "selectedFilesPage": {
-    "deleteAll": "Eliminar todo"
+  "troubleshootTab": {
+    "title": "Solucionar problemas",
+    "subTitle": "¿La aplicación no funciona como se espera? Aquí puedes encontrar soluciones a problemas comunes.",
+    "solution": "Solución:",
+    "fixButton": "Corregir automáticamente",
+    "firewall": {
+      "symptom": "Esta aplicación puede enviar ficheros a otros dispositivos pero otros dispositivos no pueden enviar ficheros a este.",
+      "solution": "Lo más probable es que se trate de un problema con el firewall, puedes solucionarlo permitiendo las conexiones entrantes (UDP y TCP) en el puerto {port}.",
+      "openFirewall": "Abrir Firewall"
+    },
+    "noConnection": {
+      "symptom": "Ambos dispositivos no pueden descubrirse ni compartir ficheros.",
+      "solution": "¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los participantes. En este caso, hay que activar esta opción en el router."
+    }
   },
   "receiveHistoryPage": {
     "title": "Historial",
+    "openFolder": "Abrir directorio",
+    "deleteHistory": "Borrar historial",
     "empty": "El historial está vacío.",
     "entryActions": {
       "open": "Abrir fichero",
       "info": "Información",
       "deleteFromHistory": "Borrar del historial"
     }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Excluir apps de sistema",
+    "excludeAppsWithoutLaunchIntent": "Excluir apps no ejecutables",
+    "apps": "{n} Apps"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Eliminar todo"
   },
   "receivePage": {
     "subTitle": {
@@ -126,7 +160,8 @@
   },
   "sendPage": {
     "waiting": "Esperando respuesta...",
-    "rejected": "El destino ha rechazado la petición."
+    "rejected": "El destino ha rechazado la petición.",
+    "busy": "El destino está ocupado con otra petición."
   },
   "progressPage": {
     "titleSending": "Enviando ficheros",
@@ -150,7 +185,7 @@
   "changelogPage": {
     "title": "Registro de cambios"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Uses English version"
   },
   "dialogs": {
@@ -164,6 +199,10 @@
       "ip": "Dirección IP",
       "recentlyUsed": "Usados recientemente: "
     },
+    "cancelSession": {
+      "title": "Cancelar transferencia de archivos",
+      "content": "¿Realmente quieres cancelar la transferencia de archivos?"
+    },
     "cannotOpenFile": {
       "title": "No se puede abrir el fichero",
       "content": "No se ha podido abrir \"{file}\". ¿Es posible que el fichero se haya movido, renombrado o elimnado?"
@@ -172,9 +211,8 @@
       "title": "Encriptación deshabilitada",
       "content": "La comunicación ahora tiene lugar mediante un protocolo HTTP sin encriptar. Para usar HTTPS, vuelve a habilitar la encriptación."
     },
-    "cancelSession": {
-      "title": "Cancelar transferencia de archivos",
-      "content": "¿Realmente quieres cancelar la transferencia de archivos?"
+    "errorDialog": {
+      "title": "@:general.error"
     },
     "fileInfo": {
       "title": "Información del fichero",
@@ -196,6 +234,10 @@
       "title": "Ningún fichero seleccionado",
       "content": "Por favor selecciona al menos un fichero."
     },
+    "notAvailableOnPlatform": {
+      "title": "No disponible",
+      "content": "Esta característica solo está disponible en:"
+    },
     "quickActions": {
       "title": "Acciones rápidas",
       "counter": "Contador",
@@ -207,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte ficheros."
+    },
+    "sendModeHelp": {
+      "title": "Modos de envío",
+      "single": "Enviar ficheros a un solo destino. La selección se borrará una vez finalizada la transferencia.",
+      "multiple": "Enviar ficheros a múltiples destinos. La selección no se borrará.",
+      "link": "Los destinatarios que no tengan LocalSend instalado pueden descargar los ficheros seleccionados abriendo el enlace en su navegador."
     }
   },
   "tray": {

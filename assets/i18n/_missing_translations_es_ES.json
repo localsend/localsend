@@ -1,70 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <es-ES>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=es-ES' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "picker": {
-      "app": "App"
-    },
-    "sendMode": "Modo de envío",
-    "sendModes": {
-      "single": "Solo un destino",
-      "multiple": "Múltiples destinos",
-      "link": "Compartir enlace"
-    },
-    "sendModeHelp": "Explicación"
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(Descargas)"
-    },
-    "network": {
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})"
-    }
-  },
-  "troubleshootTab": {
-    "title": "Solucionar problemas",
-    "subTitle": "¿La aplicación no funciona como se espera? Aquí puedes encontrar soluciones a problemas comunes.",
-    "solution": "Solución:",
-    "fixButton": "Corregir automáticamente",
-    "firewall": {
-      "symptom": "Esta aplicación puede enviar ficheros a otros dispositivos pero otros dispositivos no pueden enviar ficheros a este.",
-      "solution": "Lo más probable es que se trate de un problema con el firewall, puedes solucionarlo permitiendo las conexiones entrantes (UDP y TCP) en el puerto {port}.",
-      "openFirewall": "Abrir Firewall"
-    },
-    "noConnection": {
-      "symptom": "Ambos dispositivos no pueden descubrirse ni compartir ficheros.",
-      "solution": "¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los participantes. En este caso, hay que activar esta opción en el router."
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "Abrir directorio",
-    "deleteHistory": "Borrar historial"
-  },
-  "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Excluir apps de sistema",
-    "excludeAppsWithoutLaunchIntent": "Excluir apps no ejecutables",
-    "apps": "{n} Apps"
-  },
-  "sendPage": {
-    "busy": "El destino está ocupado con otra petición."
-  },
-  "dialogs": {
-    "errorDialog": {
-      "title": "@:general.error"
-    },
-    "notAvailableOnPlatform": {
-      "title": "No disponible",
-      "content": "Esta característica solo está disponible en:"
-    },
-    "sendModeHelp": {
-      "title": "Modos de envío",
-      "single": "Enviar ficheros a un solo destino. La selección se borrará una vez finalizada la transferencia.",
-      "multiple": "Enviar ficheros a múltiples destinos. La selección no se borrará.",
-      "link": "Los destinatarios que no tengan LocalSend instalado pueden descargar los ficheros seleccionados abriendo el enlace en su navegador."
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=es-ES' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
