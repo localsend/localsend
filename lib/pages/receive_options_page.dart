@@ -59,8 +59,8 @@ class ReceiveOptionsPage extends ConsumerWidget {
               Tooltip(
                 message: t.dialogs.quickActions.title,
                 child: CustomIconButton(
-                  onPressed: () {
-                    showDialog(context: context, builder: (_) => const QuickActionsDialog());
+                  onPressed: () async {
+                    await showDialog(context: context, builder: (_) => const QuickActionsDialog());
                   },
                   child: const Icon(Icons.tips_and_updates),
                 ),

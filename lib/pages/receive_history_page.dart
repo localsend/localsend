@@ -38,7 +38,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
 
   Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
     if (entry.path != null) {
-      openFile(context, entry.fileType, entry.path!, entry.id, filesRef);
+      await openFile(context, entry.fileType, entry.path!, entry.id, filesRef);
     }
   }
 
@@ -61,14 +61,14 @@ class ReceiveHistoryPage extends ConsumerWidget {
                 ElevatedButton.icon(
                   onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
                     final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
-                    openFolder(destination);
+                    await openFolder(destination);
                   },
                   icon: const Icon(Icons.folder),
                   label: Text(t.receiveHistoryPage.openFolder),
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
-                  onPressed: entries.isEmpty ? null : () => ref.read(receiveHistoryProvider.notifier).removeAll(),
+                  onPressed: entries.isEmpty ? null : () async => ref.read(receiveHistoryProvider.notifier).removeAll(),
                   icon: const Icon(Icons.delete),
                   label: Text(t.receiveHistoryPage.deleteHistory),
                 ),
@@ -90,7 +90,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: entry.path != null ? () => _openFile(context, entry, ref.read(receiveHistoryProvider.notifier)) : null,
+                  onTap: entry.path != null ? () async => _openFile(context, entry, ref.read(receiveHistoryProvider.notifier)) : null,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -123,19 +123,19 @@ class ReceiveHistoryPage extends ConsumerWidget {
                       ),
                       const SizedBox(width: 10),
                       PopupMenuButton<_EntryOption>(
-                        onSelected: (_EntryOption item) {
+                        onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:
-                              _openFile(context, entry, ref.read(receiveHistoryProvider.notifier));
+                              await _openFile(context, entry, ref.read(receiveHistoryProvider.notifier));
                               break;
                             case _EntryOption.info:
-                              showDialog(
+                              await showDialog(
                                 context: context,
                                 builder: (_) => FileInfoDialog(entry: entry),
                               );
                               break;
                             case _EntryOption.delete:
-                              ref.read(receiveHistoryProvider.notifier).removeEntry(entry.id);
+                              await ref.read(receiveHistoryProvider.notifier).removeEntry(entry.id);
                               break;
                           }
                         },

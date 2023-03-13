@@ -7,9 +7,9 @@ import 'package:routerino/routerino.dart';
 class EncryptionDisabledNotice extends StatelessWidget {
   const EncryptionDisabledNotice({Key? key}) : super(key: key);
 
-  static void open(BuildContext context) {
+  static Future<void> open(BuildContext context) async {
     if (checkPlatformIsDesktop()) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.encryptionDisabledNotice.title),
@@ -23,7 +23,7 @@ class EncryptionDisabledNotice extends StatelessWidget {
         ),
       );
     } else {
-      context.pushBottomSheet(() => const EncryptionDisabledNotice());
+      await context.pushBottomSheet(() => const EncryptionDisabledNotice());
     }
   }
 

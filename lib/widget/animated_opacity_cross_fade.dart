@@ -30,7 +30,7 @@ class _AnimatedOpacityCrossFadeState extends State<AnimatedOpacityCrossFade> {
   }
 
   @override
-  void didUpdateWidget(AnimatedOpacityCrossFade oldWidget) {
+  void didUpdateWidget(AnimatedOpacityCrossFade oldWidget) async {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.crossFadeState != widget.crossFadeState) {
@@ -38,14 +38,13 @@ class _AnimatedOpacityCrossFadeState extends State<AnimatedOpacityCrossFade> {
         _opacity = 0;
       });
       final targetState = widget.crossFadeState;
-      sleepAsync(widget.durationMillis).then((_) {
-        if (mounted && targetState == widget.crossFadeState) {
-          setState(() {
-            _internalState = widget.crossFadeState;
-            _opacity = 1;
-          });
-        }
-      });
+      await sleepAsync(widget.durationMillis);
+      if (mounted && targetState == widget.crossFadeState) {
+        setState(() {
+          _internalState = widget.crossFadeState;
+          _opacity = 1;
+        });
+      }
     }
   }
 

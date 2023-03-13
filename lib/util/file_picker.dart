@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,15 +45,15 @@ enum FilePickerOption {
         ref.read(pickingStatusProvider.notifier).state = true;
         if (checkPlatform([TargetPlatform.android])) {
           // On android, the files are copied to the cache which takes some time.
-          showDialog(
+          unawaited(showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const LoadingDialog(),
-          );
+          ));
         }
         final result = await FilePicker.platform.pickFiles(allowMultiple: true);
         if (result != null) {
-          ref.read(selectedSendingFilesProvider.notifier).addFiles(
+          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
                 files: result.files,
                 converter: CrossFileConverters.convertPlatformFile,
               );
@@ -66,7 +68,7 @@ enum FilePickerOption {
           ),
         );
         if (result != null) {
-          ref.read(selectedSendingFilesProvider.notifier).addFiles(
+          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
                 files: result,
                 converter: CrossFileConverters.convertAssetEntity,
               );
@@ -80,7 +82,7 @@ enum FilePickerOption {
         break;
       case FilePickerOption.app:
         // Currently, only Android APK
-        context.push(() => const ApkPickerPage());
+        await context.push(() => const ApkPickerPage());
         break;
     }
   }

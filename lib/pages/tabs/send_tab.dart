@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
@@ -18,22 +19,20 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_picker.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
-import 'package:localsend_app/widget/custom_icon_button.dart';
-import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
-import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
-import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/big_button.dart';
+import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
+import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
+import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
+import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
-
-import '../../model/send_mode.dart';
 
 const _horizontalPadding = 15.0;
 
@@ -50,10 +49,10 @@ class _SendTabState extends ConsumerState<SendTab> {
     super.initState();
 
     // Automatically scan the network when visiting the scan tab
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        ref.read(scanProvider).startSmartScan();
+        await ref.read(scanProvider).startSmartScan();
       }
     });
   }
@@ -95,7 +94,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                       icon: option.icon,
                       label: option.label,
                       filled: false,
-                      onTap: () => option.select(
+                      onTap: () async => option.select(
                         context: context,
                         ref: ref,
                       ),
@@ -143,8 +142,8 @@ class _SendTabState extends ConsumerState<SendTab> {
                         style: TextButton.styleFrom(
                           foregroundColor: Theme.of(context).colorScheme.onSurface,
                         ),
-                        onPressed: () {
-                          context.push(() => const SelectedFilesPage());
+                        onPressed: () async {
+                          await context.push(() => const SelectedFilesPage());
                         },
                         child: Text(t.general.edit),
                       ),
@@ -154,12 +153,12 @@ class _SendTabState extends ConsumerState<SendTab> {
                           backgroundColor: Theme.of(context).colorScheme.primary,
                           foregroundColor: Theme.of(context).colorScheme.onPrimary,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (addOptions.length == 1) {
-                            addOptions.first.select(context: context, ref: ref); // open directly
+                            await addOptions.first.select(context: context, ref: ref); // open directly
                             return;
                           }
-                          AddFileDialog.open(
+                          await AddFileDialog.open(
                             context: context,
                             parentRef: ref,
                             options: addOptions,
@@ -187,7 +186,7 @@ class _SendTabState extends ConsumerState<SendTab> {
             const SizedBox(width: 10),
             _ScanButton(
               ips: networkInfo.localIps,
-              onSelect: (ip) => ref.read(scanProvider).startLegacySubnetScan(ip),
+              onSelect: (ip) async => ref.read(scanProvider).startLegacySubnetScan(ip),
             ),
             Tooltip(
               message: t.dialogs.addressInput.title,
@@ -195,7 +194,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                 onPressed: () async {
                   final files = ref.read(selectedSendingFilesProvider);
                   if (files.isEmpty) {
-                    context.pushBottomSheet(() => const NoFilesDialog());
+                    await context.pushBottomSheet(() => const NoFilesDialog());
                     return;
                   }
                   final device = await showDialog<Device?>(
@@ -203,7 +202,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                     builder: (_) => const AddressInputDialog(),
                   );
                   if (device != null && mounted) {
-                    ref.read(sendProvider.notifier).startSession(
+                    await ref.read(sendProvider.notifier).startSession(
                           target: device,
                           files: files,
                           background: false,
@@ -214,8 +213,8 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             ),
             _SendModeButton(
-              onSelect: (mode) {
-                ref.read(settingsProvider.notifier).setSendMode(mode);
+              onSelect: (mode) async {
+                await ref.read(settingsProvider.notifier).setSendMode(mode);
                 if (mode != SendMode.multiple) {
                   ref.read(sendProvider.notifier).clearAllSessions();
                 }
@@ -240,14 +239,14 @@ class _SendTabState extends ConsumerState<SendTab> {
                   ? _MultiSendDeviceListTile(device: device)
                   : DeviceListTile(
                       device: device,
-                      onTap: () {
+                      onTap: () async {
                         final files = ref.read(selectedSendingFilesProvider);
                         if (files.isEmpty) {
-                          context.pushBottomSheet(() => const NoFilesDialog());
+                          await context.pushBottomSheet(() => const NoFilesDialog());
                           return;
                         }
 
-                        ref.read(sendProvider.notifier).startSession(
+                        await ref.read(sendProvider.notifier).startSession(
                               target: device,
                               files: files,
                               background: false,
@@ -264,8 +263,8 @@ class _SendTabState extends ConsumerState<SendTab> {
                 padding: const EdgeInsets.only(top: 10),
                 child: Center(
                   child: ElevatedButton(
-                    onPressed: () {
-                      context.push(() => const TroubleshootPage());
+                    onPressed: () async {
+                      await context.push(() => const TroubleshootPage());
                     },
                     child: Text(t.troubleshootTab.title),
                   ),
@@ -417,7 +416,7 @@ class _SendModeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return _CircularPopupButton<int>(
       tooltip: t.sendTab.sendMode,
-      onSelected: (mode) {
+      onSelected: (mode) async {
         switch (mode) {
           case 0:
             onSelect(SendMode.single);
@@ -426,7 +425,7 @@ class _SendModeButton extends StatelessWidget {
             onSelect(SendMode.multiple);
             break;
           case -1:
-            showDialog(context: context, builder: (_) => const SendModeHelpDialog());
+            await showDialog(context: context, builder: (_) => const SendModeHelpDialog());
             break;
         }
       },
@@ -542,7 +541,7 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
         final files = ref.read(selectedSendingFilesProvider);
         if (files.isEmpty) {
           // ignore: use_build_context_synchronously
-          context.pushBottomSheet(() => const NoFilesDialog());
+          await context.pushBottomSheet(() => const NoFilesDialog());
           return;
         }
 
@@ -551,7 +550,7 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
           ref.read(sendProvider.notifier).cancelSession(session.sessionId);
         }
 
-        ref.read(sendProvider.notifier).startSession(
+        await ref.read(sendProvider.notifier).startSession(
           target: device,
           files: files,
           background: true,

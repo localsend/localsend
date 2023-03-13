@@ -67,8 +67,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     _pageController = PageController(initialPage: widget.initialTab.index);
     _currentTab = widget.initialTab;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      postInit(context, ref, widget.appStart, _goToPage);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await postInit(context, ref, widget.appStart, _goToPage);
     });
   }
 
@@ -93,8 +93,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           _dragAndDropIndicator = false;
         });
       },
-      onDragDone: (event) {
-        ref.read(selectedSendingFilesProvider.notifier).addFiles(
+      onDragDone: (event) async {
+        await ref.read(selectedSendingFilesProvider.notifier).addFiles(
               files: event.files,
               converter: CrossFileConverters.convertXFile,
             );

@@ -115,12 +115,20 @@ class _SendPageState extends ConsumerState<SendPage> {
                             else if (sendState.status == SessionStatus.declined)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.rejected, style: TextStyle(color: Theme.of(context).colorScheme.warning), textAlign: TextAlign.center),
+                                child: Text(
+                                  t.sendPage.rejected,
+                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                  textAlign: TextAlign.center,
+                                ),
                               )
                             else if (sendState.status == SessionStatus.recipientBusy)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.busy, style: TextStyle(color: Theme.of(context).colorScheme.warning), textAlign: TextAlign.center),
+                                child: Text(
+                                  t.sendPage.busy,
+                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                  textAlign: TextAlign.center,
+                                ),
                               )
                             else if (sendState.status == SessionStatus.finishedWithErrors)
                               Padding(
@@ -134,12 +142,10 @@ class _SendPageState extends ConsumerState<SendPage> {
                                         style: TextButton.styleFrom(
                                           foregroundColor: Theme.of(context).colorScheme.warning,
                                         ),
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) => ErrorDialog(error: sendState.errorMessage!),
-                                          );
-                                        },
+                                        onPressed: () async => showDialog(
+                                          context: context,
+                                          builder: (_) => ErrorDialog(error: sendState.errorMessage!),
+                                        ),
                                         child: const Icon(Icons.info),
                                       ),
                                   ],

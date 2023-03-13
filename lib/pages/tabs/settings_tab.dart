@@ -88,8 +88,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
                   foregroundColor: Theme.of(context).colorScheme.onSurface,
                 ),
-                onPressed: () {
-                  context.push(() => const LanguagePage());
+                onPressed: () async {
+                  await context.push(() => const LanguagePage());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
@@ -120,7 +120,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
                       foregroundColor: Theme.of(context).colorScheme.onSurface,
                     ),
-                    onPressed: () => initAutoStartAndOpenSettings(),
+                    onPressed: () async => initAutoStartAndOpenSettings(),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(t.general.settings, style: Theme.of(context).textTheme.titleMedium),
@@ -148,7 +148,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 final old = settings.quickSave;
                 await ref.read(settingsProvider.notifier).setQuickSave(b);
                 if (!old && b && mounted) {
-                  QuickSaveNotice.open(context);
+                  await QuickSaveNotice.open(context);
                 }
               },
             ),
@@ -306,7 +306,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 final old = settings.https;
                 await ref.read(settingsProvider.notifier).setHttps(b);
                 if (old && !b && mounted) {
-                  EncryptionDisabledNotice.open(context);
+                  await EncryptionDisabledNotice.open(context);
                 }
               },
             ),
@@ -360,15 +360,15 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton.icon(
-                onPressed: () {
-                  context.push(() => const AboutPage());
+                onPressed: () async {
+                  await context.push(() => const AboutPage());
                 },
                 icon: const Icon(Icons.info),
                 label: Text(t.aboutPage.title),
               ),
               TextButton.icon(
-                onPressed: () {
-                  context.push(() => const ChangelogPage());
+                onPressed: () async {
+                  await context.push(() => const ChangelogPage());
                 },
                 icon: const Icon(Icons.history),
                 label: Text(t.changelogPage.title),

@@ -20,12 +20,12 @@ class NetworkStateNotifier extends StateNotifier<NetworkState> {
           localIps: [],
           initialized: false,
         )) {
-    init();
+    unawaited(init());
   }
 
   Future<void> init() async {
     if (!kIsWeb) {
-      _subscription?.cancel();
+      unawaited(_subscription?.cancel());
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
         _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {

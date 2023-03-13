@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
@@ -33,7 +35,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   /// It just sends an announcement which will cause a response on every other LocalSend member of the network.
   /// The responses have to be listened to by calling [startMulticastListener] first.
   void startMulticastScan() {
-    _multicastService.sendAnnouncement();
+    unawaited(_multicastService.sendAnnouncement());
   }
 
   Future<void> startScan({required int port, required String localIp, required bool https}) async {
@@ -55,7 +57,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     _runners[localIp] = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
-        (index) => () => _doRequest(_dio, ipList[index], port, https, fingerprint),
+        (index) => () async => _doRequest(_dio, ipList[index], port, https, fingerprint),
       ),
       concurrency: 50,
     );

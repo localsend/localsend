@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -36,9 +38,9 @@ class ScanFacade {
     final port = settings.port;
     final https = settings.https;
 
-    _ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
-
     // send announcement in parallel
     _ref.read(nearbyDevicesProvider.notifier).startMulticastScan();
+
+    await _ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: localIp, https: https);
   }
 }

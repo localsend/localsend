@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -11,9 +12,9 @@ import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/send/sending_file.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
@@ -104,7 +105,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     );
 
     if (!background) {
-      // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.push(
         () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
         transition: RouterinoTransition.fade,
@@ -150,7 +151,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       // receiver has nothing selected
 
       if (state[sessionId]?.background == false) {
-        // ignore: use_build_context_synchronously
+        // ignore: use_build_context_synchronously, unawaited_futures
         Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
       }
 
@@ -167,7 +168,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     if (state[sessionId]?.background == false) {
       final background = _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
 
-      // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
         transition: RouterinoTransition.fade, // immediately is not possible: https://github.com/flutter/flutter/issues/121910
@@ -280,9 +281,11 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     }
 
     // notify the receiver
-    _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(target)).then((_) {}).catchError((e) {
-      print(e);
-    });
+    unawaited(
+      _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(target)).then((_) {}).catchError((e) {
+        print(e);
+      }),
+    );
   }
 
   void clearAllSessions() {

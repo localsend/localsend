@@ -9,10 +9,10 @@ import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -222,7 +222,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           await showFromTray();
         }
 
-        // ignore: use_build_context_synchronously
+        // ignore: use_build_context_synchronously, unawaited_futures
         Routerino.context.push(() => const ReceivePage());
 
         // Delayed response (waiting for user's decision)
@@ -267,7 +267,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         );
 
         if (quickSave) {
-          // ignore: use_build_context_synchronously
+          // ignore: use_build_context_synchronously, unawaited_futures
           Routerino.context.pushImmediately(() => ProgressPage(
                 showAppBar: false,
                 closeSessionOnClose: true,
@@ -435,10 +435,12 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     router.post(ApiRoute.show.path, (Request request) async {
       final senderToken = request.url.queryParameters['token'];
       if (senderToken == showToken && checkPlatformIsDesktop()) {
-        showFromTray().catchError((e) {
-          // don't wait for it
-          print(e);
-        });
+        unawaited(
+          showFromTray().catchError((e) {
+            // don't wait for it
+            print(e);
+          }),
+        );
         return _response(200);
       }
 
@@ -464,7 +466,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     }
 
     controller.add(fileNameMap);
-    controller.close();
+    unawaited(controller.close());
   }
 
   void declineFileRequest() {
@@ -474,7 +476,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     }
 
     controller.add(null);
-    controller.close();
+    unawaited(controller.close());
   }
 
   /// Updates the destination directory for the current session.

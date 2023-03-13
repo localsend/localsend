@@ -132,12 +132,14 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
       final initialSharedPayload = await shareHandler.getInitialSharedMedia();
       if (initialSharedPayload != null) {
         hasInitialShare = true;
-        _handleSharedIntent(initialSharedPayload, ref);
+        unawaited(
+          _handleSharedIntent(initialSharedPayload, ref),
+        );
         goToPage(HomeTab.send.index);
       }
     }
 
-    _sharedMediaSubscription?.cancel();
+    _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
       _handleSharedIntent(payload, ref);
       goToPage(HomeTab.send.index);
@@ -151,12 +153,12 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
   }
 }
 
-void _handleSharedIntent(SharedMedia payload, WidgetRef ref) {
+Future<void> _handleSharedIntent(SharedMedia payload, WidgetRef ref) async {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
     ref.read(selectedSendingFilesProvider.notifier).addMessage(message);
   }
-  ref.read(selectedSendingFilesProvider.notifier).addFiles(
+  await ref.read(selectedSendingFilesProvider.notifier).addFiles(
         files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
         converter: CrossFileConverters.convertSharedAttachment,
       );

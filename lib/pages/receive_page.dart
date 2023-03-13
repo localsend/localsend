@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
@@ -31,7 +33,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
+    WidgetsBinding.instance.addPostFrameCallback((_) async => _init());
   }
 
   Future<void> _init() async {
@@ -158,7 +160,9 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
-                                            Clipboard.setData(ClipboardData(text: _message));
+                                            unawaited(
+                                              Clipboard.setData(ClipboardData(text: _message)),
+                                            );
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
                                             }
@@ -173,8 +177,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                                 backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                               ),
-                                              onPressed: () {
-                                                launchUrl(Uri.parse(_message!));
+                                              onPressed: () async {
+                                                await launchUrl(Uri.parse(_message!));
                                               },
                                               child: Text(t.general.open),
                                             ),
@@ -193,8 +197,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               style: TextButton.styleFrom(
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
-                              onPressed: () {
-                                context.push(() => const ReceiveOptionsPage());
+                              onPressed: () async {
+                                await context.push(() => const ReceiveOptionsPage());
                               },
                               icon: const Icon(Icons.settings),
                               label: Text(t.receiveOptionsPage.title),
@@ -257,13 +261,13 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 ),
                                 onPressed: selectedFiles.isEmpty
                                     ? null
-                                    : () {
+                                    : () async {
                                         final sessionId = ref.read(serverProvider)?.session?.sessionId;
                                         if (sessionId == null) {
                                           return;
                                         }
                                         _accept(ref, receiveSession);
-                                        context.pushAndRemoveUntilImmediately(
+                                        await context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
                                           builder: () => ProgressPage(
                                             showAppBar: false,

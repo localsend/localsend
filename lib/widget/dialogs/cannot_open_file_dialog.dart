@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
-import '../../provider/receive_history_provider.dart';
 
 class CannotOpenFileDialog extends StatelessWidget {
   final String path;
 
   const CannotOpenFileDialog({required this.path, super.key});
 
-  static void open(BuildContext context, String path, String? fileId, ReceiveHistoryNotifier? filesRef) {
+  static Future<void> open(BuildContext context, String path, String? fileId, ReceiveHistoryNotifier? filesRef) async {
     if (checkPlatformIsDesktop()) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.cannotOpenFile.title),
@@ -34,7 +34,7 @@ class CannotOpenFileDialog extends StatelessWidget {
         ),
       );
     } else {
-      context.pushBottomSheet(() => CannotOpenFileDialog(path: path));
+      await context.pushBottomSheet(() => CannotOpenFileDialog(path: path));
     }
   }
 

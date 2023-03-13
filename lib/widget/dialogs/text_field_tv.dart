@@ -35,7 +35,7 @@ class _TextFieldTvState extends ConsumerState<TextFieldTv> {
           foregroundColor: Theme.of(context).colorScheme.onSurface,
         ),
         onPressed: () async {
-          showDialog(
+          await showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(

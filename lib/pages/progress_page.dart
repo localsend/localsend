@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,7 +55,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
-        Wakelock.enable();
+        unawaited(Wakelock.enable());
       } catch (_) {}
 
       setState(() {
@@ -78,7 +80,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
   void dispose() {
     super.dispose();
     try {
-      Wakelock.disable();
+      unawaited(Wakelock.disable());
     } catch (_) {}
   }
 
@@ -189,8 +191,8 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                     recognizer: checkPlatform([TargetPlatform.iOS])
                                         ? null
                                         : (TapGestureRecognizer()
-                                          ..onTap = () {
-                                            openFolder(receiveSession.destinationDirectory);
+                                          ..onTap = () async {
+                                            await openFolder(receiveSession.destinationDirectory);
                                           }),
                                   ),
                                 ],
@@ -243,7 +245,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                     splashFactory: NoSplash.splashFactory,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: filePath != null && receiveSession != null ? () => openFile(context, file.fileType, filePath!) : null,
+                    onTap: filePath != null && receiveSession != null ? () async => openFile(context, file.fileType, filePath!) : null,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -297,8 +299,8 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                     if (errorMessage != null) ...[
                                       const SizedBox(width: 5),
                                       InkWell(
-                                        onTap: () {
-                                          showDialog(
+                                        onTap: () async {
+                                          await showDialog(
                                             context: context,
                                             builder: (_) => ErrorDialog(error: errorMessage!),
                                           );
@@ -388,7 +390,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                   final result = await _askCancelConfirmation(status);
                                   if (result && mounted) {
                                     final homeTab = receiveSession != null ? HomeTab.receive : HomeTab.send;
-                                    context.pushRootImmediately(() => HomePage(initialTab: homeTab, appStart: false));
+                                    await context.pushRootImmediately(() => HomePage(initialTab: homeTab, appStart: false));
                                   }
                                 },
                                 icon: Icon(status == SessionStatus.sending ? Icons.close : Icons.check_circle),

@@ -164,11 +164,11 @@ class _FixButton extends StatelessWidget {
         backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
         foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
       ),
-      onPressed: () {
+      onPressed: () async {
         if (onTap != null) {
           onTap!.runFix();
         } else {
-          showDialog(
+          await showDialog(
             context: context,
             builder: (_) => NotAvailableOnPlatformDialog(platforms: onTapMap.keys.toList()),
           );

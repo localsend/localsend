@@ -16,8 +16,8 @@ class _InitPageState extends State<InitPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.pushRootImmediately<void, HomePage>(() => const HomePage(initialTab: HomeTab.receive, appStart: true));
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await context.pushRootImmediately<void, HomePage>(() => const HomePage(initialTab: HomeTab.receive, appStart: true));
     });
   }
 
