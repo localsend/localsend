@@ -12,12 +12,12 @@
     "copy": "Copiar",
     "copiedToClipboard": "Copiado para a Área de Transferência",
     "decline": "Rejeitar",
-    "done": "Feito",
+    "done": "Completo",
     "edit": "Editar",
     "error": "Erro",
     "example": "Exemplo",
     "files": "Arquivos",
-    "finished": "Terminado",
+    "finished": "Concluído",
     "hide": "Ocultar",
     "off": "Desabilitado",
     "offline": "Offline",
@@ -69,7 +69,7 @@
       "link": "Compartilhe via link"
     },
     "sendModeHelp": "Explicação",
-    "help": "Por favor, certifique-se de que o dispositivo desejado também está na mesma rede wifi.",
+    "help": "Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede wifi.",
     "placeItems": "Coloque os itens para compartilhar."
   },
   "settingsTab": {
@@ -86,16 +86,16 @@
       "languageOptions": {
         "system": "Sistema"
       },
-      "minimizeToTray": "Sair: Minimizar para a bandeja",
-      "launchAtStartup": "Inicializar automaticamente após o login",
-      "launchMinimized": "Início automático: Inicializar minimizado"
+      "minimizeToTray": "Minimizar para a bandeja ao fechar",
+      "launchAtStartup": "Abrir automaticamente após o login",
+      "launchMinimized": "Início automático: Abrir minimizado"
     },
     "receive": {
       "title": "Recebimento",
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
       "downloads": "(Downloads)",
-      "saveToGallery": "Salvar mídia na galeria"
+      "saveToGallery": "Salvar mídia na Galeria"
     },
     "network": {
       "title": "Rede",
@@ -116,7 +116,7 @@
     "fixButton": "Consertar automaticamente",
     "firewall": {
       "symptom": "Este aplicativo pode enviar arquivos para outros dispositivos, mas outros dispositivos não podem enviar arquivos para este dispositivo.",
-      "solution": "Provavelmente isso se trata de um problema de firewall. Você pode resolver isto permitindo conexões recebidas (UDP e TCP) na porta {port}.",
+      "solution": "Provavelmente isto se trata de um problema de firewall. Você pode resolver esse problema permitindo conexões recebidas (UDP e TCP) na porta {port}.",
       "openFirewall": "Abrir o Firewall"
     },
     "noConnection": {
@@ -166,7 +166,7 @@
   "progressPage": {
     "titleSending": "Enviando arquivos",
     "titleReceiving": "Recebendo arquivos",
-    "savedToGallery": "Salvo em Fotos",
+    "savedToGallery": "Salvo na Galeria",
     "total": {
       "title": {
         "sending": "Progresso total ({time})",
