@@ -18,10 +18,14 @@ class CannotOpenFileDialog extends StatelessWidget {
           title: Text(t.dialogs.cannotOpenFile.title),
           content: Text(t.dialogs.cannotOpenFile.content(file: path)),
           actions: [
-            TextButton(
-            onPressed: () => { filesRef!.removeEntry(fileId!), context.pop() },
-            child: Text(t.receiveHistoryPage.entryActions.deleteFromHistory),
-            ),
+            if (fileId != null && filesRef != null)
+              TextButton(
+                onPressed: () {
+                  filesRef.removeEntry(fileId);
+                  context.pop();
+                },
+                child: Text(t.receiveHistoryPage.entryActions.deleteFromHistory),
+              ),
             TextButton(
               onPressed: () => context.pop(),
               child: Text(t.general.close),
