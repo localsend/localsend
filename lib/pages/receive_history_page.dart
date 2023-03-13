@@ -36,9 +36,9 @@ final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
 class ReceiveHistoryPage extends ConsumerWidget {
   const ReceiveHistoryPage({Key? key}) : super(key: key);
 
-  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry) async {
+  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
     if (entry.path != null) {
-      openFile(context, entry.fileType, entry.path!);
+      openFile(context, entry.fileType, entry.path!, entry.id, filesRef);
     }
   }
 
@@ -90,7 +90,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: entry.path != null ? () => _openFile(context, entry) : null,
+                  onTap: entry.path != null ? () => _openFile(context, entry, ref.read(receiveHistoryProvider.notifier)) : null,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -126,7 +126,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                         onSelected: (_EntryOption item) {
                           switch (item) {
                             case _EntryOption.open:
-                              _openFile(context, entry);
+                              _openFile(context, entry, ref.read(receiveHistoryProvider.notifier));
                               break;
                             case _EntryOption.info:
                               showDialog(

@@ -3,13 +3,14 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
+import '../../provider/receive_history_provider.dart';
 
 class CannotOpenFileDialog extends StatelessWidget {
   final String path;
 
   const CannotOpenFileDialog({required this.path, super.key});
 
-  static void open(BuildContext context, String path) {
+  static void open(BuildContext context, String path, String? fileId, ReceiveHistoryNotifier? filesRef) {
     if (checkPlatformIsDesktop()) {
       showDialog(
         context: context,
@@ -17,6 +18,10 @@ class CannotOpenFileDialog extends StatelessWidget {
           title: Text(t.dialogs.cannotOpenFile.title),
           content: Text(t.dialogs.cannotOpenFile.content(file: path)),
           actions: [
+            TextButton(
+            onPressed: () => { filesRef!.removeEntry(fileId!), context.pop() },
+            child: Text(t.receiveHistoryPage.entryActions.deleteFromHistory),
+            ),
             TextButton(
               onPressed: () => context.pop(),
               child: Text(t.general.close),
