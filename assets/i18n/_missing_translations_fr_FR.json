@@ -4,33 +4,33 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "sendMode": "Send mode",
+    "sendMode": "Mode envoi",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "Récipient unique",
+      "multiple": "Récipients multiples",
+      "link": "Partager via un lien"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "Explication"
   },
   "settingsTab": {
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(Téléchargements)"
     }
   },
   "receiveHistoryPage": {
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history"
+    "openFolder": "Ouvrir le dossier",
+    "deleteHistory": "Supprimer l'historique"
   },
   "dialogs": {
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Non disponible",
+      "content": "Cette fonctionalité est disponible uniquement sur:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Modes d'envoi",
+      "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
+      "multiple": "Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.",
+      "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
     }
   }
 }
