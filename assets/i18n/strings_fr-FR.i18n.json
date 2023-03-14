@@ -62,6 +62,13 @@
     "nearbyDevices": "Appareils à proximité",
     "thisDevice": "Cet Appareil",
     "scan": "Recherchez des appareils",
+    "sendMode": "Mode envoi",
+    "sendModes": {
+      "single": "Récipient unique",
+      "multiple": "Récipients multiples",
+      "link": "Partager via un lien"
+    },
+    "sendModeHelp": "Explication",
     "help": "Veuillez vous assurer que la cible souhaitée se trouve également dans le même réseau wifi.",
     "placeItems": "Placez des éléments à partager."
   },
@@ -87,6 +94,7 @@
       "title": "Reçu",
       "quickSave": "@:general.quickSave",
       "destination": "Destination",
+      "downloads": "(Téléchargements)",
       "saveToGallery": "Sauvegarder les médias dans la galerie"
     },
     "network": {
@@ -118,6 +126,8 @@
   },
   "receiveHistoryPage": {
     "title": "Historique",
+    "openFolder": "Ouvrir le dossier",
+    "deleteHistory": "Supprimer l'historique",
     "empty": "L'historique est vide.",
     "entryActions": {
       "open": "Ouvrir le fichier",
@@ -224,6 +234,10 @@
       "title": "Aucun fichier sélectionné",
       "content": "Veuillez sélectionner au moins un fichier."
     },
+    "notAvailableOnPlatform": {
+      "title": "Non disponible",
+      "content": "Cette fonctionalité est disponible uniquement sur:"
+    },
     "quickActions": {
       "title": "Actions Rapides",
       "counter": "Compteur",
@@ -235,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers."
+    },
+    "sendModeHelp": {
+      "title": "Modes d'envoi",
+      "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
+      "multiple": "Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.",
+      "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
     }
   },
   "tray": {

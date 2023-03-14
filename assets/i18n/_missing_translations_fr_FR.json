@@ -1,36 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <fr-FR>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "sendMode": "Mode envoi",
-    "sendModes": {
-      "single": "Récipient unique",
-      "multiple": "Récipients multiples",
-      "link": "Partager via un lien"
-    },
-    "sendModeHelp": "Explication"
-  },
-  "settingsTab": {
-    "receive": {
-      "downloads": "(Téléchargements)"
-    }
-  },
-  "receiveHistoryPage": {
-    "openFolder": "Ouvrir le dossier",
-    "deleteHistory": "Supprimer l'historique"
-  },
-  "dialogs": {
-    "notAvailableOnPlatform": {
-      "title": "Non disponible",
-      "content": "Cette fonctionalité est disponible uniquement sur:"
-    },
-    "sendModeHelp": {
-      "title": "Modes d'envoi",
-      "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
-      "multiple": "Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.",
-      "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
-    }
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
