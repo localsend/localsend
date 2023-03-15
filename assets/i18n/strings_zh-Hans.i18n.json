@@ -55,12 +55,20 @@
     "picker": {
       "file": "文件",
       "media": "媒体",
-      "text": "文本"
+      "text": "文本",
+      "app": "应用"
     },
     "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件。",
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
+    "sendMode": "发送模式",
+    "sendModes": {
+      "single": "单个接收者",
+      "multiple": "多个接收者",
+      "link": "通过链接分享"
+    },
+    "sendModeHelp": "解释",
     "help": "请确保目标连接的是同一个 Wi-Fi 网络。",
     "placeItems": "列出要分享的文件。"
   },
@@ -86,6 +94,7 @@
       "title": "接收",
       "quickSave": "@:general.quickSave",
       "destination": "保存目录",
+      "downloads": "(下载)",
       "saveToGallery": "保存到相册"
     },
     "network": {
@@ -117,12 +126,20 @@
   },
   "receiveHistoryPage": {
     "title": "历史",
+    "openFolder": "打开目录",
+    "deleteHistory": "删除历史",
     "empty": "无历史记录。",
     "entryActions": {
       "open": "打开文件",
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
     }
+  },
+  "apkPickerPage": {
+    "title": "应用（APK）",
+    "excludeSystemApps": "排除系统应用",
+    "excludeAppsWithoutLaunchIntent": "排除无法启动的应用",
+    "apps": "{n} 个应用"
   },
   "selectedFilesPage": {
     "deleteAll": "全部删除"
@@ -168,7 +185,7 @@
   "changelogPage": {
     "title": "更新日志"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -217,6 +234,10 @@
       "title": "没有选择文件",
       "content": "请最少选择一个文件。"
     },
+    "notAvailableOnPlatform": {
+      "title": "不可用",
+      "content": "这一功能只在以下平台可用："
+    },
     "quickActions": {
       "title": "快速操作",
       "counter": "计数器",
@@ -228,6 +249,12 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
+    },
+    "sendModeHelp": {
+      "title": "发送模式",
+      "single": "发送文件给一个接收者。已选择的文件稍后会取消选择。",
+      "multiple": "发送文件给多个接收者。发送后不会取消选择已选择的文件。",
+      "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
     }
   },
   "tray": {

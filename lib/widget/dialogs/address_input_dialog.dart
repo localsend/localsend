@@ -8,6 +8,7 @@ import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/task_runner.dart';
 import 'package:routerino/routerino.dart';
 
@@ -126,7 +127,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             onChanged: (s) {
               setState(() => _input = s);
             },
-            onFieldSubmitted: (s) => _submit(localIps, settings.port),
+            onFieldSubmitted: (s) async => _submit(localIps, settings.port),
           ),
           const SizedBox(height: 10),
           if (_mode == _InputMode.hashtag) ...[
@@ -168,9 +169,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
                           text: device.ip,
                           style: TextStyle(color: Theme.of(context).colorScheme.primary),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              _submit(localIps, settings.port, device.ip);
-                            },
+                            ..onTap = () async => _submit(localIps, settings.port, device.ip),
                         )
                       ];
                     }).expand((e) => e),
@@ -181,7 +180,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error, style: const TextStyle(color: Colors.orange)),
+              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
             ),
         ],
       ),
@@ -198,7 +197,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
             backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
             foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
           ),
-          onPressed: _fetching ? null : () => _submit(localIps, settings.port),
+          onPressed: _fetching ? null : () async => _submit(localIps, settings.port),
           child: Text(t.general.confirm),
         ),
       ],

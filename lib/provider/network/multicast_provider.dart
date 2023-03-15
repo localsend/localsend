@@ -5,11 +5,14 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
+import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/multicast_logs_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
 
@@ -17,7 +20,6 @@ final multicastProvider = Provider((ref) {
   final deviceInfo = ref.watch(deviceRawInfoProvider);
   return MulticastService(ref, deviceInfo);
 });
-
 
 class MulticastService {
   final Ref _ref;
@@ -59,7 +61,10 @@ class MulticastService {
           _ref.read(multicastLogsProvider.notifier).addLog('Received UDP: ${dto.alias} ($ip)');
           if (dto.announcement && _ref.read(serverProvider) != null) {
             // only respond when server is running
-            _answerAnnouncement();
+            _answerAnnouncement(
+              ip: datagram.address.address,
+              peerAlias: dto.alias,
+            );
           }
         } catch (e) {
           _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
@@ -69,7 +74,9 @@ class MulticastService {
     }
 
     // Tell everyone in the network that I am online
-    sendAnnouncement();
+    unawaited(
+      sendAnnouncement(),
+    );
 
     yield* streamController.stream;
   }
@@ -78,8 +85,8 @@ class MulticastService {
   Future<void> sendAnnouncement() async {
     final settings = _ref.read(settingsProvider);
     final sockets = await _getSockets(settings.multicastGroup);
-    final dto = _getDto(announcement: true);
-    for (final wait in [100, 500, 1000, 2000]) {
+    final dto = _getMulticastDto(announcement: true);
+    for (final wait in [100, 500, 2000]) {
       await sleepAsync(wait);
 
       _ref.read(multicastLogsProvider.notifier).addLog('Sending announcement');
@@ -95,23 +102,34 @@ class MulticastService {
   }
 
   /// Responds to an announcement.
-  Future<void> _answerAnnouncement() async {
-    _ref.read(multicastLogsProvider.notifier).addLog('Answering announcement');
+  Future<void> _answerAnnouncement({required String ip, required String peerAlias}) async {
     final settings = _ref.read(settingsProvider);
-    final sockets = await _getSockets(settings.multicastGroup);
-    final dto = _getDto(announcement: false);
-    for (final socket in sockets) {
-      try {
-        socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
-        socket.socket.close();
-      } catch (e) {
-        _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+
+    try {
+      // Answer with TCP
+      await _ref.read(dioProvider(DioType.discovery)).post(
+        ApiRoute.register.targetRaw(ip, settings.port, settings.https),
+        data: _getRegisterDto().toJson(),
+      );
+      _ref.read(multicastLogsProvider.notifier).addLog('Responded to announcement of $peerAlias via TCP successfully.');
+    } catch (e) {
+      // Fallback: Answer with UDP
+      final sockets = await _getSockets(settings.multicastGroup);
+      final dto = _getMulticastDto(announcement: false);
+      for (final socket in sockets) {
+        try {
+          socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
+          socket.socket.close();
+        } catch (e) {
+          _ref.read(multicastLogsProvider.notifier).addLog(e.toString());
+        }
       }
+      _ref.read(multicastLogsProvider.notifier).addLog('Responded to announcement of $peerAlias with UDP because TCP failed.');
     }
   }
 
   /// Returns the MulticastDto of this device in bytes.
-  List<int> _getDto({required bool announcement}) {
+  List<int> _getMulticastDto({required bool announcement}) {
     final settings = _ref.read(settingsProvider);
     final serverState = _ref.read(serverProvider);
     final fingerprint = _ref.read(fingerprintProvider);
@@ -123,6 +141,18 @@ class MulticastService {
       announcement: announcement,
     );
     return utf8.encode(jsonEncode(dto.toJson()));
+  }
+
+  RegisterDto _getRegisterDto() {
+    final settings = _ref.read(settingsProvider);
+    final serverState = _ref.read(serverProvider);
+    final fingerprint = _ref.read(fingerprintProvider);
+    return RegisterDto(
+      alias: serverState?.alias ?? settings.alias,
+      deviceModel: _deviceInfo.deviceModel,
+      deviceType: _deviceInfo.deviceType,
+      fingerprint: fingerprint,
+    );
   }
 }
 

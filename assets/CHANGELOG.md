@@ -1,10 +1,24 @@
-## 1.8.0 (2023-)
+## 1.8.0 (2023-03-05)
 
-- feat: Android TV support
+- feat: add send modes (single recipient, multiple recipients)
+- feat: selection gets cleared after finish by default (part of send modes feature)
+- feat: share to multiple recipients in parallel
 - feat: add troubleshoot page
+- feat: add 2 buttons to receive history: open folder + delete history
+- feat: cleanup scan UI by hiding multiple network interfaces inside the scan button
+- feat: edit text message in selected files
+- feat: improve device discovery by answering with TCP instead of UDP
+- feat(ex. iOS): pressing destination directory in progress page will open the directory
+- feat(android): share apk and install apk
+- feat(android): Android TV support
+- feat(android): show loading indicator when picking (large) files
 - feat(windows): left click on tray icon opens app
-- fix: missing app icon on Android 7
-- i18n: add ua
+- feat(linux): add Control+Q shortcut to exit app
+- fix: handshake error in unencrypted mode
+- fix: also scan multicast when pressing on a subnet sync button
+- fix(android): missing app icon on Android 7
+- fix(android,ios): show error message when saving to gallery failed
+- i18n: add bn, nl, uk
 
 ## 1.7.0 (2023-02-11)
 

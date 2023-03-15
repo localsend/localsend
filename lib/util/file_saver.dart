@@ -35,7 +35,10 @@ Future<void> saveFile({
     await sink.close();
 
     if (saveToGallery) {
-      await ImageGallerySaver.saveFile(destinationPath, name: name);
+      final result = await ImageGallerySaver.saveFile(destinationPath, name: name);
+      if (result is Map && result['isSuccess'] == false) {
+        throw 'Could not save media to gallery. Has permission been granted?\n\nTechnical error:\n${result['errorMessage']}';
+      }
       await File(destinationPath).delete();
     }
 

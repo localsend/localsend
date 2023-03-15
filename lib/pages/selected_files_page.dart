@@ -6,11 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:open_filex/open_filex.dart';
 import 'package:routerino/routerino.dart';
 
 class SelectedFilesPage extends ConsumerWidget {
@@ -42,7 +42,6 @@ class SelectedFilesPage extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () {
                   ref.read(selectedSendingFilesProvider.notifier).reset();
-                  clearCache();
                   context.popUntilRoot();
                 },
                 child: Text(t.selectedFilesPage.deleteAll),
@@ -52,6 +51,13 @@ class SelectedFilesPage extends ConsumerWidget {
           const SizedBox(height: 10),
           ...selectedFiles.mapIndexed(
             (index, file) {
+              final String? message;
+              if (file.fileType == FileType.text && file.bytes != null) {
+                message = utf8.decode(file.bytes!);
+              } else {
+                message = null;
+              }
+
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: InkWell(
@@ -59,7 +65,7 @@ class SelectedFilesPage extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: file.path != null ? () => OpenFilex.open(file.path) : null,
+                  onTap: file.path != null ? () async => openFile(context, file.fileType, file.path!) : null,
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10),
@@ -72,24 +78,37 @@ class SelectedFilesPage extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  file.fileType == FileType.text && file.bytes != null
-                                      ? '"${utf8.decode(file.bytes!).replaceAll('\n', ' ')}"'
-                                      : file.name,
+                                  message != null ? '"${message.replaceAll('\n', ' ')}"' : file.name,
                                   maxLines: 1,
                                   overflow: TextOverflow.fade,
                                   softWrap: false,
                                 ),
-                                Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.caption),
+                                Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.bodySmall),
                               ],
                             ),
                           ),
+                          if (file.fileType == FileType.text && file.bytes != null)
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              onPressed: () async {
+                                final result = await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
+                                if (result != null) {
+                                  ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
+                                  ref.read(selectedSendingFilesProvider.notifier).addMessage(result, index: index);
+                                }
+                              },
+                              child: const Icon(Icons.edit),
+                            ),
                           TextButton(
-                            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            ),
                             onPressed: () {
                               final currCount = ref.read(selectedSendingFilesProvider).length;
                               ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
                               if (currCount == 1) {
-                                clearCache();
                                 context.popUntilRoot();
                               }
                             },

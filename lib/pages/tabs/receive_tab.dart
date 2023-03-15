@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
@@ -94,18 +94,18 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                 backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                               ),
-                              onPressed: () {
-                                ref.read(settingsProvider.notifier).setQuickSave(false);
-                              },
+                              onPressed: () async => ref.read(settingsProvider.notifier).setQuickSave(false),
                               child: Text('${t.general.quickSave}: ${t.general.on}'),
                             )
                           : TextButton(
                               style: TextButton.styleFrom(
                                 foregroundColor: Colors.grey,
                               ),
-                              onPressed: () {
-                                ref.read(settingsProvider.notifier).setQuickSave(true);
-                                QuickSaveNotice.open(context);
+                              onPressed: () async {
+                                await ref.read(settingsProvider.notifier).setQuickSave(true);
+                                if (mounted) {
+                                  await QuickSaveNotice.open(context);
+                                }
                               },
                               child: Text('${t.general.quickSave}: ${t.general.off}'),
                             ),
@@ -184,8 +184,8 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                     opacity: _showHistoryButton ? 1 : 0,
                     duration: const Duration(milliseconds: 200),
                     child: CustomIconButton(
-                      onPressed: () {
-                        context.push(() => const ReceiveHistoryPage());
+                      onPressed: () async {
+                        await context.push(() => const ReceiveHistoryPage());
                       },
                       child: const Icon(Icons.history),
                     ),

@@ -8,7 +8,7 @@ import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
-import 'package:localsend_app/pages/tabs/troubleshooting_tab.dart';
+import 'package:localsend_app/pages/tabs/troubleshoot_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
@@ -38,18 +38,24 @@ enum HomeTab {
 }
 
 class HomePage extends ConsumerStatefulWidget {
+  final HomeTab initialTab;
+
   /// It is important for the initializing step
   /// because the first init clears the cache
   final bool appStart;
 
-  const HomePage({required this.appStart, super.key});
+  const HomePage({
+    required this.initialTab,
+    required this.appStart,
+    super.key,
+  });
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  final _pageController = PageController();
+  late PageController _pageController;
   HomeTab _currentTab = HomeTab.receive;
 
   bool _dragAndDropIndicator = false;
@@ -58,8 +64,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      postInit(context, ref, widget.appStart, _goToPage);
+    _pageController = PageController(initialPage: widget.initialTab.index);
+    _currentTab = widget.initialTab;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await postInit(context, ref, widget.appStart, _goToPage);
     });
   }
 
@@ -84,8 +93,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           _dragAndDropIndicator = false;
         });
       },
-      onDragDone: (event) {
-        ref.read(selectedSendingFilesProvider.notifier).addFiles(
+      onDragDone: (event) async {
+        await ref.read(selectedSendingFilesProvider.notifier).addFiles(
               files: event.files,
               converter: CrossFileConverters.convertXFile,
             );
@@ -133,7 +142,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ReceiveTab(),
                             SendTab(),
                             SettingsTab(),
-                            TroubleshootingTab(),
+                            TroubleshootTab(showTitle: true),
                           ],
                         ),
                         if (_dragAndDropIndicator)
@@ -147,7 +156,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               children: [
                                 const Icon(Icons.file_download, size: 128),
                                 const SizedBox(height: 30),
-                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.headline6),
+                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
                               ],
                             ),
                           ),
@@ -165,7 +174,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       HomeTab.receive,
                       HomeTab.send,
                       HomeTab.settings,
-                      if (sizingInformation.isTablet)
+                      if (sizingInformation.isTabletOrDesktop)
                         HomeTab.troubleshoot,
                     ].map((tab) {
                       return NavigationDestination(icon: Icon(tab.icon), label: tab.label);

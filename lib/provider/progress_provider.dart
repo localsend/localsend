@@ -6,28 +6,42 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final progressProvider = ChangeNotifierProvider((ref) => ProgressNotifier());
 
 class ProgressNotifier extends ChangeNotifier {
-  final _progressMap = <String, double>{}; // file id -> 0..1
+  final _progressMap = <String, Map<String, double>>{}; // session id -> (file id -> 0..1)
 
-  void setProgress(String fileId, double progress) {
-    _progressMap[fileId] = progress;
+  void setProgress({required String sessionId, required String fileId, required double progress}) {
+    Map<String, double>? progressMap = _progressMap[sessionId];
+    if (progressMap == null) {
+      progressMap = {};
+      _progressMap[sessionId] = progressMap;
+    }
+    progressMap[fileId] = progress;
     notifyListeners();
   }
 
-  double getProgress(String fileId) {
-    return _progressMap[fileId] ?? 0.0;
+  double getProgress({required String sessionId, required String fileId}) {
+    return _progressMap[sessionId]?[fileId] ?? 0.0;
   }
 
-  int getFinishedCount() {
-    return _progressMap.values.fold(0, (prev, curr) => curr == 1 ? prev + 1 : prev);
+  int getFinishedCount(String sessionId) {
+    final progressMap = _progressMap[sessionId];
+    if (progressMap == null) {
+      return 0;
+    }
+    return progressMap.values.fold(0, (prev, curr) => curr == 1 ? prev + 1 : prev);
   }
 
-  void reset() {
+  void removeSession(String sessionId) {
+    _progressMap.remove(sessionId);
+    notifyListeners();
+  }
+
+  void removeAllSessions() {
     _progressMap.clear();
     notifyListeners();
   }
 
   /// Only for debug purposes
-  Map<String, double> getData() {
+  Map<String, Map<String, double>> getData() {
     return _progressMap;
   }
 }

@@ -18,9 +18,11 @@ class CopyableText extends StatelessWidget {
     return InkWell(
       onTap: value == null
           ? null
-          : () {
-              Clipboard.setData(ClipboardData(text: value));
-              context.showSnackBar('Copied $name to clipboard!');
+          : () async {
+              await Clipboard.setData(ClipboardData(text: value));
+              if (context.mounted) {
+                context.showSnackBar('Copied $name to clipboard!');
+              }
             },
       child: Text.rich(
         TextSpan(

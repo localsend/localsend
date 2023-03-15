@@ -13,9 +13,9 @@ class AddFileDialog extends StatelessWidget {
 
   const AddFileDialog({required this.parentRef, required this.options});
 
-  static void open({required BuildContext context, required WidgetRef parentRef, required List<FilePickerOption> options}) {
+  static Future<void> open({required BuildContext context, required WidgetRef parentRef, required List<FilePickerOption> options}) async {
     if (checkPlatformIsDesktop()) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.addFile.title),
@@ -39,7 +39,7 @@ class AddFileDialog extends StatelessWidget {
         ),
       );
     } else {
-      context.pushBottomSheet(() => CustomBottomSheet(
+      await context.pushBottomSheet(() => CustomBottomSheet(
             title: t.dialogs.addFile.title,
             description: t.dialogs.addFile.content,
             child: AddFileDialog(parentRef: parentRef, options: options),
@@ -49,39 +49,24 @@ class AddFileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Wrap(
+      spacing: 15,
+      runSpacing: 15,
       children: [
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ...List.generate(3, (index) {
-                final option = index < options.length ? options[index] : null;
-                return [
-                  Expanded(
-                    child: option == null
-                        ? Container()
-                        : BigButton(
-                            icon: option.icon,
-                            label: option.label,
-                            filled: true,
-                            onTap: () {
-                              context.popUntilRoot();
-                              option.select(
-                                context: context,
-                                ref: parentRef,
-                              );
-                            },
-                          ),
-                  ),
-                  const SizedBox(width: 15),
-                ];
-              }).expand((e) => e).toList()
-                ..removeLast(),
-            ],
-          ),
-        ),
+        ...options.map((option) {
+          return BigButton(
+            icon: option.icon,
+            label: option.label,
+            filled: true,
+            onTap: () async {
+              context.popUntilRoot();
+              await option.select(
+                context: context,
+                ref: parentRef,
+              );
+            },
+          );
+        }),
       ],
     );
   }

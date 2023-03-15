@@ -8,10 +8,22 @@
     "general": {
       "online": "Online",
       "save": "Save"
+    },
+    "sendTab": {
+      "thisDevice": "This Device",
+      "sendModes": {
+        "link": "Share via link"
+      }
+    },
+    "dialogs": {
+      "sendModeHelp": {
+        "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      }
     }
   },
   "ar": {},
   "bn": {},
+  "cs": {},
   "de": {},
   "es-ES": {},
   "fr-FR": {},
@@ -22,12 +34,13 @@
   "ja": {},
   "ko": {},
   "ne": {},
+  "nl": {},
   "pl": {},
   "pt-BR": {},
   "ru": {},
   "sv": {},
   "tr": {},
-  "ua": {},
+  "uk": {},
   "zh-Hans": {},
   "zh-Hant-HK": {},
   "zh-Hant-TW": {}

@@ -3,15 +3,24 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:routerino/routerino.dart';
 
 class MessageInputDialog extends StatefulWidget {
-  const MessageInputDialog();
+  final String? initialText;
+
+  const MessageInputDialog({this.initialText});
 
   @override
   State<MessageInputDialog> createState() => _MessageInputDialogState();
 }
 
 class _MessageInputDialogState extends State<MessageInputDialog> {
-  String _text = '';
+  final _textController = TextEditingController();
   bool _multiline = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController.text = widget.initialText ?? '';
+    _multiline = _textController.text.contains('\n');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +31,10 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
         children: [
           TextFormField(
             key: ValueKey('m-$_multiline'),
-            initialValue: _text,
+            controller: _textController,
             keyboardType: _multiline ? TextInputType.multiline : TextInputType.text,
             maxLines: _multiline ? null : 1,
             autofocus: true,
-            onChanged: (s) {
-              setState(() => _text = s);
-            },
             onFieldSubmitted: _multiline ? null : (s) => context.pop(s),
           ),
           Row(
@@ -62,7 +68,7 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
             backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
             foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
           ),
-          onPressed: () => context.pop(_text),
+          onPressed: () => context.pop(_textController.text),
           child: Text(t.general.confirm),
         ),
       ],

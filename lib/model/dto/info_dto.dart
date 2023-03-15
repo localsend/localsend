@@ -9,6 +9,8 @@ class InfoDto with _$InfoDto {
   const factory InfoDto({
     required String alias,
     required String? deviceModel,
+
+    @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
     required DeviceType deviceType,
   }) = _InfoDto;
 

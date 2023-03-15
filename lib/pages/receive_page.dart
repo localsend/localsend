@@ -1,13 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
@@ -30,7 +33,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
+    WidgetsBinding.instance.addPostFrameCallback((_) async => _init());
   }
 
   Future<void> _init() async {
@@ -128,7 +131,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 _message != null
                                     ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
                                     : t.receivePage.subTitle(n: receiveSession.files.length),
-                                style: smallUi ? null : Theme.of(context).textTheme.headline6,
+                                style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
                                 textAlign: TextAlign.center,
                               ),
                               if (_message != null)
@@ -157,7 +160,9 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
-                                            Clipboard.setData(ClipboardData(text: _message));
+                                            unawaited(
+                                              Clipboard.setData(ClipboardData(text: _message)),
+                                            );
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
                                             }
@@ -172,8 +177,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                                 backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                               ),
-                                              onPressed: () {
-                                                launchUrl(Uri.parse(_message!));
+                                              onPressed: () async {
+                                                await launchUrl(Uri.parse(_message!));
                                               },
                                               child: Text(t.general.open),
                                             ),
@@ -192,8 +197,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               style: TextButton.styleFrom(
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
-                              onPressed: () {
-                                context.push(() => const ReceiveOptionsPage());
+                              onPressed: () async {
+                                await context.push(() => const ReceiveOptionsPage());
                               },
                               icon: const Icon(Icons.settings),
                               label: Text(t.receiveOptionsPage.title),
@@ -202,7 +207,11 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                         if (receiveSession.status == SessionStatus.canceledBySender) ...[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(t.receivePage.canceled, style: const TextStyle(color: Colors.orange), textAlign: TextAlign.center),
+                            child: Text(
+                              t.receivePage.canceled,
+                              style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           Center(
                             child: ElevatedButton.icon(
@@ -234,7 +243,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                             children: [
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).buttonTheme.colorScheme!.error,
+                                  backgroundColor: Theme.of(context).colorScheme.error,
                                   foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
                                 ),
                                 onPressed: () {
@@ -252,11 +261,19 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 ),
                                 onPressed: selectedFiles.isEmpty
                                     ? null
-                                    : () {
+                                    : () async {
+                                        final sessionId = ref.read(serverProvider)?.session?.sessionId;
+                                        if (sessionId == null) {
+                                          return;
+                                        }
                                         _accept(ref, receiveSession);
-                                        context.pushAndRemoveUntilImmediately(
+                                        await context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
-                                          builder: () => const ProgressPage(),
+                                          builder: () => ProgressPage(
+                                            showAppBar: false,
+                                            closeSessionOnClose: true,
+                                            sessionId: sessionId,
+                                          ),
                                         );
                                       },
                                 icon: const Icon(Icons.check_circle),

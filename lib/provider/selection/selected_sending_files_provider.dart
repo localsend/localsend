@@ -1,12 +1,14 @@
 import 'dart:convert' show utf8;
 import 'dart:io';
 
+import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart' as file_picker;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
+import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
@@ -25,19 +27,20 @@ class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
 
   /// Add a simple message
   /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8
-  void addMessage(String message) {
+  void addMessage(String message, {int? index}) {
     final List<int> bytes = utf8.encode(message);
+    final file = CrossFile(
+      name: '${_uuid.v4()}.txt',
+      fileType: FileType.text,
+      size: bytes.length,
+      thumbnail: null,
+      asset: null,
+      path: null,
+      bytes: bytes,
+    );
     state = List.unmodifiable([
       ...state,
-      CrossFile(
-        name: '${_uuid.v4()}.txt',
-        fileType: FileType.text,
-        size: bytes.length,
-        asset: null,
-        path: null,
-        bytes: bytes,
-      ),
-    ]);
+    ]..insert(index ?? state.length, file));
   }
 
   Future<void> addFiles<T>({
@@ -55,10 +58,14 @@ class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
 
   void removeAt(int index) {
     state = List.unmodifiable([...state]..removeAt(index));
+    if (state.isEmpty) {
+      clearCache();
+    }
   }
 
   void reset() {
     state = List.empty(growable: false);
+    clearCache();
   }
 }
 
@@ -69,6 +76,7 @@ class CrossFileConverters {
       name: file.name,
       fileType: file.name.guessFileType(),
       size: file.size,
+      thumbnail: null,
       asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? file.bytes! : null,
@@ -81,6 +89,7 @@ class CrossFileConverters {
       name: await asset.titleAsync,
       fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
       size: await file.length(),
+      thumbnail: null,
       asset: asset,
       path: file.path,
       bytes: null,
@@ -92,6 +101,7 @@ class CrossFileConverters {
       name: file.name,
       fileType: file.name.guessFileType(),
       size: await file.length(),
+      thumbnail: null,
       asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
@@ -105,8 +115,22 @@ class CrossFileConverters {
       name: fileName,
       fileType: fileName.guessFileType(),
       size: await file.length(),
+      thumbnail: null,
       asset: null,
       path: file.path,
+      bytes: null,
+    );
+  }
+
+  static Future<CrossFile> convertApplication(Application app) async {
+    final file = File(app.apkFilePath);
+    return CrossFile(
+      name: '${app.appName}.apk',
+      fileType: FileType.apk,
+      thumbnail: app is ApplicationWithIcon ? app.icon : null,
+      size: await file.length(),
+      asset: null,
+      path: app.apkFilePath,
       bytes: null,
     );
   }

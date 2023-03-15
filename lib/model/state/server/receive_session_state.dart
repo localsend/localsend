@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/model/state/server/receiving_file.dart';
 
 part 'receive_session_state.freezed.dart';
 
@@ -13,6 +13,7 @@ class ReceiveSessionState with _$ReceiveSessionState {
   const ReceiveSessionState._(); // allow custom getters
 
   const factory ReceiveSessionState({
+    required String sessionId,
     required SessionStatus status,
     required Device sender,
     required Map<String, ReceivingFile> files,

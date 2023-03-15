@@ -7,9 +7,9 @@ import 'package:routerino/routerino.dart';
 class QuickSaveNotice extends StatelessWidget {
   const QuickSaveNotice({Key? key}) : super(key: key);
 
-  static void open(BuildContext context) {
+  static Future<void> open(BuildContext context) async {
     if (checkPlatformIsDesktop()) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.quickSaveNotice.title),
@@ -23,7 +23,7 @@ class QuickSaveNotice extends StatelessWidget {
         ),
       );
     } else {
-      context.pushBottomSheet(() => const QuickSaveNotice());
+      await context.pushBottomSheet(() => const QuickSaveNotice());
     }
   }
 

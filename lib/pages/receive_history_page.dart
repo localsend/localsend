@@ -3,13 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
-import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/widget/dialogs/cannot_open_file_dialog.dart';
+import 'package:localsend_app/util/native/get_destination_directory.dart';
+import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
+import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:open_filex/open_filex.dart';
 
 enum _EntryOption {
   open,
@@ -34,12 +36,9 @@ final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
 class ReceiveHistoryPage extends ConsumerWidget {
   const ReceiveHistoryPage({Key? key}) : super(key: key);
 
-  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry) async {
-    final result = await OpenFilex.open(entry.path);
-    if (result.type != ResultType.done) {
-      // TODO: use context.mounted when migrated to Flutter 3.7
-      // ignore: use_build_context_synchronously
-      CannotOpenFileDialog.open(context, entry.path!);
+  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
+    if (entry.path != null) {
+      await openFile(context, entry.fileType, entry.path!, entry.id, filesRef);
     }
   }
 
@@ -51,25 +50,47 @@ class ReceiveHistoryPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(t.receiveHistoryPage.title),
       ),
-      body: Builder(builder: (context) {
-        if (entries.isEmpty) {
-          return Center(
-            child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headline4),
-          );
-        }
-
-        return ResponsiveListView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          children: [
+      body: ResponsiveListView(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                const SizedBox(width: 15),
+                ElevatedButton.icon(
+                  onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
+                    final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
+                    await openFolder(destination);
+                  },
+                  icon: const Icon(Icons.folder),
+                  label: Text(t.receiveHistoryPage.openFolder),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton.icon(
+                  onPressed: entries.isEmpty ? null : () async => ref.read(receiveHistoryProvider.notifier).removeAll(),
+                  icon: const Icon(Icons.delete),
+                  label: Text(t.receiveHistoryPage.deleteHistory),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          if (entries.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium)),
+            )
+          else
             ...entries.map((entry) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: entry.path != null ? () => _openFile(context, entry) : null,
+                  onTap: entry.path != null ? () async => _openFile(context, entry, ref.read(receiveHistoryProvider.notifier)) : null,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -102,23 +123,22 @@ class ReceiveHistoryPage extends ConsumerWidget {
                       ),
                       const SizedBox(width: 10),
                       PopupMenuButton<_EntryOption>(
-                        onSelected: (_EntryOption item) {
+                        onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:
-                              _openFile(context, entry);
+                              await _openFile(context, entry, ref.read(receiveHistoryProvider.notifier));
                               break;
                             case _EntryOption.info:
-                              showDialog(
+                              await showDialog(
                                 context: context,
                                 builder: (_) => FileInfoDialog(entry: entry),
                               );
                               break;
                             case _EntryOption.delete:
-                              ref.read(receiveHistoryProvider.notifier).removeEntry(entry.id);
+                              await ref.read(receiveHistoryProvider.notifier).removeEntry(entry.id);
                               break;
                           }
                         },
-                        color: Theme.of(context).cardColorWithElevation,
                         itemBuilder: (BuildContext context) {
                           return (entry.path != null ? _optionsAll : _optionsWithoutOpen).map((e) {
                             return PopupMenuItem<_EntryOption>(
@@ -133,9 +153,8 @@ class ReceiveHistoryPage extends ConsumerWidget {
                 ),
               );
             }),
-          ],
-        );
-      }),
+        ],
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide MenuItem;
+import 'package:flutter/material.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:window_manager/window_manager.dart';
 

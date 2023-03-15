@@ -65,6 +65,8 @@ extension FilePathStringExt on String {
         return FileType.pdf;
       case 'txt':
         return FileType.text;
+      case 'apk':
+        return FileType.apk;
       default:
         return FileType.other;
     }

@@ -52,7 +52,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 8),
-          child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center),
+          child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
         ),
         const SizedBox(height: 30),
         _SettingsSection(
@@ -88,14 +88,14 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
                   foregroundColor: Theme.of(context).colorScheme.onSurface,
                 ),
-                onPressed: () {
-                  context.push(() => const LanguagePage());
+                onPressed: () async {
+                  await context.push(() => const LanguagePage());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     settings.locale?.humanName ?? t.settingsTab.general.languageOptions.system,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -120,10 +120,10 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
                       foregroundColor: Theme.of(context).colorScheme.onSurface,
                     ),
-                    onPressed: () => initAutoStartAndOpenSettings(),
+                    onPressed: () async => initAutoStartAndOpenSettings(),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Text(t.general.settings, style: Theme.of(context).textTheme.subtitle1),
+                      child: Text(t.general.settings, style: Theme.of(context).textTheme.titleMedium),
                     ),
                   ),
                 ),
@@ -148,7 +148,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 final old = settings.quickSave;
                 await ref.read(settingsProvider.notifier).setQuickSave(b);
                 if (!old && b && mounted) {
-                  QuickSaveNotice.open(context);
+                  await QuickSaveNotice.open(context);
                 }
               },
             ),
@@ -174,7 +174,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Text(settings.destination ?? '(Downloads)', style: Theme.of(context).textTheme.subtitle1),
+                    child: Text(settings.destination ?? t.settingsTab.receive.downloads, style: Theme.of(context).textTheme.titleMedium),
                   ),
                 ),
               ),
@@ -201,7 +201,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               firstChild: Container(),
               secondChild: Padding(
                 padding: const EdgeInsets.only(bottom: 15),
-                child: Text(t.settingsTab.network.needRestart, style: const TextStyle(color: Colors.orange)),
+                child: Text(t.settingsTab.network.needRestart, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
               ),
             ),
             _SettingsEntry(
@@ -306,7 +306,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 final old = settings.https;
                 await ref.read(settingsProvider.notifier).setHttps(b);
                 if (old && !b && mounted) {
-                  EncryptionDisabledNotice.open(context);
+                  await EncryptionDisabledNotice.open(context);
                 }
               },
             ),
@@ -360,15 +360,15 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton.icon(
-                onPressed: () {
-                  context.push(() => const AboutPage());
+                onPressed: () async {
+                  await context.push(() => const AboutPage());
                 },
                 icon: const Icon(Icons.info),
                 label: Text(t.aboutPage.title),
               ),
               TextButton.icon(
-                onPressed: () {
-                  context.push(() => const ChangelogPage());
+                onPressed: () async {
+                  await context.push(() => const ChangelogPage());
                 },
                 icon: const Icon(Icons.history),
                 label: Text(t.changelogPage.title),
@@ -476,7 +476,7 @@ class _SettingsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: Theme.of(context).textTheme.subtitle1),
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 10),
               ...children,
             ],

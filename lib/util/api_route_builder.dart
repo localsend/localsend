@@ -5,6 +5,7 @@ const _basePath = '/api/localsend/v1';
 /// Type-safe API paths
 enum ApiRoute {
   info('/info'),
+  register('/register'),
   sendRequest('/send-request'),
   send('/send'),
   cancel('/cancel'),
@@ -17,10 +18,11 @@ enum ApiRoute {
 
   /// The client url
   String target(Device target, {Map<String, String>? query}) {
+    final protocol = target.https ? 'https' : 'http';
     if (query != null) {
-      return 'https://${target.ip}:${target.port}$path?${query.entries.map((e) => '${e.key}=${e.value}').join('&')}';
+      return '$protocol://${target.ip}:${target.port}$path?${query.entries.map((e) => '${e.key}=${e.value}').join('&')}';
     } else {
-      return 'https://${target.ip}:${target.port}$path';
+      return '$protocol://${target.ip}:${target.port}$path';
     }
   }
 
