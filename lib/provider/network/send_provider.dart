@@ -149,13 +149,19 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     final responseMap = response.data as Map;
     if (responseMap.isEmpty) {
       // receiver has nothing selected
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(
+          status: SessionStatus.finished,
+        ),
+      );
 
       if (state[sessionId]?.background == false) {
         // ignore: use_build_context_synchronously, unawaited_futures
         Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
       }
 
-      state = state.removeSession(_ref, sessionId);
+      closeSession(sessionId);
       return;
     }
 
@@ -252,8 +258,10 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     }
 
     if (!hasError && state[sessionId]?.background == true) {
-      state = state.removeSession(_ref, sessionId);
+      // close session because everything is fine and it is in background
+      closeSession(sessionId);
     } else {
+      // keep session alive when there are errors or currently in foreground
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.copyWith(
@@ -272,20 +280,30 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
-    final target = sessionState.target;
     sessionState.cancelToken?.cancel(); // cancel current request
+
+    // notify the receiver
+    unawaited(
+      _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(sessionState.target)).then((_) {}).catchError((e) {
+        print(e);
+      }),
+    );
+
+    // finally, close session locally
+    closeSession(sessionId);
+  }
+
+  /// Closes the session
+  void closeSession(String sessionId) {
+    final sessionState = state[sessionId];
+    if (sessionState == null) {
+      return;
+    }
     state = state.removeSession(_ref, sessionId);
     if (sessionState.status == SessionStatus.finished && _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
       // clear selected files
       _ref.read(selectedSendingFilesProvider.notifier).reset();
     }
-
-    // notify the receiver
-    unawaited(
-      _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(target)).then((_) {}).catchError((e) {
-        print(e);
-      }),
-    );
   }
 
   void clearAllSessions() {

@@ -1,3 +1,9 @@
+## 1.9.0 (2023-)
+
+- feat: allow deleting history entry when file could not be opened (@TheGB0077)
+- feat: close message request when copied / opened link
+- fix: clear selection after finished message transfer
+
 ## 1.8.0 (2023-03-05)
 
 - feat: add send modes (single recipient, multiple recipients)

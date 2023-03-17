@@ -234,54 +234,55 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return _response(500, message: 'Server is in invalid state');
       }
 
-      if (selection != null) {
-        if (selection.isEmpty) {
-          // nothing selected, send this to sender and close session
-          closeSession();
-          return _response(200);
-        }
-
-        final receiveState = state!.session!;
-        state = state!.copyWith(
-          session: receiveState.copyWith(
-            status: SessionStatus.sending,
-            files: Map.fromEntries(
-              receiveState.files.values.map((entry) {
-                final desiredName = selection![entry.file.id];
-                return MapEntry(
-                  entry.file.id,
-                  ReceivingFile(
-                    file: entry.file,
-                    status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
-                    token: desiredName != null ? _uuid.v4() : null,
-                    desiredName: desiredName,
-                    path: null,
-                    savedToGallery: false,
-                    errorMessage: null,
-                  ),
-                );
-              }),
-            ),
-            responseHandler: null,
-          ),
-        );
-
-        if (quickSave) {
-          // ignore: use_build_context_synchronously, unawaited_futures
-          Routerino.context.pushImmediately(() => ProgressPage(
-                showAppBar: false,
-                closeSessionOnClose: true,
-                sessionId: sessionId,
-              ));
-        }
-
-        return _response(200, body: {
-          for (final file in state!.session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
-        });
-      } else {
+      if (selection == null) {
         closeSession();
         return _response(403, message: 'File request declined by recipient');
       }
+
+      if (selection.isEmpty) {
+        // nothing selected, send this to sender and close session
+        // This usually happens for message transfers
+        closeSession();
+        return _response(200);
+      }
+
+      final receiveState = state!.session!;
+      state = state!.copyWith(
+        session: receiveState.copyWith(
+          status: SessionStatus.sending,
+          files: Map.fromEntries(
+            receiveState.files.values.map((entry) {
+              final desiredName = selection![entry.file.id];
+              return MapEntry(
+                entry.file.id,
+                ReceivingFile(
+                  file: entry.file,
+                  status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
+                  token: desiredName != null ? _uuid.v4() : null,
+                  desiredName: desiredName,
+                  path: null,
+                  savedToGallery: false,
+                  errorMessage: null,
+                ),
+              );
+            }),
+          ),
+          responseHandler: null,
+        ),
+      );
+
+      if (quickSave) {
+        // ignore: use_build_context_synchronously, unawaited_futures
+        Routerino.context.pushImmediately(() => ProgressPage(
+              showAppBar: false,
+              closeSessionOnClose: true,
+              sessionId: sessionId,
+            ));
+      }
+
+      return _response(200, body: {
+        for (final file in state!.session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
+      });
     });
 
     router.post(ApiRoute.send.path, (Request request) async {

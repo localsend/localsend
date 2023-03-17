@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/session_status.dart';
-import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/network/server_provider.dart';
@@ -29,6 +28,7 @@ class ReceivePage extends ConsumerStatefulWidget {
 class _ReceivePageState extends ConsumerState<ReceivePage> {
   String? _message;
   bool _isLink = false;
+  bool _showFullIp = false;
 
   @override
   void initState() {
@@ -50,11 +50,11 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
     });
   }
 
-  void _acceptNothing(WidgetRef ref, ReceiveSessionState receiveState) {
+  void _acceptNothing(WidgetRef ref) {
     ref.read(serverProvider.notifier).acceptFileRequest({});
   }
 
-  void _accept(WidgetRef ref, ReceiveSessionState receiveState) {
+  void _accept(WidgetRef ref) {
     final selectedFiles = ref.read(selectedReceivingFilesProvider);
     ref.read(serverProvider.notifier).acceptFileRequest(selectedFiles);
   }
@@ -112,9 +112,14 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  DeviceBadge(
-                                    color: Theme.of(context).colorScheme.tertiaryContainer,
-                                    label: '#${receiveSession.sender.ip.visualId}',
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() => _showFullIp = !_showFullIp);
+                                    },
+                                    child: DeviceBadge(
+                                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                                      label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
+                                    ),
                                   ),
                                   if (receiveSession.sender.deviceModel != null)
                                     ...[
@@ -166,6 +171,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
                                             }
+                                            _acceptNothing(ref);
+                                            context.pop();
                                           },
                                           child: Text(t.general.copy),
                                         ),
@@ -177,8 +184,10 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                                 backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                               ),
-                                              onPressed: () async {
-                                                await launchUrl(Uri.parse(_message!));
+                                              onPressed: () {
+                                                unawaited(launchUrl(Uri.parse(_message!)));
+                                                _acceptNothing(ref);
+                                                context.pop();
                                               },
                                               child: Text(t.general.open),
                                             ),
@@ -230,7 +239,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
                               onPressed: () {
-                                _acceptNothing(ref, receiveSession);
+                                _acceptNothing(ref);
                                 context.pop();
                               },
                               icon: const Icon(Icons.close),
@@ -266,7 +275,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                         if (sessionId == null) {
                                           return;
                                         }
-                                        _accept(ref, receiveSession);
+                                        _accept(ref);
                                         await context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
                                           builder: () => ProgressPage(
