@@ -564,10 +564,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
+      sha256: "483a389d6ccb292b570c31b3a193779b1b0178e7eb571986d9a49904b6861227"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.15"
   image_gallery_saver:
     dependency: "direct main"
     description:
@@ -740,11 +740,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "207eddfe797225ab2736001cbdb8fafd04946b38"
-      resolved-ref: "207eddfe797225ab2736001cbdb8fafd04946b38"
+      ref: "5934920205cb2284a510ee2ddc58cf082d37595c"
+      resolved-ref: "5934920205cb2284a510ee2ddc58cf082d37595c"
       url: "https://github.com/Tienisto/msix.git"
     source: git
-    version: "3.7.0"
+    version: "3.9.1"
   nested:
     dependency: transitive
     description:
@@ -1195,26 +1195,26 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: feb53186f35ea464db77bf957c8309f802a8ff9fef305581120ebcd400170f9f
+      sha256: "0b00009932e16278eb7e898153538653e5a6eefc88c437e2bd8f3af1de326acf"
       url: "https://pub.dev"
     source: hosted
-    version: "3.13.0"
+    version: "3.14.0"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: efe6b004325c17e20779551965ef3604193878b2bb1065c6f9422a95ea210c2f
+      sha256: ca0c7ff7b1e3598d229962f475bcd0afaeabb2cfd1d96a2d0423c436461e3f0f
       url: "https://pub.dev"
     source: hosted
-    version: "3.13.0"
+    version: "3.14.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: "7454bd2fe78fa7f2e53cf6b58c8ba6e4dc6f45c05e5cc44eb8baac7557f2c77d"
+      sha256: a85e7787a7f14f3982829e14f7f6bad510744d7a255736979a4c7450427ad615
       url: "https://pub.dev"
     source: hosted
-    version: "3.13.0"
+    version: "3.14.0"
   source_gen:
     dependency: transitive
     description:
