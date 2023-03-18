@@ -74,7 +74,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     await ref.read(settingsProvider.notifier).setTheme(theme);
                     await sleepAsync(500); // workaround: brightness takes some time to be updated
                     if (mounted) {
-                      updateSystemOverlayStyle(context);
+                      await updateSystemOverlayStyle(context);
                     }
                   }
                 },

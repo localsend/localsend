@@ -104,7 +104,7 @@ StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
 Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void Function(int) goToPage) async {
-  updateSystemOverlayStyle(context);
+  await updateSystemOverlayStyle(context);
 
   final settings = ref.read(settingsProvider);
   try {
@@ -114,7 +114,9 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
           https: settings.https,
         );
   } catch (e) {
-    context.showSnackBar(e.toString());
+    if (context.mounted) {
+      context.showSnackBar(e.toString());
+    }
   }
 
   try {

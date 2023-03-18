@@ -2,6 +2,7 @@
 
 - feat: allow deleting history entry when file could not be opened (@TheGB0077)
 - feat: close message request when copied / opened link
+- feat(android): enable edge-to-edge mode
 - fix: clear selection after finished message transfer
 
 ## 1.8.0 (2023-03-05)
