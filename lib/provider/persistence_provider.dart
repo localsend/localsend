@@ -21,6 +21,12 @@ const _version = 'ls_version';
 // Received file history
 const _receiveHistory = 'ls_receive_history';
 
+//App Window Offset and Size info
+const _windowOffsetX = 'ls_window_offset_x';
+const _windowOffsetY = 'ls_window_offset_y';
+const _windowWidth = 'ls_window_width';
+const _windowHeight = 'ls_window_height';
+
 // Settings
 const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
@@ -61,6 +67,11 @@ class PersistenceService {
       await prefs.setString(_themeKey, ThemeMode.system.name);
     }
 
+    return PersistenceService._(prefs);
+  }
+
+  static Future<PersistenceService> getPersistence() async {
+    final prefs = await SharedPreferences.getInstance();
     return PersistenceService._(prefs);
   }
 
@@ -188,5 +199,35 @@ class PersistenceService {
 
   Future<void> setSendMode(SendMode mode) async {
     await _prefs.setString(_sendMode, mode.name);
+  }
+
+  Future<void> setWindowOffsetX(double x) async {
+    await _prefs.setDouble(_windowOffsetX, x);
+  }
+
+  Future<void> setWindowOffsetY(double y) async {
+    await _prefs.setDouble(_windowOffsetY, y);
+  }
+
+  Future<void> setWindowHeight(double height) async {
+    await _prefs.setDouble(_windowHeight, height);
+  }
+
+  Future<void> setWindowWidth(double width) async {
+    await _prefs.setDouble(_windowWidth, width);
+  }
+
+  List<double> getWindowLastDimensions() {
+    final offsetX = _prefs.getDouble(_windowOffsetX);
+    final offsetY = _prefs.getDouble(_windowOffsetY);
+    final width = _prefs.getDouble(_windowWidth);
+    final height = _prefs.getDouble(_windowHeight);
+    final positionsArray = [offsetX, offsetY, width, height];
+    final nullValues = positionsArray.any((element) => element == null);
+    if (!nullValues) {
+      return List<double>.unmodifiable(positionsArray);
+    } else {
+      return [];
+    }
   }
 }

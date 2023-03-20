@@ -11,6 +11,7 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/cache_helper.dart';
@@ -81,15 +82,7 @@ Future<PersistenceService> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
-    await WindowManager.instance.setMinimumSize(const Size(400, 500));
-    final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-    final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
-    if (width >= 1200) {
-      // make initial window size bigger as our display is big enough
-      await WindowManager.instance.setSize(const Size(900, 600));
-    }
-    await WindowManager.instance.center();
-
+    await dimensionsConfiguration(persistenceService);
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
@@ -98,6 +91,35 @@ Future<PersistenceService> preInit(List<String> args) async {
   }
 
   return persistenceService;
+}
+
+Future<void> dimensionsConfiguration(PersistenceService persistenceService) async {
+  await WindowManager.instance.setMinimumSize(const Size(400, 500));
+  final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
+  final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
+  
+  //TODO: Temporary replacement to a settigns toggle
+  //persistenceService.getRememberLastPosition();
+  const rememberLastPosition = true;
+  if (rememberLastPosition) {
+    final dimensions = WindowDimensionProvider(persistenceService).getDimensions();
+    if(dimensions.isEmpty) {
+      await setInitialSize(width);
+    } else {
+      await WindowManager.instance.setPosition(Offset(dimensions[0], dimensions[1]));
+      await WindowManager.instance.setSize(Size(dimensions[2], dimensions[3]));
+    }
+  } else {
+    await setInitialSize(width);
+  }
+}
+
+Future<void> setInitialSize(double width) async {
+  if (width >= 1200) {
+    // make initial window size bigger as our display is big enough
+    await WindowManager.instance.setSize(const Size(900, 600));
+  }
+  await WindowManager.instance.center();
 }
 
 StreamSubscription? _sharedMediaSubscription;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -45,7 +47,11 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener {
   }
 
   @override
-  void onWindowClose() {
+  Future<void> onWindowClose() async {
+    PersistenceService persistenceService = await PersistenceService.getPersistence();
+    final windowOffset = await windowManager.getPosition();
+    final windowSize = await windowManager.getSize();
+    await WindowDimensionProvider(persistenceService).storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
     widget.onClose();
   }
 
