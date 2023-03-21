@@ -19,7 +19,6 @@ import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/util/tray_helper.dart';
 import 'package:routerino/routerino.dart';
-import 'package:screen_retriever/screen_retriever.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -82,7 +81,9 @@ Future<PersistenceService> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
-    await dimensionsConfiguration(persistenceService);
+
+    await WindowDimensionProvider(persistenceService).dimensionsConfiguration();
+
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
@@ -93,34 +94,6 @@ Future<PersistenceService> preInit(List<String> args) async {
   return persistenceService;
 }
 
-Future<void> dimensionsConfiguration(PersistenceService persistenceService) async {
-  await WindowManager.instance.setMinimumSize(const Size(400, 500));
-  final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-  final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
-  
-  //TODO: Temporary replacement to a settigns toggle
-  //persistenceService.getRememberLastPosition();
-  const rememberLastPosition = true;
-  if (rememberLastPosition) {
-    final dimensions = WindowDimensionProvider(persistenceService).getDimensions();
-    if(dimensions.isEmpty) {
-      await setInitialSize(width);
-    } else {
-      await WindowManager.instance.setPosition(Offset(dimensions[0], dimensions[1]));
-      await WindowManager.instance.setSize(Size(dimensions[2], dimensions[3]));
-    }
-  } else {
-    await setInitialSize(width);
-  }
-}
-
-Future<void> setInitialSize(double width) async {
-  if (width >= 1200) {
-    // make initial window size bigger as our display is big enough
-    await WindowManager.instance.setSize(const Size(900, 600));
-  }
-  await WindowManager.instance.center();
-}
 
 StreamSubscription? _sharedMediaSubscription;
 

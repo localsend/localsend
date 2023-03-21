@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -67,11 +68,6 @@ class PersistenceService {
       await prefs.setString(_themeKey, ThemeMode.system.name);
     }
 
-    return PersistenceService._(prefs);
-  }
-
-  static Future<PersistenceService> getPersistence() async {
-    final prefs = await SharedPreferences.getInstance();
     return PersistenceService._(prefs);
   }
 
@@ -217,17 +213,17 @@ class PersistenceService {
     await _prefs.setDouble(_windowWidth, width);
   }
 
-  List<double> getWindowLastDimensions() {
+  Map<OffsetBase, OffsetBase>? getWindowLastDimensions() {
     final offsetX = _prefs.getDouble(_windowOffsetX);
     final offsetY = _prefs.getDouble(_windowOffsetY);
     final width = _prefs.getDouble(_windowWidth);
     final height = _prefs.getDouble(_windowHeight);
-    final positionsArray = [offsetX, offsetY, width, height];
-    final nullValues = positionsArray.any((element) => element == null);
-    if (!nullValues) {
-      return List<double>.unmodifiable(positionsArray);
-    } else {
-      return [];
+    if (offsetX != null && offsetY != null && width != null && height != null) {
+      Size size = Size(width, height);
+      Offset position = Offset(offsetX, offsetY);
+      final dimensions = { size: size, position: position };
+      return dimensions;
     }
+    return null;
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:window_manager/window_manager.dart';
 
-class WindowWatcher extends StatefulWidget {
+class WindowWatcher extends ConsumerStatefulWidget {
   final Widget child;
   final VoidCallback onClose;
 
@@ -15,10 +16,10 @@ class WindowWatcher extends StatefulWidget {
   });
 
   @override
-  State<WindowWatcher> createState() => _WindowWatcherState();
+  ConsumerState<WindowWatcher> createState() => _WindowWatcherState();
 }
 
-class _WindowWatcherState extends State<WindowWatcher> with WindowListener {
+class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListener {
   @override
   Widget build(BuildContext context) {
     return widget.child;
@@ -48,7 +49,7 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener {
 
   @override
   Future<void> onWindowClose() async {
-    PersistenceService persistenceService = await PersistenceService.getPersistence();
+    PersistenceService persistenceService = ref.watch(persistenceProvider);
     final windowOffset = await windowManager.getPosition();
     final windowSize = await windowManager.getSize();
     await WindowDimensionProvider(persistenceService).storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
