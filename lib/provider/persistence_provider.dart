@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -213,17 +213,17 @@ class PersistenceService {
     await _prefs.setDouble(_windowWidth, width);
   }
 
-  Map<OffsetBase, OffsetBase>? getWindowLastDimensions() {
+  WindowDimensions getWindowLastDimensions() {
+    Size? size;
+    Offset? position;
     final offsetX = _prefs.getDouble(_windowOffsetX);
     final offsetY = _prefs.getDouble(_windowOffsetY);
     final width = _prefs.getDouble(_windowWidth);
     final height = _prefs.getDouble(_windowHeight);
-    if (offsetX != null && offsetY != null && width != null && height != null) {
-      Size size = Size(width, height);
-      Offset position = Offset(offsetX, offsetY);
-      final dimensions = { size: size, position: position };
-      return dimensions;
-    }
-    return null;
+    if (width != null && height != null) size = Size(width, height);
+    if (offsetX != null && offsetY != null) position = Offset(offsetX, offsetY);
+
+    final dimensions = {size: size, position: position};
+    return dimensions;
   }
 }

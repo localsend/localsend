@@ -20,6 +20,10 @@ class WindowWatcher extends ConsumerStatefulWidget {
 }
 
 class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListener {
+  WindowDimensionProvider? windowDimensionProvider;
+
+  WindowDimensionProvider _ensureDimensionsProvider() => WindowDimensionProvider(ref.watch(persistenceProvider));
+
   @override
   Widget build(BuildContext context) {
     return widget.child;
@@ -48,11 +52,25 @@ class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListen
   }
 
   @override
+  Future<void> onWindowMoved() async {
+    windowDimensionProvider ??= _ensureDimensionsProvider();
+    final windowOffset = await windowManager.getPosition();
+    await windowDimensionProvider?.storePosition(windowOffset: windowOffset);
+  }
+
+  @override
+  Future<void> onWindowResized() async {
+    windowDimensionProvider ??= _ensureDimensionsProvider();
+    final windowSize = await windowManager.getSize();
+    await windowDimensionProvider?.storeSize(windowSize: windowSize);
+  }
+
+  @override
   Future<void> onWindowClose() async {
-    PersistenceService persistenceService = ref.watch(persistenceProvider);
+    windowDimensionProvider ??= _ensureDimensionsProvider();
     final windowOffset = await windowManager.getPosition();
     final windowSize = await windowManager.getSize();
-    await WindowDimensionProvider(persistenceService).storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+    await windowDimensionProvider?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
     widget.onClose();
   }
 
