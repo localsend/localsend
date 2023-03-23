@@ -7,6 +7,7 @@ import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -20,6 +21,12 @@ const _version = 'ls_version';
 
 // Received file history
 const _receiveHistory = 'ls_receive_history';
+
+//App Window Offset and Size info
+const _windowOffsetX = 'ls_window_offset_x';
+const _windowOffsetY = 'ls_window_offset_y';
+const _windowWidth = 'ls_window_width';
+const _windowHeight = 'ls_window_height';
 
 // Settings
 const _showToken = 'ls_show_token';
@@ -188,5 +195,35 @@ class PersistenceService {
 
   Future<void> setSendMode(SendMode mode) async {
     await _prefs.setString(_sendMode, mode.name);
+  }
+
+  Future<void> setWindowOffsetX(double x) async {
+    await _prefs.setDouble(_windowOffsetX, x);
+  }
+
+  Future<void> setWindowOffsetY(double y) async {
+    await _prefs.setDouble(_windowOffsetY, y);
+  }
+
+  Future<void> setWindowHeight(double height) async {
+    await _prefs.setDouble(_windowHeight, height);
+  }
+
+  Future<void> setWindowWidth(double width) async {
+    await _prefs.setDouble(_windowWidth, width);
+  }
+
+  WindowDimensions getWindowLastDimensions() {
+    Size? size;
+    Offset? position;
+    final offsetX = _prefs.getDouble(_windowOffsetX);
+    final offsetY = _prefs.getDouble(_windowOffsetY);
+    final width = _prefs.getDouble(_windowWidth);
+    final height = _prefs.getDouble(_windowHeight);
+    if (width != null && height != null) size = Size(width, height);
+    if (offsetX != null && offsetY != null) position = Offset(offsetX, offsetY);
+
+    final dimensions = {size: size, position: position};
+    return dimensions;
   }
 }
