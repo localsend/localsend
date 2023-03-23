@@ -37,19 +37,19 @@
       "openFirewall": "Відкрити брандмауер"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "Обидва пристрої не можуть виявити один одного і не можуть обмінюватися файлами.",
+      "solution": "Проблема існує з обох сторін? Одже вам потрібно переконатися, що обидва пристрої знаходяться в одній мережі Wi-Fi і мають однакову конфігурацію (порт, багатоадресна адреса, шифрування). Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку Вам необхідно увімкнути дану опцію на своєму маршрутизаторі."
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "Історія",
+    "openFolder": "Відкрити теку",
+    "deleteHistory": "Очистити історію",
+    "empty": "Історія порожня.",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "Відкрити файл",
+      "info": "Інформація",
+      "deleteFromHistory": "Видалити з історії"
     }
   },
   "apkPickerPage": {
