@@ -4,15 +4,15 @@ import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
 
 //Records are a better alternative, but they are currently experimental
-typedef WindowDimensions = Map<OffsetBase?, OffsetBase?>?;
+typedef WindowDimensions = Map<String, OffsetBase?>?;
 
 class WindowDimensionProvider {
-  final PersistenceService service;
-  final Size minimalSize = const Size(400, 500);
-  final Size defaultSize = const Size(900, 600);
-  WindowDimensions currentDimensions;
+  final PersistenceService _service;
+  static const Size minimalSize = Size(400, 500);
+  static const Size defaultSize = Size(900, 600);
+  static WindowDimensions currentDimensions;
 
-  WindowDimensionProvider(this.service);
+  WindowDimensionProvider(this._service);
 
   Future<void> dimensionsConfiguration() async {
     await WindowManager.instance.setMinimumSize(minimalSize);
@@ -20,8 +20,8 @@ class WindowDimensionProvider {
     final hasEnoughWidth = (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200 ? true : false;
     
     _getPersistedDimensions();
-    final Size? persistedSize = currentDimensions?.entries.first.value as Size?;
-    final Offset? persistedOffset = currentDimensions?.entries.last.value as Offset?;
+    final Size? persistedSize = currentDimensions?["size"] as Size?;
+    final Offset? persistedOffset = currentDimensions?["position"] as Offset?;
 
     await WindowManager.instance.setSize(hasEnoughWidth ? persistedSize ?? defaultSize : persistedSize ?? minimalSize);
     persistedOffset == null ? await WindowManager.instance.center() : await WindowManager.instance.setPosition(persistedOffset);
@@ -32,31 +32,31 @@ class WindowDimensionProvider {
     required Size windowSize,
   }) async {
     await Future.wait([
-      service.setWindowOffsetX(windowOffset.dx),
-      service.setWindowOffsetY(windowOffset.dy),
-      service.setWindowHeight(windowSize.height),
-      service.setWindowWidth(windowSize.width)
+      _service.setWindowOffsetX(windowOffset.dx),
+      _service.setWindowOffsetY(windowOffset.dy),
+      _service.setWindowHeight(windowSize.height),
+      _service.setWindowWidth(windowSize.width)
     ]);
   }
 
   Future<void> storePosition({ required Offset windowOffset }) async {
     await Future.wait([
-      service.setWindowOffsetX(windowOffset.dx),
-      service.setWindowOffsetY(windowOffset.dy),
+      _service.setWindowOffsetX(windowOffset.dx),
+      _service.setWindowOffsetY(windowOffset.dy),
     ]);
     _getPersistedDimensions();
   }
 
   Future<void> storeSize({ required Size windowSize }) async {
     await Future.wait([
-      service.setWindowHeight(windowSize.height),
-      service.setWindowWidth(windowSize.width)
+      _service.setWindowHeight(windowSize.height),
+      _service.setWindowWidth(windowSize.width)
     ]);
     _getPersistedDimensions();
   }
 
   void _getPersistedDimensions() {
-     currentDimensions = service.getWindowLastDimensions();
+     currentDimensions = _service.getWindowLastDimensions();
   }
 
 }

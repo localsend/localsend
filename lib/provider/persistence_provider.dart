@@ -223,7 +223,7 @@ class PersistenceService {
     if (width != null && height != null) size = Size(width, height);
     if (offsetX != null && offsetY != null) position = Offset(offsetX, offsetY);
 
-    final dimensions = {size: size, position: position};
+    final dimensions = {"size": size, "position": position};
     return dimensions;
   }
 }
