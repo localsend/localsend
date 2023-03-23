@@ -5,94 +5,94 @@
   ],
   "sendTab": {
     "picker": {
-      "app": "App"
+      "app": "Додаток"
     },
-    "sendMode": "Send mode",
+    "sendMode": "Режим надсилання",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "Один одержувач",
+      "multiple": "Кілька одержувачів",
+      "link": "Поділіться через посилання"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "Довідка"
   },
   "settingsTab": {
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(Завантаження)"
     },
     "network": {
-      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте спеціальний порт. (default: {defaultPort})",
+      "encryption": "Шифрування",
+      "multicastGroup": "Групова передача",
+      "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте спеціальну багатоадресну адресу. (default: {defaultMulticast})"
     }
   },
   "troubleshootTab": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "title": "Усунення несправностей",
+    "subTitle": "Цей додаток не працює належним чином? Тут можна знайти загальні рішення проблем.",
+    "solution": "Рішення:",
+    "fixButton": "Виправити автоматично",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "Цей додаток може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.",
+      "solution": "Швидше за все, це проблема брандмауера. Ви можете вирішити цю проблему, дозволивши вхідні з’єднання (UDP та TCP) для порта: {port}.",
+      "openFirewall": "Відкрити брандмауер"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "Обидва пристрої не можуть виявити один одного і не можуть обмінюватися файлами.",
+      "solution": "Проблема існує з обох сторін? Одже вам потрібно переконатися, що обидва пристрої знаходяться в одній мережі Wi-Fi і мають однакову конфігурацію (порт, багатоадресна адреса, шифрування). Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку Вам необхідно увімкнути дану опцію на своєму маршрутизаторі."
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "Історія",
+    "openFolder": "Відкрити теку",
+    "deleteHistory": "Очистити історію",
+    "empty": "Історія порожня.",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "Відкрити файл",
+      "info": "Інформація",
+      "deleteFromHistory": "Видалити з історії"
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Додатки (APK)",
+    "excludeSystemApps": "Виключити системні додатки",
+    "excludeAppsWithoutLaunchIntent": "Виключити додатки, які не запускаються",
+    "apps": "{n} Додатків"
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "Одержувач зайнятий іншим запитом."
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "Нещодавно використані: "
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "Неможливо відкрити файл",
+      "content": "Не вдалося відкрити \"{file}\". Можливо цей файл було переміщено, перейменовано чи видалено?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "Шифрування вимкнено",
+      "content": "Зв'язок тепер відбувається через незашифрований протокол HTTP. Щоб використовувати HTTPS, знову ввімкніть шифрування."
     },
     "errorDialog": {
-      "title": "@:general.error"
+      "title": "@:загальна помилка"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "Інформація про файл",
+      "fileName": "Ім'я файлу:",
+      "path": "Шлях:",
+      "size": "Розмір:",
+      "sender": "Відправник:",
+      "time": "Час:"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Недоступний",
+      "content": "Ця функція доступна лише для:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Режими надсилання",
+      "single": "Надсилає файли одному одержувачу. Після завершення передачі файлу виділення буде знято.",
+      "multiple": "Надсилає файли кільком одержувачам. Виділення не буде знято.",
+      "link": "Одержувачі, у яких не встановлено LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері."
     }
   }
 }
