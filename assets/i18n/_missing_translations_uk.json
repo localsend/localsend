@@ -53,46 +53,46 @@
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Додатки (APK)",
+    "excludeSystemApps": "Виключити системні додатки",
+    "excludeAppsWithoutLaunchIntent": "Виключити додатки, які не запускаються",
+    "apps": "{n} Додатків"
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "Одержувач зайнятий іншим запитом."
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "Нещодавно використані: "
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "Неможливо відкрити файл",
+      "content": "Не вдалося відкрити \"{file}\". Можливо цей файл було переміщено, перейменовано чи видалено?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "Шифрування вимкнено",
+      "content": "Зв'язок тепер відбувається через незашифрований протокол HTTP. Щоб використовувати HTTPS, знову ввімкніть шифрування."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "Інформація про файл",
+      "fileName": "Ім'я файлу:",
+      "path": "Шлях:",
+      "size": "Розмір:",
+      "sender": "Відправник:",
+      "time": "Час:"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Недоступний",
+      "content": "Ця функція доступна лише для:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Режими надсилання",
+      "single": "Надсилає файли одному одержувачу. Після завершення передачі файлу виділення буде знято.",
+      "multiple": "Надсилає файли кільком одержувачам. Виділення не буде знято.",
+      "link": "Одержувачі, у яких не встановлено LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері."
     }
   }
 }
