@@ -1,7 +1,7 @@
 {
   "@@info": [
-    "Ось переклади, які існують на <en>, але не на <uk>.",
-    "Після редагування цього файлу Ви можете запустити 'flutter pub run slang apply --locale=uk', щоб швидко застосувати щойно додані переклади.",
-    "Вітаю! Відсутніх перекладів – немає! :)"
+    "Here are translations that exist in <en> but not in <uk>.",
+    "After editing this file, you can run 'flutter pub run slang apply --locale=uk' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
   ]
 }
