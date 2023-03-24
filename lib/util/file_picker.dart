@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/picking_status_provider.dart';
@@ -65,6 +66,7 @@ enum FilePickerOption {
           context,
           pickerConfig: const AssetPickerConfig(
             maxAssets: 999,
+            textDelegate: TranslatedAssetPickerTextDelegate()
           ),
         );
         if (result != null) {
