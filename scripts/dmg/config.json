@@ -18,7 +18,7 @@
     }
   ],
   "code-sign": {
-    "signing-identity": "Apple Development: Tien Do Nam (78V5QFPJU9)",
-    "identifier": "D4FD5055D92E2DD766220BB30517E0BC1E410FEA"
+    "signing-identity": "Apple Distribution: Tien Do Nam (3W7H4PYMCV)",
+    "identifier": "465ED3F1559A17539E49D338B4F14A7D0FF1582F"
   }
 }
