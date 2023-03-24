@@ -42,57 +42,57 @@
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "История",
+    "openFolder": "Открыть папку",
+    "deleteHistory": "Очистить историю",
+    "empty": "История пуста.",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "Открыть файл",
+      "info": "Информация",
+      "deleteFromHistory": "Удалить из истории"
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Приложения (APK)",
+    "excludeSystemApps": "Исключить системные приложения",
+    "excludeAppsWithoutLaunchIntent": "Исключить приложения, которые не запускаются",
+    "apps": "{n} Приложений"
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "Получатель занят другим запросом."
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "Недавно использованные: "
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "Невозможно открыть файл",
+      "content": "Не удалось открыть \"{file}\". Возможно, этот файл был перемещен, переименован или удален?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "Шифрование отключено",
+      "content": "Связь теперь происходит через незашифрованный протокол HTTP. Чтобы использовать HTTPS, включите шифрование снова."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "О файле",
+      "fileName": "Имя файла:",
+      "path": "Путь:",
+      "size": "Размер:",
+      "sender": "Отправитель:",
+      "time": "Время:"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Недоступен",
+      "content": "Эта функция доступна только для:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Режимы отправки",
+      "single": "Отправить файлы одному получателю. После завершения передачи файла (-ов) выделение будет снято.",
+      "multiple": "Отправить файлы нескольким получателям. Выделение не будет снято.",
+      "link": "Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы, открыв ссылку в своем браузере."
     }
   }
 }
