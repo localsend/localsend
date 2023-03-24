@@ -156,7 +156,7 @@
   "receiveOptionsPage": {
     "title": "Опції отримання повідомлення",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(Тека LocalSend)"
   },
   "sendPage": {
     "waiting": "Очікування відповіді",
