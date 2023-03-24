@@ -1,98 +1,98 @@
 {
   "@@info": [
-    "Here are translations that exist in <en> but not in <ru>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=ru' to quickly apply the newly added translations."
+    "Переводы, которые существуют на <en>, но не на <ru>.",
+    "После редактирования этого файла Вы можете запустить 'flutter pub run slang apply --locale=ru', чтобы быстро применить только что добавленные переводы."
   ],
   "sendTab": {
     "picker": {
-      "app": "App"
+      "app": "Приложение"
     },
-    "sendMode": "Send mode",
+    "sendMode": "Режим отправки",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "Один получатель",
+      "multiple": "Несколько получателей",
+      "link": "Поделиться по ссылке"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "Справка"
   },
   "settingsTab": {
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(Загрузка)"
     },
     "network": {
-      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "portWarning": "Другие устройства могут Вас не обнаружить, поскольку Вы используете другой порт. (default: {defaultPort})",
+      "encryption": "Шифрование",
+      "multicastGroup": "Групповая передача",
+      "multicastGroupWarning": "Другие устройства могут Вас не обнаружить, поскольку Вы используете другой групповой адрес. (default: {defaultMulticast})"
     }
   },
   "troubleshootTab": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "title": "Устранение неисправностей",
+    "subTitle": "Это приложение не работает должным образом? Здесь можно найти общие решения проблем.",
+    "solution": "Решение:",
+    "fixButton": "Исправить автоматически",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "Это приложение может отправлять файлы на другие устройства, но другие устройства не могут отправлять файлы на это устройство.",
+      "solution": "Скорее всего, это проблема брандмауэра. Вы можете решить эту проблему, разрешив входящие соединения (UDP and TCP) для порта {port}.",
+      "openFirewall": "Открыть брандмауэр"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "Оба устройства не могут обнаружить друг друга и не могут обмениваться файлами.",
+      "solution": "Проблема существует с обеих сторон? Тогда Вам нужно убедиться, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, групповой адрес, шифрование). Wi-Fi может не разрешать обмен (передачу) между участниками. В этом случае Вам необходимо включить данную опцию на своём маршрутизаторе."
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "История",
+    "openFolder": "Открыть папку",
+    "deleteHistory": "Очистить историю",
+    "empty": "История пуста.",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "Открыть файл",
+      "info": "Информация",
+      "deleteFromHistory": "Удалить из истории"
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "Приложения (APK)",
+    "excludeSystemApps": "Исключить системные приложения",
+    "excludeAppsWithoutLaunchIntent": "Исключить приложения, которые не запускаются",
+    "apps": "{n} Приложений"
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "Получатель занят другим запросом."
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "Недавно использованные: "
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "Невозможно открыть файл",
+      "content": "Не удалось открыть \"{file}\". Возможно, этот файл был перемещен, переименован или удален?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "Шифрование отключено",
+      "content": "Связь теперь происходит через незашифрованный протокол HTTP. Чтобы использовать HTTPS, включите шифрование снова."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "О файле",
+      "fileName": "Имя файла:",
+      "path": "Путь:",
+      "size": "Размер:",
+      "sender": "Отправитель:",
+      "time": "Время:"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Недоступен",
+      "content": "Эта функция доступна только для:"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Режимы отправки",
+      "single": "Отправить файлы одному получателю. После завершения передачи файла (-ов) выделение будет снято.",
+      "multiple": "Отправить файлы нескольким получателям. Выделение не будет снято.",
+      "link": "Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы, открыв ссылку в своем браузере."
     }
   }
 }
