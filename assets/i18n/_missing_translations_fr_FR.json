@@ -1,7 +1,36 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <fr-FR>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations.",
-    "Congratulations! There are no missing translations! :)"
-  ]
+    "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
+  ],
+  "assetPicker": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "gifIndicator": "GIF",
+    "loadFailed": "Load failed",
+    "original": "Origin",
+    "preview": "Preview",
+    "select": "Select",
+    "emptyList": "Empty list",
+    "unSupportedAssetType": "Unsupported HEIC asset type.",
+    "unableToAccessAll": "Unable to access all assets on the device",
+    "viewingLimitedAssetsTip": "Only view assets and albums accessible to app.",
+    "changeAccessibleLimitedAssets": "Click to update accessible assets",
+    "accessAllTip": "App can only access some assets on the device. \n Go to system settings and allow app to access all assets on the device.",
+    "goToSystemSettings": "Go to system settings",
+    "accessLimitedAssets": "Continue with limited access",
+    "accessiblePathName": "Accessible assets",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Image",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Other asset",
+    "sActionPlayHint": "play",
+    "sActionPreviewHint": "preview",
+    "sActionSelectHint": "select",
+    "sActionSwitchPathLabel": "switch path",
+    "sActionUseCameraHint": "use camera",
+    "sNameDurationLabel": "duration",
+    "sUnitAssetCountLabel": "count"
+  }
 }
