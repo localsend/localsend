@@ -7,6 +7,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/picking_status_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/util/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
@@ -65,6 +66,7 @@ enum FilePickerOption {
           context,
           pickerConfig: const AssetPickerConfig(
             maxAssets: 999,
+            textDelegate: TranslatedAssetPickerTextDelegate()
           ),
         );
         if (result != null) {
