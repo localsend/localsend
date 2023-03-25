@@ -260,5 +260,35 @@
   "tray": {
     "open": "@:general.open",
     "close": "LocalSendを終了"
+  },
+  "assetPicker": {
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "edit": "編集",
+    "gifIndicator": "GIF画像",
+    "loadFailed": "読み込みに失敗しました",
+    "original": "元の画像",
+    "preview": "プレビュー",
+    "select": "選択",
+    "emptyList": "リストが空です",
+    "unSupportedAssetType": "未対応のフォーマット",
+    "unableToAccessAll": "すべてのファイルへのアクセスができない",
+    "viewingLimitedAssetsTip": "アプリは一部のファイルと写真にしかアクセスできない",
+    "changeAccessibleLimitedAssets": "アクセスできるファイルを設定する",
+    "accessAllTip": "アプリがデバイスのファイルの一部にのみアクセスするように設定されています。「すべてのメディア」へのアクセスを許可することを推奨します",
+    "goToSystemSettings": "「システム設定」に移動",
+    "accessLimitedAssets": "メディアの一部へのアクセスを続行",
+    "accessiblePathName": "アクセスできるファイル",
+    "sTypeAudioLabel": "オーディオ",
+    "sTypeImageLabel": "画像",
+    "sTypeVideoLabel": "動画",
+    "sTypeOtherLabel": "その他のメディア",
+    "sActionPlayHint": "再生",
+    "sActionPreviewHint": "プレビュー",
+    "sActionSelectHint": "選択",
+    "sActionSwitchPathLabel": "パス切り替え",
+    "sActionUseCameraHint": "カメラを使う",
+    "sNameDurationLabel": "動画の時間",
+    "sUnitAssetCountLabel": "数"
   }
 }
