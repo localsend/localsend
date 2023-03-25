@@ -102,6 +102,13 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             if (checkPlatformIsDesktop()) ...[
+              _BooleanEntry(
+                label: t.settingsTab.general.saveWindowPlacement,
+                value: settings.saveWindowPlacement,
+                onChanged: (b) async {
+                  await ref.read(settingsProvider.notifier).setSaveWindowPlacement(b);
+                },
+              ),
               if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) ...[
                 _BooleanEntry(
                   label: t.settingsTab.general.minimizeToTray,

@@ -16,6 +16,21 @@ flutter pub run build_runner build -d
 flutter run
 ```
 
+## Compile production APK
+
+You will need the signing keys to generate an APK.
+
+Either generate one or use the debug signing options:
+
+```groovy
+// File: android/app/build.gradle
+buildTypes {
+  release {
+    signingConfig signingConfigs.debug // using debug signing
+  }
+}
+```
+
 ## Contributing
 
 ### Translation
@@ -49,3 +64,23 @@ If you encounter a bug in LocalSend or have a feature request, please submit an 
 ## Security Issues
 
 If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [localsendapp@gmail.com](mailto:localsendapp@gmail.com) so that we can address the issue as quickly and effectively as possible.
+
+## Notes
+
+Useful notes.
+
+### Bump Flutter
+
+Suppose we want to update flutter to `3.7.8` (see https://github.com/localsend/localsend/commit/7b95a7a5600db2742a9e05b956d0415d871239d5):
+
+1. Update flutter from fvm: `fvm use 3.7.8`
+2. Update flutter from submodule:
+   1. `git submodule update --init`
+   2. `cd submodules/flutter`
+   3. `git fetch`
+   4. `git checkout 3.7.8`
+   5. `cd ../..`
+   6. `git add submodules/flutter`
+3. Update flutter constraints:
+   1. In CI: `.github/workflows/ci.yml`
+   2. In pubspec: `pubspec.yaml`
