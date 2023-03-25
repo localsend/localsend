@@ -1,12 +1,11 @@
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-
 class TranslatedAssetPickerTextDelegate extends AssetPickerTextDelegate {
   const TranslatedAssetPickerTextDelegate();
 
   @override
-  String get languageCode => LocaleSettings.useDeviceLocale().languageCode;
+  String get languageCode => LocaleSettings.currentLocale.languageCode;
 
   @override
   String get confirm => t.assetPicker.confirm;
