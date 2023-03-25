@@ -86,6 +86,7 @@
       "languageOptions": {
         "system": "System"
       },
+      "saveWindowPlacement": "Quit: Save window placement",
       "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden"

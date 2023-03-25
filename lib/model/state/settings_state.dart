@@ -21,5 +21,6 @@ class SettingsState with _$SettingsState {
     required bool autoStartLaunchMinimized, // start hidden in tray (only available when launchAtStartup is true)
     required bool https,
     required SendMode sendMode,
+    required bool saveWindowPlacement
   }) = _SettingsState;
 }
