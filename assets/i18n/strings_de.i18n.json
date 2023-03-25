@@ -260,5 +260,34 @@
   "tray": {
     "open": "@:general.open",
     "close": "LocalSend beenden"
+  },
+  "assetPicker": {
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "gifIndicator": "GIF",
+    "loadFailed": "Ladevorgang ist fehlgeschlagen",
+    "original": "Ursprung",
+    "preview": "Vorschau",
+    "select": "Auswählen",
+    "emptyList": "Leere Liste",
+    "unSupportedAssetType": "Format ist nicht unterstützt.",
+    "unableToAccessAll": "Zugriff nicht möglich",
+    "viewingLimitedAssetsTip": "Zeigen Sie nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
+    "goToSystemSettings": "Gehe zu den Systemeinstellungen",
+    "accessLimitedAssets": "Fahre fort mit limitierten Zugriff",
+    "accessiblePathName": "Verfügbare Assets",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Bild",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Andere Medien",
+    "sActionPlayHint": "Abspielen",
+    "sActionPreviewHint": "Vorschau",
+    "sActionSelectHint": "Auswählen",
+    "sActionSwitchPathLabel": "Dateipfad ändern",
+    "sActionUseCameraHint": "Kamera benutzen",
+    "sNameDurationLabel": "Dauer",
+    "sUnitAssetCountLabel": "Anzahl"
   }
 }
