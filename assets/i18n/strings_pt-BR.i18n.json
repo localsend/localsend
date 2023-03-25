@@ -86,6 +86,7 @@
       "languageOptions": {
         "system": "Sistema"
       },
+      "saveWindowPlacement": "Salvar a posição da janela ao fechar",
       "minimizeToTray": "Minimizar para a bandeja ao fechar",
       "launchAtStartup": "Abrir automaticamente após o login",
       "launchMinimized": "Início automático: Abrir minimizado"

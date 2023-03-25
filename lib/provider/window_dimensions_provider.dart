@@ -18,10 +18,11 @@ class WindowDimensionProvider {
     await WindowManager.instance.setMinimumSize(minimalSize);
     final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
     final hasEnoughWidth = (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200 ? true : false;
-    
+    final savePlacement = _service.getSaveWindowPlacement();
+
     _getPersistedDimensions();
-    final Size? persistedSize = currentDimensions?["size"] as Size?;
-    final Offset? persistedOffset = currentDimensions?["position"] as Offset?;
+    final Size? persistedSize = savePlacement == false ? null : currentDimensions?["size"] as Size?;
+    final Offset? persistedOffset = savePlacement == false ? null : currentDimensions?["position"] as Offset?;
 
     await WindowManager.instance.setSize(hasEnoughWidth ? persistedSize ?? defaultSize : persistedSize ?? minimalSize);
     persistedOffset == null ? await WindowManager.instance.center() : await WindowManager.instance.setPosition(persistedOffset);
@@ -58,5 +59,4 @@ class WindowDimensionProvider {
   void _getPersistedDimensions() {
      currentDimensions = _service.getWindowLastDimensions();
   }
-
 }

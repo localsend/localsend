@@ -30,6 +30,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       autoStartLaunchMinimized: service.isAutoStartLaunchMinimized(),
       https: service.isHttps(),
       sendMode: service.getSendMode(),
+      saveWindowPlacement: service.getSaveWindowPlacement()
     );
   }
 
@@ -114,6 +115,13 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     await _service.setSendMode(mode);
     state = state.copyWith(
       sendMode: mode,
+    );
+  }
+
+  Future<void> setSaveWindowPlacement(bool savePlacement) async {
+    await _service.setSaveWindowPlacement(savePlacement);
+    state = state.copyWith(
+      saveWindowPlacement: savePlacement,
     );
   }
 }

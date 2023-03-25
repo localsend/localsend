@@ -27,6 +27,7 @@ const _windowOffsetX = 'ls_window_offset_x';
 const _windowOffsetY = 'ls_window_offset_y';
 const _windowWidth = 'ls_window_width';
 const _windowHeight = 'ls_window_height';
+const _saveWindowPlacement = 'ls_save_window_placement';
 
 // Settings
 const _showToken = 'ls_show_token';
@@ -225,5 +226,13 @@ class PersistenceService {
 
     final dimensions = {"size": size, "position": position};
     return dimensions;
+  }
+
+  Future<void> setSaveWindowPlacement(bool savePlacement) async {
+    await _prefs.setBool(_saveWindowPlacement, savePlacement);
+  }
+
+  bool getSaveWindowPlacement() {
+    return _prefs.getBool(_saveWindowPlacement) ?? true;
   }
 }
