@@ -86,6 +86,7 @@
       "languageOptions": {
         "system": "Системна"
       },
+      "saveWindowPlacement": "Зберегти розташування вікна після закриття програми",
       "minimizeToTray": "Вихід: Програма залишиться запущена у треї",
       "launchAtStartup": "Автозапуск після входу",
       "launchMinimized": "Прихований автозапуск"
