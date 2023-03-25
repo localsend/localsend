@@ -3,6 +3,11 @@
     "Here are translations that exist in <en> but not in <de>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=de' to quickly apply the newly added translations."
   ],
+  "settingsTab": {
+    "general": {
+      "saveWindowPlacement": "Quit: Save window placement"
+    }
+  },
   "assetPicker": {
     "changeAccessibleLimitedAssets": "Click to update accessible files"
   }

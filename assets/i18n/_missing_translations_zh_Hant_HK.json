@@ -16,6 +16,9 @@
     "sendModeHelp": "Explanation"
   },
   "settingsTab": {
+    "general": {
+      "saveWindowPlacement": "Quit: Save window placement"
+    },
     "receive": {
       "downloads": "(Downloads)"
     },
