@@ -48,6 +48,8 @@ You can help translating this app to other languages!
    3. Run app via `flutter run`
 4. Open a pull request
 
+#### _Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+
 ## Contributing Guidelines
 
 Before you submit a pull request to LocalSend, please ensure that you have followed these guidelines:
