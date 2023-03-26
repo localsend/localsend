@@ -9,23 +9,31 @@ import 'package:localsend_app/model/state/network_state.dart';
 import 'package:localsend_app/util/platform_check.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
 
-final networkStateProvider = StateNotifierProvider<NetworkStateNotifier, NetworkState>((ref) => NetworkStateNotifier());
+final networkStateProvider = NotifierProvider<NetworkStateNotifier, NetworkState>(() {
+  return NetworkStateNotifier();
+});
 
 StreamSubscription? _subscription;
 
-class NetworkStateNotifier extends StateNotifier<NetworkState> {
+class NetworkStateNotifier extends Notifier<NetworkState> {
+  NetworkStateNotifier();
 
-  NetworkStateNotifier()
-      : super(const NetworkState(
-          localIps: [],
-          initialized: false,
-        )) {
-    unawaited(init());
+  @override
+  NetworkState build() {
+    // ignore: discarded_futures
+    init();
+
+    return const NetworkState(
+      localIps: [],
+      initialized: false,
+    );
   }
 
   Future<void> init() async {
     if (!kIsWeb) {
-      unawaited(_subscription?.cancel());
+      // ignore: unawaited_futures
+      _subscription?.cancel();
+
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
         _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
@@ -43,6 +51,7 @@ class NetworkStateNotifier extends StateNotifier<NetworkState> {
         });
       }
     }
+
     state = NetworkState(
       localIps: await _getIp(),
       initialized: true,

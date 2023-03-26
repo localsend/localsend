@@ -5,32 +5,33 @@ import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 
-final settingsProvider = StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
-  final persistenceService = ref.watch(persistenceProvider);
-  return SettingsNotifier(persistenceService);
+final settingsProvider = NotifierProvider<SettingsNotifier, SettingsState>(() {
+  return SettingsNotifier();
 });
 
-class SettingsNotifier extends StateNotifier<SettingsState> {
-  final PersistenceService _service;
+class SettingsNotifier extends Notifier<SettingsState> {
+  late PersistenceService _service;
 
-  SettingsNotifier(this._service) : super(_loadFromPersistence(_service));
+  SettingsNotifier();
 
-  static SettingsState _loadFromPersistence(PersistenceService service) {
+  @override
+  SettingsState build() {
+    _service = ref.watch(persistenceProvider);
     return SettingsState(
-      showToken: service.getShowToken(),
-      alias: service.getAlias(),
-      theme: service.getTheme(),
-      locale: service.getLocale(),
-      port: service.getPort(),
-      multicastGroup: service.getMulticastGroup(),
-      destination: service.getDestination(),
-      saveToGallery: service.isSaveToGallery(),
-      quickSave: service.isQuickSave(),
-      minimizeToTray: service.isMinimizeToTray(),
-      autoStartLaunchMinimized: service.isAutoStartLaunchMinimized(),
-      https: service.isHttps(),
-      sendMode: service.getSendMode(),
-      saveWindowPlacement: service.getSaveWindowPlacement()
+      showToken: _service.getShowToken(),
+      alias: _service.getAlias(),
+      theme: _service.getTheme(),
+      locale: _service.getLocale(),
+      port: _service.getPort(),
+      multicastGroup: _service.getMulticastGroup(),
+      destination: _service.getDestination(),
+      saveToGallery: _service.isSaveToGallery(),
+      quickSave: _service.isQuickSave(),
+      minimizeToTray: _service.isMinimizeToTray(),
+      autoStartLaunchMinimized: _service.isAutoStartLaunchMinimized(),
+      https: _service.isHttps(),
+      sendMode: _service.getSendMode(),
+      saveWindowPlacement: _service.getSaveWindowPlacement(),
     );
   }
 

@@ -11,21 +11,29 @@ import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
-final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>((ref) {
-  final dio = ref.watch(dioProvider(DioType.discovery));
-  final fingerprint = ref.watch(fingerprintProvider);
-  final multicastService = ref.watch(multicastProvider);
-  return NearbyDevicesNotifier(dio, fingerprint, multicastService);
+final nearbyDevicesProvider = NotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>(() {
+  return NearbyDevicesNotifier();
 });
 
 Map<String, TaskRunner> _runners = {};
 
-class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
-  final Dio _dio;
-  final String _fingerprint;
-  final MulticastService _multicastService;
+class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
+  late Dio _dio;
+  late String _fingerprint;
+  late MulticastService _multicastService;
 
-  NearbyDevicesNotifier(this._dio, this._fingerprint, this._multicastService) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
+  NearbyDevicesNotifier();
+
+  @override
+  NearbyDevicesState build() {
+    _dio = ref.watch(dioProvider(DioType.discovery));
+    _fingerprint = ref.watch(fingerprintProvider);
+    _multicastService = ref.watch(multicastProvider);
+    return const NearbyDevicesState(
+      runningIps: {},
+      devices: {},
+    );
+  }
 
   void startMulticastListener() {
     _multicastService.startListener().listen(registerDevice);

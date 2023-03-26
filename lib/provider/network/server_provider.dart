@@ -23,7 +23,6 @@ import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
 import 'package:localsend_app/util/native/get_destination_directory.dart';
@@ -38,18 +37,19 @@ import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// This provider manages receiving file requests.
-final serverProvider = StateNotifierProvider<ServerNotifier, ServerState?>((ref) {
-  final deviceInfo = ref.watch(deviceRawInfoProvider);
-  return ServerNotifier(ref, deviceInfo);
+final serverProvider = NotifierProvider<ServerNotifier, ServerState?>(() {
+  return ServerNotifier();
 });
 
 const _uuid = Uuid();
 
-class ServerNotifier extends StateNotifier<ServerState?> {
-  final DeviceInfoResult deviceInfo;
-  final Ref _ref;
+class ServerNotifier extends Notifier<ServerState?> {
+  ServerNotifier();
 
-  ServerNotifier(this._ref, this.deviceInfo) : super(null);
+  @override
+  ServerState? build() {
+    return null;
+  }
 
   Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
     if (state != null) {
@@ -72,8 +72,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       alias: alias,
       port: port,
       https: https,
-      fingerprint: _ref.read(fingerprintProvider),
-      showToken: _ref.read(settingsProvider.select((s) => s.showToken)),
+      fingerprint: ref.read(fingerprintProvider),
+      showToken: ref.read(settingsProvider.select((s) => s.showToken)),
     );
 
     print('Starting server...');
@@ -122,6 +122,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return _response(412, message: 'Self-discovered');
       }
 
+      final deviceInfo = ref.read(deviceRawInfoProvider);
+
       final dto = InfoDto(
         alias: alias,
         deviceModel: deviceInfo.deviceModel,
@@ -147,7 +149,9 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       // Save device information
-      _ref.read(nearbyDevicesProvider.notifier).registerDevice(requestDto.toDevice(request.ip, port, https));
+      ref.read(nearbyDevicesProvider.notifier).registerDevice(requestDto.toDevice(request.ip, port, https));
+
+      final deviceInfo = ref.read(deviceRawInfoProvider);
 
       final responseDto = InfoDto(
         alias: alias,
@@ -177,7 +181,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return _response(400, message: 'Request must contain at least one file');
       }
 
-      final settings = _ref.read(settingsProvider);
+      final settings = ref.read(settingsProvider);
       final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
       final sessionId = _uuid.v4();
 
@@ -339,7 +343,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
       try {
         final saveToGallery = checkPlatformWithGallery() &&
-            _ref.read(settingsProvider).saveToGallery &&
+            ref.read(settingsProvider).saveToGallery &&
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
@@ -348,7 +352,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           stream: request.read(),
           onProgress: (savedBytes) {
             if (receivingFile.file.size != 0) {
-              _ref.read(progressProvider.notifier).setProgress(
+              ref.read(progressProvider.notifier).setProgress(
                     sessionId: receiveState.sessionId,
                     fileId: fileId,
                     progress: savedBytes / receivingFile.file.size,
@@ -370,7 +374,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         );
 
         // Track it in history
-        await _ref.read(receiveHistoryProvider.notifier).addEntry(
+        await ref.read(receiveHistoryProvider.notifier).addEntry(
               id: fileId,
               fileName: receivingFile.desiredName!,
               fileType: receivingFile.file.fileType,
@@ -396,7 +400,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print(st);
       }
 
-      _ref.read(progressProvider.notifier).setProgress(
+      ref.read(progressProvider.notifier).setProgress(
             sessionId: receiveState.sessionId,
             fileId: fileId,
             progress: 1,
@@ -411,7 +415,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             endTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
-        if (_ref.read(settingsProvider).quickSave && state?.session?.message == null) {
+        if (ref.read(settingsProvider).quickSave && state?.session?.message == null) {
           // close the session after return of the response
           Future.delayed(Duration.zero, () {
             closeSession();
@@ -523,7 +527,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     state = state!.copyWith(
       session: null,
     );
-    _ref.read(progressProvider.notifier).removeSession(sessionId);
+    ref.read(progressProvider.notifier).removeSession(sessionId);
   }
 }
 

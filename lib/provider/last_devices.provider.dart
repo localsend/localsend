@@ -1,12 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
 
-final lastDevicesProvider = StateNotifierProvider<LastDevicesNotifier, List<Device>>((ref) {
+final lastDevicesProvider = NotifierProvider<LastDevicesNotifier, List<Device>>(() {
   return LastDevicesNotifier();
 });
 
-class LastDevicesNotifier extends StateNotifier<List<Device>> {
-  LastDevicesNotifier() : super([]);
+class LastDevicesNotifier extends Notifier<List<Device>> {
+  LastDevicesNotifier();
+
+  @override
+  List<Device> build() {
+    return [];
+  }
 
   void addDevice(Device device) {
     state = {

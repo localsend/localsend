@@ -23,7 +23,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.6.14
-  flutter_riverpod: 2.3.0
+  flutter_riverpod: 2.3.2
   freezed_annotation: 2.2.0
   image_gallery_saver: 1.7.1
   image_picker: 0.8.6+4
@@ -57,7 +57,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: 2.3.3
-  custom_lint: 0.2.12
+  custom_lint: 0.3.2
   flutter_gen_runner: 5.2.0
   flutter_lints: 2.0.1
   freezed: 2.3.2
@@ -67,7 +67,7 @@ dev_dependencies:
     git:
       url: https://github.com/Tienisto/msix.git
       ref: 5934920205cb2284a510ee2ddc58cf082d37595c
-  riverpod_lint: 1.1.2
+  riverpod_lint: 1.1.6
   slang_build_runner: 3.14.0
   test: 1.23.1
 

@@ -18,12 +18,17 @@ const _uuid = Uuid();
 
 /// Manages files selected for sending.
 /// Will stay alive even after a session has been completed to send the same files to another device.
-final selectedSendingFilesProvider = StateNotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
+final selectedSendingFilesProvider = NotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>(() {
   return SelectedSendingFilesNotifier();
 });
 
-class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
-  SelectedSendingFilesNotifier() : super([]);
+class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
+  SelectedSendingFilesNotifier();
+
+  @override
+  List<CrossFile> build() {
+    return [];
+  }
 
   /// Add a simple message
   /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8

@@ -9,12 +9,17 @@ const _uuid = Uuid();
 /// Manages files to be selected to receive.
 /// Only alive during [ReceivePage], i.e. this provider gets disposed as soon as the actual file transfer begin.
 /// Map: FileId -> FileName
-final selectedReceivingFilesProvider = StateNotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>((ref) {
+final selectedReceivingFilesProvider = NotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>(() {
   return SelectedReceivingFilesNotifier();
 });
 
-class SelectedReceivingFilesNotifier extends StateNotifier<Map<String, String>> {
-  SelectedReceivingFilesNotifier() : super({});
+class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
+  SelectedReceivingFilesNotifier();
+
+  @override
+  Map<String, String> build() {
+    return {};
+  }
 
   void init(List<FileDto> files) {
     state = {
