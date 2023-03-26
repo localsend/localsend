@@ -21,13 +21,14 @@ class WindowWatcher extends ConsumerStatefulWidget {
 
 class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListener {
   static WindowDimensionsController? _dimensionsController;
-  static bool timeout = false;
+  static Stopwatch s = Stopwatch();
 
   WindowDimensionsController _ensureDimensionsProvider() => ref.watch(windowDimensionProvider);
 
   @override
   Widget build(BuildContext context) {
     _dimensionsController ??= _ensureDimensionsProvider();
+    s.start();
     return widget.child;
   }
 
@@ -56,17 +57,12 @@ class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListen
   //Linux alternative for onWindowMoved and onWindowResized
   @override
   Future<void> onWindowMove() async {
-    if(checkPlatform([TargetPlatform.linux]) && !timeout) {
-      timeout = true;
-      final windowOffset = await windowManager.getPosition();
-      final windowSize = await windowManager.getSize();
-      await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
-      Timer(const Duration(milliseconds: 600), () => toggleTimeout());
+    if(checkPlatform([TargetPlatform.linux]) && s.elapsedMilliseconds >= 600) {
+        s.reset();
+        final windowOffset = await windowManager.getPosition();
+        final windowSize = await windowManager.getSize();
+        await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
     }
-  }
-  //handy limiter for onWindowMove
-  void toggleTimeout() {
-    timeout = !timeout;
   }
 
   @override
