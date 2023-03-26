@@ -18,7 +18,7 @@
     }
   ],
   "code-sign": {
-    "signing-identity": "Apple Distribution: Tien Do Nam (3W7H4PYMCV)",
-    "identifier": "465ED3F1559A17539E49D338B4F14A7D0FF1582F"
+    "signing-identity": "Developer ID Application: Tien Do Nam (3W7H4PYMCV)",
+    "identifier": "36F60C6744929E06BA64EB7463B7AFFCEFF49DD0"
   }
 }
