@@ -1,29 +1,37 @@
 import 'dart:ui';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
 
 //Records are a better alternative, but they are currently experimental
-typedef WindowDimensions = Map<String, OffsetBase?>?;
+typedef WindowDimensions = Map<String, OffsetBase?>;
 
-class WindowDimensionProvider {
+final windowDimensionProvider = Provider<WindowDimensionsController>((ref) {
+  return WindowDimensionsController(ref.watch(persistenceProvider));
+});
+
+class WindowDimensionsController {
   final PersistenceService _service;
   static const Size minimalSize = Size(400, 500);
   static const Size defaultSize = Size(900, 600);
-  static WindowDimensions currentDimensions;
 
-  WindowDimensionProvider(this._service);
+  WindowDimensionsController(this._service);
 
   Future<void> dimensionsConfiguration() async {
     await WindowManager.instance.setMinimumSize(minimalSize);
     final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
     final hasEnoughWidth = (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200 ? true : false;
+
+    //load saved Window placement and preferences
     final savePlacement = _service.getSaveWindowPlacement();
+    final WindowDimensions persistedDimensions = _service.getWindowLastDimensions();
 
-    _getPersistedDimensions();
-    final Size? persistedSize = savePlacement == false ? null : currentDimensions?["size"] as Size?;
-    final Offset? persistedOffset = savePlacement == false ? null : currentDimensions?["position"] as Offset?;
+    //if [savePlacement is false], both values will be [set to null]
+    final Size? persistedSize = savePlacement ? persistedDimensions["size"] as Size? : null;
+    final Offset? persistedOffset = savePlacement ? persistedDimensions["position"] as Offset? : null;
 
+    //settings applied accordingly if [save option is enabled] and if [persisted values exist]
     await WindowManager.instance.setSize(hasEnoughWidth ? persistedSize ?? defaultSize : persistedSize ?? minimalSize);
     persistedOffset == null ? await WindowManager.instance.center() : await WindowManager.instance.setPosition(persistedOffset);
   }
@@ -45,7 +53,6 @@ class WindowDimensionProvider {
       _service.setWindowOffsetX(windowOffset.dx),
       _service.setWindowOffsetY(windowOffset.dy),
     ]);
-    _getPersistedDimensions();
   }
 
   Future<void> storeSize({ required Size windowSize }) async {
@@ -53,10 +60,5 @@ class WindowDimensionProvider {
       _service.setWindowHeight(windowSize.height),
       _service.setWindowWidth(windowSize.width)
     ]);
-    _getPersistedDimensions();
-  }
-
-  void _getPersistedDimensions() {
-     currentDimensions = _service.getWindowLastDimensions();
   }
 }
