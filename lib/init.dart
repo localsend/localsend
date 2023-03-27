@@ -81,7 +81,7 @@ Future<PersistenceService> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
-    await WindowDimensionsController(persistenceService).dimensionsConfiguration();
+    await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
