@@ -10,7 +10,7 @@ environment:
   sdk: ">=2.19.5 <3.0.0"
 
 dependencies:
-  basic_utils: 5.5.1
+  basic_utils: 5.5.3
   collection: 1.17.0
   connectivity_plus: 3.0.3
   desktop_drop: 0.4.1
