@@ -1,9 +1,11 @@
 ## 1.9.0 (2023-)
 
-- feat: allow deleting history entry when file could not be opened (@TheGB0077)
+- feat: allow deleting history entry when file could not be opened (by @TheGB0077)
 - feat: close message request when copied / opened link
+- feat(desktop): save last window position (by @TheGB0077)
 - feat(android): enable edge-to-edge mode
 - fix: clear selection after finished message transfer
+- fix(android, ios): fallback asset picker strings to English translation (by @TheGB0077)
 
 ## 1.8.0 (2023-03-05)
 

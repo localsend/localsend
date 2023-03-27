@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: basic_utils
-      sha256: "9d3dcb8eaba8b1578a720c23988e98fde2ef21da40ae34e9e8f6fe84cee86a65"
+      sha256: "05993c20640f2fd99727b8c3e9de3f288b1e92f0191a9cea0ef65b37d6c5d6db"
       url: "https://pub.dev"
     source: hosted
-    version: "5.5.1"
+    version: "5.5.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -949,10 +949,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: db7306cf0249f838d1a24af52b5a5887c5bf7f31d8bb4e827d071dc0939ad346
+      sha256: c3120a968135aead39699267f4c74bc9a08e4e909e86bc1b0af5bfd78691123c
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.2"
+    version: "3.7.2"
   pool:
     dependency: transitive
     description:

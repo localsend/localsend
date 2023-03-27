@@ -86,6 +86,7 @@
       "languageOptions": {
         "system": "System"
       },
+      "saveWindowPlacement": "Schließen: Fensterposition speichern",
       "minimizeToTray": "Schließen: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
       "launchMinimized": "Autostart: versteckt starten"
@@ -274,6 +275,7 @@
     "unSupportedAssetType": "Format ist nicht unterstützt.",
     "unableToAccessAll": "Zugriff nicht möglich",
     "viewingLimitedAssetsTip": "Zeigen Sie nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
     "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
     "goToSystemSettings": "Gehe zu den Systemeinstellungen",
     "accessLimitedAssets": "Fahre fort mit limitierten Zugriff",
