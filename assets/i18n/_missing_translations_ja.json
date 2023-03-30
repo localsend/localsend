@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "general": {
-      "saveWindowPlacement": "Quit: Save window placement"
+      "saveWindowPlacement": "終了時: ウィンドウ配置を記憶"
     }
   }
 }

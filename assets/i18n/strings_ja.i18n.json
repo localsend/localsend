@@ -86,9 +86,9 @@
       "languageOptions": {
         "system": "システム"
       },
-      "minimizeToTray": "終了: トレイに最小化",
+      "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動起動",
-      "launchMinimized": "自動起動: 隠れた状態で開始"
+      "launchMinimized": "自動起動時: 隠れた状態で開始"
     },
     "receive": {
       "title": "受信",
