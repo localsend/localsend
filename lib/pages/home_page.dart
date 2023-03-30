@@ -38,18 +38,24 @@ enum HomeTab {
 }
 
 class HomePage extends ConsumerStatefulWidget {
+  final HomeTab initialTab;
+
   /// It is important for the initializing step
   /// because the first init clears the cache
   final bool appStart;
 
-  const HomePage({required this.appStart, super.key});
+  const HomePage({
+    required this.initialTab,
+    required this.appStart,
+    super.key,
+  });
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  final _pageController = PageController();
+  late PageController _pageController;
   HomeTab _currentTab = HomeTab.receive;
 
   bool _dragAndDropIndicator = false;
@@ -58,8 +64,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      postInit(context, ref, widget.appStart, _goToPage);
+    _pageController = PageController(initialPage: widget.initialTab.index);
+    _currentTab = widget.initialTab;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await postInit(context, ref, widget.appStart, _goToPage);
     });
   }
 
@@ -84,8 +93,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           _dragAndDropIndicator = false;
         });
       },
-      onDragDone: (event) {
-        ref.read(selectedSendingFilesProvider.notifier).addFiles(
+      onDragDone: (event) async {
+        await ref.read(selectedSendingFilesProvider.notifier).addFiles(
               files: event.files,
               converter: CrossFileConverters.convertXFile,
             );

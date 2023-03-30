@@ -1,7 +1,7 @@
 {
   "@@info": [
-    "Here are translations that exist in <en> but not in <hu>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations."
+    "Here are translations that exist in <en> but not in <cs>.",
+    "After editing this file, you can run 'flutter pub run slang apply --locale=cs' to quickly apply the newly added translations."
   ],
   "settingsTab": {
     "general": {

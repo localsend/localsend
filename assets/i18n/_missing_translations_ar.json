@@ -16,6 +16,9 @@
     "sendModeHelp": "Explanation"
   },
   "settingsTab": {
+    "general": {
+      "saveWindowPlacement": "Quit: Save window placement"
+    },
     "receive": {
       "downloads": "(Downloads)"
     },
@@ -94,5 +97,8 @@
       "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
       "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
     }
+  },
+  "assetPicker": {
+    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device."
   }
 }

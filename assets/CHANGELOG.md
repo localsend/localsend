@@ -1,4 +1,13 @@
-## 1.8.0 (2023-)
+## 1.9.0 (2023-)
+
+- feat: allow deleting history entry when file could not be opened (by @TheGB0077)
+- feat: close message request when copied / opened link
+- feat(desktop): save last window position (by @TheGB0077)
+- feat(android): enable edge-to-edge mode
+- fix: clear selection after finished message transfer
+- fix(android, ios): fallback asset picker strings to English translation (by @TheGB0077)
+
+## 1.8.0 (2023-03-05)
 
 - feat: add send modes (single recipient, multiple recipients)
 - feat: selection gets cleared after finish by default (part of send modes feature)
@@ -11,13 +20,14 @@
 - feat(ex. iOS): pressing destination directory in progress page will open the directory
 - feat(android): share apk and install apk
 - feat(android): Android TV support
+- feat(android): show loading indicator when picking (large) files
 - feat(windows): left click on tray icon opens app
 - feat(linux): add Control+Q shortcut to exit app
 - fix: handshake error in unencrypted mode
 - fix: also scan multicast when pressing on a subnet sync button
 - fix(android): missing app icon on Android 7
 - fix(android,ios): show error message when saving to gallery failed
-- i18n: add uk
+- i18n: add bn, nl, uk
 
 ## 1.7.0 (2023-02-11)
 

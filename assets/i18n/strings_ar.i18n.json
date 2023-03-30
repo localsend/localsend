@@ -139,6 +139,79 @@
   "changelogPage": {
     "title": "التغييرات"
   },
+  "dialogs": {
+    "addFile": {
+      "title": "أضف إلى الاختيار",
+      "content": "ماذا تريد أن تضيف؟"
+    },
+    "addressInput": {
+      "title": "أدخل العنوان",
+      "hashtag": "رابطة هاشتاق",
+      "ip": "عنوان IP"
+    },
+    "cancelSession": {
+      "title": "إلغاء نقل الملف",
+      "content": "هل تريد حقًا إلغاء نقل الملف؟"
+    },
+    "fileNameInput": {
+      "title": "أدخل اسم الملف",
+      "original": "أصلي: {original}"
+    },
+    "messageInput": {
+      "title": "اكتب رسالة",
+      "multiline": "متعدد الأسطر"
+    },
+    "noFiles": {
+      "title": "لم يتم اختيار اي ملف",
+      "content": "الرجاء تحديد ملف واحد على الأقل."
+    },
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "counter": "عداد",
+      "prefix": "بادئة",
+      "padZero": "بدأ مع أصفار",
+      "sortBeforeCount": "قم بالفرز أبجديًا مسبقًا",
+      "random": "عشوائي"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك."
+    }
+  },
+  "tray": {
+    "@info": "إرشادات Apple صارمة للغاية بشأن صياغة 'الإغلاق'.",
+    "open": "@:general.open",
+    "close": "أغلق LocalSend"
+  },
+  "assetPicker": {
+    "confirm": "تاكيد",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "gifIndicator": "GIF",
+    "loadFailed": "فشل التحميل",
+    "original": "أصلي",
+    "preview": "معاينة",
+    "select": "تحديد",
+    "emptyList": "القائمة فارغة",
+    "unSupportedAssetType": "نوع غير مدعوم",
+    "unableToAccessAll": "لا يمكن الوصول إلى جميع الملفات الموجودة على الجهاز",
+    "viewingLimitedAssetsTip": "إظهار الملفات والألبومات التي يمكن للتطبيق الوصول إليها فقط.",
+    "changeAccessibleLimitedAssets": "السماح بالوصول إلى ملفات إضافية",
+    "goToSystemSettings": "فتح إعدادات النظام",
+    "accessLimitedAssets": "الاستمرار مع صلاحيات محدوده",
+    "accessiblePathName": "ملفات يمكن الوصول إليها",
+    "sTypeAudioLabel": "صوتي",
+    "sTypeImageLabel": "صورة",
+    "sTypeVideoLabel": "فيديو",
+    "sTypeOtherLabel": "آخر",
+    "sActionPlayHint": "تشغيل",
+    "sActionPreviewHint": "معاينة",
+    "sActionSelectHint": "تحديد",
+    "sActionSwitchPathLabel": "تبديل المسار",
+    "sActionUseCameraHint": "استخدم الكاميرا",
+    "sNameDurationLabel": "مدة",
+    "sUnitAssetCountLabel": "عدد"
+  },
   "aliasGenerator": {
     "@info": "قد تحتوي المناطق المختلفة على كلمات مختلفة ، وقد لا تتطابق 1:1",
     "adjectives": [
@@ -211,49 +284,5 @@
     ],
     "combination": "{adjective} {fruit}",
     "@combination": "In some languages, the adjective must be last."
-  },
-  "dialogs": {
-    "addFile": {
-      "title": "أضف إلى الاختيار",
-      "content": "ماذا تريد أن تضيف؟"
-    },
-    "addressInput": {
-      "title": "أدخل العنوان",
-      "hashtag": "رابطة هاشتاق",
-      "ip": "عنوان IP"
-    },
-    "cancelSession": {
-      "title": "إلغاء نقل الملف",
-      "content": "هل تريد حقًا إلغاء نقل الملف؟"
-    },
-    "fileNameInput": {
-      "title": "أدخل اسم الملف",
-      "original": "أصلي: {original}"
-    },
-    "messageInput": {
-      "title": "اكتب رسالة",
-      "multiline": "متعدد الأسطر"
-    },
-    "noFiles": {
-      "title": "لم يتم اختيار اي ملف",
-      "content": "الرجاء تحديد ملف واحد على الأقل."
-    },
-    "quickActions": {
-      "title": "إجراءات سريعة",
-      "counter": "عداد",
-      "prefix": "بادئة",
-      "padZero": "بدأ مع أصفار",
-      "sortBeforeCount": "قم بالفرز أبجديًا مسبقًا",
-      "random": "عشوائي"
-    },
-    "quickSaveNotice": {
-      "title": "@:general.quickSave",
-      "content": "يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك."
-    }
-  },
-  "tray": {
-    "@info": "إرشادات Apple صارمة للغاية بشأن صياغة 'الإغلاق'.",
-    "open": "@:general.open",
-    "close": "أغلق LocalSend"
   }
 }

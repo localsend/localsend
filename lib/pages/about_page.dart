@@ -42,8 +42,8 @@ class AboutPage extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: TextButton(
-              onPressed: () {
-                launchUrl(Uri.parse('https://localsend.org'));
+              onPressed: () async {
+                await launchUrl(Uri.parse('https://localsend.org'));
               },
               child: const Text('localsend.org'),
             ),
@@ -53,32 +53,32 @@ class AboutPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton(
-                onPressed: () {
-                  launchUrl(Uri.parse('https://localsend.org'));
+                onPressed: () async {
+                  await launchUrl(Uri.parse('https://localsend.org'));
                 },
                 child: const Text('Homepage'),
               ),
               TextButton(
-                onPressed: () {
-                  launchUrl(Uri.parse('https://github.com/localsend/localsend'), mode: LaunchMode.externalApplication);
+                onPressed: () async {
+                  await launchUrl(Uri.parse('https://github.com/localsend/localsend'), mode: LaunchMode.externalApplication);
                 },
                 child: const Text('Source Code (Github)'),
               ),
               TextButton(
-                onPressed: () {
-                  launchUrl(Uri.parse('https://opensource.org/licenses/MIT'));
+                onPressed: () async {
+                  await launchUrl(Uri.parse('https://opensource.org/licenses/MIT'));
                 },
                 child: const Text('MIT License'),
               ),
               TextButton(
-                onPressed: () {
-                  context.push(() => const LicensePage());
+                onPressed: () async {
+                  await context.push(() => const LicensePage());
                 },
                 child: const Text('License Notices'),
               ),
               TextButton(
-                onPressed: () {
-                  context.push(() => const DebugPage());
+                onPressed: () async {
+                  await context.push(() => const DebugPage());
                 },
                 child: const Text('Debugging'),
               ),

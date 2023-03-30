@@ -43,14 +43,16 @@ class TaskRunner<T> {
     while (_queue.isNotEmpty && _runnerCount < concurrency && !_streamController.isClosed) {
       _runnerCount++;
 
-      _runner(
-        onFinish: () {
-          _runnerCount--;
-          if (_stopped || (_runnerCount == 0 && !_stayAlive)) {
-            _streamController.close();
-            onFinish?.call();
-          }
-        },
+      unawaited(
+        _runner(
+          onFinish: () {
+            _runnerCount--;
+            if (_stopped || (_runnerCount == 0 && !_stayAlive)) {
+              _streamController.close();
+              onFinish?.call();
+            }
+          },
+        ),
       );
     }
   }

@@ -47,8 +47,8 @@ class DebugPage extends ConsumerWidget {
           Row(
             children: [
               ElevatedButton(
-                onPressed: () {
-                  context.push(() => const MulticastDebugPage());
+                onPressed: () async {
+                  await context.push(() => const MulticastDebugPage());
                 },
                 child: const Text('Multicast'),
               ),

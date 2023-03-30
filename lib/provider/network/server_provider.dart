@@ -9,10 +9,10 @@ import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -23,7 +23,6 @@ import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/device_info_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/file_saver.dart';
 import 'package:localsend_app/util/native/get_destination_directory.dart';
@@ -38,18 +37,19 @@ import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// This provider manages receiving file requests.
-final serverProvider = StateNotifierProvider<ServerNotifier, ServerState?>((ref) {
-  final deviceInfo = ref.watch(deviceRawInfoProvider);
-  return ServerNotifier(ref, deviceInfo);
+final serverProvider = NotifierProvider<ServerNotifier, ServerState?>(() {
+  return ServerNotifier();
 });
 
 const _uuid = Uuid();
 
-class ServerNotifier extends StateNotifier<ServerState?> {
-  final DeviceInfoResult deviceInfo;
-  final Ref _ref;
+class ServerNotifier extends Notifier<ServerState?> {
+  ServerNotifier();
 
-  ServerNotifier(this._ref, this.deviceInfo) : super(null);
+  @override
+  ServerState? build() {
+    return null;
+  }
 
   Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
     if (state != null) {
@@ -72,8 +72,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       alias: alias,
       port: port,
       https: https,
-      fingerprint: _ref.read(fingerprintProvider),
-      showToken: _ref.read(settingsProvider.select((s) => s.showToken)),
+      fingerprint: ref.read(fingerprintProvider),
+      showToken: ref.read(settingsProvider.select((s) => s.showToken)),
     );
 
     print('Starting server...');
@@ -122,6 +122,8 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return _response(412, message: 'Self-discovered');
       }
 
+      final deviceInfo = ref.read(deviceRawInfoProvider);
+
       final dto = InfoDto(
         alias: alias,
         deviceModel: deviceInfo.deviceModel,
@@ -147,7 +149,9 @@ class ServerNotifier extends StateNotifier<ServerState?> {
       }
 
       // Save device information
-      _ref.read(nearbyDevicesProvider.notifier).registerDevice(requestDto.toDevice(request.ip, port, https));
+      ref.read(nearbyDevicesProvider.notifier).registerDevice(requestDto.toDevice(request.ip, port, https));
+
+      final deviceInfo = ref.read(deviceRawInfoProvider);
 
       final responseDto = InfoDto(
         alias: alias,
@@ -177,7 +181,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return _response(400, message: 'Request must contain at least one file');
       }
 
-      final settings = _ref.read(settingsProvider);
+      final settings = ref.read(settingsProvider);
       final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
       final sessionId = _uuid.v4();
 
@@ -222,7 +226,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           await showFromTray();
         }
 
-        // ignore: use_build_context_synchronously
+        // ignore: use_build_context_synchronously, unawaited_futures
         Routerino.context.push(() => const ReceivePage());
 
         // Delayed response (waiting for user's decision)
@@ -234,54 +238,55 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         return _response(500, message: 'Server is in invalid state');
       }
 
-      if (selection != null) {
-        if (selection.isEmpty) {
-          // nothing selected, send this to sender and close session
-          closeSession();
-          return _response(200);
-        }
-
-        final receiveState = state!.session!;
-        state = state!.copyWith(
-          session: receiveState.copyWith(
-            status: SessionStatus.sending,
-            files: Map.fromEntries(
-              receiveState.files.values.map((entry) {
-                final desiredName = selection![entry.file.id];
-                return MapEntry(
-                  entry.file.id,
-                  ReceivingFile(
-                    file: entry.file,
-                    status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
-                    token: desiredName != null ? _uuid.v4() : null,
-                    desiredName: desiredName,
-                    path: null,
-                    savedToGallery: false,
-                    errorMessage: null,
-                  ),
-                );
-              }),
-            ),
-            responseHandler: null,
-          ),
-        );
-
-        if (quickSave) {
-          // ignore: use_build_context_synchronously
-          Routerino.context.pushImmediately(() => ProgressPage(
-                showAppBar: false,
-                closeSessionOnClose: true,
-                sessionId: sessionId,
-              ));
-        }
-
-        return _response(200, body: {
-          for (final file in state!.session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
-        });
-      } else {
+      if (selection == null) {
         closeSession();
         return _response(403, message: 'File request declined by recipient');
       }
+
+      if (selection.isEmpty) {
+        // nothing selected, send this to sender and close session
+        // This usually happens for message transfers
+        closeSession();
+        return _response(200);
+      }
+
+      final receiveState = state!.session!;
+      state = state!.copyWith(
+        session: receiveState.copyWith(
+          status: SessionStatus.sending,
+          files: Map.fromEntries(
+            receiveState.files.values.map((entry) {
+              final desiredName = selection![entry.file.id];
+              return MapEntry(
+                entry.file.id,
+                ReceivingFile(
+                  file: entry.file,
+                  status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
+                  token: desiredName != null ? _uuid.v4() : null,
+                  desiredName: desiredName,
+                  path: null,
+                  savedToGallery: false,
+                  errorMessage: null,
+                ),
+              );
+            }),
+          ),
+          responseHandler: null,
+        ),
+      );
+
+      if (quickSave) {
+        // ignore: use_build_context_synchronously, unawaited_futures
+        Routerino.context.pushImmediately(() => ProgressPage(
+              showAppBar: false,
+              closeSessionOnClose: true,
+              sessionId: sessionId,
+            ));
+      }
+
+      return _response(200, body: {
+        for (final file in state!.session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
+      });
     });
 
     router.post(ApiRoute.send.path, (Request request) async {
@@ -338,7 +343,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
 
       try {
         final saveToGallery = checkPlatformWithGallery() &&
-            _ref.read(settingsProvider).saveToGallery &&
+            ref.read(settingsProvider).saveToGallery &&
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
@@ -347,7 +352,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
           stream: request.read(),
           onProgress: (savedBytes) {
             if (receivingFile.file.size != 0) {
-              _ref.read(progressProvider.notifier).setProgress(
+              ref.read(progressProvider.notifier).setProgress(
                     sessionId: receiveState.sessionId,
                     fileId: fileId,
                     progress: savedBytes / receivingFile.file.size,
@@ -369,7 +374,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         );
 
         // Track it in history
-        await _ref.read(receiveHistoryProvider.notifier).addEntry(
+        await ref.read(receiveHistoryProvider.notifier).addEntry(
               id: fileId,
               fileName: receivingFile.desiredName!,
               fileType: receivingFile.file.fileType,
@@ -395,7 +400,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
         print(st);
       }
 
-      _ref.read(progressProvider.notifier).setProgress(
+      ref.read(progressProvider.notifier).setProgress(
             sessionId: receiveState.sessionId,
             fileId: fileId,
             progress: 1,
@@ -410,7 +415,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
             endTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
-        if (_ref.read(settingsProvider).quickSave && state?.session?.message == null) {
+        if (ref.read(settingsProvider).quickSave && state?.session?.message == null) {
           // close the session after return of the response
           Future.delayed(Duration.zero, () {
             closeSession();
@@ -435,10 +440,12 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     router.post(ApiRoute.show.path, (Request request) async {
       final senderToken = request.url.queryParameters['token'];
       if (senderToken == showToken && checkPlatformIsDesktop()) {
-        showFromTray().catchError((e) {
-          // don't wait for it
-          print(e);
-        });
+        unawaited(
+          showFromTray().catchError((e) {
+            // don't wait for it
+            print(e);
+          }),
+        );
         return _response(200);
       }
 
@@ -464,7 +471,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     }
 
     controller.add(fileNameMap);
-    controller.close();
+    unawaited(controller.close());
   }
 
   void declineFileRequest() {
@@ -474,7 +481,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     }
 
     controller.add(null);
-    controller.close();
+    unawaited(controller.close());
   }
 
   /// Updates the destination directory for the current session.
@@ -520,7 +527,7 @@ class ServerNotifier extends StateNotifier<ServerState?> {
     state = state!.copyWith(
       session: null,
     );
-    _ref.read(progressProvider.notifier).removeSession(sessionId);
+    ref.read(progressProvider.notifier).removeSession(sessionId);
   }
 }
 

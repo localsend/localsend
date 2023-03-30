@@ -74,7 +74,9 @@ class MulticastService {
     }
 
     // Tell everyone in the network that I am online
-    sendAnnouncement();
+    unawaited(
+      sendAnnouncement(),
+    );
 
     yield* streamController.stream;
   }

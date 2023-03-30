@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -11,9 +12,9 @@ import 'package:localsend_app/model/dto/send_request_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/send/sending_file.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
@@ -30,14 +31,17 @@ const _uuid = Uuid();
 
 /// The provider for **sending** files.
 /// The opposite of [serverProvider].
-final sendProvider = StateNotifierProvider<SendNotifier, Map<String, SendSessionState>>((ref) {
-  return SendNotifier(ref);
+final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState>>(() {
+  return SendNotifier();
 });
 
-class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
-  final Ref _ref;
+class SendNotifier extends Notifier<Map<String, SendSessionState>> {
+  SendNotifier();
 
-  SendNotifier(this._ref) : super({});
+  @override
+  Map<String, SendSessionState> build() {
+    return {};
+  }
 
   /// Starts a session.
   /// If [background] is true, then the session closes itself on success and no pages will be open
@@ -47,8 +51,8 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final requestDio = _ref.read(dioProvider(DioType.longLiving));
-    final uploadDio = _ref.read(dioProvider(DioType.longLiving));
+    final requestDio = ref.read(dioProvider(DioType.longLiving));
+    final uploadDio = ref.read(dioProvider(DioType.longLiving));
     final cancelToken = CancelToken();
     final sessionId = _uuid.v4();
 
@@ -86,7 +90,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       errorMessage: null,
     );
 
-    final originDevice = _ref.read(deviceInfoProvider);
+    final originDevice = ref.read(deviceInfoProvider);
     final requestDto = SendRequestDto(
       info: InfoDto(
         alias: originDevice.alias,
@@ -104,7 +108,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     );
 
     if (!background) {
-      // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.push(
         () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
         transition: RouterinoTransition.fade,
@@ -148,13 +152,19 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     final responseMap = response.data as Map;
     if (responseMap.isEmpty) {
       // receiver has nothing selected
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(
+          status: SessionStatus.finished,
+        ),
+      );
 
       if (state[sessionId]?.background == false) {
-        // ignore: use_build_context_synchronously
-        Routerino.context.pushRootImmediately(() => const HomePage(appStart: false));
+        // ignore: use_build_context_synchronously, unawaited_futures
+        Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
       }
 
-      state = state.removeSession(_ref, sessionId);
+      closeSession(sessionId);
       return;
     }
 
@@ -165,9 +175,9 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     };
 
     if (state[sessionId]?.background == false) {
-      final background = _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
+      final background = ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
 
-      // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
         transition: RouterinoTransition.fade, // immediately is not possible: https://github.com/flutter/flutter/issues/121910
@@ -229,7 +239,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
           ),
           data: file.path != null ? File(file.path!).openRead() : Stream.fromIterable([file.bytes!]),
           onSendProgress: (curr, total) {
-            _ref.read(progressProvider.notifier).setProgress(
+            ref.read(progressProvider.notifier).setProgress(
                   sessionId: sessionId,
                   fileId: file.file.id,
                   progress: curr / total,
@@ -250,9 +260,11 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       );
     }
 
-    if (state[sessionId]?.background == true) {
-      state = state.removeSession(_ref, sessionId);
+    if (!hasError && state[sessionId]?.background == true) {
+      // close session because everything is fine and it is in background
+      closeSession(sessionId);
     } else {
+      // keep session alive when there are errors or currently in foreground
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.copyWith(
@@ -271,23 +283,35 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
-    final target = sessionState.target;
     sessionState.cancelToken?.cancel(); // cancel current request
-    state = state.removeSession(_ref, sessionId);
-    if (sessionState.status == SessionStatus.finished && _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
-      // clear selected files
-      _ref.read(selectedSendingFilesProvider.notifier).reset();
-    }
 
     // notify the receiver
-    _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(target)).then((_) {}).catchError((e) {
-      print(e);
-    });
+    unawaited(
+      ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(sessionState.target)).then((_) {}).catchError((e) {
+        print(e);
+      }),
+    );
+
+    // finally, close session locally
+    closeSession(sessionId);
+  }
+
+  /// Closes the session
+  void closeSession(String sessionId) {
+    final sessionState = state[sessionId];
+    if (sessionState == null) {
+      return;
+    }
+    state = state.removeSession(ref, sessionId);
+    if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
+      // clear selected files
+      ref.read(selectedSendingFilesProvider.notifier).reset();
+    }
   }
 
   void clearAllSessions() {
     state = {};
-    _ref.read(progressProvider.notifier).removeAllSessions();
+    ref.read(progressProvider.notifier).removeAllSessions();
   }
 
   void setBackground(String sessionId, bool background) {

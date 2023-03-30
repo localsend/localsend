@@ -11,6 +11,7 @@ import 'package:localsend_app/provider/network/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/cache_helper.dart';
@@ -18,7 +19,6 @@ import 'package:localsend_app/util/platform_check.dart';
 import 'package:localsend_app/util/snackbar.dart';
 import 'package:localsend_app/util/tray_helper.dart';
 import 'package:routerino/routerino.dart';
-import 'package:screen_retriever/screen_retriever.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -81,15 +81,7 @@ Future<PersistenceService> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
-    await WindowManager.instance.setMinimumSize(const Size(400, 500));
-    final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-    final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
-    if (width >= 1200) {
-      // make initial window size bigger as our display is big enough
-      await WindowManager.instance.setSize(const Size(900, 600));
-    }
-    await WindowManager.instance.center();
-
+    await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
@@ -100,11 +92,12 @@ Future<PersistenceService> preInit(List<String> args) async {
   return persistenceService;
 }
 
+
 StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
 Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void Function(int) goToPage) async {
-  updateSystemOverlayStyle(context);
+  await updateSystemOverlayStyle(context);
 
   final settings = ref.read(settingsProvider);
   try {
@@ -114,7 +107,9 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
           https: settings.https,
         );
   } catch (e) {
-    context.showSnackBar(e.toString());
+    if (context.mounted) {
+      context.showSnackBar(e.toString());
+    }
   }
 
   try {
@@ -132,12 +127,14 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
       final initialSharedPayload = await shareHandler.getInitialSharedMedia();
       if (initialSharedPayload != null) {
         hasInitialShare = true;
-        _handleSharedIntent(initialSharedPayload, ref);
+        unawaited(
+          _handleSharedIntent(initialSharedPayload, ref),
+        );
         goToPage(HomeTab.send.index);
       }
     }
 
-    _sharedMediaSubscription?.cancel();
+    _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
       _handleSharedIntent(payload, ref);
       goToPage(HomeTab.send.index);
@@ -151,12 +148,12 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
   }
 }
 
-void _handleSharedIntent(SharedMedia payload, WidgetRef ref) {
+Future<void> _handleSharedIntent(SharedMedia payload, WidgetRef ref) async {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
     ref.read(selectedSendingFilesProvider.notifier).addMessage(message);
   }
-  ref.read(selectedSendingFilesProvider.notifier).addFiles(
+  await ref.read(selectedSendingFilesProvider.notifier).addFiles(
         files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
         converter: CrossFileConverters.convertSharedAttachment,
       );

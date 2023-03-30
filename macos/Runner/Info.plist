@@ -36,6 +36,8 @@
 	<key>CFBundleLocalizations</key>
     <array>
         <string>ar</string>
+        <string>bn</string>
+        <string>cs</string>
         <string>de</string>
         <string>en</string>
         <string>es-ES</string>
@@ -47,6 +49,7 @@
         <string>ja</string>
         <string>ko</string>
         <string>ne</string>
+        <string>nl</string>
         <string>pl</string>
         <string>pt-BR</string>
         <string>ru</string>

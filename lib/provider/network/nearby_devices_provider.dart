@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
@@ -9,21 +11,29 @@ import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
-final nearbyDevicesProvider = StateNotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>((ref) {
-  final dio = ref.watch(dioProvider(DioType.discovery));
-  final fingerprint = ref.watch(fingerprintProvider);
-  final multicastService = ref.watch(multicastProvider);
-  return NearbyDevicesNotifier(dio, fingerprint, multicastService);
+final nearbyDevicesProvider = NotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>(() {
+  return NearbyDevicesNotifier();
 });
 
 Map<String, TaskRunner> _runners = {};
 
-class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
-  final Dio _dio;
-  final String _fingerprint;
-  final MulticastService _multicastService;
+class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
+  late Dio _dio;
+  late String _fingerprint;
+  late MulticastService _multicastService;
 
-  NearbyDevicesNotifier(this._dio, this._fingerprint, this._multicastService) : super(const NearbyDevicesState(runningIps: {}, devices: {}));
+  NearbyDevicesNotifier();
+
+  @override
+  NearbyDevicesState build() {
+    _dio = ref.watch(dioProvider(DioType.discovery));
+    _fingerprint = ref.watch(fingerprintProvider);
+    _multicastService = ref.watch(multicastProvider);
+    return const NearbyDevicesState(
+      runningIps: {},
+      devices: {},
+    );
+  }
 
   void startMulticastListener() {
     _multicastService.startListener().listen(registerDevice);
@@ -33,7 +43,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
   /// It just sends an announcement which will cause a response on every other LocalSend member of the network.
   /// The responses have to be listened to by calling [startMulticastListener] first.
   void startMulticastScan() {
-    _multicastService.sendAnnouncement();
+    unawaited(_multicastService.sendAnnouncement());
   }
 
   Future<void> startScan({required int port, required String localIp, required bool https}) async {
@@ -55,7 +65,7 @@ class NearbyDevicesNotifier extends StateNotifier<NearbyDevicesState> {
     _runners[localIp] = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
-        (index) => () => _doRequest(_dio, ipList[index], port, https, fingerprint),
+        (index) => () async => _doRequest(_dio, ipList[index], port, https, fingerprint),
       ),
       concurrency: 50,
     );

@@ -13,9 +13,9 @@ class AddFileDialog extends StatelessWidget {
 
   const AddFileDialog({required this.parentRef, required this.options});
 
-  static void open({required BuildContext context, required WidgetRef parentRef, required List<FilePickerOption> options}) {
+  static Future<void> open({required BuildContext context, required WidgetRef parentRef, required List<FilePickerOption> options}) async {
     if (checkPlatformIsDesktop()) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.addFile.title),
@@ -39,7 +39,7 @@ class AddFileDialog extends StatelessWidget {
         ),
       );
     } else {
-      context.pushBottomSheet(() => CustomBottomSheet(
+      await context.pushBottomSheet(() => CustomBottomSheet(
             title: t.dialogs.addFile.title,
             description: t.dialogs.addFile.content,
             child: AddFileDialog(parentRef: parentRef, options: options),
@@ -58,9 +58,9 @@ class AddFileDialog extends StatelessWidget {
             icon: option.icon,
             label: option.label,
             filled: true,
-            onTap: () {
+            onTap: () async {
               context.popUntilRoot();
-              option.select(
+              await option.select(
                 context: context,
                 ref: parentRef,
               );

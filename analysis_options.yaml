@@ -20,4 +20,9 @@ linter:
   rules:
     avoid_print: false
     use_key_in_widget_constructors: false
+
     sort_pub_dependencies: true
+    always_use_package_imports: true
+    directives_ordering: true
+    unawaited_futures: true
+    discarded_futures: true
