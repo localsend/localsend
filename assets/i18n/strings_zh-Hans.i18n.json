@@ -86,9 +86,10 @@
       "languageOptions": {
         "system": "跟随系统"
       },
-      "minimizeToTray": "关闭：最小化到系统托盘",
+      "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
-      "launchMinimized": "静默自启：只启动托盘服务"
+      "launchMinimized": "静默自启：只启动托盘服务",
+      "saveWindowPlacement": "关闭时：保存窗口位置"
     },
     "receive": {
       "title": "接收",
@@ -260,5 +261,35 @@
   "tray": {
     "open": "@:general.open",
     "close": "退出 LocalSend"
+  },
+  "assetPicker": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "edit": "编辑",
+    "gifIndicator": "GIF",
+    "loadFailed": "加载失败",
+    "original": "源文件",
+    "preview": "预览",
+    "select": "选择",
+    "emptyList": "清空列表",
+    "unSupportedAssetType": "不支持的文件格式。",
+    "unableToAccessAll": "无法访问设备上的所有文件",
+    "viewingLimitedAssetsTip": "应用程序仅能查看可访问的文件和相册。",
+    "changeAccessibleLimitedAssets": "单击以更新可访问文件",
+    "accessAllTip": "应用程序只能访问设备上的部分文件。转到系统设置并允许该应用访问设备上的所有媒体文件。",
+    "goToSystemSettings": "转到系统设置",
+    "accessLimitedAssets": "继续受限访问",
+    "accessiblePathName": "可访问的文件",
+    "sTypeAudioLabel": "音频",
+    "sTypeImageLabel": "图片",
+    "sTypeVideoLabel": "视频",
+    "sTypeOtherLabel": "其他媒体文件",
+    "sActionPlayHint": "播放",
+    "sActionPreviewHint": "预览",
+    "sActionSelectHint": "选择",
+    "sActionSwitchPathLabel": "更改路径",
+    "sActionUseCameraHint": "使用摄像头",
+    "sNameDurationLabel": "时长",
+    "sUnitAssetCountLabel": "计数"
   }
 }
