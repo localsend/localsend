@@ -154,3 +154,8 @@ appimage-builder --recipe AppImageBuilder.yml
 **Snap**
 
 Feel free to open a pull request. There is a `snap` branch to play with.
+
+## Contributors
+<a align="center" href="https://github.com/localsend/localsend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=localsend/localsend" />
+</a>
