@@ -30,13 +30,6 @@ Future<PersistenceService> preInit(List<String> args) async {
 
   final persistenceService = await PersistenceService.initialize();
 
-  final locale = persistenceService.getLocale();
-  if (locale == null) {
-    LocaleSettings.useDeviceLocale();
-  } else {
-    LocaleSettings.setLocale(locale);
-  }
-
   // Register default plural resolver
   for (final locale in AppLocale.values) {
     if ([AppLocale.en, AppLocale.de].contains(locale)) {

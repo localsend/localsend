@@ -53,6 +53,22 @@ class PersistenceService {
   static Future<PersistenceService> initialize() async {
     final prefs = await SharedPreferences.getInstance();
 
+    //Locale configuration upon persistence initialisation to prevent unlocalised Alias generation
+    final persistedLocale = prefs.getString(_localeKey);
+    late AppLocale? currentLocale;
+    if (persistedLocale == null) {
+      currentLocale = LocaleSettings.useDeviceLocale();
+    } else {
+      currentLocale = AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == persistedLocale);
+    }
+
+    if(currentLocale != null) {
+      LocaleSettings.setLocale(currentLocale);
+      if(persistedLocale == null) {
+        await prefs.setString(_localeKey, currentLocale.languageTag);
+      }
+    }
+
     if (prefs.getInt(_version) == null) {
       await prefs.setInt(_version, 1);
     }
