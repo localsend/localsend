@@ -86,6 +86,7 @@
       "languageOptions": {
         "system": "システム"
       },
+      "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
       "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動起動",
       "launchMinimized": "自動起動時: 隠れた状態で開始"

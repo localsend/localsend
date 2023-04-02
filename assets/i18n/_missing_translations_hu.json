@@ -1,41 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <hu>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacement": "Kilépés: Ablak pozíció mentése"
-    }
-  },
-  "assetPicker": {
-    "confirm": "Megerősít",
-    "cancel": "Mégse",
-    "edit": "Szerkeszt",
-    "gifIndicator": "GIF",
-    "loadFailed": "A betöltés sikertelen",
-    "original": "Eredeti",
-    "preview": "Előnézet",
-    "select": "Select",
-    "emptyList": "Üres lista",
-    "unSupportedAssetType": "Nem támogatott fájl típus.",
-    "unableToAccessAll": "Nem lehet hozzáférni az eszközön lévő összes fájlhoz",
-    "viewingLimitedAssetsTip": "Csak az app által elérhető fájlok és albumok megtekintése.",
-    "changeAccessibleLimitedAssets": "Koppintson az elérhető fájlok frissítéséhez",
-    "accessAllTip": "Az alkalmazás csak néhány fájlhoz férhet hozzá az eszközön. Nyissa meg a rendszerbeállításokat és engedélyezze az alkalmazás számára, hogy hozzáférjen az eszközön lévő összes médiafájlhoz.",
-    "goToSystemSettings": "Lépjen a rendszer beállításaihoz",
-    "accessLimitedAssets": "Folytassa korlátozott hozzáféréssel",
-    "accessiblePathName": "Elérhető fájlok",
-    "sTypeAudioLabel": "Audió",
-    "sTypeImageLabel": "Kép",
-    "sTypeVideoLabel": "Videó",
-    "sTypeOtherLabel": "Egyéb média",
-    "sActionPlayHint": "lejátszás",
-    "sActionPreviewHint": "előnézet",
-    "sActionSelectHint": "választás",
-    "sActionSwitchPathLabel": "útvonal módosítás",
-    "sActionUseCameraHint": "használjon kamerát",
-    "sNameDurationLabel": "időtartam",
-    "sUnitAssetCountLabel": "számol"
-  }
+    "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations.",
+    "Congratulations! There are no missing translations! :)"
+  ]
 }
