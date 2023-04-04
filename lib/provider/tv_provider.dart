@@ -1,7 +1,7 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 
 final tvProvider = Provider<bool>((_) => throw Exception('tvProvider not initialized'));
 

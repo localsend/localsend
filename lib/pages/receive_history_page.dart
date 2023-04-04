@@ -8,7 +8,7 @@ import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -38,7 +38,12 @@ class ReceiveHistoryPage extends ConsumerWidget {
 
   Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
     if (entry.path != null) {
-      await openFile(context, entry.fileType, entry.path!, entry.id, filesRef);
+      await openFile(
+        context,
+        entry.fileType,
+        entry.path!,
+        onDeleteTap: () => filesRef.removeEntry(entry.id),
+      );
     }
   }
 

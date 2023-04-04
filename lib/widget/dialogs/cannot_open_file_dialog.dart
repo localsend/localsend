@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/provider/receive_history_provider.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
 
@@ -10,7 +9,7 @@ class CannotOpenFileDialog extends StatelessWidget {
 
   const CannotOpenFileDialog({required this.path, super.key});
 
-  static Future<void> open(BuildContext context, String path, String? fileId, ReceiveHistoryNotifier? filesRef) async {
+  static Future<void> open(BuildContext context, String path, void Function()? onDeleteTap) async {
     if (checkPlatformIsDesktop()) {
       await showDialog(
         context: context,
@@ -18,10 +17,10 @@ class CannotOpenFileDialog extends StatelessWidget {
           title: Text(t.dialogs.cannotOpenFile.title),
           content: Text(t.dialogs.cannotOpenFile.content(file: path)),
           actions: [
-            if (fileId != null && filesRef != null)
+            if (onDeleteTap != null)
               TextButton(
                 onPressed: () {
-                  filesRef.removeEntry(fileId);
+                  onDeleteTap();
                   context.pop();
                 },
                 child: Text(t.receiveHistoryPage.entryActions.deleteFromHistory),

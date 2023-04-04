@@ -6,7 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/state/network_state.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
 
 final networkStateProvider = NotifierProvider<NetworkStateNotifier, NetworkState>(() {
