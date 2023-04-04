@@ -1,5 +1,6 @@
 ## 1.9.0 (2023-)
 
+- feat: directory share
 - feat: allow deleting history entry when file could not be opened (by @TheGB0077)
 - feat: close message request when copied / opened link
 - feat(desktop): move troubleshoot out of navigation into send page

@@ -66,10 +66,12 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
   }
 
   Future<void> addDirectory(String directoryPath) async {
+    print('Reading files in $directoryPath');
     final newFiles = <CrossFile>[];
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
         final relative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+        print('Add file $relative');
         final file = CrossFile(
           name: relative,
           fileType: relative.guessFileType(),

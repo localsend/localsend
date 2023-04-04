@@ -29,6 +29,7 @@ import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -334,14 +335,14 @@ class ServerNotifier extends Notifier<ServerState?> {
         ),
       );
 
-      final destinationPath = await _digestFilePath(
-        dir: receiveState.destinationDirectory,
-        fileName: receivingFile.desiredName!,
-      );
-
-      print('Saving ${receivingFile.file.fileName} to $destinationPath');
-
       try {
+        final destinationPath = await _digestFilePathAndPrepareDirectory(
+          parentDirectory: receiveState.destinationDirectory,
+          fileName: receivingFile.desiredName!,
+        );
+
+        print('Saving ${receivingFile.file.fileName} to $destinationPath');
+
         final saveToGallery = checkPlatformWithGallery() &&
             ref.read(settingsProvider).saveToGallery &&
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
@@ -546,11 +547,17 @@ extension on Request {
 }
 
 /// If there is a file with the same name, then it appends a number to its file name
-Future<String> _digestFilePath({required String dir, required String fileName}) async {
+Future<String> _digestFilePathAndPrepareDirectory({required String parentDirectory, required String fileName}) async {
+  final actualFileName = p.basename(fileName);
+  final fileNameParts = p.split(fileName);
+  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
+
+  Directory(dir).createSync(recursive: true);
+
   String destinationPath;
   int counter = 1;
   do {
-    destinationPath = counter == 1 ? '$dir/$fileName' : '$dir/${fileName.withCount(counter)}';
+    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
     counter++;
   } while (await File(destinationPath).exists());
   return destinationPath;

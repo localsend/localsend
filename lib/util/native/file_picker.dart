@@ -12,6 +12,7 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -68,6 +69,20 @@ enum FilePickerOption {
         break;
       case FilePickerOption.folder:
         ref.read(pickingStatusProvider.notifier).state = true;
+
+        if (checkPlatform([TargetPlatform.android])) {
+          try {
+            await Permission.manageExternalStorage.request();
+          } catch (e) {
+            print(e);
+          }
+        }
+
+        // ignore: use_build_context_synchronously
+        if (!context.mounted) {
+          return;
+        }
+
         // ignore: unawaited_futures
         showDialog(
           context: context,
