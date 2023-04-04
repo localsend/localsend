@@ -17,7 +17,7 @@ dependencies:
   device_apps: 2.2.0
   device_info_plus: 8.1.0
   dio: 4.0.6
-  file_picker: 5.2.5
+  file_picker: 5.2.7
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -33,6 +33,7 @@ dependencies:
   network_info_plus: 3.0.2
   open_filex: 4.3.2
   package_info_plus: 3.0.3
+  path: 1.8.2
   path_provider: 2.0.13
   permission_handler: 10.2.0
   routerino: 0.3.1

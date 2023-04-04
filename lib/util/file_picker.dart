@@ -9,6 +9,7 @@ import 'package:localsend_app/provider/picking_status_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:routerino/routerino.dart';
@@ -16,6 +17,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 enum FilePickerOption {
   file(Icons.description),
+  folder(Icons.folder),
   media(Icons.image),
   text(Icons.subject),
   app(Icons.apps);
@@ -28,6 +30,8 @@ enum FilePickerOption {
     switch (this) {
       case FilePickerOption.file:
         return t.sendTab.picker.file;
+      case FilePickerOption.folder:
+        return t.sendTab.picker.folder;
       case FilePickerOption.media:
         return t.sendTab.picker.media;
       case FilePickerOption.text:
@@ -46,11 +50,12 @@ enum FilePickerOption {
         ref.read(pickingStatusProvider.notifier).state = true;
         if (checkPlatform([TargetPlatform.android])) {
           // On android, the files are copied to the cache which takes some time.
-          unawaited(showDialog(
+          // ignore: unawaited_futures
+          showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const LoadingDialog(),
-          ));
+          );
         }
         final result = await FilePicker.platform.pickFiles(allowMultiple: true);
         if (result != null) {
@@ -60,6 +65,26 @@ enum FilePickerOption {
               );
         }
         ref.read(pickingStatusProvider.notifier).state = false;
+        break;
+      case FilePickerOption.folder:
+        ref.read(pickingStatusProvider.notifier).state = true;
+        // ignore: unawaited_futures
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const LoadingDialog(),
+        );
+        await sleepAsync(100); // Wait for the dialog to be shown
+        try {
+          final directoryPath = await FilePicker.platform.getDirectoryPath();
+          if (directoryPath != null) {
+            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
+          }
+        } catch (e) {
+          print(e);
+        } finally {
+          ref.read(pickingStatusProvider.notifier).state = false;
+        }
         break;
       case FilePickerOption.media:
         final List<AssetEntity>? result = await AssetPicker.pickAssets(

@@ -54,6 +54,7 @@
     },
     "picker": {
       "file": "File",
+      "folder": "Folder",
       "media": "Media",
       "text": "Text",
       "app": "App"

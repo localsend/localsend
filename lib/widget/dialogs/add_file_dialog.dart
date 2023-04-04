@@ -19,14 +19,17 @@ class AddFileDialog extends StatelessWidget {
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.addFile.title),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(t.dialogs.addFile.content),
-              const SizedBox(height: 20),
-              AddFileDialog(parentRef: parentRef, options: options),
-            ],
+          content: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 300),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(t.dialogs.addFile.content),
+                const SizedBox(height: 20),
+                AddFileDialog(parentRef: parentRef, options: options),
+              ],
+            ),
           ),
           actions: [
             TextButton(

@@ -64,6 +64,7 @@ class _SendTabState extends ConsumerState<SendTab> {
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
       FilePickerOption.file,
+      if (checkPlatformWithFolderSelect()) FilePickerOption.folder,
       if (checkPlatformWithGallery()) FilePickerOption.media,
       FilePickerOption.text,
       if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,

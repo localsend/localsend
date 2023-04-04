@@ -10,6 +10,7 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -52,13 +53,39 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
     required Iterable<T> files,
     required Future<CrossFile> Function(T) converter,
   }) async {
-    final tempList = [...state];
+    final newFiles = <CrossFile>[];
     for (final file in files) {
       // we do it sequential because there are bugs
       // https://github.com/fluttercandies/flutter_photo_manager/issues/589
-      tempList.add(await converter(file));
+      newFiles.add(await converter(file));
     }
-    state = List.unmodifiable(tempList);
+    state = List.unmodifiable([
+      ...state,
+      ...newFiles,
+    ]);
+  }
+
+  Future<void> addDirectory(String directoryPath) async {
+    final newFiles = <CrossFile>[];
+    await for (final entity in Directory(directoryPath).list(recursive: true)) {
+      if (entity is File) {
+        final relative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+        final file = CrossFile(
+          name: relative,
+          fileType: relative.guessFileType(),
+          size: await entity.length(),
+          thumbnail: null,
+          asset: null,
+          path: entity.path,
+          bytes: null,
+        );
+        newFiles.add(file);
+      }
+    }
+    state = List.unmodifiable([
+      ...state,
+      ...newFiles,
+    ]);
   }
 
   void removeAt(int index) {
