@@ -110,7 +110,7 @@
       "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "故障排除",
     "subTitle": "该应用没有按预期工作？您可以在这里找到常用解决方案。",
     "solution": "解决方案：",

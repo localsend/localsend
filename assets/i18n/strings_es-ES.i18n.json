@@ -109,7 +109,7 @@
       "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Solucionar problemas",
     "subTitle": "¿La aplicación no funciona como se espera? Aquí puedes encontrar soluciones a problemas comunes.",
     "solution": "Solución:",

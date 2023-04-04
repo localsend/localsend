@@ -110,7 +110,7 @@
       "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "トラブルシューティング",
     "subTitle": "アプリが期待通りに動作しませんか？ここでは一般的な解決策を紹介します。",
     "solution": "解決策:",

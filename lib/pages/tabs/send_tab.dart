@@ -29,7 +29,6 @@ import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
-import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:routerino/routerino.dart';
@@ -256,24 +255,14 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
           );
         }),
-        ResponsiveBuilder(
-          builder: (sizingInformation) {
-            if (sizingInformation.isMobile) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await context.push(() => const TroubleshootPage());
-                    },
-                    child: Text(t.troubleshootTab.title),
-                  ),
-                ),
-              );
-            } else {
-              return Container();
-            }
-          },
+        const SizedBox(height: 10),
+        Center(
+          child: ElevatedButton(
+            onPressed: () async {
+              await context.push(() => const TroubleshootPage());
+            },
+            child: Text(t.troubleshootPage.title),
+          ),
         ),
         const SizedBox(height: 20),
         Padding(

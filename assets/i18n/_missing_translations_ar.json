@@ -29,7 +29,7 @@
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Troubleshoot",
     "subTitle": "This app does not work as expected? Here you can find common solutions.",
     "solution": "Solution:",

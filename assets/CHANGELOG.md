@@ -2,10 +2,13 @@
 
 - feat: allow deleting history entry when file could not be opened (by @TheGB0077)
 - feat: close message request when copied / opened link
+- feat(desktop): move troubleshoot out of navigation into send page
 - feat(desktop): save last window position (by @TheGB0077)
 - feat(android): enable edge-to-edge mode
+- feat(android): add monochrome app icons for Android 13 (by @h9419)
 - fix: clear selection after finished message transfer
 - fix(android, ios): fallback asset picker strings to English translation (by @TheGB0077)
+- fix(linux): header bar glitches
 
 ## 1.8.0 (2023-03-05)
 

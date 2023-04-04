@@ -110,7 +110,7 @@
       "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Hibaelhárítás",
     "subTitle": "Az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.",
     "solution": "Megoldás:",

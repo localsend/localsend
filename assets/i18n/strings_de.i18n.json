@@ -110,7 +110,7 @@
       "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Fehlerbehebung",
     "subTitle": "Diese App funktioniert nicht wie erwartet? Hier findest du häufige Lösungsansätze.",
     "solution": "Lösung:",

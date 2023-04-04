@@ -110,7 +110,7 @@
       "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Diagnostique problemas",
     "subTitle": "Este aplicativo não está funcionando como esperado? Aqui você pode encontrar soluções comuns.",
     "solution": "Solução:",

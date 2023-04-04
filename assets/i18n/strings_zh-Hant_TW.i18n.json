@@ -109,7 +109,7 @@
       "multicastGroupWarning": "您可能無法偵測到其他設備,因為您正在使用自訂多播位址. (預設值: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "疑難排解",
     "subTitle": "這個應用程式沒有如預期運作？在這裡您可以找到常見的解決方案。",
     "solution": "解決方案:",

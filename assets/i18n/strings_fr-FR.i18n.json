@@ -109,7 +109,7 @@
       "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Dépannage",
     "subTitle": "Cette application ne marche pas comme vous l'espérez? Vous pouvez ici trouver des solutions à des problèmes communs.",
     "solution": "Solution:",

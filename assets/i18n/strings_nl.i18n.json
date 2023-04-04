@@ -109,7 +109,7 @@
       "multicastGroupWarning": "Je wordt mogelijk niet gedetecteerd door andere apparaten omdate je een aangepaste multicast-addres gebruikt. (standaard: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Probleem oplossen",
     "subTitle": "Werkt de app niet als verwacht? Hier kan je algemene oplossingen vinden.",
     "solution": "Oplossing:",
