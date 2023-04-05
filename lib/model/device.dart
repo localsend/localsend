@@ -7,7 +7,9 @@ part 'device.g.dart';
 enum DeviceType {
   mobile(Icons.smartphone),
   desktop(Icons.computer),
-  web(Icons.language);
+  web(Icons.language),
+  headless(Icons.terminal),
+  server(Icons.dns);
 
   const DeviceType(this.icon);
 
