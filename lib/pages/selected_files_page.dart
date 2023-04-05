@@ -52,7 +52,7 @@ class SelectedFilesPage extends ConsumerWidget {
           ...selectedFiles.mapIndexed(
             (index, file) {
               final String? message;
-              if (file.fileType == FileType.text && file.bytes != null) {
+              if ((file.fileType == FileType.text || file.fileType == FileType.utf8Raw) && file.bytes != null) {
                 message = utf8.decode(file.bytes!);
               } else {
                 message = null;
@@ -87,7 +87,7 @@ class SelectedFilesPage extends ConsumerWidget {
                               ],
                             ),
                           ),
-                          if (file.fileType == FileType.text && file.bytes != null)
+                          if ((file.fileType == FileType.text || file.fileType == FileType.utf8Raw) && file.bytes != null)
                             TextButton(
                               style: TextButton.styleFrom(
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
@@ -96,7 +96,7 @@ class SelectedFilesPage extends ConsumerWidget {
                                 final result = await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
                                 if (result != null) {
                                   ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
-                                  ref.read(selectedSendingFilesProvider.notifier).addMessage(result, index: index);
+                                  ref.read(selectedSendingFilesProvider.notifier).addPlainTextMessage(result, index: index);
                                 }
                               },
                               child: const Icon(Icons.edit),

@@ -8,7 +8,9 @@ enum FileType {
   pdf(Icons.description),
   text(Icons.subject),
   apk(Icons.android),
-  other(Icons.file_present_sharp);
+  other(Icons.file_present_sharp),
+  utf8Raw(Icons.subject)
+  ;
 
   const FileType(this.icon);
 

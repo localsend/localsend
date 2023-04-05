@@ -30,6 +30,6 @@ class ReceiveSessionState with _$ReceiveSessionState {
   /// Message requests must contain a single text file with preview included.
   String? get message {
     final firstFile = files.values.first.file;
-    return files.length == 1 && firstFile.fileType == FileType.text ? firstFile.preview : null;
+    return files.length == 1 && (file.fileType == FileType.text || file.fileType == FileType.utf8Raw) ? firstFile.preview : null;
   }
 }

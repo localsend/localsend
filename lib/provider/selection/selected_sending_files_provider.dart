@@ -33,11 +33,22 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
 
   /// Add a simple message
   /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8
-  void addMessage(String message, {int? index}) {
+  void addPlainTextMessage(String message, {bool? sendAsTxtFile, int? index}) {
     final List<int> bytes = utf8.encode(message);
+
+    String fileName = message;
+    FileType fileType = FileType.utf8Raw;
+
+    // If we elect to send a plain text message as a file (perhaps if the content is too long over X characters) 
+    // we'll generate a filename for this file.
+    if (sendAsTxtFile ?? false) {
+      fileName = '${_uuid.v4()}.txt';
+      fileType = FileType.text;
+    }
+
     final file = CrossFile(
-      name: '${_uuid.v4()}.txt',
-      fileType: FileType.text,
+      name: fileName,
+      fileType: fileType,
       size: bytes.length,
       thumbnail: null,
       asset: null,

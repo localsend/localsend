@@ -119,7 +119,7 @@ enum FilePickerOption {
       case FilePickerOption.text:
         final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
         if (result != null) {
-          ref.read(selectedSendingFilesProvider.notifier).addMessage(result);
+          ref.read(selectedSendingFilesProvider.notifier).addPlainTextMessage(result);
         }
         break;
       case FilePickerOption.app:

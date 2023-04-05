@@ -144,7 +144,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
 Future<void> _handleSharedIntent(SharedMedia payload, WidgetRef ref) async {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
-    ref.read(selectedSendingFilesProvider.notifier).addMessage(message);
+    ref.read(selectedSendingFilesProvider.notifier).addPlainTextMessage(message);
   }
   await ref.read(selectedSendingFilesProvider.notifier).addFiles(
         files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
