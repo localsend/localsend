@@ -71,7 +71,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               fileName: file.name,
               size: file.size,
               fileType: file.fileType,
-              preview: files.length == 1 && (file.fileType == FileType.text || file.fileType == FileType.utf8Raw) && files.first.bytes != null
+              preview: files.length == 1 && (files.first.fileType == FileType.text || files.first.fileType == FileType.utf8Raw) && files.first.bytes != null
                   ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
                   : null,
             ),
