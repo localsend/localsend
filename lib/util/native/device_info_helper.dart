@@ -47,7 +47,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
         deviceModel = 'Linux';
         break;
       case TargetPlatform.macOS:
-        deviceModel = 'MacOS';
+        deviceModel = 'macOS';
         break;
       case TargetPlatform.windows:
         deviceModel = 'Windows';

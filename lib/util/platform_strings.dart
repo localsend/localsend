@@ -12,7 +12,7 @@ extension TargetPlatformExt on TargetPlatform {
       case TargetPlatform.linux:
         return 'Linux';
       case TargetPlatform.macOS:
-        return 'MacOS';
+        return 'macOS';
       case TargetPlatform.windows:
         return 'Windows';
     }

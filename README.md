@@ -20,7 +20,7 @@ Links: [Homepage](https://localsend.org)
 - [Building](#building)
   - [Android](#android)
   - [iOS](#ios)
-  - [MacOS](#macos)
+  - [macOS](#macos)
   - [Windows](#windows)
   - [Linux](#linux)
 
@@ -130,7 +130,7 @@ flutter build appbundle
 flutter build ipa
 ```
 
-### MacOS
+### macOS
 
 ```bash
 flutter build macos
