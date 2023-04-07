@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
@@ -43,6 +44,8 @@ class SendTab extends ConsumerStatefulWidget {
 }
 
 class _SendTabState extends ConsumerState<SendTab> {
+  static const iosCall = MethodChannel('localsend.localsend_app/iosCall');
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +54,17 @@ class _SendTabState extends ConsumerState<SendTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
+        if(checkPlatform([TargetPlatform.iOS])) {
+          try {
+            final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
+            if (!granted) {
+              //TODO Prompt Go to settings
+              print("Permission denied");
+            }
+          } on PlatformException catch (e) {
+            print(e);
+          }
+        }
         await ref.read(scanProvider).startSmartScan();
       }
     });
