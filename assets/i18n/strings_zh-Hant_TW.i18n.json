@@ -207,7 +207,7 @@
     },
     "cannotOpenFile": {
       "title": "無法開啟檔案",
-      "content": "無法開啟「{file}」，這個檔案已被移動‵、重新命名或刪除了嗎？"
+      "content": "無法開啟「{file}」，這個檔案已被移動、重新命名或刪除了嗎？"
     },
     "encryptionDisabledNotice": {
       "title": "加密已停用",
