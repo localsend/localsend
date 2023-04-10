@@ -49,7 +49,8 @@ class _SendTabState extends ConsumerState<SendTab> {
 
     // Automatically scan the network when visiting the scan tab
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
+      final devices =
+          ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
         await ref.read(scanProvider).startSmartScan();
       }
@@ -70,6 +71,7 @@ class _SendTabState extends ConsumerState<SendTab> {
       if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,
     ];
 
+    var _textController = TextEditingController();
     return ResponsiveListView(
       padding: EdgeInsets.zero,
       children: [
@@ -82,32 +84,90 @@ class _SendTabState extends ConsumerState<SendTab> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(width: 10),
-                ...addOptions.map((option) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          const SizedBox(height: 20),
+          Container(
+            height: 100,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(_horizontalPadding),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: TextFormField(
+                      controller: _textController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      autofocus: false,
+                    ),
+                  ),
+                  const SizedBox(width: _horizontalPadding),
+                  SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: ElevatedButton(
+                      onPressed: () => (_textController.text != '')
+                          ? {
+                              ref
+                                  .read(selectedSendingFilesProvider.notifier)
+                                  .addMessage(_textController.text)
+                            }
+                          : {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      child: const Icon(Icons.check),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          ListView.builder(
+            itemCount: (addOptions.length / 2).ceil(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
                     child: BigButton(
-                      icon: option.icon,
-                      label: option.label,
+                      icon: addOptions[index * 2].icon,
+                      label: addOptions[index * 2].label,
                       filled: false,
-                      onTap: () async => option.select(
+                      onTap: () async => addOptions[index * 2].select(
                         context: context,
                         ref: ref,
                       ),
                     ),
-                  );
-                }),
-                const SizedBox(width: 10),
-              ],
-            ),
+                  ),
+                  if (index * 2 + 1 < addOptions.length)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: BigButton(
+                        icon: addOptions[index * 2 + 1].icon,
+                        label: addOptions[index * 2 + 1].label,
+                        filled: false,
+                        onTap: () async => addOptions[index * 2 + 1].select(
+                          context: context,
+                          ref: ref,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
         ] else ...[
           Card(
-            margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+            margin: const EdgeInsets.only(
+                bottom: 10,
+                left: _horizontalPadding,
+                right: _horizontalPadding),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
@@ -119,7 +179,10 @@ class _SendTabState extends ConsumerState<SendTab> {
                   ),
                   const SizedBox(height: 5),
                   Text(t.sendTab.selection.files(files: selectedFiles.length)),
-                  Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                  Text(t.sendTab.selection.size(
+                      size: selectedFiles
+                          .fold(0, (prev, curr) => prev + curr.size)
+                          .asReadableFileSize)),
                   const SizedBox(height: 10),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -140,7 +203,8 @@ class _SendTabState extends ConsumerState<SendTab> {
                     children: [
                       TextButton(
                         style: TextButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.onSurface,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onSurface,
                         ),
                         onPressed: () async {
                           await context.push(() => const SelectedFilesPage());
@@ -150,12 +214,15 @@ class _SendTabState extends ConsumerState<SendTab> {
                       const SizedBox(width: 15),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
                         ),
                         onPressed: () async {
                           if (addOptions.length == 1) {
-                            await addOptions.first.select(context: context, ref: ref); // open directly
+                            await addOptions.first.select(
+                                context: context, ref: ref); // open directly
                             return;
                           }
                           await AddFileDialog.open(
@@ -180,13 +247,15 @@ class _SendTabState extends ConsumerState<SendTab> {
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.titleMedium),
+                child: Text(t.sendTab.nearbyDevices,
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
             ),
             const SizedBox(width: 10),
             _ScanButton(
               ips: networkInfo.localIps,
-              onSelect: (ip) async => ref.read(scanProvider).startLegacySubnetScan(ip),
+              onSelect: (ip) async =>
+                  ref.read(scanProvider).startLegacySubnetScan(ip),
             ),
             Tooltip(
               message: t.dialogs.addressInput.title,
@@ -224,7 +293,10 @@ class _SendTabState extends ConsumerState<SendTab> {
         ),
         if (nearbyDevicesState.devices.isEmpty)
           const Padding(
-            padding: EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+            padding: EdgeInsets.only(
+                bottom: 10,
+                left: _horizontalPadding,
+                right: _horizontalPadding),
             child: Opacity(
               opacity: 0.3,
               child: DevicePlaceholderListTile(),
@@ -232,7 +304,10 @@ class _SendTabState extends ConsumerState<SendTab> {
           ),
         ...nearbyDevicesState.devices.values.map((device) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+            padding: const EdgeInsets.only(
+                bottom: 10,
+                left: _horizontalPadding,
+                right: _horizontalPadding),
             child: Hero(
               tag: 'device-${device.ip}',
               child: sendMode == SendMode.multiple
@@ -242,7 +317,8 @@ class _SendTabState extends ConsumerState<SendTab> {
                       onTap: () async {
                         final files = ref.read(selectedSendingFilesProvider);
                         if (files.isEmpty) {
-                          await context.pushBottomSheet(() => const NoFilesDialog());
+                          await context
+                              .pushBottomSheet(() => const NoFilesDialog());
                           return;
                         }
 
@@ -271,9 +347,13 @@ class _SendTabState extends ConsumerState<SendTab> {
           child: OpacitySlideshow(
             durationMillis: 6000,
             children: [
-              Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+              Text(t.sendTab.help,
+                  style: const TextStyle(color: Colors.grey),
+                  textAlign: TextAlign.center),
               if (checkPlatformCanReceiveShareIntent())
-                Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+                Text(t.sendTab.shareIntentInfo,
+                    style: const TextStyle(color: Colors.grey),
+                    textAlign: TextAlign.center),
             ],
           ),
         ),
@@ -305,7 +385,9 @@ class _CircularPopupButton<T> extends StatelessWidget {
         type: MaterialType.transparency,
         child: DividerTheme(
           data: DividerThemeData(
-            color: Theme.of(context).brightness == Brightness.light ? Colors.teal.shade100 : Colors.grey.shade700,
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.teal.shade100
+                : Colors.grey.shade700,
           ),
           child: PopupMenuButton(
             offset: const Offset(0, 40),
@@ -331,7 +413,8 @@ class _ScanButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+    final scanningIps =
+        ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
 
     if (ips.length <= 1) {
       return RotatingWidget(
@@ -387,7 +470,8 @@ class _RotatingSyncIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+    final scanningIps =
+        ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
     return RotatingWidget(
       duration: const Duration(seconds: 2),
       spinning: scanningIps.contains(ip),
@@ -415,7 +499,8 @@ class _SendModeButton extends StatelessWidget {
             onSelect(SendMode.multiple);
             break;
           case -1:
-            await showDialog(context: context, builder: (_) => const SendModeHelpDialog());
+            await showDialog(
+                context: context, builder: (_) => const SendModeHelpDialog());
             break;
         }
       },
@@ -427,7 +512,8 @@ class _SendModeButton extends StatelessWidget {
             children: [
               Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                  final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
+                  final sendMode =
+                      ref.watch(settingsProvider.select((s) => s.sendMode));
                   return Visibility(
                     visible: sendMode == SendMode.single,
                     maintainSize: true,
@@ -449,7 +535,8 @@ class _SendModeButton extends StatelessWidget {
             children: [
               Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                  final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
+                  final sendMode =
+                      ref.watch(settingsProvider.select((s) => s.sendMode));
                   return Visibility(
                     visible: sendMode == SendMode.multiple,
                     maintainSize: true,
@@ -495,13 +582,24 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
+    final session = ref
+        .watch(sendProvider)
+        .values
+        .firstWhereOrNull((s) => s.target.ip == device.ip);
     final double? progress;
     if (session != null) {
       final files = session.files.values.where((f) => f.token != null);
       final progressNotifier = ref.watch(progressProvider);
-      final currBytes = files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()));
-      final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
+      final currBytes = files.fold<int>(
+          0,
+          (prev, curr) =>
+              prev +
+              ((progressNotifier.getProgress(
+                          sessionId: session.sessionId, fileId: curr.file.id) *
+                      curr.file.size)
+                  .round()));
+      final totalBytes =
+          files.fold<int>(0, (prev, curr) => prev + curr.file.size);
       progress = totalBytes == 0 ? 0 : currBytes / totalBytes;
     } else {
       progress = null;
@@ -513,17 +611,32 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
       onTap: () async {
         if (session != null) {
           if (session.status == SessionStatus.waiting) {
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            ref
+                .read(sendProvider.notifier)
+                .setBackground(session.sessionId, false);
             await context.push(
-              () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
+              () => SendPage(
+                  showAppBar: true,
+                  closeSessionOnClose: false,
+                  sessionId: session.sessionId),
               transition: RouterinoTransition.fade,
             );
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            ref
+                .read(sendProvider.notifier)
+                .setBackground(session.sessionId, true);
             return;
-          } else if (session.status == SessionStatus.sending || session.status == SessionStatus.finishedWithErrors) {
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
-            await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+          } else if (session.status == SessionStatus.sending ||
+              session.status == SessionStatus.finishedWithErrors) {
+            ref
+                .read(sendProvider.notifier)
+                .setBackground(session.sessionId, false);
+            await context.push(() => ProgressPage(
+                showAppBar: true,
+                closeSessionOnClose: false,
+                sessionId: session.sessionId));
+            ref
+                .read(sendProvider.notifier)
+                .setBackground(session.sessionId, true);
             return;
           }
         }
@@ -541,10 +654,10 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
         }
 
         await ref.read(sendProvider.notifier).startSession(
-          target: device,
-          files: files,
-          background: true,
-        );
+              target: device,
+              files: files,
+              background: true,
+            );
       },
     );
   }
