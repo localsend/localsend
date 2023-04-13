@@ -747,12 +747,11 @@ packages:
   msix:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: b2d651ea7f898aba85d24a70257287a201e335d2
-      resolved-ref: b2d651ea7f898aba85d24a70257287a201e335d2
-      url: "https://github.com/Tienisto/msix.git"
-    source: git
-    version: "3.9.2"
+      name: msix
+      sha256: beff6794edd6fad49f2a49a205d429929cbeebb892ef8b144f6b8f6b83d637ad
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.10.1"
   nested:
     dependency: transitive
     description:

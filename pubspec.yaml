@@ -63,11 +63,7 @@ dev_dependencies:
   flutter_lints: 2.0.1
   freezed: 2.3.2
   json_serializable: 6.6.1
-  msix:
-    # https://github.com/YehudaKremer/msix/pull/174
-    git:
-      url: https://github.com/Tienisto/msix.git
-      ref: b2d651ea7f898aba85d24a70257287a201e335d2
+  msix: 3.10.1
   riverpod_lint: 1.2.0
   slang_build_runner: 3.16.0
   test: 1.24.1
