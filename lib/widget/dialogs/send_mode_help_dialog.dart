@@ -22,6 +22,11 @@ class SendModeHelpDialog extends StatelessWidget {
             mode: t.sendTab.sendModes.multiple,
             explanation: t.dialogs.sendModeHelp.multiple,
           ),
+          const SizedBox(height: 10),
+          _SendModeItem(
+            mode: t.sendTab.sendModes.link,
+            explanation: t.dialogs.sendModeHelp.link,
+          ),
         ],
       ),
       actions: [

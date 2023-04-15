@@ -92,13 +92,8 @@ StreamSubscription? _sharedMediaSubscription;
 Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void Function(int) goToPage) async {
   await updateSystemOverlayStyle(context);
 
-  final settings = ref.read(settingsProvider);
   try {
-    await ref.read(serverProvider.notifier).startServer(
-          alias: settings.alias,
-          port: settings.port,
-          https: settings.https,
-        );
+    await ref.read(serverProvider.notifier).startServerFromSettings();
   } catch (e) {
     if (context.mounted) {
       context.showSnackBar(e.toString());

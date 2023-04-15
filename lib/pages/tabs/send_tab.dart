@@ -9,6 +9,7 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
+import 'package:localsend_app/pages/web_share_page.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
@@ -214,6 +215,11 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
             _SendModeButton(
               onSelect: (mode) async {
+                if (mode == SendMode.link) {
+                  await context.push(() => const WebSharePage());
+                  return;
+                }
+
                 await ref.read(settingsProvider.notifier).setSendMode(mode);
                 if (mode != SendMode.multiple) {
                   ref.read(sendProvider.notifier).clearAllSessions();
@@ -414,6 +420,9 @@ class _SendModeButton extends StatelessWidget {
           case 1:
             onSelect(SendMode.multiple);
             break;
+          case 2:
+            onSelect(SendMode.link);
+            break;
           case -1:
             await showDialog(context: context, builder: (_) => const SendModeHelpDialog());
             break;
@@ -461,6 +470,23 @@ class _SendModeButton extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(t.sendTab.sendModes.multiple),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: 2,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Visibility(
+                visible: false,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: Icon(Icons.check_circle),
+              ),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModes.link),
             ],
           ),
         ),

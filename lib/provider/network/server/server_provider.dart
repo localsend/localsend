@@ -38,6 +38,17 @@ class ServerNotifier extends Notifier<ServerState?> {
     return null;
   }
 
+  /// Starts the server from user settings.
+  Future<ServerState?> startServerFromSettings() async {
+    final settings = ref.read(settingsProvider);
+    return startServer(
+      alias: settings.alias,
+      port: settings.port,
+      https: settings.https,
+    );
+  }
+
+  /// Starts the server.
   Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
     if (state != null) {
       print('Server already running.');
@@ -102,9 +113,15 @@ class ServerNotifier extends Notifier<ServerState?> {
   }
 
   Future<void> stopServer() async {
+    print('Stopping server...');
     await state?.httpServer.close(force: true);
     state = null;
     print('Server stopped.');
+  }
+
+  Future<ServerState?> restartServerFromSettings() async {
+    await stopServer();
+    return await startServerFromSettings();
   }
 
   Future<ServerState?> restartServer({required String alias, required int port, required bool https}) async {

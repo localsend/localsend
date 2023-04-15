@@ -228,11 +228,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                           style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                           onPressed: () async {
                             try {
-                              await ref.read(serverProvider.notifier).startServer(
-                                    alias: settings.alias,
-                                    port: settings.port,
-                                    https: settings.https,
-                                  );
+                              await ref.read(serverProvider.notifier).startServerFromSettings();
                             } catch (e) {
                               context.showSnackBar(e.toString());
                             }

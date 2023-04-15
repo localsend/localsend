@@ -181,6 +181,16 @@
       "speed": "Speed: {speed}/s"
     }
   },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "hint": "The connection is unencrypted.",
+    "openTheseLinks": "Open these links on your browser:",
+    "requests": "Requests",
+    "noRequests": "No requests yet."
+  },
   "aboutPage": {
     "title": "About LocalSend"
   },
