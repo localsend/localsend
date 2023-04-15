@@ -82,6 +82,7 @@ flutter:
 
   assets:
     - assets/img/
+    - assets/web/
     - assets/CHANGELOG.md
 
 msix_config:

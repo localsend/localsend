@@ -216,7 +216,12 @@ class _SendTabState extends ConsumerState<SendTab> {
             _SendModeButton(
               onSelect: (mode) async {
                 if (mode == SendMode.link) {
-                  await context.push(() => const WebSharePage());
+                  final files = ref.read(selectedSendingFilesProvider);
+                  if (files.isEmpty) {
+                    await context.pushBottomSheet(() => const NoFilesDialog());
+                    return;
+                  }
+                  await context.push(() => WebSharePage(files));
                   return;
                 }
 

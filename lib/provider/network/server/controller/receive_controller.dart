@@ -52,7 +52,7 @@ class ReceiveController {
       final senderFingerprint = request.url.queryParameters['fingerprint'];
       if (senderFingerprint == fingerprint) {
         // "I talked to myself lol"
-        return server.response(412, message: 'Self-discovered');
+        return server.responseJson(412, message: 'Self-discovered');
       }
 
       final deviceInfo = server.ref.read(deviceRawInfoProvider);
@@ -63,7 +63,7 @@ class ReceiveController {
         deviceType: deviceInfo.deviceType,
       );
 
-      return server.response(200, body: dto.toJson());
+      return server.responseJson(200, body: dto.toJson());
     });
 
     // An upgraded version of /info
@@ -73,12 +73,12 @@ class ReceiveController {
       try {
         requestDto = RegisterDto.fromJson(jsonDecode(payload));
       } catch (e) {
-        return server.response(400, message: 'Request body malformed');
+        return server.responseJson(400, message: 'Request body malformed');
       }
 
       if (requestDto.fingerprint == fingerprint) {
         // "I talked to myself lol"
-        return server.response(412, message: 'Self-discovered');
+        return server.responseJson(412, message: 'Self-discovered');
       }
 
       // Save device information
@@ -92,13 +92,13 @@ class ReceiveController {
         deviceType: deviceInfo.deviceType,
       );
 
-      return server.response(200, body: responseDto.toJson());
+      return server.responseJson(200, body: responseDto.toJson());
     });
 
     router.post(ApiRoute.sendRequest.path, (Request request) async {
       if (server.getState().session != null) {
         // block incoming requests when we are already in a session
-        return server.response(409, message: 'Blocked by another session');
+        return server.responseJson(409, message: 'Blocked by another session');
       }
 
       final payload = await request.readAsString();
@@ -106,12 +106,12 @@ class ReceiveController {
       try {
         dto = SendRequestDto.fromJson(jsonDecode(payload));
       } catch (e) {
-        return server.response(400, message: 'Request body malformed');
+        return server.responseJson(400, message: 'Request body malformed');
       }
 
       if (dto.files.isEmpty) {
         // block empty requests (at least one file is required)
-        return server.response(400, message: 'Request must contain at least one file');
+        return server.responseJson(400, message: 'Request must contain at least one file');
       }
 
       final settings = server.ref.read(settingsProvider);
@@ -170,19 +170,19 @@ class ReceiveController {
 
       if (server.getState().session == null) {
         // somehow this state is already disposed
-        return server.response(500, message: 'Server is in invalid state');
+        return server.responseJson(500, message: 'Server is in invalid state');
       }
 
       if (selection == null) {
         closeSession();
-        return server.response(403, message: 'File request declined by recipient');
+        return server.responseJson(403, message: 'File request declined by recipient');
       }
 
       if (selection.isEmpty) {
         // nothing selected, send this to sender and close session
         // This usually happens for message transfers
         closeSession();
-        return server.response(200);
+        return server.responseJson(200);
       }
 
       server.setState(
@@ -223,7 +223,7 @@ class ReceiveController {
             ));
       }
 
-      return server.response(200, body: {
+      return server.responseJson(200, body: {
         for (final file in server.getState().session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
       });
     });
@@ -231,17 +231,17 @@ class ReceiveController {
     router.post(ApiRoute.send.path, (Request request) async {
       final receiveState = server.getState().session;
       if (receiveState == null) {
-        return server.response(409, message: 'No session');
+        return server.responseJson(409, message: 'No session');
       }
 
       if (request.ip != receiveState.sender.ip) {
         print('Invalid ip address: ${request.ip} (expected: ${receiveState.sender.ip})');
-        return server.response(403, message: 'Invalid IP address: ${request.ip}');
+        return server.responseJson(403, message: 'Invalid IP address: ${request.ip}');
       }
 
       if (receiveState.status != SessionStatus.sending) {
         print('Wrong state: ${receiveState.status} (expected: ${SessionStatus.sending})');
-        return server.response(409, message: 'Recipient is in wrong state');
+        return server.responseJson(409, message: 'Recipient is in wrong state');
       }
 
       final fileId = request.url.queryParameters['fileId'];
@@ -249,14 +249,14 @@ class ReceiveController {
       if (fileId == null || token == null) {
         // reject because of missing parameters
         print('Missing parameters');
-        return server.response(400, message: 'Missing parameters');
+        return server.responseJson(400, message: 'Missing parameters');
       }
 
       final receivingFile = receiveState.files[fileId];
       if (receivingFile == null || receivingFile.token != token) {
         // reject because there is no file or token does not match
         print('Wrong token: $token (expected: ${receivingFile?.token})');
-        return server.response(403, message: 'Invalid token');
+        return server.responseJson(403, message: 'Invalid token');
       }
 
       // begin of actual file transfer
@@ -302,7 +302,7 @@ class ReceiveController {
           },
         );
         if (server.getState().session == null || server.getState().session!.status != SessionStatus.sending) {
-          return server.response(500, message: 'Server is in invalid state');
+          return server.responseJson(500, message: 'Server is in invalid state');
         }
         server.setState(
           (oldState) => oldState?.copyWith(
@@ -374,8 +374,8 @@ class ReceiveController {
       }
 
       return server.getState().session?.files[fileId]?.status == FileStatus.finished
-          ? server.response(200)
-          : server.response(500, message: 'Could not save file');
+          ? server.responseJson(200)
+          : server.responseJson(500, message: 'Could not save file');
     });
 
     router.post(ApiRoute.cancel.path, (Request request) {
@@ -383,7 +383,7 @@ class ReceiveController {
         _cancelBySender(server);
       }
 
-      return server.response(200);
+      return server.responseJson(200);
     });
 
     router.post(ApiRoute.show.path, (Request request) async {
@@ -395,10 +395,10 @@ class ReceiveController {
             print(e);
           }),
         );
-        return server.response(200);
+        return server.responseJson(200);
       }
 
-      return server.response(403, message: 'Invalid token');
+      return server.responseJson(403, message: 'Invalid token');
     });
   }
 
@@ -409,7 +409,7 @@ class ReceiveController {
     }
 
     controller.add(fileNameMap);
-    unawaited(controller.close());
+    controller.close(); // ignore: discarded_futures
   }
 
   void declineFileRequest() {
@@ -419,7 +419,7 @@ class ReceiveController {
     }
 
     controller.add(null);
-    unawaited(controller.close());
+    controller.close(); // ignore: discarded_futures
   }
 
   /// Updates the destination directory for the current session.

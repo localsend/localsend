@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
+import 'package:localsend_app/provider/network/server/controller/send_controller.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -30,6 +32,7 @@ class ServerNotifier extends Notifier<ServerState?> {
   );
 
   late final _receiveController = ReceiveController(_serverUtils);
+  late final _sendController = SendController(_serverUtils);
 
   ServerNotifier();
 
@@ -73,6 +76,10 @@ class ServerNotifier extends Notifier<ServerState?> {
       fingerprint: ref.read(fingerprintProvider),
       showToken: ref.read(settingsProvider.select((s) => s.showToken)),
     );
+    _sendController.installRoutes(
+      router: router,
+      alias: alias,
+    );
 
     print('Starting server...');
     ServerState? newServerState;
@@ -91,6 +98,7 @@ class ServerNotifier extends Notifier<ServerState?> {
         port: port,
         https: true,
         session: null,
+        webSendState: null,
       );
       print('Server started. (Port: ${newServerState.port}, HTTPS only)');
     } else {
@@ -104,6 +112,7 @@ class ServerNotifier extends Notifier<ServerState?> {
         port: port,
         https: false,
         session: null,
+        webSendState: null,
       );
       print('Server started. (Port: ${newServerState.port}, HTTP only)');
     }
@@ -150,6 +159,21 @@ class ServerNotifier extends Notifier<ServerState?> {
   /// Clears the session.
   void closeSession() {
     _receiveController.closeSession();
+  }
+
+  /// Initializes the web send state.
+  Future<void> initializeWebSend(List<CrossFile> files) async {
+    await _sendController.initializeWebSend(files: files);
+  }
+
+  /// Accepts the web send request.
+  void acceptWebSendRequest(String sessionId) {
+    _sendController.acceptRequest(sessionId);
+  }
+
+  /// Declines the web send request.
+  void declineWebSendRequest(String sessionId) {
+    _sendController.declineRequest(sessionId);
   }
 }
 
