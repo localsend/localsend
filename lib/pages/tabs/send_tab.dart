@@ -64,10 +64,10 @@ class _SendTabState extends ConsumerState<SendTab> {
     final networkInfo = ref.watch(networkStateProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
     final addOptions = [
+      if (checkPlatformWithGallery()) FilePickerOption.media,
       FilePickerOption.file,
       if (checkPlatformWithFolderSelect()) FilePickerOption.folder,
-      if (checkPlatformWithGallery()) FilePickerOption.media,
-      FilePickerOption.text,
+      // FilePickerOption.text,
       if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,
     ];
 
@@ -81,10 +81,9 @@ class _SendTabState extends ConsumerState<SendTab> {
             padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
             child: Text(
               t.sendTab.selection.title,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
-          const SizedBox(height: 20),
           Container(
             height: 100,
             width: double.infinity,
@@ -94,6 +93,17 @@ class _SendTabState extends ConsumerState<SendTab> {
                 children: [
                   Flexible(
                     child: TextFormField(
+                      decoration: InputDecoration(
+                        fillColor: Color.fromARGB(0, 0, 0, 0),
+                        hintText: t.sendTab.hintText,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
                       controller: _textController,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
@@ -103,7 +113,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                   const SizedBox(width: _horizontalPadding),
                   SizedBox(
                     height: 50,
-                    width: 50,
+                    width: 60,
                     child: ElevatedButton(
                       onPressed: () => (_textController.text != '')
                           ? {
@@ -124,43 +134,45 @@ class _SendTabState extends ConsumerState<SendTab> {
               ),
             ),
           ),
-          ListView.builder(
-            itemCount: (addOptions.length / 2).ceil(),
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: BigButton(
-                      icon: addOptions[index * 2].icon,
-                      label: addOptions[index * 2].label,
-                      filled: false,
-                      onTap: () async => addOptions[index * 2].select(
-                        context: context,
-                        ref: ref,
-                      ),
-                    ),
-                  ),
-                  if (index * 2 + 1 < addOptions.length)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+            child: ListView.builder(
+              itemCount: (addOptions.length / 2).ceil(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: BigButton(
-                        icon: addOptions[index * 2 + 1].icon,
-                        label: addOptions[index * 2 + 1].label,
+                        icon: addOptions[index * 2].icon,
+                        label: addOptions[index * 2].label,
                         filled: false,
-                        onTap: () async => addOptions[index * 2 + 1].select(
+                        onTap: () async => addOptions[index * 2].select(
                           context: context,
                           ref: ref,
                         ),
                       ),
                     ),
-                ],
-              );
-            },
+                    if (index * 2 + 1 < addOptions.length)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: BigButton(
+                          icon: addOptions[index * 2 + 1].icon,
+                          label: addOptions[index * 2 + 1].label,
+                          filled: false,
+                          onTap: () async => addOptions[index * 2 + 1].select(
+                            context: context,
+                            ref: ref,
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
           ),
         ] else ...[
           Card(

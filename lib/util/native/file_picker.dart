@@ -17,11 +17,11 @@ import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 enum FilePickerOption {
-  file(Icons.description),
-  folder(Icons.folder),
-  media(Icons.image),
+  file(Icons.file_copy_outlined),
+  folder(Icons.folder_copy_outlined),
+  media(Icons.perm_media_outlined),
   text(Icons.subject),
-  app(Icons.apps);
+  app(Icons.apps_outlined);
 
   const FilePickerOption(this.icon);
 
@@ -93,7 +93,9 @@ enum FilePickerOption {
         try {
           final directoryPath = await FilePicker.platform.getDirectoryPath();
           if (directoryPath != null) {
-            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
+            await ref
+                .read(selectedSendingFilesProvider.notifier)
+                .addDirectory(directoryPath);
           }
         } catch (e) {
           print(e);
@@ -105,9 +107,8 @@ enum FilePickerOption {
         final List<AssetEntity>? result = await AssetPicker.pickAssets(
           context,
           pickerConfig: const AssetPickerConfig(
-            maxAssets: 999,
-            textDelegate: TranslatedAssetPickerTextDelegate()
-          ),
+              maxAssets: 999,
+              textDelegate: TranslatedAssetPickerTextDelegate()),
         );
         if (result != null) {
           await ref.read(selectedSendingFilesProvider.notifier).addFiles(
@@ -117,7 +118,8 @@ enum FilePickerOption {
         }
         break;
       case FilePickerOption.text:
-        final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
+        final result = await showDialog<String>(
+            context: context, builder: (_) => const MessageInputDialog());
         if (result != null) {
           ref.read(selectedSendingFilesProvider.notifier).addMessage(result);
         }
