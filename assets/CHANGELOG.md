@@ -4,6 +4,7 @@
 - feat: share via link so users can download files via browser
 - feat: add "delete from history" button when file could not be opened (by @TheGB0077)
 - feat: close message request when copied / opened link
+- feat(android, ios): add "Save to gallery" setting button in file receive options
 - feat(desktop): move troubleshoot out of navigation into send page
 - feat(desktop): save last window position (by @TheGB0077)
 - feat(android): enable edge-to-edge mode

@@ -151,6 +151,11 @@ class ServerNotifier extends Notifier<ServerState?> {
     _receiveController.setSessionDestinationDir(destinationDirectory);
   }
 
+  /// Updates the save to gallery setting for the current session.
+  void setSessionSaveToGallery(bool saveToGallery) {
+    _receiveController.setSessionSaveToGallery(saveToGallery);
+  }
+
   /// In addition to [closeSession], this method also cancels incoming requests.
   void cancelSession() {
     _receiveController.cancelSession();

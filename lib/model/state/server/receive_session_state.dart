@@ -20,6 +20,7 @@ class ReceiveSessionState with _$ReceiveSessionState {
     required int? startTime,
     required int? endTime,
     required String destinationDirectory,
+    required bool saveToGallery,
 
     // use this to accept / decline the request, empty map == decline
     // FileId -> File Name

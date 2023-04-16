@@ -6,6 +6,10 @@
   "general": {
     "accepted": "Accepted"
   },
+  "receiveOptionsPage": {
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are directories."
+  },
   "webSharePage": {
     "title": "Share via link",
     "loading": "Starting server...",

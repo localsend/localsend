@@ -143,6 +143,7 @@ class ReceiveController {
             startTime: null,
             endTime: null,
             destinationDirectory: destinationDir,
+            saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
             responseHandler: streamController,
           ),
         ),
@@ -283,9 +284,7 @@ class ReceiveController {
 
         print('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-        final saveToGallery = checkPlatformWithGallery() &&
-            server.ref.read(settingsProvider).saveToGallery &&
-            !receiveState.containsDirectories &&
+        final saveToGallery = receiveState.saveToGallery &&
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,
@@ -429,6 +428,17 @@ class ReceiveController {
       (oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
           destinationDirectory: destinationDirectory.replaceAll('\\', '/'),
+        ),
+      ),
+    );
+  }
+
+  /// Updates the "saveToGallery" setting for the current session.
+  void setSessionSaveToGallery(bool saveToGallery) {
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(
+          saveToGallery: saveToGallery,
         ),
       ),
     );

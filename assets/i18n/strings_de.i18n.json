@@ -159,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Optionen",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend-Ordner)"
+    "appDirectory": "(LocalSend-Ordner)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",

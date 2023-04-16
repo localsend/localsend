@@ -56,6 +56,10 @@
     "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
     "apps": "{n} Apps"
   },
+  "receiveOptionsPage": {
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are directories."
+  },
   "webSharePage": {
     "title": "Share via link",
     "loading": "Starting server...",
