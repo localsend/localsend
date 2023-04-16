@@ -10,9 +10,8 @@ class IosLocalNetworkDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomBottomSheet(
-      // TODO i18n: Substitute hard-coded strings
-      title: "Local Network discovery unauthorized",
-      description: "Localsend can't find other devices without this permission, so make sure it's enabled!",
+      title: t.dialogs.localNetworkUnauthorized.title,
+      description: t.dialogs.localNetworkUnauthorized.description,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -23,7 +22,7 @@ class IosLocalNetworkDialog extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: () async => SystemSettings.app(),
             icon: const Icon(Icons.settings),
-            label: Text("Go to Settings"),
+            label: Text(t.dialogs.localNetworkUnauthorized.gotoSettings),
           ),
         ],
       ),
