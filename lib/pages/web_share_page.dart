@@ -116,7 +116,7 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
             final networkState = ref.watch(networkStateProvider);
 
             return ResponsiveListView(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               children: [
                 Text(t.webSharePage.openLink(n: networkState.localIps.length), style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 10),
@@ -154,7 +154,7 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 20),
                 Text(t.webSharePage.requests, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 10),
                 if (webSendState.sessions.isEmpty)
@@ -189,7 +189,7 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                                     ref.read(serverProvider.notifier).declineWebSendRequest(session.sessionId);
                                   },
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.error,
+                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
                                   ),
                                   child: const Icon(Icons.close),
                                 ),
@@ -198,7 +198,7 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                                     ref.read(serverProvider.notifier).acceptWebSendRequest(session.sessionId);
                                   },
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.primary,
+                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
                                   ),
                                   child: const Icon(Icons.check_circle),
                                 ),
@@ -208,7 +208,9 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                                 padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
                                   t.general.accepted,
-                                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Theme.of(context).colorScheme.tertiaryContainer,
+                                  ),
                                 ),
                               ),
                           ],

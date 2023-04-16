@@ -2,5 +2,33 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=uk' to quickly apply the newly added translations."
-  ]
+  ],
+  "general": {
+    "accepted": "Accepted"
+  },
+  "sendTab": {
+    "picker": {
+      "folder": "Folder"
+    }
+  },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "openLink": {
+      "one": "Open this link on the browser:",
+      "other": "Open one of these links on the browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet."
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
+  }
 }

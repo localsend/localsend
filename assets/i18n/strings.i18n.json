@@ -189,8 +189,8 @@
     "error": "An error occurred while starting the server.",
     "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
     "openLink": {
-      "one": "Open this link on your browser:",
-      "other": "Open one of these links on your browser:"
+      "one": "Open this link on the browser:",
+      "other": "Open one of these links on the browser:"
     },
     "requests": "Requests",
     "noRequests": "No requests yet."

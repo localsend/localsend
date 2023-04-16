@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Akzeptieren",
+    "accepted": "Akzeptiert",
     "add": "Hinzufügen",
     "advanced": "Erweitert",
     "cancel": "Abbrechen",
@@ -181,6 +182,19 @@
       "speed": "Geschwindigkeit: {speed}/s"
     }
   },
+  "webSharePage": {
+    "title": "Per Link teilen",
+    "loading": "Starte Server...",
+    "stopping": "Stoppe server...",
+    "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
+    "hint": "Beachte, dass die Verbindung unverschlüsselt ist. Du solltest nur diese Methode verwenden, wenn der Empfänger kein LocalSend installiert hat.",
+    "openLink": {
+      "one": "Öffne diesen Link im Browser:",
+      "other": "Öffne einer dieser Links im Browser:"
+    },
+    "requests": "Anfragen",
+    "noRequests": "Bisher keine Anfragen erhalten."
+  },
   "aboutPage": {
     "title": "Über LocalSend"
   },
@@ -262,6 +276,13 @@
   "tray": {
     "open": "@:general.open",
     "close": "LocalSend beenden"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Abgelehnt",
+    "files": "Dateien",
+    "fileName": "Dateiname",
+    "size": "Größe"
   },
   "assetPicker": {
     "confirm": "Bestätigen",
