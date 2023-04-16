@@ -44,6 +44,7 @@ dependencies:
   shelf_router: 1.1.3
   slang: 3.16.1
   slang_flutter: 3.16.0
+  system_settings: ^2.1.0
   tray_manager:
     # https://github.com/leanflutter/tray_manager/issues/30
     # The Linux tray manager is disabled for now

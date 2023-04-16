@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
@@ -24,6 +25,7 @@ import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
+import 'package:localsend_app/widget/dialogs/ios_network_permission_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -44,6 +46,8 @@ class SendTab extends ConsumerStatefulWidget {
 }
 
 class _SendTabState extends ConsumerState<SendTab> {
+  static const iosCall = MethodChannel('localsend.localsend_app/iosCall');
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +56,22 @@ class _SendTabState extends ConsumerState<SendTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        await ref.read(scanProvider).startSmartScan();
+        await ref.read(scanProvider).startSmartScan().whenComplete(() async {
+          if (devices.isEmpty) {
+            // After the first complete scan, if devices aren't found on IOS a Network trigger is called
+            if(checkPlatform([TargetPlatform.iOS])) {
+              try {
+                final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
+                if (!granted) {
+                  print("Local Network Permission denied");
+                  if(context.mounted) await context.pushBottomSheet(() => const IosLocalNetworkDialog());
+                }
+              } on PlatformException catch (e) {
+                print(e);
+              }
+            }
+          }
+        });
       }
     });
   }
