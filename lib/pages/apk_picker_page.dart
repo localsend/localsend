@@ -9,6 +9,7 @@ import 'package:localsend_app/provider/apk_provider.dart';
 import 'package:localsend_app/provider/param/apk_provider_param.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/sliver/sliver_pinned_header.dart';
@@ -169,6 +170,9 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                   ),
                 );
               },
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(height: getNavBarPadding(context) + 30), // handle navigation bar + some additional padding
             ),
           ],
         ),
