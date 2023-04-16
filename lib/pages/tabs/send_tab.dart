@@ -24,6 +24,7 @@ import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
+import 'package:localsend_app/widget/dialogs/ios_network_permission_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -54,18 +55,22 @@ class _SendTabState extends ConsumerState<SendTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        if(checkPlatform([TargetPlatform.iOS])) {
-          try {
-            final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
-            if (!granted) {
-              //TODO Prompt Go to settings
-              print("Permission denied");
+        await ref.read(scanProvider).startSmartScan().whenComplete(() async {
+          if (devices.isEmpty) {
+            // After the first complete scan, if devices aren't found on IOS a Network trigger is called
+            if(checkPlatform([TargetPlatform.iOS])) {
+              try {
+                final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
+                if (!granted) {
+                  print("Local Network Permission denied");
+                  if(context.mounted) await context.pushBottomSheet(() => const IosLocalNetworkDialog());
+                }
+              } on PlatformException catch (e) {
+                print(e);
+              }
             }
-          } on PlatformException catch (e) {
-            print(e);
           }
-        }
-        await ref.read(scanProvider).startSmartScan();
+        });
       }
     });
   }
