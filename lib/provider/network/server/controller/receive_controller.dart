@@ -285,6 +285,7 @@ class ReceiveController {
 
         final saveToGallery = checkPlatformWithGallery() &&
             server.ref.read(settingsProvider).saveToGallery &&
+            !receiveState.containsDirectories &&
             (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
         await saveFile(
           destinationPath: destinationPath,

@@ -32,4 +32,10 @@ class ReceiveSessionState with _$ReceiveSessionState {
     final firstFile = files.values.first.file;
     return files.length == 1 && firstFile.fileType == FileType.text ? firstFile.preview : null;
   }
+
+  /// Returns true if this request contains files having a directory path.
+  /// "Save to gallery" is disabled for such requests.
+  bool get containsDirectories {
+    return files.values.any((f) => f.file.fileName.contains('/'));
+  }
 }
