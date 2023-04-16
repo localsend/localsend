@@ -7,7 +7,7 @@ part 'file_dto.g.dart';
 @freezed
 class FileDto with _$FileDto {
   const factory FileDto({
-    required String id, // unique inside send session
+    required String id, // unique inside session
 
     required String fileName,
 
@@ -16,6 +16,12 @@ class FileDto with _$FileDto {
     // ignore: invalid_annotation_target
     @JsonKey(unknownEnumValue: FileType.other)
     required FileType fileType,
+
+    /// The hash of the file.
+    /// This is used for web-mode as it is unencrypted (HTTP).
+    // ignore: invalid_annotation_target
+    @JsonKey(includeIfNull: false)
+    required String? sha256,
 
     required String? preview,
   }) = _FileDto;

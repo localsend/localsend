@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
+    "accepted": "Accepted",
     "add": "Add",
     "advanced": "Advanced",
     "cancel": "Cancel",
@@ -181,6 +182,19 @@
       "speed": "Speed: {speed}/s"
     }
   },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "openLink": {
+      "one": "Open this link on the browser:",
+      "other": "Open one of these links on the browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet."
+  },
   "aboutPage": {
     "title": "About LocalSend"
   },
@@ -333,6 +347,13 @@
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Quit LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",

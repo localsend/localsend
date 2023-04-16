@@ -19,9 +19,9 @@
     "files": "檔案",
     "finished": "已完成",
     "hide": "隱藏",
-    "off": "關",
+    "off": "關閉",
     "offline": "離線",
-    "on": "開",
+    "on": "開啟",
     "online": "線上",
     "open": "開啟",
     "queue": "佇列",
@@ -34,142 +34,144 @@
     "start": "開始",
     "stop": "停止",
     "save": "儲存",
-    "unchanged": "未更改",
+    "unchanged": "未變更",
     "unknown": "未知"
   },
   "receiveTab": {
     "title": "接收",
     "infoBox": {
       "ip": "IP：",
-      "port": "通訊埠：",
+      "port": "連接埠：",
       "alias": "別名："
     }
   },
   "sendTab": {
     "title": "傳送",
     "selection": {
-      "title": "選擇",
+      "title": "選取",
       "files": "檔案：{files}",
       "size": "大小：{size}"
     },
     "picker": {
       "file": "檔案",
+      "folder": "資料夾",
       "media": "媒體",
       "text": "文字",
       "app": "應用程式"
     },
-    "shareIntentInfo": "你也可以使用你的行動裝置中的「分享」功能來更簡單的選擇檔案。",
+    "shareIntentInfo": "您也可以使用您的行動裝置中的「分享」功能更簡單地選取檔案。",
     "nearbyDevices": "附近的裝置",
-    "thisDevice": "這台裝置",
-    "scan": "搜尋裝置",
-    "sendMode": "傳輸模式",
+    "thisDevice": "此裝置",
+    "scan": "尋找裝置",
+    "sendMode": "傳送模式",
     "sendModes": {
-      "single": "單次傳輸",
-      "multiple": "多次傳輸",
+      "single": "單一接收者",
+      "multiple": "多重接收者",
       "link": "透過連結分享"
     },
-    "sendModeHelp": "詳細說明",
-    "help": "請確保連線目標的處於同一個 Wi-Fi 網路。",
-    "placeItems": "列出要分享的檔案。"
+    "sendModeHelp": "說明",
+    "help": "請確保所需目標的處於相同的 Wi-Fi 網路。",
+    "placeItems": "列出要分享的項目。"
   },
   "settingsTab": {
     "title": "設定",
     "general": {
-      "title": "一般設定",
-      "theme": "介面風格",
+      "title": "一般",
+      "theme": "主題",
       "themeOptions": {
-        "system": "遵循系統",
-        "dark": "黑暗",
-        "light": "明亮"
+        "system": "系統",
+        "dark": "深色",
+        "light": "淺色"
       },
       "language": "語言",
       "languageOptions": {
-        "system": "遵循系統"
+        "system": "系統"
       },
-      "minimizeToTray": "關閉行為：最小化至系統匣",
-      "launchAtStartup": "登入系統後自動啟動程式",
-      "launchMinimized": "自動啟動程式至系統匣"
+      "saveWindowPlacement": "離開：儲存視窗位置",
+      "minimizeToTray": "離開：最小化至系統匣",
+      "launchAtStartup": "登入後自動啟動",
+      "launchMinimized": "自動啟動至系統匣"
     },
     "receive": {
-      "title": "接收設定",
+      "title": "接收",
       "quickSave": "@:general.quickSave",
       "destination": "儲存目錄",
       "downloads": "(下載)",
-      "saveToGallery": "儲存到相簿"
+      "saveToGallery": "儲存媒體至相簿"
     },
     "network": {
-      "title": "網路設定",
-      "needRestart": "重新啟動伺服器使設定生效！",
+      "title": "網路",
+      "needRestart": "重新啟動伺服器以套用設定！",
       "server": "伺服器",
       "alias": "別名",
-      "port": "通訊埠",
-      "portWarning": "您可能無法偵測到其他設備,因為您正在使用自訂通訊埠. (預設值: {defaultPort})",
-      "encryption": "加密傳輸",
-      "multicastGroup": "多播",
-      "multicastGroupWarning": "您可能無法偵測到其他設備,因為您正在使用自訂多播位址. (預設值: {defaultMulticast})"
+      "port": "連接埠",
+      "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂連接埠。(預設：{defaultPort})",
+      "encryption": "加密",
+      "multicastGroup": "多點傳送",
+      "multicastGroupWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：{defaultMulticast})"
     }
   },
   "troubleshootPage": {
     "title": "疑難排解",
-    "subTitle": "這個應用程式沒有如預期運作？在這裡您可以找到常見的解決方案。",
+    "subTitle": "這個應用程式並未如預期運作？在這裡您可以找到常見的解決方案。",
     "solution": "解決方案:",
-    "fixButton": "自動修復",
+    "fixButton": "自動修正",
     "firewall": {
       "symptom": "此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。",
-      "solution": "這很可能是防火牆問題。您可以透過允許通訊埠 {port} 上的連入連線（UDP 和 TCP）來解決此問題。",
+      "solution": "這很可能是防火牆問題。您可以透過允許連接埠 {port} 上的連入連線 (UDP 和 TCP) 以解決此問題。",
       "openFirewall": "開啟防火牆"
     },
     "noConnection": {
-      "symptom": "兩台裝置無法互相探詢，也無法共享檔案。",
-      "solution": "雙方都存在問題？然後你需要確保兩個裝置都在同一個 WiFi 網路中並共享相同的設定（通訊埠、多播地址、加密傳輸）。 WiFi 可能不允許參與者之間進行通訊。在這種情況下，必須在路由器上啟用此選項。"
+      "symptom": "兩部裝置無法探索彼此，也無法分享檔案。",
+      "solution": "雙方都存在問題？然後你需要確保兩部裝置處於相同的 WiFi 網路中並共用相同的組態 (連接埠、多點傳送位址、加密)。WiFi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上啟用此選項。"
     }
   },
   "receiveHistoryPage": {
-    "title": "接收紀錄",
+    "title": "歷史記錄",
     "openFolder": "開啟資料夾",
-    "deleteHistory": "刪除紀錄",
-    "empty": "沒有紀錄.",
+    "deleteHistory": "刪除歷史記錄",
+    "empty": "沒有歷史記錄.",
     "entryActions": {
       "open": "開啟檔案",
       "info": "資訊",
-      "deleteFromHistory": "從記錄刪除"
+      "deleteFromHistory": "從歷史記錄刪除"
     }
   },
   "apkPickerPage": {
     "title": "應用程式 (APK)",
     "excludeSystemApps": "排除系統應用程式",
     "excludeAppsWithoutLaunchIntent": "排除不可啟動的應用程式",
-    "apps": "{n} 應用程式"
+    "apps": "{n} 個應用程式"
   },
   "selectedFilesPage": {
     "deleteAll": "全部刪除"
   },
   "receivePage": {
     "subTitle": {
-      "one": "想要傳送給你一個檔案。",
-      "other": "想要傳送給你 {n} 個檔案。"
+      "one": "要傳送一個檔案給您。",
+      "other": "要傳送 {n} 個檔案給您。"
     },
-    "subTitleMessage": "傳送給你了一條訊息：",
-    "subTitleLink": "傳送給你了一個連結：",
-    "canceled": "傳送者取消了請求。"
+    "subTitleMessage": "已傳送一則訊息給您：",
+    "subTitleLink": "已傳送一個連結給您：",
+    "canceled": "傳送者已取消要求。"
   },
   "receiveOptionsPage": {
-    "title": "設定",
+    "title": "選項",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "（LocalSend 資料夾）"
+    "appDirectory": "(LocalSend 資料夾)"
   },
   "sendPage": {
-    "waiting": "等待回應中……",
-    "rejected": "對方拒絕了請求。",
-    "busy": "接收端正在處另一項傳輸請求."
+    "waiting": "正在等候回應…",
+    "rejected": "接收者拒絕了要求。",
+    "busy": "接收者正忙於處理另一個要求。"
   },
   "progressPage": {
     "titleSending": "正在傳送檔案",
     "titleReceiving": "正在接收檔案",
-    "savedToGallery": "已儲存到相簿",
+    "savedToGallery": "已儲存至相簿",
     "total": {
       "title": {
-        "sending": "總進度 ({time})",
+        "sending": "整體進度 ({time})",
         "finishedError": "已完成，但發生錯誤",
         "canceledSender": "傳送者已取消",
         "canceledReceiver": "接收者已取消"
@@ -183,82 +185,112 @@
     "title": "關於 LocalSend"
   },
   "changelogPage": {
-    "title": "更新日誌"
+    "title": "變更記錄"
   },
   "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
-      "title": "加入檔案",
-      "content": "你想加入什麼檔案？"
+      "title": "新增檔案",
+      "content": "您想要新增什麼檔案？"
     },
     "addressInput": {
-      "title": "輸入地址",
-      "hashtag": "Hashtag",
+      "title": "輸入位址",
+      "hashtag": "雜湊標記",
       "ip": "IP 位址",
-      "recentlyUsed": "最近使用: "
+      "recentlyUsed": "最近使用："
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
-      "content": "要取消檔案傳輸嗎？"
+      "content": "您確定要取消檔案傳輸嗎？"
     },
     "cannotOpenFile": {
       "title": "無法開啟檔案",
-      "content": "無法開啟 \"{file}\". 這個檔案被移動,改名或刪除了嗎?"
+      "content": "無法開啟「{file}」，這個檔案已被移動、重新命名或刪除了嗎？"
     },
     "encryptionDisabledNotice": {
-      "title": "已停用加密",
-      "content": "傳輸將使用未加密的HTTP協定. 啟用加密以再次使用HTTPS加密協定."
+      "title": "加密已停用",
+      "content": "目前的通訊透過未經加密的 HTTP 通訊協定執行。若要使用 HTTPS，請再次啟用加密。"
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
       "title": "檔案資訊",
-      "fileName": "檔案名稱:",
-      "path": "路徑:",
-      "size": "大小:",
-      "sender": "傳送者:",
-      "time": "時間:"
+      "fileName": "檔案名稱：",
+      "path": "路徑：",
+      "size": "大小：",
+      "sender": "傳送者：",
+      "time": "時間："
     },
     "fileNameInput": {
-      "title": "輸入檔名",
-      "original": "原始檔名：{original}"
+      "title": "輸入檔案名稱",
+      "original": "原始檔案名稱：{original}"
     },
     "messageInput": {
       "title": "輸入訊息",
       "multiline": "多行"
     },
     "noFiles": {
-      "title": "沒有選擇檔案",
-      "content": "請最少選擇一個檔案。"
+      "title": "未選取檔案",
+      "content": "請至少選取一個檔案。"
     },
     "notAvailableOnPlatform": {
-      "title": "不可使用",
-      "content": "此功能僅允許在:"
+      "title": "無法使用",
+      "content": "此功能僅適用於："
     },
     "quickActions": {
-      "title": "快速操作",
+      "title": "快速動作",
       "counter": "計數器",
-      "prefix": "前綴",
-      "padZero": "補零",
-      "sortBeforeCount": "事先以字母順序排序",
+      "prefix": "前置詞",
+      "padZero": "字元零填補",
+      "sortBeforeCount": "事先依字母排序",
       "random": "隨機"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "自動接受所有檔案傳輸請求。請注意，這會讓此網路中的所有人都可以直接向您傳送檔案。"
+      "content": "自動接受所有檔案要求。請注意，區域網路中的所有人都可以傳送檔案給您。"
     },
     "sendModeHelp": {
-      "title": "傳輸模式",
-      "single": "單次傳輸檔案到設備. 選中的檔案在傳輸完成後會被取消選取.",
-      "multiple": "多次傳輸檔案到設備. 選中的檔案在傳輸完成後不會被取消選取.",
-      "link": "未安裝 LocalSend 的接收方可以透過瀏覽器打開連結來下載選中的檔案."
+      "title": "傳送模式",
+      "single": "傳送檔案至單個接收者，選取項目將在檔案傳輸完成後被清除。",
+      "multiple": "傳送檔案至多重接收者，選取項目將不會被清除。",
+      "link": "未安裝 LocalSend 的接收者可以透過在瀏覽器開啟連結以下載選取的檔案."
     }
   },
   "tray": {
     "open": "@:general.open",
-    "close": "退出 LocalSend"
+    "close": "離開 LocalSend"
+  },
+  "assetPicker": {
+    "confirm": "確認",
+    "cancel": "取消",
+    "edit": "編輯",
+    "gifIndicator": "GIF",
+    "loadFailed": "載入失敗",
+    "original": "原始檔案",
+    "preview": "預覽",
+    "select": "選取",
+    "emptyList": "空白清單",
+    "unSupportedAssetType": "不支援的檔案類型。",
+    "unableToAccessAll": "無法存取此裝置上的所有檔案",
+    "viewingLimitedAssetsTip": "僅檢視此應用程式可存取的檔案和相簿。",
+    "changeAccessibleLimitedAssets": "按一下以更新可存取的檔案",
+    "accessAllTip": "應用程式僅可存取此裝置的部分檔案，前往系統設定並允許應用程式存取此裝置上的所有媒體。",
+    "goToSystemSettings": "前往系統設定",
+    "accessLimitedAssets": "以受限制的存取繼續",
+    "accessiblePathName": "可存取的檔案",
+    "sTypeAudioLabel": "音樂",
+    "sTypeImageLabel": "圖片",
+    "sTypeVideoLabel": "影片",
+    "sTypeOtherLabel": "其他媒體",
+    "sActionPlayHint": "播放",
+    "sActionPreviewHint": "預覽",
+    "sActionSelectHint": "選取",
+    "sActionSwitchPathLabel": "變更路徑",
+    "sActionUseCameraHint": "使用相機",
+    "sNameDurationLabel": "持續時間",
+    "sUnitAssetCountLabel": "計數"
   }
 }

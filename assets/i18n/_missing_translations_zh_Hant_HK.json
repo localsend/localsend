@@ -3,8 +3,12 @@
     "Here are translations that exist in <en> but not in <zh-Hant-HK>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-HK' to quickly apply the newly added translations."
   ],
+  "general": {
+    "accepted": "Accepted"
+  },
   "sendTab": {
     "picker": {
+      "folder": "Folder",
       "app": "App"
     },
     "sendMode": "Send mode",
@@ -64,6 +68,19 @@
   "sendPage": {
     "busy": "The recipient is busy with another request."
   },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "openLink": {
+      "one": "Open this link on the browser:",
+      "other": "Open one of these links on the browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet."
+  },
   "dialogs": {
     "addressInput": {
       "recentlyUsed": "Recently used: "
@@ -97,6 +114,13 @@
       "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
       "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
     }
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
   },
   "assetPicker": {
     "confirm": "Confirm",

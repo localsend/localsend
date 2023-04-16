@@ -30,7 +30,7 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 ## Screenshots
 
-<img src="https://localsend.org/img/screenshot-iphone.png" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.png" alt="PC screenshot" height="300"/>
+<img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
 ## Download
 
@@ -39,7 +39,7 @@ It is recommended to download the app either from an app store or from a package
 On Windows, the store version is not available anymore: <https://github.com/localsend/localsend/issues/220>
 
 | Windows                  | macOS                   | Linux              | Andoid         | iOS           | Fire OS    |
-| ------------------------ | ----------------------- | ------------------ | -------------- | ------------- | ---------- |
+|--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Windows Store][]        | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Winget][]               | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
 | [Scoop][]                | [DMG Installer][latest] | [AppImage][latest] | [APK][latest]  |               |            |

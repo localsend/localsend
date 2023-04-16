@@ -29,8 +29,10 @@ import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
-/// The provider for **sending** files.
-/// The opposite of [serverProvider].
+/// This provider manages sending files to other devices.
+///
+/// In contrast to [serverProvider], this provider does not manage a server.
+/// Instead, it only does HTTP requests to other servers.
 final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState>>(() {
   return SendNotifier();
 });
@@ -71,6 +73,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               fileName: file.name,
               size: file.size,
               fileType: file.fileType,
+              sha256: null,
               preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
                   ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
                   : null,
