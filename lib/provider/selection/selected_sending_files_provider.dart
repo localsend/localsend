@@ -75,7 +75,7 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
         final file = CrossFile(
           name: relative,
           fileType: relative.guessFileType(),
-          size: await entity.length(),
+          size: entity.lengthSync(),
           thumbnail: null,
           asset: null,
           path: entity.path,
