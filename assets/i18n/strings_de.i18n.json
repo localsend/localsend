@@ -243,6 +243,11 @@
       "title": "Dateiname eingeben",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Keine Berechtigung",
+      "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",
+      "gotoSettings": "Einstellungen"
+    },
     "messageInput": {
       "title": "Nachricht eingeben",
       "multiline": "Mehrzeilig"

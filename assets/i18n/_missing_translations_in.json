@@ -77,7 +77,8 @@
       "other": "Open one of these links on the browser:"
     },
     "requests": "Requests",
-    "noRequests": "No requests yet."
+    "noRequests": "No requests yet.",
+    "pendingRequests": "Pending requests: {n}"
   },
   "dialogs": {
     "addressInput": {
@@ -98,9 +99,17 @@
       "sender": "Sender:",
       "time": "Time:"
     },
+    "localNetworkUnauthorized": {
+      "title": "No permission",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
     "notAvailableOnPlatform": {
       "title": "Not available",
       "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "sendModeHelp": {
       "title": "Send modes",

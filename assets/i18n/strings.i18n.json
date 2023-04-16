@@ -313,6 +313,11 @@
       "title": "Enter file name",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "No permission",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
     "messageInput": {
       "title": "Type message",
       "multiline": "Multiline"
@@ -345,11 +350,6 @@
       "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
       "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
       "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
-    },
-    "localNetworkUnauthorized": {
-      "title": "Local Network discovery unauthorized",
-      "description": "Localsend can't find other devices without this permission, so make sure it's enabled!",
-      "gotoSettings": "Go to Settings"
     }
   },
   "tray": {
