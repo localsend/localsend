@@ -39,6 +39,7 @@ class QrDialog extends ConsumerWidget {
               data: data,
             ),
           ),
+          const SizedBox(height: 10),
           Text(data, textAlign: TextAlign.center),
           if (listenIncomingWebSendRequests && webSendState != null)
             Builder(

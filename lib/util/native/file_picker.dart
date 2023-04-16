@@ -89,7 +89,7 @@ enum FilePickerOption {
           barrierDismissible: false,
           builder: (_) => const LoadingDialog(),
         );
-        await sleepAsync(100); // Wait for the dialog to be shown
+        await sleepAsync(200); // Wait for the dialog to be shown
         try {
           final directoryPath = await FilePicker.platform.getDirectoryPath();
           if (directoryPath != null) {
