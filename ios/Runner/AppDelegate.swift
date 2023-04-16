@@ -1,6 +1,5 @@
 import UIKit
 import Flutter
-import LocalNetworkAuthorization
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -10,17 +9,24 @@ import LocalNetworkAuthorization
   ) -> Bool {
     let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
     let channel = FlutterMethodChannel(name:"localsend.localsend_app/iosCall", binaryMessenger: controller.binaryMessenger)
-    channel.setMethodCallHandler({
+
+    channel.setMethodCallHandler {
         (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
         if call.method == "triggerLocalNetworkDialog" {
-          let localNetworkAuthorization = LocalNetworkAuthorization()
-          localNetworkAuthorization.requestAuthorization { granted in
-              result(granted)
-          }
+            if #available(iOS 14, *) {
+                Task {
+                    let localNetworkAuthorization = LocalNetworkAuthorization()
+                    let granted = await localNetworkAuthorization.requestAuthorization()
+                    result(granted)
+                }
+            } else {
+                // Fallback for older iOS versions
+                result(true)
+            }
         } else {
-          result(FlutterMethodNotImplemented)
+            result(FlutterMethodNotImplemented)
         }
-    })
+    }
 
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
