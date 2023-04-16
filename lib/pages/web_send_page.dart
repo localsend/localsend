@@ -6,23 +6,25 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 
 enum _ServerState { initializing, running, error, stopping }
 
-class WebSharePage extends ConsumerStatefulWidget {
+class WebSendPage extends ConsumerStatefulWidget {
   final List<CrossFile> files;
 
-  const WebSharePage(this.files);
+  const WebSendPage(this.files);
 
   @override
-  ConsumerState<WebSharePage> createState() => _WebSharePageState();
+  ConsumerState<WebSendPage> createState() => _WebSendPageState();
 }
 
-class _WebSharePageState extends ConsumerState<WebSharePage> {
+class _WebSendPageState extends ConsumerState<WebSendPage> {
   _ServerState _stateEnum = _ServerState.initializing;
   String? _initializedError;
 
@@ -39,10 +41,10 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
     final settings = ref.read(settingsProvider);
     try {
       await ref.read(serverProvider.notifier).restartServer(
-        alias: settings.alias,
-        port: settings.port,
-        https: false, // always start unencrypted
-      );
+            alias: settings.alias,
+            port: settings.port,
+            https: false, // always start unencrypted
+          );
       await ref.read(serverProvider.notifier).initializeWebSend(widget.files);
       setState(() {
         _stateEnum = _ServerState.running;
@@ -95,8 +97,7 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
-                  ]
-                  else if (_initializedError != null) ...[
+                  ] else if (_initializedError != null) ...[
                     const Icon(Icons.error_outline, size: 48, color: Colors.red),
                     const SizedBox(height: 10),
                     Center(
@@ -146,6 +147,19 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                                   },
                                   child: const Icon(Icons.content_copy, size: 16),
                                 ),
+                                const SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (_) => QrDialog(
+                                        data: url,
+                                        listenIncomingWebSendRequests: true,
+                                      ),
+                                    );
+                                  },
+                                  child: const Icon(Icons.qr_code, size: 16),
+                                ),
                               ],
                             ),
                           );
@@ -175,42 +189,44 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(session.deviceInfo, style: Theme.of(context).textTheme.bodyLarge),
+                                  Text(
+                                    session.deviceInfo,
+                                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                          color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
+                                        ),
+                                  ),
                                   const SizedBox(height: 5),
                                   Text(session.ip, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey)),
                                 ],
                               ),
                             ),
-
-                            if (session.responseHandler != null)
-                              ...[
-                                TextButton(
-                                  onPressed: () {
-                                    ref.read(serverProvider.notifier).declineWebSendRequest(session.sessionId);
-                                  },
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                  ),
-                                  child: const Icon(Icons.close),
+                            if (session.responseHandler != null) ...[
+                              TextButton(
+                                onPressed: () {
+                                  ref.read(serverProvider.notifier).declineWebSendRequest(session.sessionId);
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    ref.read(serverProvider.notifier).acceptWebSendRequest(session.sessionId);
-                                  },
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                  ),
-                                  child: const Icon(Icons.check_circle),
+                                child: const Icon(Icons.close),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  ref.read(serverProvider.notifier).acceptWebSendRequest(session.sessionId);
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
                                 ),
-                              ]
-                            else
+                                child: const Icon(Icons.check_circle),
+                              ),
+                            ] else
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
                                   t.general.accepted,
                                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: Theme.of(context).colorScheme.tertiaryContainer,
-                                  ),
+                                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                                      ),
                                 ),
                               ),
                           ],
@@ -222,7 +238,7 @@ class _WebSharePageState extends ConsumerState<WebSharePage> {
                 Text(t.webSharePage.hint, textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey)),
               ],
             );
-          }
+          },
         ),
       ),
     );

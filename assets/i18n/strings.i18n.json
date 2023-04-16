@@ -193,7 +193,8 @@
       "other": "Open one of these links on the browser:"
     },
     "requests": "Requests",
-    "noRequests": "No requests yet."
+    "noRequests": "No requests yet.",
+    "pendingRequests": "Pending requests: {n}"
   },
   "aboutPage": {
     "title": "About LocalSend"
@@ -323,6 +324,9 @@
     "notAvailableOnPlatform": {
       "title": "Not available",
       "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "Quick Actions",
