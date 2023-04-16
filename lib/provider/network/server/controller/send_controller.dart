@@ -158,9 +158,10 @@ class SendController {
         return server.responseJson(403, message: 'Invalid fileId.');
       }
 
+      final fileName = file.file.fileName.replaceAll('/', '-'); // File name may be inside directories
       final headers = {
         'content-type': 'application/octet-stream',
-        'content-disposition': 'attachment; filename="${file.file.fileName}"',
+        'content-disposition': 'attachment; filename="$fileName"',
         'content-length': '${file.file.size}',
       };
 
