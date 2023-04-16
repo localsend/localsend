@@ -88,6 +88,14 @@
     <string>The app requires the local IP to communicate.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>The app requires the local IP to communicate.</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>The app uses the local network to find and connect to nearby devices.</string>
+    <key>NSBonjourServices</key>
+    <array>
+        <string>_http._tcp</string>
+        <string>_bonjour._tcp</string>
+        <string>_lnp._tcp.</string>
+    </array>
 
     <!-- share_handler -->
     <key>CFBundleURLTypes</key>
