@@ -101,7 +101,7 @@ You can help translating this app to other languages!
 ### Bug fixes and improvements
 
 - **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
-- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first so we can discuss why the improvement is needed.
+- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first, so we can discuss why the improvement is needed.
 
 For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
@@ -175,6 +175,6 @@ Feel free to open a pull request. There is a `snap` branch to play with.
 
 ## Contributors
 
-<a align="center" href="https://github.com/localsend/localsend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend" />
+<a href="https://github.com/localsend/localsend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
 </a>

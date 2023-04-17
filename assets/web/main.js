@@ -26,11 +26,11 @@ async function requestFiles() {
   document.getElementById('status-text').innerText = `${i18n.files} (${Object.keys(data.files).length})`;
 
   document.getElementById('file-list').innerHTML = `
-    <table>
+    <table class="filesTable">
       <thead>
         <tr>
           <th>${i18n.fileName}</th>
-          <th>${i18n.size}</th>
+          <th class="size-cell">${i18n.size}</th>
         </tr>
       </thead>
       <tbody>
