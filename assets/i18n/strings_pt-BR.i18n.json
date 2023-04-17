@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Aceitar",
+    "accepted": "Aceito",
     "add": "Adicionar",
     "advanced": "Avançado",
     "cancel": "Cancelar",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "Arquivo",
+      "folder": "Pasta",
       "media": "Mídia",
       "text": "Texto",
       "app": "Aplicativo"
@@ -157,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Opções",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(pasta LocalSend)"
+    "appDirectory": "(pasta LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Opção desligada automaticamente pois uma pasta está sendo transferida."
   },
   "sendPage": {
     "waiting": "Aguardando resposta...",
@@ -179,6 +183,20 @@
       "size": "Tamanho: {curr} / {n}",
       "speed": "Velocidade: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Compartilhe via link",
+    "loading": "Iniciando o servidor...",
+    "stopping": "Parando o servidor...",
+    "error": "Um erro ocorreu enquanto o servidor tentava iniciar.",
+    "hint": "Tenha em mente que a transferência por link não é criptografada. Você só deve usar essa opção se o destinatário não tiver o LocalSend instalado.",
+    "openLink": {
+      "one": "Abra este link no navegador:",
+      "other": "Abra um desses links no navegador:"
+    },
+    "requests": "Solicitações",
+    "noRequests": "Nenhuma solicitação ainda.",
+    "pendingRequests": "Solicitações pendentes: {n}"
   },
   "aboutPage": {
     "title": "Sobre LocalSend"
@@ -287,6 +305,11 @@
       "title": "Digite o nome do arquivo",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Sem permissão",
+      "description": "O LocalSend não consegue encontrar outros dispositivos sem ter a permissão para escanear a rede local. Por favor, conceda esta permissão nas configurações.",
+      "gotoSettings": "Configurações"
+    },
     "messageInput": {
       "title": "Digite a mensagem",
       "multiline": "Múltiplas linhas"
@@ -298,6 +321,9 @@
     "notAvailableOnPlatform": {
       "title": "Indisponível",
       "content": "Essa função está disponível somente no: "
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "Ações Rápidas",
@@ -322,6 +348,13 @@
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Fechar LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Conexão Rejeitada",
+    "files": "Arquivos",
+    "fileName": "Nome do arquivo",
+    "size": "Tamanho"
   },
   "assetPicker": {
     "confirm": "Confirmar",
