@@ -1,12 +1,12 @@
 const BASE_URL = '/api/localsend/v1';
 
 let i18n = {};
-let sessionId = null;
+let sessionId = sessionStorage.getItem('sessionId');
 
 async function requestFiles() {
   document.getElementById('status-text').innerText = i18n.waiting;
   const response = await fetch(
-    `${BASE_URL}/receive-request`,
+    `${BASE_URL}/receive-request?sessionId=${sessionId}`,
     {
       method: 'POST',
     },
@@ -23,6 +23,8 @@ async function requestFiles() {
   const data = await response.json();
   const files = data.files;
   sessionId = data.sessionId;
+  sessionStorage.setItem('sessionId', sessionId);
+
   document.getElementById('status-text').innerText = `${i18n.files} (${Object.keys(data.files).length})`;
 
   if (Object.keys(files).length === 1) {

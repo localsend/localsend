@@ -7,6 +7,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
+import 'package:localsend_app/model/dto/receive_request_response_dto.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/state/send/web/web_send_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_session.dart';
@@ -74,6 +75,27 @@ class SendController {
         return server.responseJson(403, message: 'Web send not initialized.');
       }
 
+      final requestSessionId = request.url.queryParameters['sessionId'];
+      if (requestSessionId != null) {
+        // Check if the user already has permission
+        final session = server.getState().webSendState?.sessions[requestSessionId];
+        if (session != null && session.responseHandler == null && session.ip == request.ip) {
+          final deviceInfo = server.ref.read(deviceRawInfoProvider);
+          return server.responseJson(200, body: ReceiveRequestResponseDto(
+            info: InfoDto(
+              alias: alias,
+              deviceModel: deviceInfo.deviceModel,
+              deviceType: deviceInfo.deviceType,
+            ),
+            sessionId: session.sessionId,
+            files: {
+              for (final entry in state.webSendState!.files.entries)
+                entry.key: entry.value.file,
+            },
+          ).toJson());
+        }
+      }
+
       final streamController = StreamController<bool>();
       final sessionId = _uuid.v4();
       server.setState(
@@ -121,18 +143,18 @@ class SendController {
         ),
       );
       final deviceInfo = server.ref.read(deviceRawInfoProvider);
-      return server.responseJson(200, body: {
-        'info': InfoDto(
+      return server.responseJson(200, body: ReceiveRequestResponseDto(
+        info: InfoDto(
           alias: alias,
           deviceModel: deviceInfo.deviceModel,
           deviceType: deviceInfo.deviceType,
         ),
-        'sessionId': sessionId,
-        'files': {
+        sessionId: sessionId,
+        files: {
           for (final entry in state.webSendState!.files.entries)
-            entry.key: entry.value.file.toJson(),
+            entry.key: entry.value.file,
         },
-      });
+      ).toJson());
     });
 
     router.get(ApiRoute.receive.path, (Request request) async {
@@ -143,8 +165,6 @@ class SendController {
 
       final session = server.getState().webSendState?.sessions[sessionId];
       if (session == null || session.responseHandler != null || session.ip != request.ip) {
-        print(session?.responseHandler != null);
-        print(session?.ip != request.ip);
         return server.responseJson(403, message: 'Invalid sessionId.');
       }
 
