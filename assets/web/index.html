@@ -4,175 +4,85 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocalSend</title>
-    <script src="main.js"></script>
     <style>
         :root {
-            --gray: rgb(236, 240, 241);
-            --black: rgb(38, 38, 38);
-            --teal: rgb(38,166,154);
-            --p-1: 1rem;
-            --p-2: 2rem;
-        }
-
-        html {
-            font-family: sans-serif, system-ui;
-            color: var(--black);
-            height: 100%;
-            font-size: 16px;
+            --grey: #E0E0E0;
+            --teal: #00796B;
+            --white: #FFFFFF;
+            --p-1: 0.5rem;
+            --p-2: 1rem;
         }
 
         body {
+            font-family: sans-serif, system-ui;
             display: flex;
             flex-direction: column;
-            height: 100%;
-            line-height: 1.5;
             align-items: center;
+            margin: 0;
+            line-height: 1.5;
         }
 
         a {
             text-decoration: none;
-        }
-
-        a:link {
-            color: blue;
-        }
-
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: inherit;
-            border: 0;
-            outline: 0;
-            color: inherit;
+            color: var(--white);
         }
 
         #file-list {
-            padding: var(--p-2);
-            min-width: 50vw;
-            width: fit-content;
-        }
-
-        .size-cell {
-            background-color: var(--teal);
-            white-space: nowrap;
-        }
-
-        .filesTable {
-            border-collapse: collapse;
+            box-sizing: border-box;
             width: 100%;
-            border: 1px solid;
+            max-width: 1000px;
+            padding: 0 var(--p-2);
+
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: var(--p-2);
+            row-gap: var(--p-2);
         }
 
-        .filesTable tr th {
-            padding: 5px;
+        .file-item {
+            display: flex;
+            flex-direction: row;
+            flex-basis: 100%;
+            padding: var(--p-1) var(--p-2);
+            background-color: var(--teal);
+            border-radius: 0.5rem;
         }
 
-
-        .filesTable tr td {
-            padding: 5px;
-            text-align: center;
-            font-weight: 500;
-            word-wrap: break-word;
-            max-width: 75vw;
+        .file-name-cell {
+            flex: 1;
+            text-color: var(--white);
         }
 
-        .filesTable tr th:not(:first-of-type) {
-            width: calc(100% / 8);
+        .file-size-cell {
+            display: flex;
+            align-items: center;
+            text-overflow: nowrap;
+            color: var(--grey);
+            font-size: 0.8rem;
         }
 
-        .filesTable tbody tr:nth-of-type(2n + 2) {
-            background-color: var(--gray);
-        }
-
-        @media (max-width: 1124px) {
-            #file-list  {
-                width: 100%;
-            }
-
-            .filesTable {
-                margin-left: -10px;
-                border: 0;
-            }
-
-            a::after {
-                content: "(" attr(sizeData) ")";
-            }
-
-            .size-cell {
-                display: none;
-            }
-
-            .filesTable thead {
-                display: none;
-            }
-
-            .filesTable tbody {
-                display: flex;
-                flex-wrap: wrap;
-            }
-
-            .filesTable tbody tr {
-                display: flex;
-                flex-direction: column;
-                margin-top: 10px;
-                width: calc(50% - 10px);
-                margin-left: 10px;
-            }
-
-            .filesTable tr {
-                border-radius: 5px !important;
-            }
-
-            .filesTable tr td {
-                border: 1px solid var(--gray);
-            }
-
-            .filesTable tbody tr td {
-                padding: 5px 10px !important;
-                text-align: right !important;
-                position: relative;
-                height: 100%;
-            }
-
-            .filesTable tbody tr td:before {
-                position: absolute;
-                left: 5px;
-                content: "";
-                width: 100px;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                top: 0;
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: left;
-            }
-
-            .filesTable tbody tr:nth-of-type(2n + 2) {
-                background-color: transparent;
+        /* Show 2 columns on tablet and up */
+        @media (min-width: 768px) {
+            .file-item {
+                flex-basis: calc(50% - (var(--p-2) * 2.5));
             }
         }
 
-        @media (max-width: 768px) {
-            .filesTable {
-                margin-left: 0;
-                border: 0;
-            }
+        /* Single file mode */
 
-            .filesTable tr td {
-                max-width: 90vw;
-            }
+        #single-file {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 400px;
+            padding: var(--p-2);
+        }
 
-            .filesTable tbody tr {
-                width: 100%;
-                margin-left: 0;
-            }
+        #single-file .file-item {
+            box-sizing: border-box;
+            width: 100%;
         }
     </style>
+    <script src="main.js"></script>
 </head>
 <body>
 <noscript>
@@ -181,8 +91,7 @@
 
 <h1 style="padding: var(--p-1)">LocalSend</h1>
 <p id="status-text"></p>
-
 <div id="file-list"></div>
-
+<div id="single-file"></div>
 </body>
 </html>

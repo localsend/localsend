@@ -25,29 +25,32 @@ async function requestFiles() {
   sessionId = data.sessionId;
   document.getElementById('status-text').innerText = `${i18n.files} (${Object.keys(data.files).length})`;
 
+  if (Object.keys(files).length === 1) {
+    // single file
+    const file = files[Object.keys(files)[0]];
+    document.getElementById('single-file').innerHTML = `
+    <a class="file-item" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${file.id}">
+      <div class="file-name-cell">
+        ${file.fileName}
+      </div>
+      <div class="file-size-cell">
+        ${formatBytes(file.size)}
+      </div>
+    </a>
+    `;
+    return;
+  }
   document.getElementById('file-list').innerHTML = `
-    <table class="filesTable">
-      <thead>
-        <tr>
-          <th>${i18n.fileName}</th>
-          <th class="size-cell">${i18n.size}</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${Object.keys(files).map((key) => `
-          <tr>
-            <td>
-              <a sizeData="${formatBytes(files[key].size)}" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}" target="_blank">
-                ${files[key].fileName}
-              </a>
-            </td>
-            <td class="size-cell">
-              ${formatBytes(files[key].size)}
-            </td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
+    ${Object.keys(files).map((key) => `
+      <a class="file-item" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}">
+        <div class="file-name-cell">
+          ${files[key].fileName}
+        </div>
+        <div class="file-size-cell">
+          ${formatBytes(files[key].size)}
+        </div>
+      </a>
+  `).join('')}
   `;
 }
 
@@ -61,8 +64,6 @@ async function init() {
   await requestFiles();
 }
 
-init();
-
 function formatBytes(bytes) {
     if (bytes < 1024) {
       return `${bytes} B`;
@@ -74,3 +75,5 @@ function formatBytes(bytes) {
       return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
     }
 }
+
+init();
