@@ -159,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "设置",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend-文件夹)"
+    "appDirectory": "(LocalSend-文件夹)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "由于存在目录，已自动关闭。"
   },
   "sendPage": {
     "waiting": "等待响应中...",
@@ -194,7 +196,12 @@
   "dialogs": {
     "addFile": {
       "title": "加入文件",
-      "content": "你想加入什么文件？"
+      "content": "你想加入什么文件？",
+      "localNetworkUnauthorized": {
+        "title": "没有权限",
+        "description": "LocalSend 在没有扫描本地网络的权限的情况下无法找到其他设备。请在设置中授予此权限。",
+        "gotoSettings": "设置"
+      }
     },
     "addressInput": {
       "title": "输入地址",
@@ -305,7 +312,8 @@
       "other": "在浏览器中打开其中的一个链接:"
     },
     "requests": "请求",
-    "noRequests": "尚无请求。"
+    "noRequests": "尚无请求。",
+    "pendingRequests": "待处理请求: {n}"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -313,5 +321,8 @@
     "files": "文件",
     "fileName": "文件名",
     "size": "大小"
+  },
+  "qr": {
+      "title": "二维码"
   }
 }
