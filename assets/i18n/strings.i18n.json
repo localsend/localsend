@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
+    "accepted": "Accepted",
     "add": "Add",
     "advanced": "Advanced",
     "cancel": "Cancel",
@@ -158,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are directories."
   },
   "sendPage": {
     "waiting": "Waiting for response...",
@@ -180,6 +183,20 @@
       "size": "Size: {curr} / {n}",
       "speed": "Speed: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "openLink": {
+      "one": "Open this link on the browser:",
+      "other": "Open one of these links on the browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet.",
+    "pendingRequests": "Pending requests: {n}"
   },
   "aboutPage": {
     "title": "About LocalSend"
@@ -298,6 +315,11 @@
       "title": "Enter file name",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "No permission",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
     "messageInput": {
       "title": "Type message",
       "multiline": "Multiline"
@@ -309,6 +331,9 @@
     "notAvailableOnPlatform": {
       "title": "Not available",
       "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "Quick Actions",
@@ -333,6 +358,13 @@
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Quit LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",

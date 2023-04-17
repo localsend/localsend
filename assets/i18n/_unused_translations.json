@@ -10,15 +10,7 @@
       "save": "Save"
     },
     "sendTab": {
-      "thisDevice": "This Device",
-      "sendModes": {
-        "link": "Share via link"
-      }
-    },
-    "dialogs": {
-      "sendModeHelp": {
-        "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
-      }
+      "thisDevice": "This Device"
     }
   },
   "ar": {},

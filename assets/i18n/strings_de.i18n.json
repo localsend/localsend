@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Akzeptieren",
+    "accepted": "Akzeptiert",
     "add": "Hinzufügen",
     "advanced": "Erweitert",
     "cancel": "Abbrechen",
@@ -158,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Optionen",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend-Ordner)"
+    "appDirectory": "(LocalSend-Ordner)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
@@ -180,6 +183,20 @@
       "size": "Größe: {curr} / {n}",
       "speed": "Geschwindigkeit: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Per Link teilen",
+    "loading": "Starte Server...",
+    "stopping": "Stoppe server...",
+    "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
+    "hint": "Beachte, dass die Verbindung unverschlüsselt ist. Du solltest nur diese Methode verwenden, wenn der Empfänger kein LocalSend installiert hat.",
+    "openLink": {
+      "one": "Öffne diesen Link im Browser:",
+      "other": "Öffne einer dieser Links im Browser:"
+    },
+    "requests": "Anfragen",
+    "noRequests": "Bisher keine Anfragen erhalten.",
+    "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
     "title": "Über LocalSend"
@@ -228,6 +245,11 @@
       "title": "Dateiname eingeben",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Keine Berechtigung",
+      "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",
+      "gotoSettings": "Einstellungen"
+    },
     "messageInput": {
       "title": "Nachricht eingeben",
       "multiline": "Mehrzeilig"
@@ -239,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "Nicht verfügbar",
       "content": "Diese Funktion ist nur verfügbar auf:"
+    },
+    "qr": {
+      "title": "QR-Code"
     },
     "quickActions": {
       "title": "Quick Actions",
@@ -262,6 +287,13 @@
   "tray": {
     "open": "@:general.open",
     "close": "LocalSend beenden"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Abgelehnt",
+    "files": "Dateien",
+    "fileName": "Dateiname",
+    "size": "Größe"
   },
   "assetPicker": {
     "confirm": "Bestätigen",

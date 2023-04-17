@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
@@ -9,6 +10,7 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
+import 'package:localsend_app/pages/web_send_page.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
@@ -23,6 +25,7 @@ import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
+import 'package:localsend_app/widget/dialogs/ios_network_permission_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -43,6 +46,8 @@ class SendTab extends ConsumerStatefulWidget {
 }
 
 class _SendTabState extends ConsumerState<SendTab> {
+  static const iosCall = MethodChannel('localsend.localsend_app/iosCall');
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +56,22 @@ class _SendTabState extends ConsumerState<SendTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
       if (devices.isEmpty) {
-        await ref.read(scanProvider).startSmartScan();
+        await ref.read(scanProvider).startSmartScan().whenComplete(() async {
+          if (devices.isEmpty) {
+            // After the first complete scan, if devices aren't found on IOS a Network trigger is called
+            if(checkPlatform([TargetPlatform.iOS])) {
+              try {
+                final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
+                if (!granted) {
+                  print("Local Network Permission denied");
+                  if(context.mounted) await context.pushBottomSheet(() => const IosLocalNetworkDialog());
+                }
+              } on PlatformException catch (e) {
+                print(e);
+              }
+            }
+          }
+        });
       }
     });
   }
@@ -214,6 +234,16 @@ class _SendTabState extends ConsumerState<SendTab> {
             ),
             _SendModeButton(
               onSelect: (mode) async {
+                if (mode == SendMode.link) {
+                  final files = ref.read(selectedSendingFilesProvider);
+                  if (files.isEmpty) {
+                    await context.pushBottomSheet(() => const NoFilesDialog());
+                    return;
+                  }
+                  await context.push(() => WebSendPage(files));
+                  return;
+                }
+
                 await ref.read(settingsProvider.notifier).setSendMode(mode);
                 if (mode != SendMode.multiple) {
                   ref.read(sendProvider.notifier).clearAllSessions();
@@ -414,6 +444,9 @@ class _SendModeButton extends StatelessWidget {
           case 1:
             onSelect(SendMode.multiple);
             break;
+          case 2:
+            onSelect(SendMode.link);
+            break;
           case -1:
             await showDialog(context: context, builder: (_) => const SendModeHelpDialog());
             break;
@@ -461,6 +494,23 @@ class _SendModeButton extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(t.sendTab.sendModes.multiple),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: 2,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Visibility(
+                visible: false,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: Icon(Icons.check_circle),
+              ),
+              const SizedBox(width: 10),
+              Text(t.sendTab.sendModes.link),
             ],
           ),
         ),

@@ -2,10 +2,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_actions_dialog.dart';
@@ -51,6 +52,44 @@ class ReceiveOptionsPage extends ConsumerWidget {
           ),
           const SizedBox(height: 5),
           Text(checkPlatformWithFileSystem() ? receiveSession.destinationDirectory : t.receiveOptionsPage.appDirectory),
+          if (checkPlatformWithGallery())
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text(t.receiveOptionsPage.saveToGallery, style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: CustomDropdownButton<bool>(
+                        value: receiveSession.saveToGallery,
+                        items: [false, true].map((b) {
+                          return DropdownMenuItem(
+                            value: b,
+                            alignment: Alignment.center,
+                            child: Text(b ? t.general.on : t.general.off),
+                          );
+                        }).toList(),
+                        onChanged: (b) {
+                          if (b != null) {
+                            ref.read(serverProvider.notifier).setSessionSaveToGallery(b);
+                          }
+                        },
+                      ),
+                    ),
+                    if (receiveSession.containsDirectories && !receiveSession.saveToGallery)
+                      ...[
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
+                        ),
+                      ]
+                  ],
+                ),
+              ],
+            ),
           const SizedBox(height: 20),
           Row(
             children: [

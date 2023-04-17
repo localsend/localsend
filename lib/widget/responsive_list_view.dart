@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 
 class ResponsiveListView extends StatelessWidget {
@@ -41,8 +42,11 @@ class ResponsiveListView extends StatelessWidget {
             constraints: BoxConstraints(maxWidth: maxWidth),
             child: ResponsiveBuilder(
               builder: (sizingInformation) {
+                final bottom = sizingInformation.isDesktop ? desktopPadding.bottom : padding.bottom;
                 return Padding(
-                  padding: sizingInformation.isDesktop ? desktopPadding : padding,
+                  padding: (sizingInformation.isDesktop ? desktopPadding : padding).copyWith(
+                    bottom: bottom + getNavBarPadding(context),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: children!,
