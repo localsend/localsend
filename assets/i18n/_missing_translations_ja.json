@@ -2,48 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "accepted": "承諾済み"
-  },
-  "sendTab": {
-    "picker": {
-      "folder": "フォルダー"
-    }
-  },
-  "receiveOptionsPage": {
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "ディレクトリーがあるため自動で無効になっています。"
-  },
-  "webSharePage": {
-    "title": "リンク経由で共有",
-    "loading": "サーバーを起動中...",
-    "stopping": "サーバーを停止中...",
-    "error": "サーバーの起動中にエラーが発生しました。",
-    "hint": "接続は暗号化されないことに留意してください。この方法は、受信者がLocalSendをインストールしていない場合のみ使用してください。",
-    "openLink": {
-      "one": "このリンクをブラウザーで開いてください:",
-      "other": "これらのリンクのいずれかをブラウザーで開いてください:"
-    },
-    "requests": "リクエスト",
-    "noRequests": "リクエストはまだありません。",
-    "pendingRequests": "保留中のリクエスト数: {n}"
-  },
-  "dialogs": {
-    "localNetworkUnauthorized": {
-      "title": "権限がありません",
-      "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",
-      "gotoSettings": "設定"
-    },
-    "qr": {
-      "title": "QRコード"
-    }
-  },
-  "web": {
-    "waiting": "@:sendPage.waiting",
-    "rejected": "拒否済み",
-    "files": "ファイル",
-    "fileName": "ファイル名",
-    "size": "サイズ"
-  }
+  ]
 }
