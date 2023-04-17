@@ -26,18 +26,18 @@ async function requestFiles() {
   document.getElementById('status-text').innerText = `${i18n.files} (${Object.keys(data.files).length})`;
 
   document.getElementById('file-list').innerHTML = `
-    <table>
+    <table class="filesTable">
       <thead>
         <tr>
           <th>${i18n.fileName}</th>
-          <th>${i18n.size}</th>
+          <th class="size-cell">${i18n.size}</th>
         </tr>
       </thead>
       <tbody>
         ${Object.keys(files).map((key) => `
           <tr>
             <td>
-              <a href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}" target="_blank">
+              <a sizeData="${formatBytes(files[key].size)}" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}" target="_blank">
                 ${files[key].fileName}
               </a>
             </td>

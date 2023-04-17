@@ -6,21 +6,171 @@
     <title>LocalSend</title>
     <script src="main.js"></script>
     <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
+        :root {
+            --gray: rgb(236, 240, 241);
+            --black: rgb(38, 38, 38);
+            --teal: rgb(38,166,154);
+            --p-1: 1rem;
+            --p-2: 2rem;
         }
 
-        th, td {
-            padding: 10px;
+        html {
+            font-family: sans-serif, system-ui;
+            color: var(--black);
+            height: 100%;
+            font-size: 16px;
         }
 
-        .size-cell {
-            white-space: nowrap;
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            line-height: 1.5;
+            align-items: center;
         }
 
         a {
             text-decoration: none;
+        }
+
+        a:link {
+            color: blue;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: inherit;
+            border: 0;
+            outline: 0;
+            color: inherit;
+        }
+
+        #file-list {
+            padding: var(--p-2);
+            min-width: 50vw;
+            width: fit-content;
+        }
+
+        .size-cell {
+            background-color: var(--teal);
+            white-space: nowrap;
+        }
+
+        .filesTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid;
+        }
+
+        .filesTable tr th {
+            padding: 5px;
+        }
+
+
+        .filesTable tr td {
+            padding: 5px;
+            text-align: center;
+            font-weight: 500;
+            word-wrap: break-word;
+            max-width: 75vw;
+        }
+
+        .filesTable tr th:not(:first-of-type) {
+            width: calc(100% / 8);
+        }
+
+        .filesTable tbody tr:nth-of-type(2n + 2) {
+            background-color: var(--gray);
+        }
+
+        @media (max-width: 1124px) {
+            #file-list  {
+                width: 100%;
+            }
+
+            .filesTable {
+                margin-left: -10px;
+                border: 0;
+            }
+
+            a::after {
+                content: "(" attr(sizeData) ")";
+            }
+
+            .size-cell {
+                display: none;
+            }
+
+            .filesTable thead {
+                display: none;
+            }
+
+            .filesTable tbody {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .filesTable tbody tr {
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+                width: calc(50% - 10px);
+                margin-left: 10px;
+            }
+
+            .filesTable tr {
+                border-radius: 5px !important;
+            }
+
+            .filesTable tr td {
+                border: 1px solid var(--gray);
+            }
+
+            .filesTable tbody tr td {
+                padding: 5px 10px !important;
+                text-align: right !important;
+                position: relative;
+                height: 100%;
+            }
+
+            .filesTable tbody tr td:before {
+                position: absolute;
+                left: 5px;
+                content: "";
+                width: 100px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 0;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: left;
+            }
+
+            .filesTable tbody tr:nth-of-type(2n + 2) {
+                background-color: transparent;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filesTable {
+                margin-left: 0;
+                border: 0;
+            }
+
+            .filesTable tr td {
+                max-width: 90vw;
+            }
+
+            .filesTable tbody tr {
+                width: 100%;
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -29,7 +179,7 @@
     This site requires JavaScript. I will only be visible if you have it disabled.
 </noscript>
 
-<h1>LocalSend</h1>
+<h1 style="padding: var(--p-1)">LocalSend</h1>
 <p id="status-text"></p>
 
 <div id="file-list"></div>

@@ -22,15 +22,15 @@ class UserAgentAnalyzer {
 
   String? getOS(String userAgent) {
     print(userAgent);
-    if (userAgent.contains("Windows")) {
+    if (userAgent.contains("Win")) {
       return "Windows";
     } else if (userAgent.contains("Android")) {
       return "Android";
-    } else if (userAgent.contains("Macintosh") || userAgent.contains("Mac OS")) {
+    } else if (userAgent.contains("Macintosh")) {
       return "macOS";
     } else if (userAgent.contains("iPhone") || userAgent.contains("iPad") || userAgent.contains("iPod")) {
       return "iOS";
-    } else if (userAgent.contains("Linux")) {
+    } else if (userAgent.contains("X11")) {
       return "Linux";
     } else {
       return null;
