@@ -196,12 +196,7 @@
   "dialogs": {
     "addFile": {
       "title": "加入文件",
-      "content": "你想加入什么文件？",
-      "localNetworkUnauthorized": {
-        "title": "没有权限",
-        "description": "LocalSend 在没有扫描本地网络的权限的情况下无法找到其他设备。请在设置中授予此权限。",
-        "gotoSettings": "设置"
-      }
+      "content": "你想加入什么文件？"
     },
     "addressInput": {
       "title": "输入地址",
@@ -236,6 +231,11 @@
       "title": "输入文件名",
       "original": "原名：{original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "没有权限",
+      "description": "LocalSend 在没有扫描本地网络的权限的情况下无法找到其他设备。请在设置中授予此权限。",
+      "gotoSettings": "设置"
+    },
     "messageInput": {
       "title": "输入消息",
       "multiline": "多行"
@@ -247,6 +247,9 @@
     "notAvailableOnPlatform": {
       "title": "不可用",
       "content": "这一功能只在以下平台可用："
+    },
+    "qr": {
+      "title": "二维码"
     },
     "quickActions": {
       "title": "快速操作",
@@ -321,8 +324,5 @@
     "files": "文件",
     "fileName": "文件名",
     "size": "大小"
-  },
-  "qr": {
-      "title": "二维码"
   }
 }
