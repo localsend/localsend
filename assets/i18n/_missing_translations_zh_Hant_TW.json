@@ -4,31 +4,31 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-TW' to quickly apply the newly added translations."
   ],
   "general": {
-    "accepted": "Accepted"
+    "accepted": "已接受"
   },
   "receiveOptionsPage": {
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "因為有目錄存在，所以自動關閉了。"
   },
   "webSharePage": {
-    "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
-    "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "title": "透過連結分享",
+    "loading": "正在啟動伺服器...",
+    "stopping": "正在關閉伺服器...",
+    "error": "伺服器啟動時發生錯誤。",
+    "hint": "請注意此連線是未加密的，只有在接收方未安裝 LocalSend 的情況下才應使用此方法。",
     "openLink": {
-      "one": "Open this link on the browser:",
-      "other": "Open one of these links on the browser:"
+      "one": "在瀏覽器打開這個連結:",
+      "other": "在瀏覽器中打開其中一個連結:"
     },
-    "requests": "Requests",
-    "noRequests": "No requests yet.",
-    "pendingRequests": "Pending requests: {n}"
+    "requests": "請求",
+    "noRequests": "目前沒有任何請求。",
+    "pendingRequests": "待處理的請求: {n}"
   },
   "dialogs": {
     "localNetworkUnauthorized": {
-      "title": "No permission",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "title": "沒有權限",
+      "description": "在未獲得掃描本地網路權限的情況下LocalSend無法找到其他裝置。 請在設定中授予此權限。",
+      "gotoSettings": "設定"
     },
     "qr": {
       "title": "QR Code"
@@ -36,9 +36,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "rejected": "遭到拒絕",
+    "files": "檔案",
+    "fileName": "檔案名稱",
+    "size": "大小"
   }
 }
