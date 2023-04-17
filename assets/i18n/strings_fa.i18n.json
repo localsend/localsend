@@ -124,25 +124,25 @@
     },
     "noConnection": {
       "symptom": "هر دو دستگاه نمی توانند یکدیگر را کشف کنند و نمی توانند فایل ها را به اشتراک بگذارند",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "solution": "اگر مشکل در هر دو طرف وجود دارد، پس باید مطمئن شوید که هر دو دستگاه به یک شبکه وای فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزگذاری). شبکه وای فای ممکن است اجازه ارتباط بین شرکت کنندگان را ندهد. در این حالت، این گزینه باید در روتر فعال باشد"
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "تاریخچه",
+    "openFolder": "باز کردن پوشه",
+    "deleteHistory": "حذف تاریخچه",
+    "empty": "تاریخچه خالی است",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "باز کردن فایل",
+      "info": "اطلاعات",
+      "deleteFromHistory": "حذف از تاریخچه"
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
+    "title": "برنامه (APK)",
+    "excludeSystemApps": "شامل نشدن برنامه های سیستمی",
     "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "apps": "{n} برنامه"
   },
   "selectedFilesPage": {
     "deleteAll": "Delete all"
