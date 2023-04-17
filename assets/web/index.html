@@ -7,9 +7,9 @@
     <script src="main.js"></script>
     <style>
         :root {
-            --gray: rgba(236, 240, 241, 1);
-            --black: rgba(38, 38, 38, 1);
-            --teal: rgba(0, 150, 136, 1);
+            --gray: rgb(236, 240, 241);
+            --black: rgb(38, 38, 38);
+            --teal: rgb(38,166,154);
             --p-1: 1rem;
             --p-2: 2rem;
         }
@@ -51,7 +51,8 @@
 
         #file-list {
             padding: var(--p-2);
-            width: fit-content;;
+            min-width: 50vw;
+            width: fit-content;
         }
 
         .size-cell {
@@ -96,6 +97,14 @@
                 border: 0;
             }
 
+            a::after {
+                content: "(" attr(sizeData) ")";
+            }
+
+            .size-cell {
+                display: none;
+            }
+
             .filesTable thead {
                 display: none;
             }
@@ -125,6 +134,7 @@
                 padding: 5px 10px !important;
                 text-align: right !important;
                 position: relative;
+                height: 100%;
             }
 
             .filesTable tbody tr td:before {

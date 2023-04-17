@@ -37,7 +37,7 @@ async function requestFiles() {
         ${Object.keys(files).map((key) => `
           <tr>
             <td>
-              <a href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}" target="_blank">
+              <a sizeData="${formatBytes(files[key].size)}" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}" target="_blank">
                 ${files[key].fileName}
               </a>
             </td>
