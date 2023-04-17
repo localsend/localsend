@@ -4,46 +4,46 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=ja' to quickly apply the newly added translations."
   ],
   "general": {
-    "accepted": "Accepted"
+    "accepted": "承諾済み"
   },
   "sendTab": {
     "picker": {
-      "folder": "Folder"
+      "folder": "フォルダー"
     }
   },
   "receiveOptionsPage": {
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "ディレクトリーがあるため自動で無効になっています。"
   },
   "webSharePage": {
-    "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
-    "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "title": "リンク経由で共有",
+    "loading": "サーバーを起動中...",
+    "stopping": "サーバーを停止中...",
+    "error": "サーバーの起動中にエラーが発生しました。",
+    "hint": "接続は暗号化されないことに留意してください。この方法は、受信者がLocalSendをインストールしていない場合のみ使用してください。",
     "openLink": {
-      "one": "Open this link on the browser:",
-      "other": "Open one of these links on the browser:"
+      "one": "このリンクをブラウザーで開いてください:",
+      "other": "これらのリンクのいずれかをブラウザーで開いてください:"
     },
-    "requests": "Requests",
-    "noRequests": "No requests yet.",
-    "pendingRequests": "Pending requests: {n}"
+    "requests": "リクエスト",
+    "noRequests": "リクエストはまだありません。",
+    "pendingRequests": "保留中のリクエスト数: {n}"
   },
   "dialogs": {
     "localNetworkUnauthorized": {
-      "title": "No permission",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "title": "権限がありません",
+      "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",
+      "gotoSettings": "設定"
     },
     "qr": {
-      "title": "QR Code"
+      "title": "QRコード"
     }
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "rejected": "拒否済み",
+    "files": "ファイル",
+    "fileName": "ファイル名",
+    "size": "サイズ"
   }
 }
