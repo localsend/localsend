@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "承諾",
+    "accepted": "承諾済み",
     "add": "追加",
     "advanced": "詳細",
     "cancel": "キャンセル",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "ファイル",
+      "folder": "フォルダー",
       "media": "メディア",
       "text": "テキスト",
       "app": "アプリ"
@@ -157,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "オプション",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend フォルダー)"
+    "appDirectory": "(LocalSend フォルダー)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "ディレクトリーがあるため自動で無効になっています。"
   },
   "sendPage": {
     "waiting": "返答を待っています...",
@@ -179,6 +183,20 @@
       "size": "サイズ: {curr} / {n}",
       "speed": "速度: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "リンク経由で共有",
+    "loading": "サーバーを起動中...",
+    "stopping": "サーバーを停止中...",
+    "error": "サーバーの起動中にエラーが発生しました。",
+    "hint": "接続は暗号化されないことに留意してください。この方法は、受信者がLocalSendをインストールしていない場合のみ使用してください。",
+    "openLink": {
+      "one": "このリンクをブラウザーで開いてください:",
+      "other": "これらのリンクのいずれかをブラウザーで開いてください:"
+    },
+    "requests": "リクエスト",
+    "noRequests": "リクエストはまだありません。",
+    "pendingRequests": "保留中のリクエスト数: {n}"
   },
   "aboutPage": {
     "title": "LocalSendについて"
@@ -227,6 +245,11 @@
       "title": "ファイル名を入力",
       "original": "元の名前: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "権限がありません",
+      "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",
+      "gotoSettings": "設定"
+    },
     "messageInput": {
       "title": "メッセージを入力",
       "multiline": "複数行"
@@ -238,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "利用不可",
       "content": "この機能は次のプラットフォームでのみ利用できます:"
+    },
+    "qr": {
+      "title": "QRコード"
     },
     "quickActions": {
       "title": "クイックアクション",
@@ -261,6 +287,13 @@
   "tray": {
     "open": "@:general.open",
     "close": "LocalSendを終了"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "拒否済み",
+    "files": "ファイル",
+    "fileName": "ファイル名",
+    "size": "サイズ"
   },
   "assetPicker": {
     "confirm": "確認",
