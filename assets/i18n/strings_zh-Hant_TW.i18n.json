@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "接受",
+    "accepted": "已接受",
     "add": "新增",
     "advanced": "進階",
     "cancel": "取消",
@@ -158,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "選項",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend 資料夾)"
+    "appDirectory": "(LocalSend 資料夾)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "因為有目錄存在，所以自動關閉了。"
   },
   "sendPage": {
     "waiting": "正在等候回應…",
@@ -180,6 +183,20 @@
       "size": "大小：{curr} / {n}",
       "speed": "速度：{speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "透過連結分享",
+    "loading": "正在啟動伺服器...",
+    "stopping": "正在關閉伺服器...",
+    "error": "伺服器啟動時發生錯誤。",
+    "hint": "請注意此連線是未加密的，只有在接收方未安裝 LocalSend 的情況下才應使用此方法。",
+    "openLink": {
+      "one": "在瀏覽器打開這個連結:",
+      "other": "在瀏覽器中打開其中一個連結:"
+    },
+    "requests": "請求",
+    "noRequests": "目前沒有任何請求。",
+    "pendingRequests": "待處理的請求: {n}"
   },
   "aboutPage": {
     "title": "關於 LocalSend"
@@ -228,6 +245,11 @@
       "title": "輸入檔案名稱",
       "original": "原始檔案名稱：{original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "沒有權限",
+      "description": "在未獲得掃描本地網路權限的情況下LocalSend無法找到其他裝置。 請在設定中授予此權限。",
+      "gotoSettings": "設定"
+    },
     "messageInput": {
       "title": "輸入訊息",
       "multiline": "多行"
@@ -239,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "無法使用",
       "content": "此功能僅適用於："
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "快速動作",
@@ -262,6 +287,13 @@
   "tray": {
     "open": "@:general.open",
     "close": "離開 LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "遭到拒絕",
+    "files": "檔案",
+    "fileName": "檔案名稱",
+    "size": "大小"
   },
   "assetPicker": {
     "confirm": "確認",
