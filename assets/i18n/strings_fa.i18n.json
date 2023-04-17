@@ -68,7 +68,7 @@
     "sendModes": {
       "single": "یک دریافت کننده",
       "multiple": "چندین دریافت کننده",
-      "link": "اشتراک گذاری از طریق لینک"
+      "link": "به اشتراک گذاری از طریق لینک"
     },
     "sendModeHelp": "توضیح",
     "help": "لطفاً مطمئن شوید که دستگاه مورد نظر نیز به همان شبکه وای فای متصل باشد",
@@ -141,202 +141,202 @@
   "apkPickerPage": {
     "title": "برنامه (APK)",
     "excludeSystemApps": "شامل نشدن برنامه های سیستمی",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "excludeAppsWithoutLaunchIntent": "شامل نشدن برنامه های غیر اجرایی",
     "apps": "{n} برنامه"
   },
   "selectedFilesPage": {
-    "deleteAll": "Delete all"
+    "deleteAll": "حذف همه"
   },
   "receivePage": {
     "subTitle": {
-      "one": "wants to send you a file.",
-      "other": "wants to send you {n} files."
+      "one": "می خواهد برای شما یک فایل ارسال کند",
+      "other": "می خواهد برای شما {n} فایل ارسال کند"
     },
-    "subTitleMessage": "sent you a message:",
-    "subTitleLink": "sent you a link:",
-    "canceled": "The sender has canceled the request."
+    "subTitleMessage": "به شما پیام داد:",
+    "subTitleLink": "برای شما یک لینک ارسال کرد:",
+    "canceled": "فرستنده درخواست را لغو کرد"
   },
   "receiveOptionsPage": {
-    "title": "Options",
+    "title": "گزینه ها",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(پوشه لوکال سند)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "به دلیل وجود مسیر ها به طور خودکار خاموش می شود"
   },
   "sendPage": {
-    "waiting": "Waiting for response...",
-    "rejected": "The recipient has rejected the request.",
-    "busy": "The recipient is busy with another request."
+    "waiting": "در انتظار پاسخ...",
+    "rejected": "گیرنده درخواست را رد کرد",
+    "busy": "گیرنده با درخواست دیگری مشغول است"
   },
   "progressPage": {
-    "titleSending": "Sending files",
-    "titleReceiving": "Receiving files",
-    "savedToGallery": "Saved in Photos",
+    "titleSending": "ارسال فایل ها",
+    "titleReceiving": "دریافت فایل ها",
+    "savedToGallery": "درعکس ها ذخیره شد",
     "total": {
       "title": {
-        "sending": "Total progress ({time})",
-        "finishedError": "Finished with error",
-        "canceledSender": "Canceled by sender",
-        "canceledReceiver": "Canceled by receiver"
+        "sending": "مجموع پیشرفت ({time})",
+        "finishedError": "با خطا تمام شد",
+        "canceledSender": "توسط فرستنده لغو شد",
+        "canceledReceiver": "توسط گیرنده لغو شد"
       },
-      "count": "Files: {curr} / {n}",
-      "size": "Size: {curr} / {n}",
-      "speed": "Speed: {speed}/s"
+      "count": "فایل ها: {curr} / {n}",
+      "size": "حجم: {curr} / {n}",
+      "speed": "سرعت: {speed}/s"
     }
   },
   "webSharePage": {
-    "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
-    "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "title": "به اشتراک گذاشتن از طریق لینک",
+    "loading": "شروع سرور...",
+    "stopping": "توقف سرور...",
+    "error": "هنگام راه اندازی سرور خطایی رخ داد",
+    "hint": "به خاطر داشته باشید که اتصال رمزگذاری نشده. فقط در صورتی از این روش استفاده کنید که گیرنده لوکال سند را نصب نکرده باشد",
     "openLink": {
-      "one": "Open this link on the browser:",
-      "other": "Open one of these links on the browser:"
+      "one": "باز کردن لینک در مرورگر:",
+      "other": "باز کردن لینک ها در مرورگر:"
     },
-    "requests": "Requests",
-    "noRequests": "No requests yet.",
-    "pendingRequests": "Pending requests: {n}"
+    "requests": "درخواست ها",
+    "noRequests": "هنوز درخواستی وجود ندارد",
+    "pendingRequests": "درخواست های در حال انتظار: {n}"
   },
   "aboutPage": {
-    "title": "About LocalSend"
+    "title": "درباره لوکال سند"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "تاریخچه تغییرات  برنامه"
   },
   "aliasGenerator(ignoreMissing)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
-      "Adorable",
-      "Beautiful",
-      "Big",
-      "Bright",
-      "Clean",
-      "Clever",
-      "Cool",
-      "Cute",
-      "Cunning",
-      "Determined",
-      "Energetic",
-      "Efficient",
-      "Fantastic",
-      "Fast",
-      "Fine",
-      "Fresh",
-      "Good",
-      "Gorgeous",
-      "Great",
-      "Handsome",
-      "Hot",
-      "Kind",
-      "Lovely",
-      "Mystic",
-      "Neat",
-      "Nice",
-      "Patient",
-      "Pretty",
-      "Powerful",
-      "Rich",
-      "Secret",
-      "Smart",
-      "Solid",
-      "Special",
-      "Strategic",
-      "Strong",
-      "Tidy",
-      "Wise"
+      "ستودنی",
+      "زیبا",
+      "بزرگ",
+      "درخشان",
+      "تمیز",
+      "باهوش",
+      "باحال",
+      "بامزه",
+      "کلک",
+      "مصمم",
+      "پر انرژی",
+      "کارآمد",
+      "خارق العاده",
+      "سریع",
+      "خوب",
+      "سرحال",
+      "خوب",
+      "دلپسند",
+      "باشکوه",
+      "خوش قیافه",
+      "جذاب",
+      "مهربون",
+      "دوست داشتنی",
+      "عارف",
+      "مرتب",
+      "مودب",
+      "صبور",
+      "خوشگل",
+      "قدرتمند",
+      "پولدار",
+      "مرموز",
+      "باهوش",
+      "سرسخت",
+      "خاص",
+      "هدفمند",
+      "قوی",
+      "منظم",
+      "عاقل"
     ],
     "fruits": [
-      "Apple",
-      "Avocado",
-      "Banana",
-      "Blackberry",
-      "Blueberry",
-      "Broccoli",
-      "Carrot",
-      "Cherry",
-      "Coconut",
-      "Grape",
-      "Lemon",
-      "Lettuce",
-      "Mango",
-      "Melon",
-      "Mushroom",
-      "Onion",
-      "Orange",
-      "Papaya",
-      "Peach",
-      "Pear",
-      "Pineapple",
-      "Potato",
-      "Pumpkin",
-      "Raspberry",
-      "Strawberry",
-      "Tomato"
+      "سیب",
+      "آووکادو",
+      "موز",
+      "توت سیاه",
+      "زغال اخته",
+      "کلم بروکلی",
+      "هویچ",
+      "گیلاس",
+      "نارگیل",
+      "انگور",
+      "لیمو",
+      "کاهو",
+      "انبه",
+      "خربزه",
+      "قارچ",
+      "پیاز",
+      "نارنجی",
+      "پاپایا",
+      "هلو",
+      "گلابی",
+      "آناناس",
+      "سیب زمینی",
+      "کدو تنبل",
+      "تمشک",
+      "توت فرنگی",
+      "گوجه"
     ],
     "combination": "{adjective} {fruit}",
     "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {
-      "title": "Add to selection",
-      "content": "What do you want to add?"
+      "title": "افزودن به انتخاب شده ها",
+      "content": "چه چیزی می خواهید اضافه کنید؟"
     },
     "addressInput": {
-      "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address",
-      "recentlyUsed": "Recently used: "
+      "title": "آدرس را وارد کنید",
+      "hashtag": "هشتگ",
+      "ip": "آدرس آی پی",
+      "recentlyUsed": "اخیرا استفاده شده: "
     },
     "cancelSession": {
-      "title": "Cancel file transfer",
-      "content": "Do you really want to cancel the file transfer?"
+      "title": "لغو کردن انتقال فایل",
+      "content": "آیا واقعاً می خواهید انتقال فایل را لغو کنید؟"
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "نمی تواند فایل را باز کند",
+      "content": "نمیتوان فایل \"{file}\" باز کرد. آیا این فایل منتقل، تغییر نام یا حذف شده است؟"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "رمزگذاری غیرفعال شد",
+      "content": "اکنون ارتباط از طریق پروتکل http رمزگذاری نشده صورت می گیرد. برای استفاده از https، رمزگذاری را دوباره فعال کنید"
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "مشخصات فایل",
+      "fileName": "نام فایل:",
+      "path": "مسیر:",
+      "size": "حجم:",
+      "sender": "فرستنده:",
+      "time": "زمان:"
     },
     "fileNameInput": {
-      "title": "Enter file name",
-      "original": "Original: {original}"
+      "title": "نام فایل را وارد کنید",
+      "original": "اصلی: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "No permission",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "title": "بدون مجوز",
+      "description": "لوکال سند نمی تواند دستگاه های دیگر را بدون داشتن مجوز اسکن شبکه محلی پیدا کند. لطفاً این مجوز را در تنظیمات اعطا کنید",
+      "gotoSettings": "تنظیمات"
     },
     "messageInput": {
-      "title": "Type message",
-      "multiline": "Multiline"
+      "title": "پیام را تایپ کنید",
+      "multiline": "چند خطی"
     },
     "noFiles": {
-      "title": "No file selected",
-      "content": "Please select at least one file."
+      "title": "فایلی انتخاب نشده",
+      "content": "لطفا حداقل یک فایل را انتخاب کنید"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "در دسترس نیست",
+      "content": "این ویژگی فقط در دسترس است در:"
     },
     "qr": {
-      "title": "QR Code"
+      "title": "QR کد"
     },
     "quickActions": {
-      "title": "Quick Actions",
+      "title": "اقدامات سریع",
       "counter": "Counter",
       "prefix": "Prefix",
       "padZero": "Pad with zeros",
