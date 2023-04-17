@@ -339,7 +339,7 @@
       "title": "اقدامات سریع",
       "counter": "شمارنده",
       "prefix": "پیشوند",
-      "padZero": "Pad with zeros",
+      "padZero": "همگام سازی نام ها با افزودن صفر",
       "sortBeforeCount": "از قبل بر اساس حروف الفبا مرتب کنید",
       "random": "تصادفی"
     },
