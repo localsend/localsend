@@ -7,11 +7,13 @@ class CustomDropdownButton<T> extends StatelessWidget {
   final T value;
   final List<DropdownMenuItem<T>> items;
   final ValueChanged<T?>? onChanged;
+  final bool expanded;
 
   const CustomDropdownButton({
     required this.value,
     required this.items,
     this.onChanged,
+    this.expanded = true,
   });
 
   @override
@@ -21,7 +23,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
       child: DropdownButton<T>(
         value: value,
-        isExpanded: true,
+        isExpanded: expanded,
         underline: Container(),
         borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
         items: items,

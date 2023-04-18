@@ -61,23 +61,24 @@ class ReceiveOptionsPage extends ConsumerWidget {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    SizedBox(
-                      width: 100 + (t.general.off.length * 2),
-                      child: CustomDropdownButton<bool>(
-                        value: receiveSession.saveToGallery,
-                        items: [false, true].map((b) {
-                          return DropdownMenuItem(
-                            value: b,
-                            alignment: Alignment.center,
+                    CustomDropdownButton<bool>(
+                      value: receiveSession.saveToGallery,
+                      expanded: false,
+                      items: [false, true].map((b) {
+                        return DropdownMenuItem(
+                          value: b,
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(b ? t.general.on : t.general.off),
-                          );
-                        }).toList(),
-                        onChanged: (b) {
-                          if (b != null) {
-                            ref.read(serverProvider.notifier).setSessionSaveToGallery(b);
-                          }
-                        },
-                      ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (b) {
+                        if (b != null) {
+                          ref.read(serverProvider.notifier).setSessionSaveToGallery(b);
+                        }
+                      },
                     ),
                     if (receiveSession.containsDirectories && !receiveSession.saveToGallery)
                       ...[
