@@ -159,7 +159,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 }
               },
             ),
-            if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]))
+            if (checkPlatformWithFileSystem())
               _SettingsEntry(
                 label: t.settingsTab.receive.destination,
                 child: TextButton(
