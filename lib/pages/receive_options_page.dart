@@ -68,9 +68,12 @@ class ReceiveOptionsPage extends ConsumerWidget {
                         return DropdownMenuItem(
                           value: b,
                           alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(b ? t.general.on : t.general.off),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minWidth: 80),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(b ? t.general.on : t.general.off),
+                            ),
                           ),
                         );
                       }).toList(),
