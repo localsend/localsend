@@ -161,7 +161,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend 資料夾)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "因為有目錄存在，所以自動關閉了。"
+    "saveToGalleryOff": "因存在目錄而自動關閉。"
   },
   "sendPage": {
     "waiting": "正在等候回應…",
@@ -186,17 +186,17 @@
   },
   "webSharePage": {
     "title": "透過連結分享",
-    "loading": "正在啟動伺服器...",
-    "stopping": "正在關閉伺服器...",
-    "error": "伺服器啟動時發生錯誤。",
-    "hint": "請注意此連線是未加密的，只有在接收方未安裝 LocalSend 的情況下才應使用此方法。",
+    "loading": "正在啟動伺服器…",
+    "stopping": "正在關閉伺服器…",
+    "error": "啟動伺服器時發生錯誤。",
+    "hint": "請注意此連線是未加密的，只有在接收者未安裝 LocalSend 的狀況下才應使用此方法。",
     "openLink": {
-      "one": "在瀏覽器打開這個連結:",
-      "other": "在瀏覽器中打開其中一個連結:"
+      "one": "在瀏覽器開啟此連結：",
+      "other": "在瀏覽器中開啟其中一個連結："
     },
-    "requests": "請求",
-    "noRequests": "目前沒有任何請求。",
-    "pendingRequests": "待處理的請求: {n}"
+    "requests": "要求",
+    "noRequests": "目前沒有任何要求。",
+    "pendingRequests": "待處理的要求：{n}"
   },
   "aboutPage": {
     "title": "關於 LocalSend"
@@ -247,7 +247,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "沒有權限",
-      "description": "在未獲得掃描本地網路權限的情況下LocalSend無法找到其他裝置。 請在設定中授予此權限。",
+      "description": "在未取得掃描區域網路權限的狀況下 LocalSend 無法找到其他裝置，請在設定中授予此權限。",
       "gotoSettings": "設定"
     },
     "messageInput": {
