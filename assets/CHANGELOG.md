@@ -13,6 +13,7 @@
 - fix(ios): could not scan local network on iOS 14+ (by @TheGB0077)
 - fix(android, ios): fallback asset picker strings to English translation (by @TheGB0077)
 - fix(linux): header bar glitches
+- i18n: add fa
 
 ## 1.8.0 (2023-03-05)
 
