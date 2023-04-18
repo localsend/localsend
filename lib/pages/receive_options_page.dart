@@ -62,7 +62,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                 Row(
                   children: [
                     SizedBox(
-                      width: 100,
+                      width: 100 + (t.general.off.length * 2),
                       child: CustomDropdownButton<bool>(
                         value: receiveSession.saveToGallery,
                         items: [false, true].map((b) {
