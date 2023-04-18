@@ -47,6 +47,7 @@ class SendTab extends ConsumerStatefulWidget {
 
 class _SendTabState extends ConsumerState<SendTab> {
   static const iosCall = MethodChannel('localsend.localsend_app/iosCall');
+  final options = FilePickerOption.getOptionsForPlatform();
 
   @override
   void initState() {
@@ -82,13 +83,6 @@ class _SendTabState extends ConsumerState<SendTab> {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
     final networkInfo = ref.watch(networkStateProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
-    final addOptions = [
-      FilePickerOption.file,
-      if (checkPlatformWithFolderSelect()) FilePickerOption.folder,
-      if (checkPlatformWithGallery()) FilePickerOption.media,
-      FilePickerOption.text,
-      if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,
-    ];
 
     return ResponsiveListView(
       padding: EdgeInsets.zero,
@@ -107,7 +101,7 @@ class _SendTabState extends ConsumerState<SendTab> {
             child: Row(
               children: [
                 const SizedBox(width: 10),
-                ...addOptions.map((option) {
+                ...options.map((option) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                     child: BigButton(
@@ -174,14 +168,14 @@ class _SendTabState extends ConsumerState<SendTab> {
                           foregroundColor: Theme.of(context).colorScheme.onPrimary,
                         ),
                         onPressed: () async {
-                          if (addOptions.length == 1) {
-                            await addOptions.first.select(context: context, ref: ref); // open directly
+                          if (options.length == 1) {
+                            await options.first.select(context: context, ref: ref); // open directly
                             return;
                           }
                           await AddFileDialog.open(
                             context: context,
                             parentRef: ref,
-                            options: addOptions,
+                            options: options,
                           );
                         },
                         icon: const Icon(Icons.add),

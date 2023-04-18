@@ -42,6 +42,28 @@ enum FilePickerOption {
     }
   }
 
+  /// Returns the options for the current platform.
+  static List<FilePickerOption> getOptionsForPlatform() {
+    if (checkPlatform([TargetPlatform.iOS])) {
+      // On iOS, picking from media is most common.
+      // The file app is very limited.
+      return [
+        FilePickerOption.media,
+        FilePickerOption.text,
+        FilePickerOption.file,
+        FilePickerOption.folder,
+      ];
+    }
+
+    return [
+      FilePickerOption.file,
+      if (checkPlatformWithFolderSelect()) FilePickerOption.folder,
+      if (checkPlatformWithGallery()) FilePickerOption.media,
+      FilePickerOption.text,
+      if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,
+    ];
+  }
+
   Future<void> select({
     required BuildContext context,
     required WidgetRef ref,
