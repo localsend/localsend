@@ -9,6 +9,7 @@
 - feat(desktop): save last window position (by @TheGB0077)
 - feat(android): enable edge-to-edge mode
 - feat(android): add monochrome app icons for Android 13 (by @h9419)
+- fix: in multi-recipient mode, retrying causes a "canceled by sender" on the recipient device
 - fix: clear selection after finished message transfer
 - fix(ios): could not scan local network on iOS 14+ (by @TheGB0077)
 - fix(android, ios): fallback asset picker strings to English translation (by @TheGB0077)

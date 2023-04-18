@@ -581,7 +581,7 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
 
         if (session != null) {
           // close old session
-          ref.read(sendProvider.notifier).cancelSession(session.sessionId);
+          ref.read(sendProvider.notifier).closeSession(session.sessionId);
         }
 
         await ref.read(sendProvider.notifier).startSession(
