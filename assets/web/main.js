@@ -43,8 +43,11 @@ async function requestFiles() {
     return;
   }
   document.getElementById('file-list').innerHTML = `
-    ${Object.keys(files).map((key) => `
+    ${Object.keys(files).map((key, index) => `
       <a class="file-item" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}">
+        <div class="file-index-cell">
+          ${index + 1}
+        </div>
         <div class="file-name-cell">
           ${files[key].fileName}
         </div>

@@ -42,6 +42,7 @@
         .file-item {
             display: flex;
             flex-direction: row;
+            align-items: center;
             flex-basis: 100%;
             padding: var(--p-1) var(--p-2);
             background-color: var(--teal);
@@ -50,15 +51,19 @@
 
         .file-name-cell {
             flex: 1;
-            text-color: var(--white);
+            word-break: break-word;
         }
 
-        .file-size-cell {
+        .file-size-cell, .file-index-cell {
             display: flex;
             align-items: center;
-            text-overflow: nowrap;
+            white-space: nowrap;
             color: var(--grey);
             font-size: 0.8rem;
+        }
+
+        .file-index-cell {
+            margin-right: var(--p-1);
         }
 
         /* Show 2 columns on tablet and up */
