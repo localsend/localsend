@@ -4,41 +4,41 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
   ],
   "general": {
-    "accepted": "Accepted"
+    "accepted": "Acceptée"
   },
   "sendTab": {
     "picker": {
-      "folder": "Folder"
+      "folder": "Dossier"
     }
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacement": "Quit: Save window placement"
+      "saveWindowPlacement": "Quitter: Sauvegarder l'emplacement de la fenêtre"
     }
   },
   "receiveOptionsPage": {
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
   "webSharePage": {
-    "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
-    "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "title": "Partager via un lien",
+    "loading": "Démarrage du serveur...",
+    "stopping": "Fermeture du serveur...",
+    "error": "Une erreur est survenue lors du démarrage du serveur.",
+    "hint": "Prenez garde, cette connection n'est pas chiffrée. Vous devriez utiliser cette méthode uniquement si le récipient n'a pas LocalSend d'installé.",
     "openLink": {
-      "one": "Open this link in the browser:",
-      "other": "Open one of these links in the browser:"
+      "one": "Ouvrir ce lien dans le navigateur:",
+      "other": "Ouvrir un de ces liens dans le navigateur:"
     },
-    "requests": "Requests",
-    "noRequests": "No requests yet.",
-    "pendingRequests": "Pending requests: {n}"
+    "requests": "Requêtes",
+    "noRequests": "Aucune requête en attente.",
+    "pendingRequests": "Requêtes en attente: {n}"
   },
   "dialogs": {
     "localNetworkUnauthorized": {
-      "title": "No permission",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "title": "Pas la permission",
+      "description": "LocalSend ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez autoriser cette permission à LocalSend dans les paramètres.",
+      "gotoSettings": "Paramètres"
     },
     "qr": {
       "title": "QR Code"
@@ -46,9 +46,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "rejected": "Rejeté",
+    "files": "Fichiers",
+    "fileName": "Nom du fichier",
+    "size": "Taille"
   }
 }
