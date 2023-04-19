@@ -230,6 +230,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           sessionId: sessionId,
           state: (s) => s?.copyWith(cancelToken: cancelToken),
         );
+        final stopwatch = Stopwatch()..start();
         await dio.post(
           ApiRoute.send.target(target, query: {
             'fileId': file.file.id,
@@ -242,13 +243,23 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           ),
           data: file.path != null ? File(file.path!).openRead() : Stream.fromIterable([file.bytes!]),
           onSendProgress: (curr, total) {
-            ref.read(progressProvider.notifier).setProgress(
-                  sessionId: sessionId,
-                  fileId: file.file.id,
-                  progress: curr / total,
-                );
+            if (stopwatch.elapsedMilliseconds >= 100) {
+              stopwatch.reset();
+              ref.read(progressProvider.notifier).setProgress(
+                sessionId: sessionId,
+                fileId: file.file.id,
+                progress: curr / total,
+              );
+            }
           },
           cancelToken: cancelToken,
+        );
+
+        // set progress to 100% when successfully finished
+        ref.read(progressProvider.notifier).setProgress(
+          sessionId: sessionId,
+          fileId: file.file.id,
+          progress: 1,
         );
       } catch (e, st) {
         fileError = e.humanErrorMessage;
