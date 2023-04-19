@@ -65,7 +65,7 @@ dev_dependencies:
   flutter_lints: 2.0.1
   freezed: 2.3.2
   json_serializable: 6.6.1
-  msix: 3.10.1
+  msix: 3.11.0
   riverpod_lint: 1.2.0
   slang_build_runner: 3.16.0
   test: 1.24.1
@@ -94,6 +94,10 @@ msix_config:
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
   languages: en, ar, bn, cs, de, es-ES, fa, fr-FR, hu, in, it, iw, ja, ko, ne, nl, pl, pt-BR, ru, sv, tr, uk, zh-Hans, zh-Hant-HK, zh-Hant-TW
+
+  # https://github.com/localsend/localsend/issues/398
+  os_min_version: 10.0.19041.0
+
   startup_task:
     task_id: localsend
     enabled: false
