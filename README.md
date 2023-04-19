@@ -43,6 +43,7 @@ On Windows, the store version is not available anymore: <https://github.com/loca
 | [Windows Store][]        | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Winget][]               | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
 | [Scoop][]                | [DMG Installer][latest] | [AppImage][latest] | [APK][latest]  |               |            |
+| [Chocolatey][]           |                         |                    |                |               |            |
 | [MSIX Installer][latest] |                         |                    |                |               |            |
 | [Portable ZIP][latest]   |                         |                    |                |               |            |
 
@@ -52,7 +53,8 @@ On Windows, the store version is not available anymore: <https://github.com/loca
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [amazon]: https://www.amazon.com/dp/B0BW6MP732
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
-[scoop]: https://github.com/ScoopInstaller/Extras/blob/master/bucket/localsend.json
+[scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=localsend&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
+[chocolatey]: https://community.chocolatey.org/packages/localsend
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
