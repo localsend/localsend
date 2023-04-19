@@ -2,53 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fr-FR>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=fr-FR' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "accepted": "Acceptée"
-  },
-  "sendTab": {
-    "picker": {
-      "folder": "Dossier"
-    }
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacement": "Quitter: Sauvegarder l'emplacement de la fenêtre"
-    }
-  },
-  "receiveOptionsPage": {
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
-  },
-  "webSharePage": {
-    "title": "Partager via un lien",
-    "loading": "Démarrage du serveur...",
-    "stopping": "Fermeture du serveur...",
-    "error": "Une erreur est survenue lors du démarrage du serveur.",
-    "hint": "Prenez garde, cette connection n'est pas chiffrée. Vous devriez utiliser cette méthode uniquement si le récipient n'a pas LocalSend d'installé.",
-    "openLink": {
-      "one": "Ouvrir ce lien dans le navigateur:",
-      "other": "Ouvrir un de ces liens dans le navigateur:"
-    },
-    "requests": "Requêtes",
-    "noRequests": "Aucune requête en attente.",
-    "pendingRequests": "Requêtes en attente: {n}"
-  },
-  "dialogs": {
-    "localNetworkUnauthorized": {
-      "title": "Pas la permission",
-      "description": "LocalSend ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez autoriser cette permission à LocalSend dans les paramètres.",
-      "gotoSettings": "Paramètres"
-    },
-    "qr": {
-      "title": "QR Code"
-    }
-  },
-  "web": {
-    "waiting": "@:sendPage.waiting",
-    "rejected": "Rejeté",
-    "files": "Fichiers",
-    "fileName": "Nom du fichier",
-    "size": "Taille"
-  }
+  ]
 }

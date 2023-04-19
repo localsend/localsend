@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Accepter",
+    "accepted": "Acceptée",
     "add": "Ajouter",
     "advanced": "Avancé",
     "cancel": "Annuler",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "Fichier",
+      "folder": "Dossier",
       "media": "Média",
       "text": "Texte",
       "app": "Application"
@@ -86,6 +88,7 @@
       "languageOptions": {
         "system": "Système"
       },
+      "saveWindowPlacement": "Quitter: Sauvegarder l'emplacement de la fenêtre",
       "minimizeToTray": "Quitter : Réduire à la barre des tâches",
       "launchAtStartup": "Démarrage automatique : Après la connexion",
       "launchMinimized": "Démarrage automatique : Minimiser"
@@ -156,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
   "sendPage": {
     "waiting": "En attente d'une réponse...",
@@ -178,6 +183,20 @@
       "size": "Taille: {curr} / {n}",
       "speed": "Vitesse: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Partager via un lien",
+    "loading": "Démarrage du serveur...",
+    "stopping": "Fermeture du serveur...",
+    "error": "Une erreur est survenue lors du démarrage du serveur.",
+    "hint": "Prenez garde, cette connection n'est pas chiffrée. Vous devriez utiliser cette méthode uniquement si le récipient n'a pas LocalSend d'installé.",
+    "openLink": {
+      "one": "Ouvrir ce lien dans le navigateur:",
+      "other": "Ouvrir un de ces liens dans le navigateur:"
+    },
+    "requests": "Requêtes",
+    "noRequests": "Aucune requête en attente.",
+    "pendingRequests": "Requêtes en attente: {n}"
   },
   "aboutPage": {
     "title": "A propos de LocalSend"
@@ -226,6 +245,11 @@
       "title": "Entrez le nom du fichier",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Pas la permission",
+      "description": "LocalSend ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez autoriser cette permission à LocalSend dans les paramètres.",
+      "gotoSettings": "Paramètres"
+    },
     "messageInput": {
       "title": "Tapez un message",
       "multiline": "Multiligne"
@@ -237,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "Non disponible",
       "content": "Cette fonctionalité est disponible uniquement sur:"
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "Actions Rapides",
@@ -261,6 +288,13 @@
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
     "open": "@:general.open",
     "close": "Quitter LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejeté",
+    "files": "Fichiers",
+    "fileName": "Nom du fichier",
+    "size": "Taille"
   },
   "assetPicker": {
     "confirm": "OK",
