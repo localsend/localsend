@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:localsend_app/provider/multicast_logs_provider.dart';
+import 'package:localsend_app/provider/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/widget/copyable_text.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 
 final _dateFormat = DateFormat.Hms();
 
-class MulticastDebugPage extends ConsumerWidget {
-  const MulticastDebugPage({Key? key}) : super(key: key);
+class DiscoveryDebugPage extends ConsumerWidget {
+  const DiscoveryDebugPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logs = ref.watch(multicastLogsProvider);
+    final logs = ref.watch(discoveryLogsProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Multicast'),
+        title: const Text('Discovery Debugging'),
       ),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -29,7 +29,7 @@ class MulticastDebugPage extends ConsumerWidget {
               ),
               const SizedBox(width: 20),
               ElevatedButton(
-                onPressed: () => ref.read(multicastLogsProvider.notifier).clear(),
+                onPressed: () => ref.read(discoveryLogsProvider.notifier).clear(),
                 child: const Text('Clear'),
               ),
             ],

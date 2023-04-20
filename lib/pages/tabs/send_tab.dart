@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
@@ -20,12 +19,12 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
+import 'package:localsend_app/util/native/ios_network_permission_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
-import 'package:localsend_app/widget/dialogs/ios_network_permission_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -46,35 +45,29 @@ class SendTab extends ConsumerStatefulWidget {
 }
 
 class _SendTabState extends ConsumerState<SendTab> {
-  static const iosCall = MethodChannel('localsend.localsend_app/iosCall');
   final options = FilePickerOption.getOptionsForPlatform();
 
   @override
   void initState() {
     super.initState();
 
-    // Automatically scan the network when visiting the scan tab
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
-      if (devices.isEmpty) {
-        await ref.read(scanProvider).startSmartScan().whenComplete(() async {
-          if (devices.isEmpty) {
-            // After the first complete scan, if devices aren't found on IOS a Network trigger is called
-            if(checkPlatform([TargetPlatform.iOS])) {
-              try {
-                final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
-                if (!granted) {
-                  print("Local Network Permission denied");
-                  if(context.mounted) await context.pushBottomSheet(() => const IosLocalNetworkDialog());
-                }
-              } on PlatformException catch (e) {
-                print(e);
-              }
-            }
-          }
-        });
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Automatically scan the network when visiting the scan tab
+      _init();
     });
+  }
+
+  void _init() async {
+    final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
+    if (devices.isEmpty) {
+      await ref.read(scanProvider).startSmartScan(forceLegacy: false);
+      if (devices.isEmpty) {
+        // After the first complete scan, if devices aren't found on IOS a Network trigger is called
+        if(checkPlatform([TargetPlatform.iOS]) && mounted) {
+          checkIosNetworkPermission(context);
+        }
+      }
+    }
   }
 
   @override
@@ -200,7 +193,6 @@ class _SendTabState extends ConsumerState<SendTab> {
             const SizedBox(width: 10),
             _ScanButton(
               ips: networkInfo.localIps,
-              onSelect: (ip) async => ref.read(scanProvider).startLegacySubnetScan(ip),
             ),
             Tooltip(
               message: t.dialogs.addressInput.title,
@@ -307,6 +299,8 @@ class _SendTabState extends ConsumerState<SendTab> {
   }
 }
 
+/// A button that opens a popup menu to select [T].
+/// This is used for the scan button and the send mode button.
 class _CircularPopupButton<T> extends StatelessWidget {
   final String tooltip;
   final PopupMenuItemBuilder<T> itemBuilder;
@@ -344,26 +338,25 @@ class _CircularPopupButton<T> extends StatelessWidget {
   }
 }
 
+/// The scan button that uses [_CircularPopupButton].
 class _ScanButton extends ConsumerWidget {
   final List<String> ips;
-  final void Function(String ip) onSelect;
 
   const _ScanButton({
     required this.ips,
-    required this.onSelect,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
 
-    if (ips.length <= 1) {
+    if (ips.length <= ScanFacade.maxInterfaces) {
       return RotatingWidget(
         duration: const Duration(seconds: 2),
         spinning: scanningIps.isNotEmpty,
         reverse: true,
         child: CustomIconButton(
-          onPressed: () => onSelect(ips.first),
+          onPressed: () async => ref.read(scanProvider).startSmartScan(forceLegacy: true),
           child: const Icon(Icons.sync),
         ),
       );
@@ -371,7 +364,7 @@ class _ScanButton extends ConsumerWidget {
 
     return _CircularPopupButton(
       tooltip: t.sendTab.scan,
-      onSelected: (ip) => onSelect(ip),
+      onSelected: (ip) async => ref.read(scanProvider).startLegacySubnetScan([ip]),
       itemBuilder: (_) {
         return [
           ...ips.map(

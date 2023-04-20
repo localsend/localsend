@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/log_entry.dart';
 
-/// Contains the multicast logs for debugging purposes.
-final multicastLogsProvider = NotifierProvider<MulticastLogsNotifier, List<LogEntry>>(() {
-  return MulticastLogsNotifier();
+/// Contains the discovery logs for debugging purposes.
+final discoveryLogsProvider = NotifierProvider<DiscoveryLogsNotifier, List<LogEntry>>(() {
+  return DiscoveryLogsNotifier();
 });
 
-class MulticastLogsNotifier extends Notifier<List<LogEntry>> {
-  MulticastLogsNotifier();
+class DiscoveryLogsNotifier extends Notifier<List<LogEntry>> {
+  DiscoveryLogsNotifier();
 
   @override
   List<LogEntry> build() {

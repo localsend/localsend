@@ -7,11 +7,17 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
+import 'package:localsend_app/provider/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
+/// This provider is responsible for:
+/// - Scanning the network for other LocalSend instances
+/// - Keeping track of all found devices (they are only stored in RAM)
+///
+/// Use [scanProvider] to have a high-level API to perform discovery operations.
 final nearbyDevicesProvider = NotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>(() {
   return NearbyDevicesNotifier();
 });
@@ -36,17 +42,23 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
     );
   }
 
-  void startMulticastListener() {
-    _multicastService.startListener().listen(registerDevice);
+  /// Binds the UDP port and listens for incoming announcements.
+  /// This should run forever as long as the app is running.
+  void startMulticastListener() async {
+    await for (final device in _multicastService.startListener()) {
+      registerDevice(device);
+      ref.read(discoveryLogsProvider.notifier).addLog('[DISCOVER/UDP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+    }
   }
 
   /// It does not really "scan".
   /// It just sends an announcement which will cause a response on every other LocalSend member of the network.
-  /// The responses have to be listened to by calling [startMulticastListener] first.
   void startMulticastScan() {
-    unawaited(_multicastService.sendAnnouncement());
+    _multicastService.sendAnnouncement(); // ignore: discarded_futures
   }
 
+  /// Scans one particular subnet with traditional HTTP/TCP discovery.
+  /// This method awaits until the scan is finished.
   Future<void> startScan({required int port, required String localIp, required bool https}) async {
     if (state.runningIps.contains(localIp)) {
       // already running for the same localIp
@@ -68,7 +80,7 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
     _runners[networkInterface] = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
-        (index) => () async => _doRequest(_dio, ipList[index], port, https, fingerprint),
+        (index) => () async => _doRequest(ipList[index], port, https, fingerprint),
       ),
       concurrency: 50,
     );
@@ -81,23 +93,24 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
       devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
     );
   }
-}
 
-Future<Device?> _doRequest(Dio dio, String currentIp, int port, bool https, String fingerprint) async {
-  print('Requesting $currentIp');
-  // We use the legacy route to make it less breaking for older versions
-  final url = ApiRoute.info.targetRaw(currentIp, port, https, peerProtocolVersion);
-  Device? device;
-  try {
-    final response = await dio.get(url, queryParameters: {
-      'fingerprint': fingerprint,
-    });
-    final dto = InfoDto.fromJson(response.data);
-    device = dto.toDevice(currentIp, port, https);
-  } on DioError catch (_) {
-    device = null;
-  } catch (e) {
-    device = null;
+  Future<Device?> _doRequest(String currentIp, int port, bool https, String fingerprint) async {
+    print('Requesting $currentIp');
+    // We use the legacy route to make it less breaking for older versions
+    final url = ApiRoute.info.targetRaw(currentIp, port, https, peerProtocolVersion);
+    Device? device;
+    try {
+      final response = await _dio.get(url, queryParameters: {
+        'fingerprint': fingerprint,
+      });
+      final dto = InfoDto.fromJson(response.data);
+      device = dto.toDevice(currentIp, port, https);
+      ref.read(discoveryLogsProvider.notifier).addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+    } on DioError catch (_) {
+      device = null;
+    } catch (e) {
+      device = null;
+    }
+    return device;
   }
-  return device;
 }
