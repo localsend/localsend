@@ -162,7 +162,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     final Map<String, String> fileMap;
     if (target.version == '1.0') {
-      fileMap = response.data;
+      fileMap = (response.data as Map).cast<String, String>();
     } else {
       try {
         final responseDto = PrepareUploadResponseDto.fromJson(response.data);
