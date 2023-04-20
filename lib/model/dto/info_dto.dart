@@ -8,24 +8,30 @@ part 'info_dto.g.dart';
 class InfoDto with _$InfoDto {
   const factory InfoDto({
     required String alias,
+    required String? version, // v2, format: major.minor
     required String? deviceModel,
 
     @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
-    required DeviceType deviceType,
+    required DeviceType? deviceType,
+    required String? fingerprint, // v2
   }) = _InfoDto;
 
   factory InfoDto.fromJson(Map<String, Object?> json) => _$InfoDtoFromJson(json);
 }
 
 extension InfoToDeviceExt on InfoDto {
+  /// Convert [InfoDto] to [Device].
+  /// Since this HTTP request was successful, the [port] and [https] are known.
   Device toDevice(String ip, int port, bool https) {
     return Device(
       ip: ip,
+      version: version ?? '1.0',
       port: port,
       https: https,
+      fingerprint: fingerprint ?? '',
       alias: alias,
       deviceModel: deviceModel,
-      deviceType: deviceType,
+      deviceType: deviceType ?? DeviceType.desktop
     );
   }
 }

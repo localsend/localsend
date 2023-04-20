@@ -68,17 +68,19 @@ class ServerNotifier extends Notifier<ServerState?> {
     }
 
     final router = Router();
+    final fingerprint = ref.read(fingerprintProvider);
     _receiveController.installRoutes(
       router: router,
       alias: alias,
       port: port,
       https: https,
-      fingerprint: ref.read(fingerprintProvider),
+      fingerprint: fingerprint,
       showToken: ref.read(settingsProvider.select((s) => s.showToken)),
     );
     _sendController.installRoutes(
       router: router,
       alias: alias,
+      fingerprint: fingerprint,
     );
 
     print('Starting server...');

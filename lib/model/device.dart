@@ -16,12 +16,15 @@ enum DeviceType {
   final IconData icon;
 }
 
+/// Internal device model.
 @freezed
 class Device with _$Device {
   const factory Device({
     required String ip,
+    required String version,
     required int port,
     required bool https,
+    required String fingerprint,
     required String alias,
     required String? deviceModel,
 

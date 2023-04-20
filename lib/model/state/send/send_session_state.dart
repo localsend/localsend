@@ -10,6 +10,7 @@ part 'send_session_state.freezed.dart';
 class SendSessionState with _$SendSessionState {
   const factory SendSessionState({
     required String sessionId,
+    required String? remoteSessionId, // v2
     required bool background,
     required SessionStatus status,
     required Device target,

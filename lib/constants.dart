@@ -1,3 +1,6 @@
+/// The protocol version.
+const protocolVersion = '2.0';
+
 /// The default http server port and
 /// and multicast port.
 const defaultPort = 53317;

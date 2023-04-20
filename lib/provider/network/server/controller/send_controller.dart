@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
@@ -31,6 +32,7 @@ class SendController {
   void installRoutes({
     required Router router,
     required String alias,
+    required String fingerprint,
   }) {
     router.get('/', (Request request) async {
       final state = server.getState();
@@ -68,7 +70,7 @@ class SendController {
       });
     });
 
-    router.post(ApiRoute.receiveRequest.path, (Request request) async {
+    router.post(ApiRoute.prepareDownload.v2, (Request request) async {
       final state = server.getState();
       if (state.webSendState == null) {
         // There is no web send state
@@ -84,8 +86,10 @@ class SendController {
           return server.responseJson(200, body: ReceiveRequestResponseDto(
             info: InfoDto(
               alias: alias,
+              version: protocolVersion,
               deviceModel: deviceInfo.deviceModel,
               deviceType: deviceInfo.deviceType,
+              fingerprint: fingerprint,
             ),
             sessionId: session.sessionId,
             files: {
@@ -146,8 +150,10 @@ class SendController {
       return server.responseJson(200, body: ReceiveRequestResponseDto(
         info: InfoDto(
           alias: alias,
+          version: protocolVersion,
           deviceModel: deviceInfo.deviceModel,
           deviceType: deviceInfo.deviceType,
+          fingerprint: fingerprint,
         ),
         sessionId: sessionId,
         files: {
@@ -157,7 +163,7 @@ class SendController {
       ).toJson());
     });
 
-    router.get(ApiRoute.receive.path, (Request request) async {
+    router.get(ApiRoute.download.v2, (Request request) async {
       final sessionId = request.url.queryParameters['sessionId'];
       if (sessionId == null) {
         return server.responseJson(400, message: 'Missing sessionId.');

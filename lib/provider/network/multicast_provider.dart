@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/dto/register_dto.dart';
@@ -59,7 +60,7 @@ class MulticastService {
           final ip = datagram.address.address;
           streamController.add(dto.toDevice(ip, settings.port, settings.https));
           _ref.read(multicastLogsProvider.notifier).addLog('Received UDP: ${dto.alias} ($ip)');
-          if (dto.announcement && _ref.read(serverProvider) != null) {
+          if ((dto.announcement == true || dto.announce == true) && _ref.read(serverProvider) != null) {
             // only respond when server is running
             _answerAnnouncement(
               ip: datagram.address.address,
@@ -135,10 +136,14 @@ class MulticastService {
     final fingerprint = _ref.read(fingerprintProvider);
     final dto = MulticastDto(
       alias: serverState?.alias ?? settings.alias,
+      version: protocolVersion,
       deviceModel: _deviceInfo.deviceModel,
       deviceType: _deviceInfo.deviceType,
       fingerprint: fingerprint,
+      port: serverState?.port ?? settings.port,
+      protocol: (serverState?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
       announcement: announcement,
+      announce: announcement,
     );
     return utf8.encode(jsonEncode(dto.toJson()));
   }
@@ -149,9 +154,12 @@ class MulticastService {
     final fingerprint = _ref.read(fingerprintProvider);
     return RegisterDto(
       alias: serverState?.alias ?? settings.alias,
+      version: protocolVersion,
       deviceModel: _deviceInfo.deviceModel,
       deviceType: _deviceInfo.deviceType,
       fingerprint: fingerprint,
+      port: serverState?.port ?? settings.port,
+      protocol: (serverState?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
     );
   }
 }

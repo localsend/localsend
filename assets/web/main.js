@@ -1,4 +1,4 @@
-const BASE_URL = '/api/localsend/v1';
+const BASE_URL = '/api/localsend/v2';
 
 let i18n = {};
 let sessionId = sessionStorage.getItem('sessionId');
@@ -6,7 +6,7 @@ let sessionId = sessionStorage.getItem('sessionId');
 async function requestFiles() {
   document.getElementById('status-text').innerText = i18n.waiting;
   const response = await fetch(
-    `${BASE_URL}/receive-request?sessionId=${sessionId}`,
+    `${BASE_URL}/prepare-download?sessionId=${sessionId}`,
     {
       method: 'POST',
     },
@@ -31,7 +31,7 @@ async function requestFiles() {
     // single file
     const file = files[Object.keys(files)[0]];
     document.getElementById('single-file').innerHTML = `
-    <a class="file-item" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${file.id}">
+    <a class="file-item" href="${BASE_URL}/download?sessionId=${sessionId}&fileId=${file.id}">
       <div class="file-name-cell">
         ${file.fileName}
       </div>
@@ -44,7 +44,7 @@ async function requestFiles() {
   }
   document.getElementById('file-list').innerHTML = `
     ${Object.keys(files).map((key, index) => `
-      <a class="file-item" href="${BASE_URL}/receive?sessionId=${sessionId}&fileId=${key}">
+      <a class="file-item" href="${BASE_URL}/download?sessionId=${sessionId}&fileId=${key}">
         <div class="file-index-cell">
           ${index + 1}
         </div>
