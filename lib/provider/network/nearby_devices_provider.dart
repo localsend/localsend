@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
@@ -54,15 +55,17 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
 
     state = state.copyWith(runningIps: {...state.runningIps, localIp});
 
-    await _getStream(localIp, port, https, _fingerprint).forEach(registerDevice);
+    await for (final device in _getStream(localIp, port, https, _fingerprint)) {
+      registerDevice(device);
+    }
 
     state = state.copyWith(runningIps: state.runningIps.where((ip) => ip != localIp).toSet());
   }
 
-  Stream<Device> _getStream(String localIp, int port, bool https, String fingerprint) {
-    final ipList = List.generate(256, (i) => '${localIp.split('.').take(3).join('.')}.$i').where((ip) => ip != localIp).toList();
-    _runners[localIp]?.stop();
-    _runners[localIp] = TaskRunner<Device?>(
+  Stream<Device> _getStream(String networkInterface, int port, bool https, String fingerprint) {
+    final ipList = List.generate(256, (i) => '${networkInterface.split('.').take(3).join('.')}.$i').where((ip) => ip != networkInterface).toList();
+    _runners[networkInterface]?.stop();
+    _runners[networkInterface] = TaskRunner<Device?>(
       initialTasks: List.generate(
         ipList.length,
         (index) => () async => _doRequest(_dio, ipList[index], port, https, fingerprint),
@@ -70,7 +73,7 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
       concurrency: 50,
     );
 
-    return _runners[localIp]!.stream.where((device) => device != null).cast<Device>();
+    return _runners[networkInterface]!.stream.where((device) => device != null).cast<Device>();
   }
 
   void registerDevice(Device device) {
@@ -82,7 +85,8 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
 
 Future<Device?> _doRequest(Dio dio, String currentIp, int port, bool https, String fingerprint) async {
   print('Requesting $currentIp');
-  final url = ApiRoute.info.targetRaw(currentIp, port, https);
+  // We use the legacy route to make it less breaking for older versions
+  final url = ApiRoute.info.targetRaw(currentIp, port, https, peerProtocolVersion);
   Device? device;
   try {
     final response = await dio.get(url, queryParameters: {
@@ -92,10 +96,8 @@ Future<Device?> _doRequest(Dio dio, String currentIp, int port, bool https, Stri
     device = dto.toDevice(currentIp, port, https);
   } on DioError catch (_) {
     device = null;
-    // print('$url: ${e.error}');
   } catch (e) {
     device = null;
-    // print(e);
   }
   return device;
 }

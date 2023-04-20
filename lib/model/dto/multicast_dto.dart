@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 
 part 'multicast_dto.freezed.dart';
@@ -27,7 +28,7 @@ extension InfoToDeviceExt on MulticastDto {
   Device toDevice(String ip, int ownPort, bool ownHttps) {
     return Device(
       ip: ip,
-      version: version ?? '1.0',
+      version: version ?? fallbackProtocolVersion,
       port: port ?? ownPort,
       https: protocol != null ? protocol == ProtocolType.https : ownHttps,
       fingerprint: fingerprint,

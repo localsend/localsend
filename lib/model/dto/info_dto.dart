@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 
 part 'info_dto.freezed.dart';
@@ -25,7 +26,7 @@ extension InfoToDeviceExt on InfoDto {
   Device toDevice(String ip, int port, bool https) {
     return Device(
       ip: ip,
-      version: version ?? '1.0',
+      version: version ?? fallbackProtocolVersion,
       port: port,
       https: https,
       fingerprint: fingerprint ?? '',

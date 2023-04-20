@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
@@ -59,9 +60,17 @@ Future<PersistenceService> preInit(List<String> args) async {
     final dio = createDio(DioType.startupCheckAnotherInstance);
 
     try {
-      await dio.post(ApiRoute.show.targetRaw('127.0.0.1', persistenceService.getPort(), persistenceService.isHttps()), queryParameters: {
-        'token': persistenceService.getShowToken(),
-      });
+      await dio.post(
+        ApiRoute.show.targetRaw(
+          '127.0.0.1',
+          persistenceService.getPort(),
+          persistenceService.isHttps(),
+          peerProtocolVersion,
+        ),
+        queryParameters: {
+          'token': persistenceService.getShowToken(),
+        },
+      );
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
 
@@ -83,7 +92,6 @@ Future<PersistenceService> preInit(List<String> args) async {
 
   return persistenceService;
 }
-
 
 StreamSubscription? _sharedMediaSubscription;
 

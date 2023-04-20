@@ -34,5 +34,9 @@ enum ApiRoute {
   }
 
   /// The client url for polling
-  String targetRaw(String ip, int port, bool https) => '${https ? 'https' : 'http'}://$ip:$port$v1';
+  String targetRaw(String ip, int port, bool https, String version) {
+    final protocol = https ? 'https' : 'http';
+    final route = version == '1.0' ? v1 : v2;
+    return '$protocol://$ip:$port$route';
+  }
 }

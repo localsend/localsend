@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
@@ -20,7 +21,7 @@ class TargetedDiscoveryService {
   TargetedDiscoveryService(this._dio, this._fingerprint);
 
   Future<Device?> discover(String ip, int port, bool https) async {
-    final url = ApiRoute.info.targetRaw(ip, port, https);
+    final url = ApiRoute.info.targetRaw(ip, port, https, peerProtocolVersion);
     Device? device;
     try {
       final response = await _dio.get(url, queryParameters: {
