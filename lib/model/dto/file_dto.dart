@@ -1,30 +1,98 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:collection/collection.dart';
 import 'package:localsend_app/model/file_type.dart';
+import 'package:mime/mime.dart';
 
-part 'file_dto.freezed.dart';
-part 'file_dto.g.dart';
+/// The file DTO that is sent between server and client.
+/// Custom implementation of freezed & json_serializable to handle legacy enums.
+/// The copyWith method is not implemented.
+class FileDto {
+  final String id; // unique inside session
+  final String fileName;
+  final int size;
+  final FileType fileType;
+  final String? hash;
+  final String? preview;
 
-@freezed
-class FileDto with _$FileDto {
-  const factory FileDto({
-    required String id, // unique inside session
+  /// This is only used internally to determine if fileType is a mime type or a legacy enum.
+  /// It is not serialized.
+  final bool legacy;
 
-    required String fileName,
+  const FileDto({
+    required this.id,
+    required this.fileName,
+    required this.size,
+    required this.fileType,
+    required this.hash,
+    required this.preview,
+    required this.legacy,
+  });
 
-    required int size,
+  factory FileDto.fromJson(Map<String, Object?> json) => _parseFileDto(json);
 
-    // ignore: invalid_annotation_target
-    @JsonKey(unknownEnumValue: FileType.other)
-    required FileType fileType,
+  Map<String, dynamic> toJson() => _fileDtoToJson(this);
 
-    /// The hash of the file.
-    /// This is used for web-mode as it is unencrypted (HTTP).
-    // ignore: invalid_annotation_target
-    @JsonKey(includeIfNull: false)
-    required String? sha256,
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FileDto &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          fileName == other.fileName &&
+          size == other.size &&
+          fileType == other.fileType &&
+          hash == other.hash &&
+          preview == other.preview &&
+          legacy == other.legacy;
 
-    required String? preview,
-  }) = _FileDto;
+  @override
+  int get hashCode => Object.hash(id, fileName, size, fileType, hash, preview, legacy);
+}
 
-  factory FileDto.fromJson(Map<String, Object?> json) => _$FileDtoFromJson(json);
+/// This deserializer handles both legacy and mime types.
+FileDto _parseFileDto(Map<String, Object?> json) {
+  final String rawFileType = json['fileType'] as String;
+  final FileType fileType;
+  if (rawFileType.contains('/')) {
+    // parse mime
+    if (rawFileType.startsWith('image/')) {
+      fileType = FileType.image;
+    } else if (rawFileType.startsWith('video/')) {
+      fileType = FileType.video;
+    } else if (rawFileType == 'application/pdf') {
+      fileType = FileType.pdf;
+    } else if (rawFileType.startsWith('text/')) {
+      fileType = FileType.text;
+    } else if (rawFileType == 'application/vnd.android.package-archive') {
+      fileType = FileType.apk;
+    } else {
+      fileType = FileType.other;
+    }
+  } else {
+    // parse legacy enum to internal internal enum
+    fileType = FileType.values.firstWhereOrNull((e) => e.name == rawFileType) ?? FileType.other;
+  }
+
+  return FileDto(
+    id: json['id'] as String,
+    fileName: json['fileName'] as String,
+    size: json['size'] as int,
+    fileType: fileType,
+    hash: json['hash'] as String?,
+    preview: json['preview'] as String?,
+    legacy: false,
+  );
+}
+
+/// This serializer checks the legacy flag and serializes the file type accordingly.
+Map<String, dynamic> _fileDtoToJson(FileDto instance) {
+  return {
+    'id': instance.id,
+    'fileName': instance.fileName,
+    'size': instance.size,
+    'fileType': instance.legacy ? instance.fileType.name : lookupMimeType(instance.fileName),
+    if (instance.hash != null)
+      'hash': instance.hash,
+    if (instance.preview != null)
+      'preview': instance.preview,
+  };
 }

@@ -76,10 +76,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               fileName: file.name,
               size: file.size,
               fileType: file.fileType,
-              sha256: null,
+              hash: null,
               preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
                   ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
                   : null,
+              legacy: target.version == '1.0',
             ),
             status: FileStatus.queue,
             token: null,
@@ -108,7 +109,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         protocol: originDevice.https ? ProtocolType.https : ProtocolType.http,
       ),
       files: {
-        for (final file in requestState.files.values) file.file.id: file.file,
+        for (final entry in requestState.files.entries) entry.key: entry.value.file,
       },
     );
 

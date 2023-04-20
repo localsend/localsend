@@ -1,6 +1,5 @@
 class UserAgentAnalyzer {
   String? getBrowser(String userAgent) {
-    print('userAgent: $userAgent');
     if (userAgent.contains("Firefox")) {
       return "Firefox";
     } else if (userAgent.contains("Chrome")) {

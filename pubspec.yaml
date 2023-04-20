@@ -30,6 +30,7 @@ dependencies:
   intl: 0.17.0
   json_annotation: 4.8.0
   launch_at_startup: 0.2.2
+  mime: 1.0.4
   network_info_plus: 3.0.3
   open_filex: 4.3.2
   package_info_plus: 3.1.0

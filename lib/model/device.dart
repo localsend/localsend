@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'device.freezed.dart';
-part 'device.g.dart';
 
 enum DeviceType {
   mobile(Icons.smartphone),
@@ -17,6 +16,7 @@ enum DeviceType {
 }
 
 /// Internal device model.
+/// It gets not serialized.
 @freezed
 class Device with _$Device {
   const factory Device({
@@ -27,10 +27,6 @@ class Device with _$Device {
     required String fingerprint,
     required String alias,
     required String? deviceModel,
-
-    @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
     required DeviceType deviceType,
   }) = _Device;
-
-  factory Device.fromJson(Map<String, Object?> json) => _$DeviceFromJson(json);
 }
