@@ -109,7 +109,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   await ref.read(settingsProvider.notifier).setSaveWindowPlacement(b);
                 },
               ),
-              if (checkPlatform([TargetPlatform.windows, TargetPlatform.macOS])) ...[
+              if (checkPlatformHasTray()) ...[
                 _BooleanEntry(
                   label: t.settingsTab.general.minimizeToTray,
                   value: settings.minimizeToTray,
