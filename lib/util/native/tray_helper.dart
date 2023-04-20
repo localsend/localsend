@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -43,6 +44,7 @@ Future<void> initTray() async {
       print(e);
     }
   } else {
+    // The Linux tray display is handled by systemTray instead
     final SystemTray systemTray = SystemTray();
 
     await systemTray.initSystemTray(
@@ -56,7 +58,7 @@ Future<void> initTray() async {
         await windowManager.show();
         await windowManager.focus();
     }),
-      MenuItemLabel(label: t.tray.close, onClicked: (menuItem) => windowManager.destroy()),
+      MenuItemLabel(label: t.tray.close, onClicked: (menuItem) => exit(0)),
     ]);
 
     await systemTray.setContextMenu(menu);
