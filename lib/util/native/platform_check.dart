@@ -17,9 +17,8 @@ bool checkPlatformIsDesktop() {
 }
 
 /// This platform supports tray
-/// On linux, this is currently not supported
 bool checkPlatformHasTray() {
-  return checkPlatform([TargetPlatform.windows, TargetPlatform.macOS]);
+  return checkPlatform([TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]);
 }
 
 /// This platform can receive share intents
