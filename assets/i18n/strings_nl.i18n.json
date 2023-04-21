@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Accepteren",
+    "accepted": "Geäccepteerd",
     "add": "Toevoegen",
     "advanced": "Geavanceerd",
     "cancel": "Annuleren",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "Bestand",
+      "folder": "Map",
       "media": "Media",
       "text": "Tekst",
       "app": "App"
@@ -86,6 +88,7 @@
       "languageOptions": {
         "system": "Systeem"
       },
+      "saveWindowPlacement": "Afsluiten: Vensterindeling behouden",
       "minimizeToTray": "Stoppen: Minimaliseer naar systeemvak",
       "launchAtStartup": "Autostart na inloggen",
       "launchMinimized": "Autostart: Start verborgen"
@@ -156,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Opties",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are directories."
   },
   "sendPage": {
     "waiting": "Wachten op antwoord...",
@@ -178,6 +183,20 @@
       "size": "Grootte: {curr} / {n}",
       "speed": "Sneelheid: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Delen via weblink",
+    "loading": "Server starten...",
+    "stopping": "Server stoppen...",
+    "error": "Onverwachte fout bij het opstarten van de server.",
+    "hint": "Let op! De verbinding gebruikt geen versleuteling, gebruik deze methode alleen als de ontvanger de app niet heeft geïnstalleerd.",
+    "openLink": {
+      "one": "Open deze link in de browser:",
+      "other": "Open een van deze links in de browser:"
+    },
+    "requests": "Verzoeken",
+    "noRequests": "Nog geen verzoeken.",
+    "pendingRequests": "Openstaande verzoeken: {n}"
   },
   "aboutPage": {
     "title": "Over LocalSend"
@@ -226,6 +245,11 @@
       "title": "Voer bestandsnaam in",
       "original": "Origineel: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Geen permissie",
+      "description": "LocalSend kan geen andere apparaten op uw netwerk vinden zonder de juiste permissies voor netwerktoegang te hebben verkregen. Stel deze correct in in het instellingen menu.",
+      "gotoSettings": "Instellingen"
+    },
     "messageInput": {
       "title": "Typ bericht",
       "multiline": "Meerdere lijnen"
@@ -237,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "Niet beschikbaar",
       "content": "Deze functie is enkel beschikbaar op:"
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "Snelle acties",
@@ -261,5 +288,42 @@
     "@info": "Apple Guidelines zijn zeer strikt met betrekking tot de 'close' formulering.",
     "open": "@:general.open",
     "close": "LocalSend afsluiten"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Geweigerd",
+    "files": "Bestanden",
+    "fileName": "Bestandsnaam",
+    "size": "Grootte"
+  },
+  "assetPicker": {
+    "confirm": "Bevestigen",
+    "cancel": "Anuleren",
+    "edit": "Bewerken",
+    "gifIndicator": "GIF",
+    "loadFailed": "Laadfout",
+    "original": "Herkomst",
+    "preview": "Preview",
+    "select": "Selecteren",
+    "emptyList": "Lege lijst",
+    "unSupportedAssetType": "Niet-ondersteund bestandstype.",
+    "unableToAccessAll": "Geen toegang tot alle gegevens op apparaat",
+    "viewingLimitedAssetsTip": "Beperkte toegang tot gegevens voor deze app.",
+    "changeAccessibleLimitedAssets": "toegangelijke bestanden voor deze app aanpassen",
+    "accessAllTip": "De app heeft slechts beperkte toegang tot uw bestanden. Ga naar het instellingen menu van uw apparaat om de toegangsrechten aan te passen.",
+    "goToSystemSettings": "Ga naar het instellingen menu",
+    "accessLimitedAssets": "Behoudt beperkte toegang tot bestanden",
+    "accessiblePathName": "Toegangkelijke bestanden",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Fotos",
+    "sTypeVideoLabel": "Videos",
+    "sTypeOtherLabel": "andere media",
+    "sActionPlayHint": "Afspelen",
+    "sActionPreviewHint": "preview",
+    "sActionSelectHint": "selecteren",
+    "sActionSwitchPathLabel": "bestandspad aanpassen",
+    "sActionUseCameraHint": "camera gebruiken",
+    "sNameDurationLabel": "duur",
+    "sUnitAssetCountLabel": "aantal"
   }
 }
