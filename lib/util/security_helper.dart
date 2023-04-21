@@ -17,7 +17,7 @@ StoredSecurityContext generateSecurityContext() {
     'C': '',
   };
   final csr = X509Utils.generateRsaCsrPem(dn, privateKey, publicKey);
-  final certificate = X509Utils.generateSelfSignedCertificate(keyPair.privateKey, csr, 1);
+  final certificate = X509Utils.generateSelfSignedCertificate(keyPair.privateKey, csr, 365 * 10);
   return StoredSecurityContext(
     privateKey: CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(privateKey),
     publicKey: CryptoUtils.encodeRSAPublicKeyToPemPkcs1(publicKey),
