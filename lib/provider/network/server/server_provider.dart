@@ -5,13 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
-import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
 import 'package:localsend_app/provider/network/server/controller/send_controller.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
-import 'package:localsend_app/util/security_helper.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -68,7 +67,7 @@ class ServerNotifier extends Notifier<ServerState?> {
     }
 
     final router = Router();
-    final fingerprint = ref.read(fingerprintProvider);
+    final fingerprint = ref.read(securityProvider).certificateHash;
     _receiveController.installRoutes(
       router: router,
       alias: alias,
@@ -87,14 +86,14 @@ class ServerNotifier extends Notifier<ServerState?> {
     ServerState? newServerState;
 
     if (https) {
-      final securityContextResult = generateSecurityContext();
+      final securityContext = ref.read(securityProvider);
       newServerState = ServerState(
         httpServer: await _startServer(
           router: router,
           port: port,
           securityContext: SecurityContext()
-            ..usePrivateKeyBytes(securityContextResult.privateKey.codeUnits)
-            ..useCertificateChainBytes(securityContextResult.certificate.codeUnits),
+            ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+            ..useCertificateChainBytes(securityContext.certificate.codeUnits),
         ),
         alias: alias,
         port: port,

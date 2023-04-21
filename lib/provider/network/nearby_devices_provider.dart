@@ -7,9 +7,9 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
-import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/multicast_provider.dart';
+import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 
@@ -34,7 +34,7 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
   @override
   NearbyDevicesState build() {
     _dio = ref.watch(dioProvider(DioType.discovery));
-    _fingerprint = ref.watch(fingerprintProvider);
+    _fingerprint = ref.watch(securityProvider).certificateHash;
     _multicastService = ref.watch(multicastProvider);
     return const NearbyDevicesState(
       runningIps: {},

@@ -9,9 +9,9 @@ import 'package:localsend_app/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
-import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
+import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -41,7 +41,7 @@ class MulticastService {
 
     final streamController = StreamController<Device>();
     final settings = _ref.read(settingsProvider);
-    final fingerprint = _ref.read(fingerprintProvider);
+    final fingerprint = _ref.read(securityProvider).certificateHash;
 
     final sockets = await _getSockets(settings.multicastGroup, settings.port);
     for (final socket in sockets) {
@@ -131,7 +131,7 @@ class MulticastService {
   List<int> _getMulticastDto({required bool announcement}) {
     final settings = _ref.read(settingsProvider);
     final serverState = _ref.read(serverProvider);
-    final fingerprint = _ref.read(fingerprintProvider);
+    final fingerprint = _ref.read(securityProvider).certificateHash;
     final dto = MulticastDto(
       alias: serverState?.alias ?? settings.alias,
       version: protocolVersion,
@@ -149,7 +149,7 @@ class MulticastService {
   RegisterDto _getRegisterDto() {
     final settings = _ref.read(settingsProvider);
     final serverState = _ref.read(serverProvider);
-    final fingerprint = _ref.read(fingerprintProvider);
+    final fingerprint = _ref.read(securityProvider).certificateHash;
     return RegisterDto(
       alias: serverState?.alias ?? settings.alias,
       version: protocolVersion,

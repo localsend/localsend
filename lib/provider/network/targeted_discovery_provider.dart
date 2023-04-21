@@ -4,12 +4,12 @@ import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
-import 'package:localsend_app/provider/fingerprint_provider.dart';
+import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 
 final targetedDiscoveryProvider = Provider((ref) {
   final dio = ref.watch(dioProvider(DioType.discovery));
-  final fingerprint = ref.watch(fingerprintProvider);
+  final fingerprint = ref.watch(securityProvider).certificateHash;
   return TargetedDiscoveryService(dio, fingerprint);
 });
 

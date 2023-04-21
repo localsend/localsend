@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: basic_utils
-      sha256: "05993c20640f2fd99727b8c3e9de3f288b1e92f0191a9cea0ef65b37d6c5d6db"
+      sha256: "8815477fcf58499e42326bd858e391442425fa57db9a45e48e15224c62049262"
       url: "https://pub.dev"
     source: hosted
-    version: "5.5.3"
+    version: "5.5.4"
   boolean_selector:
     dependency: transitive
     description:

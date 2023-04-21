@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/stored_security_context.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/security_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -19,10 +21,13 @@ final persistenceProvider = Provider<PersistenceService>((ref) {
 // Version of the storage
 const _version = 'ls_version';
 
+// Security keys (generated on first app start)
+const _securityContext = 'ls_security_context';
+
 // Received file history
 const _receiveHistory = 'ls_receive_history';
 
-//App Window Offset and Size info
+// App Window Offset and Size info
 const _windowOffsetX = 'ls_window_offset_x';
 const _windowOffsetY = 'ls_window_offset_y';
 const _windowWidth = 'ls_window_width';
@@ -73,7 +78,20 @@ class PersistenceService {
       await prefs.setString(_aliasKey, generateRandomAlias());
     }
 
+    if (prefs.getString(_securityContext) == null) {
+      await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+    }
+
     return PersistenceService._(prefs);
+  }
+
+  StoredSecurityContext getSecurityContext() {
+    final contextRaw = _prefs.getString(_securityContext)!;
+    return StoredSecurityContext.fromJson(jsonDecode(contextRaw));
+  }
+
+  Future<void> setSecurityContext(StoredSecurityContext context) async {
+    await _prefs.setString(_securityContext, jsonEncode(context));
   }
 
   List<ReceiveHistoryEntry> getReceiveHistory() {
