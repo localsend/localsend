@@ -16,7 +16,7 @@ import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/discovery_logs_provider.dart';
+import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';

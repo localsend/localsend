@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/pages/debug/discovery_debug_page.dart';
+import 'package:localsend_app/pages/debug/http_logs_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/fingerprint_provider.dart';
 import 'package:localsend_app/widget/copyable_text.dart';
@@ -47,10 +48,13 @@ class DebugPage extends ConsumerWidget {
           Row(
             children: [
               ElevatedButton(
-                onPressed: () async {
-                  await context.push(() => const DiscoveryDebugPage());
-                },
+                onPressed: () async => context.push(() => const DiscoveryDebugPage()),
                 child: const Text('Discovery Debugging'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () async => context.push(() => const HttpLogsPage()),
+                child: const Text('HTTP Logs'),
               ),
             ],
           ),

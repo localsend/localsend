@@ -130,7 +130,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     try {
       response = await requestDio.post(
         ApiRoute.prepareUpload.target(target),
-        data: requestDto.toJson(),
+        data: jsonEncode(requestDto), // jsonEncode for better logging
         cancelToken: cancelToken,
       );
     } catch (e) {
