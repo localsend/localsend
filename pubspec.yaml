@@ -16,7 +16,7 @@ dependencies:
   desktop_drop: 0.4.1
   device_apps: 2.2.0
   device_info_plus: 8.1.0
-  dio: 4.0.6
+  dio: 5.1.1
   file_picker: 5.2.9
   flutter:
     sdk: flutter
