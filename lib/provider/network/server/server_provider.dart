@@ -197,3 +197,31 @@ Future<HttpServer> _startServer({
     securityContext: securityContext,
   );
 }
+
+// Below is a first prototype of mTLS (mutual TLS).
+// Problem:
+// - we cannot request client certificates while ignoring errors
+
+// Future<HttpServer> _startServer({
+//   required Router router,
+//   required int port,
+//   required SecurityContext? securityContext,
+// }) async {
+//   const address = '0.0.0.0';
+//   final server = await (securityContext == null
+//       ? HttpServer.bind(address, port)
+//       : HttpServer.bindSecure(
+//     address,
+//     port,
+//     securityContext,
+//     requestClientCertificate: true,
+//   ));
+//
+//   final stream = server.map((request) {
+//     print('Request Cert: ${request.certificate?.pem}');
+//     return request;
+//   });
+//
+//   serveRequests(stream, router);
+//   return server;
+// }
