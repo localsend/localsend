@@ -23,6 +23,8 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - system_tray (0.0.1):
+    - FlutterMacOS
   - tray_manager (0.0.1):
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
@@ -43,6 +45,7 @@ DEPENDENCIES:
   - photo_manager (from `Flutter/ephemeral/.symlinks/plugins/photo_manager/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/macos`)
+  - system_tray (from `Flutter/ephemeral/.symlinks/plugins/system_tray/macos`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - wakelock_macos (from `Flutter/ephemeral/.symlinks/plugins/wakelock_macos/macos`)
@@ -73,6 +76,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/macos
+  system_tray:
+    :path: Flutter/ephemeral/.symlinks/plugins/system_tray/macos
   tray_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   url_launcher_macos:
@@ -94,6 +99,7 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
+  system_tray: e53c972838c69589ff2e77d6d3abfd71332f9e5d
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: 5335912b679c073563f29d89d33d10d459f95451
   wakelock_macos: bc3f2a9bd8d2e6c89fee1e1822e7ddac3bd004a9
