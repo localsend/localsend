@@ -53,15 +53,23 @@ enum FilePickerOption {
         FilePickerOption.file,
         FilePickerOption.folder,
       ];
+    } else if (checkPlatform([TargetPlatform.android])) {
+      // On android, the file app is most powerful.
+      return [
+        FilePickerOption.file,
+        FilePickerOption.media,
+        FilePickerOption.text,
+        FilePickerOption.folder,
+        FilePickerOption.app,
+      ];
+    } else {
+      // Desktop
+      return [
+        FilePickerOption.file,
+        FilePickerOption.folder,
+        FilePickerOption.text,
+      ];
     }
-
-    return [
-      FilePickerOption.file,
-      if (checkPlatformWithFolderSelect()) FilePickerOption.folder,
-      if (checkPlatformWithGallery()) FilePickerOption.media,
-      FilePickerOption.text,
-      if (checkPlatform([TargetPlatform.android])) FilePickerOption.app,
-    ];
   }
 
   Future<void> select({
