@@ -1,17 +1,19 @@
-## 1.9.0 (2023-04-)
+## 1.9.0 (2023-04-22)
 
 - feat: directory share
 - feat: share via browser link (for non-LocalSend users)
 - feat: add "delete from history" button when file could not be opened (by @TheGB0077)
 - feat: close message request when copied / opened link
 - feat: slightly improve transfer speed
-- feat: add LocalSend protocol v2 with v1 fallback
+- feat: implement LocalSend protocol v2 with v1 fallback
+- feat: scan (sync) button automatically scans all network interfaces when count < 3
 - feat(android, ios): add "Save to gallery" setting button in file receive options
 - feat(desktop): move troubleshoot out of navigation into send page
 - feat(desktop): save last window position (by @TheGB0077)
 - feat(android): enable edge-to-edge mode
 - feat(android): add monochrome app icons for Android 13 (by @h9419)
 - feat(android): set custom download path
+- feat(linux): enable system tray (by @TheGB0077)
 - fix: in multi-recipient mode, retrying causes a "canceled by sender" on the recipient device
 - fix: clear selection after finished message transfer
 - fix(ios): could not scan local network on iOS 14+ (by @TheGB0077)
