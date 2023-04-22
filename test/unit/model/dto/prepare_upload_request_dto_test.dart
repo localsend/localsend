@@ -134,6 +134,7 @@ void main() {
       fingerprint: '123',
       port: 123,
       protocol: ProtocolType.http,
+      download: false,
     );
 
     test('should serialize in legacy mode', () {

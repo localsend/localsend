@@ -17,6 +17,7 @@ class MulticastDto with _$MulticastDto {
     required String fingerprint,
     required int? port, // v2
     required ProtocolType? protocol, // v2
+    required bool? download, // v2
     required bool? announcement, // v1
     required bool? announce, // v2
   }) = _MulticastDto;
@@ -35,6 +36,7 @@ extension InfoToDeviceExt on MulticastDto {
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
+      download: download ?? false,
     );
   }
 }

@@ -28,5 +28,6 @@ class Device with _$Device {
     required String alias,
     required String? deviceModel,
     required DeviceType deviceType,
+    required bool download,
   }) = _Device;
 }

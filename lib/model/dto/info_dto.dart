@@ -15,6 +15,7 @@ class InfoDto with _$InfoDto {
     @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
     required DeviceType? deviceType,
     required String? fingerprint, // v2
+    required bool? download, // v2
   }) = _InfoDto;
 
   factory InfoDto.fromJson(Map<String, Object?> json) => _$InfoDtoFromJson(json);
@@ -32,7 +33,8 @@ extension InfoToDeviceExt on InfoDto {
       fingerprint: fingerprint ?? '',
       alias: alias,
       deviceModel: deviceModel,
-      deviceType: deviceType ?? DeviceType.desktop
+      deviceType: deviceType ?? DeviceType.desktop,
+      download: download ?? false,
     );
   }
 }

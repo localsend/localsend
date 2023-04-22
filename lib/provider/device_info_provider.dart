@@ -25,5 +25,6 @@ final deviceInfoProvider = Provider((ref) {
     fingerprint: securityContext.certificateHash,
     deviceModel: rawInfo.deviceModel,
     deviceType: rawInfo.deviceType,
+    download: serverState?.webSendState != null,
   );
 });

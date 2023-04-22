@@ -20,6 +20,7 @@ class InfoRegisterDto with _$InfoRegisterDto {
     required String? fingerprint,
     required int? port, // v2
     required ProtocolType? protocol, // v2
+    required bool? download, // v2
   }) = _InfoRegisterDto;
 
   factory InfoRegisterDto.fromJson(Map<String, Object?> json) => _$InfoRegisterDtoFromJson(json);
@@ -36,6 +37,7 @@ extension RegisterDtoExt on InfoRegisterDto {
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
+      download: download ?? false,
     );
   }
 }

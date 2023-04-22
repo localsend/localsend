@@ -54,5 +54,6 @@ Device _target({
     alias: 'alias',
     deviceModel: 'deviceModel',
     deviceType: DeviceType.desktop,
+    download: false,
   );
 }

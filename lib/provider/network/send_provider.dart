@@ -108,6 +108,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         fingerprint: originDevice.fingerprint,
         port: originDevice.port,
         protocol: originDevice.https ? ProtocolType.https : ProtocolType.http,
+        download: originDevice.download,
       ),
       files: {
         for (final entry in requestState.files.entries) entry.key: entry.value.file,

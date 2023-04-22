@@ -140,6 +140,7 @@ class MulticastService {
       fingerprint: fingerprint,
       port: serverState?.port ?? settings.port,
       protocol: (serverState?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
+      download: serverState?.webSendState != null,
       announcement: announcement,
       announce: announcement,
     );
@@ -158,6 +159,7 @@ class MulticastService {
       fingerprint: fingerprint,
       port: serverState?.port ?? settings.port,
       protocol: (serverState?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
+      download: serverState?.webSendState != null,
     );
   }
 }
