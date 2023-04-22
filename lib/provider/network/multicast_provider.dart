@@ -112,7 +112,6 @@ class MulticastService {
       _ref.read(discoveryLogsProvider.notifier).addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
       // Fallback: Answer with UDP
-      print('EEE: $e');
       final sockets = await _getSockets(settings.multicastGroup);
       final dto = _getMulticastDto(announcement: false);
       for (final socket in sockets) {
