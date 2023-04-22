@@ -67,6 +67,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
       ),
       body: ResponsiveListView.single(
         padding: const EdgeInsets.symmetric(horizontal: 15),
+        tabletPadding: const EdgeInsets.symmetric(horizontal: 15),
         child: CustomScrollView(
           slivers: [
             const SliverToBoxAdapter(
@@ -102,6 +103,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
               data: (appList) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
+                    childCount: appList.length,
                     (context, index) {
                       final app = appList[index];
                       final thumbnail = (app as ApplicationWithIcon).icon;
@@ -156,7 +158,6 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                         ),
                       );
                     },
-                    childCount: appList.length,
                   ),
                 );
               },
