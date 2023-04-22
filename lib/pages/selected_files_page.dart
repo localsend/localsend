@@ -7,6 +7,7 @@ import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -136,8 +137,8 @@ class SelectedFilesPage extends ConsumerWidget {
                 },
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 15),
+            SliverToBoxAdapter(
+              child: SizedBox(height: 15 + getNavBarPadding(context)),
             ),
           ],
         ),

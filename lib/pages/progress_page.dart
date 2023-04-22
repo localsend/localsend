@@ -17,6 +17,7 @@ import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -155,7 +156,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
             ListView.builder(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 20,
-                bottom: 150,
+                bottom: 150 + getNavBarPadding(context),
                 left: 15,
                 right: 30,
               ),
