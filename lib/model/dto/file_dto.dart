@@ -89,7 +89,7 @@ Map<String, dynamic> _fileDtoToJson(FileDto instance) {
     'id': instance.id,
     'fileName': instance.fileName,
     'size': instance.size,
-    'fileType': instance.legacy ? instance.fileType.name : lookupMimeType(instance.fileName),
+    'fileType': instance.legacy ? instance.fileType.name : (lookupMimeType(instance.fileName) ?? 'application/octet-stream'),
     if (instance.hash != null)
       'hash': instance.hash,
     if (instance.preview != null)
