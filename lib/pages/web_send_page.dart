@@ -137,7 +137,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                                   url,
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 5),
                                 InkWell(
                                   onTap: () async {
                                     await Clipboard.setData(ClipboardData(text: url));
@@ -145,9 +145,11 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                                       context.showSnackBar(t.general.copiedToClipboard);
                                     }
                                   },
-                                  child: const Icon(Icons.content_copy, size: 16),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    child: Icon(Icons.content_copy, size: 16),
+                                  ),
                                 ),
-                                const SizedBox(width: 10),
                                 InkWell(
                                   onTap: () async {
                                     await showDialog(
@@ -158,7 +160,10 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                                       ),
                                     );
                                   },
-                                  child: const Icon(Icons.qr_code, size: 16),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    child: Icon(Icons.qr_code, size: 16),
+                                  ),
                                 ),
                               ],
                             ),
