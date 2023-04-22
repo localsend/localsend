@@ -165,24 +165,30 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (target.version == '1.0') {
       fileMap = (response.data as Map).cast<String, String>();
     } else {
-      try {
-        final responseDto = PrepareUploadResponseDto.fromJson(response.data);
-        fileMap = responseDto.files;
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(
-            remoteSessionId: responseDto.sessionId,
-          ),
-        );
-      } catch (e) {
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(
-            status: SessionStatus.finishedWithErrors,
-            errorMessage: e.humanErrorMessage,
-          ),
-        );
-        return;
+      if (response.statusCode == 204) {
+        // Nothing selected
+        // Interpret this as "Read and close"
+        fileMap = {};
+      } else {
+        try {
+          final responseDto = PrepareUploadResponseDto.fromJson(response.data);
+          fileMap = responseDto.files;
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(
+              remoteSessionId: responseDto.sessionId,
+            ),
+          );
+        } catch (e) {
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(
+              status: SessionStatus.finishedWithErrors,
+              errorMessage: e.humanErrorMessage,
+            ),
+          );
+          return;
+        }
       }
     }
 

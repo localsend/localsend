@@ -256,7 +256,7 @@ class ReceiveController {
       // nothing selected, send this to sender and close session
       // This usually happens for message transfers
       closeSession();
-      return server.responseJson(200);
+      return server.responseJson(204);
     }
 
     server.setState(
