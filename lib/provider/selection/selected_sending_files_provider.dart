@@ -65,12 +65,18 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
     ]);
   }
 
-  Future<void> addDirectory(String directoryPath) async {
+  /// Adds files inside the directory recursively.
+  /// If [includeDirectory] is true, the directory itself will be added as part of each file path.
+  Future<void> addDirectory(String directoryPath, {required bool includeDirectory}) async {
     print('Reading files in $directoryPath');
     final newFiles = <CrossFile>[];
+    final directoryName = p.basename(directoryPath);
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
-        final relative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+        String relative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+        if (includeDirectory) {
+          relative = '$directoryName/$relative';
+        }
         print('Add file $relative');
         final file = CrossFile(
           name: relative,

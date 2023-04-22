@@ -93,7 +93,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       onDragDone: (event) async {
         if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
           // user dropped a directory
-          await ref.read(selectedSendingFilesProvider.notifier).addDirectory(event.files.first.path);
+          await ref.read(selectedSendingFilesProvider.notifier).addDirectory(event.files.first.path, includeDirectory: true);
         } else {
           // user dropped one or more files
           await ref.read(selectedSendingFilesProvider.notifier).addFiles(
