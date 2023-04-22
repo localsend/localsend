@@ -487,7 +487,9 @@ class ReceiveController {
       return server.responseJson(403, message: 'No permission');
     }
 
-    if (v2) {
+    // require session id for v2
+    // don't require it when during waiting state
+    if (v2 && session.status != SessionStatus.waiting) {
       final sessionId = request.url.queryParameters['sessionId'];
       if (sessionId != session.sessionId) {
         return server.responseJson(403, message: 'No permission');
