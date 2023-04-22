@@ -26,7 +26,6 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:mime/mime.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 
@@ -280,7 +279,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           options: Options(
             headers: {
               'Content-Length': file.file.size,
-              'Content-Type': lookupMimeType(file.file.fileName),
+              'Content-Type': file.file.lookupMime(),
             },
           ),
           data: file.path != null ? File(file.path!).openRead() : Stream.fromIterable([file.bytes!]),

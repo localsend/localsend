@@ -27,6 +27,8 @@ class FileDto {
     required this.legacy,
   });
 
+  String lookupMime() => lookupMimeType(fileName) ?? 'application/octet-stream';
+
   factory FileDto.fromJson(Map<String, Object?> json) => _parseFileDto(json);
 
   Map<String, dynamic> toJson() => _fileDtoToJson(this);
@@ -89,7 +91,7 @@ Map<String, dynamic> _fileDtoToJson(FileDto instance) {
     'id': instance.id,
     'fileName': instance.fileName,
     'size': instance.size,
-    'fileType': instance.legacy ? instance.fileType.name : (lookupMimeType(instance.fileName) ?? 'application/octet-stream'),
+    'fileType': instance.legacy ? instance.fileType.name : instance.lookupMime(),
     if (instance.hash != null)
       'hash': instance.hash,
     if (instance.preview != null)
