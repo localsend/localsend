@@ -78,7 +78,11 @@ Future<PersistenceService> preInit(List<String> args) async {
     Routerino.transition = RouterinoTransition.cupertino;
 
     // initialize tray AFTER i18n has been initialized
-    await initTray();
+    try {
+      await initTray();
+    } catch (e) {
+      print('Initializing tray failed: $e');
+    }
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
