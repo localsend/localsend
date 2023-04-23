@@ -1,4 +1,4 @@
-## 1.9.0 (2023-04-22)
+## 1.9.0 (2023-04-23)
 
 - feat: directory share
 - feat: share via browser link (for non-LocalSend users)
