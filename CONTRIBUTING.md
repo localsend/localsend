@@ -16,24 +16,7 @@ flutter pub run build_runner build -d
 flutter run
 ```
 
-## Compile production APK
-
-You will need the signing keys to generate an APK.
-
-Either generate one or use the debug signing options:
-
-```groovy
-// File: android/app/build.gradle
-buildTypes {
-  release {
-    signingConfig signingConfigs.debug // using debug signing
-  }
-}
-```
-
-## Contributing
-
-### Translation
+## Translation
 
 You can help translating this app to other languages!
 
@@ -67,9 +50,58 @@ If you encounter a bug in LocalSend or have a feature request, please submit an 
 
 If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [localsendapp@gmail.com](mailto:localsendapp@gmail.com) so that we can address the issue as quickly and effectively as possible.
 
+## Distribution
+
+Git based distribution:
+
+| Channel        | Repository                                                                                  | Maintainer                                                   |
+|----------------|---------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| [Winget][]     | https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend        | Github Actions                                               |
+| [Scoop][]      | https://github.com/ScoopInstaller/Extras/blob/master/bucket/localsend.json                  | Github Actions                                               |
+| [Chocolatey][] | https://github.com/brogers5/chocolatey-package-localsend/tree/main                          | [@brogers5](https://github.com/brogers5)                     |
+| [Homebrew][]   | https://github.com/localsend/homebrew-localsend                                             | [@Tienisto](https://github.com/Tienisto) with Github Actions |
+| [Flathub][]    | https://github.com/flathub/org.localsend.localsend_app                                      | Github Actions                                               |
+| [AUR][]        | https://aur.archlinux.org/localsend-bin.git                                                 | [@Nixuge](https://github.com/Nixuge)                         |
+| [F-Droid][]    | https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.localsend.localsend_app.yml | [F-Droid CI](https://gitlab.com/fdroidci)                    |
+
+[winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
+[scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=localsend&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
+[chocolatey]: https://community.chocolatey.org/packages/localsend
+[homebrew]: https://github.com/localsend/homebrew-localsend
+[flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
+[aur]: https://aur.archlinux.org/packages/localsend-bin
+[f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
+
+Manual distribution:
+
+| Channel        | Maintainer                               |
+|----------------|------------------------------------------|
+| [App Store][]  | [@Tienisto](https://github.com/Tienisto) |
+| [Play Store][] | [@Tienisto](https://github.com/Tienisto) |
+| [Amazon][]     | [@Tienisto](https://github.com/Tienisto) |
+
+[app store]: https://apps.apple.com/us/app/localsend/id1661733229
+[play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
+[amazon]: https://www.amazon.com/dp/B0BW6MP732
+
 ## Notes
 
 Useful notes.
+
+### Compile production APK
+
+You will need the signing keys to generate an APK.
+
+Either generate one or use the debug signing options:
+
+```groovy
+// File: android/app/build.gradle
+buildTypes {
+  release {
+    signingConfig signingConfigs.debug // using debug signing
+  }
+}
+```
 
 ### Bump Flutter
 

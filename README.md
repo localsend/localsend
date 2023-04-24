@@ -44,6 +44,8 @@ It is recommended to download the app either from an app store or from a package
 | [MSIX Installer][latest] |                         |                    |                |               |            |
 | [Portable ZIP][latest]   |                         |                    |                |               |            |
 
+Read more about [distribution channels][].
+
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
 [play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
@@ -56,6 +58,7 @@ It is recommended to download the app either from an app store or from a package
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
+[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
 ## How it Works
 
