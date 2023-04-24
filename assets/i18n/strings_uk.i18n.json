@@ -94,7 +94,7 @@
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
-      "destination": "Одержувач",
+      "destination": "Зберігати в теку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї"
     },
