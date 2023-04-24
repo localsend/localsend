@@ -2,48 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=uk' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "accepted": "Прийнято"
-  },
-  "sendTab": {
-    "picker": {
-      "folder": "Тека"
-    }
-  },
-  "receiveOptionsPage": {
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Вимкнено автоматично, оскільки є каталоги."
-  },
-  "webSharePage": {
-    "title": "Поділитися через посилання",
-    "loading": "Запуск сервера...",
-    "stopping": "Зупинка сервера...",
-    "error": "Під час запуску сервера сталася помилка.",
-    "hint": "Майте на увазі, що з'єднання незашифроване. Ви повинні використовувати цей метод, лише якщо одержувач не встановив LocalSend.",
-    "openLink": {
-      "one": "Відкрити це посилання в браузері:",
-      "other": "Відкрити одне з цих посилань в браузері:"
-    },
-    "requests": "Запити",
-    "noRequests": "Запитів поки що немає.",
-    "pendingRequests": "Запити, що очікують на розгляд: {n}"
-  },
-  "dialogs": {
-    "localNetworkUnauthorized": {
-      "title": "Немає дозволу",
-      "description": "LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.",
-      "gotoSettings": "Налаштування"
-    },
-    "qr": {
-      "title": "QR-код"
-    }
-  },
-  "web": {
-    "waiting": "@:sendPage.waiting",
-    "rejected": "Відхилено",
-    "files": "Файли",
-    "fileName": "Ім'я файлу",
-    "size": "Розмір"
-  }
+  ]
 }
