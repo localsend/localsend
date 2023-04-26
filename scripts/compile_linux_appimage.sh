@@ -1,5 +1,6 @@
 # REQUIREMENTS
-# (1) sudo apt install clang cmake libgtk-3-dev ninja-build
+# (1a) Flutter specific: sudo apt install curl clang cmake libgtk-3-dev ninja-build
+# (1b) Project specific: sudo apt install libayatana-appindicator3-dev # for system_tray
 # (2) Download from https://github.com/AppImageCrafters/appimage-builder/releases
 #     then sudo chmod +x appimage-builder-1.1.0-x86_64.AppImage && sudo mv appimage-builder-1.1.0-x86_64.AppImage /usr/local/bin/appimage-builder
 
