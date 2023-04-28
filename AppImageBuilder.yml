@@ -14,20 +14,24 @@ AppDir:
       - amd64
     allow_unauthenticated: true
     sources:
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy main restricted
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates main restricted
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy universe
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates universe
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy multiverse
-      - sourceline: deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates multiverse
-      - sourceline:
-          deb http://de.archive.ubuntu.com/ubuntu/ jammy-backports main restricted
-          universe multiverse
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy main restricted
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy universe
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy multiverse
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse
+      - sourceline: deb http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
       - sourceline: deb http://security.ubuntu.com/ubuntu jammy-security main restricted
       - sourceline: deb http://security.ubuntu.com/ubuntu jammy-security universe
       - sourceline: deb http://security.ubuntu.com/ubuntu jammy-security multiverse
     include:
-      - libc6:amd64
+      - libayatana-appindicator3-1:amd64
+      - librsvg2-common:amd64
+    exclude:
+      - adwaita-icon-theme:*
+  runtime:
+    env:
+      XDG_DATA_DIRS: '/usr/local/share/:/usr/share/:${XDG_DATA_DIRS}'
   files:
     include: []
     exclude:
