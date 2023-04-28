@@ -1,3 +1,9 @@
+## 1.9.1 (2023-)
+
+- fix: handle file names with special characters in link share mode
+- fix(android): fix status bar icon color after picking a media file
+- fix(linux): add libayatana-appindicator3-1 to AppImage dependencies (by @TheGB0077)
+
 ## 1.9.0 (2023-04-23)
 
 - feat: directory share
