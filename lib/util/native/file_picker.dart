@@ -124,7 +124,7 @@ enum FilePickerOption {
         try {
           final directoryPath = await FilePicker.platform.getDirectoryPath();
           if (directoryPath != null) {
-            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath, includeDirectory: false);
+            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
           }
         } catch (e) {
           print(e);
