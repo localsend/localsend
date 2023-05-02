@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Akzeptieren",
+    "accepted": "Akzeptiert",
     "add": "Hinzufügen",
     "advanced": "Erweitert",
     "cancel": "Abbrechen",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "Datei",
+      "folder": "Ordner",
       "media": "Medien",
       "text": "Text",
       "app": "App"
@@ -86,6 +88,7 @@
       "languageOptions": {
         "system": "System"
       },
+      "saveWindowPlacement": "Schließen: Fensterposition speichern",
       "minimizeToTray": "Schließen: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
       "launchMinimized": "Autostart: versteckt starten"
@@ -109,7 +112,7 @@
       "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Fehlerbehebung",
     "subTitle": "Diese App funktioniert nicht wie erwartet? Hier findest du häufige Lösungsansätze.",
     "solution": "Lösung:",
@@ -156,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Optionen",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend-Ordner)"
+    "appDirectory": "(LocalSend-Ordner)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
   },
   "sendPage": {
     "waiting": "Warte auf Antwort...",
@@ -178,6 +183,20 @@
       "size": "Größe: {curr} / {n}",
       "speed": "Geschwindigkeit: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Per Link teilen",
+    "loading": "Starte Server...",
+    "stopping": "Stoppe server...",
+    "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
+    "hint": "Beachte, dass die Verbindung unverschlüsselt ist. Du solltest nur diese Methode verwenden, wenn der Empfänger kein LocalSend installiert hat.",
+    "openLink": {
+      "one": "Öffne diesen Link im Browser:",
+      "other": "Öffne einer dieser Links im Browser:"
+    },
+    "requests": "Anfragen",
+    "noRequests": "Bisher keine Anfragen erhalten.",
+    "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
     "title": "Über LocalSend"
@@ -226,6 +245,11 @@
       "title": "Dateiname eingeben",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Keine Berechtigung",
+      "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",
+      "gotoSettings": "Einstellungen"
+    },
     "messageInput": {
       "title": "Nachricht eingeben",
       "multiline": "Mehrzeilig"
@@ -237,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "Nicht verfügbar",
       "content": "Diese Funktion ist nur verfügbar auf:"
+    },
+    "qr": {
+      "title": "QR-Code"
     },
     "quickActions": {
       "title": "Quick Actions",
@@ -260,5 +287,42 @@
   "tray": {
     "open": "@:general.open",
     "close": "LocalSend beenden"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Abgelehnt",
+    "files": "Dateien",
+    "fileName": "Dateiname",
+    "size": "Größe"
+  },
+  "assetPicker": {
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "gifIndicator": "GIF",
+    "loadFailed": "Ladevorgang ist fehlgeschlagen",
+    "original": "Ursprung",
+    "preview": "Vorschau",
+    "select": "Auswählen",
+    "emptyList": "Leere Liste",
+    "unSupportedAssetType": "Format ist nicht unterstützt.",
+    "unableToAccessAll": "Zugriff nicht möglich",
+    "viewingLimitedAssetsTip": "Zeigen Sie nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
+    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
+    "goToSystemSettings": "Gehe zu den Systemeinstellungen",
+    "accessLimitedAssets": "Fahre fort mit limitierten Zugriff",
+    "accessiblePathName": "Verfügbare Assets",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Bild",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Andere Medien",
+    "sActionPlayHint": "Abspielen",
+    "sActionPreviewHint": "Vorschau",
+    "sActionSelectHint": "Auswählen",
+    "sActionSwitchPathLabel": "Dateipfad ändern",
+    "sActionUseCameraHint": "Kamera benutzen",
+    "sNameDurationLabel": "Dauer",
+    "sUnitAssetCountLabel": "Anzahl"
   }
 }

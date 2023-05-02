@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
@@ -60,13 +60,20 @@ ThemeData getTheme(Brightness brightness) {
   );
 }
 
-void updateSystemOverlayStyle(BuildContext context) {
+Future<void> updateSystemOverlayStyle(BuildContext context) async {
   final brightness = Theme.of(context).brightness;
+  await updateSystemOverlayStyleWithBrightness(brightness);
+}
+
+Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async {
   final style = SystemUiOverlayStyle(
-    // statusBarColor: Colors.white, // android
     statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light, // android
     statusBarBrightness: brightness, // iOS
+    systemNavigationBarColor: Colors.transparent,
+    statusBarColor: Colors.transparent,
   );
+
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(style);
 }
 

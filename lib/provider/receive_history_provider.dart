@@ -3,15 +3,20 @@ import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 
-final receiveHistoryProvider = StateNotifierProvider<ReceiveHistoryNotifier, List<ReceiveHistoryEntry>>((ref) {
-  final persistenceService = ref.watch(persistenceProvider);
-  return ReceiveHistoryNotifier(persistenceService);
+final receiveHistoryProvider = NotifierProvider<ReceiveHistoryNotifier, List<ReceiveHistoryEntry>>(() {
+  return ReceiveHistoryNotifier();
 });
 
-class ReceiveHistoryNotifier extends StateNotifier<List<ReceiveHistoryEntry>> {
-  final PersistenceService _service;
+class ReceiveHistoryNotifier extends Notifier<List<ReceiveHistoryEntry>> {
+  late PersistenceService _service;
 
-  ReceiveHistoryNotifier(this._service) : super(_service.getReceiveHistory());
+  ReceiveHistoryNotifier();
+
+  @override
+  List<ReceiveHistoryEntry> build() {
+    _service = ref.watch(persistenceProvider);
+    return _service.getReceiveHistory();
+  }
 
   Future<void> addEntry({
     required String id,

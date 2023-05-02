@@ -2,7 +2,10 @@
 
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
 
-[![CI status](https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg)](https://github.com/localsend/localsend/actions/workflows/ci.yml)
+[![CI status][ci-badge]][ci-workflow]
+
+[ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
+[ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
 Links: [Homepage](https://localsend.org)
 
@@ -17,7 +20,7 @@ Links: [Homepage](https://localsend.org)
 - [Building](#building)
   - [Android](#android)
   - [iOS](#ios)
-  - [MacOS](#macos)
+  - [macOS](#macos)
   - [Windows](#windows)
   - [Linux](#linux)
 
@@ -27,21 +30,35 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 ## Screenshots
 
-<img src="https://localsend.org/img/screenshot-iphone.png" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.png" alt="PC screenshot" height="300"/>
+<img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
 ## Download
 
 It is recommended to download the app either from an app store or from a package manager because the app does not have auto-update.
 
-On Windows, the store version is not available anymore: https://github.com/localsend/localsend/issues/220
+| Windows                  | macOS                   | Linux              | Andoid         | iOS           | Fire OS    |
+|--------------------------|-------------------------|--------------------|----------------|---------------|------------|
+| [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
+| [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [AppImage][latest] | [APK][latest]  |               |            |
+| [MSIX Installer][latest] |                         |                    |                |               |            |
+| [Portable ZIP][latest]   |                         |                    |                |               |            |
 
-| Windows                                                                                        | MacOS                                                             | Linux                                                                   | Andoid                                                                                  | iOS                                                               | Fire OS                                        |
-|------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------|------------------------------------------------|
-| [Windows Store](https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR)                             | [App Store](https://apps.apple.com/us/app/localsend/id1661733229) | [Flathub](https://flathub.org/apps/details/org.localsend.localsend_app) | [Play Store](https://play.google.com/store/apps/details?id=org.localsend.localsend_app) | [App Store](https://apps.apple.com/us/app/localsend/id1661733229) | [Amazon](https://www.amazon.com/dp/B0BW6MP732) |
-| [Winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend) | [DMG Installer](https://github.com/localsend/localsend/releases)  | [AUR](https://aur.archlinux.org/packages/localsend-bin)                 | [F-Droid](https://f-droid.org/packages/org.localsend.localsend_app)                     |                                                                   |                                                |
-| [Scoop](https://github.com/ScoopInstaller/Extras/blob/master/bucket/localsend.json)            |                                                                   | [AppImage](https://github.com/localsend/localsend/releases)             | [APK](https://github.com/localsend/localsend/releases)                                  |                                                                   |                                                |
-| [MSIX Installer](https://github.com/localsend/localsend/releases)                              |                                                                   |                                                                         |                                                                                         |                                                                   |                                                |
-| [Portable ZIP](https://github.com/localsend/localsend/releases)                                |                                                                   |                                                                         |                                                                                         |                                                                   |                                                |
+Read more about [distribution channels][].
+
+[windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
+[app store]: https://apps.apple.com/us/app/localsend/id1661733229
+[play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
+[f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
+[amazon]: https://www.amazon.com/dp/B0BW6MP732
+[winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
+[scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=localsend&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
+[chocolatey]: https://community.chocolatey.org/packages/localsend
+[homebrew]: https://github.com/localsend/homebrew-localsend
+[flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
+[aur]: https://aur.archlinux.org/packages/localsend-bin
+[latest]: https://github.com/localsend/localsend/releases/latest
+[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
 ## How it Works
 
@@ -51,7 +68,7 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 
 ## Getting Started
 
-To get started with LocalSend, follow these steps:
+To start LocalSend from source code, follow these steps:
 
 1. Install [Flutter](https://flutter.dev)
 2. Clone the LocalSend repository
@@ -69,19 +86,24 @@ You can help translating this app to other languages!
 
 1. Fork this repository
 2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n][i18n]
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n][i18n]
+   - Add new languages: Create a new file, see also: [locale codes][].
 3. Optional: Re-run this app
    1. Make sure you have [run](#getting-started) this app once.
    2. Update translations via `flutter pub run slang`
    3. Run app via `flutter run`
 4. Open a pull request
 
+[i18n]: https://github.com/localsend/localsend/tree/main/assets/i18n
+[locale codes]: https://saimana.com/list-of-country-locale-code/
+
+#### _Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+
 ### Bug fixes and improvements
 
 - **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
-- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first so we can discuss why the improvement is needed.
+- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first, so we can discuss why the improvement is needed.
 
 For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
@@ -109,7 +131,7 @@ flutter build appbundle
 flutter build ipa
 ```
 
-### MacOS
+### macOS
 
 ```bash
 flutter build macos
@@ -152,3 +174,9 @@ appimage-builder --recipe AppImageBuilder.yml
 **Snap**
 
 Feel free to open a pull request. There is a `snap` branch to play with.
+
+## Contributors
+
+<a href="https://github.com/localsend/localsend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
+</a>

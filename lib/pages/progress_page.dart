@@ -9,14 +9,15 @@ import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
-import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -155,7 +156,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
             ListView.builder(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 20,
-                bottom: 150,
+                bottom: 150 + getNavBarPadding(context),
                 left: 15,
                 right: 30,
               ),

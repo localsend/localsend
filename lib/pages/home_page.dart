@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:desktop_drop/desktop_drop.dart';
@@ -8,7 +9,6 @@ import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
-import 'package:localsend_app/pages/tabs/troubleshoot_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
@@ -16,8 +16,7 @@ import 'package:localsend_app/widget/responsive_builder.dart';
 enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
-  settings(Icons.settings),
-  troubleshoot(Icons.healing);
+  settings(Icons.settings);
 
   const HomeTab(this.icon);
 
@@ -31,8 +30,6 @@ enum HomeTab {
         return t.sendTab.title;
       case HomeTab.settings:
         return t.settingsTab.title;
-      case HomeTab.troubleshoot:
-        return t.troubleshootTab.title;
     }
   }
 }
@@ -94,10 +91,16 @@ class _HomePageState extends ConsumerState<HomePage> {
         });
       },
       onDragDone: (event) async {
-        await ref.read(selectedSendingFilesProvider.notifier).addFiles(
-              files: event.files,
-              converter: CrossFileConverters.convertXFile,
-            );
+        if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
+          // user dropped a directory
+          await ref.read(selectedSendingFilesProvider.notifier).addDirectory(event.files.first.path);
+        } else {
+          // user dropped one or more files
+          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
+            files: event.files,
+            converter: CrossFileConverters.convertXFile,
+          );
+        }
         _goToPage(HomeTab.send.index);
       },
       child: ResponsiveBuilder(
@@ -142,7 +145,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ReceiveTab(),
                             SendTab(),
                             SettingsTab(),
-                            TroubleshootTab(showTitle: true),
                           ],
                         ),
                         if (_dragAndDropIndicator)
@@ -170,13 +172,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ? NavigationBar(
                     selectedIndex: sizingInformation.isMobile ? min(_currentTab.index, 2) : _currentTab.index,
                     onDestinationSelected: _goToPage,
-                    destinations: [
-                      HomeTab.receive,
-                      HomeTab.send,
-                      HomeTab.settings,
-                      if (sizingInformation.isTabletOrDesktop)
-                        HomeTab.troubleshoot,
-                    ].map((tab) {
+                    destinations: HomeTab.values.map((tab) {
                       return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
                     }).toList(),
                   )

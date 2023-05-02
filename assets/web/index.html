@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalSend</title>
+    <style>
+        :root {
+            --grey: #E0E0E0;
+            --teal: #00796B;
+            --teal-light: #009688;
+            --white: #FFFFFF;
+            --p-1: 0.5rem;
+            --p-2: 1rem;
+        }
+
+        body {
+            font-family: sans-serif, system-ui;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        #file-list {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 var(--p-2);
+
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: var(--p-2);
+            row-gap: var(--p-2);
+        }
+
+        .file-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-basis: 100%;
+            padding: var(--p-1) var(--p-2);
+            background-color: var(--teal);
+            border-radius: 0.5rem;
+        }
+
+        .file-item:hover {
+            background-color: var(--teal-light);
+        }
+
+        .file-name-cell {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .file-size-cell, .file-index-cell {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            color: var(--grey);
+            font-size: 0.8rem;
+        }
+
+        .file-index-cell {
+            margin-right: var(--p-1);
+        }
+
+        /* Show 2 columns on tablet and up */
+        @media (min-width: 768px) {
+            .file-item {
+                flex-basis: calc(50% - (var(--p-2) * 2.5));
+            }
+        }
+
+        /* Single file mode */
+
+        #single-file {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 400px;
+            padding: var(--p-2);
+        }
+
+        #single-file .file-item {
+            box-sizing: border-box;
+            width: 100%;
+        }
+    </style>
+    <script src="main.js" defer></script>
+</head>
+<body>
+<noscript>
+    This site requires JavaScript. I will only be visible if you have it disabled.
+</noscript>
+
+<h1 style="padding: var(--p-1)">LocalSend</h1>
+<p id="status-text"></p>
+<div id="file-list"></div>
+<div id="single-file"></div>
+</body>
+</html>

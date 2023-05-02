@@ -4,7 +4,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 /// Saves the data [stream] to the [destinationPath].
-/// [onProgress] will be called on every 100 KB.
+/// [onProgress] will be called on every 100 ms.
 Future<void> saveFile({
   required String destinationPath,
   required String name,

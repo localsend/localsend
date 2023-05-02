@@ -7,8 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
-import 'package:localsend_app/model/dto/info_dto.dart';
-import 'package:localsend_app/model/dto/send_request_dto.dart';
+import 'package:localsend_app/model/dto/info_register_dto.dart';
+import 'package:localsend_app/model/dto/multicast_dto.dart';
+import 'package:localsend_app/model/dto/prepare_upload_request_dto.dart';
+import 'package:localsend_app/model/dto/prepare_upload_response_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -29,16 +31,21 @@ import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
-/// The provider for **sending** files.
-/// The opposite of [serverProvider].
-final sendProvider = StateNotifierProvider<SendNotifier, Map<String, SendSessionState>>((ref) {
-  return SendNotifier(ref);
+/// This provider manages sending files to other devices.
+///
+/// In contrast to [serverProvider], this provider does not manage a server.
+/// Instead, it only does HTTP requests to other servers.
+final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState>>(() {
+  return SendNotifier();
 });
 
-class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
-  final Ref _ref;
+class SendNotifier extends Notifier<Map<String, SendSessionState>> {
+  SendNotifier();
 
-  SendNotifier(this._ref) : super({});
+  @override
+  Map<String, SendSessionState> build() {
+    return {};
+  }
 
   /// Starts a session.
   /// If [background] is true, then the session closes itself on success and no pages will be open
@@ -48,13 +55,14 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final requestDio = _ref.read(dioProvider(DioType.longLiving));
-    final uploadDio = _ref.read(dioProvider(DioType.longLiving));
+    final requestDio = ref.read(dioProvider(DioType.longLiving));
+    final uploadDio = ref.read(dioProvider(DioType.longLiving));
     final cancelToken = CancelToken();
     final sessionId = _uuid.v4();
 
     final requestState = SendSessionState(
       sessionId: sessionId,
+      remoteSessionId: null,
       background: background,
       status: SessionStatus.waiting,
       target: target,
@@ -68,9 +76,11 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
               fileName: file.name,
               size: file.size,
               fileType: file.fileType,
+              hash: null,
               preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
                   ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
                   : null,
+              legacy: target.version == '1.0',
             ),
             status: FileStatus.queue,
             token: null,
@@ -87,15 +97,20 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       errorMessage: null,
     );
 
-    final originDevice = _ref.read(deviceInfoProvider);
-    final requestDto = SendRequestDto(
-      info: InfoDto(
+    final originDevice = ref.read(deviceInfoProvider);
+    final requestDto = PrepareUploadRequestDto(
+      info: InfoRegisterDto(
         alias: originDevice.alias,
+        version: originDevice.version,
         deviceModel: originDevice.deviceModel,
         deviceType: originDevice.deviceType,
+        fingerprint: originDevice.fingerprint,
+        port: originDevice.port,
+        protocol: originDevice.https ? ProtocolType.https : ProtocolType.http,
+        download: originDevice.download,
       ),
       files: {
-        for (final file in requestState.files.values) file.file.id: file.file,
+        for (final entry in requestState.files.entries) entry.key: entry.value.file,
       },
     );
 
@@ -115,8 +130,8 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     final Response response;
     try {
       response = await requestDio.post(
-        ApiRoute.sendRequest.target(target),
-        data: requestDto.toJson(),
+        ApiRoute.prepareUpload.target(target),
+        data: jsonEncode(requestDto), // jsonEncode for better logging
         cancelToken: cancelToken,
       );
     } catch (e) {
@@ -146,27 +161,62 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
       return;
     }
 
-    final responseMap = response.data as Map;
-    if (responseMap.isEmpty) {
+    final Map<String, String> fileMap;
+    if (target.version == '1.0') {
+      fileMap = (response.data as Map).cast<String, String>();
+    } else {
+      if (response.statusCode == 204) {
+        // Nothing selected
+        // Interpret this as "Read and close"
+        fileMap = {};
+      } else {
+        try {
+          final responseDto = PrepareUploadResponseDto.fromJson(response.data);
+          fileMap = responseDto.files;
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(
+              remoteSessionId: responseDto.sessionId,
+            ),
+          );
+        } catch (e) {
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(
+              status: SessionStatus.finishedWithErrors,
+              errorMessage: e.humanErrorMessage,
+            ),
+          );
+          return;
+        }
+      }
+    }
+
+    if (fileMap.isEmpty) {
       // receiver has nothing selected
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(
+          status: SessionStatus.finished,
+        ),
+      );
 
       if (state[sessionId]?.background == false) {
         // ignore: use_build_context_synchronously, unawaited_futures
         Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
       }
 
-      state = state.removeSession(_ref, sessionId);
+      closeSession(sessionId);
       return;
     }
 
     final sendingFiles = {
       for (final file in requestState.files.values)
-        file.file.id:
-            responseMap.containsKey(file.file.id) ? file.copyWith(token: responseMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
+        file.file.id: fileMap.containsKey(file.file.id) ? file.copyWith(token: fileMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
     };
 
     if (state[sessionId]?.background == false) {
-      final background = _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
+      final background = ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
 
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushAndRemoveUntil(
@@ -193,6 +243,7 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
 
   Future<void> _send(String sessionId, Dio dio, Device target, Map<String, SendingFile> files) async {
     bool hasError = false;
+    final remoteSessionId = state[sessionId]!.remoteSessionId;
 
     state = state.updateSession(
       sessionId: sessionId,
@@ -218,26 +269,39 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
           sessionId: sessionId,
           state: (s) => s?.copyWith(cancelToken: cancelToken),
         );
+        final stopwatch = Stopwatch()..start();
         await dio.post(
-          ApiRoute.send.target(target, query: {
+          ApiRoute.upload.target(target, query: {
+            if (remoteSessionId != null) 'sessionId': remoteSessionId,
             'fileId': file.file.id,
             'token': token,
           }),
           options: Options(
             headers: {
               'Content-Length': file.file.size,
+              'Content-Type': file.file.lookupMime(),
             },
           ),
           data: file.path != null ? File(file.path!).openRead() : Stream.fromIterable([file.bytes!]),
           onSendProgress: (curr, total) {
-            _ref.read(progressProvider.notifier).setProgress(
-                  sessionId: sessionId,
-                  fileId: file.file.id,
-                  progress: curr / total,
-                );
+            if (stopwatch.elapsedMilliseconds >= 100) {
+              stopwatch.reset();
+              ref.read(progressProvider.notifier).setProgress(
+                    sessionId: sessionId,
+                    fileId: file.file.id,
+                    progress: curr / total,
+                  );
+            }
           },
           cancelToken: cancelToken,
         );
+
+        // set progress to 100% when successfully finished
+        ref.read(progressProvider.notifier).setProgress(
+              sessionId: sessionId,
+              fileId: file.file.id,
+              progress: 1,
+            );
       } catch (e, st) {
         fileError = e.humanErrorMessage;
         hasError = true;
@@ -252,8 +316,10 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     }
 
     if (!hasError && state[sessionId]?.background == true) {
-      state = state.removeSession(_ref, sessionId);
+      // close session because everything is fine and it is in background
+      closeSession(sessionId);
     } else {
+      // keep session alive when there are errors or currently in foreground
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.copyWith(
@@ -272,25 +338,40 @@ class SendNotifier extends StateNotifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
-    final target = sessionState.target;
+    final remoteSessionId = sessionState.remoteSessionId;
     sessionState.cancelToken?.cancel(); // cancel current request
-    state = state.removeSession(_ref, sessionId);
-    if (sessionState.status == SessionStatus.finished && _ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
-      // clear selected files
-      _ref.read(selectedSendingFilesProvider.notifier).reset();
-    }
 
     // notify the receiver
     unawaited(
-      _ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(target)).then((_) {}).catchError((e) {
+      ref
+          .read(dioProvider(DioType.discovery))
+          .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null))
+          .then((_) {})
+          .catchError((e) {
         print(e);
       }),
     );
+
+    // finally, close session locally
+    closeSession(sessionId);
+  }
+
+  /// Closes the session
+  void closeSession(String sessionId) {
+    final sessionState = state[sessionId];
+    if (sessionState == null) {
+      return;
+    }
+    state = state.removeSession(ref, sessionId);
+    if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
+      // clear selected files
+      ref.read(selectedSendingFilesProvider.notifier).reset();
+    }
   }
 
   void clearAllSessions() {
     state = {};
-    _ref.read(progressProvider.notifier).removeAllSessions();
+    ref.read(progressProvider.notifier).removeAllSessions();
   }
 
   void setBackground(String sessionId, bool background) {

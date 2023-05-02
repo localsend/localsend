@@ -6,7 +6,7 @@
 # Check Build ID via "readelf --wide --notes libapp.so"
 
 # REQUIREMENTS
-# (1) sudo apt install sdkmanager
+# (1) sudo apt install openjdk-11-jdk sdkmanager
 # (2) sudo chown -R <user> /opt/android-sdk
 # (3) sdkmanager "platform-tools" "platforms;android-33"
 # (4) sdkmanager --licenses
@@ -15,13 +15,12 @@
 # git reset --hard origin/main
 # git pull
 
-git submodule update --init
-
 cd ..
 rm -rf /tmp/build
 cp localsend /tmp/build -r
 pushd /tmp/build
 
+git submodule update --init
 alias flutter='submodules/flutter/bin/flutter'
 flutter config --no-analytics
 flutter pub get

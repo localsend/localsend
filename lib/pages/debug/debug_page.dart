@@ -3,13 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localsend_app/pages/debug/multicast_debug_page.dart';
+import 'package:localsend_app/pages/debug/discovery_debug_page.dart';
+import 'package:localsend_app/pages/debug/http_logs_page.dart';
+import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
-import 'package:localsend_app/provider/fingerprint_provider.dart';
-import 'package:localsend_app/widget/copyable_text.dart';
+import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:routerino/routerino.dart';
-
-const _headerStyle = TextStyle(fontWeight: FontWeight.bold);
 
 class DebugPage extends ConsumerWidget {
   const DebugPage({Key? key}) : super(key: key);
@@ -17,7 +16,6 @@ class DebugPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appArguments = ref.watch(appArgumentsProvider);
-    final fingerprint = ref.watch(fingerprintProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Debugging'),
@@ -25,32 +23,36 @@ class DebugPage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 30),
         children: [
-          _DebugEntry(
+          DebugEntry(
             name: 'Debug Mode',
             value: kDebugMode.toString(),
           ),
-          _DebugEntry(
-            name: 'Fingerprint (generated randomly on app start)',
-            value: fingerprint,
-          ),
-          _DebugEntry(
+          DebugEntry(
             name: 'App Arguments',
             value: appArguments.isEmpty ? null : appArguments.join(' '),
           ),
-          _DebugEntry(
+          DebugEntry(
             name: 'Dart SDK',
             value: Platform.version,
           ),
           const SizedBox(height: 20),
-          const Text('More', style: _headerStyle),
+          const Text('More', style: DebugEntry.headerStyle),
           const SizedBox(height: 5),
-          Row(
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
             children: [
               ElevatedButton(
-                onPressed: () async {
-                  await context.push(() => const MulticastDebugPage());
-                },
-                child: const Text('Multicast'),
+                onPressed: () async => context.push(() => const SecurityDebugPage()),
+                child: const Text('Security'),
+              ),
+              ElevatedButton(
+                onPressed: () async => context.push(() => const DiscoveryDebugPage()),
+                child: const Text('Discovery'),
+              ),
+              ElevatedButton(
+                onPressed: () async => context.push(() => const HttpLogsPage()),
+                child: const Text('HTTP Logs'),
               ),
             ],
           ),
@@ -60,27 +62,4 @@ class DebugPage extends ConsumerWidget {
   }
 }
 
-class _DebugEntry extends StatelessWidget {
-  final String name;
-  final String? value;
 
-  const _DebugEntry({
-    required this.name,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 20),
-        Text(name, style: _headerStyle),
-        CopyableText(
-          name: name,
-          value: value,
-        ),
-      ],
-    );
-  }
-}

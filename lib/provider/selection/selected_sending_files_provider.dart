@@ -8,8 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/util/cache_helper.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -18,12 +19,17 @@ const _uuid = Uuid();
 
 /// Manages files selected for sending.
 /// Will stay alive even after a session has been completed to send the same files to another device.
-final selectedSendingFilesProvider = StateNotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
+final selectedSendingFilesProvider = NotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>(() {
   return SelectedSendingFilesNotifier();
 });
 
-class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
-  SelectedSendingFilesNotifier() : super([]);
+class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
+  SelectedSendingFilesNotifier();
+
+  @override
+  List<CrossFile> build() {
+    return [];
+  }
 
   /// Add a simple message
   /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8
@@ -47,13 +53,44 @@ class SelectedSendingFilesNotifier extends StateNotifier<List<CrossFile>> {
     required Iterable<T> files,
     required Future<CrossFile> Function(T) converter,
   }) async {
-    final tempList = [...state];
+    final newFiles = <CrossFile>[];
     for (final file in files) {
       // we do it sequential because there are bugs
       // https://github.com/fluttercandies/flutter_photo_manager/issues/589
-      tempList.add(await converter(file));
+      newFiles.add(await converter(file));
     }
-    state = List.unmodifiable(tempList);
+    state = List.unmodifiable([
+      ...state,
+      ...newFiles,
+    ]);
+  }
+
+  /// Adds files inside the directory recursively.
+  /// If [includeDirectory] is true, the directory itself will be added as part of each file path.
+  Future<void> addDirectory(String directoryPath) async {
+    print('Reading files in $directoryPath');
+    final newFiles = <CrossFile>[];
+    final directoryName = p.basename(directoryPath);
+    await for (final entity in Directory(directoryPath).list(recursive: true)) {
+      if (entity is File) {
+        final relative = '$directoryName/${p.relative(entity.path, from: directoryPath).replaceAll('\\', '/')}';
+        print('Add file $relative');
+        final file = CrossFile(
+          name: relative,
+          fileType: relative.guessFileType(),
+          size: entity.lengthSync(),
+          thumbnail: null,
+          asset: null,
+          path: entity.path,
+          bytes: null,
+        );
+        newFiles.add(file);
+      }
+    }
+    state = List.unmodifiable([
+      ...state,
+      ...newFiles,
+    ]);
   }
 
   void removeAt(int index) {

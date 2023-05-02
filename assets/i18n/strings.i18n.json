@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
+    "accepted": "Accepted",
     "add": "Add",
     "advanced": "Advanced",
     "cancel": "Cancel",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "File",
+      "folder": "Folder",
       "media": "Media",
       "text": "Text",
       "app": "App"
@@ -86,6 +88,7 @@
       "languageOptions": {
         "system": "System"
       },
+      "saveWindowPlacement": "Quit: Save window placement",
       "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden"
@@ -109,7 +112,7 @@
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     }
   },
-  "troubleshootTab": {
+  "troubleshootPage": {
     "title": "Troubleshoot",
     "subTitle": "This app does not work as expected? Here you can find common solutions.",
     "solution": "Solution:",
@@ -156,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are directories."
   },
   "sendPage": {
     "waiting": "Waiting for response...",
@@ -178,6 +183,20 @@
       "size": "Size: {curr} / {n}",
       "speed": "Speed: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "openLink": {
+      "one": "Open this link in the browser:",
+      "other": "Open one of these links in the browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet.",
+    "pendingRequests": "Pending requests: {n}"
   },
   "aboutPage": {
     "title": "About LocalSend"
@@ -296,6 +315,11 @@
       "title": "Enter file name",
       "original": "Original: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "No permission",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
     "messageInput": {
       "title": "Type message",
       "multiline": "Multiline"
@@ -307,6 +331,9 @@
     "notAvailableOnPlatform": {
       "title": "Not available",
       "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
     },
     "quickActions": {
       "title": "Quick Actions",
@@ -331,5 +358,43 @@
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Quit LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "gifIndicator": "GIF",
+    "loadFailed": "Load failed",
+    "original": "Origin",
+    "preview": "Preview",
+    "select": "Select",
+    "emptyList": "Empty list",
+    "unSupportedAssetType": "Unsupported file type.",
+    "unableToAccessAll": "Unable to access all files on the device",
+    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
+    "changeAccessibleLimitedAssets": "Click to update accessible files",
+    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
+    "goToSystemSettings": "Go to system settings",
+    "accessLimitedAssets": "Continue with limited access",
+    "accessiblePathName": "Accessible files",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Image",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Other media",
+    "sActionPlayHint": "play",
+    "sActionPreviewHint": "preview",
+    "sActionSelectHint": "select",
+    "sActionSwitchPathLabel": "change path",
+    "sActionUseCameraHint": "use camera",
+    "sNameDurationLabel": "duration",
+    "sUnitAssetCountLabel": "count"
   }
 }

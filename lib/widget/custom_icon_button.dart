@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:localsend_app/util/platform_check.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 
 class CustomIconButton extends StatelessWidget {
   final VoidCallback? onPressed;

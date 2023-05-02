@@ -3,22 +3,22 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/network/server_provider.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/cache_helper.dart';
-import 'package:localsend_app/util/platform_check.dart';
-import 'package:localsend_app/util/snackbar.dart';
-import 'package:localsend_app/util/tray_helper.dart';
+import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:routerino/routerino.dart';
-import 'package:screen_retriever/screen_retriever.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -29,13 +29,6 @@ Future<PersistenceService> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final persistenceService = await PersistenceService.initialize();
-
-  final locale = persistenceService.getLocale();
-  if (locale == null) {
-    LocaleSettings.useDeviceLocale();
-  } else {
-    LocaleSettings.setLocale(locale);
-  }
 
   // Register default plural resolver
   for (final locale in AppLocale.values) {
@@ -64,12 +57,20 @@ Future<PersistenceService> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final dio = createDio(DioType.startupCheckAnotherInstance);
+    final dio = createDio(DioType.startupCheckAnotherInstance, persistenceService.getSecurityContext());
 
     try {
-      await dio.post(ApiRoute.show.targetRaw('127.0.0.1', persistenceService.getPort(), persistenceService.isHttps()), queryParameters: {
-        'token': persistenceService.getShowToken(),
-      });
+      await dio.post(
+        ApiRoute.show.targetRaw(
+          '127.0.0.1',
+          persistenceService.getPort(),
+          persistenceService.isHttps(),
+          peerProtocolVersion,
+        ),
+        queryParameters: {
+          'token': persistenceService.getShowToken(),
+        },
+      );
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
 
@@ -77,19 +78,15 @@ Future<PersistenceService> preInit(List<String> args) async {
     Routerino.transition = RouterinoTransition.cupertino;
 
     // initialize tray AFTER i18n has been initialized
-    await initTray();
+    try {
+      await initTray();
+    } catch (e) {
+      print('Initializing tray failed: $e');
+    }
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
-    await WindowManager.instance.setMinimumSize(const Size(400, 500));
-    final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-    final width = (primaryDisplay.visibleSize ?? primaryDisplay.size).width;
-    if (width >= 1200) {
-      // make initial window size bigger as our display is big enough
-      await WindowManager.instance.setSize(const Size(900, 600));
-    }
-    await WindowManager.instance.center();
-
+    await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
     if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
@@ -104,17 +101,14 @@ StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
 Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void Function(int) goToPage) async {
-  updateSystemOverlayStyle(context);
+  await updateSystemOverlayStyle(context);
 
-  final settings = ref.read(settingsProvider);
   try {
-    await ref.read(serverProvider.notifier).startServer(
-          alias: settings.alias,
-          port: settings.port,
-          https: settings.https,
-        );
+    await ref.read(serverProvider.notifier).startServerFromSettings();
   } catch (e) {
-    context.showSnackBar(e.toString());
+    if (context.mounted) {
+      context.showSnackBar(e.toString());
+    }
   }
 
   try {

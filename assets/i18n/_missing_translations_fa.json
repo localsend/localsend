@@ -1,0 +1,6 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <fa>.",
+    "After editing this file, you can run 'flutter pub run slang apply --locale=fa' to quickly apply the newly added translations."
+  ]
+}

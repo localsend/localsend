@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/util/platform_check.dart';
-import 'package:localsend_app/util/tray_helper.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:tray_manager/tray_manager.dart';
 
 class TrayWatcher extends StatefulWidget {

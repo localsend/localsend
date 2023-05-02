@@ -1,26 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:basic_utils/basic_utils.dart';
-
-/// Holds all necessary data for deploying a self signed HTTPS server
-class SecurityContextResult {
-  /// Private key - equivalent to privkey.pem
-  final String privateKey; // privkey.pem
-
-  /// Public key - equivalent to cert.pem
-  final String publicKey;
-
-  /// Certificate - equivalent to chain.pem (but only containing the leaf certificate)
-  final String certificate;
-
-  SecurityContextResult({
-    required this.privateKey,
-    required this.publicKey,
-    required this.certificate,
-  });
-}
+import 'package:localsend_app/model/persistence/stored_security_context.dart';
 
 /// Generates a random [SecurityContextResult].
-SecurityContextResult generateSecurityContext() {
-  final keyPair = CryptoUtils.generateRSAKeyPair();
+StoredSecurityContext generateSecurityContext([AsymmetricKeyPair? keyPair]) {
+  keyPair ??= CryptoUtils.generateRSAKeyPair();
   final privateKey = keyPair.privateKey as RSAPrivateKey;
   final publicKey = keyPair.publicKey as RSAPublicKey;
   final dn = {
@@ -32,9 +18,30 @@ SecurityContextResult generateSecurityContext() {
     'C': '',
   };
   final csr = X509Utils.generateRsaCsrPem(dn, privateKey, publicKey);
-  return SecurityContextResult(
+  final certificate = X509Utils.generateSelfSignedCertificate(keyPair.privateKey, csr, 365 * 10);
+  final hash = calculateHashOfCertificate(certificate);
+
+  return StoredSecurityContext(
     privateKey: CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(privateKey),
     publicKey: CryptoUtils.encodeRSAPublicKeyToPemPkcs1(publicKey),
-    certificate: X509Utils.generateSelfSignedCertificate(keyPair.privateKey, csr, 1),
+    certificate: certificate,
+    certificateHash: hash,
   );
 }
+
+/// Calculates the hash of a certificate.
+String calculateHashOfCertificate(String certificate) {
+  // Convert PEM to DER
+  final pemContent = certificate
+      .replaceAll('\r\n', '\n').split('\n')
+      .where((line) => line.isNotEmpty && !line.startsWith('---'))
+      .join();
+  final der = base64Decode(pemContent);
+
+  // Calculate hash
+  return CryptoUtils.getHash(
+    Uint8List.fromList(der),
+    algorithmName: 'SHA-256',
+  );
+}
+
