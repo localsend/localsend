@@ -88,7 +88,7 @@
       "languageOptions": {
         "system": "Системный"
       },
-	  "saveWindowPlacement": "Сохранить расположение окна после закрытия",
+      "saveWindowPlacement": "Сохранить расположение окна после закрытия",
       "minimizeToTray": "Закрыть: свернуть в трей",
       "launchAtStartup": "Автозагрузка",
       "launchMinimized": "Скрытая автозагрузка"
