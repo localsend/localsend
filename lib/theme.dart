@@ -62,6 +62,10 @@ ThemeData getTheme(Brightness brightness) {
 
 Future<void> updateSystemOverlayStyle(BuildContext context) async {
   final brightness = Theme.of(context).brightness;
+  await updateSystemOverlayStyleWithBrightness(brightness);
+}
+
+Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async {
   final style = SystemUiOverlayStyle(
     statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light, // android
     statusBarBrightness: brightness, // iOS

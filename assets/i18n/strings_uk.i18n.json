@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Прийняти",
+    "accepted": "Прийнято",
     "add": "Додати",
     "advanced": "Поліпшений",
     "cancel": "Скасувати",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "Файл",
+      "folder": "Тека",
       "media": "Медіа",
       "text": "Текст",
       "app": "Додаток"
@@ -69,7 +71,7 @@
       "link": "Поділіться через посилання"
     },
     "sendModeHelp": "Довідка",
-    "help": "Будь ласка, переконайтесь, що одержувач перебуває в тій же ж мережі Wi-Fi, що і відправник",
+    "help": "Будь ласка, переконайтесь, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник",
     "placeItems": "Додайте сюди файли, щоб поділитися"
   },
   "settingsTab": {
@@ -94,7 +96,7 @@
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
-      "destination": "Одержувач",
+      "destination": "Зберігати в теку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї"
     },
@@ -157,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Опції отримання повідомлення",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Тека LocalSend)"
+    "appDirectory": "(Тека LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Вимкнено автоматично, оскільки є каталоги."
   },
   "sendPage": {
     "waiting": "Очікування відповіді",
@@ -179,6 +183,20 @@
       "size": "Розмір: {curr} / {n}",
       "speed": "Швидкість: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Поділитися через посилання",
+    "loading": "Запуск сервера...",
+    "stopping": "Зупинка сервера...",
+    "error": "Під час запуску сервера сталася помилка.",
+    "hint": "Майте на увазі, що з'єднання незашифроване. Ви повинні використовувати цей метод, лише якщо одержувач не встановив LocalSend.",
+    "openLink": {
+      "one": "Відкрити це посилання в браузері:",
+      "other": "Відкрити одне з цих посилань в браузері:"
+    },
+    "requests": "Запити",
+    "noRequests": "Запитів поки що немає.",
+    "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
   "aboutPage": {
     "title": "Про LocalSend"
@@ -227,6 +245,11 @@
       "title": "Введіть ім'я файлу",
       "original": "Оригінальне ім'я файлу: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Немає дозволу",
+      "description": "LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.",
+      "gotoSettings": "Налаштування"
+    },
     "messageInput": {
       "title": "Введіть повідомлення",
       "multiline": "Декілька рядків"
@@ -238,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "Недоступний",
       "content": "Ця функція доступна лише для:"
+    },
+    "qr": {
+      "title": "QR-код"
     },
     "quickActions": {
       "title": "Швидкі дії",
@@ -262,6 +288,13 @@
     "@info": "Посібник з розробки від Apple (Apple Guidelines) дуже суворо ставиться до формулювання 'закрити'",
     "open": "@:general.open",
     "close": "Вихід із LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Відхилено",
+    "files": "Файли",
+    "fileName": "Ім'я файлу",
+    "size": "Розмір"
   },
   "assetPicker": {
     "confirm": "Підтвердити",

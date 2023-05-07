@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Принять",
+    "accepted": "Принято",
     "add": "Добавить",
     "advanced": "Улучшенный",
     "cancel": "Отменить",
@@ -54,6 +55,7 @@
     },
     "picker": {
       "file": "Файл",
+      "folder": "Папка",
       "media": "Медиа",
       "text": "Текст",
       "app": "Приложение"
@@ -94,7 +96,7 @@
     "receive": {
       "title": "Получение",
       "quickSave": "@:general.quickSave",
-      "destination": "Получатель",
+      "destination": "Сохранить в папке",
       "downloads": "(Загрузка)",
       "saveToGallery": "Сохранять медиа файлы в галерею"
     },
@@ -157,7 +159,9 @@
   "receiveOptionsPage": {
     "title": "Опции получения сообщения",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)"
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Отключено автоматически, так как есть каталоги."
   },
   "sendPage": {
     "waiting": "Ожидание ответа",
@@ -179,6 +183,20 @@
       "size": "Размер: {curr} / {n}",
       "speed": "Скорость: {speed}/s"
     }
+  },
+  "webSharePage": {
+    "title": "Поделиться по ссылке",
+    "loading": "Запуск сервера...",
+    "stopping": "Остановка сервера...",
+    "error": "Произошла ошибка при запуске сервера.",
+    "hint": "Имейте в виду, что соединение не зашифровано. Вы должны использовать этот метод только в том случае, если у получателя не установлен LocalSend.",
+    "openLink": {
+      "one": "Открыть эту ссылку в браузере:",
+      "other": "Открыть одну из этих ссылок в браузере:"
+    },
+    "requests": "Запросы",
+    "noRequests": "Запросов пока нет.",
+    "pendingRequests": "Отложенные запросы: {n}"
   },
   "aboutPage": {
     "title": "О LocalSend"
@@ -227,6 +245,11 @@
       "title": "Введите имя файла",
       "original": "Оригинальное имя файла: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "Нет разрешения",
+      "description": "LocalSend не может обнаружить другие устройства без разрешения на сканирование в локальной сети. Предоставьте это разрешение в настройках.",
+      "gotoSettings": "Настройки"
+    },
     "messageInput": {
       "title": "Введите сообщение",
       "multiline": "Многостроковое"
@@ -238,6 +261,9 @@
     "notAvailableOnPlatform": {
       "title": "Недоступен",
       "content": "Эта функция доступна только для:"
+    },
+    "qr": {
+      "title": "QR-код"
     },
     "quickActions": {
       "title": "Быстрые действия",
@@ -262,6 +288,13 @@
     "@info": "Руководство по разработке от Apple (Apple Guidelines) очень строго относится к формулировке 'закрыть'",
     "open": "@:general.open",
     "close": "Выход из LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Отклонено",
+    "files": "Файлы",
+    "fileName": "Имя файла",
+    "size": "Размер"
   },
   "assetPicker": {
     "confirm": "Готово",
