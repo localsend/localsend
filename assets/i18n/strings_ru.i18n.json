@@ -159,7 +159,7 @@
   "receiveOptionsPage": {
     "title": "Параметры получения",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Папка LocalSend)"
+    "appDirectory": "(Папка LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Отключено автоматически, поскольку есть папки"
   },
