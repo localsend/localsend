@@ -92,7 +92,8 @@ flutter:
 msix_config:
   display_name: LocalSend
   publisher_display_name: Tien Do Nam
-  publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
+  # Using third-party CA for now (see: https://github.com/localsend/localsend/issues/220)
+  # publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
   languages: en, ar, bn, cs, de, es-ES, fa, fr-FR, hu, in, it, iw, ja, ko, ne, nl, pl, pt-BR, ru, sv, tr, uk, zh-Hans, zh-Hant-HK, zh-Hant-TW
