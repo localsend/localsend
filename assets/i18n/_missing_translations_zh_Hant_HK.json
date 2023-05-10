@@ -4,165 +4,165 @@
     "After editing this file, you can run 'flutter pub run slang apply --locale=zh-Hant-HK' to quickly apply the newly added translations."
   ],
   "general": {
-    "accepted": "Accepted"
+    "accepted": "已接受"
   },
   "sendTab": {
     "picker": {
-      "folder": "Folder",
-      "app": "App"
+      "folder": "資料夾",
+      "app": "應用程式"
     },
-    "sendMode": "Send mode",
+    "sendMode": "傳送模式",
     "sendModes": {
-      "single": "Single recipient",
-      "multiple": "Multiple recipients",
-      "link": "Share via link"
+      "single": "單一接收者",
+      "multiple": "多個接收者",
+      "link": "用 link 分享"
     },
-    "sendModeHelp": "Explanation"
+    "sendModeHelp": "説明"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacement": "Quit: Save window placement"
+      "saveWindowPlacement": "退出嗰陣記低視窗位置"
     },
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "（下載資料夾）"
     },
     "network": {
-      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
+      "encryption": "加密傳送",
+      "multicastGroup": "多播 IP 地址",
+      "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）"
     }
   },
   "troubleshootPage": {
-    "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "title": "疑難排解",
+    "subTitle": "個 app 唔 work？你可以喺度揾到常見問題嘅解決辦法。",
+    "solution": "解決辦法：",
+    "fixButton": "自動修復",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "Send 到嘢但係接收唔到",
+      "solution": "應該係防火牆嘅問題，可以透過允許接受 port {port} 嘅連線（UDP 同 TCP）嚟解決。",
+      "openFirewall": "開啟防火牆設定"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "兩部裝置都偵測唔到同 send 唔到嘢畀對方。",
+      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi-Fi 網路同用緊同樣嘅設定（Port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi-Fi 唔畀裝置之間通訊，呢種情況下就要 router 嗰邊先開到。"
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "歷史記錄",
+    "openFolder": "開啟資料夾",
+    "deleteHistory": "清除記錄",
+    "empty": "得個吉噃 :(",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "開啟檔案",
+      "info": "資訊",
+      "deleteFromHistory": "刪走呢筆記錄"
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "title": "應用程式（APK）",
+    "excludeSystemApps": "排除系統應用程式",
+    "excludeAppsWithoutLaunchIntent": "排除唔開得嘅應用程式",
+    "apps": "{n} 個應用程式"
   },
   "receiveOptionsPage": {
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "因為有資料夾存在而自動閂咗"
   },
   "sendPage": {
-    "busy": "The recipient is busy with another request."
+    "busy": "對方忙緊另一個請求。"
   },
   "webSharePage": {
-    "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
-    "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
+    "title": "@:sendTab.sendModes.link",
+    "loading": "開緊個 server……",
+    "stopping": "閂緊個 server……",
+    "error": "開 server 嗰陣發生錯誤。",
+    "hint": "記住，連線係冇經過加密嘅。除非對方冇裝 LocalSend，否則你唔應該用呢版。",
     "openLink": {
-      "one": "Open this link in the browser:",
-      "other": "Open one of these links in the browser:"
+      "one": "喺瀏覽器開啟以下連結：",
+      "other": "喺瀏覽器開啟以下任一連結："
     },
-    "requests": "Requests",
-    "noRequests": "No requests yet.",
-    "pendingRequests": "Pending requests: {n}"
+    "requests": "請求",
+    "noRequests": "未有",
+    "pendingRequests": "仲有 {n} 個請求未處理"
   },
   "dialogs": {
     "addressInput": {
-      "recentlyUsed": "Recently used: "
+      "recentlyUsed": "輸入記錄："
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "無法開啟檔案",
+      "content": "檔案「{file}」開唔到喎，係咪畀人郁過、改過名或者剷走咗？"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "加密已停用",
+      "content": "而家會透過未經加密嘅 HTTP 協定嚟通訊。要用 HTTPS 請開返加密。"
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "檔案資訊",
+      "fileName": "檔案名稱：",
+      "path": "路徑：",
+      "size": "大小：",
+      "sender": "傳送者：",
+      "time": "時間："
     },
     "localNetworkUnauthorized": {
-      "title": "No permission",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "title": "權限閂咗",
+      "description": "喺冇權掃描區域網路嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。",
+      "gotoSettings": "開啟系統設定"
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "無法使用",
+      "content": "此功能只適用於："
     },
     "qr": {
       "title": "QR Code"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "@:sendTab.sendMode",
+      "single": "淨係 send 畀一部裝置，傳輸完成後會清除揀選項目。",
+      "multiple": "一次過 send 畀多部裝置，揀選項目會一路保留。",
+      "link": "冇裝 LocalSend 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。"
     }
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "rejected": "遭到拒絕",
+    "files": "@:general.files",
+    "fileName": "檔案名稱",
+    "size": "大細"
   },
   "assetPicker": {
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "edit": "Edit",
+    "confirm": "@:general.confirm",
+    "cancel": "@:general.cancel",
+    "edit": "@:general.edit",
     "gifIndicator": "GIF",
-    "loadFailed": "Load failed",
-    "original": "Origin",
-    "preview": "Preview",
-    "select": "Select",
-    "emptyList": "Empty list",
-    "unSupportedAssetType": "Unsupported file type.",
-    "unableToAccessAll": "Unable to access all files on the device",
-    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
-    "changeAccessibleLimitedAssets": "Click to update accessible files",
-    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
-    "goToSystemSettings": "Go to system settings",
-    "accessLimitedAssets": "Continue with limited access",
-    "accessiblePathName": "Accessible files",
-    "sTypeAudioLabel": "Audio",
-    "sTypeImageLabel": "Image",
-    "sTypeVideoLabel": "Video",
-    "sTypeOtherLabel": "Other media",
-    "sActionPlayHint": "play",
-    "sActionPreviewHint": "preview",
-    "sActionSelectHint": "select",
-    "sActionSwitchPathLabel": "change path",
-    "sActionUseCameraHint": "use camera",
-    "sNameDurationLabel": "duration",
-    "sUnitAssetCountLabel": "count"
+    "loadFailed": "載入失敗",
+    "original": "原始檔案",
+    "preview": "預覽",
+    "select": "揀選",
+    "emptyList": "列表冇嘢",
+    "unSupportedAssetType": "檔案類型唔支援。",
+    "unableToAccessAll": "無法存取裝置入面所有檔案",
+    "viewingLimitedAssetsTip": "你淨係可以睇到個 app 能夠存取嘅檔案同相簿。",
+    "changeAccessibleLimitedAssets": "撳呢度更新可存取檔案",
+    "accessAllTip": "個 app 只能夠存取裝置入面部分檔案。要存取所有媒體，你要去系統設定開返個權限。",
+    "goToSystemSettings": "開啟系統設定",
+    "accessLimitedAssets": "喺限制存取嘅情況下繼續",
+    "accessiblePathName": "可存取檔案",
+    "sTypeAudioLabel": "音樂",
+    "sTypeImageLabel": "相片",
+    "sTypeVideoLabel": "影片",
+    "sTypeOtherLabel": "其他媒體",
+    "sActionPlayHint": "播放",
+    "sActionPreviewHint": "@:assetPicker.preview",
+    "sActionSelectHint": "@:assetPicker.select",
+    "sActionSwitchPathLabel": "更改路徑",
+    "sActionUseCameraHint": "影相",
+    "sNameDurationLabel": "持續時間",
+    "sUnitAssetCountLabel": "數量"
   }
 }

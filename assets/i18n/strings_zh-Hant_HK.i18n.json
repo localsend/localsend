@@ -41,8 +41,8 @@
     "title": "接收",
     "infoBox": {
       "ip": "IP：",
-      "port": "埠：",
-      "alias": "別名："
+      "port": "Port：",
+      "alias": "名："
     }
   },
   "sendTab": {
@@ -65,7 +65,7 @@
     "placeItems": "將要分享嘅檔案拉過嚟呢度"
   },
   "settingsTab": {
-    "title": "設定",
+    "title": "@:general.settings",
     "general": {
       "title": "一般",
       "theme": "主題",
@@ -86,14 +86,14 @@
       "title": "接收",
       "quickSave": "@:general.quickSave",
       "destination": "儲存位置",
-      "saveToGallery": "save 落相簿"
+      "saveToGallery": "Save 落相簿"
     },
     "network": {
       "title": "網路",
-      "needRestart": "重新啟動伺服器以使設定生效",
-      "server": "伺服器",
-      "alias": "別名",
-      "port": "埠"
+      "needRestart": "熄咗個 server 再開過，設定先會生效",
+      "server": "server",
+      "alias": "名",
+      "port": "Port"
     }
   },
   "selectedFilesPage": {
@@ -109,7 +109,7 @@
     "canceled": "對方取消咗個請求。"
   },
   "receiveOptionsPage": {
-    "title": "設定",
+    "title": "@:general.settings",
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "（LocalSend 資料夾）"
   },
@@ -118,7 +118,7 @@
     "rejected": "對方拒絕咗個請求。"
   },
   "progressPage": {
-    "titleSending": "send 緊……",
+    "titleSending": "Send 緊……",
     "titleReceiving": "接收緊……",
     "savedToGallery": "成功 save 咗落相簿",
     "total": {
