@@ -1,4 +1,4 @@
-## 1.9.1 (2023-)
+## 1.9.1 (2023-05-05)
 
 - feat: add folder should include the folder itself
 - fix: handle file names with special characters in link share mode
