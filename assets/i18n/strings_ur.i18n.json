@@ -153,7 +153,7 @@
   "receiveOptionsPage": {
     "title": "اختیارات",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)",
+    "appDirectory": "(@:appName folder)"
   },
   "sendPage": {
     "waiting": "جواب کا منتظر...",
@@ -232,4 +232,5 @@
     "open": "@:general.open",
     "close": "چھوڑو LocalSend"
   }
+}
 }
