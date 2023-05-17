@@ -7,7 +7,10 @@ LocalSend is a free, open-source app that allows you to securely share files and
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-Links: [Homepage](https://localsend.org)
+Links: [Homepage][homepage] | [Discord][discord]
+
+[homepage]: https://localsend.org
+[discord]: https://discord.gg/GSRWmQNP87
 
 - [About](#about)
 - [Screenshots](#screenshots)

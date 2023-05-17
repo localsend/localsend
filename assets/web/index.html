@@ -8,6 +8,7 @@
         :root {
             --grey: #E0E0E0;
             --teal: #00796B;
+            --teal-light: #009688;
             --white: #FFFFFF;
             --p-1: 0.5rem;
             --p-2: 1rem;
@@ -49,6 +50,10 @@
             border-radius: 0.5rem;
         }
 
+        .file-item:hover {
+            background-color: var(--teal-light);
+        }
+
         .file-name-cell {
             flex: 1;
             word-break: break-word;
@@ -87,7 +92,7 @@
             width: 100%;
         }
     </style>
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
 <noscript>

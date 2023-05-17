@@ -7,6 +7,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/picking_status_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
@@ -123,7 +124,7 @@ enum FilePickerOption {
         try {
           final directoryPath = await FilePicker.platform.getDirectoryPath();
           if (directoryPath != null) {
-            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath, includeDirectory: false);
+            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
           }
         } catch (e) {
           print(e);
@@ -132,6 +133,7 @@ enum FilePickerOption {
         }
         break;
       case FilePickerOption.media:
+        final oldBrightness = Theme.of(context).brightness;
         final List<AssetEntity>? result = await AssetPicker.pickAssets(
           context,
           pickerConfig: const AssetPickerConfig(
@@ -139,6 +141,15 @@ enum FilePickerOption {
             textDelegate: TranslatedAssetPickerTextDelegate()
           ),
         );
+
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          // restore brightness for Android
+          await sleepAsync(500);
+          if (context.mounted) {
+            await updateSystemOverlayStyleWithBrightness(oldBrightness);
+          }
+        });
+
         if (result != null) {
           await ref.read(selectedSendingFilesProvider.notifier).addFiles(
                 files: result,

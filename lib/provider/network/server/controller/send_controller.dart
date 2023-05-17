@@ -189,7 +189,7 @@ class SendController {
       final fileName = file.file.fileName.replaceAll('/', '-'); // File name may be inside directories
       final headers = {
         'content-type': 'application/octet-stream',
-        'content-disposition': 'attachment; filename="$fileName"',
+        'content-disposition': 'attachment; filename="${Uri.encodeComponent(fileName)}"',
         'content-length': '${file.file.size}',
       };
 
