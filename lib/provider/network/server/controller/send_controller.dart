@@ -16,9 +16,16 @@ import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
+import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../../model/session_status.dart';
+import '../../../../model/state/send/send_session_state.dart';
+import '../../../../pages/home_page.dart';
+import '../../../sender_session_id_provider.dart';
+import '../../send_provider.dart';
 
 const _uuid = Uuid();
 
@@ -51,7 +58,8 @@ class SendController {
         return server.responseAsset(403, Assets.web.error403);
       }
 
-      return server.responseAsset(200, Assets.web.main, 'text/javascript; charset=utf-8');
+      return server.responseAsset(
+          200, Assets.web.main, 'text/javascript; charset=utf-8');
     });
 
     router.get('/i18n.json', (Request request) async {
@@ -80,24 +88,28 @@ class SendController {
       final requestSessionId = request.url.queryParameters['sessionId'];
       if (requestSessionId != null) {
         // Check if the user already has permission
-        final session = server.getState().webSendState?.sessions[requestSessionId];
-        if (session != null && session.responseHandler == null && session.ip == request.ip) {
+        final session =
+            server.getState().webSendState?.sessions[requestSessionId];
+        if (session != null &&
+            session.responseHandler == null &&
+            session.ip == request.ip) {
           final deviceInfo = server.ref.read(deviceRawInfoProvider);
-          return server.responseJson(200, body: ReceiveRequestResponseDto(
-            info: InfoDto(
-              alias: alias,
-              version: protocolVersion,
-              deviceModel: deviceInfo.deviceModel,
-              deviceType: deviceInfo.deviceType,
-              fingerprint: fingerprint,
-              download: true,
-            ),
-            sessionId: session.sessionId,
-            files: {
-              for (final entry in state.webSendState!.files.entries)
-                entry.key: entry.value.file,
-            },
-          ).toJson());
+          return server.responseJson(200,
+              body: ReceiveRequestResponseDto(
+                info: InfoDto(
+                  alias: alias,
+                  version: protocolVersion,
+                  deviceModel: deviceInfo.deviceModel,
+                  deviceType: deviceInfo.deviceType,
+                  fingerprint: fingerprint,
+                  download: true,
+                ),
+                sessionId: session.sessionId,
+                files: {
+                  for (final entry in state.webSendState!.files.entries)
+                    entry.key: entry.value.file,
+                },
+              ).toJson());
         }
       }
 
@@ -127,7 +139,8 @@ class SendController {
             webSendState: oldState.webSendState!.copyWith(
               sessions: {
                 for (final entry in oldState.webSendState!.sessions.entries)
-                  if (entry.key != sessionId) entry.key: entry.value, // remove session
+                  if (entry.key != sessionId)
+                    entry.key: entry.value, // remove session
               },
             ),
           ),
@@ -141,28 +154,30 @@ class SendController {
             sessionId: sessionId,
             update: (oldSession) {
               return oldSession.copyWith(
-                responseHandler: null, // this indicates that the session is active
+                responseHandler:
+                    null, // this indicates that the session is active
               );
             },
           ),
         ),
       );
       final deviceInfo = server.ref.read(deviceRawInfoProvider);
-      return server.responseJson(200, body: ReceiveRequestResponseDto(
-        info: InfoDto(
-          alias: alias,
-          version: protocolVersion,
-          deviceModel: deviceInfo.deviceModel,
-          deviceType: deviceInfo.deviceType,
-          fingerprint: fingerprint,
-          download: true,
-        ),
-        sessionId: sessionId,
-        files: {
-          for (final entry in state.webSendState!.files.entries)
-            entry.key: entry.value.file,
-        },
-      ).toJson());
+      return server.responseJson(200,
+          body: ReceiveRequestResponseDto(
+            info: InfoDto(
+              alias: alias,
+              version: protocolVersion,
+              deviceModel: deviceInfo.deviceModel,
+              deviceType: deviceInfo.deviceType,
+              fingerprint: fingerprint,
+              download: true,
+            ),
+            sessionId: sessionId,
+            files: {
+              for (final entry in state.webSendState!.files.entries)
+                entry.key: entry.value.file,
+            },
+          ).toJson());
     });
 
     router.get(ApiRoute.download.v2, (Request request) async {
@@ -172,7 +187,9 @@ class SendController {
       }
 
       final session = server.getState().webSendState?.sessions[sessionId];
-      if (session == null || session.responseHandler != null || session.ip != request.ip) {
+      if (session == null ||
+          session.responseHandler != null ||
+          session.ip != request.ip) {
         return server.responseJson(403, message: 'Invalid sessionId.');
       }
 
@@ -186,10 +203,12 @@ class SendController {
         return server.responseJson(403, message: 'Invalid fileId.');
       }
 
-      final fileName = file.file.fileName.replaceAll('/', '-'); // File name may be inside directories
+      final fileName = file.file.fileName
+          .replaceAll('/', '-'); // File name may be inside directories
       final headers = {
         'content-type': 'application/octet-stream',
-        'content-disposition': 'attachment; filename="${Uri.encodeComponent(fileName)}"',
+        'content-disposition':
+            'attachment; filename="${Uri.encodeComponent(fileName)}"',
         'content-length': '${file.file.size}',
       };
 
@@ -207,6 +226,63 @@ class SendController {
         );
       }
     });
+
+    router.post(ApiRoute.cancel.v1, (Request request) {
+      return _cancelHandler(request: request, v2: false);
+    });
+
+    router.post(ApiRoute.cancel.v2, (Request request) {
+      return _cancelHandler(request: request, v2: true);
+    });
+  }
+
+  Response _cancelHandler({
+    required Request request,
+    required bool v2,
+  }) {
+    final sessionId = server.ref.read(senderSessionIdProvider);
+    print("Sender session id is: $sessionId");
+    final session = server.ref.read(sendProvider)[sessionId];
+    if (session == null) {
+      return server.responseJson(403, message: 'No permission');
+    }
+
+    if (!v2 && session.target.version != '1.0') {
+      // disallow v1 cancel for active v2 sessions
+      return server.responseJson(403, message: 'No permission');
+    }
+
+    if (session.target.ip != request.ip) {
+      return server.responseJson(403, message: 'No permission');
+    }
+
+    // require session id for v2
+    // don't require it when during waiting state
+    if (v2 && session.status != SessionStatus.waiting) {
+      final sessionId = request.url.queryParameters['sessionId'];
+      if (sessionId != session.sessionId) {
+        return server.responseJson(403, message: 'No permission');
+      }
+    }
+
+    _cancelByReceiver(session);
+    return server.responseJson(200);
+  }
+
+  void _cancelByReceiver(SendSessionState session) {
+    final currentStatus = session.status;
+    if (currentStatus == SessionStatus.waiting ||
+        currentStatus == SessionStatus.sending) {
+      server.ref.read(sendProvider.notifier).cancelSession(session.sessionId,
+          shouldNotifyReceiver: false); //cancel send session
+      Routerino.context
+          .popUntil(HomePage); // navigate to home after cancellation
+      server.setState((oldState) => oldState?.copyWith(
+            session: oldState.session?.copyWith(
+              status: SessionStatus.canceledByReceiver,
+            ),
+          ));
+    }
   }
 
   Future<void> initializeWebSend({required List<CrossFile> files}) async {
@@ -223,8 +299,10 @@ class SendController {
               size: file.size,
               fileType: file.fileType,
               hash: null,
-              preview: files.first.fileType == FileType.text && files.first.bytes != null
-                  ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+              preview: files.first.fileType == FileType.text &&
+                      files.first.bytes != null
+                  ? utf8.decode(files.first
+                      .bytes!) // send simple message by embedding it into the preview
                   : null,
               legacy: false,
             ),
@@ -252,7 +330,8 @@ class SendController {
   }
 
   void _respondRequest(String sessionId, bool accepted) {
-    final controller = server.getState().webSendState?.sessions[sessionId]?.responseHandler;
+    final controller =
+        server.getState().webSendState?.sessions[sessionId]?.responseHandler;
     if (controller == null) {
       return;
     }
@@ -269,9 +348,9 @@ extension on WebSendState {
   }) {
     return copyWith(
       sessions: {...sessions}..update(
-        sessionId,
-        (session) => update(session),
-      ),
+          sessionId,
+          (session) => update(session),
+        ),
     );
   }
 }
