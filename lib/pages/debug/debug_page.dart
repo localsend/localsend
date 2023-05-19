@@ -61,5 +61,3 @@ class DebugPage extends ConsumerWidget {
     );
   }
 }
-
-

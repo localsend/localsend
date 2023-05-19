@@ -121,14 +121,13 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                       label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
                                     ),
                                   ),
-                                  if (receiveSession.sender.deviceModel != null)
-                                    ...[
-                                      const SizedBox(width: 10),
-                                      DeviceBadge(
-                                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                                        label: receiveSession.sender.deviceModel!,
-                                      ),
-                                    ],
+                                  if (receiveSession.sender.deviceModel != null) ...[
+                                    const SizedBox(width: 10),
+                                    DeviceBadge(
+                                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                                      label: receiveSession.sender.deviceModel!,
+                                    ),
+                                  ],
                                 ],
                               ),
                               const SizedBox(height: 40),

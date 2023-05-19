@@ -56,9 +56,7 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
       actions: [
         TextButton(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Theme.of(context).brightness == Brightness.dark
-                ? Theme.of(context).buttonTheme.colorScheme!.onPrimary
-                : null,
+            foregroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).buttonTheme.colorScheme!.onPrimary : null,
           ),
           onPressed: () => context.pop(),
           child: Text(t.general.cancel),

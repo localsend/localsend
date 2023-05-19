@@ -97,9 +97,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         } else {
           // user dropped one or more files
           await ref.read(selectedSendingFilesProvider.notifier).addFiles(
-            files: event.files,
-            converter: CrossFileConverters.convertXFile,
-          );
+                files: event.files,
+                converter: CrossFileConverters.convertXFile,
+              );
         }
         _goToPage(HomeTab.send.index);
       },

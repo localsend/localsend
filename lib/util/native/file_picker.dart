@@ -136,10 +136,7 @@ enum FilePickerOption {
         final oldBrightness = Theme.of(context).brightness;
         final List<AssetEntity>? result = await AssetPicker.pickAssets(
           context,
-          pickerConfig: const AssetPickerConfig(
-            maxAssets: 999,
-            textDelegate: TranslatedAssetPickerTextDelegate()
-          ),
+          pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
         );
 
         WidgetsBinding.instance.addPostFrameCallback((_) async {

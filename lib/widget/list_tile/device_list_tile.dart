@@ -32,18 +32,17 @@ class DeviceListTile extends StatelessWidget {
                 color: Theme.of(context).colorScheme.tertiaryContainer,
               ),
             )
-          else
-            ...[
+          else ...[
+            DeviceBadge(
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+              label: '#${device.ip.visualId}',
+            ),
+            if (device.deviceModel != null)
               DeviceBadge(
                 color: Theme.of(context).colorScheme.tertiaryContainer,
-                label: '#${device.ip.visualId}',
+                label: device.deviceModel!,
               ),
-              if (device.deviceModel != null)
-                DeviceBadge(
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
-                  label: device.deviceModel!,
-                ),
-            ],
+          ],
         ],
       ),
       onTap: onTap,

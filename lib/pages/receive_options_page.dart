@@ -83,13 +83,12 @@ class ReceiveOptionsPage extends ConsumerWidget {
                         }
                       },
                     ),
-                    if (receiveSession.containsDirectories && !receiveSession.saveToGallery)
-                      ...[
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
-                        ),
-                      ]
+                    if (receiveSession.containsDirectories && !receiveSession.saveToGallery) ...[
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
+                      ),
+                    ]
                   ],
                 ),
               ],

@@ -36,11 +36,10 @@ class LanguagePage extends ConsumerWidget {
                   Flexible(
                     child: Text(locale?.humanName ?? t.settingsTab.general.languageOptions.system),
                   ),
-                  if (locale == activeLocale)
-                    ...[
-                      const SizedBox(width: 10),
-                      const Icon(Icons.check_circle, color: Colors.green),
-                    ],
+                  if (locale == activeLocale) ...[
+                    const SizedBox(width: 10),
+                    const Icon(Icons.check_circle, color: Colors.green),
+                  ],
                 ],
               ),
             );

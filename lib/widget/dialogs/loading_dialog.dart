@@ -11,7 +11,6 @@ class LoadingDialog extends ConsumerStatefulWidget {
 }
 
 class _LoadingDialogState extends ConsumerState<LoadingDialog> {
-
   void _onPickingStatusChanged(bool? prev, bool next) {
     if (!next) {
       context.pop();

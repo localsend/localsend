@@ -6,7 +6,24 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  FLUTTER_VERSION: "3.7.12"
+
 jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      - name: Dependencies
+        run: flutter pub get
+      - name: Check format
+        run: dart format --line-length 150 --set-exit-if-changed lib test
+
   test:
     runs-on: ubuntu-latest
 
@@ -14,7 +31,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.7.12"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
       - name: Dependencies
         run: flutter pub get

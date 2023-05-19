@@ -31,11 +31,10 @@ class CustomListTile extends StatelessWidget {
           padding: padding,
           child: Row(
             children: [
-              if (icon != null)
-                ...[
-                  icon!,
-                  const SizedBox(width: 15),
-                ],
+              if (icon != null) ...[
+                icon!,
+                const SizedBox(width: 15),
+              ],
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

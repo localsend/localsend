@@ -64,10 +64,12 @@ class ReceiveHistoryPage extends ConsumerWidget {
               children: [
                 const SizedBox(width: 15),
                 ElevatedButton.icon(
-                  onPressed: checkPlatform([TargetPlatform.iOS]) ? null : () async {
-                    final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
-                    await openFolder(destination);
-                  },
+                  onPressed: checkPlatform([TargetPlatform.iOS])
+                      ? null
+                      : () async {
+                          final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
+                          await openFolder(destination);
+                        },
                   icon: const Icon(Icons.folder),
                   label: Text(t.receiveHistoryPage.openFolder),
                 ),

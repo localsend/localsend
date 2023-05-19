@@ -39,8 +39,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
       appBar: AppBar(
         title: Text(t.apkPickerPage.title),
         actions: [
-          PopupMenuButton(
-              itemBuilder: (context) {
+          PopupMenuButton(itemBuilder: (context) {
             return [
               CheckedPopupMenuItem<int>(
                 value: 0,
@@ -54,7 +53,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
               ),
             ];
           }, onSelected: (value) {
-            switch(value) {
+            switch (value) {
               case 0:
                 setState(() => _includeSystemApps = !_includeSystemApps);
                 break;
@@ -113,7 +112,9 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                         child: InkWell(
                           onTap: () {
                             unawaited(
-                              ref.read(selectedSendingFilesProvider.notifier).addFiles(files: [app], converter: CrossFileConverters.convertApplication),
+                              ref
+                                  .read(selectedSendingFilesProvider.notifier)
+                                  .addFiles(files: [app], converter: CrossFileConverters.convertApplication),
                             );
                             context.pop();
                           },

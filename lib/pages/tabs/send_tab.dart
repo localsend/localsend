@@ -63,7 +63,7 @@ class _SendTabState extends ConsumerState<SendTab> {
       await ref.read(scanProvider).startSmartScan(forceLegacy: false);
       if (devices.isEmpty) {
         // After the first complete scan, if devices aren't found on IOS a Network trigger is called
-        if(checkPlatform([TargetPlatform.iOS]) && mounted) {
+        if (checkPlatform([TargetPlatform.iOS]) && mounted) {
           checkIosNetworkPermission(context);
         }
       }
@@ -537,7 +537,8 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
     if (session != null) {
       final files = session.files.values.where((f) => f.token != null);
       final progressNotifier = ref.watch(progressProvider);
-      final currBytes = files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()));
+      final currBytes = files.fold<int>(
+          0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()));
       final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
       progress = totalBytes == 0 ? 0 : currBytes / totalBytes;
     } else {
@@ -578,10 +579,10 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
         }
 
         await ref.read(sendProvider.notifier).startSession(
-          target: device,
-          files: files,
-          background: true,
-        );
+              target: device,
+              files: files,
+              background: true,
+            );
       },
     );
   }

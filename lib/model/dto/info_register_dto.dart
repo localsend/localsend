@@ -16,7 +16,7 @@ class InfoRegisterDto with _$InfoRegisterDto {
     required String? version, // v2, format: major.minor
     required String? deviceModel,
     @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
-    required DeviceType? deviceType,
+        required DeviceType? deviceType,
     required String? fingerprint,
     required int? port, // v2
     required ProtocolType? protocol, // v2

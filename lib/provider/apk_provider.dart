@@ -6,10 +6,12 @@ import 'package:localsend_app/provider/param/apk_provider_param.dart';
 import 'package:localsend_app/provider/param/cached_apk_provider_param.dart';
 
 final apkProvider = Provider.family.autoDispose<AsyncValue<List<Application>>, ApkProviderParam>((ref, param) {
-  return ref.watch(_apkProvider(CachedApkProviderParam(
+  return ref
+      .watch(_apkProvider(CachedApkProviderParam(
     includeSystemApps: param.includeSystemApps,
     onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,
-  ))).whenData((apps) {
+  )))
+      .whenData((apps) {
     final query = param.query.trim().toLowerCase();
     if (query.isNotEmpty) {
       apps = apps.where((a) => a.appName.contains(query) || a.packageName.contains(query)).toList();

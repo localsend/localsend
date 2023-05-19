@@ -18,8 +18,7 @@ class ShortcutWatcher extends StatelessWidget {
 
         // Add Control+Q binding for Linux
         // https://github.com/localsend/localsend/issues/194
-        if (checkPlatform([TargetPlatform.linux]))
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyQ): _ExitAppIntent(),
+        if (checkPlatform([TargetPlatform.linux])) LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyQ): _ExitAppIntent(),
       },
       child: Actions(
         actions: {

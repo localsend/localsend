@@ -37,9 +37,10 @@ Dio createDio(DioType type, StoredSecurityContext securityContext, [Ref? ref]) {
   // Allow any self signed certificate
   dio.httpClientAdapter = IOHttpClientAdapter(
     onHttpClientCreate: (_) {
-      final client = HttpClient(context: SecurityContext()
-        ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
-        ..useCertificateChainBytes(securityContext.certificate.codeUnits),
+      final client = HttpClient(
+        context: SecurityContext()
+          ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+          ..useCertificateChainBytes(securityContext.certificate.codeUnits),
       );
       client.badCertificateCallback = (cert, host, port) => true;
       return client;

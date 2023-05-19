@@ -57,11 +57,11 @@ class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListen
   //Linux alternative for onWindowMoved and onWindowResized
   @override
   Future<void> onWindowMove() async {
-    if(checkPlatform([TargetPlatform.linux]) && s.elapsedMilliseconds >= 600) {
-        s.reset();
-        final windowOffset = await windowManager.getPosition();
-        final windowSize = await windowManager.getSize();
-        await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+    if (checkPlatform([TargetPlatform.linux]) && s.elapsedMilliseconds >= 600) {
+      s.reset();
+      final windowOffset = await windowManager.getPosition();
+      final windowSize = await windowManager.getSize();
+      await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
     }
   }
 

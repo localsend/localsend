@@ -11,9 +11,8 @@ class InfoDto with _$InfoDto {
     required String alias,
     required String? version, // v2, format: major.minor
     required String? deviceModel,
-
     @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
-    required DeviceType? deviceType,
+        required DeviceType? deviceType,
     required String? fingerprint, // v2
     required bool? download, // v2
   }) = _InfoDto;
