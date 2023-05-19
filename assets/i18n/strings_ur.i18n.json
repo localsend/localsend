@@ -1,0 +1,236 @@
+{
+  "locale": "اردو",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "قبول کریں",
+    "accepted": "قبول کر لیا",
+    "add": "شامل کریں",
+    "advanced": "اعلی درجے کی",
+    "cancel": "منسوخ کریں",
+    "close": "بند کریں",
+    "confirm": "تصدیق کریں",
+    "continueStr": "جاری رہے",
+    "copy": "کاپی",
+    "copiedToClipboard": "کلپ بورڈ پر کاپی کیا گیا",
+    "decline": "رد کرنا",
+    "done": "ہو گیا",
+    "edit": "ترمیم",
+    "error": "خرابی",
+    "example": "مثال",
+    "files": "فائلوں",
+    "finished": "ختم",
+    "hide": "چھپائیں",
+    "off": "بند",
+    "offline": "آف لائن",
+    "on": "پر",
+    "online": "آن لائن",
+    "open": "کھولیں",
+    "queue": "قطار",
+    "quickSave": "فوری محفوظ کریں",
+    "renamed": "نام تبدیل کر دیا گیا",
+    "reset": "دوبارہ ترتیب دیں",
+    "restart": "دوبارہ شروع کریں",
+    "settings": "ترتیبات",
+    "skipped": "چھوڑ دیا",
+    "start": "شروع کریں",
+    "stop": "رک جاؤ",
+    "save": "محفوظ کریں",
+    "unchanged": "غیر تبدیل شدہ",
+    "unknown": "نامعلوم"
+  },
+  "receiveTab": {
+    "title": "وصول کریں",
+    "infoBox": {
+      "ip": ":آئی پی",
+      "port": ":پورٹ",
+      "alias": ":عرف"
+    }
+  },
+  "sendTab": {
+    "title": "بھیجیں",
+    "selection": {
+      "title": "انتخاب",
+      "files": "فائلیں: {files}",
+      "size": "سائز: {size}"
+    },
+    "picker": {
+      "file": "فائل",
+      "folder": "فولڈر",
+      "media": "میڈیا",
+      "text": "ٹیکسٹ",
+      "app": "ایپ"
+    },
+    "shareIntentInfo": "آپ اپنے موبائل ڈیوائس کی \"شیئر کریں\" فیچر کو بھی آسانی سے فائلوں کو منتخب کرنے کے لیے استعمال کرسکتے ہیں۔",
+    "nearbyDevices": "قریبی ڈیوائس",
+    "thisDevice": "یہ ڈیوائس",
+    "scan": "ڈیوائس تلاش کریں",
+    "sendMode": "سینڈ موڈ",
+    "sendModes": {
+      "single": "سنگل رسپٹ",
+      "multiple": "ملٹیپل رسپٹ",
+      "link": "لنک کے ذریعے شیئر کریں"
+    },
+    "sendModeHelp": "وضاحت",
+    "help": "براہ کرم یقینی بنائیں کہ مطلوبہ ہدف بھی اسی وائی فائی نیٹ ورک میں ہے۔",
+    "placeItems": "شئیر کرنے کے لیے اشیاء رکھیں۔"
+  },
+  "settingsTab": {
+    "title": "ترتیبات",
+    "general": {
+      "title": "جنرل",
+      "theme": "تھیم",
+      "themeOptions": {
+        "system": "سسٹم",
+        "dark": "اندھیرا",
+        "light": "روشنی"
+      },
+      "language": "زبان",
+      "languageOptions": {
+        "system": "سسٹم"
+      },
+      "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔",
+      "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں۔",
+      "launchAtStartup": "لاگ ان کے بعد آٹو اسٹارٹ",
+      "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ"
+    },
+    "receive": {
+      "title": "وصول کریں",
+      "quickSave": "@:general.quickSave",
+      "destination": "منزل",
+      "downloads": "(ڈاؤن لوڈ)",
+      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔"
+    },
+    "network": {
+      "title": "نیٹ ورک",
+      "needRestart": "ترتیبات کو لاگو کرنے کے لیے سرور کو دوبارہ شروع کریں!",
+      "server": "سرور",
+      "alias": "عرف",
+      "port": "پورٹ",
+      "portWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ چل سکے کیونکہ آپ حسب ضرورت پورٹ استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultPort})",
+      "encryption": "خفیہ کاری",
+      "multicastGroup": "ملٹی کاسٹ",
+      "multicastGroupWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultMulticast})"
+    }
+  },
+  "troubleshootPage": {
+    "title": "خرابی کا سراغ لگانا",
+    "subTitle": "کیا یہ ایپ توقع کے مطابق کام نہیں کرتی؟ یہاں آپ عام حل تلاش کر سکتے ہیں۔",
+    "solution": "حل:",
+    "fixButton": "خود بخود درست کریں۔",
+    "firewall": {
+      "symptom": "یہ ایپ دیگر آلات پر فائلیں بھیج سکتی ہے لیکن دیگر آلات اس ڈیوائس پر فائلیں نہیں بھیج سکتے۔",
+      "solution": "یہ ممکنہ طور پر فائر وال کا مسئلہ ہے۔ آپ اسے پورٹ {port} پر آنے والے کنکشنز (UDP اور TCP) کی اجازت دے کر حل کر سکتے ہیں۔",
+      "openFirewall": "فائر وال کھولیں"
+    },
+    "noConnection": {
+      "symptom": "دونوں آلات ایک دوسرے کو دریافت نہیں کرسکتے ہیں اور نہ ہی وہ فائلوں کا اشتراک کرسکتے ہیں۔",
+      "solution": "مسئلہ دونوں طرف موجود ہے؟ پھر آپ کو یہ یقینی بنانا ہوگا کہ دونوں ڈیوائسز ایک ہی وائی فائی نیٹ ورک میں ہیں اور ایک ہی کنفیگریشن (پورٹ، ملٹی کاسٹ ایڈریس، انکرپشن) کا اشتراک کرتے ہیں۔ وائی فائی شرکاء کے درمیان مواصلت کی اجازت نہیں دے سکتا ہے۔ اس صورت میں، یہ اختیار روٹر پر فعال ہونا ضروری ہے."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "تاریخ",
+    "openFolder": "فولڈر کھولیں",
+    "deleteHistory": "تاریخ کو حذف کریں",
+    "empty": "تاریخ خالی ہے۔",
+    "entryActions": {
+      "open": "فائل کھولو",
+      "info": "معلومات",
+      "deleteFromHistory": "تاریخ سے حذف کریں"
+    }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "تمام حذف کریں"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "آپ کو ایک فائل بھیجنا چاہتا ہے۔",
+      "other": "آپ کو {n} فائلیں بھیجنا چاہتا ہے۔"
+    },
+    "subTitleMessage": "آپ کو ایک پیغام بھیجا:",
+    "subTitleLink": "آپ کو ایک لنک بھیجا:",
+    "canceled": "بھیجنے والے نے درخواست منسوخ کر دی ہے۔"
+  },
+  "receiveOptionsPage": {
+    "title": "اختیارات",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(@:appName folder)"
+  },
+  "sendPage": {
+    "waiting": "جواب کا منتظر...",
+    "rejected": "وصول کنندہ نے درخواست مسترد کر دی ہے۔",
+    "busy": "وصول کنندہ دوسری درخواست میں مصروف ہے۔"
+  },
+  "progressPage": {
+    "titleSending": "فائلیں بھیج رہا ہے",
+    "titleReceiving": "فائلیں موصول ہو رہی ہیں",
+    "savedToGallery": "تصاویر میں محفوظ کیا گیا",
+    "total": {
+      "title": {
+        "sending": "کل پیش رفت ({time})",
+        "finishedError": "غلطی کے ساتھ ختم",
+        "canceledSender": "بھیجنے والے کے ذریعے منسوخ کر دیا گیا۔",
+        "canceledReceiver": "وصول کنندہ کے ذریعے منسوخ کر دیا گیا۔"
+      },
+      "count": "فائلوں: {curr} / {n}",
+      "size": "سائز: {curr} / {n}",
+      "speed": "رفتار: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "کے بارے میں LocalSend"
+  },
+  "changelogPage": {
+    "title": "چینج لاگ"
+  },
+   "aliasGenerator": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "انتخاب میں شامل کریں",
+      "content": "آپ کیا شامل کرنا چاہتے ہیں؟"
+    },
+    "addressInput": {
+      "title": "پتہ درج کریں۔",
+      "hashtag": "Hashtag",
+      "ip": "اپ ایڈریس"
+    },
+    "cancelSession": {
+      "title": "فائل ٹرانسفر منسوخ کریں۔",
+      "content": "کیا آپ واقعی فائل ٹرانسفر کو منسوخ کرنا چاہتے ہیں؟"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption disabled",
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+    },
+    "fileNameInput": {
+      "title": "فائل کا نام درج کریں۔",
+      "original": "فائل کا نام درج کرنا"
+    },
+    "messageInput": {
+      "title": "پیغام ٹائپ کریں۔",
+      "multiline": "ملٹی لائن"
+    },
+    "noFiles": {
+      "title": "کوئی فائل منتخب نہیں کی گئی",
+      "content": "براہ کرم کم از کم ایک فائل منتخب کریں۔"
+    },
+    "quickActions": {
+      "title": "فوری اقدامات",
+      "counter": "کاؤنٹر",
+      "prefix": "سابقہ",
+      "padZero": "زیرو کے ساتھ پیڈ",
+      "sortBeforeCount": "پہلے سے حروف تہجی کے مطابق ترتیب دیں۔",
+      "random": "بے ترتیب"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔"
+    },
+  "tray": {
+    "@info": "ایپل کے رہنما خطوط 'قریبی' الفاظ کے بارے میں بہت سخت ہیں۔",
+    "open": "@:general.open",
+    "close": "چھوڑو LocalSend"
+  }
+}
+}
