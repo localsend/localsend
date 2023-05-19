@@ -11,6 +11,7 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/provider/sender_session_id_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
@@ -24,8 +25,6 @@ import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
-
-import '../provider/sender_session_id_provider.dart';
 
 class ProgressPage extends ConsumerStatefulWidget {
   final bool showAppBar;
