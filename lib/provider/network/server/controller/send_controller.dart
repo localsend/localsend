@@ -226,64 +226,9 @@ class SendController {
         );
       }
     });
-
-    router.post(ApiRoute.cancel.v1, (Request request) {
-      return _cancelHandler(request: request, v2: false);
-    });
-
-    router.post(ApiRoute.cancel.v2, (Request request) {
-      return _cancelHandler(request: request, v2: true);
-    });
   }
 
-  Response _cancelHandler({
-    required Request request,
-    required bool v2,
-  }) {
-    final sessionId = server.ref.read(senderSessionIdProvider);
-    print("Sender session id is: $sessionId");
-    final session = server.ref.read(sendProvider)[sessionId];
-    if (session == null) {
-      return server.responseJson(403, message: 'No permission');
-    }
 
-    if (!v2 && session.target.version != '1.0') {
-      // disallow v1 cancel for active v2 sessions
-      return server.responseJson(403, message: 'No permission');
-    }
-
-    if (session.target.ip != request.ip) {
-      return server.responseJson(403, message: 'No permission');
-    }
-
-    // require session id for v2
-    // don't require it when during waiting state
-    if (v2 && session.status != SessionStatus.waiting) {
-      final sessionId = request.url.queryParameters['sessionId'];
-      if (sessionId != session.sessionId) {
-        return server.responseJson(403, message: 'No permission');
-      }
-    }
-
-    _cancelByReceiver(session);
-    return server.responseJson(200);
-  }
-
-  void _cancelByReceiver(SendSessionState session) {
-    final currentStatus = session.status;
-    if (currentStatus == SessionStatus.waiting ||
-        currentStatus == SessionStatus.sending) {
-      server.ref.read(sendProvider.notifier).cancelSession(session.sessionId,
-          shouldNotifyReceiver: false); //cancel send session
-      Routerino.context
-          .popUntil(HomePage); // navigate to home after cancellation
-      server.setState((oldState) => oldState?.copyWith(
-            session: oldState.session?.copyWith(
-              status: SessionStatus.canceledByReceiver,
-            ),
-          ));
-    }
-  }
 
   Future<void> initializeWebSend({required List<CrossFile> files}) async {
     final webSendState = WebSendState(

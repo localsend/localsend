@@ -11,16 +11,20 @@ import 'package:localsend_app/model/dto/register_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/session_status.dart';
+import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_app/provider/sender_session_id_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
@@ -528,30 +532,34 @@ class ReceiveController {
     required bool v2,
   }) {
     final session = server.getState().session;
-    if (session == null) {
-      return server.responseJson(403, message: 'No permission');
-    }
-
-    if (!v2 && session.sender.version != '1.0') {
-      // disallow v1 cancel for active v2 sessions
-      return server.responseJson(403, message: 'No permission');
-    }
-
-    if (session.sender.ip != request.ip) {
-      return server.responseJson(403, message: 'No permission');
-    }
-
-    // require session id for v2
-    // don't require it when during waiting state
-    if (v2 && session.status != SessionStatus.waiting) {
-      final sessionId = request.url.queryParameters['sessionId'];
-      if (sessionId != session.sessionId) {
+    final sendSessionId = server.ref.read(senderSessionIdProvider);
+    final sendState = server.ref.read(sendProvider)[sendSessionId];
+    if (session != null) {
+      if (!v2 && session.sender.version != '1.0') {
+        // disallow v1 cancel for active v2 sessions
         return server.responseJson(403, message: 'No permission');
       }
+
+      if (session.sender.ip != request.ip) {
+        return server.responseJson(403, message: 'No permission');
+      }
+
+      // require session id for v2
+      // don't require it when during waiting state
+      if (v2 && session.status != SessionStatus.waiting) {
+        final sessionId = request.url.queryParameters['sessionId'];
+        if (sessionId != session.sessionId) {
+          return server.responseJson(403, message: 'No permission');
+        }
+      }
+      _cancelBySender(server);
+      return server.responseJson(200);
+    } else if (sendState != null) {
+      _cancelByReceiver(server, sendState);
+      return server.responseJson(200);
     }
 
-    _cancelBySender(server);
-    return server.responseJson(200);
+    return server.responseJson(403, message: 'No permission');
   }
 
   Response _showHandler({
@@ -614,7 +622,7 @@ class ReceiveController {
   }
 
   /// In addition to [closeSession], this method also cancels incoming requests.
-  void cancelSession() {
+  void cancelSession() async {
     final tempState = server.getStateOrNull();
     if (tempState == null) {
       // the server is not running
@@ -663,6 +671,22 @@ void _cancelBySender(ServerUtils server) {
           currentStatus == SessionStatus.sending)) {
     Routerino.context.popUntil(
         ReceivePage); // pop just in case if use is in [ReceiveOptionsPage]
+    server.setState((oldState) => oldState?.copyWith(
+          session: oldState.session?.copyWith(
+            status: SessionStatus.canceledBySender,
+          ),
+        ));
+  }
+}
+
+void _cancelByReceiver(ServerUtils server, SendSessionState sendState) {
+  final currentStatus = sendState.status;
+  if (currentStatus == SessionStatus.waiting ||
+      currentStatus == SessionStatus.sending) {
+    server.ref.read(sendProvider.notifier).cancelSession(sendState.sessionId,
+        shouldNotifyReceiver: false); //cancel send session
+    Routerino.context.popUntil(
+        HomePage); // pop just in case if use is in [ReceiveOptionsPage]
     server.setState((oldState) => oldState?.copyWith(
           session: oldState.session?.copyWith(
             status: SessionStatus.canceledBySender,
