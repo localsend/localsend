@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/info_register_dto.dart';
@@ -14,7 +15,6 @@ import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
-import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -25,7 +25,6 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
-import 'package:localsend_app/provider/sender_session_id_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
@@ -492,7 +491,7 @@ class ReceiveController {
         );
 
     final session = server.getState().session!;
-    if (session.files.values.every((f) =>
+    if (session.status == SessionStatus.sending && session.files.values.every((f) =>
         f.status == FileStatus.finished ||
         f.status == FileStatus.skipped ||
         f.status == FileStatus.failed)) {
@@ -530,35 +529,78 @@ class ReceiveController {
     required Request request,
     required bool v2,
   }) {
-    final session = server.getState().session;
-    final sendSessionId = server.ref.read(senderSessionIdProvider);
-    final sendState = server.ref.read(sendProvider)[sendSessionId];
-    if (session != null) {
-      if (!v2 && session.sender.version != '1.0') {
+    final receiveSession = server.getState().session;
+    if (receiveSession != null) {
+      // We are currently receiving files.
+
+      if (!v2 && receiveSession.sender.version != '1.0') {
         // disallow v1 cancel for active v2 sessions
         return server.responseJson(403, message: 'No permission');
       }
 
-      if (session.sender.ip != request.ip) {
+      if (receiveSession.sender.ip != request.ip) {
         return server.responseJson(403, message: 'No permission');
       }
 
       // require session id for v2
       // don't require it when during waiting state
-      if (v2 && session.status != SessionStatus.waiting) {
+      if (v2 && receiveSession.status != SessionStatus.waiting) {
         final sessionId = request.url.queryParameters['sessionId'];
-        if (sessionId != session.sessionId) {
+        if (sessionId != receiveSession.sessionId) {
           return server.responseJson(403, message: 'No permission');
         }
       }
+
+      // check if valid state
+      final currentStatus = receiveSession.status;
+      if (currentStatus != SessionStatus.waiting &&
+          currentStatus != SessionStatus.sending) {
+        return server.responseJson(403, message: 'No permission');
+      }
+
       _cancelBySender(server);
       return server.responseJson(200);
-    } else if (sendState != null) {
-      _cancelByReceiver(server, sendState);
+    } else {
+      // We are not receiving files so we may be sending files.
+
+      final sessionId = request.url.queryParameters['sessionId'];
+      final sendSessions = server.ref.read(sendProvider);
+      final SendSessionState sendState;
+      if (v2) {
+        // In v2, we require sessionId.
+
+        final selectedSession = sendSessions.values.firstWhereOrNull((s) => s.remoteSessionId == sessionId);
+        if (selectedSession == null) {
+          return server.responseJson(403, message: 'No permission');
+        }
+
+        sendState = selectedSession;
+      } else {
+        // In v1, we are a little bit more tolerant.
+        // Let's assume the sessionId if only one send session exist
+
+        final onlySession = sendSessions.values.singleOrNull;
+        if (onlySession == null) {
+          return server.responseJson(403, message: 'No permission');
+        }
+
+        sendState = onlySession;
+      }
+
+      if (sendState.target.ip != request.ip) {
+        return server.responseJson(403, message: 'No permission');
+      }
+
+      // check if valid state
+      if (sendState.status != SessionStatus.sending) {
+        return server.responseJson(403, message: 'No permission');
+      }
+
+      server.ref.read(sendProvider.notifier).cancelSessionByReceiver(
+        sendState.sessionId,
+      );
       return server.responseJson(200);
     }
-
-    return server.responseJson(403, message: 'No permission');
   }
 
   Response _showHandler({
@@ -620,27 +662,24 @@ class ReceiveController {
     );
   }
 
-  /// In addition to [closeSession], this method also cancels incoming requests.
+  /// In addition to [closeSession], this method also
+  /// - cancels incoming requests (TODO)
+  /// - notifies the sender that the session has been canceled
   void cancelSession() async {
-    final tempState = server.getStateOrNull();
-    if (tempState == null) {
+    final session = server.getStateOrNull()?.session;
+    if (session == null) {
       // the server is not running
       return;
     }
 
-    //get sender
-    final target = tempState.session?.sender;
-
-    //notify sender
-    unawaited(
-      server.ref
-          .read(dioProvider(DioType.discovery))
-          .post(ApiRoute.cancel.target(target!))
-          .then((_) {})
-          .catchError((e) {
-        print(e);
-      }),
-    );
+    // notify sender
+    try {
+      // ignore: unawaited_futures
+      server.ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel
+          .target(session.sender, query: {'sessionId': session.sessionId}));
+    } catch (e) {
+      print(e);
+    }
 
     closeSession();
 
@@ -664,34 +703,23 @@ class ReceiveController {
 }
 
 void _cancelBySender(ServerUtils server) {
-  final currentStatus = server.getState().session?.status;
-  if (currentStatus != null &&
-      (currentStatus == SessionStatus.waiting ||
-          currentStatus == SessionStatus.sending)) {
-    Routerino.context.popUntil(
-        ReceivePage); // pop just in case if use is in [ReceiveOptionsPage]
-    server.setState((oldState) => oldState?.copyWith(
-          session: oldState.session?.copyWith(
-            status: SessionStatus.canceledBySender,
-          ),
-        ));
+  final receiveSession = server.getState().session;
+  if (receiveSession == null) {
+    return;
   }
-}
 
-void _cancelByReceiver(ServerUtils server, SendSessionState sendState) {
-  final currentStatus = sendState.status;
-  if (currentStatus == SessionStatus.waiting ||
-      currentStatus == SessionStatus.sending) {
-    server.ref.read(sendProvider.notifier).cancelSession(sendState.sessionId,
-        shouldNotifyReceiver: false); //cancel send session
-    Routerino.context.popUntil(
-        HomePage); // pop just in case if use is in [ReceiveOptionsPage]
-    server.setState((oldState) => oldState?.copyWith(
-          session: oldState.session?.copyWith(
-            status: SessionStatus.canceledBySender,
-          ),
-        ));
+  if (receiveSession.status == SessionStatus.waiting) {
+    // received cancel during accept/decline
+    // pop just in case if user is in [ReceiveOptionsPage]
+    Routerino.context.popUntil(ReceivePage);
   }
+
+  server.setState((oldState) => oldState?.copyWith(
+    session: oldState.session?.copyWith(
+      status: SessionStatus.canceledBySender,
+      endTime: DateTime.now().millisecondsSinceEpoch,
+    ),
+  ));
 }
 
 /// If there is a file with the same name, then it appends a number to its file name

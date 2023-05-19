@@ -1,3 +1,7 @@
+## 1.9.2 (2023-)
+
+- fix: cancellation fixes during active file transfer (by @SelaseKay) 
+
 ## 1.9.1 (2023-05-05)
 
 - feat: add folder should include the folder itself

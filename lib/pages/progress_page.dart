@@ -11,7 +11,6 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
-import 'package:localsend_app/provider/sender_session_id_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
@@ -71,10 +70,6 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
               .map((f) => f.file.id)
               .toSet();
         } else {
-          //save sender session id which will be accessed later to cancel session from receiver
-          ref
-              .read(senderSessionIdProvider.notifier)
-              .setSessionId(widget.sessionId);
           final sendSession = ref.read(sendProvider)[widget.sessionId];
           if (sendSession != null) {
             _files = sendSession.files.values.map((f) => f.file).toList();

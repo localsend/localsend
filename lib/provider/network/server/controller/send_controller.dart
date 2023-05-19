@@ -221,8 +221,6 @@ class SendController {
     });
   }
 
-
-
   Future<void> initializeWebSend({required List<CrossFile> files}) async {
     final webSendState = WebSendState(
       sessions: {},
