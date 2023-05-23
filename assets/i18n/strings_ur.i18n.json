@@ -182,7 +182,7 @@
   "changelogPage": {
     "title": "چینج لاگ"
   },
-   "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -205,7 +205,7 @@
     },
     "fileNameInput": {
       "title": "فائل کا نام درج کریں۔",
-      "original": "فائل کا نام درج کرنا"
+      "original": "اصل: {original}"
     },
     "messageInput": {
       "title": "پیغام ٹائپ کریں۔",
@@ -226,11 +226,11 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔"
-    },
+    }
+  },
   "tray": {
     "@info": "ایپل کے رہنما خطوط 'قریبی' الفاظ کے بارے میں بہت سخت ہیں۔",
     "open": "@:general.open",
     "close": "چھوڑو LocalSend"
   }
-}
 }
