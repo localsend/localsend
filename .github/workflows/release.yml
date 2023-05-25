@@ -1,0 +1,81 @@
+name: Create Release Draft and Assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. "v1.10.0" without quotes)'
+        type: string
+        required: true
+
+env:
+  FLUTTER_VERSION: "3.7.12"
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Dependencies
+        run: flutter pub get
+
+      - name: Build generated files
+        run: flutter pub run build_runner build -d
+
+      - name: Enable dart_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Update PATH
+        run: echo 'export PATH="$PATH:$HOME/.pub-cache/bin"' >> ~/.bashrc
+
+      - name: Build deb package
+        run: flutter_distributor package --platform linux --targets deb
+
+      - name: Find deb file
+        id: find_deb
+        run: |
+          VERSION=${{ github.event.inputs.version }}
+          VERSION=${VERSION#v}
+          DEB_PATH=$(find dist -name "localsend_app-$VERSION*-linux.deb")
+          echo "deb_path=$DEB_PATH" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if deb file exists
+        id: check_file
+        run: |
+          if [[ ! -f "${{ steps.find_deb.outputs.deb_path }}" ]]; then
+            echo "File not found: ${{ steps.find_deb.outputs.deb_path }}"
+            exit 1
+          fi
+
+      - name: Draft release
+        id: draft_release
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: ${{ github.event.inputs.version }}
+          name: ${{ github.event.inputs.version }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_deb.outputs.deb_path }}
+          asset_name: LocalSend-${{ steps.find_deb.outputs.version }}-x86-64.deb
+          asset_content_type: application/vnd.debian.binary-package
