@@ -3,7 +3,7 @@ description: An open source cross-platform alternative to AirDrop
 
 publish_to: "none"
 
-version: 1.9.1+31
+version: 1.10.0+32
 
 environment:
   flutter: '>=3.7.12'
