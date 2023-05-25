@@ -33,33 +33,62 @@ class WindowDimensionsController {
     final Size? persistedSize = useSavedPlacement ? persistedDimensions["size"] as Size? : null;
     final Offset? persistedOffset = useSavedPlacement ? persistedDimensions["position"] as Offset? : null;
 
-    // settings applied accordingly if [save option is enabled] and if [persisted values exist]
-    await WindowManager.instance.setSize(persistedSize ?? (hasEnoughWidth ? _defaultSize : _minimalSize));
+    // Checks if the last known position is valid
+    bool foundInScreen = await isInScreenBounds(persistedOffset);
 
-    if (persistedOffset == null) {
+    // settings applied accordingly if [save option is enabled] and if [persisted values are valid]
+    if (foundInScreen) {
+      await WindowManager.instance.setSize(persistedSize ?? (hasEnoughWidth ? _defaultSize : _minimalSize));
+    } else {
+      await WindowManager.instance.setSize(hasEnoughWidth ? _defaultSize : _minimalSize);
+    }
+
+    if (persistedOffset == null || !foundInScreen) {
       await WindowManager.instance.center();
     } else {
       await WindowManager.instance.setPosition(persistedOffset);
     }
   }
 
+  Future<bool> isInScreenBounds(Offset? windowOffset) async {
+    if (windowOffset != null) {
+      Size screenTotal = const Size(0.0, 0.0);
+      double height = 0;
+      List<Display> displays = await ScreenRetriever.instance.getAllDisplays();
+      for (final display in displays) {
+        if (display.size.height > height) {
+          height = display.size.height - height;
+        }
+        screenTotal += Offset(display.size.width, height);
+        if (screenTotal.contains(windowOffset)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   Future<void> storeDimensions({
     required Offset windowOffset,
     required Size windowSize,
   }) async {
-    await Future.wait([
-      _service.setWindowOffsetX(windowOffset.dx),
-      _service.setWindowOffsetY(windowOffset.dy),
-      _service.setWindowHeight(windowSize.height),
-      _service.setWindowWidth(windowSize.width),
-    ]);
+    if (await isInScreenBounds(windowOffset)) {
+      await Future.wait([
+        _service.setWindowOffsetX(windowOffset.dx),
+        _service.setWindowOffsetY(windowOffset.dy),
+        _service.setWindowHeight(windowSize.height),
+        _service.setWindowWidth(windowSize.width),
+      ]);
+    }
   }
 
   Future<void> storePosition({required Offset windowOffset}) async {
-    await Future.wait([
-      _service.setWindowOffsetX(windowOffset.dx),
-      _service.setWindowOffsetY(windowOffset.dy),
-    ]);
+    if (await isInScreenBounds(windowOffset)) {
+      await Future.wait([
+        _service.setWindowOffsetX(windowOffset.dx),
+        _service.setWindowOffsetY(windowOffset.dy),
+      ]);
+    }
   }
 
   Future<void> storeSize({required Size windowSize}) async {
