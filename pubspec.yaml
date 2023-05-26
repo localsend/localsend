@@ -5,6 +5,8 @@ publish_to: "none"
 
 version: 1.9.1+31
 
+homepage: https://localsend.org/
+
 environment:
   flutter: '>=3.7.12'
   sdk: ">=2.19.6 <3.0.0"
