@@ -38,7 +38,7 @@ dependencies:
   path_provider: 2.0.14
   permission_handler: 10.2.0
   pretty_qr_code: 2.0.3
-  routerino: 0.3.1
+  routerino: 0.4.0
   screen_retriever: 0.1.6
   share_handler: 0.0.16
   shared_preferences: 2.1.0

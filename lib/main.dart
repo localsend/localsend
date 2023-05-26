@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/init.dart';
-import 'package:localsend_app/pages/init_page.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
@@ -76,7 +76,12 @@ class LocalSendApp extends ConsumerWidget {
               darkTheme: getTheme(Brightness.dark),
               themeMode: themeMode,
               navigatorKey: Routerino.navigatorKey,
-              home: const InitPage(),
+              home: RouterinoHome(
+                builder: () => const HomePage(
+                  initialTab: HomeTab.receive,
+                  appStart: true,
+                ),
+              ),
             ),
           ),
         ),

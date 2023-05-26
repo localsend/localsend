@@ -1044,10 +1044,10 @@ packages:
     dependency: "direct main"
     description:
       name: routerino
-      sha256: f474fc4215be383ffe4c76cc167c131808a367b88cf704c35ced738a9a8bf3fe
+      sha256: "8fe7985f7dd6f64607e340c1bf9783270e80ea972092dca76dcdaa424bd17d9d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.4.0"
   rxdart:
     dependency: transitive
     description:
