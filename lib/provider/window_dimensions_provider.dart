@@ -73,28 +73,22 @@ class WindowDimensionsController {
     required Size windowSize,
   }) async {
     if (await isInScreenBounds(windowOffset)) {
-      await Future.wait([
-        _service.setWindowOffsetX(windowOffset.dx),
-        _service.setWindowOffsetY(windowOffset.dy),
-        _service.setWindowHeight(windowSize.height),
-        _service.setWindowWidth(windowSize.width),
-      ]);
+      await _service.setWindowOffsetX(windowOffset.dx);
+      await _service.setWindowOffsetY(windowOffset.dy);
+      await _service.setWindowHeight(windowSize.height);
+      await _service.setWindowWidth(windowSize.width);
     }
   }
 
   Future<void> storePosition({required Offset windowOffset}) async {
     if (await isInScreenBounds(windowOffset)) {
-      await Future.wait([
-        _service.setWindowOffsetX(windowOffset.dx),
-        _service.setWindowOffsetY(windowOffset.dy),
-      ]);
+      await _service.setWindowOffsetX(windowOffset.dx);
+      await _service.setWindowOffsetY(windowOffset.dy);
     }
   }
 
   Future<void> storeSize({required Size windowSize}) async {
-    await Future.wait([
-      _service.setWindowHeight(windowSize.height),
-      _service.setWindowWidth(windowSize.width),
-    ]);
+    await _service.setWindowHeight(windowSize.height);
+    await _service.setWindowWidth(windowSize.width);
   }
 }

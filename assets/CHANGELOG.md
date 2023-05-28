@@ -1,6 +1,7 @@
 ## 1.9.2 (2023-)
 
 - fix: cancellation fixes during active file transfer (by @SelaseKay) 
+- fix: possible settings corruption on Windows (by @TheGB0077, @Tienisto)
 
 ## 1.9.1 (2023-05-05)
 
