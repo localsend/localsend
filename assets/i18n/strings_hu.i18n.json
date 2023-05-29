@@ -78,8 +78,7 @@
     "title": "Beállítások",
     "general": {
       "title": "Általános",
-      "theme": "Téma",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Rendszer",
         "dark": "Sötét",
         "light": "Világos"

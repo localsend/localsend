@@ -78,8 +78,7 @@
     "title": "Paramètres",
     "general": {
       "title": "Général",
-      "theme": "Thème",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Système",
         "dark": "Sombre",
         "light": "Clair"

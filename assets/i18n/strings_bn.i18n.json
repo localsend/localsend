@@ -68,8 +68,7 @@
     "title": "সেটিংস",
     "general": {
       "title": "জেনারেল",
-      "theme": "থিম",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "সিস্টেম",
         "dark": "ডার্ক",
         "light": "লাইট"

@@ -21,6 +21,11 @@
   },
   "settingsTab": {
     "general": {
+      "brightness": "Brightness",
+      "color": "Color",
+      "colorOptions": {
+        "system": "System"
+      },
       "saveWindowPlacement": "Quit: Save window placement"
     },
     "receive": {

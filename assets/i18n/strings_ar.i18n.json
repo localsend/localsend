@@ -68,8 +68,7 @@
     "title": "إعدادات",
     "general": {
       "title": "عام",
-      "theme": "مظهر",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "نظام",
         "dark": "داكن",
         "light": "فاتح"

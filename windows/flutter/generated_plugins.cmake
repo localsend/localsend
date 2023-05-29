@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_drop
+  dynamic_color
   network_info_plus
   permission_handler_windows
   screen_retriever

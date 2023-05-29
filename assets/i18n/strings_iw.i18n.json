@@ -68,8 +68,7 @@
     "title": "הגדרות",
     "general": {
       "title": "כללי",
-      "theme": "ערכת נושא",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "מערכת",
         "dark": "כֵּהֶה",
         "light": "בָּהִיר"

@@ -2,5 +2,14 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <hu>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=hu' to quickly apply the newly added translations."
-  ]
+  ],
+  "settingsTab": {
+    "general": {
+      "brightness": "Brightness",
+      "color": "Color",
+      "colorOptions": {
+        "system": "System"
+      }
+    }
+  }
 }

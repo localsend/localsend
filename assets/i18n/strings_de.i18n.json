@@ -78,11 +78,15 @@
     "title": "Einstellungen",
     "general": {
       "title": "Allgemein",
-      "theme": "Oberfläche",
-      "themeOptions": {
+      "brightness": "Helligkeit",
+      "brightnessOptions": {
         "system": "System",
         "dark": "Dunkel",
         "light": "Hell"
+      },
+      "color": "Farbe",
+      "colorOptions": {
+        "system": "System"
       },
       "language": "Sprache",
       "languageOptions": {

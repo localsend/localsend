@@ -78,8 +78,7 @@
     "title": "Настройки",
     "general": {
       "title": "Общие",
-      "theme": "Тема",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Системная",
         "dark": "Тёмная",
         "light": "Светлая"

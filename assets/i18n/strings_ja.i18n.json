@@ -78,8 +78,7 @@
     "title": "設定",
     "general": {
       "title": "一般",
-      "theme": "テーマ",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "システム",
         "dark": "ダーク",
         "light": "ライト"

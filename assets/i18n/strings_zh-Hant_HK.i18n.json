@@ -78,8 +78,7 @@
     "title": "@:general.settings",
     "general": {
       "title": "一般",
-      "theme": "主題",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "跟機",
         "dark": "暗色",
         "light": "亮色"

@@ -117,14 +117,14 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                       setState(() => _showFullIp = !_showFullIp);
                                     },
                                     child: DeviceBadge(
-                                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                                       label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
                                     ),
                                   ),
                                   if (receiveSession.sender.deviceModel != null) ...[
                                     const SizedBox(width: 10),
                                     DeviceBadge(
-                                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                                       label: receiveSession.sender.deviceModel!,
                                     ),
                                   ],
@@ -252,7 +252,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(context).colorScheme.error,
-                                  foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
+                                  foregroundColor: Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
                                   _decline(ref);

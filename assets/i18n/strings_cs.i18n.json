@@ -78,8 +78,7 @@
     "title": "Nastavení",
     "general": {
       "title": "Všeobecné",
-      "theme": "Téma",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Systémové",
         "dark": "Tmavé",
         "light": "Světlé"

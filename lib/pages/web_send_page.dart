@@ -230,7 +230,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                                 child: Text(
                                   t.general.accepted,
                                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                                        color: Theme.of(context).colorScheme.onSecondaryContainer,
                                       ),
                                 ),
                               ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/stored_security_context.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -37,7 +38,8 @@ const _saveWindowPlacement = 'ls_save_window_placement';
 // Settings
 const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
-const _themeKey = 'ls_theme';
+const _themeKey = 'ls_theme'; // now called brightness
+const _colorKey = 'ls_color';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _multicastGroupKey = 'ls_multicast_group';
@@ -126,6 +128,18 @@ class PersistenceService {
 
   Future<void> setTheme(ThemeMode theme) async {
     await _prefs.setString(_themeKey, theme.name);
+  }
+
+  ColorMode getColorMode() {
+    final value = _prefs.getString(_colorKey);
+    if (value == null) {
+      return ColorMode.system;
+    }
+    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ?? ColorMode.system;
+  }
+
+  Future<void> setColorMode(ColorMode color) async {
+    await _prefs.setString(_colorKey, color.name);
   }
 
   AppLocale? getLocale() {

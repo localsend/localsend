@@ -78,8 +78,7 @@
     "title": "ترتیبات",
     "general": {
       "title": "جنرل",
-      "theme": "تھیم",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "سسٹم",
         "dark": "اندھیرا",
         "light": "روشنی"

@@ -27,19 +27,16 @@ class DeviceListTile extends StatelessWidget {
           else if (progress != null)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
-              child: CustomProgressBar(
-                progress: progress!,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-              ),
+              child: CustomProgressBar(progress: progress!),
             )
           else ...[
             DeviceBadge(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
               label: '#${device.ip.visualId}',
             ),
             if (device.deviceModel != null)
               DeviceBadge(
-                color: Theme.of(context).colorScheme.tertiaryContainer,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 label: device.deviceModel!,
               ),
           ],

@@ -5,38 +5,43 @@ import 'package:localsend_app/util/native/platform_check.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
-final _lightInputColor = Color.lerp(Colors.teal.shade100, Colors.white, 0.4)!;
-final _lightInputBorder = OutlineInputBorder(
-  borderSide: BorderSide(color: _lightInputColor),
-  borderRadius: _borderRadius,
-);
+ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
+  colorScheme ??= ColorScheme.fromSwatch(
+    primarySwatch: Colors.teal,
+    brightness: brightness,
+    backgroundColor: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
+  ).copyWith(
+    // overrides for LocalSend theme
+    onError: Colors.white,
+    secondaryContainer:
+        brightness == Brightness.light ? Color.lerp(Colors.teal.shade100, Colors.white, 0.2) : Color.lerp(Colors.teal.shade100, Colors.black, 0.6),
+    onSecondaryContainer: brightness == Brightness.light ? Colors.black : Colors.white,
+  );
 
-final _darkInputColor = Color.lerp(Colors.teal.shade100, Colors.black, 0.6)!;
-final _darkInputBorder = OutlineInputBorder(
-  borderSide: BorderSide(color: _darkInputColor),
-  borderRadius: _borderRadius,
-);
+  final lightInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: colorScheme.secondaryContainer),
+    borderRadius: _borderRadius,
+  );
 
-ThemeData getTheme(Brightness brightness) {
+  final darkInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: colorScheme.secondaryContainer),
+    borderRadius: _borderRadius,
+  );
+
   return ThemeData(
-    colorScheme: ColorScheme.fromSwatch(
-      primarySwatch: Colors.teal,
-      brightness: brightness,
-      backgroundColor: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
-    ),
+    colorScheme: colorScheme,
     useMaterial3: true,
     navigationBarTheme: brightness == Brightness.dark
         ? NavigationBarThemeData(
-            indicatorColor: Colors.teal,
             iconTheme: MaterialStateProperty.all(const IconThemeData(color: Colors.white)),
           )
         : null,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: brightness == Brightness.light ? _lightInputColor : _darkInputColor,
-      border: brightness == Brightness.light ? _lightInputBorder : _darkInputBorder,
-      focusedBorder: brightness == Brightness.light ? _lightInputBorder : _darkInputBorder,
-      enabledBorder: brightness == Brightness.light ? _lightInputBorder : _darkInputBorder,
+      fillColor: colorScheme.secondaryContainer,
+      border: brightness == Brightness.light ? lightInputBorder : darkInputBorder,
+      focusedBorder: brightness == Brightness.light ? lightInputBorder : darkInputBorder,
+      enabledBorder: brightness == Brightness.light ? lightInputBorder : darkInputBorder,
       contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

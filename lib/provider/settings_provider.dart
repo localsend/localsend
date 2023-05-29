@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -21,6 +22,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
       showToken: _service.getShowToken(),
       alias: _service.getAlias(),
       theme: _service.getTheme(),
+      colorMode: _service.getColorMode(),
       locale: _service.getLocale(),
       port: _service.getPort(),
       multicastGroup: _service.getMulticastGroup(),
@@ -46,6 +48,13 @@ class SettingsNotifier extends Notifier<SettingsState> {
     await _service.setTheme(theme);
     state = state.copyWith(
       theme: theme,
+    );
+  }
+
+  Future<void> setColorMode(ColorMode mode) async {
+    await _service.setColorMode(mode);
+    state = state.copyWith(
+      colorMode: mode,
     );
   }
 

@@ -11,6 +11,20 @@
     },
     "sendTab": {
       "thisDevice": "This Device"
+    },
+    "settingsTab": {
+      "general": {
+        "brightness": "Brightness",
+        "brightnessOptions": {
+          "system": "System",
+          "dark": "Dark",
+          "light": "Light"
+        },
+        "color": "Color",
+        "colorOptions": {
+          "system": "System"
+        }
+      }
     }
   },
   "ar": {},

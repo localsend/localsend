@@ -68,8 +68,7 @@
     "title": "Ayarlar",
     "general": {
       "title": "Genel",
-      "theme": "Tema",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Sistem teması",
         "dark": "Koyu",
         "light": "Açık"

@@ -3,6 +3,15 @@
     "Here are translations that exist in <en> but not in <ur>.",
     "After editing this file, you can run 'flutter pub run slang apply --locale=ur' to quickly apply the newly added translations."
   ],
+  "settingsTab": {
+    "general": {
+      "brightness": "Brightness",
+      "color": "Color",
+      "colorOptions": {
+        "system": "System"
+      }
+    }
+  },
   "apkPickerPage": {
     "title": "Apps (APK)",
     "excludeSystemApps": "Exclude system apps",

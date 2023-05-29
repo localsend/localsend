@@ -78,8 +78,7 @@
     "title": "设置",
     "general": {
       "title": "通用",
-      "theme": "主题",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "跟随系统",
         "dark": "暗色",
         "light": "亮色"

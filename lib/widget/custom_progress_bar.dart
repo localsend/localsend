@@ -13,7 +13,7 @@ class CustomProgressBar extends StatelessWidget {
       borderRadius: BorderRadius.circular(borderRadius),
       child: LinearProgressIndicator(
         value: progress,
-        color: color,
+        color: color ?? Theme.of(context).colorScheme.primary,
         minHeight: 10,
       ),
     );

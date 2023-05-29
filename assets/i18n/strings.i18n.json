@@ -78,11 +78,15 @@
     "title": "Settings",
     "general": {
       "title": "General",
-      "theme": "Theme",
-      "themeOptions": {
+      "brightness": "Brightness",
+      "brightnessOptions": {
         "system": "System",
         "dark": "Dark",
         "light": "Light"
+      },
+      "color": "Color",
+      "colorOptions": {
+        "system": "System"
       },
       "language": "Language",
       "languageOptions": {

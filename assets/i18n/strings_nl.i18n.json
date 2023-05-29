@@ -78,8 +78,7 @@
     "title": "Instellingen",
     "general": {
       "title": "Algemeen",
-      "theme": "Thema",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Systeem",
         "dark": "Donker",
         "light": "Licht"

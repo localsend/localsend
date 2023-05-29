@@ -78,8 +78,7 @@
     "title": "تنظیمات",
     "general": {
       "title": "عمومی",
-      "theme": "قالب",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "سیستم",
         "dark": "تیره",
         "light": "روشن"

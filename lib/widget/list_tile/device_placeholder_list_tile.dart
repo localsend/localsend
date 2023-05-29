@@ -29,11 +29,11 @@ class DevicePlaceholderListTile extends StatelessWidget {
         spacing: 10,
         children: [
           DeviceBadge(
-            color: Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.5),
             label: '       ',
           ),
           DeviceBadge(
-            color: Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.5),
             label: '              ',
           ),
         ],

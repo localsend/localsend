@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 
 part 'settings_state.freezed.dart';
@@ -11,6 +12,7 @@ class SettingsState with _$SettingsState {
     required String showToken, // the token to show / maximize the window because only one instance is allowed
     required String alias,
     required ThemeMode theme,
+    required ColorMode colorMode,
     required AppLocale? locale,
     required int port,
     required String multicastGroup,
