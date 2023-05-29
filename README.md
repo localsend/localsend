@@ -1,16 +1,18 @@
 # LocalSend
 
-LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
-
 [![CI status][ci-badge]][ci-workflow]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-Links: [Homepage][homepage] | [Discord][discord]
+[Homepage][homepage] • [Discord][discord] • [Github][github] • [Codeberg][codeberg]
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
+[github]: https://github.com/localsend/localsend
+[codeberg]: https://codeberg.org/localsend/localsend
+
+LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
 
 - [About](#about)
 - [Screenshots](#screenshots)
