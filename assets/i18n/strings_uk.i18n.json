@@ -78,10 +78,15 @@
     "title": "Налаштування",
     "general": {
       "title": "Загальні",
+      "brightness": "Яскравість",
       "brightnessOptions": {
         "system": "Системна",
         "dark": "Темна",
         "light": "Світла"
+      },
+      "color": "Колір",
+      "colorOptions": {
+        "system": "Системна"
       },
       "language": "Мова",
       "languageOptions": {

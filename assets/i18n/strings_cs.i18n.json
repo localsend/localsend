@@ -78,10 +78,15 @@
     "title": "Nastavení",
     "general": {
       "title": "Všeobecné",
+      "brightness": "Jas",
       "brightnessOptions": {
         "system": "Systémové",
         "dark": "Tmavé",
         "light": "Světlé"
+      },
+      "color": "Barva",
+      "colorOptions": {
+        "system": "Systémové"
       },
       "language": "Jazyk",
       "languageOptions": {

@@ -78,10 +78,15 @@
     "title": "Ajustes",
     "general": {
       "title": "General",
+      "brightness": "Luminosidad",
       "brightnessOptions": {
         "system": "Sistema",
         "dark": "Oscuro",
         "light": "Claro"
+      },
+      "color": "Color",
+      "colorOptions": {
+        "system": "Sistema"
       },
       "language": "Lenguaje",
       "languageOptions": {

@@ -78,10 +78,15 @@
     "title": "設定",
     "general": {
       "title": "一般",
+      "brightness": "亮度",
       "brightnessOptions": {
         "system": "系統",
         "dark": "深色",
         "light": "淺色"
+      },
+      "color": "顏色",
+      "colorOptions": {
+        "system": "系統"
       },
       "language": "語言",
       "languageOptions": {

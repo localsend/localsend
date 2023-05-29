@@ -78,10 +78,15 @@
     "title": "설정",
     "general": {
       "title": "일반",
+      "brightness": "밝기",
       "brightnessOptions": {
         "system": "시스템",
         "dark": "어두움",
         "light": "밝음"
+      },
+      "color": "색상",
+      "colorOptions": {
+        "system": "시스템"
       },
       "language": "언어",
       "languageOptions": {

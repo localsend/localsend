@@ -78,10 +78,15 @@
     "title": "設定",
     "general": {
       "title": "一般",
+      "brightness": "明るさ",
       "brightnessOptions": {
         "system": "システム",
         "dark": "ダーク",
         "light": "ライト"
+      },
+      "color": "カラー",
+      "colorOptions": {
+        "system": "システム"
       },
       "language": "言語",
       "languageOptions": {

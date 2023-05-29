@@ -78,19 +78,24 @@
     "title": "设置",
     "general": {
       "title": "通用",
+      "brightness": "亮度",
       "brightnessOptions": {
         "system": "跟随系统",
         "dark": "暗色",
         "light": "亮色"
       },
+      "color": "颜色",
+      "colorOptions": {
+        "system": "跟随系统"
+      },
       "language": "语言",
       "languageOptions": {
         "system": "跟随系统"
       },
+      "saveWindowPlacement": "关闭时：保存窗口位置",
       "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
-      "launchMinimized": "静默自启：只启动托盘服务",
-      "saveWindowPlacement": "关闭时：保存窗口位置"
+      "launchMinimized": "静默自启：只启动托盘服务"
     },
     "receive": {
       "title": "接收",
@@ -183,6 +188,20 @@
       "speed": "速度：{speed}/s"
     }
   },
+  "webSharePage": {
+    "title": "分享为链接",
+    "loading": "正在启动服务器...",
+    "stopping": "正在停止服务器...",
+    "error": "在启动服务器过程中发生了错误。",
+    "hint": "请注意，连接未被加密。应仅当接收方未安装 LocalSend 时使用本方式。",
+    "openLink": {
+      "one": "在浏览器中打开本链接:",
+      "other": "在浏览器中打开其中的一个链接:"
+    },
+    "requests": "请求",
+    "noRequests": "尚无请求。",
+    "pendingRequests": "待处理请求: {n}"
+  },
   "aboutPage": {
     "title": "关于 LocalSend"
   },
@@ -273,6 +292,13 @@
     "open": "@:general.open",
     "close": "退出 LocalSend"
   },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "已拒绝",
+    "files": "文件",
+    "fileName": "文件名",
+    "size": "大小"
+  },
   "assetPicker": {
     "confirm": "确认",
     "cancel": "取消",
@@ -302,26 +328,5 @@
     "sActionUseCameraHint": "使用摄像头",
     "sNameDurationLabel": "时长",
     "sUnitAssetCountLabel": "计数"
-  },
-  "webSharePage": {
-    "title": "分享为链接",
-    "loading": "正在启动服务器...",
-    "stopping": "正在停止服务器...",
-    "error": "在启动服务器过程中发生了错误。",
-    "hint": "请注意，连接未被加密。应仅当接收方未安装 LocalSend 时使用本方式。",
-    "openLink": {
-      "one": "在浏览器中打开本链接:",
-      "other": "在浏览器中打开其中的一个链接:"
-    },
-    "requests": "请求",
-    "noRequests": "尚无请求。",
-    "pendingRequests": "待处理请求: {n}"
-  },
-  "web": {
-    "waiting": "@:sendPage.waiting",
-    "rejected": "已拒绝",
-    "files": "文件",
-    "fileName": "文件名",
-    "size": "大小"
   }
 }

@@ -78,10 +78,15 @@
     "title": "Beállítások",
     "general": {
       "title": "Általános",
+      "brightness": "Fényerő",
       "brightnessOptions": {
         "system": "Rendszer",
         "dark": "Sötét",
         "light": "Világos"
+      },
+      "color": "Színes",
+      "colorOptions": {
+        "system": "Rendszer"
       },
       "language": "Nyelv",
       "languageOptions": {
