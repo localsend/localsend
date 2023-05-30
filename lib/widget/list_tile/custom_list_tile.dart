@@ -24,6 +24,7 @@ class CustomListTile extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
+      color: Theme.of(context).colorScheme.secondaryContainer,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(10),

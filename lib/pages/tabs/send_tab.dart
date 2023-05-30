@@ -274,7 +274,7 @@ class _SendTabState extends ConsumerState<SendTab> {
         }),
         const SizedBox(height: 10),
         Center(
-          child: ElevatedButton(
+          child: TextButton(
             onPressed: () async {
               await context.push(() => const TroubleshootPage());
             },

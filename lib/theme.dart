@@ -14,7 +14,7 @@ ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
     // overrides for LocalSend theme
     onError: Colors.white,
     secondaryContainer:
-        brightness == Brightness.light ? Color.lerp(Colors.teal.shade100, Colors.white, 0.2) : Color.lerp(Colors.teal.shade100, Colors.black, 0.6),
+        brightness == Brightness.light ? Color.lerp(Colors.teal.shade100, Colors.white, 0.5) : Color.lerp(Colors.teal.shade100, Colors.black, 0.6),
     onSecondaryContainer: brightness == Brightness.light ? Colors.black : Colors.white,
   );
 

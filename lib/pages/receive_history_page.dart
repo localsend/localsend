@@ -64,6 +64,10 @@ class ReceiveHistoryPage extends ConsumerWidget {
               children: [
                 const SizedBox(width: 15),
                 ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
                   onPressed: checkPlatform([TargetPlatform.iOS])
                       ? null
                       : () async {
@@ -75,6 +79,10 @@ class ReceiveHistoryPage extends ConsumerWidget {
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
                   onPressed: entries.isEmpty ? null : () async => ref.read(receiveHistoryProvider.notifier).removeAll(),
                   icon: const Icon(Icons.delete),
                   label: Text(t.receiveHistoryPage.deleteHistory),

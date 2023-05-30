@@ -117,14 +117,16 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                       setState(() => _showFullIp = !_showFullIp);
                                     },
                                     child: DeviceBadge(
-                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
                                       label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
                                     ),
                                   ),
                                   if (receiveSession.sender.deviceModel != null) ...[
                                     const SizedBox(width: 10),
                                     DeviceBadge(
-                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
                                       label: receiveSession.sender.deviceModel!,
                                     ),
                                   ],
