@@ -28,6 +28,30 @@ ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
     borderRadius: _borderRadius,
   );
 
+  // https://github.com/localsend/localsend/issues/52
+  final String? fontFamily;
+  if (checkPlatform([TargetPlatform.windows])) {
+    switch (LocaleSettings.currentLocale) {
+      case AppLocale.ja:
+        fontFamily = 'Yu Gothic UI';
+        break;
+      case AppLocale.ko:
+        fontFamily = 'Malgun Gothic';
+        break;
+      case AppLocale.zhCn:
+        fontFamily = 'Microsoft YaHei UI';
+        break;
+      case AppLocale.zhHk:
+      case AppLocale.zhTw:
+        fontFamily = 'Microsoft JhengHei UI';
+        break;
+      default:
+        fontFamily = 'Segoe UI Variable Display';
+    }
+  } else {
+    fontFamily = 'Segoe UI Variable Display';
+  }
+
   return ThemeData(
     colorScheme: colorScheme,
     useMaterial3: true,
@@ -55,13 +79,7 @@ ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
         padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
-
-    // https://github.com/localsend/localsend/issues/52
-    fontFamily: checkPlatform([TargetPlatform.windows])
-        ? ([AppLocale.zhCn, AppLocale.zhHk, AppLocale.zhTw, AppLocale.ko, AppLocale.ja].contains(LocaleSettings.currentLocale)
-            ? 'Microsoft YaHei UI'
-            : 'Segoe UI Variable Display')
-        : null,
+    fontFamily: fontFamily,
   );
 }
 
