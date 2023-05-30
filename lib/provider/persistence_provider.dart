@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -59,7 +62,21 @@ class PersistenceService {
   PersistenceService._(this._prefs);
 
   static Future<PersistenceService> initialize() async {
-    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs;
+
+    try {
+      prefs = await SharedPreferences.getInstance();
+    } catch (e) {
+      if (checkPlatform([TargetPlatform.windows])) {
+        print('Deleting corrupted settings file');
+        final settingsDir = await path.getApplicationSupportDirectory();
+        final prefsFile = p.join(settingsDir.path, 'shared_preferences.json');
+        File(prefsFile).deleteSync();
+        prefs = await SharedPreferences.getInstance();
+      } else {
+        throw Exception('Could not initialize SharedPreferences');
+      }
+    }
 
     // Locale configuration upon persistence initialisation to prevent unlocalised Alias generation
     final persistedLocale = prefs.getString(_localeKey);
