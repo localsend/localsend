@@ -13,8 +13,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -39,13 +38,52 @@ jobs:
           name: lib-files
           path: ./lib/*
 
+  build_tar:
+    needs: build
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download generated files
+        uses: actions/download-artifact@v3
+        with:
+          name: lib-files
+          path: lib
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Dependencies
+        run: flutter pub get
+
+      - name: Compile linux
+        run: flutter build linux
+
+      - name: Create tar.gz archive
+        run: |
+          cd build/linux/x64/release/bundle
+          tar -czvf ../../../../../result.tar.gz *
+
+      - name: Upload tar.gz archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: tar-gz-result
+          path: ./*.tar.gz
+
   build_deb:
     needs: build
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -98,8 +136,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -149,12 +186,11 @@ jobs:
           path: ./*.AppImage
 
   release:
-    needs: [build, build_deb, build_appimage]
+    needs: [build, build_tar, build_deb, build_appimage]
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Draft release
         id: draft_release
@@ -165,6 +201,30 @@ jobs:
           tag: v${{ needs.build.outputs.version }}
           name: v${{ needs.build.outputs.version }}
 
+      # TAR.GZ
+      - name: Download tar.gz file
+        uses: actions/download-artifact@v3
+        with:
+          name: tar-gz-result
+          path: tar-gz-result
+
+      - name: List files in tar.gz-directory
+        run: ls -l tar-gz-result
+
+      - name: Copy tar.gz file to root
+        run: cp tar-gz-result/* result.tar.gz
+
+      - name: Upload Release Asset (tar.gz)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result.tar.gz
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-x86-64.tar.gz
+          asset_content_type: application/gzip
+
+      # DEB
       - name: Download deb file
         uses: actions/download-artifact@v3
         with:
@@ -181,9 +241,10 @@ jobs:
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
           asset_path: result.deb
-          asset_name: LocalSend-${{ needs.build.outputs.version }}-x86-64.deb
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-x86-64.deb
           asset_content_type: application/vnd.debian.binary-package
 
+      # APPIMAGE
       - name: Download AppImage file
         uses: actions/download-artifact@v3
         with:
@@ -208,5 +269,5 @@ jobs:
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
           asset_path: result.AppImage
-          asset_name: LocalSend-${{ needs.build.outputs.version }}-x86-64.AppImage
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-x86-64.AppImage
           asset_content_type: application/x-appimage
