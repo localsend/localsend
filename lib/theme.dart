@@ -49,7 +49,7 @@ ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
         fontFamily = 'Segoe UI Variable Display';
     }
   } else {
-    fontFamily = 'Segoe UI Variable Display';
+    fontFamily = null;
   }
 
   return ThemeData(
