@@ -11,6 +11,7 @@ import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -82,6 +83,10 @@ class PersistenceService {
 
     if (prefs.getString(_securityContext) == null) {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+    }
+
+    if (prefs.getString(_colorKey) == null) {
+      await prefs.setString(_colorKey, checkPlatform([TargetPlatform.android]) ? ColorMode.system.name : ColorMode.localsend.name);
     }
 
     return PersistenceService._(prefs);
