@@ -78,10 +78,15 @@
     "title": "@:general.settings",
     "general": {
       "title": "一般",
+      "brightness": "亮度",
       "brightnessOptions": {
         "system": "跟機",
         "dark": "暗色",
         "light": "亮色"
+      },
+      "color": "顏色",
+      "colorOptions": {
+        "system": "跟機"
       },
       "language": "語言",
       "languageOptions": {
