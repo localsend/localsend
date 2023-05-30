@@ -1,6 +1,7 @@
 ## 1.10.0 (2023-)
 
 - feat: dynamic colors (Material You) (by @Tienisto)
+- feat: sharing APKs includes version in file name (by @Tienisto)
 - fix: cancellation fixes during active file transfer (by @SelaseKay) 
 - fix: possible settings corruption on Windows (by @TheGB0077, @Tienisto)
 

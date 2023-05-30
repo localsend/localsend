@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -111,11 +109,8 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: InkWell(
                           onTap: () {
-                            unawaited(
-                              ref
-                                  .read(selectedSendingFilesProvider.notifier)
-                                  .addFiles(files: [app], converter: CrossFileConverters.convertApplication),
-                            );
+                            // ignore: discarded_futures
+                            ref.read(selectedSendingFilesProvider.notifier).addFiles(files: [app], converter: CrossFileConverters.convertApplication);
                             context.pop();
                           },
                           customBorder: RoundedRectangleBorder(
