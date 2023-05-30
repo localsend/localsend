@@ -1,4 +1,10 @@
 template: |
-  ## Changes
+  ### Summary
+  
+  - insert summary here
+  
+  ### Changes
   
   $CHANGES
+
+  [Full Changelog](https://github.com/localsend/localsend/blob/main/assets/CHANGELOG.md)
