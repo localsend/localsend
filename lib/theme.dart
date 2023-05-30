@@ -58,7 +58,7 @@ ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
 
     // https://github.com/localsend/localsend/issues/52
     fontFamily: checkPlatform([TargetPlatform.windows])
-        ? ([AppLocale.zhHans, AppLocale.zhHantHk, AppLocale.zhHantTw, AppLocale.ko, AppLocale.ja].contains(LocaleSettings.currentLocale)
+        ? ([AppLocale.zhCn, AppLocale.zhHk, AppLocale.zhTw, AppLocale.ko, AppLocale.ja].contains(LocaleSettings.currentLocale)
             ? 'Microsoft YaHei UI'
             : 'Segoe UI Variable Display')
         : null,
