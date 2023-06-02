@@ -45,6 +45,7 @@ dependencies:
   screen_retriever: 0.1.6
   share_handler: 0.0.16
   shared_preferences: 2.1.1
+  shared_storage: 0.7.1
   shelf: 1.4.1
   shelf_router: 1.1.4
   slang: 3.18.0

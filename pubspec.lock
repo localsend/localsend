@@ -1174,6 +1174,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  shared_storage:
+    dependency: "direct main"
+    description:
+      name: shared_storage
+      sha256: "2761c1f6562d7cfb7626982d3fc7ce0bb1d9bf86ff7db2f6d77ee078d8f57de9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.1"
   shelf:
     dependency: "direct main"
     description:
