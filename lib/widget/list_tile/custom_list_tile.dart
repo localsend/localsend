@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/theme.dart';
 
 class CustomListTile extends StatelessWidget {
   final Widget? icon;
@@ -24,7 +25,7 @@ class CustomListTile extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      color: Theme.of(context).colorScheme.secondaryContainer,
+      color: Theme.of(context).colorScheme.secondaryContainerIfDark,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(10),

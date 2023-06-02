@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/theme.dart';
 
 class BigButton extends StatelessWidget {
   final IconData icon;
@@ -24,8 +25,8 @@ class BigButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: filled ? colorScheme.primary : colorScheme.secondaryContainer,
-          foregroundColor: filled ? colorScheme.onPrimary : colorScheme.onSecondaryContainer,
+          backgroundColor: filled ? colorScheme.primary : colorScheme.secondaryContainerIfDark,
+          foregroundColor: filled ? colorScheme.onPrimary : colorScheme.onSecondaryContainerIfDark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

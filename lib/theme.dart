@@ -111,6 +111,14 @@ extension ColorSchemeExt on ColorScheme {
   Color get warning {
     return Colors.orange;
   }
+
+  Color? get secondaryContainerIfDark {
+    return brightness == Brightness.dark ? secondaryContainer : null;
+  }
+
+  Color? get onSecondaryContainerIfDark {
+    return brightness == Brightness.dark ? onSecondaryContainer : null;
+  }
 }
 
 extension InputDecorationThemeExt on InputDecorationTheme {

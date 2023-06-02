@@ -4,6 +4,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/open_file.dart';
@@ -65,8 +66,8 @@ class ReceiveHistoryPage extends ConsumerWidget {
                 const SizedBox(width: 15),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
                   onPressed: checkPlatform([TargetPlatform.iOS])
                       ? null
@@ -80,8 +81,8 @@ class ReceiveHistoryPage extends ConsumerWidget {
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
                   onPressed: entries.isEmpty ? null : () async => ref.read(receiveHistoryProvider.notifier).removeAll(),
                   icon: const Icon(Icons.delete),
