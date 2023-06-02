@@ -1,11 +1,12 @@
-## 1.10.0 (2023-)
+## 1.10.0 (2023-06-02)
 
-- feat: dynamic colors (Material You) (by @Tienisto)
-- feat: sharing APKs includes version in file name (by @Tienisto)
-- feat(windows): use specialized fonts for Chinese, Japanese and Korean (by @graphemecluster, @Tienisto)
-- fix: cancellation fixes during active file transfer (by @SelaseKay)
-- fix: possible settings corruption on Windows (by @TheGB0077, @Tienisto)
-- fix(android): get downloads directory correctly (by @Tienisto)
+- feat: dynamic colors (Material You) (@Tienisto)
+- feat: sharing APKs includes version in file name (@Tienisto)
+- feat(windows): use specialized fonts for Chinese, Japanese and Korean (@graphemecluster, @Tienisto)
+- fix: cancellation fixes during active file transfer (@SelaseKay)
+- fix: possible settings corruption on Windows (@TheGB0077, @Tienisto)
+- fix(android): get downloads directory correctly (@Tienisto)
+- fix(ios): could not save HEIC files (@Tienisto)
 
 ## 1.9.1 (2023-05-05)
 
