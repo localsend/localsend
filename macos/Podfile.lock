@@ -6,6 +6,8 @@ PODS:
     - FlutterMacOS
   - device_info_plus (0.0.1):
     - FlutterMacOS
+  - dynamic_color (0.0.2):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - network_info_plus (0.0.1):
     - FlutterMacOS
@@ -38,6 +40,7 @@ DEPENDENCIES:
   - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
   - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
+  - dynamic_color (from `Flutter/ephemeral/.symlinks/plugins/dynamic_color/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - network_info_plus (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
@@ -62,6 +65,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos
   device_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
+  dynamic_color:
+    :path: Flutter/ephemeral/.symlinks/plugins/dynamic_color/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   network_info_plus:
@@ -91,6 +96,7 @@ SPEC CHECKSUMS:
   connectivity_plus: 18d3c32514c886e046de60e9c13895109866c747
   desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
   device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
+  dynamic_color: 2eaa27267de1ca20d879fbd6e01259773fb1670f
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   network_info_plus: f4fbc7877ab7b3294500d9441dfa53cd54972d05
   package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce

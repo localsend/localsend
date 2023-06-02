@@ -39,7 +39,7 @@ PODS:
     - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
-  - image_gallery_saver (1.5.0):
+  - image_gallery_saver (2.0.1):
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
@@ -58,9 +58,9 @@ PODS:
     - Flutter
     - FlutterMacOS
   - ReachabilitySwift (5.0.0)
-  - SDWebImage (5.15.5):
-    - SDWebImage/Core (= 5.15.5)
-  - SDWebImage/Core (5.15.5)
+  - SDWebImage (5.15.6):
+    - SDWebImage/Core (= 5.15.6)
+  - SDWebImage/Core (5.15.6)
   - share_handler_ios (0.0.9):
     - Flutter
     - share_handler_ios/share_handler_ios_models (= 0.0.9)
@@ -158,7 +158,7 @@ SPEC CHECKSUMS:
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
+  image_gallery_saver: 6eb11e5a866e9ac2c8a98c74ef99a04fc62878b2
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   network_info_plus: b78876159360f5580608c2cea620d6ceffabd0ad
   open_filex: 6e26e659846ec990262224a12ef1c528bb4edbe4
@@ -167,7 +167,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  SDWebImage: fd7e1a22f00303e058058278639bf6196ee431fe
+  SDWebImage: d47d81bea8a77187896b620dc79c3c528e8906b9
   share_handler_ios: b652bcd9c52dc0900813c3506b7d35a169b1343b
   share_handler_ios_models: fc638c9b4330dc7f082586c92aee9dfa0b87b871
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
