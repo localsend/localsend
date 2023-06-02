@@ -349,10 +349,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "0894a098594263fe1caaba3520e3016d8a855caeb010a882273189cca10f11e9"
+      sha256: "347d56c26d63519552ef9a569f2a593dda99a81fdbdff13c584b7197cfe05059"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.1"
+    version: "5.1.2"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -426,18 +426,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_gen_core
-      sha256: "41ed478d2c1b77cb899b859c3705be02a76a3f03171c17b1d82af98068788763"
+      sha256: e8637dd6a59860f89e5e71be0a27101ec32dad1a0ed7fd879fd23b6e91d5004d
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.1"
   flutter_gen_runner:
     dependency: "direct dev"
     description:
       name: flutter_gen_runner
-      sha256: a32f596f5c4f0d03ef950db2ec03b5d05f944d215accfd3e0494cf47113139fa
+      sha256: "7de1bf4fc0439be0fef3178b6423d5c7f1f9f3a38a7c6fafe75d7f70ff4856d7"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -601,10 +601,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_gallery_saver
-      sha256: be812580c7a320d3bf583af89cac6b376f170d48000aca75215a73285a3223a0
+      sha256: "009b7722cd8507fd72c7f2cb7cbc46d6e15ad0895469cfcc39a10f86e3556979"
       url: "https://pub.dev"
     source: hosted
-    version: "1.7.1"
+    version: "2.0.1"
   image_picker:
     dependency: "direct main"
     description:
@@ -769,10 +769,10 @@ packages:
     dependency: "direct dev"
     description:
       name: msix
-      sha256: "2b094025eb77940d2cea64ec2d1d918a6bf87ef4518eb9155def9a8855831bdc"
+      sha256: "26fabf10f65464f5198e9a9e3d242627efef56e418d52d6be466e2e126095647"
       url: "https://pub.dev"
     source: hosted
-    version: "3.11.1"
+    version: "3.14.0"
   nested:
     dependency: transitive
     description:
@@ -1065,10 +1065,10 @@ packages:
     dependency: "direct main"
     description:
       name: routerino
-      sha256: "8fe7985f7dd6f64607e340c1bf9783270e80ea972092dca76dcdaa424bd17d9d"
+      sha256: ee5c95dee7ab9ceec79e45611efc10c31c460e02ba6dcbaa4d6ef8ee543250dc
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   rxdart:
     dependency: transitive
     description:
@@ -1122,10 +1122,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: "858aaa72d8f61637d64e776aca82e1c67e6d9ee07979123c5d17115031c1b13b"
+      sha256: "16d3fb6b3692ad244a695c0183fca18cf81fd4b821664394a781de42386bf022"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -1231,26 +1231,26 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: "05446f81f3b17261a054723cd09537cc66e45ee9884b8f737e0572f8e5ded517"
+      sha256: "6b59a1a6eb1534a87331bedad83b218cb9bbdd11aa42bb1791d344f445a1e0e0"
       url: "https://pub.dev"
     source: hosted
-    version: "3.17.0"
+    version: "3.18.0"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: "4ea9a2a9301f4db815f475440cffbd137d4fd0273b19484d8fb0d24c99df33e8"
+      sha256: "44105cd9ea27a1e17e6416cdef5e578729ba7baccb8ee544414efad068ca1d29"
       url: "https://pub.dev"
     source: hosted
-    version: "3.17.0"
+    version: "3.18.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: e94985f9408381389f88b7c3de62154b85c91ce17d208c7b5813eacba673af95
+      sha256: "9587ad7deba6ddd8908e38485131a5136fbad958be8aa9852c67f8a1cb9687fe"
       url: "https://pub.dev"
     source: hosted
-    version: "3.17.0"
+    version: "3.18.0"
   source_gen:
     dependency: transitive
     description:
@@ -1416,10 +1416,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "75f2846facd11168d007529d6cd8fcb2b750186bea046af9711f10b907e1587e"
+      sha256: eb1e00ab44303d50dd487aab67ebc575456c146c6af44422f9c13889984c00f3
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.10"
+    version: "6.1.11"
   url_launcher_android:
     dependency: transitive
     description:
