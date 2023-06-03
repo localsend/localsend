@@ -274,7 +274,7 @@
       "counter": "Счётчик",
       "prefix": "Префикс",
       "padZero": "Добавить нули в начале",
-      "sortBeforeCount": "Отсортировать по алфавиту",
+      "sortBeforeCount": "Отсортировать по алфавиту (А-Я)",
       "random": "Случайно"
     },
     "quickSaveNotice": {
