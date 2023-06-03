@@ -50,7 +50,7 @@
     "title": "Надсилання",
     "selection": {
       "title": "Вибірка",
-      "files": "Файли: {files}",
+      "files": "Файлів: {files}",
       "size": "Розмір: {size}"
     },
     "picker": {
