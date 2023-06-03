@@ -219,7 +219,7 @@
     "addressInput": {
       "title": "Введіть адресу",
       "hashtag": "Хеш тег",
-      "ip": "IP Адреса",
+      "ip": "IP-адреса",
       "recentlyUsed": "Нещодавно використані: "
     },
     "cancelSession": {
