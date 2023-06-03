@@ -113,7 +113,7 @@
       "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
       "multicastGroup": "Групова передача",
-      "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки Ви використовуєте іншу, власну групову адресу. (default: {defaultMulticast})"
+      "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну групову адресу. (default: {defaultMulticast})"
     }
   },
   "troubleshootPage": {
