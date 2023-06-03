@@ -161,7 +161,7 @@
     "canceled": "Відправник скасував запит на передачу файлів"
   },
   "receiveOptionsPage": {
-    "title": "Опції отримання повідомлення",
+    "title": "Параметри отримання",
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(Тека LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
