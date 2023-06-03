@@ -93,8 +93,8 @@
         "system": "Системна"
       },
       "saveWindowPlacement": "Зберегти розташування вікна після закриття програми",
-      "minimizeToTray": "Вихід: Програма залишиться запущена у треї",
-      "launchAtStartup": "Автозапуск після входу",
+      "minimizeToTray": "Закрити: згорнути в системний трей",
+      "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск"
     },
     "receive": {
