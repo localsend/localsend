@@ -146,7 +146,7 @@
     "title": "Додатки (APK)",
     "excludeSystemApps": "Виключити системні додатки",
     "excludeAppsWithoutLaunchIntent": "Виключити додатки, які не запускаються",
-    "apps": "{n} Додатків"
+    "apps": "{n} додатків"
   },
   "selectedFilesPage": {
     "deleteAll": "Видалити все"
