@@ -934,12 +934,13 @@ packages:
     source: hosted
     version: "3.9.0"
   permission_handler_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: permission_handler_windows
-      sha256: f67cab14b4328574938ecea2db3475dad7af7ead6afab6338772c5f88963e38b
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: fc09b707ab4535a9214c87b16f09feda7e765d90
+      resolved-ref: fc09b707ab4535a9214c87b16f09feda7e765d90
+      url: "https://github.com/localsend/permission_handler_windows_noop.git"
+    source: git
     version: "0.1.2"
   petitparser:
     dependency: transitive
