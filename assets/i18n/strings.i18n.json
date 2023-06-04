@@ -329,7 +329,7 @@
       "multiline": "Multiline"
     },
     "noFiles": {
-      "title": "No file selected",
+      "title": "No file selected!",
       "content": "Please select at least one file."
     },
     "notAvailableOnPlatform": {
