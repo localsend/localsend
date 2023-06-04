@@ -78,7 +78,7 @@
     "title": "Настройки",
     "general": {
       "title": "Общие",
-      "brightness": "Темы",
+      "brightness": "Тема",
       "brightnessOptions": {
         "system": "Системная",
         "dark": "Тёмная",
@@ -86,7 +86,7 @@
       },
       "color": "Цвет",
       "colorOptions": {
-        "system": "Системная"
+        "system": "Системный"
       },
       "language": "Язык",
       "languageOptions": {
