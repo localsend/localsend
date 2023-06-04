@@ -8,10 +8,7 @@
 *.gen.dart
 *.freezed.dart
 
-/private_key.pepk
-/upload-keystore.jks
-/tienisto.pfx
-/scripts/compile_windows_msix_signed.ps1
+/secrets
 
 # Miscellaneous
 *.class
