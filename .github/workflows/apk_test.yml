@@ -1,0 +1,62 @@
+name: Flutter APK Build
+
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.7.12"
+  APK_BUILD_DIR: "/tmp/build"
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Copy files to env.APK_BUILD_DIR
+        run: |
+          mkdir -p $APK_BUILD_DIR
+          cp -r . $APK_BUILD_DIR
+
+      - name: Decode key.properties file
+        working-directory: ${{ env.APK_BUILD_DIR }}
+        env:
+          ENCODED_STRING: ${{ secrets.ANDROID_KEY_PROPERTIES }}
+        run: echo $ENCODED_STRING | base64 -di > android/key.properties
+
+      - name: Decode android-keystore.jks file
+        working-directory: ${{ env.APK_BUILD_DIR }}
+        env:
+          ENCODED_STRING: ${{ secrets.ANDROID_KEY_STORE }}
+        run: mkdir secrets && echo $ENCODED_STRING | base64 -di > secrets/android-keystore.jks
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Dependencies
+        working-directory: ${{ env.APK_BUILD_DIR }}
+        run: flutter pub get
+
+      - name: Build generated files
+        working-directory: ${{ env.APK_BUILD_DIR }}
+        run: flutter pub run build_runner build -d
+
+      - name: Build APK
+        working-directory: ${{ env.APK_BUILD_DIR }}
+        run: flutter build apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: LocalSend.apk
+          path: ${{ env.APK_BUILD_DIR }}/build/app/outputs/flutter-apk/app-release.apk
