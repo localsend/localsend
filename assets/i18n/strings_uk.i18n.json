@@ -259,7 +259,7 @@
       "multiline": "Багаторядкове"
     },
     "noFiles": {
-      "title": "Файли не обрано!",
+      "title": "Файли не обрано",
       "content": "Будь ласка, додайте як мінімум один файл."
     },
     "notAvailableOnPlatform": {
