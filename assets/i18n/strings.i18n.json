@@ -78,7 +78,7 @@
     "title": "Settings",
     "general": {
       "title": "General",
-      "brightness": "Brightness",
+      "brightness": "Theme",
       "brightnessOptions": {
         "system": "System",
         "dark": "Dark",
