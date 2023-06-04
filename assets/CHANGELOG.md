@@ -1,10 +1,11 @@
 ## 1.10.0 (2023-06-02)
 
 - feat: dynamic colors (Material You) (@Tienisto)
-- feat: sharing APKs includes version in file name (@Tienisto)
+- feat(android): sharing APKs includes version in file name (@Tienisto)
+- feat(windows): restore Windows 7 support (@Tienisto)
 - feat(windows): use specialized fonts for Chinese, Japanese and Korean (@graphemecluster, @Tienisto)
 - fix: cancellation fixes during active file transfer (@SelaseKay)
-- fix: possible settings corruption on Windows (@TheGB0077, @Tienisto)
+- fix(windows): possible settings corruption (@TheGB0077, @Tienisto)
 - fix(android): get downloads directory correctly (@Tienisto)
 - fix(ios): could not save HEIC files (@Tienisto)
 
