@@ -45,9 +45,10 @@ It is recommended to download the app either from an app store or from a package
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [AppImage][latest] | [APK][latest]  |               |            |
-| [MSIX Installer][latest] |                         |                    |                |               |            |
-| [Portable ZIP][latest]   |                         |                    |                |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
+| [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
+| [Portable ZIP][latest]   |                         | [DEB][latest]      |                |               |            |
+|                          |                         | [AppImage][latest] |                |               |            |
 
 Read more about [distribution channels][].
 
@@ -62,6 +63,7 @@ Read more about [distribution channels][].
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
+[nixos]: https://search.nixos.org/packages?show=localsend
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
