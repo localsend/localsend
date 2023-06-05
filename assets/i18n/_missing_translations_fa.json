@@ -5,10 +5,10 @@
   ],
   "settingsTab": {
     "general": {
-      "brightness": "Brightness",
-      "color": "Color",
+      "brightness": "ظاهر",
+      "color": "رنگ",
       "colorOptions": {
-        "system": "System"
+        "system": "سیستم"
       }
     }
   }
