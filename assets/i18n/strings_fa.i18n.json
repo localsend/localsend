@@ -78,10 +78,15 @@
     "title": "تنظیمات",
     "general": {
       "title": "عمومی",
+      "brightness": "ظاهر",
       "brightnessOptions": {
         "system": "سیستم",
         "dark": "تیره",
         "light": "روشن"
+      },
+      "color": "رنگ",
+      "colorOptions": {
+        "system": "سیستم"
       },
       "language": "زبان",
       "languageOptions": {
