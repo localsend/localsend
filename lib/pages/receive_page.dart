@@ -167,7 +167,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                         ElevatedButton(
                                           onPressed: () {
                                             unawaited(
-                                              Clipboard.setData(ClipboardData(text: _message)),
+                                              Clipboard.setData(ClipboardData(text: _message!)),
                                             );
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);

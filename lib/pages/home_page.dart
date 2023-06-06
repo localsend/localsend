@@ -116,8 +116,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       extended: sizingInformation.isDesktop,
                       backgroundColor: Theme.of(context).cardColorWithElevation,
                       leading: sizingInformation.isDesktop
-                          ? Column(
-                              children: const [
+                          ? const Column(
+                              children: [
                                 SizedBox(height: 20),
                                 Text(
                                   'LocalSend',
