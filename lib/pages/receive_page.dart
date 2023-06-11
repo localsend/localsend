@@ -186,7 +186,8 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                                               ),
                                               onPressed: () {
-                                                unawaited(launchUrl(Uri.parse(_message!)));
+                                                // ignore: discarded_futures
+                                                launchUrl(Uri.parse(_message!), mode: LaunchMode.externalApplication);
                                                 _acceptNothing(ref);
                                                 context.pop();
                                               },
