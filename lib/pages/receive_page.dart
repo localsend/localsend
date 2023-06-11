@@ -117,18 +117,19 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                       setState(() => _showFullIp = !_showFullIp);
                                     },
                                     child: DeviceBadge(
-                                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
                                       label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
                                     ),
                                   ),
-                                  if (receiveSession.sender.deviceModel != null)
-                                    ...[
-                                      const SizedBox(width: 10),
-                                      DeviceBadge(
-                                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                                        label: receiveSession.sender.deviceModel!,
-                                      ),
-                                    ],
+                                  if (receiveSession.sender.deviceModel != null) ...[
+                                    const SizedBox(width: 10),
+                                    DeviceBadge(
+                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                                      label: receiveSession.sender.deviceModel!,
+                                    ),
+                                  ],
                                 ],
                               ),
                               const SizedBox(height: 40),
@@ -166,7 +167,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                         ElevatedButton(
                                           onPressed: () {
                                             unawaited(
-                                              Clipboard.setData(ClipboardData(text: _message)),
+                                              Clipboard.setData(ClipboardData(text: _message!)),
                                             );
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
@@ -253,7 +254,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(context).colorScheme.error,
-                                  foregroundColor: Colors.white, // wrong in dark mode, so we hard code this
+                                  foregroundColor: Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
                                   _decline(ref);

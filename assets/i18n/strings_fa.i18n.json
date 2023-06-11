@@ -78,11 +78,15 @@
     "title": "تنظیمات",
     "general": {
       "title": "عمومی",
-      "theme": "قالب",
-      "themeOptions": {
+      "brightness": "ظاهر",
+      "brightnessOptions": {
         "system": "سیستم",
         "dark": "تیره",
         "light": "روشن"
+      },
+      "color": "رنگ",
+      "colorOptions": {
+        "system": "سیستم"
       },
       "language": "زبان",
       "languageOptions": {

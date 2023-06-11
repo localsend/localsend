@@ -78,11 +78,15 @@
     "title": "Paramètres",
     "general": {
       "title": "Général",
-      "theme": "Thème",
-      "themeOptions": {
+      "brightness": "Luminosité",
+      "brightnessOptions": {
         "system": "Système",
         "dark": "Sombre",
         "light": "Clair"
+      },
+      "color": "Couleur",
+      "colorOptions": {
+        "system": "Système"
       },
       "language": "Langue",
       "languageOptions": {

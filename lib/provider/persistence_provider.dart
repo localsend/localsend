@@ -1,16 +1,21 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/stored_security_context.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -37,7 +42,8 @@ const _saveWindowPlacement = 'ls_save_window_placement';
 // Settings
 const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
-const _themeKey = 'ls_theme';
+const _themeKey = 'ls_theme'; // now called brightness
+const _colorKey = 'ls_color';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _multicastGroupKey = 'ls_multicast_group';
@@ -56,7 +62,21 @@ class PersistenceService {
   PersistenceService._(this._prefs);
 
   static Future<PersistenceService> initialize() async {
-    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs;
+
+    try {
+      prefs = await SharedPreferences.getInstance();
+    } catch (e) {
+      if (checkPlatform([TargetPlatform.windows])) {
+        print('Deleting corrupted settings file');
+        final settingsDir = await path.getApplicationSupportDirectory();
+        final prefsFile = p.join(settingsDir.path, 'shared_preferences.json');
+        File(prefsFile).deleteSync();
+        prefs = await SharedPreferences.getInstance();
+      } else {
+        throw Exception('Could not initialize SharedPreferences');
+      }
+    }
 
     // Locale configuration upon persistence initialisation to prevent unlocalised Alias generation
     final persistedLocale = prefs.getString(_localeKey);
@@ -80,6 +100,10 @@ class PersistenceService {
 
     if (prefs.getString(_securityContext) == null) {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+    }
+
+    if (prefs.getString(_colorKey) == null) {
+      await prefs.setString(_colorKey, checkPlatform([TargetPlatform.android]) ? ColorMode.system.name : ColorMode.localsend.name);
     }
 
     return PersistenceService._(prefs);
@@ -126,6 +150,18 @@ class PersistenceService {
 
   Future<void> setTheme(ThemeMode theme) async {
     await _prefs.setString(_themeKey, theme.name);
+  }
+
+  ColorMode getColorMode() {
+    final value = _prefs.getString(_colorKey);
+    if (value == null) {
+      return ColorMode.system;
+    }
+    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ?? ColorMode.system;
+  }
+
+  Future<void> setColorMode(ColorMode color) async {
+    await _prefs.setString(_colorKey, color.name);
   }
 
   AppLocale? getLocale() {

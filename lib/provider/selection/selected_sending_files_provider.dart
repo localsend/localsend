@@ -162,7 +162,7 @@ class CrossFileConverters {
   static Future<CrossFile> convertApplication(Application app) async {
     final file = File(app.apkFilePath);
     return CrossFile(
-      name: '${app.appName}.apk',
+      name: '${app.appName.trim()} - v${app.versionName}.apk',
       fileType: FileType.apk,
       thumbnail: app is ApplicationWithIcon ? app.icon : null,
       size: await file.length(),

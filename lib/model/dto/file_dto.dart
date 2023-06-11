@@ -92,9 +92,7 @@ Map<String, dynamic> _fileDtoToJson(FileDto instance) {
     'fileName': instance.fileName,
     'size': instance.size,
     'fileType': instance.legacy ? instance.fileType.name : instance.lookupMime(),
-    if (instance.hash != null)
-      'hash': instance.hash,
-    if (instance.preview != null)
-      'preview': instance.preview,
+    if (instance.hash != null) 'hash': instance.hash,
+    if (instance.preview != null) 'preview': instance.preview,
   };
 }

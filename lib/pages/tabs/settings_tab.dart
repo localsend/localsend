@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
@@ -59,7 +60,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
           title: t.settingsTab.general.title,
           children: [
             _SettingsEntry(
-              label: t.settingsTab.general.theme,
+              label: t.settingsTab.general.brightness,
               child: CustomDropdownButton<ThemeMode>(
                 value: settings.theme,
                 items: ThemeMode.values.map((theme) {
@@ -76,6 +77,24 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     if (mounted) {
                       await updateSystemOverlayStyle(context);
                     }
+                  }
+                },
+              ),
+            ),
+            _SettingsEntry(
+              label: t.settingsTab.general.color,
+              child: CustomDropdownButton<ColorMode>(
+                value: settings.colorMode,
+                items: ColorMode.values.map((colorMode) {
+                  return DropdownMenuItem(
+                    value: colorMode,
+                    alignment: Alignment.center,
+                    child: Text(colorMode.humanName),
+                  );
+                }).toList(),
+                onChanged: (colorMode) async {
+                  if (colorMode != null) {
+                    await ref.read(settingsProvider.notifier).setColorMode(colorMode);
                   }
                 },
               ),
@@ -380,7 +399,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
           ),
         ),
         const SizedBox(height: 40),
-        const LocalSendLogo(),
+        const LocalSendLogo(withText: true),
         const SizedBox(height: 5),
         ref.watch(versionProvider).maybeWhen(
               data: (version) => Text(
@@ -494,11 +513,22 @@ extension on ThemeMode {
   String get humanName {
     switch (this) {
       case ThemeMode.system:
-        return t.settingsTab.general.themeOptions.system;
+        return t.settingsTab.general.brightnessOptions.system;
       case ThemeMode.light:
-        return t.settingsTab.general.themeOptions.light;
+        return t.settingsTab.general.brightnessOptions.light;
       case ThemeMode.dark:
-        return t.settingsTab.general.themeOptions.dark;
+        return t.settingsTab.general.brightnessOptions.dark;
+    }
+  }
+}
+
+extension on ColorMode {
+  String get humanName {
+    switch (this) {
+      case ColorMode.system:
+        return t.settingsTab.general.colorOptions.system;
+      case ColorMode.localsend:
+        return t.appName;
     }
   }
 }

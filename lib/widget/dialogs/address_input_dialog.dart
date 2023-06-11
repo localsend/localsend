@@ -168,8 +168,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
                         TextSpan(
                           text: device.ip,
                           style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async => _submit(localIps, settings.port, device.ip),
+                          recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
                         )
                       ];
                     }).expand((e) => e),
@@ -186,9 +185,6 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
       ),
       actions: [
         TextButton(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).buttonTheme.colorScheme!.onPrimary : null,
-          ),
           onPressed: () => context.pop(),
           child: Text(t.general.cancel),
         ),

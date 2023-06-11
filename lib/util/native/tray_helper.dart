@@ -54,10 +54,13 @@ Future<void> initTray() async {
 
     final Menu menu = Menu();
     await menu.buildFrom([
-      MenuItemLabel(label: t.tray.open, onClicked: (menuItem) async {
-        await windowManager.show();
-        await windowManager.focus();
-    }),
+      MenuItemLabel(
+        label: t.tray.open,
+        onClicked: (menuItem) async {
+          await windowManager.show();
+          await windowManager.focus();
+        },
+      ),
       MenuItemLabel(label: t.tray.close, onClicked: (menuItem) => exit(0)),
     ]);
 

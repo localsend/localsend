@@ -117,7 +117,8 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
   @override
   Widget build(BuildContext context) {
     final progressNotifier = ref.watch(progressProvider);
-    final currBytes = _files.fold<int>(0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
+    final currBytes = _files.fold<int>(
+        0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     final sendSession = ref.watch(sendProvider)[widget.sessionId];
@@ -148,9 +149,11 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        appBar: widget.showAppBar ? AppBar(
-          title: Text(title),
-        ) : null,
+        appBar: widget.showAppBar
+            ? AppBar(
+                title: Text(title),
+              )
+            : null,
         body: Stack(
           children: [
             ListView.builder(
@@ -187,7 +190,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                                   TextSpan(
                                     text: receiveSession.destinationDirectory,
                                     style: TextStyle(
-                                      color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.tertiary,
+                                      color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.primary,
                                     ),
                                     recognizer: checkPlatform([TargetPlatform.iOS])
                                         ? null
@@ -345,7 +348,6 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
                           CustomProgressBar(
                             progress: _totalBytes == 0 ? 0 : currBytes / _totalBytes,
                             borderRadius: 5,
-                            color: Theme.of(context).colorScheme.tertiaryContainer,
                           ),
                           AnimatedCrossFade(
                             crossFadeState: _advanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
@@ -432,15 +434,15 @@ extension on FileStatus {
   Color getColor(BuildContext context) {
     switch (this) {
       case FileStatus.queue:
-        return Theme.of(context).colorScheme.tertiaryContainer;
+        return Theme.of(context).colorScheme.primary;
       case FileStatus.skipped:
         return Colors.grey;
       case FileStatus.sending:
-        return Theme.of(context).colorScheme.tertiaryContainer;
+        return Theme.of(context).colorScheme.primary;
       case FileStatus.failed:
         return Theme.of(context).colorScheme.warning;
       case FileStatus.finished:
-        return Theme.of(context).colorScheme.tertiaryContainer;
+        return Theme.of(context).colorScheme.primary;
     }
   }
 }

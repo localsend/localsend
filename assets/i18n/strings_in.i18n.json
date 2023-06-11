@@ -68,8 +68,7 @@
     "title": "Pengaturan",
     "general": {
       "title": "Umum",
-      "theme": "Tema",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Sistem",
         "dark": "Gelap",
         "light": "Terang"

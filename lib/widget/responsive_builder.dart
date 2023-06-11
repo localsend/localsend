@@ -5,7 +5,10 @@ class SizingInformation {
   final bool isTabletOrDesktop;
   final bool isDesktop;
 
-  const SizingInformation(double width) : isMobile = width < 700, isTabletOrDesktop = width >= 700, isDesktop = width >= 800;
+  const SizingInformation(double width)
+      : isMobile = width < 700,
+        isTabletOrDesktop = width >= 700,
+        isDesktop = width >= 800;
 }
 
 class ResponsiveBuilder extends StatelessWidget {

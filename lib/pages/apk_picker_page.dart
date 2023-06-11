@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,8 +37,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
       appBar: AppBar(
         title: Text(t.apkPickerPage.title),
         actions: [
-          PopupMenuButton(
-              itemBuilder: (context) {
+          PopupMenuButton(itemBuilder: (context) {
             return [
               CheckedPopupMenuItem<int>(
                 value: 0,
@@ -54,7 +51,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
               ),
             ];
           }, onSelected: (value) {
-            switch(value) {
+            switch (value) {
               case 0:
                 setState(() => _includeSystemApps = !_includeSystemApps);
                 break;
@@ -112,9 +109,8 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: InkWell(
                           onTap: () {
-                            unawaited(
-                              ref.read(selectedSendingFilesProvider.notifier).addFiles(files: [app], converter: CrossFileConverters.convertApplication),
-                            );
+                            // ignore: discarded_futures
+                            ref.read(selectedSendingFilesProvider.notifier).addFiles(files: [app], converter: CrossFileConverters.convertApplication);
                             context.pop();
                           },
                           customBorder: RoundedRectangleBorder(

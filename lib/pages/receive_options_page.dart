@@ -83,13 +83,12 @@ class ReceiveOptionsPage extends ConsumerWidget {
                         }
                       },
                     ),
-                    if (receiveSession.containsDirectories && !receiveSession.saveToGallery)
-                      ...[
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
-                        ),
-                      ]
+                    if (receiveSession.containsDirectories && !receiveSession.saveToGallery) ...[
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
+                      ),
+                    ]
                   ],
                 ),
               ],
@@ -146,7 +145,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                               color: !selectState.containsKey(file.file.id)
                                   ? Colors.grey
                                   : (selectState[file.file.id] == file.file.fileName
-                                      ? Theme.of(context).colorScheme.tertiaryContainer
+                                      ? Theme.of(context).colorScheme.onSecondaryContainer
                                       : Colors.orange)),
                         )
                       ],

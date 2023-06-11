@@ -23,7 +23,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'image',
-            'preview': "*preview data*"
+            'preview': "*preview data*",
           }
         }
       };
@@ -46,7 +46,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'image',
-            'preview': "*preview data*"
+            'preview': "*preview data*",
           }
         }
       };
@@ -69,7 +69,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'superBigImage',
-            'preview': "*preview data*"
+            'preview': "*preview data*",
           }
         }
       };
@@ -92,7 +92,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'image/jpeg',
-            'preview': "*preview data*"
+            'preview': "*preview data*",
           }
         }
       };
@@ -159,7 +159,7 @@ void main() {
             preview: "*preview data*",
             legacy: true,
           ),
-        }
+        },
       );
       final serialized = _deepSerialize(dto);
       expect(serialized['info']['deviceType'], 'mobile');
@@ -170,27 +170,27 @@ void main() {
 
     test('should serialize in mime mode', () {
       const dto = PrepareUploadRequestDto(
-          info: info,
-          files: {
-            'some id': FileDto(
-              id: 'some id',
-              fileName: 'another image.jpg',
-              size: 1234,
-              fileType: FileType.image,
-              hash: '*hash*',
-              preview: "*preview data*",
-              legacy: false,
-            ),
-            'some id 2': FileDto(
-              id: 'some id 2',
-              fileName: 'my apk.apk',
-              size: 1234,
-              fileType: FileType.apk,
-              hash: '*hash*',
-              preview: "*preview data*",
-              legacy: false,
-            ),
-          }
+        info: info,
+        files: {
+          'some id': FileDto(
+            id: 'some id',
+            fileName: 'another image.jpg',
+            size: 1234,
+            fileType: FileType.image,
+            hash: '*hash*',
+            preview: "*preview data*",
+            legacy: false,
+          ),
+          'some id 2': FileDto(
+            id: 'some id 2',
+            fileName: 'my apk.apk',
+            size: 1234,
+            fileType: FileType.apk,
+            hash: '*hash*',
+            preview: "*preview data*",
+            legacy: false,
+          ),
+        },
       );
       final serialized = _deepSerialize(dto);
 

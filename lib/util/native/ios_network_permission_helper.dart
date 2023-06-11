@@ -12,7 +12,7 @@ void checkIosNetworkPermission(BuildContext context) async {
     final bool granted = await iosCall.invokeMethod('triggerLocalNetworkDialog');
     if (!granted) {
       print("Local Network Permission denied");
-      if(context.mounted) await context.pushBottomSheet(() => const IosLocalNetworkDialog());
+      if (context.mounted) await context.pushBottomSheet(() => const IosLocalNetworkDialog());
     }
   } on PlatformException catch (e) {
     print(e);

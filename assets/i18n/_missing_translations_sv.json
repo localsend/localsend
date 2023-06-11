@@ -1,7 +1,7 @@
 {
   "@@info": [
     "Here are translations that exist in <en> but not in <sv>.",
-    "After editing this file, you can run 'flutter pub run slang apply --locale=sv' to quickly apply the newly added translations."
+    "After editing this file, you can run 'dart run slang apply --locale=sv' to quickly apply the newly added translations."
   ],
   "general": {
     "accepted": "Accepted"
@@ -21,6 +21,11 @@
   },
   "settingsTab": {
     "general": {
+      "brightness": "Theme",
+      "color": "Color",
+      "colorOptions": {
+        "system": "System"
+      },
       "saveWindowPlacement": "Quit: Save window placement"
     },
     "receive": {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/theme.dart';
 
 class BigButton extends StatelessWidget {
   final IconData icon;
@@ -15,6 +16,7 @@ class BigButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return ConstrainedBox(
       constraints: const BoxConstraints(
         maxWidth: 90,
@@ -23,8 +25,8 @@ class BigButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: filled ? Theme.of(context).colorScheme.primary : null,
-          foregroundColor: filled ? Theme.of(context).colorScheme.onPrimary : null,
+          backgroundColor: filled ? colorScheme.primary : colorScheme.secondaryContainerIfDark,
+          foregroundColor: filled ? colorScheme.onPrimary : colorScheme.onSecondaryContainerIfDark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

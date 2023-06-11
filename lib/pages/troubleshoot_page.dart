@@ -95,48 +95,45 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
               const SizedBox(height: 10),
               Text(t.troubleshootPage.solution),
               Text(widget.solutionText),
-              if (widget.primaryButton != null)
-                ...[
-                  const SizedBox(height: 10),
-                  Wrap(
-                    runSpacing: 10,
-                    children: [
-                      widget.primaryButton!,
-                      if (widget.secondaryButton != null)
-                        ...[
-                          const SizedBox(width: 10),
-                          widget.secondaryButton!,
-                        ],
-                      if (widget.primaryButton!.onTap?.commands != null)
-                        ...[
-                          const SizedBox(width: 10),
-                          CustomIconButton(
-                            onPressed: () {
-                              setState(() => _showCommands = !_showCommands);
-                            },
-                            child: const Icon(Icons.info),
-                          ),
-                        ],
+              if (widget.primaryButton != null) ...[
+                const SizedBox(height: 10),
+                Wrap(
+                  runSpacing: 10,
+                  children: [
+                    widget.primaryButton!,
+                    if (widget.secondaryButton != null) ...[
+                      const SizedBox(width: 10),
+                      widget.secondaryButton!,
                     ],
-                  ),
-                  AnimatedCrossFade(
-                    crossFadeState: _showCommands ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                    duration: const Duration(milliseconds: 200),
-                    firstChild: Container(),
-                    secondChild: SelectionArea(
-                      child: Column(
-                        children: [
-                          ...?widget.primaryButton?.onTap?.commands?.map((cmd) {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Text(cmd, style: const TextStyle(fontFamily: 'RobotoMono')),
-                            );
-                          }),
-                        ],
+                    if (widget.primaryButton!.onTap?.commands != null) ...[
+                      const SizedBox(width: 10),
+                      CustomIconButton(
+                        onPressed: () {
+                          setState(() => _showCommands = !_showCommands);
+                        },
+                        child: const Icon(Icons.info),
                       ),
+                    ],
+                  ],
+                ),
+                AnimatedCrossFade(
+                  crossFadeState: _showCommands ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                  duration: const Duration(milliseconds: 200),
+                  firstChild: Container(),
+                  secondChild: SelectionArea(
+                    child: Column(
+                      children: [
+                        ...?widget.primaryButton?.onTap?.commands?.map((cmd) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(cmd, style: const TextStyle(fontFamily: 'RobotoMono')),
+                          );
+                        }),
+                      ],
                     ),
                   ),
-                ],
+                ),
+              ],
             ],
           ),
         ),
@@ -209,4 +206,3 @@ class _CommandFixAction extends _FixAction {
     }
   }
 }
-

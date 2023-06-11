@@ -68,8 +68,7 @@
     "title": "सेटिङहरू",
     "general": {
       "title": "सामान्य",
-      "theme": "विषयवस्तु",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "सिस्टम",
         "dark": "अँध्यारो",
         "light": "उज्यालो"

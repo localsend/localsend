@@ -97,9 +97,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         } else {
           // user dropped one or more files
           await ref.read(selectedSendingFilesProvider.notifier).addFiles(
-            files: event.files,
-            converter: CrossFileConverters.convertXFile,
-          );
+                files: event.files,
+                converter: CrossFileConverters.convertXFile,
+              );
         }
         _goToPage(HomeTab.send.index);
       },
@@ -116,8 +116,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       extended: sizingInformation.isDesktop,
                       backgroundColor: Theme.of(context).cardColorWithElevation,
                       leading: sizingInformation.isDesktop
-                          ? Column(
-                              children: const [
+                          ? const Column(
+                              children: [
                                 SizedBox(height: 20),
                                 Text(
                                   'LocalSend',

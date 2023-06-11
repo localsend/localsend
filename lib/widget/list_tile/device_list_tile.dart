@@ -15,6 +15,7 @@ class DeviceListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final badgeColor = Color.lerp(Theme.of(context).colorScheme.secondaryContainer, Colors.white, 0.3)!;
     return CustomListTile(
       icon: Icon(device.deviceType.icon, size: 46),
       title: Text(device.alias, style: const TextStyle(fontSize: 20)),
@@ -27,23 +28,21 @@ class DeviceListTile extends StatelessWidget {
           else if (progress != null)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
-              child: CustomProgressBar(
-                progress: progress!,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-              ),
+              child: CustomProgressBar(progress: progress!),
             )
-          else
-            ...[
+          else ...[
+            DeviceBadge(
+              backgroundColor: badgeColor,
+              foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+              label: '#${device.ip.visualId}',
+            ),
+            if (device.deviceModel != null)
               DeviceBadge(
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-                label: '#${device.ip.visualId}',
+                backgroundColor: badgeColor,
+                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                label: device.deviceModel!,
               ),
-              if (device.deviceModel != null)
-                DeviceBadge(
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
-                  label: device.deviceModel!,
-                ),
-            ],
+          ],
         ],
       ),
       onTap: onTap,

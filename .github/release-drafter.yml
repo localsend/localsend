@@ -1,0 +1,10 @@
+template: |
+  ### Summary
+  
+  - insert summary here
+  
+  ### Contributions
+  
+  $CHANGES
+
+  [Full Changelog](https://github.com/localsend/localsend/blob/main/assets/CHANGELOG.md)

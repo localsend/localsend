@@ -1,16 +1,18 @@
 # LocalSend
 
-LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
-
 [![CI status][ci-badge]][ci-workflow]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-Links: [Homepage][homepage] | [Discord][discord]
+[Homepage][homepage] • [Discord][discord] • [Github][github] • [Codeberg][codeberg]
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
+[github]: https://github.com/localsend/localsend
+[codeberg]: https://codeberg.org/localsend/localsend
+
+LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
 
 - [About](#about)
 - [Screenshots](#screenshots)
@@ -43,9 +45,10 @@ It is recommended to download the app either from an app store or from a package
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [AppImage][latest] | [APK][latest]  |               |            |
-| [MSIX Installer][latest] |                         |                    |                |               |            |
-| [Portable ZIP][latest]   |                         |                    |                |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
+| [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
+| [Portable ZIP][latest]   |                         | [DEB][latest]      |                |               |            |
+|                          |                         | [AppImage][latest] |                |               |            |
 
 Read more about [distribution channels][].
 
@@ -60,6 +63,7 @@ Read more about [distribution channels][].
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
+[nixos]: https://search.nixos.org/packages?show=localsend
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 

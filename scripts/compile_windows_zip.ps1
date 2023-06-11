@@ -7,6 +7,6 @@ fvm flutter pub get
 fvm flutter pub run build_runner build -d
 fvm flutter build windows
 
-Compress-Archive -Path build\windows\runner\Release\* -CompressionLevel Fastest -DestinationPath LocalSend-vXXX-windows.zip
+Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend-XXX-windows-x86-64.zip
 
 Write-Output 'Generated Windows zip!'

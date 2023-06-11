@@ -78,8 +78,7 @@
     "title": "Configurações",
     "general": {
       "title": "Geral",
-      "theme": "Tema",
-      "themeOptions": {
+      "brightnessOptions": {
         "system": "Sistema",
         "dark": "Escuro",
         "light": "Claro"

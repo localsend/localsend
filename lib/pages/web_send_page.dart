@@ -122,6 +122,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                 Text(t.webSharePage.openLink(n: networkState.localIps.length), style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 10),
                 Card(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -230,7 +231,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                                 child: Text(
                                   t.general.accepted,
                                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                                        color: Theme.of(context).colorScheme.onSecondaryContainer,
                                       ),
                                 ),
                               ),

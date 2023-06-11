@@ -68,7 +68,9 @@ class MulticastService {
           _ref.read(discoveryLogsProvider.notifier).addLog(e.toString());
         }
       });
-      _ref.read(discoveryLogsProvider.notifier).addLog('Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${settings.multicastGroup}, port: ${settings.port})');
+      _ref.read(discoveryLogsProvider.notifier).addLog(
+            'Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${settings.multicastGroup}, port: ${settings.port})',
+          );
     }
 
     // Tell everyone in the network that I am online
@@ -106,10 +108,12 @@ class MulticastService {
     try {
       // Answer with TCP
       await _ref.read(dioProvider(DioType.discovery)).post(
-        ApiRoute.register.target(peer),
-        data: _getRegisterDto().toJson(),
-      );
-      _ref.read(discoveryLogsProvider.notifier).addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
+            ApiRoute.register.target(peer),
+            data: _getRegisterDto().toJson(),
+          );
+      _ref
+          .read(discoveryLogsProvider.notifier)
+          .addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
       // Fallback: Answer with UDP
       final sockets = await _getSockets(settings.multicastGroup);
@@ -122,7 +126,9 @@ class MulticastService {
           _ref.read(discoveryLogsProvider.notifier).addLog(e.toString());
         }
       }
-      _ref.read(discoveryLogsProvider.notifier).addLog('[RESPONSE/UDP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
+      _ref
+          .read(discoveryLogsProvider.notifier)
+          .addLog('[RESPONSE/UDP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
     }
   }
 

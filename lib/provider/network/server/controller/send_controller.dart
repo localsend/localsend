@@ -83,21 +83,21 @@ class SendController {
         final session = server.getState().webSendState?.sessions[requestSessionId];
         if (session != null && session.responseHandler == null && session.ip == request.ip) {
           final deviceInfo = server.ref.read(deviceRawInfoProvider);
-          return server.responseJson(200, body: ReceiveRequestResponseDto(
-            info: InfoDto(
-              alias: alias,
-              version: protocolVersion,
-              deviceModel: deviceInfo.deviceModel,
-              deviceType: deviceInfo.deviceType,
-              fingerprint: fingerprint,
-              download: true,
-            ),
-            sessionId: session.sessionId,
-            files: {
-              for (final entry in state.webSendState!.files.entries)
-                entry.key: entry.value.file,
-            },
-          ).toJson());
+          return server.responseJson(200,
+              body: ReceiveRequestResponseDto(
+                info: InfoDto(
+                  alias: alias,
+                  version: protocolVersion,
+                  deviceModel: deviceInfo.deviceModel,
+                  deviceType: deviceInfo.deviceType,
+                  fingerprint: fingerprint,
+                  download: true,
+                ),
+                sessionId: session.sessionId,
+                files: {
+                  for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
+                },
+              ).toJson());
         }
       }
 
@@ -148,21 +148,21 @@ class SendController {
         ),
       );
       final deviceInfo = server.ref.read(deviceRawInfoProvider);
-      return server.responseJson(200, body: ReceiveRequestResponseDto(
-        info: InfoDto(
-          alias: alias,
-          version: protocolVersion,
-          deviceModel: deviceInfo.deviceModel,
-          deviceType: deviceInfo.deviceType,
-          fingerprint: fingerprint,
-          download: true,
-        ),
-        sessionId: sessionId,
-        files: {
-          for (final entry in state.webSendState!.files.entries)
-            entry.key: entry.value.file,
-        },
-      ).toJson());
+      return server.responseJson(200,
+          body: ReceiveRequestResponseDto(
+            info: InfoDto(
+              alias: alias,
+              version: protocolVersion,
+              deviceModel: deviceInfo.deviceModel,
+              deviceType: deviceInfo.deviceType,
+              fingerprint: fingerprint,
+              download: true,
+            ),
+            sessionId: sessionId,
+            files: {
+              for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
+            },
+          ).toJson());
     });
 
     router.get(ApiRoute.download.v2, (Request request) async {
@@ -269,9 +269,9 @@ extension on WebSendState {
   }) {
     return copyWith(
       sessions: {...sessions}..update(
-        sessionId,
-        (session) => update(session),
-      ),
+          sessionId,
+          (session) => update(session),
+        ),
     );
   }
 }

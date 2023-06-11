@@ -19,7 +19,7 @@ class CopyableText extends StatelessWidget {
       onTap: value == null
           ? null
           : () async {
-              await Clipboard.setData(ClipboardData(text: value));
+              await Clipboard.setData(ClipboardData(text: value!));
               if (context.mounted) {
                 context.showSnackBar('Copied $name to clipboard!');
               }
@@ -27,8 +27,7 @@ class CopyableText extends StatelessWidget {
       child: Text.rich(
         TextSpan(
           children: [
-            if (prefix != null)
-              prefix!,
+            if (prefix != null) prefix!,
             TextSpan(text: value ?? '-'),
           ],
         ),

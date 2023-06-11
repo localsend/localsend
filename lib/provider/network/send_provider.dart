@@ -221,7 +221,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
-        transition: RouterinoTransition.fade, // immediately is not possible: https://github.com/flutter/flutter/issues/121910
+        transition: RouterinoTransition.fade,
+        // immediately is not possible: https://github.com/flutter/flutter/issues/121910
         builder: () => ProgressPage(
           showAppBar: background,
           closeSessionOnClose: !background,
@@ -254,6 +255,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       final token = file.token;
       if (token == null) {
         continue;
+      }
+
+      if (state[sessionId] != null && state[sessionId]!.status != SessionStatus.sending) {
+        break;
       }
 
       print('Sending ${file.file.fileName}');
@@ -315,21 +320,30 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       );
     }
 
-    if (!hasError && state[sessionId]?.background == true) {
-      // close session because everything is fine and it is in background
-      closeSession(sessionId);
+    if (state[sessionId] != null && state[sessionId]!.status != SessionStatus.sending) {
+      print('Transfer was canceled.');
     } else {
-      // keep session alive when there are errors or currently in foreground
-      state = state.updateSession(
-        sessionId: sessionId,
-        state: (s) => s?.copyWith(
-          status: hasError ? SessionStatus.finishedWithErrors : SessionStatus.finished,
-          endTime: DateTime.now().millisecondsSinceEpoch,
-        ),
-      );
-    }
+      if (!hasError && state[sessionId]?.background == true) {
+        // close session because everything is fine and it is in background
+        closeSession(sessionId);
+        print('Transfer finished and session removed.');
+      } else {
+        // keep session alive when there are errors or currently in foreground
+        state = state.updateSession(
+          sessionId: sessionId,
+          state: (s) => s?.copyWith(
+            status: hasError ? SessionStatus.finishedWithErrors : SessionStatus.finished,
+            endTime: DateTime.now().millisecondsSinceEpoch,
+          ),
+        );
 
-    print('Files sent successfully.');
+        if (hasError) {
+          print('Files sent with errors.');
+        } else {
+          print('Files sent successfully.');
+        }
+      }
+    }
   }
 
   /// Closes the send-session and sends a cancel event to the receiver.
@@ -342,18 +356,33 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     sessionState.cancelToken?.cancel(); // cancel current request
 
     // notify the receiver
-    unawaited(
+    try {
       ref
           .read(dioProvider(DioType.discovery))
-          .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null))
-          .then((_) {})
-          .catchError((e) {
-        print(e);
-      }),
-    );
+          // ignore: discarded_futures
+          .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null));
+    } catch (e) {
+      print(e);
+    }
 
     // finally, close session locally
     closeSession(sessionId);
+  }
+
+  void cancelSessionByReceiver(String sessionId) {
+    final sessionState = state[sessionId];
+    if (sessionState == null) {
+      return;
+    }
+    sessionState.cancelToken?.cancel(); // cancel current request
+
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (s) => s?.copyWith(
+        status: SessionStatus.canceledByReceiver,
+        endTime: DateTime.now().millisecondsSinceEpoch,
+      ),
+    );
   }
 
   /// Closes the session
