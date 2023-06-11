@@ -1,3 +1,7 @@
+## 1.11.0 (2023-)
+
+- feat(android, ios): open link in new browser tab (@Tienisto)
+
 ## 1.10.0 (2023-06-02)
 
 - feat: dynamic colors (Material You) (@Tienisto)
