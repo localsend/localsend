@@ -1,4 +1,7 @@
+import 'package:logging/logging.dart';
 import 'package:open_filex/open_filex.dart';
+
+final _logger = Logger('OpenFolder');
 
 /// Opens the selected file which is stored on the device.
 Future<void> openFolder(String path) async {
@@ -6,5 +9,5 @@ Future<void> openFolder(String path) async {
     path = '$path/';
   }
   final result = await OpenFilex.open(path);
-  print('Open folder result: ${result.message}, path: $path');
+  _logger.info('Open folder result: ${result.message}, path: $path');
 }

@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:localsend_app/init.dart';
+import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+final _logger = Logger('AutoStartHelper');
 
 /// Currently, only works for windows
 Future<void> initAutoStartAndOpenSettings() async {
@@ -23,7 +26,7 @@ Future<void> initAutoStartAndOpenSettings() async {
       await launchAtStartup.disable();
     }
   } catch (e) {
-    print(e);
+    _logger.warning('Could not init auto start', e);
   }
 
   try {
@@ -32,6 +35,6 @@ Future<void> initAutoStartAndOpenSettings() async {
     // See: https://learn.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.StartupTask?view=winrt-22621
     await launchUrl(Uri.parse('ms-settings:startupapps'));
   } catch (e) {
-    print(e);
+    _logger.warning('Could not open startup settings', e);
   }
 }

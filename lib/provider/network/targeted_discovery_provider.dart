@@ -6,6 +6,9 @@ import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
+import 'package:logging/logging.dart';
+
+final _logger = Logger('TargetedDiscovery');
 
 final targetedDiscoveryProvider = Provider((ref) {
   final dio = ref.watch(dioProvider(DioType.discovery));
@@ -31,10 +34,10 @@ class TargetedDiscoveryService {
       device = dto.toDevice(ip, port, https);
     } on DioError catch (e) {
       device = null;
-      print('$url: ${e.error}');
+      _logger.warning('$url: ${e.error}');
     } catch (e) {
       device = null;
-      print(e);
+      _logger.warning('$url: $e');
     }
     return device;
   }

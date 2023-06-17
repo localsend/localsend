@@ -3,9 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:logging/logging.dart';
 import 'package:system_tray/system_tray.dart';
 import 'package:tray_manager/tray_manager.dart' as tm;
 import 'package:window_manager/window_manager.dart';
+
+final _logger = Logger('TrayHelper');
 
 enum TrayEntry {
   open,
@@ -41,7 +44,7 @@ Future<void> initTray() async {
       await tm.trayManager.setContextMenu(tm.Menu(items: items));
       await tm.trayManager.setToolTip(t.appName);
     } catch (e) {
-      print(e);
+      _logger.warning('Failed to init tray', e);
     }
   } else {
     // The Linux tray display is handled by systemTray instead

@@ -1,7 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+final _logger = Logger('FileSaver');
 
 /// Saves the data [stream] to the [destinationPath].
 /// [onProgress] will be called on every 100 ms.
@@ -12,10 +17,12 @@ Future<void> saveFile({
   required Stream<List<int>> stream,
   required void Function(int savedBytes) onProgress,
 }) async {
-  try {
-    await Permission.storage.request();
-  } catch (e) {
-    print(e);
+  if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
+    try {
+      await Permission.storage.request();
+    } catch (e) {
+      _logger.warning('Could not request storage permission', e);
+    }
   }
 
   final sink = File(destinationPath).openWrite();
@@ -48,7 +55,7 @@ Future<void> saveFile({
       await sink.close();
       await File(destinationPath).delete();
     } catch (e) {
-      print(e);
+      _logger.warning('Could not delete file', e);
     }
     rethrow;
   }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,8 +14,6 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
@@ -48,20 +44,6 @@ class LocalSendApp extends ConsumerWidget {
     final colorMode = ref.watch(settingsProvider.select((settings) => settings.colorMode));
     return TrayWatcher(
       child: WindowWatcher(
-        onClose: () async {
-          if (!checkPlatformIsDesktop()) {
-            return;
-          }
-          try {
-            if (ref.read(settingsProvider).minimizeToTray) {
-              await hideToTray();
-            } else {
-              exit(0);
-            }
-          } catch (e) {
-            print(e);
-          }
-        },
         child: LifeCycleWatcher(
           onChangedState: (AppLifecycleState state) async {
             if (state == AppLifecycleState.resumed) {

@@ -31,6 +31,7 @@ dependencies:
   intl: 0.18.0
   json_annotation: 4.8.1
   launch_at_startup: 0.2.2
+  logging: 1.1.1
   mime: 1.0.4
   network_info_plus: 3.0.5
   open_filex: 4.3.2
@@ -63,7 +64,7 @@ dependencies:
   window_manager: 0.3.2
 
 dev_dependencies:
-  build_runner: 2.3.3
+  build_runner: 2.4.5
   custom_lint: 0.3.4
   flutter_gen_runner: 5.3.1
   flutter_lints: 2.0.1

@@ -19,7 +19,6 @@ analyzer:
 
 linter:
   rules:
-    avoid_print: false
     use_key_in_widget_constructors: false
 
     sort_pub_dependencies: true

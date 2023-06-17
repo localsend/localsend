@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:logging/logging.dart';
+
+final _logger = Logger('CmdHelper');
+
 /// Runs [commands] in cmd having admin privileges.
 Future<void> runWindowsCommandAsAdmin(List<String> commands) async {
   try {
@@ -12,6 +16,6 @@ Future<void> runWindowsCommandAsAdmin(List<String> commands) async {
       ],
     );
   } catch (e) {
-    print(e);
+    _logger.warning('Could not run command as admin', e);
   }
 }

@@ -26,10 +26,12 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
+import 'package:logging/logging.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
+final _logger = Logger('Send');
 
 /// This provider manages sending files to other devices.
 ///
@@ -261,7 +263,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         break;
       }
 
-      print('Sending ${file.file.fileName}');
+      _logger.info('Sending ${file.file.fileName}');
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
@@ -310,8 +312,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       } catch (e, st) {
         fileError = e.humanErrorMessage;
         hasError = true;
-        print(e);
-        print(st);
+        _logger.warning('Error while sending file ${file.file.fileName}', e, st);
       }
 
       state = state.updateSession(
@@ -321,12 +322,12 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     if (state[sessionId] != null && state[sessionId]!.status != SessionStatus.sending) {
-      print('Transfer was canceled.');
+      _logger.info('Transfer was canceled.');
     } else {
       if (!hasError && state[sessionId]?.background == true) {
         // close session because everything is fine and it is in background
         closeSession(sessionId);
-        print('Transfer finished and session removed.');
+        _logger.info('Transfer finished and session removed.');
       } else {
         // keep session alive when there are errors or currently in foreground
         state = state.updateSession(
@@ -338,9 +339,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         );
 
         if (hasError) {
-          print('Files sent with errors.');
+          _logger.info('Transfer finished with errors.');
         } else {
-          print('Files sent successfully.');
+          _logger.info('Transfer finished successfully.');
         }
       }
     }
@@ -362,7 +363,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           // ignore: discarded_futures
           .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null));
     } catch (e) {
-      print(e);
+      _logger.warning('Error while canceling session', e);
     }
 
     // finally, close session locally

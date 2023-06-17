@@ -12,6 +12,9 @@ import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
+import 'package:logging/logging.dart';
+
+final _logger = Logger('NearbyDevices');
 
 /// This provider is responsible for:
 /// - Scanning the network for other LocalSend instances
@@ -95,7 +98,7 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
   }
 
   Future<Device?> _doRequest(String currentIp, int port, bool https, String fingerprint) async {
-    print('Requesting $currentIp');
+    _logger.fine('Requesting $currentIp');
     // We use the legacy route to make it less breaking for older versions
     final url = ApiRoute.info.targetRaw(currentIp, port, https, peerProtocolVersion);
     Device? device;

@@ -10,11 +10,13 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+final _logger = Logger('SelectedSendingFiles');
 const _uuid = Uuid();
 
 /// Manages files selected for sending.
@@ -68,13 +70,13 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
   /// Adds files inside the directory recursively.
   /// If [includeDirectory] is true, the directory itself will be added as part of each file path.
   Future<void> addDirectory(String directoryPath) async {
-    print('Reading files in $directoryPath');
+    _logger.info('Reading files in $directoryPath');
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
         final relative = '$directoryName/${p.relative(entity.path, from: directoryPath).replaceAll('\\', '/')}';
-        print('Add file $relative');
+        _logger.info('Add file $relative');
         final file = CrossFile(
           name: relative,
           fileType: relative.guessFileType(),

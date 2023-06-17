@@ -11,8 +11,11 @@ import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:logging/logging.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
+
+final _logger = Logger('Server');
 
 /// This provider runs the server and provides the current server state.
 /// It is a singleton provider, so only one server can be running at a time.
@@ -53,7 +56,7 @@ class ServerNotifier extends Notifier<ServerState?> {
   /// Starts the server.
   Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
     if (state != null) {
-      print('Server already running.');
+      _logger.info('Server already running.');
       return null;
     }
 
@@ -82,7 +85,7 @@ class ServerNotifier extends Notifier<ServerState?> {
       fingerprint: fingerprint,
     );
 
-    print('Starting server...');
+    _logger.info('Starting server...');
     ServerState? newServerState;
 
     if (https) {
@@ -101,7 +104,7 @@ class ServerNotifier extends Notifier<ServerState?> {
         session: null,
         webSendState: null,
       );
-      print('Server started. (Port: ${newServerState.port}, HTTPS only)');
+      _logger.info('Server started. (Port: ${newServerState.port}, HTTPS only)');
     } else {
       newServerState = ServerState(
         httpServer: await _startServer(
@@ -115,7 +118,7 @@ class ServerNotifier extends Notifier<ServerState?> {
         session: null,
         webSendState: null,
       );
-      print('Server started. (Port: ${newServerState.port}, HTTP only)');
+      _logger.info('Server started. (Port: ${newServerState.port}, HTTP only)');
     }
 
     state = newServerState;
@@ -123,10 +126,10 @@ class ServerNotifier extends Notifier<ServerState?> {
   }
 
   Future<void> stopServer() async {
-    print('Stopping server...');
+    _logger.info('Stopping server...');
     await state?.httpServer.close(force: true);
     state = null;
-    print('Server stopped.');
+    _logger.info('Server stopped.');
   }
 
   Future<ServerState?> restartServerFromSettings() async {

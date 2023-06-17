@@ -1,17 +1,21 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:logging/logging.dart';
 import 'package:window_manager/window_manager.dart';
+
+final _logger = Logger('WindowWatcher');
 
 class WindowWatcher extends ConsumerStatefulWidget {
   final Widget child;
-  final VoidCallback onClose;
 
   const WindowWatcher({
     required this.child,
-    required this.onClose,
     super.key,
   });
 
@@ -42,7 +46,7 @@ class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListen
           // always handle close actions manually
           await windowManager.setPreventClose(true);
         } catch (e) {
-          print(e);
+          _logger.warning('Failed to set prevent close', e);
         }
       });
     }
@@ -82,7 +86,20 @@ class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListen
     final windowOffset = await windowManager.getPosition();
     final windowSize = await windowManager.getSize();
     await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
-    widget.onClose();
+
+    if (!checkPlatformIsDesktop()) {
+      return;
+    }
+
+    try {
+      if (ref.read(settingsProvider).minimizeToTray) {
+        await hideToTray();
+      } else {
+        exit(0);
+      }
+    } catch (e) {
+      _logger.warning('Failed to close window', e);
+    }
   }
 
   @override

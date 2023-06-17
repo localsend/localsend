@@ -32,6 +32,7 @@ import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -40,6 +41,8 @@ import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
 const _uuid = Uuid();
+
+final _logger = Logger('ReceiveController');
 
 /// Handles all requests for receiving files.
 class ReceiveController {
@@ -197,8 +200,8 @@ class ReceiveController {
     final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
     final sessionId = _uuid.v4();
 
-    print('Session Id: $sessionId');
-    print('Destination Directory: $destinationDir');
+    _logger.info('Session Id: $sessionId');
+    _logger.info('Destination Directory: $destinationDir');
 
     final streamController = StreamController<Map<String, String>?>();
     server.setState(
@@ -326,12 +329,12 @@ class ReceiveController {
     }
 
     if (request.ip != receiveState.sender.ip) {
-      print('Invalid ip address: ${request.ip} (expected: ${receiveState.sender.ip})');
+      _logger.warning('Invalid ip address: ${request.ip} (expected: ${receiveState.sender.ip})');
       return server.responseJson(403, message: 'Invalid IP address: ${request.ip}');
     }
 
     if (receiveState.status != SessionStatus.sending) {
-      print('Wrong state: ${receiveState.status} (expected: ${SessionStatus.sending})');
+      _logger.warning('Wrong state: ${receiveState.status} (expected: ${SessionStatus.sending})');
       return server.responseJson(409, message: 'Recipient is in wrong state');
     }
 
@@ -340,20 +343,20 @@ class ReceiveController {
     final sessionId = request.url.queryParameters['sessionId'];
     if (fileId == null || token == null || (v2 && sessionId == null)) {
       // reject because of missing parameters
-      print('Missing parameters');
+      _logger.warning('Missing parameters: fileId=$fileId, token=$token, sessionId=$sessionId');
       return server.responseJson(400, message: 'Missing parameters');
     }
 
     if (v2 && sessionId != receiveState.sessionId) {
       // reject because of wrong session id
-      print('Wrong session id: $sessionId (expected: ${receiveState.sessionId})');
+      _logger.warning('Wrong session id: $sessionId (expected: ${receiveState.sessionId})');
       return server.responseJson(403, message: 'Invalid session id');
     }
 
     final receivingFile = receiveState.files[fileId];
     if (receivingFile == null || receivingFile.token != token) {
       // reject because there is no file or token does not match
-      print('Wrong token: $token (expected: ${receivingFile?.token})');
+      _logger.warning('Wrong fileId: $fileId (expected: ${receivingFile?.file.id})');
       return server.responseJson(403, message: 'Invalid token');
     }
 
@@ -379,7 +382,7 @@ class ReceiveController {
         fileName: receivingFile.desiredName!,
       );
 
-      print('Saving ${receivingFile.file.fileName} to $destinationPath');
+      _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       final saveToGallery =
           receiveState.saveToGallery && (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
@@ -425,7 +428,7 @@ class ReceiveController {
             timestamp: DateTime.now().toUtc(),
           );
 
-      print('Saved ${receivingFile.file.fileName}.');
+      _logger.info('Saved ${receivingFile.file.fileName}.');
     } catch (e, st) {
       server.setState(
         (oldState) => oldState?.copyWith(
@@ -438,8 +441,7 @@ class ReceiveController {
           ),
         ),
       );
-      print(e);
-      print(st);
+      _logger.severe('Failed to save file', e, st);
     }
 
     server.ref.read(progressProvider.notifier).setProgress(
@@ -468,7 +470,7 @@ class ReceiveController {
           Routerino.context.popUntilRoot();
         });
       }
-      print('Received all files.');
+      _logger.info('Received all files.');
     }
 
     return server.getState().session?.files[fileId]?.status == FileStatus.finished
@@ -562,7 +564,7 @@ class ReceiveController {
       // ignore: discarded_futures
       showFromTray().catchError((e) {
         // don't wait for it
-        print(e);
+        _logger.severe('Failed to show from tray', e);
       });
       return server.responseJson(200);
     }
@@ -627,7 +629,7 @@ class ReceiveController {
       // ignore: unawaited_futures
       server.ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
     } catch (e) {
-      print(e);
+      _logger.warning('Failed to notify sender', e);
     }
 
     closeSession();

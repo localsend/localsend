@@ -14,14 +14,13 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
-final persistenceProvider = Provider<PersistenceService>((ref) {
-  throw Exception('persistenceProvider not initialized');
-});
+final _logger = Logger('PersistenceService');
 
 // Version of the storage
 const _version = 'ls_version';
@@ -55,6 +54,10 @@ const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
 
+final persistenceProvider = Provider<PersistenceService>((ref) {
+  throw Exception('persistenceProvider not initialized');
+});
+
 /// This service abstracts the persistence layer.
 class PersistenceService {
   final SharedPreferences _prefs;
@@ -68,7 +71,7 @@ class PersistenceService {
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
       if (checkPlatform([TargetPlatform.windows])) {
-        print('Deleting corrupted settings file');
+        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file');
         final settingsDir = await path.getApplicationSupportDirectory();
         final prefsFile = p.join(settingsDir.path, 'shared_preferences.json');
         File(prefsFile).deleteSync();

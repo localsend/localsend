@@ -16,6 +16,9 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:logging/logging.dart';
+
+final _logger = Logger('Multicast');
 
 final multicastProvider = Provider((ref) {
   final deviceInfo = ref.watch(deviceRawInfoProvider);
@@ -33,7 +36,7 @@ class MulticastService {
   /// It will automatically answer announcement messages
   Stream<Device> startListener() async* {
     if (_listening) {
-      print('Multicast receiver already running.');
+      _logger.info('Already listening to multicast');
       return;
     }
 
@@ -185,7 +188,10 @@ Future<List<_SocketResult>> _getSockets(String multicastGroup, [int? port]) asyn
       socket.joinMulticast(InternetAddress(multicastGroup), interface);
       sockets.add(_SocketResult(interface, socket));
     } catch (e) {
-      print(e);
+      _logger.warning(
+        'Could not bind UDP multicast port (ip: ${interface.addresses.map((a) => a.address).toList()}, group: $multicastGroup, port: $port)',
+        e,
+      );
     }
   }
 

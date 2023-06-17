@@ -7,7 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/state/network_state.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:logging/logging.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
+
+final _logger = Logger('NetworkInfo');
 
 final networkStateProvider = NotifierProvider<NetworkStateNotifier, NetworkState>(() {
   return NetworkStateNotifier();
@@ -64,7 +67,7 @@ class NetworkStateNotifier extends Notifier<NetworkState> {
     try {
       ip = await info.getWifiIP();
     } catch (e) {
-      print(e);
+      _logger.warning('Failed to get wifi IP', e);
     }
 
     List<String> nativeResult = [];
@@ -74,14 +77,13 @@ class NetworkStateNotifier extends Notifier<NetworkState> {
         final result = (await NetworkInterface.list()).map((networkInterface) => networkInterface.addresses).expand((ip) => ip);
         nativeResult = result.where((ip) => ip.type == InternetAddressType.IPv4).map((address) => address.address).toList();
       } catch (e, st) {
-        print(e);
-        print(st);
+        _logger.info('Failed to get IP from dart:io', e, st);
       }
     }
 
-    print('New network state: $ip');
-
-    return rankIpAddresses(nativeResult, ip);
+    final addresses = rankIpAddresses(nativeResult, ip);
+    _logger.info('Network state: $addresses');
+    return addresses;
   }
 }
 

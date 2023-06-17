@@ -18,15 +18,25 @@ import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:logging/logging.dart';
 import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
 const launchAtStartupArg = 'autostart';
 
+final _logger = Logger('Init');
+
 /// Will be called before the MaterialApp started
 Future<PersistenceService> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Init logger
+  Logger.root.level = args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO;
+  Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
+    print('${record.time} ${'[${record.level.name}]'.padLeft(9)} [${record.loggerName}] ${record.message}');
+  });
 
   final persistenceService = await PersistenceService.initialize();
 
@@ -81,7 +91,7 @@ Future<PersistenceService> preInit(List<String> args) async {
     try {
       await initTray();
     } catch (e) {
-      print('Initializing tray failed: $e');
+      _logger.warning('Initializing tray failed: $e');
     }
 
     // initialize size and position
@@ -114,7 +124,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
   try {
     ref.read(nearbyDevicesProvider.notifier).startMulticastListener();
   } catch (e) {
-    print(e);
+    _logger.warning('Starting multicast listener failed', e);
   }
 
   bool hasInitialShare = false;

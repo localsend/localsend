@@ -20,7 +20,6 @@ class UserAgentAnalyzer {
   }
 
   String? getOS(String userAgent) {
-    print(userAgent);
     if (userAgent.contains("Win")) {
       return "Windows";
     } else if (userAgent.contains("Android")) {

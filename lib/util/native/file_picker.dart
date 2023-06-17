@@ -13,9 +13,12 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
+import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+final _logger = Logger('FilePickerHelper');
 
 enum FilePickerOption {
   file(Icons.description),
@@ -105,7 +108,7 @@ enum FilePickerOption {
           try {
             await Permission.manageExternalStorage.request();
           } catch (e) {
-            print(e);
+            _logger.warning('Failed to request manageExternalStorage permission', e);
           }
         }
 
@@ -127,7 +130,7 @@ enum FilePickerOption {
             await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
           }
         } catch (e) {
-          print(e);
+          _logger.warning('Failed to pick directory', e);
         } finally {
           ref.read(pickingStatusProvider.notifier).state = false;
         }
