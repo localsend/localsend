@@ -1,6 +1,6 @@
 ## 1.11.0 (2023-)
 
-- feat(desktop): bind "ESC" key to go the previous page
+- feat(desktop): bind "ESC" key to go the previous page (@RiverTwilight, @Tienisto)
 - feat(android, ios): open link in new browser tab (@Tienisto)
 
 ## 1.10.0 (2023-06-02)
