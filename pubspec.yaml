@@ -26,8 +26,8 @@ dependencies:
   flutter_markdown: 0.6.14
   flutter_riverpod: 2.3.6
   freezed_annotation: 2.2.0
-  image_gallery_saver: 2.0.1
-  image_picker: 0.8.7+4
+  image_gallery_saver: 2.0.2
+  image_picker: 0.8.9
   intl: 0.18.0
   json_annotation: 4.8.1
   launch_at_startup: 0.2.2
@@ -47,8 +47,8 @@ dependencies:
   shared_storage: 0.7.1
   shelf: 1.4.1
   shelf_router: 1.1.4
-  slang: 3.18.0
-  slang_flutter: 3.18.0
+  slang: 3.19.0
+  slang_flutter: 3.19.0
   system_settings: 2.1.0
   system_tray: 2.0.3
   tray_manager:
@@ -70,9 +70,9 @@ dev_dependencies:
   flutter_lints: 2.0.1
   freezed: 2.3.3
   json_serializable: 6.6.2
-  msix: 3.14.0
+  msix: 3.14.2
   riverpod_lint: 1.3.1
-  slang_build_runner: 3.18.0
+  slang_build_runner: 3.19.0
   test: any
 
 dependency_overrides:

@@ -409,6 +409,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.9"
+  file_selector_linux:
+    dependency: transitive
+    description:
+      name: file_selector_linux
+      sha256: d17c5e450192cdc40b718804dfb4eaf79a71bed60ee9530703900879ba50baa3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.1+3"
+  file_selector_macos:
+    dependency: transitive
+    description:
+      name: file_selector_macos
+      sha256: "6290eec24fc4cc62535fe609e0c6714d3c1306191dc8c3b0319eaecc09423a3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.2"
+  file_selector_platform_interface:
+    dependency: transitive
+    description:
+      name: file_selector_platform_interface
+      sha256: "412705a646a0ae90f33f37acfae6a0f7cbc02222d6cd34e479421c3e74d3853c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.0"
+  file_selector_windows:
+    dependency: transitive
+    description:
+      name: file_selector_windows
+      sha256: ef246380b66d1fb9089fc65622c387bf3780bca79f533424c31d07f12c2c7fd8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.2"
   fixnum:
     dependency: transitive
     description:
@@ -601,18 +633,18 @@ packages:
     dependency: "direct main"
     description:
       name: image_gallery_saver
-      sha256: "009b7722cd8507fd72c7f2cb7cbc46d6e15ad0895469cfcc39a10f86e3556979"
+      sha256: "467de169167b5c4e1ddde65395e4653c336a82f760b6700ea295085b7f2dd248"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   image_picker:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "3da954c3b8906d82ecb50fd5e2b5401758f06d5678904eed6cbc06172283a263"
+      sha256: b6951e25b795d053a6ba03af5f710069c99349de9341af95155d52665cb4607c
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.7+4"
+    version: "0.8.9"
   image_picker_android:
     dependency: transitive
     description:
@@ -637,14 +669,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.7+3"
+  image_picker_linux:
+    dependency: transitive
+    description:
+      name: image_picker_linux
+      sha256: "02cbc21fe1706b97942b575966e5fbbeaac535e76deef70d3a242e4afb857831"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
+  image_picker_macos:
+    dependency: transitive
+    description:
+      name: image_picker_macos
+      sha256: cee2aa86c56780c13af2c77b5f2f72973464db204569e1ba2dd744459a065af4
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   image_picker_platform_interface:
     dependency: transitive
     description:
       name: image_picker_platform_interface
-      sha256: "1991219d9dbc42a99aff77e663af8ca51ced592cd6685c9485e3458302d3d4f8"
+      sha256: "7c7b96bb9413a9c28229e717e6fd1e3edd1cc5569c1778fcca060ecf729b65ee"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.3"
+    version: "2.8.0"
+  image_picker_windows:
+    dependency: transitive
+    description:
+      name: image_picker_windows
+      sha256: c3066601ea42113922232c7b7b3330a2d86f029f685bba99d82c30e799914952
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   intl:
     dependency: "direct main"
     description:
@@ -769,10 +825,10 @@ packages:
     dependency: "direct dev"
     description:
       name: msix
-      sha256: "26fabf10f65464f5198e9a9e3d242627efef56e418d52d6be466e2e126095647"
+      sha256: bf151b9a1648985e7604672ade54c8df693566099d0731e318548c47d54676e6
       url: "https://pub.dev"
     source: hosted
-    version: "3.14.0"
+    version: "3.14.2"
   nested:
     dependency: transitive
     description:
@@ -1240,26 +1296,26 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: "6b59a1a6eb1534a87331bedad83b218cb9bbdd11aa42bb1791d344f445a1e0e0"
+      sha256: "187e35d220765ff22be030b30506d1b8e0e94842a2c1801a6a2941c95db5a9eb"
       url: "https://pub.dev"
     source: hosted
-    version: "3.18.0"
+    version: "3.19.0"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: "44105cd9ea27a1e17e6416cdef5e578729ba7baccb8ee544414efad068ca1d29"
+      sha256: "3c48c91736704879b767552bf9e7ba38f1974dd06f44b5e15981cadfde06d760"
       url: "https://pub.dev"
     source: hosted
-    version: "3.18.0"
+    version: "3.19.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: "9587ad7deba6ddd8908e38485131a5136fbad958be8aa9852c67f8a1cb9687fe"
+      sha256: c6c58162ef66fe88be0313d8062a39e98ae9b539dde7b35f59fa206eb4db2030
       url: "https://pub.dev"
     source: hosted
-    version: "3.18.0"
+    version: "3.19.0"
   source_gen:
     dependency: transitive
     description:
