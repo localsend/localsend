@@ -121,13 +121,15 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             if (checkPlatformIsDesktop()) ...[
-              _BooleanEntry(
-                label: t.settingsTab.general.saveWindowPlacement,
-                value: settings.saveWindowPlacement,
-                onChanged: (b) async {
-                  await ref.read(settingsProvider.notifier).setSaveWindowPlacement(b);
-                },
-              ),
+              /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
+              if (checkPlatformIsNotWaylandDesktop())
+                _BooleanEntry(
+                  label: t.settingsTab.general.saveWindowPlacement,
+                  value: settings.saveWindowPlacement,
+                  onChanged: (b) async {
+                    await ref.read(settingsProvider.notifier).setSaveWindowPlacement(b);
+                  },
+                ),
               if (checkPlatformHasTray()) ...[
                 _BooleanEntry(
                   label: t.settingsTab.general.minimizeToTray,

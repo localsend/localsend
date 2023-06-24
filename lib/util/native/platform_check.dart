@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 
 bool checkPlatform(List<TargetPlatform> platforms, {bool web = false}) {
@@ -40,4 +41,16 @@ bool checkPlatformWithGallery() {
 /// On android, do not allow to change
 bool checkPlatformWithFileSystem() {
   return checkPlatform([TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.android, TargetPlatform.macOS]);
+}
+
+/// Convenience function to check if the app is not running on a Linux device with the Wayland display manager
+bool checkPlatformIsNotWaylandDesktop() {
+  if (checkPlatform([TargetPlatform.linux])) {
+    if (Platform.environment['XDG_SESSION_TYPE'] == 'wayland') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  return true;
 }
