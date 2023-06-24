@@ -294,7 +294,7 @@ class PersistenceService {
   }
 
   bool getSaveWindowPlacement() {
-    if(!checkPlatformIsNotWaylandDesktop()) return false;
+    if (!checkPlatformIsNotWaylandDesktop()) return false;
     return _prefs.getBool(_saveWindowPlacement) ?? true;
   }
 }

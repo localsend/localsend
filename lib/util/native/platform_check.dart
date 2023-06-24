@@ -45,8 +45,8 @@ bool checkPlatformWithFileSystem() {
 
 /// Convenience function to check if the app is not running on a Linux device with the Wayland display manager
 bool checkPlatformIsNotWaylandDesktop() {
-  if(checkPlatform([TargetPlatform.linux])) {
-    if(Platform.environment['XDG_SESSION_TYPE'] == 'wayland') {
+  if (checkPlatform([TargetPlatform.linux])) {
+    if (Platform.environment['XDG_SESSION_TYPE'] == 'wayland') {
       return false;
     } else {
       return true;
