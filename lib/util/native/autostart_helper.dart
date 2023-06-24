@@ -66,7 +66,6 @@ Future<bool> initDisableAutoStart(SettingsState settings) async {
   return false;
 }
 
-
 Future<bool> isLinuxLaunchAtStartEnabled() async {
   final packageInfo = await PackageInfo.fromPlatform();
   File desktopFile = File('${Platform.environment['HOME']}/.config/autostart/${packageInfo.appName}.desktop');
