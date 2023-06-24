@@ -150,7 +150,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   value: settings.launchAtStartup,
                   onChanged: (b) async {
                     late bool result;
-                    if (await launchAtStartup.isEnabled()) {
+                    if (await isLinuxLaunchAtStartEnabled()) {
                       result = await initDisableAutoStart(settings);
                     } else {
                       result = await initEnableAutoStartAndOpenSettings(settings);
