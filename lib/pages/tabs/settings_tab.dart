@@ -121,6 +121,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ),
             ),
             if (checkPlatformIsDesktop()) ...[
+              /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
+              if(checkPlatformIsNotWaylandDesktop())
               _BooleanEntry(
                 label: t.settingsTab.general.saveWindowPlacement,
                 value: settings.saveWindowPlacement,
