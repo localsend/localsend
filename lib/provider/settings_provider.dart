@@ -30,6 +30,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
       saveToGallery: _service.isSaveToGallery(),
       quickSave: _service.isQuickSave(),
       minimizeToTray: _service.isMinimizeToTray(),
+      launchAtStartup: _service.isLaunchAtStartup(),
       autoStartLaunchMinimized: _service.isAutoStartLaunchMinimized(),
       https: _service.isHttps(),
       sendMode: _service.getSendMode(),
@@ -104,6 +105,13 @@ class SettingsNotifier extends Notifier<SettingsState> {
     await _service.setMinimizeToTray(minimizeToTray);
     state = state.copyWith(
       minimizeToTray: minimizeToTray,
+    );
+  }
+
+  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
+    await _service.setLaunchAtStartup(launchAtStartup);
+    state = state.copyWith(
+      launchAtStartup: launchAtStartup,
     );
   }
 

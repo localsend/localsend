@@ -20,6 +20,7 @@ class SettingsState with _$SettingsState {
     required bool saveToGallery, // only Android, iOS
     required bool quickSave, // automatically accept file requests
     required bool minimizeToTray, // minimize to tray instead of exiting the app
+    required bool launchAtStartup, // Tracks if the option is enabled on Linux
     required bool autoStartLaunchMinimized, // start hidden in tray (only available when launchAtStartup is true)
     required bool https,
     required SendMode sendMode,
