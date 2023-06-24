@@ -50,6 +50,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _quickSave = 'ls_quick_save';
 const _minimizeToTray = 'ls_minimize_to_tray';
+const _launchAtStartup = 'ls_launch_at_startup';
 const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
@@ -233,6 +234,14 @@ class PersistenceService {
 
   Future<void> setMinimizeToTray(bool minimizeToTray) async {
     await _prefs.setBool(_minimizeToTray, minimizeToTray);
+  }
+
+  bool isLaunchAtStartup() {
+    return _prefs.getBool(_launchAtStartup) ?? false;
+  }
+
+  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
+    await _prefs.setBool(_launchAtStartup, launchAtStartup);
   }
 
   bool isAutoStartLaunchMinimized() {

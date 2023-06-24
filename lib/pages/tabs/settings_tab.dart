@@ -44,6 +44,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
     _multicastController.text = settings.multicastGroup;
   }
 
+  final isLinux = checkPlatform([TargetPlatform.linux]);
+  final isWindows = checkPlatform([TargetPlatform.windows]);
+
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
@@ -139,7 +142,25 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   },
                 ),
               ],
-              if (checkPlatform([TargetPlatform.windows])) ...[
+              // Linux autostart is simpler, so a boolean entry is used
+              if (isLinux)
+                _BooleanEntry(
+                  label: t.settingsTab.general.launchAtStartup,
+                  value: settings.launchAtStartup,
+                  onChanged: (b) async {
+                    late bool result;
+                    if (await isLinuxLaunchAtStartEnabled()) {
+                      result = await initDisableAutoStart(settings);
+                    } else {
+                      result = await initEnableAutoStartAndOpenSettings(settings);
+                    }
+                    if (result) {
+                      await ref.read(settingsProvider.notifier).setLaunchAtStartup(b);
+                    }
+                  },
+                ),
+              // Windows requires a manual action, so this settings entry is required
+              if (isWindows)
                 _SettingsEntry(
                   label: t.settingsTab.general.launchAtStartup,
                   child: TextButton(
@@ -148,21 +169,34 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
                       foregroundColor: Theme.of(context).colorScheme.onSurface,
                     ),
-                    onPressed: () async => initAutoStartAndOpenSettings(),
+                    onPressed: () async {
+                      await initDisableAutoStart(settings);
+                      await initEnableAutoStartAndOpenSettings(settings, isWindows);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(t.general.settings, style: Theme.of(context).textTheme.titleMedium),
                     ),
                   ),
                 ),
-                _BooleanEntry(
-                  label: t.settingsTab.general.launchMinimized,
-                  value: settings.autoStartLaunchMinimized,
-                  onChanged: (b) async {
-                    await ref.read(settingsProvider.notifier).setAutoStartLaunchMinimized(b);
-                  },
-                ),
-              ],
+              if (isWindows || isLinux)
+                Visibility(
+                    visible: settings.launchAtStartup || isWindows,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: AnimatedOpacity(
+                      opacity: settings.launchAtStartup || isWindows ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: _BooleanEntry(
+                        label: t.settingsTab.general.launchMinimized,
+                        value: settings.autoStartLaunchMinimized,
+                        onChanged: (b) async {
+                          await initDisableAutoStart(settings);
+                          await ref.read(settingsProvider.notifier).setAutoStartLaunchMinimized(b);
+                          await initEnableAutoStartAndOpenSettings(settings, isWindows);
+                        },
+                      ),
+                    ))
             ],
           ],
         ),
