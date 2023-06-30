@@ -21,6 +21,7 @@ linter:
   rules:
     use_key_in_widget_constructors: false
 
+    prefer_single_quotes: true
     sort_pub_dependencies: true
     always_use_package_imports: true
     directives_ordering: true

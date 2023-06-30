@@ -1,4 +1,4 @@
-import "dart:math";
+import 'dart:math';
 
 import 'package:localsend_app/gen/strings.g.dart';
 

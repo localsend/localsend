@@ -23,7 +23,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'image',
-            'preview': "*preview data*",
+            'preview': '*preview data*',
           }
         }
       };
@@ -46,7 +46,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'image',
-            'preview': "*preview data*",
+            'preview': '*preview data*',
           }
         }
       };
@@ -69,7 +69,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'superBigImage',
-            'preview': "*preview data*",
+            'preview': '*preview data*',
           }
         }
       };
@@ -92,7 +92,7 @@ void main() {
             'fileName': 'another image.jpg',
             'size': 1234,
             'fileType': 'image/jpeg',
-            'preview': "*preview data*",
+            'preview': '*preview data*',
           }
         }
       };
@@ -147,7 +147,7 @@ void main() {
             size: 1234,
             fileType: FileType.image,
             hash: '*hash*',
-            preview: "*preview data*",
+            preview: '*preview data*',
             legacy: true,
           ),
           'some id 2': FileDto(
@@ -156,7 +156,7 @@ void main() {
             size: 1234,
             fileType: FileType.apk,
             hash: '*hash*',
-            preview: "*preview data*",
+            preview: '*preview data*',
             legacy: true,
           ),
         },
@@ -178,7 +178,7 @@ void main() {
             size: 1234,
             fileType: FileType.image,
             hash: '*hash*',
-            preview: "*preview data*",
+            preview: '*preview data*',
             legacy: false,
           ),
           'some id 2': FileDto(
@@ -187,7 +187,7 @@ void main() {
             size: 1234,
             fileType: FileType.apk,
             hash: '*hash*',
-            preview: "*preview data*",
+            preview: '*preview data*',
             legacy: false,
           ),
         },

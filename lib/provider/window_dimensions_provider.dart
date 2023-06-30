@@ -30,8 +30,8 @@ class WindowDimensionsController {
     final persistedDimensions = _service.getWindowLastDimensions();
 
     // if [savePlacement is false], both values will be [set to null]
-    final Size? persistedSize = useSavedPlacement ? persistedDimensions["size"] as Size? : null;
-    final Offset? persistedOffset = useSavedPlacement ? persistedDimensions["position"] as Offset? : null;
+    final Size? persistedSize = useSavedPlacement ? persistedDimensions['size'] as Size? : null;
+    final Offset? persistedOffset = useSavedPlacement ? persistedDimensions['position'] as Offset? : null;
 
     // Checks if the last known position is valid
     bool foundInScreen = await isInScreenBounds(persistedOffset);
