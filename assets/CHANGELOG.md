@@ -2,6 +2,7 @@
 
 - feat(desktop): bind "ESC" key to go to the previous page (@RiverTwilight, @Tienisto)
 - feat(android, ios): open link in new browser tab (@Tienisto)
+- feat(linux): enable autostart feature (@TheGB0077)
 
 ## 1.10.0 (2023-06-02)
 
