@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "Kabul et",
+    "accepted": "Kabul edildi",
     "add": "Ekle",
     "advanced": "Gelişmiş",
     "cancel": "İptal et",
@@ -54,13 +55,22 @@
     },
     "picker": {
       "file": "Dosya",
+      "folder": "Klasör",
       "media": "Medya",
-      "text": "Metin"
+      "text": "Metin",
+      "app": "Uygulama"
     },
     "shareIntentInfo": "Dosyalarınızı daha kolay seçmek için cihazınızın \"Paylaş\" özelliğini kullanabilirsiniz.",
     "nearbyDevices": "Yakınınızdaki cihazlar",
     "thisDevice": "Cihazınız",
     "scan": "Cihazları tara",
+    "sendMode": "Gönderme Modu",
+    "sendModes": {
+      "single": "Tek alıcı",
+      "multiple": "Birden fazla alıcı",
+      "link": "Link üzerinden paylaşın"
+    },
+    "sendModeHelp": "Açıklama",
     "help": "Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.",
     "placeItems": "Paylaşmak istediğiniz dosyayı yerleştiriniz."
   },
@@ -68,15 +78,21 @@
     "title": "Ayarlar",
     "general": {
       "title": "Genel",
+      "brightness": "Tema",
       "brightnessOptions": {
         "system": "Sistem teması",
         "dark": "Koyu",
         "light": "Açık"
       },
+      "color": "Renk",
+      "colorOptions": {
+        "system": "Sistem"
+      },
       "language": "Dil",
       "languageOptions": {
         "system": "Sistem dili"
       },
+      "saveWindowPlacement": "Çıkış: Burayı Kaydet",
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli Başlatma"
@@ -85,6 +101,7 @@
       "title": "Alım",
       "quickSave": "@:general.quickSave",
       "destination": "Hedef klasör",
+      "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet"
     },
     "network": {
@@ -94,17 +111,42 @@
       "alias": "Takma isminiz",
       "port": "Port",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
-      "encryption": "Şifreleme"
+      "encryption": "Şifreleme",
+      "multicastGroup": "Çoklu yayın",
+      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
+    }
+  },
+  "troubleshootPage": {
+    "title": "Sorun Giderme",
+    "subTitle": "Bu uygulama beklendiği gibi çalışmıyor mu? Burada ortak çözümler bulabilirsiniz.",
+    "solution": "Çözüm:",
+    "fixButton": "Otomatik olarak düzelt",
+    "firewall": {
+      "symptom": "Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.",
+      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
+      "openFirewall": "Güvenlik Duvarını Aç"
+    },
+    "noConnection": {
+      "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
+      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir. "
     }
   },
   "receiveHistoryPage": {
     "title": "Geçmiş",
+    "openFolder": "Dosyayı aç",
+    "deleteHistory": "Geçmişi sil",
     "empty": "Geçmiş yok.",
     "entryActions": {
       "open": "Dosya aç",
       "info": "Bilgi",
       "deleteFromHistory": "Geçmişten sil"
     }
+  },
+  "apkPickerPage": {
+    "title": "Uygulamalar (APK)",
+    "excludeSystemApps": "Sistem uygulamalarını hariç tut",
+    "excludeAppsWithoutLaunchIntent": "Başlatılamayan uygulamaları hariç tut",
+    "apps": "{n} Uygulamalar"
   },
   "selectedFilesPage": {
     "deleteAll": "Hepsini sil"
@@ -121,7 +163,9 @@
   "receiveOptionsPage": {
     "title": "Seçenekler",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend klasörü)"
+    "appDirectory": "(LocalSend klasörü)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
   },
   "sendPage": {
     "waiting": "Alıcıdan cevap bekleniyor...",
@@ -144,14 +188,25 @@
       "speed": "Hız: {speed}/s"
     }
   },
+  "webSharePage": {
+    "title": "Link üzerinden paylaşın",
+    "loading": "Sunucu başlıyor...",
+    "stopping": "Sunucu durduruluyor ...",
+    "error": "Sunucuyu başlatırken bir hata oluştu.",
+    "hint": "Bağlantının şifrelenmediğini unutmayın. Bu yöntemi yalnızca alıcı LocalSend yüklememiş ise kullanmalısınız.",
+    "openLink": {
+      "one": "Bu bağlantıyı tarayıcıda açın:",
+      "other": "Bu bağlantılardan birini tarayıcıda açın:"
+    },
+    "requests": "İstekler",
+    "noRequests": "Henüz istek yok.",
+    "pendingRequests": "Bekleyen istekler: {n}"
+  },
   "aboutPage": {
     "title": "LocalSend hakkında"
   },
   "changelogPage": {
     "title": "Değişiklik günlüğü"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -191,6 +246,11 @@
       "title": "Dosya adını giriniz",
       "original": "Orijinal: {original}"
     },
+    "localNetworkUnauthorized": {
+      "title": "İzin yok",
+      "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
+      "gotoSettings": "Ayarlar"
+    },
     "messageInput": {
       "title": "Mesaj yazınız",
       "multiline": "Çok satırlı mesaj"
@@ -198,6 +258,13 @@
     "noFiles": {
       "title": "Herhangi bir dosya seçilmedi",
       "content": "Lütfen bir dosya seçiniz."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Müsait değil",
+      "content": "Bu özellik yalnızca şurada mevcuttur:"
+    },
+    "qr": {
+      "title": "QR Kod"
     },
     "quickActions": {
       "title": "Hızlı eylemler",
@@ -210,11 +277,57 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
+    },
+    "sendModeHelp": {
+      "title": "Gönderme Modu",
+      "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
+      "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
+      "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
     }
   },
   "tray": {
     "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
     "open": "@:general.open",
     "close": "LocalSend'den çık"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Reddedildi",
+    "files": "Dosyalar",
+    "fileName": "Dosya adı",
+    "size": "Boyut"
+  },
+  "assetPicker": {
+    "confirm": "Onay",
+    "cancel": "İptal",
+    "edit": "Düzenle",
+    "gifIndicator": "GIF",
+    "loadFailed": "Yükleme başarısız",
+    "original": "Orijinal",
+    "preview": "Ön izleme",
+    "select": "Seç",
+    "emptyList": "Boş liste",
+    "unSupportedAssetType": "Desteklenmeyen dosya türü.",
+    "unableToAccessAll": "Cihazdaki tüm dosyalara erişilemiyor",
+    "viewingLimitedAssetsTip": "Yalnızca uygulamanın erişilebilir dosyalarını ve albümlerini görüntüleyin.",
+    "changeAccessibleLimitedAssets": "Erişilebilir dosyaları güncellemek için tıklayın",
+    "accessAllTip": "Uygulama yalnızca cihazdaki bazı dosyalara erişebilir. Sistem ayarlarına gidin ve uygulamanın cihazdaki tüm medyalara erişmesine izin verin.",
+    "goToSystemSettings": "Sistem ayarlarına gidin",
+    "accessLimitedAssets": "Sınırlı Erişimle Devam Et",
+    "accessiblePathName": "Erişilebilir dosyalar",
+    "sTypeAudioLabel": "Ses",
+    "sTypeImageLabel": "Görüntü",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Diğer medya",
+    "sActionPlayHint": "oynat",
+    "sActionPreviewHint": "Ön izleme",
+    "sActionSelectHint": "seç",
+    "sActionSwitchPathLabel": "dosya uzantısını değiştir",
+    "sActionUseCameraHint": "Kamera kullan",
+    "sNameDurationLabel": "süre",
+    "sUnitAssetCountLabel": "sayım"
+  },
+  "aliasGenerator": {
+    "@info": "Inherits from the English version"
   }
 }
