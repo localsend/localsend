@@ -496,14 +496,14 @@ class _BooleanEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SettingsEntry(
       label: label,
-      child:  Row(
+      child: Row(
         children: [
-          SizedBox(width: 35,),
+          const SizedBox(width: 35),
           Text(
             value ? t.general.on : t.general.off,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Switch(
             value: value,
             onChanged: onChanged,
