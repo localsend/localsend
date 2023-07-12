@@ -496,20 +496,19 @@ class _BooleanEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SettingsEntry(
       label: label,
-      child: CustomDropdownButton<bool>(
-        value: value,
-        items: [false, true].map((b) {
-          return DropdownMenuItem(
-            value: b,
-            alignment: Alignment.center,
-            child: Text(b ? t.general.on : t.general.off),
-          );
-        }).toList(),
-        onChanged: (b) {
-          if (b != null) {
-            onChanged(b);
-          }
-        },
+      child:  Row(
+        children: [
+          SizedBox(width: 35,),
+          Text(
+            value ? t.general.on : t.general.off,
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(width: 10),
+          Switch(
+            value: value,
+            onChanged: onChanged,
+          ),
+        ],
       ),
     );
   }
