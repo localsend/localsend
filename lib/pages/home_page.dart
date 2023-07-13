@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
@@ -170,7 +169,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             bottomNavigationBar: sizingInformation.isMobile
                 ? NavigationBar(
-                    selectedIndex: sizingInformation.isMobile ? min(_currentTab.index, 2) : _currentTab.index,
+                    selectedIndex: _currentTab.index,
                     onDestinationSelected: _goToPage,
                     destinations: HomeTab.values.map((tab) {
                       return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
