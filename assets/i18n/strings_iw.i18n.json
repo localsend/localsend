@@ -1,38 +1,38 @@
 {
-  "locale": "עִברִית",
+  "locale": "עברית",
   "appName": "LocalSend",
   "general": {
-    "accept": "קבל",
+    "accept": "קבלה",
     "add": "הוסף",
-    "advanced": "מִתקַדֵם",
-    "cancel": "בַטֵל",
+    "advanced": "מתקדם",
+    "cancel": "ביטול",
     "close": "סגור",
-    "confirm": "אשר",
+    "confirm": "אישור",
     "continueStr": "המשך",
-    "copy": "הֶעתֵק",
+    "copy": "העתק",
     "copiedToClipboard": "הועתק ללוח",
-    "decline": "סרב",
+    "decline": "דחיה",
     "done": "בוצע",
     "edit": "ערוך",
-    "error": "שְׁגִיאָה",
+    "error": "שגיאה",
     "example": "דוגמא",
     "files": "קבצים",
-    "finished": "נִגמָר",
+    "finished": "הסתיים",
     "hide": "הסתר",
-    "off": "לא פעיל",
+    "off": "כבוי",
     "offline": "אין אינטרנט",
     "on": "פעיל",
-    "online": "יש אינטרנט",
-    "open": "פתוח",
-    "queue": "תוֹר",
+    "online": "מקוון",
+    "open": "פתח",
+    "queue": "תור",
     "quickSave": "שמירה מהירה",
     "renamed": "שונה שם",
-    "reset": "אִתחוּל",
+    "reset": "איפוס",
     "restart": "הפעל מחדש",
     "settings": "הגדרות",
     "skipped": "דילג",
     "start": "התחל",
-    "stop": "עֲצוֹר",
+    "stop": "עצור",
     "save": "שמור",
     "unchanged": "ללא שינוי",
     "unknown": "לא ידוע"
@@ -48,20 +48,20 @@
   "sendTab": {
     "title": "שלח",
     "selection": {
-      "title": "בְּחִירָה",
+      "title": "בחירה",
       "files": "קבצים: {files}",
       "size": "גודל: {size}"
     },
     "picker": {
-      "file": "קוֹבֶץ",
+      "file": "קובץ",
       "media": "מדיה",
-      "text": "טֶקסט"
+      "text": "טקסט"
     },
     "shareIntentInfo": "תוכל גם להשתמש בתכונה \"שתף\" של המכשיר הנייד שלך כדי לבחור קבצים ביתר קלות.",
     "nearbyDevices": "מכשירים בקרבת מקום",
     "thisDevice": "המכשיר הזה",
     "scan": "חפש מכשירים",
-    "help": "אנא ודא שגם היעד הרצוי נמצא באותה רשת wifi.",
+    "help": "אנא ודא שאתה ומכשיר היעד נמצאים באותה רשת wifi.",
     "placeItems": "הצב פריטים לשיתוף."
   },
   "settingsTab": {
@@ -70,8 +70,8 @@
       "title": "כללי",
       "brightnessOptions": {
         "system": "מערכת",
-        "dark": "כֵּהֶה",
-        "light": "בָּהִיר"
+        "dark": "כהה",
+        "light": "בהיר"
       },
       "language": "שפה",
       "languageOptions": {
@@ -84,11 +84,11 @@
     "receive": {
       "title": "קבל",
       "quickSave": "@:general.quickSave",
-      "destination": "יַעַד",
+      "destination": "יעד",
       "saveToGallery": "שמור מדיה לגלריה"
     },
     "network": {
-      "title": "רֶשֶׁת",
+      "title": "רשת",
       "needRestart": "הפעל מחדש את השרת כדי להחיל את ההגדרות!",
       "server": "שרת",
       "alias": "כינוי",
@@ -129,7 +129,7 @@
       },
       "count": "קבצים: {curr} / {n}",
       "size": "גודל: {curr} / {n}",
-      "speed": "מְהִירוּת: {speed}/שְׁנִיָה"
+      "speed": "מהירות: {speed}/שניה"
     }
   },
   "aboutPage": {
@@ -157,7 +157,7 @@
     },
     "fileNameInput": {
       "title": "הזן את שם הקובץ",
-      "original": "מְקוֹרִי: {original}"
+      "original": "מקורי: {original}"
     },
     "messageInput": {
       "title": "הקלד הודעה",
@@ -169,11 +169,11 @@
     },
     "quickActions": {
       "title": "פעולות מהירות",
-      "counter": "מוֹנֶה",
+      "counter": "מונה",
       "prefix": "קידומת",
-      "padZero": "רפידה עם אפסים",
+      "padZero": "ריפוד באפסים",
       "sortBeforeCount": "מיון לפי אלפביתי מראש",
-      "random": "אַקרַאִי"
+      "random": "אקראי"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
