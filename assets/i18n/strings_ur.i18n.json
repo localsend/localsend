@@ -78,10 +78,15 @@
     "title": "ترتیبات",
     "general": {
       "title": "جنرل",
+      "brightness": "تھیم",
       "brightnessOptions": {
         "system": "سسٹم",
         "dark": "اندھیرا",
         "light": "روشنی"
+      },
+      "color": "رنگ",
+      "colorOptions": {
+        "system": "نظام"
       },
       "language": "زبان",
       "languageOptions": {
@@ -137,6 +142,12 @@
       "deleteFromHistory": "تاریخ سے حذف کریں"
     }
   },
+  "apkPickerPage": {
+    "title": "اپلیکیشنز (APK)",
+    "excludeSystemApps": "سسٹم ایپس کو ختم کریں",
+    "excludeAppsWithoutLaunchIntent": "غیر لانچ ہونے والے ایپس کو ختم کریں",
+    "apps": "{n} ایپس"
+  },
   "selectedFilesPage": {
     "deleteAll": "تمام حذف کریں"
   },
@@ -152,7 +163,9 @@
   "receiveOptionsPage": {
     "title": "اختیارات",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)"
+    "appDirectory": "(@:appName folder)",
+    "saveToGallery": ". گیلری میں محفوظ کریں@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "خود کار طور پر منقطع ہوگیا ہے کیونکہ ڈائریکٹریاں ہیں۔"
   },
   "sendPage": {
     "waiting": "جواب کا منتظر...",
@@ -175,6 +188,20 @@
       "speed": "رفتار: {speed}/s"
     }
   },
+  "webSharePage": {
+    "title": "لنک کے ذریعے شئیر کریں",
+    "loading": "سرور کو چالو کررہا ہے...",
+    "stopping": "سرور بند ہو رہا ہے...",
+    "error": "سرور چالو کرتے وقت خامی پیش آئی ہے۔",
+    "hint": "یاد رکھیں کہ رابطہ غیر تشفیر شدہ ہے۔ آپ یہ طریقہ استعمال تب کریں جب وصول کرنے والے کے پاس LocalSend نصب نہیں ہے۔",
+    "openLink": {
+      "one": "اس لنک کو براوزر میں کھولیں:",
+      "other": "ان میں سے کسی ایک لنک کو براوزر میں کھولیں:"
+    },
+    "requests": "درخواستیں",
+    "noRequests": "ابھی تک کوئی درخواست نہیں۔",
+    "pendingRequests": "زیر التواء درخواستیں: {n}"
+  },
   "aboutPage": {
     "title": "کے بارے میں LocalSend"
   },
@@ -192,19 +219,40 @@
     "addressInput": {
       "title": "پتہ درج کریں۔",
       "hashtag": "Hashtag",
-      "ip": "اپ ایڈریس"
+      "ip": "اپ ایڈریس",
+      "recentlyUsed": "حال ہی میں استعمال ہوا:"
     },
     "cancelSession": {
       "title": "فائل ٹرانسفر منسوخ کریں۔",
       "content": "کیا آپ واقعی فائل ٹرانسفر کو منسوخ کرنا چاہتے ہیں؟"
     },
+    "cannotOpenFile": {
+      "title": "فائل نہیں کھل سکی",
+      "content": "\"{file}\" کھول نہیں سکتا۔ کیا یہ فائل منتقل ہوگئی ہے، نام تبدیل ہوگیا ہے یا حذف ہوگئی ہے؟"
+    },
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
       "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
     },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "fileInfo": {
+      "title": "فائل کی معلومات",
+      "fileName": "فائل کا نام:",
+      "path": "راستہ:",
+      "size": "سائز:",
+      "sender": "بھیجنے والا:",
+      "time": "وقت:"
+    },
     "fileNameInput": {
       "title": "فائل کا نام درج کریں۔",
       "original": "اصل: {original}"
+    },
+    "localNetworkUnauthorized": {
+      "title": "اجازت نہیں",
+      "description": "لوکل نیٹ ورک کا سکین کرنے کی اجازت کے بغیر LocalSend، دیگر ڈیوائسز تلاش نہیں کرسکتا ہے۔ براہ کرم ترتیبات میں اس اجازت کو منظور کریں۔",
+      "gotoSettings": "ترتیبات"
     },
     "messageInput": {
       "title": "پیغام ٹائپ کریں۔",
@@ -213,6 +261,13 @@
     "noFiles": {
       "title": "کوئی فائل منتخب نہیں کی گئی",
       "content": "براہ کرم کم از کم ایک فائل منتخب کریں۔"
+    },
+    "notAvailableOnPlatform": {
+      "title": "دستیاب نہیں",
+      "content": "یہ خصوصیت صرف یہاں دستیاب ہے:"
+    },
+    "qr": {
+      "title": "QR کوڈ"
     },
     "quickActions": {
       "title": "فوری اقدامات",
@@ -225,11 +280,54 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔"
+    },
+    "sendModeHelp": {
+      "title": "بھیجنے کے انداز",
+      "single": "ایک ریسیور کو فائل بھیجتا ہے۔ بھیجتے وقت سلیکشن ختم ہوجائیگا۔",
+      "multiple": "اکثر متعدد ریسیورز کو فائل بھیجتا ہے۔ سلیکشن ختم نہیں ہوگا۔",
+      "link": "LocalSend نصب نہیں ہونے والے رسیورز منتخب شدہ فائلز کو لنک اپنے براؤزر میں کھولنے سے ڈاؤن لوڈ کر سکتے ہیں۔"
     }
   },
   "tray": {
     "@info": "ایپل کے رہنما خطوط 'قریبی' الفاظ کے بارے میں بہت سخت ہیں۔",
     "open": "@:general.open",
     "close": "چھوڑو LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "منسوخ کردیا",
+    "files": "فائلیں",
+    "fileName": "فائل کا نام",
+    "size": "سائز"
+  },
+  "assetPicker": {
+    "confirm": "تصدیق کریں",
+    "cancel": "منسوخ کریں",
+    "edit": "ترمیم کریں",
+    "gifIndicator": "جی آئی ایف",
+    "loadFailed": "لوڈ نہیں ہوسکی",
+    "original": "اصل ",
+    "preview": "پیش نظارہ",
+    "select": "منتخب کریں",
+    "emptyList": "خالی فہرست",
+    "unSupportedAssetType": "غیر معتبر فائل کی قسم۔",
+    "unableToAccessAll": "یہ ڈیوائس پر تمام فائلوں تک رسائی نہیں ہوسکتی ہے۔",
+    "viewingLimitedAssetsTip": "صرف ایپ تک رسائی پذیر فائلوں اور البم کونسیس ہوسکتی ہیں۔",
+    "changeAccessibleLimitedAssets": "رسائی پذیر فائلوں کو اپ ڈیٹ کرنے کے لئے کلک کریں",
+    "accessAllTip": "ایپ صرف چند فائلوں تک رسائی حاصل کرسکتی ہے ڈیوائس پر۔ سسٹم کی ترتیبات میں جائیں اور ایپ کو ڈیوائس پر تمام میڈیا تک رسائی کی اجازت دیں۔",
+    "goToSystemSettings": "سسٹم ترتیبات پر جائیں",
+    "accessLimitedAssets": "محدود رسائی کے ساتھ جاری رکھیں",
+    "accessiblePathName": "رسائی پذیر فائلیں",
+    "sTypeAudioLabel": "آڈیو",
+    "sTypeImageLabel": "تصویر",
+    "sTypeVideoLabel": "ویڈیو",
+    "sTypeOtherLabel": "دیگر میڈیا",
+    "sActionPlayHint": "چلائیں",
+    "sActionPreviewHint": "پیش نظارہ کریں",
+    "sActionSelectHint": "منتخب کریں",
+    "sActionSwitchPathLabel": "راستہ تبدیل کریں",
+    "sActionUseCameraHint": "کیمرہ استعمال کریں",
+    "sNameDurationLabel": "مدت",
+    "sUnitAssetCountLabel": "کاؤنٹ"
   }
 }

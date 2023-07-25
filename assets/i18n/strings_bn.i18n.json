@@ -140,7 +140,7 @@
   "changelogPage": {
     "title": "Changelog"
   },
-  "aliasGenerator": {
+  "aliasGenerator(ignoreMissing)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -190,5 +190,8 @@
     "@info": "অ্যাপলের নির্দেশিকাগুলি 'ক্লোজ' শব্দের বিষয়ে খুবই কঠোর।",
     "open": "@:general.open",
     "close": "LocalSend থেকে প্রস্থান করুন"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone"
   }
 }

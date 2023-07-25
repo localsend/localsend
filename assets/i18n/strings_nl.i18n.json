@@ -78,10 +78,15 @@
     "title": "Instellingen",
     "general": {
       "title": "Algemeen",
+      "brightness": "Thema",
       "brightnessOptions": {
         "system": "Systeem",
         "dark": "Donker",
         "light": "Licht"
+      },
+      "color": "Kleur",
+      "colorOptions": {
+        "system": "Systeem"
       },
       "language": "Taal",
       "languageOptions": {
