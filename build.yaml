@@ -10,3 +10,7 @@ targets:
           string_interpolation: braces
           timestamp: false # for F-Droid Reproducible Builds
           flat_map: false
+          gpt:
+            model: gpt-3.5-turbo
+            description: |
+              "LocalSend" is a file sharing app that allows you to send files to other devices on the same network.
