@@ -61,7 +61,7 @@ dependencies:
   uuid: 3.0.7
   wakelock: 0.6.2
   wechat_assets_picker: 8.5.0
-  window_manager: 0.3.2
+  window_manager: ^0.3.5
 
 dev_dependencies:
   build_runner: 2.4.5
