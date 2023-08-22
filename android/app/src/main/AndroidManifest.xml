@@ -24,8 +24,7 @@
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
         android:banner="@drawable/banner"
-        android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true"> <!-- localsend: image_gallery_saver requires requestLegacyExternalStorage -->
+        android:icon="@mipmap/ic_launcher">
 
         <!-- localsend: prevent multiple instances by android:launchMode="singleTask" -->
         <activity

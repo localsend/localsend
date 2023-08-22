@@ -384,12 +384,13 @@ class ReceiveController {
 
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-      final saveToGallery =
-          receiveState.saveToGallery && (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
+      final fileType = receivingFile.file.fileType;
+      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
       await saveFile(
         destinationPath: destinationPath,
         name: receivingFile.desiredName!,
         saveToGallery: saveToGallery,
+        isImage: fileType == FileType.image,
         stream: request.read(),
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {

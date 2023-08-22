@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gal/gal.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -14,6 +14,7 @@ Future<void> saveFile({
   required String destinationPath,
   required String name,
   required bool saveToGallery,
+  required bool isImage,
   required Stream<List<int>> stream,
   required void Function(int savedBytes) onProgress,
 }) async {
@@ -42,10 +43,7 @@ Future<void> saveFile({
     await sink.close();
 
     if (saveToGallery) {
-      final result = await ImageGallerySaver.saveFile(destinationPath, name: name);
-      if (result is Map && result['isSuccess'] == false) {
-        throw 'Could not save media to gallery. Has permission been granted?\n\nTechnical error:\n${result['errorMessage']}';
-      }
+      isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
       await File(destinationPath).delete();
     }
 
