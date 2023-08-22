@@ -43,9 +43,7 @@ Future<void> saveFile({
     await sink.close();
 
     if (saveToGallery) {
-      isImage
-          ? await Gal.putImage(destinationPath)
-          : await Gal.putVideo(destinationPath);
+      isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
       await File(destinationPath).delete();
     }
 

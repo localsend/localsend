@@ -541,6 +541,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  gal:
+    dependency: "direct main"
+    description:
+      name: gal
+      sha256: "612a2bb6268a8eefc520cdd38d4df03a5938adb81766dce1e3f1e7238d099020"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.8.6"
   get_it:
     dependency: transitive
     description:
@@ -629,14 +637,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.16"
-  image_gallery_saver:
-    dependency: "direct main"
-    description:
-      name: image_gallery_saver
-      sha256: "467de169167b5c4e1ddde65395e4653c336a82f760b6700ea295085b7f2dd248"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   image_picker:
     dependency: "direct main"
     description:

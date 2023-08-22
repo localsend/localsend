@@ -385,8 +385,7 @@ class ReceiveController {
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       final fileType = receivingFile.file.fileType;
-      final saveToGallery =
-          receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
       await saveFile(
         destinationPath: destinationPath,
         name: receivingFile.desiredName!,
