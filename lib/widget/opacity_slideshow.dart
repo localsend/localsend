@@ -8,11 +8,13 @@ class OpacitySlideshow extends StatefulWidget {
   final List<Widget> children;
   final int durationMillis;
   final int switchDurationMillis;
+  final bool running;
 
   const OpacitySlideshow({
     required this.children,
     required this.durationMillis,
     this.switchDurationMillis = 300,
+    this.running = true,
     super.key,
   });
 
@@ -28,9 +30,7 @@ class _OpacitySlideshowState extends State<OpacitySlideshow> {
   @override
   void initState() {
     super.initState();
-    if (widget.children.length > 1) {
-      _startTimer();
-    }
+    _startTimer();
   }
 
   @override
@@ -39,7 +39,21 @@ class _OpacitySlideshowState extends State<OpacitySlideshow> {
     _timer?.cancel();
   }
 
+  @override
+  void didUpdateWidget(OpacitySlideshow oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.running && !widget.running) {
+      _timer?.cancel();
+    } else if (!oldWidget.running && widget.running) {
+      _startTimer();
+    }
+  }
+
   void _startTimer() {
+    if (widget.children.length <= 1) {
+      return;
+    }
+
     _timer = Timer.periodic(Duration(milliseconds: widget.durationMillis), (_) async {
       if (!mounted) return;
       setState(() {

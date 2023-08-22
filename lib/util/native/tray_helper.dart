@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:system_tray/system_tray.dart';
 import 'package:tray_manager/tray_manager.dart' as tm;
 import 'package:window_manager/window_manager.dart';
@@ -86,6 +88,9 @@ Future<void> hideToTray() async {
     // https://github.com/localsend/localsend/issues/32
     await windowManager.setSkipTaskbar(true);
   }
+
+  // Disable animations
+  RiverpieScope.defaultRef.notifier(animationProvider).setState((_) => false);
 }
 
 Future<void> showFromTray() async {
@@ -96,4 +101,7 @@ Future<void> showFromTray() async {
     // https://github.com/localsend/localsend/issues/32
     await windowManager.setSkipTaskbar(false);
   }
+
+  // Enable animations
+  RiverpieScope.defaultRef.notifier(animationProvider).setState((_) => true);
 }
