@@ -49,8 +49,7 @@ class LocalSendApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ref = context.ref;
-    final themeMode = ref.watch(settingsProvider.select((settings) => settings.theme));
-    final colorMode = ref.watch(settingsProvider.select((settings) => settings.colorMode));
+    final (themeMode, colorMode) = ref.watch(settingsProvider.select((settings) => (settings.theme, settings.colorMode)));
     final dynamicColors = ref.watch(dynamicColorsProvider);
     return TrayWatcher(
       child: WindowWatcher(
