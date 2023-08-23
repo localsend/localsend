@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-final settingsProvider = NotifierProvider<SettingsNotifier, SettingsState>(() {
+final settingsProvider = NotifierProvider<SettingsNotifier, SettingsState>((ref) {
   return SettingsNotifier();
 });
 
@@ -16,8 +16,8 @@ class SettingsNotifier extends Notifier<SettingsState> {
   SettingsNotifier();
 
   @override
-  SettingsState build() {
-    _service = ref.watch(persistenceProvider);
+  SettingsState init() {
+    _service = ref.read(persistenceProvider);
     return SettingsState(
       showToken: _service.getShowToken(),
       alias: _service.getAlias(),

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/init.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
@@ -11,6 +10,7 @@ import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 enum HomeTab {
   receive(Icons.wifi),
@@ -33,7 +33,7 @@ enum HomeTab {
   }
 }
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends StatefulWidget {
   final HomeTab initialTab;
 
   /// It is important for the initializing step
@@ -47,10 +47,10 @@ class HomePage extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _HomePageState extends State<HomePage> with Riverpie {
   late PageController _pageController;
   HomeTab _currentTab = HomeTab.receive;
 
@@ -92,10 +92,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       onDragDone: (event) async {
         if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
           // user dropped a directory
-          await ref.read(selectedSendingFilesProvider.notifier).addDirectory(event.files.first.path);
+          await ref.notifier(selectedSendingFilesProvider).addDirectory(event.files.first.path);
         } else {
           // user dropped one or more files
-          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
+          await ref.notifier(selectedSendingFilesProvider).addFiles(
                 files: event.files,
                 converter: CrossFileConverters.convertXFile,
               );

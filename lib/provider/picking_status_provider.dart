@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 /// True, if picking
 /// False, if not picking

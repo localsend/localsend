@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -19,6 +18,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
@@ -29,8 +29,6 @@ final _logger = Logger('Init');
 
 /// Will be called before the MaterialApp started
 Future<PersistenceService> preInit(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   // Init logger
   Logger.root.level = args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO;
   Logger.root.onRecord.listen((record) {
@@ -67,7 +65,7 @@ Future<PersistenceService> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final dio = createDio(DioType.startupCheckAnotherInstance, persistenceService.getSecurityContext());
+    final dio = createDio(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
 
     try {
       await dio.post(
@@ -110,11 +108,11 @@ Future<PersistenceService> preInit(List<String> args) async {
 StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
-Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void Function(int) goToPage) async {
+Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Function(int) goToPage) async {
   await updateSystemOverlayStyle(context);
 
   try {
-    await ref.read(serverProvider.notifier).startServerFromSettings();
+    await ref.notifier(serverProvider).startServerFromSettings();
   } catch (e) {
     if (context.mounted) {
       context.showSnackBar(e.toString());
@@ -122,7 +120,7 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
   }
 
   try {
-    ref.read(nearbyDevicesProvider.notifier).startMulticastListener();
+    ref.notifier(nearbyDevicesProvider).startMulticastListener();
   } catch (e) {
     _logger.warning('Starting multicast listener failed', e);
   }
@@ -157,12 +155,12 @@ Future<void> postInit(BuildContext context, WidgetRef ref, bool appStart, void F
   }
 }
 
-Future<void> _handleSharedIntent(SharedMedia payload, WidgetRef ref) async {
+Future<void> _handleSharedIntent(SharedMedia payload, Ref ref) async {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
-    ref.read(selectedSendingFilesProvider.notifier).addMessage(message);
+    ref.notifier(selectedSendingFilesProvider).addMessage(message);
   }
-  await ref.read(selectedSendingFilesProvider.notifier).addFiles(
+  await ref.notifier(selectedSendingFilesProvider).addFiles(
         files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
         converter: CrossFileConverters.convertSharedAttachment,
       );

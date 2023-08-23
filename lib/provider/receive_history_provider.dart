@@ -1,9 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-final receiveHistoryProvider = NotifierProvider<ReceiveHistoryNotifier, List<ReceiveHistoryEntry>>(() {
+final receiveHistoryProvider = NotifierProvider<ReceiveHistoryNotifier, List<ReceiveHistoryEntry>>((ref) {
   return ReceiveHistoryNotifier();
 });
 
@@ -13,8 +13,8 @@ class ReceiveHistoryNotifier extends Notifier<List<ReceiveHistoryEntry>> {
   ReceiveHistoryNotifier();
 
   @override
-  List<ReceiveHistoryEntry> build() {
-    _service = ref.watch(persistenceProvider);
+  List<ReceiveHistoryEntry> init() {
+    _service = ref.read(persistenceProvider);
     return _service.getReceiveHistory();
   }
 

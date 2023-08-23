@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
@@ -17,10 +16,11 @@ import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _logger = Logger('Multicast');
 
-final multicastProvider = Provider((ref) {
+final multicastProvider = ViewProvider((ref) {
   final deviceInfo = ref.watch(deviceRawInfoProvider);
   return MulticastService(ref, deviceInfo);
 });
@@ -68,10 +68,10 @@ class MulticastService {
             _answerAnnouncement(peer);
           }
         } catch (e) {
-          _ref.read(discoveryLogsProvider.notifier).addLog(e.toString());
+          _ref.notifier(discoveryLogsProvider).addLog(e.toString());
         }
       });
-      _ref.read(discoveryLogsProvider.notifier).addLog(
+      _ref.notifier(discoveryLogsProvider).addLog(
             'Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${settings.multicastGroup}, port: ${settings.port})',
           );
     }
@@ -92,13 +92,13 @@ class MulticastService {
     for (final wait in [100, 500, 2000]) {
       await sleepAsync(wait);
 
-      _ref.read(discoveryLogsProvider.notifier).addLog('[ANNOUNCE/UDP]');
+      _ref.notifier(discoveryLogsProvider).addLog('[ANNOUNCE/UDP]');
       for (final socket in sockets) {
         try {
           socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
-          _ref.read(discoveryLogsProvider.notifier).addLog(e.toString());
+          _ref.notifier(discoveryLogsProvider).addLog(e.toString());
         }
       }
     }
@@ -110,13 +110,11 @@ class MulticastService {
 
     try {
       // Answer with TCP
-      await _ref.read(dioProvider(DioType.discovery)).post(
+      await _ref.read(dioProvider).discovery.post(
             ApiRoute.register.target(peer),
             data: _getRegisterDto().toJson(),
           );
-      _ref
-          .read(discoveryLogsProvider.notifier)
-          .addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
+      _ref.notifier(discoveryLogsProvider).addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
       // Fallback: Answer with UDP
       final sockets = await _getSockets(settings.multicastGroup);
@@ -126,11 +124,11 @@ class MulticastService {
           socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
-          _ref.read(discoveryLogsProvider.notifier).addLog(e.toString());
+          _ref.notifier(discoveryLogsProvider).addLog(e.toString());
         }
       }
       _ref
-          .read(discoveryLogsProvider.notifier)
+          .notifier(discoveryLogsProvider)
           .addLog('[RESPONSE/UDP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
     }
   }

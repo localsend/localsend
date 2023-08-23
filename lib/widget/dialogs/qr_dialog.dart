@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class QrDialog extends ConsumerWidget {
+class QrDialog extends StatelessWidget {
   final String data;
   final bool listenIncomingWebSendRequests;
 
@@ -17,10 +17,10 @@ class QrDialog extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final WebSendState? webSendState;
     if (listenIncomingWebSendRequests) {
-      webSendState = ref.watch(serverProvider.select((s) => s?.webSendState));
+      webSendState = context.ref.watch(serverProvider.select((s) => s?.webSendState));
     } else {
       webSendState = null;
     }

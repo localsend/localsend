@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
@@ -22,10 +21,11 @@ import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock/wakelock.dart';
 
-class ProgressPage extends ConsumerStatefulWidget {
+class ProgressPage extends StatefulWidget {
   final bool showAppBar;
   final bool closeSessionOnClose;
   final String sessionId;
@@ -37,10 +37,10 @@ class ProgressPage extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ProgressPage> createState() => _ProgressPageState();
+  State<ProgressPage> createState() => _ProgressPageState();
 }
 
-class _ProgressPageState extends ConsumerState<ProgressPage> {
+class _ProgressPageState extends State<ProgressPage> with Riverpie {
   int _totalBytes = double.maxFinite.toInt();
   int _lastRemainingTimeUpdate = 0; // millis since epoch
   String? _remainingTime;
@@ -60,7 +60,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
       } catch (_) {}
 
       setState(() {
-        final receiveSession = ref.read(serverProvider.select((state) => state?.session));
+        final receiveSession = ref.read(serverProvider)?.session;
         if (receiveSession != null) {
           _files = receiveSession.files.values.map((f) => f.file).toList();
           _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
@@ -102,13 +102,13 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
   Future<bool> _askCancelConfirmation(SessionStatus status) async {
     final bool result = status == SessionStatus.sending ? await context.pushBottomSheet(() => const CancelSessionDialog()) : true;
     if (result) {
-      final receiveSession = ref.read(serverProvider.select((s) => s?.session));
+      final receiveSession = ref.read(serverProvider)?.session;
       final sendState = ref.read(sendProvider)[widget.sessionId];
 
       if (receiveSession != null) {
-        ref.read(serverProvider.notifier).cancelSession();
+        ref.notifier(serverProvider).cancelSession();
       } else if (sendState != null) {
-        ref.read(sendProvider.notifier).cancelSession(widget.sessionId);
+        ref.notifier(sendProvider).cancelSession(widget.sessionId);
       }
     }
     return result;

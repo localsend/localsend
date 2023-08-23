@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-class LanguagePage extends ConsumerWidget {
+class LanguagePage extends StatelessWidget {
   const LanguagePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final activeLocale = ref.watch(settingsProvider.select((s) => s.locale));
+    final activeLocale = context.ref.watch(settingsProvider.select((s) => s.locale));
     return Scaffold(
       appBar: AppBar(
         title: Text(t.settingsTab.general.language),
@@ -24,7 +24,7 @@ class LanguagePage extends ConsumerWidget {
           ].map((locale) {
             return ListTile(
               onTap: () async {
-                await ref.read(settingsProvider.notifier).setLocale(locale);
+                await context.ref.notifier(settingsProvider).setLocale(locale);
                 if (locale == null) {
                   LocaleSettings.useDeviceLocale();
                 } else {

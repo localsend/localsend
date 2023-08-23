@@ -1,6 +1,5 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
@@ -21,16 +20,19 @@ import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class SettingsTab extends ConsumerStatefulWidget {
+class SettingsTab extends StatefulWidget {
   const SettingsTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SettingsTab> createState() => _SettingsTabState();
+  State<SettingsTab> createState() => _SettingsTabState();
 }
 
-class _SettingsTabState extends ConsumerState<SettingsTab> {
+class _SettingsTabState extends State<SettingsTab> with Riverpie {
+  final _isLinux = checkPlatform([TargetPlatform.linux]);
+  final _isWindows = checkPlatform([TargetPlatform.windows]);
   final _aliasController = TextEditingController();
   final _portController = TextEditingController();
   final _multicastController = TextEditingController();
@@ -38,14 +40,13 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
   @override
   void initState() {
     super.initState();
-    final settings = ref.read(settingsProvider);
-    _aliasController.text = settings.alias;
-    _portController.text = settings.port.toString();
-    _multicastController.text = settings.multicastGroup;
+    ensureRef((ref) {
+      final settings = ref.read(settingsProvider);
+      _aliasController.text = settings.alias;
+      _portController.text = settings.port.toString();
+      _multicastController.text = settings.multicastGroup;
+    });
   }
-
-  final isLinux = checkPlatform([TargetPlatform.linux]);
-  final isWindows = checkPlatform([TargetPlatform.windows]);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 }).toList(),
                 onChanged: (theme) async {
                   if (theme != null) {
-                    await ref.read(settingsProvider.notifier).setTheme(theme);
+                    await ref.notifier(settingsProvider).setTheme(theme);
                     await sleepAsync(500); // workaround: brightness takes some time to be updated
                     if (mounted) {
                       await updateSystemOverlayStyle(context);
@@ -97,7 +98,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 }).toList(),
                 onChanged: (colorMode) async {
                   if (colorMode != null) {
-                    await ref.read(settingsProvider.notifier).setColorMode(colorMode);
+                    await ref.notifier(settingsProvider).setColorMode(colorMode);
                   }
                 },
               ),
@@ -130,7 +131,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   label: t.settingsTab.general.saveWindowPlacement,
                   value: settings.saveWindowPlacement,
                   onChanged: (b) async {
-                    await ref.read(settingsProvider.notifier).setSaveWindowPlacement(b);
+                    await ref.notifier(settingsProvider).setSaveWindowPlacement(b);
                   },
                 ),
               if (checkPlatformHasTray()) ...[
@@ -138,12 +139,12 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   label: t.settingsTab.general.minimizeToTray,
                   value: settings.minimizeToTray,
                   onChanged: (b) async {
-                    await ref.read(settingsProvider.notifier).setMinimizeToTray(b);
+                    await ref.notifier(settingsProvider).setMinimizeToTray(b);
                   },
                 ),
               ],
               // Linux autostart is simpler, so a boolean entry is used
-              if (isLinux)
+              if (_isLinux)
                 _BooleanEntry(
                   label: t.settingsTab.general.launchAtStartup,
                   value: settings.launchAtStartup,
@@ -155,12 +156,12 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       result = await initEnableAutoStartAndOpenSettings(settings);
                     }
                     if (result) {
-                      await ref.read(settingsProvider.notifier).setLaunchAtStartup(b);
+                      await ref.notifier(settingsProvider).setLaunchAtStartup(b);
                     }
                   },
                 ),
               // Windows requires a manual action, so this settings entry is required
-              if (isWindows)
+              if (_isWindows)
                 _SettingsEntry(
                   label: t.settingsTab.general.launchAtStartup,
                   child: TextButton(
@@ -171,7 +172,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     ),
                     onPressed: () async {
                       await initDisableAutoStart(settings);
-                      await initEnableAutoStartAndOpenSettings(settings, isWindows);
+                      await initEnableAutoStartAndOpenSettings(settings, _isWindows);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -179,21 +180,21 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     ),
                   ),
                 ),
-              if (isWindows || isLinux)
+              if (_isWindows || _isLinux)
                 Visibility(
-                    visible: settings.launchAtStartup || isWindows,
+                    visible: settings.launchAtStartup || _isWindows,
                     maintainAnimation: true,
                     maintainState: true,
                     child: AnimatedOpacity(
-                      opacity: settings.launchAtStartup || isWindows ? 1.0 : 0.0,
+                      opacity: settings.launchAtStartup || _isWindows ? 1.0 : 0.0,
                       duration: const Duration(milliseconds: 500),
                       child: _BooleanEntry(
                         label: t.settingsTab.general.launchMinimized,
                         value: settings.autoStartLaunchMinimized,
                         onChanged: (b) async {
                           await initDisableAutoStart(settings);
-                          await ref.read(settingsProvider.notifier).setAutoStartLaunchMinimized(b);
-                          await initEnableAutoStartAndOpenSettings(settings, isWindows);
+                          await ref.notifier(settingsProvider).setAutoStartLaunchMinimized(b);
+                          await initEnableAutoStartAndOpenSettings(settings, _isWindows);
                         },
                       ),
                     ))
@@ -208,7 +209,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               value: settings.quickSave,
               onChanged: (b) async {
                 final old = settings.quickSave;
-                await ref.read(settingsProvider.notifier).setQuickSave(b);
+                await ref.notifier(settingsProvider).setQuickSave(b);
                 if (!old && b && mounted) {
                   await QuickSaveNotice.open(context);
                 }
@@ -225,13 +226,13 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   ),
                   onPressed: () async {
                     if (settings.destination != null) {
-                      await ref.read(settingsProvider.notifier).setDestination(null);
+                      await ref.notifier(settingsProvider).setDestination(null);
                       return;
                     }
 
                     final directory = await FilePicker.platform.getDirectoryPath();
                     if (directory != null) {
-                      await ref.read(settingsProvider.notifier).setDestination(directory);
+                      await ref.notifier(settingsProvider).setDestination(directory);
                     }
                   },
                   child: Padding(
@@ -245,7 +246,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 label: t.settingsTab.receive.saveToGallery,
                 value: settings.saveToGallery,
                 onChanged: (b) async {
-                  await ref.read(settingsProvider.notifier).setSaveToGallery(b);
+                  await ref.notifier(settingsProvider).setSaveToGallery(b);
                 },
               ),
           ],
@@ -283,7 +284,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                           style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                           onPressed: () async {
                             try {
-                              await ref.read(serverProvider.notifier).startServerFromSettings();
+                              await ref.notifier(serverProvider).startServerFromSettings();
                             } catch (e) {
                               context.showSnackBar(e.toString());
                             }
@@ -298,7 +299,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                           style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                           onPressed: () async {
                             try {
-                              final newServerState = await ref.read(serverProvider.notifier).restartServer(
+                              final newServerState = await ref.notifier(serverProvider).restartServer(
                                     alias: settings.alias,
                                     port: settings.port,
                                     https: settings.https,
@@ -308,8 +309,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                                 // the new state is always valid, so we can "repair" user's setting
                                 _aliasController.text = newServerState.alias;
                                 _portController.text = newServerState.port.toString();
-                                await ref.read(settingsProvider.notifier).setAlias(newServerState.alias);
-                                await ref.read(settingsProvider.notifier).setPort(newServerState.port);
+                                await ref.notifier(settingsProvider).setAlias(newServerState.alias);
+                                await ref.notifier(settingsProvider).setPort(newServerState.port);
                               }
                             } catch (e) {
                               context.showSnackBar(e.toString());
@@ -325,7 +326,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                         onPressed: serverState == null
                             ? null
                             : () async {
-                                await ref.read(serverProvider.notifier).stopServer();
+                                await ref.notifier(serverProvider).stopServer();
                               },
                         child: const Icon(Icons.stop),
                       ),
@@ -340,7 +341,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 name: t.settingsTab.network.alias,
                 controller: _aliasController,
                 onChanged: (s) async {
-                  await ref.read(settingsProvider.notifier).setAlias(s);
+                  await ref.notifier(settingsProvider).setAlias(s);
                 },
               ),
             ),
@@ -352,7 +353,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 onChanged: (s) async {
                   final port = int.tryParse(s);
                   if (port != null) {
-                    await ref.read(settingsProvider.notifier).setPort(port);
+                    await ref.notifier(settingsProvider).setPort(port);
                   }
                 },
               ),
@@ -362,7 +363,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               value: settings.https,
               onChanged: (b) async {
                 final old = settings.https;
-                await ref.read(settingsProvider.notifier).setHttps(b);
+                await ref.notifier(settingsProvider).setHttps(b);
                 if (old && !b && mounted) {
                   await EncryptionDisabledNotice.open(context);
                 }
@@ -374,7 +375,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 name: t.settingsTab.network.multicastGroup,
                 controller: _multicastController,
                 onChanged: (s) async {
-                  await ref.read(settingsProvider.notifier).setMulticastGroup(s);
+                  await ref.notifier(settingsProvider).setMulticastGroup(s);
                 },
               ),
             ),

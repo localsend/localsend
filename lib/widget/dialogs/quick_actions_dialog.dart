@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,14 +20,14 @@ enum _QuickAction {
   }
 }
 
-class QuickActionsDialog extends ConsumerStatefulWidget {
+class QuickActionsDialog extends StatefulWidget {
   const QuickActionsDialog({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<QuickActionsDialog> createState() => _QuickActionsDialogState();
+  State<QuickActionsDialog> createState() => _QuickActionsDialogState();
 }
 
-class _QuickActionsDialogState extends ConsumerState<QuickActionsDialog> {
+class _QuickActionsDialogState extends State<QuickActionsDialog> with Riverpie {
   _QuickAction _action = _QuickAction.counter;
 
   // counter
@@ -118,14 +118,14 @@ class _QuickActionsDialogState extends ConsumerState<QuickActionsDialog> {
           onPressed: () {
             switch (_action) {
               case _QuickAction.counter:
-                ref.read(selectedReceivingFilesProvider.notifier).applyCounter(
+                ref.notifier(selectedReceivingFilesProvider).applyCounter(
                       prefix: _prefix,
                       padZero: _padZero,
                       sortFirst: _sortBeforehand,
                     );
                 break;
               case _QuickAction.random:
-                ref.read(selectedReceivingFilesProvider.notifier).applyRandom();
+                ref.notifier(selectedReceivingFilesProvider).applyRandom();
                 break;
             }
             context.pop();

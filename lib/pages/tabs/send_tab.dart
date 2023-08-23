@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -33,18 +32,19 @@ import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart
 import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
 
-class SendTab extends ConsumerStatefulWidget {
+class SendTab extends StatefulWidget {
   const SendTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SendTab> createState() => _SendTabState();
+  State<SendTab> createState() => _SendTabState();
 }
 
-class _SendTabState extends ConsumerState<SendTab> {
+class _SendTabState extends State<SendTab> with Riverpie {
   final options = FilePickerOption.getOptionsForPlatform();
 
   @override
@@ -58,7 +58,7 @@ class _SendTabState extends ConsumerState<SendTab> {
   }
 
   void _init() async {
-    final devices = ref.read(nearbyDevicesProvider.select((state) => state.devices));
+    final devices = ref.read(nearbyDevicesProvider).devices;
     if (devices.isEmpty) {
       await ref.read(scanProvider).startSmartScan(forceLegacy: false);
       if (devices.isEmpty) {
@@ -167,7 +167,6 @@ class _SendTabState extends ConsumerState<SendTab> {
                           }
                           await AddFileDialog.open(
                             context: context,
-                            parentRef: ref,
                             options: options,
                           );
                         },
@@ -208,7 +207,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                     builder: (_) => const AddressInputDialog(),
                   );
                   if (device != null && mounted) {
-                    await ref.read(sendProvider.notifier).startSession(
+                    await ref.notifier(sendProvider).startSession(
                           target: device,
                           files: files,
                           background: false,
@@ -230,9 +229,9 @@ class _SendTabState extends ConsumerState<SendTab> {
                   return;
                 }
 
-                await ref.read(settingsProvider.notifier).setSendMode(mode);
+                await ref.notifier(settingsProvider).setSendMode(mode);
                 if (mode != SendMode.multiple) {
-                  ref.read(sendProvider.notifier).clearAllSessions();
+                  ref.notifier(sendProvider).clearAllSessions();
                 }
               },
             ),
@@ -262,7 +261,7 @@ class _SendTabState extends ConsumerState<SendTab> {
                           return;
                         }
 
-                        await ref.read(sendProvider.notifier).startSession(
+                        await ref.notifier(sendProvider).startSession(
                               target: device,
                               files: files,
                               background: false,
@@ -339,7 +338,7 @@ class _CircularPopupButton<T> extends StatelessWidget {
 }
 
 /// The scan button that uses [_CircularPopupButton].
-class _ScanButton extends ConsumerWidget {
+class _ScanButton extends StatelessWidget {
   final List<String> ips;
 
   const _ScanButton({
@@ -347,8 +346,8 @@ class _ScanButton extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+  Widget build(BuildContext context) {
+    final scanningIps = context.ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
 
     if (ips.length <= ScanFacade.maxInterfaces) {
       return RotatingWidget(
@@ -356,7 +355,7 @@ class _ScanButton extends ConsumerWidget {
         spinning: scanningIps.isNotEmpty,
         reverse: true,
         child: CustomIconButton(
-          onPressed: () async => ref.read(scanProvider).startSmartScan(forceLegacy: true),
+          onPressed: () async => await context.ref.read(scanProvider).startSmartScan(forceLegacy: true),
           child: const Icon(Icons.sync),
         ),
       );
@@ -364,7 +363,7 @@ class _ScanButton extends ConsumerWidget {
 
     return _CircularPopupButton(
       tooltip: t.sendTab.scan,
-      onSelected: (ip) async => ref.read(scanProvider).startLegacySubnetScan([ip]),
+      onSelected: (ip) async => context.ref.read(scanProvider).startLegacySubnetScan([ip]),
       itemBuilder: (_) {
         return [
           ...ips.map(
@@ -397,14 +396,14 @@ class _ScanButton extends ConsumerWidget {
 }
 
 /// A separate widget, so it gets the latest data from provider.
-class _RotatingSyncIcon extends ConsumerWidget {
+class _RotatingSyncIcon extends StatelessWidget {
   final String ip;
 
   const _RotatingSyncIcon(this.ip);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final scanningIps = ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+  Widget build(BuildContext context) {
+    final scanningIps = context.ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
     return RotatingWidget(
       duration: const Duration(seconds: 2),
       spinning: scanningIps.contains(ip),
@@ -446,7 +445,7 @@ class _SendModeButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Consumer(
-                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                builder: (context, ref) {
                   final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
                   return Visibility(
                     visible: sendMode == SendMode.single,
@@ -468,7 +467,7 @@ class _SendModeButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Consumer(
-                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                builder: (context, ref) {
                   final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
                   return Visibility(
                     visible: sendMode == SendMode.multiple,
@@ -523,7 +522,7 @@ class _SendModeButton extends StatelessWidget {
 }
 
 /// An advanced list tile which shows the progress of the file transfer.
-class _MultiSendDeviceListTile extends ConsumerWidget {
+class _MultiSendDeviceListTile extends StatelessWidget {
   final Device device;
 
   const _MultiSendDeviceListTile({
@@ -531,7 +530,8 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final ref = context.ref;
     final session = ref.watch(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
     final double? progress;
     if (session != null) {
@@ -551,17 +551,17 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
       onTap: () async {
         if (session != null) {
           if (session.status == SessionStatus.waiting) {
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            ref.notifier(sendProvider).setBackground(session.sessionId, false);
             await context.push(
               () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
               transition: RouterinoTransition.fade,
             );
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            ref.notifier(sendProvider).setBackground(session.sessionId, true);
             return;
           } else if (session.status == SessionStatus.sending || session.status == SessionStatus.finishedWithErrors) {
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, false);
+            ref.notifier(sendProvider).setBackground(session.sessionId, false);
             await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
-            ref.read(sendProvider.notifier).setBackground(session.sessionId, true);
+            ref.notifier(sendProvider).setBackground(session.sessionId, true);
             return;
           }
         }
@@ -575,10 +575,10 @@ class _MultiSendDeviceListTile extends ConsumerWidget {
 
         if (session != null) {
           // close old session
-          ref.read(sendProvider.notifier).closeSession(session.sessionId);
+          ref.notifier(sendProvider).closeSession(session.sessionId);
         }
 
-        await ref.read(sendProvider.notifier).startSession(
+        await ref.notifier(sendProvider).startSession(
               target: device,
               files: files,
               background: true,

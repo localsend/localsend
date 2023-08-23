@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
@@ -11,13 +10,15 @@ import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class SelectedFilesPage extends ConsumerWidget {
+class SelectedFilesPage extends StatelessWidget {
   const SelectedFilesPage();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final ref = context.ref;
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
 
     return Scaffold(
@@ -47,7 +48,7 @@ class SelectedFilesPage extends ConsumerWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      ref.read(selectedSendingFilesProvider.notifier).reset();
+                      ref.notifier(selectedSendingFilesProvider).reset();
                       context.popUntilRoot();
                     },
                     child: Text(t.selectedFilesPage.deleteAll),
@@ -109,8 +110,8 @@ class SelectedFilesPage extends ConsumerWidget {
                                     final result =
                                         await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
                                     if (result != null) {
-                                      ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
-                                      ref.read(selectedSendingFilesProvider.notifier).addMessage(result, index: index);
+                                      ref.notifier(selectedSendingFilesProvider).removeAt(index);
+                                      ref.notifier(selectedSendingFilesProvider).addMessage(result, index: index);
                                     }
                                   },
                                   child: const Icon(Icons.edit),
@@ -121,7 +122,7 @@ class SelectedFilesPage extends ConsumerWidget {
                                 ),
                                 onPressed: () {
                                   final currCount = ref.read(selectedSendingFilesProvider).length;
-                                  ref.read(selectedSendingFilesProvider.notifier).removeAt(index);
+                                  ref.notifier(selectedSendingFilesProvider).removeAt(index);
                                   if (currCount == 1) {
                                     context.popUntilRoot();
                                   }

@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.10.0"
-  analyzer_plugin:
-    dependency: transitive
-    description:
-      name: analyzer_plugin
-      sha256: c1d5f167683de03d5ab6c3b53fc9aeefc5d59476e7810ba7bbddff50c6f4392d
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.11.2"
   archive:
     dependency: transitive
     description:
@@ -145,14 +137,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  ci:
-    dependency: transitive
-    description:
-      name: ci
-      sha256: "145d095ce05cddac4d797a158bc4cf3b6016d1fe63d8c3d2fbd7212590adca13"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   cli_util:
     dependency: transitive
     description:
@@ -265,30 +249,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.2"
-  custom_lint:
-    dependency: "direct dev"
-    description:
-      name: custom_lint
-      sha256: e87176016465263daf10c209df1f50a52e9e46e7612fab7462da1e6d984638f6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.4"
-  custom_lint_builder:
-    dependency: transitive
-    description:
-      name: custom_lint_builder
-      sha256: "6b5e20a249f2f7f15d098f802fe736b72cac14cddccdfcb46027e1b401deec9f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.4"
-  custom_lint_core:
-    dependency: transitive
-    description:
-      name: custom_lint_core
-      sha256: f42f688bc26bdf4c081e011ba27a00439f17c20d9aeca4312f8022e577f8363f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.4"
   dart_style:
     dependency: transitive
     description:
@@ -499,14 +459,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.13"
-  flutter_riverpod:
-    dependency: "direct main"
-    description:
-      name: flutter_riverpod
-      sha256: b83ac5827baadefd331ea1d85110f34645827ea234ccabf53a655f41901a9bf4
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.6"
   flutter_test:
     dependency: transitive
     description: flutter
@@ -573,14 +525,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  hotreloader:
-    dependency: transitive
-    description:
-      name: hotreloader
-      sha256: "728c0613556c1d153f7e7f4a367cffacc3f5a677d7f6497a1c2b35add4e6dacf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.6"
   html:
     dependency: transitive
     description:
@@ -1094,30 +1038,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  riverpod:
+  riverpie:
     dependency: transitive
     description:
-      name: riverpod
-      sha256: "80e48bebc83010d5e67a11c9514af6b44bbac1ec77b4333c8ea65dbc79e2d8ef"
+      name: riverpie
+      sha256: c558135a3163113a4333fce4fa34385e325ab93f8e00492381c1c372482f6f89
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.6"
-  riverpod_analyzer_utils:
-    dependency: transitive
+    version: "0.15.1"
+  riverpie_flutter:
+    dependency: "direct main"
     description:
-      name: riverpod_analyzer_utils
-      sha256: "5992363c28b20b5fb0583e577e1c203eeae2f35536091d1146fdee97385c5dcf"
+      name: riverpie_flutter
+      sha256: fe817c51da1064d8817a8d7b5f33227b21b8d4c3ccc0d407e59c9187c7a52450
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
-  riverpod_lint:
-    dependency: "direct dev"
-    description:
-      name: riverpod_lint
-      sha256: d842cb2babf2d09b864ae0f105b3961be07c55eee2242e5fbc6d1eebf43392cd
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.1"
+    version: "0.15.0"
   routerino:
     dependency: "direct main"
     description:
@@ -1126,14 +1062,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.27.7"
   screen_retriever:
     dependency: "direct main"
     description:
@@ -1372,14 +1300,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
-  state_notifier:
-    dependency: transitive
-    description:
-      name: state_notifier
-      sha256: "8fe42610f179b843b12371e40db58c9444f8757f8b69d181c97e50787caed289"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.2+1"
   stream_channel:
     dependency: transitive
     description:

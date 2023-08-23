@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('WindowWatcher');
 
-class WindowWatcher extends ConsumerStatefulWidget {
+class WindowWatcher extends StatefulWidget {
   final Widget child;
 
   const WindowWatcher({
@@ -20,10 +20,10 @@ class WindowWatcher extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<WindowWatcher> createState() => _WindowWatcherState();
+  State<WindowWatcher> createState() => _WindowWatcherState();
 }
 
-class _WindowWatcherState extends ConsumerState<WindowWatcher> with WindowListener {
+class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Riverpie {
   static WindowDimensionsController? _dimensionsController;
   static Stopwatch s = Stopwatch();
 

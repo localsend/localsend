@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final scanProvider = Provider((ref) => ScanFacade(ref));
 
@@ -22,7 +22,7 @@ class ScanFacade {
   /// if no devices has been found, try http-based discovery on the first subnet
   Future<void> startSmartScan({required bool forceLegacy}) async {
     // Try performant Multicast/UDP method first
-    _ref.read(nearbyDevicesProvider.notifier).startMulticastScan();
+    _ref.notifier(nearbyDevicesProvider).startMulticastScan();
 
     if (!forceLegacy) {
       await sleepAsync(1000);
@@ -45,10 +45,10 @@ class ScanFacade {
     final https = settings.https;
 
     // send announcement in parallel
-    _ref.read(nearbyDevicesProvider.notifier).startMulticastScan();
+    _ref.notifier(nearbyDevicesProvider).startMulticastScan();
 
     await Future.wait<void>([
-      for (final subnet in subnets) _ref.read(nearbyDevicesProvider.notifier).startScan(port: port, localIp: subnet, https: https),
+      for (final subnet in subnets) _ref.notifier(nearbyDevicesProvider).startScan(port: port, localIp: subnet, https: https),
     ]);
   }
 }

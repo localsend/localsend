@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/picking_status_provider.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class LoadingDialog extends ConsumerStatefulWidget {
+class LoadingDialog extends StatefulWidget {
   const LoadingDialog({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<LoadingDialog> createState() => _LoadingDialogState();
+  State<LoadingDialog> createState() => _LoadingDialogState();
 }
 
-class _LoadingDialogState extends ConsumerState<LoadingDialog> {
+class _LoadingDialogState extends State<LoadingDialog> {
   void _onPickingStatusChanged(bool? prev, bool next) {
     if (!next) {
       context.pop();
@@ -19,7 +19,7 @@ class _LoadingDialogState extends ConsumerState<LoadingDialog> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(pickingStatusProvider, _onPickingStatusChanged);
+    context.ref.watch(pickingStatusProvider, listener: _onPickingStatusChanged);
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: const Center(

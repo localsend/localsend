@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -9,7 +9,7 @@ const _uuid = Uuid();
 /// Manages files to be selected to receive.
 /// Only alive during [ReceivePage], i.e. this provider gets disposed as soon as the actual file transfer begin.
 /// Map: FileId -> FileName
-final selectedReceivingFilesProvider = NotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>(() {
+final selectedReceivingFilesProvider = NotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>((ref) {
   return SelectedReceivingFilesNotifier();
 });
 
@@ -17,11 +17,11 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
   SelectedReceivingFilesNotifier();
 
   @override
-  Map<String, String> build() {
+  Map<String, String> init() {
     return {};
   }
 
-  void init(List<FileDto> files) {
+  void setFiles(List<FileDto> files) {
     state = {
       for (final f in files) f.id: f.fileName, // by default, accept all files and take their original name
     };

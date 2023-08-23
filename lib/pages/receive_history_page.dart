@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
@@ -13,6 +12,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 enum _EntryOption {
   open,
@@ -34,7 +34,7 @@ enum _EntryOption {
 const _optionsAll = _EntryOption.values;
 final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
 
-class ReceiveHistoryPage extends ConsumerWidget {
+class ReceiveHistoryPage extends StatelessWidget {
   const ReceiveHistoryPage({Key? key}) : super(key: key);
 
   Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
@@ -49,7 +49,8 @@ class ReceiveHistoryPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final ref = context.ref;
     final entries = ref.watch(receiveHistoryProvider);
 
     return Scaffold(
@@ -72,7 +73,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                   onPressed: checkPlatform([TargetPlatform.iOS])
                       ? null
                       : () async {
-                          final destination = ref.read(settingsProvider.select((s) => s.destination)) ?? await getDefaultDestinationDirectory();
+                          final destination = ref.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
                           await openFolder(destination);
                         },
                   icon: const Icon(Icons.folder),
@@ -84,7 +85,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                     backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
                     foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
-                  onPressed: entries.isEmpty ? null : () async => ref.read(receiveHistoryProvider.notifier).removeAll(),
+                  onPressed: entries.isEmpty ? null : () async => ref.notifier(receiveHistoryProvider).removeAll(),
                   icon: const Icon(Icons.delete),
                   label: Text(t.receiveHistoryPage.deleteHistory),
                 ),
@@ -106,7 +107,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: entry.path != null ? () async => _openFile(context, entry, ref.read(receiveHistoryProvider.notifier)) : null,
+                  onTap: entry.path != null ? () async => _openFile(context, entry, ref.notifier(receiveHistoryProvider)) : null,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,7 +143,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                         onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:
-                              await _openFile(context, entry, ref.read(receiveHistoryProvider.notifier));
+                              await _openFile(context, entry, ref.notifier(receiveHistoryProvider));
                               break;
                             case _EntryOption.info:
                               await showDialog(
@@ -151,7 +152,7 @@ class ReceiveHistoryPage extends ConsumerWidget {
                               );
                               break;
                             case _EntryOption.delete:
-                              await ref.read(receiveHistoryProvider.notifier).removeEntry(entry.id);
+                              await ref.notifier(receiveHistoryProvider).removeEntry(entry.id);
                               break;
                           }
                         },

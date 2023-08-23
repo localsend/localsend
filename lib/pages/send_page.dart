@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/session_status.dart';
@@ -11,9 +10,10 @@ import 'package:localsend_app/widget/animations/initial_slide_transition.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class SendPage extends ConsumerStatefulWidget {
+class SendPage extends StatefulWidget {
   final bool showAppBar;
   final bool closeSessionOnClose;
   final String sessionId;
@@ -25,10 +25,10 @@ class SendPage extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<SendPage> createState() => _SendPageState();
+  State<SendPage> createState() => _SendPageState();
 }
 
-class _SendPageState extends ConsumerState<SendPage> {
+class _SendPageState extends State<SendPage> with Riverpie {
   Device? _myDevice;
   Device? _targetDevice;
 
@@ -44,7 +44,7 @@ class _SendPageState extends ConsumerState<SendPage> {
       _myDevice = myDevice;
       _targetDevice = sendState.target;
     });
-    ref.read(sendProvider.notifier).cancelSession(widget.sessionId);
+    ref.notifier(sendProvider).cancelSession(widget.sessionId);
   }
 
   @override

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 /// A normal [TextFormField] on mobile and desktop.
 /// A button which opens a dialog on Android TV
-class TextFieldTv extends ConsumerStatefulWidget {
+class TextFieldTv extends StatefulWidget {
   final String name;
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
@@ -19,10 +19,10 @@ class TextFieldTv extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<TextFieldTv> createState() => _TextFieldTvState();
+  State<TextFieldTv> createState() => _TextFieldTvState();
 }
 
-class _TextFieldTvState extends ConsumerState<TextFieldTv> {
+class _TextFieldTvState extends State<TextFieldTv> with Riverpie {
   @override
   Widget build(BuildContext context) {
     final isTv = ref.watch(tvProvider);

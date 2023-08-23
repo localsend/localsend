@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/provider/last_devices.provider.dart';
@@ -10,6 +9,7 @@ import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/task_runner.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 enum _InputMode {
@@ -26,14 +26,14 @@ enum _InputMode {
   }
 }
 
-class AddressInputDialog extends ConsumerStatefulWidget {
+class AddressInputDialog extends StatefulWidget {
   const AddressInputDialog();
 
   @override
-  ConsumerState<AddressInputDialog> createState() => _AddressInputDialogState();
+  State<AddressInputDialog> createState() => _AddressInputDialogState();
 }
 
-class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
+class _AddressInputDialogState extends State<AddressInputDialog> with Riverpie {
   final _selected = List.generate(_InputMode.values.length, (index) => index == 0);
   _InputMode _mode = _InputMode.hashtag;
   String _input = '';
@@ -55,7 +55,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
       _fetching = true;
     });
 
-    final https = ref.read(settingsProvider.select((s) => s.https));
+    final https = ref.read(settingsProvider).https;
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
@@ -69,7 +69,7 @@ class _AddressInputDialogState extends ConsumerState<AddressInputDialog> {
       if (!found && device != null) {
         found = true;
         if (mounted) {
-          ref.read(lastDevicesProvider.notifier).addDevice(device);
+          ref.notifier(lastDevicesProvider).addDevice(device);
           context.pop(device);
         }
       }

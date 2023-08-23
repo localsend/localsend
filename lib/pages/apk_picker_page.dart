@@ -1,37 +1,30 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/apk_provider.dart';
-import 'package:localsend_app/provider/param/apk_provider_param.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/sliver/sliver_pinned_header.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class ApkPickerPage extends ConsumerStatefulWidget {
+class ApkPickerPage extends StatefulWidget {
   const ApkPickerPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ApkPickerPage> createState() => _ApkPickerPageState();
+  State<ApkPickerPage> createState() => _ApkPickerPageState();
 }
 
-class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
-  String _query = '';
-  bool _includeSystemApps = false;
-  bool _onlyAppsWithLaunchIntent = true;
-
+class _ApkPickerPageState extends State<ApkPickerPage> {
   @override
   Widget build(BuildContext context) {
-    final apkAsync = ref.watch(apkProvider(ApkProviderParam(
-      query: _query,
-      includeSystemApps: _includeSystemApps,
-      onlyAppsWithLaunchIntent: _onlyAppsWithLaunchIntent,
-    )));
+    final ref = context.ref;
+    final apkParams = ref.watch(apkSearchParamProvider);
+    final apkAsync = ref.watch(apkProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,22 +34,22 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
             return [
               CheckedPopupMenuItem<int>(
                 value: 0,
-                checked: !_includeSystemApps,
+                checked: !apkParams.includeSystemApps,
                 child: Text(t.apkPickerPage.excludeSystemApps),
               ),
               CheckedPopupMenuItem<int>(
                 value: 1,
-                checked: _onlyAppsWithLaunchIntent,
+                checked: apkParams.onlyAppsWithLaunchIntent,
                 child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
               ),
             ];
           }, onSelected: (value) {
             switch (value) {
               case 0:
-                setState(() => _includeSystemApps = !_includeSystemApps);
+                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
                 break;
               case 1:
-                setState(() => _onlyAppsWithLaunchIntent = !_onlyAppsWithLaunchIntent);
+                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
                 break;
             }
           }),
@@ -77,7 +70,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                 child: TextField(
                   autofocus: true,
                   onChanged: (s) {
-                    setState(() => _query = s);
+                    ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(query: s));
                   },
                   decoration: InputDecoration(
                     fillColor: ElevationOverlay.applySurfaceTint(
@@ -91,7 +84,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
               ),
             ),
             SliverToBoxAdapter(
-              child: Text(t.apkPickerPage.apps(n: apkAsync.value?.length ?? 0)),
+              child: Text(t.apkPickerPage.apps(n: apkAsync.data?.length ?? 0)),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 10),
@@ -110,7 +103,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                         child: InkWell(
                           onTap: () {
                             // ignore: discarded_futures
-                            ref.read(selectedSendingFilesProvider.notifier).addFiles(files: [app], converter: CrossFileConverters.convertApplication);
+                            ref.notifier(selectedSendingFilesProvider).addFiles(files: [app], converter: CrossFileConverters.convertApplication);
                             context.pop();
                           },
                           customBorder: RoundedRectangleBorder(
@@ -134,7 +127,7 @@ class _ApkPickerPageState extends ConsumerState<ApkPickerPage> {
                                       softWrap: false,
                                     ),
                                     Consumer(
-                                      builder: (context, ref, _) {
+                                      builder: (context, ref) {
                                         final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
                                         final appSizeString = appSize.maybeWhen(
                                           data: (size) => '${size.asReadableFileSize} - ',

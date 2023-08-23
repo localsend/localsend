@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -12,19 +11,20 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 enum _ServerState { initializing, running, error, stopping }
 
-class WebSendPage extends ConsumerStatefulWidget {
+class WebSendPage extends StatefulWidget {
   final List<CrossFile> files;
 
   const WebSendPage(this.files);
 
   @override
-  ConsumerState<WebSendPage> createState() => _WebSendPageState();
+  State<WebSendPage> createState() => _WebSendPageState();
 }
 
-class _WebSendPageState extends ConsumerState<WebSendPage> {
+class _WebSendPageState extends State<WebSendPage> with Riverpie {
   _ServerState _stateEnum = _ServerState.initializing;
   String? _initializedError;
 
@@ -40,12 +40,12 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
     await sleepAsync(500);
     final settings = ref.read(settingsProvider);
     try {
-      await ref.read(serverProvider.notifier).restartServer(
+      await ref.notifier(serverProvider).restartServer(
             alias: settings.alias,
             port: settings.port,
             https: false, // always start unencrypted
           );
-      await ref.read(serverProvider.notifier).initializeWebSend(widget.files);
+      await ref.notifier(serverProvider).initializeWebSend(widget.files);
       setState(() {
         _stateEnum = _ServerState.running;
       });
@@ -61,7 +61,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
 
   /// Web share uses unencrypted http, so we need to revert to the previous state.
   Future<void> _revertServerState() async {
-    await ref.read(serverProvider.notifier).restartServerFromSettings();
+    await ref.notifier(serverProvider).restartServerFromSettings();
   }
 
   @override
@@ -209,7 +209,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                             if (session.responseHandler != null) ...[
                               TextButton(
                                 onPressed: () {
-                                  ref.read(serverProvider.notifier).declineWebSendRequest(session.sessionId);
+                                  ref.notifier(serverProvider).declineWebSendRequest(session.sessionId);
                                 },
                                 style: TextButton.styleFrom(
                                   foregroundColor: Theme.of(context).colorScheme.onSurface,
@@ -218,7 +218,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  ref.read(serverProvider.notifier).acceptWebSendRequest(session.sessionId);
+                                  ref.notifier(serverProvider).acceptWebSendRequest(session.sessionId);
                                 },
                                 style: TextButton.styleFrom(
                                   foregroundColor: Theme.of(context).colorScheme.onSurface,

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/picking_status_provider.dart';
@@ -15,6 +14,7 @@ import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -78,11 +78,11 @@ enum FilePickerOption {
 
   Future<void> select({
     required BuildContext context,
-    required WidgetRef ref,
+    required Ref ref,
   }) async {
     switch (this) {
       case FilePickerOption.file:
-        ref.read(pickingStatusProvider.notifier).state = true;
+        ref.notifier(pickingStatusProvider).setState((_) => true);
         if (checkPlatform([TargetPlatform.android])) {
           // On android, the files are copied to the cache which takes some time.
           // ignore: unawaited_futures
@@ -94,15 +94,15 @@ enum FilePickerOption {
         }
         final result = await FilePicker.platform.pickFiles(allowMultiple: true);
         if (result != null) {
-          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
+          await ref.notifier(selectedSendingFilesProvider).addFiles(
                 files: result.files,
                 converter: CrossFileConverters.convertPlatformFile,
               );
         }
-        ref.read(pickingStatusProvider.notifier).state = false;
+        ref.notifier(pickingStatusProvider).setState((_) => false);
         break;
       case FilePickerOption.folder:
-        ref.read(pickingStatusProvider.notifier).state = true;
+        ref.notifier(pickingStatusProvider).setState((_) => true);
 
         if (checkPlatform([TargetPlatform.android])) {
           try {
@@ -127,12 +127,12 @@ enum FilePickerOption {
         try {
           final directoryPath = await FilePicker.platform.getDirectoryPath();
           if (directoryPath != null) {
-            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
+            await ref.notifier(selectedSendingFilesProvider).addDirectory(directoryPath);
           }
         } catch (e) {
           _logger.warning('Failed to pick directory', e);
         } finally {
-          ref.read(pickingStatusProvider.notifier).state = false;
+          ref.notifier(pickingStatusProvider).setState((_) => false);
         }
         break;
       case FilePickerOption.media:
@@ -151,7 +151,7 @@ enum FilePickerOption {
         });
 
         if (result != null) {
-          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
+          await ref.notifier(selectedSendingFilesProvider).addFiles(
                 files: result,
                 converter: CrossFileConverters.convertAssetEntity,
               );
@@ -160,7 +160,7 @@ enum FilePickerOption {
       case FilePickerOption.text:
         final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
         if (result != null) {
-          ref.read(selectedSendingFilesProvider.notifier).addMessage(result);
+          ref.notifier(selectedSendingFilesProvider).addMessage(result);
         }
         break;
       case FilePickerOption.app:
