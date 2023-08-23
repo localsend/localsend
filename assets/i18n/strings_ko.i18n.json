@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "저장 위치",
       "downloads": "(다운로드 폴더)",
-      "saveToGallery": "미디어를 갤러리에 저장"
+      "saveToGallery": "미디어를 갤러리에 저장",
+      "saveToHistory": "히스토리에 저장"
     },
     "network": {
       "title": "네트워크",

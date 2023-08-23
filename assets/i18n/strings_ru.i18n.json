@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Сохранять в",
       "downloads": "(Загрузки)",
-      "saveToGallery": "Сохранять медиафайлы в галерею"
+      "saveToGallery": "Сохранять медиафайлы в галерею",
+      "saveToHistory": "Сохранить в историю"
     },
     "network": {
       "title": "Сеть",

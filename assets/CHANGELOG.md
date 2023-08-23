@@ -4,6 +4,7 @@
 - feat: use switches instead of dropdowns for settings (@forecaster-cyber)
 - feat: text message dialog is multiline only (@Tienisto)
 - feat: add option to disable animations (@Tienisto)
+- feat: add option to not save to history (@Tienisto)
 - feat(desktop): bind "ESC" key to go to the previous page (@RiverTwilight, @Tienisto)
 - feat(android, ios): open link in new browser tab (@Tienisto)
 - feat(linux): enable autostart feature (@TheGB0077)

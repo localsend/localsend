@@ -200,15 +200,15 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                         },
                       ),
                     )),
-              if (_advanced)
-                _BooleanEntry(
-                  label: t.settingsTab.general.animations,
-                  value: settings.enableAnimations,
-                  onChanged: (b) async {
-                    await ref.notifier(settingsProvider).setEnableAnimations(b);
-                  },
-                ),
             ],
+            if (_advanced)
+              _BooleanEntry(
+                label: t.settingsTab.general.animations,
+                value: settings.enableAnimations,
+                onChanged: (b) async {
+                  await ref.notifier(settingsProvider).setEnableAnimations(b);
+                },
+              ),
           ],
         ),
         _SettingsSection(
@@ -259,10 +259,18 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                   await ref.notifier(settingsProvider).setSaveToGallery(b);
                 },
               ),
+            _BooleanEntry(
+              label: t.settingsTab.receive.saveToHistory,
+              value: settings.saveToHistory,
+              onChanged: (b) async {
+                await ref.notifier(settingsProvider).setSaveToHistory(b);
+              },
+            ),
           ],
         ),
         _SettingsSection(
           title: t.settingsTab.network.title,
+          padding: const EdgeInsets.only(bottom: 0),
           children: [
             AnimatedCrossFade(
               crossFadeState: serverState != null &&
@@ -467,7 +475,6 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                 icon: const Icon(Icons.info),
                 label: Text(t.aboutPage.title),
               ),
-              const SizedBox(height: 5),
               TextButton.icon(
                 onPressed: () async {
                   await context.push(() => const ChangelogPage());
@@ -560,16 +567,18 @@ class _BooleanEntry extends StatelessWidget {
 class _SettingsSection extends StatelessWidget {
   final String title;
   final List<Widget> children;
+  final EdgeInsets padding;
 
   const _SettingsSection({
     required this.title,
     required this.children,
+    this.padding = const EdgeInsets.only(bottom: 15),
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: padding,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 15),

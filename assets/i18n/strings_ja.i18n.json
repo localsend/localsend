@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "保存先",
       "downloads": "(ダウンロード)",
-      "saveToGallery": "メディアをギャラリーに保存"
+      "saveToGallery": "メディアをギャラリーに保存",
+      "saveToHistory": "履歴に保存"
     },
     "network": {
       "title": "ネットワーク",

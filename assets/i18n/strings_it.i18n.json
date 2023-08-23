@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Destinazione",
       "downloads": "(Download)",
-      "saveToGallery": "Salva i dati nella galleria"
+      "saveToGallery": "Salva i dati nella galleria",
+      "saveToHistory": "Salva nella cronologia"
     },
     "network": {
       "title": "Rete",

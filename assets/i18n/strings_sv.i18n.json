@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Destination",
       "downloads": "(Hämtade)",
-      "saveToGallery": "Spara media i galleriet"
+      "saveToGallery": "Spara media i galleriet",
+      "saveToHistory": "Spara till historik"
     },
     "network": {
       "title": "Nätverk",

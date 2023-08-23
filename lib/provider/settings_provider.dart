@@ -28,6 +28,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
       multicastGroup: _service.getMulticastGroup(),
       destination: _service.getDestination(),
       saveToGallery: _service.isSaveToGallery(),
+      saveToHistory: _service.isSaveToHistory(),
       quickSave: _service.isQuickSave(),
       minimizeToTray: _service.isMinimizeToTray(),
       launchAtStartup: _service.isLaunchAtStartup(),
@@ -92,6 +93,13 @@ class SettingsNotifier extends Notifier<SettingsState> {
     await _service.setSaveToGallery(saveToGallery);
     state = state.copyWith(
       saveToGallery: saveToGallery,
+    );
+  }
+
+  Future<void> setSaveToHistory(bool saveToHistory) async {
+    await _service.setSaveToHistory(saveToHistory);
+    state = state.copyWith(
+      saveToHistory: saveToHistory,
     );
   }
 

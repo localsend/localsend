@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "منزل",
       "downloads": "(ڈاؤن لوڈ)",
-      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔"
+      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔",
+      "saveToHistory": "تاریخچہ میں محفوظ کریں"
     },
     "network": {
       "title": "نیٹ ورک",

@@ -30,7 +30,8 @@
       "animations": "Animations"
     },
     "receive": {
-      "downloads": "(Downloads)"
+      "downloads": "(Downloads)",
+      "saveToHistory": "Save to history"
     },
     "network": {
       "multicastGroup": "Multicast",

@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Destinació",
       "downloads": "(Descàrregues)",
-      "saveToGallery": "Desar media a la galeria"
+      "saveToGallery": "Desar media a la galeria",
+      "saveToHistory": "Desa a l'historial"
     },
     "network": {
       "title": "Xarxa",

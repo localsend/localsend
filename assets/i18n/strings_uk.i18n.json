@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Зберігати в теку",
       "downloads": "(Завантаження)",
-      "saveToGallery": "Зберігати медіафайли до галереї"
+      "saveToGallery": "Зберігати медіафайли до галереї",
+      "saveToHistory": "Зберегти в історію"
     },
     "network": {
       "title": "Мережа",

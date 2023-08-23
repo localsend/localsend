@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "儲存目錄",
       "downloads": "(下載)",
-      "saveToGallery": "儲存媒體至相簿"
+      "saveToGallery": "儲存媒體至相簿",
+      "saveToHistory": "儲存至歷史紀錄"
     },
     "network": {
       "title": "網路",

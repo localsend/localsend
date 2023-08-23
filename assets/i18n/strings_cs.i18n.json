@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Uložit do",
       "downloads": "(Downloads)",
-      "saveToGallery": "Uložit média do galerie"
+      "saveToGallery": "Uložit média do galerie",
+      "saveToHistory": "Uložit do historie"
     },
     "network": {
       "title": "Síť",

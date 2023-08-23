@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
-      "saveToGallery": "Medyayı galeriye kaydet"
+      "saveToGallery": "Medyayı galeriye kaydet",
+      "saveToHistory": "Geçmişe kaydet"
     },
     "network": {
       "title": "Ağ",

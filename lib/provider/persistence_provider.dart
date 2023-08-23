@@ -48,6 +48,7 @@ const _portKey = 'ls_port';
 const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
+const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _launchAtStartup = 'ls_launch_at_startup';
@@ -219,6 +220,14 @@ class PersistenceService {
 
   Future<void> setSaveToGallery(bool saveToGallery) async {
     await _prefs.setBool(_saveToGallery, saveToGallery);
+  }
+
+  bool isSaveToHistory() {
+    return _prefs.getBool(_saveToHistory) ?? true;
+  }
+
+  Future<void> setSaveToHistory(bool saveToHistory) async {
+    await _prefs.setBool(_saveToHistory, saveToHistory);
   }
 
   bool isQuickSave() {
