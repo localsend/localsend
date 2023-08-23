@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
+import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -36,6 +37,8 @@ class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMi
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkStateProvider);
     final serverState = ref.watch(serverProvider);
+    final animations = ref.watch(animationProvider);
+
     return Stack(
       children: [
         Center(
@@ -61,7 +64,7 @@ class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMi
                                     delay: const Duration(milliseconds: 200),
                                     child: RotatingWidget(
                                       duration: const Duration(seconds: 15),
-                                      spinning: serverState != null,
+                                      spinning: serverState != null && animations,
                                       child: const LocalSendLogo(withText: false),
                                     ),
                                   ),
