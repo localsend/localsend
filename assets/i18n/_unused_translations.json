@@ -11,6 +11,11 @@
     },
     "sendTab": {
       "thisDevice": "This Device"
+    },
+    "dialogs": {
+      "messageInput": {
+        "multiline": "Multiline"
+      }
     }
   },
   "ar": {},

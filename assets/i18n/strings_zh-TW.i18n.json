@@ -95,7 +95,8 @@
       "saveWindowPlacement": "離開：儲存視窗位置",
       "minimizeToTray": "離開：最小化至系統匣",
       "launchAtStartup": "登入後自動啟動",
-      "launchMinimized": "自動啟動至系統匣"
+      "launchMinimized": "自動啟動至系統匣",
+      "animations": "動畫效果"
     },
     "receive": {
       "title": "接收",
@@ -114,7 +115,8 @@
       "encryption": "加密",
       "multicastGroup": "多點傳送",
       "multicastGroupWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：{defaultMulticast})"
-    }
+    },
+    "advancedSettings": "進階設定"
   },
   "troubleshootPage": {
     "title": "疑難排解",

@@ -1,8 +1,14 @@
 ## 1.11.0 (2023-)
 
+- feat: optionally enable HTTPS (encryption) when share via link (@Tienisto)
+- feat: use switches instead of dropdowns for settings (@forecaster-cyber)
+- feat: text message dialog is multiline only (@Tienisto)
+- feat: add option to disable animations (@Tienisto)
 - feat(desktop): bind "ESC" key to go to the previous page (@RiverTwilight, @Tienisto)
 - feat(android, ios): open link in new browser tab (@Tienisto)
 - feat(linux): enable autostart feature (@TheGB0077)
+- fix(android, ios): Save GIFs and image metadata (@natsuk4ze)
+- fix(desktop): GPU usage when hidden to tray (@Tienisto)
 
 ## 1.10.0 (2023-06-02)
 

@@ -95,7 +95,8 @@
       "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔",
       "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں۔",
       "launchAtStartup": "لاگ ان کے بعد آٹو اسٹارٹ",
-      "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ"
+      "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ",
+      "animations": "تحریکات"
     },
     "receive": {
       "title": "وصول کریں",
@@ -114,7 +115,8 @@
       "encryption": "خفیہ کاری",
       "multicastGroup": "ملٹی کاسٹ",
       "multicastGroupWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "تجاویز شھر کی ترتیبات"
   },
   "troubleshootPage": {
     "title": "خرابی کا سراغ لگانا",

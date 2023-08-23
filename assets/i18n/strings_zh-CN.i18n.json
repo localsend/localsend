@@ -95,7 +95,8 @@
       "saveWindowPlacement": "关闭时：保存窗口位置",
       "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
-      "launchMinimized": "静默自启：只启动托盘服务"
+      "launchMinimized": "静默自启：只启动托盘服务",
+      "animations": "动画效果"
     },
     "receive": {
       "title": "接收",
@@ -114,7 +115,8 @@
       "encryption": "加密",
       "multicastGroup": "多播",
       "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
-    }
+    },
+    "advancedSettings": "高级设置"
   },
   "troubleshootPage": {
     "title": "故障排除",

@@ -5,6 +5,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/init.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
@@ -24,14 +25,16 @@ import 'package:routerino/routerino.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+  final (persistenceService, startHidden) = await preInit(args);
   final scope = RiverpieScope(
     observer: kDebugMode ? CustomRiverpieDebugObserver() : null,
     overrides: [
-      persistenceProvider.overrideWithValue(await preInit(args)),
+      persistenceProvider.overrideWithValue(persistenceService),
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
       appArgumentsProvider.overrideWithValue(args),
       tvProvider.overrideWithValue(await checkIfTv()),
       dynamicColorsProvider.overrideWithValue(await getDynamicColors()),
+      sleepProvider.overrideWithInitialState((ref) => startHidden),
     ],
     child: TranslationProvider(
       child: const LocalSendApp(),

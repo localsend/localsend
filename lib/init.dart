@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -19,7 +20,6 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpie_flutter/riverpie_flutter.dart';
-import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -28,7 +28,7 @@ const launchAtStartupArg = 'autostart';
 final _logger = Logger('Init');
 
 /// Will be called before the MaterialApp started
-Future<PersistenceService> preInit(List<String> args) async {
+Future<(PersistenceService, bool)> preInit(List<String> args) async {
   // Init logger
   Logger.root.level = args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO;
   Logger.root.onRecord.listen((record) {
@@ -61,6 +61,7 @@ Future<PersistenceService> preInit(List<String> args) async {
     );
   }
 
+  bool startHidden = false;
   if (checkPlatformIsDesktop()) {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
@@ -82,9 +83,6 @@ Future<PersistenceService> preInit(List<String> args) async {
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
 
-    // use the "slide" transition for desktop
-    Routerino.transition = RouterinoTransition.cupertino;
-
     // initialize tray AFTER i18n has been initialized
     try {
       await initTray();
@@ -99,10 +97,15 @@ Future<PersistenceService> preInit(List<String> args) async {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
       await WindowManager.instance.show();
+    } else {
+      // keep this app hidden
+      startHidden = true;
     }
   }
 
-  return persistenceService;
+  setDefaultRouteTransition();
+
+  return (persistenceService, startHidden);
 }
 
 StreamSubscription? _sharedMediaSubscription;

@@ -95,7 +95,8 @@
       "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
       "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動起動",
-      "launchMinimized": "自動起動時: 隠れた状態で開始"
+      "launchMinimized": "自動起動時: 隠れた状態で開始",
+      "animations": "アニメーション"
     },
     "receive": {
       "title": "受信",
@@ -114,7 +115,8 @@
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
       "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "詳細設定"
   },
   "troubleshootPage": {
     "title": "トラブルシューティング",

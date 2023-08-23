@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Afsluiten: Vensterindeling behouden",
       "minimizeToTray": "Stoppen: Minimaliseer naar systeemvak",
       "launchAtStartup": "Autostart na inloggen",
-      "launchMinimized": "Autostart: Start verborgen"
+      "launchMinimized": "Autostart: Start verborgen",
+      "animations": "Animaties"
     },
     "receive": {
       "title": "Ontvangen",
@@ -114,7 +115,8 @@
       "encryption": "Encryptie",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Je wordt mogelijk niet gedetecteerd door andere apparaten omdate je een aangepaste multicast-addres gebruikt. (standaard: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Geavanceerde instellingen"
   },
   "troubleshootPage": {
     "title": "Probleem oplossen",

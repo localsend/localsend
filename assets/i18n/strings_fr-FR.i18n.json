@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Quitter: Sauvegarder l'emplacement de la fenêtre",
       "minimizeToTray": "Quitter : Réduire à la barre des tâches",
       "launchAtStartup": "Démarrage automatique : Après la connexion",
-      "launchMinimized": "Démarrage automatique : Minimiser"
+      "launchMinimized": "Démarrage automatique : Minimiser",
+      "animations": "Animations"
     },
     "receive": {
       "title": "Reçu",
@@ -114,7 +115,8 @@
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Paramètres avancés"
   },
   "troubleshootPage": {
     "title": "Dépannage",

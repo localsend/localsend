@@ -25,5 +25,6 @@ class SettingsState with _$SettingsState {
     required bool https,
     required SendMode sendMode,
     required bool saveWindowPlacement,
+    required bool enableAnimations,
   }) = _SettingsState;
 }

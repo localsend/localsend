@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Çıkış: Burayı Kaydet",
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
-      "launchMinimized": "Otomatik başlatma: Gizli Başlatma"
+      "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
+      "animations": "Animasyonlar"
     },
     "receive": {
       "title": "Alım",
@@ -114,7 +115,8 @@
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Gelişmiş ayarlar"
   },
   "troubleshootPage": {
     "title": "Sorun Giderme",

@@ -26,7 +26,8 @@
       "colorOptions": {
         "system": "System"
       },
-      "saveWindowPlacement": "Quit: Save window placement"
+      "saveWindowPlacement": "Quit: Save window placement",
+      "animations": "Animations"
     },
     "receive": {
       "downloads": "(Downloads)"
@@ -34,7 +35,8 @@
     "network": {
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Advanced settings"
   },
   "troubleshootPage": {
     "title": "Troubleshoot",

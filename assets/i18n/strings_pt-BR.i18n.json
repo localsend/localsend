@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Salvar a posição da janela ao fechar",
       "minimizeToTray": "Minimizar para a bandeja ao fechar",
       "launchAtStartup": "Abrir automaticamente após o login",
-      "launchMinimized": "Início automático: Abrir minimizado"
+      "launchMinimized": "Início automático: Abrir minimizado",
+      "animations": "Animações"
     },
     "receive": {
       "title": "Recebimento",
@@ -114,7 +115,8 @@
       "encryption": "Criptografia",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Configurações avançadas"
   },
   "troubleshootPage": {
     "title": "Diagnostique problemas",

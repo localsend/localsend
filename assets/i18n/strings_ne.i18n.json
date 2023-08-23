@@ -95,7 +95,8 @@
       "saveWindowPlacement": "बंद करें: विंडो स्थानन प्लेसमेंट सहेजें",
       "minimizeToTray": "छोड्नुहोस्: ट्रेमा न्यूनतम गर्नुहोस्",
       "launchAtStartup": "लगइन पछि स्वत: सुरु गर्नुहोस्",
-      "launchMinimized": "स्वतः सुरु गर्नुहोस्: लुकेको सुरु गर्नुहोस्"
+      "launchMinimized": "स्वतः सुरु गर्नुहोस्: लुकेको सुरु गर्नुहोस्",
+      "animations": "एनिमेसनहरू"
     },
     "receive": {
       "title": "प्राप्त गर्नुहोस्",
@@ -114,7 +115,8 @@
       "encryption": "एनक्रिप्शन",
       "multicastGroup": "मल्टीकास्ट",
       "multicastGroupWarning": "आप अन्य उपकर्णों द्वारा पहचाना नहीं जा सकता है क्योंकि आप कस्टम मल्टीकास्ट पता का उपयोग कर रहे हैं। (डिफ़ॉल्ट: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "उन्नत सेटिङहरू"
   },
   "troubleshootPage": {
     "title": "समस्या निवारण करें",

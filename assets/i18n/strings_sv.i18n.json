@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Avsluta: Spara fönsterplacering",
       "minimizeToTray": "Lämna: minimera till tray",
       "launchAtStartup": "Starta automatiskt efter inloggning",
-      "launchMinimized": "Starta automatiskt: starta gömd"
+      "launchMinimized": "Starta automatiskt: starta gömd",
+      "animations": "Animationer"
     },
     "receive": {
       "title": "Ta emot",
@@ -114,7 +115,8 @@
       "encryption": "Kryptering",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad multicast-adress. (standard: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Avancerade inställningar"
   },
   "troubleshootPage": {
     "title": "Felsökning",

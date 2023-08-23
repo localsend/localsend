@@ -18,6 +18,7 @@ import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
+import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:riverpie_flutter/riverpie_flutter.dart';
@@ -36,6 +37,7 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
   final _aliasController = TextEditingController();
   final _portController = TextEditingController();
   final _multicastController = TextEditingController();
+  bool _advanced = false;
 
   @override
   void initState() {
@@ -126,7 +128,7 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
             ),
             if (checkPlatformIsDesktop()) ...[
               /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
-              if (checkPlatformIsNotWaylandDesktop())
+              if (_advanced && checkPlatformIsNotWaylandDesktop())
                 _BooleanEntry(
                   label: t.settingsTab.general.saveWindowPlacement,
                   value: settings.saveWindowPlacement,
@@ -197,7 +199,15 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                           await initEnableAutoStartAndOpenSettings(settings, _isWindows);
                         },
                       ),
-                    ))
+                    )),
+              if (_advanced)
+                _BooleanEntry(
+                  label: t.settingsTab.general.animations,
+                  value: settings.enableAnimations,
+                  onChanged: (b) async {
+                    await ref.notifier(settingsProvider).setEnableAnimations(b);
+                  },
+                ),
             ],
           ],
         ),
@@ -345,40 +355,43 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                 },
               ),
             ),
-            _SettingsEntry(
-              label: t.settingsTab.network.port,
-              child: TextFieldTv(
-                name: t.settingsTab.network.port,
-                controller: _portController,
-                onChanged: (s) async {
-                  final port = int.tryParse(s);
-                  if (port != null) {
-                    await ref.notifier(settingsProvider).setPort(port);
+            if (_advanced)
+              _SettingsEntry(
+                label: t.settingsTab.network.port,
+                child: TextFieldTv(
+                  name: t.settingsTab.network.port,
+                  controller: _portController,
+                  onChanged: (s) async {
+                    final port = int.tryParse(s);
+                    if (port != null) {
+                      await ref.notifier(settingsProvider).setPort(port);
+                    }
+                  },
+                ),
+              ),
+            if (_advanced)
+              _BooleanEntry(
+                label: t.settingsTab.network.encryption,
+                value: settings.https,
+                onChanged: (b) async {
+                  final old = settings.https;
+                  await ref.notifier(settingsProvider).setHttps(b);
+                  if (old && !b && mounted) {
+                    await EncryptionDisabledNotice.open(context);
                   }
                 },
               ),
-            ),
-            _BooleanEntry(
-              label: t.settingsTab.network.encryption,
-              value: settings.https,
-              onChanged: (b) async {
-                final old = settings.https;
-                await ref.notifier(settingsProvider).setHttps(b);
-                if (old && !b && mounted) {
-                  await EncryptionDisabledNotice.open(context);
-                }
-              },
-            ),
-            _SettingsEntry(
-              label: t.settingsTab.network.multicastGroup,
-              child: TextFieldTv(
-                name: t.settingsTab.network.multicastGroup,
-                controller: _multicastController,
-                onChanged: (s) async {
-                  await ref.notifier(settingsProvider).setMulticastGroup(s);
-                },
+            if (_advanced)
+              _SettingsEntry(
+                label: t.settingsTab.network.multicastGroup,
+                child: TextFieldTv(
+                  name: t.settingsTab.network.multicastGroup,
+                  controller: _multicastController,
+                  onChanged: (s) async {
+                    await ref.notifier(settingsProvider).setMulticastGroup(s);
+                  },
+                ),
               ),
-            ),
             AnimatedCrossFade(
               crossFadeState: settings.port != defaultPort ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               duration: const Duration(milliseconds: 200),
@@ -407,35 +420,21 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
             ),
           ],
         ),
-        Theme(
-          data: Theme.of(context).copyWith(
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.onSurface,
-              ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            LabeledCheckbox(
+              label: t.settingsTab.advancedSettings,
+              value: _advanced,
+              labelFirst: true,
+              onChanged: (b) {
+                setState(() => _advanced = b == true);
+              },
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton.icon(
-                onPressed: () async {
-                  await context.push(() => const AboutPage());
-                },
-                icon: const Icon(Icons.info),
-                label: Text(t.aboutPage.title),
-              ),
-              TextButton.icon(
-                onPressed: () async {
-                  await context.push(() => const ChangelogPage());
-                },
-                icon: const Icon(Icons.history),
-                label: Text(t.changelogPage.title),
-              ),
-            ],
-          ),
+            const SizedBox(width: 10),
+          ],
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 20),
         const LocalSendLogo(withText: true),
         const SizedBox(height: 5),
         ref.watch(versionProvider).maybeWhen(
@@ -448,6 +447,36 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
         Text(
           '© ${DateTime.now().year} Tien Do Nam',
           textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 30),
+        Theme(
+          data: Theme.of(context).copyWith(
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                onPressed: () async {
+                  await context.push(() => const AboutPage());
+                },
+                icon: const Icon(Icons.info),
+                label: Text(t.aboutPage.title),
+              ),
+              const SizedBox(height: 5),
+              TextButton.icon(
+                onPressed: () async {
+                  await context.push(() => const ChangelogPage());
+                },
+                icon: const Icon(Icons.history),
+                label: Text(t.changelogPage.title),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 80),
       ],
