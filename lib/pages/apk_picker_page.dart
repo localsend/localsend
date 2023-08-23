@@ -113,6 +113,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> {
                             children: [
                               MemoryThumbnail(
                                 bytes: thumbnail,
+                                size: 60,
                                 fileType: FileType.apk,
                               ),
                               const SizedBox(width: 10),
@@ -130,12 +131,21 @@ class _ApkPickerPageState extends State<ApkPickerPage> {
                                       builder: (context, ref) {
                                         final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
                                         final appSizeString = appSize.maybeWhen(
-                                          data: (size) => '${size.asReadableFileSize} - ',
+                                          data: (size) => '${size.asReadableFileSize} • ',
                                           orElse: () => '',
                                         );
-                                        return Text(
-                                          '$appSizeString${app.versionName ?? '?'} - ${app.packageName}',
-                                          style: Theme.of(context).textTheme.bodySmall,
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '$appSizeString${app.versionName != null ? 'v${app.versionName}' : ''}',
+                                              style: Theme.of(context).textTheme.bodySmall,
+                                            ),
+                                            Text(
+                                              app.packageName,
+                                              style: Theme.of(context).textTheme.bodySmall,
+                                            ),
+                                          ],
                                         );
                                       },
                                     ),
