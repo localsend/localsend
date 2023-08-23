@@ -495,19 +495,31 @@ class _BooleanEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return _SettingsEntry(
       label: label,
-      child: Row(
+      child: Stack(
         children: [
-          const SizedBox(width: 35),
-          Text(
-            value ? t.general.on : t.general.off,
-            style: const TextStyle(fontSize: 16),
+          Container(
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              color: theme.inputDecorationTheme.fillColor,
+              borderRadius: theme.inputDecorationTheme.borderRadius,
+            ),
           ),
-          const SizedBox(width: 10),
-          Switch(
-            value: value,
-            onChanged: onChanged,
+          Positioned.fill(
+            child: Center(
+              child: Switch(
+                value: value,
+                onChanged: onChanged,
+                activeTrackColor: Colors.white,
+                activeColor: theme.brightness == Brightness.light ? theme.colorScheme.onSurface.withOpacity(0.8) : theme.inputDecorationTheme.fillColor,
+                trackOutlineColor: const MaterialStatePropertyAll<Color?>(Colors.grey),
+                inactiveThumbColor: theme.colorScheme.onSurface.withOpacity(0.8),
+                inactiveTrackColor: theme.inputDecorationTheme.fillColor,
+              ),
+            ),
           ),
         ],
       ),

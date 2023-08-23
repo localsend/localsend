@@ -6,16 +6,9 @@ import 'package:localsend_app/util/native/platform_check.dart';
 final _borderRadius = BorderRadius.circular(5);
 
 ThemeData getTheme(Brightness brightness, ColorScheme? colorScheme) {
-  colorScheme ??= ColorScheme.fromSwatch(
-    primarySwatch: Colors.teal,
+  colorScheme ??= ColorScheme.fromSeed(
+    seedColor: Colors.teal,
     brightness: brightness,
-    backgroundColor: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
-  ).copyWith(
-    // overrides for LocalSend theme
-    onError: Colors.white,
-    secondaryContainer:
-        brightness == Brightness.light ? Color.lerp(Colors.teal.shade100, Colors.white, 0.5) : Color.lerp(Colors.teal.shade100, Colors.black, 0.6),
-    onSecondaryContainer: brightness == Brightness.light ? Colors.black : Colors.white,
   );
 
   final lightInputBorder = OutlineInputBorder(
