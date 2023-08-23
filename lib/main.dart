@@ -27,11 +27,11 @@ Future<void> main(List<String> args) async {
   final scope = RiverpieScope(
     observer: kDebugMode ? CustomRiverpieDebugObserver() : null,
     overrides: [
-      persistenceProvider.overrideWithFuture((ref) async => await preInit(args)),
-      deviceRawInfoProvider.overrideWithFuture((ref) async => await getDeviceInfo()),
-      appArgumentsProvider.overrideWithValue((ref) => args),
-      tvProvider.overrideWithFuture((ref) async => await checkIfTv()),
-      dynamicColorsProvider.overrideWithFuture((ref) async => await getDynamicColors()),
+      persistenceProvider.overrideWithValue(await preInit(args)),
+      deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
+      appArgumentsProvider.overrideWithValue(args),
+      tvProvider.overrideWithValue(await checkIfTv()),
+      dynamicColorsProvider.overrideWithValue(await getDynamicColors()),
     ],
     child: TranslationProvider(
       child: const LocalSendApp(),

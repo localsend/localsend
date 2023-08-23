@@ -1039,12 +1039,13 @@ packages:
     source: hosted
     version: "3.0.1"
   riverpie:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: riverpie
-      sha256: c558135a3163113a4333fce4fa34385e325ab93f8e00492381c1c372482f6f89
-      url: "https://pub.dev"
-    source: hosted
+      path: riverpie
+      ref: HEAD
+      resolved-ref: a31e0181d70178cedfbd16f5bf87d26f6dbc5eaa
+      url: "git@github.com:Tienisto/riverpie.git"
+    source: git
     version: "0.15.1"
   riverpie_flutter:
     dependency: "direct main"
