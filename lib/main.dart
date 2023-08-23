@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,6 +14,7 @@ import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/riverpie.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
+import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
@@ -31,6 +31,7 @@ Future<void> main(List<String> args) async {
       deviceRawInfoProvider.overrideWithFuture((ref) async => await getDeviceInfo()),
       appArgumentsProvider.overrideWithValue((ref) => args),
       tvProvider.overrideWithFuture((ref) async => await checkIfTv()),
+      dynamicColorsProvider.overrideWithFuture((ref) async => await getDynamicColors()),
     ],
     child: TranslationProvider(
       child: const LocalSendApp(),
@@ -50,6 +51,7 @@ class LocalSendApp extends StatelessWidget {
     final ref = context.ref;
     final themeMode = ref.watch(settingsProvider.select((settings) => settings.theme));
     final colorMode = ref.watch(settingsProvider.select((settings) => settings.colorMode));
+    final dynamicColors = ref.watch(dynamicColorsProvider);
     return TrayWatcher(
       child: WindowWatcher(
         child: LifeCycleWatcher(
@@ -59,26 +61,22 @@ class LocalSendApp extends StatelessWidget {
             }
           },
           child: ShortcutWatcher(
-            child: DynamicColorBuilder(
-              builder: (lightColor, darkColor) {
-                return MaterialApp(
-                  title: t.appName,
-                  locale: TranslationProvider.of(context).flutterLocale,
-                  supportedLocales: AppLocaleUtils.supportedLocales,
-                  localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                  debugShowCheckedModeBanner: false,
-                  theme: getTheme(Brightness.light, colorMode == ColorMode.system ? lightColor : null),
-                  darkTheme: getTheme(Brightness.dark, colorMode == ColorMode.system ? darkColor : null),
-                  themeMode: themeMode,
-                  navigatorKey: Routerino.navigatorKey,
-                  home: RouterinoHome(
-                    builder: () => const HomePage(
-                      initialTab: HomeTab.receive,
-                      appStart: true,
-                    ),
-                  ),
-                );
-              },
+            child: MaterialApp(
+              title: t.appName,
+              locale: TranslationProvider.of(context).flutterLocale,
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              debugShowCheckedModeBanner: false,
+              theme: getTheme(Brightness.light, colorMode == ColorMode.system ? dynamicColors?.light : null),
+              darkTheme: getTheme(Brightness.dark, colorMode == ColorMode.system ? dynamicColors?.dark : null),
+              themeMode: themeMode,
+              navigatorKey: Routerino.navigatorKey,
+              home: RouterinoHome(
+                builder: () => const HomePage(
+                  initialTab: HomeTab.receive,
+                  appStart: true,
+                ),
+              ),
             ),
           ),
         ),
