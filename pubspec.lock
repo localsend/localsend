@@ -1044,7 +1044,7 @@ packages:
       path: riverpie
       ref: HEAD
       resolved-ref: a31e0181d70178cedfbd16f5bf87d26f6dbc5eaa
-      url: "git@github.com:Tienisto/riverpie.git"
+      url: "https://github.com/Tienisto/riverpie.git"
     source: git
     version: "0.15.1"
   riverpie_flutter:

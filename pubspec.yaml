@@ -83,7 +83,7 @@ dependency_overrides:
       ref: fc09b707ab4535a9214c87b16f09feda7e765d90
   riverpie:
     git:
-      url: git@github.com:Tienisto/riverpie.git
+      url: https://github.com/Tienisto/riverpie.git
       path: riverpie
   share_handler_platform_interface:
     # https://github.com/ShoutSocial/share_handler/pull/39
