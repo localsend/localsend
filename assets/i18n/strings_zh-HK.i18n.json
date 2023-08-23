@@ -95,7 +95,8 @@
       "saveWindowPlacement": "退出嗰陣記低視窗位置",
       "minimizeToTray": "退出嗰陣縮細做通知圖示",
       "launchAtStartup": "開機自動啟動",
-      "launchMinimized": "自動啟動成通知圖示"
+      "launchMinimized": "自動啟動成通知圖示",
+      "animations": "動畫"
     },
     "receive": {
       "title": "接收",
@@ -114,7 +115,8 @@
       "encryption": "加密傳送",
       "multicastGroup": "多播 IP 地址",
       "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）"
-    }
+    },
+    "advancedSettings": "進階設定"
   },
   "troubleshootPage": {
     "title": "疑難排解",

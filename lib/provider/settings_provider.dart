@@ -35,6 +35,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
       https: _service.isHttps(),
       sendMode: _service.getSendMode(),
       saveWindowPlacement: _service.getSaveWindowPlacement(),
+      enableAnimations: _service.getEnableAnimations(),
     );
   }
 
@@ -140,6 +141,13 @@ class SettingsNotifier extends Notifier<SettingsState> {
     await _service.setSaveWindowPlacement(savePlacement);
     state = state.copyWith(
       saveWindowPlacement: savePlacement,
+    );
+  }
+
+  Future<void> setEnableAnimations(bool enableAnimations) async {
+    await _service.setEnableAnimations(enableAnimations);
+    state = state.copyWith(
+      enableAnimations: enableAnimations,
     );
   }
 }

@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Зберегти розташування вікна після закриття програми",
       "minimizeToTray": "Закрити: згорнути в системний трей",
       "launchAtStartup": "Автозапуск",
-      "launchMinimized": "Прихований автозапуск"
+      "launchMinimized": "Прихований автозапуск",
+      "animations": "Анімації"
     },
     "receive": {
       "title": "Отримання",
@@ -114,7 +115,8 @@
       "encryption": "Шифрування",
       "multicastGroup": "Групова передача",
       "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну групову адресу. (default: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Розширені налаштування"
   },
   "troubleshootPage": {
     "title": "Усунення несправностей",

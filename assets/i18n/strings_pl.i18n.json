@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Zamknij: Zapisz położenie okna",
       "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart po zalogowaniu",
-      "launchMinimized": "Autostart: Start ukryty"
+      "launchMinimized": "Autostart: Start ukryty",
+      "animations": "Animacje"
     },
     "receive": {
       "title": "Odbierz",
@@ -114,7 +115,8 @@
       "encryption": "Szyfrowanie",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego adresu multicast. (domyślnie: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Zaawansowane ustawienia"
   },
   "troubleshootPage": {
     "title": "Rozwiązywanie problemów",

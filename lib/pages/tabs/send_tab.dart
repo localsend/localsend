@@ -17,6 +17,7 @@ import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
 import 'package:localsend_app/util/native/ios_network_permission_helper.dart';
@@ -355,15 +356,19 @@ class _ScanButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scanningIps = context.ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+    final animations = context.ref.watch(animationProvider);
+
+    final spinning = scanningIps.isNotEmpty && animations;
+    final iconColor = !animations && scanningIps.isNotEmpty ? Theme.of(context).colorScheme.warning : null;
 
     if (ips.length <= ScanFacade.maxInterfaces) {
       return RotatingWidget(
         duration: const Duration(seconds: 2),
-        spinning: scanningIps.isNotEmpty,
+        spinning: spinning,
         reverse: true,
         child: CustomIconButton(
           onPressed: () async => await context.ref.read(scanProvider).startSmartScan(forceLegacy: true),
-          child: const Icon(Icons.sync),
+          child: Icon(Icons.sync, color: iconColor),
         ),
       );
     }
@@ -391,11 +396,11 @@ class _ScanButton extends StatelessWidget {
       },
       child: RotatingWidget(
         duration: const Duration(seconds: 2),
-        spinning: scanningIps.isNotEmpty,
+        spinning: spinning,
         reverse: true,
-        child: const Padding(
-          padding: EdgeInsets.all(8),
-          child: Icon(Icons.sync),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Icon(Icons.sync, color: iconColor),
         ),
       ),
     );

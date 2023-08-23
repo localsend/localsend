@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Quit: Save window placement",
       "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart after login",
-      "launchMinimized": "Autostart: Start hidden"
+      "launchMinimized": "Autostart: Start hidden",
+      "animations": "Animations"
     },
     "receive": {
       "title": "Receive",
@@ -114,7 +115,8 @@
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Advanced settings"
   },
   "troubleshootPage": {
     "title": "Troubleshoot",

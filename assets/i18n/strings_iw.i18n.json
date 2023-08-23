@@ -95,7 +95,8 @@
       "saveWindowPlacement": "יציאה: שמירת מיקום החלון",
       "minimizeToTray": "יציאה: מזעור למגש",
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
-      "launchMinimized": "הפעלה אוטומטית: התחל מוסתר"
+      "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
+      "animations": "הנפשות"
     },
     "receive": {
       "title": "קבל",
@@ -114,7 +115,8 @@
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",
       "multicastGroupWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "הגדרות מתקדמות"
   },
   "troubleshootPage": {
     "title": "פתרון תקלות",

@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Kilépés: Ablak pozíció mentése",
       "minimizeToTray": "Kilépés: Minimalizálja a tálcára",
       "launchAtStartup": "Auto. indítás bejelentkezés után",
-      "launchMinimized": "Auto. indítás: Kis méretben"
+      "launchMinimized": "Auto. indítás: Kis méretben",
+      "animations": "Animációk"
     },
     "receive": {
       "title": "Fogadás",
@@ -114,7 +115,8 @@
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Haladó beállítások"
   },
   "troubleshootPage": {
     "title": "Hibaelhárítás",

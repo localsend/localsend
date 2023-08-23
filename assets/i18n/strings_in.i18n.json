@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Keluar: Simpan posisi jendela",
       "minimizeToTray": "Keluar: Perkecil ke pojok bawah",
       "launchAtStartup": "Mulai otomatis setelah masuk",
-      "launchMinimized": "Mulai otomatis: Berjalan di belakang"
+      "launchMinimized": "Mulai otomatis: Berjalan di belakang",
+      "animations": "Animasi"
     },
     "receive": {
       "title": "Menerima",
@@ -114,7 +115,8 @@
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena Anda menggunakan alamat multicast khusus. (default: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Pengaturan Lanjutan"
   },
   "troubleshootPage": {
     "title": "Perbaikan masalah",

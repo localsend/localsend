@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Schließen: Fensterposition speichern",
       "minimizeToTray": "Schließen: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
-      "launchMinimized": "Autostart: versteckt starten"
+      "launchMinimized": "Autostart: versteckt starten",
+      "animations": "Animationen"
     },
     "receive": {
       "title": "Empfangen",
@@ -114,7 +115,8 @@
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Erweiterte Einstellungen"
   },
   "troubleshootPage": {
     "title": "Fehlerbehebung",

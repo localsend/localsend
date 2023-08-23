@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Surt: desa la ubicació de la finestra",
       "minimizeToTray": "Surt: Minimitzar a la safata",
       "launchAtStartup": "Inici automàtic després d'iniciar sessió",
-      "launchMinimized": "Inici automàtic: Inici minimitzat"
+      "launchMinimized": "Inici automàtic: Inici minimitzat",
+      "animations": "Animacions"
     },
     "receive": {
       "title": "Rebre",
@@ -114,7 +115,8 @@
       "encryption": "Encriptació",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant una adreça multicast personalitzada. (per defecte: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Configuració avançada"
   },
   "troubleshootPage": {
     "title": "Solucionar problemes",

@@ -95,7 +95,8 @@
       "saveWindowPlacement": "إنهاء: حفظ موقع النافذة",
       "minimizeToTray": "إنهاء : أخفاء في شريط المهام",
       "launchAtStartup": "تشغيل تلقائي بعد تسجيل الدخول",
-      "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا"
+      "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا",
+      "animations": "الرسوم المتحركة"
     },
     "receive": {
       "title": "استلم",
@@ -114,7 +115,8 @@
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
       "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "الإعدادات المتقدمة"
   },
   "troubleshootPage": {
     "title": "حل المشكلات",

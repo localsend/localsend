@@ -90,7 +90,7 @@ Future<void> hideToTray() async {
   }
 
   // Disable animations
-  RiverpieScope.defaultRef.notifier(animationProvider).setState((_) => false);
+  RiverpieScope.defaultRef.notifier(sleepProvider).setState((_) => true);
 }
 
 Future<void> showFromTray() async {
@@ -103,5 +103,5 @@ Future<void> showFromTray() async {
   }
 
   // Enable animations
-  RiverpieScope.defaultRef.notifier(animationProvider).setState((_) => true);
+  RiverpieScope.defaultRef.notifier(sleepProvider).setState((_) => false);
 }

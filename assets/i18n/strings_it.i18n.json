@@ -95,7 +95,8 @@
       "saveWindowPlacement": "Esci: Salva posizione della finestra",
       "minimizeToTray": "Esci: Riduci ad icona nel vassoio",
       "launchAtStartup": "Avvio automatico dopo il login",
-      "launchMinimized": "Avvio automatico: Avvio nascosto"
+      "launchMinimized": "Avvio automatico: Avvio nascosto",
+      "animations": "Animazioni"
     },
     "receive": {
       "title": "Ricevi",
@@ -114,7 +115,8 @@
       "encryption": "Crittografia",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Impostazioni avanzate"
   },
   "troubleshootPage": {
     "title": "Risoluzione dei problemi",
