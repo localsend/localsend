@@ -26,24 +26,30 @@ class WebSendPage extends StatefulWidget {
 
 class _WebSendPageState extends State<WebSendPage> with Riverpie {
   _ServerState _stateEnum = _ServerState.initializing;
+  bool _encrypted = false;
   String? _initializedError;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _init();
+      _init(encrypted: false);
     });
   }
 
-  void _init() async {
-    await sleepAsync(500);
+  void _init({required bool encrypted}) async {
     final settings = ref.read(settingsProvider);
+    setState(() {
+      _stateEnum = _ServerState.initializing;
+      _encrypted = encrypted;
+      _initializedError = null;
+    });
+    await sleepAsync(500);
     try {
       await ref.notifier(serverProvider).restartServer(
             alias: settings.alias,
             port: settings.port,
-            https: false, // always start unencrypted
+            https: _encrypted,
           );
       await ref.notifier(serverProvider).initializeWebSend(widget.files);
       setState(() {
@@ -129,7 +135,7 @@ class _WebSendPageState extends State<WebSendPage> with Riverpie {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ...networkState.localIps.map((ip) {
-                          final url = 'http://$ip:${serverState.port}';
+                          final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
                           return Padding(
                             padding: const EdgeInsets.all(5),
                             child: Row(
@@ -241,7 +247,27 @@ class _WebSendPageState extends State<WebSendPage> with Riverpie {
                     ),
                   );
                 }),
-                Text(t.webSharePage.hint, textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(t.webSharePage.encryption, style: Theme.of(context).textTheme.titleMedium),
+                    ),
+                    const SizedBox(width: 10),
+                    Checkbox(
+                      value: _encrypted,
+                      onChanged: (value) {
+                        _init(encrypted: value == true);
+                      },
+                    ),
+                  ],
+                ),
+                if (_encrypted)
+                  Text(
+                    t.webSharePage.encryptionHint,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
+                  ),
               ],
             );
           },

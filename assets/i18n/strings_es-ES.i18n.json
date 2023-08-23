@@ -193,13 +193,14 @@
     "loading": "Iniciando servidor...",
     "stopping": "Deteniendo servidor...",
     "error": "Se ha producido un error al iniciar el servidor.",
-    "hint": "Ten en cuenta que la conexión no está cifrada. Sólo deberías utilizar este método si el destinatario no tiene instalado LocalSend.",
     "openLink": {
       "one": "Abre este enlace en el navegador:",
       "other": "Abre uno de estos enlaces en el navegador:"
     },
     "requests": "Solicitudes",
     "noRequests": "Aún no hay solicitudes.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.",
     "pendingRequests": "Solicitudes pendientes: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Tamaño"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",

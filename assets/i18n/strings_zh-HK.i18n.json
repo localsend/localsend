@@ -193,13 +193,14 @@
     "loading": "開緊個 server……",
     "stopping": "閂緊個 server……",
     "error": "開 server 嗰陣發生錯誤。",
-    "hint": "記住，連線係冇經過加密嘅。除非對方冇裝 LocalSend，否則你唔應該用呢版。",
     "openLink": {
       "one": "喺瀏覽器開啟以下連結：",
       "other": "喺瀏覽器開啟以下任一連結："
     },
     "requests": "請求",
     "noRequests": "未有",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中接受它。",
     "pendingRequests": "仲有 {n} 個請求未處理"
   },
   "aboutPage": {
@@ -289,6 +290,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "退出 LocalSend"
   },
@@ -300,6 +302,7 @@
     "size": "大細"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "@:general.confirm",
     "cancel": "@:general.cancel",
     "edit": "@:general.edit",

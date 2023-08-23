@@ -193,13 +193,14 @@
     "loading": "Szerver indítása...",
     "stopping": "Szerver leállítása...",
     "error": "Hiba történt a szerver indításakor.",
-    "hint": "Ne feledje, hogy a kapcsolat titkosítatlan. Csak akkor használja ezt a módszert, ha a címzettnél nincs telepítve a LocalSend.",
     "openLink": {
       "one": "Nyissa meg ezt a hivatkozást böngészőben:",
       "other": "Nyissa meg a linkek egyikét a böngészőben:"
     },
     "requests": "Kérések",
     "noRequests": "Még nincsenek kérések.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben elfogadnod kell.",
     "pendingRequests": "Függőben lévő kérések: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Méret"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Megerősít",
     "cancel": "Mégse",
     "edit": "Szerkeszt",

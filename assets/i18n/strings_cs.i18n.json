@@ -193,13 +193,14 @@
     "loading": "Spouštění serveru...",
     "stopping": "Zastavování serveru...",
     "error": "Při spouštění serveru došlo k chybě.",
-    "hint": "Mějte na paměti, že připojení je nešifrované. Tuto metodu byste měli použít pouze v případě, že příjemce nemá nainstalovanou aplikaci LocalSend.",
     "openLink": {
       "one": "Otevřete tento odkaz v prohlížeči:",
       "other": "Otevřete v prohlížeči jeden z těchto odkazů:"
     },
     "requests": "Žádosti",
     "noRequests": "Zatím žádné žádosti.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.",
     "pendingRequests": "Čekající žádosti: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Velikost"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Potvrdit",
     "cancel": "Zrušit",
     "edit": "Editovat",

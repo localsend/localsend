@@ -80,13 +80,14 @@
     "loading": "Starting server...",
     "stopping": "Stopping server...",
     "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
     "openLink": {
       "one": "Open this link in the browser:",
       "other": "Open one of these links in the browser:"
     },
     "requests": "Requests",
     "noRequests": "No requests yet.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in the browser.",
     "pendingRequests": "Pending requests: {n}"
   },
   "dialogs": {

@@ -193,13 +193,14 @@
     "loading": "Sunucu başlıyor...",
     "stopping": "Sunucu durduruluyor ...",
     "error": "Sunucuyu başlatırken bir hata oluştu.",
-    "hint": "Bağlantının şifrelenmediğini unutmayın. Bu yöntemi yalnızca alıcı LocalSend yüklememiş ise kullanmalısınız.",
     "openLink": {
       "one": "Bu bağlantıyı tarayıcıda açın:",
       "other": "Bu bağlantılardan birini tarayıcıda açın:"
     },
     "requests": "İstekler",
     "noRequests": "Henüz istek yok.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
   "aboutPage": {
@@ -207,6 +208,9 @@
   },
   "changelogPage": {
     "title": "Değişiklik günlüğü"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -298,6 +302,7 @@
     "size": "Boyut"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Onay",
     "cancel": "İptal",
     "edit": "Düzenle",
@@ -326,8 +331,5 @@
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   }
 }

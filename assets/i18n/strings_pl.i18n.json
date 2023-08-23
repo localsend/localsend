@@ -193,13 +193,14 @@
     "loading": "Uruchamianie serwera...",
     "stopping": "Zatrzymywanie serwera...",
     "error": "Wystąpił błąd podczas uruchamiania serwera.",
-    "hint": "Pamiętaj, że połączenie jest niezaszyfrowane. Używaj tej metody tylko wtedy, gdy odbiorca nie ma zainstalowanego LocalSend.",
     "openLink": {
       "one": "Otwórz ten link w przeglądarce:",
       "other": "Otwórz jeden z tych linków w przeglądarce:"
     },
     "requests": "Żądania",
     "noRequests": "Brak żądań.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.",
     "pendingRequests": "Oczekujące żądania: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Rozmiar"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Potwierdź",
     "cancel": "Anuluj",
     "edit": "Edytuj",

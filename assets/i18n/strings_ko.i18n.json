@@ -193,13 +193,14 @@
     "loading": "서버 시작 중...",
     "stopping": "서버 중지 중...",
     "error": "서버 시작 중 오류가 발생했습니다.",
-    "hint": "연결이 암호화되지 않는다는 점에 주의해주세요. 이 방법은 수신자가 LocalSend를 설치하지 않은 경우에만 사용해야 합니다.",
     "openLink": {
       "one": "이 링크를 브라우저에서 열기:",
       "other": "이 중 하나의 링크를 브라우저에서 열기:"
     },
     "requests": "요청",
     "noRequests": "아직 요청이 없습니다.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 수락해야 합니다.",
     "pendingRequests": "대기중인 요청: {n}"
   },
   "aboutPage": {
@@ -207,6 +208,9 @@
   },
   "changelogPage": {
     "title": "업데이트 이력"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -286,6 +290,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "LocalSend 종료"
   },
@@ -297,6 +302,7 @@
     "size": "크기"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "확인",
     "cancel": "취소",
     "edit": "편집",
@@ -325,8 +331,5 @@
     "sActionUseCameraHint": "카메라 사용",
     "sNameDurationLabel": "길이",
     "sUnitAssetCountLabel": "개수"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   }
 }

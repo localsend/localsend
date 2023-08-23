@@ -193,13 +193,14 @@
     "loading": "सर्वर प्रारंभ हो रहा है...",
     "stopping": "सर्वर को बंद कर रहा है...",
     "error": "सर्वर को शुरू करने के दौरान एक त्रुटि हुई है।",
-    "hint": "ध्यान दें कि कनेक्शन अअएनक्रिप्टेड है। यह विधि उपयोग करना चाहिए जब प्राप्तकर्ता के पास LocalSend इंस्टाल नहीं है।",
     "openLink": {
       "one": "ब्राउज़र में इस लिंक को खोलें:",
       "other": "इनमें से लिंक्स में से एक ब्राउज़र में खोलें:"
     },
     "requests": "अनुरोध",
     "noRequests": "अबतक कोई अनुरोध नहीं हैं।",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend एक स्वयंसिग्ध प्रमाणपत्र प्रयोग गर्दछ। तपाईंले ब्राउजरमा यसलाई स्वीकार्नु पर्दछ।",
     "pendingRequests": "लंबित अनुरोध: {n}"
   },
   "aboutPage": {
@@ -371,6 +372,7 @@
     "size": "आकार"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "पुष्टि गर्नुहोस्",
     "cancel": "रद्द गर्नुहोस्",
     "edit": "सम्पादन गर्नुहोस्",

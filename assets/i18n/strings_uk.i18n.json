@@ -193,13 +193,14 @@
     "loading": "Запуск сервера...",
     "stopping": "Зупинка сервера...",
     "error": "Під час запуску сервера сталася помилка.",
-    "hint": "Майте на увазі, що з'єднання незашифроване. Ви повинні використовувати цей метод, лише якщо одержувач не встановив LocalSend.",
     "openLink": {
       "one": "Відкрийте це посилання в браузері:",
       "other": "Відкрийте одне з цих посилань в браузері:"
     },
     "requests": "Запити",
     "noRequests": "Запитів поки що немає.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Ви повинні його прийняти в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Розмір"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",

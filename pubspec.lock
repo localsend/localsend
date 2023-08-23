@@ -1249,10 +1249,10 @@ packages:
     dependency: "direct dev"
     description:
       name: slang_gpt
-      sha256: "48f0821fab865500df119d7123074ce49c5728004dd55ed5c669dc51899c47e9"
+      sha256: "4419af0f20d8235ee40d9979bd88d4fcadaed5d0592e3d2b4091a34715dca2b4"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.8.1"
   source_gen:
     dependency: transitive
     description:
