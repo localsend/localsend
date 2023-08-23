@@ -193,13 +193,14 @@
     "loading": "Startar server...",
     "stopping": "Stoppar servern...",
     "error": "Ett fel inträffade vid start av servern.",
-    "hint": "Kom ihåg att anslutningen inte är krypterad. Du bör bara använda denna metod om mottagaren inte har LocalSend installerad.",
     "openLink": {
       "one": "Öppna denna länk i webbläsaren:",
       "other": "Öppna en av dessa länkar i webbläsaren:"
     },
     "requests": "Förfrågningar",
     "noRequests": "Inga förfrågningar ännu.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend använder ett självsignerat certifikat. Du behöver acceptera det i webbläsaren.",
     "pendingRequests": "Väntande förfrågningar: {n}"
   },
   "aboutPage": {

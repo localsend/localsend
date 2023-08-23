@@ -193,13 +193,14 @@
     "loading": "سرور کو چالو کررہا ہے...",
     "stopping": "سرور بند ہو رہا ہے...",
     "error": "سرور چالو کرتے وقت خامی پیش آئی ہے۔",
-    "hint": "یاد رکھیں کہ رابطہ غیر تشفیر شدہ ہے۔ آپ یہ طریقہ استعمال تب کریں جب وصول کرنے والے کے پاس LocalSend نصب نہیں ہے۔",
     "openLink": {
       "one": "اس لنک کو براوزر میں کھولیں:",
       "other": "ان میں سے کسی ایک لنک کو براوزر میں کھولیں:"
     },
     "requests": "درخواستیں",
     "noRequests": "ابھی تک کوئی درخواست نہیں۔",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend براؤزر میں استعمال کرنے کیلئے آپ کوخود سائن کردہ سرٹیفکیٹ قبول کرنا ہوگا۔",
     "pendingRequests": "زیر التواء درخواستیں: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "سائز"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "تصدیق کریں",
     "cancel": "منسوخ کریں",
     "edit": "ترمیم کریں",

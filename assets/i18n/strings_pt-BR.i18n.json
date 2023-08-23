@@ -193,13 +193,14 @@
     "loading": "Iniciando o servidor...",
     "stopping": "Parando o servidor...",
     "error": "Um erro ocorreu enquanto o servidor tentava iniciar.",
-    "hint": "Tenha em mente que a transferência por link não é criptografada. Você só deve usar essa opção se o destinatário não tiver o LocalSend instalado.",
     "openLink": {
       "one": "Abra este link no navegador:",
       "other": "Abra um desses links no navegador:"
     },
     "requests": "Solicitações",
     "noRequests": "Nenhuma solicitação ainda.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no navegador.",
     "pendingRequests": "Solicitações pendentes: {n}"
   },
   "aboutPage": {
@@ -361,6 +362,7 @@
     "size": "Tamanho"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",

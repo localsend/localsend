@@ -193,13 +193,14 @@
     "loading": "サーバーを起動中...",
     "stopping": "サーバーを停止中...",
     "error": "サーバーの起動中にエラーが発生しました。",
-    "hint": "接続は暗号化されないことに留意してください。この方法は、受信者がLocalSendをインストールしていない場合のみ使用してください。",
     "openLink": {
       "one": "このリンクをブラウザーで開いてください:",
       "other": "これらのリンクのいずれかをブラウザーで開いてください:"
     },
     "requests": "リクエスト",
     "noRequests": "リクエストはまだありません。",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSendは自己署名証明書を使用しています。ブラウザでそれを受け入れる必要があります。",
     "pendingRequests": "保留中のリクエスト数: {n}"
   },
   "aboutPage": {
@@ -289,6 +290,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "LocalSendを終了"
   },
@@ -300,6 +302,7 @@
     "size": "サイズ"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "確認",
     "cancel": "キャンセル",
     "edit": "編集",

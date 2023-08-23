@@ -193,13 +193,14 @@
     "loading": "הפעלת השרת...",
     "stopping": "השהיית השרת...",
     "error": "אירעה שגיאה בזמן התחלת השרת.",
-    "hint": "חשוב לזכור שהחיבור אינו מוצפן. עליך להשתמש בשיטה זו רק אם המקבל אין לו LocalSend מותקן.",
     "openLink": {
       "one": "פתח את הקישור בדפדפן:",
       "other": "פתח אחד מהקישורים הללו בדפדפן:"
     },
     "requests": "בקשות",
     "noRequests": "אין כרגע בקשות.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
     "pendingRequests": "בקשות בהמתנה: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "גודל"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "אישור",
     "cancel": "ביטול",
     "edit": "עריכה",

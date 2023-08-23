@@ -193,13 +193,14 @@
     "loading": "Avvio del server...",
     "stopping": "Arresto del server...",
     "error": "Si è verificato un errore durante l'avvio del server.",
-    "hint": "Tieni presente che la connessione non è crittografata. Dovresti utilizzare questo metodo solo se il destinatario non ha installato LocalSend.",
     "openLink": {
       "one": "Apri questo link nel browser:",
       "other": "Apri uno di questi link nel browser:"
     },
     "requests": "Richieste",
     "noRequests": "Nessuna richiesta ancora.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
   },
   "aboutPage": {
@@ -289,6 +290,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Chiudi LocalSend"
   },
@@ -300,6 +302,7 @@
     "size": "Dimensione"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Conferma",
     "cancel": "Annulla",
     "edit": "Modifica",

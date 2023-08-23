@@ -193,13 +193,14 @@
     "loading": "Démarrage du serveur...",
     "stopping": "Fermeture du serveur...",
     "error": "Une erreur est survenue lors du démarrage du serveur.",
-    "hint": "Prenez garde, cette connection n'est pas chiffrée. Vous devriez utiliser cette méthode uniquement si le récipient n'a pas LocalSend d'installé.",
     "openLink": {
       "one": "Ouvrir ce lien dans le navigateur:",
       "other": "Ouvrir un de ces liens dans le navigateur:"
     },
     "requests": "Requêtes",
     "noRequests": "Aucune requête en attente.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Taille"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "OK",
     "cancel": "Annuler",
     "edit": "Modifier",

@@ -71,7 +71,7 @@
       "link": "Compartir via enllaç"
     },
     "sendModeHelp": "Explicació",
-    "help": "Si us plau, asseguris que el destinatari està a la mateixa xarxa Wi-Fi.",    
+    "help": "Si us plau, asseguris que el destinatari està a la mateixa xarxa Wi-Fi.",
     "placeItems": "Place items to share."
   },
   "settingsTab": {
@@ -193,13 +193,14 @@
     "loading": "Iniciant servidor...",
     "stopping": "Parant servidor...",
     "error": "Hi ha hagut un error mentre s'iniciava el servidor.",
-    "hint": "Tingueu en compte que la connexió no està xifrada. Només hauríeu d'utilitzar aquest mètode si el destinatari no té instal·lat LocalSend.",
     "openLink": {
       "one": "Obrir l'enllaç al navegador:",
       "other": "Obrir un d'aquests enllaços al navegador:"
     },
     "requests": "Peticions",
     "noRequests": "Encar ano hi ha peticions.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utilitza un certificat auto-signat. Cal que l'accepteu al navegador.",
     "pendingRequests": "Peticions pendents: {n}"
   },
   "aboutPage": {

@@ -193,13 +193,14 @@
     "loading": "Starte Server...",
     "stopping": "Stoppe server...",
     "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
-    "hint": "Beachte, dass die Verbindung unverschlüsselt ist. Du solltest nur diese Methode verwenden, wenn der Empfänger kein LocalSend installiert hat.",
     "openLink": {
       "one": "Öffne diesen Link im Browser:",
       "other": "Öffne einer dieser Links im Browser:"
     },
     "requests": "Anfragen",
     "noRequests": "Bisher keine Anfragen erhalten.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
@@ -289,6 +290,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "LocalSend beenden"
   },
@@ -300,6 +302,7 @@
     "size": "Größe"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Bestätigen",
     "cancel": "Abbrechen",
     "edit": "Bearbeiten",

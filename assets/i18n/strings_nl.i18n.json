@@ -193,13 +193,14 @@
     "loading": "Server starten...",
     "stopping": "Server stoppen...",
     "error": "Onverwachte fout bij het opstarten van de server.",
-    "hint": "Let op! De verbinding gebruikt geen versleuteling, gebruik deze methode alleen als de ontvanger de app niet heeft geïnstalleerd.",
     "openLink": {
       "one": "Open deze link in de browser:",
       "other": "Open een van deze links in de browser:"
     },
     "requests": "Verzoeken",
     "noRequests": "Nog geen verzoeken.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend maakt gebruik van een zelfondertekend certificaat. U moet het accepteren in de browser.",
     "pendingRequests": "Openstaande verzoeken: {n}"
   },
   "aboutPage": {
@@ -301,6 +302,7 @@
     "size": "Grootte"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Bevestigen",
     "cancel": "Anuleren",
     "edit": "Bewerken",

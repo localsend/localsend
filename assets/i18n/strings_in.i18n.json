@@ -193,13 +193,14 @@
     "loading": "Memulai server...",
     "stopping": "Menghentikan server...",
     "error": "Terjadi kesalahan saat memulai server.",
-    "hint": "Ingatlah bahwa koneksi tidak terenkripsi. Anda hanya harus menggunakan metode ini jika penerima tidak memiliki LocalSend terpasang.",
     "openLink": {
       "one": "Buka tautan ini di browser:",
       "other": "Buka salah satu tautan ini di browser:"
     },
     "requests": "Permintaan",
     "noRequests": "Belum ada permintaan.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Permintaan tertunda: {n}"
   },
   "aboutPage": {
@@ -371,6 +372,7 @@
     "size": "Ukuran"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Konfirmasi",
     "cancel": "Batal",
     "edit": "Edit",

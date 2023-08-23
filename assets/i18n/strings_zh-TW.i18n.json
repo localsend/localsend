@@ -193,13 +193,14 @@
     "loading": "正在啟動伺服器…",
     "stopping": "正在關閉伺服器…",
     "error": "啟動伺服器時發生錯誤。",
-    "hint": "請注意此連線是未加密的，只有在接收者未安裝 LocalSend 的狀況下才應使用此方法。",
     "openLink": {
       "one": "在瀏覽器開啟此連結：",
       "other": "在瀏覽器中開啟其中一個連結："
     },
     "requests": "要求",
     "noRequests": "目前沒有任何要求。",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend使用自簽名憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
   },
   "aboutPage": {
@@ -289,6 +290,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "離開 LocalSend"
   },
@@ -300,6 +302,7 @@
     "size": "大小"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "確認",
     "cancel": "取消",
     "edit": "編輯",
