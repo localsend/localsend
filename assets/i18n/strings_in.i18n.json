@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Tujuan",
       "downloads": "(Unduhan)",
-      "saveToGallery": "Simpan media ke galeri"
+      "saveToGallery": "Simpan media ke galeri",
+      "saveToHistory": "Simpan ke riwayat"
     },
     "network": {
       "title": "Jaringan",

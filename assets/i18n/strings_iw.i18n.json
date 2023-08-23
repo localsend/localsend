@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "יעד",
       "downloads": "(הורדות)",
-      "saveToGallery": "שמור מדיה לגלריה"
+      "saveToGallery": "שמור מדיה לגלריה",
+      "saveToHistory": "שמור בהיסטוריה"
     },
     "network": {
       "title": "רשת",

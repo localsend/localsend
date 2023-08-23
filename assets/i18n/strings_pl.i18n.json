@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
-      "saveToGallery": "Zapisz multimedia w galerii"
+      "saveToGallery": "Zapisz multimedia w galerii",
+      "saveToHistory": "Zapisz do historii"
     },
     "network": {
       "title": "Sieć",

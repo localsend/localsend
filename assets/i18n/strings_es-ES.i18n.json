@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
       "downloads": "(Descargas)",
-      "saveToGallery": "Guardar media en la galería"
+      "saveToGallery": "Guardar media en la galería",
+      "saveToHistory": "Guardar en el historial"
     },
     "network": {
       "title": "Red",

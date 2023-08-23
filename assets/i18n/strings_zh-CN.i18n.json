@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "保存目录",
       "downloads": "(下载)",
-      "saveToGallery": "保存到相册"
+      "saveToGallery": "保存到相册",
+      "saveToHistory": "保存到历史记录"
     },
     "network": {
       "title": "网络",

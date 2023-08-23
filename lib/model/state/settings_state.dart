@@ -18,6 +18,7 @@ class SettingsState with _$SettingsState {
     required String multicastGroup,
     required String? destination, // null = default
     required bool saveToGallery, // only Android, iOS
+    required bool saveToHistory,
     required bool quickSave, // automatically accept file requests
     required bool minimizeToTray, // minimize to tray instead of exiting the app
     required bool launchAtStartup, // Tracks if the option is enabled on Linux

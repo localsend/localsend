@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "حفظ في",
       "downloads": "(التنزيلات)",
-      "saveToGallery": "حفظ الوسائط في المعرض"
+      "saveToGallery": "حفظ الوسائط في المعرض",
+      "saveToHistory": "حفظ في التاريخ"
     },
     "network": {
       "title": "شبكة الاتصال",

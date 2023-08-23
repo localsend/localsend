@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "Mentés helye",
       "downloads": "(Letöltések)",
-      "saveToGallery": "Média mentése a galériába"
+      "saveToGallery": "Média mentése a galériába",
+      "saveToHistory": "Mentés az előzmények közé"
     },
     "network": {
       "title": "Hálózat",

@@ -103,7 +103,8 @@
       "quickSave": "@:general.quickSave",
       "destination": "गन्तव्य",
       "downloads": "(डाउनलोड)",
-      "saveToGallery": "ग्यालरीमा मिडिया सेव  गर्नुहोस्"
+      "saveToGallery": "ग्यालरीमा मिडिया सेव  गर्नुहोस्",
+      "saveToHistory": "इतिहासमा संचय गर्नुहोस्"
     },
     "network": {
       "title": "नेटवर्क",

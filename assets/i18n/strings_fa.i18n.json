@@ -95,14 +95,16 @@
       "saveWindowPlacement": "خروج: ذخیره قرار دادن پنجره",
       "minimizeToTray": "خروج: ارسال برنامه به سیستم تری",
       "launchAtStartup": "شروع خودکار پس از ورود به سیستم",
-      "launchMinimized": "شروع خودکار: شروع به صورت پنجره پنهان"
+      "launchMinimized": "شروع خودکار: شروع به صورت پنجره پنهان",
+      "animations": "انیمیشن‌ها"
     },
     "receive": {
       "title": "دریافت",
       "quickSave": "@:general.quickSave",
       "destination": "مقصد",
       "downloads": "(دانلودها)",
-      "saveToGallery": "ذخیره رسانه در گالری"
+      "saveToGallery": "ذخیره رسانه در گالری",
+      "saveToHistory": "ذخیره در تاریخچه"
     },
     "network": {
       "title": "شبکه",
@@ -114,7 +116,8 @@
       "encryption": "رمزنگاری",
       "multicastGroup": "چندپخشی",
       "multicastGroupWarning": "ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه های دیگر شما را شناسایی نکنند (پیشفرض: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "تنظیمات پیشرفته"
   },
   "troubleshootPage": {
     "title": "عیب یابی",
