@@ -514,7 +514,8 @@ class _BooleanEntry extends StatelessWidget {
                 value: value,
                 onChanged: onChanged,
                 activeTrackColor: Colors.white,
-                activeColor: theme.brightness == Brightness.light ? theme.colorScheme.onSurface.withOpacity(0.8) : theme.inputDecorationTheme.fillColor,
+                activeColor:
+                    theme.brightness == Brightness.light ? theme.colorScheme.onSurface.withOpacity(0.8) : theme.inputDecorationTheme.fillColor,
                 trackOutlineColor: const MaterialStatePropertyAll<Color?>(Colors.grey),
                 inactiveThumbColor: theme.colorScheme.onSurface.withOpacity(0.8),
                 inactiveTrackColor: theme.inputDecorationTheme.fillColor,

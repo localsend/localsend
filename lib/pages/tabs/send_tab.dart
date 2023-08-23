@@ -296,7 +296,7 @@ class _SendTabState extends State<SendTab> with Riverpie {
                     Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
                 ],
               );
-            }
+            },
           ),
         ),
         const SizedBox(height: 50),
