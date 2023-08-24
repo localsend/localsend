@@ -367,7 +367,10 @@ class _ScanButton extends StatelessWidget {
         spinning: spinning,
         reverse: true,
         child: CustomIconButton(
-          onPressed: () async => await context.ref.read(scanProvider).startSmartScan(forceLegacy: true),
+          onPressed: () async {
+            context.ref.notifier(nearbyDevicesProvider).clearFoundDevices();
+            await context.ref.read(scanProvider).startSmartScan(forceLegacy: true);
+          },
           child: Icon(Icons.sync, color: iconColor),
         ),
       );
@@ -375,7 +378,10 @@ class _ScanButton extends StatelessWidget {
 
     return _CircularPopupButton(
       tooltip: t.sendTab.scan,
-      onSelected: (ip) async => context.ref.read(scanProvider).startLegacySubnetScan([ip]),
+      onSelected: (ip) async {
+        context.ref.notifier(nearbyDevicesProvider).clearFoundDevices();
+        await context.ref.read(scanProvider).startLegacySubnetScan([ip]);
+      },
       itemBuilder: (_) {
         return [
           ...ips.map(
