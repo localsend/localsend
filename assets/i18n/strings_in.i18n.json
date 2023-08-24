@@ -324,7 +324,7 @@
       "original": "Asli: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Tidak ada izin",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.",
       "gotoSettings": "Pengaturan"
     },
@@ -335,6 +335,10 @@
     "noFiles": {
       "title": "Tidak ada file yang dipilih",
       "content": "Pilih setidaknya satu file."
+    },
+    "noPermission": {
+      "title": "Tidak ada izin",
+      "content": "Anda belum memberikan izin yang diperlukan. Harap berikan izin tersebut di pengaturan."
     },
     "notAvailableOnPlatform": {
       "title": "Tidak tersedia",

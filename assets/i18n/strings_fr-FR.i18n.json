@@ -254,7 +254,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Pas la permission",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez autoriser cette permission à LocalSend dans les paramètres.",
       "gotoSettings": "Paramètres"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Aucun fichier sélectionné",
       "content": "Veuillez sélectionner au moins un fichier."
+    },
+    "noPermission": {
+      "title": "Pas la permission",
+      "content": "Vous n'avez pas accordé les autorisations nécessaires. Veuillez les accorder dans les paramètres."
     },
     "notAvailableOnPlatform": {
       "title": "Non disponible",

@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
-import 'package:localsend_app/provider/picking_status_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -12,6 +11,7 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
+import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpie_flutter/riverpie_flutter.dart';
@@ -82,7 +82,6 @@ enum FilePickerOption {
   }) async {
     switch (this) {
       case FilePickerOption.file:
-        ref.notifier(pickingStatusProvider).setState((_) => true);
         if (checkPlatform([TargetPlatform.android])) {
           // On android, the files are copied to the cache which takes some time.
           // ignore: unawaited_futures
@@ -92,18 +91,24 @@ enum FilePickerOption {
             builder: (_) => const LoadingDialog(),
           );
         }
-        final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-        if (result != null) {
-          await ref.notifier(selectedSendingFilesProvider).addFiles(
-                files: result.files,
-                converter: CrossFileConverters.convertPlatformFile,
-              );
+        try {
+          final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+          if (result != null) {
+            await ref.notifier(selectedSendingFilesProvider).addFiles(
+                  files: result.files,
+                  converter: CrossFileConverters.convertPlatformFile,
+                );
+          }
+        } catch (e) {
+          // ignore: use_build_context_synchronously
+          await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+          _logger.warning('Failed to pick files', e);
+        } finally {
+          // ignore: use_build_context_synchronously
+          Routerino.context.popUntilRoot(); // remove loading dialog
         }
-        ref.notifier(pickingStatusProvider).setState((_) => false);
         break;
       case FilePickerOption.folder:
-        ref.notifier(pickingStatusProvider).setState((_) => true);
-
         if (checkPlatform([TargetPlatform.android])) {
           try {
             await Permission.manageExternalStorage.request();
@@ -131,8 +136,11 @@ enum FilePickerOption {
           }
         } catch (e) {
           _logger.warning('Failed to pick directory', e);
+          // ignore: use_build_context_synchronously
+          await showDialog(context: context, builder: (_) => const NoPermissionDialog());
         } finally {
-          ref.notifier(pickingStatusProvider).setState((_) => false);
+          // ignore: use_build_context_synchronously
+          Routerino.context.popUntilRoot(); // remove loading dialog
         }
         break;
       case FilePickerOption.media:

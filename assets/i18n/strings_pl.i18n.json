@@ -254,7 +254,7 @@
       "original": "Oryginalny: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Brak uprawnień",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend nie może znaleźć innych urządzeń bez uprawnienia do skanowania sieci lokalnej. Udziel tego uprawnienia w ustawieniach.",
       "gotoSettings": "Ustawienia"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Nie wybrano pliku",
       "content": "Proszę wybierz jeden plik."
+    },
+    "noPermission": {
+      "title": "Brak uprawnień",
+      "content": "Nie udzieliłeś wymaganych uprawnień. Proszę udziel ich w ustawieniach."
     },
     "notAvailableOnPlatform": {
       "title": "Niedostępne",

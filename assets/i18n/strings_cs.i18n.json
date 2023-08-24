@@ -254,7 +254,7 @@
       "original": "Původní: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Žádné oprávnění",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend nemůže najít jiná zařízení, aniž by měl oprávnění skenovat místní síť. Udělte prosím toto oprávnění v nastavení.",
       "gotoSettings": "Nastavení"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Žádný soubor nevybrán",
       "content": "Vyberte prosím alespoň jeden soubor."
+    },
+    "noPermission": {
+      "title": "Žádné oprávnění",
+      "content": "Neposkytli jste potřebná oprávnění. Prosím, udělte je v nastavení."
     },
     "notAvailableOnPlatform": {
       "title": "Není k dispozici",

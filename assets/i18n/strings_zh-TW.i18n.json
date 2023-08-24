@@ -254,7 +254,7 @@
       "original": "原始檔案名稱：{original}"
     },
     "localNetworkUnauthorized": {
-      "title": "沒有權限",
+      "title": "@:dialogs.noPermission.title",
       "description": "在未取得掃描區域網路權限的狀況下 LocalSend 無法找到其他裝置，請在設定中授予此權限。",
       "gotoSettings": "設定"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "未選取檔案",
       "content": "請至少選取一個檔案。"
+    },
+    "noPermission": {
+      "title": "沒有權限",
+      "content": "您尚未授予必要的權限。請在設定中授予權限。"
     },
     "notAvailableOnPlatform": {
       "title": "無法使用",

@@ -34,6 +34,16 @@ Future<(PersistenceService, bool)> preInit(List<String> args) async {
   Logger.root.onRecord.listen((record) {
     // ignore: avoid_print
     print('${record.time} ${'[${record.level.name}]'.padLeft(9)} [${record.loggerName}] ${record.message}');
+
+    if (record.error != null) {
+      // ignore: avoid_print
+      print(record.error);
+    }
+
+    if (record.stackTrace != null) {
+      // ignore: avoid_print
+      print(record.stackTrace);
+    }
   });
 
   final persistenceService = await PersistenceService.initialize();

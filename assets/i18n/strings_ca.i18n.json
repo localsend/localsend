@@ -324,7 +324,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Sense permisos",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend no pot trobar altres dispositius sense tenir el permís per escanejar la xarxa local. Concediu aquest permís a la configuració.",
       "gotoSettings": "Configuració"
     },
@@ -335,6 +335,10 @@
     "noFiles": {
       "title": "Fitxer no seleccionat",
       "content": "Si us plau, seleccioni un fitxer com a mínim."
+    },
+    "noPermission": {
+      "title": "Sense permisos",
+      "content": "No has concedit els permisos necessaris. Concediu-los a la configuració."
     },
     "notAvailableOnPlatform": {
       "title": "No disponible",

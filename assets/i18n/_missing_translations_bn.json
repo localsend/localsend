@@ -113,9 +113,13 @@
       "time": "Time:"
     },
     "localNetworkUnauthorized": {
-      "title": "No permission",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
       "gotoSettings": "Settings"
+    },
+    "noPermission": {
+      "title": "No permission",
+      "content": "You have not granted the necessary permissions. Please grant them in the settings."
     },
     "notAvailableOnPlatform": {
       "title": "Not available",

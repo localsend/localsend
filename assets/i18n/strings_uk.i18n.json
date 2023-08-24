@@ -254,7 +254,7 @@
       "original": "Оригінальне ім'я файлу: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Немає дозволу",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.",
       "gotoSettings": "Налаштування"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Файли не обрано",
       "content": "Будь ласка, додайте як мінімум один файл."
+    },
+    "noPermission": {
+      "title": "Немає дозволу",
+      "content": "Ви не надали необхідні дозволи. Будь ласка, надайте їх у налаштуваннях."
     },
     "notAvailableOnPlatform": {
       "title": "Недоступно",

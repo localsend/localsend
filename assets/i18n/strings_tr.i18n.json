@@ -254,7 +254,7 @@
       "original": "Orijinal: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "İzin yok",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
       "gotoSettings": "Ayarlar"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Herhangi bir dosya seçilmedi",
       "content": "Lütfen bir dosya seçiniz."
+    },
+    "noPermission": {
+      "title": "İzin yok",
+      "content": "Gerekli izinleri vermediniz. Lütfen ayarlardan izinleri verin."
     },
     "notAvailableOnPlatform": {
       "title": "Müsait değil",

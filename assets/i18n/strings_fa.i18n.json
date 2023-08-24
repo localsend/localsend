@@ -324,7 +324,7 @@
       "original": "اصلی: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "بدون مجوز",
+      "title": "@:dialogs.noPermission.title",
       "description": "لوکال سند نمی تواند دستگاه های دیگر را بدون داشتن مجوز اسکن شبکه محلی پیدا کند. لطفاً این مجوز را در تنظیمات به برنامه بدهید",
       "gotoSettings": "تنظیمات"
     },
@@ -335,6 +335,10 @@
     "noFiles": {
       "title": "فایلی انتخاب نشده",
       "content": "لطفا حداقل یک فایل را انتخاب کنید"
+    },
+    "noPermission": {
+      "title": "بدون مجوز",
+      "content": "شما مجوزهای مورد نیاز را اعطا نکرده‌اید. لطفاً آنها را در تنظیمات مجوزدهی کنید."
     },
     "notAvailableOnPlatform": {
       "title": "در دسترس نیست",

@@ -254,7 +254,7 @@
       "original": "元の名前: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "権限がありません",
+      "title": "@:dialogs.noPermission.title",
       "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",
       "gotoSettings": "設定"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "ファイルが選択されていません",
       "content": "少なくとも1つのファイルを選択してください。"
+    },
+    "noPermission": {
+      "title": "権限がありません",
+      "content": "必要な権限を許可していません。設定で許可してください。"
     },
     "notAvailableOnPlatform": {
       "title": "利用不可",
