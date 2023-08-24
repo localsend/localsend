@@ -19,7 +19,9 @@ class ScanFacade {
   const ScanFacade(this._ref);
 
   /// Scans the network via multicast first,
-  /// if no devices has been found, try http-based discovery on the first subnet
+  /// if no devices has been found, try http-based discovery on the first subnet.
+  /// If [forceLegacy] is true, then the http-based discovery runs in parallel.
+  /// Otherwise, it runs after a delay of 1 second and only if no devices has been found.
   Future<void> startSmartScan({required bool forceLegacy}) async {
     // Try performant Multicast/UDP method first
     _ref.notifier(nearbyDevicesProvider).startMulticastScan();

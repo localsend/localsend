@@ -32,8 +32,6 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
   late String _fingerprint;
   late MulticastService _multicastService;
 
-  NearbyDevicesNotifier();
-
   @override
   NearbyDevicesState init() {
     _dio = ref.read(dioProvider).discovery;
@@ -95,6 +93,10 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
     state = state.copyWith(
       devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
     );
+  }
+
+  void clearFoundDevices() {
+    state = state.copyWith(devices: {});
   }
 
   Future<Device?> _doRequest(String currentIp, int port, bool https, String fingerprint) async {
