@@ -254,7 +254,7 @@
       "original": "מקורי: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "אין הרשאה",
+      "title": "@:dialogs.noPermission.title",
       "description": "ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. בבקשה הענק את ההרשאה הזו בהגדרות.",
       "gotoSettings": "הגדרות"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "אף קובץ לא נבחר",
       "content": "אנא בחר קובץ אחד לפחות."
+    },
+    "noPermission": {
+      "title": "אין הרשאה",
+      "content": "אתה לא נתת הרשאות הנדרשות. אנא הענק את הרשאות בהגדרות."
     },
     "notAvailableOnPlatform": {
       "title": "לא זמין",

@@ -254,7 +254,7 @@
       "original": "Origineel: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Geen permissie",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kan geen andere apparaten op uw netwerk vinden zonder de juiste permissies voor netwerktoegang te hebben verkregen. Stel deze correct in in het instellingen menu.",
       "gotoSettings": "Instellingen"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Geen bestand geselecteerd",
       "content": "Selecteer minstens één bestand."
+    },
+    "noPermission": {
+      "title": "Geen permissie",
+      "content": "U heeft de benodigde rechten niet verleend. Verleen deze alstublieft in de instellingen."
     },
     "notAvailableOnPlatform": {
       "title": "Niet beschikbaar",

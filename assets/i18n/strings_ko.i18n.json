@@ -254,7 +254,7 @@
       "original": "기존 이름: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "권한 없음",
+      "title": "@:dialogs.noPermission.title",
       "description": "로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.",
       "gotoSettings": "설정"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "파일이 선택되지 않았습니다",
       "content": "적어도 하나 이상의 파일을 선택해주세요"
+    },
+    "noPermission": {
+      "title": "권한 없음",
+      "content": "필요한 권한을 허용하지 않았습니다. 설정에서 허용해주세요."
     },
     "notAvailableOnPlatform": {
       "title": "사용 불가",

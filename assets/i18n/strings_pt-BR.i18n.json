@@ -314,7 +314,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Sem permissão",
+      "title": "@:dialogs.noPermission.title",
       "description": "O LocalSend não consegue encontrar outros dispositivos sem ter a permissão para escanear a rede local. Por favor, conceda esta permissão nas configurações.",
       "gotoSettings": "Configurações"
     },
@@ -325,6 +325,10 @@
     "noFiles": {
       "title": "Nenhum arquivo selecionado",
       "content": "Por favor, selecione ao menos um arquivo."
+    },
+    "noPermission": {
+      "title": "Sem permissão",
+      "content": "Você não concedeu as permissões necessárias. Por favor, conceda-as nas configurações."
     },
     "notAvailableOnPlatform": {
       "title": "Indisponível",

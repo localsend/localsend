@@ -324,7 +324,7 @@
       "original": "Orginal: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Ingen behörighet",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kan inte hitta andra enheter utan att ha behörighet att skanna det lokala nätverket. Bevilja denna behörighet i inställningarna.",
       "gotoSettings": "Inställningar"
     },
@@ -335,6 +335,10 @@
     "noFiles": {
       "title": "Ingen fil vald",
       "content": "Var god välj minst en fil."
+    },
+    "noPermission": {
+      "title": "Ingen behörighet",
+      "content": "Du har inte beviljat nödvändiga behörigheter. Var vänlig bevilja dem i inställningarna."
     },
     "notAvailableOnPlatform": {
       "title": "Inte tillgängligt",

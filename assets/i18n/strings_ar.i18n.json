@@ -324,7 +324,7 @@
       "original": "أصلي: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "بدون إذن",
+      "title": "@:dialogs.noPermission.title",
       "description": "لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يرجى منح هذا الإذن في الإعدادات.",
       "gotoSettings": "الإعدادات"
     },
@@ -335,6 +335,10 @@
     "noFiles": {
       "title": "لم يتم اختيار اي ملف",
       "content": "الرجاء تحديد ملف واحد على الأقل."
+    },
+    "noPermission": {
+      "title": "بدون إذن",
+      "content": "لم تقم بمنح الأذونات اللازمة. يرجى منحها من الإعدادات."
     },
     "notAvailableOnPlatform": {
       "title": "غير متاح",

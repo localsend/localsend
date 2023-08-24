@@ -254,7 +254,7 @@
       "original": "原名：{original}"
     },
     "localNetworkUnauthorized": {
-      "title": "權限閂咗",
+      "title": "@:dialogs.noPermission.title",
       "description": "喺冇權掃描區域網路嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。",
       "gotoSettings": "開啟系統設定"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "冇揀選檔案",
       "content": "最少需要揀選一個檔案。"
+    },
+    "noPermission": {
+      "title": "權限閂咗",
+      "content": "你尚未授權所需的權限。請在設定中授權。"
     },
     "notAvailableOnPlatform": {
       "title": "無法使用",

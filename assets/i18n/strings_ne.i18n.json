@@ -324,7 +324,7 @@
       "original": "मूल: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "अनुमति नहीं है",
+      "title": "@:dialogs.noPermission.title",
       "description": " LocalSend बिना निजी नेटवर्क स्कैन की अनुमति के बिना अन्य उपकरणों को नहीं खोज सकता है। कृपया सेटिंग्स में इस अनुमति को प्रदान करें।",
       "gotoSettings": "सेटिंग्स"
     },
@@ -335,6 +335,10 @@
     "noFiles": {
       "title": "कुनै फाइल चयन गरिएको छैन",
       "content": "कृपया कम्तिमा एउटा फाइल चयन गर्नुहोस्।"
+    },
+    "noPermission": {
+      "title": "अनुमति नहीं है",
+      "content": "तपाईंले आवश्यक अनुमतिहरूको प्रदान गर्न दिएको छैन। कृपया सेटिङहरूमा तिनीहरूलाई प्रदान गर्नुहोस्।"
     },
     "notAvailableOnPlatform": {
       "title": "उपलब्ध नहीं है",

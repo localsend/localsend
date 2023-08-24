@@ -254,7 +254,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Keine Berechtigung",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",
       "gotoSettings": "Einstellungen"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "Keine Datei ausgewählt",
       "content": "Bitte wähle mindestens eine Datei aus."
+    },
+    "noPermission": {
+      "title": "Keine Berechtigung",
+      "content": "Sie haben die erforderlichen Berechtigungen nicht gewährt. Bitte gewähren Sie sie in den Einstellungen."
     },
     "notAvailableOnPlatform": {
       "title": "Nicht verfügbar",

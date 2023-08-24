@@ -254,7 +254,7 @@
       "original": "اصل: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "اجازت نہیں",
+      "title": "@:dialogs.noPermission.title",
       "description": "لوکل نیٹ ورک کا سکین کرنے کی اجازت کے بغیر LocalSend، دیگر ڈیوائسز تلاش نہیں کرسکتا ہے۔ براہ کرم ترتیبات میں اس اجازت کو منظور کریں۔",
       "gotoSettings": "ترتیبات"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "کوئی فائل منتخب نہیں کی گئی",
       "content": "براہ کرم کم از کم ایک فائل منتخب کریں۔"
+    },
+    "noPermission": {
+      "title": "اجازت نہیں",
+      "content": "آپ نے ضروری اجازتیں فراہم نہیں کی ہیں۔ براہ کرم انہیں ترتیبات میں فراہم کریں۔"
     },
     "notAvailableOnPlatform": {
       "title": "دستیاب نہیں",

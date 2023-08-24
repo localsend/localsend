@@ -254,7 +254,7 @@
       "original": "原名：{original}"
     },
     "localNetworkUnauthorized": {
-      "title": "没有权限",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend 在没有扫描本地网络的权限的情况下无法找到其他设备。请在设置中授予此权限。",
       "gotoSettings": "设置"
     },
@@ -265,6 +265,10 @@
     "noFiles": {
       "title": "未选择文件",
       "content": "请至少选择一个文件。"
+    },
+    "noPermission": {
+      "title": "没有权限",
+      "content": "您尚未授予必要的权限。请在设置中授予权限。"
     },
     "notAvailableOnPlatform": {
       "title": "不可用",
