@@ -2,6 +2,7 @@
 
 - feat: optionally enable HTTPS (encryption) when share via link (@Tienisto)
 - feat: use switches instead of dropdowns for settings (@forecaster-cyber)
+- feat: tapping on scan button clears found devices (@Tienisto)
 - feat: text message dialog is multiline only (@Tienisto)
 - feat: add option to disable animations (@Tienisto)
 - feat: add option to not save to history (@Tienisto)
@@ -9,6 +10,7 @@
 - feat(android, ios): open link in new browser tab (@Tienisto)
 - feat(linux): enable autostart feature (@TheGB0077)
 - fix(android, ios): Save GIFs and image metadata (@natsuk4ze)
+- fix(android, ios): handle decline permission when picking files (@Tienisto)
 - fix(desktop): GPU usage when hidden to tray (@Tienisto)
 
 ## 1.10.0 (2023-06-02)
