@@ -23,7 +23,7 @@ import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class ProgressPage extends StatefulWidget {
   final bool showAppBar;
@@ -56,7 +56,7 @@ class _ProgressPageState extends State<ProgressPage> with Riverpie {
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
-        unawaited(Wakelock.enable());
+        unawaited(WakelockPlus.enable());
       } catch (_) {}
 
       setState(() {
@@ -81,7 +81,7 @@ class _ProgressPageState extends State<ProgressPage> with Riverpie {
   void dispose() {
     super.dispose();
     try {
-      unawaited(Wakelock.disable());
+      unawaited(WakelockPlus.disable());
     } catch (_) {}
   }
 

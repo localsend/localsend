@@ -109,7 +109,7 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
       final dto = InfoDto.fromJson(response.data);
       device = dto.toDevice(currentIp, port, https);
       ref.notifier(discoveryLogsProvider).addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       device = null;
     } catch (e) {
       device = null;

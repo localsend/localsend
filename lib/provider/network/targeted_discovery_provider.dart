@@ -32,7 +32,7 @@ class TargetedDiscoveryService {
       });
       final dto = InfoDto.fromJson(response.data);
       device = dto.toDevice(ip, port, https);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       device = null;
       _logger.warning('$url: ${e.error}');
     } catch (e) {

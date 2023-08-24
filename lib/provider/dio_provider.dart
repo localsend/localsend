@@ -42,7 +42,7 @@ Dio createDio(Duration timeout, StoredSecurityContext securityContext, [Ref? ref
 
   // Allow any self signed certificate
   dio.httpClientAdapter = IOHttpClientAdapter(
-    onHttpClientCreate: (_) {
+    createHttpClient: () {
       final client = HttpClient(
         context: SecurityContext()
           ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)

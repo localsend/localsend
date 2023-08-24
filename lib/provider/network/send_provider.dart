@@ -125,7 +125,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.push(
         () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
-        transition: RouterinoTransition.fade,
+        transition: RouterinoTransition.fade(),
       );
     }
 
@@ -137,14 +137,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         cancelToken: cancelToken,
       );
     } catch (e) {
-      if (e is DioError && e.response?.statusCode == 403) {
+      if (e is DioException && e.response?.statusCode == 403) {
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(
             status: SessionStatus.declined,
           ),
         );
-      } else if (e is DioError && e.response?.statusCode == 409) {
+      } else if (e is DioException && e.response?.statusCode == 409) {
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(
@@ -223,7 +223,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
-        transition: RouterinoTransition.fade,
+        transition: RouterinoTransition.fade(),
         // immediately is not possible: https://github.com/flutter/flutter/issues/121910
         builder: () => ProgressPage(
           showAppBar: background,
@@ -449,7 +449,7 @@ extension on SendSessionState {
 extension on Object {
   String get humanErrorMessage {
     final e = this;
-    if (e is DioError && e.response != null) {
+    if (e is DioException && e.response != null) {
       final body = e.response!.data;
       String message;
       try {

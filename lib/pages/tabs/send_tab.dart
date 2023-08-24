@@ -566,7 +566,7 @@ class _MultiSendDeviceListTile extends StatelessWidget {
             ref.notifier(sendProvider).setBackground(session.sessionId, false);
             await context.push(
               () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
-              transition: RouterinoTransition.fade,
+              transition: RouterinoTransition.fade(),
             );
             ref.notifier(sendProvider).setBackground(session.sessionId, true);
             return;
