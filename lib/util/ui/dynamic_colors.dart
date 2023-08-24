@@ -1,6 +1,5 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 class DynamicColors {
@@ -17,6 +16,7 @@ final dynamicColorsProvider = Provider<DynamicColors?>((ref) => throw 'not initi
 
 /// Returns the dynamic colors.
 /// A copy of the dynamic_color_plugin implementation to retrieve the dynamic colors without a widget.
+/// We need to replace [PlatformException] with a generic exception because on Windows 7 it is somehow not a [PlatformException].
 Future<DynamicColors?> getDynamicColors() async {
   try {
     final corePalette = await DynamicColorPlugin.getCorePalette();
@@ -27,7 +27,7 @@ Future<DynamicColors?> getDynamicColors() async {
         dark: corePalette.toColorScheme(brightness: Brightness.dark),
       );
     }
-  } on PlatformException {
+  } catch (e) {
     debugPrint('dynamic_color: Failed to obtain core palette.');
   }
 
@@ -46,7 +46,7 @@ Future<DynamicColors?> getDynamicColors() async {
         ),
       );
     }
-  } on PlatformException {
+  } catch (e) {
     debugPrint('dynamic_color: Failed to obtain accent color.');
   }
 

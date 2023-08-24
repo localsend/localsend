@@ -784,10 +784,11 @@ packages:
   network_info_plus:
     dependency: "direct main"
     description:
-      name: network_info_plus
-      sha256: c0113bfd4276be3fe4ba56aeb2792d780df9f3f62aaa4afdd1cdf716b8e29545
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/network_info_plus/network_info_plus"
+      ref: "646655dd27facd2ac61e9b9557c6f4b0c6b966a9"
+      resolved-ref: "646655dd27facd2ac61e9b9557c6f4b0c6b966a9"
+      url: "https://github.com/Tienisto/plus_plugins.git"
+    source: git
     version: "4.0.2"
   network_info_plus_platform_interface:
     dependency: transitive
@@ -1591,10 +1592,11 @@ packages:
   window_manager:
     dependency: "direct main"
     description:
-      name: window_manager
-      sha256: "9eef00e393e7f9308309ce9a8b2398c9ee3ca78b50c96e8b4f9873945693ac88"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "159a3ee305bbaf9e03a54b8e5315f76616a64a4a"
+      resolved-ref: "159a3ee305bbaf9e03a54b8e5315f76616a64a4a"
+      url: "https://github.com/Tienisto/window_manager.git"
+    source: git
     version: "0.3.5"
   xdg_directories:
     dependency: transitive

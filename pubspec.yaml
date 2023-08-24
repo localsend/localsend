@@ -75,12 +75,23 @@ dev_dependencies:
   test: ^1.24.1
 
 dependency_overrides:
+  network_info_plus:
+    # https://github.com/fluttercommunity/plus_plugins/pull/2101
+    git:
+      url: https://github.com/Tienisto/plus_plugins.git
+      path: packages/network_info_plus/network_info_plus
+      ref: 646655dd27facd2ac61e9b9557c6f4b0c6b966a9
   permission_handler_windows:
     # Remove windows support as it causes trouble with Windows 7
     # https://github.com/Baseflow/flutter-permission-handler/issues/1034
     git:
       url: https://github.com/localsend/permission_handler_windows_noop.git
       ref: fc09b707ab4535a9214c87b16f09feda7e765d90
+  window_manager:
+    # https://github.com/leanflutter/window_manager/pull/388
+    git:
+      url: https://github.com/Tienisto/window_manager.git
+      ref: 159a3ee305bbaf9e03a54b8e5315f76616a64a4a
 
 flutter:
   uses-material-design: true
