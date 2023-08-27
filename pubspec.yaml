@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   basic_utils: 5.6.1
-  collection: 1.17.1
+  collection: ^1.17.1 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 4.0.2
   desktop_drop: 0.4.1
   device_apps: 2.2.0
@@ -27,7 +27,7 @@ dependencies:
   freezed_annotation: 2.4.1
   gal: 1.8.6
   image_picker: 1.0.2
-  intl: ^0.18.0 # allow newer versions so it can compile with newer Flutter versions
+  intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
   json_annotation: 4.8.1
   launch_at_startup: 0.2.2
   logging: 1.2.0
@@ -39,9 +39,9 @@ dependencies:
   path_provider: 2.1.0
   permission_handler: 10.4.3
   pretty_qr_code: 2.0.3
-  riverpie_flutter: 0.16.0
+  riverpie_flutter: 0.18.0
   routerino: 0.8.0
-  screen_retriever: 0.1.6
+  screen_retriever: 0.1.9
   share_handler: 0.0.17
   shared_preferences: 2.2.0
   shared_storage: 0.8.0
@@ -61,7 +61,7 @@ dependencies:
   uuid: 3.0.7
   wakelock_plus: 1.1.1
   wechat_assets_picker: 8.6.3
-  window_manager: 0.3.5
+  window_manager: 0.3.6
 
 dev_dependencies:
   build_runner: 2.4.6
@@ -78,20 +78,15 @@ dependency_overrides:
   network_info_plus:
     # https://github.com/fluttercommunity/plus_plugins/pull/2101
     git:
-      url: https://github.com/Tienisto/plus_plugins.git
+      url: https://github.com/fluttercommunity/plus_plugins.git
       path: packages/network_info_plus/network_info_plus
-      ref: 646655dd27facd2ac61e9b9557c6f4b0c6b966a9
+      ref: ab6e6b52ff456fa4b6f8c5a8e2cf7df5a1dd1f4e
   permission_handler_windows:
     # Remove windows support as it causes trouble with Windows 7
     # https://github.com/Baseflow/flutter-permission-handler/issues/1034
     git:
       url: https://github.com/localsend/permission_handler_windows_noop.git
       ref: fc09b707ab4535a9214c87b16f09feda7e765d90
-  window_manager:
-    # https://github.com/leanflutter/window_manager/pull/388
-    git:
-      url: https://github.com/Tienisto/window_manager.git
-      ref: 159a3ee305bbaf9e03a54b8e5315f76616a64a4a
 
 flutter:
   uses-material-design: true

@@ -6,15 +6,26 @@ import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _logger = Logger('Riverpie');
 
-class CustomRiverpieDebugObserver extends RiverpieDebugObserver {
-  CustomRiverpieDebugObserver()
-      : super(
-          onLine: (line) => _logger.info(line),
-          exclude: (event) {
-            return event is ChangeEvent &&
-                (event.notifier.runtimeType == DiscoveryLogsNotifier ||
-                    event.notifier.runtimeType == NetworkStateNotifier ||
-                    event.notifier.runtimeType == ProgressNotifier);
-          },
-        );
+class CustomRiverpieObserver extends RiverpieMultiObserver {
+  CustomRiverpieObserver()
+      : super(observers: [
+          RiverpieDebugObserver(
+            onLine: (line) => _logger.info(line),
+            exclude: (event) {
+              return event is ChangeEvent &&
+                  (event.notifier.runtimeType == DiscoveryLogsNotifier ||
+                      event.notifier.runtimeType == NetworkStateNotifier ||
+                      event.notifier.runtimeType == ProgressNotifier);
+            },
+          ),
+          RiverpieTracingObserver(
+            limit: 100,
+            exclude: (event) {
+              return event is ChangeEvent &&
+                  (event.notifier.runtimeType == DiscoveryLogsNotifier ||
+                      event.notifier.runtimeType == NetworkStateNotifier ||
+                      event.notifier.runtimeType == ProgressNotifier);
+            },
+          ),
+        ]);
 }

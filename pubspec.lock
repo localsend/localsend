@@ -785,9 +785,9 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/network_info_plus/network_info_plus"
-      ref: "646655dd27facd2ac61e9b9557c6f4b0c6b966a9"
-      resolved-ref: "646655dd27facd2ac61e9b9557c6f4b0c6b966a9"
-      url: "https://github.com/Tienisto/plus_plugins.git"
+      ref: ab6e6b52ff456fa4b6f8c5a8e2cf7df5a1dd1f4e
+      resolved-ref: ab6e6b52ff456fa4b6f8c5a8e2cf7df5a1dd1f4e
+      url: "https://github.com/fluttercommunity/plus_plugins.git"
     source: git
     version: "4.0.2"
   network_info_plus_platform_interface:
@@ -1035,18 +1035,18 @@ packages:
     dependency: transitive
     description:
       name: riverpie
-      sha256: db9f2d137d0f56fa5f913ac82280548061179c40d2686f4f4c61778daedb0a19
+      sha256: "401152270cbc3ac4c0ee9a47542291b1eb6b18156433738058527ba791bc3fed"
       url: "https://pub.dev"
     source: hosted
-    version: "0.16.0"
+    version: "0.18.0"
   riverpie_flutter:
     dependency: "direct main"
     description:
       name: riverpie_flutter
-      sha256: e2d905baceec574fd111f5e52c881a4d860239e7693bd756341c7ec5bfba95d2
+      sha256: c857ca7714a89f04c070da6826dd73c41a6bfda62769a1f6aab899dcccec696b
       url: "https://pub.dev"
     source: hosted
-    version: "0.16.0"
+    version: "0.18.0"
   routerino:
     dependency: "direct main"
     description:
@@ -1059,10 +1059,10 @@ packages:
     dependency: "direct main"
     description:
       name: screen_retriever
-      sha256: "4931f226ca158123ccd765325e9fbf360bfed0af9b460a10f960f9bb13d58323"
+      sha256: "6ee02c8a1158e6dae7ca430da79436e3b1c9563c8cf02f524af997c201ac2b90"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.6"
+    version: "0.1.9"
   share_handler:
     dependency: "direct main"
     description:
@@ -1592,12 +1592,11 @@ packages:
   window_manager:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "159a3ee305bbaf9e03a54b8e5315f76616a64a4a"
-      resolved-ref: "159a3ee305bbaf9e03a54b8e5315f76616a64a4a"
-      url: "https://github.com/Tienisto/window_manager.git"
-    source: git
-    version: "0.3.5"
+      name: window_manager
+      sha256: "6ee795be9124f90660ea9d05e581a466de19e1c89ee74fc4bf528f60c8600edd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.6"
   xdg_directories:
     dependency: transitive
     description:

@@ -27,7 +27,7 @@ Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   final (persistenceService, startHidden) = await preInit(args);
   final scope = RiverpieScope(
-    observer: kDebugMode ? CustomRiverpieDebugObserver() : null,
+    observer: kDebugMode ? CustomRiverpieObserver() : null,
     overrides: [
       persistenceProvider.overrideWithValue(persistenceService),
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),

@@ -42,18 +42,23 @@ class DebugPage extends StatelessWidget {
             spacing: 10,
             runSpacing: 10,
             children: [
-              ElevatedButton(
+              FilledButton(
                 onPressed: () async => context.push(() => const SecurityDebugPage()),
                 child: const Text('Security'),
               ),
-              ElevatedButton(
+              FilledButton(
                 onPressed: () async => context.push(() => const DiscoveryDebugPage()),
                 child: const Text('Discovery'),
               ),
-              ElevatedButton(
+              FilledButton(
                 onPressed: () async => context.push(() => const HttpLogsPage()),
                 child: const Text('HTTP Logs'),
               ),
+              if (kDebugMode)
+                FilledButton(
+                  onPressed: () async => context.push(() => const RiverpieTracingPage()),
+                  child: const Text('Riverpie Tracing'),
+                ),
             ],
           ),
         ],
