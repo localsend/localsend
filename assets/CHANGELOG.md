@@ -1,4 +1,4 @@
-## 1.11.0 (2023-)
+## 1.11.0 (2023-08-28)
 
 - feat: optionally enable HTTPS (encryption) when share via link (@Tienisto)
 - feat: use switches instead of dropdowns for settings (@forecaster-cyber)
