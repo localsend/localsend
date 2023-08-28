@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Zamknij: Zapisz położenie okna",
       "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart po zalogowaniu",
-      "launchMinimized": "Autostart: Start ukryty"
+      "launchMinimized": "Autostart: Start ukryty",
+      "animations": "Animacje"
     },
     "receive": {
       "title": "Odbierz",
       "quickSave": "@:general.quickSave",
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
-      "saveToGallery": "Zapisz multimedia w galerii"
+      "saveToGallery": "Zapisz multimedia w galerii",
+      "saveToHistory": "Zapisz do historii"
     },
     "network": {
       "title": "Sieć",
       "needRestart": "Uruchom ponownie serwer, aby zastosować ustawienia!",
       "server": "Serwer",
       "alias": "Alias",
+      "deviceType": "Typ urządzenia",
+      "deviceModel": "Model urządzenia",
       "port": "Port",
       "portWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: {defaultPort})",
       "encryption": "Szyfrowanie",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego adresu multicast. (domyślnie: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Zaawansowane ustawienia"
   },
   "troubleshootPage": {
     "title": "Rozwiązywanie problemów",
@@ -193,13 +198,14 @@
     "loading": "Uruchamianie serwera...",
     "stopping": "Zatrzymywanie serwera...",
     "error": "Wystąpił błąd podczas uruchamiania serwera.",
-    "hint": "Pamiętaj, że połączenie jest niezaszyfrowane. Używaj tej metody tylko wtedy, gdy odbiorca nie ma zainstalowanego LocalSend.",
     "openLink": {
       "one": "Otwórz ten link w przeglądarce:",
       "other": "Otwórz jeden z tych linków w przeglądarce:"
     },
     "requests": "Żądania",
     "noRequests": "Brak żądań.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.",
     "pendingRequests": "Oczekujące żądania: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Oryginalny: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Brak uprawnień",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend nie może znaleźć innych urządzeń bez uprawnienia do skanowania sieci lokalnej. Udziel tego uprawnienia w ustawieniach.",
       "gotoSettings": "Ustawienia"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Nie wybrano pliku",
       "content": "Proszę wybierz jeden plik."
+    },
+    "noPermission": {
+      "title": "Brak uprawnień",
+      "content": "Nie udzieliłeś wymaganych uprawnień. Proszę udziel ich w ustawieniach."
     },
     "notAvailableOnPlatform": {
       "title": "Niedostępne",
@@ -301,6 +311,7 @@
     "size": "Rozmiar"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Potwierdź",
     "cancel": "Anuluj",
     "edit": "Edytuj",

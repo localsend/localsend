@@ -95,26 +95,31 @@
       "saveWindowPlacement": "離開：儲存視窗位置",
       "minimizeToTray": "離開：最小化至系統匣",
       "launchAtStartup": "登入後自動啟動",
-      "launchMinimized": "自動啟動至系統匣"
+      "launchMinimized": "自動啟動至系統匣",
+      "animations": "動畫效果"
     },
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
       "destination": "儲存目錄",
       "downloads": "(下載)",
-      "saveToGallery": "儲存媒體至相簿"
+      "saveToGallery": "儲存媒體至相簿",
+      "saveToHistory": "儲存至歷史紀錄"
     },
     "network": {
       "title": "網路",
       "needRestart": "重新啟動伺服器以套用設定！",
       "server": "伺服器",
       "alias": "別名",
+      "deviceType": "裝置類型",
+      "deviceModel": "裝置型號",
       "port": "通訊埠",
       "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
       "encryption": "加密",
       "multicastGroup": "多點傳送",
       "multicastGroupWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：{defaultMulticast})"
-    }
+    },
+    "advancedSettings": "進階設定"
   },
   "troubleshootPage": {
     "title": "疑難排解",
@@ -193,13 +198,14 @@
     "loading": "正在啟動伺服器…",
     "stopping": "正在關閉伺服器…",
     "error": "啟動伺服器時發生錯誤。",
-    "hint": "請注意此連線是未加密的，只有在接收者未安裝 LocalSend 的狀況下才應使用此方法。",
     "openLink": {
       "one": "在瀏覽器開啟此連結：",
       "other": "在瀏覽器中開啟其中一個連結："
     },
     "requests": "要求",
     "noRequests": "目前沒有任何要求。",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend使用自簽名憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "原始檔案名稱：{original}"
     },
     "localNetworkUnauthorized": {
-      "title": "沒有權限",
+      "title": "@:dialogs.noPermission.title",
       "description": "在未取得掃描區域網路權限的狀況下 LocalSend 無法找到其他裝置，請在設定中授予此權限。",
       "gotoSettings": "設定"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "未選取檔案",
       "content": "請至少選取一個檔案。"
+    },
+    "noPermission": {
+      "title": "沒有權限",
+      "content": "您尚未授予必要的權限。請在設定中授予權限。"
     },
     "notAvailableOnPlatform": {
       "title": "無法使用",
@@ -289,6 +299,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "離開 LocalSend"
   },
@@ -300,6 +311,7 @@
     "size": "大小"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "確認",
     "cancel": "取消",
     "edit": "編輯",

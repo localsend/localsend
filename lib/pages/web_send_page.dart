@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -12,40 +11,47 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 enum _ServerState { initializing, running, error, stopping }
 
-class WebSendPage extends ConsumerStatefulWidget {
+class WebSendPage extends StatefulWidget {
   final List<CrossFile> files;
 
   const WebSendPage(this.files);
 
   @override
-  ConsumerState<WebSendPage> createState() => _WebSendPageState();
+  State<WebSendPage> createState() => _WebSendPageState();
 }
 
-class _WebSendPageState extends ConsumerState<WebSendPage> {
+class _WebSendPageState extends State<WebSendPage> with Riverpie {
   _ServerState _stateEnum = _ServerState.initializing;
+  bool _encrypted = false;
   String? _initializedError;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _init();
+      _init(encrypted: false);
     });
   }
 
-  void _init() async {
-    await sleepAsync(500);
+  void _init({required bool encrypted}) async {
     final settings = ref.read(settingsProvider);
+    setState(() {
+      _stateEnum = _ServerState.initializing;
+      _encrypted = encrypted;
+      _initializedError = null;
+    });
+    await sleepAsync(500);
     try {
-      await ref.read(serverProvider.notifier).restartServer(
+      await ref.notifier(serverProvider).restartServer(
             alias: settings.alias,
             port: settings.port,
-            https: false, // always start unencrypted
+            https: _encrypted,
           );
-      await ref.read(serverProvider.notifier).initializeWebSend(widget.files);
+      await ref.notifier(serverProvider).initializeWebSend(widget.files);
       setState(() {
         _stateEnum = _ServerState.running;
       });
@@ -61,7 +67,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
 
   /// Web share uses unencrypted http, so we need to revert to the previous state.
   Future<void> _revertServerState() async {
-    await ref.read(serverProvider.notifier).restartServerFromSettings();
+    await ref.notifier(serverProvider).restartServerFromSettings();
   }
 
   @override
@@ -129,7 +135,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ...networkState.localIps.map((ip) {
-                          final url = 'http://$ip:${serverState.port}';
+                          final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
                           return Padding(
                             padding: const EdgeInsets.all(5),
                             child: Row(
@@ -209,7 +215,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                             if (session.responseHandler != null) ...[
                               TextButton(
                                 onPressed: () {
-                                  ref.read(serverProvider.notifier).declineWebSendRequest(session.sessionId);
+                                  ref.notifier(serverProvider).declineWebSendRequest(session.sessionId);
                                 },
                                 style: TextButton.styleFrom(
                                   foregroundColor: Theme.of(context).colorScheme.onSurface,
@@ -218,7 +224,7 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  ref.read(serverProvider.notifier).acceptWebSendRequest(session.sessionId);
+                                  ref.notifier(serverProvider).acceptWebSendRequest(session.sessionId);
                                 },
                                 style: TextButton.styleFrom(
                                   foregroundColor: Theme.of(context).colorScheme.onSurface,
@@ -241,7 +247,24 @@ class _WebSendPageState extends ConsumerState<WebSendPage> {
                     ),
                   );
                 }),
-                Text(t.webSharePage.hint, textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(t.webSharePage.encryption, style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(width: 10),
+                    Checkbox(
+                      value: _encrypted,
+                      onChanged: (value) {
+                        _init(encrypted: value == true);
+                      },
+                    ),
+                  ],
+                ),
+                if (_encrypted)
+                  Text(
+                    t.webSharePage.encryptionHint,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
+                  ),
               ],
             );
           },

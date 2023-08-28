@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/list_tile/custom_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 class DevicePlaceholderListTile extends StatelessWidget {
   const DevicePlaceholderListTile();
 
   @override
   Widget build(BuildContext context) {
+    final animations = context.ref.watch(animationProvider);
     return CustomListTile(
       icon: OpacitySlideshow(
         durationMillis: 3000,
+        running: animations,
         children: [
           ...DeviceType.values.map((d) => Icon(d.icon, size: 46)),
         ],

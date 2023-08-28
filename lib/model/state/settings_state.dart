@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 
@@ -18,6 +19,7 @@ class SettingsState with _$SettingsState {
     required String multicastGroup,
     required String? destination, // null = default
     required bool saveToGallery, // only Android, iOS
+    required bool saveToHistory,
     required bool quickSave, // automatically accept file requests
     required bool minimizeToTray, // minimize to tray instead of exiting the app
     required bool launchAtStartup, // Tracks if the option is enabled on Linux
@@ -25,5 +27,8 @@ class SettingsState with _$SettingsState {
     required bool https,
     required SendMode sendMode,
     required bool saveWindowPlacement,
+    required bool enableAnimations,
+    required DeviceType? deviceType,
+    required String? deviceModel,
   }) = _SettingsState;
 }

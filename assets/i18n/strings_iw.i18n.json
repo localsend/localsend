@@ -95,26 +95,31 @@
       "saveWindowPlacement": "יציאה: שמירת מיקום החלון",
       "minimizeToTray": "יציאה: מזעור למגש",
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
-      "launchMinimized": "הפעלה אוטומטית: התחל מוסתר"
+      "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
+      "animations": "הנפשות"
     },
     "receive": {
       "title": "קבל",
       "quickSave": "@:general.quickSave",
       "destination": "יעד",
       "downloads": "(הורדות)",
-      "saveToGallery": "שמור מדיה לגלריה"
+      "saveToGallery": "שמור מדיה לגלריה",
+      "saveToHistory": "שמור בהיסטוריה"
     },
     "network": {
       "title": "רשת",
       "needRestart": "הפעל מחדש את השרת כדי להחיל את ההגדרות!",
       "server": "שרת",
       "alias": "כינוי",
+      "deviceType": "סוג המכשיר",
+      "deviceModel": "דגם המכשיר",
       "port": "יציאה",
       "portWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: {defaultPort})",
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",
       "multicastGroupWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "הגדרות מתקדמות"
   },
   "troubleshootPage": {
     "title": "פתרון תקלות",
@@ -193,13 +198,14 @@
     "loading": "הפעלת השרת...",
     "stopping": "השהיית השרת...",
     "error": "אירעה שגיאה בזמן התחלת השרת.",
-    "hint": "חשוב לזכור שהחיבור אינו מוצפן. עליך להשתמש בשיטה זו רק אם המקבל אין לו LocalSend מותקן.",
     "openLink": {
       "one": "פתח את הקישור בדפדפן:",
       "other": "פתח אחד מהקישורים הללו בדפדפן:"
     },
     "requests": "בקשות",
     "noRequests": "אין כרגע בקשות.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
     "pendingRequests": "בקשות בהמתנה: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "מקורי: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "אין הרשאה",
+      "title": "@:dialogs.noPermission.title",
       "description": "ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. בבקשה הענק את ההרשאה הזו בהגדרות.",
       "gotoSettings": "הגדרות"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "אף קובץ לא נבחר",
       "content": "אנא בחר קובץ אחד לפחות."
+    },
+    "noPermission": {
+      "title": "אין הרשאה",
+      "content": "אתה לא נתת הרשאות הנדרשות. אנא הענק את הרשאות בהגדרות."
     },
     "notAvailableOnPlatform": {
       "title": "לא זמין",
@@ -301,6 +311,7 @@
     "size": "גודל"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "אישור",
     "cancel": "ביטול",
     "edit": "עריכה",

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
@@ -13,6 +12,7 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/task_runner.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _logger = Logger('NearbyDevices');
 
@@ -21,7 +21,7 @@ final _logger = Logger('NearbyDevices');
 /// - Keeping track of all found devices (they are only stored in RAM)
 ///
 /// Use [scanProvider] to have a high-level API to perform discovery operations.
-final nearbyDevicesProvider = NotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>(() {
+final nearbyDevicesProvider = NotifierProvider<NearbyDevicesNotifier, NearbyDevicesState>((ref) {
   return NearbyDevicesNotifier();
 });
 
@@ -32,13 +32,11 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
   late String _fingerprint;
   late MulticastService _multicastService;
 
-  NearbyDevicesNotifier();
-
   @override
-  NearbyDevicesState build() {
-    _dio = ref.watch(dioProvider(DioType.discovery));
-    _fingerprint = ref.watch(securityProvider).certificateHash;
-    _multicastService = ref.watch(multicastProvider);
+  NearbyDevicesState init() {
+    _dio = ref.read(dioProvider).discovery;
+    _fingerprint = ref.read(securityProvider).certificateHash;
+    _multicastService = ref.read(multicastProvider);
     return const NearbyDevicesState(
       runningIps: {},
       devices: {},
@@ -50,7 +48,7 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
   void startMulticastListener() async {
     await for (final device in _multicastService.startListener()) {
       registerDevice(device);
-      ref.read(discoveryLogsProvider.notifier).addLog('[DISCOVER/UDP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      ref.notifier(discoveryLogsProvider).addLog('[DISCOVER/UDP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
     }
   }
 
@@ -97,6 +95,10 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
     );
   }
 
+  void clearFoundDevices() {
+    state = state.copyWith(devices: {});
+  }
+
   Future<Device?> _doRequest(String currentIp, int port, bool https, String fingerprint) async {
     _logger.fine('Requesting $currentIp');
     // We use the legacy route to make it less breaking for older versions
@@ -108,8 +110,8 @@ class NearbyDevicesNotifier extends Notifier<NearbyDevicesState> {
       });
       final dto = InfoDto.fromJson(response.data);
       device = dto.toDevice(currentIp, port, https);
-      ref.read(discoveryLogsProvider.notifier).addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
-    } on DioError catch (_) {
+      ref.notifier(discoveryLogsProvider).addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+    } on DioException catch (_) {
       device = null;
     } catch (e) {
       device = null;

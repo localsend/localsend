@@ -1,11 +1,11 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/persistence/stored_security_context.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 /// This provider manages the [StoredSecurityContext].
 /// It contains all the security related data for HTTPS communication.
-final securityProvider = NotifierProvider<SecurityNotifier, StoredSecurityContext>(() {
+final securityProvider = NotifierProvider<SecurityNotifier, StoredSecurityContext>((read) {
   return SecurityNotifier();
 });
 
@@ -15,8 +15,8 @@ class SecurityNotifier extends Notifier<StoredSecurityContext> {
   SecurityNotifier();
 
   @override
-  StoredSecurityContext build() {
-    _service = ref.watch(persistenceProvider);
+  StoredSecurityContext init() {
+    _service = ref.read(persistenceProvider);
     return _service.getSecurityContext();
   }
 

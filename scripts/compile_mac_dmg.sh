@@ -8,27 +8,44 @@ fvm flutter pub run build_runner build -d
 fvm flutter build macos
 
 # sign the app
-codesign --deep --force --verbose --options runtime --sign "36F60C6744929E06BA64EB7463B7AFFCEFF49DD0" build/macos/Build/Products/Release/LocalSend.app
+echo
+echo "Signing the app..."
+echo
+SIGN_ID="Developer ID Application: Tien Do Nam (3W7H4PYMCV)"
+codesign --deep --force --verbose --options runtime --sign "$SIGN_ID" build/macos/Build/Products/Release/LocalSend.app
 
 # create dmg
-# if appdmg is not installed yet: npm install -g appdmg
-appdmg scripts/dmg/config.json LocalSend.dmg
+# brew install create-dmg
+echo
+echo "Creating dmg..."
+echo
+create-dmg \
+  --volname "LocalSend" \
+  --window-size 500 300 \
+  --background "scripts/dmg/background.png" \
+  --icon LocalSend.app 130 110 \
+  --app-drop-link 360 110 \
+  LocalSend.dmg \
+  build/macos/Build/Products/Release/LocalSend.app
+
+# sign the dmg
+echo
+echo "Signing the dmg..."
+echo
+codesign --force --verbose --sign "$SIGN_ID" LocalSend.dmg
 
 # send to apple for notarization
-DEV_EMAIL=developer@example.com
+DEV_EMAIL=example@example.com
 APP_PASSWORD=abcd-efgh-ijkl-mnop
-NOTARIZE_OUTPUT=$(xcrun altool --notarize-app --primary-bundle-id "org.localsend.localsendApp" --username $DEV_EMAIL --password $APP_PASSWORD --file LocalSend.dmg)
-echo "$NOTARIZE_OUTPUT"
+TEAM_ID=3W7H4PYMCV
 
-# extract request UUID from the output
-REQUEST_UUID=$(echo "$NOTARIZE_OUTPUT" | awk -F ' = ' '/RequestUUID/ {print $2}')
+echo
+echo "Sending to apple for notarization..."
+echo
+xcrun notarytool submit LocalSend.dmg --wait --apple-id $DEV_EMAIL --password "$APP_PASSWORD" --team-id "$TEAM_ID"
 
-# print command to check notarization status
-echo ""
-echo "Check notarization status with:"
-echo "xcrun altool --notarization-info $REQUEST_UUID --username $DEV_EMAIL --password $APP_PASSWORD"
-
-# print command to add staple to the app
-echo ""
-echo "Add staple to the app with:"
-echo "xcrun stapler staple LocalSend.dmg"
+# download notarization result and apply to the dmg
+echo
+echo "Run stapler..."
+echo
+xcrun stapler staple LocalSend.dmg

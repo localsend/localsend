@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Quit: Save window placement",
       "minimizeToTray": "Quit: Minimize to tray",
       "launchAtStartup": "Autostart after login",
-      "launchMinimized": "Autostart: Start hidden"
+      "launchMinimized": "Autostart: Start hidden",
+      "animations": "Animations"
     },
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
       "destination": "Destination",
       "downloads": "(Downloads)",
-      "saveToGallery": "Save media to gallery"
+      "saveToGallery": "Save media to gallery",
+      "saveToHistory": "Save to history"
     },
     "network": {
       "title": "Network",
       "needRestart": "Restart the server to apply the settings!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Device type",
+      "deviceModel": "Device model",
       "port": "Port",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Advanced settings"
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
@@ -193,13 +198,14 @@
     "loading": "Starting server...",
     "stopping": "Stopping server...",
     "error": "An error occurred while starting the server.",
-    "hint": "Keep in mind that the connection is unencrypted. You should only use this method if the recipient has not LocalSend installed.",
     "openLink": {
       "one": "Open this link in the browser:",
       "other": "Open one of these links in the browser:"
     },
     "requests": "Requests",
     "noRequests": "No requests yet.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in the browser.",
     "pendingRequests": "Pending requests: {n}"
   },
   "aboutPage": {
@@ -320,7 +326,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "No permission",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
       "gotoSettings": "Settings"
     },
@@ -331,6 +337,10 @@
     "noFiles": {
       "title": "No file selected",
       "content": "Please select at least one file."
+    },
+    "noPermission": {
+      "title": "No permission",
+      "content": "You have not granted the necessary permissions. Please grant them in the settings."
     },
     "notAvailableOnPlatform": {
       "title": "Not available",

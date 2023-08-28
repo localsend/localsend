@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Schließen: Fensterposition speichern",
       "minimizeToTray": "Schließen: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
-      "launchMinimized": "Autostart: versteckt starten"
+      "launchMinimized": "Autostart: versteckt starten",
+      "animations": "Animationen"
     },
     "receive": {
       "title": "Empfangen",
       "quickSave": "@:general.quickSave",
       "destination": "Ziel-Ordner",
       "downloads": "(Downloads)",
-      "saveToGallery": "Medien in die Gallerie speichern"
+      "saveToGallery": "Medien in die Gallerie speichern",
+      "saveToHistory": "In Verlauf speichern"
     },
     "network": {
       "title": "Netzwerk",
       "needRestart": "Starte den Server neu, um die Änderungen zu übernehmen!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Gerätetyp",
+      "deviceModel": "Gerätemodell",
       "port": "Port",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Erweiterte Einstellungen"
   },
   "troubleshootPage": {
     "title": "Fehlerbehebung",
@@ -193,13 +198,14 @@
     "loading": "Starte Server...",
     "stopping": "Stoppe server...",
     "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
-    "hint": "Beachte, dass die Verbindung unverschlüsselt ist. Du solltest nur diese Methode verwenden, wenn der Empfänger kein LocalSend installiert hat.",
     "openLink": {
       "one": "Öffne diesen Link im Browser:",
       "other": "Öffne einer dieser Links im Browser:"
     },
     "requests": "Anfragen",
     "noRequests": "Bisher keine Anfragen erhalten.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Keine Berechtigung",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",
       "gotoSettings": "Einstellungen"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Keine Datei ausgewählt",
       "content": "Bitte wähle mindestens eine Datei aus."
+    },
+    "noPermission": {
+      "title": "Keine Berechtigung",
+      "content": "Sie haben die erforderlichen Berechtigungen nicht gewährt. Bitte gewähren Sie sie in den Einstellungen."
     },
     "notAvailableOnPlatform": {
       "title": "Nicht verfügbar",
@@ -289,6 +299,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "LocalSend beenden"
   },
@@ -300,6 +311,7 @@
     "size": "Größe"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Bestätigen",
     "cancel": "Abbrechen",
     "edit": "Bearbeiten",

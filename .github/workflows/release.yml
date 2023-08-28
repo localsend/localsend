@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  FLUTTER_VERSION: "3.10.5"
+  FLUTTER_VERSION: "3.13.1"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:
@@ -247,6 +247,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Fix long file paths
+        run: git config --system core.longpaths true
+
       - uses: actions/checkout@v3
 
       - name: Download generated files

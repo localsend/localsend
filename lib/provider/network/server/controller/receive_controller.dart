@@ -120,7 +120,7 @@ class ReceiveController {
       return server.responseJson(412, message: 'Self-discovered');
     }
 
-    final deviceInfo = server.ref.read(deviceRawInfoProvider);
+    final deviceInfo = server.ref.read(deviceInfoProvider);
 
     final dto = InfoDto(
       alias: alias,
@@ -155,10 +155,10 @@ class ReceiveController {
     }
 
     // Save device information
-    server.ref.read(nearbyDevicesProvider.notifier).registerDevice(requestDto.toDevice(request.ip, port, https));
-    server.ref.read(discoveryLogsProvider.notifier).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
+    server.ref.notifier(nearbyDevicesProvider).registerDevice(requestDto.toDevice(request.ip, port, https));
+    server.ref.notifier(discoveryLogsProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
-    final deviceInfo = server.ref.read(deviceRawInfoProvider);
+    final deviceInfo = server.ref.read(deviceInfoProvider);
 
     final responseDto = InfoDto(
       alias: alias,
@@ -384,16 +384,17 @@ class ReceiveController {
 
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-      final saveToGallery =
-          receiveState.saveToGallery && (receivingFile.file.fileType == FileType.image || receivingFile.file.fileType == FileType.video);
+      final fileType = receivingFile.file.fileType;
+      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
       await saveFile(
         destinationPath: destinationPath,
         name: receivingFile.desiredName!,
         saveToGallery: saveToGallery,
+        isImage: fileType == FileType.image,
         stream: request.read(),
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
-            server.ref.read(progressProvider.notifier).setProgress(
+            server.ref.notifier(progressProvider).setProgress(
                   sessionId: receiveState.sessionId,
                   fileId: fileId,
                   progress: savedBytes / receivingFile.file.size,
@@ -417,7 +418,7 @@ class ReceiveController {
       );
 
       // Track it in history
-      await server.ref.read(receiveHistoryProvider.notifier).addEntry(
+      await server.ref.notifier(receiveHistoryProvider).addEntry(
             id: fileId,
             fileName: receivingFile.desiredName!,
             fileType: receivingFile.file.fileType,
@@ -444,7 +445,7 @@ class ReceiveController {
       _logger.severe('Failed to save file', e, st);
     }
 
-    server.ref.read(progressProvider.notifier).setProgress(
+    server.ref.notifier(progressProvider).setProgress(
           sessionId: receiveState.sessionId,
           fileId: fileId,
           progress: 1,
@@ -548,7 +549,7 @@ class ReceiveController {
         return server.responseJson(403, message: 'No permission');
       }
 
-      server.ref.read(sendProvider.notifier).cancelSessionByReceiver(
+      server.ref.notifier(sendProvider).cancelSessionByReceiver(
             sendState.sessionId,
           );
       return server.responseJson(200);
@@ -627,7 +628,7 @@ class ReceiveController {
     // notify sender
     try {
       // ignore: unawaited_futures
-      server.ref.read(dioProvider(DioType.discovery)).post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
+      server.ref.read(dioProvider).discovery.post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
     } catch (e) {
       _logger.warning('Failed to notify sender', e);
     }
@@ -649,7 +650,7 @@ class ReceiveController {
         session: null,
       ),
     );
-    server.ref.read(progressProvider.notifier).removeSession(sessionId);
+    server.ref.notifier(progressProvider).removeSession(sessionId);
   }
 }
 

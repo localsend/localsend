@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -15,17 +14,18 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ReceivePage extends ConsumerStatefulWidget {
+class ReceivePage extends StatefulWidget {
   const ReceivePage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ReceivePage> createState() => _ReceivePageState();
+  State<ReceivePage> createState() => _ReceivePageState();
 }
 
-class _ReceivePageState extends ConsumerState<ReceivePage> {
+class _ReceivePageState extends State<ReceivePage> with Riverpie {
   String? _message;
   bool _isLink = false;
   bool _showFullIp = false;
@@ -42,7 +42,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
       return;
     }
 
-    ref.read(selectedReceivingFilesProvider.notifier).init(receiveSession.files.values.map((f) => f.file).toList());
+    ref.notifier(selectedReceivingFilesProvider).setFiles(receiveSession.files.values.map((f) => f.file).toList());
     setState(() {
       // show message if there is only one text file
       _message = receiveSession.message;
@@ -50,17 +50,17 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
     });
   }
 
-  void _acceptNothing(WidgetRef ref) {
-    ref.read(serverProvider.notifier).acceptFileRequest({});
+  void _acceptNothing() {
+    ref.notifier(serverProvider).acceptFileRequest({});
   }
 
-  void _accept(WidgetRef ref) {
+  void _accept() {
     final selectedFiles = ref.read(selectedReceivingFilesProvider);
-    ref.read(serverProvider.notifier).acceptFileRequest(selectedFiles);
+    ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
   }
 
-  void _decline(WidgetRef ref) {
-    ref.read(serverProvider.notifier).declineFileRequest();
+  void _decline() {
+    ref.notifier(serverProvider).declineFileRequest();
   }
 
   @override
@@ -76,7 +76,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
 
     return WillPopScope(
       onWillPop: () async {
-        _decline(ref);
+        _decline();
         return true;
       },
       child: Scaffold(
@@ -172,7 +172,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
                                             }
-                                            _acceptNothing(ref);
+                                            _acceptNothing();
                                             context.pop();
                                           },
                                           child: Text(t.general.copy),
@@ -188,7 +188,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                               onPressed: () {
                                                 // ignore: discarded_futures
                                                 launchUrl(Uri.parse(_message!), mode: LaunchMode.externalApplication);
-                                                _acceptNothing(ref);
+                                                _acceptNothing();
                                                 context.pop();
                                               },
                                               child: Text(t.general.open),
@@ -227,7 +227,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                           Center(
                             child: ElevatedButton.icon(
                               onPressed: () {
-                                ref.read(serverProvider.notifier).closeSession();
+                                ref.notifier(serverProvider).closeSession();
                                 context.pop();
                               },
                               icon: const Icon(Icons.check_circle),
@@ -241,7 +241,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                 foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
                               onPressed: () {
-                                _acceptNothing(ref);
+                                _acceptNothing();
                                 context.pop();
                               },
                               icon: const Icon(Icons.close),
@@ -258,7 +258,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                   foregroundColor: Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
-                                  _decline(ref);
+                                  _decline();
                                   context.pop();
                                 },
                                 icon: const Icon(Icons.close),
@@ -277,7 +277,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> {
                                         if (sessionId == null) {
                                           return;
                                         }
-                                        _accept(ref);
+                                        _accept();
                                         await context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
                                           builder: () => ProgressPage(

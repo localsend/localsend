@@ -4,15 +4,15 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/state/network_state.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _logger = Logger('NetworkInfo');
 
-final networkStateProvider = NotifierProvider<NetworkStateNotifier, NetworkState>(() {
+final networkStateProvider = NotifierProvider<NetworkStateNotifier, NetworkState>((ref) {
   return NetworkStateNotifier();
 });
 
@@ -22,9 +22,9 @@ class NetworkStateNotifier extends Notifier<NetworkState> {
   NetworkStateNotifier();
 
   @override
-  NetworkState build() {
+  NetworkState init() {
     // ignore: discarded_futures
-    init();
+    fetchLocalIp();
 
     return const NetworkState(
       localIps: [],
@@ -32,7 +32,7 @@ class NetworkStateNotifier extends Notifier<NetworkState> {
     );
   }
 
-  Future<void> init() async {
+  Future<void> fetchLocalIp() async {
     if (!kIsWeb) {
       // ignore: unawaited_futures
       _subscription?.cancel();

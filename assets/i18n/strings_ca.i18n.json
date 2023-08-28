@@ -71,7 +71,7 @@
       "link": "Compartir via enllaç"
     },
     "sendModeHelp": "Explicació",
-    "help": "Si us plau, asseguris que el destinatari està a la mateixa xarxa Wi-Fi.",    
+    "help": "Si us plau, asseguris que el destinatari està a la mateixa xarxa Wi-Fi.",
     "placeItems": "Place items to share."
   },
   "settingsTab": {
@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Surt: desa la ubicació de la finestra",
       "minimizeToTray": "Surt: Minimitzar a la safata",
       "launchAtStartup": "Inici automàtic després d'iniciar sessió",
-      "launchMinimized": "Inici automàtic: Inici minimitzat"
+      "launchMinimized": "Inici automàtic: Inici minimitzat",
+      "animations": "Animacions"
     },
     "receive": {
       "title": "Rebre",
       "quickSave": "@:general.quickSave",
       "destination": "Destinació",
       "downloads": "(Descàrregues)",
-      "saveToGallery": "Desar media a la galeria"
+      "saveToGallery": "Desar media a la galeria",
+      "saveToHistory": "Desa a l'historial"
     },
     "network": {
       "title": "Xarxa",
       "needRestart": "Reiniciar el servidor per aplicar la configuració!",
       "server": "Servidor",
       "alias": "Àlies",
+      "deviceType": "Tipus de dispositiu",
+      "deviceModel": "Model de dispositiu",
       "port": "Port",
       "portWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant un port personalitzat. (per defecte: {defaultPort})",
       "encryption": "Encriptació",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant una adreça multicast personalitzada. (per defecte: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Configuració avançada"
   },
   "troubleshootPage": {
     "title": "Solucionar problemes",
@@ -193,13 +198,14 @@
     "loading": "Iniciant servidor...",
     "stopping": "Parant servidor...",
     "error": "Hi ha hagut un error mentre s'iniciava el servidor.",
-    "hint": "Tingueu en compte que la connexió no està xifrada. Només hauríeu d'utilitzar aquest mètode si el destinatari no té instal·lat LocalSend.",
     "openLink": {
       "one": "Obrir l'enllaç al navegador:",
       "other": "Obrir un d'aquests enllaços al navegador:"
     },
     "requests": "Peticions",
     "noRequests": "Encar ano hi ha peticions.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utilitza un certificat auto-signat. Cal que l'accepteu al navegador.",
     "pendingRequests": "Peticions pendents: {n}"
   },
   "aboutPage": {
@@ -320,7 +326,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Sense permisos",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend no pot trobar altres dispositius sense tenir el permís per escanejar la xarxa local. Concediu aquest permís a la configuració.",
       "gotoSettings": "Configuració"
     },
@@ -331,6 +337,10 @@
     "noFiles": {
       "title": "Fitxer no seleccionat",
       "content": "Si us plau, seleccioni un fitxer com a mínim."
+    },
+    "noPermission": {
+      "title": "Sense permisos",
+      "content": "No has concedit els permisos necessaris. Concediu-los a la configuració."
     },
     "notAvailableOnPlatform": {
       "title": "No disponible",

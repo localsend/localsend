@@ -95,26 +95,31 @@
       "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
       "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動起動",
-      "launchMinimized": "自動起動時: 隠れた状態で開始"
+      "launchMinimized": "自動起動時: 隠れた状態で開始",
+      "animations": "アニメーション"
     },
     "receive": {
       "title": "受信",
       "quickSave": "@:general.quickSave",
       "destination": "保存先",
       "downloads": "(ダウンロード)",
-      "saveToGallery": "メディアをギャラリーに保存"
+      "saveToGallery": "メディアをギャラリーに保存",
+      "saveToHistory": "履歴に保存"
     },
     "network": {
       "title": "ネットワーク",
       "needRestart": "設定を反映するにはサーバーを再起動してください！",
       "server": "サーバー",
       "alias": "エイリアス",
+      "deviceType": "デバイスタイプ",
+      "deviceModel": "デバイスモデル",
       "port": "ポート",
       "portWarning": "カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
       "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "詳細設定"
   },
   "troubleshootPage": {
     "title": "トラブルシューティング",
@@ -193,13 +198,14 @@
     "loading": "サーバーを起動中...",
     "stopping": "サーバーを停止中...",
     "error": "サーバーの起動中にエラーが発生しました。",
-    "hint": "接続は暗号化されないことに留意してください。この方法は、受信者がLocalSendをインストールしていない場合のみ使用してください。",
     "openLink": {
       "one": "このリンクをブラウザーで開いてください:",
       "other": "これらのリンクのいずれかをブラウザーで開いてください:"
     },
     "requests": "リクエスト",
     "noRequests": "リクエストはまだありません。",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSendは自己署名証明書を使用しています。ブラウザでそれを受け入れる必要があります。",
     "pendingRequests": "保留中のリクエスト数: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "元の名前: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "権限がありません",
+      "title": "@:dialogs.noPermission.title",
       "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",
       "gotoSettings": "設定"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "ファイルが選択されていません",
       "content": "少なくとも1つのファイルを選択してください。"
+    },
+    "noPermission": {
+      "title": "権限がありません",
+      "content": "必要な権限を許可していません。設定で許可してください。"
     },
     "notAvailableOnPlatform": {
       "title": "利用不可",
@@ -289,6 +299,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "LocalSendを終了"
   },
@@ -300,6 +311,7 @@
     "size": "サイズ"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "確認",
     "cancel": "キャンセル",
     "edit": "編集",

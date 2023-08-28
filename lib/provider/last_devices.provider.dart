@@ -1,7 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-final lastDevicesProvider = NotifierProvider<LastDevicesNotifier, List<Device>>(() {
+final lastDevicesProvider = NotifierProvider<LastDevicesNotifier, List<Device>>((ref) {
   return LastDevicesNotifier();
 });
 
@@ -9,9 +9,7 @@ class LastDevicesNotifier extends Notifier<List<Device>> {
   LastDevicesNotifier();
 
   @override
-  List<Device> build() {
-    return [];
-  }
+  List<Device> init() => [];
 
   void addDevice(Device device) {
     state = {

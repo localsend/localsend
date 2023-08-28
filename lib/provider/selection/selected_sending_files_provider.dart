@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart' as file_picker;
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
@@ -12,6 +11,7 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -21,7 +21,7 @@ const _uuid = Uuid();
 
 /// Manages files selected for sending.
 /// Will stay alive even after a session has been completed to send the same files to another device.
-final selectedSendingFilesProvider = NotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>(() {
+final selectedSendingFilesProvider = NotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
   return SelectedSendingFilesNotifier();
 });
 
@@ -29,7 +29,7 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
   SelectedSendingFilesNotifier();
 
   @override
-  List<CrossFile> build() {
+  List<CrossFile> init() {
     return [];
   }
 

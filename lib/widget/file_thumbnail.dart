@@ -90,10 +90,12 @@ class FilePathThumbnail extends StatelessWidget {
 class MemoryThumbnail extends StatelessWidget {
   final Uint8List? bytes;
   final FileType fileType;
+  final double size;
 
   const MemoryThumbnail({
     required this.bytes,
     required this.fileType,
+    this.size = 50,
   });
 
   @override
@@ -117,6 +119,7 @@ class MemoryThumbnail extends StatelessWidget {
     return _Thumbnail(
       thumbnail: thumbnail,
       icon: fileType.icon,
+      size: size,
     );
   }
 }
@@ -124,17 +127,19 @@ class MemoryThumbnail extends StatelessWidget {
 class _Thumbnail extends StatelessWidget {
   final Widget? thumbnail;
   final IconData? icon;
+  final double size;
 
   const _Thumbnail({
     required this.thumbnail,
     required this.icon,
+    this.size = 50,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 50,
-      height: 50,
+      width: size,
+      height: size,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: ColoredBox(

@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Çıkış: Burayı Kaydet",
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
-      "launchMinimized": "Otomatik başlatma: Gizli Başlatma"
+      "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
+      "animations": "Animasyonlar"
     },
     "receive": {
       "title": "Alım",
       "quickSave": "@:general.quickSave",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
-      "saveToGallery": "Medyayı galeriye kaydet"
+      "saveToGallery": "Medyayı galeriye kaydet",
+      "saveToHistory": "Geçmişe kaydet"
     },
     "network": {
       "title": "Ağ",
       "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
       "server": "Sunucu",
       "alias": "Takma isminiz",
+      "deviceType": "Cihaz tipi",
+      "deviceModel": "Cihaz modeli",
       "port": "Port",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Gelişmiş ayarlar"
   },
   "troubleshootPage": {
     "title": "Sorun Giderme",
@@ -193,13 +198,14 @@
     "loading": "Sunucu başlıyor...",
     "stopping": "Sunucu durduruluyor ...",
     "error": "Sunucuyu başlatırken bir hata oluştu.",
-    "hint": "Bağlantının şifrelenmediğini unutmayın. Bu yöntemi yalnızca alıcı LocalSend yüklememiş ise kullanmalısınız.",
     "openLink": {
       "one": "Bu bağlantıyı tarayıcıda açın:",
       "other": "Bu bağlantılardan birini tarayıcıda açın:"
     },
     "requests": "İstekler",
     "noRequests": "Henüz istek yok.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
   "aboutPage": {
@@ -207,6 +213,9 @@
   },
   "changelogPage": {
     "title": "Değişiklik günlüğü"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -247,7 +256,7 @@
       "original": "Orijinal: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "İzin yok",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
       "gotoSettings": "Ayarlar"
     },
@@ -258,6 +267,10 @@
     "noFiles": {
       "title": "Herhangi bir dosya seçilmedi",
       "content": "Lütfen bir dosya seçiniz."
+    },
+    "noPermission": {
+      "title": "İzin yok",
+      "content": "Gerekli izinleri vermediniz. Lütfen ayarlardan izinleri verin."
     },
     "notAvailableOnPlatform": {
       "title": "Müsait değil",
@@ -298,6 +311,7 @@
     "size": "Boyut"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Onay",
     "cancel": "İptal",
     "edit": "Düzenle",
@@ -326,8 +340,5 @@
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   }
 }

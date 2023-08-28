@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
@@ -27,6 +26,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 
@@ -37,7 +37,7 @@ final _logger = Logger('Send');
 ///
 /// In contrast to [serverProvider], this provider does not manage a server.
 /// Instead, it only does HTTP requests to other servers.
-final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState>>(() {
+final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState>>((ref) {
   return SendNotifier();
 });
 
@@ -45,7 +45,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   SendNotifier();
 
   @override
-  Map<String, SendSessionState> build() {
+  Map<String, SendSessionState> init() {
     return {};
   }
 
@@ -57,8 +57,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final requestDio = ref.read(dioProvider(DioType.longLiving));
-    final uploadDio = ref.read(dioProvider(DioType.longLiving));
+    final requestDio = ref.read(dioProvider).longLiving;
+    final uploadDio = ref.read(dioProvider).longLiving;
     final cancelToken = CancelToken();
     final sessionId = _uuid.v4();
 
@@ -99,7 +99,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       errorMessage: null,
     );
 
-    final originDevice = ref.read(deviceInfoProvider);
+    final originDevice = ref.read(deviceFullInfoProvider);
     final requestDto = PrepareUploadRequestDto(
       info: InfoRegisterDto(
         alias: originDevice.alias,
@@ -125,7 +125,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.push(
         () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
-        transition: RouterinoTransition.fade,
+        transition: RouterinoTransition.fade(),
       );
     }
 
@@ -137,14 +137,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         cancelToken: cancelToken,
       );
     } catch (e) {
-      if (e is DioError && e.response?.statusCode == 403) {
+      if (e is DioException && e.response?.statusCode == 403) {
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(
             status: SessionStatus.declined,
           ),
         );
-      } else if (e is DioError && e.response?.statusCode == 409) {
+      } else if (e is DioException && e.response?.statusCode == 409) {
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(
@@ -218,12 +218,12 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     };
 
     if (state[sessionId]?.background == false) {
-      final background = ref.read(settingsProvider.select((s) => s.sendMode == SendMode.multiple));
+      final background = ref.read(settingsProvider).sendMode == SendMode.multiple;
 
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
-        transition: RouterinoTransition.fade,
+        transition: RouterinoTransition.fade(),
         // immediately is not possible: https://github.com/flutter/flutter/issues/121910
         builder: () => ProgressPage(
           showAppBar: background,
@@ -293,7 +293,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           onSendProgress: (curr, total) {
             if (stopwatch.elapsedMilliseconds >= 100) {
               stopwatch.reset();
-              ref.read(progressProvider.notifier).setProgress(
+              ref.notifier(progressProvider).setProgress(
                     sessionId: sessionId,
                     fileId: file.file.id,
                     progress: curr / total,
@@ -304,7 +304,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         );
 
         // set progress to 100% when successfully finished
-        ref.read(progressProvider.notifier).setProgress(
+        ref.notifier(progressProvider).setProgress(
               sessionId: sessionId,
               fileId: file.file.id,
               progress: 1,
@@ -359,7 +359,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     // notify the receiver
     try {
       ref
-          .read(dioProvider(DioType.discovery))
+          .read(dioProvider)
+          .discovery
           // ignore: discarded_futures
           .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null));
     } catch (e) {
@@ -393,15 +394,15 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
     state = state.removeSession(ref, sessionId);
-    if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider.select((s) => s.sendMode == SendMode.single))) {
+    if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
-      ref.read(selectedSendingFilesProvider.notifier).reset();
+      ref.notifier(selectedSendingFilesProvider).reset();
     }
   }
 
   void clearAllSessions() {
     state = {};
-    ref.read(progressProvider.notifier).removeAllSessions();
+    ref.notifier(progressProvider).removeAllSessions();
   }
 
   void setBackground(String sessionId, bool background) {
@@ -426,7 +427,7 @@ extension on Map<String, SendSessionState> {
   }
 
   Map<String, SendSessionState> removeSession(Ref ref, String sessionId) {
-    ref.read(progressProvider.notifier).removeSession(sessionId);
+    ref.notifier(progressProvider).removeSession(sessionId);
     return {...this}..remove(sessionId);
   }
 }
@@ -448,7 +449,7 @@ extension on SendSessionState {
 extension on Object {
   String get humanErrorMessage {
     final e = this;
-    if (e is DioError && e.response != null) {
+    if (e is DioException && e.response != null) {
       final body = e.response!.data;
       String message;
       try {

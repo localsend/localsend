@@ -95,26 +95,31 @@
       "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔",
       "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں۔",
       "launchAtStartup": "لاگ ان کے بعد آٹو اسٹارٹ",
-      "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ"
+      "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ",
+      "animations": "تحریکات"
     },
     "receive": {
       "title": "وصول کریں",
       "quickSave": "@:general.quickSave",
       "destination": "منزل",
       "downloads": "(ڈاؤن لوڈ)",
-      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔"
+      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔",
+      "saveToHistory": "تاریخچہ میں محفوظ کریں"
     },
     "network": {
       "title": "نیٹ ورک",
       "needRestart": "ترتیبات کو لاگو کرنے کے لیے سرور کو دوبارہ شروع کریں!",
       "server": "سرور",
       "alias": "عرف",
+      "deviceType": "آلہ کی قسم",
+      "deviceModel": "آلہ کا ماڈل",
       "port": "پورٹ",
       "portWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ چل سکے کیونکہ آپ حسب ضرورت پورٹ استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultPort})",
       "encryption": "خفیہ کاری",
       "multicastGroup": "ملٹی کاسٹ",
       "multicastGroupWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "تجاویز شھر کی ترتیبات"
   },
   "troubleshootPage": {
     "title": "خرابی کا سراغ لگانا",
@@ -193,13 +198,14 @@
     "loading": "سرور کو چالو کررہا ہے...",
     "stopping": "سرور بند ہو رہا ہے...",
     "error": "سرور چالو کرتے وقت خامی پیش آئی ہے۔",
-    "hint": "یاد رکھیں کہ رابطہ غیر تشفیر شدہ ہے۔ آپ یہ طریقہ استعمال تب کریں جب وصول کرنے والے کے پاس LocalSend نصب نہیں ہے۔",
     "openLink": {
       "one": "اس لنک کو براوزر میں کھولیں:",
       "other": "ان میں سے کسی ایک لنک کو براوزر میں کھولیں:"
     },
     "requests": "درخواستیں",
     "noRequests": "ابھی تک کوئی درخواست نہیں۔",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend براؤزر میں استعمال کرنے کیلئے آپ کوخود سائن کردہ سرٹیفکیٹ قبول کرنا ہوگا۔",
     "pendingRequests": "زیر التواء درخواستیں: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "اصل: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "اجازت نہیں",
+      "title": "@:dialogs.noPermission.title",
       "description": "لوکل نیٹ ورک کا سکین کرنے کی اجازت کے بغیر LocalSend، دیگر ڈیوائسز تلاش نہیں کرسکتا ہے۔ براہ کرم ترتیبات میں اس اجازت کو منظور کریں۔",
       "gotoSettings": "ترتیبات"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "کوئی فائل منتخب نہیں کی گئی",
       "content": "براہ کرم کم از کم ایک فائل منتخب کریں۔"
+    },
+    "noPermission": {
+      "title": "اجازت نہیں",
+      "content": "آپ نے ضروری اجازتیں فراہم نہیں کی ہیں۔ براہ کرم انہیں ترتیبات میں فراہم کریں۔"
     },
     "notAvailableOnPlatform": {
       "title": "دستیاب نہیں",
@@ -301,6 +311,7 @@
     "size": "سائز"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "تصدیق کریں",
     "cancel": "منسوخ کریں",
     "edit": "ترمیم کریں",

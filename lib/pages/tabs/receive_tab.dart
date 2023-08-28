@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
+import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -13,16 +13,17 @@ import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-class ReceiveTab extends ConsumerStatefulWidget {
+class ReceiveTab extends StatefulWidget {
   const ReceiveTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ReceiveTab> createState() => _ReceiveTagState();
+  State<ReceiveTab> createState() => _ReceiveTagState();
 }
 
-class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAliveClientMixin {
+class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMixin, Riverpie {
   bool _advanced = false;
   bool _showHistoryButton = true;
 
@@ -36,6 +37,8 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkStateProvider);
     final serverState = ref.watch(serverProvider);
+    final animations = ref.watch(animationProvider);
+
     return Stack(
       children: [
         Center(
@@ -61,7 +64,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                     delay: const Duration(milliseconds: 200),
                                     child: RotatingWidget(
                                       duration: const Duration(seconds: 15),
-                                      spinning: serverState != null,
+                                      spinning: serverState != null && animations,
                                       child: const LocalSendLogo(withText: false),
                                     ),
                                   ),
@@ -91,7 +94,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                 backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
                                 foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
                               ),
-                              onPressed: () async => ref.read(settingsProvider.notifier).setQuickSave(false),
+                              onPressed: () async => ref.notifier(settingsProvider).setQuickSave(false),
                               child: Text('${t.general.quickSave}: ${t.general.on}'),
                             )
                           : TextButton(
@@ -99,7 +102,7 @@ class _ReceiveTagState extends ConsumerState<ReceiveTab> with AutomaticKeepAlive
                                 foregroundColor: Colors.grey,
                               ),
                               onPressed: () async {
-                                await ref.read(settingsProvider.notifier).setQuickSave(true);
+                                await ref.notifier(settingsProvider).setQuickSave(true);
                                 if (mounted) {
                                   await QuickSaveNotice.open(context);
                                 }

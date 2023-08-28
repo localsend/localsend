@@ -95,26 +95,31 @@
       "saveWindowPlacement": "종료: 화면 위치 저장하기",
       "minimizeToTray": "종료 시 시스템 트레이로 최소화",
       "launchAtStartup": "로그인 시 자동으로 시작",
-      "launchMinimized": "최소화된 상태로 시작"
+      "launchMinimized": "최소화된 상태로 시작",
+      "animations": "애니메이션"
     },
     "receive": {
       "title": "수신",
       "quickSave": "@:general.quickSave",
       "destination": "저장 위치",
       "downloads": "(다운로드 폴더)",
-      "saveToGallery": "미디어를 갤러리에 저장"
+      "saveToGallery": "미디어를 갤러리에 저장",
+      "saveToHistory": "히스토리에 저장"
     },
     "network": {
       "title": "네트워크",
       "needRestart": "서버를 재시작해야 변경된 설정이 반영됩니다",
       "server": "서버",
       "alias": "별명",
+      "deviceType": "기기 유형",
+      "deviceModel": "기기 모델",
       "port": "포트",
       "portWarning": "커스텀 포트를 사용하면 이 디바이스가 다른 장치에서 감지되지 않을 수 있습니다. (기본값: {defaultPort})",
       "encryption": "암호화",
       "multicastGroup": "멀티캐스트",
       "multicastGroupWarning": "사용자 지정 멀티캐스트 주소를 사용하고 있기 때문에 다른 기기에서 감지되지 않을 수 있습니다. (기본값: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "고급 설정"
   },
   "troubleshootPage": {
     "title": "문제해결",
@@ -193,13 +198,14 @@
     "loading": "서버 시작 중...",
     "stopping": "서버 중지 중...",
     "error": "서버 시작 중 오류가 발생했습니다.",
-    "hint": "연결이 암호화되지 않는다는 점에 주의해주세요. 이 방법은 수신자가 LocalSend를 설치하지 않은 경우에만 사용해야 합니다.",
     "openLink": {
       "one": "이 링크를 브라우저에서 열기:",
       "other": "이 중 하나의 링크를 브라우저에서 열기:"
     },
     "requests": "요청",
     "noRequests": "아직 요청이 없습니다.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 수락해야 합니다.",
     "pendingRequests": "대기중인 요청: {n}"
   },
   "aboutPage": {
@@ -207,6 +213,9 @@
   },
   "changelogPage": {
     "title": "업데이트 이력"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
   },
   "dialogs": {
     "addFile": {
@@ -247,7 +256,7 @@
       "original": "기존 이름: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "권한 없음",
+      "title": "@:dialogs.noPermission.title",
       "description": "로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.",
       "gotoSettings": "설정"
     },
@@ -258,6 +267,10 @@
     "noFiles": {
       "title": "파일이 선택되지 않았습니다",
       "content": "적어도 하나 이상의 파일을 선택해주세요"
+    },
+    "noPermission": {
+      "title": "권한 없음",
+      "content": "필요한 권한을 허용하지 않았습니다. 설정에서 허용해주세요."
     },
     "notAvailableOnPlatform": {
       "title": "사용 불가",
@@ -286,6 +299,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "LocalSend 종료"
   },
@@ -297,6 +311,7 @@
     "size": "크기"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "확인",
     "cancel": "취소",
     "edit": "편집",
@@ -325,8 +340,5 @@
     "sActionUseCameraHint": "카메라 사용",
     "sNameDurationLabel": "길이",
     "sUnitAssetCountLabel": "개수"
-  },
-  "aliasGenerator": {
-    "@info": "Inherits from the English version"
   }
 }

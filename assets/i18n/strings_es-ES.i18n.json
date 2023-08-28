@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Al salir guardar la ubicación de la ventana",
       "minimizeToTray": "Cerrar: Minimizar ventana",
       "launchAtStartup": "Inicio automático",
-      "launchMinimized": "Inicio automático: Iniciar minimizado"
+      "launchMinimized": "Inicio automático: Iniciar minimizado",
+      "animations": "Animaciones"
     },
     "receive": {
       "title": "Recibir",
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
       "downloads": "(Descargas)",
-      "saveToGallery": "Guardar media en la galería"
+      "saveToGallery": "Guardar media en la galería",
+      "saveToHistory": "Guardar en el historial"
     },
     "network": {
       "title": "Red",
       "needRestart": "Reiniciar el servidor para aplicar los ajustes.",
       "server": "Servidor",
       "alias": "Alias",
+      "deviceType": "Tipo de dispositivo",
+      "deviceModel": "Modelo de dispositivo",
       "port": "Puerto",
       "portWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando un puerto personalizado. (Puerto por defecto: {defaultPort})",
       "encryption": "Encriptación",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Configuración avanzada"
   },
   "troubleshootPage": {
     "title": "Solucionar problemas",
@@ -193,13 +198,14 @@
     "loading": "Iniciando servidor...",
     "stopping": "Deteniendo servidor...",
     "error": "Se ha producido un error al iniciar el servidor.",
-    "hint": "Ten en cuenta que la conexión no está cifrada. Sólo deberías utilizar este método si el destinatario no tiene instalado LocalSend.",
     "openLink": {
       "one": "Abre este enlace en el navegador:",
       "other": "Abre uno de estos enlaces en el navegador:"
     },
     "requests": "Solicitudes",
     "noRequests": "Aún no hay solicitudes.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.",
     "pendingRequests": "Solicitudes pendientes: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Sin autorización",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend no puede encontrar otros dispositivos sin tener permiso para escanear la red local. Por favor, concede este permiso en los ajustes.",
       "gotoSettings": "Ajustes"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Ningún fichero seleccionado",
       "content": "Por favor selecciona al menos un fichero."
+    },
+    "noPermission": {
+      "title": "Sin autorización",
+      "content": "No has otorgado los permisos necesarios. Por favor, otórgalos en la configuración."
     },
     "notAvailableOnPlatform": {
       "title": "No disponible",
@@ -301,6 +311,7 @@
     "size": "Tamaño"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",

@@ -1,11 +1,11 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/model/log_entry.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _logger = Logger('HTTP');
 
 /// Contains the discovery logs for debugging purposes.
-final httpLogsProvider = NotifierProvider<HttpLogsNotifier, List<LogEntry>>(() {
+final httpLogsProvider = NotifierProvider<HttpLogsNotifier, List<LogEntry>>((ref) {
   return HttpLogsNotifier();
 });
 
@@ -13,7 +13,7 @@ class HttpLogsNotifier extends Notifier<List<LogEntry>> {
   HttpLogsNotifier();
 
   @override
-  List<LogEntry> build() {
+  List<LogEntry> init() {
     return [];
   }
 

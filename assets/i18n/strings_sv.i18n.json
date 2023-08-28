@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Avsluta: Spara fönsterplacering",
       "minimizeToTray": "Lämna: minimera till tray",
       "launchAtStartup": "Starta automatiskt efter inloggning",
-      "launchMinimized": "Starta automatiskt: starta gömd"
+      "launchMinimized": "Starta automatiskt: starta gömd",
+      "animations": "Animationer"
     },
     "receive": {
       "title": "Ta emot",
       "quickSave": "@:general.quickSave",
       "destination": "Destination",
       "downloads": "(Hämtade)",
-      "saveToGallery": "Spara media i galleriet"
+      "saveToGallery": "Spara media i galleriet",
+      "saveToHistory": "Spara till historik"
     },
     "network": {
       "title": "Nätverk",
       "needRestart": "Starta om servern för att tillämpa inställningarna!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Enhetstyp",
+      "deviceModel": "Enhet modell",
       "port": "Port",
       "portWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad port. (standard: {defaultPort})",
       "encryption": "Kryptering",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad multicast-adress. (standard: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Avancerade inställningar"
   },
   "troubleshootPage": {
     "title": "Felsökning",
@@ -193,13 +198,14 @@
     "loading": "Startar server...",
     "stopping": "Stoppar servern...",
     "error": "Ett fel inträffade vid start av servern.",
-    "hint": "Kom ihåg att anslutningen inte är krypterad. Du bör bara använda denna metod om mottagaren inte har LocalSend installerad.",
     "openLink": {
       "one": "Öppna denna länk i webbläsaren:",
       "other": "Öppna en av dessa länkar i webbläsaren:"
     },
     "requests": "Förfrågningar",
     "noRequests": "Inga förfrågningar ännu.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend använder ett självsignerat certifikat. Du behöver acceptera det i webbläsaren.",
     "pendingRequests": "Väntande förfrågningar: {n}"
   },
   "aboutPage": {
@@ -320,7 +326,7 @@
       "original": "Orginal: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Ingen behörighet",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kan inte hitta andra enheter utan att ha behörighet att skanna det lokala nätverket. Bevilja denna behörighet i inställningarna.",
       "gotoSettings": "Inställningar"
     },
@@ -331,6 +337,10 @@
     "noFiles": {
       "title": "Ingen fil vald",
       "content": "Var god välj minst en fil."
+    },
+    "noPermission": {
+      "title": "Ingen behörighet",
+      "content": "Du har inte beviljat nödvändiga behörigheter. Var vänlig bevilja dem i inställningarna."
     },
     "notAvailableOnPlatform": {
       "title": "Inte tillgängligt",

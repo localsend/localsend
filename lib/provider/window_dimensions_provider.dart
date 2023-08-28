@@ -1,6 +1,6 @@
 import 'dart:ui';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -8,7 +8,7 @@ import 'package:window_manager/window_manager.dart';
 typedef WindowDimensions = Map<String, OffsetBase?>;
 
 final windowDimensionProvider = Provider<WindowDimensionsController>((ref) {
-  return WindowDimensionsController(ref.watch(persistenceProvider));
+  return WindowDimensionsController(ref.read(persistenceProvider));
 });
 
 const Size _minimalSize = Size(400, 500);

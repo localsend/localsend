@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
@@ -7,11 +6,12 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _logger = Logger('TargetedDiscovery');
 
-final targetedDiscoveryProvider = Provider((ref) {
-  final dio = ref.watch(dioProvider(DioType.discovery));
+final targetedDiscoveryProvider = ViewProvider((ref) {
+  final dio = ref.watch(dioProvider).discovery;
   final fingerprint = ref.watch(securityProvider).certificateHash;
   return TargetedDiscoveryService(dio, fingerprint);
 });
@@ -32,7 +32,7 @@ class TargetedDiscoveryService {
       });
       final dto = InfoDto.fromJson(response.data);
       device = dto.toDevice(ip, port, https);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       device = null;
       _logger.warning('$url: ${e.error}');
     } catch (e) {

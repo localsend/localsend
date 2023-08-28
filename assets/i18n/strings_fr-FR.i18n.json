@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Quitter: Sauvegarder l'emplacement de la fenêtre",
       "minimizeToTray": "Quitter : Réduire à la barre des tâches",
       "launchAtStartup": "Démarrage automatique : Après la connexion",
-      "launchMinimized": "Démarrage automatique : Minimiser"
+      "launchMinimized": "Démarrage automatique : Minimiser",
+      "animations": "Animations"
     },
     "receive": {
       "title": "Reçu",
       "quickSave": "@:general.quickSave",
       "destination": "Destination",
       "downloads": "(Téléchargements)",
-      "saveToGallery": "Sauvegarder les médias dans la galerie"
+      "saveToGallery": "Sauvegarder les médias dans la galerie",
+      "saveToHistory": "Enregistrer dans l'historique"
     },
     "network": {
       "title": "Réseau",
       "needRestart": "Redémarrez le serveur pour appliquer les paramètres !",
       "server": "Serveur",
       "alias": "Alias",
+      "deviceType": "Type d'appareil",
+      "deviceModel": "Modèle d'appareil",
       "port": "Port",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Paramètres avancés"
   },
   "troubleshootPage": {
     "title": "Dépannage",
@@ -193,13 +198,14 @@
     "loading": "Démarrage du serveur...",
     "stopping": "Fermeture du serveur...",
     "error": "Une erreur est survenue lors du démarrage du serveur.",
-    "hint": "Prenez garde, cette connection n'est pas chiffrée. Vous devriez utiliser cette méthode uniquement si le récipient n'a pas LocalSend d'installé.",
     "openLink": {
       "one": "Ouvrir ce lien dans le navigateur:",
       "other": "Ouvrir un de ces liens dans le navigateur:"
     },
     "requests": "Requêtes",
     "noRequests": "Aucune requête en attente.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Pas la permission",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez autoriser cette permission à LocalSend dans les paramètres.",
       "gotoSettings": "Paramètres"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Aucun fichier sélectionné",
       "content": "Veuillez sélectionner au moins un fichier."
+    },
+    "noPermission": {
+      "title": "Pas la permission",
+      "content": "Vous n'avez pas accordé les autorisations nécessaires. Veuillez les accorder dans les paramètres."
     },
     "notAvailableOnPlatform": {
       "title": "Non disponible",
@@ -301,6 +311,7 @@
     "size": "Taille"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "OK",
     "cancel": "Annuler",
     "edit": "Modifier",

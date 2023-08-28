@@ -95,26 +95,31 @@
       "saveWindowPlacement": "إنهاء: حفظ موقع النافذة",
       "minimizeToTray": "إنهاء : أخفاء في شريط المهام",
       "launchAtStartup": "تشغيل تلقائي بعد تسجيل الدخول",
-      "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا"
+      "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا",
+      "animations": "الرسوم المتحركة"
     },
     "receive": {
       "title": "استلم",
       "quickSave": "@:general.quickSave",
       "destination": "حفظ في",
       "downloads": "(التنزيلات)",
-      "saveToGallery": "حفظ الوسائط في المعرض"
+      "saveToGallery": "حفظ الوسائط في المعرض",
+      "saveToHistory": "حفظ في التاريخ"
     },
     "network": {
       "title": "شبكة الاتصال",
       "needRestart": "أعد تشغيل الخادم لتطبيق الإعدادات!",
       "server": "الخادم",
       "alias": "اسم مستعار",
+      "deviceType": "نوع الجهاز",
+      "deviceModel": "نموذج الجهاز",
       "port": "منفذ",
       "portWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: {defaultPort})",
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
       "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "الإعدادات المتقدمة"
   },
   "troubleshootPage": {
     "title": "حل المشكلات",
@@ -193,13 +198,14 @@
     "loading": "جاري بدء الخادم...",
     "stopping": "جاري إيقاف الخادم...",
     "error": "حدث خطأ أثناء بدء الخادم.",
-    "hint": "تذكر أن الاتصال غير مشفر. يجب عليك استخدام هذه الطريقة فقط إذا لم يكن المستلم قد قم بتثبيت LocalSend.",
     "openLink": {
       "one": "افتح هذا الرابط في المتصفح:",
       "other": "افتح أحد هذه الروابط في المتصفح:"
     },
     "requests": "الطلبات",
     "noRequests": "لا يوجد طلبات حتى الآن.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
     "pendingRequests": "الطلبات المعلقة: {n}"
   },
   "aboutPage": {
@@ -320,7 +326,7 @@
       "original": "أصلي: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "بدون إذن",
+      "title": "@:dialogs.noPermission.title",
       "description": "لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يرجى منح هذا الإذن في الإعدادات.",
       "gotoSettings": "الإعدادات"
     },
@@ -331,6 +337,10 @@
     "noFiles": {
       "title": "لم يتم اختيار اي ملف",
       "content": "الرجاء تحديد ملف واحد على الأقل."
+    },
+    "noPermission": {
+      "title": "بدون إذن",
+      "content": "لم تقم بمنح الأذونات اللازمة. يرجى منحها من الإعدادات."
     },
     "notAvailableOnPlatform": {
       "title": "غير متاح",

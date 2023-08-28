@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-class SecurityDebugPage extends ConsumerWidget {
+class SecurityDebugPage extends StatelessWidget {
   const SecurityDebugPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final securityContext = ref.watch(securityProvider);
+  Widget build(BuildContext context) {
+    final securityContext = context.ref.watch(securityProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Security Debugging'),
@@ -21,7 +21,7 @@ class SecurityDebugPage extends ConsumerWidget {
           Row(
             children: [
               ElevatedButton(
-                onPressed: () async => ref.read(securityProvider.notifier).reset(),
+                onPressed: () async => await context.ref.notifier(securityProvider).reset(),
                 child: const Text('Reset'),
               ),
             ],

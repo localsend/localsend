@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
@@ -12,6 +11,7 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -21,7 +21,7 @@ final _logger = Logger('Server');
 /// It is a singleton provider, so only one server can be running at a time.
 /// The server state is null if the server is not running.
 /// The server can receive files (since v1) and send files (since v2).
-final serverProvider = NotifierProvider<ServerNotifier, ServerState?>(() {
+final serverProvider = NotifierProvider<ServerNotifier, ServerState?>((ref) {
   return ServerNotifier();
 });
 
@@ -39,7 +39,7 @@ class ServerNotifier extends Notifier<ServerState?> {
   ServerNotifier();
 
   @override
-  ServerState? build() {
+  ServerState? init() {
     return null;
   }
 
@@ -77,7 +77,7 @@ class ServerNotifier extends Notifier<ServerState?> {
       port: port,
       https: https,
       fingerprint: fingerprint,
-      showToken: ref.read(settingsProvider.select((s) => s.showToken)),
+      showToken: ref.read(settingsProvider).showToken,
     );
     _sendController.installRoutes(
       router: router,

@@ -1,6 +1,5 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
@@ -11,12 +10,14 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_actions_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-class ReceiveOptionsPage extends ConsumerWidget {
+class ReceiveOptionsPage extends StatelessWidget {
   const ReceiveOptionsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final ref = context.ref;
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     if (receiveSession == null) {
       return Scaffold(
@@ -42,7 +43,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                     onPressed: () async {
                       final directory = await FilePicker.platform.getDirectoryPath();
                       if (directory != null) {
-                        ref.read(serverProvider.notifier).setSessionDestinationDir(directory);
+                        ref.notifier(serverProvider).setSessionDestinationDir(directory);
                       }
                     },
                     child: const Icon(Icons.edit),
@@ -79,7 +80,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                       }).toList(),
                       onChanged: (b) {
                         if (b != null) {
-                          ref.read(serverProvider.notifier).setSessionSaveToGallery(b);
+                          ref.notifier(serverProvider).setSessionSaveToGallery(b);
                         }
                       },
                     ),
@@ -112,7 +113,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                 message: t.general.reset,
                 child: CustomIconButton(
                   onPressed: () async {
-                    ref.read(selectedReceivingFilesProvider.notifier).init(receiveSession.files.values.map((f) => f.file).toList());
+                    ref.notifier(selectedReceivingFilesProvider).setFiles(receiveSession.files.values.map((f) => f.file).toList());
                   },
                   child: const Icon(Icons.undo),
                 ),
@@ -166,7 +167,7 @@ class ReceiveOptionsPage extends ConsumerWidget {
                                   ),
                                 );
                                 if (result != null) {
-                                  ref.read(selectedReceivingFilesProvider.notifier).rename(file.file.id, result);
+                                  ref.notifier(selectedReceivingFilesProvider).rename(file.file.id, result);
                                 }
                               },
                         child: const Icon(Icons.edit),
@@ -177,9 +178,9 @@ class ReceiveOptionsPage extends ConsumerWidget {
                         checkColor: Theme.of(context).colorScheme.surface,
                         onChanged: (selected) {
                           if (selected == true) {
-                            ref.read(selectedReceivingFilesProvider.notifier).select(file.file);
+                            ref.notifier(selectedReceivingFilesProvider).select(file.file);
                           } else {
-                            ref.read(selectedReceivingFilesProvider.notifier).unselect(file.file.id);
+                            ref.notifier(selectedReceivingFilesProvider).unselect(file.file.id);
                           }
                         },
                       ),

@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Esci: Salva posizione della finestra",
       "minimizeToTray": "Esci: Riduci ad icona nel vassoio",
       "launchAtStartup": "Avvio automatico dopo il login",
-      "launchMinimized": "Avvio automatico: Avvio nascosto"
+      "launchMinimized": "Avvio automatico: Avvio nascosto",
+      "animations": "Animazioni"
     },
     "receive": {
       "title": "Ricevi",
       "quickSave": "@:general.quickSave",
       "destination": "Destinazione",
       "downloads": "(Download)",
-      "saveToGallery": "Salva i dati nella galleria"
+      "saveToGallery": "Salva i dati nella galleria",
+      "saveToHistory": "Salva nella cronologia"
     },
     "network": {
       "title": "Rete",
       "needRestart": "Riavvia il server per applicare le modifiche!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Tipo di dispositivo",
+      "deviceModel": "Modello di dispositivo",
       "port": "Porta",
       "portWarning": "Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: {defaultPort})",
       "encryption": "Crittografia",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Impostazioni avanzate"
   },
   "troubleshootPage": {
     "title": "Risoluzione dei problemi",
@@ -193,13 +198,14 @@
     "loading": "Avvio del server...",
     "stopping": "Arresto del server...",
     "error": "Si è verificato un errore durante l'avvio del server.",
-    "hint": "Tieni presente che la connessione non è crittografata. Dovresti utilizzare questo metodo solo se il destinatario non ha installato LocalSend.",
     "openLink": {
       "one": "Apri questo link nel browser:",
       "other": "Apri uno di questi link nel browser:"
     },
     "requests": "Richieste",
     "noRequests": "Nessuna richiesta ancora.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Originale: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Nessun permesso",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend non può trovare altri dispositivi senza avere il permesso di eseguire la scansione della rete locale. Si prega di concedere questo permesso nelle impostazioni.",
       "gotoSettings": "Impostazioni"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Nessun file selezionato",
       "content": "Seleziona almeno un file."
+    },
+    "noPermission": {
+      "title": "Nessun permesso",
+      "content": "Non hai concesso le autorizzazioni necessarie. Per favore, concedile nelle impostazioni."
     },
     "notAvailableOnPlatform": {
       "title": "Non disponibile",
@@ -289,6 +299,7 @@
     }
   },
   "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Chiudi LocalSend"
   },
@@ -300,6 +311,7 @@
     "size": "Dimensione"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Conferma",
     "cancel": "Annulla",
     "edit": "Modifica",

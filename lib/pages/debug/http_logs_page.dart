@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:localsend_app/provider/logging/http_logs_provider.dart';
 import 'package:localsend_app/widget/copyable_text.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _dateFormat = DateFormat.Hms();
 
-class HttpLogsPage extends ConsumerWidget {
+class HttpLogsPage extends StatelessWidget {
   const HttpLogsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final logs = ref.watch(httpLogsProvider);
+  Widget build(BuildContext context) {
+    final logs = context.ref.watch(httpLogsProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('HTTP Logs'),
@@ -23,7 +23,7 @@ class HttpLogsPage extends ConsumerWidget {
           Row(
             children: [
               ElevatedButton(
-                onPressed: () => ref.read(httpLogsProvider.notifier).clear(),
+                onPressed: () => context.ref.notifier(httpLogsProvider).clear(),
                 child: const Text('Clear'),
               ),
             ],

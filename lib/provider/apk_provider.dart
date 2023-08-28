@@ -1,32 +1,46 @@
 import 'dart:io';
 
 import 'package:device_apps/device_apps.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/provider/param/apk_provider_param.dart';
 import 'package:localsend_app/provider/param/cached_apk_provider_param.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
-final apkProvider = Provider.family.autoDispose<AsyncValue<List<Application>>, ApkProviderParam>((ref, param) {
+final apkSearchParamProvider = StateProvider<ApkProviderParam>(
+  (ref) => const ApkProviderParam(
+    query: '',
+    includeSystemApps: false,
+    onlyAppsWithLaunchIntent: true,
+  ),
+);
+
+final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
+  final param = ref.watch(apkSearchParamProvider);
+
   return ref
       .watch(_apkProvider(CachedApkProviderParam(
-    includeSystemApps: param.includeSystemApps,
-    onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,
-  )))
-      .whenData((apps) {
-    final query = param.query.trim().toLowerCase();
-    if (query.isNotEmpty) {
-      apps = apps.where((a) => a.appName.contains(query) || a.packageName.contains(query)).toList();
-    }
+        includeSystemApps: param.includeSystemApps,
+        onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,
+      )))
+      .maybeWhen(
+        data: (apps) {
+          final query = param.query.trim().toLowerCase();
+          if (query.isNotEmpty) {
+            apps = apps.where((a) => a.appName.contains(query) || a.packageName.contains(query)).toList();
+          }
 
-    return apps..sort((a, b) => a.appName.compareTo(b.appName));
-  });
+          apps.sort((a, b) => a.appName.compareTo(b.appName));
+          return AsyncValue<List<Application>>.withData(apps);
+        },
+        orElse: () => const AsyncValue<List<Application>>.loading(),
+      );
 });
 
-final apkSizeProvider = FutureProvider.family<int, String>((_, path) {
+final apkSizeProvider = FutureFamilyProvider<int, String>((_, path) {
   return File(path).length();
 });
 
 /// Provides a list of APKs which is cached
-final _apkProvider = FutureProvider.family<List<Application>, CachedApkProviderParam>((_, param) {
+final _apkProvider = FutureFamilyProvider<List<Application>, CachedApkProviderParam>((_, param) {
   return DeviceApps.getInstalledApplications(
     includeSystemApps: param.includeSystemApps,
     onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,

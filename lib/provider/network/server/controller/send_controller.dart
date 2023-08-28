@@ -82,7 +82,7 @@ class SendController {
         // Check if the user already has permission
         final session = server.getState().webSendState?.sessions[requestSessionId];
         if (session != null && session.responseHandler == null && session.ip == request.ip) {
-          final deviceInfo = server.ref.read(deviceRawInfoProvider);
+          final deviceInfo = server.ref.read(deviceInfoProvider);
           return server.responseJson(200,
               body: ReceiveRequestResponseDto(
                 info: InfoDto(
@@ -147,7 +147,7 @@ class SendController {
           ),
         ),
       );
-      final deviceInfo = server.ref.read(deviceRawInfoProvider);
+      final deviceInfo = server.ref.read(deviceInfoProvider);
       return server.responseJson(200,
           body: ReceiveRequestResponseDto(
             info: InfoDto(

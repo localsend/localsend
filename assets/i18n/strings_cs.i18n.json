@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Při ukončení uložit umístění okna",
       "minimizeToTray": "Při ukončení minimalizovat do lišty",
       "launchAtStartup": "Automatické spuštění po přihlášení",
-      "launchMinimized": "Automatické spuštění: skrytý start"
+      "launchMinimized": "Automatické spuštění: skrytý start",
+      "animations": "Animace"
     },
     "receive": {
       "title": "Příjmout",
       "quickSave": "@:general.quickSave",
       "destination": "Uložit do",
       "downloads": "(Downloads)",
-      "saveToGallery": "Uložit média do galerie"
+      "saveToGallery": "Uložit média do galerie",
+      "saveToHistory": "Uložit do historie"
     },
     "network": {
       "title": "Síť",
       "needRestart": "Chcete-li použít nastavení, restartujte server!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Typ zařízení",
+      "deviceModel": "Model zařízení",
       "port": "Port",
       "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
       "encryption": "Šifrování",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Pokročilá nastavení"
   },
   "troubleshootPage": {
     "title": "Odstraňování problémů",
@@ -193,13 +198,14 @@
     "loading": "Spouštění serveru...",
     "stopping": "Zastavování serveru...",
     "error": "Při spouštění serveru došlo k chybě.",
-    "hint": "Mějte na paměti, že připojení je nešifrované. Tuto metodu byste měli použít pouze v případě, že příjemce nemá nainstalovanou aplikaci LocalSend.",
     "openLink": {
       "one": "Otevřete tento odkaz v prohlížeči:",
       "other": "Otevřete v prohlížeči jeden z těchto odkazů:"
     },
     "requests": "Žádosti",
     "noRequests": "Zatím žádné žádosti.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.",
     "pendingRequests": "Čekající žádosti: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Původní: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Žádné oprávnění",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend nemůže najít jiná zařízení, aniž by měl oprávnění skenovat místní síť. Udělte prosím toto oprávnění v nastavení.",
       "gotoSettings": "Nastavení"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Žádný soubor nevybrán",
       "content": "Vyberte prosím alespoň jeden soubor."
+    },
+    "noPermission": {
+      "title": "Žádné oprávnění",
+      "content": "Neposkytli jste potřebná oprávnění. Prosím, udělte je v nastavení."
     },
     "notAvailableOnPlatform": {
       "title": "Není k dispozici",
@@ -301,6 +311,7 @@
     "size": "Velikost"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Potvrdit",
     "cancel": "Zrušit",
     "edit": "Editovat",

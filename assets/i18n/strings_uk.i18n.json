@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Зберегти розташування вікна після закриття програми",
       "minimizeToTray": "Закрити: згорнути в системний трей",
       "launchAtStartup": "Автозапуск",
-      "launchMinimized": "Прихований автозапуск"
+      "launchMinimized": "Прихований автозапуск",
+      "animations": "Анімації"
     },
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
       "destination": "Зберігати в теку",
       "downloads": "(Завантаження)",
-      "saveToGallery": "Зберігати медіафайли до галереї"
+      "saveToGallery": "Зберігати медіафайли до галереї",
+      "saveToHistory": "Зберегти в історію"
     },
     "network": {
       "title": "Мережа",
       "needRestart": "Для застосування змін необхідно перезапустити сервер!",
       "server": "Сервер",
       "alias": "Ім'я пристрою",
+      "deviceType": "Тип пристрою",
+      "deviceModel": "Модель пристрою",
       "port": "Порт",
       "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
       "multicastGroup": "Групова передача",
       "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну групову адресу. (default: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Розширені налаштування"
   },
   "troubleshootPage": {
     "title": "Усунення несправностей",
@@ -193,13 +198,14 @@
     "loading": "Запуск сервера...",
     "stopping": "Зупинка сервера...",
     "error": "Під час запуску сервера сталася помилка.",
-    "hint": "Майте на увазі, що з'єднання незашифроване. Ви повинні використовувати цей метод, лише якщо одержувач не встановив LocalSend.",
     "openLink": {
       "one": "Відкрийте це посилання в браузері:",
       "other": "Відкрийте одне з цих посилань в браузері:"
     },
     "requests": "Запити",
     "noRequests": "Запитів поки що немає.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Ви повинні його прийняти в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
   "aboutPage": {
@@ -250,7 +256,7 @@
       "original": "Оригінальне ім'я файлу: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Немає дозволу",
+      "title": "@:dialogs.noPermission.title",
       "description": "LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.",
       "gotoSettings": "Налаштування"
     },
@@ -261,6 +267,10 @@
     "noFiles": {
       "title": "Файли не обрано",
       "content": "Будь ласка, додайте як мінімум один файл."
+    },
+    "noPermission": {
+      "title": "Немає дозволу",
+      "content": "Ви не надали необхідні дозволи. Будь ласка, надайте їх у налаштуваннях."
     },
     "notAvailableOnPlatform": {
       "title": "Недоступно",
@@ -301,6 +311,7 @@
     "size": "Розмір"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",

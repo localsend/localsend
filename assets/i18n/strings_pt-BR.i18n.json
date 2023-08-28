@@ -95,26 +95,31 @@
       "saveWindowPlacement": "Salvar a posição da janela ao fechar",
       "minimizeToTray": "Minimizar para a bandeja ao fechar",
       "launchAtStartup": "Abrir automaticamente após o login",
-      "launchMinimized": "Início automático: Abrir minimizado"
+      "launchMinimized": "Início automático: Abrir minimizado",
+      "animations": "Animações"
     },
     "receive": {
       "title": "Recebimento",
       "quickSave": "@:general.quickSave",
       "destination": "Destino",
       "downloads": "(Downloads)",
-      "saveToGallery": "Salvar mídia na Galeria"
+      "saveToGallery": "Salvar mídia na Galeria",
+      "saveToHistory": "Salvar no histórico"
     },
     "network": {
       "title": "Rede",
       "needRestart": "Reinicie o servidor para aplicar as configurações!",
       "server": "Servidor",
       "alias": "Nome",
+      "deviceType": "Tipo de dispositivo",
+      "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
-    }
+    },
+    "advancedSettings": "Configurações avançadas"
   },
   "troubleshootPage": {
     "title": "Diagnostique problemas",
@@ -193,13 +198,14 @@
     "loading": "Iniciando o servidor...",
     "stopping": "Parando o servidor...",
     "error": "Um erro ocorreu enquanto o servidor tentava iniciar.",
-    "hint": "Tenha em mente que a transferência por link não é criptografada. Você só deve usar essa opção se o destinatário não tiver o LocalSend instalado.",
     "openLink": {
       "one": "Abra este link no navegador:",
       "other": "Abra um desses links no navegador:"
     },
     "requests": "Solicitações",
     "noRequests": "Nenhuma solicitação ainda.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no navegador.",
     "pendingRequests": "Solicitações pendentes: {n}"
   },
   "aboutPage": {
@@ -310,7 +316,7 @@
       "original": "Original: {original}"
     },
     "localNetworkUnauthorized": {
-      "title": "Sem permissão",
+      "title": "@:dialogs.noPermission.title",
       "description": "O LocalSend não consegue encontrar outros dispositivos sem ter a permissão para escanear a rede local. Por favor, conceda esta permissão nas configurações.",
       "gotoSettings": "Configurações"
     },
@@ -321,6 +327,10 @@
     "noFiles": {
       "title": "Nenhum arquivo selecionado",
       "content": "Por favor, selecione ao menos um arquivo."
+    },
+    "noPermission": {
+      "title": "Sem permissão",
+      "content": "Você não concedeu as permissões necessárias. Por favor, conceda-as nas configurações."
     },
     "notAvailableOnPlatform": {
       "title": "Indisponível",
@@ -361,6 +371,7 @@
     "size": "Tamanho"
   },
   "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",

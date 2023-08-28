@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
-import 'package:localsend_app/provider/picking_status_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -13,8 +11,10 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
+import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -78,11 +78,10 @@ enum FilePickerOption {
 
   Future<void> select({
     required BuildContext context,
-    required WidgetRef ref,
+    required Ref ref,
   }) async {
     switch (this) {
       case FilePickerOption.file:
-        ref.read(pickingStatusProvider.notifier).state = true;
         if (checkPlatform([TargetPlatform.android])) {
           // On android, the files are copied to the cache which takes some time.
           // ignore: unawaited_futures
@@ -92,18 +91,24 @@ enum FilePickerOption {
             builder: (_) => const LoadingDialog(),
           );
         }
-        final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-        if (result != null) {
-          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
-                files: result.files,
-                converter: CrossFileConverters.convertPlatformFile,
-              );
+        try {
+          final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+          if (result != null) {
+            await ref.notifier(selectedSendingFilesProvider).addFiles(
+                  files: result.files,
+                  converter: CrossFileConverters.convertPlatformFile,
+                );
+          }
+        } catch (e) {
+          // ignore: use_build_context_synchronously
+          await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+          _logger.warning('Failed to pick files', e);
+        } finally {
+          // ignore: use_build_context_synchronously
+          Routerino.context.popUntilRoot(); // remove loading dialog
         }
-        ref.read(pickingStatusProvider.notifier).state = false;
         break;
       case FilePickerOption.folder:
-        ref.read(pickingStatusProvider.notifier).state = true;
-
         if (checkPlatform([TargetPlatform.android])) {
           try {
             await Permission.manageExternalStorage.request();
@@ -127,16 +132,21 @@ enum FilePickerOption {
         try {
           final directoryPath = await FilePicker.platform.getDirectoryPath();
           if (directoryPath != null) {
-            await ref.read(selectedSendingFilesProvider.notifier).addDirectory(directoryPath);
+            await ref.notifier(selectedSendingFilesProvider).addDirectory(directoryPath);
           }
         } catch (e) {
           _logger.warning('Failed to pick directory', e);
+          // ignore: use_build_context_synchronously
+          await showDialog(context: context, builder: (_) => const NoPermissionDialog());
         } finally {
-          ref.read(pickingStatusProvider.notifier).state = false;
+          // ignore: use_build_context_synchronously
+          Routerino.context.popUntilRoot(); // remove loading dialog
         }
         break;
       case FilePickerOption.media:
+        // ignore: use_build_context_synchronously
         final oldBrightness = Theme.of(context).brightness;
+        // ignore: use_build_context_synchronously
         final List<AssetEntity>? result = await AssetPicker.pickAssets(
           context,
           pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
@@ -151,20 +161,22 @@ enum FilePickerOption {
         });
 
         if (result != null) {
-          await ref.read(selectedSendingFilesProvider.notifier).addFiles(
+          await ref.notifier(selectedSendingFilesProvider).addFiles(
                 files: result,
                 converter: CrossFileConverters.convertAssetEntity,
               );
         }
         break;
       case FilePickerOption.text:
+        // ignore: use_build_context_synchronously
         final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
         if (result != null) {
-          ref.read(selectedSendingFilesProvider.notifier).addMessage(result);
+          ref.notifier(selectedSendingFilesProvider).addMessage(result);
         }
         break;
       case FilePickerOption.app:
         // Currently, only Android APK
+        // ignore: use_build_context_synchronously
         await context.push(() => const ApkPickerPage());
         break;
     }
