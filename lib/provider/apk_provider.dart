@@ -25,7 +25,7 @@ final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
         data: (apps) {
           final query = param.query.trim().toLowerCase();
           if (query.isNotEmpty) {
-            apps = apps.where((a) => a.appName.contains(query) || a.packageName.contains(query)).toList();
+            apps = apps.where((a) => a.appName.toLowerCase().contains(query) || a.packageName.contains(query)).toList();
           }
 
           apps.sort((a, b) => a.appName.compareTo(b.appName));
