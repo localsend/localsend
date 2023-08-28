@@ -205,7 +205,7 @@
     "requests": "Kérések",
     "noRequests": "Még nincsenek kérések.",
     "encryption": "@:settingsTab.network.encryption",
-    "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben elfogadnod kell.",
+    "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.",
     "pendingRequests": "Függőben lévő kérések: {n}"
   },
   "aboutPage": {
@@ -311,7 +311,7 @@
     "size": "Méret"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Fordítások a médiaválasztó eszközhöz Androidra és iPhone-ra",
     "confirm": "Megerősít",
     "cancel": "Mégse",
     "edit": "Szerkeszt",
