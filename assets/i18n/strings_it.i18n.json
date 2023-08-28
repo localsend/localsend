@@ -111,6 +111,8 @@
       "needRestart": "Riavvia il server per applicare le modifiche!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Tipo di dispositivo",
+      "deviceModel": "Modello di dispositivo",
       "port": "Porta",
       "portWarning": "Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: {defaultPort})",
       "encryption": "Crittografia",

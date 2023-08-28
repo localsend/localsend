@@ -111,6 +111,8 @@
       "needRestart": "Redémarrez le serveur pour appliquer les paramètres !",
       "server": "Serveur",
       "alias": "Alias",
+      "deviceType": "Type d'appareil",
+      "deviceModel": "Modèle d'appareil",
       "port": "Port",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",

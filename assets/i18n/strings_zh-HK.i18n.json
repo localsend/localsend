@@ -111,6 +111,8 @@
       "needRestart": "熄咗個 server 再開過，設定先會生效",
       "server": "server",
       "alias": "名",
+      "deviceType": "設備類型",
+      "deviceModel": "設備型號",
       "port": "Port",
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",

@@ -34,6 +34,8 @@
       "saveToHistory": "Save to history"
     },
     "network": {
+      "deviceType": "Device type",
+      "deviceModel": "Device model",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },

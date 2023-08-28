@@ -111,6 +111,8 @@
       "needRestart": "Restart the server to apply the settings!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Device type",
+      "deviceModel": "Device model",
       "port": "Port",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",

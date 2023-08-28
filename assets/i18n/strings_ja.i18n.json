@@ -111,6 +111,8 @@
       "needRestart": "設定を反映するにはサーバーを再起動してください！",
       "server": "サーバー",
       "alias": "エイリアス",
+      "deviceType": "デバイスタイプ",
+      "deviceModel": "デバイスモデル",
       "port": "ポート",
       "portWarning": "カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",

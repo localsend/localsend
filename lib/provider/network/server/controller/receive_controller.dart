@@ -120,7 +120,7 @@ class ReceiveController {
       return server.responseJson(412, message: 'Self-discovered');
     }
 
-    final deviceInfo = server.ref.read(deviceRawInfoProvider);
+    final deviceInfo = server.ref.read(deviceInfoProvider);
 
     final dto = InfoDto(
       alias: alias,
@@ -158,7 +158,7 @@ class ReceiveController {
     server.ref.notifier(nearbyDevicesProvider).registerDevice(requestDto.toDevice(request.ip, port, https));
     server.ref.notifier(discoveryLogsProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
-    final deviceInfo = server.ref.read(deviceRawInfoProvider);
+    final deviceInfo = server.ref.read(deviceInfoProvider);
 
     final responseDto = InfoDto(
       alias: alias,

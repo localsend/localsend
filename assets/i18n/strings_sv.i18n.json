@@ -111,6 +111,8 @@
       "needRestart": "Starta om servern för att tillämpa inställningarna!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Enhetstyp",
+      "deviceModel": "Enhet modell",
       "port": "Port",
       "portWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad port. (standard: {defaultPort})",
       "encryption": "Kryptering",

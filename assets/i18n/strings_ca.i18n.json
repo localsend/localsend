@@ -111,6 +111,8 @@
       "needRestart": "Reiniciar el servidor per aplicar la configuració!",
       "server": "Servidor",
       "alias": "Àlies",
+      "deviceType": "Tipus de dispositiu",
+      "deviceModel": "Model de dispositiu",
       "port": "Port",
       "portWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant un port personalitzat. (per defecte: {defaultPort})",
       "encryption": "Encriptació",

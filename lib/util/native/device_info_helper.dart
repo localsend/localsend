@@ -8,7 +8,10 @@ class DeviceInfoResult {
   final DeviceType deviceType;
   final String? deviceModel;
 
-  DeviceInfoResult(this.deviceType, this.deviceModel);
+  DeviceInfoResult({
+    required this.deviceType,
+    required this.deviceModel,
+  });
 }
 
 Future<DeviceInfoResult> getDeviceInfo() async {
@@ -58,7 +61,10 @@ Future<DeviceInfoResult> getDeviceInfo() async {
     }
   }
 
-  return DeviceInfoResult(deviceType, deviceModel);
+  return DeviceInfoResult(
+    deviceType: deviceType,
+    deviceModel: deviceModel,
+  );
 }
 
 extension on BrowserName {

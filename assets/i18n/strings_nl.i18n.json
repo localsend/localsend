@@ -111,6 +111,8 @@
       "needRestart": "Server herstarten om instellingen toe te passen!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Apparaattype",
+      "deviceModel": "Apparaatmodel",
       "port": "Poort",
       "portWarning": "Je wordt mogelijk niet gedetecteerd door andere apparaten omdat je een aagepaste poort gebruikt. (standaard: {defaultPort})",
       "encryption": "Encryptie",

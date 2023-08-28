@@ -111,6 +111,8 @@
       "needRestart": "서버를 재시작해야 변경된 설정이 반영됩니다",
       "server": "서버",
       "alias": "별명",
+      "deviceType": "기기 유형",
+      "deviceModel": "기기 모델",
       "port": "포트",
       "portWarning": "커스텀 포트를 사용하면 이 디바이스가 다른 장치에서 감지되지 않을 수 있습니다. (기본값: {defaultPort})",
       "encryption": "암호화",

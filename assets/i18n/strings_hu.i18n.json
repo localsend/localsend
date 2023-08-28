@@ -111,6 +111,8 @@
       "needRestart": "A beállítások alkalmazásához indítsa újra a szervert!",
       "server": "Szerver",
       "alias": "Álnév",
+      "deviceType": "Eszköz típusa",
+      "deviceModel": "Eszköz modell",
       "port": "Port",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
