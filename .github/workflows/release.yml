@@ -242,41 +242,42 @@ jobs:
           name: appimage-result
           path: ./*.AppImage
 
-  build_windows_zip:
-    needs: build
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Download generated files
-        uses: actions/download-artifact@v3
-        with:
-          name: lib-files
-          path: lib
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
-
-      - name: Dependencies
-        run: flutter pub get
-
-      - name: Compile for Windows
-        run: flutter build windows
-
-      - name: Zip compiled files
-        run: Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend.zip
-
-      - name: Upload zip
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-zip-result
-          path: LocalSend.zip
+# https://github.com/subosito/flutter-action/issues/243
+#  build_windows_zip:
+#    needs: build
+#    runs-on: windows-latest
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Download generated files
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: lib-files
+#          path: lib
+#
+#      - uses: subosito/flutter-action@v2
+#        with:
+#          flutter-version: ${{ env.FLUTTER_VERSION }}
+#          channel: "stable"
+#
+#      - name: Dependencies
+#        run: flutter pub get
+#
+#      - name: Compile for Windows
+#        run: flutter build windows
+#
+#      - name: Zip compiled files
+#        run: Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend.zip
+#
+#      - name: Upload zip
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: windows-zip-result
+#          path: LocalSend.zip
 
   release:
-    needs: [build, build_apk, build_tar, build_deb, build_appimage, build_windows_zip]
+    needs: [build, build_apk, build_tar, build_deb, build_appimage]
     runs-on: ubuntu-20.04
 
     steps:
@@ -383,21 +384,22 @@ jobs:
           asset_content_type: application/x-appimage
 
       # WINDOWS ZIP
-      - name: Download windows zip file
-        uses: actions/download-artifact@v3
-        with:
-          name: windows-zip-result
-          path: windows-zip-result
-
-      - name: Copy zip file to root
-        run: cp windows-zip-result/*.zip result.zip
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.zip
-          asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
-          asset_content_type: application/zip
+# https://github.com/subosito/flutter-action/issues/243
+#      - name: Download windows zip file
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: windows-zip-result
+#          path: windows-zip-result
+#
+#      - name: Copy zip file to root
+#        run: cp windows-zip-result/*.zip result.zip
+#
+#      - name: Upload Release Asset
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+#          asset_path: result.zip
+#          asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+#          asset_content_type: application/zip
