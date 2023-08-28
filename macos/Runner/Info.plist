@@ -33,6 +33,10 @@
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.utilities</string>
 
+    <!-- Flag to skip question by Appstore -->
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
+
 	<key>CFBundleLocalizations</key>
     <array>
         <string>ar</string>
@@ -57,9 +61,9 @@
         <string>sv</string>
         <string>tr</string>
         <string>uk</string>
-        <string>zh-Hans</string>
-        <string>zh-Hant-HK</string>
-        <string>zh-Hant-TW</string>
+        <string>zh-CN</string>
+        <string>zh-HK</string>
+        <string>zh-TW</string>
     </array>
 
 	<key>NSPhotoLibraryUsageDescription</key>

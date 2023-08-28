@@ -47,6 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- Flag to skip question by Appstore -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
+
 	<key>CFBundleLocalizations</key>
     <array>
         <string>ar</string>
@@ -71,9 +76,9 @@
         <string>sv</string>
         <string>tr</string>
         <string>uk</string>
-        <string>zh-Hans</string>
-        <string>zh-Hant-HK</string>
-        <string>zh-Hant-TW</string>
+        <string>zh-CN</string>
+        <string>zh-HK</string>
+        <string>zh-TW</string>
     </array>
 
     <!-- Make downloaded files visible to the user -->
