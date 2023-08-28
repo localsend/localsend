@@ -248,12 +248,9 @@ class _WebSendPageState extends State<WebSendPage> with Riverpie {
                   );
                 }),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2),
-                      child: Text(t.webSharePage.encryption, style: Theme.of(context).textTheme.titleMedium),
-                    ),
+                    Text(t.webSharePage.encryption, style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _encrypted,
