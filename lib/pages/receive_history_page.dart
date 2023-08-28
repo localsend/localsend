@@ -146,6 +146,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                               await _openFile(context, entry, ref.notifier(receiveHistoryProvider));
                               break;
                             case _EntryOption.info:
+                              // ignore: use_build_context_synchronously
                               await showDialog(
                                 context: context,
                                 builder: (_) => FileInfoDialog(entry: entry),

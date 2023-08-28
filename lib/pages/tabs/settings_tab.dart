@@ -318,6 +318,7 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                             try {
                               await ref.notifier(serverProvider).startServerFromSettings();
                             } catch (e) {
+                              // ignore: use_build_context_synchronously
                               context.showSnackBar(e.toString());
                             }
                           },
@@ -345,6 +346,7 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                                 await ref.notifier(settingsProvider).setPort(newServerState.port);
                               }
                             } catch (e) {
+                              // ignore: use_build_context_synchronously
                               context.showSnackBar(e.toString());
                             }
                           },

@@ -144,7 +144,9 @@ enum FilePickerOption {
         }
         break;
       case FilePickerOption.media:
+        // ignore: use_build_context_synchronously
         final oldBrightness = Theme.of(context).brightness;
+        // ignore: use_build_context_synchronously
         final List<AssetEntity>? result = await AssetPicker.pickAssets(
           context,
           pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
@@ -166,6 +168,7 @@ enum FilePickerOption {
         }
         break;
       case FilePickerOption.text:
+        // ignore: use_build_context_synchronously
         final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
         if (result != null) {
           ref.notifier(selectedSendingFilesProvider).addMessage(result);
@@ -173,6 +176,7 @@ enum FilePickerOption {
         break;
       case FilePickerOption.app:
         // Currently, only Android APK
+        // ignore: use_build_context_synchronously
         await context.push(() => const ApkPickerPage());
         break;
     }
