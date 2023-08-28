@@ -34,7 +34,7 @@ class _SendPageState extends State<SendPage> with Riverpie {
 
   void _cancel() {
     // the state will be lost so we store them temporarily (only for UI)
-    final myDevice = ref.read(deviceInfoProvider);
+    final myDevice = ref.read(deviceFullInfoProvider);
     final sendState = ref.read(sendProvider)[widget.sessionId];
     if (sendState == null) {
       return;
@@ -55,7 +55,7 @@ class _SendPageState extends State<SendPage> with Riverpie {
         body: Container(),
       );
     }
-    final myDevice = ref.watch(deviceInfoProvider);
+    final myDevice = ref.watch(deviceFullInfoProvider);
     final waiting = sendState?.status == SessionStatus.waiting;
 
     return WillPopScope(

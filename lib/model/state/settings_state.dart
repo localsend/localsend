@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 
@@ -27,5 +28,7 @@ class SettingsState with _$SettingsState {
     required SendMode sendMode,
     required bool saveWindowPlacement,
     required bool enableAnimations,
+    required DeviceType? deviceType,
+    required String? deviceModel,
   }) = _SettingsState;
 }

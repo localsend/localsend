@@ -111,6 +111,8 @@
       "needRestart": "Chcete-li použít nastavení, restartujte server!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Typ zařízení",
+      "deviceModel": "Model zařízení",
       "port": "Port",
       "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
       "encryption": "Šifrování",

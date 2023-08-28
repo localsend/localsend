@@ -111,6 +111,8 @@
       "needRestart": "Uruchom ponownie serwer, aby zastosować ustawienia!",
       "server": "Serwer",
       "alias": "Alias",
+      "deviceType": "Typ urządzenia",
+      "deviceModel": "Model urządzenia",
       "port": "Port",
       "portWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: {defaultPort})",
       "encryption": "Szyfrowanie",

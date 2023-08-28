@@ -111,6 +111,8 @@
       "needRestart": "重新啟動伺服器以套用設定！",
       "server": "伺服器",
       "alias": "別名",
+      "deviceType": "裝置類型",
+      "deviceModel": "裝置型號",
       "port": "通訊埠",
       "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
       "encryption": "加密",

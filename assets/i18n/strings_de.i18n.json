@@ -111,6 +111,8 @@
       "needRestart": "Starte den Server neu, um die Änderungen zu übernehmen!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Gerätetyp",
+      "deviceModel": "Gerätemodell",
       "port": "Port",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",

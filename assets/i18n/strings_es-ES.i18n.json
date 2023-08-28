@@ -111,6 +111,8 @@
       "needRestart": "Reiniciar el servidor para aplicar los ajustes.",
       "server": "Servidor",
       "alias": "Alias",
+      "deviceType": "Tipo de dispositivo",
+      "deviceModel": "Modelo de dispositivo",
       "port": "Puerto",
       "portWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando un puerto personalizado. (Puerto por defecto: {defaultPort})",
       "encryption": "Encriptación",

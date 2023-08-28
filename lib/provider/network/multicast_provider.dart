@@ -21,7 +21,7 @@ import 'package:riverpie_flutter/riverpie_flutter.dart';
 final _logger = Logger('Multicast');
 
 final multicastProvider = ViewProvider((ref) {
-  final deviceInfo = ref.watch(deviceRawInfoProvider);
+  final deviceInfo = ref.watch(deviceInfoProvider);
   return MulticastService(ref, deviceInfo);
 });
 

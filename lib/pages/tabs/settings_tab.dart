@@ -2,10 +2,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
@@ -35,6 +37,7 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
   final _isLinux = checkPlatform([TargetPlatform.linux]);
   final _isWindows = checkPlatform([TargetPlatform.windows]);
   final _aliasController = TextEditingController();
+  final _deviceModelController = TextEditingController();
   final _portController = TextEditingController();
   final _multicastController = TextEditingController();
   bool _advanced = false;
@@ -45,15 +48,26 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
     ensureRef((ref) {
       final settings = ref.read(settingsProvider);
       _aliasController.text = settings.alias;
+      _deviceModelController.text = ref.read(deviceInfoProvider).deviceModel ?? '';
       _portController.text = settings.port.toString();
       _multicastController.text = settings.multicastGroup;
     });
   }
 
   @override
+  void dispose() {
+    _aliasController.dispose();
+    _deviceModelController.dispose();
+    _portController.dispose();
+    _multicastController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final serverState = ref.watch(serverProvider);
+    final deviceInfo = ref.watch(deviceInfoProvider);
     return ResponsiveListView(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
       children: [
@@ -363,6 +377,36 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                 },
               ),
             ),
+            if (_advanced)
+              _SettingsEntry(
+                label: t.settingsTab.network.deviceType,
+                child: CustomDropdownButton<DeviceType>(
+                  value: deviceInfo.deviceType,
+                  items: DeviceType.values.map((type) {
+                    return DropdownMenuItem(
+                      value: type,
+                      alignment: Alignment.center,
+                      child: Icon(type.icon),
+                    );
+                  }).toList(),
+                  onChanged: (type) async {
+                    if (type != null) {
+                      await ref.notifier(settingsProvider).setDeviceType(type);
+                    }
+                  },
+                ),
+              ),
+            if (_advanced)
+              _SettingsEntry(
+                label: t.settingsTab.network.deviceModel,
+                child: TextFieldTv(
+                  name: t.settingsTab.network.deviceModel,
+                  controller: _deviceModelController,
+                  onChanged: (s) async {
+                    await ref.notifier(settingsProvider).setDeviceModel(s);
+                  },
+                ),
+              ),
             if (_advanced)
               _SettingsEntry(
                 label: t.settingsTab.network.port,

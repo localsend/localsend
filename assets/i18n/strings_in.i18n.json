@@ -111,6 +111,8 @@
       "needRestart": "Mulai ulang untuk menerapkan!",
       "server": "Server",
       "alias": "Alias",
+      "deviceType": "Tipe Perangkat",
+      "deviceModel": "Model Perangkat",
       "port": "Port",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",

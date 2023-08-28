@@ -111,6 +111,8 @@
       "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
       "server": "Sunucu",
       "alias": "Takma isminiz",
+      "deviceType": "Cihaz tipi",
+      "deviceModel": "Cihaz modeli",
       "port": "Port",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",

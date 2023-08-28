@@ -15,9 +15,6 @@
     "dialogs": {
       "messageInput": {
         "multiline": "Multiline"
-      },
-      "noPermission": {
-        "content": "You have not granted the necessary permissions. Please grant them in the settings."
       }
     }
   },

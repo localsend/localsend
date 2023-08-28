@@ -111,6 +111,8 @@
       "needRestart": "Reinicie o servidor para aplicar as configurações!",
       "server": "Servidor",
       "alias": "Nome",
+      "deviceType": "Tipo de dispositivo",
+      "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
