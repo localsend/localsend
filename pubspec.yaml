@@ -19,6 +19,7 @@ dependencies:
   dio: 5.3.2
   dynamic_color: 1.6.6
   file_picker: 5.3.4
+  file_selector: 1.0.0
   flutter:
     sdk: flutter
   flutter_localizations:
