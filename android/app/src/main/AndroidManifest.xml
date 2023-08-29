@@ -24,7 +24,9 @@
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
         android:banner="@drawable/banner"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true"
+    >
 
         <!-- localsend: prevent multiple instances by android:launchMode="singleTask" -->
         <activity

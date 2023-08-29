@@ -1,9 +1,9 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
@@ -41,7 +41,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10),
                   child: CustomIconButton(
                     onPressed: () async {
-                      final directory = await FilePicker.platform.getDirectoryPath();
+                      final directory = await pickDirectoryPath();
                       if (directory != null) {
                         ref.notifier(serverProvider).setSessionDestinationDir(directory);
                       }

@@ -369,6 +369,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.4"
+  file_selector:
+    dependency: "direct main"
+    description:
+      name: file_selector
+      sha256: "59b35aa4af7988be7ec88f9ddaa6c71c5b54bf0f8b35009389d9343b10e9c3af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  file_selector_android:
+    dependency: transitive
+    description:
+      name: file_selector_android
+      sha256: "43e5c719f671b9181bef1bf2851135c3ad993a9a6c804a4ccb07579cfee84e34"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0+2"
+  file_selector_ios:
+    dependency: transitive
+    description:
+      name: file_selector_ios
+      sha256: "507af301b21b1dbb6fd0615ba21190b2b4574edb672929f32ce7f610c40a9bd9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1+5"
   file_selector_linux:
     dependency: transitive
     description:
@@ -393,6 +417,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.0"
+  file_selector_web:
+    dependency: transitive
+    description:
+      name: file_selector_web
+      sha256: e292740c469df0aeeaba0895bf622bea351a05e87d22864c826bf21c4780e1d7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.2"
   file_selector_windows:
     dependency: transitive
     description:
