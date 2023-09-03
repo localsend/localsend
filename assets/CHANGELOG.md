@@ -1,3 +1,9 @@
+## 1.11.1 (2023-09-)
+
+- fix(android): navigation bar color on Android 9 and earlier (@Tienisto)
+- fix(android): add `requestLegacyExternalStorage` again (that was removed in 1.11.0) (@Tienisto)
+- fix(linux): do not use zenity dependency anymore for file picker (@Tienisto)
+
 ## 1.11.0 (2023-08-28)
 
 - feat: optionally enable HTTPS (encryption) when share via link (@Tienisto)

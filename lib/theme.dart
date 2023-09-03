@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:riverpie_flutter/riverpie_flutter.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
@@ -82,15 +84,27 @@ Future<void> updateSystemOverlayStyle(BuildContext context) async {
 }
 
 Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async {
-  final style = SystemUiOverlayStyle(
-    statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light, // android
-    statusBarBrightness: brightness, // iOS
-    systemNavigationBarColor: Colors.transparent,
-    statusBarColor: Colors.transparent,
-  );
+  if (checkPlatform([TargetPlatform.android])) {
+    // See https://github.com/flutter/flutter/issues/90098
+    final darkMode = brightness == Brightness.dark;
+    final androidSdkInt = RiverpieScope.defaultRef.read(deviceInfoProvider).androidSdkInt ?? 0;
+    final bool edgeToEdge = androidSdkInt >= 29;
 
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  SystemChrome.setSystemUIOverlayStyle(style);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
+      systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
+      systemNavigationBarContrastEnforced: false,
+      systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
+    ));
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarBrightness: brightness, // iOS
+      statusBarColor: Colors.transparent, // Not relevant to this issue
+    ));
+  }
 }
 
 extension ThemeDataExt on ThemeData {
