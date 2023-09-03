@@ -1,6 +1,7 @@
 ## 1.11.1 (2023-09-)
 
 - feat: hide color setting when dynamic colors are not supported (@Tienisto)
+- feat(linux): use white icon for the linux tray (@GaryElshaw, @Tienisto)
 - fix(android): navigation bar color on Android 9 and earlier (@Tienisto)
 - fix(android): add `requestLegacyExternalStorage` again (that was removed in 1.11.0) (@Tienisto)
 - fix(linux): do not use zenity dependency anymore for file picker (@Tienisto)
