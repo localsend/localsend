@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
@@ -92,12 +94,23 @@ enum FilePickerOption {
           );
         }
         try {
-          final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-          if (result != null) {
-            await ref.notifier(selectedSendingFilesProvider).addFiles(
-                  files: result.files,
-                  converter: CrossFileConverters.convertPlatformFile,
-                );
+          if (checkPlatform([TargetPlatform.android])) {
+            // We also need to use the file_picker package because file_selector does not expose the raw path.
+            final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+            if (result != null) {
+              await ref.notifier(selectedSendingFilesProvider).addFiles(
+                    files: result.files,
+                    converter: CrossFileConverters.convertPlatformFile,
+                  );
+            }
+          } else {
+            final result = await file_selector.openFiles();
+            if (result.isNotEmpty) {
+              await ref.notifier(selectedSendingFilesProvider).addFiles<file_selector.XFile>(
+                    files: result,
+                    converter: CrossFileConverters.convertXFile,
+                  );
+            }
           }
         } catch (e) {
           // ignore: use_build_context_synchronously
@@ -130,7 +143,7 @@ enum FilePickerOption {
         );
         await sleepAsync(200); // Wait for the dialog to be shown
         try {
-          final directoryPath = await FilePicker.platform.getDirectoryPath();
+          final directoryPath = await pickDirectoryPath();
           if (directoryPath != null) {
             await ref.notifier(selectedSendingFilesProvider).addDirectory(directoryPath);
           }
