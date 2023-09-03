@@ -15,6 +15,7 @@ import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
@@ -101,24 +102,25 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                 },
               ),
             ),
-            _SettingsEntry(
-              label: t.settingsTab.general.color,
-              child: CustomDropdownButton<ColorMode>(
-                value: settings.colorMode,
-                items: ColorMode.values.map((colorMode) {
-                  return DropdownMenuItem(
-                    value: colorMode,
-                    alignment: Alignment.center,
-                    child: Text(colorMode.humanName),
-                  );
-                }).toList(),
-                onChanged: (colorMode) async {
-                  if (colorMode != null) {
-                    await ref.notifier(settingsProvider).setColorMode(colorMode);
-                  }
-                },
+            if (ref.watch(dynamicColorsProvider) != null)
+              _SettingsEntry(
+                label: t.settingsTab.general.color,
+                child: CustomDropdownButton<ColorMode>(
+                  value: settings.colorMode,
+                  items: ColorMode.values.map((colorMode) {
+                    return DropdownMenuItem(
+                      value: colorMode,
+                      alignment: Alignment.center,
+                      child: Text(colorMode.humanName),
+                    );
+                  }).toList(),
+                  onChanged: (colorMode) async {
+                    if (colorMode != null) {
+                      await ref.notifier(settingsProvider).setColorMode(colorMode);
+                    }
+                  },
+                ),
               ),
-            ),
             _SettingsEntry(
               label: t.settingsTab.general.language,
               child: TextButton(
