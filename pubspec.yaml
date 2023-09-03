@@ -26,8 +26,8 @@ dependencies:
     sdk: flutter
   flutter_markdown: 0.6.17+1
   freezed_annotation: 2.4.1
-  gal: 1.9.0
-  image_picker: 1.0.2
+  gal: 1.9.1
+  image_picker: 1.0.4
   intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
   json_annotation: 4.8.1
   launch_at_startup: 0.2.2
@@ -40,11 +40,11 @@ dependencies:
   path_provider: 2.1.0
   permission_handler: 10.4.3
   pretty_qr_code: 2.0.3
-  riverpie_flutter: 0.18.0
+  riverpie_flutter: 0.23.0
   routerino: 0.8.0
   screen_retriever: 0.1.9
   share_handler: 0.0.17
-  shared_preferences: 2.2.0
+  shared_preferences: 2.2.1
   shared_storage: 0.8.0
   shelf: 1.4.1
   shelf_router: 1.1.4
@@ -58,7 +58,7 @@ dependencies:
     git:
       url: https://github.com/Tienisto/tray_manager.git
       ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
-  url_launcher: 6.1.12
+  url_launcher: 6.1.14
   uuid: 3.0.7
   wakelock_plus: 1.1.1
   wechat_assets_picker: 8.7.0
