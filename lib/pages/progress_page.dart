@@ -45,7 +45,7 @@ class _ProgressPageState extends State<ProgressPage> with Riverpie {
   int _lastRemainingTimeUpdate = 0; // millis since epoch
   String? _remainingTime;
   List<FileDto> _files = []; // also contains declined files (files without token)
-  Set<String> _filesWithToken = {};
+  Set<String> _selectedFiles = {};
 
   bool _advanced = false;
 
@@ -56,23 +56,25 @@ class _ProgressPageState extends State<ProgressPage> with Riverpie {
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
-        unawaited(WakelockPlus.enable());
+        WakelockPlus.enable(); // ignore: discarded_futures
       } catch (_) {}
 
       setState(() {
         final receiveSession = ref.read(serverProvider)?.session;
         if (receiveSession != null) {
           _files = receiveSession.files.values.map((f) => f.file).toList();
-          _filesWithToken = receiveSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+
+          // We previously used f.token != null here, but this may not work on very fast networks.
+          _selectedFiles = receiveSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
         } else {
           final sendSession = ref.read(sendProvider)[widget.sessionId];
           if (sendSession != null) {
             _files = sendSession.files.values.map((f) => f.file).toList();
-            _filesWithToken = sendSession.files.values.where((f) => f.token != null).map((f) => f.file.id).toSet();
+            _selectedFiles = sendSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
           }
         }
 
-        _totalBytes = _files.where((f) => _filesWithToken.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
+        _totalBytes = _files.where((f) => _selectedFiles.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
       });
     });
   }
@@ -361,7 +363,7 @@ class _ProgressPageState extends State<ProgressPage> with Riverpie {
                                 children: [
                                   Text(t.progressPage.total.count(
                                     curr: progressNotifier.getFinishedCount(widget.sessionId),
-                                    n: _filesWithToken.length,
+                                    n: _selectedFiles.length,
                                   )),
                                   Text(t.progressPage.total.size(
                                     curr: currBytes.asReadableFileSize,
