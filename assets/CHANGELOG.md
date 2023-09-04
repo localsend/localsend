@@ -1,4 +1,4 @@
-## 1.11.1 (2023-09-)
+## 1.11.1 (2023-09-04)
 
 - feat: hide color setting when dynamic colors are not supported (@Tienisto)
 - feat(linux): use white icon for the linux tray (@GaryElshaw, @Tienisto)
