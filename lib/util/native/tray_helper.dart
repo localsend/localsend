@@ -28,7 +28,7 @@ Future<void> initTray() async {
           Assets.img.logo32Ico,
         );
       } else if (checkPlatform([TargetPlatform.macOS])) {
-        await tm.trayManager.setIcon(Assets.img.logo32BlackWhite.path, isTemplate: true);
+        await tm.trayManager.setIcon(Assets.img.logo32Black.path, isTemplate: true);
       } else {
         await tm.trayManager.setIcon(Assets.img.logo32Png.path);
       }
@@ -54,7 +54,7 @@ Future<void> initTray() async {
 
     await systemTray.initSystemTray(
       title: t.appName,
-      iconPath: Assets.img.logo32Png.path,
+      iconPath: Assets.img.logo32White.path,
     );
 
     final Menu menu = Menu();
