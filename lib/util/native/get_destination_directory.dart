@@ -1,3 +1,5 @@
+import 'dart:io' show Directory, Platform;
+
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:shared_storage/shared_storage.dart' as shared_storage;
@@ -14,6 +16,12 @@ Future<String> getDefaultDestinationDirectory() async {
     case TargetPlatform.macOS:
     case TargetPlatform.windows:
     case TargetPlatform.fuchsia:
-      return (await path.getDownloadsDirectory())!.path.replaceAll('\\', '/');
+      var downloadDir = await path.getDownloadsDirectory();
+      if (defaultTargetPlatform == TargetPlatform.windows) {
+        downloadDir = Directory('${Platform.environment['HOMEPATH']}/Downloads');
+      } else {
+        downloadDir = Directory('${Platform.environment['HOME']}/Downloads');
+      }
+      return downloadDir.path.replaceAll('\\', '/');
   }
 }
