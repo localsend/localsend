@@ -1,3 +1,7 @@
+## 1.12.0 (2023-)
+
+- feat: drastically improve GPU usage by optimizing the spin animation (@Tienisto)
+
 ## 1.11.1 (2023-09-04)
 
 - feat: hide color setting when dynamic colors are not supported (@Tienisto)

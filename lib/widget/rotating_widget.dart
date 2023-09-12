@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/util/sleep.dart';
 
 class RotatingWidget extends StatefulWidget {
   final Duration duration;
   final bool spinning;
   final bool reverse;
-  final bool pauseOnStop; // only pause the rotation animation (instead of reset)
   final Widget child;
 
   const RotatingWidget({
     required this.duration,
     this.spinning = true,
     this.reverse = false,
-    this.pauseOnStop = false,
     required this.child,
     super.key,
   });
@@ -20,54 +19,49 @@ class RotatingWidget extends StatefulWidget {
   State<RotatingWidget> createState() => RotatingWidgetState();
 }
 
-class RotatingWidgetState extends State<RotatingWidget> with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: widget.duration,
-    vsync: this,
-  );
-
-  late final Animation<double> _animation = widget.reverse
-      ? ReverseAnimation(CurvedAnimation(
-          parent: _controller,
-          curve: Curves.linear.flipped,
-        ))
-      : CurvedAnimation(
-          parent: _controller,
-          curve: Curves.linear.flipped,
-        );
+class RotatingWidgetState extends State<RotatingWidget> {
+  static const _fps = 30;
+  static const _tickDuration = 1000 ~/ _fps; // in milliseconds
+  static const _maxRadians = 6.28; // 360 degrees in radians
+  double _angle = 0; // in radians
+  double _anglePerTick = 0;
 
   @override
   void initState() {
     super.initState();
-    if (widget.spinning) {
-      _controller.repeat();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateAnglePerTick();
+      _loop();
+    });
+  }
+
+  void _updateAnglePerTick() {
+    _anglePerTick = _maxRadians / (widget.duration.inMilliseconds / _tickDuration);
+    if (widget.reverse) {
+      _anglePerTick = -_anglePerTick;
     }
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(RotatingWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.spinning && !widget.spinning) {
-      if (widget.pauseOnStop) {
-        _controller.stop();
-      } else {
-        _controller.reset();
+  /// This loop has a much greater performance than using [AnimationController].
+  void _loop() async {
+    while (true) {
+      await sleepAsync(_tickDuration);
+      if (!mounted) {
+        return;
       }
-    } else if (!oldWidget.spinning && widget.spinning) {
-      _controller.repeat();
+      if (!widget.spinning) {
+        continue;
+      }
+      setState(() {
+        _angle = (_angle + _anglePerTick) % _maxRadians;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return RotationTransition(
-      turns: _animation,
+    return Transform.rotate(
+      angle: _angle,
       child: widget.child,
     );
   }
