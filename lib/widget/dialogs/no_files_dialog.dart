@@ -12,7 +12,7 @@ class NoFilesDialog extends StatelessWidget {
       title: t.dialogs.noFiles.title,
       description: t.dialogs.noFiles.content,
       child: Center(
-        child: ElevatedButton(
+        child: FilledButton(
           onPressed: () => context.popUntilRoot(),
           child: Text(t.general.close),
         ),

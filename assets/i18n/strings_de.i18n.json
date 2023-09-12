@@ -86,7 +86,8 @@
       },
       "color": "Farbe",
       "colorOptions": {
-        "system": "System"
+        "system": "System",
+        "oled": "OLED"
       },
       "language": "Sprache",
       "languageOptions": {
