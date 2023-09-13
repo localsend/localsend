@@ -8,9 +8,14 @@ class DeviceInfoResult {
   final DeviceType deviceType;
   final String? deviceModel;
 
+  // Used to properly set Edge-to-Edge mode on Android
+  // See https://github.com/flutter/flutter/issues/90098
+  final int? androidSdkInt;
+
   DeviceInfoResult({
     required this.deviceType,
     required this.deviceModel,
+    required this.androidSdkInt,
   });
 }
 
@@ -18,6 +23,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
   final plugin = DeviceInfoPlugin();
   final DeviceType deviceType;
   final String? deviceModel;
+  int? androidSdkInt;
 
   if (kIsWeb) {
     deviceType = DeviceType.web;
@@ -41,6 +47,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
       case TargetPlatform.android:
         final deviceInfo = await plugin.androidInfo;
         deviceModel = deviceInfo.brand.toCase(CaseStyle.pascal);
+        androidSdkInt = deviceInfo.version.sdkInt;
         break;
       case TargetPlatform.iOS:
         final deviceInfo = await plugin.iosInfo;
@@ -64,6 +71,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
   return DeviceInfoResult(
     deviceType: deviceType,
     deviceModel: deviceModel,
+    androidSdkInt: androidSdkInt,
   );
 }
 

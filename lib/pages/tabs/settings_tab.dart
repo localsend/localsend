@@ -15,6 +15,7 @@ import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
@@ -101,24 +102,29 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                 },
               ),
             ),
-            _SettingsEntry(
-              label: t.settingsTab.general.color,
-              child: CustomDropdownButton<ColorMode>(
-                value: settings.colorMode,
-                items: ColorMode.values.map((colorMode) {
-                  return DropdownMenuItem(
-                    value: colorMode,
-                    alignment: Alignment.center,
-                    child: Text(colorMode.humanName),
-                  );
-                }).toList(),
-                onChanged: (colorMode) async {
-                  if (colorMode != null) {
-                    await ref.notifier(settingsProvider).setColorMode(colorMode);
-                  }
-                },
+            if (ref.watch(dynamicColorsProvider) != null)
+              _SettingsEntry(
+                label: t.settingsTab.general.color,
+                child: CustomDropdownButton<ColorMode>(
+                  value: settings.colorMode,
+                  items: ColorMode.values.map((colorMode) {
+                    return DropdownMenuItem(
+                      value: colorMode,
+                      alignment: Alignment.center,
+                      child: Text(colorMode.humanName),
+                    );
+                  }).toList(),
+                  onChanged: (colorMode) async {
+                    if (colorMode != null) {
+                      await ref.notifier(settingsProvider).setColorMode(colorMode);
+                      if (colorMode == ColorMode.oled) {
+                        await ref.notifier(settingsProvider).setTheme(ThemeMode.dark);
+                        await updateSystemOverlayStyleWithBrightness(Brightness.dark);
+                      }
+                    }
+                  },
+                ),
               ),
-            ),
             _SettingsEntry(
               label: t.settingsTab.general.language,
               child: TextButton(
@@ -595,12 +601,10 @@ class _BooleanEntry extends StatelessWidget {
               child: Switch(
                 value: value,
                 onChanged: onChanged,
-                activeTrackColor: Colors.white,
-                activeColor:
-                    theme.brightness == Brightness.light ? theme.colorScheme.onSurface.withOpacity(0.8) : theme.inputDecorationTheme.fillColor,
-                trackOutlineColor: const MaterialStatePropertyAll<Color?>(Colors.grey),
-                inactiveThumbColor: theme.colorScheme.onSurface.withOpacity(0.8),
-                inactiveTrackColor: theme.inputDecorationTheme.fillColor,
+                activeTrackColor: theme.colorScheme.primary,
+                activeColor: theme.colorScheme.onPrimary,
+                inactiveThumbColor: theme.colorScheme.outline,
+                inactiveTrackColor: theme.colorScheme.surface,
               ),
             ),
           ),
@@ -662,6 +666,8 @@ extension on ColorMode {
         return t.settingsTab.general.colorOptions.system;
       case ColorMode.localsend:
         return t.appName;
+      case ColorMode.oled:
+        return t.settingsTab.general.colorOptions.oled;
     }
   }
 }

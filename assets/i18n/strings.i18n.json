@@ -86,14 +86,15 @@
       },
       "color": "Color",
       "colorOptions": {
-        "system": "System"
+        "system": "System",
+        "oled": "OLED"
       },
       "language": "Language",
       "languageOptions": {
         "system": "System"
       },
       "saveWindowPlacement": "Quit: Save window placement",
-      "minimizeToTray": "Quit: Minimize to tray",
+      "minimizeToTray": "Quit: Minimize to Tray/Menu Bar",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
       "animations": "Animations"

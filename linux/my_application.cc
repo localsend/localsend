@@ -7,6 +7,9 @@
 
 #include "flutter/generated_plugin_registrant.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 struct _MyApplication {
   GtkApplication parent_instance;
   char** dart_entrypoint_arguments;
@@ -37,7 +40,11 @@ static void my_application_activate(GApplication* application) {
     }
   }
 #endif
-  if (use_header_bar) {
+  // If have GTK_CSD in env and it is equal to 0 then don't add the gtk header bar
+  // to disable client side decorations
+  const char* GTK_CSD = getenv("GTK_CSD");
+  gboolean use_gtk_csd = !GTK_CSD || strcmp(GTK_CSD, "0") != 0;
+  if (use_header_bar && use_gtk_csd) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
     gtk_header_bar_set_title(header_bar, "LocalSend");

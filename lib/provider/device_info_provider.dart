@@ -19,6 +19,7 @@ final deviceInfoProvider = ViewProvider<DeviceInfoResult>((ref) {
   return DeviceInfoResult(
     deviceType: settings.deviceType ?? rawInfo.deviceType,
     deviceModel: settings.deviceModel ?? rawInfo.deviceModel,
+    androidSdkInt: rawInfo.androidSdkInt,
   );
 });
 
