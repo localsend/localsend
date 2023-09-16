@@ -36,6 +36,7 @@ dependencies:
   network_info_plus: 4.0.2
   open_filex: 4.3.2
   package_info_plus: 4.1.0
+  pasteboard: ^0.2.0
   path: 1.8.3
   path_provider: 2.1.0
   permission_handler: 10.4.3
