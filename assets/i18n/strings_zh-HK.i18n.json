@@ -71,7 +71,7 @@
       "link": "用 link 分享"
     },
     "sendModeHelp": "説明",
-    "help": "請確保目標裝置駁緊同一個 Wi-Fi 網路。",
+    "help": "請確保目標裝置駁緊同一個 Wi‑Fi 網路。",
     "placeItems": "將要分享嘅檔案拉過嚟呢度"
   },
   "settingsTab": {
@@ -104,15 +104,15 @@
       "destination": "儲存位置",
       "downloads": "（下載資料夾）",
       "saveToGallery": "Save 落相簿",
-      "saveToHistory": "保存到歷史紀錄"
+      "saveToHistory": "Save 去歷史紀錄"
     },
     "network": {
       "title": "網路",
       "needRestart": "熄咗個 server 再開過，設定先會生效",
-      "server": "server",
+      "server": "Server",
       "alias": "名",
-      "deviceType": "設備類型",
-      "deviceModel": "設備型號",
+      "deviceType": "裝置類型",
+      "deviceModel": "裝置型號",
       "port": "Port",
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",
@@ -123,17 +123,17 @@
   },
   "troubleshootPage": {
     "title": "疑難排解",
-    "subTitle": "個 app 唔 work？你可以喺度揾到常見問題嘅解決辦法。",
+    "subTitle": "個 app 唔 work？你可以喺度揾到一啲常見問題嘅解決辦法。",
     "solution": "解決辦法：",
     "fixButton": "自動修復",
     "firewall": {
-      "symptom": "Send 到嘢但係接收唔到",
+      "symptom": "我 send 到嘢但係接收唔到。",
       "solution": "應該係防火牆嘅問題，可以透過允許接受 port {port} 嘅連線（UDP 同 TCP）嚟解決。",
       "openFirewall": "開啟防火牆設定"
     },
     "noConnection": {
       "symptom": "兩部裝置都偵測唔到同 send 唔到嘢畀對方。",
-      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi-Fi 網路同用緊同樣嘅設定（Port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi-Fi 唔畀裝置之間通訊，呢種情況下就要 router 嗰邊先開到。"
+      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊同樣嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下就要 router 嗰邊先開到。"
     }
   },
   "receiveHistoryPage": {
@@ -200,12 +200,12 @@
     "error": "開 server 嗰陣發生錯誤。",
     "openLink": {
       "one": "喺瀏覽器開啟以下連結：",
-      "other": "喺瀏覽器開啟以下任一連結："
+      "other": "喺瀏覽器開啟以下任何一個連結："
     },
     "requests": "請求",
     "noRequests": "未有",
     "encryption": "@:settingsTab.network.encryption",
-    "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中接受它。",
+    "encryptionHint": "LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。",
     "pendingRequests": "仲有 {n} 個請求未處理"
   },
   "aboutPage": {
@@ -270,7 +270,7 @@
     },
     "noPermission": {
       "title": "權限閂咗",
-      "content": "你尚未授權所需的權限。請在設定中授權。"
+      "content": "你冇畀足夠權限我哋進行處理。麻煩你喺系統設定開返啲權限。"
     },
     "notAvailableOnPlatform": {
       "title": "無法使用",
@@ -305,7 +305,7 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "遭到拒絕",
+    "rejected": "已遭對方拒絕",
     "files": "@:general.files",
     "fileName": "檔案名稱",
     "size": "大細"
