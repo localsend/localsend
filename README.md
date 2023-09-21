@@ -41,7 +41,7 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 It is recommended to download the app either from an app store or from a package manager because the app does not have auto-update.
 
-| Windows                  | macOS                   | Linux              | Andoid         | iOS           | Fire OS    |
+| Windows                  | macOS                   | Linux              | Android         | iOS           | Fire OS    |
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |

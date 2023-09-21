@@ -69,9 +69,9 @@ class LocalSendApp extends StatelessWidget {
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: GlobalMaterialLocalizations.delegates,
               debugShowCheckedModeBanner: false,
-              theme: getTheme(Brightness.light, colorMode == ColorMode.system ? dynamicColors?.light : null),
-              darkTheme: getTheme(Brightness.dark, colorMode == ColorMode.system ? dynamicColors?.dark : null),
-              themeMode: themeMode,
+              theme: getTheme(colorMode, Brightness.light, dynamicColors),
+              darkTheme: getTheme(colorMode, Brightness.dark, dynamicColors),
+              themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
               navigatorKey: Routerino.navigatorKey,
               home: RouterinoHome(
                 builder: () => const HomePage(

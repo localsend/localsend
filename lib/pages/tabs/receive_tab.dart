@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
@@ -37,7 +39,6 @@ class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMi
     final settings = ref.watch(settingsProvider);
     final networkInfo = ref.watch(networkStateProvider);
     final serverState = ref.watch(serverProvider);
-    final animations = ref.watch(animationProvider);
 
     return Stack(
       children: [
@@ -53,33 +54,36 @@ class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMi
                     child: Column(
                       children: [
                         Expanded(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InitialFadeTransition(
-                                    duration: const Duration(milliseconds: 300),
-                                    delay: const Duration(milliseconds: 200),
-                                    child: RotatingWidget(
-                                      duration: const Duration(seconds: 15),
-                                      spinning: serverState != null && animations,
-                                      child: const LocalSendLogo(withText: false),
-                                    ),
-                                  ),
-                                  Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
-                                  InitialFadeTransition(
-                                    duration: const Duration(milliseconds: 300),
-                                    delay: const Duration(milliseconds: 500),
-                                    child: Text(
-                                      serverState == null ? t.general.offline : networkInfo.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
-                                      style: const TextStyle(fontSize: 24),
-                                    ),
-                                  ),
-                                ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InitialFadeTransition(
+                                duration: const Duration(milliseconds: 300),
+                                delay: const Duration(milliseconds: 200),
+                                child: Consumer(builder: (context, ref) {
+                                  final animations = ref.watch(animationProvider);
+                                  final activeTab = ref.watch(homeTabProvider);
+                                  return RotatingWidget(
+                                    duration: const Duration(seconds: 15),
+                                    spinning: serverState != null && animations && activeTab == HomeTab.receive,
+                                    child: const LocalSendLogo(withText: false),
+                                  );
+                                }),
                               ),
-                            ),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(serverState?.alias ?? settings.alias, style: const TextStyle(fontSize: 48)),
+                              ),
+                              InitialFadeTransition(
+                                duration: const Duration(milliseconds: 300),
+                                delay: const Duration(milliseconds: 500),
+                                child: Text(
+                                  serverState == null ? t.general.offline : networkInfo.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                                  style: const TextStyle(fontSize: 24),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

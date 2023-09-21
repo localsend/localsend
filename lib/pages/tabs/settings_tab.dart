@@ -117,6 +117,10 @@ class _SettingsTabState extends State<SettingsTab> with Riverpie {
                   onChanged: (colorMode) async {
                     if (colorMode != null) {
                       await ref.notifier(settingsProvider).setColorMode(colorMode);
+                      if (colorMode == ColorMode.oled) {
+                        await ref.notifier(settingsProvider).setTheme(ThemeMode.dark);
+                        await updateSystemOverlayStyleWithBrightness(Brightness.dark);
+                      }
                     }
                   },
                 ),
@@ -597,6 +601,10 @@ class _BooleanEntry extends StatelessWidget {
               child: Switch(
                 value: value,
                 onChanged: onChanged,
+                activeTrackColor: theme.colorScheme.primary,
+                activeColor: theme.colorScheme.onPrimary,
+                inactiveThumbColor: theme.colorScheme.outline,
+                inactiveTrackColor: theme.colorScheme.surface,
               ),
             ),
           ),
@@ -658,6 +666,8 @@ extension on ColorMode {
         return t.settingsTab.general.colorOptions.system;
       case ColorMode.localsend:
         return t.appName;
+      case ColorMode.oled:
+        return t.settingsTab.general.colorOptions.oled;
     }
   }
 }

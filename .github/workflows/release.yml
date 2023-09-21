@@ -14,7 +14,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -193,7 +193,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -250,7 +250,7 @@ jobs:
       - name: Fix long file paths
         run: git config --system core.longpaths true
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Download generated files
         uses: actions/download-artifact@v3
@@ -283,7 +283,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Draft release
         id: draft_release

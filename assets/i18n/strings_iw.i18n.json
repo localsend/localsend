@@ -5,7 +5,7 @@
     "accept": "קבלה",
     "accepted": "התקבל",
     "add": "הוסף",
-    "advanced": "מתקדם",
+    "advanced": "מידע נוסף",
     "cancel": "ביטול",
     "close": "סגור",
     "confirm": "אישור",
@@ -13,8 +13,8 @@
     "copy": "העתק",
     "copiedToClipboard": "הועתק ללוח",
     "decline": "דחיה",
-    "done": "בוצע",
-    "edit": "ערוך",
+    "done": "אישור",
+    "edit": "עריכה",
     "error": "שגיאה",
     "example": "דוגמא",
     "files": "קבצים",
@@ -47,7 +47,7 @@
     }
   },
   "sendTab": {
-    "title": "שלח",
+    "title": "שליחה",
     "selection": {
       "title": "בחירה",
       "files": "קבצים: {files}",
@@ -66,9 +66,9 @@
     "scan": "חפש מכשירים",
     "sendMode": "מצב שליחה",
     "sendModes": {
-      "single": "בשליחה למקבל בודד",
-      "multiple": "בשליחה למקבלים מרובים",
-      "link": "שיתוף דרך קישור"
+      "single": "שליחה למקבל בודד",
+      "multiple": "שליחה למקבלים מרובים",
+      "link": "שיתוף באמצעות קישור"
     },
     "sendModeHelp": "תיאור",
     "help": "אנא ודא שאתה ומכשיר היעד נמצאים באותה רשת wifi.",
@@ -82,7 +82,7 @@
       "brightnessOptions": {
         "system": "מערכת",
         "dark": "כהה",
-        "light": "בהיר"
+        "light": "בהירה"
       },
       "color": "צבע",
       "colorOptions": {
@@ -96,10 +96,10 @@
       "minimizeToTray": "יציאה: מזעור למגש",
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
       "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
-      "animations": "הנפשות"
+      "animations": "אנימציות"
     },
     "receive": {
-      "title": "קבל",
+      "title": "קבלה",
       "quickSave": "@:general.quickSave",
       "destination": "יעד",
       "downloads": "(הורדות)",
@@ -129,11 +129,11 @@
     "firewall": {
       "symptom": "האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה.",
       "solution": "כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אישור חיבורים נכנסים (UDP ו-TCP) ביציאה {port}.",
-      "openFirewall": "פתח את החומת האש"
+      "openFirewall": "פתח את חומת האש"
     },
     "noConnection": {
       "symptom": "שני המכשירים אינם יכולים לגלות אחד את השני ואין ביכולתם לשתף קבצים.",
-      "solution": "הבעיה קיימת בשני הצדדים? אז עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים על אותה הגדרה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בנתב."
+      "solution": "הבעיה קיימת בשני הצדדים? אז עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים את אותה תצורה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בנתב."
     }
   },
   "receiveHistoryPage": {
@@ -150,7 +150,7 @@
   "apkPickerPage": {
     "title": "אפליקציות (APK)",
     "excludeSystemApps": "אל תכלול אפליקציות מערכת",
-    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאין להן כוונת השמה",
+    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות להפעלה",
     "apps": "{n} אפליקציות"
   },
   "selectedFilesPage": {
@@ -168,12 +168,12 @@
   "receiveOptionsPage": {
     "title": "אפשרויות",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(תיקיית LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "כבוי באופן אוטומטי בשל קיום ספריות."
   },
   "sendPage": {
-    "waiting": "מחכה לתגובה...",
+    "waiting": "ממתין לתגובה...",
     "rejected": "הנמען דחה את הבקשה.",
     "busy": "המקבל תפוס בבקשה אחרת."
   },
@@ -188,13 +188,13 @@
         "canceledSender": "בוטל על ידי השולח",
         "canceledReceiver": "בוטל על ידי הצד המקבל"
       },
-      "count": "קבצים: {curr} / {n}",
-      "size": "גודל: {curr} / {n}",
+      "count": "קבצים: {curr}/{n}",
+      "size": "גודל: {curr}/{n}",
       "speed": "מהירות: {speed}/שניה"
     }
   },
   "webSharePage": {
-    "title": "שיתוף דרך קישור",
+    "title": "שיתוף באמצעות קישור",
     "loading": "הפעלת השרת...",
     "stopping": "השהיית השרת...",
     "error": "אירעה שגיאה בזמן התחלת השרת.",
@@ -225,7 +225,7 @@
     "addressInput": {
       "title": "הכנס כתובת",
       "hashtag": "סולמית",
-      "ip": "כתובת ה - IP",
+      "ip": "כתובת ה-IP",
       "recentlyUsed": "בשימוש לאחרונה: "
     },
     "cancelSession": {
@@ -265,7 +265,7 @@
       "multiline": "מרובה שורות"
     },
     "noFiles": {
-      "title": "אף קובץ לא נבחר",
+      "title": "לא נבחר אף קובץ",
       "content": "אנא בחר קובץ אחד לפחות."
     },
     "noPermission": {
@@ -289,17 +289,17 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "בקשות לקבצים מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יכול לשלוח לך קבצים."
+      "content": "בקשות לקבצים מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים."
     },
     "sendModeHelp": {
       "title": "מצבי שליחה",
-      "single": "שולח קבצים למקבל בודד. הבחירה תתמחק לאחר העברת הקובץ.",
-      "multiple": "שולח קבצים למקבלים מרובים. הבחירה לא תתמחק.",
-      "link": "מקבלים שאין להם את LocalSend מותקן יכולים להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן."
+      "single": "שולח קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר העברת הקובץ.",
+      "multiple": "שולח קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.",
+      "link": "מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן."
     }
   },
   "tray": {
-    "@info": "הנחיות אפל מקפידות מאוד על הניסוח 'קרוב'.",
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "צא מ-LocalSend"
   },
@@ -325,7 +325,7 @@
     "unableToAccessAll": "לא ניתן לגשת לכל הקבצים במכשיר",
     "viewingLimitedAssetsTip": "ניתן להציג רק קבצים ואלבומים שנגישים לאפליקציה.",
     "changeAccessibleLimitedAssets": "לחץ כדי לעדכן את הקבצים שנגישים",
-    "accessAllTip": "האפליקציה יכולה לגשת רק לקבצים מסוימים במכשיר. עבור להגדרות המערכת ואפשר לאפליקציה לגשת לכל התכולה במכשיר.",
+    "accessAllTip": "האפליקציה יכולה לגשת רק לקבצים מסוימים במכשיר. עבור להגדרות המערכת ואפשר לאפליקציה לגשת לכל הקבצים שבמכשיר.",
     "goToSystemSettings": "מעבר להגדרות המערכת",
     "accessLimitedAssets": "המשך עם גישה מוגבלת",
     "accessiblePathName": "קבצים שנגישים",
@@ -333,8 +333,8 @@
     "sTypeImageLabel": "תמונה",
     "sTypeVideoLabel": "סרטון",
     "sTypeOtherLabel": "סוגים אחרים",
-    "sActionPlayHint": "ניגון",
-    "sActionPreviewHint": "הצגה מקדימה",
+    "sActionPlayHint": "הפעלה",
+    "sActionPreviewHint": "תצוגה מקדימה",
     "sActionSelectHint": "בחירה",
     "sActionSwitchPathLabel": "שינוי נתיב",
     "sActionUseCameraHint": "שימוש במצלמה",

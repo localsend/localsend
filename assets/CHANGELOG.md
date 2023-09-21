@@ -1,3 +1,11 @@
+## 1.12.0 (2023-)
+
+- feat: drastically improve GPU usage by optimizing the spin animation (@Tienisto)
+- feat: add OLED color mode (@Tienisto)
+- feat: use better colors for the toggle switches in the settings (@gitstart)
+- feat(linux): allow disabling client side decorations on Wayland (@I-Want-ToBelieve)
+- fix(desktop): fallback to "$HOME/Downloads" when default downloads folder is unavailable (@Sqbika)
+
 ## 1.11.1 (2023-09-04)
 
 - feat: hide color setting when dynamic colors are not supported (@Tienisto)

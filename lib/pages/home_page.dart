@@ -8,6 +8,7 @@ import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:riverpie_flutter/riverpie_flutter.dart';
@@ -63,14 +64,17 @@ class _HomePageState extends State<HomePage> with Riverpie {
     _pageController = PageController(initialPage: widget.initialTab.index);
     _currentTab = widget.initialTab;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    ensureRef((ref) async {
+      ref.redux(homeTabProvider).dispatch(SetHomeTabAction(widget.initialTab));
       await postInit(context, ref, widget.appStart, _goToPage);
     });
   }
 
   void _goToPage(int index) {
+    final tab = HomeTab.values[index];
+    ref.redux(homeTabProvider).dispatch(SetHomeTabAction(tab));
     setState(() {
-      _currentTab = HomeTab.values[index];
+      _currentTab = tab;
       _pageController.jumpToPage(_currentTab.index);
     });
   }
