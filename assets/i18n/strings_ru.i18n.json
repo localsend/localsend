@@ -93,7 +93,7 @@
         "system": "Системный"
       },
       "saveWindowPlacement": "Сохранить расположение окна после закрытия",
-      "minimizeToTray": "Закрыть: свернуть в трей",
+      "minimizeToTray": "Закрыть: свернуть в системный трей/строку меню",
       "launchAtStartup": "Автозагрузка",
       "launchMinimized": "Скрытая автозагрузка",
       "animations": "Анимации"
@@ -104,7 +104,7 @@
       "destination": "Сохранять в",
       "downloads": "(Загрузки)",
       "saveToGallery": "Сохранять медиафайлы в галерею",
-      "saveToHistory": "Сохранить в историю"
+      "saveToHistory": "Сохранять историю"
     },
     "network": {
       "title": "Сеть",
