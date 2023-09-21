@@ -71,7 +71,7 @@
       "link": "通过链接分享"
     },
     "sendModeHelp": "解释",
-    "help": "请确保目标连接的是同一个 Wi-Fi 网络。",
+    "help": "请确保目标连接的是同一个 Wi‑Fi 网络。",
     "placeItems": "列出要分享的文件。"
   },
   "settingsTab": {
@@ -133,7 +133,7 @@
     },
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
-      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 WiFi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 WiFi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
+      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
     }
   },
   "receiveHistoryPage": {
@@ -205,7 +205,7 @@
     "requests": "请求",
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
-    "encryptionHint": "LocalSend使用自签名证书。您需要在浏览器中接受它。",
+    "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中接受它。",
     "pendingRequests": "待处理请求: {n}"
   },
   "aboutPage": {
