@@ -93,7 +93,7 @@
         "system": "Системна"
       },
       "saveWindowPlacement": "Зберегти розташування вікна після закриття програми",
-      "minimizeToTray": "Закрити: згорнути в системний трей",
+      "minimizeToTray": "Закрити: згорнути в системний трей/смугу меню",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
       "animations": "Анімації"
@@ -104,7 +104,7 @@
       "destination": "Зберігати в теку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї",
-      "saveToHistory": "Зберегти в історію"
+      "saveToHistory": "Зберігати історію"
     },
     "network": {
       "title": "Мережа",
