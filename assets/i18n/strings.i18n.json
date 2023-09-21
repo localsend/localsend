@@ -36,7 +36,8 @@
     "stop": "Stop",
     "save": "Save",
     "unchanged": "Unchanged",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "noItemInClipboard": "No item in Clipboard"
   },
   "receiveTab": {
     "title": "Receive",
@@ -58,7 +59,8 @@
       "folder": "Folder",
       "media": "Media",
       "text": "Text",
-      "app": "App"
+      "app": "App",
+      "clipboard": "Clipboard"
     },
     "shareIntentInfo": "You can also use the \"Share\" feature of your mobile device to select files more easily.",
     "nearbyDevices": "Nearby devices",
