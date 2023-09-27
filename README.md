@@ -41,7 +41,7 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 It is recommended to download the app either from an app store or from a package manager because the app does not have auto-update.
 
-| Windows                  | macOS                   | Linux              | Android         | iOS           | Fire OS    |
+| Windows                  | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
@@ -106,7 +106,7 @@ You can help translating this app to other languages!
    3. Run app via `flutter run`
 4. Open a pull request
 
-[i18n]: https://github.com/localsend/localsend/tree/main/assets/i18n
+[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
 #### _Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.

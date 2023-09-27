@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  FLUTTER_VERSION: "3.13.2"
+  FLUTTER_VERSION: "3.13.5"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:
@@ -18,6 +18,7 @@ jobs:
 
       - name: Get version from pubspec.yaml
         id: get_version
+        working-directory: app
         run: |
           VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' pubspec.yaml)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -28,16 +29,18 @@ jobs:
           channel: "stable"
 
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
 
       - name: Build generated files
+        working-directory: app
         run: flutter pub run build_runner build -d
 
       - name: Upload updated lib files with generated code
         uses: actions/upload-artifact@v3
         with:
           name: lib-files
-          path: ./lib/*
+          path: ./app/lib/*
 
   build_appimage:
     needs: build
@@ -50,7 +53,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: lib-files
-          path: lib
+          path: app/lib
 
       - name: Install dependencies
         run: |
@@ -63,17 +66,21 @@ jobs:
           channel: "stable"
 
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
 
       - name: Compile linux
+        working-directory: app
         run: flutter build linux
 
       - name: Copy compiled linux files
+        working-directory: app
         run: |
           mkdir AppDir
           cp -r build/linux/x64/release/bundle/* AppDir/
 
       - name: Copy logo to AppDir
+        working-directory: app
         run: |
           mkdir -p AppDir/usr/share/icons/hicolor/32x32/apps
           cp assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
@@ -85,10 +92,10 @@ jobs:
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
         with:
-          recipe: ./AppImageBuilder.yml
+          recipe: ./app/AppImageBuilder.yml
 
       - name: Upload AppImage file
         uses: actions/upload-artifact@v3
         with:
           name: appimage-result
-          path: ./*.AppImage
+          path: ./app/*.AppImage

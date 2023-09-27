@@ -22,8 +22,8 @@ You can help translating this app to other languages!
 
 1. Fork this repository
 2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
    - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
 3. Optional: Re-run this app
    1. Make sure you have [run](#run) this app once.

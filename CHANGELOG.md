@@ -1,1 +1,1 @@
-assets/CHANGELOG.md
+app/assets/CHANGELOG.md

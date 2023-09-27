@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.13.2"
+  FLUTTER_VERSION: "3.13.5"
 
 jobs:
   format:
@@ -20,8 +20,10 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
       - name: Check format
+        working-directory: app
         run: dart format --line-length 150 --set-exit-if-changed lib test
 
   test:
@@ -34,10 +36,14 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
       - name: Build generated files
+        working-directory: app
         run: flutter pub run build_runner build -d
       - name: Analyze
+        working-directory: app
         run: flutter analyze
       - name: Test
+        working-directory: app
         run: flutter test

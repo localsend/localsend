@@ -1,0 +1,10 @@
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    sort_pub_dependencies: true
+    always_use_package_imports: true
+    directives_ordering: true
+    unawaited_futures: true
+    discarded_futures: true
