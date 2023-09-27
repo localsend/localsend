@@ -2,5 +2,20 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ko>.",
     "After editing this file, you can run 'dart run slang apply --locale=ko' to quickly apply the newly added translations."
-  ]
+  ],
+  "general": {
+    "noItemInClipboard": "No item in Clipboard"
+  },
+  "sendTab": {
+    "picker": {
+      "clipboard": "Clipboard"
+    }
+  },
+  "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "oled": "OLED"
+      }
+    }
+  }
 }
