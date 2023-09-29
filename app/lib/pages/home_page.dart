@@ -94,9 +94,12 @@ class _HomePageState extends State<HomePage> with Riverpie {
         });
       },
       onDragDone: (event) async {
-        if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
+        if (event.files.length == 1 &&
+            Directory(event.files.first.path).existsSync()) {
           // user dropped a directory
-          await ref.notifier(selectedSendingFilesProvider).addDirectory(event.files.first.path);
+          await ref
+              .notifier(selectedSendingFilesProvider)
+              .addDirectory(event.files.first.path);
         } else {
           // user dropped one or more files
           await ref.notifier(selectedSendingFilesProvider).addFiles(
@@ -109,36 +112,38 @@ class _HomePageState extends State<HomePage> with Riverpie {
       child: ResponsiveBuilder(
         builder: (sizingInformation) {
           return Scaffold(
-            body: SafeArea(
-              child: Row(
-                children: [
-                  if (!sizingInformation.isMobile)
-                    NavigationRail(
-                      selectedIndex: _currentTab.index,
-                      onDestinationSelected: _goToPage,
-                      extended: sizingInformation.isDesktop,
-                      backgroundColor: Theme.of(context).cardColorWithElevation,
-                      leading: sizingInformation.isDesktop
-                          ? const Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Text(
-                                  'LocalSend',
-                                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: 20),
-                              ],
-                            )
-                          : null,
-                      destinations: HomeTab.values.map((tab) {
-                        return NavigationRailDestination(
-                          icon: Icon(tab.icon),
-                          label: Text(tab.label),
-                        );
-                      }).toList(),
-                    ),
-                  Expanded(
+            body: Row(
+              children: [
+                if (!sizingInformation.isMobile)
+                  NavigationRail(
+                    selectedIndex: _currentTab.index,
+                    onDestinationSelected: _goToPage,
+                    extended: sizingInformation.isDesktop,
+                    backgroundColor: Theme.of(context).cardColorWithElevation,
+                    leading: sizingInformation.isDesktop
+                        ? const Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Text(
+                                'LocalSend',
+                                style: TextStyle(
+                                    fontSize: 32, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 20),
+                            ],
+                          )
+                        : null,
+                    destinations: HomeTab.values.map((tab) {
+                      return NavigationRailDestination(
+                        icon: Icon(tab.icon),
+                        label: Text(tab.label),
+                      );
+                    }).toList(),
+                  ),
+                Expanded(
+                  child: SafeArea(
+                    left: sizingInformation.isMobile,
                     child: Stack(
                       children: [
                         PageView(
@@ -161,22 +166,25 @@ class _HomePageState extends State<HomePage> with Riverpie {
                               children: [
                                 const Icon(Icons.file_download, size: 128),
                                 const SizedBox(height: 30),
-                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
+                                Text(t.sendTab.placeItems,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
                               ],
                             ),
                           ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             bottomNavigationBar: sizingInformation.isMobile
                 ? NavigationBar(
                     selectedIndex: _currentTab.index,
                     onDestinationSelected: _goToPage,
                     destinations: HomeTab.values.map((tab) {
-                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+                      return NavigationDestination(
+                          icon: Icon(tab.icon), label: tab.label);
                     }).toList(),
                   )
                 : null,
