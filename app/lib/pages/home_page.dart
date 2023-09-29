@@ -94,12 +94,9 @@ class _HomePageState extends State<HomePage> with Riverpie {
         });
       },
       onDragDone: (event) async {
-        if (event.files.length == 1 &&
-            Directory(event.files.first.path).existsSync()) {
+        if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
           // user dropped a directory
-          await ref
-              .notifier(selectedSendingFilesProvider)
-              .addDirectory(event.files.first.path);
+          await ref.notifier(selectedSendingFilesProvider).addDirectory(event.files.first.path);
         } else {
           // user dropped one or more files
           await ref.notifier(selectedSendingFilesProvider).addFiles(
@@ -126,8 +123,7 @@ class _HomePageState extends State<HomePage> with Riverpie {
                               SizedBox(height: 20),
                               Text(
                                 'LocalSend',
-                                style: TextStyle(
-                                    fontSize: 32, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 20),
@@ -166,9 +162,7 @@ class _HomePageState extends State<HomePage> with Riverpie {
                               children: [
                                 const Icon(Icons.file_download, size: 128),
                                 const SizedBox(height: 30),
-                                Text(t.sendTab.placeItems,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
+                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
                               ],
                             ),
                           ),
@@ -183,8 +177,7 @@ class _HomePageState extends State<HomePage> with Riverpie {
                     selectedIndex: _currentTab.index,
                     onDestinationSelected: _goToPage,
                     destinations: HomeTab.values.map((tab) {
-                      return NavigationDestination(
-                          icon: Icon(tab.icon), label: tab.label);
+                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
                     }).toList(),
                   )
                 : null,
