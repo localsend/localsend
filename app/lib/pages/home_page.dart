@@ -109,36 +109,37 @@ class _HomePageState extends State<HomePage> with Riverpie {
       child: ResponsiveBuilder(
         builder: (sizingInformation) {
           return Scaffold(
-            body: SafeArea(
-              child: Row(
-                children: [
-                  if (!sizingInformation.isMobile)
-                    NavigationRail(
-                      selectedIndex: _currentTab.index,
-                      onDestinationSelected: _goToPage,
-                      extended: sizingInformation.isDesktop,
-                      backgroundColor: Theme.of(context).cardColorWithElevation,
-                      leading: sizingInformation.isDesktop
-                          ? const Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Text(
-                                  'LocalSend',
-                                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: 20),
-                              ],
-                            )
-                          : null,
-                      destinations: HomeTab.values.map((tab) {
-                        return NavigationRailDestination(
-                          icon: Icon(tab.icon),
-                          label: Text(tab.label),
-                        );
-                      }).toList(),
-                    ),
-                  Expanded(
+            body: Row(
+              children: [
+                if (!sizingInformation.isMobile)
+                  NavigationRail(
+                    selectedIndex: _currentTab.index,
+                    onDestinationSelected: _goToPage,
+                    extended: sizingInformation.isDesktop,
+                    backgroundColor: Theme.of(context).cardColorWithElevation,
+                    leading: sizingInformation.isDesktop
+                        ? const Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Text(
+                                'LocalSend',
+                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 20),
+                            ],
+                          )
+                        : null,
+                    destinations: HomeTab.values.map((tab) {
+                      return NavigationRailDestination(
+                        icon: Icon(tab.icon),
+                        label: Text(tab.label),
+                      );
+                    }).toList(),
+                  ),
+                Expanded(
+                  child: SafeArea(
+                    left: sizingInformation.isMobile,
                     child: Stack(
                       children: [
                         PageView(
@@ -168,8 +169,8 @@ class _HomePageState extends State<HomePage> with Riverpie {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             bottomNavigationBar: sizingInformation.isMobile
                 ? NavigationBar(
