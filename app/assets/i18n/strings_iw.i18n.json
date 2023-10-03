@@ -36,7 +36,8 @@
     "stop": "עצור",
     "save": "שמור",
     "unchanged": "ללא שינוי",
-    "unknown": "לא ידוע"
+    "unknown": "לא ידוע",
+    "noItemInClipboard": "לוח ההעתקה ריק"
   },
   "receiveTab": {
     "title": "קבל",
@@ -58,7 +59,8 @@
       "folder": "תיקייה",
       "media": "מדיה",
       "text": "טקסט",
-      "app": "אפליקציה"
+      "app": "אפליקציה",
+      "clipboard": "לוח ההעתקה"
     },
     "shareIntentInfo": "תוכל גם להשתמש בתכונה \"שתף\" של המכשיר הנייד שלך כדי לבחור קבצים ביתר קלות.",
     "nearbyDevices": "מכשירים בקרבת מקום",
@@ -86,7 +88,8 @@
       },
       "color": "צבע",
       "colorOptions": {
-        "system": "מערכת"
+        "system": "מערכת",
+        "oled": "OLED"
       },
       "language": "שפה",
       "languageOptions": {
