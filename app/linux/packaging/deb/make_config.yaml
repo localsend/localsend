@@ -35,5 +35,6 @@ generic_name: An open source cross-platform alternative to AirDrop
 categories:
   - GTK
   - FileTransfer
+  - Utility
 
 startup_notify: true
