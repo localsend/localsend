@@ -36,7 +36,8 @@
     "stop": "停止",
     "save": "保存",
     "unchanged": "未更改",
-    "unknown": "未知"
+    "unknown": "未知",
+    "noItemInClipboard": "剪贴板中没有项目"
   },
   "receiveTab": {
     "title": "接收",
@@ -58,7 +59,8 @@
       "folder": "文件夹",
       "media": "媒体",
       "text": "文本",
-      "app": "应用"
+      "app": "应用",
+      "clipboard": "剪贴板"
     },
     "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件。",
     "nearbyDevices": "附近的设备",
@@ -86,7 +88,8 @@
       },
       "color": "颜色",
       "colorOptions": {
-        "system": "跟随系统"
+        "system": "跟随系统",
+        "oled": "OLED"
       },
       "language": "语言",
       "languageOptions": {
