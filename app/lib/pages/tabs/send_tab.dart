@@ -10,10 +10,10 @@ import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
 import 'package:localsend_app/pages/web_send_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -76,7 +76,7 @@ class _SendTabState extends State<SendTab> with Refena {
   Widget build(BuildContext context) {
     final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
-    final networkInfo = ref.watch(networkStateProvider);
+    final networkInfo = ref.watch(localIpProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
 
     return ResponsiveListView(

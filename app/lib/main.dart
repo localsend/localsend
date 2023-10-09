@@ -8,7 +8,7 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
@@ -57,9 +57,9 @@ class LocalSendApp extends StatelessWidget {
     return TrayWatcher(
       child: WindowWatcher(
         child: LifeCycleWatcher(
-          onChangedState: (AppLifecycleState state) async {
+          onChangedState: (AppLifecycleState state) {
             if (state == AppLifecycleState.resumed) {
-              await ref.notifier(networkStateProvider).fetchLocalIp();
+              ref.redux(localIpProvider).dispatch(InitLocalIpAction());
             }
           },
           child: ShortcutWatcher(

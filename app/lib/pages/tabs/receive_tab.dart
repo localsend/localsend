@@ -3,8 +3,8 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
@@ -37,7 +37,7 @@ class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMi
     super.build(context);
 
     final settings = ref.watch(settingsProvider);
-    final networkInfo = ref.watch(networkStateProvider);
+    final networkInfo = ref.watch(localIpProvider);
     final serverState = ref.watch(serverProvider);
 
     return Stack(

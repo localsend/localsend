@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -33,7 +33,7 @@ class ScanFacade {
     // If no devices has been found, then switch to legacy discovery mode
     // which is purely HTTP/TCP based.
     if (forceLegacy || _ref.read(nearbyDevicesProvider).devices.isEmpty) {
-      final networkInterfaces = _ref.read(networkStateProvider).localIps.take(maxInterfaces).toList();
+      final networkInterfaces = _ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
       if (networkInterfaces.isNotEmpty) {
         await startLegacySubnetScan(networkInterfaces);
       }

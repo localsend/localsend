@@ -12,79 +12,90 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 final _logger = Logger('NetworkInfo');
 
-final networkStateProvider = NotifierProvider<NetworkStateNotifier, NetworkState>((ref) {
-  return NetworkStateNotifier();
+final localIpProvider = ReduxProvider<LocalIpService, NetworkState>((ref) {
+  return LocalIpService();
 });
 
 StreamSubscription? _subscription;
 
-class NetworkStateNotifier extends Notifier<NetworkState> {
-  NetworkStateNotifier();
+class LocalIpService extends ReduxNotifier<NetworkState> {
+  LocalIpService();
 
   @override
   NetworkState init() {
-    // ignore: discarded_futures
-    fetchLocalIp();
-
     return const NetworkState(
       localIps: [],
       initialized: false,
     );
   }
 
-  Future<void> fetchLocalIp() async {
+  @override
+  get initialAction => InitLocalIpAction();
+}
+
+/// Fetches the local IP address and registers a listener to update the IP address
+class InitLocalIpAction extends ReduxAction<LocalIpService, NetworkState> {
+  @override
+  NetworkState reduce() {
     if (!kIsWeb) {
-      // ignore: unawaited_futures
+      // ignore: discarded_futures
       _subscription?.cancel();
 
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
         _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
-          state = NetworkState(
-            localIps: await _getIp(),
-            initialized: true,
-          );
+          await dispatchAsync(_FetchLocalIpAction());
         });
       } else {
         _subscription = Connectivity().onConnectivityChanged.listen((_) async {
-          state = NetworkState(
-            localIps: await _getIp(),
-            initialized: true,
-          );
+          await dispatchAsync(_FetchLocalIpAction());
         });
       }
     }
 
-    state = NetworkState(
+    return state;
+  }
+
+  @override
+  void after() {
+    // ignore: discarded_futures
+    dispatchAsync(_FetchLocalIpAction());
+  }
+}
+
+class _FetchLocalIpAction extends AsyncReduxAction<LocalIpService, NetworkState> {
+  @override
+  Future<NetworkState> reduce() async {
+    return NetworkState(
       localIps: await _getIp(),
       initialized: true,
     );
   }
+}
 
-  Future<List<String>> _getIp() async {
-    final info = plugin.NetworkInfo();
-    String? ip;
-    try {
-      ip = await info.getWifiIP();
-    } catch (e) {
-      _logger.warning('Failed to get wifi IP', e);
-    }
-
-    List<String> nativeResult = [];
-    if (!kIsWeb) {
-      try {
-        // fallback with dart:io NetworkInterface
-        final result = (await NetworkInterface.list()).map((networkInterface) => networkInterface.addresses).expand((ip) => ip);
-        nativeResult = result.where((ip) => ip.type == InternetAddressType.IPv4).map((address) => address.address).toList();
-      } catch (e, st) {
-        _logger.info('Failed to get IP from dart:io', e, st);
-      }
-    }
-
-    final addresses = rankIpAddresses(nativeResult, ip);
-    _logger.info('Network state: $addresses');
-    return addresses;
+Future<List<String>> _getIp() async {
+  final info = plugin.NetworkInfo();
+  String? ip;
+  try {
+    ip = await info.getWifiIP();
+  } catch (e) {
+    _logger.warning('Failed to get wifi IP', e);
   }
+
+  List<String> nativeResult = [];
+  if (!kIsWeb) {
+    try {
+      // fallback with dart:io NetworkInterface
+      final result = (await NetworkInterface.list()).map((networkInterface) => networkInterface.addresses).expand((ip) => ip);
+      nativeResult = result.where((ip) => ip.type == InternetAddressType.IPv4).map((address) => address.address).toList();
+    } catch (e, st) {
+      _logger.info('Failed to get IP from dart:io', e, st);
+    }
+  }
+
+  final addresses = rankIpAddresses(nativeResult, ip);
+  _logger.info('Network state: $addresses');
+  return addresses;
 }
 
 List<String> rankIpAddresses(List<String> nativeResult, String? thirdPartyResult) {

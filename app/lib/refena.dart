@@ -1,5 +1,5 @@
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -15,7 +15,7 @@ class CustomRefenaObserver extends RefenaMultiObserver {
             exclude: (event) {
               return event is ChangeEvent &&
                   (event.notifier.runtimeType == DiscoveryLogsNotifier ||
-                      event.notifier.runtimeType == NetworkStateNotifier ||
+                      event.notifier.runtimeType == LocalIpService ||
                       event.notifier.runtimeType == ProgressNotifier);
             },
           ),
@@ -24,7 +24,7 @@ class CustomRefenaObserver extends RefenaMultiObserver {
             exclude: (event) {
               return event is ChangeEvent &&
                   (event.notifier.runtimeType == DiscoveryLogsNotifier ||
-                      event.notifier.runtimeType == NetworkStateNotifier ||
+                      event.notifier.runtimeType == LocalIpService ||
                       event.notifier.runtimeType == ProgressNotifier);
             },
           ),

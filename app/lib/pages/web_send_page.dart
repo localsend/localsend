@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -120,7 +120,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
 
             final serverState = ref.watch(serverProvider)!;
             final webSendState = serverState.webSendState!;
-            final networkState = ref.watch(networkStateProvider);
+            final networkState = ref.watch(localIpProvider);
 
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

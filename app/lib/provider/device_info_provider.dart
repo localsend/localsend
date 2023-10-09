@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -24,7 +24,7 @@ final deviceInfoProvider = ViewProvider<DeviceInfoResult>((ref) {
 });
 
 final deviceFullInfoProvider = ViewProvider((ref) {
-  final networkInfo = ref.watch(networkStateProvider);
+  final networkInfo = ref.watch(localIpProvider);
   final serverState = ref.watch(serverProvider);
   final rawInfo = ref.watch(deviceInfoProvider);
   final securityContext = ref.read(securityProvider);
