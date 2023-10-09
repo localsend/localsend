@@ -24,7 +24,7 @@ import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class SettingsTab extends StatefulWidget {
@@ -34,7 +34,7 @@ class SettingsTab extends StatefulWidget {
   State<SettingsTab> createState() => _SettingsTabState();
 }
 
-class _SettingsTabState extends State<SettingsTab> with Riverpie {
+class _SettingsTabState extends State<SettingsTab> with Refena {
   final _isLinux = checkPlatform([TargetPlatform.linux]);
   final _isWindows = checkPlatform([TargetPlatform.windows]);
   final _aliasController = TextEditingController();

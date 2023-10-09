@@ -4,7 +4,7 @@ import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class QrDialog extends StatelessWidget {

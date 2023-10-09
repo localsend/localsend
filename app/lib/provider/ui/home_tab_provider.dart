@@ -1,5 +1,5 @@
 import 'package:localsend_app/pages/home_page.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider is used so that tabs know if they are currently visible.
 /// The [HomePage] is responsible for setting the current tab.

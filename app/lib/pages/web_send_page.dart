@@ -11,7 +11,7 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 enum _ServerState { initializing, running, error, stopping }
 
@@ -24,7 +24,7 @@ class WebSendPage extends StatefulWidget {
   State<WebSendPage> createState() => _WebSendPageState();
 }
 
-class _WebSendPageState extends State<WebSendPage> with Riverpie {
+class _WebSendPageState extends State<WebSendPage> with Refena {
   _ServerState _stateEnum = _ServerState.initializing;
   bool _encrypted = false;
   String? _initializedError;

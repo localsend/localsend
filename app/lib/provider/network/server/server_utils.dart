@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/util/user_agent_analyzer.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shelf/shelf.dart';
 
 /// Having this class allows us to have one parameter to access all relevant server methods.

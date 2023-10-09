@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/theme.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 /// A normal [TextFormField] on mobile and desktop.
@@ -22,7 +22,7 @@ class TextFieldTv extends StatefulWidget {
   State<TextFieldTv> createState() => _TextFieldTvState();
 }
 
-class _TextFieldTvState extends State<TextFieldTv> with Riverpie {
+class _TextFieldTvState extends State<TextFieldTv> with Refena {
   @override
   Widget build(BuildContext context) {
     final isTv = ref.watch(tvProvider);

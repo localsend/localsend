@@ -8,5 +8,6 @@
 *.g.dart
 *.gen.dart
 *.freezed.dart
+.refena_inspector/
 
 /secrets

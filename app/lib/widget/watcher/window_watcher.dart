@@ -7,7 +7,7 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('WindowWatcher');
@@ -24,7 +24,7 @@ class WindowWatcher extends StatefulWidget {
   State<WindowWatcher> createState() => _WindowWatcherState();
 }
 
-class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Riverpie {
+class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refena {
   static WindowDimensionsController? _dimensionsController;
   static Stopwatch s = Stopwatch();
 

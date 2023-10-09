@@ -1,7 +1,7 @@
 import 'package:localsend_app/model/persistence/stored_security_context.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/util/security_helper.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider manages the [StoredSecurityContext].
 /// It contains all the security related data for HTTPS communication.

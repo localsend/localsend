@@ -1071,22 +1071,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  riverpie:
+  refena:
     dependency: transitive
     description:
-      name: riverpie
-      sha256: c23275afb9de789a08322694871ee651525f1e52025e5eba9f345a3b7d0ba7c1
+      name: refena
+      sha256: "50020d82c1b6f085b4af1ce8c81b20f02219e5efd67adc5567d63200290cfde8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.23.0"
-  riverpie_flutter:
+    version: "0.32.0"
+  refena_flutter:
     dependency: "direct main"
     description:
-      name: riverpie_flutter
-      sha256: "3a50c8fb89cb0d3c7fdcd16a06d1a956db7271a18f4b89098c0f49bf8ff94d37"
+      name: refena_flutter
+      sha256: c06fe6b335fdce76dccb0bde42ee85dae50b50f55663d93ea45ddcfe4e2f363b
       url: "https://pub.dev"
     source: hosted
-    version: "0.23.0"
+    version: "0.32.0"
+  refena_inspector:
+    dependency: "direct dev"
+    description:
+      name: refena_inspector
+      sha256: "67635dff720cedba02b9e94f36e9bbeefbbe15d0f40ebac9a7dd141aab79801b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
+  refena_inspector_client:
+    dependency: "direct main"
+    description:
+      name: refena_inspector_client
+      sha256: "5872d2862cd1747066578de3eb536c133aa515f98a86a69d98afec80e4124ec1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   routerino:
     dependency: "direct main"
     description:

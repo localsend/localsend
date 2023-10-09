@@ -34,7 +34,7 @@ import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart
 import 'package:localsend_app/widget/opacity_slideshow.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
@@ -46,7 +46,7 @@ class SendTab extends StatefulWidget {
   State<SendTab> createState() => _SendTabState();
 }
 
-class _SendTabState extends State<SendTab> with Riverpie {
+class _SendTabState extends State<SendTab> with Refena {
   final options = FilePickerOption.getOptionsForPlatform();
 
   @override

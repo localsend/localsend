@@ -4,7 +4,7 @@ import 'package:localsend_app/util/native/file_picker.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class AddFileDialog extends StatelessWidget {
@@ -64,7 +64,7 @@ class AddFileDialog extends StatelessWidget {
               context.popUntilRoot();
               await option.select(
                 context: context,
-                ref: RiverpieScope.defaultRef,
+                ref: RefenaScope.defaultRef,
               );
             },
           );

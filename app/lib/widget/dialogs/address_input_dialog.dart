@@ -9,7 +9,7 @@ import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/task_runner.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 enum _InputMode {
@@ -33,7 +33,7 @@ class AddressInputDialog extends StatefulWidget {
   State<AddressInputDialog> createState() => _AddressInputDialogState();
 }
 
-class _AddressInputDialogState extends State<AddressInputDialog> with Riverpie {
+class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
   final _selected = List.generate(_InputMode.values.length, (index) => index == 0);
   _InputMode _mode = _InputMode.hashtag;
   String _input = '';

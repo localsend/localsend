@@ -1,5 +1,5 @@
 import 'package:localsend_app/model/device.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 final lastDevicesProvider = NotifierProvider<LastDevicesNotifier, List<Device>>((ref) {
   return LastDevicesNotifier();

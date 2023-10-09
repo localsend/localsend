@@ -6,7 +6,7 @@ import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 final deviceRawInfoProvider = Provider<DeviceInfoResult>((ref) {
   throw Exception('deviceRawInfoProvider not initialized');

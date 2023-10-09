@@ -11,7 +11,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 enum HomeTab {
   receive(Icons.wifi),
@@ -51,7 +51,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with Riverpie {
+class _HomePageState extends State<HomePage> with Refena {
   late PageController _pageController;
   HomeTab _currentTab = HomeTab.receive;
 

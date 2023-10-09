@@ -7,7 +7,7 @@ import 'package:localsend_app/pages/debug/http_logs_page.dart';
 import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class DebugPage extends StatelessWidget {
@@ -56,8 +56,8 @@ class DebugPage extends StatelessWidget {
               ),
               if (kDebugMode)
                 FilledButton(
-                  onPressed: () async => context.push(() => const RiverpieTracingPage()),
-                  child: const Text('Riverpie Tracing'),
+                  onPressed: () async => context.push(() => const RefenaTracingPage()),
+                  child: const Text('Refena Tracing'),
                 ),
             ],
           ),

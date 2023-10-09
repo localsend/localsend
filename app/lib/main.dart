@@ -12,7 +12,7 @@ import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
-import 'package:localsend_app/riverpie.dart';
+import 'package:localsend_app/refena.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
@@ -20,14 +20,14 @@ import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   final (persistenceService, startHidden) = await preInit(args);
-  final scope = RiverpieScope(
-    observer: kDebugMode ? CustomRiverpieObserver() : null,
+  final scope = RefenaScope(
+    observers: kDebugMode ? [CustomRefenaObserver()] : [],
     overrides: [
       persistenceProvider.overrideWithValue(persistenceService),
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),

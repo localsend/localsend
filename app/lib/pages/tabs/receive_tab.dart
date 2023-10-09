@@ -15,7 +15,7 @@ import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class ReceiveTab extends StatefulWidget {
@@ -25,7 +25,7 @@ class ReceiveTab extends StatefulWidget {
   State<ReceiveTab> createState() => _ReceiveTagState();
 }
 
-class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMixin, Riverpie {
+class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMixin, Refena {
   bool _advanced = false;
   bool _showHistoryButton = true;
 

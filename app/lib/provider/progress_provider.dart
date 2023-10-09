@@ -1,4 +1,4 @@
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 /// A provider holding the progress of the send process.
 /// It is implemented as [ChangeNotifier] for performance reasons.
