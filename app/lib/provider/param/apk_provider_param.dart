@@ -1,12 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'apk_provider_param.freezed.dart';
+part 'apk_provider_param.mapper.dart';
 
-@freezed
-class ApkProviderParam with _$ApkProviderParam {
-  const factory ApkProviderParam({
-    required String query,
-    required bool includeSystemApps,
-    required bool onlyAppsWithLaunchIntent,
-  }) = _ApkProviderParam;
+@MappableClass()
+class ApkProviderParam with ApkProviderParamMappable {
+  final String query;
+  final bool includeSystemApps;
+  final bool onlyAppsWithLaunchIntent;
+
+  const ApkProviderParam({
+    required this.query,
+    required this.includeSystemApps,
+    required this.onlyAppsWithLaunchIntent,
+  });
 }

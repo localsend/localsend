@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.13.0"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "607f8fa9786f392043f169898923e6c59b4518242b68b8862eb8a8b7d9c30b4a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   archive:
     dependency: transitive
     description:
@@ -249,6 +257,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.2"
+  dart_mappable:
+    dependency: "direct main"
+    description:
+      name: dart_mappable
+      sha256: "708b01d81663f6dbfa14d6cd588ba7241ed24c9a346a40855148c3b82520c63c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
+  dart_mappable_builder:
+    dependency: "direct dev"
+    description:
+      name: dart_mappable_builder
+      sha256: ce10c4c19cb9071461703e6186bb50ff7ec806c99ef717cab9ed25099d09f8bd
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   dart_style:
     dependency: transitive
     description:
@@ -501,22 +525,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  freezed:
-    dependency: "direct dev"
-    description:
-      name: freezed
-      sha256: "2df89855fe181baae3b6d714dc3c4317acf4fccd495a6f36e5e00f24144c6c3b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
-  freezed_annotation:
-    dependency: "direct main"
-    description:
-      name: freezed_annotation
-      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
   frontend_server_client:
     dependency: transitive
     description:
@@ -710,21 +718,13 @@ packages:
     source: hosted
     version: "3.0.1"
   json_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: json_annotation
       sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
-  json_serializable:
-    dependency: "direct dev"
-    description:
-      name: json_serializable
-      sha256: aa1f5a8912615733e0fdc7a02af03308933c93235bdc8d50d0b0c8a8ccb0b969
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.7.1"
   launch_at_startup:
     dependency: "direct main"
     description:
@@ -1075,10 +1075,10 @@ packages:
     dependency: transitive
     description:
       name: refena
-      sha256: "50020d82c1b6f085b4af1ce8c81b20f02219e5efd67adc5567d63200290cfde8"
+      sha256: e7f3cd6440342201274e325e94f4dd4dd68f92395132a0df5a006c58a2b55bdc
       url: "https://pub.dev"
     source: hosted
-    version: "0.32.0"
+    version: "0.32.1"
   refena_flutter:
     dependency: "direct main"
     description:
@@ -1308,14 +1308,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  source_helper:
-    dependency: transitive
-    description:
-      name: source_helper
-      sha256: "6adebc0006c37dd63fe05bca0a929b99f06402fc95aa35bf36d67f5c06de01fd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.4"
   source_map_stack_trace:
     dependency: transitive
     description:
@@ -1445,6 +1437,14 @@ packages:
       url: "https://github.com/Tienisto/tray_manager.git"
     source: git
     version: "0.2.0"
+  type_plus:
+    dependency: transitive
+    description:
+      name: type_plus
+      sha256: "52af1140887d0ce0ea89c768dfde1b244cd531221c7f48c8c29b1d24ae8aed9a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   typed_data:
     dependency: transitive
     description:

@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
@@ -45,6 +47,8 @@ Future<(PersistenceService, bool)> preInit(List<String> args) async {
       print(record.stackTrace);
     }
   });
+
+  MapperContainer.globals.use(const FileDtoMapper());
 
   final persistenceService = await PersistenceService.initialize();
 

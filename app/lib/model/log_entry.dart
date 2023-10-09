@@ -1,11 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'log_entry.freezed.dart';
+part 'log_entry.mapper.dart';
 
-@freezed
-class LogEntry with _$LogEntry {
-  const factory LogEntry({
-    required DateTime timestamp,
-    required String log,
-  }) = _LogEntry;
+@MappableClass()
+class LogEntry with LogEntryMappable {
+  final DateTime timestamp;
+  final String log;
+
+  const LogEntry({
+    required this.timestamp,
+    required this.log,
+  });
 }

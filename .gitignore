@@ -7,7 +7,7 @@
 
 *.g.dart
 *.gen.dart
-*.freezed.dart
+*.mapper.dart
 .refena_inspector/
 
 /secrets

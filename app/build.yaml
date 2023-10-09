@@ -16,3 +16,10 @@ targets:
               - 'bn'
             description: |
               "LocalSend" is a file sharing app that allows you to send files to other devices on the same network.
+      dart_mappable_builder:
+        options:
+          renameMethods:
+            fromJson: deserialize
+            toJson: serialize
+            fromMap: fromJson
+            toMap: toJson

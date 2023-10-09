@@ -1,26 +1,33 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
 
-part 'register_dto.freezed.dart';
-part 'register_dto.g.dart';
+part 'register_dto.mapper.dart';
 
-@freezed
-class RegisterDto with _$RegisterDto {
-  const factory RegisterDto({
-    required String alias,
-    required String? version, // v2, format: major.minor
-    required String? deviceModel,
-    @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
-    required DeviceType? deviceType,
-    required String fingerprint,
-    required int? port, // v2
-    required ProtocolType? protocol, // v2
-    required bool? download, // v2
-  }) = _RegisterDto;
+@MappableClass()
+class RegisterDto with RegisterDtoMappable {
+  final String alias;
+  final String? version; // v2, format: major.minor
+  final String? deviceModel;
+  final DeviceType? deviceType;
+  final String fingerprint;
+  final int? port; // v2
+  final ProtocolType? protocol; // v2
+  final bool? download; // v2
 
-  factory RegisterDto.fromJson(Map<String, Object?> json) => _$RegisterDtoFromJson(json);
+  const RegisterDto({
+    required this.alias,
+    required this.version,
+    required this.deviceModel,
+    required this.deviceType,
+    required this.fingerprint,
+    required this.port,
+    required this.protocol,
+    required this.download,
+  });
+
+  static const fromJson = RegisterDtoMapper.fromJson;
 }
 
 extension RegisterDtoExt on RegisterDto {

@@ -1,14 +1,16 @@
-import 'dart:convert';
-
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/dto/info_register_dto.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/dto/prepare_upload_request_dto.dart';
+import 'package:localsend_app/model/dto/prepare_upload_response_dto.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:test/test.dart';
 
 void main() {
+  MapperContainer.globals.use(const FileDtoMapper());
+
   group('parse PrepareUploadRequestDto', () {
     test('should parse valid enums', () {
       final dto = {
@@ -31,6 +33,17 @@ void main() {
       expect(parsed.info.deviceType, DeviceType.mobile);
       expect(parsed.files.length, 1);
       expect(parsed.files.values.first.fileType, FileType.image);
+    });
+
+    test('Should fallback deviceType (simple)', () {
+      final dto = {
+        'alias': 'Nice Banana',
+        'deviceModel': 'Samsung',
+        'deviceType': 'invalidType',
+      };
+
+      final parsed = InfoRegisterDto.fromJson(dto);
+      expect(parsed.deviceType, DeviceType.desktop);
     });
 
     test('should fallback deviceType', () {
@@ -161,7 +174,7 @@ void main() {
           ),
         },
       );
-      final serialized = _deepSerialize(dto);
+      final serialized = dto.toJson();
       expect(serialized['info']['deviceType'], 'mobile');
       expect(serialized['files'].length, 2);
       expect(serialized['files']['some id']['fileType'], 'image');
@@ -192,7 +205,7 @@ void main() {
           ),
         },
       );
-      final serialized = _deepSerialize(dto);
+      final serialized = dto.toJson();
 
       expect(serialized['info']['deviceType'], 'mobile');
       expect(serialized['files'].length, 2);
@@ -200,10 +213,19 @@ void main() {
       expect(serialized['files']['some id 2']['fileType'], 'application/vnd.android.package-archive');
     });
   });
-}
 
-/// Deep serialize an object to a map.
-/// The toJson method only serializes the first level.
-Map<String, dynamic> _deepSerialize(Object object) {
-  return jsonDecode(jsonEncode(object));
+  test('PrepareUploadResponseDto', () {
+    final parsed = PrepareUploadResponseDto.fromJson({
+      'sessionId': 'some session id',
+      'files': {
+        'some id': 'some url',
+        'some id 2': 'some url 2',
+      },
+    });
+
+    expect(parsed.sessionId, 'some session id');
+    expect(parsed.files.length, 2);
+    expect(parsed.files['some id'], 'some url');
+    expect(parsed.files['some id 2'], 'some url 2');
+  });
 }

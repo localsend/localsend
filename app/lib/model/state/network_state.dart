@@ -1,11 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'network_state.freezed.dart';
+part 'network_state.mapper.dart';
 
-@freezed
-class NetworkState with _$NetworkState {
-  const factory NetworkState({
-    required List<String> localIps,
-    required bool initialized,
-  }) = _NetworkState;
+@MappableClass()
+class NetworkState with NetworkStateMappable {
+  final List<String> localIps;
+  final bool initialized;
+
+  const NetworkState({
+    required this.localIps,
+    required this.initialized,
+  });
 }

@@ -1,8 +1,9 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'device.freezed.dart';
+part 'device.mapper.dart';
 
+@MappableEnum(defaultValue: DeviceType.desktop)
 enum DeviceType {
   mobile(Icons.smartphone),
   desktop(Icons.computer),
@@ -17,17 +18,27 @@ enum DeviceType {
 
 /// Internal device model.
 /// It gets not serialized.
-@freezed
-class Device with _$Device {
-  const factory Device({
-    required String ip,
-    required String version,
-    required int port,
-    required bool https,
-    required String fingerprint,
-    required String alias,
-    required String? deviceModel,
-    required DeviceType deviceType,
-    required bool download,
-  }) = _Device;
+@MappableClass()
+class Device with DeviceMappable {
+  final String ip;
+  final String version;
+  final int port;
+  final bool https;
+  final String fingerprint;
+  final String alias;
+  final String? deviceModel;
+  final DeviceType deviceType;
+  final bool download;
+
+  const Device({
+    required this.ip,
+    required this.version,
+    required this.port,
+    required this.https,
+    required this.fingerprint,
+    required this.alias,
+    required this.deviceModel,
+    required this.deviceType,
+    required this.download,
+  });
 }
