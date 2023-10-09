@@ -36,7 +36,8 @@
     "stop": "توقف",
     "save": "ذخیره",
     "unchanged": "بدون تغییر",
-    "unknown": "ناشناخته"
+    "unknown": "ناشناخته",
+    "noItemInClipboard": "هیچ موردی در کلیپ بورد وجود ندارد"
   },
   "receiveTab": {
     "title": "دریافت",
@@ -58,7 +59,8 @@
       "folder": "پوشه",
       "media": "رسانه",
       "text": "متن",
-      "app": "برنامه"
+      "app": "برنامه",
+      "clipboard": "کلیپ بورد"
     },
     "shareIntentInfo": "همچنین می توانید از ویژگی \"اشتراک گذاری\" دستگاه تلفن همراه خود برای انتخاب آسان تر فایل ها استفاده کنید",
     "nearbyDevices": "دستگاه های  اطراف",
@@ -86,7 +88,8 @@
       },
       "color": "رنگ",
       "colorOptions": {
-        "system": "سیستم"
+        "system": "سیستم",
+        "oled": "OLED"
       },
       "language": "زبان",
       "languageOptions": {
