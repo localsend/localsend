@@ -1,0 +1,176 @@
+/// Generated file. Do not edit.
+///
+/// Original: assets/i18n
+/// To regenerate, run: `dart run slang`
+///
+/// Locales: 28
+/// Strings: 6954 (248 per locale)
+
+
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
+import 'package:flutter/widgets.dart';
+import 'package:slang/builder/model/node.dart';
+import 'package:slang_flutter/slang_flutter.dart';
+export 'package:slang_flutter/slang_flutter.dart';
+
+part 'strings_en.g.dart';
+part 'strings_ar.g.dart';
+part 'strings_bn.g.dart';
+part 'strings_ca.g.dart';
+part 'strings_cs.g.dart';
+part 'strings_de.g.dart';
+part 'strings_es_ES.g.dart';
+part 'strings_fa.g.dart';
+part 'strings_fr_FR.g.dart';
+part 'strings_hu.g.dart';
+part 'strings_in.g.dart';
+part 'strings_it.g.dart';
+part 'strings_iw.g.dart';
+part 'strings_ja.g.dart';
+part 'strings_km.g.dart';
+part 'strings_ko.g.dart';
+part 'strings_ne.g.dart';
+part 'strings_nl.g.dart';
+part 'strings_pl.g.dart';
+part 'strings_pt_BR.g.dart';
+part 'strings_ru.g.dart';
+part 'strings_sv.g.dart';
+part 'strings_tr.g.dart';
+part 'strings_uk.g.dart';
+part 'strings_ur.g.dart';
+part 'strings_zh_CN.g.dart';
+part 'strings_zh_HK.g.dart';
+part 'strings_zh_TW.g.dart';
+
+const AppLocale _baseLocale = AppLocale.en;
+
+/// Supported locales, see extension methods below.
+///
+/// Usage:
+/// - LocaleSettings.setLocale(AppLocale.en) // set locale
+/// - Locale locale = AppLocale.en.flutterLocale // get flutter locale from enum
+/// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
+enum AppLocale with BaseAppLocale<AppLocale, _StringsEn> {
+	en(languageCode: 'en', build: _StringsEn.build),
+	ar(languageCode: 'ar', build: _StringsAr.build),
+	bn(languageCode: 'bn', build: _StringsBn.build),
+	ca(languageCode: 'ca', build: _StringsCa.build),
+	cs(languageCode: 'cs', build: _StringsCs.build),
+	de(languageCode: 'de', build: _StringsDe.build),
+	esEs(languageCode: 'es', countryCode: 'ES', build: _StringsEsEs.build),
+	fa(languageCode: 'fa', build: _StringsFa.build),
+	frFr(languageCode: 'fr', countryCode: 'FR', build: _StringsFrFr.build),
+	hu(languageCode: 'hu', build: _StringsHu.build),
+	india(languageCode: 'in', build: _StringsIn.build),
+	it(languageCode: 'it', build: _StringsIt.build),
+	iw(languageCode: 'iw', build: _StringsIw.build),
+	ja(languageCode: 'ja', build: _StringsJa.build),
+	km(languageCode: 'km', build: _StringsKm.build),
+	ko(languageCode: 'ko', build: _StringsKo.build),
+	ne(languageCode: 'ne', build: _StringsNe.build),
+	nl(languageCode: 'nl', build: _StringsNl.build),
+	pl(languageCode: 'pl', build: _StringsPl.build),
+	ptBr(languageCode: 'pt', countryCode: 'BR', build: _StringsPtBr.build),
+	ru(languageCode: 'ru', build: _StringsRu.build),
+	sv(languageCode: 'sv', build: _StringsSv.build),
+	tr(languageCode: 'tr', build: _StringsTr.build),
+	uk(languageCode: 'uk', build: _StringsUk.build),
+	ur(languageCode: 'ur', build: _StringsUr.build),
+	zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build),
+	zhHk(languageCode: 'zh', countryCode: 'HK', build: _StringsZhHk.build),
+	zhTw(languageCode: 'zh', countryCode: 'TW', build: _StringsZhTw.build);
+
+	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
+
+	@override final String languageCode;
+	@override final String? scriptCode;
+	@override final String? countryCode;
+	@override final TranslationBuilder<AppLocale, _StringsEn> build;
+
+	/// Gets current instance managed by [LocaleSettings].
+	_StringsEn get translations => LocaleSettings.instance.translationMap[this]!;
+}
+
+/// Method A: Simple
+///
+/// No rebuild after locale change.
+/// Translation happens during initialization of the widget (call of t).
+/// Configurable via 'translate_var'.
+///
+/// Usage:
+/// String a = t.someKey.anotherKey;
+_StringsEn get t => LocaleSettings.instance.currentTranslations;
+
+/// Method B: Advanced
+///
+/// All widgets using this method will trigger a rebuild when locale changes.
+/// Use this if you have e.g. a settings page where the user can select the locale during runtime.
+///
+/// Step 1:
+/// wrap your App with
+/// TranslationProvider(
+/// 	child: MyApp()
+/// );
+///
+/// Step 2:
+/// final t = Translations.of(context); // Get t variable.
+/// String a = t.someKey.anotherKey; // Use t variable.
+class Translations {
+	Translations._(); // no constructor
+
+	static _StringsEn of(BuildContext context) => InheritedLocaleData.of<AppLocale, _StringsEn>(context).translations;
+}
+
+/// The provider for method B
+class TranslationProvider extends BaseTranslationProvider<AppLocale, _StringsEn> {
+	TranslationProvider({required super.child}) : super(settings: LocaleSettings.instance);
+
+	static InheritedLocaleData<AppLocale, _StringsEn> of(BuildContext context) => InheritedLocaleData.of<AppLocale, _StringsEn>(context);
+}
+
+/// Method B shorthand via [BuildContext] extension method.
+/// Configurable via 'translate_var'.
+///
+/// Usage (e.g. in a widget's build method):
+/// context.t.someKey.anotherKey
+extension BuildContextTranslationsExtension on BuildContext {
+	_StringsEn get t => TranslationProvider.of(this).translations;
+}
+
+/// Manages all translation instances and the current locale
+class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, _StringsEn> {
+	LocaleSettings._() : super(utils: AppLocaleUtils.instance);
+
+	static final instance = LocaleSettings._();
+
+	// static aliases (checkout base methods for documentation)
+	static AppLocale get currentLocale => instance.currentLocale;
+	static Stream<AppLocale> getLocaleStream() => instance.getLocaleStream();
+	static AppLocale setLocale(AppLocale locale, {bool? listenToDeviceLocale = false}) => instance.setLocale(locale, listenToDeviceLocale: listenToDeviceLocale);
+	static AppLocale setLocaleRaw(String rawLocale, {bool? listenToDeviceLocale = false}) => instance.setLocaleRaw(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
+	static AppLocale useDeviceLocale() => instance.useDeviceLocale();
+	@Deprecated('Use [AppLocaleUtils.supportedLocales]') static List<Locale> get supportedLocales => instance.supportedLocales;
+	@Deprecated('Use [AppLocaleUtils.supportedLocalesRaw]') static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
+	static void setPluralResolver({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) => instance.setPluralResolver(
+		language: language,
+		locale: locale,
+		cardinalResolver: cardinalResolver,
+		ordinalResolver: ordinalResolver,
+	);
+}
+
+/// Provides utility functions without any side effects.
+class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, _StringsEn> {
+	AppLocaleUtils._() : super(baseLocale: _baseLocale, locales: AppLocale.values);
+
+	static final instance = AppLocaleUtils._();
+
+	// static aliases (checkout base methods for documentation)
+	static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
+	static AppLocale parseLocaleParts({required String languageCode, String? scriptCode, String? countryCode}) => instance.parseLocaleParts(languageCode: languageCode, scriptCode: scriptCode, countryCode: countryCode);
+	static AppLocale findDeviceLocale() => instance.findDeviceLocale();
+	static List<Locale> get supportedLocales => instance.supportedLocales;
+	static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
+}

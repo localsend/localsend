@@ -38,9 +38,6 @@ jobs:
       - name: Dependencies
         working-directory: app
         run: flutter pub get
-      - name: Build generated files
-        working-directory: app
-        run: flutter pub run build_runner build -d
       - name: Analyze
         working-directory: app
         run: flutter analyze
