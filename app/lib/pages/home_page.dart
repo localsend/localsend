@@ -10,6 +10,7 @@ import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -96,13 +97,13 @@ class _HomePageState extends State<HomePage> with Refena {
       onDragDone: (event) async {
         if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
           // user dropped a directory
-          await ref.notifier(selectedSendingFilesProvider).addDirectory(event.files.first.path);
+          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(event.files.first.path));
         } else {
           // user dropped one or more files
-          await ref.notifier(selectedSendingFilesProvider).addFiles(
+          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
                 files: event.files,
                 converter: CrossFileConverters.convertXFile,
-              );
+              ));
         }
         _goToPage(HomeTab.send.index);
       },

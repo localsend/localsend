@@ -1,10 +1,6 @@
 import 'dart:convert' show utf8;
 import 'dart:io';
 
-import 'package:device_apps/device_apps.dart';
-import 'package:file_picker/file_picker.dart' as file_picker;
-import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
@@ -12,30 +8,33 @@ import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 final _logger = Logger('SelectedSendingFiles');
 const _uuid = Uuid();
 
 /// Manages files selected for sending.
 /// Will stay alive even after a session has been completed to send the same files to another device.
-final selectedSendingFilesProvider = NotifierProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
+final selectedSendingFilesProvider = ReduxProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
   return SelectedSendingFilesNotifier();
 });
 
-class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
-  SelectedSendingFilesNotifier();
+class SelectedSendingFilesNotifier extends ReduxNotifier<List<CrossFile>> {
+  @override
+  List<CrossFile> init() => [];
+}
+
+class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final String message;
+  final int? index;
+
+  AddMessageAction({
+    required this.message,
+    this.index,
+  });
 
   @override
-  List<CrossFile> init() {
-    return [];
-  }
-
-  /// Add a simple message
-  /// Internally, the message will be stored into [CrossFile.bytes] as UTF-8
-  void addMessage(String message, {int? index}) {
+  List<CrossFile> reduce() {
     final List<int> bytes = utf8.encode(message);
     final file = CrossFile(
       name: '${_uuid.v4()}.txt',
@@ -46,30 +45,62 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
       path: null,
       bytes: bytes,
     );
-    state = List.unmodifiable([
+
+    return List.unmodifiable([
       ...state,
     ]..insert(index ?? state.length, file));
   }
+}
 
-  Future<void> addFiles<T>({
-    required Iterable<T> files,
-    required Future<CrossFile> Function(T) converter,
-  }) async {
+class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final String message;
+  final int index;
+
+  UpdateMessageAction({
+    required this.message,
+    required this.index,
+  });
+
+  @override
+  List<CrossFile> reduce() {
+    dispatch(RemoveSelectedFileAction(index));
+    dispatch(AddMessageAction(message: message, index: index));
+    return state;
+  }
+}
+
+class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final Iterable<T> files;
+  final Future<CrossFile> Function(T) converter;
+
+  AddFilesAction({
+    required this.files,
+    required this.converter,
+  });
+
+  @override
+  Future<List<CrossFile>> reduce() async {
     final newFiles = <CrossFile>[];
     for (final file in files) {
       // we do it sequential because there are bugs
       // https://github.com/fluttercandies/flutter_photo_manager/issues/589
       newFiles.add(await converter(file));
     }
-    state = List.unmodifiable([
+    return List.unmodifiable([
       ...state,
       ...newFiles,
     ]);
   }
+}
 
-  /// Adds files inside the directory recursively.
-  /// If [includeDirectory] is true, the directory itself will be added as part of each file path.
-  Future<void> addDirectory(String directoryPath) async {
+/// Adds files inside the directory recursively.
+class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final String directoryPath;
+
+  AddDirectoryAction(this.directoryPath);
+
+  @override
+  Future<List<CrossFile>> reduce() async {
     _logger.info('Reading files in $directoryPath');
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
@@ -89,88 +120,40 @@ class SelectedSendingFilesNotifier extends Notifier<List<CrossFile>> {
         newFiles.add(file);
       }
     }
-    state = List.unmodifiable([
+
+    return List.unmodifiable([
       ...state,
       ...newFiles,
     ]);
   }
+}
 
-  void removeAt(int index) {
-    state = List.unmodifiable([...state]..removeAt(index));
-    if (state.isEmpty) {
-      clearCache();
-    }
+class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
+  final int index;
+
+  RemoveSelectedFileAction(this.index);
+
+  @override
+  List<CrossFile> reduce() {
+    return List<CrossFile>.unmodifiable([...state]..removeAt(index));
   }
 
-  void reset() {
-    state = List.empty(growable: false);
-    clearCache();
+  @override
+  void after() {
+    if (state.isEmpty) {
+      global.dispatch(ClearCacheAction());
+    }
   }
 }
 
-/// Utility functions to convert third party models to common [CrossFile] model.
-class CrossFileConverters {
-  static Future<CrossFile> convertPlatformFile(file_picker.PlatformFile file) async {
-    return CrossFile(
-      name: file.name,
-      fileType: file.name.guessFileType(),
-      size: file.size,
-      thumbnail: null,
-      asset: null,
-      path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? file.bytes! : null,
-    );
+class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
+  @override
+  List<CrossFile> reduce() {
+    return List.empty(growable: false);
   }
 
-  static Future<CrossFile> convertAssetEntity(AssetEntity asset) async {
-    final file = (await asset.originFile)!;
-    return CrossFile(
-      name: await asset.titleAsync,
-      fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
-      size: await file.length(),
-      thumbnail: null,
-      asset: asset,
-      path: file.path,
-      bytes: null,
-    );
-  }
-
-  static Future<CrossFile> convertXFile(XFile file) async {
-    return CrossFile(
-      name: file.name,
-      fileType: file.name.guessFileType(),
-      size: await file.length(),
-      thumbnail: null,
-      asset: null,
-      path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
-    );
-  }
-
-  static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
-    final file = File(attachment.path);
-    final fileName = attachment.path.fileName;
-    return CrossFile(
-      name: fileName,
-      fileType: fileName.guessFileType(),
-      size: await file.length(),
-      thumbnail: null,
-      asset: null,
-      path: file.path,
-      bytes: null,
-    );
-  }
-
-  static Future<CrossFile> convertApplication(Application app) async {
-    final file = File(app.apkFilePath);
-    return CrossFile(
-      name: '${app.appName.trim()} - v${app.versionName}.apk',
-      fileType: FileType.apk,
-      thumbnail: app is ApplicationWithIcon ? app.icon : null,
-      size: await file.length(),
-      asset: null,
-      path: app.apkFilePath,
-      bytes: null,
-    );
+  @override
+  void after() {
+    global.dispatch(ClearCacheAction());
   }
 }

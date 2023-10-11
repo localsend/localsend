@@ -5,6 +5,7 @@ import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/provider/apk_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -19,10 +20,15 @@ class ApkPickerPage extends StatefulWidget {
   State<ApkPickerPage> createState() => _ApkPickerPageState();
 }
 
-class _ApkPickerPageState extends State<ApkPickerPage> {
+class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
+  void _pickApp(Application app) {
+    // ignore: discarded_futures
+    ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: [app], converter: CrossFileConverters.convertApplication));
+    context.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final ref = context.ref;
     final apkParams = ref.watch(apkSearchParamProvider);
     final apkAsync = ref.watch(apkProvider);
 
@@ -101,11 +107,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: InkWell(
-                          onTap: () {
-                            // ignore: discarded_futures
-                            ref.notifier(selectedSendingFilesProvider).addFiles(files: [app], converter: CrossFileConverters.convertApplication);
-                            context.pop();
-                          },
+                          onTap: () => _pickApp(app),
                           customBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

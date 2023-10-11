@@ -17,6 +17,7 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
@@ -168,17 +169,17 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
-    clearCache();
+    ref.dispatch(ClearCacheAction());
   }
 }
 
 Future<void> _handleSharedIntent(SharedMedia payload, Ref ref) async {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
-    ref.notifier(selectedSendingFilesProvider).addMessage(message);
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
   }
-  await ref.notifier(selectedSendingFilesProvider).addFiles(
-        files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-        converter: CrossFileConverters.convertSharedAttachment,
-      );
+  await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+    files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+    converter: CrossFileConverters.convertSharedAttachment,
+  ));
 }

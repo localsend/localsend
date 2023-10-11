@@ -62,10 +62,7 @@ class AddFileDialog extends StatelessWidget {
             filled: true,
             onTap: () async {
               context.popUntilRoot();
-              await option.select(
-                context: context,
-                ref: RefenaScope.defaultRef,
-              );
+              await context.ref.dispatchAsync(PickAction(option: option, context: context));
             },
           );
         }),

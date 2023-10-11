@@ -396,7 +396,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     state = state.removeSession(ref, sessionId);
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
-      ref.notifier(selectedSendingFilesProvider).reset();
+      ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
     }
   }
 

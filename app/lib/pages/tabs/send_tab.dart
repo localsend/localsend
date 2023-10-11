@@ -103,10 +103,10 @@ class _SendTabState extends State<SendTab> with Refena {
                       icon: option.icon,
                       label: option.label,
                       filled: false,
-                      onTap: () async => option.select(
+                      onTap: () async => ref.dispatchAsync(PickAction(
+                        option: option,
                         context: context,
-                        ref: ref,
-                      ),
+                      )),
                     ),
                   );
                 }),
@@ -164,7 +164,11 @@ class _SendTabState extends State<SendTab> with Refena {
                         ),
                         onPressed: () async {
                           if (options.length == 1) {
-                            await options.first.select(context: context, ref: ref); // open directly
+                            // open directly
+                            await ref.dispatchAsync(PickAction(
+                              option: options.first,
+                              context: context,
+                            ));
                             return;
                           }
                           await AddFileDialog.open(

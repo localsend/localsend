@@ -48,7 +48,7 @@ class SelectedFilesPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      ref.notifier(selectedSendingFilesProvider).reset();
+                      ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
                       context.popUntilRoot();
                     },
                     child: Text(t.selectedFilesPage.deleteAll),
@@ -110,8 +110,7 @@ class SelectedFilesPage extends StatelessWidget {
                                     final result =
                                         await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
                                     if (result != null) {
-                                      ref.notifier(selectedSendingFilesProvider).removeAt(index);
-                                      ref.notifier(selectedSendingFilesProvider).addMessage(result, index: index);
+                                      ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
                                     }
                                   },
                                   child: const Icon(Icons.edit),
@@ -122,7 +121,7 @@ class SelectedFilesPage extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   final currCount = ref.read(selectedSendingFilesProvider).length;
-                                  ref.notifier(selectedSendingFilesProvider).removeAt(index);
+                                  ref.redux(selectedSendingFilesProvider).dispatch(RemoveSelectedFileAction(index));
                                   if (currCount == 1) {
                                     context.popUntilRoot();
                                   }
