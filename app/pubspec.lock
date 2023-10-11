@@ -241,14 +241,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      sha256: "706b5707578e0c1b4b7550f64078f0a0f19dec3f50a178ffae7006b0a9ca58fb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   csv:
     dependency: transitive
     description:
@@ -345,22 +337,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.6"
-  extended_image:
-    dependency: transitive
-    description:
-      name: extended_image
-      sha256: d1b122d6f5cf5596ea61d703d116d89e2ece7e324db414cfeed12967b72b7aef
-      url: "https://pub.dev"
-    source: hosted
-    version: "8.1.0"
-  extended_image_library:
-    dependency: transitive
-    description:
-      name: extended_image_library
-      sha256: "8bf87c0b14dcb59200c923a9a3952304e4732a0901e40811428834ef39018ee1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.6.0"
   fake_async:
     dependency: transitive
     description:
@@ -565,14 +541,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.15.4"
   http:
     dependency: transitive
     description:
@@ -581,14 +549,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  http_client_helper:
-    dependency: transitive
-    description:
-      name: http_client_helper
-      sha256: "8a9127650734da86b5c73760de2b404494c968a3fd55602045ffec789dac3cb1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   http_methods:
     dependency: transitive
     description:
@@ -805,14 +765,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.16.1"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   network_info_plus:
     dependency: "direct main"
     description:
@@ -991,14 +943,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
-  photo_manager:
-    dependency: transitive
-    description:
-      name: photo_manager
-      sha256: b2d81bd197323697d1b335e2e04cea2f67e11624ced77cfd02917a10afaeba73
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.7.1"
   platform:
     dependency: transitive
     description:
@@ -1039,14 +983,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.5"
   pub_semver:
     dependency: transitive
     description:
@@ -1533,46 +1469,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  video_player:
-    dependency: transitive
-    description:
-      name: video_player
-      sha256: d3910a8cefc0de8a432a4411dcf85030e885d8fef3ddea291f162253a05dbf01
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.7.1"
-  video_player_android:
-    dependency: transitive
-    description:
-      name: video_player_android
-      sha256: "3fe89ab07fdbce786e7eb25b58532d6eaf189ceddc091cb66cba712f8d9e8e55"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.10"
-  video_player_avfoundation:
-    dependency: transitive
-    description:
-      name: video_player_avfoundation
-      sha256: c3b123a5a56c9812b9029f840c65b92fd65083eb08d69be016b01e8aa018f77d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.10"
-  video_player_platform_interface:
-    dependency: transitive
-    description:
-      name: video_player_platform_interface
-      sha256: be72301bf2c0150ab35a8c34d66e5a99de525f6de1e8d27c0672b836fe48f73a
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.2.1"
-  video_player_web:
-    dependency: transitive
-    description:
-      name: video_player_web
-      sha256: "68bdd115389d68aea99466259b079a5ef3fa9ca7600ef12b616d8551fa1541a9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.18"
   vm_service:
     dependency: transitive
     description:
@@ -1629,14 +1525,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
-  wechat_assets_picker:
-    dependency: "direct main"
-    description:
-      name: wechat_assets_picker
-      sha256: "2c6c2fb0ad47455aeff91eec5e3adebbcc39b62fec6bb5b0317a59ac46ec7383"
-      url: "https://pub.dev"
-    source: hosted
-    version: "8.7.0"
   win32:
     dependency: transitive
     description:

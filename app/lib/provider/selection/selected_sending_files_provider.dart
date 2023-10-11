@@ -41,7 +41,6 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
       fileType: FileType.text,
       size: bytes.length,
       thumbnail: null,
-      asset: null,
       path: null,
       bytes: bytes,
     );
@@ -113,7 +112,6 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           fileType: relative.guessFileType(),
           size: entity.lengthSync(),
           thumbnail: null,
-          asset: null,
           path: entity.path,
           bytes: null,
         );

@@ -8,7 +8,6 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:share_handler/share_handler.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// Utility functions to convert third party models to common [CrossFile] model.
 class CrossFileConverters {
@@ -18,22 +17,8 @@ class CrossFileConverters {
       fileType: file.name.guessFileType(),
       size: file.size,
       thumbnail: null,
-      asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? file.bytes! : null,
-    );
-  }
-
-  static Future<CrossFile> convertAssetEntity(AssetEntity asset) async {
-    final file = (await asset.originFile)!;
-    return CrossFile(
-      name: await asset.titleAsync,
-      fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
-      size: await file.length(),
-      thumbnail: null,
-      asset: asset,
-      path: file.path,
-      bytes: null,
     );
   }
 
@@ -43,7 +28,6 @@ class CrossFileConverters {
       fileType: file.name.guessFileType(),
       size: await file.length(),
       thumbnail: null,
-      asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
     );
@@ -57,7 +41,6 @@ class CrossFileConverters {
       fileType: fileName.guessFileType(),
       size: await file.length(),
       thumbnail: null,
-      asset: null,
       path: file.path,
       bytes: null,
     );
@@ -70,7 +53,6 @@ class CrossFileConverters {
       fileType: FileType.apk,
       thumbnail: app is ApplicationWithIcon ? app.icon : null,
       size: await file.length(),
-      asset: null,
       path: app.apkFilePath,
       bytes: null,
     );

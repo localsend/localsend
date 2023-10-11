@@ -35,8 +35,6 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
   static Uint8List? _$thumbnail(CrossFile v) => v.thumbnail;
   static const Field<CrossFile, Uint8List> _f$thumbnail =
       Field('thumbnail', _$thumbnail);
-  static AssetEntity? _$asset(CrossFile v) => v.asset;
-  static const Field<CrossFile, AssetEntity> _f$asset = Field('asset', _$asset);
   static String? _$path(CrossFile v) => v.path;
   static const Field<CrossFile, String> _f$path = Field('path', _$path);
   static List<int>? _$bytes(CrossFile v) => v.bytes;
@@ -48,7 +46,6 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
     #fileType: _f$fileType,
     #size: _f$size,
     #thumbnail: _f$thumbnail,
-    #asset: _f$asset,
     #path: _f$path,
     #bytes: _f$bytes,
   };
@@ -59,7 +56,6 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
         fileType: data.dec(_f$fileType),
         size: data.dec(_f$size),
         thumbnail: data.dec(_f$thumbnail),
-        asset: data.dec(_f$asset),
         path: data.dec(_f$path),
         bytes: data.dec(_f$bytes));
   }
@@ -118,7 +114,6 @@ abstract class CrossFileCopyWith<$R, $In extends CrossFile, $Out>
       FileType? fileType,
       int? size,
       Uint8List? thumbnail,
-      AssetEntity? asset,
       String? path,
       List<int>? bytes});
   CrossFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -144,7 +139,6 @@ class _CrossFileCopyWithImpl<$R, $Out>
           FileType? fileType,
           int? size,
           Object? thumbnail = $none,
-          Object? asset = $none,
           Object? path = $none,
           Object? bytes = $none}) =>
       $apply(FieldCopyWithData({
@@ -152,7 +146,6 @@ class _CrossFileCopyWithImpl<$R, $Out>
         if (fileType != null) #fileType: fileType,
         if (size != null) #size: size,
         if (thumbnail != $none) #thumbnail: thumbnail,
-        if (asset != $none) #asset: asset,
         if (path != $none) #path: path,
         if (bytes != $none) #bytes: bytes
       }));
@@ -162,7 +155,6 @@ class _CrossFileCopyWithImpl<$R, $Out>
       fileType: data.get(#fileType, or: $value.fileType),
       size: data.get(#size, or: $value.size),
       thumbnail: data.get(#thumbnail, or: $value.thumbnail),
-      asset: data.get(#asset, or: $value.asset),
       path: data.get(#path, or: $value.path),
       bytes: data.get(#bytes, or: $value.bytes));
 

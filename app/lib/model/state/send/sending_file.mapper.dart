@@ -31,9 +31,6 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
       Field('status', _$status);
   static String? _$token(SendingFile v) => v.token;
   static const Field<SendingFile, String> _f$token = Field('token', _$token);
-  static AssetEntity? _$asset(SendingFile v) => v.asset;
-  static const Field<SendingFile, AssetEntity> _f$asset =
-      Field('asset', _$asset);
   static String? _$path(SendingFile v) => v.path;
   static const Field<SendingFile, String> _f$path = Field('path', _$path);
   static List<int>? _$bytes(SendingFile v) => v.bytes;
@@ -47,7 +44,6 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
     #file: _f$file,
     #status: _f$status,
     #token: _f$token,
-    #asset: _f$asset,
     #path: _f$path,
     #bytes: _f$bytes,
     #errorMessage: _f$errorMessage,
@@ -58,7 +54,6 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
         file: data.dec(_f$file),
         status: data.dec(_f$status),
         token: data.dec(_f$token),
-        asset: data.dec(_f$asset),
         path: data.dec(_f$path),
         bytes: data.dec(_f$bytes),
         errorMessage: data.dec(_f$errorMessage));
@@ -118,7 +113,6 @@ abstract class SendingFileCopyWith<$R, $In extends SendingFile, $Out>
       {FileDto? file,
       FileStatus? status,
       String? token,
-      AssetEntity? asset,
       String? path,
       List<int>? bytes,
       String? errorMessage});
@@ -144,7 +138,6 @@ class _SendingFileCopyWithImpl<$R, $Out>
           {FileDto? file,
           FileStatus? status,
           Object? token = $none,
-          Object? asset = $none,
           Object? path = $none,
           Object? bytes = $none,
           Object? errorMessage = $none}) =>
@@ -152,7 +145,6 @@ class _SendingFileCopyWithImpl<$R, $Out>
         if (file != null) #file: file,
         if (status != null) #status: status,
         if (token != $none) #token: token,
-        if (asset != $none) #asset: asset,
         if (path != $none) #path: path,
         if (bytes != $none) #bytes: bytes,
         if (errorMessage != $none) #errorMessage: errorMessage
@@ -162,7 +154,6 @@ class _SendingFileCopyWithImpl<$R, $Out>
       file: data.get(#file, or: $value.file),
       status: data.get(#status, or: $value.status),
       token: data.get(#token, or: $value.token),
-      asset: data.get(#asset, or: $value.asset),
       path: data.get(#path, or: $value.path),
       bytes: data.get(#bytes, or: $value.bytes),
       errorMessage: data.get(#errorMessage, or: $value.errorMessage));

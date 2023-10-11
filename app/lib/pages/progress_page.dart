@@ -255,17 +255,10 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if (sendSession != null && sendSession.files[file.id]?.asset != null)
-                          // Special handling for assets
-                          AssetThumbnail(
-                            asset: sendSession.files[file.id]!.asset!,
-                            fileType: file.fileType,
-                          )
-                        else
-                          FilePathThumbnail(
-                            path: filePath,
-                            fileType: file.fileType,
-                          ),
+                        FilePathThumbnail(
+                          path: filePath,
+                          fileType: file.fileType,
+                        ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(

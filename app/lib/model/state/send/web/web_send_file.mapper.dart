@@ -26,9 +26,6 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
 
   static FileDto _$file(WebSendFile v) => v.file;
   static const Field<WebSendFile, FileDto> _f$file = Field('file', _$file);
-  static AssetEntity? _$asset(WebSendFile v) => v.asset;
-  static const Field<WebSendFile, AssetEntity> _f$asset =
-      Field('asset', _$asset);
   static String? _$path(WebSendFile v) => v.path;
   static const Field<WebSendFile, String> _f$path = Field('path', _$path);
   static List<int>? _$bytes(WebSendFile v) => v.bytes;
@@ -37,7 +34,6 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
   @override
   final Map<Symbol, Field<WebSendFile, dynamic>> fields = const {
     #file: _f$file,
-    #asset: _f$asset,
     #path: _f$path,
     #bytes: _f$bytes,
   };
@@ -45,7 +41,6 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
   static WebSendFile _instantiate(DecodingData data) {
     return WebSendFile(
         file: data.dec(_f$file),
-        asset: data.dec(_f$asset),
         path: data.dec(_f$path),
         bytes: data.dec(_f$bytes));
   }
@@ -100,7 +95,7 @@ extension WebSendFileValueCopy<$R, $Out>
 abstract class WebSendFileCopyWith<$R, $In extends WebSendFile, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes;
-  $R call({FileDto? file, AssetEntity? asset, String? path, List<int>? bytes});
+  $R call({FileDto? file, String? path, List<int>? bytes});
   WebSendFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -119,21 +114,15 @@ class _WebSendFileCopyWithImpl<$R, $Out>
               (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(bytes: v))
           : null;
   @override
-  $R call(
-          {FileDto? file,
-          Object? asset = $none,
-          Object? path = $none,
-          Object? bytes = $none}) =>
+  $R call({FileDto? file, Object? path = $none, Object? bytes = $none}) =>
       $apply(FieldCopyWithData({
         if (file != null) #file: file,
-        if (asset != $none) #asset: asset,
         if (path != $none) #path: path,
         if (bytes != $none) #bytes: bytes
       }));
   @override
   WebSendFile $make(CopyWithData data) => WebSendFile(
       file: data.get(#file, or: $value.file),
-      asset: data.get(#asset, or: $value.asset),
       path: data.get(#path, or: $value.path),
       bytes: data.get(#bytes, or: $value.bytes));
 

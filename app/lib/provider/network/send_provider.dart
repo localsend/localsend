@@ -86,7 +86,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             ),
             status: FileStatus.queue,
             token: null,
-            asset: file.asset,
             path: file.path,
             bytes: file.bytes,
             errorMessage: null,

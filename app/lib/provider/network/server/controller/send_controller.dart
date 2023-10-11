@@ -228,7 +228,6 @@ class SendController {
                   : null,
               legacy: false,
             ),
-            asset: file.asset,
             path: file.path,
             bytes: file.bytes,
           ),

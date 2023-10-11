@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class CrossFileThumbnail extends StatelessWidget {
   final CrossFile file;
@@ -18,40 +17,12 @@ class CrossFileThumbnail extends StatelessWidget {
         bytes: file.thumbnail!,
         fileType: file.fileType,
       );
-    } else if (file.asset != null) {
-      return AssetThumbnail(
-        asset: file.asset!,
-        fileType: file.fileType,
-      );
     } else {
       return FilePathThumbnail(
         path: file.path,
         fileType: file.fileType,
       );
     }
-  }
-}
-
-class AssetThumbnail extends StatelessWidget {
-  final AssetEntity asset;
-  final FileType fileType;
-
-  const AssetThumbnail({
-    required this.asset,
-    required this.fileType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return _Thumbnail(
-      thumbnail: AssetEntityImage(
-        asset,
-        isOriginal: false,
-        thumbnailSize: const ThumbnailSize.square(64),
-        thumbnailFormat: ThumbnailFormat.jpeg,
-      ),
-      icon: fileType.icon,
-    );
   }
 }
 
