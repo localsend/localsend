@@ -5,25 +5,27 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider manages the [StoredSecurityContext].
 /// It contains all the security related data for HTTPS communication.
-final securityProvider = NotifierProvider<SecurityNotifier, StoredSecurityContext>((read) {
-  return SecurityNotifier();
+final securityProvider = ReduxProvider<SecurityService, StoredSecurityContext>((ref) {
+  return SecurityService(ref.read(persistenceProvider));
 });
 
-class SecurityNotifier extends Notifier<StoredSecurityContext> {
-  late PersistenceService _service;
+class SecurityService extends ReduxNotifier<StoredSecurityContext> {
+  final PersistenceService _persistence;
 
-  SecurityNotifier();
+  SecurityService(this._persistence);
 
   @override
   StoredSecurityContext init() {
-    _service = ref.read(persistenceProvider);
-    return _service.getSecurityContext();
+    return _persistence.getSecurityContext();
   }
+}
 
-  /// Generates a new [StoredSecurityContext] and persists it.
-  Future<void> reset() async {
+/// Generates a new [StoredSecurityContext] and persists it.
+class ResetSecurityContextAction extends AsyncReduxAction<SecurityService, StoredSecurityContext> {
+  @override
+  Future<StoredSecurityContext> reduce() async {
     final securityContext = generateSecurityContext();
-    await _service.setSecurityContext(securityContext);
-    state = securityContext;
+    await notifier._persistence.setSecurityContext(securityContext);
+    return securityContext;
   }
 }
