@@ -152,7 +152,7 @@ class _SendPageState extends State<SendPage> with Refena {
                                 ),
                               ),
                             Center(
-                              child: ElevatedButton.icon(
+                              child: FilledButton.icon(
                                 onPressed: () {
                                   _cancel();
                                   context.pop();

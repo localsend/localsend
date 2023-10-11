@@ -20,8 +20,8 @@ class SecurityDebugPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () async => await context.ref.notifier(securityProvider).reset(),
+              FilledButton(
+                onPressed: () async => await context.ref.redux(securityProvider).dispatchAsync(ResetSecurityContextAction()),
                 child: const Text('Reset'),
               ),
             ],

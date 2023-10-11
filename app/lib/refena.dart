@@ -14,18 +14,18 @@ class CustomRefenaObserver extends RefenaMultiObserver {
             onLine: (line) => _logger.info(line),
             exclude: (event) {
               return event is ChangeEvent &&
-                  (event.notifier.runtimeType == DiscoveryLogsNotifier ||
-                      event.notifier.runtimeType == LocalIpService ||
-                      event.notifier.runtimeType == ProgressNotifier);
+                  (event.notifier is DiscoveryLogsNotifier ||
+                      event.notifier is LocalIpService ||
+                      event.notifier is ProgressNotifier);
             },
           ),
           RefenaTracingObserver(
             limit: 100,
             exclude: (event) {
               return event is ChangeEvent &&
-                  (event.notifier.runtimeType == DiscoveryLogsNotifier ||
-                      event.notifier.runtimeType == LocalIpService ||
-                      event.notifier.runtimeType == ProgressNotifier);
+                  (event.notifier is DiscoveryLogsNotifier ||
+                      event.notifier is LocalIpService ||
+                      event.notifier is ProgressNotifier);
             },
           ),
           RefenaInspectorObserver(),
