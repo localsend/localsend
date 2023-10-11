@@ -537,10 +537,10 @@ packages:
     dependency: "direct main"
     description:
       name: gal
-      sha256: "1bdef5879e4569910cfd8c77f460f98fcb7a1f910026af1daa80869856c67d66"
+      sha256: ebc581bea458be47e8e80761c4449ad3a0f045db206f6f4648885ac474444246
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.1"
+    version: "2.1.2"
   get_it:
     dependency: transitive
     description:
