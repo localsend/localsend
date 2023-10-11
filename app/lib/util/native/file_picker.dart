@@ -4,14 +4,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
+import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
@@ -20,6 +21,7 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 final _logger = Logger('FilePickerHelper');
 
@@ -68,6 +70,7 @@ enum FilePickerOption {
       // It actually also allows to pick media files.
       return [
         FilePickerOption.file,
+        FilePickerOption.media,
         FilePickerOption.text,
         FilePickerOption.folder,
         FilePickerOption.app,
@@ -203,20 +206,27 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
-  final result = await ImagePicker().pickMultipleMedia(
-    imageQuality: null,
-    requestFullMetadata: true,
+  final oldBrightness = Theme.of(context).brightness;
+  // ignore: use_build_context_synchronously
+  final List<AssetEntity>? result = await AssetPicker.pickAssets(
+    context,
+    pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
   );
 
-  if (result.isEmpty) {
-    ref.message('No media selected');
-    return;
-  }
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    // restore brightness for Android
+    await sleepAsync(500);
+    if (context.mounted) {
+      await updateSystemOverlayStyleWithBrightness(oldBrightness);
+    }
+  });
 
-  await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-        files: result,
-        converter: CrossFileConverters.convertXFile,
-      ));
+  if (result != null) {
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+      files: result,
+      converter: CrossFileConverters.convertAssetEntity,
+    ));
+  }
 }
 
 Future<void> _pickText(BuildContext context, Ref ref) async {
