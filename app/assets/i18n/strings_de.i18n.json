@@ -36,7 +36,8 @@
     "stop": "Stop",
     "save": "Speichern",
     "unchanged": "Unverändert",
-    "unknown": "Unbekannt"
+    "unknown": "Unbekannt",
+    "noItemInClipboard": "Kein Element in der Zwischenablage gefunden."
   },
   "receiveTab": {
     "title": "Empfangen",
@@ -58,7 +59,8 @@
       "folder": "Ordner",
       "media": "Medien",
       "text": "Text",
-      "app": "App"
+      "app": "App",
+      "clipboard": "Ablage"
     },
     "shareIntentInfo": "Du kannst auch die \"Teilen\"-Funktion deines mobilen Geräts nutzen, um Dateien einfacher auszuwählen.",
     "nearbyDevices": "Geräte in der Nähe",

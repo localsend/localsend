@@ -87,6 +87,7 @@ class _StringsGeneralDe extends _StringsGeneralEn {
 	@override String get save => 'Speichern';
 	@override String get unchanged => 'Unverändert';
 	@override String get unknown => 'Unbekannt';
+	@override String get noItemInClipboard => 'Kein Element in der Zwischenablage gefunden.';
 }
 
 // Path: receiveTab
@@ -417,6 +418,7 @@ class _StringsSendTabPickerDe extends _StringsSendTabPickerEn {
 	@override String get media => 'Medien';
 	@override String get text => 'Text';
 	@override String get app => 'App';
+	@override String get clipboard => 'Ablage';
 }
 
 // Path: sendTab.sendModes

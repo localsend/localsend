@@ -488,7 +488,7 @@ class _StringsSendTabPickerEn {
 	String get media => 'Media';
 	String get text => 'Text';
 	String get app => 'App';
-	String get clipboard => 'Clipboard';
+	String get clipboard => 'Paste';
 }
 
 // Path: sendTab.sendModes

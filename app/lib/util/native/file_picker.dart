@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
@@ -223,9 +224,9 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
 
   if (result != null) {
     await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-      files: result,
-      converter: CrossFileConverters.convertAssetEntity,
-    ));
+          files: result,
+          converter: CrossFileConverters.convertAssetEntity,
+        ));
   }
 }
 
@@ -238,18 +239,30 @@ Future<void> _pickText(BuildContext context, Ref ref) async {
 
 Future<void> _pickClipboard(BuildContext context, Ref ref) async {
   late List<String> files = [];
-  await Pasteboard.files().then((value) => {for (final file in value) files.add(file)});
+  for (final file in await Pasteboard.files()) {
+    files.add(file);
+  }
   if (files.isNotEmpty) {
     await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
           files: files.map((e) => XFile(e)).toList(),
           converter: CrossFileConverters.convertXFile,
         ));
-  } else {
-    if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(t.general.noItemInClipboard),
-    ));
+    return;
   }
+
+  final data = await Clipboard.getData(Clipboard.kTextPlain);
+  if (data?.text != null) {
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: data!.text!));
+    return;
+  }
+
+  if (!context.mounted) {
+    return;
+  }
+
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(t.general.noItemInClipboard),
+  ));
 }
 
 Future<void> _pickApp(BuildContext context) async {
