@@ -65,11 +65,11 @@ PODS:
   - SDWebImage (5.18.0):
     - SDWebImage/Core (= 5.18.0)
   - SDWebImage/Core (5.18.0)
-  - share_handler_ios (0.0.9):
+  - share_handler_ios (0.0.11):
     - Flutter
-    - share_handler_ios/share_handler_ios_models (= 0.0.9)
+    - share_handler_ios/share_handler_ios_models (= 0.0.11)
     - share_handler_ios_models
-  - share_handler_ios/share_handler_ios_models (0.0.9):
+  - share_handler_ios/share_handler_ios_models (0.0.11):
     - Flutter
     - share_handler_ios_models
   - share_handler_ios_models (0.0.9)
@@ -164,7 +164,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
-  device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
+  device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
@@ -174,14 +174,14 @@ SPEC CHECKSUMS:
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   network_info_plus: 6d0c3eb8367b8164fa3fb0c19875e3f59d49697f
   open_filex: 6e26e659846ec990262224a12ef1c528bb4edbe4
-  package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
+  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SDWebImage: 182830bcddc30cde95fbc60dfe4badc3553d94ba
-  share_handler_ios: b652bcd9c52dc0900813c3506b7d35a169b1343b
+  share_handler_ios: ae3584532280673e02aacdf77f2cdfb2c96b9211
   share_handler_ios_models: fc638c9b4330dc7f082586c92aee9dfa0b87b871
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f

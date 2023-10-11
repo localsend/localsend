@@ -13,44 +13,44 @@ dependencies:
   basic_utils: 5.6.1
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 4.0.2
-  dart_mappable: 3.3.0
-  desktop_drop: 0.4.3
+  dart_mappable: 3.3.1
+  desktop_drop: 0.4.4
   device_apps: 2.2.0
-  device_info_plus: 9.0.3
-  dio: 5.3.2
-  dynamic_color: 1.6.6
-  file_picker: 5.3.4
-  file_selector: 1.0.0
+  device_info_plus: 10.0.0
+  dio: 5.3.3
+  dynamic_color: 1.6.7
+  file_picker: 5.5.0
+  file_selector: 1.0.1
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: 0.6.17+1
+  flutter_markdown: 0.6.18
   gal: 1.9.1
   image_picker: 1.0.4
   intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
   launch_at_startup: 0.2.2
   logging: 1.2.0
   mime: 1.0.4
-  network_info_plus: 4.0.2
-  open_filex: 4.3.2
-  package_info_plus: 4.1.0
+  network_info_plus: 5.0.0
+  open_filex: 4.3.4
+  package_info_plus: 5.0.0
   pasteboard: ^0.2.0
   path: 1.8.3
-  path_provider: 2.1.0
-  permission_handler: 10.4.3
+  path_provider: 2.1.1
+  permission_handler: 11.0.1
   pretty_qr_code: 2.0.3
   refena_flutter: 0.34.0
   refena_inspector_client: 0.6.0
   routerino: 0.8.0
   screen_retriever: 0.1.9
-  share_handler: 0.0.17
-  shared_preferences: 2.2.1
+  share_handler: 0.0.19
+  shared_preferences: 2.2.2
   shared_storage: 0.8.0
   shelf: 1.4.1
   shelf_router: 1.1.4
-  slang: 3.23.0
-  slang_flutter: 3.23.0
+  slang: 3.24.0
+  slang_flutter: 3.24.0
   system_settings: 2.1.0
   system_tray: 2.0.3
   tray_manager:
@@ -61,28 +61,22 @@ dependencies:
       ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
   url_launcher: 6.1.14
   uuid: 3.0.7
-  wakelock_plus: 1.1.1
-  wechat_assets_picker: 8.7.0
-  window_manager: 0.3.6
+  wakelock_plus: 1.1.2
+  wechat_assets_picker: 8.7.1
+  window_manager: 0.3.7
 
 dev_dependencies:
   build_runner: 2.4.6
   dart_mappable_builder: 3.3.0
-  flutter_gen_runner: 5.3.1
-  flutter_lints: 2.0.2
+  flutter_gen_runner: 5.3.2
+  flutter_lints: 2.0.3
   msix: 3.16.1
   refena_inspector: 0.6.0
-  slang_build_runner: 3.23.0
-  slang_gpt: 0.8.1
+  slang_build_runner: 3.24.0
+  slang_gpt: 0.9.0
   test: ^1.24.3
 
 dependency_overrides:
-  network_info_plus:
-    # https://github.com/fluttercommunity/plus_plugins/pull/2101
-    git:
-      url: https://github.com/fluttercommunity/plus_plugins.git
-      path: packages/network_info_plus/network_info_plus
-      ref: ab6e6b52ff456fa4b6f8c5a8e2cf7df5a1dd1f4e
   permission_handler_windows:
     # Remove windows support as it causes trouble with Windows 7
     # https://github.com/Baseflow/flutter-permission-handler/issues/1034
