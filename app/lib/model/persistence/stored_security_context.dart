@@ -1,16 +1,20 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'stored_security_context.freezed.dart';
-part 'stored_security_context.g.dart';
+part 'stored_security_context.mapper.dart';
 
-@freezed
-class StoredSecurityContext with _$StoredSecurityContext {
-  const factory StoredSecurityContext({
-    required String privateKey,
-    required String publicKey,
-    required String certificate,
-    required String certificateHash,
-  }) = _StoredSecurityContext;
+@MappableClass()
+class StoredSecurityContext with StoredSecurityContextMappable {
+  final String privateKey;
+  final String publicKey;
+  final String certificate;
+  final String certificateHash;
 
-  factory StoredSecurityContext.fromJson(Map<String, Object?> json) => _$StoredSecurityContextFromJson(json);
+  const StoredSecurityContext({
+    required this.privateKey,
+    required this.publicKey,
+    required this.certificate,
+    required this.certificateHash,
+  });
+
+  static const fromJson = StoredSecurityContextMapper.fromJson;
 }

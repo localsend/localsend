@@ -6,7 +6,7 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 final _logger = Logger('TargetedDiscovery');
 

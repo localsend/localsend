@@ -16,7 +16,7 @@ import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 final _logger = Logger('Multicast');
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:device_apps/device_apps.dart';
 import 'package:localsend_app/provider/param/apk_provider_param.dart';
 import 'package:localsend_app/provider/param/cached_apk_provider_param.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 final apkSearchParamProvider = StateProvider<ApkProviderParam>(
   (ref) => const ApkProviderParam(

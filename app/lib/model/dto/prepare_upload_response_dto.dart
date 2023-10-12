@@ -1,14 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'prepare_upload_response_dto.freezed.dart';
-part 'prepare_upload_response_dto.g.dart';
+part 'prepare_upload_response_dto.mapper.dart';
 
-@freezed
-class PrepareUploadResponseDto with _$PrepareUploadResponseDto {
-  const factory PrepareUploadResponseDto({
-    required String sessionId,
-    required Map<String, String> files,
-  }) = _PrepareUploadResponseDto;
+@MappableClass()
+class PrepareUploadResponseDto with PrepareUploadResponseDtoMappable {
+  final String sessionId;
+  final Map<String, String> files;
 
-  factory PrepareUploadResponseDto.fromJson(Map<String, Object?> json) => _$PrepareUploadResponseDtoFromJson(json);
+  const PrepareUploadResponseDto({
+    required this.sessionId,
+    required this.files,
+  });
+
+  static const fromJson = PrepareUploadResponseDtoMapper.fromJson;
 }

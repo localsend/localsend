@@ -1,10 +1,9 @@
 import 'package:collection/collection.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:mime/mime.dart';
 
 /// The file DTO that is sent between server and client.
-/// Custom implementation of freezed & json_serializable to handle legacy enums.
-/// The copyWith method is not implemented.
 class FileDto {
   final String id; // unique inside session
   final String fileName;
@@ -29,10 +28,6 @@ class FileDto {
 
   String lookupMime() => lookupMimeType(fileName) ?? 'application/octet-stream';
 
-  factory FileDto.fromJson(Map<String, Object?> json) => _parseFileDto(json);
-
-  Map<String, dynamic> toJson() => _fileDtoToJson(this);
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -50,49 +45,54 @@ class FileDto {
   int get hashCode => Object.hash(id, fileName, size, fileType, hash, preview, legacy);
 }
 
-/// This deserializer handles both legacy and mime types.
-FileDto _parseFileDto(Map<String, Object?> json) {
-  final String rawFileType = json['fileType'] as String;
-  final FileType fileType;
-  if (rawFileType.contains('/')) {
-    // parse mime
-    if (rawFileType.startsWith('image/')) {
-      fileType = FileType.image;
-    } else if (rawFileType.startsWith('video/')) {
-      fileType = FileType.video;
-    } else if (rawFileType == 'application/pdf') {
-      fileType = FileType.pdf;
-    } else if (rawFileType.startsWith('text/')) {
-      fileType = FileType.text;
-    } else if (rawFileType == 'application/vnd.android.package-archive') {
-      fileType = FileType.apk;
+class FileDtoMapper extends SimpleMapper<FileDto> {
+  const FileDtoMapper();
+
+  @override
+  FileDto decode(dynamic value) {
+    final map = value as Map<String, dynamic>;
+    final String rawFileType = map['fileType'] as String;
+    final FileType fileType;
+    if (rawFileType.contains('/')) {
+      // parse mime
+      if (rawFileType.startsWith('image/')) {
+        fileType = FileType.image;
+      } else if (rawFileType.startsWith('video/')) {
+        fileType = FileType.video;
+      } else if (rawFileType == 'application/pdf') {
+        fileType = FileType.pdf;
+      } else if (rawFileType.startsWith('text/')) {
+        fileType = FileType.text;
+      } else if (rawFileType == 'application/vnd.android.package-archive') {
+        fileType = FileType.apk;
+      } else {
+        fileType = FileType.other;
+      }
     } else {
-      fileType = FileType.other;
+      // parse legacy enum to internal internal enum
+      fileType = FileType.values.firstWhereOrNull((e) => e.name == rawFileType) ?? FileType.other;
     }
-  } else {
-    // parse legacy enum to internal internal enum
-    fileType = FileType.values.firstWhereOrNull((e) => e.name == rawFileType) ?? FileType.other;
+
+    return FileDto(
+      id: map['id'] as String,
+      fileName: map['fileName'] as String,
+      size: map['size'] as int,
+      fileType: fileType,
+      hash: map['hash'] as String?,
+      preview: map['preview'] as String?,
+      legacy: false,
+    );
   }
 
-  return FileDto(
-    id: json['id'] as String,
-    fileName: json['fileName'] as String,
-    size: json['size'] as int,
-    fileType: fileType,
-    hash: json['hash'] as String?,
-    preview: json['preview'] as String?,
-    legacy: false,
-  );
-}
-
-/// This serializer checks the legacy flag and serializes the file type accordingly.
-Map<String, dynamic> _fileDtoToJson(FileDto instance) {
-  return {
-    'id': instance.id,
-    'fileName': instance.fileName,
-    'size': instance.size,
-    'fileType': instance.legacy ? instance.fileType.name : instance.lookupMime(),
-    if (instance.hash != null) 'hash': instance.hash,
-    if (instance.preview != null) 'preview': instance.preview,
-  };
+  @override
+  dynamic encode(FileDto self) {
+    return {
+      'id': self.id,
+      'fileName': self.fileName,
+      'size': self.size,
+      'fileType': self.legacy ? self.fileType.name : self.lookupMime(),
+      if (self.hash != null) 'hash': self.hash,
+      if (self.preview != null) 'preview': self.preview,
+    };
+  }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -11,7 +11,7 @@ import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 enum _ServerState { initializing, running, error, stopping }
 
@@ -24,7 +24,7 @@ class WebSendPage extends StatefulWidget {
   State<WebSendPage> createState() => _WebSendPageState();
 }
 
-class _WebSendPageState extends State<WebSendPage> with Riverpie {
+class _WebSendPageState extends State<WebSendPage> with Refena {
   _ServerState _stateEnum = _ServerState.initializing;
   bool _encrypted = false;
   String? _initializedError;
@@ -120,7 +120,7 @@ class _WebSendPageState extends State<WebSendPage> with Riverpie {
 
             final serverState = ref.watch(serverProvider)!;
             final webSendState = serverState.webSendState!;
-            final networkState = ref.watch(networkStateProvider);
+            final networkState = ref.watch(localIpProvider);
 
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

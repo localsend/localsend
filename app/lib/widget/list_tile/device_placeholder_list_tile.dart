@@ -4,7 +4,7 @@ import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/list_tile/custom_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 class DevicePlaceholderListTile extends StatelessWidget {
   const DevicePlaceholderListTile();

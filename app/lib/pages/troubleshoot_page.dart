@@ -9,7 +9,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/not_available_on_platform_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 class TroubleshootPage extends StatelessWidget {
   const TroubleshootPage();

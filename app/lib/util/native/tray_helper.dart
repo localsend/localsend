@@ -5,7 +5,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:system_tray/system_tray.dart';
 import 'package:tray_manager/tray_manager.dart' as tm;
 import 'package:window_manager/window_manager.dart';
@@ -90,7 +90,7 @@ Future<void> hideToTray() async {
   }
 
   // Disable animations
-  RiverpieScope.defaultRef.notifier(sleepProvider).setState((_) => true);
+  RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => true);
 }
 
 Future<void> showFromTray() async {
@@ -103,5 +103,5 @@ Future<void> showFromTray() async {
   }
 
   // Enable animations
-  RiverpieScope.defaultRef.notifier(sleepProvider).setState((_) => false);
+  RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => false);
 }

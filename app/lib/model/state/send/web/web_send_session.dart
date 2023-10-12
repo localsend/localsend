@@ -1,15 +1,20 @@
 import 'dart:async';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'web_send_session.freezed.dart';
+part 'web_send_session.mapper.dart';
 
-@freezed
-class WebSendSession with _$WebSendSession {
-  const factory WebSendSession({
-    required String sessionId,
-    required StreamController<bool>? responseHandler, // used to accept or reject incoming requests
-    required String ip,
-    required String deviceInfo, // parsed from userAgent
-  }) = _WebSendSession;
+@MappableClass()
+class WebSendSession with WebSendSessionMappable {
+  final String sessionId;
+  final StreamController<bool>? responseHandler; // used to accept or reject incoming requests
+  final String ip;
+  final String deviceInfo; // parsed from userAgent
+
+  const WebSendSession({
+    required this.sessionId,
+    required this.responseHandler,
+    required this.ip,
+    required this.deviceInfo,
+  });
 }

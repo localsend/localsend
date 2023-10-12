@@ -14,7 +14,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,7 +25,7 @@ class ReceivePage extends StatefulWidget {
   State<ReceivePage> createState() => _ReceivePageState();
 }
 
-class _ReceivePageState extends State<ReceivePage> with Riverpie {
+class _ReceivePageState extends State<ReceivePage> with Refena {
   String? _message;
   bool _isLink = false;
   bool _showFullIp = false;

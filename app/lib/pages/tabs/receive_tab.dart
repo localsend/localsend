@@ -3,8 +3,8 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/network_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
@@ -15,7 +15,7 @@ import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class ReceiveTab extends StatefulWidget {
@@ -25,7 +25,7 @@ class ReceiveTab extends StatefulWidget {
   State<ReceiveTab> createState() => _ReceiveTagState();
 }
 
-class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMixin, Riverpie {
+class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMixin, Refena {
   bool _advanced = false;
   bool _showHistoryButton = true;
 
@@ -37,7 +37,7 @@ class _ReceiveTagState extends State<ReceiveTab> with AutomaticKeepAliveClientMi
     super.build(context);
 
     final settings = ref.watch(settingsProvider);
-    final networkInfo = ref.watch(networkStateProvider);
+    final networkInfo = ref.watch(localIpProvider);
     final serverState = ref.watch(serverProvider);
 
     return Stack(

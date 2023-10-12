@@ -1,23 +1,28 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 
-part 'info_dto.freezed.dart';
-part 'info_dto.g.dart';
+part 'info_dto.mapper.dart';
 
-@freezed
-class InfoDto with _$InfoDto {
-  const factory InfoDto({
-    required String alias,
-    required String? version, // v2, format: major.minor
-    required String? deviceModel,
-    @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
-    required DeviceType? deviceType,
-    required String? fingerprint, // v2
-    required bool? download, // v2
-  }) = _InfoDto;
+@MappableClass()
+class InfoDto with InfoDtoMappable {
+  final String alias;
+  final String? version; // v2, format: major.minor
+  final String? deviceModel;
+  final DeviceType? deviceType;
+  final String? fingerprint; // v2
+  final bool? download; // v2
 
-  factory InfoDto.fromJson(Map<String, Object?> json) => _$InfoDtoFromJson(json);
+  const InfoDto({
+    required this.alias,
+    required this.version,
+    required this.deviceModel,
+    required this.deviceType,
+    required this.fingerprint,
+    required this.download,
+  });
+
+  static const fromJson = InfoDtoMapper.fromJson;
 }
 
 extension InfoToDeviceExt on InfoDto {

@@ -5,7 +5,7 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 final _borderRadius = BorderRadius.circular(5);
 
@@ -86,7 +86,7 @@ Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async
   if (checkPlatform([TargetPlatform.android])) {
     // See https://github.com/flutter/flutter/issues/90098
     final darkMode = brightness == Brightness.dark;
-    final androidSdkInt = RiverpieScope.defaultRef.read(deviceInfoProvider).androidSdkInt ?? 0;
+    final androidSdkInt = RefenaScope.defaultRef.read(deviceInfoProvider).androidSdkInt ?? 0;
     final bool edgeToEdge = androidSdkInt >= 29;
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures

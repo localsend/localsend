@@ -1,7 +1,7 @@
 import 'package:flutter/scheduler.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 /// If true, then animations are disabled.

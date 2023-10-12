@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
@@ -15,11 +17,12 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -45,6 +48,8 @@ Future<(PersistenceService, bool)> preInit(List<String> args) async {
       print(record.stackTrace);
     }
   });
+
+  MapperContainer.globals.use(const FileDtoMapper());
 
   final persistenceService = await PersistenceService.initialize();
 
@@ -164,17 +169,17 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
-    clearCache();
+    ref.dispatch(ClearCacheAction());
   }
 }
 
 Future<void> _handleSharedIntent(SharedMedia payload, Ref ref) async {
   final message = payload.content;
   if (message != null && message.trim().isNotEmpty) {
-    ref.notifier(selectedSendingFilesProvider).addMessage(message);
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
   }
-  await ref.notifier(selectedSendingFilesProvider).addFiles(
-        files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-        converter: CrossFileConverters.convertSharedAttachment,
-      );
+  await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+    files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+    converter: CrossFileConverters.convertSharedAttachment,
+  ));
 }

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();

@@ -1,29 +1,36 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/dto/multicast_dto.dart';
 
-part 'info_register_dto.freezed.dart';
-part 'info_register_dto.g.dart';
+part 'info_register_dto.mapper.dart';
 
 /// Used only for /prepare-upload to be compatible with v1.
 /// The [fingerprint] does not exist in v1, so it is nullable here.
 /// TODO: replace with [RegisterDto] when v1 compatibility is removed
-@freezed
-class InfoRegisterDto with _$InfoRegisterDto {
-  const factory InfoRegisterDto({
-    required String alias,
-    required String? version, // v2, format: major.minor
-    required String? deviceModel,
-    @JsonKey(unknownEnumValue: DeviceType.desktop) // ignore: invalid_annotation_target
-    required DeviceType? deviceType,
-    required String? fingerprint,
-    required int? port, // v2
-    required ProtocolType? protocol, // v2
-    required bool? download, // v2
-  }) = _InfoRegisterDto;
+@MappableClass()
+class InfoRegisterDto with InfoRegisterDtoMappable {
+  final String alias;
+  final String? version; // v2, format: major.minor
+  final String? deviceModel;
+  final DeviceType? deviceType;
+  final String? fingerprint;
+  final int? port; // v2
+  final ProtocolType? protocol; // v2
+  final bool? download; // v2
 
-  factory InfoRegisterDto.fromJson(Map<String, Object?> json) => _$InfoRegisterDtoFromJson(json);
+  const InfoRegisterDto({
+    required this.alias,
+    required this.version,
+    required this.deviceModel,
+    required this.deviceType,
+    required this.fingerprint,
+    required this.port,
+    required this.protocol,
+    required this.download,
+  });
+
+  static const fromJson = InfoRegisterDtoMapper.fromJson;
 }
 
 extension RegisterDtoExt on InfoRegisterDto {

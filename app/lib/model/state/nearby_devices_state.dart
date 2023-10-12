@@ -1,12 +1,15 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/device.dart';
 
-part 'nearby_devices_state.freezed.dart';
+part 'nearby_devices_state.mapper.dart';
 
-@freezed
-class NearbyDevicesState with _$NearbyDevicesState {
-  const factory NearbyDevicesState({
-    required Set<String> runningIps, // list of local ips
-    required Map<String, Device> devices, // ip -> device
-  }) = _NearbyDevicesState;
+@MappableClass()
+class NearbyDevicesState with NearbyDevicesStateMappable {
+  final Set<String> runningIps; // list of local ips
+  final Map<String, Device> devices; // ip -> device
+
+  const NearbyDevicesState({
+    required this.runningIps,
+    required this.devices,
+  });
 }

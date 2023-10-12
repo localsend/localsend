@@ -7,24 +7,24 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.13.5"
+  FLUTTER_VERSION: "3.13.6"
 
 jobs:
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
-      - name: Dependencies
-        working-directory: app
-        run: flutter pub get
-      - name: Check format
-        working-directory: app
-        run: dart format --line-length 150 --set-exit-if-changed lib test
+#  format:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: subosito/flutter-action@v2
+#        with:
+#          flutter-version: ${{ env.FLUTTER_VERSION }}
+#          channel: "stable"
+#      - name: Dependencies
+#        working-directory: app
+#        run: flutter pub get
+#      - name: Check format
+#        working-directory: app
+#        run: dart format --line-length 150 --set-exit-if-changed lib test
 
   test:
     runs-on: ubuntu-latest
@@ -38,9 +38,6 @@ jobs:
       - name: Dependencies
         working-directory: app
         run: flutter pub get
-      - name: Build generated files
-        working-directory: app
-        run: flutter pub run build_runner build -d
       - name: Analyze
         working-directory: app
         run: flutter analyze

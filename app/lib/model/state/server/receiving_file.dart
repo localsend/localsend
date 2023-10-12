@@ -1,18 +1,26 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/model/file_status.dart';
 
-part 'receiving_file.freezed.dart';
+part 'receiving_file.mapper.dart';
 
-@freezed
-class ReceivingFile with _$ReceivingFile {
-  const factory ReceivingFile({
-    required FileDto file,
-    required FileStatus status,
-    required String? token,
-    required String? desiredName, // not null when accepted
-    required String? path, // when finished
-    required bool savedToGallery, // when finished
-    required String? errorMessage, // when status == failed
-  }) = _ReceivingFile;
+@MappableClass()
+class ReceivingFile with ReceivingFileMappable {
+  final FileDto file;
+  final FileStatus status;
+  final String? token;
+  final String? desiredName; // not null when accepted
+  final String? path; // when finished
+  final bool savedToGallery; // when finished
+  final String? errorMessage; // when status == failed
+
+  const ReceivingFile({
+    required this.file,
+    required this.status,
+    required this.token,
+    required this.desiredName,
+    required this.path,
+    required this.savedToGallery,
+    required this.errorMessage,
+  });
 }

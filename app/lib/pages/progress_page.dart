@@ -21,7 +21,7 @@ import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -40,7 +40,7 @@ class ProgressPage extends StatefulWidget {
   State<ProgressPage> createState() => _ProgressPageState();
 }
 
-class _ProgressPageState extends State<ProgressPage> with Riverpie {
+class _ProgressPageState extends State<ProgressPage> with Refena {
   int _totalBytes = double.maxFinite.toInt();
   int _lastRemainingTimeUpdate = 0; // millis since epoch
   String? _remainingTime;

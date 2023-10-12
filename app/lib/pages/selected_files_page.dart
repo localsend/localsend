@@ -10,7 +10,7 @@ import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
-import 'package:riverpie_flutter/riverpie_flutter.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class SelectedFilesPage extends StatelessWidget {
@@ -48,7 +48,7 @@ class SelectedFilesPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      ref.notifier(selectedSendingFilesProvider).reset();
+                      ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
                       context.popUntilRoot();
                     },
                     child: Text(t.selectedFilesPage.deleteAll),
@@ -110,8 +110,7 @@ class SelectedFilesPage extends StatelessWidget {
                                     final result =
                                         await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
                                     if (result != null) {
-                                      ref.notifier(selectedSendingFilesProvider).removeAt(index);
-                                      ref.notifier(selectedSendingFilesProvider).addMessage(result, index: index);
+                                      ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
                                     }
                                   },
                                   child: const Icon(Icons.edit),
@@ -122,7 +121,7 @@ class SelectedFilesPage extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   final currCount = ref.read(selectedSendingFilesProvider).length;
-                                  ref.notifier(selectedSendingFilesProvider).removeAt(index);
+                                  ref.redux(selectedSendingFilesProvider).dispatch(RemoveSelectedFileAction(index));
                                   if (currCount == 1) {
                                     context.popUntilRoot();
                                   }

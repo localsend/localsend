@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/util/native/file_picker.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class ShortcutWatcher extends StatelessWidget {
@@ -22,11 +24,19 @@ class ShortcutWatcher extends StatelessWidget {
         if (checkPlatform([TargetPlatform.linux])) LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyQ): _ExitAppIntent(),
 
         LogicalKeySet(LogicalKeyboardKey.escape): _PopPageIntent(),
+
+        // Control+V and Command+V
+        LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV): _PasteIntent(),
+        LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyV): _PasteIntent(),
       },
       child: Actions(
         actions: {
           _ExitAppIntent: CallbackAction(onInvoke: (_) => exit(0)),
           _PopPageIntent: CallbackAction(onInvoke: (_) async => Navigator.of(Routerino.context).maybePop()),
+          _PasteIntent: CallbackAction(onInvoke: (_) async {
+            await context.ref.dispatchAsync(PickAction(option: FilePickerOption.clipboard, context: context));
+            return null;
+          }),
         },
         child: child,
       ),
@@ -37,3 +47,5 @@ class ShortcutWatcher extends StatelessWidget {
 class _ExitAppIntent extends Intent {}
 
 class _PopPageIntent extends Intent {}
+
+class _PasteIntent extends Intent {}
