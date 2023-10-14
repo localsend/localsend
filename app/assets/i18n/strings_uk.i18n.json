@@ -208,7 +208,7 @@
     "requests": "Запити",
     "noRequests": "Запитів поки що немає.",
     "encryption": "@:settingsTab.network.encryption",
-    "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Ви повинні його прийняти в браузері.",
+    "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
   "aboutPage": {
