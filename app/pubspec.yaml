@@ -23,6 +23,7 @@ dependencies:
   file_selector: 1.0.1
   flutter:
     sdk: flutter
+  flutter_displaymode: 0.6.0
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.6.18
