@@ -14,6 +14,7 @@
     "copiedToClipboard": "Copied to Clipboard",
     "decline": "Decline",
     "done": "Done",
+    "delete": "Delete",
     "edit": "Edit",
     "error": "Error",
     "example": "Example",
@@ -315,6 +316,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorites",
+      "noFavorites": "No favorites configured yet.",
+      "addFavorite": "New"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Delete favorite",
+      "content": "Do you really want to delete the favorite \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Add favorite",
+      "titleEdit": "Edit favorite",
+      "name": "Name",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
     },
     "fileInfo": {
       "title": "File information",

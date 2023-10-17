@@ -14,6 +14,7 @@
     "copiedToClipboard": "In die Zwischenablage kopiert",
     "decline": "Ablehnen",
     "done": "Fertig",
+    "delete": "Löschen",
     "edit": "Bearbeiten",
     "error": "Fehler",
     "example": "Beispiel",
@@ -245,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoriten",
+      "noFavorites": "Keine Favoriten konfiguriert.",
+      "addFavorite": "Neu"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Favorit löschen",
+      "content": "Möchtest du wirklich \"{name}\" löschen?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Favorit hinzufügen",
+      "titleEdit": "Favorit bearbeiten",
+      "name": "Name",
+      "auto": "(auto)",
+      "ip": "IP-Addresse",
+      "port": "Port"
     },
     "fileInfo": {
       "title": "Datei-Information",

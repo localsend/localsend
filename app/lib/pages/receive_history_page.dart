@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/receive_history_entry.dart';
+import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';

@@ -64,6 +64,7 @@ class _StringsGeneralDe extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'In die Zwischenablage kopiert';
 	@override String get decline => 'Ablehnen';
 	@override String get done => 'Fertig';
+	@override String get delete => 'Löschen';
 	@override String get edit => 'Bearbeiten';
 	@override String get error => 'Fehler';
 	@override String get example => 'Beispiel';
@@ -307,6 +308,9 @@ class _StringsDialogsDe extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileDe cannotOpenFile = _StringsDialogsCannotOpenFileDe._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeDe encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeDe._(_root);
 	@override late final _StringsDialogsErrorDialogDe errorDialog = _StringsDialogsErrorDialogDe._(_root);
+	@override late final _StringsDialogsFavoriteDialogDe favoriteDialog = _StringsDialogsFavoriteDialogDe._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogDe favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogDe._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogDe favoriteEditDialog = _StringsDialogsFavoriteEditDialogDe._(_root);
 	@override late final _StringsDialogsFileInfoDe fileInfo = _StringsDialogsFileInfoDe._(_root);
 	@override late final _StringsDialogsFileNameInputDe fileNameInput = _StringsDialogsFileNameInputDe._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedDe localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedDe._(_root);
@@ -602,6 +606,44 @@ class _StringsDialogsErrorDialogDe extends _StringsDialogsErrorDialogEn {
 
 	// Translations
 	@override String get title => '${_root.general.error}';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogDe extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoriten';
+	@override String get noFavorites => 'Keine Favoriten konfiguriert.';
+	@override String get addFavorite => 'Neu';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogDe extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favorit löschen';
+	@override String content({required Object name}) => 'Möchtest du wirklich "${name}" löschen?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogDe extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Favorit hinzufügen';
+	@override String get titleEdit => 'Favorit bearbeiten';
+	@override String get name => 'Name';
+	@override String get auto => '(auto)';
+	@override String get ip => 'IP-Addresse';
+	@override String get port => 'Port';
 }
 
 // Path: dialogs.fileInfo

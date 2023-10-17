@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/receive_history_entry.dart';
+import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:routerino/routerino.dart';
 

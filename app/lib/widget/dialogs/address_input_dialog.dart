@@ -17,15 +17,15 @@ enum _InputMode {
   ip;
 
   String get label {
-    switch (this) {
-      case _InputMode.hashtag:
-        return t.dialogs.addressInput.hashtag;
-      case _InputMode.ip:
-        return t.dialogs.addressInput.ip;
-    }
+    return switch (this) {
+      _InputMode.hashtag => t.dialogs.addressInput.hashtag,
+      _InputMode.ip => t.dialogs.addressInput.ip,
+    };
   }
 }
 
+/// A dialog to input an hash or address.
+/// Pops the dialog with the device if found.
 class AddressInputDialog extends StatefulWidget {
   const AddressInputDialog();
 
@@ -59,7 +59,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
-        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip, port, https),
+        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https),
       ],
     ).stream;
 
@@ -188,11 +188,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           onPressed: () => context.pop(),
           child: Text(t.general.cancel),
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-            foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
-          ),
+        FilledButton(
           onPressed: _fetching ? null : () async => _submit(localIps, settings.port),
           child: Text(t.general.confirm),
         ),
