@@ -12,6 +12,8 @@ environment:
 dependencies:
   basic_utils: 5.6.1
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
+  common:
+    path: ../common
   connectivity_plus: 4.0.2
   dart_mappable: 3.3.1
   desktop_drop: 0.4.4
