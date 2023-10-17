@@ -320,7 +320,7 @@
     "favoriteDialog": {
       "title": "Favorites",
       "noFavorites": "No favorites configured yet.",
-      "addFavorite": "@:dialogs.favoriteEditDialog.titleAdd"
+      "addFavorite": "New"
     },
     "favoriteDeleteDialog": {
       "title": "Delete favorite",
@@ -330,6 +330,7 @@
       "titleAdd": "Add favorite",
       "titleEdit": "Edit favorite",
       "name": "Name",
+      "auto": "(auto)",
       "ip": "IP Address",
       "port": "Port"
     },

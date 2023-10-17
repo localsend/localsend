@@ -1,5 +1,6 @@
 ## 1.12.0 (2023-)
 
+- feat: add favorites (@Tienisto)
 - feat: drastically improve GPU usage by optimizing the spin animation (@Tienisto)
 - feat: add OLED color mode (@Tienisto)
 - feat: use better colors for the toggle switches in the settings (@gitstart)

@@ -58,6 +58,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
           const SizedBox(height: 5),
           TextFormField(
             controller: _aliasController,
+            decoration: InputDecoration(
+              hintText: t.dialogs.favoriteEditDialog.auto,
+            ),
             enabled: !_fetching,
           ),
           const SizedBox(height: 16),
@@ -65,6 +68,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
           const SizedBox(height: 5),
           TextFormField(
             controller: _ipController,
+            autofocus: widget.favorite == null,
             enabled: !_fetching,
           ),
           const SizedBox(height: 16),
@@ -122,11 +126,11 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     return;
                   }
 
-                  if (_aliasController.text.isEmpty) {
-                    return;
-                  }
-
                   if (widget.favorite != null) {
+                    if (_aliasController.text.trim().isEmpty) {
+                      return;
+                    }
+
                     await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(widget.favorite!.copyWith(
                           ip: _ipController.text,
                           port: int.parse(_portController.text),
@@ -147,11 +151,14 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                       });
                       return;
                     }
+
+                    final name = _aliasController.text.trim();
+
                     await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
                           fingerprint: result.fingerprint,
                           ip: _ipController.text,
                           port: int.parse(_portController.text),
-                          alias: _aliasController.text,
+                          alias: name.isEmpty ? result.alias : name,
                         )));
                   }
 

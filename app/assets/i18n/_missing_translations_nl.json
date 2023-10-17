@@ -4,6 +4,7 @@
     "After editing this file, you can run 'dart run slang apply --locale=nl' to quickly apply the newly added translations."
   ],
   "general": {
+    "delete": "Delete",
     "noItemInClipboard": "No item in Clipboard"
   },
   "sendTab": {
@@ -16,6 +17,25 @@
       "colorOptions": {
         "oled": "OLED"
       }
+    }
+  },
+  "dialogs": {
+    "favoriteDialog": {
+      "title": "Favorites",
+      "noFavorites": "No favorites configured yet.",
+      "addFavorite": "New"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Delete favorite",
+      "content": "Do you really want to delete the favorite \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Add favorite",
+      "titleEdit": "Edit favorite",
+      "name": "Name",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
     }
   }
 }

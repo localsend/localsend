@@ -687,7 +687,7 @@ class _StringsDialogsFavoriteDialogEn {
 	// Translations
 	String get title => 'Favorites';
 	String get noFavorites => 'No favorites configured yet.';
-	String get addFavorite => '${_root.dialogs.favoriteEditDialog.titleAdd}';
+	String get addFavorite => 'New';
 }
 
 // Path: dialogs.favoriteDeleteDialog
@@ -711,6 +711,7 @@ class _StringsDialogsFavoriteEditDialogEn {
 	String get titleAdd => 'Add favorite';
 	String get titleEdit => 'Edit favorite';
 	String get name => 'Name';
+	String get auto => '(auto)';
 	String get ip => 'IP Address';
 	String get port => 'Port';
 }
