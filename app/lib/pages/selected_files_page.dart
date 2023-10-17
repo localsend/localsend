@@ -46,7 +46,7 @@ class SelectedFilesPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ElevatedButton(
+                  FilledButton(
                     onPressed: () {
                       ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
                       context.popUntilRoot();

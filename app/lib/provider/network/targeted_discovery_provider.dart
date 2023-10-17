@@ -23,22 +23,30 @@ class TargetedDiscoveryService {
 
   TargetedDiscoveryService(this._dio, this._fingerprint);
 
-  Future<Device?> discover(String ip, int port, bool https) async {
+  Future<Device?> discover({
+    required String ip,
+    required int port,
+    required bool https,
+    void Function(String url, Object? error)? onError = defaultErrorPrinter,
+  }) async {
+    // We use the legacy route to make it less breaking for older versions
     final url = ApiRoute.info.targetRaw(ip, port, https, peerProtocolVersion);
-    Device? device;
     try {
       final response = await _dio.get(url, queryParameters: {
         'fingerprint': _fingerprint,
       });
       final dto = InfoDto.fromJson(response.data);
-      device = dto.toDevice(ip, port, https);
+      return dto.toDevice(ip, port, https);
     } on DioException catch (e) {
-      device = null;
-      _logger.warning('$url: ${e.error}');
+      onError?.call(url, e.error);
+      return null;
     } catch (e) {
-      device = null;
-      _logger.warning('$url: $e');
+      onError?.call(url, e);
+      return null;
     }
-    return device;
+  }
+
+  static void defaultErrorPrinter(String url, Object? error) {
+    _logger.warning('$url: $error');
   }
 }

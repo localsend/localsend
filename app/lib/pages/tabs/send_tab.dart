@@ -280,7 +280,7 @@ class _SendTabState extends State<SendTab> with Refena {
             ),
           ),
         ...nearbyDevicesState.devices.values.map((device) {
-          final isFavorite = favoriteState.any((e) => e.ip == device.ip && e.alias == device.alias);
+          final isFavorite = favoriteState.any((e) => e.fingerprint == device.fingerprint);
           return Padding(
             padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Hero(

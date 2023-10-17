@@ -29,7 +29,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
 
     final https = ref.read(settingsProvider).https;
 
-    final result = await ref.read(targetedDiscoveryProvider).discover(favorite.ip, favorite.port, https);
+    final result = await ref.read(targetedDiscoveryProvider).discover(ip: favorite.ip, port: favorite.port, https: https);
     if (result == null) {
       setState(() {
         _fetching = false;

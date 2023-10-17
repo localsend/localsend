@@ -59,7 +59,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
-        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip, port, https),
+        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https),
       ],
     ).stream;
 

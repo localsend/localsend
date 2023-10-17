@@ -139,7 +139,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     setState(() {
                       _fetching = true;
                     });
-                    final result = await ref.read(targetedDiscoveryProvider).discover(ip, port, https);
+                    final result = await ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https);
                     if (result == null) {
                       setState(() {
                         _fetching = false;
