@@ -179,7 +179,7 @@ Future<void> _handleSharedIntent(SharedMedia payload, Ref ref) async {
     ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
   }
   await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-    files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-    converter: CrossFileConverters.convertSharedAttachment,
-  ));
+        files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+        converter: CrossFileConverters.convertSharedAttachment,
+      ));
 }

@@ -7,11 +7,20 @@ import 'package:localsend_app/widget/list_tile/custom_list_tile.dart';
 
 class DeviceListTile extends StatelessWidget {
   final Device device;
+  final bool isFavorite;
   final String? info;
   final double? progress;
   final VoidCallback? onTap;
+  final VoidCallback? onFavoriteTap;
 
-  const DeviceListTile({required this.device, this.info, this.progress, this.onTap});
+  const DeviceListTile({
+    required this.device,
+    this.isFavorite = false,
+    this.info,
+    this.progress,
+    this.onTap,
+    this.onFavoriteTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +28,12 @@ class DeviceListTile extends StatelessWidget {
     return CustomListTile(
       icon: Icon(device.deviceType.icon, size: 46),
       title: Text(device.alias, style: const TextStyle(fontSize: 20)),
+      trailing: onFavoriteTap != null
+          ? IconButton(
+              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+              onPressed: onFavoriteTap,
+            )
+          : null,
       subTitle: Wrap(
         runSpacing: 10,
         spacing: 10,
