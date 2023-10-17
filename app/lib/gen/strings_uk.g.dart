@@ -81,11 +81,11 @@ class _StringsGeneralUk extends _StringsGeneralEn {
 	@override String get reset => 'Скидання налаштувань';
 	@override String get restart => 'Перезавантаження';
 	@override String get settings => 'Налаштування';
-	@override String get skipped => 'Пропущено';
+	@override String get skipped => 'Відхилено';
 	@override String get start => 'Запуск';
 	@override String get stop => 'Зупинити';
 	@override String get save => 'Зберегти';
-	@override String get unchanged => 'Не змінювалося';
+	@override String get unchanged => 'Без змін';
 	@override String get unknown => 'Невідомо';
 	@override String get noItemInClipboard => 'Буфер обміну порожній';
 }
@@ -261,7 +261,7 @@ class _StringsWebSharePageUk extends _StringsWebSharePageEn {
 	@override String get requests => 'Запити';
 	@override String get noRequests => 'Запитів поки що немає.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
-	@override String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Ви повинні його прийняти в браузері.';
+	@override String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
 	@override String pendingRequests({required Object n}) => 'Запити, що очікують на розгляд: ${n}';
 }
 
@@ -418,7 +418,7 @@ class _StringsSendTabPickerUk extends _StringsSendTabPickerEn {
 	@override String get media => 'Медіа';
 	@override String get text => 'Текст';
 	@override String get app => 'Додаток';
-	@override String get clipboard => 'Буфер обміну';
+	@override String get clipboard => 'Вставити';
 }
 
 // Path: sendTab.sendModes

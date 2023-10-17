@@ -81,11 +81,11 @@ class _StringsGeneralRu extends _StringsGeneralEn {
 	@override String get reset => 'Сброс настроек';
 	@override String get restart => 'Перезагрузка';
 	@override String get settings => 'Настройки';
-	@override String get skipped => 'Пропущено';
+	@override String get skipped => 'Отклонено';
 	@override String get start => 'Запуск';
 	@override String get stop => 'Остановить';
 	@override String get save => 'Сохранить';
-	@override String get unchanged => 'Не изменялось';
+	@override String get unchanged => 'Без изменений';
 	@override String get unknown => 'Неизвестно';
 	@override String get noItemInClipboard => 'Буфер обмена пуст';
 }
@@ -418,7 +418,7 @@ class _StringsSendTabPickerRu extends _StringsSendTabPickerEn {
 	@override String get media => 'Медиа';
 	@override String get text => 'Текст';
 	@override String get app => 'Приложение';
-	@override String get clipboard => 'Буфер обмена';
+	@override String get clipboard => 'Вставить';
 }
 
 // Path: sendTab.sendModes
