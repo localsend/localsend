@@ -686,8 +686,8 @@ class _StringsDialogsFavoriteDialogEn {
 
 	// Translations
 	String get title => 'Favorites';
-	String get noFavorites => 'No favorites configured yet.';
-	String get addFavorite => 'New';
+	String get noFavorites => 'No favorites devices yet.';
+	String get addFavorite => 'Add';
 }
 
 // Path: dialogs.favoriteDeleteDialog
@@ -697,8 +697,8 @@ class _StringsDialogsFavoriteDeleteDialogEn {
 	final _StringsEn _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Delete favorite';
-	String content({required Object name}) => 'Do you really want to delete the favorite "${name}"?';
+	String get title => 'Delete from favorites';
+	String content({required Object name}) => 'Do you really want to delete from favorites "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -708,9 +708,9 @@ class _StringsDialogsFavoriteEditDialogEn {
 	final _StringsEn _root; // ignore: unused_field
 
 	// Translations
-	String get titleAdd => 'Add favorite';
-	String get titleEdit => 'Edit favorite';
-	String get name => 'Name';
+	String get titleAdd => 'Add to favorites';
+	String get titleEdit => 'Adjust';
+	String get name => 'Alias';
 	String get auto => '(auto)';
 	String get ip => 'IP Address';
 	String get port => 'Port';

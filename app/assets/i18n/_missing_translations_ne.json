@@ -22,17 +22,17 @@
   "dialogs": {
     "favoriteDialog": {
       "title": "Favorites",
-      "noFavorites": "No favorites configured yet.",
-      "addFavorite": "New"
+      "noFavorites": "No favorites devices yet.",
+      "addFavorite": "Add"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete favorite",
-      "content": "Do you really want to delete the favorite \"{name}\"?"
+      "title": "Delete from favorites",
+      "content": "Do you really want to delete from favorites \"{name}\"?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add favorite",
-      "titleEdit": "Edit favorite",
-      "name": "Name",
+      "titleAdd": "Add to favorites",
+      "titleEdit": "Adjust",
+      "name": "Alias",
       "auto": "(auto)",
       "ip": "IP Address",
       "port": "Port"
