@@ -14,6 +14,7 @@
     "copiedToClipboard": "Скопировано в буфер обмена",
     "decline": "Отклонить",
     "done": "Готово",
+    "delete": "Удалить",
     "edit": "Редактировать",
     "error": "Ошибка",
     "example": "Пример",
@@ -245,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Избранное",
+      "noFavorites": "Избранных устройств пока нет.",
+      "addFavorite": "Добавить"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Удалить из избранных",
+      "content": "Вы действительно хотите удалить из избранных \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Добавить в избранное",
+      "titleEdit": "Настроить",
+      "name": "Имя устройства",
+      "auto": "(автоматически)",
+      "ip": "IP-адрес",
+      "port": "Порт"
     },
     "fileInfo": {
       "title": "О файле",

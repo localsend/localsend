@@ -64,6 +64,7 @@ class _StringsGeneralRu extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Скопировано в буфер обмена';
 	@override String get decline => 'Отклонить';
 	@override String get done => 'Готово';
+	@override String get delete => 'Удалить';
 	@override String get edit => 'Редактировать';
 	@override String get error => 'Ошибка';
 	@override String get example => 'Пример';
@@ -307,6 +308,9 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileRu cannotOpenFile = _StringsDialogsCannotOpenFileRu._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeRu encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeRu._(_root);
 	@override late final _StringsDialogsErrorDialogRu errorDialog = _StringsDialogsErrorDialogRu._(_root);
+	@override late final _StringsDialogsFavoriteDialogRu favoriteDialog = _StringsDialogsFavoriteDialogRu._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogRu favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogRu._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogRu favoriteEditDialog = _StringsDialogsFavoriteEditDialogRu._(_root);
 	@override late final _StringsDialogsFileInfoRu fileInfo = _StringsDialogsFileInfoRu._(_root);
 	@override late final _StringsDialogsFileNameInputRu fileNameInput = _StringsDialogsFileNameInputRu._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedRu localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedRu._(_root);
@@ -602,6 +606,44 @@ class _StringsDialogsErrorDialogRu extends _StringsDialogsErrorDialogEn {
 
 	// Translations
 	@override String get title => '${_root.general.error}';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogRu extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Избранное';
+	@override String get noFavorites => 'Избранных устройств пока нет.';
+	@override String get addFavorite => 'Добавить';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogRu extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Удалить из избранных';
+	@override String content({required Object name}) => 'Вы действительно хотите удалить из избранных "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogRu extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Добавить в избранное';
+	@override String get titleEdit => 'Настроить';
+	@override String get name => 'Имя устройства';
+	@override String get auto => '(автоматически)';
+	@override String get ip => 'IP-адрес';
+	@override String get port => 'Порт';
 }
 
 // Path: dialogs.fileInfo

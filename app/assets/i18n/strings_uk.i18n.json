@@ -14,6 +14,7 @@
     "copiedToClipboard": "Скопійовано в буфер обміну",
     "decline": "Відхилити",
     "done": "Виконано",
+    "delete": "Видалити",
     "edit": "Редагувати",
     "error": "Помилка",
     "example": "Приклад",
@@ -245,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Вибране",
+      "noFavorites": "Вибраних пристроїв ще немає.",
+      "addFavorite": "Додати"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Видалити з вибраних",
+      "content": "Ви дійсно хочете видалити з вибраних \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Додати до вибраних",
+      "titleEdit": "Налаштувати",
+      "name": "Ім'я пристрою",
+      "auto": "(автоматично)",
+      "ip": "IP-адреса",
+      "port": "Порт"
     },
     "fileInfo": {
       "title": "Інформація про файл",
