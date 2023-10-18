@@ -319,16 +319,16 @@
     },
     "favoriteDialog": {
       "title": "Favorites",
-      "noFavorites": "No favorites configured yet.",
-      "addFavorite": "New"
+      "noFavorites": "No favorites devices yet.",
+      "addFavorite": "Add"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete favorite",
-      "content": "Do you really want to delete the favorite \"{name}\"?"
+      "title": "Delete from favorites",
+      "content": "Do you really want to delete from favorites \"{name}\"?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add favorite",
-      "titleEdit": "Edit favorite",
+      "titleAdd": "Add to favorites",
+      "titleEdit": "Adjust",
       "name": "Name",
       "auto": "(auto)",
       "ip": "IP Address",
