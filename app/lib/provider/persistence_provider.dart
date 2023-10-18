@@ -7,8 +7,9 @@ import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
+import 'package:localsend_app/model/persistence/favorite_device.dart';
+import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/model/persistence/stored_security_context.dart';
-import 'package:localsend_app/model/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -31,6 +32,9 @@ const _securityContext = 'ls_security_context';
 
 // Received file history
 const _receiveHistory = 'ls_receive_history';
+
+// Favorites
+const _favorites = 'ls_favorites';
 
 // App Window Offset and Size info
 const _windowOffsetX = 'ls_window_offset_x';
@@ -135,6 +139,16 @@ class PersistenceService {
   Future<void> setReceiveHistory(List<ReceiveHistoryEntry> entries) async {
     final historyRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
     await _prefs.setStringList(_receiveHistory, historyRaw);
+  }
+
+  List<FavoriteDevice> getFavorites() {
+    final favoritesRaw = _prefs.getStringList(_favorites) ?? [];
+    return favoritesRaw.map((entry) => FavoriteDevice.fromJson(jsonDecode(entry))).toList();
+  }
+
+  Future<void> setFavorites(List<FavoriteDevice> entries) async {
+    final favoritesRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
+    await _prefs.setStringList(_favorites, favoritesRaw);
   }
 
   String getShowToken() {
@@ -342,5 +356,9 @@ class PersistenceService {
 
   Future<void> setDeviceModel(String deviceModel) async {
     await _prefs.setString(_deviceModel, deviceModel);
+  }
+
+  Future<void> clear() async {
+    await _prefs.clear();
   }
 }

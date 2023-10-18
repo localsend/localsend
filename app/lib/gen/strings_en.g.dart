@@ -63,6 +63,7 @@ class _StringsGeneralEn {
 	String get copiedToClipboard => 'Copied to Clipboard';
 	String get decline => 'Decline';
 	String get done => 'Done';
+	String get delete => 'Delete';
 	String get edit => 'Edit';
 	String get error => 'Error';
 	String get example => 'Example';
@@ -377,6 +378,9 @@ class _StringsDialogsEn {
 	late final _StringsDialogsCannotOpenFileEn cannotOpenFile = _StringsDialogsCannotOpenFileEn._(_root);
 	late final _StringsDialogsEncryptionDisabledNoticeEn encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeEn._(_root);
 	late final _StringsDialogsErrorDialogEn errorDialog = _StringsDialogsErrorDialogEn._(_root);
+	late final _StringsDialogsFavoriteDialogEn favoriteDialog = _StringsDialogsFavoriteDialogEn._(_root);
+	late final _StringsDialogsFavoriteDeleteDialogEn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogEn._(_root);
+	late final _StringsDialogsFavoriteEditDialogEn favoriteEditDialog = _StringsDialogsFavoriteEditDialogEn._(_root);
 	late final _StringsDialogsFileInfoEn fileInfo = _StringsDialogsFileInfoEn._(_root);
 	late final _StringsDialogsFileNameInputEn fileNameInput = _StringsDialogsFileNameInputEn._(_root);
 	late final _StringsDialogsLocalNetworkUnauthorizedEn localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEn._(_root);
@@ -672,6 +676,44 @@ class _StringsDialogsErrorDialogEn {
 
 	// Translations
 	String get title => '${_root.general.error}';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Favorites';
+	String get noFavorites => 'No favorites configured yet.';
+	String get addFavorite => 'New';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Delete favorite';
+	String content({required Object name}) => 'Do you really want to delete the favorite "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get titleAdd => 'Add favorite';
+	String get titleEdit => 'Edit favorite';
+	String get name => 'Name';
+	String get auto => '(auto)';
+	String get ip => 'IP Address';
+	String get port => 'Port';
 }
 
 // Path: dialogs.fileInfo

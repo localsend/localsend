@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
@@ -129,6 +130,14 @@ StreamSubscription? _sharedMediaSubscription;
 Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Function(int) goToPage) async {
   await updateSystemOverlayStyle(context);
 
+  if (checkPlatform([TargetPlatform.android])) {
+    try {
+      await FlutterDisplayMode.setHighRefreshRate();
+    } catch (e) {
+      _logger.warning('Setting high refresh rate failed', e);
+    }
+  }
+
   try {
     await ref.notifier(serverProvider).startServerFromSettings();
   } catch (e) {
@@ -179,7 +188,7 @@ Future<void> _handleSharedIntent(SharedMedia payload, Ref ref) async {
     ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
   }
   await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-    files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-    converter: CrossFileConverters.convertSharedAttachment,
-  ));
+        files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+        converter: CrossFileConverters.convertSharedAttachment,
+      ));
 }

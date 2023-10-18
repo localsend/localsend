@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 
 class BigButton extends StatelessWidget {
   final IconData icon;
@@ -17,10 +18,12 @@ class BigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
+    final buttonWidth = sizingInformation.isDesktop ? 100.0 : 90.0;
     return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxWidth: 90,
-        minWidth: 90,
+      constraints: BoxConstraints(
+        maxWidth: buttonWidth,
+        minWidth: buttonWidth,
         minHeight: 65,
       ),
       child: ElevatedButton(

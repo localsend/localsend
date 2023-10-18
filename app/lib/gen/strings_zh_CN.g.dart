@@ -88,6 +88,7 @@ class _StringsGeneralZhCn extends _StringsGeneralEn {
 	@override String get unchanged => '未更改';
 	@override String get unknown => '未知';
 	@override String get noItemInClipboard => '剪贴板中没有项目';
+	@override String get delete => '删除';
 }
 
 // Path: receiveTab
@@ -318,6 +319,9 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsZhCn quickActions = _StringsDialogsQuickActionsZhCn._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
+	@override late final _StringsDialogsFavoriteDialogZhCn favoriteDialog = _StringsDialogsFavoriteDialogZhCn._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogZhCn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogZhCn._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogZhCn favoriteEditDialog = _StringsDialogsFavoriteEditDialogZhCn._(_root);
 }
 
 // Path: tray
@@ -733,6 +737,44 @@ class _StringsDialogsSendModeHelpZhCn extends _StringsDialogsSendModeHelpEn {
 	@override String get single => '发送文件给一个接收者。已选择的文件在发送后会取消选择。';
 	@override String get multiple => '发送文件给多个接收者。已选择的文件在发送后不会取消选择。';
 	@override String get link => '未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogZhCn extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '收藏夹';
+	@override String get noFavorites => '尚未配置收藏夹。';
+	@override String get addFavorite => '新建';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogZhCn extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '删除收藏夹';
+	@override String content({required Object name}) => '确定要删除收藏夹 "${name}" 吗?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogZhCn extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => '添加收藏夹';
+	@override String get titleEdit => '编辑收藏夹';
+	@override String get name => '名称';
+	@override String get auto => '(auto)';
+	@override String get ip => 'IP 地址';
+	@override String get port => '端口';
 }
 
 // Path: settingsTab.general.brightnessOptions

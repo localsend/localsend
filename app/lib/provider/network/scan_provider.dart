@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -26,7 +27,15 @@ class ScanFacade {
     // Try performant Multicast/UDP method first
     _ref.notifier(nearbyDevicesProvider).startMulticastScan();
 
-    if (!forceLegacy) {
+    // At the same time, try to discover favorites
+    final favorites = _ref.read(favoritesProvider);
+    final https = _ref.read(settingsProvider).https;
+    await _ref.notifier(nearbyDevicesProvider).startFavoriteScan(devices: favorites, https: https);
+
+    if (!forceLegacy && favorites.isEmpty) {
+      // Wait a bit before trying the legacy method.
+      // Skip waiting if [forceLegacy] is true.
+      // Also skip waiting if there are favorites.
       await sleepAsync(1000);
     }
 
@@ -50,7 +59,7 @@ class ScanFacade {
     _ref.notifier(nearbyDevicesProvider).startMulticastScan();
 
     await Future.wait<void>([
-      for (final subnet in subnets) _ref.notifier(nearbyDevicesProvider).startScan(port: port, localIp: subnet, https: https),
+      for (final subnet in subnets) _ref.notifier(nearbyDevicesProvider).startLegacyScan(port: port, localIp: subnet, https: https),
     ]);
   }
 }

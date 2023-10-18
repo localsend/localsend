@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -10,6 +11,7 @@ import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
 import 'package:localsend_app/pages/web_send_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
@@ -26,6 +28,7 @@ import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
+import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -78,6 +81,7 @@ class _SendTabState extends State<SendTab> with Refena {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
     final networkInfo = ref.watch(localIpProvider);
     final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
+    final favoriteState = ref.watch(favoritesProvider);
 
     return ResponsiveListView(
       padding: EdgeInsets.zero,
@@ -223,6 +227,30 @@ class _SendTabState extends State<SendTab> with Refena {
                 child: const Icon(Icons.ads_click),
               ),
             ),
+            Tooltip(
+              message: t.dialogs.favoriteDialog.title,
+              child: CustomIconButton(
+                onPressed: () async {
+                  final files = ref.read(selectedSendingFilesProvider);
+                  if (files.isEmpty) {
+                    await context.pushBottomSheet(() => const NoFilesDialog());
+                    return;
+                  }
+                  final device = await showDialog<Device?>(
+                    context: context,
+                    builder: (_) => const FavoritesDialog(),
+                  );
+                  if (device != null && mounted) {
+                    await ref.notifier(sendProvider).startSession(
+                          target: device,
+                          files: files,
+                          background: false,
+                        );
+                  }
+                },
+                child: const Icon(Icons.favorite),
+              ),
+            ),
             _SendModeButton(
               onSelect: (mode) async {
                 if (mode == SendMode.link) {
@@ -252,6 +280,7 @@ class _SendTabState extends State<SendTab> with Refena {
             ),
           ),
         ...nearbyDevicesState.devices.values.map((device) {
+          final isFavorite = favoriteState.any((e) => e.fingerprint == device.fingerprint);
           return Padding(
             padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Hero(
@@ -260,6 +289,19 @@ class _SendTabState extends State<SendTab> with Refena {
                   ? _MultiSendDeviceListTile(device: device)
                   : DeviceListTile(
                       device: device,
+                      isFavorite: isFavorite,
+                      onFavoriteTap: () async {
+                        if (isFavorite) {
+                          await ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: device.fingerprint));
+                          return;
+                        }
+                        await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
+                              fingerprint: device.fingerprint,
+                              ip: device.ip,
+                              port: device.port,
+                              alias: device.alias,
+                            )));
+                      },
                       onTap: () async {
                         final files = ref.read(selectedSendingFilesProvider);
                         if (files.isEmpty) {
