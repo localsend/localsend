@@ -329,7 +329,7 @@
     "favoriteEditDialog": {
       "titleAdd": "Add to favorites",
       "titleEdit": "Adjust",
-      "name": "Name",
+      "name": "Alias",
       "auto": "(auto)",
       "ip": "IP Address",
       "port": "Port"
