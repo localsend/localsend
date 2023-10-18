@@ -37,7 +37,8 @@
     "save": "保存",
     "unchanged": "未更改",
     "unknown": "未知",
-    "noItemInClipboard": "剪贴板中没有项目"
+    "noItemInClipboard": "剪贴板中没有项目",
+    "delete": "删除"
   },
   "receiveTab": {
     "title": "接收",
@@ -299,6 +300,23 @@
       "single": "发送文件给一个接收者。已选择的文件在发送后会取消选择。",
       "multiple": "发送文件给多个接收者。已选择的文件在发送后不会取消选择。",
       "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
+    },
+    "favoriteDialog": {
+      "title": "收藏夹",
+      "noFavorites": "尚未配置收藏夹。",
+      "addFavorite": "新建"
+    },
+    "favoriteDeleteDialog": {
+      "title": "删除收藏夹",
+      "content": "确定要删除收藏夹 \"{name}\" 吗?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "添加收藏夹",
+      "titleEdit": "编辑收藏夹",
+      "name": "名称",
+      "auto": "(auto)",
+      "ip": "IP 地址",
+      "port": "端口"
     }
   },
   "tray": {
