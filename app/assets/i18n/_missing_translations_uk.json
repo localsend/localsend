@@ -4,25 +4,25 @@
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
   ],
   "general": {
-    "delete": "Delete"
+    "delete": "Видалити"
   },
   "dialogs": {
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
+      "title": "Вибране",
+      "noFavorites": "Вибраних пристроїв ще немає.",
+      "addFavorite": "Додати"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "Видалити з вибраних",
+      "content": "Ви дійсно хочете видалити з вибраних \"{name}\"?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Adjust",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "IP Address",
-      "port": "Port"
+      "titleAdd": "Додати до вибраних",
+      "titleEdit": "Налаштувати",
+      "name": "Ім'я пристрою",
+      "auto": "(автоматично)",
+      "ip": "IP-адреса",
+      "port": "Порт"
     }
   }
 }
