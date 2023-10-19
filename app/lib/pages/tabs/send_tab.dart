@@ -231,16 +231,17 @@ class _SendTabState extends State<SendTab> with Refena {
               message: t.dialogs.favoriteDialog.title,
               child: CustomIconButton(
                 onPressed: () async {
-                  final files = ref.read(selectedSendingFilesProvider);
-                  if (files.isEmpty) {
-                    await context.pushBottomSheet(() => const NoFilesDialog());
-                    return;
-                  }
                   final device = await showDialog<Device?>(
                     context: context,
                     builder: (_) => const FavoritesDialog(),
                   );
                   if (device != null && mounted) {
+                    final files = ref.read(selectedSendingFilesProvider);
+                    if (files.isEmpty) {
+                      await context.pushBottomSheet(() => const NoFilesDialog());
+                      return;
+                    }
+
                     await ref.notifier(sendProvider).startSession(
                           target: device,
                           files: files,
