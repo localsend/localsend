@@ -64,6 +64,7 @@ class _StringsGeneralHu extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Másolva a vágólapra';
 	@override String get decline => 'Elutasít';
 	@override String get done => 'Kész';
+	@override String get delete => 'Törlés';
 	@override String get edit => 'Szerkeszt';
 	@override String get error => 'Hiba';
 	@override String get example => 'Példa';
@@ -87,6 +88,7 @@ class _StringsGeneralHu extends _StringsGeneralEn {
 	@override String get save => 'Ment';
 	@override String get unchanged => 'Változatlan';
 	@override String get unknown => 'Ismeretlen';
+	@override String get noItemInClipboard => 'Nincs semmi a vágólapon';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsHu extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileHu cannotOpenFile = _StringsDialogsCannotOpenFileHu._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeHu encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeHu._(_root);
 	@override late final _StringsDialogsErrorDialogHu errorDialog = _StringsDialogsErrorDialogHu._(_root);
+	@override late final _StringsDialogsFavoriteDialogHu favoriteDialog = _StringsDialogsFavoriteDialogHu._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogHu favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogHu._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogHu favoriteEditDialog = _StringsDialogsFavoriteEditDialogHu._(_root);
 	@override late final _StringsDialogsFileInfoHu fileInfo = _StringsDialogsFileInfoHu._(_root);
 	@override late final _StringsDialogsFileNameInputHu fileNameInput = _StringsDialogsFileNameInputHu._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedHu localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedHu._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerHu extends _StringsSendTabPickerEn {
 	@override String get media => 'Média';
 	@override String get text => 'Szöveg';
 	@override String get app => 'App';
+	@override String get clipboard => 'Beillesztés';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +608,44 @@ class _StringsDialogsErrorDialogHu extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogHu extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kedvencek';
+	@override String get noFavorites => 'Nincsenek még kedvenc eszközök.';
+	@override String get addFavorite => 'Hozzáadás';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogHu extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Törlés a kedvencek közül';
+	@override String content({required Object name}) => 'Tényleg törölni szeretnéd a "${name}" a kedvencek közül?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogHu extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Hozzáadás a kedvencekhez';
+	@override String get titleEdit => 'Beállítás';
+	@override String get name => 'Álnév';
+	@override String get auto => '(auto)';
+	@override String get ip => 'IP cím';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoHu extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoHu._(_StringsHu root) : this._root = root, super._(root);
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsHu extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'Rendszer';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions
