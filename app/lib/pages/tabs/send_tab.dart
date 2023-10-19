@@ -2,34 +2,24 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/session_status.dart';
-import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
-import 'package:localsend_app/pages/send_page.dart';
+import 'package:localsend_app/pages/tabs/send_tab_vm.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
-import 'package:localsend_app/pages/web_send_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
-import 'package:localsend_app/provider/favorites_provider.dart';
-import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
-import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
-import 'package:localsend_app/util/native/ios_network_permission_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
-import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
-import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
-import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
@@ -56,38 +46,20 @@ class _SendTabState extends State<SendTab> with Refena {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Automatically scan the network when visiting the scan tab
-      _init();
+    ensureRef((ref) async {
+      await ref.dispatchAsync(SendTabInitAction(context));
     });
-  }
-
-  void _init() async {
-    final devices = ref.read(nearbyDevicesProvider).devices;
-    if (devices.isEmpty) {
-      await ref.read(scanProvider).startSmartScan(forceLegacy: false);
-      if (devices.isEmpty) {
-        // After the first complete scan, if devices aren't found on IOS a Network trigger is called
-        if (checkPlatform([TargetPlatform.iOS]) && mounted) {
-          checkIosNetworkPermission(context);
-        }
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
-    final selectedFiles = ref.watch(selectedSendingFilesProvider);
-    final networkInfo = ref.watch(localIpProvider);
-    final nearbyDevicesState = ref.watch(nearbyDevicesProvider);
-    final favoriteState = ref.watch(favoritesProvider);
+    final vm = ref.watch(sendTabVmProvider);
 
     return ResponsiveListView(
       padding: EdgeInsets.zero,
       children: [
         const SizedBox(height: 20),
-        if (selectedFiles.isEmpty) ...[
+        if (vm.selectedFiles.isEmpty) ...[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
             child: Text(
@@ -131,14 +103,14 @@ class _SendTabState extends State<SendTab> with Refena {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 5),
-                  Text(t.sendTab.selection.files(files: selectedFiles.length)),
-                  Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                  Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
+                  Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
                   const SizedBox(height: 10),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        ...selectedFiles.map((file) {
+                        ...vm.selectedFiles.map((file) {
                           return [
                             CrossFileThumbnail(file),
                             const SizedBox(width: 10),
@@ -201,78 +173,28 @@ class _SendTabState extends State<SendTab> with Refena {
             ),
             const SizedBox(width: 10),
             _ScanButton(
-              ips: networkInfo.localIps,
+              ips: vm.localIps,
             ),
             Tooltip(
               message: t.dialogs.addressInput.title,
               child: CustomIconButton(
-                onPressed: () async {
-                  final files = ref.read(selectedSendingFilesProvider);
-                  if (files.isEmpty) {
-                    await context.pushBottomSheet(() => const NoFilesDialog());
-                    return;
-                  }
-                  final device = await showDialog<Device?>(
-                    context: context,
-                    builder: (_) => const AddressInputDialog(),
-                  );
-                  if (device != null && mounted) {
-                    await ref.notifier(sendProvider).startSession(
-                          target: device,
-                          files: files,
-                          background: false,
-                        );
-                  }
-                },
+                onPressed: () async => vm.onTapAddress(context),
                 child: const Icon(Icons.ads_click),
               ),
             ),
             Tooltip(
               message: t.dialogs.favoriteDialog.title,
               child: CustomIconButton(
-                onPressed: () async {
-                  final device = await showDialog<Device?>(
-                    context: context,
-                    builder: (_) => const FavoritesDialog(),
-                  );
-                  if (device != null && mounted) {
-                    final files = ref.read(selectedSendingFilesProvider);
-                    if (files.isEmpty) {
-                      await context.pushBottomSheet(() => const NoFilesDialog());
-                      return;
-                    }
-
-                    await ref.notifier(sendProvider).startSession(
-                          target: device,
-                          files: files,
-                          background: false,
-                        );
-                  }
-                },
+                onPressed: () async => await vm.onTapFavorite(context),
                 child: const Icon(Icons.favorite),
               ),
             ),
             _SendModeButton(
-              onSelect: (mode) async {
-                if (mode == SendMode.link) {
-                  final files = ref.read(selectedSendingFilesProvider);
-                  if (files.isEmpty) {
-                    await context.pushBottomSheet(() => const NoFilesDialog());
-                    return;
-                  }
-                  await context.push(() => WebSendPage(files));
-                  return;
-                }
-
-                await ref.notifier(settingsProvider).setSendMode(mode);
-                if (mode != SendMode.multiple) {
-                  ref.notifier(sendProvider).clearAllSessions();
-                }
-              },
+              onSelect: (mode) async => vm.onTapSendMode(context, mode),
             ),
           ],
         ),
-        if (nearbyDevicesState.devices.isEmpty)
+        if (vm.nearbyDevices.isEmpty)
           const Padding(
             padding: EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Opacity(
@@ -280,42 +202,23 @@ class _SendTabState extends State<SendTab> with Refena {
               child: DevicePlaceholderListTile(),
             ),
           ),
-        ...nearbyDevicesState.devices.values.map((device) {
-          final isFavorite = favoriteState.any((e) => e.fingerprint == device.fingerprint);
+        ...vm.nearbyDevices.map((device) {
+          final isFavorite = vm.favoriteDevices.any((e) => e.fingerprint == device.fingerprint);
           return Padding(
             padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
             child: Hero(
               tag: 'device-${device.ip}',
-              child: sendMode == SendMode.multiple
-                  ? _MultiSendDeviceListTile(device: device)
+              child: vm.sendMode == SendMode.multiple
+                  ? _MultiSendDeviceListTile(
+                      device: device,
+                      isFavorite: isFavorite,
+                      vm: vm,
+                    )
                   : DeviceListTile(
                       device: device,
                       isFavorite: isFavorite,
-                      onFavoriteTap: () async {
-                        if (isFavorite) {
-                          await ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: device.fingerprint));
-                          return;
-                        }
-                        await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
-                              fingerprint: device.fingerprint,
-                              ip: device.ip,
-                              port: device.port,
-                              alias: device.alias,
-                            )));
-                      },
-                      onTap: () async {
-                        final files = ref.read(selectedSendingFilesProvider);
-                        if (files.isEmpty) {
-                          await context.pushBottomSheet(() => const NoFilesDialog());
-                          return;
-                        }
-
-                        await ref.notifier(sendProvider).startSession(
-                              target: device,
-                              files: files,
-                              background: false,
-                            );
-                      },
+                      onFavoriteTap: () async => await vm.onToggleFavorite(device),
+                      onTap: () async => await vm.onTapDevice(context, device),
                     ),
             ),
           );
@@ -589,9 +492,13 @@ class _SendModeButton extends StatelessWidget {
 /// An advanced list tile which shows the progress of the file transfer.
 class _MultiSendDeviceListTile extends StatelessWidget {
   final Device device;
+  final bool isFavorite;
+  final SendTabVm vm;
 
   const _MultiSendDeviceListTile({
     required this.device,
+    required this.isFavorite,
+    required this.vm,
   });
 
   @override
@@ -613,42 +520,9 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       device: device,
       info: session?.status.humanString,
       progress: progress,
-      onTap: () async {
-        if (session != null) {
-          if (session.status == SessionStatus.waiting) {
-            ref.notifier(sendProvider).setBackground(session.sessionId, false);
-            await context.push(
-              () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
-              transition: RouterinoTransition.fade(),
-            );
-            ref.notifier(sendProvider).setBackground(session.sessionId, true);
-            return;
-          } else if (session.status == SessionStatus.sending || session.status == SessionStatus.finishedWithErrors) {
-            ref.notifier(sendProvider).setBackground(session.sessionId, false);
-            await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
-            ref.notifier(sendProvider).setBackground(session.sessionId, true);
-            return;
-          }
-        }
-
-        final files = ref.read(selectedSendingFilesProvider);
-        if (files.isEmpty) {
-          // ignore: use_build_context_synchronously
-          await context.pushBottomSheet(() => const NoFilesDialog());
-          return;
-        }
-
-        if (session != null) {
-          // close old session
-          ref.notifier(sendProvider).closeSession(session.sessionId);
-        }
-
-        await ref.notifier(sendProvider).startSession(
-              target: device,
-              files: files,
-              background: true,
-            );
-      },
+      isFavorite: isFavorite,
+      onFavoriteTap: () async => await vm.onToggleFavorite(device),
+      onTap: () async => await vm.onTapDeviceMultiSend(context, device),
     );
   }
 }
