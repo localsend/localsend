@@ -14,6 +14,7 @@
     "copiedToClipboard": "Másolva a vágólapra",
     "decline": "Elutasít",
     "done": "Kész",
+    "delete": "Törlés",
     "edit": "Szerkeszt",
     "error": "Hiba",
     "example": "Példa",
@@ -36,7 +37,8 @@
     "stop": "Stop",
     "save": "Ment",
     "unchanged": "Változatlan",
-    "unknown": "Ismeretlen"
+    "unknown": "Ismeretlen",
+    "noItemInClipboard": "Nincs semmi a vágólapon"
   },
   "receiveTab": {
     "title": "Fogadás",
@@ -58,7 +60,8 @@
       "folder": "Mappa",
       "media": "Média",
       "text": "Szöveg",
-      "app": "App"
+      "app": "App",
+      "clipboard": "Beillesztés"
     },
     "shareIntentInfo": "A fájlok könnyebb kiválasztásához használhatja mobileszköze \"Megosztás\" funkcióját is.",
     "nearbyDevices": "Közeli eszközök",
@@ -86,7 +89,8 @@
       },
       "color": "Színek",
       "colorOptions": {
-        "system": "Rendszer"
+        "system": "Rendszer",
+        "oled": "OLED"
       },
       "language": "Nyelv",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Kedvencek",
+      "noFavorites": "Nincsenek még kedvenc eszközök.",
+      "addFavorite": "Hozzáadás"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Törlés a kedvencek közül",
+      "content": "Tényleg törölni szeretnéd a \"{name}\" a kedvencek közül?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Hozzáadás a kedvencekhez",
+      "titleEdit": "Beállítás",
+      "name": "Álnév",
+      "auto": "(auto)",
+      "ip": "IP cím",
+      "port": "Port"
     },
     "fileInfo": {
       "title": "Fájl információ",
