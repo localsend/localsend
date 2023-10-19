@@ -29,7 +29,7 @@ final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
           }
 
           apps.sort((a, b) => a.appName.compareTo(b.appName));
-          return AsyncValue<List<Application>>.withData(apps);
+          return AsyncValue<List<Application>>.data(apps);
         },
         orElse: () => const AsyncValue<List<Application>>.loading(),
       );
