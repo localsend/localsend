@@ -1,0 +1,365 @@
+{
+  "locale": "Euskara",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Onartu",
+    "accepted": "Onartuta",
+    "add": "Gehitu",
+    "advanced": "Aurreratua",
+    "cancel": "Utzi",
+    "close": "Itxi",
+    "confirm": "Baieztatu",
+    "continueStr": "Jarraitu",
+    "copy": "Kopiatu",
+    "copiedToClipboard": "Arbelean kopiatua",
+    "decline": "Ez onartu",
+    "done": "Egina",
+    "delete": "Ezabatu",
+    "edit": "Editatu",
+    "error": "Errorea",
+    "example": "Adibidea",
+    "files": "Fitxategiak",
+    "finished": "Amaituta",
+    "hide": "Ezkutatu",
+    "off": "Itzalita",
+    "offline": "Deskonektatua",
+    "on": "Piztuta",
+    "online": "Online",
+    "open": "Ireki",
+    "queue": "Ilara",
+    "quickSave": "Gordetze Azkarra",
+    "renamed": "Berizendatua",
+    "reset": "Berrezarri",
+    "restart": "Berrasieratu",
+    "settings": "Aukerak",
+    "skipped": "Utzita",
+    "start": "Hasieratu",
+    "stop": "Gelditu",
+    "save": "Gorde",
+    "unchanged": "Aldaketarik gabe",
+    "unknown": "Ezezaguna",
+    "noItemInClipboard": "Elementua ez dago arbeletan"
+  },
+  "receiveTab": {
+    "title": "Eskuratu",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Portua:",
+      "alias": "Aliasa:"
+    }
+  },
+  "sendTab": {
+    "title": "Bidali",
+    "selection": {
+      "title": "Aukeraketa",
+      "files": "Fitxategiak: {files}",
+      "size": "Tamaina: {size}"
+    },
+    "picker": {
+      "file": "Fitxategia",
+      "folder": "Direktorioa",
+      "media": "Media",
+      "text": "Testua",
+      "app": "App",
+      "clipboard": "Itsatsi"
+    },
+    "shareIntentInfo": "Zure gailuko \"Elkarbanatu\" aukera ere erabil dezakezu fitxategi gehiago errezago aukeratzeko.",
+    "nearbyDevices": "Inguruko Gailuak",
+    "thisDevice": "Gailu hau",
+    "scan": "Bilatu gailuak",
+    "sendMode": "Bidalketa modua",
+    "sendModes": {
+      "single": "Hartzaile bakarra",
+      "multiple": "Hartzaile anitz",
+      "link": "Lotura elkarbanatu"
+    },
+    "sendModeHelp": "Azalpena",
+    "help": "Ziurtatu zaitez aukeratutako hartzailea zure Wi-Fi sare berean dagoela.",
+    "placeItems": "Aukeratu elkarbanatzeko elementuak."
+  },
+  "settingsTab": {
+    "title": "Ezarpenak",
+    "general": {
+      "title": "Orokorra",
+      "brightness": "Argitasuna",
+      "brightnessOptions": {
+        "system": "Sistema",
+        "dark": "Iluna",
+        "light": "Argia"
+      },
+      "color": "Kolorea",
+      "colorOptions": {
+        "system": "Sistema",
+        "oled": "OLED"
+      },
+      "language": "Hizkuntza",
+      "languageOptions": {
+        "system": "Sistema"
+      },
+      "saveWindowPlacement": "Ateratzean gorde lehioaren kokapena",
+      "minimizeToTray": "Itxi: txikitu lehioa",
+      "launchAtStartup": "Hasieratze automatikoa",
+      "launchMinimized": "Hasieratze automatikoa: hasi txikituta",
+      "animations": "Animazioak"
+    },
+    "receive": {
+      "title": "Eskuratu",
+      "quickSave": "@:general.quickSave",
+      "destination": "Hartzailea",
+      "downloads": "(Deskargak)",
+      "saveToGallery": "Gorde galerian",
+      "saveToHistory": "Gorde historialean"
+    },
+    "network": {
+      "title": "Gorria",
+      "needRestart": "Berrabiarazi zerbitzaria aldaketak aplikatzeko.",
+      "server": "Zerbitzaria",
+      "alias": "Aliasa",
+      "deviceType": "Gailu mota",
+      "deviceModel": "Gailu modeloa",
+      "port": "Portua",
+      "portWarning": "Portu berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango (Lehenetsitako portua: {defaultPort})",
+      "encryption": "Zifratzea",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Multicast helbide berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango. (Lehenetsitako multicast helbidea: {defaultMulticast})"
+    },
+    "advancedSettings": "Ezarpen aurreratuak"
+  },
+  "troubleshootPage": {
+    "title": "Konpondu arazoak",
+    "subTitle": "Aplikazioa ez dabil espero bezala? Hemen arazo arrunten konponbidea aurki dezakezu.",
+    "solution": "Konponbidea:",
+    "fixButton": "Konpondu automatikoki",
+    "firewall": {
+      "symptom": "Aplikazio honek fitxategiak bidal ditzake beste gailuei, baina beste gailuek ezin ditzakete fitxategiak bidali gailu honetara.",
+      "solution": "Suhesiarekin erlazionatutako arazo bat izen liteke. {port} portura sarrerako konexioak (UDP eta TCP) onartuz konpon dezakezu.",
+      "openFirewall": "Ireki Suhesia"
+    },
+    "noConnection": {
+      "symptom": "Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali",
+      "solution": "Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu"
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Historia",
+    "openFolder": "Ireki direktorioa",
+    "deleteHistory": "Ezabatu historia",
+    "empty": "Historia hutsik dago.",
+    "entryActions": {
+      "open": "Ireki fitxategia",
+      "info": "Informazioa",
+      "deleteFromHistory": "Ezabatu historia"
+    }
+  },
+  "apkPickerPage": {
+    "title": "App-ak (APK)",
+    "excludeSystemApps": "Baztertu sistemako app-ak",
+    "excludeAppsWithoutLaunchIntent": "Baztertu exekutatu ezin diren app-ak",
+    "apps": "{n} App-ak"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Ezabatu dena"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "-(e)k fitxategi bat bidali nahi dizu.",
+      "other": "-(e)k {n} fitxategi bidali nahi dizkizu."
+    },
+    "subTitleMessage": "-(e)k mezu bat bidali dizu:",
+    "subTitleLink": "-(e)k lotura bat bidali dizu:",
+    "canceled": "Bidaltzaileak bidalketa bertan behera utzi du."
+  },
+  "receiveOptionsPage": {
+    "title": "Ezarpenak",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(directorio @:appName)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Direktorioak daudelako desaktibatua."
+  },
+  "sendPage": {
+    "waiting": "Erantzunaren zai...",
+    "rejected": "Hartzaileak ez du bidalketa onartu.",
+    "busy": "Hartzailea beste bidalketa batekin okupatuta dago."
+  },
+  "progressPage": {
+    "titleSending": "Fitxategiak bidaltzen",
+    "titleReceiving": "Fitxategiak eskuratzen",
+    "savedToGallery": "Galerian gordeta",
+    "total": {
+      "title": {
+        "sending": "Aurrerapena ({time})",
+        "finishedError": "Akatsarekin amaitu da",
+        "canceledSender": "Bidaltzaileak bertan behera utzita",
+        "canceledReceiver": "Hartzaileak bertan behera utzita"
+      },
+      "count": "Fitxategiak: {curr} / {n}",
+      "size": "Tamaina: {curr} / {n}",
+      "speed": "Abiadura: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Loturaren bidez elkarbanatu",
+    "loading": "Hasieratu zerbitzaria...",
+    "stopping": "Gelditu zerbitzaria...",
+    "error": "Zerbitzaria hasieratzean arazo bat gertatu da.",
+    "openLink": {
+      "one": "Ireki lotura nabigatzailean:",
+      "other": "Ireki hauetako lotura bat nabigatzailean:"
+    },
+    "requests": "Eskerak",
+    "noRequests": "Oraindik ez dago eskaerarik.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend-ek autosinatutako zertifikatuak erabiltzen ditu. Nabigatzailean onartu behar duzu",
+    "pendingRequests": "Eskerak: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend buruz"
+  },
+  "changelogPage": {
+    "title": "Aldaketak"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Uses English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Gehitu aukeraketari",
+      "content": "Zer gehitu nahi duzu?"
+    },
+    "addressInput": {
+      "title": "Sartu helbidea",
+      "hashtag": "Hashtag",
+      "ip": "IP Helbidea",
+      "recentlyUsed": "Duela gutxi erabilitakoak: "
+    },
+    "cancelSession": {
+      "title": "Bertan behera utzi fitxategi bidalketa",
+      "content": "¿Benetan nahi duzu bertan behera utzi fitxategi bidalketa?"
+    },
+    "cannotOpenFile": {
+      "title": "Ezin da fitxategia ireki",
+      "content": "Ezin izan da \"{file}\" fitxategia ireki. Agian mugitu, berizendatu edo ezabatu egin da?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Zifratua ezgaituta",
+      "content": "Orain komunikazioa zifratu gabeko HTTP konexioaren bidez egiten ari da. HTTPS erailtzeko, gaitu berriro zifratua"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Gogokoak",
+      "noFavorites": "Ez dago gogoko gailurik.",
+      "addFavorite": "Gehitu"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Ezabatu gogokoetatik",
+      "content": "Benetan nahi duzu \"{name}\" gogokoetatik ezabatu?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Gehitu gogokoetara",
+      "titleEdit": "Doitu",
+      "name": "Aliasa",
+      "auto": "(auto)",
+      "ip": "IP Helbidea",
+      "port": "Portua"
+    },
+    "fileInfo": {
+      "title": "Fitxategiari buruzko informazioa",
+      "fileName": "Fitxategiaren izena:",
+      "path": "Bidea:",
+      "size": "Tamaina:",
+      "sender": "Bidaltzailea:",
+      "time": "Ordua:"
+    },
+    "fileNameInput": {
+      "title": "Sartu izena",
+      "original": "Jatorrizkoa: {original}"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "Sare lokala eskaneatzeko baimenik gabe, LocalSend-ek ezin ditu inguruko gailuak aurkitu. Mesedez, onartu baimen hau ezarpenetan.",
+      "gotoSettings": "Ezarpenak"
+    },
+    "messageInput": {
+      "title": "Idatzi mezu bat",
+      "multiline": "Lerro anitz"
+    },
+    "noFiles": {
+      "title": "Ez da fitxategirik aukeratu",
+      "content": "Mesedez aukeratu gutxienez fitxategi bat."
+    },
+    "noPermission": {
+      "title": "Baimenik gabe",
+      "content": "Ez dituzu beharrezko baimenak onartu. Mesedez, onartu itzazu ezarpenetan."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Ez dago eskuragarri",
+      "content": "Ezaugarri hau hurrengo plataforman bakarrik dago eskuragarri:"
+    },
+    "qr": {
+      "title": "QR Kodea"
+    },
+    "quickActions": {
+      "title": "Ekintza azkarrak",
+      "counter": "Kontagailua",
+      "prefix": "Aurrizkia",
+      "padZero": "Hutsekin osatu",
+      "sortBeforeCount": "Aldez aurretik alfabetikoki ordenatu",
+      "random": "Ausazkoa"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Fitxategi eskaerak automatikoki onartzen dira. Kontutan izan sare lokaleko edonork bidali ahal izango dizkizula fitxategiak."
+    },
+    "sendModeHelp": {
+      "title": "Bidalketa moduak",
+      "single": "Bidali fitxategiak hartzaile bakar bati. Bidalketa bukatutakoan aukeraketa garbituko da.",
+      "multiple": "Bidali fitxategiak hartzaile anitzeri. Aukeraketa ez da garbituko.",
+      "link": "LocalSend instalatuta ez duten hartzaileak fitxategiak eskuratu ahali zango dituzte lotura nabigatzailean zabalduz."
+    }
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Itxi LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Bertan behera utzita",
+    "files": "Fitxategiak",
+    "fileName": "Fitxateig izena",
+    "size": "Tamaina"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Baieztatu",
+    "cancel": "Utzi",
+    "edit": "Editatu",
+    "gifIndicator": "GIF",
+    "loadFailed": "Akatsa kargatzen",
+    "original": "Jatorrizkoa",
+    "preview": "Aurrebista",
+    "select": "Aukeratu",
+    "emptyList": "Zerrenda hutsik",
+    "unSupportedAssetType": "Fitxategi mota ez onartua.",
+    "unableToAccessAll": "Ezin da gailuko fitxategietara atzitu.",
+    "viewingLimitedAssetsTip": "Ikusi bakarrik aplikazioarentzat eskuragarri dauden fitxategi eta albumak.",
+    "changeAccessibleLimitedAssets": "Egin klik eskuragarri dauden fitxategiak eguneratzeko",
+    "accessAllTip": "Aplikazioak gailu fitxategi batzuk bakarrik atzitu ditzake. Joan sistemako ezarpenetara eta eman aplikazioari media fitxategi guztiak atzitzeko baimena",
+    "goToSystemSettings": "Joan sistemako ezarpenetara",
+    "accessLimitedAssets": "Jarraitu atzipen mugatuarekin",
+    "accessiblePathName": "Eskuragarri dauden fitxategiak",
+    "sTypeAudioLabel": "Audioa",
+    "sTypeImageLabel": "Irudia",
+    "sTypeVideoLabel": "Bideoa",
+    "sTypeOtherLabel": "Bestelako medioak",
+    "sActionPlayHint": "erreproduzitu",
+    "sActionPreviewHint": "aurrebista",
+    "sActionSelectHint": "aukeratu",
+    "sActionSwitchPathLabel": "aldatu bidea",
+    "sActionUseCameraHint": "erabaili kamera",
+    "sNameDurationLabel": "iraupena",
+    "sUnitAssetCountLabel": "kontaketa"
+  }
+}
