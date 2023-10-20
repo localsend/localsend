@@ -64,6 +64,7 @@ class _StringsGeneralEsEs extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Copiado al Portapapeles';
 	@override String get decline => 'Rechazar';
 	@override String get done => 'Hecho';
+	@override String get delete => 'Eliminar';
 	@override String get edit => 'Editar';
 	@override String get error => 'Error';
 	@override String get example => 'Ejemplo';
@@ -87,6 +88,7 @@ class _StringsGeneralEsEs extends _StringsGeneralEn {
 	@override String get save => 'Guardar';
 	@override String get unchanged => 'Sin Cambios';
 	@override String get unknown => 'Desconocido';
+	@override String get noItemInClipboard => 'No hay ningún elemento en el portapapeles';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsEsEs extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileEsEs cannotOpenFile = _StringsDialogsCannotOpenFileEsEs._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeEsEs encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeEsEs._(_root);
 	@override late final _StringsDialogsErrorDialogEsEs errorDialog = _StringsDialogsErrorDialogEsEs._(_root);
+	@override late final _StringsDialogsFavoriteDialogEsEs favoriteDialog = _StringsDialogsFavoriteDialogEsEs._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogEsEs favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogEsEs._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogEsEs favoriteEditDialog = _StringsDialogsFavoriteEditDialogEsEs._(_root);
 	@override late final _StringsDialogsFileInfoEsEs fileInfo = _StringsDialogsFileInfoEsEs._(_root);
 	@override late final _StringsDialogsFileNameInputEsEs fileNameInput = _StringsDialogsFileNameInputEsEs._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedEsEs localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEsEs._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerEsEs extends _StringsSendTabPickerEn {
 	@override String get media => 'Media';
 	@override String get text => 'Texto';
 	@override String get app => 'App';
+	@override String get clipboard => 'Pegar';
 }
 
 // Path: sendTab.sendModes
@@ -443,7 +449,7 @@ class _StringsSettingsTabGeneralEsEs extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralBrightnessOptionsEsEs brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsEsEs._(_root);
 	@override String get color => 'Color';
 	@override late final _StringsSettingsTabGeneralColorOptionsEsEs colorOptions = _StringsSettingsTabGeneralColorOptionsEsEs._(_root);
-	@override String get language => 'Lenguaje';
+	@override String get language => 'Idioma';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsEsEs languageOptions = _StringsSettingsTabGeneralLanguageOptionsEsEs._(_root);
 	@override String get saveWindowPlacement => 'Al salir guardar la ubicación de la ventana';
 	@override String get minimizeToTray => 'Cerrar: Minimizar ventana';
@@ -578,7 +584,7 @@ class _StringsDialogsCannotOpenFileEsEs extends _StringsDialogsCannotOpenFileEn 
 
 	// Translations
 	@override String get title => 'No se puede abrir el fichero';
-	@override String content({required Object file}) => 'No se ha podido abrir "${file}". ¿Es posible que el fichero se haya movido, renombrado o elimnado?';
+	@override String content({required Object file}) => 'No se ha podido abrir "${file}". ¿Es posible que el fichero se haya movido, renombrado o eliminado?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -600,6 +606,44 @@ class _StringsDialogsErrorDialogEsEs extends _StringsDialogsErrorDialogEn {
 
 	// Translations
 	@override String get title => '${_root.general.error}';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogEsEs extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoritos';
+	@override String get noFavorites => 'Aún no hay dispositivos favoritos.';
+	@override String get addFavorite => 'Agregar';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogEsEs extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Eliminar de favoritos';
+	@override String content({required Object name}) => '¿Realmente quieres borrar de favoritos "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogEsEs extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Agregar a favoritos';
+	@override String get titleEdit => 'Ajustar';
+	@override String get name => 'Alias';
+	@override String get auto => '(auto)';
+	@override String get ip => 'Dirección IP';
+	@override String get port => 'Puerto';
 }
 
 // Path: dialogs.fileInfo
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsEsEs extends _StringsSettingsTabGene
 
 	// Translations
 	@override String get system => 'Sistema';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -775,5 +820,5 @@ class _StringsProgressPageTotalTitleEsEs extends _StringsProgressPageTotalTitleE
 	@override String sending({required Object time}) => 'Progreso total (${time})';
 	@override String get finishedError => 'Finalizado con error';
 	@override String get canceledSender => 'Cancelado por remitente';
-	@override String get canceledReceiver => 'Canceled by destino';
+	@override String get canceledReceiver => 'Cancelado por destino';
 }

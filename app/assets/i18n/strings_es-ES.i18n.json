@@ -14,6 +14,7 @@
     "copiedToClipboard": "Copiado al Portapapeles",
     "decline": "Rechazar",
     "done": "Hecho",
+    "delete": "Eliminar",
     "edit": "Editar",
     "error": "Error",
     "example": "Ejemplo",
@@ -36,7 +37,8 @@
     "stop": "Detener",
     "save": "Guardar",
     "unchanged": "Sin Cambios",
-    "unknown": "Desconocido"
+    "unknown": "Desconocido",
+    "noItemInClipboard": "No hay ningún elemento en el portapapeles"
   },
   "receiveTab": {
     "title": "Recibir",
@@ -58,7 +60,8 @@
       "folder": "Directorio",
       "media": "Media",
       "text": "Texto",
-      "app": "App"
+      "app": "App",
+      "clipboard": "Pegar"
     },
     "shareIntentInfo": "También puedes usar la opción \"Compartir\" de tu dispositivo para seleccionar ficheros más fácilmente.",
     "nearbyDevices": "Dispositivos Cercanos",
@@ -86,7 +89,8 @@
       },
       "color": "Color",
       "colorOptions": {
-        "system": "Sistema"
+        "system": "Sistema",
+        "oled": "OLED"
       },
       "language": "Idioma",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoritos",
+      "noFavorites": "Aún no hay dispositivos favoritos.",
+      "addFavorite": "Agregar"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Eliminar de favoritos",
+      "content": "¿Realmente quieres borrar de favoritos \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Agregar a favoritos",
+      "titleEdit": "Ajustar",
+      "name": "Alias",
+      "auto": "(auto)",
+      "ip": "Dirección IP",
+      "port": "Puerto"
     },
     "fileInfo": {
       "title": "Información del fichero",
