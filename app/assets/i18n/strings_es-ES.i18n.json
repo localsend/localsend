@@ -88,7 +88,7 @@
       "colorOptions": {
         "system": "Sistema"
       },
-      "language": "Lenguaje",
+      "language": "Idioma",
       "languageOptions": {
         "system": "Sistema"
       },
@@ -186,7 +186,7 @@
         "sending": "Progreso total ({time})",
         "finishedError": "Finalizado con error",
         "canceledSender": "Cancelado por remitente",
-        "canceledReceiver": "Canceled by destino"
+        "canceledReceiver": "Cancelado por destino"
       },
       "count": "Ficheros: {curr} / {n}",
       "size": "Tamaño: {curr} / {n}",
@@ -234,7 +234,7 @@
     },
     "cannotOpenFile": {
       "title": "No se puede abrir el fichero",
-      "content": "No se ha podido abrir \"{file}\". ¿Es posible que el fichero se haya movido, renombrado o elimnado?"
+      "content": "No se ha podido abrir \"{file}\". ¿Es posible que el fichero se haya movido, renombrado o eliminado?"
     },
     "encryptionDisabledNotice": {
       "title": "Encriptación deshabilitada",
@@ -299,7 +299,7 @@
     }
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Las directrices de Apple son muy estrictas en cuanto a la expresión 'cerrar'.",
     "open": "@:general.open",
     "close": "Cerrar LocalSend"
   },
@@ -311,7 +311,7 @@
     "size": "Tamaño"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Traducciones de la herramienta de selección de medios para Android e Iphone",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",
