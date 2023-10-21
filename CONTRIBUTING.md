@@ -112,6 +112,8 @@ ing/localsend/default.nix
 
 > Let's spread LocalSend to even more platforms, together!
 
+** YOU CAN ⭐ IT AS WELL **
+
 ## 📋 Notes
 
 Useful notes and additional information:
