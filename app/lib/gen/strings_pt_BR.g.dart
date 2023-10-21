@@ -64,6 +64,7 @@ class _StringsGeneralPtBr extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Copiado para a Área de Transferência';
 	@override String get decline => 'Rejeitar';
 	@override String get done => 'Completo';
+	@override String get delete => 'Deletar';
 	@override String get edit => 'Editar';
 	@override String get error => 'Erro';
 	@override String get example => 'Exemplo';
@@ -87,6 +88,7 @@ class _StringsGeneralPtBr extends _StringsGeneralEn {
 	@override String get save => 'Salvar';
 	@override String get unchanged => 'Inalterado';
 	@override String get unknown => 'Desconhecido';
+	@override String get noItemInClipboard => 'Não há nada na área de transferência.';
 }
 
 // Path: receiveTab
@@ -367,6 +369,9 @@ class _StringsDialogsPtBr extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFilePtBr cannotOpenFile = _StringsDialogsCannotOpenFilePtBr._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticePtBr encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticePtBr._(_root);
 	@override late final _StringsDialogsErrorDialogPtBr errorDialog = _StringsDialogsErrorDialogPtBr._(_root);
+	@override late final _StringsDialogsFavoriteDialogPtBr favoriteDialog = _StringsDialogsFavoriteDialogPtBr._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogPtBr favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogPtBr._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogPtBr favoriteEditDialog = _StringsDialogsFavoriteEditDialogPtBr._(_root);
 	@override late final _StringsDialogsFileInfoPtBr fileInfo = _StringsDialogsFileInfoPtBr._(_root);
 	@override late final _StringsDialogsFileNameInputPtBr fileNameInput = _StringsDialogsFileNameInputPtBr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedPtBr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedPtBr._(_root);
@@ -478,6 +483,7 @@ class _StringsSendTabPickerPtBr extends _StringsSendTabPickerEn {
 	@override String get media => 'Mídia';
 	@override String get text => 'Texto';
 	@override String get app => 'Aplicativo';
+	@override String get clipboard => 'Colar';
 }
 
 // Path: sendTab.sendModes
@@ -663,6 +669,44 @@ class _StringsDialogsErrorDialogPtBr extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogPtBr extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogPtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoritos';
+	@override String get noFavorites => 'Sem favoritos ainda :(';
+	@override String get addFavorite => 'Adicionar';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogPtBr extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogPtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Deletar favorito';
+	@override String content({required Object name}) => 'Você realmente deseja excluir "${name}" dos favoritos?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogPtBr extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogPtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Adicionar aos favoritos';
+	@override String get titleEdit => 'Editar';
+	@override String get name => 'Apelido';
+	@override String get auto => '(auto)';
+	@override String get ip => 'Endereço IP';
+	@override String get port => 'Porta';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoPtBr extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoPtBr._(_StringsPtBr root) : this._root = root, super._(root);
@@ -814,6 +858,7 @@ class _StringsSettingsTabGeneralColorOptionsPtBr extends _StringsSettingsTabGene
 
 	// Translations
 	@override String get system => 'Sistema';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions
