@@ -14,6 +14,7 @@
     "copiedToClipboard": "Copiado para a Área de Transferência",
     "decline": "Rejeitar",
     "done": "Completo",
+    "delete": "Deletar",
     "edit": "Editar",
     "error": "Erro",
     "example": "Exemplo",
@@ -36,7 +37,8 @@
     "stop": "Parar",
     "save": "Salvar",
     "unchanged": "Inalterado",
-    "unknown": "Desconhecido"
+    "unknown": "Desconhecido",
+    "noItemInClipboard": "Não há nada na área de transferência."
   },
   "receiveTab": {
     "title": "Receber",
@@ -58,7 +60,8 @@
       "folder": "Pasta",
       "media": "Mídia",
       "text": "Texto",
-      "app": "Aplicativo"
+      "app": "Aplicativo",
+      "clipboard": "Colar"
     },
     "shareIntentInfo": "Você também pode usar o recurso \"Compartilhar\" do seu dispositivo móvel para selecionar arquivos com mais facilidade.",
     "nearbyDevices": "Dispositivos próximos",
@@ -86,7 +89,8 @@
       },
       "color": "Cores",
       "colorOptions": {
-        "system": "Sistema"
+        "system": "Sistema",
+        "oled": "OLED"
       },
       "language": "Idioma",
       "languageOptions": {
@@ -302,6 +306,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoritos",
+      "noFavorites": "Sem favoritos ainda :(",
+      "addFavorite": "Adicionar"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Deletar favorito",
+      "content": "Você realmente deseja excluir \"{name}\" dos favoritos?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Adicionar aos favoritos",
+      "titleEdit": "Editar",
+      "name": "Apelido",
+      "auto": "(auto)",
+      "ip": "Endereço IP",
+      "port": "Porta"
     },
     "fileInfo": {
       "title": "Informação do arquivo",
