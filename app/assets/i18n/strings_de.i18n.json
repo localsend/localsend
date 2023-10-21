@@ -348,7 +348,7 @@
     "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
     "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
     "goToSystemSettings": "Gehe zu den Systemeinstellungen",
-    "accessLimitedAssets": "Fahre fort mit limitierten Zugriff",
+    "accessLimitedAssets": "Fahre fort mit limitiertem Zugriff",
     "accessiblePathName": "Verfügbare Assets",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Bild",
