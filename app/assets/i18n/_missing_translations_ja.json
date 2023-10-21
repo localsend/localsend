@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
   ],
   "general": {
-    "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
+    "delete": "削除",
+    "noItemInClipboard": "クリップボードにアイテムがありません"
   },
   "sendTab": {
     "picker": {
-      "clipboard": "Paste"
+      "clipboard": "ペースト"
     }
   },
   "settingsTab": {
@@ -21,21 +21,21 @@
   },
   "dialogs": {
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
+      "title": "お気に入り",
+      "noFavorites": "お気に入りした機器がありません。",
+      "addFavorite": "追加"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "お気に入りから削除",
+      "content": "本当に \"{name}\" お気に入りから削除しますか？"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Adjust",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "IP Address",
-      "port": "Port"
+      "titleAdd": "お気に入りに追加",
+      "titleEdit": "編集",
+      "name": "エイリアス",
+      "auto": "(自動)",
+      "ip": "IPアドレス",
+      "port": "ポート"
     }
   }
 }
