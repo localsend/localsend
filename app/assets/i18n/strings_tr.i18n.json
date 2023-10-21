@@ -14,6 +14,7 @@
     "copiedToClipboard": "Panoya kopyalandı",
     "decline": "Reddet",
     "done": "Bitir",
+    "delete": "Sil",
     "edit": "Düzenle",
     "error": "Hata",
     "example": "Örnek",
@@ -36,7 +37,8 @@
     "stop": "Durdur",
     "save": "Kaydet",
     "unchanged": "Değiştirilmemiş",
-    "unknown": "Bilinmiyor"
+    "unknown": "Bilinmiyor",
+    "noItemInClipboard": "Panoda öğe yok"
   },
   "receiveTab": {
     "title": "Alım",
@@ -58,7 +60,8 @@
       "folder": "Klasör",
       "media": "Medya",
       "text": "Metin",
-      "app": "Uygulama"
+      "app": "Uygulama",
+      "clipboard": "Yapıştır"
     },
     "shareIntentInfo": "Dosyalarınızı daha kolay seçmek için cihazınızın \"Paylaş\" özelliğini kullanabilirsiniz.",
     "nearbyDevices": "Yakınınızdaki cihazlar",
@@ -86,7 +89,8 @@
       },
       "color": "Renk",
       "colorOptions": {
-        "system": "Sistem"
+        "system": "Sistem",
+        "oled": "OLED"
       },
       "language": "Dil",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoriler",
+      "noFavorites": "Henüz favori cihaz yok.",
+      "addFavorite": "Ekle"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Favorilerden sil",
+      "content": "Favorilerden \"{name}\" öğesini gerçekten silmek istiyor musunuz?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Favorilere ekle",
+      "titleEdit": "Düzenle",
+      "name": "Takma ad",
+      "auto": "(otomatik)",
+      "ip": "IP Adresi",
+      "port": "Port"
     },
     "fileInfo": {
       "title": "Dosya bilgileri",
