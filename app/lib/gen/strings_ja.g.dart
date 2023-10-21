@@ -64,6 +64,7 @@ class _StringsGeneralJa extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'クリップボードにコピーしました';
 	@override String get decline => '拒否';
 	@override String get done => '完了';
+	@override String get delete => '削除';
 	@override String get edit => '編集';
 	@override String get error => 'エラー';
 	@override String get example => '例';
@@ -87,6 +88,7 @@ class _StringsGeneralJa extends _StringsGeneralEn {
 	@override String get save => '保存';
 	@override String get unchanged => '未変更';
 	@override String get unknown => '不明';
+	@override String get noItemInClipboard => 'クリップボードにアイテムがありません';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsJa extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileJa cannotOpenFile = _StringsDialogsCannotOpenFileJa._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeJa encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeJa._(_root);
 	@override late final _StringsDialogsErrorDialogJa errorDialog = _StringsDialogsErrorDialogJa._(_root);
+	@override late final _StringsDialogsFavoriteDialogJa favoriteDialog = _StringsDialogsFavoriteDialogJa._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogJa favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogJa._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogJa favoriteEditDialog = _StringsDialogsFavoriteEditDialogJa._(_root);
 	@override late final _StringsDialogsFileInfoJa fileInfo = _StringsDialogsFileInfoJa._(_root);
 	@override late final _StringsDialogsFileNameInputJa fileNameInput = _StringsDialogsFileNameInputJa._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedJa localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedJa._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerJa extends _StringsSendTabPickerEn {
 	@override String get media => 'メディア';
 	@override String get text => 'テキスト';
 	@override String get app => 'アプリ';
+	@override String get clipboard => 'ペースト';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +608,44 @@ class _StringsDialogsErrorDialogJa extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogJa extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'お気に入り';
+	@override String get noFavorites => 'お気に入りした機器がありません。';
+	@override String get addFavorite => '追加';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogJa extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'お気に入りから削除';
+	@override String content({required Object name}) => '本当に "${name}" お気に入りから削除しますか？';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogJa extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'お気に入りに追加';
+	@override String get titleEdit => '編集';
+	@override String get name => 'エイリアス';
+	@override String get auto => '(自動)';
+	@override String get ip => 'IPアドレス';
+	@override String get port => 'ポート';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoJa extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoJa._(_StringsJa root) : this._root = root, super._(root);
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsJa extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'システム';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

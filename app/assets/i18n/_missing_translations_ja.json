@@ -2,40 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "delete": "削除",
-    "noItemInClipboard": "クリップボードにアイテムがありません"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "ペースト"
-    }
-  },
-  "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED"
-      }
-    }
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "お気に入り",
-      "noFavorites": "お気に入りした機器がありません。",
-      "addFavorite": "追加"
-    },
-    "favoriteDeleteDialog": {
-      "title": "お気に入りから削除",
-      "content": "本当に \"{name}\" お気に入りから削除しますか？"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "お気に入りに追加",
-      "titleEdit": "編集",
-      "name": "エイリアス",
-      "auto": "(自動)",
-      "ip": "IPアドレス",
-      "port": "ポート"
-    }
-  }
+  ]
 }

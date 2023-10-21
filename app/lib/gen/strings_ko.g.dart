@@ -64,6 +64,7 @@ class _StringsGeneralKo extends _StringsGeneralEn {
 	@override String get copiedToClipboard => '클립보드에 복사하였습니다';
 	@override String get decline => '거부';
 	@override String get done => '완료';
+	@override String get delete => '삭제';
 	@override String get edit => '편집';
 	@override String get error => '에러';
 	@override String get example => '예시';
@@ -87,6 +88,7 @@ class _StringsGeneralKo extends _StringsGeneralEn {
 	@override String get save => '저장';
 	@override String get unchanged => '변경 안됨';
 	@override String get unknown => '알 수 없음';
+	@override String get noItemInClipboard => '클립보드에 항목이 없습니다';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsKo extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileKo cannotOpenFile = _StringsDialogsCannotOpenFileKo._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeKo encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeKo._(_root);
 	@override late final _StringsDialogsErrorDialogKo errorDialog = _StringsDialogsErrorDialogKo._(_root);
+	@override late final _StringsDialogsFavoriteDialogKo favoriteDialog = _StringsDialogsFavoriteDialogKo._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogKo favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogKo._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogKo favoriteEditDialog = _StringsDialogsFavoriteEditDialogKo._(_root);
 	@override late final _StringsDialogsFileInfoKo fileInfo = _StringsDialogsFileInfoKo._(_root);
 	@override late final _StringsDialogsFileNameInputKo fileNameInput = _StringsDialogsFileNameInputKo._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedKo localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedKo._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerKo extends _StringsSendTabPickerEn {
 	@override String get media => '미디어';
 	@override String get text => '텍스트';
 	@override String get app => '앱';
+	@override String get clipboard => '붙여넣기';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +608,44 @@ class _StringsDialogsErrorDialogKo extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogKo extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogKo._(_StringsKo root) : this._root = root, super._(root);
+
+	@override final _StringsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '즐겨찾기';
+	@override String get noFavorites => '즐겨찾기한 기기가 없습니다.';
+	@override String get addFavorite => '추가';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogKo extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogKo._(_StringsKo root) : this._root = root, super._(root);
+
+	@override final _StringsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '즐겨찾기에서 삭제';
+	@override String content({required Object name}) => '정말 "${name}" 즐겨찾기에서 삭제할까요?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogKo extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogKo._(_StringsKo root) : this._root = root, super._(root);
+
+	@override final _StringsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => '즐겨찾기에 추가';
+	@override String get titleEdit => '편집';
+	@override String get name => '별명';
+	@override String get auto => '(자동)';
+	@override String get ip => 'IP 주소';
+	@override String get port => '포트';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoKo extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoKo._(_StringsKo root) : this._root = root, super._(root);
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsKo extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => '시스템';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

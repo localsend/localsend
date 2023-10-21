@@ -14,6 +14,7 @@
     "copiedToClipboard": "클립보드에 복사하였습니다",
     "decline": "거부",
     "done": "완료",
+    "delete": "삭제",
     "edit": "편집",
     "error": "에러",
     "example": "예시",
@@ -36,7 +37,8 @@
     "stop": "정지",
     "save": "저장",
     "unchanged": "변경 안됨",
-    "unknown": "알 수 없음"
+    "unknown": "알 수 없음",
+    "noItemInClipboard": "클립보드에 항목이 없습니다"
   },
   "receiveTab": {
     "title": "수신",
@@ -58,7 +60,8 @@
       "folder": "폴더",
       "media": "미디어",
       "text": "텍스트",
-      "app": "앱"
+      "app": "앱",
+      "clipboard": "붙여넣기"
     },
     "shareIntentInfo": "휴대전화의 '공유' 기능을 사용하면 보다 편리하게 파일을 선택할 수 있습니다",
     "nearbyDevices": "근처의 기기",
@@ -86,7 +89,8 @@
       },
       "color": "색상",
       "colorOptions": {
-        "system": "시스템"
+        "system": "시스템",
+        "oled": "OLED"
       },
       "language": "언어",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "즐겨찾기",
+      "noFavorites": "즐겨찾기한 기기가 없습니다.",
+      "addFavorite": "추가"
+    },
+    "favoriteDeleteDialog": {
+      "title": "즐겨찾기에서 삭제",
+      "content": "정말 \"{name}\" 즐겨찾기에서 삭제할까요?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "즐겨찾기에 추가",
+      "titleEdit": "편집",
+      "name": "별명",
+      "auto": "(자동)",
+      "ip": "IP 주소",
+      "port": "포트"
     },
     "fileInfo": {
       "title": "파일 정보",

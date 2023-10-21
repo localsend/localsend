@@ -371,7 +371,7 @@ class _StringsAssetPickerDe extends _StringsAssetPickerEn {
 	@override String get changeAccessibleLimitedAssets => 'Tippen, um erlaubte Dateien zu aktualisieren';
 	@override String get accessAllTip => 'Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen';
 	@override String get goToSystemSettings => 'Gehe zu den Systemeinstellungen';
-	@override String get accessLimitedAssets => 'Fahre fort mit limitierten Zugriff';
+	@override String get accessLimitedAssets => 'Fahre fort mit limitiertem Zugriff';
 	@override String get accessiblePathName => 'Verfügbare Assets';
 	@override String get sTypeAudioLabel => 'Audio';
 	@override String get sTypeImageLabel => 'Bild';

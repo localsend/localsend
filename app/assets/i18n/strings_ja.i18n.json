@@ -14,6 +14,7 @@
     "copiedToClipboard": "クリップボードにコピーしました",
     "decline": "拒否",
     "done": "完了",
+    "delete": "削除",
     "edit": "編集",
     "error": "エラー",
     "example": "例",
@@ -36,7 +37,8 @@
     "stop": "停止",
     "save": "保存",
     "unchanged": "未変更",
-    "unknown": "不明"
+    "unknown": "不明",
+    "noItemInClipboard": "クリップボードにアイテムがありません"
   },
   "receiveTab": {
     "title": "受信",
@@ -58,7 +60,8 @@
       "folder": "フォルダー",
       "media": "メディア",
       "text": "テキスト",
-      "app": "アプリ"
+      "app": "アプリ",
+      "clipboard": "ペースト"
     },
     "shareIntentInfo": "モバイルデバイスの「共有」機能を使うと、より簡単にファイルを選択できます。",
     "nearbyDevices": "近くのデバイス",
@@ -86,7 +89,8 @@
       },
       "color": "カラー",
       "colorOptions": {
-        "system": "システム"
+        "system": "システム",
+        "oled": "OLED"
       },
       "language": "言語",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "お気に入り",
+      "noFavorites": "お気に入りした機器がありません。",
+      "addFavorite": "追加"
+    },
+    "favoriteDeleteDialog": {
+      "title": "お気に入りから削除",
+      "content": "本当に \"{name}\" お気に入りから削除しますか？"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "お気に入りに追加",
+      "titleEdit": "編集",
+      "name": "エイリアス",
+      "auto": "(自動)",
+      "ip": "IPアドレス",
+      "port": "ポート"
     },
     "fileInfo": {
       "title": "ファイルの情報",

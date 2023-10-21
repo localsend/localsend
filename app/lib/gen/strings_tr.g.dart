@@ -64,6 +64,7 @@ class _StringsGeneralTr extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Panoya kopyalandı';
 	@override String get decline => 'Reddet';
 	@override String get done => 'Bitir';
+	@override String get delete => 'Sil';
 	@override String get edit => 'Düzenle';
 	@override String get error => 'Hata';
 	@override String get example => 'Örnek';
@@ -87,6 +88,7 @@ class _StringsGeneralTr extends _StringsGeneralEn {
 	@override String get save => 'Kaydet';
 	@override String get unchanged => 'Değiştirilmemiş';
 	@override String get unknown => 'Bilinmiyor';
+	@override String get noItemInClipboard => 'Panoda öğe yok';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsTr extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileTr cannotOpenFile = _StringsDialogsCannotOpenFileTr._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeTr encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeTr._(_root);
 	@override late final _StringsDialogsErrorDialogTr errorDialog = _StringsDialogsErrorDialogTr._(_root);
+	@override late final _StringsDialogsFavoriteDialogTr favoriteDialog = _StringsDialogsFavoriteDialogTr._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogTr favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogTr._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogTr favoriteEditDialog = _StringsDialogsFavoriteEditDialogTr._(_root);
 	@override late final _StringsDialogsFileInfoTr fileInfo = _StringsDialogsFileInfoTr._(_root);
 	@override late final _StringsDialogsFileNameInputTr fileNameInput = _StringsDialogsFileNameInputTr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedTr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedTr._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerTr extends _StringsSendTabPickerEn {
 	@override String get media => 'Medya';
 	@override String get text => 'Metin';
 	@override String get app => 'Uygulama';
+	@override String get clipboard => 'Yapıştır';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +608,44 @@ class _StringsDialogsErrorDialogTr extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogTr extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoriler';
+	@override String get noFavorites => 'Henüz favori cihaz yok.';
+	@override String get addFavorite => 'Ekle';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogTr extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favorilerden sil';
+	@override String content({required Object name}) => 'Favorilerden "${name}" öğesini gerçekten silmek istiyor musunuz?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogTr extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Favorilere ekle';
+	@override String get titleEdit => 'Düzenle';
+	@override String get name => 'Takma ad';
+	@override String get auto => '(otomatik)';
+	@override String get ip => 'IP Adresi';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoTr extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoTr._(_StringsTr root) : this._root = root, super._(root);
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsTr extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'Sistem';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions
