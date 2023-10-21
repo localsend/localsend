@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=ko' to quickly apply the newly added translations."
   ],
   "general": {
-    "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
+    "delete": "삭제",
+    "noItemInClipboard": "클립보드에 항목이 없습니다"
   },
   "sendTab": {
     "picker": {
-      "clipboard": "Paste"
+      "clipboard": "붙여넣기"
     }
   },
   "settingsTab": {
@@ -21,21 +21,21 @@
   },
   "dialogs": {
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
+      "title": "즐겨찾기",
+      "noFavorites": "즐겨찾기한 기기가 없습니다.",
+      "addFavorite": "추가"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "즐겨찾기에서 삭제",
+      "content": "정말 \"{name}\" 즐겨찾기에서 삭제할까요?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Adjust",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "IP Address",
-      "port": "Port"
+      "titleAdd": "즐겨찾기에 추가",
+      "titleEdit": "편집",
+      "name": "별명",
+      "auto": "(자동)",
+      "ip": "IP 주소",
+      "port": "포트"
     }
   }
 }
