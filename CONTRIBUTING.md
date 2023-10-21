@@ -1,14 +1,14 @@
-# Contributing to LocalSend
+# Contributing to LocalSend 🌟
 
-LocalSend is an open-source project, and we welcome contributions from anyone who is interested in helping improve the app. Whether you're a developer, a translator, or a documentation writer, there are many ways to get involved.
+LocalSend is not just an app; it's an open-source community, and we welcome contributions from passionate individuals like you. Whether you're a developer, translator, or documentation enthusiast, there's a place for you here.
 
-## Getting Started
+## 🚀 Getting Started
 
-If you're interested in contributing code to LocalSend, you'll need to follow these steps:
+If you're ready to join our journey, and want to contribute to the codebase of LocalSend, here's what you need to do:
 
-## Run
+### Running the App
 
-After you have installed [Flutter](https://flutter.dev), then you can start this app by typing the following commands:
+Before you contribute to the code, it's important to get the app up and running on your local machine. Make sure you have [Flutter](https://flutter.dev) installed. Once that's done, kickstart the app by running these commands:
 
 ```shell
 flutter pub get
@@ -16,64 +16,67 @@ flutter pub run build_runner build -d
 flutter run
 ```
 
-## Translation
+## 🌍 Translation
 
-You can help translating this app to other languages!
+If you're more inclined toward languages, you can help make LocalSend accessible to a global audience by contributing translations. Here's how you can translate the app:
 
-1. Fork this repository
-2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
-   - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
-3. Optional: Re-run this app
-   1. Make sure you have [run](#run) this app once.
-   2. Update translations via `flutter pub run slang`
-   3. Run app via `flutter run`
-4. Open a pull request
+1. **Fork this Repository**: Go ahead and make a copy of our code by forking this repository.
 
-**_Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
+2. **Choose Your Path**:
+   - **Add Missing Translations in Existing Languages**: If you spot missing translations in existing languages, update the `_missing_translations_<locale>.json` file located in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n).
+   - **Fix Existing Translations**: For existing languages, simply edit the `strings_<locale>.i18n.json` file in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n).
+   - **Add New Languages**: Create a new translation file. Make sure to use the correct [locale codes](https://saimana.com/list-of-country-locale-code/).
 
-Thanks to all translators!
+3. **Optional: Re-run the App**:
+   1. Ensure you've run the app at least once.
+   2. Update translations via `flutter pub run slang`.
+   3. Run the app again using `flutter run`.
 
-| Language            | Translators                        |
-|---------------------|------------------------------------|
-| Czech               | @Amereyeu                          |
-| German              | Tien Do Nam (@Tienisto)            |
-| Spanish             | Esteban Daniel Saracho (@esaracho) |
-| Persian             | @farshad991                        |
-| French              | @Nixuge                            |
-| Hungarian           | @gidano                            |
-| Hebrew              | @ShlomoCode                        |
-| Japanese            | @soya-daizu                        |
-| Korean              | @mgmix                             |
-| Russian             | Sergiy (@sergd88)                  |
-| Ukrainian           | Sergiy (@sergd88)                  |
-| Chinese (China)     | @nkh0472, @graphemecluster         |
-| Chinese (Hong Kong) | @graphemecluster                   |
-| Chinese (Taiwan)    | @Neo1102, @graphemecluster         |
+4. **Open a Pull Request**: Once you're satisfied with your translation work, submit a pull request. We're eager to review it.
 
-Your name is missing? Please open a pull request!
+> **Note**: Fields decorated with `@` are not meant to be translated; they provide context for translators.
 
-## Contributing Guidelines
+Kudos to our awesome translators! 🙏
 
-Before you submit a pull request to LocalSend, please ensure that you have followed these guidelines:
+| Language            | Translators                              |
+|---------------------|------------------------------------------|
+| Czech               | @Amereyeu                                |
+| German              | Tien Do Nam (@Tienisto)                  |
+| Spanish             | Esteban Daniel Saracho (@esaracho)       |
+| Persian             | @farshad991                              |
+| French              | @Nixuge                                  |
+| Hungarian           | @gidano                                  |
+| Hebrew              | @ShlomoCode                              |
+| Japanese            | @soya-daizu                              |
+| Korean              | @mgmix                                   |
+| Russian             | Sergiy (@sergd88)                        |
+| Ukrainian           | Sergiy (@sergd88)                        |
+| Chinese (China)     | @nkh0472, @graphemecluster               |
+| Chinese (Hong Kong) | @graphemecluster                         |
+| Chinese (Taiwan)    | @Neo1102, @graphemecluster               |
+
+Don't see your name? Let's change that - open a pull request! 🚀
+
+## 📝 Contributing Guidelines
+
+Before you share your masterpiece with us, please make sure it aligns with these guidelines:
 
 - Code should be well-documented and formatted according to the [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style).
-- All changes should be covered by tests.
-- Commits should be well-written and descriptive, with a clear summary of the changes made and any relevant context.
-- Pull requests should target the `main` branch and include a clear summary of the changes made.
+- Ensure all changes are covered by tests.
+- Write clear and descriptive commits with a summary and context.
+- Your pull requests should target the `main` branch and include a clear summary of the changes.
 
-## Bug Reports and Feature Requests
+## 🐛 Bug Reports and 🚀 Feature Requests
 
-If you encounter a bug in LocalSend or have a feature request, please submit an issue to the [issue tracker](https://github.com/localsend/localsend/issues). Please be sure to provide a clear description of the problem or feature request, along with any relevant context or steps to reproduce the issue.
+Spotted a bug? Have an awesome idea? Share it with us! Use the [issue tracker](https://github.com/localsend/localsend/issues) to let us know. Be sure to provide a detailed description and steps to reproduce the issue.
 
-## Security Issues
+## 🔐 Security Issues
 
-If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [localsendapp@gmail.com](mailto:localsendapp@gmail.com) so that we can address the issue as quickly and effectively as possible.
+If you uncover a security concern, please avoid posting it on the public issue tracker. Instead, reach out to us directly at [localsendapp@gmail.com](mailto:localsendapp@gmail.com) so we can address it swiftly and effectively.
 
-## Distribution
+## 🌐 Distribution
 
-Git based distribution:
+LocalSend is available through various channels, thanks to these fantastic maintainers. Here's a list of the distribution channels and their maintainers:
 
 | Channel        | Repository          | Maintainer                                         |
 |----------------|---------------------|----------------------------------------------------|
@@ -99,82 +102,39 @@ Git based distribution:
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [aur repo]: https://aur.archlinux.org/localsend-bin.git
 [nixos]: https://search.nixos.org/packages?show=localsend
-[nixos repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
+[nixos repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/network
+
+ing/localsend/default.nix
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [f-droid repo]: https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.localsend.localsend_app.yml
 
-Manual distribution:
+[Your idea here]: Create an issue and let us know how you can help!
 
-| Channel        | Maintainer                               |
-|----------------|------------------------------------------|
-| [App Store][]  | [@Tienisto](https://github.com/Tienisto) |
-| [Play Store][] | [@Tienisto](https://github.com/Tienisto) |
-| [Amazon][]     | [@Tienisto](https://github.com/Tienisto) |
+> Let's spread LocalSend to even more platforms, together!
 
-[app store]: https://apps.apple.com/us/app/localsend/id1661733229
-[play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
-[amazon]: https://www.amazon.com/dp/B0BW6MP732
+## 📋 Notes
 
-Binary distribution:
+Useful notes and additional information:
 
-| Type        | Maintainer    | Credits                      |
-|-------------|---------------|------------------------------|
-| Windows ZIP | [@Tienisto][] |                              |
-| MSIX        | [@Tienisto][] |                              |
-| APK         | [@Tienisto][] |                              |
-| TAR         | [@Tienisto][] |                              |
-| DEB         | [@Tienisto][] |                              |
-| AppImage    | [@Tienisto][] | [@TheGB0077][]               |
-| DMG         | [@Tienisto][] |                              |
+### 📦 Compile Production APK
 
-[@Tienisto]: https://github.com/Tienisto
-[@TheGB0077]: https://github.com/TheGB0077
-[@sitiom]: https://github.com/sitiom
-[@Nixuge]: https://github.com/Nixuge
-[@proletarius101]: https://github.com/proletarius101
-[@brogers5]: https://github.com/brogers5
-[@sikmir]: https://github.com/sikmir
-[F-Droid CI]: https://gitlab.com/fdroidci
-
-TODO:
-
-You can help publishing LocalSend on more platforms. Please create an issue to notify us!
-
-- Traditional Linux distributions (Debian, Fedora, etc.)
-- Snap
-- (Your idea here)
-
-## Notes
-
-Useful notes.
-
-### Compile production APK
-
-You will need the signing keys to generate an APK.
-
-Either generate one or use the debug signing options:
+Creating a production APK requires signing keys. If you don't have your own, you can use the debug signing options:
 
 ```groovy
 // File: android/app/build.gradle
 buildTypes {
   release {
-    signingConfig signingConfigs.debug // using debug signing
+    signingConfig signingConfigs.debug // use debug signing
   }
-}
 ```
 
-### Bump Flutter
+### ⬆️ Bump Flutter
 
-Suppose we want to update flutter to `3.7.8` (see https://github.com/localsend/localsend/commit/7b95a7a5600db2742a9e05b956d0415d871239d5):
+If you'd like to update Flutter to a new version, follow these steps:
 
-1. Update flutter from fvm: `fvm use 3.7.8`
-2. Update flutter from submodule:
-   1. `git submodule update --init`
-   2. `cd submodules/flutter`
-   3. `git fetch`
-   4. `git checkout 3.7.8`
-   5. `cd ../..`
-   6. `git add submodules/flutter`
-3. Update flutter constraints:
-   1. In CI: `.github/workflows/ci.yml`
-   2. In pubspec: `pubspec.yaml`
+1. Update Flutter either from fvm or directly from the submodule.
+2. Update the Flutter constraints in relevant files.
+
+> Keep LocalSend up-to-date and thriving!
+
+That's it! You're now well-equipped to contribute to LocalSend and be a part of our amazing community. Let's make LocalSend even better, one contribution at a time! 🌎🚀
