@@ -5,7 +5,7 @@
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-[Homepage][homepage] • [Discord][discord] • [Github][github] • [Codeberg][codeberg]
+[Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
