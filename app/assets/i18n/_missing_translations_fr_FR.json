@@ -2,40 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fr-FR>.",
     "After editing this file, you can run 'dart run slang apply --locale=fr-FR' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "Paste"
-    }
-  },
-  "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED"
-      }
-    }
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
-    },
-    "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Adjust",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "IP Address",
-      "port": "Port"
-    }
-  }
+  ]
 }
