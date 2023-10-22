@@ -81,7 +81,8 @@ To start LocalSend the from source code, follow these steps:
 2. Clone the LocalSend repository
 3. Run `flutter pub get` to download dependencies
 4. Run `dart run build_runner build -d` to generate code
-5. Run `flutter run` to start the app
+5. Run `cd app`
+6. Run `flutter run` to start the app
 
 It may be the case that it doesn't work because of a mismatch between the required Flutter version and the installed Flutter version.
 
