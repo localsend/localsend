@@ -145,7 +145,7 @@ flutter build ipa
 ### macOS
 
 ```bash
-flutter build macoS
+flutter build macos
 ```
 
 ### Windows
@@ -173,7 +173,7 @@ flutter pub run msix:create --store
 **Traditional**
 
 ```bash
-flutter build Linux
+flutter build linux
 ```
 
 **AppImage**
