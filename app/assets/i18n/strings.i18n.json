@@ -144,6 +144,7 @@
     "title": "History",
     "openFolder": "Open folder",
     "deleteHistory": "Delete history",
+    "areYouSure": "Are you sure?",
     "empty": "The history is empty.",
     "entryActions": {
       "open": "Open file",
