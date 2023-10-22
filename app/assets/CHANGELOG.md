@@ -8,6 +8,7 @@
 - feat(linux): allow disabling client side decorations on Wayland (@I-Want-ToBelieve)
 - feat(android): use high framerate on devices that lock at 60 Hz like on some OnePlus phones (@Tienisto)
 - fix(desktop): fallback to "$HOME/Downloads" when default downloads folder is unavailable (@Sqbika)
+- i18n: add Vietnamese (@faea726), Basque (@xezpeleta)
 
 ## 1.11.1 (2023-09-04)
 
