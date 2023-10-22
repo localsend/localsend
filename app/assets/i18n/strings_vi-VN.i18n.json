@@ -1,0 +1,365 @@
+{
+  "locale": "Vietnam",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Đồng ý",
+    "accepted": "Đã đồng ý",
+    "add": "Thêm",
+    "advanced": "Nâng cao",
+    "cancel": "Thoát",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "continueStr": "Tiếp tục",
+    "copy": "Sao chép",
+    "copiedToClipboard": "Đã sao chép vào bộ nhớ tạm",
+    "decline": "Từ chối",
+    "done": "Hoàn thành",
+    "delete": "Xoá",
+    "edit": "Sửa",
+    "error": "Lỗi",
+    "example": "Ví dụ",
+    "files": "Tập tin",
+    "finished": "Đã xong",
+    "hide": "Ẩn",
+    "off": "Tắt",
+    "offline": "Ngoại tuyến",
+    "on": "Bật",
+    "online": "Trực tuyến",
+    "open": "Mở",
+    "queue": "Hàng chờ",
+    "quickSave": "Lưu nhanh",
+    "renamed": "Đã đổi tên",
+    "reset": "Thiết lập lại",
+    "restart": "Khởi động lại",
+    "settings": "Cài đặt",
+    "skipped": "Đã bỏ qua",
+    "start": "Bắt đầu",
+    "stop": "Dừng",
+    "save": "Lưu",
+    "unchanged": "Chưa thay đổi",
+    "unknown": "Không rõ",
+    "noItemInClipboard": "Không có gì trong bộ nhớ tạm"
+  },
+  "receiveTab": {
+    "title": "Nhận",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Biệt danh:"
+    }
+  },
+  "sendTab": {
+    "title": "Gửi",
+    "selection": {
+      "title": "Lựa chọn",
+      "files": "Tập tin: {files}",
+      "size": "Kích thước: {size}"
+    },
+    "picker": {
+      "file": "Tập tin",
+      "folder": "Thư mục",
+      "media": "Media",
+      "text": "Văn bản",
+      "app": "Ứng dụng",
+      "clipboard": "Dán"
+    },
+    "shareIntentInfo": "Bạn có thể dùng tính năng \"Chia sẻ\" trong điện thoại của bạn để lựa chọn các tập tin dễ dàng hơn.",
+    "nearbyDevices": "Thiết bị lân cận",
+    "thisDevice": "Thiết bị hiện tại",
+    "scan": "Tìm kiếm thiết bị",
+    "sendMode": "Chế độ gửi",
+    "sendModes": {
+      "single": "Một người nhận",
+      "multiple": "Nhiều người nhận",
+      "link": "Chia sẻ liên kết"
+    },
+    "sendModeHelp": "Giải thích",
+    "help": "Vui lòng đảm bảo thiết bị gửi và nhận dùng chung mạng wifi.",
+    "placeItems": "Đặt các mục để chia sẻ."
+  },
+  "settingsTab": {
+    "title": "Cài đặt",
+    "general": {
+      "title": "Tổng",
+      "brightness": "Chủ đề",
+      "brightnessOptions": {
+        "system": "Hệ thống",
+        "dark": "Tối",
+        "light": "Sáng"
+      },
+      "color": "Màu sắc",
+      "colorOptions": {
+        "system": "Hệ thống",
+        "oled": "OLED"
+      },
+      "language": "Ngôn ngữ",
+      "languageOptions": {
+        "system": "Hệ thống"
+      },
+      "saveWindowPlacement": "Thoát: Lưu vị trí cửa sổ hiển thị",
+      "minimizeToTray": "Thoát: Ẩn xuống thanh tác vụ",
+      "launchAtStartup": "Tự khởi động sau khi đăng nhập",
+      "launchMinimized": "Tự khởi động: Khởi động ẩn",
+      "animations": "Hoạt ảnh"
+    },
+    "receive": {
+      "title": "Nhận",
+      "quickSave": "@:general.quickSave",
+      "destination": "Đích đến",
+      "downloads": "(Tải xuống)",
+      "saveToGallery": "Lưu media vào thư viện",
+      "saveToHistory": "Lưu vào lịch sử"
+    },
+    "network": {
+      "title": "Mạng",
+      "needRestart": "Khởi động lại server để cài đặt có hiệu lực!",
+      "server": "Server",
+      "alias": "Biệt danh",
+      "deviceType": "Loại thiết bị",
+      "deviceModel": "Model thiết bị",
+      "port": "Port",
+      "portWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: {defaultPort})",
+      "encryption": "Mã hoá",
+      "multicastGroup": "Đa phương tiện",
+      "multicastGroupWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: {defaultMulticast})"
+    },
+    "advancedSettings": "Cài đặt nâng cao"
+  },
+  "troubleshootPage": {
+    "title": "Gỡ lỗi",
+    "subTitle": "Ứng dụng không hoạt động như dự kiến? Bạn có thể tìm giải pháp thông thường tại đây.",
+    "solution": "Giải pháp:",
+    "fixButton": "Sửa lỗi tự động",
+    "firewall": {
+      "symptom": "Ứng dụng có thể gửi tập tin tới các thiết bị khác, nhưng các thiết bị khác không thể gửi tập tin đến thiết bị này.",
+      "solution": "Có vẻ như đây là vấn đề của tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port {port}.",
+      "openFirewall": "Mở tường lửa(Firewall)"
+    },
+    "noConnection": {
+      "symptom": "Cả hai thiết bị không thể nhận diện lẫn nhau cũng như không thể chia sẻ tập tin.",
+      "solution": "Vấn đề tồn tại ở cả 2 thiết bị? Nếu thế, bạn cần chắc chắn rằng cả hai thiết bị đang dùng chung một mạng wifi với cùng thiết lập (port, địa chỉ multicast, mã hoá). Wifi có thể không cho các thiết bị giao tiếp với nhau. Trong trường hợp đó, bạn cần tìm trong thiết lập của router."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Lịch sử",
+    "openFolder": "Mở thư mục",
+    "deleteHistory": "Xoá lịch sử",
+    "empty": "Lịch sử rỗng.",
+    "entryActions": {
+      "open": "Mở tập tin",
+      "info": "Thông tin",
+      "deleteFromHistory": "Xoá khỏi lịch sử"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Ứng dụng (APK)",
+    "excludeSystemApps": "Mở ứng dụng hệ thống",
+    "excludeAppsWithoutLaunchIntent": "Loại trừ các ứng dụng không thể khởi chạy",
+    "apps": "{n} Ứng dụng"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Xoá toàn bộ"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "muốn gửi cho bạn một tập tin.",
+      "other": "muốn gửi cho bạn {n} tập tin."
+    },
+    "subTitleMessage": "đã gửi cho bạn một tin nhắn:",
+    "subTitleLink": "đã gửi cho bạn một liên kết:",
+    "canceled": "Người gửi đã xoá yêu cầu."
+  },
+  "receiveOptionsPage": {
+    "title": "Tuỳ chọn",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(Thư mục LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Đã tự động tắt vì là thư mục."
+  },
+  "sendPage": {
+    "waiting": "Đang chờ phản hồi...",
+    "rejected": "Người nhận đã từ chối yêu cầu.",
+    "busy": "Người nhận đang bận xử lý một yêu cầu khác."
+  },
+  "progressPage": {
+    "titleSending": "Đang gửi tập tin",
+    "titleReceiving": "Đang nhận tập tin",
+    "savedToGallery": "Đã lưu vào Ảnh",
+    "total": {
+      "title": {
+        "sending": "Tổng tiến độ ({time})",
+        "finishedError": "Kết thúc với lỗi",
+        "canceledSender": "Đã huỷ bởi người gửi",
+        "canceledReceiver": "Đã huỷ bởi người nhận"
+      },
+      "count": "Tập tin: {curr} / {n}",
+      "size": "Kích thước: {curr} / {n}",
+      "speed": "Tốc độ: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Chia sẻ qua liên kết",
+    "loading": "Đang khởi tạo server...",
+    "stopping": "Đang dừng server...",
+    "error": "Một lỗi đã xảy ra khi khởi tạo server.",
+    "openLink": {
+      "one": "Mở liên kết trong trình duyệt:",
+      "other": "Mở một trong các liên kết với trình duyệt:"
+    },
+    "requests": "Yêu cầu",
+    "noRequests": "Hiện không có yêu cầu nào.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.",
+    "pendingRequests": "Yêu cầu chờ: {n}"
+  },
+  "aboutPage": {
+    "title": "Thông tin về LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Thêm vào lựa chọn",
+      "content": "Bạn muốn thêm mục nào?"
+    },
+    "addressInput": {
+      "title": "Nhập địa chỉ",
+      "hashtag": "Hashtag",
+      "ip": "Địa chỉ IP",
+      "recentlyUsed": "Sử dụng gần đây: "
+    },
+    "cancelSession": {
+      "title": "Dừng gửi tập tin",
+      "content": "Bạn có thực sự muống dừng quá trình gửi tập tin?"
+    },
+    "cannotOpenFile": {
+      "title": "Không thể mở tập tin",
+      "content": "Không thể mở \"{file}\". Có thể tập tin có thể đã bị di chuyển, đổi tên hoặc xoá?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Mã hoá đã tắt",
+      "content": "Kết nối hiện đang hoạt động trên giao thức HTTP. Để dùng HTTPS, hãy bật mã hoá."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Yêu thích",
+      "noFavorites": "Hiện không có thiết bị yêu thích.",
+      "addFavorite": "Thêm"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Xoá khỏi yêu thích",
+      "content": "Bạn có chắc chắn muốn xoá \"{name}\" khỏi yêu thích?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Thêm vào yêu thích",
+      "titleEdit": "Điều chỉnh",
+      "name": "Biệt danh",
+      "auto": "(tự động)",
+      "ip": "Địa chỉ IP",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Thông tin tập tin",
+      "fileName": "Tên:",
+      "path": "Đường dẫn:",
+      "size": "Kích thước:",
+      "sender": "Người gửi:",
+      "time": "Thời gian:"
+    },
+    "fileNameInput": {
+      "title": "Nhập tên",
+      "original": "Ban đầu: {original}"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend không thể tìm kiếm thiết bị khác khi không được phép quét mạng nội bộ. Vui lòng trao quyền cho ứng dụng trong cài đặt.",
+      "gotoSettings": "Cài đặt"
+    },
+    "messageInput": {
+      "title": "Nhập tin nhắn",
+      "multiline": "Nhiều dòng"
+    },
+    "noFiles": {
+      "title": "Không có tập tin nào được chọn",
+      "content": "Vui lòng chọn ít nhất một tập tin."
+    },
+    "noPermission": {
+      "title": "Chưa được trao quyền.",
+      "content": "Bạn chưa được trao quyền. Vui lòng trao quyền cho ứng dụng trong cài đặt."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Không khả dụng",
+      "content": "Tính năng chỉ có trên:"
+    },
+    "qr": {
+      "title": "Mã QR"
+    },
+    "quickActions": {
+      "title": "Thao Tác Nhanh",
+      "counter": "Bộ đếm",
+      "prefix": "Tiếp đầu ngữ",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "Sắp xếp theo bảng chữ cái",
+      "random": "Ngẫu nhiên"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Yêu cầu tập tin đã được chấp thuận tự động. Chú ý rằng bất kỳ ai dùng chung mạng nội bộ với bạn đều có thể gửi tập tin cho bạn."
+    },
+    "sendModeHelp": {
+      "title": "Chế độ gửi",
+      "single": "Gửi tập tin tới một người nhận. Lựa chọn sẽ được xoá sau khi quá trình gửi hoàn thành.",
+      "multiple": "Gửi tập tin tới nhiều người nhận. Lựa chọn sẽ không bị xoá.",
+      "link": "Người nhận chưa cài đặt LocalSend có thể nhận tập tin bằng cách mở liên kết trong trình duyệt."
+    }
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Đóng LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Đã từ chối",
+    "files": "Tập tin",
+    "fileName": "Tên",
+    "size": "Kích thước"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Xác nhận",
+    "cancel": "Thoát",
+    "edit": "Sửa",
+    "gifIndicator": "GIF",
+    "loadFailed": "Tải lỗi",
+    "original": "Gốc",
+    "preview": "Xem trước",
+    "select": "Chọn",
+    "emptyList": "Danh sách trống",
+    "unSupportedAssetType": "Định dạng tập tin không được hỗ trợ.",
+    "unableToAccessAll": "Không thể truy cập tới tất cả tập tin trong thiết bị",
+    "viewingLimitedAssetsTip": "Chỉ hiển thị các tập tin và album mà ứng dụng có thể truy cập.",
+    "changeAccessibleLimitedAssets": "Ấn để cập nhận các tập tin có thể truy cập.",
+    "accessAllTip": "Ứng dụng chỉ có thể truy cập một số tập tin trong thiết bị. Hãy vào cài đặt hệ thống để chấp thuận ứng dụng có thể truy cập tất cả media trong thiết bị.",
+    "goToSystemSettings": "Truy cập cài đặt hệ thống",
+    "accessLimitedAssets": "Tiếp tục với truy cập bị giới hạn",
+    "accessiblePathName": "Các tập tin có thể truy cập",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Ảnh",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Media khác",
+    "sActionPlayHint": "mở",
+    "sActionPreviewHint": "xem trước",
+    "sActionSelectHint": "chọn",
+    "sActionSwitchPathLabel": "đổi đường dẫn",
+    "sActionUseCameraHint": "dùng camera",
+    "sNameDurationLabel": "thời lượng",
+    "sUnitAssetCountLabel": "đếm"
+  }
+}
