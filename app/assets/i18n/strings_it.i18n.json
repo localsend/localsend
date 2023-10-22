@@ -36,7 +36,9 @@
     "stop": "Arresta",
     "save": "Salva",
     "unchanged": "Invariato",
-    "unknown": "Sconosciuto"
+    "unknown": "Sconosciuto",
+    "delete": "Cancella",
+    "noItemInClipboard": "Nessun elemento negli Appunti"
   },
   "receiveTab": {
     "title": "Ricevi",
@@ -54,6 +56,7 @@
       "size": "Dimensione: {size}"
     },
     "picker": {
+      "clipboard": "Incolla",
       "file": "File",
       "folder": "Cartella",
       "media": "Media",
@@ -86,7 +89,8 @@
       },
       "color": "Colore",
       "colorOptions": {
-        "system": "Sistema"
+        "system": "Sistema",
+        "oled": "OLED"
       },
       "language": "Lingua",
       "languageOptions": {
@@ -218,6 +222,23 @@
     "@info": "Eredita dalla versione inglese"
   },
   "dialogs": {
+    "favoriteDialog": {
+      "title": "Preferiti",
+      "noFavorites": "Nessun dispositivo preferito al momento.",
+      "addFavorite": "Aggiungi"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Elimina dai preferiti",
+      "content": "Sei davvero sicuro di voler eliminare dai preferiti \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Aggiungi ai preferiti",
+      "titleEdit": "Modifica",
+      "name": "Alias",
+      "auto": "(automatico)",
+      "ip": "Indirizzo IP",
+      "port": "Porta"
+    },
     "addFile": {
       "title": "Aggiungi alla selezione",
       "content": "Cosa vuoi aggiungere?"

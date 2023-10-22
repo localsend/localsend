@@ -39,6 +39,7 @@ Thanks to all translators!
 |---------------------|------------------------------------|
 | Czech               | @Amereyeu                          |
 | German              | Tien Do Nam (@Tienisto)            |
+| Italian             | @Francesco146                      |
 | Spanish             | Esteban Daniel Saracho (@esaracho) |
 | Persian             | @farshad991                        |
 | French              | @Nixuge                            |
