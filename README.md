@@ -75,7 +75,7 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 
 ## Getting Started
 
-To start LocalSend from source code, follow these steps:
+To start LocalSend the from source code, follow these steps:
 
 1. Install [Flutter](https://flutter.dev)
 2. Clone the LocalSend repository
@@ -85,15 +85,15 @@ To start LocalSend from source code, follow these steps:
 
 It may be the case that it doesn't work because of a mismatch between the required Flutter version and the installed Flutter version.
 
-LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you installed it, run `fvm flutter` instead of `flutter`.
+LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you install it, run `fvm flutter` instead of `flutter`.
 
 ## Contributing
 
-We welcome contributions from anyone who is interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
 
 ### Translation
 
-You can help translating this app to other languages!
+You can help translate this app into other languages!
 
 1. Fork this repository
 2. Choose one
