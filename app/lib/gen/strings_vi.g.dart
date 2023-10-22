@@ -1,55 +1,55 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsViVn extends _StringsEn {
+class _StringsVi extends _StringsEn {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	_StringsViVn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	_StringsVi.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
-		    locale: AppLocale.viVn,
+		    locale: AppLocale.vi,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
-	/// Metadata for the translations of <vi-VN>.
+	/// Metadata for the translations of <vi>.
 	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
 
-	@override late final _StringsViVn _root = this; // ignore: unused_field
+	@override late final _StringsVi _root = this; // ignore: unused_field
 
 	// Translations
 	@override String get locale => 'Vietnam';
 	@override String get appName => 'LocalSend';
-	@override late final _StringsGeneralViVn general = _StringsGeneralViVn._(_root);
-	@override late final _StringsReceiveTabViVn receiveTab = _StringsReceiveTabViVn._(_root);
-	@override late final _StringsSendTabViVn sendTab = _StringsSendTabViVn._(_root);
-	@override late final _StringsSettingsTabViVn settingsTab = _StringsSettingsTabViVn._(_root);
-	@override late final _StringsTroubleshootPageViVn troubleshootPage = _StringsTroubleshootPageViVn._(_root);
-	@override late final _StringsReceiveHistoryPageViVn receiveHistoryPage = _StringsReceiveHistoryPageViVn._(_root);
-	@override late final _StringsApkPickerPageViVn apkPickerPage = _StringsApkPickerPageViVn._(_root);
-	@override late final _StringsSelectedFilesPageViVn selectedFilesPage = _StringsSelectedFilesPageViVn._(_root);
-	@override late final _StringsReceivePageViVn receivePage = _StringsReceivePageViVn._(_root);
-	@override late final _StringsReceiveOptionsPageViVn receiveOptionsPage = _StringsReceiveOptionsPageViVn._(_root);
-	@override late final _StringsSendPageViVn sendPage = _StringsSendPageViVn._(_root);
-	@override late final _StringsProgressPageViVn progressPage = _StringsProgressPageViVn._(_root);
-	@override late final _StringsWebSharePageViVn webSharePage = _StringsWebSharePageViVn._(_root);
-	@override late final _StringsAboutPageViVn aboutPage = _StringsAboutPageViVn._(_root);
-	@override late final _StringsChangelogPageViVn changelogPage = _StringsChangelogPageViVn._(_root);
-	@override late final _StringsAliasGeneratorViVn aliasGenerator = _StringsAliasGeneratorViVn._(_root);
-	@override late final _StringsDialogsViVn dialogs = _StringsDialogsViVn._(_root);
-	@override late final _StringsTrayViVn tray = _StringsTrayViVn._(_root);
-	@override late final _StringsWebViVn web = _StringsWebViVn._(_root);
-	@override late final _StringsAssetPickerViVn assetPicker = _StringsAssetPickerViVn._(_root);
+	@override late final _StringsGeneralVi general = _StringsGeneralVi._(_root);
+	@override late final _StringsReceiveTabVi receiveTab = _StringsReceiveTabVi._(_root);
+	@override late final _StringsSendTabVi sendTab = _StringsSendTabVi._(_root);
+	@override late final _StringsSettingsTabVi settingsTab = _StringsSettingsTabVi._(_root);
+	@override late final _StringsTroubleshootPageVi troubleshootPage = _StringsTroubleshootPageVi._(_root);
+	@override late final _StringsReceiveHistoryPageVi receiveHistoryPage = _StringsReceiveHistoryPageVi._(_root);
+	@override late final _StringsApkPickerPageVi apkPickerPage = _StringsApkPickerPageVi._(_root);
+	@override late final _StringsSelectedFilesPageVi selectedFilesPage = _StringsSelectedFilesPageVi._(_root);
+	@override late final _StringsReceivePageVi receivePage = _StringsReceivePageVi._(_root);
+	@override late final _StringsReceiveOptionsPageVi receiveOptionsPage = _StringsReceiveOptionsPageVi._(_root);
+	@override late final _StringsSendPageVi sendPage = _StringsSendPageVi._(_root);
+	@override late final _StringsProgressPageVi progressPage = _StringsProgressPageVi._(_root);
+	@override late final _StringsWebSharePageVi webSharePage = _StringsWebSharePageVi._(_root);
+	@override late final _StringsAboutPageVi aboutPage = _StringsAboutPageVi._(_root);
+	@override late final _StringsChangelogPageVi changelogPage = _StringsChangelogPageVi._(_root);
+	@override late final _StringsAliasGeneratorVi aliasGenerator = _StringsAliasGeneratorVi._(_root);
+	@override late final _StringsDialogsVi dialogs = _StringsDialogsVi._(_root);
+	@override late final _StringsTrayVi tray = _StringsTrayVi._(_root);
+	@override late final _StringsWebVi web = _StringsWebVi._(_root);
+	@override late final _StringsAssetPickerVi assetPicker = _StringsAssetPickerVi._(_root);
 }
 
 // Path: general
-class _StringsGeneralViVn extends _StringsGeneralEn {
-	_StringsGeneralViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsGeneralVi extends _StringsGeneralEn {
+	_StringsGeneralVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get accept => 'Đồng ý';
@@ -92,85 +92,85 @@ class _StringsGeneralViVn extends _StringsGeneralEn {
 }
 
 // Path: receiveTab
-class _StringsReceiveTabViVn extends _StringsReceiveTabEn {
-	_StringsReceiveTabViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsReceiveTabVi extends _StringsReceiveTabEn {
+	_StringsReceiveTabVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Nhận';
-	@override late final _StringsReceiveTabInfoBoxViVn infoBox = _StringsReceiveTabInfoBoxViVn._(_root);
+	@override late final _StringsReceiveTabInfoBoxVi infoBox = _StringsReceiveTabInfoBoxVi._(_root);
 }
 
 // Path: sendTab
-class _StringsSendTabViVn extends _StringsSendTabEn {
-	_StringsSendTabViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSendTabVi extends _StringsSendTabEn {
+	_StringsSendTabVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Gửi';
-	@override late final _StringsSendTabSelectionViVn selection = _StringsSendTabSelectionViVn._(_root);
-	@override late final _StringsSendTabPickerViVn picker = _StringsSendTabPickerViVn._(_root);
+	@override late final _StringsSendTabSelectionVi selection = _StringsSendTabSelectionVi._(_root);
+	@override late final _StringsSendTabPickerVi picker = _StringsSendTabPickerVi._(_root);
 	@override String get shareIntentInfo => 'Bạn có thể dùng tính năng "Chia sẻ" trong điện thoại của bạn để lựa chọn các tập tin dễ dàng hơn.';
 	@override String get nearbyDevices => 'Thiết bị lân cận';
 	@override String get thisDevice => 'Thiết bị hiện tại';
 	@override String get scan => 'Tìm kiếm thiết bị';
 	@override String get sendMode => 'Chế độ gửi';
-	@override late final _StringsSendTabSendModesViVn sendModes = _StringsSendTabSendModesViVn._(_root);
+	@override late final _StringsSendTabSendModesVi sendModes = _StringsSendTabSendModesVi._(_root);
 	@override String get sendModeHelp => 'Giải thích';
 	@override String get help => 'Vui lòng đảm bảo thiết bị gửi và nhận dùng chung mạng wifi.';
 	@override String get placeItems => 'Đặt các mục để chia sẻ.';
 }
 
 // Path: settingsTab
-class _StringsSettingsTabViVn extends _StringsSettingsTabEn {
-	_StringsSettingsTabViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabVi extends _StringsSettingsTabEn {
+	_StringsSettingsTabVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Cài đặt';
-	@override late final _StringsSettingsTabGeneralViVn general = _StringsSettingsTabGeneralViVn._(_root);
-	@override late final _StringsSettingsTabReceiveViVn receive = _StringsSettingsTabReceiveViVn._(_root);
-	@override late final _StringsSettingsTabNetworkViVn network = _StringsSettingsTabNetworkViVn._(_root);
+	@override late final _StringsSettingsTabGeneralVi general = _StringsSettingsTabGeneralVi._(_root);
+	@override late final _StringsSettingsTabReceiveVi receive = _StringsSettingsTabReceiveVi._(_root);
+	@override late final _StringsSettingsTabNetworkVi network = _StringsSettingsTabNetworkVi._(_root);
 	@override String get advancedSettings => 'Cài đặt nâng cao';
 }
 
 // Path: troubleshootPage
-class _StringsTroubleshootPageViVn extends _StringsTroubleshootPageEn {
-	_StringsTroubleshootPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsTroubleshootPageVi extends _StringsTroubleshootPageEn {
+	_StringsTroubleshootPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Gỡ lỗi';
 	@override String get subTitle => 'Ứng dụng không hoạt động như dự kiến? Bạn có thể tìm giải pháp thông thường tại đây.';
 	@override String get solution => 'Giải pháp:';
 	@override String get fixButton => 'Sửa lỗi tự động';
-	@override late final _StringsTroubleshootPageFirewallViVn firewall = _StringsTroubleshootPageFirewallViVn._(_root);
-	@override late final _StringsTroubleshootPageNoConnectionViVn noConnection = _StringsTroubleshootPageNoConnectionViVn._(_root);
+	@override late final _StringsTroubleshootPageFirewallVi firewall = _StringsTroubleshootPageFirewallVi._(_root);
+	@override late final _StringsTroubleshootPageNoConnectionVi noConnection = _StringsTroubleshootPageNoConnectionVi._(_root);
 }
 
 // Path: receiveHistoryPage
-class _StringsReceiveHistoryPageViVn extends _StringsReceiveHistoryPageEn {
-	_StringsReceiveHistoryPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsReceiveHistoryPageVi extends _StringsReceiveHistoryPageEn {
+	_StringsReceiveHistoryPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Lịch sử';
 	@override String get openFolder => 'Mở thư mục';
 	@override String get deleteHistory => 'Xoá lịch sử';
 	@override String get empty => 'Lịch sử rỗng.';
-	@override late final _StringsReceiveHistoryPageEntryActionsViVn entryActions = _StringsReceiveHistoryPageEntryActionsViVn._(_root);
+	@override late final _StringsReceiveHistoryPageEntryActionsVi entryActions = _StringsReceiveHistoryPageEntryActionsVi._(_root);
 }
 
 // Path: apkPickerPage
-class _StringsApkPickerPageViVn extends _StringsApkPickerPageEn {
-	_StringsApkPickerPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsApkPickerPageVi extends _StringsApkPickerPageEn {
+	_StringsApkPickerPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Ứng dụng (APK)';
@@ -180,20 +180,20 @@ class _StringsApkPickerPageViVn extends _StringsApkPickerPageEn {
 }
 
 // Path: selectedFilesPage
-class _StringsSelectedFilesPageViVn extends _StringsSelectedFilesPageEn {
-	_StringsSelectedFilesPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSelectedFilesPageVi extends _StringsSelectedFilesPageEn {
+	_StringsSelectedFilesPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get deleteAll => 'Xoá toàn bộ';
 }
 
 // Path: receivePage
-class _StringsReceivePageViVn extends _StringsReceivePageEn {
-	_StringsReceivePageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsReceivePageVi extends _StringsReceivePageEn {
+	_StringsReceivePageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n,
@@ -206,10 +206,10 @@ class _StringsReceivePageViVn extends _StringsReceivePageEn {
 }
 
 // Path: receiveOptionsPage
-class _StringsReceiveOptionsPageViVn extends _StringsReceiveOptionsPageEn {
-	_StringsReceiveOptionsPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsReceiveOptionsPageVi extends _StringsReceiveOptionsPageEn {
+	_StringsReceiveOptionsPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Tuỳ chọn';
@@ -220,10 +220,10 @@ class _StringsReceiveOptionsPageViVn extends _StringsReceiveOptionsPageEn {
 }
 
 // Path: sendPage
-class _StringsSendPageViVn extends _StringsSendPageEn {
-	_StringsSendPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSendPageVi extends _StringsSendPageEn {
+	_StringsSendPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get waiting => 'Đang chờ phản hồi...';
@@ -232,23 +232,23 @@ class _StringsSendPageViVn extends _StringsSendPageEn {
 }
 
 // Path: progressPage
-class _StringsProgressPageViVn extends _StringsProgressPageEn {
-	_StringsProgressPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsProgressPageVi extends _StringsProgressPageEn {
+	_StringsProgressPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get titleSending => 'Đang gửi tập tin';
 	@override String get titleReceiving => 'Đang nhận tập tin';
 	@override String get savedToGallery => 'Đã lưu vào Ảnh';
-	@override late final _StringsProgressPageTotalViVn total = _StringsProgressPageTotalViVn._(_root);
+	@override late final _StringsProgressPageTotalVi total = _StringsProgressPageTotalVi._(_root);
 }
 
 // Path: webSharePage
-class _StringsWebSharePageViVn extends _StringsWebSharePageEn {
-	_StringsWebSharePageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsWebSharePageVi extends _StringsWebSharePageEn {
+	_StringsWebSharePageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Chia sẻ qua liên kết';
@@ -267,68 +267,68 @@ class _StringsWebSharePageViVn extends _StringsWebSharePageEn {
 }
 
 // Path: aboutPage
-class _StringsAboutPageViVn extends _StringsAboutPageEn {
-	_StringsAboutPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsAboutPageVi extends _StringsAboutPageEn {
+	_StringsAboutPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Thông tin về LocalSend';
 }
 
 // Path: changelogPage
-class _StringsChangelogPageViVn extends _StringsChangelogPageEn {
-	_StringsChangelogPageViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsChangelogPageVi extends _StringsChangelogPageEn {
+	_StringsChangelogPageVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Changelog';
 }
 
 // Path: aliasGenerator
-class _StringsAliasGeneratorViVn extends _StringsAliasGeneratorEn {
-	_StringsAliasGeneratorViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsAliasGeneratorVi extends _StringsAliasGeneratorEn {
+	_StringsAliasGeneratorVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 }
 
 // Path: dialogs
-class _StringsDialogsViVn extends _StringsDialogsEn {
-	_StringsDialogsViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsVi extends _StringsDialogsEn {
+	_StringsDialogsVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsDialogsAddFileViVn addFile = _StringsDialogsAddFileViVn._(_root);
-	@override late final _StringsDialogsAddressInputViVn addressInput = _StringsDialogsAddressInputViVn._(_root);
-	@override late final _StringsDialogsCancelSessionViVn cancelSession = _StringsDialogsCancelSessionViVn._(_root);
-	@override late final _StringsDialogsCannotOpenFileViVn cannotOpenFile = _StringsDialogsCannotOpenFileViVn._(_root);
-	@override late final _StringsDialogsEncryptionDisabledNoticeViVn encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeViVn._(_root);
-	@override late final _StringsDialogsErrorDialogViVn errorDialog = _StringsDialogsErrorDialogViVn._(_root);
-	@override late final _StringsDialogsFavoriteDialogViVn favoriteDialog = _StringsDialogsFavoriteDialogViVn._(_root);
-	@override late final _StringsDialogsFavoriteDeleteDialogViVn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogViVn._(_root);
-	@override late final _StringsDialogsFavoriteEditDialogViVn favoriteEditDialog = _StringsDialogsFavoriteEditDialogViVn._(_root);
-	@override late final _StringsDialogsFileInfoViVn fileInfo = _StringsDialogsFileInfoViVn._(_root);
-	@override late final _StringsDialogsFileNameInputViVn fileNameInput = _StringsDialogsFileNameInputViVn._(_root);
-	@override late final _StringsDialogsLocalNetworkUnauthorizedViVn localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedViVn._(_root);
-	@override late final _StringsDialogsMessageInputViVn messageInput = _StringsDialogsMessageInputViVn._(_root);
-	@override late final _StringsDialogsNoFilesViVn noFiles = _StringsDialogsNoFilesViVn._(_root);
-	@override late final _StringsDialogsNoPermissionViVn noPermission = _StringsDialogsNoPermissionViVn._(_root);
-	@override late final _StringsDialogsNotAvailableOnPlatformViVn notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformViVn._(_root);
-	@override late final _StringsDialogsQrViVn qr = _StringsDialogsQrViVn._(_root);
-	@override late final _StringsDialogsQuickActionsViVn quickActions = _StringsDialogsQuickActionsViVn._(_root);
-	@override late final _StringsDialogsQuickSaveNoticeViVn quickSaveNotice = _StringsDialogsQuickSaveNoticeViVn._(_root);
-	@override late final _StringsDialogsSendModeHelpViVn sendModeHelp = _StringsDialogsSendModeHelpViVn._(_root);
+	@override late final _StringsDialogsAddFileVi addFile = _StringsDialogsAddFileVi._(_root);
+	@override late final _StringsDialogsAddressInputVi addressInput = _StringsDialogsAddressInputVi._(_root);
+	@override late final _StringsDialogsCancelSessionVi cancelSession = _StringsDialogsCancelSessionVi._(_root);
+	@override late final _StringsDialogsCannotOpenFileVi cannotOpenFile = _StringsDialogsCannotOpenFileVi._(_root);
+	@override late final _StringsDialogsEncryptionDisabledNoticeVi encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeVi._(_root);
+	@override late final _StringsDialogsErrorDialogVi errorDialog = _StringsDialogsErrorDialogVi._(_root);
+	@override late final _StringsDialogsFavoriteDialogVi favoriteDialog = _StringsDialogsFavoriteDialogVi._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogVi favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogVi._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogVi favoriteEditDialog = _StringsDialogsFavoriteEditDialogVi._(_root);
+	@override late final _StringsDialogsFileInfoVi fileInfo = _StringsDialogsFileInfoVi._(_root);
+	@override late final _StringsDialogsFileNameInputVi fileNameInput = _StringsDialogsFileNameInputVi._(_root);
+	@override late final _StringsDialogsLocalNetworkUnauthorizedVi localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedVi._(_root);
+	@override late final _StringsDialogsMessageInputVi messageInput = _StringsDialogsMessageInputVi._(_root);
+	@override late final _StringsDialogsNoFilesVi noFiles = _StringsDialogsNoFilesVi._(_root);
+	@override late final _StringsDialogsNoPermissionVi noPermission = _StringsDialogsNoPermissionVi._(_root);
+	@override late final _StringsDialogsNotAvailableOnPlatformVi notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformVi._(_root);
+	@override late final _StringsDialogsQrVi qr = _StringsDialogsQrVi._(_root);
+	@override late final _StringsDialogsQuickActionsVi quickActions = _StringsDialogsQuickActionsVi._(_root);
+	@override late final _StringsDialogsQuickSaveNoticeVi quickSaveNotice = _StringsDialogsQuickSaveNoticeVi._(_root);
+	@override late final _StringsDialogsSendModeHelpVi sendModeHelp = _StringsDialogsSendModeHelpVi._(_root);
 }
 
 // Path: tray
-class _StringsTrayViVn extends _StringsTrayEn {
-	_StringsTrayViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsTrayVi extends _StringsTrayEn {
+	_StringsTrayVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get open => '${_root.general.open}';
@@ -336,10 +336,10 @@ class _StringsTrayViVn extends _StringsTrayEn {
 }
 
 // Path: web
-class _StringsWebViVn extends _StringsWebEn {
-	_StringsWebViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsWebVi extends _StringsWebEn {
+	_StringsWebVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get waiting => '${_root.sendPage.waiting}';
@@ -350,10 +350,10 @@ class _StringsWebViVn extends _StringsWebEn {
 }
 
 // Path: assetPicker
-class _StringsAssetPickerViVn extends _StringsAssetPickerEn {
-	_StringsAssetPickerViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsAssetPickerVi extends _StringsAssetPickerEn {
+	_StringsAssetPickerVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get confirm => 'Xác nhận';
@@ -387,10 +387,10 @@ class _StringsAssetPickerViVn extends _StringsAssetPickerEn {
 }
 
 // Path: receiveTab.infoBox
-class _StringsReceiveTabInfoBoxViVn extends _StringsReceiveTabInfoBoxEn {
-	_StringsReceiveTabInfoBoxViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsReceiveTabInfoBoxVi extends _StringsReceiveTabInfoBoxEn {
+	_StringsReceiveTabInfoBoxVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get ip => 'IP:';
@@ -399,10 +399,10 @@ class _StringsReceiveTabInfoBoxViVn extends _StringsReceiveTabInfoBoxEn {
 }
 
 // Path: sendTab.selection
-class _StringsSendTabSelectionViVn extends _StringsSendTabSelectionEn {
-	_StringsSendTabSelectionViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSendTabSelectionVi extends _StringsSendTabSelectionEn {
+	_StringsSendTabSelectionVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Lựa chọn';
@@ -411,10 +411,10 @@ class _StringsSendTabSelectionViVn extends _StringsSendTabSelectionEn {
 }
 
 // Path: sendTab.picker
-class _StringsSendTabPickerViVn extends _StringsSendTabPickerEn {
-	_StringsSendTabPickerViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSendTabPickerVi extends _StringsSendTabPickerEn {
+	_StringsSendTabPickerVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get file => 'Tập tin';
@@ -426,10 +426,10 @@ class _StringsSendTabPickerViVn extends _StringsSendTabPickerEn {
 }
 
 // Path: sendTab.sendModes
-class _StringsSendTabSendModesViVn extends _StringsSendTabSendModesEn {
-	_StringsSendTabSendModesViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSendTabSendModesVi extends _StringsSendTabSendModesEn {
+	_StringsSendTabSendModesVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get single => 'Một người nhận';
@@ -438,19 +438,19 @@ class _StringsSendTabSendModesViVn extends _StringsSendTabSendModesEn {
 }
 
 // Path: settingsTab.general
-class _StringsSettingsTabGeneralViVn extends _StringsSettingsTabGeneralEn {
-	_StringsSettingsTabGeneralViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralVi extends _StringsSettingsTabGeneralEn {
+	_StringsSettingsTabGeneralVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Tổng';
 	@override String get brightness => 'Chủ đề';
-	@override late final _StringsSettingsTabGeneralBrightnessOptionsViVn brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsViVn._(_root);
+	@override late final _StringsSettingsTabGeneralBrightnessOptionsVi brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsVi._(_root);
 	@override String get color => 'Màu sắc';
-	@override late final _StringsSettingsTabGeneralColorOptionsViVn colorOptions = _StringsSettingsTabGeneralColorOptionsViVn._(_root);
+	@override late final _StringsSettingsTabGeneralColorOptionsVi colorOptions = _StringsSettingsTabGeneralColorOptionsVi._(_root);
 	@override String get language => 'Ngôn ngữ';
-	@override late final _StringsSettingsTabGeneralLanguageOptionsViVn languageOptions = _StringsSettingsTabGeneralLanguageOptionsViVn._(_root);
+	@override late final _StringsSettingsTabGeneralLanguageOptionsVi languageOptions = _StringsSettingsTabGeneralLanguageOptionsVi._(_root);
 	@override String get saveWindowPlacement => 'Thoát: Lưu vị trí cửa sổ hiển thị';
 	@override String get minimizeToTray => 'Thoát: Ẩn xuống thanh tác vụ';
 	@override String get launchAtStartup => 'Tự khởi động sau khi đăng nhập';
@@ -459,10 +459,10 @@ class _StringsSettingsTabGeneralViVn extends _StringsSettingsTabGeneralEn {
 }
 
 // Path: settingsTab.receive
-class _StringsSettingsTabReceiveViVn extends _StringsSettingsTabReceiveEn {
-	_StringsSettingsTabReceiveViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabReceiveVi extends _StringsSettingsTabReceiveEn {
+	_StringsSettingsTabReceiveVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Nhận';
@@ -474,10 +474,10 @@ class _StringsSettingsTabReceiveViVn extends _StringsSettingsTabReceiveEn {
 }
 
 // Path: settingsTab.network
-class _StringsSettingsTabNetworkViVn extends _StringsSettingsTabNetworkEn {
-	_StringsSettingsTabNetworkViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabNetworkVi extends _StringsSettingsTabNetworkEn {
+	_StringsSettingsTabNetworkVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Mạng';
@@ -494,10 +494,10 @@ class _StringsSettingsTabNetworkViVn extends _StringsSettingsTabNetworkEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallViVn extends _StringsTroubleshootPageFirewallEn {
-	_StringsTroubleshootPageFirewallViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsTroubleshootPageFirewallVi extends _StringsTroubleshootPageFirewallEn {
+	_StringsTroubleshootPageFirewallVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get symptom => 'Ứng dụng có thể gửi tập tin tới các thiết bị khác, nhưng các thiết bị khác không thể gửi tập tin đến thiết bị này.';
@@ -506,10 +506,10 @@ class _StringsTroubleshootPageFirewallViVn extends _StringsTroubleshootPageFirew
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionViVn extends _StringsTroubleshootPageNoConnectionEn {
-	_StringsTroubleshootPageNoConnectionViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsTroubleshootPageNoConnectionVi extends _StringsTroubleshootPageNoConnectionEn {
+	_StringsTroubleshootPageNoConnectionVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get symptom => 'Cả hai thiết bị không thể nhận diện lẫn nhau cũng như không thể chia sẻ tập tin.';
@@ -517,10 +517,10 @@ class _StringsTroubleshootPageNoConnectionViVn extends _StringsTroubleshootPageN
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsViVn extends _StringsReceiveHistoryPageEntryActionsEn {
-	_StringsReceiveHistoryPageEntryActionsViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsReceiveHistoryPageEntryActionsVi extends _StringsReceiveHistoryPageEntryActionsEn {
+	_StringsReceiveHistoryPageEntryActionsVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get open => 'Mở tập tin';
@@ -529,23 +529,23 @@ class _StringsReceiveHistoryPageEntryActionsViVn extends _StringsReceiveHistoryP
 }
 
 // Path: progressPage.total
-class _StringsProgressPageTotalViVn extends _StringsProgressPageTotalEn {
-	_StringsProgressPageTotalViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsProgressPageTotalVi extends _StringsProgressPageTotalEn {
+	_StringsProgressPageTotalVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsProgressPageTotalTitleViVn title = _StringsProgressPageTotalTitleViVn._(_root);
+	@override late final _StringsProgressPageTotalTitleVi title = _StringsProgressPageTotalTitleVi._(_root);
 	@override String count({required Object curr, required Object n}) => 'Tập tin: ${curr} / ${n}';
 	@override String size({required Object curr, required Object n}) => 'Kích thước: ${curr} / ${n}';
 	@override String speed({required Object speed}) => 'Tốc độ: ${speed}/s';
 }
 
 // Path: dialogs.addFile
-class _StringsDialogsAddFileViVn extends _StringsDialogsAddFileEn {
-	_StringsDialogsAddFileViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsAddFileVi extends _StringsDialogsAddFileEn {
+	_StringsDialogsAddFileVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Thêm vào lựa chọn';
@@ -553,10 +553,10 @@ class _StringsDialogsAddFileViVn extends _StringsDialogsAddFileEn {
 }
 
 // Path: dialogs.addressInput
-class _StringsDialogsAddressInputViVn extends _StringsDialogsAddressInputEn {
-	_StringsDialogsAddressInputViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsAddressInputVi extends _StringsDialogsAddressInputEn {
+	_StringsDialogsAddressInputVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Nhập địa chỉ';
@@ -566,10 +566,10 @@ class _StringsDialogsAddressInputViVn extends _StringsDialogsAddressInputEn {
 }
 
 // Path: dialogs.cancelSession
-class _StringsDialogsCancelSessionViVn extends _StringsDialogsCancelSessionEn {
-	_StringsDialogsCancelSessionViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsCancelSessionVi extends _StringsDialogsCancelSessionEn {
+	_StringsDialogsCancelSessionVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Dừng gửi tập tin';
@@ -577,10 +577,10 @@ class _StringsDialogsCancelSessionViVn extends _StringsDialogsCancelSessionEn {
 }
 
 // Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileViVn extends _StringsDialogsCannotOpenFileEn {
-	_StringsDialogsCannotOpenFileViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsCannotOpenFileVi extends _StringsDialogsCannotOpenFileEn {
+	_StringsDialogsCannotOpenFileVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Không thể mở tập tin';
@@ -588,10 +588,10 @@ class _StringsDialogsCannotOpenFileViVn extends _StringsDialogsCannotOpenFileEn 
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeViVn extends _StringsDialogsEncryptionDisabledNoticeEn {
-	_StringsDialogsEncryptionDisabledNoticeViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsEncryptionDisabledNoticeVi extends _StringsDialogsEncryptionDisabledNoticeEn {
+	_StringsDialogsEncryptionDisabledNoticeVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Mã hoá đã tắt';
@@ -599,20 +599,20 @@ class _StringsDialogsEncryptionDisabledNoticeViVn extends _StringsDialogsEncrypt
 }
 
 // Path: dialogs.errorDialog
-class _StringsDialogsErrorDialogViVn extends _StringsDialogsErrorDialogEn {
-	_StringsDialogsErrorDialogViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsErrorDialogVi extends _StringsDialogsErrorDialogEn {
+	_StringsDialogsErrorDialogVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '${_root.general.error}';
 }
 
 // Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogViVn extends _StringsDialogsFavoriteDialogEn {
-	_StringsDialogsFavoriteDialogViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsFavoriteDialogVi extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Yêu thích';
@@ -621,10 +621,10 @@ class _StringsDialogsFavoriteDialogViVn extends _StringsDialogsFavoriteDialogEn 
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogViVn extends _StringsDialogsFavoriteDeleteDialogEn {
-	_StringsDialogsFavoriteDeleteDialogViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsFavoriteDeleteDialogVi extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Xoá khỏi yêu thích';
@@ -632,10 +632,10 @@ class _StringsDialogsFavoriteDeleteDialogViVn extends _StringsDialogsFavoriteDel
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogViVn extends _StringsDialogsFavoriteEditDialogEn {
-	_StringsDialogsFavoriteEditDialogViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsFavoriteEditDialogVi extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get titleAdd => 'Thêm vào yêu thích';
@@ -647,10 +647,10 @@ class _StringsDialogsFavoriteEditDialogViVn extends _StringsDialogsFavoriteEditD
 }
 
 // Path: dialogs.fileInfo
-class _StringsDialogsFileInfoViVn extends _StringsDialogsFileInfoEn {
-	_StringsDialogsFileInfoViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsFileInfoVi extends _StringsDialogsFileInfoEn {
+	_StringsDialogsFileInfoVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Thông tin tập tin';
@@ -662,10 +662,10 @@ class _StringsDialogsFileInfoViVn extends _StringsDialogsFileInfoEn {
 }
 
 // Path: dialogs.fileNameInput
-class _StringsDialogsFileNameInputViVn extends _StringsDialogsFileNameInputEn {
-	_StringsDialogsFileNameInputViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsFileNameInputVi extends _StringsDialogsFileNameInputEn {
+	_StringsDialogsFileNameInputVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Nhập tên';
@@ -673,10 +673,10 @@ class _StringsDialogsFileNameInputViVn extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedViVn extends _StringsDialogsLocalNetworkUnauthorizedEn {
-	_StringsDialogsLocalNetworkUnauthorizedViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsLocalNetworkUnauthorizedVi extends _StringsDialogsLocalNetworkUnauthorizedEn {
+	_StringsDialogsLocalNetworkUnauthorizedVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '${_root.dialogs.noPermission.title}';
@@ -685,10 +685,10 @@ class _StringsDialogsLocalNetworkUnauthorizedViVn extends _StringsDialogsLocalNe
 }
 
 // Path: dialogs.messageInput
-class _StringsDialogsMessageInputViVn extends _StringsDialogsMessageInputEn {
-	_StringsDialogsMessageInputViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsMessageInputVi extends _StringsDialogsMessageInputEn {
+	_StringsDialogsMessageInputVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Nhập tin nhắn';
@@ -696,10 +696,10 @@ class _StringsDialogsMessageInputViVn extends _StringsDialogsMessageInputEn {
 }
 
 // Path: dialogs.noFiles
-class _StringsDialogsNoFilesViVn extends _StringsDialogsNoFilesEn {
-	_StringsDialogsNoFilesViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsNoFilesVi extends _StringsDialogsNoFilesEn {
+	_StringsDialogsNoFilesVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Không có tập tin nào được chọn';
@@ -707,10 +707,10 @@ class _StringsDialogsNoFilesViVn extends _StringsDialogsNoFilesEn {
 }
 
 // Path: dialogs.noPermission
-class _StringsDialogsNoPermissionViVn extends _StringsDialogsNoPermissionEn {
-	_StringsDialogsNoPermissionViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsNoPermissionVi extends _StringsDialogsNoPermissionEn {
+	_StringsDialogsNoPermissionVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Chưa được trao quyền.';
@@ -718,10 +718,10 @@ class _StringsDialogsNoPermissionViVn extends _StringsDialogsNoPermissionEn {
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformViVn extends _StringsDialogsNotAvailableOnPlatformEn {
-	_StringsDialogsNotAvailableOnPlatformViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsNotAvailableOnPlatformVi extends _StringsDialogsNotAvailableOnPlatformEn {
+	_StringsDialogsNotAvailableOnPlatformVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Không khả dụng';
@@ -729,20 +729,20 @@ class _StringsDialogsNotAvailableOnPlatformViVn extends _StringsDialogsNotAvaila
 }
 
 // Path: dialogs.qr
-class _StringsDialogsQrViVn extends _StringsDialogsQrEn {
-	_StringsDialogsQrViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsQrVi extends _StringsDialogsQrEn {
+	_StringsDialogsQrVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Mã QR';
 }
 
 // Path: dialogs.quickActions
-class _StringsDialogsQuickActionsViVn extends _StringsDialogsQuickActionsEn {
-	_StringsDialogsQuickActionsViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsQuickActionsVi extends _StringsDialogsQuickActionsEn {
+	_StringsDialogsQuickActionsVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Thao Tác Nhanh';
@@ -754,10 +754,10 @@ class _StringsDialogsQuickActionsViVn extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeViVn extends _StringsDialogsQuickSaveNoticeEn {
-	_StringsDialogsQuickSaveNoticeViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsQuickSaveNoticeVi extends _StringsDialogsQuickSaveNoticeEn {
+	_StringsDialogsQuickSaveNoticeVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '${_root.general.quickSave}';
@@ -765,10 +765,10 @@ class _StringsDialogsQuickSaveNoticeViVn extends _StringsDialogsQuickSaveNoticeE
 }
 
 // Path: dialogs.sendModeHelp
-class _StringsDialogsSendModeHelpViVn extends _StringsDialogsSendModeHelpEn {
-	_StringsDialogsSendModeHelpViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsDialogsSendModeHelpVi extends _StringsDialogsSendModeHelpEn {
+	_StringsDialogsSendModeHelpVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Chế độ gửi';
@@ -778,10 +778,10 @@ class _StringsDialogsSendModeHelpViVn extends _StringsDialogsSendModeHelpEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsViVn extends _StringsSettingsTabGeneralBrightnessOptionsEn {
-	_StringsSettingsTabGeneralBrightnessOptionsViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralBrightnessOptionsVi extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+	_StringsSettingsTabGeneralBrightnessOptionsVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => 'Hệ thống';
@@ -790,10 +790,10 @@ class _StringsSettingsTabGeneralBrightnessOptionsViVn extends _StringsSettingsTa
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsViVn extends _StringsSettingsTabGeneralColorOptionsEn {
-	_StringsSettingsTabGeneralColorOptionsViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralColorOptionsVi extends _StringsSettingsTabGeneralColorOptionsEn {
+	_StringsSettingsTabGeneralColorOptionsVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => 'Hệ thống';
@@ -801,20 +801,20 @@ class _StringsSettingsTabGeneralColorOptionsViVn extends _StringsSettingsTabGene
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsViVn extends _StringsSettingsTabGeneralLanguageOptionsEn {
-	_StringsSettingsTabGeneralLanguageOptionsViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralLanguageOptionsVi extends _StringsSettingsTabGeneralLanguageOptionsEn {
+	_StringsSettingsTabGeneralLanguageOptionsVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => 'Hệ thống';
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleViVn extends _StringsProgressPageTotalTitleEn {
-	_StringsProgressPageTotalTitleViVn._(_StringsViVn root) : this._root = root, super._(root);
+class _StringsProgressPageTotalTitleVi extends _StringsProgressPageTotalTitleEn {
+	_StringsProgressPageTotalTitleVi._(_StringsVi root) : this._root = root, super._(root);
 
-	@override final _StringsViVn _root; // ignore: unused_field
+	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
 	@override String sending({required Object time}) => 'Tổng tiến độ (${time})';
