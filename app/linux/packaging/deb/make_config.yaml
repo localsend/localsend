@@ -1,0 +1,41 @@
+display_name: LocalSend
+package_name: localsend
+maintainer:
+  name: Tienisto
+  email: dev.tien.donam@gmail.com
+co_authors:
+  - name: TheGB0077
+    email: gb.lima.dev@gmail.com
+priority: optional
+section: x11
+installed_size: 30600
+essential: false
+icon: assets/img/logo-512.png
+
+pre_dependencies:
+  - libc6 (>= 2.31)
+
+dependencies:
+  - libappindicator3-1 | libayatana-appindicator3-1
+  - gir1.2-appindicator3-0.1 | gir1.2-ayatanaappindicator3-0.1
+  - libayatana-ido3-0.4-0
+  - xdg-user-dirs
+
+postinstall_scripts:
+  - echo "Installed Localsend successfully"
+postuninstall_scripts:
+  - echo "Sorry to see you go :("
+
+keywords:
+  - Sharing
+  - LAN
+  - Files
+
+generic_name: An open source cross-platform alternative to AirDrop
+
+categories:
+  - GTK
+  - FileTransfer
+  - Utility
+
+startup_notify: true

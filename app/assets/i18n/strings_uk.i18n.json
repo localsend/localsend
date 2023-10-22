@@ -1,0 +1,365 @@
+{
+  "locale": "Українська",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Прийняти",
+    "accepted": "Прийнято",
+    "add": "Додати",
+    "advanced": "Детальніше",
+    "cancel": "Скасувати",
+    "close": "Закрити",
+    "confirm": "Підтвердити",
+    "continueStr": "Продовжити",
+    "copy": "Копіювати",
+    "copiedToClipboard": "Скопійовано в буфер обміну",
+    "decline": "Відхилити",
+    "done": "Виконано",
+    "delete": "Видалити",
+    "edit": "Редагувати",
+    "error": "Помилка",
+    "example": "Приклад",
+    "files": "Файли",
+    "finished": "Виконано",
+    "hide": "Приховати",
+    "off": "Вимкнено",
+    "offline": "Не в мережі",
+    "on": "Увімкнено",
+    "online": "В мережі",
+    "open": "Відкрити",
+    "queue": "Черга",
+    "quickSave": "Швидке збереження",
+    "renamed": "Перейменовано",
+    "reset": "Скидання налаштувань",
+    "restart": "Перезавантаження",
+    "settings": "Налаштування",
+    "skipped": "Відхилено",
+    "start": "Запуск",
+    "stop": "Зупинити",
+    "save": "Зберегти",
+    "unchanged": "Без змін",
+    "unknown": "Невідомо",
+    "noItemInClipboard": "Буфер обміну порожній"
+  },
+  "receiveTab": {
+    "title": "Отримання",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Порт:",
+      "alias": "Ім'я пристрою:"
+    }
+  },
+  "sendTab": {
+    "title": "Надсилання",
+    "selection": {
+      "title": "Вибірка",
+      "files": "Файлів: {files}",
+      "size": "Розмір: {size}"
+    },
+    "picker": {
+      "file": "Файл",
+      "folder": "Тека",
+      "media": "Медіа",
+      "text": "Текст",
+      "app": "Додаток",
+      "clipboard": "Вставити"
+    },
+    "shareIntentInfo": "Ви також можете використовувати кнопку \"Поділитися\" на своєму мобільному пристрої для швидкого вибору файлів.",
+    "nearbyDevices": "Пристрої поблизу",
+    "thisDevice": "Цей пристрій",
+    "scan": "Пошук пристроїв",
+    "sendMode": "Режим надсилання",
+    "sendModes": {
+      "single": "Один одержувач",
+      "multiple": "Кілька одержувачів",
+      "link": "Поділіться через посилання"
+    },
+    "sendModeHelp": "Довідка",
+    "help": "Будь ласка, переконайтесь, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.",
+    "placeItems": "Додайте сюди файли, щоб поділитися."
+  },
+  "settingsTab": {
+    "title": "Налаштування",
+    "general": {
+      "title": "Загальні",
+      "brightness": "Тема",
+      "brightnessOptions": {
+        "system": "Системна",
+        "dark": "Темна",
+        "light": "Світла"
+      },
+      "color": "Колір",
+      "colorOptions": {
+        "system": "Системний",
+        "oled": "OLED"
+      },
+      "language": "Мова",
+      "languageOptions": {
+        "system": "Системна"
+      },
+      "saveWindowPlacement": "Зберегти розташування вікна після закриття програми",
+      "minimizeToTray": "Закрити: згорнути в системний трей/смугу меню",
+      "launchAtStartup": "Автозапуск",
+      "launchMinimized": "Прихований автозапуск",
+      "animations": "Анімації"
+    },
+    "receive": {
+      "title": "Отримання",
+      "quickSave": "@:general.quickSave",
+      "destination": "Зберігати в теку",
+      "downloads": "(Завантаження)",
+      "saveToGallery": "Зберігати медіафайли до галереї",
+      "saveToHistory": "Зберігати історію"
+    },
+    "network": {
+      "title": "Мережа",
+      "needRestart": "Для застосування змін необхідно перезапустити сервер!",
+      "server": "Сервер",
+      "alias": "Ім'я пристрою",
+      "deviceType": "Тип пристрою",
+      "deviceModel": "Модель пристрою",
+      "port": "Порт",
+      "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
+      "encryption": "Шифрування",
+      "multicastGroup": "Групова передача",
+      "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну групову адресу. (default: {defaultMulticast})"
+    },
+    "advancedSettings": "Розширені налаштування"
+  },
+  "troubleshootPage": {
+    "title": "Усунення несправностей",
+    "subTitle": "Цей додаток не працює належним чином? Тут можна знайти загальні рішення проблем.",
+    "solution": "Рішення:",
+    "fixButton": "Виправити автоматично",
+    "firewall": {
+      "symptom": "Цей додаток може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.",
+      "solution": "Швидше за все, це проблема брандмауера. Ви можете вирішити цю проблему, дозволивши вхідні з’єднання (UDP та TCP) для порта: {port}.",
+      "openFirewall": "Відкрити брандмауер"
+    },
+    "noConnection": {
+      "symptom": "Обидва пристрої не можуть виявити один одного і не можуть обмінюватися файлами.",
+      "solution": "Проблема існує з обох сторін? Отже вам потрібно переконатися, що обидва пристрої знаходяться в одній мережі Wi-Fi і мають однакову конфігурацію (порт, групову адресу, шифрування). Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку вам необхідно увімкнути дану опцію на своєму маршрутизаторі."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Історія",
+    "openFolder": "Відкрити теку",
+    "deleteHistory": "Очистити історію",
+    "empty": "Історія порожня.",
+    "entryActions": {
+      "open": "Відкрити файл",
+      "info": "Інформація",
+      "deleteFromHistory": "Видалити з історії"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Додатки (APK)",
+    "excludeSystemApps": "Виключити системні додатки",
+    "excludeAppsWithoutLaunchIntent": "Виключити додатки, які не запускаються",
+    "apps": "{n} додатків"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Видалити все"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "хоче надіслати вам файл.",
+      "other": "хоче відправити {n} файлів."
+    },
+    "subTitleMessage": "надіслав вам повідомлення:",
+    "subTitleLink": "відправив вам посилання:",
+    "canceled": "Відправник скасував запит на передачу файлів."
+  },
+  "receiveOptionsPage": {
+    "title": "Параметри отримання",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(Тека LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Вимкнено автоматично, оскільки є каталоги."
+  },
+  "sendPage": {
+    "waiting": "Очікування відповіді...",
+    "rejected": "Отримувач відхилив запит.",
+    "busy": "Одержувач зайнятий іншим запитом."
+  },
+  "progressPage": {
+    "titleSending": "Надсилання файлів",
+    "titleReceiving": "Отримання файлів",
+    "savedToGallery": "Збережено у галереї",
+    "total": {
+      "title": {
+        "sending": "Загальний час передачі ({time})",
+        "finishedError": "Завершено з помилкою",
+        "canceledSender": "Скасовано відправником",
+        "canceledReceiver": "Скасовано одержувачем"
+      },
+      "count": "Файлів: {curr} / {n}",
+      "size": "Розмір: {curr} / {n}",
+      "speed": "Швидкість: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Поділитися через посилання",
+    "loading": "Запуск сервера...",
+    "stopping": "Зупинка сервера...",
+    "error": "Під час запуску сервера сталася помилка.",
+    "openLink": {
+      "one": "Відкрийте це посилання в браузері:",
+      "other": "Відкрийте одне з цих посилань в браузері:"
+    },
+    "requests": "Запити",
+    "noRequests": "Запитів поки що немає.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
+    "pendingRequests": "Запити, що очікують на розгляд: {n}"
+  },
+  "aboutPage": {
+    "title": "Про LocalSend"
+  },
+  "changelogPage": {
+    "title": "Історія змін"
+  },
+  "aliasGenerator(ignoreMissing)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Додати до обраних",
+      "content": "Що ви бажаєте додати?"
+    },
+    "addressInput": {
+      "title": "Введіть адресу",
+      "hashtag": "Хештег",
+      "ip": "IP-адреса",
+      "recentlyUsed": "Нещодавно використані: "
+    },
+    "cancelSession": {
+      "title": "Скасувати надсилання файлів",
+      "content": "Ви дійсно хочете скасувати надсилання файлів?"
+    },
+    "cannotOpenFile": {
+      "title": "Не вдалося відкрити файл",
+      "content": "Не вдалося відкрити \"{file}\". Можливо цей файл було переміщено, перейменовано чи видалено?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Шифрування вимкнено",
+      "content": "Зв'язок тепер відбувається через незашифрований протокол HTTP. Щоб використовувати HTTPS, знову ввімкніть шифрування."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Вибране",
+      "noFavorites": "Вибраних пристроїв ще немає.",
+      "addFavorite": "Додати"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Видалити з вибраних",
+      "content": "Ви дійсно хочете видалити з вибраних \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Додати до вибраних",
+      "titleEdit": "Налаштувати",
+      "name": "Ім'я пристрою",
+      "auto": "(автоматично)",
+      "ip": "IP-адреса",
+      "port": "Порт"
+    },
+    "fileInfo": {
+      "title": "Інформація про файл",
+      "fileName": "Ім'я файлу:",
+      "path": "Шлях:",
+      "size": "Розмір:",
+      "sender": "Відправник:",
+      "time": "Час:"
+    },
+    "fileNameInput": {
+      "title": "Введіть ім'я файлу",
+      "original": "Оригінальне ім'я файлу: {original}"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.",
+      "gotoSettings": "Налаштування"
+    },
+    "messageInput": {
+      "title": "Введіть повідомлення",
+      "multiline": "Багаторядкове"
+    },
+    "noFiles": {
+      "title": "Файли не обрано",
+      "content": "Будь ласка, додайте як мінімум один файл."
+    },
+    "noPermission": {
+      "title": "Немає дозволу",
+      "content": "Ви не надали необхідні дозволи. Будь ласка, надайте їх у налаштуваннях."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Недоступно",
+      "content": "Ця функція доступна лише на:"
+    },
+    "qr": {
+      "title": "QR-код"
+    },
+    "quickActions": {
+      "title": "Швидкі дії",
+      "counter": "Лічильник",
+      "prefix": "Префікс",
+      "padZero": "Додати нулі на початку",
+      "sortBeforeCount": "Відсортувати за алфавітом (А-Я)",
+      "random": "Випадково"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Запити на передачу файлів прийматимуться автоматично. Будьте обережні – кожен усередині цієї мережі зможе надсилати вам файли."
+    },
+    "sendModeHelp": {
+      "title": "Режими надсилання",
+      "single": "Надсилає файли одному одержувачу. Після завершення передачі файлу (-ів), виділення буде знято.",
+      "multiple": "Надсилає файли кільком одержувачам. Виділення не буде знято.",
+      "link": "Одержувачі, у яких не встановлено LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері."
+    }
+  },
+  "tray": {
+    "@info": "Посібник з розробки від Apple (Apple Guidelines) дуже суворо ставиться до формулювання 'закрити'.",
+    "open": "@:general.open",
+    "close": "Вихід із LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Відхилено",
+    "files": "Файлів",
+    "fileName": "Ім'я файлу",
+    "size": "Розмір"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Підтвердити",
+    "cancel": "Скасувати",
+    "edit": "Редагувати",
+    "gifIndicator": "GIF",
+    "loadFailed": "Помилка завантаження",
+    "original": "Оригінал",
+    "preview": "Попередній перегляд",
+    "select": "Вибрати",
+    "emptyList": "Список порожній",
+    "unSupportedAssetType": "Непідтримуваний тип файлу.",
+    "unableToAccessAll": "Неможливо отримати доступ до всіх файлів на пристрої",
+    "viewingLimitedAssetsTip": "Додаток може переглядати тільки файли та альбоми, до яких він має доступ.",
+    "changeAccessibleLimitedAssets": "Дозволити доступ до додаткових файлів",
+    "accessAllTip": "Додаток може отримати доступ тільки до деяких файлів на пристрої. Перейдіть до системних налаштувань та дозвольте додатку отримати доступ до всіх медіафайлів на пристрої.",
+    "goToSystemSettings": "Перейти до системних налаштувань",
+    "accessLimitedAssets": "Продовжити з обмеженим доступом",
+    "accessiblePathName": "Доступні файли",
+    "sTypeAudioLabel": "Аудіо",
+    "sTypeImageLabel": "Зображення",
+    "sTypeVideoLabel": "Відео",
+    "sTypeOtherLabel": "Інші медіафайли",
+    "sActionPlayHint": "відтворити",
+    "sActionPreviewHint": "попередній перегляд",
+    "sActionSelectHint": "вибрати",
+    "sActionSwitchPathLabel": "змінити шлях",
+    "sActionUseCameraHint": "використати камеру",
+    "sNameDurationLabel": "тривалість",
+    "sUnitAssetCountLabel": "кількість"
+  }
+}

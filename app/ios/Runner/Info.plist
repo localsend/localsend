@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>LocalSend</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>localsend_app</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
+	<!-- Flag to skip question by Appstore -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
+
+	<key>CFBundleLocalizations</key>
+    <array>
+        <string>ar</string>
+        <string>bn</string>
+        <string>cs</string>
+        <string>de</string>
+        <string>en</string>
+        <string>es-ES</string>
+        <string>eu</string>
+        <string>fa</string>
+        <string>fr-FR</string>
+        <string>hu</string>
+        <string>in</string>
+        <string>it</string>
+        <string>iw</string>
+        <string>ja</string>
+        <string>ko</string>
+        <string>ne</string>
+        <string>nl</string>
+        <string>pl</string>
+        <string>pt-BR</string>
+        <string>ru</string>
+        <string>sv</string>
+        <string>tr</string>
+        <string>uk</string>
+        <string>vi</string>
+        <string>zh-CN</string>
+        <string>zh-HK</string>
+        <string>zh-TW</string>
+    </array>
+
+    <!-- Make downloaded files visible to the user -->
+    <key>UISupportsDocumentBrowser</key>
+    <true/>
+
+    <!-- Permissions -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>The app needs photo library access so that the user can select photos to share.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>The app saves received media to the photo library.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>The app requires the local IP to communicate.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>The app requires the local IP to communicate.</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>The app uses the local network to find and connect to nearby devices.</string>
+    <key>NSBonjourServices</key>
+    <array>
+        <string>_http._tcp</string>
+        <string>_bonjour._tcp</string>
+        <string>_lnp._tcp.</string>
+    </array>
+
+    <!-- share_handler -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>ShareMedia-$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>

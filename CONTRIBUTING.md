@@ -22,8 +22,8 @@ You can help translating this app to other languages!
 
 1. Fork this repository
 2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/assets/i18n)
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
    - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
 3. Optional: Re-run this app
    1. Make sure you have [run](#run) this app once.
@@ -31,7 +31,29 @@ You can help translating this app to other languages!
    3. Run app via `flutter run`
 4. Open a pull request
 
-#### _Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+**_Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
+
+Thanks to all translators!
+
+| Language            | Translators                        |
+|---------------------|------------------------------------|
+| Czech               | @Amereyeu                          |
+| German              | Tien Do Nam (@Tienisto)            |
+| Italian             | @Francesco146                      |
+| Spanish             | Esteban Daniel Saracho (@esaracho) |
+| Persian             | @farshad991                        |
+| French              | @Nixuge                            |
+| Hungarian           | @gidano                            |
+| Hebrew              | @ShlomoCode                        |
+| Japanese            | @soya-daizu                        |
+| Korean              | @mgmix                             |
+| Russian             | Sergiy (@sergd88)                  |
+| Ukrainian           | Sergiy (@sergd88)                  |
+| Chinese (China)     | @nkh0472, @graphemecluster         |
+| Chinese (Hong Kong) | @graphemecluster                   |
+| Chinese (Taiwan)    | @Neo1102, @graphemecluster         |
+
+Your name is missing? Please open a pull request!
 
 ## Contributing Guidelines
 
