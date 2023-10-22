@@ -1,12 +1,12 @@
-# Contributing to LocalSend
+# Contributing to LocalSend 📌
 
 LocalSend is an open-source project, and we welcome contributions from anyone who is interested in helping improve the app. Whether you're a developer, a translator, or a documentation writer, there are many ways to get involved.
 
-## Getting Started
+## Getting Started 🔥
 
 If you're interested in contributing code to LocalSend, you'll need to follow these steps:
 
-## Run
+## Run 🏃 
 
 After you have installed [Flutter](https://flutter.dev), then you can start this app by typing the following commands:
 
