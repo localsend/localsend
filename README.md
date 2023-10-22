@@ -133,7 +133,7 @@ flutter build apk
 AppBundle for Google Play
 
 ```bash
-flutter build app bundle
+flutter build appbundle
 ```
 
 ### iOS
@@ -145,7 +145,7 @@ flutter build ipa
 ### macOS
 
 ```bash
-flutter build macOS
+flutter build macoS
 ```
 
 ### Windows
