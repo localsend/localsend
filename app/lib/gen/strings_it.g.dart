@@ -87,6 +87,8 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get save => 'Salva';
 	@override String get unchanged => 'Invariato';
 	@override String get unknown => 'Sconosciuto';
+	@override String get delete => 'Cancella';
+	@override String get noItemInClipboard => 'Nessun elemento negli Appunti';
 }
 
 // Path: receiveTab
@@ -300,6 +302,9 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
+	@override late final _StringsDialogsFavoriteDialogIt favoriteDialog = _StringsDialogsFavoriteDialogIt._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogIt favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogIt._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogIt favoriteEditDialog = _StringsDialogsFavoriteEditDialogIt._(_root);
 	@override late final _StringsDialogsAddFileIt addFile = _StringsDialogsAddFileIt._(_root);
 	@override late final _StringsDialogsAddressInputIt addressInput = _StringsDialogsAddressInputIt._(_root);
 	@override late final _StringsDialogsCancelSessionIt cancelSession = _StringsDialogsCancelSessionIt._(_root);
@@ -412,6 +417,7 @@ class _StringsSendTabPickerIt extends _StringsSendTabPickerEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get clipboard => 'Incolla';
 	@override String get file => 'File';
 	@override String get folder => 'Cartella';
 	@override String get media => 'Media';
@@ -533,6 +539,44 @@ class _StringsProgressPageTotalIt extends _StringsProgressPageTotalEn {
 	@override String count({required Object curr, required Object n}) => 'File: ${curr} / ${n}';
 	@override String size({required Object curr, required Object n}) => 'Dimensione: ${curr} / ${n}';
 	@override String speed({required Object speed}) => 'Velocità: ${speed}/s';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogIt extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Preferiti';
+	@override String get noFavorites => 'Nessun dispositivo preferito al momento.';
+	@override String get addFavorite => 'Aggiungi';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogIt extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Elimina dai preferiti';
+	@override String content({required Object name}) => 'Sei davvero sicuro di voler eliminare dai preferiti "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogIt extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Aggiungi ai preferiti';
+	@override String get titleEdit => 'Modifica';
+	@override String get name => 'Alias';
+	@override String get auto => '(automatico)';
+	@override String get ip => 'Indirizzo IP';
+	@override String get port => 'Porta';
 }
 
 // Path: dialogs.addFile
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsIt extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'Sistema';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

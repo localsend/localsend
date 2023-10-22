@@ -69,7 +69,7 @@ class _StringsGeneralIn extends _StringsGeneralEn {
 	@override String get example => 'Contoh';
 	@override String get files => 'File';
 	@override String get finished => 'Selesai';
-	@override String get hide => 'Bersembunyi';
+	@override String get hide => 'sembunyi';
 	@override String get off => 'Mati';
 	@override String get offline => 'Offline';
 	@override String get on => 'Hidup';
@@ -78,7 +78,7 @@ class _StringsGeneralIn extends _StringsGeneralEn {
 	@override String get queue => 'Antrian';
 	@override String get quickSave => 'Penyimpanan Cepat';
 	@override String get renamed => 'Berganti nama';
-	@override String get reset => 'Mengatur Ulang';
+	@override String get reset => 'Atur Ulang';
 	@override String get restart => 'Mengulang Kembali';
 	@override String get settings => 'Pengaturan';
 	@override String get skipped => 'Dilewati';

@@ -102,7 +102,7 @@ msix_config:
   # publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
-  languages: en, ar, bn, cs, de, es-ES, fa, fr-FR, hu, in, it, iw, ja, ko, ne, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-HK, zh-TW
+  languages: en, ar, bn, cs, de, es-ES, eu, fa, fr-FR, hu, in, it, iw, ja, ko, ne, nl, pl, pt-BR, ru, sv, tr, uk, vi, zh-CN, zh-HK, zh-TW
 
   # https://github.com/localsend/localsend/issues/398
   os_min_version: 10.0.19041.0
