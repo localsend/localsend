@@ -14,6 +14,7 @@
     "copiedToClipboard": "Zkopírováno do schránky",
     "decline": "Odmítnout",
     "done": "Hotovo",
+    "delete": "Vymazat",
     "edit": "Upravit",
     "error": "Chyba",
     "example": "Příklad",
@@ -36,7 +37,8 @@
     "stop": "Zastavit",
     "save": "Uložit",
     "unchanged": "Nezměněno",
-    "unknown": "Neznámý"
+    "unknown": "Neznámý",
+    "noItemInClipboard": "Žádná položka ve schránce"
   },
   "receiveTab": {
     "title": "Příjmout",
@@ -58,7 +60,8 @@
       "folder": "Složka",
       "media": "Média",
       "text": "Text",
-      "app": "Aplikace"
+      "app": "Aplikace",
+      "clipboard": "Vložit"
     },
     "shareIntentInfo": "Pro snazší výběr souborů můžete také použít funkci \"Sdílet\" svého mobilního zařízení.",
     "nearbyDevices": "Zařízení v okolí",
@@ -86,7 +89,8 @@
       },
       "color": "Barva",
       "colorOptions": {
-        "system": "Systém"
+        "system": "Systém",
+         "oled": "OLED"
       },
       "language": "Jazyk",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Oblíbené",
+      "noFavorites": "Zatím nemáte žádná oblíbená zařízení.",
+      "addFavorite": "Přidat"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Smazat z oblíbených",
+      "content": "Opravdu chcete smazat \"{name}\" z oblíbených?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Přidat k oblíbeným",
+      "titleEdit": "Upravit",
+      "name": "Přezdívka",
+      "auto": "(auto)",
+      "ip": "IP adresa",
+      "port": "Port"
     },
     "fileInfo": {
       "title": "Informace o souboru",
