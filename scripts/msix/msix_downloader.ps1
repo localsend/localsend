@@ -20,7 +20,7 @@ If the manufacturers would include these in their driver packages I wouldn't hav
 But I can see why they don't..
 
 There's this "small" issue with deploying .Appx and AppxBundles during an OSD.
-But that script will be done and uploaded in a cuple of days or so. :)
+But that script will be done and uploaded in a couple of days or so. :)
 
 
 The real heroes here are the ppl behind this site:
@@ -98,7 +98,7 @@ if ([regex]::IsMatch("$SavePathRoot\$ProductID", "([,!@?#$%^&*()\[\]]+|\\\.\.|\\
 
 
 if (!(test-path "$SavePathRoot\$ProductID")) {
-    write-host "Creating Directorty"$SavePathRoot\$ProductID""
+    write-host "Creating Directory"$SavePathRoot\$ProductID""
 
     try {
         New-Item -ItemType Directory "$SavePathRoot\$ProductID" -ErrorAction Stop | Out-Null
