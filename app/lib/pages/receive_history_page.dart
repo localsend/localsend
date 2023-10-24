@@ -10,6 +10,7 @@ import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
+import 'package:localsend_app/widget/dialogs/history_clear_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -85,7 +86,18 @@ class ReceiveHistoryPage extends StatelessWidget {
                     backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
                     foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
-                  onPressed: entries.isEmpty ? null : () async => ref.notifier(receiveHistoryProvider).removeAll(),
+                  onPressed: entries.isEmpty
+                      ? null
+                      : () async {
+                          final result = await showDialog(
+                            context: context,
+                            builder: (_) => const HistoryClearDialog(),
+                          );
+
+                          if (result == true) {
+                            await ref.notifier(receiveHistoryProvider).removeAll();
+                          }
+                        },
                   icon: const Icon(Icons.delete),
                   label: Text(t.receiveHistoryPage.deleteHistory),
                 ),
