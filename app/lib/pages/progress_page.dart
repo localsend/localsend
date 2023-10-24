@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class ProgressPage extends StatefulWidget {
   final bool showAppBar;
@@ -244,6 +246,16 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                   errorMessage = null;
                 }
 
+                final Uint8List? thumbnail;
+                final AssetEntity? asset;
+                if (sendSession != null) {
+                  thumbnail = sendSession.files[file.id]!.thumbnail;
+                  asset = sendSession.files[file.id]!.asset;
+                } else {
+                  thumbnail = null;
+                  asset = null;
+                }
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: InkWell(
@@ -255,17 +267,12 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if (sendSession != null && sendSession.files[file.id]?.asset != null)
-                          // Special handling for assets
-                          AssetThumbnail(
-                            asset: sendSession.files[file.id]!.asset!,
-                            fileType: file.fileType,
-                          )
-                        else
-                          FilePathThumbnail(
-                            path: filePath,
-                            fileType: file.fileType,
-                          ),
+                        SmartFileThumbnail(
+                          bytes: thumbnail,
+                          asset: asset,
+                          path: filePath,
+                          fileType: file.fileType,
+                        ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(

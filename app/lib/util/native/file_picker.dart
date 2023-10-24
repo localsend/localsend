@@ -6,9 +6,11 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/file_type.dart' as file_type;
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/determine_image_type.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -88,11 +90,11 @@ enum FilePickerOption {
   }
 }
 
-class PickAction extends AsyncGlobalAction {
+class PickFileAction extends AsyncGlobalAction {
   final FilePickerOption option;
   final BuildContext context;
 
-  PickAction({
+  PickFileAction({
     required this.option,
     required this.context,
   });
@@ -256,6 +258,19 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     return;
   }
 
+  final image = await Pasteboard.image;
+  if (image != null) {
+    final now = DateTime.now();
+    final fileName =
+        'clipboard_${now.year}-${now.month.twoDigitString}-${now.day.twoDigitString}_${now.hour.twoDigitString}-${now.minute.twoDigitString}.${determineImageType(image)}';
+    ref.redux(selectedSendingFilesProvider).dispatch(AddBinaryAction(
+          bytes: image,
+          fileType: file_type.FileType.image,
+          fileName: fileName,
+        ));
+    return;
+  }
+
   if (!context.mounted) {
     return;
   }
@@ -268,4 +283,8 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
 Future<void> _pickApp(BuildContext context) async {
   // Currently, only Android APK
   await context.push(() => const ApkPickerPage());
+}
+
+extension on int {
+  String get twoDigitString => toString().padLeft(2, '0');
 }

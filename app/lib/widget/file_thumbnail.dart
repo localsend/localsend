@@ -6,27 +6,44 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class CrossFileThumbnail extends StatelessWidget {
-  final CrossFile file;
+class SmartFileThumbnail extends StatelessWidget {
+  final Uint8List? bytes;
+  final AssetEntity? asset;
+  final String? path;
+  final FileType fileType;
 
-  const CrossFileThumbnail(this.file);
+  const SmartFileThumbnail({
+    required this.bytes,
+    required this.asset,
+    required this.path,
+    required this.fileType,
+  });
+
+  factory SmartFileThumbnail.fromCrossFile(CrossFile file) {
+    return SmartFileThumbnail(
+      bytes: file.thumbnail,
+      asset: file.asset,
+      path: file.path,
+      fileType: file.fileType,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (file.thumbnail != null) {
+    if (bytes != null) {
       return MemoryThumbnail(
-        bytes: file.thumbnail!,
-        fileType: file.fileType,
+        bytes: bytes,
+        fileType: fileType,
       );
-    } else if (file.asset != null) {
+    } else if (asset != null) {
       return AssetThumbnail(
-        asset: file.asset!,
-        fileType: file.fileType,
+        asset: asset!,
+        fileType: fileType,
       );
     } else {
       return FilePathThumbnail(
-        path: file.path,
-        fileType: file.fileType,
+        path: path,
+        fileType: fileType,
       );
     }
   }
