@@ -155,7 +155,7 @@
     "title": "অ্যাপস (এপিকে)",
     "excludeSystemApps": "সিস্টেম অ্যাপ বাদ দিন",
     "excludeAppsWithoutLaunchIntent": "অ-লঞ্চযোগ্য অ্যাপগুলি বাদ দিন",
-     "অ্যাপস": "{n} Apps"
+     "apps": "{n} Apps"
   },
   "selectedFilesPage": {
     "deleteAll": "সব ডিলিট করুন"
