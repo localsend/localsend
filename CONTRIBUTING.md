@@ -53,6 +53,7 @@ Thanks to all translators!
 | Chinese (China)     | @nkh0472, @graphemecluster         |
 | Chinese (Hong Kong) | @graphemecluster                   |
 | Chinese (Taiwan)    | @Neo1102, @graphemecluster         |
+| Bangla              | @RishiASheth                       |
 
 Your name is missing? Please open a pull request!
 
