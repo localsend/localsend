@@ -5,8 +5,8 @@
   ],
   "dialogs": {
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "履歴をクリア",
+      "content": "本当にすべての履歴を削除しますか？"
     }
   }
 }
