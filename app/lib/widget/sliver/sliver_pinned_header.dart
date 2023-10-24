@@ -40,6 +40,6 @@ class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(_SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
+    return true;
   }
 }

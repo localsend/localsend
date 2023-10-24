@@ -3,6 +3,7 @@
 - feat: add favorites (@Tienisto)
 - feat: add OLED color mode (@Tienisto)
 - feat: show dialog before clearing history (@pantshaswat, @Tienisto)
+- feat: show clear button in apk picker search bar (@Tienisto)
 - feat: use better colors for the toggle switches in the settings (@gitstart)
 - feat: drastically improve GPU usage by optimizing the spin animation (@Tienisto)
 - feat(desktop): support pasting from clipboard (@gitstart, @Tienisto)
