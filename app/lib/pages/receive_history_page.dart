@@ -10,6 +10,7 @@ import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
+import 'package:localsend_app/widget/dialogs/history_clear_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -37,8 +38,7 @@ final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
 class ReceiveHistoryPage extends StatelessWidget {
   const ReceiveHistoryPage({Key? key}) : super(key: key);
 
-  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry,
-      ReceiveHistoryNotifier filesRef) async {
+  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
     if (entry.path != null) {
       await openFile(
         context,
@@ -68,18 +68,13 @@ class ReceiveHistoryPage extends StatelessWidget {
                 const SizedBox(width: 15),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.secondaryContainerIfDark,
-                    foregroundColor: Theme.of(context)
-                        .colorScheme
-                        .onSecondaryContainerIfDark,
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
                   onPressed: checkPlatform([TargetPlatform.iOS])
                       ? null
                       : () async {
-                          final destination =
-                              ref.read(settingsProvider).destination ??
-                                  await getDefaultDestinationDirectory();
+                          final destination = ref.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
                           await openFolder(destination);
                         },
                   icon: const Icon(Icons.folder),
@@ -88,42 +83,21 @@ class ReceiveHistoryPage extends StatelessWidget {
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.secondaryContainerIfDark,
-                    foregroundColor: Theme.of(context)
-                        .colorScheme
-                        .onSecondaryContainerIfDark,
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(t.receiveHistoryPage.areYouSure),
-                          content: Text(t.receiveHistoryPage.deleteHistory),
-                          actions: [
-                            TextButton(
-                              onPressed: entries.isEmpty
-                                  ? null
-                                  : () async {
-                                      await ref
-                                          .notifier(receiveHistoryProvider)
-                                          .removeAll();
-                                      Navigator.pop(context);
-                                    },
-                              child: const Text('Delete'),
-                            ),
-                            TextButton(
-                              child: const Text('Cancel'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
+                  onPressed: entries.isEmpty
+                      ? null
+                      : () async {
+                          final result = await showDialog(
+                            context: context,
+                            builder: (_) => const HistoryClearDialog(),
+                          );
+
+                          if (result == true) {
+                            await ref.notifier(receiveHistoryProvider).removeAll();
+                          }
+                        },
                   icon: const Icon(Icons.delete),
                   label: Text(t.receiveHistoryPage.deleteHistory),
                 ),
@@ -134,24 +108,18 @@ class ReceiveHistoryPage extends StatelessWidget {
           if (entries.isEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 100),
-              child: Center(
-                  child: Text(t.receiveHistoryPage.empty,
-                      style: Theme.of(context).textTheme.headlineMedium)),
+              child: Center(child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium)),
             )
           else
             ...entries.map((entry) {
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: entry.path != null
-                      ? () async => _openFile(
-                          context, entry, ref.notifier(receiveHistoryProvider))
-                      : null,
+                  onTap: entry.path != null ? () async => _openFile(context, entry, ref.notifier(receiveHistoryProvider)) : null,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -187,8 +155,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                         onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:
-                              await _openFile(context, entry,
-                                  ref.notifier(receiveHistoryProvider));
+                              await _openFile(context, entry, ref.notifier(receiveHistoryProvider));
                               break;
                             case _EntryOption.info:
                               // ignore: use_build_context_synchronously
@@ -198,17 +165,12 @@ class ReceiveHistoryPage extends StatelessWidget {
                               );
                               break;
                             case _EntryOption.delete:
-                              await ref
-                                  .notifier(receiveHistoryProvider)
-                                  .removeEntry(entry.id);
+                              await ref.notifier(receiveHistoryProvider).removeEntry(entry.id);
                               break;
                           }
                         },
                         itemBuilder: (BuildContext context) {
-                          return (entry.path != null
-                                  ? _optionsAll
-                                  : _optionsWithoutOpen)
-                              .map((e) {
+                          return (entry.path != null ? _optionsAll : _optionsWithoutOpen).map((e) {
                             return PopupMenuItem<_EntryOption>(
                               value: e,
                               child: Text(e.label),

@@ -144,7 +144,6 @@
     "title": "History",
     "openFolder": "Open folder",
     "deleteHistory": "Delete history",
-    "areYouSure": "Are you sure?",
     "empty": "The history is empty.",
     "entryActions": {
       "open": "Open file",
@@ -346,6 +345,10 @@
     "fileNameInput": {
       "title": "Enter file name",
       "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
