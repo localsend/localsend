@@ -75,21 +75,21 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 
 ## Getting Started
 
-To start LocalSend from the source code, follow these steps:
+To compile LocalSend from source code, follow these steps:
 
 1. Install [Flutter](https://flutter.dev)
 2. Clone the LocalSend repository
-3. Run `flutter pub get` to download dependencies
-4. Run `dart run build_runner build -d` to generate code
+3. Run `cd app` to enter the app directory
+4. Run `flutter pub get` to download dependencies
 5. Run `flutter run` to start the app
 
 It may be the case that it doesn't work because of a mismatch between the required Flutter version and the installed Flutter version.
 
-LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you install it, run `fvm flutter` instead of `flutter`.
+LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you installed it, run `fvm flutter` instead of `flutter`.
 
 ## Contributing
 
-We welcome contributions from anyone who is interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
 
 ### Translation
 
@@ -97,8 +97,8 @@ You can help translate this app to other languages!
 
 1. Fork this repository
 2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n][i18n]
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n][i18n]
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [app/assets/i18n][i18n]
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [app/assets/i18n][i18n]
    - Add new languages: Create a new file; see also: [locale codes][].
 3. Optional: Re-run this app
    1. Make sure you have [run](#getting-started) this app once.
