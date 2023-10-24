@@ -313,6 +313,7 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogUk favoriteEditDialog = _StringsDialogsFavoriteEditDialogUk._(_root);
 	@override late final _StringsDialogsFileInfoUk fileInfo = _StringsDialogsFileInfoUk._(_root);
 	@override late final _StringsDialogsFileNameInputUk fileNameInput = _StringsDialogsFileNameInputUk._(_root);
+	@override late final _StringsDialogsHistoryClearDialogUk historyClearDialog = _StringsDialogsHistoryClearDialogUk._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedUk localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedUk._(_root);
 	@override late final _StringsDialogsMessageInputUk messageInput = _StringsDialogsMessageInputUk._(_root);
 	@override late final _StringsDialogsNoFilesUk noFiles = _StringsDialogsNoFilesUk._(_root);
@@ -573,7 +574,7 @@ class _StringsDialogsCancelSessionUk extends _StringsDialogsCancelSessionEn {
 
 	// Translations
 	@override String get title => 'Скасувати надсилання файлів';
-	@override String get content => 'Ви дійсно хочете скасувати надсилання файлів?';
+	@override String get content => 'Ви справді хочете скасувати надсилання файлів?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -628,7 +629,7 @@ class _StringsDialogsFavoriteDeleteDialogUk extends _StringsDialogsFavoriteDelet
 
 	// Translations
 	@override String get title => 'Видалити з вибраних';
-	@override String content({required Object name}) => 'Ви дійсно хочете видалити з вибраних "${name}"?';
+	@override String content({required Object name}) => 'Ви справді хочете видалити з вибраних "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputUk extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Введіть ім\'я файлу';
 	@override String original({required Object original}) => 'Оригінальне ім\'я файлу: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogUk extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Очистити історію';
+	@override String get content => 'Ви справді хочете видалити всю історію?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

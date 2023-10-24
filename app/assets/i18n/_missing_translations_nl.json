@@ -2,44 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <nl>.",
     "After editing this file, you can run 'dart run slang apply --locale=nl' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "delete": "Verwijderen",
-    "noItemInClipboard": "Niets in klembord"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "Plakken"
-    }
-  },
-  "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED" // no change // 
-      }
-    }
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "Voorkeuren",
-      "noFavorites": "Geen Favoriete Apparaten",
-      "addFavorite": "Toevoegen"
-    },
-    "favoriteDeleteDialog": {
-      "title": "uit voorkeuren verwijderen",
-      "content": "Weet u zeker dat u  \"{name}\" wilt verwijderen uit uw favorieten?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "Aan Favorieten toevoegen",
-      "titleEdit": "Aanpassen",
-      "name": "Alias", // unchanged
-      "auto": "(auto)",
-      "ip": "IP Adres",
-      "port": "Poort"
-    },
-    "historyClearDialog": {
-      "title": "Geschiedenis wissen",
-      "content": "Weet u zeker dat u de geschiedenis wilt wissen?"
-    }
-  }
+  ]
 }

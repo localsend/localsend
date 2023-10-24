@@ -276,6 +276,10 @@
       "title": "Введіть ім'я файлу",
       "original": "Оригінальне ім'я файлу: {original}"
     },
+    "historyClearDialog": {
+      "title": "Очистити історію",
+      "content": "Ви справді хочете видалити всю історію?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.",
