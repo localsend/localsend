@@ -34,7 +34,7 @@ class ShortcutWatcher extends StatelessWidget {
           _ExitAppIntent: CallbackAction(onInvoke: (_) => exit(0)),
           _PopPageIntent: CallbackAction(onInvoke: (_) async => Navigator.of(Routerino.context).maybePop()),
           _PasteIntent: CallbackAction(onInvoke: (_) async {
-            await context.ref.dispatchAsync(PickAction(option: FilePickerOption.clipboard, context: context));
+            await context.ref.dispatchAsync(PickFileAction(option: FilePickerOption.clipboard, context: context));
             return null;
           }),
         },

@@ -1,5 +1,6 @@
 import 'dart:convert' show utf8;
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
@@ -24,6 +25,7 @@ class SelectedSendingFilesNotifier extends ReduxNotifier<List<CrossFile>> {
   List<CrossFile> init() => [];
 }
 
+/// Adds a message.
 class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final String message;
   final int? index;
@@ -52,6 +54,7 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
   }
 }
 
+/// Updates a message.
 class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final String message;
   final int index;
@@ -69,6 +72,39 @@ class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List
   }
 }
 
+/// Adds a binary file to the list.
+/// During the sending process, the file will be read from the memory.
+class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final Uint8List bytes;
+  final FileType fileType;
+  final String fileName;
+
+  AddBinaryAction({
+    required this.bytes,
+    required this.fileType,
+    required this.fileName,
+  });
+
+  @override
+  List<CrossFile> reduce() {
+    final file = CrossFile(
+      name: fileName,
+      fileType: fileType,
+      size: bytes.length,
+      thumbnail: fileType == FileType.image ? bytes : null,
+      asset: null,
+      path: null,
+      bytes: bytes,
+    );
+
+    return List.unmodifiable([
+      ...state,
+      file,
+    ]);
+  }
+}
+
+/// Adds one or more files to the list.
 class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final Iterable<T> files;
   final Future<CrossFile> Function(T) converter;
@@ -128,6 +164,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
   }
 }
 
+/// Removes a file at the given [index].
 class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
   final int index;
 
@@ -146,6 +183,7 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
   }
 }
 
+/// Removes all files from the list.
 class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
   @override
   List<CrossFile> reduce() {
