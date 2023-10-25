@@ -346,6 +346,10 @@
       "title": "Enter file name",
       "original": "Original: {original}"
     },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",

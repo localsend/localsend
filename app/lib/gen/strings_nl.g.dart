@@ -64,6 +64,7 @@ class _StringsGeneralNl extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Gekopieerd naar het klembord';
 	@override String get decline => 'Weigeren';
 	@override String get done => 'Klaar';
+	@override String get delete => 'Verwijderen';
 	@override String get edit => 'Bewerken';
 	@override String get error => 'Fout';
 	@override String get example => 'Voorbeeld';
@@ -87,6 +88,7 @@ class _StringsGeneralNl extends _StringsGeneralEn {
 	@override String get save => 'Opslaan';
 	@override String get unchanged => 'Ongewijzigd';
 	@override String get unknown => 'Onbekend';
+	@override String get noItemInClipboard => 'Niets in klembord';
 }
 
 // Path: receiveTab
@@ -306,8 +308,12 @@ class _StringsDialogsNl extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileNl cannotOpenFile = _StringsDialogsCannotOpenFileNl._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeNl encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeNl._(_root);
 	@override late final _StringsDialogsErrorDialogNl errorDialog = _StringsDialogsErrorDialogNl._(_root);
+	@override late final _StringsDialogsFavoriteDialogNl favoriteDialog = _StringsDialogsFavoriteDialogNl._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogNl favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogNl._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogNl favoriteEditDialog = _StringsDialogsFavoriteEditDialogNl._(_root);
 	@override late final _StringsDialogsFileInfoNl fileInfo = _StringsDialogsFileInfoNl._(_root);
 	@override late final _StringsDialogsFileNameInputNl fileNameInput = _StringsDialogsFileNameInputNl._(_root);
+	@override late final _StringsDialogsHistoryClearDialogNl historyClearDialog = _StringsDialogsHistoryClearDialogNl._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedNl localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedNl._(_root);
 	@override late final _StringsDialogsMessageInputNl messageInput = _StringsDialogsMessageInputNl._(_root);
 	@override late final _StringsDialogsNoFilesNl noFiles = _StringsDialogsNoFilesNl._(_root);
@@ -417,6 +423,7 @@ class _StringsSendTabPickerNl extends _StringsSendTabPickerEn {
 	@override String get media => 'Media';
 	@override String get text => 'Tekst';
 	@override String get app => 'App';
+	@override String get clipboard => 'Plakken';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +609,44 @@ class _StringsDialogsErrorDialogNl extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogNl extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Voorkeuren';
+	@override String get noFavorites => 'Geen Favoriete Apparaten';
+	@override String get addFavorite => 'Toevoegen';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogNl extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'uit voorkeuren verwijderen';
+	@override String content({required Object name}) => 'Weet u zeker dat u  "${name}" wilt verwijderen uit uw favorieten?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogNl extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Aan Favorieten toevoegen';
+	@override String get titleEdit => 'Aanpassen';
+	@override String get name => 'Alias';
+	@override String get auto => '(auto)';
+	@override String get ip => 'IP Adres';
+	@override String get port => 'Poort';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoNl extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoNl._(_StringsNl root) : this._root = root, super._(root);
@@ -626,6 +671,17 @@ class _StringsDialogsFileNameInputNl extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Voer bestandsnaam in';
 	@override String original({required Object original}) => 'Origineel: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogNl extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Geschiedenis wissen';
+	@override String get content => 'Weet u zeker dat u de geschiedenis wilt wissen?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -753,6 +809,7 @@ class _StringsSettingsTabGeneralColorOptionsNl extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'Systeem';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

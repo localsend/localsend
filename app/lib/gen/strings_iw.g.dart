@@ -61,6 +61,7 @@ class _StringsGeneralIw extends _StringsGeneralEn {
 	@override String get confirm => 'אישור';
 	@override String get continueStr => 'המשך';
 	@override String get copy => 'העתק';
+	@override String get delete => 'מחק';
 	@override String get copiedToClipboard => 'הועתק ללוח';
 	@override String get decline => 'דחיה';
 	@override String get done => 'אישור';
@@ -117,8 +118,8 @@ class _StringsSendTabIw extends _StringsSendTabEn {
 	@override String get scan => 'חפש מכשירים';
 	@override String get sendMode => 'מצב שליחה';
 	@override late final _StringsSendTabSendModesIw sendModes = _StringsSendTabSendModesIw._(_root);
-	@override String get sendModeHelp => 'תיאור';
-	@override String get help => 'אנא ודא שאתה ומכשיר היעד נמצאים באותה רשת wifi.';
+	@override String get sendModeHelp => 'עזרה';
+	@override String get help => 'אנא ודא שאתה ומכשיר היעד נמצאים באותה רשת WiFi.';
 	@override String get placeItems => 'הצב פריטים לשיתוף.';
 }
 
@@ -144,7 +145,7 @@ class _StringsTroubleshootPageIw extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'פתרון תקלות';
-	@override String get subTitle => 'האפליקציה לא פועלת כפי שציפית? כאן תוכל למצוא פתרונות נפוצים.';
+	@override String get subTitle => 'האפליקציה לא פועלת כראוי? כאן תוכל למצוא פתרונות לבעיות נפוצות.';
 	@override String get solution => 'פתרון:';
 	@override String get fixButton => 'תקן אוטומטית';
 	@override late final _StringsTroubleshootPageFirewallIw firewall = _StringsTroubleshootPageFirewallIw._(_root);
@@ -318,6 +319,10 @@ class _StringsDialogsIw extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsIw quickActions = _StringsDialogsQuickActionsIw._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeIw quickSaveNotice = _StringsDialogsQuickSaveNoticeIw._(_root);
 	@override late final _StringsDialogsSendModeHelpIw sendModeHelp = _StringsDialogsSendModeHelpIw._(_root);
+	@override late final _StringsDialogsFavoriteDialogIw favoriteDialog = _StringsDialogsFavoriteDialogIw._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogIw favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogIw._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogIw favoriteEditDialog = _StringsDialogsFavoriteEditDialogIw._(_root);
+	@override late final _StringsDialogsHistoryClearDialogIw historyClearDialog = _StringsDialogsHistoryClearDialogIw._(_root);
 }
 
 // Path: tray
@@ -497,7 +502,7 @@ class _StringsTroubleshootPageFirewallIw extends _StringsTroubleshootPageFirewal
 
 	// Translations
 	@override String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה.';
-	@override String solution({required Object port}) => 'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אישור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
+	@override String solution({required Object port}) => 'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
 	@override String get openFirewall => 'פתח את חומת האש';
 }
 
@@ -733,6 +738,55 @@ class _StringsDialogsSendModeHelpIw extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'שולח קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר העברת הקובץ.';
 	@override String get multiple => 'שולח קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.';
 	@override String get link => 'מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן.';
+}
+
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogIw extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogIw._(_StringsIw root) : this._root = root, super._(root);
+
+	@override final _StringsIw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'מועדפים';
+	@override String get noFavorites => 'עדיין אין מכשירים מועדפים.';
+	@override String get addFavorite => 'הוספה';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogIw extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogIw._(_StringsIw root) : this._root = root, super._(root);
+
+	@override final _StringsIw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הסרה מהמועדפים';
+	@override String content({required Object name}) => 'האם אתה באמת רוצה להסיר מהמועדפים "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogIw extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogIw._(_StringsIw root) : this._root = root, super._(root);
+
+	@override final _StringsIw _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'הוסף למועדפים';
+	@override String get titleEdit => 'עריכה';
+	@override String get name => 'כינוי';
+	@override String get auto => '(אוטומטי)';
+	@override String get ip => 'כתובת ה-IP';
+	@override String get port => 'יציאה';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogIw extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogIw._(_StringsIw root) : this._root = root, super._(root);
+
+	@override final _StringsIw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'נקה היסטוריה';
+	@override String get content => 'האם אתה באמת רוצה למחוק את כל ההיסטוריה?';
 }
 
 // Path: settingsTab.general.brightnessOptions

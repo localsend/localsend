@@ -51,6 +51,7 @@ extension FilePathStringExt on String {
 
   FileType guessFileType() {
     switch (extension) {
+      case 'bmp':
       case 'jpg':
       case 'jpeg':
       case 'heic':

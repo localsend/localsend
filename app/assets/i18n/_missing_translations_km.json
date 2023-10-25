@@ -29,6 +29,10 @@
       "auto": "(auto)",
       "ip": "IP Address",
       "port": "Port"
+    },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
     }
   }
 }

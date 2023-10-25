@@ -14,6 +14,7 @@
     "copiedToClipboard": "Gekopieerd naar het klembord",
     "decline": "Weigeren",
     "done": "Klaar",
+    "delete": "Verwijderen",
     "edit": "Bewerken",
     "error": "Fout",
     "example": "Voorbeeld",
@@ -36,7 +37,8 @@
     "stop": "Stop",
     "save": "Opslaan",
     "unchanged": "Ongewijzigd",
-    "unknown": "Onbekend"
+    "unknown": "Onbekend",
+    "noItemInClipboard": "Niets in klembord"
   },
   "receiveTab": {
     "title": "Ontvangen",
@@ -58,7 +60,8 @@
       "folder": "Map",
       "media": "Media",
       "text": "Tekst",
-      "app": "App"
+      "app": "App",
+      "clipboard": "Plakken"
     },
     "shareIntentInfo": "Je kan ook de  \"Delen\" functie van je telefoon gebruiken om bestanden gemakkelijker te selecteren.",
     "nearbyDevices": "Apparaten in de buurt",
@@ -86,7 +89,8 @@
       },
       "color": "Kleur",
       "colorOptions": {
-        "system": "Systeem"
+        "system": "Systeem",
+        "oled": "OLED"
       },
       "language": "Taal",
       "languageOptions": {
@@ -243,6 +247,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "Voorkeuren",
+      "noFavorites": "Geen Favoriete Apparaten",
+      "addFavorite": "Toevoegen"
+    },
+    "favoriteDeleteDialog": {
+      "title": "uit voorkeuren verwijderen",
+      "content": "Weet u zeker dat u  \"{name}\" wilt verwijderen uit uw favorieten?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Aan Favorieten toevoegen",
+      "titleEdit": "Aanpassen",
+      "name": "Alias",
+      "auto": "(auto)",
+      "ip": "IP Adres",
+      "port": "Poort"
+    },
     "fileInfo": {
       "title": "Bestandsinformatie",
       "fileName": "Bestandsnaam:",
@@ -254,6 +275,10 @@
     "fileNameInput": {
       "title": "Voer bestandsnaam in",
       "original": "Origineel: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Geschiedenis wissen",
+      "content": "Weet u zeker dat u de geschiedenis wilt wissen?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
