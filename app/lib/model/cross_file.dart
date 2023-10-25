@@ -27,4 +27,10 @@ class CrossFile with CrossFileMappable {
     required this.path,
     required this.bytes,
   });
+
+  /// Custom toString() to avoid printing the bytes.
+  @override
+  String toString() {
+    return 'CrossFile(name: $name, fileType: $fileType, size: $size, thumbnail: ${thumbnail != null ? thumbnail!.length : 'null'}, asset: $asset, path: $path, bytes: ${bytes != null ? bytes!.length : 'null'})';
+  }
 }

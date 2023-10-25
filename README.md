@@ -12,7 +12,7 @@
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network, without needing an internet connection.
+LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
 
 - [About](#about)
 - [Screenshots](#screenshots)
@@ -39,7 +39,7 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 ## Download
 
-It is recommended to download the app either from an app store or from a package manager because the app does not have auto-update.
+It is recommended to download the app either from an app store or from a package manager because the app does not have an auto-update.
 
 | Windows                  | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
@@ -75,12 +75,12 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 
 ## Getting Started
 
-To start LocalSend from source code, follow these steps:
+To compile LocalSend from source code, follow these steps:
 
 1. Install [Flutter](https://flutter.dev)
 2. Clone the LocalSend repository
-3. Run `flutter pub get` to download dependencies
-4. Run `dart run build_runner build -d` to generate code
+3. Run `cd app` to enter the app directory
+4. Run `flutter pub get` to download dependencies
 5. Run `flutter run` to start the app
 
 It may be the case that it doesn't work because of a mismatch between the required Flutter version and the installed Flutter version.
@@ -89,32 +89,32 @@ LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (spe
 
 ## Contributing
 
-We welcome contributions from anyone who is interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
 
 ### Translation
 
-You can help translating this app to other languages!
+You can help translate this app to other languages!
 
 1. Fork this repository
 2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n][i18n]
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n][i18n]
-   - Add new languages: Create a new file, see also: [locale codes][].
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [app/assets/i18n][i18n]
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [app/assets/i18n][i18n]
+   - Add new languages: Create a new file; see also: [locale codes][].
 3. Optional: Re-run this app
    1. Make sure you have [run](#getting-started) this app once.
    2. Update translations via `flutter pub run slang`
-   3. Run app via `flutter run`
+   3. Run the app via `flutter run`
 4. Open a pull request
 
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
-#### _Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+#### _Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
 
 ### Bug fixes and improvements
 
 - **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
-- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first, so we can discuss why the improvement is needed.
+- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
 
 For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 

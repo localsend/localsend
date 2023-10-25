@@ -31,4 +31,12 @@ class SendSessionState with SendSessionStateMappable {
     required this.cancelToken,
     required this.errorMessage,
   });
+
+  /// Custom toString() to avoid printing the bytes.
+  /// The default toString() does not respect the overridden toString() of
+  /// SendingFile.
+  @override
+  String toString() {
+    return 'SendSessionState(sessionId: $sessionId, remoteSessionId: $remoteSessionId, background: $background, status: $status, target: $target, files: $files, startTime: $startTime, endTime: $endTime, cancelToken: $cancelToken, errorMessage: $errorMessage)';
+  }
 }

@@ -87,6 +87,8 @@ class _StringsGeneralFrFr extends _StringsGeneralEn {
 	@override String get save => 'Sauvegarder';
 	@override String get unchanged => 'Inchangé';
 	@override String get unknown => 'Inconnu';
+	@override String get delete => 'Supprimer';
+	@override String get noItemInClipboard => 'Aucun élément dans le presse-papiers';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsFrFr extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileFrFr cannotOpenFile = _StringsDialogsCannotOpenFileFrFr._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeFrFr encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeFrFr._(_root);
 	@override late final _StringsDialogsErrorDialogFrFr errorDialog = _StringsDialogsErrorDialogFrFr._(_root);
+	@override late final _StringsDialogsFavoriteDialogFrFr favoriteDialog = _StringsDialogsFavoriteDialogFrFr._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogFrFr favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogFrFr._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogFrFr favoriteEditDialog = _StringsDialogsFavoriteEditDialogFrFr._(_root);
 	@override late final _StringsDialogsFileInfoFrFr fileInfo = _StringsDialogsFileInfoFrFr._(_root);
 	@override late final _StringsDialogsFileNameInputFrFr fileNameInput = _StringsDialogsFileNameInputFrFr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedFrFr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedFrFr._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerFrFr extends _StringsSendTabPickerEn {
 	@override String get media => 'Média';
 	@override String get text => 'Texte';
 	@override String get app => 'Application';
+	@override String get clipboard => 'Presse-papiers';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +608,44 @@ class _StringsDialogsErrorDialogFrFr extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogFrFr extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogFrFr._(_StringsFrFr root) : this._root = root, super._(root);
+
+	@override final _StringsFrFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoris';
+	@override String get noFavorites => 'Aucun appareil favori pour le moment.';
+	@override String get addFavorite => 'Ajouter';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogFrFr extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogFrFr._(_StringsFrFr root) : this._root = root, super._(root);
+
+	@override final _StringsFrFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Supprimer des favoris';
+	@override String content({required Object name}) => 'Voulez-vous vraiment supprimer "${name}" des favoris ?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogFrFr extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogFrFr._(_StringsFrFr root) : this._root = root, super._(root);
+
+	@override final _StringsFrFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Ajouter aux favoris';
+	@override String get titleEdit => 'Ajuster';
+	@override String get name => 'Alias';
+	@override String get auto => '(automatique)';
+	@override String get ip => 'Adresse IP';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoFrFr extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoFrFr._(_StringsFrFr root) : this._root = root, super._(root);
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsFrFr extends _StringsSettingsTabGene
 
 	// Translations
 	@override String get system => 'Système';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

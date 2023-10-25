@@ -313,6 +313,7 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogRu favoriteEditDialog = _StringsDialogsFavoriteEditDialogRu._(_root);
 	@override late final _StringsDialogsFileInfoRu fileInfo = _StringsDialogsFileInfoRu._(_root);
 	@override late final _StringsDialogsFileNameInputRu fileNameInput = _StringsDialogsFileNameInputRu._(_root);
+	@override late final _StringsDialogsHistoryClearDialogRu historyClearDialog = _StringsDialogsHistoryClearDialogRu._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedRu localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedRu._(_root);
 	@override late final _StringsDialogsMessageInputRu messageInput = _StringsDialogsMessageInputRu._(_root);
 	@override late final _StringsDialogsNoFilesRu noFiles = _StringsDialogsNoFilesRu._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputRu extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Введите имя файла';
 	@override String original({required Object original}) => 'Оригинальное имя файла: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogRu extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Очистить историю';
+	@override String get content => 'Вы действительно хотите удалить всю историю?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

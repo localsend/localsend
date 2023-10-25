@@ -383,6 +383,7 @@ class _StringsDialogsEn {
 	late final _StringsDialogsFavoriteEditDialogEn favoriteEditDialog = _StringsDialogsFavoriteEditDialogEn._(_root);
 	late final _StringsDialogsFileInfoEn fileInfo = _StringsDialogsFileInfoEn._(_root);
 	late final _StringsDialogsFileNameInputEn fileNameInput = _StringsDialogsFileNameInputEn._(_root);
+	late final _StringsDialogsHistoryClearDialogEn historyClearDialog = _StringsDialogsHistoryClearDialogEn._(_root);
 	late final _StringsDialogsLocalNetworkUnauthorizedEn localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEn._(_root);
 	late final _StringsDialogsMessageInputEn messageInput = _StringsDialogsMessageInputEn._(_root);
 	late final _StringsDialogsNoFilesEn noFiles = _StringsDialogsNoFilesEn._(_root);
@@ -740,6 +741,17 @@ class _StringsDialogsFileNameInputEn {
 	// Translations
 	String get title => 'Enter file name';
 	String original({required Object original}) => 'Original: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Clear history';
+	String get content => 'Do you really want to delete the entire history?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

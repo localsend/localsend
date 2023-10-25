@@ -36,7 +36,9 @@
     "stop": "Arrêter",
     "save": "Sauvegarder",
     "unchanged": "Inchangé",
-    "unknown": "Inconnu"
+    "unknown": "Inconnu",
+    "delete": "Supprimer",
+    "noItemInClipboard": "Aucun élément dans le presse-papiers"
   },
   "receiveTab": {
     "title": "Recevoir",
@@ -58,7 +60,8 @@
       "folder": "Dossier",
       "media": "Média",
       "text": "Texte",
-      "app": "Application"
+      "app": "Application",
+      "clipboard": "Presse-papiers"
     },
     "shareIntentInfo": "Vous pouvez également utiliser la fonction \"Partager\" de votre appareil pour sélectionner des fichiers plus facilement.",
     "nearbyDevices": "Appareils à proximité",
@@ -86,7 +89,8 @@
       },
       "color": "Couleur",
       "colorOptions": {
-        "system": "Système"
+        "system": "Système",
+        "oled": "OLED"
       },
       "language": "Langue",
       "languageOptions": {
@@ -242,6 +246,23 @@
     },
     "errorDialog": {
       "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoris",
+      "noFavorites": "Aucun appareil favori pour le moment.",
+      "addFavorite": "Ajouter"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Supprimer des favoris",
+      "content": "Voulez-vous vraiment supprimer \"{name}\" des favoris ?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Ajouter aux favoris",
+      "titleEdit": "Ajuster",
+      "name": "Alias",
+      "auto": "(automatique)",
+      "ip": "Adresse IP",
+      "port": "Port"
     },
     "fileInfo": {
       "title": "Informations sur le fichier",

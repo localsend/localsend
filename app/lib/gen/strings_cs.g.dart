@@ -64,6 +64,7 @@ class _StringsGeneralCs extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Zkopírováno do schránky';
 	@override String get decline => 'Odmítnout';
 	@override String get done => 'Hotovo';
+	@override String get delete => 'Vymazat';
 	@override String get edit => 'Upravit';
 	@override String get error => 'Chyba';
 	@override String get example => 'Příklad';
@@ -87,6 +88,7 @@ class _StringsGeneralCs extends _StringsGeneralEn {
 	@override String get save => 'Uložit';
 	@override String get unchanged => 'Nezměněno';
 	@override String get unknown => 'Neznámý';
+	@override String get noItemInClipboard => 'Žádná položka ve schránce';
 }
 
 // Path: receiveTab
@@ -306,6 +308,9 @@ class _StringsDialogsCs extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileCs cannotOpenFile = _StringsDialogsCannotOpenFileCs._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeCs encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeCs._(_root);
 	@override late final _StringsDialogsErrorDialogCs errorDialog = _StringsDialogsErrorDialogCs._(_root);
+	@override late final _StringsDialogsFavoriteDialogCs favoriteDialog = _StringsDialogsFavoriteDialogCs._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogCs favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogCs._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogCs favoriteEditDialog = _StringsDialogsFavoriteEditDialogCs._(_root);
 	@override late final _StringsDialogsFileInfoCs fileInfo = _StringsDialogsFileInfoCs._(_root);
 	@override late final _StringsDialogsFileNameInputCs fileNameInput = _StringsDialogsFileNameInputCs._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedCs localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedCs._(_root);
@@ -417,6 +422,7 @@ class _StringsSendTabPickerCs extends _StringsSendTabPickerEn {
 	@override String get media => 'Média';
 	@override String get text => 'Text';
 	@override String get app => 'Aplikace';
+	@override String get clipboard => 'Vložit';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +608,44 @@ class _StringsDialogsErrorDialogCs extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogCs extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Oblíbené';
+	@override String get noFavorites => 'Zatím nemáte žádná oblíbená zařízení.';
+	@override String get addFavorite => 'Přidat';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogCs extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Smazat z oblíbených';
+	@override String content({required Object name}) => 'Opravdu chcete smazat "${name}" z oblíbených?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogCs extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Přidat k oblíbeným';
+	@override String get titleEdit => 'Upravit';
+	@override String get name => 'Přezdívka';
+	@override String get auto => '(auto)';
+	@override String get ip => 'IP adresa';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoCs extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoCs._(_StringsCs root) : this._root = root, super._(root);
@@ -753,6 +797,7 @@ class _StringsSettingsTabGeneralColorOptionsCs extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'Systém';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

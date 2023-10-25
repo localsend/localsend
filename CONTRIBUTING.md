@@ -49,9 +49,11 @@ Thanks to all translators!
 | Korean              | @mgmix                             |
 | Russian             | Sergiy (@sergd88)                  |
 | Ukrainian           | Sergiy (@sergd88)                  |
+| Vietnamese          | @faea726                           |
 | Chinese (China)     | @nkh0472, @graphemecluster         |
 | Chinese (Hong Kong) | @graphemecluster                   |
 | Chinese (Taiwan)    | @Neo1102, @graphemecluster         |
+| Bangla              | @RishiASheth                       |
 
 Your name is missing? Please open a pull request!
 

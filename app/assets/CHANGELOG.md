@@ -1,13 +1,16 @@
 ## 1.12.0 (2023-)
 
 - feat: add favorites (@Tienisto)
-- feat: drastically improve GPU usage by optimizing the spin animation (@Tienisto)
 - feat: add OLED color mode (@Tienisto)
+- feat: show dialog before clearing history (@pantshaswat, @Tienisto)
+- feat: show clear button in apk picker search bar (@Tienisto)
 - feat: use better colors for the toggle switches in the settings (@gitstart)
+- feat: drastically improve GPU usage by optimizing the spin animation (@Tienisto)
 - feat(desktop): support pasting from clipboard (@gitstart, @Tienisto)
 - feat(linux): allow disabling client side decorations on Wayland (@I-Want-ToBelieve)
 - feat(android): use high framerate on devices that lock at 60 Hz like on some OnePlus phones (@Tienisto)
 - fix(desktop): fallback to "$HOME/Downloads" when default downloads folder is unavailable (@Sqbika)
+- i18n: add Vietnamese (@faea726), Thai (@watchakorn-18k), Basque (@xezpeleta)
 
 ## 1.11.1 (2023-09-04)
 

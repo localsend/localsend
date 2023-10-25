@@ -234,7 +234,7 @@
     },
     "cancelSession": {
       "title": "Скасувати надсилання файлів",
-      "content": "Ви дійсно хочете скасувати надсилання файлів?"
+      "content": "Ви справді хочете скасувати надсилання файлів?"
     },
     "cannotOpenFile": {
       "title": "Не вдалося відкрити файл",
@@ -254,7 +254,7 @@
     },
     "favoriteDeleteDialog": {
       "title": "Видалити з вибраних",
-      "content": "Ви дійсно хочете видалити з вибраних \"{name}\"?"
+      "content": "Ви справді хочете видалити з вибраних \"{name}\"?"
     },
     "favoriteEditDialog": {
       "titleAdd": "Додати до вибраних",
@@ -275,6 +275,10 @@
     "fileNameInput": {
       "title": "Введіть ім'я файлу",
       "original": "Оригінальне ім'я файлу: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Очистити історію",
+      "content": "Ви справді хочете видалити всю історію?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

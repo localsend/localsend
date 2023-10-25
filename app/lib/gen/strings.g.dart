@@ -3,8 +3,8 @@
 /// Original: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 29
-/// Strings: 7352 (253 per locale)
+/// Locales: 31
+/// Strings: 8180 (263 per locale)
 
 
 // coverage:ignore-file
@@ -38,9 +38,11 @@ part 'strings_pl.g.dart';
 part 'strings_pt_BR.g.dart';
 part 'strings_ru.g.dart';
 part 'strings_sv.g.dart';
+part 'strings_th.g.dart';
 part 'strings_tr.g.dart';
 part 'strings_uk.g.dart';
 part 'strings_ur.g.dart';
+part 'strings_vi.g.dart';
 part 'strings_zh_CN.g.dart';
 part 'strings_zh_HK.g.dart';
 part 'strings_zh_TW.g.dart';
@@ -77,9 +79,11 @@ enum AppLocale with BaseAppLocale<AppLocale, _StringsEn> {
 	ptBr(languageCode: 'pt', countryCode: 'BR', build: _StringsPtBr.build),
 	ru(languageCode: 'ru', build: _StringsRu.build),
 	sv(languageCode: 'sv', build: _StringsSv.build),
+	th(languageCode: 'th', build: _StringsTh.build),
 	tr(languageCode: 'tr', build: _StringsTr.build),
 	uk(languageCode: 'uk', build: _StringsUk.build),
 	ur(languageCode: 'ur', build: _StringsUr.build),
+	vi(languageCode: 'vi', build: _StringsVi.build),
 	zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build),
 	zhHk(languageCode: 'zh', countryCode: 'HK', build: _StringsZhHk.build),
 	zhTw(languageCode: 'zh', countryCode: 'TW', build: _StringsZhTw.build);

@@ -85,7 +85,7 @@ class SelectedFilesPage extends StatelessWidget {
                           padding: const EdgeInsets.all(10),
                           child: Row(
                             children: [
-                              CrossFileThumbnail(file),
+                              SmartFileThumbnail.fromCrossFile(file),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Column(

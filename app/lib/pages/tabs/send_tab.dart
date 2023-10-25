@@ -79,7 +79,7 @@ class _SendTabState extends State<SendTab> with Refena {
                       icon: option.icon,
                       label: option.label,
                       filled: false,
-                      onTap: () async => ref.dispatchAsync(PickAction(
+                      onTap: () async => ref.dispatchAsync(PickFileAction(
                         option: option,
                         context: context,
                       )),
@@ -112,7 +112,7 @@ class _SendTabState extends State<SendTab> with Refena {
                       children: [
                         ...vm.selectedFiles.map((file) {
                           return [
-                            CrossFileThumbnail(file),
+                            SmartFileThumbnail.fromCrossFile(file),
                             const SizedBox(width: 10),
                           ];
                         }).expand((e) => e),
@@ -141,7 +141,7 @@ class _SendTabState extends State<SendTab> with Refena {
                         onPressed: () async {
                           if (options.length == 1) {
                             // open directly
-                            await ref.dispatchAsync(PickAction(
+                            await ref.dispatchAsync(PickFileAction(
                               option: options.first,
                               context: context,
                             ));
