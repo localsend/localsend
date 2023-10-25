@@ -132,21 +132,19 @@ extension InputDecorationThemeExt on InputDecorationTheme {
 }
 
 ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, DynamicColors? dynamicColors) {
+  final defaultColorScheme = ColorScheme.fromSeed(
+    seedColor: Colors.teal,
+    brightness: brightness,
+  );
+
   final colorScheme = switch (mode) {
     ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
     ColorMode.localsend => null,
-    ColorMode.oled => ColorScheme.fromSeed(
-        seedColor: Colors.teal,
-        brightness: brightness,
-      ).copyWith(
+    ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
         background: Colors.black,
         surface: Colors.black,
       ),
   };
 
-  return colorScheme ??
-      ColorScheme.fromSeed(
-        seedColor: Colors.teal,
-        brightness: brightness,
-      );
+  return colorScheme ?? defaultColorScheme;
 }
