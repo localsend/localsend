@@ -7,7 +7,7 @@
     "add": "הוספה",
     "advanced": "מידע נוסף",
     "cancel": "ביטול",
-    "close": "סגור",
+    "close": "סגירה",
     "confirm": "אישור",
     "continueStr": "המשך",
     "copy": "העתקה",
@@ -179,7 +179,7 @@
   "sendPage": {
     "waiting": "ממתין לתגובה...",
     "rejected": "הנמען דחה את הבקשה.",
-    "busy": "המקבל תפוס בבקשה אחרת."
+    "busy": "הנמען תפוס בבקשה אחרת."
   },
   "progressPage": {
     "titleSending": "שולח קבצים",
@@ -261,7 +261,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. בבקשה הענק את ההרשאה הזו בהגדרות.",
+      "description": "ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. אנא הענק את ההרשאה הזו בהגדרות.",
       "gotoSettings": "הגדרות"
     },
     "messageInput": {
@@ -297,8 +297,8 @@
     },
     "sendModeHelp": {
       "title": "מצבי שליחה",
-      "single": "שולח קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.",
-      "multiple": "שולח קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.",
+      "single": "שליחת קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.",
+      "multiple": "שליחת קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.",
       "link": "מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן שלהם."
     },
     "favoriteDialog": {
@@ -319,7 +319,7 @@
       "port": "יציאה"
     },
     "historyClearDialog": {
-      "title": "נקה היסטוריה",
+      "title": "ניקוי היסטוריה",
       "content": "האם אתה באמת רוצה למחוק את כל ההיסטוריה?"
     }
   },
@@ -349,7 +349,7 @@
     "unSupportedAssetType": "סוג קובץ לא נתמך",
     "unableToAccessAll": "לא ניתן לגשת לכל הקבצים במכשיר",
     "viewingLimitedAssetsTip": "ניתן להציג רק קבצים ואלבומים שנגישים לאפליקציה.",
-    "changeAccessibleLimitedAssets": "לחץ כדי לעדכן את הקבצים שנגישים",
+    "changeAccessibleLimitedAssets": "לחץ כדי לעדכן את הקבצים הנגישים",
     "accessAllTip": "האפליקציה יכולה לגשת רק לקבצים מסוימים במכשיר. עבור להגדרות המערכת ואפשר לאפליקציה לגשת לכל הקבצים שבמכשיר.",
     "goToSystemSettings": "מעבר להגדרות המערכת",
     "accessLimitedAssets": "המשך עם גישה מוגבלת",
@@ -363,7 +363,7 @@
     "sActionSelectHint": "בחירה",
     "sActionSwitchPathLabel": "שינוי נתיב",
     "sActionUseCameraHint": "שימוש במצלמה",
-    "sNameDurationLabel": "משך זמן",
+    "sNameDurationLabel": "אורך",
     "sUnitAssetCountLabel": "מספר"
   }
 }
