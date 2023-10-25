@@ -145,7 +145,7 @@ class _StringsTroubleshootPageVi extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'Gỡ lỗi';
-	@override String get subTitle => 'Ứng dụng không hoạt động như dự kiến? Bạn có thể tìm giải pháp thông thường tại đây.';
+	@override String get subTitle => 'Ứng dụng không hoạt động như dự kiến? Bạn có thể tìm giải pháp cho những vấn đề thường gặp tại đây.';
 	@override String get solution => 'Giải pháp:';
 	@override String get fixButton => 'Sửa lỗi tự động';
 	@override late final _StringsTroubleshootPageFirewallVi firewall = _StringsTroubleshootPageFirewallVi._(_root);
@@ -444,7 +444,7 @@ class _StringsSettingsTabGeneralVi extends _StringsSettingsTabGeneralEn {
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tổng';
+	@override String get title => 'Chung';
 	@override String get brightness => 'Chủ đề';
 	@override late final _StringsSettingsTabGeneralBrightnessOptionsVi brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsVi._(_root);
 	@override String get color => 'Màu sắc';
@@ -468,7 +468,7 @@ class _StringsSettingsTabReceiveVi extends _StringsSettingsTabReceiveEn {
 	@override String get title => 'Nhận';
 	@override String get quickSave => '${_root.general.quickSave}';
 	@override String get destination => 'Đích đến';
-	@override String get downloads => '(Tải xuống)';
+	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'Lưu media vào thư viện';
 	@override String get saveToHistory => 'Lưu vào lịch sử';
 }
@@ -501,7 +501,7 @@ class _StringsTroubleshootPageFirewallVi extends _StringsTroubleshootPageFirewal
 
 	// Translations
 	@override String get symptom => 'Ứng dụng có thể gửi tập tin tới các thiết bị khác, nhưng các thiết bị khác không thể gửi tập tin đến thiết bị này.';
-	@override String solution({required Object port}) => 'Có vẻ như đây là vấn đề của tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port ${port}.';
+	@override String solution({required Object port}) => 'Có vẻ như đây là một vấn đề với tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port ${port}.';
 	@override String get openFirewall => 'Mở tường lửa(Firewall)';
 }
 

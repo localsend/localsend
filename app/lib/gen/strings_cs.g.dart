@@ -313,6 +313,7 @@ class _StringsDialogsCs extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogCs favoriteEditDialog = _StringsDialogsFavoriteEditDialogCs._(_root);
 	@override late final _StringsDialogsFileInfoCs fileInfo = _StringsDialogsFileInfoCs._(_root);
 	@override late final _StringsDialogsFileNameInputCs fileNameInput = _StringsDialogsFileNameInputCs._(_root);
+	@override late final _StringsDialogsHistoryClearDialogCs historyClearDialog = _StringsDialogsHistoryClearDialogCs._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedCs localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedCs._(_root);
 	@override late final _StringsDialogsMessageInputCs messageInput = _StringsDialogsMessageInputCs._(_root);
 	@override late final _StringsDialogsNoFilesCs noFiles = _StringsDialogsNoFilesCs._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputCs extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Zadejte název souboru';
 	@override String original({required Object original}) => 'Původní: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogCs extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Smazat historii';
+	@override String get content => 'Opravdu chcete smazat celou historii?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

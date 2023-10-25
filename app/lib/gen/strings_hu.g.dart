@@ -313,6 +313,7 @@ class _StringsDialogsHu extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogHu favoriteEditDialog = _StringsDialogsFavoriteEditDialogHu._(_root);
 	@override late final _StringsDialogsFileInfoHu fileInfo = _StringsDialogsFileInfoHu._(_root);
 	@override late final _StringsDialogsFileNameInputHu fileNameInput = _StringsDialogsFileNameInputHu._(_root);
+	@override late final _StringsDialogsHistoryClearDialogHu historyClearDialog = _StringsDialogsHistoryClearDialogHu._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedHu localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedHu._(_root);
 	@override late final _StringsDialogsMessageInputHu messageInput = _StringsDialogsMessageInputHu._(_root);
 	@override late final _StringsDialogsNoFilesHu noFiles = _StringsDialogsNoFilesHu._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputHu extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Írja be a fájl nevét';
 	@override String original({required Object original}) => 'Eredeti: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogHu extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Előzmény törlése';
+	@override String get content => 'Biztosan törölni szeretné a teljes előzményt?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

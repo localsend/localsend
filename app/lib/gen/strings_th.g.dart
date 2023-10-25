@@ -384,6 +384,7 @@ class _StringsDialogsTh extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogTh favoriteEditDialog = _StringsDialogsFavoriteEditDialogTh._(_root);
 	@override late final _StringsDialogsFileInfoTh fileInfo = _StringsDialogsFileInfoTh._(_root);
 	@override late final _StringsDialogsFileNameInputTh fileNameInput = _StringsDialogsFileNameInputTh._(_root);
+	@override late final _StringsDialogsHistoryClearDialogTh historyClearDialog = _StringsDialogsHistoryClearDialogTh._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedTh localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedTh._(_root);
 	@override late final _StringsDialogsMessageInputTh messageInput = _StringsDialogsMessageInputTh._(_root);
 	@override late final _StringsDialogsNoFilesTh noFiles = _StringsDialogsNoFilesTh._(_root);
@@ -741,6 +742,17 @@ class _StringsDialogsFileNameInputTh extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'กรอกชื่อไฟล์';
 	@override String original({required Object original}) => 'ต้นฉบับ: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogTh extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ล้างประวัติ';
+	@override String get content => 'คุณต้องการลบประวัติทั้งหมดจริงๆหรือไม่?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

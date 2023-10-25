@@ -64,6 +64,7 @@ class _StringsGeneralFrFr extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Copié dans le presse-papiers';
 	@override String get decline => 'Refuser';
 	@override String get done => 'Terminé';
+	@override String get delete => 'Supprimer';
 	@override String get edit => 'Modifier';
 	@override String get error => 'Erreur';
 	@override String get example => 'Exemple';
@@ -87,7 +88,6 @@ class _StringsGeneralFrFr extends _StringsGeneralEn {
 	@override String get save => 'Sauvegarder';
 	@override String get unchanged => 'Inchangé';
 	@override String get unknown => 'Inconnu';
-	@override String get delete => 'Supprimer';
 	@override String get noItemInClipboard => 'Aucun élément dans le presse-papiers';
 }
 
@@ -313,6 +313,7 @@ class _StringsDialogsFrFr extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogFrFr favoriteEditDialog = _StringsDialogsFavoriteEditDialogFrFr._(_root);
 	@override late final _StringsDialogsFileInfoFrFr fileInfo = _StringsDialogsFileInfoFrFr._(_root);
 	@override late final _StringsDialogsFileNameInputFrFr fileNameInput = _StringsDialogsFileNameInputFrFr._(_root);
+	@override late final _StringsDialogsHistoryClearDialogFrFr historyClearDialog = _StringsDialogsHistoryClearDialogFrFr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedFrFr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedFrFr._(_root);
 	@override late final _StringsDialogsMessageInputFrFr messageInput = _StringsDialogsMessageInputFrFr._(_root);
 	@override late final _StringsDialogsNoFilesFrFr noFiles = _StringsDialogsNoFilesFrFr._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputFrFr extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Entrez le nom du fichier';
 	@override String original({required Object original}) => 'Original: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogFrFr extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogFrFr._(_StringsFrFr root) : this._root = root, super._(root);
+
+	@override final _StringsFrFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Effacer l\'historique';
+	@override String get content => 'Voulez-vous vraiment effacer l\'historique entier?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

@@ -276,6 +276,10 @@
       "title": "ファイル名を入力",
       "original": "元の名前: {original}"
     },
+    "historyClearDialog": {
+      "title": "履歴をクリア",
+      "content": "本当にすべての履歴を削除しますか？"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",

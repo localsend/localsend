@@ -313,6 +313,7 @@ class _StringsDialogsEsEs extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogEsEs favoriteEditDialog = _StringsDialogsFavoriteEditDialogEsEs._(_root);
 	@override late final _StringsDialogsFileInfoEsEs fileInfo = _StringsDialogsFileInfoEsEs._(_root);
 	@override late final _StringsDialogsFileNameInputEsEs fileNameInput = _StringsDialogsFileNameInputEsEs._(_root);
+	@override late final _StringsDialogsHistoryClearDialogEsEs historyClearDialog = _StringsDialogsHistoryClearDialogEsEs._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedEsEs localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEsEs._(_root);
 	@override late final _StringsDialogsMessageInputEsEs messageInput = _StringsDialogsMessageInputEsEs._(_root);
 	@override late final _StringsDialogsNoFilesEsEs noFiles = _StringsDialogsNoFilesEsEs._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputEsEs extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Introduce el nombre';
 	@override String original({required Object original}) => 'Original: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogEsEs extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Borrar historial';
+	@override String get content => '¿Realmente quieres borrar todo el historial?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

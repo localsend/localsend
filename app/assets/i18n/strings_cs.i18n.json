@@ -90,7 +90,7 @@
       "color": "Barva",
       "colorOptions": {
         "system": "Systém",
-         "oled": "OLED"
+        "oled": "OLED"
       },
       "language": "Jazyk",
       "languageOptions": {
@@ -275,6 +275,10 @@
     "fileNameInput": {
       "title": "Zadejte název souboru",
       "original": "Původní: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Smazat historii",
+      "content": "Opravdu chcete smazat celou historii?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

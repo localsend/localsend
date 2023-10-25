@@ -14,6 +14,7 @@
     "copiedToClipboard": "Copié dans le presse-papiers",
     "decline": "Refuser",
     "done": "Terminé",
+    "delete": "Supprimer",
     "edit": "Modifier",
     "error": "Erreur",
     "example": "Exemple",
@@ -37,7 +38,6 @@
     "save": "Sauvegarder",
     "unchanged": "Inchangé",
     "unknown": "Inconnu",
-    "delete": "Supprimer",
     "noItemInClipboard": "Aucun élément dans le presse-papiers"
   },
   "receiveTab": {
@@ -275,6 +275,10 @@
     "fileNameInput": {
       "title": "Entrez le nom du fichier",
       "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Effacer l'historique",
+      "content": "Voulez-vous vraiment effacer l'historique entier?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

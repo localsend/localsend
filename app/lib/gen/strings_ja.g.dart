@@ -313,6 +313,7 @@ class _StringsDialogsJa extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogJa favoriteEditDialog = _StringsDialogsFavoriteEditDialogJa._(_root);
 	@override late final _StringsDialogsFileInfoJa fileInfo = _StringsDialogsFileInfoJa._(_root);
 	@override late final _StringsDialogsFileNameInputJa fileNameInput = _StringsDialogsFileNameInputJa._(_root);
+	@override late final _StringsDialogsHistoryClearDialogJa historyClearDialog = _StringsDialogsHistoryClearDialogJa._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedJa localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedJa._(_root);
 	@override late final _StringsDialogsMessageInputJa messageInput = _StringsDialogsMessageInputJa._(_root);
 	@override late final _StringsDialogsNoFilesJa noFiles = _StringsDialogsNoFilesJa._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputJa extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'ファイル名を入力';
 	@override String original({required Object original}) => '元の名前: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogJa extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '履歴をクリア';
+	@override String get content => '本当にすべての履歴を削除しますか？';
 }
 
 // Path: dialogs.localNetworkUnauthorized

@@ -276,6 +276,10 @@
       "title": "Introduce el nombre",
       "original": "Original: {original}"
     },
+    "historyClearDialog": {
+      "title": "Borrar historial",
+      "content": "¿Realmente quieres borrar todo el historial?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend no puede encontrar otros dispositivos sin tener permiso para escanear la red local. Por favor, concede este permiso en los ajustes.",

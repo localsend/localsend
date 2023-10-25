@@ -64,6 +64,7 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Copiato negli Appunti';
 	@override String get decline => 'Rifiuta';
 	@override String get done => 'Eseguito';
+	@override String get delete => 'Cancella';
 	@override String get edit => 'Modifica';
 	@override String get error => 'Errore';
 	@override String get example => 'Esempio';
@@ -87,7 +88,6 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get save => 'Salva';
 	@override String get unchanged => 'Invariato';
 	@override String get unknown => 'Sconosciuto';
-	@override String get delete => 'Cancella';
 	@override String get noItemInClipboard => 'Nessun elemento negli Appunti';
 }
 
@@ -302,17 +302,18 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsDialogsFavoriteDialogIt favoriteDialog = _StringsDialogsFavoriteDialogIt._(_root);
-	@override late final _StringsDialogsFavoriteDeleteDialogIt favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogIt._(_root);
-	@override late final _StringsDialogsFavoriteEditDialogIt favoriteEditDialog = _StringsDialogsFavoriteEditDialogIt._(_root);
 	@override late final _StringsDialogsAddFileIt addFile = _StringsDialogsAddFileIt._(_root);
 	@override late final _StringsDialogsAddressInputIt addressInput = _StringsDialogsAddressInputIt._(_root);
 	@override late final _StringsDialogsCancelSessionIt cancelSession = _StringsDialogsCancelSessionIt._(_root);
 	@override late final _StringsDialogsCannotOpenFileIt cannotOpenFile = _StringsDialogsCannotOpenFileIt._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeIt encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeIt._(_root);
 	@override late final _StringsDialogsErrorDialogIt errorDialog = _StringsDialogsErrorDialogIt._(_root);
+	@override late final _StringsDialogsFavoriteDialogIt favoriteDialog = _StringsDialogsFavoriteDialogIt._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogIt favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogIt._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogIt favoriteEditDialog = _StringsDialogsFavoriteEditDialogIt._(_root);
 	@override late final _StringsDialogsFileInfoIt fileInfo = _StringsDialogsFileInfoIt._(_root);
 	@override late final _StringsDialogsFileNameInputIt fileNameInput = _StringsDialogsFileNameInputIt._(_root);
+	@override late final _StringsDialogsHistoryClearDialogIt historyClearDialog = _StringsDialogsHistoryClearDialogIt._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedIt localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedIt._(_root);
 	@override late final _StringsDialogsMessageInputIt messageInput = _StringsDialogsMessageInputIt._(_root);
 	@override late final _StringsDialogsNoFilesIt noFiles = _StringsDialogsNoFilesIt._(_root);
@@ -417,12 +418,12 @@ class _StringsSendTabPickerIt extends _StringsSendTabPickerEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get clipboard => 'Incolla';
 	@override String get file => 'File';
 	@override String get folder => 'Cartella';
 	@override String get media => 'Media';
 	@override String get text => 'Testo';
 	@override String get app => 'App';
+	@override String get clipboard => 'Incolla';
 }
 
 // Path: sendTab.sendModes
@@ -541,44 +542,6 @@ class _StringsProgressPageTotalIt extends _StringsProgressPageTotalEn {
 	@override String speed({required Object speed}) => 'Velocità: ${speed}/s';
 }
 
-// Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogIt extends _StringsDialogsFavoriteDialogEn {
-	_StringsDialogsFavoriteDialogIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Preferiti';
-	@override String get noFavorites => 'Nessun dispositivo preferito al momento.';
-	@override String get addFavorite => 'Aggiungi';
-}
-
-// Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogIt extends _StringsDialogsFavoriteDeleteDialogEn {
-	_StringsDialogsFavoriteDeleteDialogIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Elimina dai preferiti';
-	@override String content({required Object name}) => 'Sei davvero sicuro di voler eliminare dai preferiti "${name}"?';
-}
-
-// Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogIt extends _StringsDialogsFavoriteEditDialogEn {
-	_StringsDialogsFavoriteEditDialogIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get titleAdd => 'Aggiungi ai preferiti';
-	@override String get titleEdit => 'Modifica';
-	@override String get name => 'Alias';
-	@override String get auto => '(automatico)';
-	@override String get ip => 'Indirizzo IP';
-	@override String get port => 'Porta';
-}
-
 // Path: dialogs.addFile
 class _StringsDialogsAddFileIt extends _StringsDialogsAddFileEn {
 	_StringsDialogsAddFileIt._(_StringsIt root) : this._root = root, super._(root);
@@ -646,6 +609,44 @@ class _StringsDialogsErrorDialogIt extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogIt extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Preferiti';
+	@override String get noFavorites => 'Nessun dispositivo preferito al momento.';
+	@override String get addFavorite => 'Aggiungi';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogIt extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Elimina dai preferiti';
+	@override String content({required Object name}) => 'Sei davvero sicuro di voler eliminare dai preferiti "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogIt extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Aggiungi ai preferiti';
+	@override String get titleEdit => 'Modifica';
+	@override String get name => 'Alias';
+	@override String get auto => '(automatico)';
+	@override String get ip => 'Indirizzo IP';
+	@override String get port => 'Porta';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoIt extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoIt._(_StringsIt root) : this._root = root, super._(root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputIt extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Inserisci un nome del file';
 	@override String original({required Object original}) => 'Originale: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogIt extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Clear history';
+	@override String get content => 'Do you really want to delete the entire history?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

@@ -322,6 +322,7 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteDialogZhCn favoriteDialog = _StringsDialogsFavoriteDialogZhCn._(_root);
 	@override late final _StringsDialogsFavoriteDeleteDialogZhCn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogZhCn._(_root);
 	@override late final _StringsDialogsFavoriteEditDialogZhCn favoriteEditDialog = _StringsDialogsFavoriteEditDialogZhCn._(_root);
+	@override late final _StringsDialogsHistoryClearDialogZhCn historyClearDialog = _StringsDialogsHistoryClearDialogZhCn._(_root);
 }
 
 // Path: tray
@@ -775,6 +776,17 @@ class _StringsDialogsFavoriteEditDialogZhCn extends _StringsDialogsFavoriteEditD
 	@override String get auto => '(auto)';
 	@override String get ip => 'IP 地址';
 	@override String get port => '端口';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogZhCn extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '清空历史记录';
+	@override String get content => '您确定要清空全部历史记录吗？';
 }
 
 // Path: settingsTab.general.brightnessOptions

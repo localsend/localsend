@@ -14,6 +14,7 @@
     "copiedToClipboard": "Copiato negli Appunti",
     "decline": "Rifiuta",
     "done": "Eseguito",
+    "delete": "Cancella",
     "edit": "Modifica",
     "error": "Errore",
     "example": "Esempio",
@@ -37,7 +38,6 @@
     "save": "Salva",
     "unchanged": "Invariato",
     "unknown": "Sconosciuto",
-    "delete": "Cancella",
     "noItemInClipboard": "Nessun elemento negli Appunti"
   },
   "receiveTab": {
@@ -56,12 +56,12 @@
       "size": "Dimensione: {size}"
     },
     "picker": {
-      "clipboard": "Incolla",
       "file": "File",
       "folder": "Cartella",
       "media": "Media",
       "text": "Testo",
-      "app": "App"
+      "app": "App",
+      "clipboard": "Incolla"
     },
     "shareIntentInfo": "Puoi anche usare la funzionalità \"Condividi\" sul tuo dispositivo mobile per selezionare file in modo più semplice.",
     "nearbyDevices": "Dispositivi vicini",
@@ -222,27 +222,6 @@
     "@info": "Eredita dalla versione inglese"
   },
   "dialogs": {
-    "historyClearDialog" : {
-        "title": "Elimina cronologia",
-        "content": "Sei davvero sicuro di voler eliminare l'intera cronologia?"
-    },
-    "favoriteDialog": {
-      "title": "Preferiti",
-      "noFavorites": "Nessun dispositivo preferito al momento.",
-      "addFavorite": "Aggiungi"
-    },
-    "favoriteDeleteDialog": {
-      "title": "Elimina dai preferiti",
-      "content": "Sei davvero sicuro di voler eliminare dai preferiti \"{name}\"?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "Aggiungi ai preferiti",
-      "titleEdit": "Modifica",
-      "name": "Alias",
-      "auto": "(automatico)",
-      "ip": "Indirizzo IP",
-      "port": "Porta"
-    },
     "addFile": {
       "title": "Aggiungi alla selezione",
       "content": "Cosa vuoi aggiungere?"
@@ -268,6 +247,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "Preferiti",
+      "noFavorites": "Nessun dispositivo preferito al momento.",
+      "addFavorite": "Aggiungi"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Elimina dai preferiti",
+      "content": "Sei davvero sicuro di voler eliminare dai preferiti \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Aggiungi ai preferiti",
+      "titleEdit": "Modifica",
+      "name": "Alias",
+      "auto": "(automatico)",
+      "ip": "Indirizzo IP",
+      "port": "Porta"
+    },
     "fileInfo": {
       "title": "Informazioni sul file",
       "fileName": "Nome del file:",
@@ -279,6 +275,10 @@
     "fileNameInput": {
       "title": "Inserisci un nome del file",
       "original": "Originale: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
