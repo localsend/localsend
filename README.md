@@ -113,7 +113,9 @@ You can help translate this app to other languages!
 
 ### Bug fixes and improvements
 
-- **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
+- **Bug Fixes:-**
+Should you encounter any software bug, we kindly request you to initiate a pull request. Within this request, offer a precise and detailed account of the issue along with your proposed resolution. Your active participation in this process significantly contributes to the project's quality and stability.
+
 - **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
 
 For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
