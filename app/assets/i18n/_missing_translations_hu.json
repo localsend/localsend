@@ -5,8 +5,8 @@
   ],
   "dialogs": {
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "Előzmény törlése",
+      "content": "Biztosan törölni szeretné a teljes előzményt?"
     }
   }
 }
