@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=zh-HK' to quickly apply the newly added translations."
   ],
   "general": {
-    "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
+    "delete": "刪除",
+    "noItemInClipboard": "剪貼簿冇嘢"
   },
   "sendTab": {
     "picker": {
-      "clipboard": "Paste"
+      "clipboard": "貼上"
     }
   },
   "settingsTab": {
@@ -21,25 +21,25 @@
   },
   "dialogs": {
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
+      "title": "收藏",
+      "noFavorites": "未收藏任何裝置",
+      "addFavorite": "@:general.add"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "取消收藏裝置",
+      "content": "你係咪要取消收藏裝置「{name}」？"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Adjust",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "IP Address",
+      "titleAdd": "新增至收藏",
+      "titleEdit": "編輯",
+      "name": "名",
+      "auto": "（自動）",
+      "ip": "IP 地址",
       "port": "Port"
     },
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "清除歷史記錄",
+      "content": "你係咪真係要剷走全部歷史記錄？"
     }
   }
 }
