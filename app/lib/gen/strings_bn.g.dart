@@ -373,6 +373,7 @@ class _StringsDialogsBn extends _StringsDialogsEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
+	@override late final _StringsDialogsHistoryClearDialogBn historyClearDialog = _StringsDialogsHistoryClearDialogBn._(_root);
 	@override late final _StringsDialogsAddFileBn addFile = _StringsDialogsAddFileBn._(_root);
 	@override late final _StringsDialogsAddressInputBn addressInput = _StringsDialogsAddressInputBn._(_root);
 	@override late final _StringsDialogsCannotOpenFileBn cannotOpenFile = _StringsDialogsCannotOpenFileBn._(_root);
@@ -610,6 +611,17 @@ class _StringsProgressPageTotalBn extends _StringsProgressPageTotalEn {
 	@override String count({required Object curr, required Object n}) => 'ফাইলসমূহ: ${curr} / ${n}';
 	@override String size({required Object curr, required Object n}) => 'সাইজ: ${curr} / ${n}';
 	@override String speed({required Object speed}) => 'স্পীড: ${speed}/s';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogBn extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ইতিহাস পরিষ্কার করুন';
+	@override String get content => 'আপনি কি সত্যিই সমগ্র ইতিহাস মুছে ফেলতে চান?';
 }
 
 // Path: dialogs.addFile
