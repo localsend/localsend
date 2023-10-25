@@ -80,7 +80,7 @@
   "settingsTab": {
     "title": "Cài đặt",
     "general": {
-      "title": "Tổng",
+      "title": "Chung",
       "brightness": "Chủ đề",
       "brightnessOptions": {
         "system": "Hệ thống",
@@ -106,7 +106,7 @@
       "title": "Nhận",
       "quickSave": "@:general.quickSave",
       "destination": "Đích đến",
-      "downloads": "(Tải xuống)",
+      "downloads": "(Downloads)",
       "saveToGallery": "Lưu media vào thư viện",
       "saveToHistory": "Lưu vào lịch sử"
     },
@@ -127,12 +127,12 @@
   },
   "troubleshootPage": {
     "title": "Gỡ lỗi",
-    "subTitle": "Ứng dụng không hoạt động như dự kiến? Bạn có thể tìm giải pháp thông thường tại đây.",
+    "subTitle": "Ứng dụng không hoạt động như dự kiến? Bạn có thể tìm giải pháp cho những vấn đề thường gặp tại đây.",
     "solution": "Giải pháp:",
     "fixButton": "Sửa lỗi tự động",
     "firewall": {
       "symptom": "Ứng dụng có thể gửi tập tin tới các thiết bị khác, nhưng các thiết bị khác không thể gửi tập tin đến thiết bị này.",
-      "solution": "Có vẻ như đây là vấn đề của tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port {port}.",
+      "solution": "Có vẻ như đây là một vấn đề với tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port {port}.",
       "openFirewall": "Mở tường lửa(Firewall)"
     },
     "noConnection": {
