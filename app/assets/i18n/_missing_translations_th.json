@@ -5,8 +5,8 @@
   ],
   "dialogs": {
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "ล้างประวัติ",
+      "content": "คุณต้องการลบประวัติทั้งหมดจริงๆหรือไม่?"
     }
   }
 }

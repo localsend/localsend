@@ -346,6 +346,10 @@
       "title": "กรอกชื่อไฟล์",
       "original": "ต้นฉบับ: {original}"
     },
+    "historyClearDialog": {
+      "title": "ล้างประวัติ",
+      "content": "คุณต้องการลบประวัติทั้งหมดจริงๆหรือไม่?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend ไม่สามารถค้นหาอุปกรณ์อื่นได้หากไม่มีสิทธิ์ในการสแกนเครือข่ายท้องถิ่น โปรดอนุญาตสิทธิ์นี้ในการตั้งค่า",
