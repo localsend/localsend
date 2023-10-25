@@ -1,4 +1,4 @@
-## 1.12.0 (2023-)
+## 1.12.0 (2023-10-25)
 
 - feat: add favorites (@Tienisto)
 - feat: add OLED color mode (@Tienisto)
