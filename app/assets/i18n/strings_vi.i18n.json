@@ -277,8 +277,8 @@
       "original": "Ban đầu: {original}"
     },
     "historyClearDialog": {
-      "title": "Xóa lịch sử",
-      "content": "Bạn có thực sự muốn xóa toàn bộ lịch sử không?"
+      "title": "Xoá lịch sử",
+      "content": "Bạn có chắc chắn muốn xoá toàn bộ lịch sử?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

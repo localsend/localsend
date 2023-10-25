@@ -680,8 +680,8 @@ class _StringsDialogsHistoryClearDialogVi extends _StringsDialogsHistoryClearDia
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Xóa lịch sử';
-	@override String get content => 'Bạn có thực sự muốn xóa toàn bộ lịch sử không?';
+	@override String get title => 'Xoá lịch sử';
+	@override String get content => 'Bạn có chắc chắn muốn xoá toàn bộ lịch sử?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
