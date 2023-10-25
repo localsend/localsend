@@ -317,6 +317,10 @@
       "auto": "(auto)",
       "ip": "IP 地址",
       "port": "端口"
+    },
+    "historyClearDialog": {
+      "title": "清空历史记录",
+      "content": "您确定要清空全部历史记录吗？"
     }
   },
   "tray": {
