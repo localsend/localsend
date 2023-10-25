@@ -276,6 +276,10 @@
       "title": "Dateiname eingeben",
       "original": "Original: {original}"
     },
+    "historyClearDialog": {
+      "title": "Verlauf löschen",
+      "content": "Möchtest du wirklich den gesamten Verlauf löschen?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",

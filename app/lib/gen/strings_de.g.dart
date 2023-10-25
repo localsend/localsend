@@ -313,6 +313,7 @@ class _StringsDialogsDe extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogDe favoriteEditDialog = _StringsDialogsFavoriteEditDialogDe._(_root);
 	@override late final _StringsDialogsFileInfoDe fileInfo = _StringsDialogsFileInfoDe._(_root);
 	@override late final _StringsDialogsFileNameInputDe fileNameInput = _StringsDialogsFileNameInputDe._(_root);
+	@override late final _StringsDialogsHistoryClearDialogDe historyClearDialog = _StringsDialogsHistoryClearDialogDe._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedDe localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedDe._(_root);
 	@override late final _StringsDialogsMessageInputDe messageInput = _StringsDialogsMessageInputDe._(_root);
 	@override late final _StringsDialogsNoFilesDe noFiles = _StringsDialogsNoFilesDe._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputDe extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Dateiname eingeben';
 	@override String original({required Object original}) => 'Original: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogDe extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Verlauf löschen';
+	@override String get content => 'Möchtest du wirklich den gesamten Verlauf löschen?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
