@@ -52,16 +52,16 @@ class _StringsGeneralHe extends _StringsGeneralEn {
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get accept => 'קבלה';
+	@override String get accept => 'אישור';
 	@override String get accepted => 'התקבל';
-	@override String get add => 'הוסף';
+	@override String get add => 'הוספה';
 	@override String get advanced => 'מידע נוסף';
 	@override String get cancel => 'ביטול';
 	@override String get close => 'סגור';
 	@override String get confirm => 'אישור';
 	@override String get continueStr => 'המשך';
-	@override String get copy => 'העתק';
-	@override String get delete => 'מחק';
+	@override String get copy => 'העתקה';
+	@override String get delete => 'מחיקה';
 	@override String get copiedToClipboard => 'הועתק ללוח';
 	@override String get decline => 'דחיה';
 	@override String get done => 'אישור';
@@ -70,10 +70,10 @@ class _StringsGeneralHe extends _StringsGeneralEn {
 	@override String get example => 'דוגמא';
 	@override String get files => 'קבצים';
 	@override String get finished => 'הסתיים';
-	@override String get hide => 'הסתר';
-	@override String get off => 'כבוי';
+	@override String get hide => 'הסתרה';
+	@override String get off => 'כבויה';
 	@override String get offline => 'אין אינטרנט';
-	@override String get on => 'פעיל';
+	@override String get on => 'פעילה';
 	@override String get online => 'מקוון';
 	@override String get open => 'פתח';
 	@override String get queue => 'תור';
@@ -228,7 +228,7 @@ class _StringsSendPageHe extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'ממתין לתגובה...';
 	@override String get rejected => 'הנמען דחה את הבקשה.';
-	@override String get busy => 'המקבל תפוס בבקשה אחרת.';
+	@override String get busy => 'הנמען תפוס בבקשה אחרת.';
 }
 
 // Path: progressPage
@@ -252,12 +252,12 @@ class _StringsWebSharePageHe extends _StringsWebSharePageEn {
 
 	// Translations
 	@override String get title => 'שיתוף באמצעות קישור';
-	@override String get loading => 'הפעלת השרת...';
-	@override String get stopping => 'השהיית השרת...';
-	@override String get error => 'אירעה שגיאה בזמן התחלת השרת.';
+	@override String get loading => 'מפעיל את השרת...';
+	@override String get stopping => 'עוצר את השרת...';
+	@override String get error => 'אירעה שגיאה בזמן הפעלת השרת.';
 	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n,
 		one: 'פתח את הקישור בדפדפן:',
-		other: 'פתח אחד מהקישורים הללו בדפדפן:',
+		other: 'פתח את אחד מהקישורים האלו בדפדפן:',
 	);
 	@override String get requests => 'בקשות';
 	@override String get noRequests => 'אין כרגע בקשות.';
@@ -369,7 +369,7 @@ class _StringsAssetPickerHe extends _StringsAssetPickerEn {
 	@override String get unSupportedAssetType => 'סוג קובץ לא נתמך';
 	@override String get unableToAccessAll => 'לא ניתן לגשת לכל הקבצים במכשיר';
 	@override String get viewingLimitedAssetsTip => 'ניתן להציג רק קבצים ואלבומים שנגישים לאפליקציה.';
-	@override String get changeAccessibleLimitedAssets => 'לחץ כדי לעדכן את הקבצים שנגישים';
+	@override String get changeAccessibleLimitedAssets => 'לחץ כדי לעדכן את הקבצים הנגישים';
 	@override String get accessAllTip => 'האפליקציה יכולה לגשת רק לקבצים מסוימים במכשיר. עבור להגדרות המערכת ואפשר לאפליקציה לגשת לכל הקבצים שבמכשיר.';
 	@override String get goToSystemSettings => 'מעבר להגדרות המערכת';
 	@override String get accessLimitedAssets => 'המשך עם גישה מוגבלת';
@@ -383,7 +383,7 @@ class _StringsAssetPickerHe extends _StringsAssetPickerEn {
 	@override String get sActionSelectHint => 'בחירה';
 	@override String get sActionSwitchPathLabel => 'שינוי נתיב';
 	@override String get sActionUseCameraHint => 'שימוש במצלמה';
-	@override String get sNameDurationLabel => 'משך זמן';
+	@override String get sNameDurationLabel => 'אורך';
 	@override String get sUnitAssetCountLabel => 'מספר';
 }
 
@@ -501,7 +501,7 @@ class _StringsTroubleshootPageFirewallHe extends _StringsTroubleshootPageFirewal
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה.';
+	@override String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה';
 	@override String solution({required Object port}) => 'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
 	@override String get openFirewall => 'פתח את חומת האש';
 }
@@ -513,8 +513,8 @@ class _StringsTroubleshootPageNoConnectionHe extends _StringsTroubleshootPageNoC
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'שני המכשירים אינם יכולים לגלות אחד את השני ואין ביכולתם לשתף קבצים.';
-	@override String get solution => 'הבעיה קיימת בשני הצדדים? אז עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים את אותה תצורה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בנתב.';
+	@override String get symptom => 'שני המכשירים לא מצליחים לגלות אחד את השני כדי לשתף קבצים';
+	@override String get solution => 'הבעיה קיימת בשני הצדדים? עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים את אותה תצורה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בראוטר.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -643,7 +643,7 @@ class _StringsDialogsLocalNetworkUnauthorizedHe extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => '${_root.dialogs.noPermission.title}';
-	@override String get description => 'ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. בבקשה הענק את ההרשאה הזו בהגדרות.';
+	@override String get description => 'ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. אנא הענק את ההרשאה הזו בהגדרות.';
 	@override String get gotoSettings => 'הגדרות';
 }
 
@@ -712,7 +712,7 @@ class _StringsDialogsQuickActionsHe extends _StringsDialogsQuickActionsEn {
 	@override String get counter => 'מונה';
 	@override String get prefix => 'קידומת';
 	@override String get padZero => 'ריפוד באפסים';
-	@override String get sortBeforeCount => 'מיון לפי אלפביתי מראש';
+	@override String get sortBeforeCount => 'מיין תחילה בסדר אלפביתי';
 	@override String get random => 'אקראי';
 }
 
@@ -724,7 +724,7 @@ class _StringsDialogsQuickSaveNoticeHe extends _StringsDialogsQuickSaveNoticeEn 
 
 	// Translations
 	@override String get title => '${_root.general.quickSave}';
-	@override String get content => 'בקשות לקבצים מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים.';
+	@override String get content => 'בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -735,9 +735,9 @@ class _StringsDialogsSendModeHelpHe extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'מצבי שליחה';
-	@override String get single => 'שולח קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר העברת הקובץ.';
-	@override String get multiple => 'שולח קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.';
-	@override String get link => 'מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן.';
+	@override String get single => 'שליחת קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.';
+	@override String get multiple => 'שליחת קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.';
+	@override String get link => 'מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן שלהם.';
 }
 
 // Path: dialogs.favoriteDialog
@@ -774,7 +774,7 @@ class _StringsDialogsFavoriteEditDialogHe extends _StringsDialogsFavoriteEditDia
 	@override String get titleEdit => 'עריכה';
 	@override String get name => 'כינוי';
 	@override String get auto => '(אוטומטי)';
-	@override String get ip => 'כתובת ה-IP';
+	@override String get ip => 'כתובת IP';
 	@override String get port => 'יציאה';
 }
 
@@ -785,7 +785,7 @@ class _StringsDialogsHistoryClearDialogHe extends _StringsDialogsHistoryClearDia
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'נקה היסטוריה';
+	@override String get title => 'ניקוי היסטוריה';
 	@override String get content => 'האם אתה באמת רוצה למחוק את כל ההיסטוריה?';
 }
 
