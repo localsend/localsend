@@ -12,7 +12,7 @@ targets:
           timestamp: false # for F-Droid Reproducible Builds
           flat_map: false
           gpt:
-            model: gpt-3.5-turbo
+            model: gpt-4
             excludes:
               - 'bn'
             description: |

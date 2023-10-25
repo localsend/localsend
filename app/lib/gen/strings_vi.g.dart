@@ -21,7 +21,7 @@ class _StringsVi extends _StringsEn {
 	@override late final _StringsVi _root = this; // ignore: unused_field
 
 	// Translations
-	@override String get locale => 'Vietnam';
+	@override String get locale => 'Tiếng Việt';
 	@override String get appName => 'LocalSend';
 	@override late final _StringsGeneralVi general = _StringsGeneralVi._(_root);
 	@override late final _StringsReceiveTabVi receiveTab = _StringsReceiveTabVi._(_root);
@@ -313,6 +313,7 @@ class _StringsDialogsVi extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogVi favoriteEditDialog = _StringsDialogsFavoriteEditDialogVi._(_root);
 	@override late final _StringsDialogsFileInfoVi fileInfo = _StringsDialogsFileInfoVi._(_root);
 	@override late final _StringsDialogsFileNameInputVi fileNameInput = _StringsDialogsFileNameInputVi._(_root);
+	@override late final _StringsDialogsHistoryClearDialogVi historyClearDialog = _StringsDialogsHistoryClearDialogVi._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedVi localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedVi._(_root);
 	@override late final _StringsDialogsMessageInputVi messageInput = _StringsDialogsMessageInputVi._(_root);
 	@override late final _StringsDialogsNoFilesVi noFiles = _StringsDialogsNoFilesVi._(_root);
@@ -670,6 +671,17 @@ class _StringsDialogsFileNameInputVi extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Nhập tên';
 	@override String original({required Object original}) => 'Ban đầu: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogVi extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Xóa lịch sử';
+	@override String get content => 'Bạn có thực sự muốn xóa toàn bộ lịch sử không?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

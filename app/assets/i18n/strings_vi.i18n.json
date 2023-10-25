@@ -1,5 +1,5 @@
 {
-  "locale": "Vietnam",
+  "locale": "Tiếng Việt",
   "appName": "LocalSend",
   "general": {
     "accept": "Đồng ý",
@@ -218,7 +218,7 @@
   "changelogPage": {
     "title": "Changelog"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -275,6 +275,10 @@
     "fileNameInput": {
       "title": "Nhập tên",
       "original": "Ban đầu: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Xóa lịch sử",
+      "content": "Bạn có thực sự muốn xóa toàn bộ lịch sử không?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
