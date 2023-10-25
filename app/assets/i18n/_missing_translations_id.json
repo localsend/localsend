@@ -1,7 +1,7 @@
 {
   "@@info": [
-    "Here are translations that exist in <en> but not in <in>.",
-    "After editing this file, you can run 'dart run slang apply --locale=in' to quickly apply the newly added translations."
+    "Here are translations that exist in <en> but not in <id>.",
+    "After editing this file, you can run 'dart run slang apply --locale=id' to quickly apply the newly added translations."
   ],
   "general": {
     "delete": "Delete",

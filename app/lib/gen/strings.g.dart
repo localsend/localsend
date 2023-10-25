@@ -27,7 +27,7 @@ part 'strings_fa.g.dart';
 part 'strings_fr_FR.g.dart';
 part 'strings_he.g.dart';
 part 'strings_hu.g.dart';
-part 'strings_in.g.dart';
+part 'strings_id.g.dart';
 part 'strings_it.g.dart';
 part 'strings_ja.g.dart';
 part 'strings_km.g.dart';
@@ -68,7 +68,7 @@ enum AppLocale with BaseAppLocale<AppLocale, _StringsEn> {
 	frFr(languageCode: 'fr', countryCode: 'FR', build: _StringsFrFr.build),
 	he(languageCode: 'he', build: _StringsHe.build),
 	hu(languageCode: 'hu', build: _StringsHu.build),
-	india(languageCode: 'in', build: _StringsIn.build),
+	id(languageCode: 'id', build: _StringsId.build),
 	it(languageCode: 'it', build: _StringsIt.build),
 	ja(languageCode: 'ja', build: _StringsJa.build),
 	km(languageCode: 'km', build: _StringsKm.build),
