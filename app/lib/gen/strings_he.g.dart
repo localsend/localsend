@@ -1,55 +1,55 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsIw extends _StringsEn {
+class _StringsHe extends _StringsEn {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	_StringsIw.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	_StringsHe.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
-		    locale: AppLocale.iw,
+		    locale: AppLocale.he,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
-	/// Metadata for the translations of <iw>.
+	/// Metadata for the translations of <he>.
 	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
 
-	@override late final _StringsIw _root = this; // ignore: unused_field
+	@override late final _StringsHe _root = this; // ignore: unused_field
 
 	// Translations
 	@override String get locale => 'עברית';
 	@override String get appName => 'LocalSend';
-	@override late final _StringsGeneralIw general = _StringsGeneralIw._(_root);
-	@override late final _StringsReceiveTabIw receiveTab = _StringsReceiveTabIw._(_root);
-	@override late final _StringsSendTabIw sendTab = _StringsSendTabIw._(_root);
-	@override late final _StringsSettingsTabIw settingsTab = _StringsSettingsTabIw._(_root);
-	@override late final _StringsTroubleshootPageIw troubleshootPage = _StringsTroubleshootPageIw._(_root);
-	@override late final _StringsReceiveHistoryPageIw receiveHistoryPage = _StringsReceiveHistoryPageIw._(_root);
-	@override late final _StringsApkPickerPageIw apkPickerPage = _StringsApkPickerPageIw._(_root);
-	@override late final _StringsSelectedFilesPageIw selectedFilesPage = _StringsSelectedFilesPageIw._(_root);
-	@override late final _StringsReceivePageIw receivePage = _StringsReceivePageIw._(_root);
-	@override late final _StringsReceiveOptionsPageIw receiveOptionsPage = _StringsReceiveOptionsPageIw._(_root);
-	@override late final _StringsSendPageIw sendPage = _StringsSendPageIw._(_root);
-	@override late final _StringsProgressPageIw progressPage = _StringsProgressPageIw._(_root);
-	@override late final _StringsWebSharePageIw webSharePage = _StringsWebSharePageIw._(_root);
-	@override late final _StringsAboutPageIw aboutPage = _StringsAboutPageIw._(_root);
-	@override late final _StringsChangelogPageIw changelogPage = _StringsChangelogPageIw._(_root);
-	@override late final _StringsAliasGeneratorIw aliasGenerator = _StringsAliasGeneratorIw._(_root);
-	@override late final _StringsDialogsIw dialogs = _StringsDialogsIw._(_root);
-	@override late final _StringsTrayIw tray = _StringsTrayIw._(_root);
-	@override late final _StringsWebIw web = _StringsWebIw._(_root);
-	@override late final _StringsAssetPickerIw assetPicker = _StringsAssetPickerIw._(_root);
+	@override late final _StringsGeneralHe general = _StringsGeneralHe._(_root);
+	@override late final _StringsReceiveTabHe receiveTab = _StringsReceiveTabHe._(_root);
+	@override late final _StringsSendTabHe sendTab = _StringsSendTabHe._(_root);
+	@override late final _StringsSettingsTabHe settingsTab = _StringsSettingsTabHe._(_root);
+	@override late final _StringsTroubleshootPageHe troubleshootPage = _StringsTroubleshootPageHe._(_root);
+	@override late final _StringsReceiveHistoryPageHe receiveHistoryPage = _StringsReceiveHistoryPageHe._(_root);
+	@override late final _StringsApkPickerPageHe apkPickerPage = _StringsApkPickerPageHe._(_root);
+	@override late final _StringsSelectedFilesPageHe selectedFilesPage = _StringsSelectedFilesPageHe._(_root);
+	@override late final _StringsReceivePageHe receivePage = _StringsReceivePageHe._(_root);
+	@override late final _StringsReceiveOptionsPageHe receiveOptionsPage = _StringsReceiveOptionsPageHe._(_root);
+	@override late final _StringsSendPageHe sendPage = _StringsSendPageHe._(_root);
+	@override late final _StringsProgressPageHe progressPage = _StringsProgressPageHe._(_root);
+	@override late final _StringsWebSharePageHe webSharePage = _StringsWebSharePageHe._(_root);
+	@override late final _StringsAboutPageHe aboutPage = _StringsAboutPageHe._(_root);
+	@override late final _StringsChangelogPageHe changelogPage = _StringsChangelogPageHe._(_root);
+	@override late final _StringsAliasGeneratorHe aliasGenerator = _StringsAliasGeneratorHe._(_root);
+	@override late final _StringsDialogsHe dialogs = _StringsDialogsHe._(_root);
+	@override late final _StringsTrayHe tray = _StringsTrayHe._(_root);
+	@override late final _StringsWebHe web = _StringsWebHe._(_root);
+	@override late final _StringsAssetPickerHe assetPicker = _StringsAssetPickerHe._(_root);
 }
 
 // Path: general
-class _StringsGeneralIw extends _StringsGeneralEn {
-	_StringsGeneralIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsGeneralHe extends _StringsGeneralEn {
+	_StringsGeneralHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get accept => 'קבלה';
@@ -92,85 +92,85 @@ class _StringsGeneralIw extends _StringsGeneralEn {
 }
 
 // Path: receiveTab
-class _StringsReceiveTabIw extends _StringsReceiveTabEn {
-	_StringsReceiveTabIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsReceiveTabHe extends _StringsReceiveTabEn {
+	_StringsReceiveTabHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'קבלה';
-	@override late final _StringsReceiveTabInfoBoxIw infoBox = _StringsReceiveTabInfoBoxIw._(_root);
+	@override late final _StringsReceiveTabInfoBoxHe infoBox = _StringsReceiveTabInfoBoxHe._(_root);
 }
 
 // Path: sendTab
-class _StringsSendTabIw extends _StringsSendTabEn {
-	_StringsSendTabIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSendTabHe extends _StringsSendTabEn {
+	_StringsSendTabHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'שליחה';
-	@override late final _StringsSendTabSelectionIw selection = _StringsSendTabSelectionIw._(_root);
-	@override late final _StringsSendTabPickerIw picker = _StringsSendTabPickerIw._(_root);
+	@override late final _StringsSendTabSelectionHe selection = _StringsSendTabSelectionHe._(_root);
+	@override late final _StringsSendTabPickerHe picker = _StringsSendTabPickerHe._(_root);
 	@override String get shareIntentInfo => 'תוכל גם להשתמש בתכונת "שתף" של המכשיר הנייד שלך כדי לבחור קבצים בקלות.';
 	@override String get nearbyDevices => 'מכשירים בקרבת מקום';
 	@override String get thisDevice => 'המכשיר הזה';
 	@override String get scan => 'חפש מכשירים';
 	@override String get sendMode => 'מצב שליחה';
-	@override late final _StringsSendTabSendModesIw sendModes = _StringsSendTabSendModesIw._(_root);
+	@override late final _StringsSendTabSendModesHe sendModes = _StringsSendTabSendModesHe._(_root);
 	@override String get sendModeHelp => 'עזרה';
 	@override String get help => 'אנא ודא שאתה ומכשיר היעד נמצאים באותה רשת WiFi.';
 	@override String get placeItems => 'הצב פריטים לשיתוף.';
 }
 
 // Path: settingsTab
-class _StringsSettingsTabIw extends _StringsSettingsTabEn {
-	_StringsSettingsTabIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabHe extends _StringsSettingsTabEn {
+	_StringsSettingsTabHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'הגדרות';
-	@override late final _StringsSettingsTabGeneralIw general = _StringsSettingsTabGeneralIw._(_root);
-	@override late final _StringsSettingsTabReceiveIw receive = _StringsSettingsTabReceiveIw._(_root);
-	@override late final _StringsSettingsTabNetworkIw network = _StringsSettingsTabNetworkIw._(_root);
+	@override late final _StringsSettingsTabGeneralHe general = _StringsSettingsTabGeneralHe._(_root);
+	@override late final _StringsSettingsTabReceiveHe receive = _StringsSettingsTabReceiveHe._(_root);
+	@override late final _StringsSettingsTabNetworkHe network = _StringsSettingsTabNetworkHe._(_root);
 	@override String get advancedSettings => 'הגדרות מתקדמות';
 }
 
 // Path: troubleshootPage
-class _StringsTroubleshootPageIw extends _StringsTroubleshootPageEn {
-	_StringsTroubleshootPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsTroubleshootPageHe extends _StringsTroubleshootPageEn {
+	_StringsTroubleshootPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'פתרון תקלות';
 	@override String get subTitle => 'האפליקציה לא פועלת כראוי? כאן תוכל למצוא פתרונות לבעיות נפוצות.';
 	@override String get solution => 'פתרון:';
 	@override String get fixButton => 'תקן אוטומטית';
-	@override late final _StringsTroubleshootPageFirewallIw firewall = _StringsTroubleshootPageFirewallIw._(_root);
-	@override late final _StringsTroubleshootPageNoConnectionIw noConnection = _StringsTroubleshootPageNoConnectionIw._(_root);
+	@override late final _StringsTroubleshootPageFirewallHe firewall = _StringsTroubleshootPageFirewallHe._(_root);
+	@override late final _StringsTroubleshootPageNoConnectionHe noConnection = _StringsTroubleshootPageNoConnectionHe._(_root);
 }
 
 // Path: receiveHistoryPage
-class _StringsReceiveHistoryPageIw extends _StringsReceiveHistoryPageEn {
-	_StringsReceiveHistoryPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsReceiveHistoryPageHe extends _StringsReceiveHistoryPageEn {
+	_StringsReceiveHistoryPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'היסטוריה';
 	@override String get openFolder => 'פתח תיקייה';
 	@override String get deleteHistory => 'מחק היסטוריה';
 	@override String get empty => 'ההיסטוריה ריקה.';
-	@override late final _StringsReceiveHistoryPageEntryActionsIw entryActions = _StringsReceiveHistoryPageEntryActionsIw._(_root);
+	@override late final _StringsReceiveHistoryPageEntryActionsHe entryActions = _StringsReceiveHistoryPageEntryActionsHe._(_root);
 }
 
 // Path: apkPickerPage
-class _StringsApkPickerPageIw extends _StringsApkPickerPageEn {
-	_StringsApkPickerPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsApkPickerPageHe extends _StringsApkPickerPageEn {
+	_StringsApkPickerPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'אפליקציות (APK)';
@@ -180,23 +180,23 @@ class _StringsApkPickerPageIw extends _StringsApkPickerPageEn {
 }
 
 // Path: selectedFilesPage
-class _StringsSelectedFilesPageIw extends _StringsSelectedFilesPageEn {
-	_StringsSelectedFilesPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSelectedFilesPageHe extends _StringsSelectedFilesPageEn {
+	_StringsSelectedFilesPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get deleteAll => 'מחק הכל';
 }
 
 // Path: receivePage
-class _StringsReceivePageIw extends _StringsReceivePageEn {
-	_StringsReceivePageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsReceivePageHe extends _StringsReceivePageEn {
+	_StringsReceivePageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('iw'))(n,
+	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n,
 		one: 'רוצה לשלוח לך קובץ.',
 		other: 'רוצה לשלוח לך ${n} קבצים.',
 	);
@@ -206,10 +206,10 @@ class _StringsReceivePageIw extends _StringsReceivePageEn {
 }
 
 // Path: receiveOptionsPage
-class _StringsReceiveOptionsPageIw extends _StringsReceiveOptionsPageEn {
-	_StringsReceiveOptionsPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsReceiveOptionsPageHe extends _StringsReceiveOptionsPageEn {
+	_StringsReceiveOptionsPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'אפשרויות';
@@ -220,10 +220,10 @@ class _StringsReceiveOptionsPageIw extends _StringsReceiveOptionsPageEn {
 }
 
 // Path: sendPage
-class _StringsSendPageIw extends _StringsSendPageEn {
-	_StringsSendPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSendPageHe extends _StringsSendPageEn {
+	_StringsSendPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get waiting => 'ממתין לתגובה...';
@@ -232,30 +232,30 @@ class _StringsSendPageIw extends _StringsSendPageEn {
 }
 
 // Path: progressPage
-class _StringsProgressPageIw extends _StringsProgressPageEn {
-	_StringsProgressPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsProgressPageHe extends _StringsProgressPageEn {
+	_StringsProgressPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get titleSending => 'שולח קבצים';
 	@override String get titleReceiving => 'מקבל קבצים';
 	@override String get savedToGallery => 'נשמר בתמונות';
-	@override late final _StringsProgressPageTotalIw total = _StringsProgressPageTotalIw._(_root);
+	@override late final _StringsProgressPageTotalHe total = _StringsProgressPageTotalHe._(_root);
 }
 
 // Path: webSharePage
-class _StringsWebSharePageIw extends _StringsWebSharePageEn {
-	_StringsWebSharePageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsWebSharePageHe extends _StringsWebSharePageEn {
+	_StringsWebSharePageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'שיתוף באמצעות קישור';
 	@override String get loading => 'הפעלת השרת...';
 	@override String get stopping => 'השהיית השרת...';
 	@override String get error => 'אירעה שגיאה בזמן התחלת השרת.';
-	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('iw'))(n,
+	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n,
 		one: 'פתח את הקישור בדפדפן:',
 		other: 'פתח אחד מהקישורים הללו בדפדפן:',
 	);
@@ -267,69 +267,69 @@ class _StringsWebSharePageIw extends _StringsWebSharePageEn {
 }
 
 // Path: aboutPage
-class _StringsAboutPageIw extends _StringsAboutPageEn {
-	_StringsAboutPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsAboutPageHe extends _StringsAboutPageEn {
+	_StringsAboutPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'אודות LocalSend';
 }
 
 // Path: changelogPage
-class _StringsChangelogPageIw extends _StringsChangelogPageEn {
-	_StringsChangelogPageIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsChangelogPageHe extends _StringsChangelogPageEn {
+	_StringsChangelogPageHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'יומן שינויים';
 }
 
 // Path: aliasGenerator
-class _StringsAliasGeneratorIw extends _StringsAliasGeneratorEn {
-	_StringsAliasGeneratorIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsAliasGeneratorHe extends _StringsAliasGeneratorEn {
+	_StringsAliasGeneratorHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 }
 
 // Path: dialogs
-class _StringsDialogsIw extends _StringsDialogsEn {
-	_StringsDialogsIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsHe extends _StringsDialogsEn {
+	_StringsDialogsHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsDialogsAddFileIw addFile = _StringsDialogsAddFileIw._(_root);
-	@override late final _StringsDialogsAddressInputIw addressInput = _StringsDialogsAddressInputIw._(_root);
-	@override late final _StringsDialogsCancelSessionIw cancelSession = _StringsDialogsCancelSessionIw._(_root);
-	@override late final _StringsDialogsCannotOpenFileIw cannotOpenFile = _StringsDialogsCannotOpenFileIw._(_root);
-	@override late final _StringsDialogsEncryptionDisabledNoticeIw encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeIw._(_root);
-	@override late final _StringsDialogsErrorDialogIw errorDialog = _StringsDialogsErrorDialogIw._(_root);
-	@override late final _StringsDialogsFileInfoIw fileInfo = _StringsDialogsFileInfoIw._(_root);
-	@override late final _StringsDialogsFileNameInputIw fileNameInput = _StringsDialogsFileNameInputIw._(_root);
-	@override late final _StringsDialogsLocalNetworkUnauthorizedIw localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedIw._(_root);
-	@override late final _StringsDialogsMessageInputIw messageInput = _StringsDialogsMessageInputIw._(_root);
-	@override late final _StringsDialogsNoFilesIw noFiles = _StringsDialogsNoFilesIw._(_root);
-	@override late final _StringsDialogsNoPermissionIw noPermission = _StringsDialogsNoPermissionIw._(_root);
-	@override late final _StringsDialogsNotAvailableOnPlatformIw notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformIw._(_root);
-	@override late final _StringsDialogsQrIw qr = _StringsDialogsQrIw._(_root);
-	@override late final _StringsDialogsQuickActionsIw quickActions = _StringsDialogsQuickActionsIw._(_root);
-	@override late final _StringsDialogsQuickSaveNoticeIw quickSaveNotice = _StringsDialogsQuickSaveNoticeIw._(_root);
-	@override late final _StringsDialogsSendModeHelpIw sendModeHelp = _StringsDialogsSendModeHelpIw._(_root);
-	@override late final _StringsDialogsFavoriteDialogIw favoriteDialog = _StringsDialogsFavoriteDialogIw._(_root);
-	@override late final _StringsDialogsFavoriteDeleteDialogIw favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogIw._(_root);
-	@override late final _StringsDialogsFavoriteEditDialogIw favoriteEditDialog = _StringsDialogsFavoriteEditDialogIw._(_root);
-	@override late final _StringsDialogsHistoryClearDialogIw historyClearDialog = _StringsDialogsHistoryClearDialogIw._(_root);
+	@override late final _StringsDialogsAddFileHe addFile = _StringsDialogsAddFileHe._(_root);
+	@override late final _StringsDialogsAddressInputHe addressInput = _StringsDialogsAddressInputHe._(_root);
+	@override late final _StringsDialogsCancelSessionHe cancelSession = _StringsDialogsCancelSessionHe._(_root);
+	@override late final _StringsDialogsCannotOpenFileHe cannotOpenFile = _StringsDialogsCannotOpenFileHe._(_root);
+	@override late final _StringsDialogsEncryptionDisabledNoticeHe encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeHe._(_root);
+	@override late final _StringsDialogsErrorDialogHe errorDialog = _StringsDialogsErrorDialogHe._(_root);
+	@override late final _StringsDialogsFileInfoHe fileInfo = _StringsDialogsFileInfoHe._(_root);
+	@override late final _StringsDialogsFileNameInputHe fileNameInput = _StringsDialogsFileNameInputHe._(_root);
+	@override late final _StringsDialogsLocalNetworkUnauthorizedHe localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedHe._(_root);
+	@override late final _StringsDialogsMessageInputHe messageInput = _StringsDialogsMessageInputHe._(_root);
+	@override late final _StringsDialogsNoFilesHe noFiles = _StringsDialogsNoFilesHe._(_root);
+	@override late final _StringsDialogsNoPermissionHe noPermission = _StringsDialogsNoPermissionHe._(_root);
+	@override late final _StringsDialogsNotAvailableOnPlatformHe notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformHe._(_root);
+	@override late final _StringsDialogsQrHe qr = _StringsDialogsQrHe._(_root);
+	@override late final _StringsDialogsQuickActionsHe quickActions = _StringsDialogsQuickActionsHe._(_root);
+	@override late final _StringsDialogsQuickSaveNoticeHe quickSaveNotice = _StringsDialogsQuickSaveNoticeHe._(_root);
+	@override late final _StringsDialogsSendModeHelpHe sendModeHelp = _StringsDialogsSendModeHelpHe._(_root);
+	@override late final _StringsDialogsFavoriteDialogHe favoriteDialog = _StringsDialogsFavoriteDialogHe._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogHe favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogHe._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogHe favoriteEditDialog = _StringsDialogsFavoriteEditDialogHe._(_root);
+	@override late final _StringsDialogsHistoryClearDialogHe historyClearDialog = _StringsDialogsHistoryClearDialogHe._(_root);
 }
 
 // Path: tray
-class _StringsTrayIw extends _StringsTrayEn {
-	_StringsTrayIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsTrayHe extends _StringsTrayEn {
+	_StringsTrayHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get open => '${_root.general.open}';
@@ -337,10 +337,10 @@ class _StringsTrayIw extends _StringsTrayEn {
 }
 
 // Path: web
-class _StringsWebIw extends _StringsWebEn {
-	_StringsWebIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsWebHe extends _StringsWebEn {
+	_StringsWebHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get waiting => '${_root.sendPage.waiting}';
@@ -351,10 +351,10 @@ class _StringsWebIw extends _StringsWebEn {
 }
 
 // Path: assetPicker
-class _StringsAssetPickerIw extends _StringsAssetPickerEn {
-	_StringsAssetPickerIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsAssetPickerHe extends _StringsAssetPickerEn {
+	_StringsAssetPickerHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get confirm => 'אישור';
@@ -388,10 +388,10 @@ class _StringsAssetPickerIw extends _StringsAssetPickerEn {
 }
 
 // Path: receiveTab.infoBox
-class _StringsReceiveTabInfoBoxIw extends _StringsReceiveTabInfoBoxEn {
-	_StringsReceiveTabInfoBoxIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsReceiveTabInfoBoxHe extends _StringsReceiveTabInfoBoxEn {
+	_StringsReceiveTabInfoBoxHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get ip => 'IP:';
@@ -400,10 +400,10 @@ class _StringsReceiveTabInfoBoxIw extends _StringsReceiveTabInfoBoxEn {
 }
 
 // Path: sendTab.selection
-class _StringsSendTabSelectionIw extends _StringsSendTabSelectionEn {
-	_StringsSendTabSelectionIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSendTabSelectionHe extends _StringsSendTabSelectionEn {
+	_StringsSendTabSelectionHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'בחירה';
@@ -412,10 +412,10 @@ class _StringsSendTabSelectionIw extends _StringsSendTabSelectionEn {
 }
 
 // Path: sendTab.picker
-class _StringsSendTabPickerIw extends _StringsSendTabPickerEn {
-	_StringsSendTabPickerIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSendTabPickerHe extends _StringsSendTabPickerEn {
+	_StringsSendTabPickerHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get file => 'קובץ';
@@ -427,10 +427,10 @@ class _StringsSendTabPickerIw extends _StringsSendTabPickerEn {
 }
 
 // Path: sendTab.sendModes
-class _StringsSendTabSendModesIw extends _StringsSendTabSendModesEn {
-	_StringsSendTabSendModesIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSendTabSendModesHe extends _StringsSendTabSendModesEn {
+	_StringsSendTabSendModesHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get single => 'שליחה למקבל בודד';
@@ -439,19 +439,19 @@ class _StringsSendTabSendModesIw extends _StringsSendTabSendModesEn {
 }
 
 // Path: settingsTab.general
-class _StringsSettingsTabGeneralIw extends _StringsSettingsTabGeneralEn {
-	_StringsSettingsTabGeneralIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralHe extends _StringsSettingsTabGeneralEn {
+	_StringsSettingsTabGeneralHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'כללי';
 	@override String get brightness => 'ערכת נושא';
-	@override late final _StringsSettingsTabGeneralBrightnessOptionsIw brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsIw._(_root);
+	@override late final _StringsSettingsTabGeneralBrightnessOptionsHe brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsHe._(_root);
 	@override String get color => 'צבע';
-	@override late final _StringsSettingsTabGeneralColorOptionsIw colorOptions = _StringsSettingsTabGeneralColorOptionsIw._(_root);
+	@override late final _StringsSettingsTabGeneralColorOptionsHe colorOptions = _StringsSettingsTabGeneralColorOptionsHe._(_root);
 	@override String get language => 'שפה';
-	@override late final _StringsSettingsTabGeneralLanguageOptionsIw languageOptions = _StringsSettingsTabGeneralLanguageOptionsIw._(_root);
+	@override late final _StringsSettingsTabGeneralLanguageOptionsHe languageOptions = _StringsSettingsTabGeneralLanguageOptionsHe._(_root);
 	@override String get saveWindowPlacement => 'יציאה: שמירת מיקום החלון';
 	@override String get minimizeToTray => 'יציאה: מזעור למגש';
 	@override String get launchAtStartup => 'הפעלה אוטומטית לאחר הכניסה';
@@ -460,10 +460,10 @@ class _StringsSettingsTabGeneralIw extends _StringsSettingsTabGeneralEn {
 }
 
 // Path: settingsTab.receive
-class _StringsSettingsTabReceiveIw extends _StringsSettingsTabReceiveEn {
-	_StringsSettingsTabReceiveIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
+	_StringsSettingsTabReceiveHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'קבלה';
@@ -475,10 +475,10 @@ class _StringsSettingsTabReceiveIw extends _StringsSettingsTabReceiveEn {
 }
 
 // Path: settingsTab.network
-class _StringsSettingsTabNetworkIw extends _StringsSettingsTabNetworkEn {
-	_StringsSettingsTabNetworkIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabNetworkHe extends _StringsSettingsTabNetworkEn {
+	_StringsSettingsTabNetworkHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'רשת';
@@ -495,10 +495,10 @@ class _StringsSettingsTabNetworkIw extends _StringsSettingsTabNetworkEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallIw extends _StringsTroubleshootPageFirewallEn {
-	_StringsTroubleshootPageFirewallIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsTroubleshootPageFirewallHe extends _StringsTroubleshootPageFirewallEn {
+	_StringsTroubleshootPageFirewallHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה.';
@@ -507,10 +507,10 @@ class _StringsTroubleshootPageFirewallIw extends _StringsTroubleshootPageFirewal
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionIw extends _StringsTroubleshootPageNoConnectionEn {
-	_StringsTroubleshootPageNoConnectionIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsTroubleshootPageNoConnectionHe extends _StringsTroubleshootPageNoConnectionEn {
+	_StringsTroubleshootPageNoConnectionHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get symptom => 'שני המכשירים אינם יכולים לגלות אחד את השני ואין ביכולתם לשתף קבצים.';
@@ -518,10 +518,10 @@ class _StringsTroubleshootPageNoConnectionIw extends _StringsTroubleshootPageNoC
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsIw extends _StringsReceiveHistoryPageEntryActionsEn {
-	_StringsReceiveHistoryPageEntryActionsIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsReceiveHistoryPageEntryActionsHe extends _StringsReceiveHistoryPageEntryActionsEn {
+	_StringsReceiveHistoryPageEntryActionsHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get open => 'פתח קובץ';
@@ -530,23 +530,23 @@ class _StringsReceiveHistoryPageEntryActionsIw extends _StringsReceiveHistoryPag
 }
 
 // Path: progressPage.total
-class _StringsProgressPageTotalIw extends _StringsProgressPageTotalEn {
-	_StringsProgressPageTotalIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsProgressPageTotalHe extends _StringsProgressPageTotalEn {
+	_StringsProgressPageTotalHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsProgressPageTotalTitleIw title = _StringsProgressPageTotalTitleIw._(_root);
+	@override late final _StringsProgressPageTotalTitleHe title = _StringsProgressPageTotalTitleHe._(_root);
 	@override String count({required Object curr, required Object n}) => 'קבצים: ${curr}/${n}';
 	@override String size({required Object curr, required Object n}) => 'גודל: ${curr}/${n}';
 	@override String speed({required Object speed}) => 'מהירות: ${speed}/שניה';
 }
 
 // Path: dialogs.addFile
-class _StringsDialogsAddFileIw extends _StringsDialogsAddFileEn {
-	_StringsDialogsAddFileIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsAddFileHe extends _StringsDialogsAddFileEn {
+	_StringsDialogsAddFileHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'הוסף לבחירה';
@@ -554,10 +554,10 @@ class _StringsDialogsAddFileIw extends _StringsDialogsAddFileEn {
 }
 
 // Path: dialogs.addressInput
-class _StringsDialogsAddressInputIw extends _StringsDialogsAddressInputEn {
-	_StringsDialogsAddressInputIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsAddressInputHe extends _StringsDialogsAddressInputEn {
+	_StringsDialogsAddressInputHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'הכנס כתובת';
@@ -567,10 +567,10 @@ class _StringsDialogsAddressInputIw extends _StringsDialogsAddressInputEn {
 }
 
 // Path: dialogs.cancelSession
-class _StringsDialogsCancelSessionIw extends _StringsDialogsCancelSessionEn {
-	_StringsDialogsCancelSessionIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsCancelSessionHe extends _StringsDialogsCancelSessionEn {
+	_StringsDialogsCancelSessionHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'בטל את העברת הקבצים';
@@ -578,10 +578,10 @@ class _StringsDialogsCancelSessionIw extends _StringsDialogsCancelSessionEn {
 }
 
 // Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileIw extends _StringsDialogsCannotOpenFileEn {
-	_StringsDialogsCannotOpenFileIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsCannotOpenFileHe extends _StringsDialogsCannotOpenFileEn {
+	_StringsDialogsCannotOpenFileHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'לא ניתן לפתוח את הקובץ';
@@ -589,10 +589,10 @@ class _StringsDialogsCannotOpenFileIw extends _StringsDialogsCannotOpenFileEn {
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeIw extends _StringsDialogsEncryptionDisabledNoticeEn {
-	_StringsDialogsEncryptionDisabledNoticeIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsEncryptionDisabledNoticeHe extends _StringsDialogsEncryptionDisabledNoticeEn {
+	_StringsDialogsEncryptionDisabledNoticeHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'ההצפנה מנוטרלת';
@@ -600,20 +600,20 @@ class _StringsDialogsEncryptionDisabledNoticeIw extends _StringsDialogsEncryptio
 }
 
 // Path: dialogs.errorDialog
-class _StringsDialogsErrorDialogIw extends _StringsDialogsErrorDialogEn {
-	_StringsDialogsErrorDialogIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsErrorDialogHe extends _StringsDialogsErrorDialogEn {
+	_StringsDialogsErrorDialogHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '${_root.general.error}';
 }
 
 // Path: dialogs.fileInfo
-class _StringsDialogsFileInfoIw extends _StringsDialogsFileInfoEn {
-	_StringsDialogsFileInfoIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsFileInfoHe extends _StringsDialogsFileInfoEn {
+	_StringsDialogsFileInfoHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'מידע על הקובץ';
@@ -625,10 +625,10 @@ class _StringsDialogsFileInfoIw extends _StringsDialogsFileInfoEn {
 }
 
 // Path: dialogs.fileNameInput
-class _StringsDialogsFileNameInputIw extends _StringsDialogsFileNameInputEn {
-	_StringsDialogsFileNameInputIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsFileNameInputHe extends _StringsDialogsFileNameInputEn {
+	_StringsDialogsFileNameInputHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'הזן את שם הקובץ';
@@ -636,10 +636,10 @@ class _StringsDialogsFileNameInputIw extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedIw extends _StringsDialogsLocalNetworkUnauthorizedEn {
-	_StringsDialogsLocalNetworkUnauthorizedIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsLocalNetworkUnauthorizedHe extends _StringsDialogsLocalNetworkUnauthorizedEn {
+	_StringsDialogsLocalNetworkUnauthorizedHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '${_root.dialogs.noPermission.title}';
@@ -648,10 +648,10 @@ class _StringsDialogsLocalNetworkUnauthorizedIw extends _StringsDialogsLocalNetw
 }
 
 // Path: dialogs.messageInput
-class _StringsDialogsMessageInputIw extends _StringsDialogsMessageInputEn {
-	_StringsDialogsMessageInputIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsMessageInputHe extends _StringsDialogsMessageInputEn {
+	_StringsDialogsMessageInputHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'הקלד הודעה';
@@ -659,10 +659,10 @@ class _StringsDialogsMessageInputIw extends _StringsDialogsMessageInputEn {
 }
 
 // Path: dialogs.noFiles
-class _StringsDialogsNoFilesIw extends _StringsDialogsNoFilesEn {
-	_StringsDialogsNoFilesIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsNoFilesHe extends _StringsDialogsNoFilesEn {
+	_StringsDialogsNoFilesHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'לא נבחר אף קובץ';
@@ -670,10 +670,10 @@ class _StringsDialogsNoFilesIw extends _StringsDialogsNoFilesEn {
 }
 
 // Path: dialogs.noPermission
-class _StringsDialogsNoPermissionIw extends _StringsDialogsNoPermissionEn {
-	_StringsDialogsNoPermissionIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsNoPermissionHe extends _StringsDialogsNoPermissionEn {
+	_StringsDialogsNoPermissionHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'אין הרשאה';
@@ -681,10 +681,10 @@ class _StringsDialogsNoPermissionIw extends _StringsDialogsNoPermissionEn {
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformIw extends _StringsDialogsNotAvailableOnPlatformEn {
-	_StringsDialogsNotAvailableOnPlatformIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsNotAvailableOnPlatformHe extends _StringsDialogsNotAvailableOnPlatformEn {
+	_StringsDialogsNotAvailableOnPlatformHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'לא זמין';
@@ -692,20 +692,20 @@ class _StringsDialogsNotAvailableOnPlatformIw extends _StringsDialogsNotAvailabl
 }
 
 // Path: dialogs.qr
-class _StringsDialogsQrIw extends _StringsDialogsQrEn {
-	_StringsDialogsQrIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsQrHe extends _StringsDialogsQrEn {
+	_StringsDialogsQrHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'קוד QR';
 }
 
 // Path: dialogs.quickActions
-class _StringsDialogsQuickActionsIw extends _StringsDialogsQuickActionsEn {
-	_StringsDialogsQuickActionsIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsQuickActionsHe extends _StringsDialogsQuickActionsEn {
+	_StringsDialogsQuickActionsHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'פעולות מהירות';
@@ -717,10 +717,10 @@ class _StringsDialogsQuickActionsIw extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeIw extends _StringsDialogsQuickSaveNoticeEn {
-	_StringsDialogsQuickSaveNoticeIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsQuickSaveNoticeHe extends _StringsDialogsQuickSaveNoticeEn {
+	_StringsDialogsQuickSaveNoticeHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '${_root.general.quickSave}';
@@ -728,10 +728,10 @@ class _StringsDialogsQuickSaveNoticeIw extends _StringsDialogsQuickSaveNoticeEn 
 }
 
 // Path: dialogs.sendModeHelp
-class _StringsDialogsSendModeHelpIw extends _StringsDialogsSendModeHelpEn {
-	_StringsDialogsSendModeHelpIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsSendModeHelpHe extends _StringsDialogsSendModeHelpEn {
+	_StringsDialogsSendModeHelpHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'מצבי שליחה';
@@ -741,10 +741,10 @@ class _StringsDialogsSendModeHelpIw extends _StringsDialogsSendModeHelpEn {
 }
 
 // Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogIw extends _StringsDialogsFavoriteDialogEn {
-	_StringsDialogsFavoriteDialogIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsFavoriteDialogHe extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'מועדפים';
@@ -753,10 +753,10 @@ class _StringsDialogsFavoriteDialogIw extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogIw extends _StringsDialogsFavoriteDeleteDialogEn {
-	_StringsDialogsFavoriteDeleteDialogIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsFavoriteDeleteDialogHe extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'הסרה מהמועדפים';
@@ -764,10 +764,10 @@ class _StringsDialogsFavoriteDeleteDialogIw extends _StringsDialogsFavoriteDelet
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogIw extends _StringsDialogsFavoriteEditDialogEn {
-	_StringsDialogsFavoriteEditDialogIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsFavoriteEditDialogHe extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get titleAdd => 'הוסף למועדפים';
@@ -779,10 +779,10 @@ class _StringsDialogsFavoriteEditDialogIw extends _StringsDialogsFavoriteEditDia
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogIw extends _StringsDialogsHistoryClearDialogEn {
-	_StringsDialogsHistoryClearDialogIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsDialogsHistoryClearDialogHe extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'נקה היסטוריה';
@@ -790,10 +790,10 @@ class _StringsDialogsHistoryClearDialogIw extends _StringsDialogsHistoryClearDia
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsIw extends _StringsSettingsTabGeneralBrightnessOptionsEn {
-	_StringsSettingsTabGeneralBrightnessOptionsIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralBrightnessOptionsHe extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+	_StringsSettingsTabGeneralBrightnessOptionsHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => 'מערכת';
@@ -802,10 +802,10 @@ class _StringsSettingsTabGeneralBrightnessOptionsIw extends _StringsSettingsTabG
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsIw extends _StringsSettingsTabGeneralColorOptionsEn {
-	_StringsSettingsTabGeneralColorOptionsIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralColorOptionsHe extends _StringsSettingsTabGeneralColorOptionsEn {
+	_StringsSettingsTabGeneralColorOptionsHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => 'מערכת';
@@ -813,20 +813,20 @@ class _StringsSettingsTabGeneralColorOptionsIw extends _StringsSettingsTabGenera
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsIw extends _StringsSettingsTabGeneralLanguageOptionsEn {
-	_StringsSettingsTabGeneralLanguageOptionsIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsSettingsTabGeneralLanguageOptionsHe extends _StringsSettingsTabGeneralLanguageOptionsEn {
+	_StringsSettingsTabGeneralLanguageOptionsHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => 'מערכת';
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleIw extends _StringsProgressPageTotalTitleEn {
-	_StringsProgressPageTotalTitleIw._(_StringsIw root) : this._root = root, super._(root);
+class _StringsProgressPageTotalTitleHe extends _StringsProgressPageTotalTitleEn {
+	_StringsProgressPageTotalTitleHe._(_StringsHe root) : this._root = root, super._(root);
 
-	@override final _StringsIw _root; // ignore: unused_field
+	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
 	@override String sending({required Object time}) => 'סה"כ התקדמות (${time})';

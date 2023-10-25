@@ -25,10 +25,10 @@ part 'strings_es_ES.g.dart';
 part 'strings_eu.g.dart';
 part 'strings_fa.g.dart';
 part 'strings_fr_FR.g.dart';
+part 'strings_he.g.dart';
 part 'strings_hu.g.dart';
 part 'strings_in.g.dart';
 part 'strings_it.g.dart';
-part 'strings_iw.g.dart';
 part 'strings_ja.g.dart';
 part 'strings_km.g.dart';
 part 'strings_ko.g.dart';
@@ -66,10 +66,10 @@ enum AppLocale with BaseAppLocale<AppLocale, _StringsEn> {
 	eu(languageCode: 'eu', build: _StringsEu.build),
 	fa(languageCode: 'fa', build: _StringsFa.build),
 	frFr(languageCode: 'fr', countryCode: 'FR', build: _StringsFrFr.build),
+	he(languageCode: 'he', build: _StringsHe.build),
 	hu(languageCode: 'hu', build: _StringsHu.build),
 	india(languageCode: 'in', build: _StringsIn.build),
 	it(languageCode: 'it', build: _StringsIt.build),
-	iw(languageCode: 'iw', build: _StringsIw.build),
 	ja(languageCode: 'ja', build: _StringsJa.build),
 	km(languageCode: 'km', build: _StringsKm.build),
 	ko(languageCode: 'ko', build: _StringsKo.build),
