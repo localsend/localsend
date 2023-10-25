@@ -5,8 +5,8 @@
   ],
   "dialogs": {
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "Xoá lịch sử",
+      "content": "Bạn có chắc chắn muốn xoá toàn bộ lịch sử?"
     }
   }
 }
