@@ -18,7 +18,7 @@ dependencies:
   dart_mappable: 3.3.1
   desktop_drop: 0.4.4
   device_apps: 2.2.0
-  device_info_plus: 10.0.0
+  device_info_plus: 9.1.0
   dio: 5.3.3
   dynamic_color: 1.6.8
   file_picker: 5.5.0
@@ -35,7 +35,7 @@ dependencies:
   launch_at_startup: 0.2.2
   logging: 1.2.0
   mime: 1.0.4
-  network_info_plus: 5.0.0
+  network_info_plus: 4.1.0
   open_filex: 4.3.4
   package_info_plus: 4.2.0
   pasteboard: ^0.2.0
@@ -43,7 +43,7 @@ dependencies:
   path_provider: 2.1.1
   permission_handler: 11.0.1
   pretty_qr_code: 2.0.3
-  refena_flutter: 0.36.0
+  refena_flutter: 0.37.0
   refena_inspector_client: 0.8.0
   routerino: 0.8.0
   screen_retriever: 0.1.9
