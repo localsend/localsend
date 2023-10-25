@@ -222,6 +222,10 @@
     "@info": "Eredita dalla versione inglese"
   },
   "dialogs": {
+    "historyClearDialog" : {
+        "title": "Elimina cronologia",
+        "content": "Sei davvero sicuro di voler eliminare l'intera cronologia?"
+    },
     "favoriteDialog": {
       "title": "Preferiti",
       "noFavorites": "Nessun dispositivo preferito al momento.",
