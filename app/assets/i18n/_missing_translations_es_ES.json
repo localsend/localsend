@@ -5,8 +5,8 @@
   ],
   "dialogs": {
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "Borrar historial",
+      "content": "¿Realmente quieres borrar todo el historial?"
     }
   }
 }
