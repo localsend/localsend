@@ -14,6 +14,7 @@
     "copiedToClipboard": "已複製到剪貼簿",
     "decline": "拒絕",
     "done": "完成",
+    "delete": "刪除",
     "edit": "編輯",
     "error": "錯誤",
     "example": "範例",
@@ -36,7 +37,8 @@
     "stop": "停止",
     "save": "儲存",
     "unchanged": "冇改過",
-    "unknown": "未知"
+    "unknown": "未知",
+    "noItemInClipboard": "剪貼簿冇嘢"
   },
   "receiveTab": {
     "title": "接收",
@@ -58,7 +60,8 @@
       "folder": "資料夾",
       "media": "媒體",
       "text": "文字",
-      "app": "應用程式"
+      "app": "應用程式",
+      "clipboard": "貼上"
     },
     "shareIntentInfo": "用你裝置嘅「分享」功能以更方便揀選檔案。",
     "nearbyDevices": "附近裝置",
@@ -86,7 +89,8 @@
       },
       "color": "顏色",
       "colorOptions": {
-        "system": "跟機"
+        "system": "跟機",
+        "oled": "OLED"
       },
       "language": "語言",
       "languageOptions": {
@@ -214,7 +218,7 @@
   "changelogPage": {
     "title": "更新記錄"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -243,6 +247,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "收藏",
+      "noFavorites": "未收藏任何裝置",
+      "addFavorite": "@:general.add"
+    },
+    "favoriteDeleteDialog": {
+      "title": "取消收藏裝置",
+      "content": "你係咪要取消收藏裝置「{name}」？"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "新增至收藏",
+      "titleEdit": "編輯",
+      "name": "名",
+      "auto": "（自動）",
+      "ip": "IP 地址",
+      "port": "Port"
+    },
     "fileInfo": {
       "title": "檔案資訊",
       "fileName": "檔案名稱：",
@@ -254,6 +275,10 @@
     "fileNameInput": {
       "title": "輸入檔案名稱",
       "original": "原名：{original}"
+    },
+    "historyClearDialog": {
+      "title": "清除歷史記錄",
+      "content": "你係咪真係要剷走全部歷史記錄？"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

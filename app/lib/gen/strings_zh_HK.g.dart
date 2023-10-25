@@ -64,6 +64,7 @@ class _StringsGeneralZhHk extends _StringsGeneralEn {
 	@override String get copiedToClipboard => '已複製到剪貼簿';
 	@override String get decline => '拒絕';
 	@override String get done => '完成';
+	@override String get delete => '刪除';
 	@override String get edit => '編輯';
 	@override String get error => '錯誤';
 	@override String get example => '範例';
@@ -87,6 +88,7 @@ class _StringsGeneralZhHk extends _StringsGeneralEn {
 	@override String get save => '儲存';
 	@override String get unchanged => '冇改過';
 	@override String get unknown => '未知';
+	@override String get noItemInClipboard => '剪貼簿冇嘢';
 }
 
 // Path: receiveTab
@@ -306,8 +308,12 @@ class _StringsDialogsZhHk extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileZhHk cannotOpenFile = _StringsDialogsCannotOpenFileZhHk._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeZhHk encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeZhHk._(_root);
 	@override late final _StringsDialogsErrorDialogZhHk errorDialog = _StringsDialogsErrorDialogZhHk._(_root);
+	@override late final _StringsDialogsFavoriteDialogZhHk favoriteDialog = _StringsDialogsFavoriteDialogZhHk._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogZhHk favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogZhHk._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogZhHk favoriteEditDialog = _StringsDialogsFavoriteEditDialogZhHk._(_root);
 	@override late final _StringsDialogsFileInfoZhHk fileInfo = _StringsDialogsFileInfoZhHk._(_root);
 	@override late final _StringsDialogsFileNameInputZhHk fileNameInput = _StringsDialogsFileNameInputZhHk._(_root);
+	@override late final _StringsDialogsHistoryClearDialogZhHk historyClearDialog = _StringsDialogsHistoryClearDialogZhHk._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedZhHk localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedZhHk._(_root);
 	@override late final _StringsDialogsMessageInputZhHk messageInput = _StringsDialogsMessageInputZhHk._(_root);
 	@override late final _StringsDialogsNoFilesZhHk noFiles = _StringsDialogsNoFilesZhHk._(_root);
@@ -417,6 +423,7 @@ class _StringsSendTabPickerZhHk extends _StringsSendTabPickerEn {
 	@override String get media => '媒體';
 	@override String get text => '文字';
 	@override String get app => '應用程式';
+	@override String get clipboard => '貼上';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +609,44 @@ class _StringsDialogsErrorDialogZhHk extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogZhHk extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogZhHk._(_StringsZhHk root) : this._root = root, super._(root);
+
+	@override final _StringsZhHk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '收藏';
+	@override String get noFavorites => '未收藏任何裝置';
+	@override String get addFavorite => '${_root.general.add}';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogZhHk extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogZhHk._(_StringsZhHk root) : this._root = root, super._(root);
+
+	@override final _StringsZhHk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '取消收藏裝置';
+	@override String content({required Object name}) => '你係咪要取消收藏裝置「${name}」？';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogZhHk extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogZhHk._(_StringsZhHk root) : this._root = root, super._(root);
+
+	@override final _StringsZhHk _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => '新增至收藏';
+	@override String get titleEdit => '編輯';
+	@override String get name => '名';
+	@override String get auto => '（自動）';
+	@override String get ip => 'IP 地址';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoZhHk extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoZhHk._(_StringsZhHk root) : this._root = root, super._(root);
@@ -626,6 +671,17 @@ class _StringsDialogsFileNameInputZhHk extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => '輸入檔案名稱';
 	@override String original({required Object original}) => '原名：${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogZhHk extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogZhHk._(_StringsZhHk root) : this._root = root, super._(root);
+
+	@override final _StringsZhHk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '清除歷史記錄';
+	@override String get content => '你係咪真係要剷走全部歷史記錄？';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -753,6 +809,7 @@ class _StringsSettingsTabGeneralColorOptionsZhHk extends _StringsSettingsTabGene
 
 	// Translations
 	@override String get system => '跟機';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

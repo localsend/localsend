@@ -2,44 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-HK>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-HK' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "delete": "刪除",
-    "noItemInClipboard": "剪貼簿冇嘢"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "貼上"
-    }
-  },
-  "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED"
-      }
-    }
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "收藏",
-      "noFavorites": "未收藏任何裝置",
-      "addFavorite": "@:general.add"
-    },
-    "favoriteDeleteDialog": {
-      "title": "取消收藏裝置",
-      "content": "你係咪要取消收藏裝置「{name}」？"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "新增至收藏",
-      "titleEdit": "編輯",
-      "name": "名",
-      "auto": "（自動）",
-      "ip": "IP 地址",
-      "port": "Port"
-    },
-    "historyClearDialog": {
-      "title": "清除歷史記錄",
-      "content": "你係咪真係要剷走全部歷史記錄？"
-    }
-  }
+  ]
 }
