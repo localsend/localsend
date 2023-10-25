@@ -19,25 +19,8 @@ jobs:
       - name: Get version from pubspec.yaml
         id: get_version
         run: |
-          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' pubspec.yaml)
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
-
-      - name: Dependencies
-        run: flutter pub get
-
-      - name: Build generated files
-        run: flutter pub run build_runner build -d
-
-      - name: Upload updated lib files with generated code
-        uses: actions/upload-artifact@v3
-        with:
-          name: lib-files
-          path: ./lib/*
 
   build_apk:
     needs: build
@@ -46,12 +29,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Download generated files
-        uses: actions/download-artifact@v3
-        with:
-          name: lib-files
-          path: lib
 
       - name: Copy files to env.APK_BUILD_DIR
         run: |
@@ -62,7 +39,7 @@ jobs:
         working-directory: ${{ env.APK_BUILD_DIR }}
         env:
           ENCODED_STRING: ${{ secrets.ANDROID_KEY_PROPERTIES }}
-        run: echo $ENCODED_STRING | base64 -di > android/key.properties
+        run: echo $ENCODED_STRING | base64 -di > app/android/key.properties
 
       - name: Decode android-keystore.jks file
         working-directory: ${{ env.APK_BUILD_DIR }}
@@ -82,18 +59,18 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Dependencies
-        working-directory: ${{ env.APK_BUILD_DIR }}
+        working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter pub get
 
       - name: Build APK
-        working-directory: ${{ env.APK_BUILD_DIR }}
+        working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter build apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: apk-result
-          path: ${{ env.APK_BUILD_DIR }}/build/app/outputs/flutter-apk/app-release.apk
+          path: ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-release.apk
 
   build_tar:
     needs: build
@@ -101,12 +78,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Download generated files
-        uses: actions/download-artifact@v3
-        with:
-          name: lib-files
-          path: lib
 
       - name: Install dependencies
         run: |
@@ -119,21 +90,23 @@ jobs:
           channel: "stable"
 
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
 
       - name: Compile linux
+        working-directory: app
         run: flutter build linux
 
       - name: Create tar.gz archive
         run: |
-          cd build/linux/x64/release/bundle
+          cd app/build/linux/x64/release/bundle
           tar -czvf ../../../../../result.tar.gz *
 
       - name: Upload tar.gz archive
         uses: actions/upload-artifact@v3
         with:
           name: tar-gz-result
-          path: ./*.tar.gz
+          path: ./app/*.tar.gz
 
   build_deb:
     needs: build
@@ -141,12 +114,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Download generated files
-        uses: actions/download-artifact@v3
-        with:
-          name: lib-files
-          path: lib
 
       - name: Install dependencies
         run: |
@@ -165,13 +132,14 @@ jobs:
         run: echo 'export PATH="$PATH:$HOME/.pub-cache/bin"' >> ~/.bashrc
 
       - name: Build deb package
+        working-directory: app
         run: flutter_distributor package --platform linux --targets deb
 
       - name: Find deb file
         id: find_deb
         run: |
           VERSION=${{ needs.build.outputs.version }}
-          DEB_PATH=$(find dist -name "localsend_app-$VERSION*-linux.deb")
+          RPM_PATH=$(find app/dist -name "localsend_app-$VERSION*-linux.deb")
           echo "deb_path=$DEB_PATH" >> $GITHUB_OUTPUT
 
       - name: Check if deb file exists
@@ -188,18 +156,57 @@ jobs:
           name: deb-result
           path: ${{ steps.find_deb.outputs.deb_path }}
 
+  build_rpm:
+    runs-on: ubuntu-latest
+    container: fedora:38
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo dnf install -y clang cmake gtk3-devel ninja-build libappindicator-gtk3-devel jq
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Enable dart_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Update PATH
+        run: echo 'export PATH="$PATH:$HOME/.pub-cache/bin"' >> ~/.bashrc
+
+      - name: Build rpm package
+        working-directory: app
+        run: flutter_distributor package --platform linux --targets rpm
+
+      - name: Find rpm file
+        id: find_rpm
+        run: |
+          VERSION=${{ needs.build.outputs.version }}
+          DEB_PATH=$(find app/dist -name "localsend_app-$VERSION*-linux.rpm")
+          echo "rpm_path=$RPM_PATH" >> $GITHUB_OUTPUT
+
+      - name: Check if rpm file exists
+        id: check_file
+        run: |
+          if [[ ! -f "${{ steps.find_rpm.outputs.rpm_path }}" ]]; then
+            echo "File not found: ${{ steps.find_rpm.outputs.rpm_path }}"
+            exit 1
+          fi
+
+      - name: Upload rpm file
+        uses: actions/upload-artifact@v3
+        with:
+          name: rpm-result
+          path: ${{ steps.find_rpm.outputs.rpm_path }}
+
   build_appimage:
     needs: build
     runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Download generated files
-        uses: actions/download-artifact@v3
-        with:
-          name: lib-files
-          path: lib
 
       - name: Install dependencies
         run: |
@@ -212,24 +219,26 @@ jobs:
           channel: "stable"
 
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
 
       - name: Compile linux
+        working-directory: app
         run: flutter build linux
 
       - name: Copy compiled linux files
         run: |
           mkdir AppDir
-          cp -r build/linux/x64/release/bundle/* AppDir/
+          cp -r app/build/linux/x64/release/bundle/* AppDir/
 
       - name: Copy logo to AppDir
         run: |
           mkdir -p AppDir/usr/share/icons/hicolor/32x32/apps
-          cp assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
+          cp app/assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
           mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
-          cp assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
+          cp app/assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
           mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
-          cp assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
+          cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
@@ -250,13 +259,8 @@ jobs:
       - name: Fix long file paths
         run: git config --system core.longpaths true
 
-      - uses: actions/checkout@v4
-
-      - name: Download generated files
-        uses: actions/download-artifact@v3
-        with:
-          name: lib-files
-          path: lib
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - uses: subosito/flutter-action@v2
         with:
@@ -264,22 +268,25 @@ jobs:
           channel: "stable"
 
       - name: Dependencies
+        working-directory: app
         run: flutter pub get
 
       - name: Compile for Windows
+        working-directory: app
         run: flutter build windows
 
       - name: Zip compiled files
+        working-directory: app
         run: Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend.zip
 
       - name: Upload zip
         uses: actions/upload-artifact@v3
         with:
           name: windows-zip-result
-          path: LocalSend.zip
+          path: app/LocalSend.zip
 
   release:
-    needs: [build, build_apk, build_tar, build_deb, build_appimage, build_windows_zip]
+    needs: [build, build_apk, build_tar, build_deb, build_rpm, build_appimage, build_windows_zip]
     runs-on: ubuntu-20.04
 
     steps:
@@ -356,6 +363,26 @@ jobs:
           asset_path: result.deb
           asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-x86-64.deb
           asset_content_type: application/vnd.debian.binary-package
+
+      # RPM
+      - name: Download rpm file
+        uses: actions/download-artifact@v3
+        with:
+          name: rpm-result
+          path: rpm-result
+
+      - name: Copy rpm file to root
+        run: cp rpm-result/*.rpm result.rpm
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result.rpm
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-x86-64.rpm
+          asset_content_type: application/x-rpm
 
       # APPIMAGE
       - name: Download AppImage file
