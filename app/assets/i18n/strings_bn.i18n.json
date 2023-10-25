@@ -292,6 +292,10 @@
     "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
+    "historyClearDialog" : {
+      "title": "ইতিহাস পরিষ্কার করুন",
+      "content": "আপনি কি সত্যিই সমগ্র ইতিহাস মুছে ফেলতে চান?"
+  },
     "addFile": {
       "title": "সিলেকশনে যুক্ত করুন",
       "content": "আপনি কি যোগ করতে চান?"
