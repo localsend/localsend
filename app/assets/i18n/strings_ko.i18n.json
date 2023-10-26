@@ -276,6 +276,10 @@
       "title": "파일 이름을 입력하세요",
       "original": "기존 이름: {original}"
     },
+    "historyClearDialog": {
+      "title": "기록 지우기",
+      "content": "정말 모든 기록을 삭제하시겠습니까?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.",
