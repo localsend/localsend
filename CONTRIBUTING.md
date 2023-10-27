@@ -18,7 +18,7 @@ flutter run
 
 ## Translation
 
-You can help translating this app to other languages!
+You can help in translating this app to other languages!
 
 1. Fork this repository
 2. Choose one
@@ -28,7 +28,7 @@ You can help translating this app to other languages!
 3. Optional: Re-run this app
    1. Make sure you have [run](#run) this app once.
    2. Update translations via `flutter pub run slang`
-   3. Run app via `flutter run`
+   3. Run the app via `flutter run`
 4. Open a pull request
 
 **_Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
@@ -141,7 +141,7 @@ Binary distribution:
 
 TODO:
 
-You can help publishing LocalSend on more platforms. Please create an issue to notify us!
+You can help in publishing LocalSend on more platforms. Please create an issue to notify us!
 
 - Traditional Linux distributions (Debian, Fedora, etc.)
 - Snap
