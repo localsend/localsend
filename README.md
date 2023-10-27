@@ -31,7 +31,7 @@ LocalSend is a free, open-source app that allows you to securely share files and
 
 ## About
 
-LocalSend is a cross-platform app that enables secure communication between devices using a REST API and HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
+LocalSend is a cross-platform app that enables secure communication between devices using a REST API and the HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
 
 ## Screenshots
 
