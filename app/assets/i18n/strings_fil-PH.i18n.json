@@ -1,0 +1,439 @@
+{
+  "locale": "Filipino",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Tanggapin",
+    "accepted": "Tinanggap",
+    "add": "Magdagdag",
+    "advanced": "Advanced",
+    "cancel": "Kanselahin",
+    "close": "Isara",
+    "confirm": "Kumpirmahin",
+    "continueStr": "Magpatuloy",
+    "copy": "Kopyahin",
+    "copiedToClipboard": "Kopyahin sa Clipboard",
+    "decline": "Tanggihan",
+    "done": "Tapusin",
+    "delete": "Tanggalin",
+    "edit": "Baguhin",
+    "error": "Error",
+    "example": "Halimbawa",
+    "files": "Files",
+    "finished": "Tapos Na",
+    "hide": "Itago",
+    "off": "Sarado",
+    "offline": "Offline",
+    "on": "Bukas",
+    "online": "Online",
+    "open": "Buksan",
+    "queue": "Pila",
+    "quickSave": "Quick Save",
+    "renamed": "Pinangalanan",
+    "reset": "Reset",
+    "restart": "Restart",
+    "settings": "Settings",
+    "skipped": "Nilaktawan",
+    "start": "Simulan",
+    "stop": "Ihinto",
+    "save": "Save",
+    "unchanged": "Walang Pagbabago",
+    "unknown": "Hindi Kilala",
+    "noItemInClipboard": "Walang Item sa Clipboard"
+  },
+  "receiveTab": {
+    "title": "Tumanggap",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    }
+  },
+  "sendTab": {
+    "title": "Magpadala",
+    "selection": {
+      "title": "Pagpipilian",
+      "files": "Files: {files}",
+      "size": "Size: {size}"
+    },
+    "picker": {
+      "file": "File",
+      "folder": "Folder",
+      "media": "Media",
+      "text": "Text",
+      "app": "App",
+      "clipboard": "Paste"
+    },
+    "shareIntentInfo": "Maaring gamitin ang \"Share\" feature sa iyong mobile device para sa mas madaling pagpili ng mga files.",
+    "nearbyDevices": "Malalapit na mga device",
+    "thisDevice": "Ang Device na Ito",
+    "scan": "Maghanap ng mga device",
+    "sendMode": "Send mode",
+    "sendModes": {
+      "single": "Isang tatanggap",
+      "multiple": "Maraming tatanggap",
+      "link": "I-Share gamit ang link"
+    },
+    "sendModeHelp": "Paliwanag",
+    "help": "Mangyaring siguraduhin na ang target ay nasa parehas na wifi network.",
+    "placeItems": "Maglagay ng mga bagay na i-share."
+  },
+  "settingsTab": {
+    "title": "Settings",
+    "general": {
+      "title": "General",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "System",
+        "dark": "Madilim",
+        "light": "Maliwanag"
+      },
+      "color": "Kulay",
+      "colorOptions": {
+        "system": "System",
+        "oled": "OLED"
+      },
+      "language": "Wika",
+      "languageOptions": {
+        "system": "System"
+      },
+      "saveWindowPlacement": "Quit: I-Save ang window placement",
+      "minimizeToTray": "Quit: Paliitin sa Tray/Menu Bar",
+      "launchAtStartup": "I-Autostart pagkatapos mag-login",
+      "launchMinimized": "Autostart: I-start nang nakatago",
+      "animations": "Animations"
+    },
+    "receive": {
+      "title": "Tumanggap",
+      "quickSave": "@:general.quickSave",
+      "destination": "Patutunguhan",
+      "downloads": "(Downloads)",
+      "saveToGallery": "I-Save ang media sa gallery",
+      "saveToHistory": "I-Save sa history"
+    },
+    "network": {
+      "title": "Network",
+      "needRestart": "I-Restart ang server para i-apply ang settings!",
+      "server": "Server",
+      "alias": "Alias",
+      "deviceType": "Device type",
+      "deviceModel": "Device model",
+      "port": "Port",
+      "portWarning": "Maaaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang port. (default: {defaultPort})",
+      "encryption": "Encryption",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Maaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang multicast address. (default: {defaultMulticast})"
+    },
+    "advancedSettings": "Advanced settings"
+  },
+  "troubleshootPage": {
+    "title": "Troubleshoot",
+    "subTitle": "Hindi gumagana ang app na ito gaya nang inaasahan? Narito mo mahahanap ang mga madalas na solusyon.",
+    "solution": "Solusyon:",
+    "fixButton": "Awtomatikong ayusin",
+    "firewall": {
+      "symptom": "Ang app na ito ay nakakapag-padala ng mga file sa ibang devices ngunit ang ibang devices ay hindi makapag-padala sa device na ito.",
+      "solution": "Ito ay kadalasang isyu sa firewall. Maari mo maayos sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port {port}.",
+      "openFirewall": "Buksan ang Firewall"
+    },
+    "noConnection": {
+      "symptom": "Ang dalawa o higit pang devices ay hindi mo discover ang isa't isa o hindi makapag-share ng files.",
+      "solution": "Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "History",
+    "openFolder": "Buksan ang folder",
+    "deleteHistory": "Burahin ang history",
+    "empty": "Walang laman ang history.",
+    "entryActions": {
+      "open": "Buksan ang file",
+      "info": "Impormasyon",
+      "deleteFromHistory": "Burahin sa history"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Ibukod ang mga system app",
+    "excludeAppsWithoutLaunchIntent": "Ibukod and mga non-launchable app",
+    "apps": "{n} Apps"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Burahin lahat"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ay gustong magpadala sa iyo ng file.",
+      "other": "ay gustong magpadala sa iyo ng {n} na mga file."
+    },
+    "subTitleMessage": "ay nagpadala sa iyo ng mensahe:",
+    "subTitleLink": "ay nagpadala sa iyo ng likn:",
+    "canceled": "Ang sender ay nag-kansela ng request."
+  },
+  "receiveOptionsPage": {
+    "title": "Options",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Awtomatikong pinatay dahil mayroong mga directories."
+  },
+  "sendPage": {
+    "waiting": "Naghihintay ng response...",
+    "rejected": "Tinanggihan ng recipient ang request.",
+    "busy": "Ang recipient ay abala pa sa ibang request."
+  },
+  "progressPage": {
+    "titleSending": "Nagpapadala ng mga file",
+    "titleReceiving": "Tumatanggap ng mga file",
+    "savedToGallery": "Naka-Save sa Photos",
+    "total": {
+      "title": {
+        "sending": "Kabuuang progress ({time})",
+        "finishedError": "Natapos nang may error",
+        "canceledSender": "Kinansela ng sender",
+        "canceledReceiver": "Kinansela ng receiver"
+      },
+      "count": "Files: {curr} / {n}",
+      "size": "Size: {curr} / {n}",
+      "speed": "Speed: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "I-Share gamit ang link",
+    "loading": "Binubuksan ang server...",
+    "stopping": "Ihinihinto ang server...",
+    "error": "May nangyaring error habang buksan ang server.",
+    "openLink": {
+      "one": "Buksan ang link na ito sa browser:",
+      "other": "Buksan ang isa sa mga link na ito sa browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "Wala pang mga request.",
+    "encryption": "@:settingsTab.network.encryption",
+    "encryptionHint": "Ang LocalSend ay gumagamit ng self-signed certificate. Kailangan mo itong i-accept sa browser.",
+    "pendingRequests": "Mga naka-pending na request: {n}"
+  },
+  "aboutPage": {
+    "title": "Tungkol sa LocalSend"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Adorable",
+      "Beautiful",
+      "Big",
+      "Bright",
+      "Clean",
+      "Clever",
+      "Cool",
+      "Cute",
+      "Cunning",
+      "Determined",
+      "Energetic",
+      "Efficient",
+      "Fantastic",
+      "Fast",
+      "Fine",
+      "Fresh",
+      "Good",
+      "Gorgeous",
+      "Great",
+      "Handsome",
+      "Hot",
+      "Kind",
+      "Lovely",
+      "Mystic",
+      "Neat",
+      "Nice",
+      "Patient",
+      "Pretty",
+      "Powerful",
+      "Rich",
+      "Secret",
+      "Smart",
+      "Solid",
+      "Special",
+      "Strategic",
+      "Strong",
+      "Tidy",
+      "Wise"
+    ],
+    "fruits": [
+      "Apple",
+      "Avocado",
+      "Banana",
+      "Blackberry",
+      "Blueberry",
+      "Broccoli",
+      "Carrot",
+      "Cherry",
+      "Coconut",
+      "Grape",
+      "Lemon",
+      "Lettuce",
+      "Mango",
+      "Melon",
+      "Mushroom",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Peach",
+      "Pear",
+      "Pineapple",
+      "Potato",
+      "Pumpkin",
+      "Raspberry",
+      "Strawberry",
+      "Tomato"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Idagdag sa selection",
+      "content": "Ano ang gusto mong idagdag?"
+    },
+    "addressInput": {
+      "title": "Ilagay ang address",
+      "hashtag": "Hashtag",
+      "ip": "IP Address",
+      "recentlyUsed": "Recently used: "
+    },
+    "cancelSession": {
+      "title": "Kanselahin ang pagpapadala ng file",
+      "content": "Gusto mo ba talagang kanselahin ang pagpapadala ng file?"
+    },
+    "cannotOpenFile": {
+      "title": "Hindi mabuksan ang file",
+      "content": "Hindi mabuksan ang \"{file}\". Ito ba ay nalipat, pinangalanan, o nabura?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Ang encryption ay naka-disable",
+      "content": "Ang communication ay nangyayari ngayon gamit ang unencrypted HTTP protocol. Para gamitin ang HTTPS, muling i-enable ang encryption."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorites",
+      "noFavorites": "Wala pang favorites sa mga device.",
+      "addFavorite": "Magdagdag"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Burahin sa favorites",
+      "content": "Gusto mo ba talagang burahin ang favorites \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Idagdag sa favorites",
+      "titleEdit": "Adjust",
+      "name": "Alias",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Impormasyon sa file",
+      "fileName": "Pangalan ng file:",
+      "path": "Lokasyon:",
+      "size": "Size:",
+      "sender": "Sender:",
+      "time": "Time:"
+    },
+    "fileNameInput": {
+      "title": "Ilagay ang pangalan ng file",
+      "original": "Orihinal: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Burahin ang history",
+      "content": "Gusto mo ba talagang burahin ang buong history?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "Hindi makikita ng LocalSend ang ibang devices hangga't hindi nabibigyan ng permission para mag scan sa lokal na network. Mangyaring bigyan ito ng permission sa settings.",
+      "gotoSettings": "Settings"
+    },
+    "messageInput": {
+      "title": "I-Type ang message",
+      "multiline": "Multiline"
+    },
+    "noFiles": {
+      "title": "Walang file na pinli",
+      "content": "Mangyaring pumili nang kahit isang file."
+    },
+    "noPermission": {
+      "title": "Walang permission",
+      "content": "Hindi nabigyan ng mga kinakailangang permissions. Mangyaring bigyan ito ng permission sa settings."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Hindi available",
+      "content": "Ang feature na ito ay available lamang sa:"
+    },
+    "qr": {
+      "title": "QR Code"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Counter",
+      "prefix": "Prefix",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "Pagsunud-sunurin ayon sa alpabeto",
+      "random": "Random"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring mag-padala sa iyo ng mga file."
+    },
+    "sendModeHelp": {
+      "title": "Send modes",
+      "single": "Magpadala ng mga file sa iisang recipient o tatanggap. Ang mga pagpipilian ay maaalis pagkatapos ipadala ang file.",
+      "multiple": "Magpadala ng mga file sa maraming recipient o tatanggap. Ang mga pagpipilian ay hindi maaalis.",
+      "link": "Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaring mag download nang mga napiling files sa pamamagitan ng pagbukas ng link sa kanilang browser."
+    }
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Quit LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Hindi Tinanggap",
+    "files": "Files",
+    "fileName": "Pangalan ng file",
+    "size": "Size"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Kumpirmahin",
+    "cancel": "Kanselahin",
+    "edit": "Baguhin",
+    "gifIndicator": "GIF",
+    "loadFailed": "Load failed",
+    "original": "Pinagmulan",
+    "preview": "Silipin",
+    "select": "Piliin",
+    "emptyList": "Walang lamang listahan",
+    "unSupportedAssetType": "Hindi suportadong file type.",
+    "unableToAccessAll": "Hindi ma-access ang lahat ng mga file sa device",
+    "viewingLimitedAssetsTip": "Makikita lamang ang mga file at mga album na accessible sa app",
+    "changeAccessibleLimitedAssets": "I-Click para i-update ang accessible na mga file",
+    "accessAllTip": "Ang app na ito ay kaya lamang mag-access ng iilang mga file sa device. Magtungo sa system settings at i-allow ang app para ma-access ang lahat ng media sa device.",
+    "goToSystemSettings": "Magpunta sa system settings",
+    "accessLimitedAssets": "Ituloy nang limitadong access",
+    "accessiblePathName": "Accessible na mga files",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Image",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Iba pang media",
+    "sActionPlayHint": "play",
+    "sActionPreviewHint": "silipin",
+    "sActionSelectHint": "piliin",
+    "sActionSwitchPathLabel": "baguhin ang lokasyon",
+    "sActionUseCameraHint": "gamiting ang camera",
+    "sNameDurationLabel": "duration",
+    "sUnitAssetCountLabel": "count"
+  }
+}
