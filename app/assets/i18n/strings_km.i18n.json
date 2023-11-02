@@ -1,5 +1,5 @@
 {
-  "locale": "ក្នុងប្រព័ន្ធ",
+  "locale": "ភាសាខ្មែរ",
   "appName": "LocalSend",
   "general": {
     "accept": "ទទួល",
@@ -167,7 +167,7 @@
     "canceled": "អ្នកផ្ញើបានបោះបង់សំណើរហើយ។"
   },
   "receiveOptionsPage": {
-    "title": "Options",
+    "title": "ជម្រើស",
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(ថតឯកសារ LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
