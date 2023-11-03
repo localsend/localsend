@@ -21,7 +21,7 @@ class _StringsKm extends _StringsEn {
 	@override late final _StringsKm _root = this; // ignore: unused_field
 
 	// Translations
-	@override String get locale => 'ក្នុងប្រព័ន្ធ';
+	@override String get locale => 'ភាសាខ្មែរ';
 	@override String get appName => 'LocalSend';
 	@override late final _StringsGeneralKm general = _StringsGeneralKm._(_root);
 	@override late final _StringsReceiveTabKm receiveTab = _StringsReceiveTabKm._(_root);
@@ -210,7 +210,7 @@ class _StringsReceiveOptionsPageKm extends _StringsReceiveOptionsPageEn {
 	@override final _StringsKm _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Options';
+	@override String get title => 'ជម្រើស';
 	@override String get destination => '${_root.settingsTab.receive.destination}';
 	@override String get appDirectory => '(ថតឯកសារ LocalSend)';
 	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';

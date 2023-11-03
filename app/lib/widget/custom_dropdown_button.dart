@@ -6,7 +6,7 @@ import 'package:localsend_app/theme.dart';
 class CustomDropdownButton<T> extends StatelessWidget {
   final T value;
   final List<DropdownMenuItem<T>> items;
-  final ValueChanged<T?>? onChanged;
+  final ValueChanged<T>? onChanged;
   final bool expanded;
 
   const CustomDropdownButton({
@@ -27,7 +27,11 @@ class CustomDropdownButton<T> extends StatelessWidget {
         underline: Container(),
         borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
         items: items,
-        onChanged: onChanged,
+        onChanged: onChanged == null ? null : (value) {
+          if (value != null) {
+            onChanged!(value);
+          }
+        },
       ),
     );
   }

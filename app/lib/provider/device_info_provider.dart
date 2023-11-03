@@ -13,12 +13,12 @@ final deviceRawInfoProvider = Provider<DeviceInfoResult>((ref) {
 });
 
 final deviceInfoProvider = ViewProvider<DeviceInfoResult>((ref) {
-  final settings = ref.watch(settingsProvider);
+  final (deviceType, deviceModel) = ref.watch(settingsProvider.select((state) => (state.deviceType, state.deviceModel)));
   final rawInfo = ref.watch(deviceRawInfoProvider);
 
   return DeviceInfoResult(
-    deviceType: settings.deviceType ?? rawInfo.deviceType,
-    deviceModel: settings.deviceModel ?? rawInfo.deviceModel,
+    deviceType: deviceType ?? rawInfo.deviceType,
+    deviceModel: deviceModel ?? rawInfo.deviceModel,
     androidSdkInt: rawInfo.androidSdkInt,
   );
 });
