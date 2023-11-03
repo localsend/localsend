@@ -2,25 +2,33 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/dto/file_dto.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/provider/app_arguments_provider.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
+import 'package:localsend_app/refena.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
+import 'package:localsend_app/util/i18n.dart';
+import 'package:localsend_app/util/logger.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -32,50 +40,15 @@ const launchAtStartupArg = 'autostart';
 final _logger = Logger('Init');
 
 /// Will be called before the MaterialApp started
-Future<(PersistenceService, bool)> preInit(List<String> args) async {
-  // Init logger
-  Logger.root.level = args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO;
-  Logger.root.onRecord.listen((record) {
-    // ignore: avoid_print
-    print('${record.time} ${'[${record.level.name}]'.padLeft(9)} [${record.loggerName}] ${record.message}');
+Future<RefenaContainer> preInit(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-    if (record.error != null) {
-      // ignore: avoid_print
-      print(record.error);
-    }
-
-    if (record.stackTrace != null) {
-      // ignore: avoid_print
-      print(record.stackTrace);
-    }
-  });
-
+  initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
   final persistenceService = await PersistenceService.initialize();
 
-  // Register default plural resolver
-  for (final locale in AppLocale.values) {
-    if ([AppLocale.en, AppLocale.de].contains(locale)) {
-      continue;
-    }
-
-    LocaleSettings.setPluralResolver(
-      locale: locale,
-      cardinalResolver: (n, {zero, one, two, few, many, other}) {
-        if (n == 0) {
-          return zero ?? other ?? n.toString();
-        }
-        if (n == 1) {
-          return one ?? other ?? n.toString();
-        }
-        return other ?? n.toString();
-      },
-      ordinalResolver: (n, {zero, one, two, few, many, other}) {
-        return other ?? n.toString();
-      },
-    );
-  }
+  initI18n();
 
   bool startHidden = false;
   if (checkPlatformIsDesktop()) {
@@ -121,7 +94,22 @@ Future<(PersistenceService, bool)> preInit(List<String> args) async {
 
   setDefaultRouteTransition();
 
-  return (persistenceService, startHidden);
+  final container = RefenaContainer(
+    observers: kDebugMode ? [CustomRefenaObserver()] : [],
+    overrides: [
+      persistenceProvider.overrideWithValue(persistenceService),
+      deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
+      appArgumentsProvider.overrideWithValue(args),
+      tvProvider.overrideWithValue(await checkIfTv()),
+      dynamicColorsProvider.overrideWithValue(await getDynamicColors()),
+      sleepProvider.overrideWithInitialState((ref) => startHidden),
+    ],
+  );
+
+  // wait until all overrides are set
+  await container.ensureOverrides();
+
+  return container;
 }
 
 StreamSubscription? _sharedMediaSubscription;
@@ -161,17 +149,20 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
       final initialSharedPayload = await shareHandler.getInitialSharedMedia();
       if (initialSharedPayload != null) {
         hasInitialShare = true;
-        unawaited(
-          _handleSharedIntent(initialSharedPayload, ref),
-        );
-        goToPage(HomeTab.send.index);
+        // ignore: unawaited_futures
+        ref.dispatchAsync(_HandleShareIntentAction(
+          payload: initialSharedPayload,
+          goToPage: goToPage,
+        ));
       }
     }
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
-      _handleSharedIntent(payload, ref);
-      goToPage(HomeTab.send.index);
+      ref.dispatchAsync(_HandleShareIntentAction(
+        payload: payload,
+        goToPage: goToPage,
+      ));
     });
   }
 
@@ -182,13 +173,26 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   }
 }
 
-Future<void> _handleSharedIntent(SharedMedia payload, Ref ref) async {
-  final message = payload.content;
-  if (message != null && message.trim().isNotEmpty) {
-    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
+class _HandleShareIntentAction extends AsyncGlobalAction {
+  final SharedMedia payload;
+  final void Function(int) goToPage;
+
+  _HandleShareIntentAction({
+    required this.payload,
+    required this.goToPage,
+  });
+
+  @override
+  Future<void> reduce() async {
+    final message = payload.content;
+    if (message != null && message.trim().isNotEmpty) {
+      ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
+    }
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+          files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+          converter: CrossFileConverters.convertSharedAttachment,
+        ));
+
+    goToPage(HomeTab.send.index);
   }
-  await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-        files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-        converter: CrossFileConverters.convertSharedAttachment,
-      ));
 }

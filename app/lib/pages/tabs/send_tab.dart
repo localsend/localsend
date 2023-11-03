@@ -31,227 +31,220 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
+final _options = FilePickerOption.getOptionsForPlatform();
 
-class SendTab extends StatefulWidget {
-  const SendTab({Key? key}) : super(key: key);
-
-  @override
-  State<SendTab> createState() => _SendTabState();
-}
-
-class _SendTabState extends State<SendTab> with Refena {
-  final options = FilePickerOption.getOptionsForPlatform();
-
-  @override
-  void initState() {
-    super.initState();
-
-    ensureRef((ref) async {
-      await ref.dispatchAsync(SendTabInitAction(context));
-    });
-  }
+class SendTab extends StatelessWidget {
+  const SendTab();
 
   @override
   Widget build(BuildContext context) {
-    final vm = ref.watch(sendTabVmProvider);
-
-    return ResponsiveListView(
-      padding: EdgeInsets.zero,
-      children: [
-        const SizedBox(height: 20),
-        if (vm.selectedFiles.isEmpty) ...[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-            child: Text(
-              t.sendTab.selection.title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(width: 10),
-                ...options.map((option) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    child: BigButton(
-                      icon: option.icon,
-                      label: option.label,
-                      filled: false,
-                      onTap: () async => ref.dispatchAsync(PickFileAction(
-                        option: option,
-                        context: context,
-                      )),
-                    ),
-                  );
-                }),
-                const SizedBox(width: 10),
-              ],
-            ),
-          ),
-        ] else ...[
-          Card(
-            margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    t.sendTab.selection.title,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
-                  Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
-                  const SizedBox(height: 10),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...vm.selectedFiles.map((file) {
-                          return [
-                            SmartFileThumbnail.fromCrossFile(file),
-                            const SizedBox(width: 10),
-                          ];
-                        }).expand((e) => e),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        onPressed: () async {
-                          await context.push(() => const SelectedFilesPage());
-                        },
-                        child: Text(t.general.edit),
-                      ),
-                      const SizedBox(width: 15),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                        onPressed: () async {
-                          if (options.length == 1) {
-                            // open directly
-                            await ref.dispatchAsync(PickFileAction(
-                              option: options.first,
-                              context: context,
-                            ));
-                            return;
-                          }
-                          await AddFileDialog.open(
+    return ViewModelBuilder(
+      provider: sendTabVmProvider,
+      init: (context, ref) {
+        // ignore: discarded_futures
+        ref.dispatchAsync(SendTabInitAction(context));
+      },
+      builder: (context, vm) {
+        final ref = context.ref;
+        return ResponsiveListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const SizedBox(height: 20),
+            if (vm.selectedFiles.isEmpty) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+                child: Text(
+                  t.sendTab.selection.title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    ..._options.map((option) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                        child: BigButton(
+                          icon: option.icon,
+                          label: option.label,
+                          filled: false,
+                          onTap: () async => ref.dispatchAsync(PickFileAction(
+                            option: option,
                             context: context,
-                            options: options,
-                          );
-                        },
-                        icon: const Icon(Icons.add),
-                        label: Text(t.general.add),
+                          )),
+                        ),
+                      );
+                    }),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+              ),
+            ] else ...[
+              Card(
+                margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t.sendTab.selection.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
+                      Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...vm.selectedFiles.map((file) {
+                              return [
+                                SmartFileThumbnail.fromCrossFile(file),
+                                const SizedBox(width: 10),
+                              ];
+                            }).expand((e) => e),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            onPressed: () async {
+                              await context.push(() => const SelectedFilesPage());
+                            },
+                            child: Text(t.general.edit),
+                          ),
+                          const SizedBox(width: 15),
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                            onPressed: () async {
+                              if (_options.length == 1) {
+                                // open directly
+                                await ref.dispatchAsync(PickFileAction(
+                                  option: _options.first,
+                                  context: context,
+                                ));
+                                return;
+                              }
+                              await AddFileDialog.open(
+                                context: context,
+                                options: _options,
+                              );
+                            },
+                            icon: const Icon(Icons.add),
+                            label: Text(t.general.add),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
+            ],
+            Row(
+              children: [
+                const SizedBox(width: _horizontalPadding),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.titleMedium),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                _ScanButton(
+                  ips: vm.localIps,
+                ),
+                Tooltip(
+                  message: t.dialogs.addressInput.title,
+                  child: CustomIconButton(
+                    onPressed: () async => vm.onTapAddress(context),
+                    child: const Icon(Icons.ads_click),
+                  ),
+                ),
+                Tooltip(
+                  message: t.dialogs.favoriteDialog.title,
+                  child: CustomIconButton(
+                    onPressed: () async => await vm.onTapFavorite(context),
+                    child: const Icon(Icons.favorite),
+                  ),
+                ),
+                _SendModeButton(
+                  onSelect: (mode) async => vm.onTapSendMode(context, mode),
+                ),
+              ],
             ),
-          ),
-        ],
-        Row(
-          children: [
-            const SizedBox(width: _horizontalPadding),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(t.sendTab.nearbyDevices, style: Theme.of(context).textTheme.titleMedium),
+            if (vm.nearbyDevices.isEmpty)
+              const Padding(
+                padding: EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+                child: Opacity(
+                  opacity: 0.3,
+                  child: DevicePlaceholderListTile(),
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
-            _ScanButton(
-              ips: vm.localIps,
-            ),
-            Tooltip(
-              message: t.dialogs.addressInput.title,
-              child: CustomIconButton(
-                onPressed: () async => vm.onTapAddress(context),
-                child: const Icon(Icons.ads_click),
-              ),
-            ),
-            Tooltip(
-              message: t.dialogs.favoriteDialog.title,
-              child: CustomIconButton(
-                onPressed: () async => await vm.onTapFavorite(context),
-                child: const Icon(Icons.favorite),
-              ),
-            ),
-            _SendModeButton(
-              onSelect: (mode) async => vm.onTapSendMode(context, mode),
-            ),
-          ],
-        ),
-        if (vm.nearbyDevices.isEmpty)
-          const Padding(
-            padding: EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
-            child: Opacity(
-              opacity: 0.3,
-              child: DevicePlaceholderListTile(),
-            ),
-          ),
-        ...vm.nearbyDevices.map((device) {
-          final isFavorite = vm.favoriteDevices.any((e) => e.fingerprint == device.fingerprint);
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
-            child: Hero(
-              tag: 'device-${device.ip}',
-              child: vm.sendMode == SendMode.multiple
-                  ? _MultiSendDeviceListTile(
-                      device: device,
-                      isFavorite: isFavorite,
-                      vm: vm,
-                    )
-                  : DeviceListTile(
-                      device: device,
-                      isFavorite: isFavorite,
-                      onFavoriteTap: () async => await vm.onToggleFavorite(device),
-                      onTap: () async => await vm.onTapDevice(context, device),
-                    ),
-            ),
-          );
-        }),
-        const SizedBox(height: 10),
-        Center(
-          child: TextButton(
-            onPressed: () async {
-              await context.push(() => const TroubleshootPage());
-            },
-            child: Text(t.troubleshootPage.title),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-          child: Consumer(
-            builder: (context, ref) {
-              final animations = ref.watch(animationProvider);
-              return OpacitySlideshow(
-                durationMillis: 6000,
-                running: animations,
-                children: [
-                  Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
-                  if (checkPlatformCanReceiveShareIntent())
-                    Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
-                ],
+            ...vm.nearbyDevices.map((device) {
+              final isFavorite = vm.favoriteDevices.any((e) => e.fingerprint == device.fingerprint);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+                child: Hero(
+                  tag: 'device-${device.ip}',
+                  child: vm.sendMode == SendMode.multiple
+                      ? _MultiSendDeviceListTile(
+                          device: device,
+                          isFavorite: isFavorite,
+                          vm: vm,
+                        )
+                      : DeviceListTile(
+                          device: device,
+                          isFavorite: isFavorite,
+                          onFavoriteTap: () async => await vm.onToggleFavorite(device),
+                          onTap: () async => await vm.onTapDevice(context, device),
+                        ),
+                ),
               );
-            },
-          ),
-        ),
-        const SizedBox(height: 50),
-      ],
+            }),
+            const SizedBox(height: 10),
+            Center(
+              child: TextButton(
+                onPressed: () async {
+                  await context.push(() => const TroubleshootPage());
+                },
+                child: Text(t.troubleshootPage.title),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+              child: Consumer(
+                builder: (context, ref) {
+                  final animations = ref.watch(animationProvider);
+                  return OpacitySlideshow(
+                    durationMillis: 6000,
+                    running: animations,
+                    children: [
+                      Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+                      if (checkPlatformCanReceiveShareIntent())
+                        Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+                    ],
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 50),
+          ],
+        );
+      },
     );
   }
 }

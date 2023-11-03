@@ -25,23 +25,13 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
   // https://github.com/localsend/localsend/issues/52
   final String? fontFamily;
   if (checkPlatform([TargetPlatform.windows])) {
-    switch (LocaleSettings.currentLocale) {
-      case AppLocale.ja:
-        fontFamily = 'Yu Gothic UI';
-        break;
-      case AppLocale.ko:
-        fontFamily = 'Malgun Gothic';
-        break;
-      case AppLocale.zhCn:
-        fontFamily = 'Microsoft YaHei UI';
-        break;
-      case AppLocale.zhHk:
-      case AppLocale.zhTw:
-        fontFamily = 'Microsoft JhengHei UI';
-        break;
-      default:
-        fontFamily = 'Segoe UI Variable Display';
-    }
+    fontFamily = switch (LocaleSettings.currentLocale) {
+      AppLocale.ja => 'Yu Gothic UI',
+      AppLocale.ko => 'Malgun Gothic',
+      AppLocale.zhCn => 'Microsoft YaHei UI',
+      AppLocale.zhHk || AppLocale.zhTw => 'Microsoft JhengHei UI',
+      _ => 'Segoe UI Variable Display',
+    };
   } else {
     fontFamily = null;
   }
