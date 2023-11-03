@@ -4,29 +4,29 @@
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
   ],
   "general": {
-    "delete": "حذف"
+    "delete": "Delete"
   },
   "dialogs": {
     "favoriteDialog": {
-      "title": "علاقه‌مندی‌ها",
-      "noFavorites": "هنوز دستگاهی اضافه نشده",
-      "addFavorite": "افزودن"
+      "title": "Favorites",
+      "noFavorites": "No favorites devices yet.",
+      "addFavorite": "Add"
     },
     "favoriteDeleteDialog": {
-      "title": "حذف از علاقه‌مندی‌ها",
-      "content": "واقعاً می خواهید از علاقه‌مندی‌ها حذف کنید \"{name}\"؟"
+      "title": "Delete from favorites",
+      "content": "Do you really want to delete from favorites \"{name}\"?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "افزودن به علاقه‌مندی‌ها",
-      "titleEdit": "تنظیمات",
-      "name": "نام مستعار",
-      "auto": "(خودکار)",
-      "ip": "آدرس آی پی",
-      "port": "پورت"
+      "titleAdd": "Add to favorites",
+      "titleEdit": "Adjustment",
+      "name": "Alias",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
     },
     "historyClearDialog": {
-      "title": "پاکسازی تاریخچه",
-      "content": "واقعاً می خواهید کل تاریخچه را حذف کنید؟"
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
     }
   }
 }
