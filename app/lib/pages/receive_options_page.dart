@@ -78,11 +78,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (b) {
-                        if (b != null) {
-                          ref.notifier(serverProvider).setSessionSaveToGallery(b);
-                        }
-                      },
+                      onChanged: (b) => ref.notifier(serverProvider).setSessionSaveToGallery(b),
                     ),
                     if (receiveSession.containsDirectories && !receiveSession.saveToGallery) ...[
                       const SizedBox(width: 10),

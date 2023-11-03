@@ -3,8 +3,8 @@
 /// Original: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 31
-/// Strings: 8238 (265 per locale)
+/// Locales: 32
+/// Strings: 8551 (267 per locale)
 
 
 // coverage:ignore-file
@@ -24,6 +24,7 @@ part 'strings_de.g.dart';
 part 'strings_es_ES.g.dart';
 part 'strings_eu.g.dart';
 part 'strings_fa.g.dart';
+part 'strings_fil_PH.g.dart';
 part 'strings_fr_FR.g.dart';
 part 'strings_he.g.dart';
 part 'strings_hu.g.dart';
@@ -65,6 +66,7 @@ enum AppLocale with BaseAppLocale<AppLocale, _StringsEn> {
 	esEs(languageCode: 'es', countryCode: 'ES', build: _StringsEsEs.build),
 	eu(languageCode: 'eu', build: _StringsEu.build),
 	fa(languageCode: 'fa', build: _StringsFa.build),
+	filPh(languageCode: 'fil', countryCode: 'PH', build: _StringsFilPh.build),
 	frFr(languageCode: 'fr', countryCode: 'FR', build: _StringsFrFr.build),
 	he(languageCode: 'he', build: _StringsHe.build),
 	hu(languageCode: 'hu', build: _StringsHu.build),

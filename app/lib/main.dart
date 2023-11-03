@@ -1,20 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/init.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/home_page.dart';
-import 'package:localsend_app/provider/animation_provider.dart';
-import 'package:localsend_app/provider/app_arguments_provider.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
-import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/provider/tv_provider.dart';
-import 'package:localsend_app/refena.dart';
 import 'package:localsend_app/theme.dart';
-import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
@@ -24,26 +16,14 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 Future<void> main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final (persistenceService, startHidden) = await preInit(args);
-  final scope = RefenaScope(
-    observers: kDebugMode ? [CustomRefenaObserver()] : [],
-    overrides: [
-      persistenceProvider.overrideWithValue(persistenceService),
-      deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
-      appArgumentsProvider.overrideWithValue(args),
-      tvProvider.overrideWithValue(await checkIfTv()),
-      dynamicColorsProvider.overrideWithValue(await getDynamicColors()),
-      sleepProvider.overrideWithInitialState((ref) => startHidden),
-    ],
+  final container = await preInit(args);
+
+  runApp(RefenaScope.withContainer(
+    container: container,
     child: TranslationProvider(
       child: const LocalSendApp(),
     ),
-  );
-
-  await scope.ensureOverrides();
-
-  runApp(scope);
+  ));
 }
 
 class LocalSendApp extends StatelessWidget {

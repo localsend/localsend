@@ -710,7 +710,7 @@ class _StringsDialogsFavoriteEditDialogEn {
 
 	// Translations
 	String get titleAdd => 'Add to favorites';
-	String get titleEdit => 'Adjust';
+	String get titleEdit => 'Adjustment';
 	String get name => 'Alias';
 	String get auto => '(auto)';
 	String get ip => 'IP Address';
