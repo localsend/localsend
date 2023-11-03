@@ -5,7 +5,7 @@ url: https://localsend.org
 buildArch: x86_64
 license: MIT
 
-icon: assets/img/logo-512.png
+icon: assets/packaging/linux-icon-512.png
 
 requires:
   - libappindicator

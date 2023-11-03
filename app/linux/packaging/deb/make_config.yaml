@@ -10,7 +10,7 @@ priority: optional
 section: x11
 installed_size: 30600
 essential: false
-icon: assets/img/logo-512.png
+icon: assets/packaging/linux-icon-512.png
 
 pre_dependencies:
   - libc6 (>= 2.31)
