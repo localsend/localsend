@@ -45,7 +45,7 @@
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Alias:"
+      "alias": "Device name:"
     }
   },
   "sendTab": {
@@ -114,7 +114,7 @@
       "title": "Network",
       "needRestart": "Restart the server to apply the settings!",
       "server": "Server",
-      "alias": "Alias",
+      "alias": "Device name",
       "deviceType": "Device type",
       "deviceModel": "Device model",
       "port": "Port",
@@ -328,8 +328,8 @@
     },
     "favoriteEditDialog": {
       "titleAdd": "Add to favorites",
-      "titleEdit": "Adjustment",
-      "name": "Alias",
+      "titleEdit": "Settings",
+      "name": "Device name",
       "auto": "(auto)",
       "ip": "IP Address",
       "port": "Port"
