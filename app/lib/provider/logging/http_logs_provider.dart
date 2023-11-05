@@ -5,13 +5,11 @@ import 'package:refena_flutter/refena_flutter.dart';
 final _logger = Logger('HTTP');
 
 /// Contains the discovery logs for debugging purposes.
-final httpLogsProvider = NotifierProvider<HttpLogsNotifier, List<LogEntry>>((ref) {
-  return HttpLogsNotifier();
+final httpLogsProvider = NotifierProvider<HttpLogsService, List<LogEntry>>((ref) {
+  return HttpLogsService();
 });
 
-class HttpLogsNotifier extends Notifier<List<LogEntry>> {
-  HttpLogsNotifier();
-
+class HttpLogsService extends Notifier<List<LogEntry>> {
   @override
   List<LogEntry> init() {
     return [];
@@ -28,4 +26,7 @@ class HttpLogsNotifier extends Notifier<List<LogEntry>> {
   void clear() {
     state = [];
   }
+
+  @override
+  String describeState(List<LogEntry> state) => '${state.length} logs';
 }

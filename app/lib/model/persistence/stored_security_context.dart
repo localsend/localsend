@@ -17,4 +17,9 @@ class StoredSecurityContext with StoredSecurityContextMappable {
   });
 
   static const fromJson = StoredSecurityContextMapper.fromJson;
+
+  @override
+  String toString() {
+    return 'StoredSecurityContext(<privateKey>, <publicKey>, <certificate>, <certificateHash>)';
+  }
 }
