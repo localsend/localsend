@@ -640,7 +640,7 @@ class _StringsDialogsFavoriteEditDialogRu extends _StringsDialogsFavoriteEditDia
 
 	// Translations
 	@override String get titleAdd => 'Добавить в избранное';
-	@override String get titleEdit => 'Настройка';
+	@override String get titleEdit => 'Настройки';
 	@override String get name => 'Имя устройства';
 	@override String get auto => '(автоматически)';
 	@override String get ip => 'IP-адрес';
