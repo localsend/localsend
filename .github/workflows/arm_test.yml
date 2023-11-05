@@ -1,0 +1,169 @@
+name: Release Draft
+
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.13.8"
+  APK_BUILD_DIR: "/tmp/build"
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build_tar_arm_64:
+    needs: build
+    runs-on: ubuntu-arm64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev tree
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Compile linux
+        working-directory: app
+        run: flutter build linux
+
+      - name: Tree files
+        run: tree app/build/linux
+
+      - name: Create tar.gz archive
+        run: |
+          cd app/build/linux/arm64/release/bundle
+          tar -czvf ../../../../../result.tar.gz *
+
+      - name: Upload tar.gz archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: tar-gz-arm-64-result
+          path: ./app/*.tar.gz
+
+  build_deb_arm_64:
+    needs: build
+    runs-on: ubuntu-arm64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Enable dart_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Update PATH
+        run: echo 'export PATH="$PATH:$HOME/.pub-cache/bin"' >> ~/.bashrc
+
+      - name: Build deb package
+        working-directory: app
+        run: flutter_distributor package --platform linux --targets deb
+
+      - name: Find deb file
+        id: find_deb
+        run: |
+          VERSION=${{ needs.build.outputs.version }}
+          DEB_PATH=$(find app/dist -name "localsend_app-$VERSION*-linux.deb")
+          echo "deb_path=$DEB_PATH" >> $GITHUB_OUTPUT
+
+      - name: Check if deb file exists
+        id: check_file
+        run: |
+          if [[ ! -f "${{ steps.find_deb.outputs.deb_path }}" ]]; then
+            echo "File not found: ${{ steps.find_deb.outputs.deb_path }}"
+            exit 1
+          fi
+
+      - name: Upload deb file
+        uses: actions/upload-artifact@v3
+        with:
+          name: deb-arm-64-result
+          path: ${{ steps.find_deb.outputs.deb_path }}
+
+  release:
+    needs: [build, build_tar_arm_64, build_deb_arm_64]
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Draft release
+        id: draft_release
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: v${{ needs.build.outputs.version }}
+          name: v${{ needs.build.outputs.version }}
+
+      # TAR.GZ
+      - name: Download tar.gz file
+        uses: actions/download-artifact@v3
+        with:
+          name: tar-gz-arm-64-result
+          path: tar-gz-arm-64-result
+
+      - name: List files in tar.gz-directory
+        run: ls -l tar-gz-arm-64-result
+
+      - name: Copy tar.gz file to root
+        run: cp tar-gz-arm-64-result/* result-arm-64.tar.gz
+
+      - name: Upload Release Asset (tar.gz)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result-arm-64.tar.gz
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.tar.gz
+          asset_content_type: application/gzip
+
+      # DEB
+      - name: Download deb file
+        uses: actions/download-artifact@v3
+        with:
+          name: deb-arm-64-result
+          path: deb-arm-64-result
+
+      - name: Copy deb file to root
+        run: cp deb-arm-64-result/*.deb result-arm-64.deb
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result-arm-64.deb
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.deb
+          asset_content_type: application/vnd.debian.binary-package
