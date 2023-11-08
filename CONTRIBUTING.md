@@ -46,6 +46,7 @@ Thanks to all translators!
 | Hungarian           | @gidano                            |
 | Hebrew              | @ShlomoCode                        |
 | Japanese            | @soya-daizu                        |
+| Khmer               | Chandara H. Wei (@nidexingg)       |
 | Korean              | @mgmix                             |
 | Russian             | Sergiy (@sergd88)                  |
 | Ukrainian           | Sergiy (@sergd88)                  |
