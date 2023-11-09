@@ -65,15 +65,16 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
 
     bool found = false;
 
-    await results.forEach((device) {
-      if (!found && device != null) {
+    await for (final device in results) {
+      if (device != null) {
         found = true;
         if (mounted) {
           ref.notifier(lastDevicesProvider).addDevice(device);
           context.pop(device);
         }
+        break;
       }
-    });
+    }
 
     if (!found && mounted) {
       setState(() {

@@ -21,11 +21,11 @@ final _logger = Logger('Server');
 /// It is a singleton provider, so only one server can be running at a time.
 /// The server state is null if the server is not running.
 /// The server can receive files (since v1) and send files (since v2).
-final serverProvider = NotifierProvider<ServerNotifier, ServerState?>((ref) {
-  return ServerNotifier();
+final serverProvider = NotifierProvider<ServerService, ServerState?>((ref) {
+  return ServerService();
 });
 
-class ServerNotifier extends Notifier<ServerState?> {
+class ServerService extends Notifier<ServerState?> {
   late final _serverUtils = ServerUtils(
     refFunc: () => ref,
     getState: () => state!,
@@ -36,7 +36,7 @@ class ServerNotifier extends Notifier<ServerState?> {
   late final _receiveController = ReceiveController(_serverUtils);
   late final _sendController = SendController(_serverUtils);
 
-  ServerNotifier();
+  ServerService();
 
   @override
   ServerState? init() {

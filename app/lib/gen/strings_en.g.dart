@@ -466,7 +466,7 @@ class _StringsReceiveTabInfoBoxEn {
 	// Translations
 	String get ip => 'IP:';
 	String get port => 'Port:';
-	String get alias => 'Alias:';
+	String get alias => 'Device name:';
 }
 
 // Path: sendTab.selection
@@ -554,7 +554,7 @@ class _StringsSettingsTabNetworkEn {
 	String get title => 'Network';
 	String get needRestart => 'Restart the server to apply the settings!';
 	String get server => 'Server';
-	String get alias => 'Alias';
+	String get alias => 'Device name';
 	String get deviceType => 'Device type';
 	String get deviceModel => 'Device model';
 	String get port => 'Port';
@@ -710,8 +710,8 @@ class _StringsDialogsFavoriteEditDialogEn {
 
 	// Translations
 	String get titleAdd => 'Add to favorites';
-	String get titleEdit => 'Adjustment';
-	String get name => 'Alias';
+	String get titleEdit => 'Settings';
+	String get name => 'Device name';
 	String get auto => '(auto)';
 	String get ip => 'IP Address';
 	String get port => 'Port';

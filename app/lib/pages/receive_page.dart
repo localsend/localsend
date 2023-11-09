@@ -37,7 +37,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
   }
 
   Future<void> _init() async {
-    final receiveSession = ref.watch(serverProvider)?.session;
+    final receiveSession = ref.read(serverProvider)?.session;
     if (receiveSession == null) {
       return;
     }

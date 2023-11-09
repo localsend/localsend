@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=ar' to quickly apply the newly added translations."
   ],
   "general": {
-    "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
+    "delete": "حذف",
+    "noItemInClipboard": "لا توجد عناصر في الحافظة"
   },
   "sendTab": {
     "picker": {
-      "clipboard": "Paste"
+      "clipboard": "لصق"
     }
   },
   "settingsTab": {
@@ -21,25 +21,25 @@
   },
   "dialogs": {
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
+      "title": "المفضلة",
+      "noFavorites": "لا توجد أجهزة مفضلة بعد.",
+      "addFavorite": "إضافة"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "حذف من المفضلة",
+      "content": "هل ترغب حقًا في حذف \"{name}\" من قائمة المفضلة؟"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Adjustment",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "IP Address",
+      "titleAdd": "إضافة إلى المفضلة",
+      "titleEdit": "تعديل",
+      "name": "الاسم",
+      "auto": "(تلقائي)",
+      "ip": "عنوان IP",
       "port": "Port"
     },
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "محو السجل",
+      "content": "هل ترغب حقًا في محو السجل بالكامل؟"
     }
   }
 }

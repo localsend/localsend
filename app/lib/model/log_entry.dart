@@ -11,4 +11,9 @@ class LogEntry with LogEntryMappable {
     required this.timestamp,
     required this.log,
   });
+
+  @override
+  String toString() {
+    return 'LogEntry(timestamp: $timestamp, log: $log)';
+  }
 }
