@@ -32,7 +32,7 @@
     "favoriteEditDialog": {
       "titleAdd": "Dodaj do ulubionych",
       "titleEdit": "Dostosuj",
-      "name": "Nazwa",
+      "name": "Alias",
       "auto": "(auto)",
       "ip": "Adres IP",
       "port": "Port"
