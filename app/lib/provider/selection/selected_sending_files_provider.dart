@@ -2,6 +2,8 @@ import 'dart:convert' show utf8;
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
@@ -119,8 +121,13 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
     final newFiles = <CrossFile>[];
     for (final file in files) {
       // we do it sequential because there are bugs
-      // https://github.com/fluttercandies/flutter_photo_manager/issues/589
-      newFiles.add(await converter(file));
+      //  https://github.com/fluttercandies/flutter_photo_manager/issues/589
+
+      final crossFile = await converter(file);
+      final isAlreadySelect = state.any((element) => p.basename(element.path ?? '') == p.basename(crossFile.path ?? ''));
+      if (!isAlreadySelect) {
+        newFiles.add(crossFile);
+      }
     }
     return List.unmodifiable([
       ...state,
@@ -153,7 +160,11 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           path: entity.path,
           bytes: null,
         );
-        newFiles.add(file);
+
+        final isAlreadySelect = state.any((element) => p.basename(element.path ?? '') == p.basename(file.path ?? ''));
+        if (!isAlreadySelect) {
+          newFiles.add(file);
+        }
       }
     }
 
