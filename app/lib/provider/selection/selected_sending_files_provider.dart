@@ -2,12 +2,11 @@ import 'dart:convert' show utf8;
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
@@ -124,7 +123,7 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
       //  https://github.com/fluttercandies/flutter_photo_manager/issues/589
 
       final crossFile = await converter(file);
-      final isAlreadySelect = state.any((element) => p.basename(element.path ?? '') == p.basename(crossFile.path ?? ''));
+      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: crossFile));
       if (!isAlreadySelect) {
         newFiles.add(crossFile);
       }
@@ -161,7 +160,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           bytes: null,
         );
 
-        final isAlreadySelect = state.any((element) => p.basename(element.path ?? '') == p.basename(file.path ?? ''));
+        final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
         if (!isAlreadySelect) {
           newFiles.add(file);
         }

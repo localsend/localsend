@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -74,5 +75,11 @@ class CrossFileConverters {
       path: app.apkFilePath,
       bytes: null,
     );
+  }
+}
+
+extension CompareFile on CrossFile {
+  bool isSameFile({required CrossFile otherFile}) {
+    return (p.basename(path ?? '') == p.basename(otherFile.path ?? '')) && size == otherFile.size;
   }
 }
