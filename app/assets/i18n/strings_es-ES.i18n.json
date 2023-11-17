@@ -218,7 +218,7 @@
   "changelogPage": {
     "title": "Registro de cambios"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Uses English version"
   },
   "dialogs": {

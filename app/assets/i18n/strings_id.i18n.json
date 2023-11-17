@@ -214,7 +214,7 @@
   "changelogPage": {
     "title": "Catatan Perubahan"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Lokasi yang berbeda mungkin memiliki kata yang berbeda, memungkinkan ketidakcocokan 1:1",
     "adjectives": [
       "Menarik",

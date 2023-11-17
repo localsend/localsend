@@ -2,31 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fa>.",
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "delete": "حذف"
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "علاقه‌مندی‌ها",
-      "noFavorites": "هنوز دستگاهی اضافه نشده",
-      "addFavorite": "افزودن"
-    },
-    "favoriteDeleteDialog": {
-      "title": "حذف از علاقه‌مندی‌ها",
-      "content": "واقعاً می خواهید از علاقه‌مندی‌ها حذف کنید \"{name}\"?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "افزودن به علاقه‌مندی‌ها",
-      "titleEdit": "تنظیمات",
-      "name": "نام مستعار",
-      "auto": "(خودکار)",
-      "ip": "آدرس آی پی",
-      "port": "پورت"
-    },
-    "historyClearDialog": {
-      "title": "پاکسازی تاریخچه",
-      "content": "واقعاً می خواهید کل تاریخچه را حذف کنید؟"
-    }
-  }
+  ]
 }

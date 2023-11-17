@@ -2,44 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <pl>.",
     "After editing this file, you can run 'dart run slang apply --locale=pl' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "delete": "Usuń",
-    "noItemInClipboard": "Schowek jest pusty"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "Wklej"
-    }
-  },
-  "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED"
-      }
-    }
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "Ulubione",
-      "noFavorites": "Brak ulubionych urządzeń.",
-      "addFavorite": "Dodaj"
-    },
-    "favoriteDeleteDialog": {
-      "title": "Usuń z ulubionych",
-      "content": "Czy na pewno chcesz usunąć z ulubionych \"{name}\"?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "Dodaj do ulubionych",
-      "titleEdit": "Dostosuj",
-      "name": "Alias",
-      "auto": "(auto)",
-      "ip": "Adres IP",
-      "port": "Port"
-    },
-    "historyClearDialog": {
-      "title": "Wyczyść historię",
-      "content": "Czy na pewno chcesz usunąć całą historię?"
-    }
-  }
+  ]
 }

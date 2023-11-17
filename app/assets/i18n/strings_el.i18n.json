@@ -220,8 +220,8 @@
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
-    "adjectives": [	  
-	  "Λατρευτό",
+    "adjectives": [
+      "Λατρευτό",
       "Πανεμορφο",
       "Μεγάλο",
       "Λαμπερό",

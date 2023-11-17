@@ -64,6 +64,7 @@ class _StringsGeneralPl extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Skopiowane do Schowka';
 	@override String get decline => 'Odrzuć';
 	@override String get done => 'Gotowe';
+	@override String get delete => 'Usuń';
 	@override String get edit => 'Edytuj';
 	@override String get error => 'Błąd';
 	@override String get example => 'Przykład';
@@ -87,6 +88,7 @@ class _StringsGeneralPl extends _StringsGeneralEn {
 	@override String get save => 'Zapisz';
 	@override String get unchanged => 'Bez Zmian';
 	@override String get unknown => 'Nieznany';
+	@override String get noItemInClipboard => 'Schowek jest pusty';
 }
 
 // Path: receiveTab
@@ -306,8 +308,12 @@ class _StringsDialogsPl extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFilePl cannotOpenFile = _StringsDialogsCannotOpenFilePl._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticePl encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticePl._(_root);
 	@override late final _StringsDialogsErrorDialogPl errorDialog = _StringsDialogsErrorDialogPl._(_root);
+	@override late final _StringsDialogsFavoriteDialogPl favoriteDialog = _StringsDialogsFavoriteDialogPl._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogPl favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogPl._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogPl favoriteEditDialog = _StringsDialogsFavoriteEditDialogPl._(_root);
 	@override late final _StringsDialogsFileInfoPl fileInfo = _StringsDialogsFileInfoPl._(_root);
 	@override late final _StringsDialogsFileNameInputPl fileNameInput = _StringsDialogsFileNameInputPl._(_root);
+	@override late final _StringsDialogsHistoryClearDialogPl historyClearDialog = _StringsDialogsHistoryClearDialogPl._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedPl localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedPl._(_root);
 	@override late final _StringsDialogsMessageInputPl messageInput = _StringsDialogsMessageInputPl._(_root);
 	@override late final _StringsDialogsNoFilesPl noFiles = _StringsDialogsNoFilesPl._(_root);
@@ -417,6 +423,7 @@ class _StringsSendTabPickerPl extends _StringsSendTabPickerEn {
 	@override String get media => 'Media';
 	@override String get text => 'Tekst';
 	@override String get app => 'Aplikacja';
+	@override String get clipboard => 'Wklej';
 }
 
 // Path: sendTab.sendModes
@@ -602,6 +609,44 @@ class _StringsDialogsErrorDialogPl extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogPl extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ulubione';
+	@override String get noFavorites => 'Brak ulubionych urządzeń.';
+	@override String get addFavorite => 'Dodaj';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogPl extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Usuń z ulubionych';
+	@override String content({required Object name}) => 'Czy na pewno chcesz usunąć z ulubionych "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogPl extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Dodaj do ulubionych';
+	@override String get titleEdit => 'Dostosuj';
+	@override String get name => 'Alias';
+	@override String get auto => '(auto)';
+	@override String get ip => 'Adres IP';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoPl extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoPl._(_StringsPl root) : this._root = root, super._(root);
@@ -626,6 +671,17 @@ class _StringsDialogsFileNameInputPl extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Wpisz imię';
 	@override String original({required Object original}) => 'Oryginalny: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogPl extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wyczyść historię';
+	@override String get content => 'Czy na pewno chcesz usunąć całą historię?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -753,6 +809,7 @@ class _StringsSettingsTabGeneralColorOptionsPl extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'System';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

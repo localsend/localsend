@@ -64,6 +64,7 @@ class _StringsGeneralFa extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'در کلیپ بورد کپی شد';
 	@override String get decline => 'نپذیرفتن';
 	@override String get done => 'انجام شد';
+	@override String get delete => 'حذف';
 	@override String get edit => 'ویرایش';
 	@override String get error => 'خطا';
 	@override String get example => 'مثال';
@@ -378,8 +379,12 @@ class _StringsDialogsFa extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileFa cannotOpenFile = _StringsDialogsCannotOpenFileFa._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeFa encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeFa._(_root);
 	@override late final _StringsDialogsErrorDialogFa errorDialog = _StringsDialogsErrorDialogFa._(_root);
+	@override late final _StringsDialogsFavoriteDialogFa favoriteDialog = _StringsDialogsFavoriteDialogFa._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogFa favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogFa._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogFa favoriteEditDialog = _StringsDialogsFavoriteEditDialogFa._(_root);
 	@override late final _StringsDialogsFileInfoFa fileInfo = _StringsDialogsFileInfoFa._(_root);
 	@override late final _StringsDialogsFileNameInputFa fileNameInput = _StringsDialogsFileNameInputFa._(_root);
+	@override late final _StringsDialogsHistoryClearDialogFa historyClearDialog = _StringsDialogsHistoryClearDialogFa._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedFa localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedFa._(_root);
 	@override late final _StringsDialogsMessageInputFa messageInput = _StringsDialogsMessageInputFa._(_root);
 	@override late final _StringsDialogsNoFilesFa noFiles = _StringsDialogsNoFilesFa._(_root);
@@ -675,6 +680,44 @@ class _StringsDialogsErrorDialogFa extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogFa extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'علاقه‌مندی‌ها';
+	@override String get noFavorites => 'هنوز دستگاهی اضافه نشده';
+	@override String get addFavorite => 'افزودن';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogFa extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'حذف از علاقه‌مندی‌ها';
+	@override String content({required Object name}) => 'واقعاً می خواهید از علاقه‌مندی‌ها حذف کنید "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogFa extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'افزودن به علاقه‌مندی‌ها';
+	@override String get titleEdit => 'تنظیمات';
+	@override String get name => 'نام مستعار';
+	@override String get auto => '(خودکار)';
+	@override String get ip => 'آدرس آی پی';
+	@override String get port => 'پورت';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoFa extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoFa._(_StringsFa root) : this._root = root, super._(root);
@@ -699,6 +742,17 @@ class _StringsDialogsFileNameInputFa extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'نام فایل را وارد کنید';
 	@override String original({required Object original}) => 'اصلی: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogFa extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پاکسازی تاریخچه';
+	@override String get content => 'واقعاً می خواهید کل تاریخچه را حذف کنید؟';
 }
 
 // Path: dialogs.localNetworkUnauthorized

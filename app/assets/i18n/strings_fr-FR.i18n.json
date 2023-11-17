@@ -218,7 +218,7 @@
   "changelogPage": {
     "title": "Historique des mises à jour"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {

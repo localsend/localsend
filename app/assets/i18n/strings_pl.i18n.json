@@ -14,6 +14,7 @@
     "copiedToClipboard": "Skopiowane do Schowka",
     "decline": "Odrzuć",
     "done": "Gotowe",
+    "delete": "Usuń",
     "edit": "Edytuj",
     "error": "Błąd",
     "example": "Przykład",
@@ -36,7 +37,8 @@
     "stop": "Zatrzymaj",
     "save": "Zapisz",
     "unchanged": "Bez Zmian",
-    "unknown": "Nieznany"
+    "unknown": "Nieznany",
+    "noItemInClipboard": "Schowek jest pusty"
   },
   "receiveTab": {
     "title": "Odbierz",
@@ -58,7 +60,8 @@
       "folder": "Folder",
       "media": "Media",
       "text": "Tekst",
-      "app": "Aplikacja"
+      "app": "Aplikacja",
+      "clipboard": "Wklej"
     },
     "shareIntentInfo": "Możesz także skorzystać z funkcji „Udostępnij” swojego urządzenia mobilnego, aby łatwiej wybierać pliki.",
     "nearbyDevices": "Urządzenia w pobliżu",
@@ -86,7 +89,8 @@
       },
       "color": "Kolor",
       "colorOptions": {
-        "system": "System"
+        "system": "System",
+        "oled": "OLED"
       },
       "language": "Język",
       "languageOptions": {
@@ -214,7 +218,7 @@
   "changelogPage": {
     "title": "Dziennik Zmian"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {
@@ -243,6 +247,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "Ulubione",
+      "noFavorites": "Brak ulubionych urządzeń.",
+      "addFavorite": "Dodaj"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Usuń z ulubionych",
+      "content": "Czy na pewno chcesz usunąć z ulubionych \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Dodaj do ulubionych",
+      "titleEdit": "Dostosuj",
+      "name": "Alias",
+      "auto": "(auto)",
+      "ip": "Adres IP",
+      "port": "Port"
+    },
     "fileInfo": {
       "title": "Informacje o pliku",
       "fileName": "Nazwa pliku:",
@@ -254,6 +275,10 @@
     "fileNameInput": {
       "title": "Wpisz imię",
       "original": "Oryginalny: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Wyczyść historię",
+      "content": "Czy na pewno chcesz usunąć całą historię?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

@@ -214,7 +214,7 @@
   "changelogPage": {
     "title": "Changelog"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "विभिन्न स्थानहरूमा फरक शब्दहरू हुन सक्छन्, यो 1:1 सँग नमिल्न सक्छ",
     "adjectives": [
       "मनमोहक",

@@ -24,8 +24,8 @@
     },
     "favoriteEditDialog": {
       "titleAdd": "Add to favorites",
-      "titleEdit": "Adjustment",
-      "name": "Alias",
+      "titleEdit": "Settings",
+      "name": "Device name",
       "auto": "(auto)",
       "ip": "IP Address",
       "port": "Port"
