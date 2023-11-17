@@ -125,6 +125,7 @@ Binary distribution:
 |-------------|---------------|------------------------------|
 | Windows ZIP | [@Tienisto][] |                              |
 | MSIX        | [@Tienisto][] |                              |
+| EXE         | [@Tienisto][] |                              |
 | APK         | [@Tienisto][] |                              |
 | TAR         | [@Tienisto][] |                              |
 | DEB         | [@Tienisto][] |                              |
