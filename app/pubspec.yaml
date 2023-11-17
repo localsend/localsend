@@ -43,8 +43,8 @@ dependencies:
   path_provider: 2.1.1
   permission_handler: 11.0.1
   pretty_qr_code: 2.0.3
-  refena_flutter: 1.0.0
-  refena_inspector_client: 1.0.0
+  refena_flutter: 1.2.0
+  refena_inspector_client: 1.1.0
   routerino: 0.8.0
   screen_retriever: 0.1.9
   share_handler: 0.0.19
@@ -74,7 +74,7 @@ dev_dependencies:
   flutter_gen_runner: 5.3.2
   flutter_lints: 2.0.3
   msix: 3.16.4
-  refena_inspector: 1.0.0
+  refena_inspector: 1.1.0
   slang_build_runner: 3.25.0
   slang_gpt: 0.10.0
   test: ^1.24.3

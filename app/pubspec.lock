@@ -1089,34 +1089,34 @@ packages:
     dependency: transitive
     description:
       name: refena
-      sha256: "2d810cc535a081fa4d2183fd9e172821db5ae19d65bed2d7fd543670b2c5cab3"
+      sha256: a5a94117091cc032418b6cc5bd7891fdec838262aa3f009bb9b8488a4297d077
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.2.0"
   refena_flutter:
     dependency: "direct main"
     description:
       name: refena_flutter
-      sha256: "236b150a1e0098a1bbe521299121df55fea6962cf6e034181c4f2e21c1a91f54"
+      sha256: "23a359c27d98fad16e2b3d7ddbc7c5fd8df64e81f0012471ee0ac0170f11e09d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.2.0"
   refena_inspector:
     dependency: "direct dev"
     description:
       name: refena_inspector
-      sha256: "03b41ce4ebb1b6f15d6e975d062fa97f045ece8ebdbb7979ee8b6716cdb5080e"
+      sha256: "799d1a582be72d69b89e426bf96949c67b40cea92015aa0ab568d4d0608e89e6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   refena_inspector_client:
     dependency: "direct main"
     description:
       name: refena_inspector_client
-      sha256: "4fbbd54c04ac5382e20081ad0d625abfcfddb395a0dabb3e331de62419cd6ef5"
+      sha256: "474dd169eb3cc11d1fbffe7f0672138a34d99cb590ab52224acb317f7499a4cb"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   routerino:
     dependency: "direct main"
     description:
