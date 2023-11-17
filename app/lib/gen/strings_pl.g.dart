@@ -439,7 +439,7 @@ class _StringsSettingsTabGeneralPl extends _StringsSettingsTabGeneralEn {
 
 	// Translations
 	@override String get title => 'Ogólne';
-	@override String get brightness => 'Jasność';
+	@override String get brightness => 'Motyw';
 	@override late final _StringsSettingsTabGeneralBrightnessOptionsPl brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsPl._(_root);
 	@override String get color => 'Kolor';
 	@override late final _StringsSettingsTabGeneralColorOptionsPl colorOptions = _StringsSettingsTabGeneralColorOptionsPl._(_root);

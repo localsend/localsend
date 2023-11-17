@@ -1,3 +1,8 @@
+## 1.13.0 (unreleased)
+
+- feat: ignore duplicate files when selected from file picker (@programmermager)
+- i18n: add Greek (@multipetros)
+
 ## 1.12.0 (2023-10-25)
 
 - feat: add favorites (@Tienisto)
