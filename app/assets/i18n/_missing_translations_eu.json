@@ -3,6 +3,23 @@
     "Here are translations that exist in <en> but not in <eu>.",
     "After editing this file, you can run 'dart run slang apply --locale=eu' to quickly apply the newly added translations."
   ],
+  "settingsTab": {
+    "other": {
+      "title": "Other",
+      "about": "About",
+      "support": "Support LocalSend",
+      "donate": "Donate",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use"
+    }
+  },
+  "donationPage": {
+    "title": "Donate",
+    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
+    "donate": "Donate {amount}",
+    "thanks": "Thank you very much!",
+    "restore": "Restore purchase"
+  },
   "dialogs": {
     "historyClearDialog": {
       "title": "Clear history",

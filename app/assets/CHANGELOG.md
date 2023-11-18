@@ -1,6 +1,7 @@
 ## 1.13.0 (unreleased)
 
 - feat: ignore duplicate files when selected from file picker (@programmermager)
+- feat: add donation options (@Tienisto)
 - i18n: add Greek (@multipetros)
 
 ## 1.12.0 (2023-10-25)

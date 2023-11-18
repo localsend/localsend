@@ -15,6 +15,7 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/provider/purchase_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
@@ -170,6 +171,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
     ref.dispatch(ClearCacheAction());
+  }
+
+
+  if (checkPlatformSupportPayment()) {
+    // ignore: unawaited_futures
+    ref.redux(purchaseProvider).dispatchAsync(InitPurchaseStream());
   }
 }
 

@@ -123,6 +123,14 @@
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
     },
+    "other": {
+      "title": "Weitere",
+      "about": "Über",
+      "support": "LocalSend unterstützen",
+      "donate": "Spenden",
+      "privacyPolicy": "Datenschutzerklärung",
+      "termsOfUse": "Nutzungsbedingungen"
+    },
     "advancedSettings": "Erweiterte Einstellungen"
   },
   "troubleshootPage": {
@@ -214,6 +222,13 @@
   },
   "aboutPage": {
     "title": "Über LocalSend"
+  },
+  "donationPage": {
+    "title": "Spenden",
+    "info": "LocalSend ist kostenlos, open-source und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.",
+    "donate": "Spende {amount}",
+    "thanks": "Vielen Dank für deine Unterstützung!",
+    "restore": "Käufe Wiederherstellen"
   },
   "changelogPage": {
     "title": "Changelog"
