@@ -37,6 +37,7 @@ class _StringsDe extends _StringsEn {
 	@override late final _StringsProgressPageDe progressPage = _StringsProgressPageDe._(_root);
 	@override late final _StringsWebSharePageDe webSharePage = _StringsWebSharePageDe._(_root);
 	@override late final _StringsAboutPageDe aboutPage = _StringsAboutPageDe._(_root);
+	@override late final _StringsDonationPageDe donationPage = _StringsDonationPageDe._(_root);
 	@override late final _StringsChangelogPageDe changelogPage = _StringsChangelogPageDe._(_root);
 	@override late final _StringsAliasGeneratorDe aliasGenerator = _StringsAliasGeneratorDe._(_root);
 	@override late final _StringsDialogsDe dialogs = _StringsDialogsDe._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabDe extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralDe general = _StringsSettingsTabGeneralDe._(_root);
 	@override late final _StringsSettingsTabReceiveDe receive = _StringsSettingsTabReceiveDe._(_root);
 	@override late final _StringsSettingsTabNetworkDe network = _StringsSettingsTabNetworkDe._(_root);
+	@override late final _StringsSettingsTabOtherDe other = _StringsSettingsTabOtherDe._(_root);
 	@override String get advancedSettings => 'Erweiterte Einstellungen';
 }
 
@@ -274,6 +276,20 @@ class _StringsAboutPageDe extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Über LocalSend';
+}
+
+// Path: donationPage
+class _StringsDonationPageDe extends _StringsDonationPageEn {
+	_StringsDonationPageDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Spenden';
+	@override String get info => 'LocalSend ist kostenlos, open-source und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.';
+	@override String donate({required Object amount}) => 'Spende ${amount}';
+	@override String get thanks => 'Vielen Dank für deine Unterstützung!';
+	@override String get restore => 'Käufe Wiederherstellen';
 }
 
 // Path: changelogPage
@@ -492,6 +508,21 @@ class _StringsSettingsTabNetworkDe extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Verschlüsselung';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherDe extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Weitere';
+	@override String get about => 'Über';
+	@override String get support => 'LocalSend unterstützen';
+	@override String get donate => 'Spenden';
+	@override String get privacyPolicy => 'Datenschutzerklärung';
+	@override String get termsOfUse => 'Nutzungsbedingungen';
 }
 
 // Path: troubleshootPage.firewall

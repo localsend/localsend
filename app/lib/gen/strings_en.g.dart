@@ -36,6 +36,7 @@ class _StringsEn implements BaseTranslations<AppLocale, _StringsEn> {
 	late final _StringsProgressPageEn progressPage = _StringsProgressPageEn._(_root);
 	late final _StringsWebSharePageEn webSharePage = _StringsWebSharePageEn._(_root);
 	late final _StringsAboutPageEn aboutPage = _StringsAboutPageEn._(_root);
+	late final _StringsDonationPageEn donationPage = _StringsDonationPageEn._(_root);
 	late final _StringsChangelogPageEn changelogPage = _StringsChangelogPageEn._(_root);
 	late final _StringsAliasGeneratorEn aliasGenerator = _StringsAliasGeneratorEn._(_root);
 	late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
@@ -133,6 +134,7 @@ class _StringsSettingsTabEn {
 	late final _StringsSettingsTabGeneralEn general = _StringsSettingsTabGeneralEn._(_root);
 	late final _StringsSettingsTabReceiveEn receive = _StringsSettingsTabReceiveEn._(_root);
 	late final _StringsSettingsTabNetworkEn network = _StringsSettingsTabNetworkEn._(_root);
+	late final _StringsSettingsTabOtherEn other = _StringsSettingsTabOtherEn._(_root);
 	String get advancedSettings => 'Advanced settings';
 }
 
@@ -273,6 +275,20 @@ class _StringsAboutPageEn {
 
 	// Translations
 	String get title => 'About LocalSend';
+}
+
+// Path: donationPage
+class _StringsDonationPageEn {
+	_StringsDonationPageEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Donate';
+	String get info => 'LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.';
+	String donate({required Object amount}) => 'Donate ${amount}';
+	String get thanks => 'Thank you very much!';
+	String get restore => 'Restore purchase';
 }
 
 // Path: changelogPage
@@ -562,6 +578,21 @@ class _StringsSettingsTabNetworkEn {
 	String get encryption => 'Encryption';
 	String get multicastGroup => 'Multicast';
 	String multicastGroupWarning({required Object defaultMulticast}) => 'You might not be detected by other devices because you are using a custom multicast address. (default: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Other';
+	String get about => 'About';
+	String get support => 'Support LocalSend';
+	String get donate => 'Donate';
+	String get privacyPolicy => 'Privacy Policy';
+	String get termsOfUse => 'Terms of Use';
 }
 
 // Path: troubleshootPage.firewall

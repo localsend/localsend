@@ -31,6 +31,7 @@ dependencies:
   flutter_markdown: 0.6.18
   gal: 2.1.2
   image_picker: 1.0.4
+  in_app_purchase: 3.1.11
   intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
   launch_at_startup: 0.2.2
   logging: 1.2.0

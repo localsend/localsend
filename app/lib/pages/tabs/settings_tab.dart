@@ -5,6 +5,7 @@ import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
+import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -22,6 +23,7 @@ import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final _isLinux = checkPlatform([TargetPlatform.linux]);
 final _isWindows = checkPlatform([TargetPlatform.windows]);
@@ -74,24 +76,10 @@ class SettingsTab extends StatelessWidget {
                     onChanged: vm.onChangeColorMode,
                   ),
                 ),
-                _SettingsEntry(
+                _ButtonEntry(
                   label: t.settingsTab.general.language,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-                      shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
-                      foregroundColor: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    onPressed: () => vm.onTapLanguage(context),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Text(
-                        vm.settings.locale?.humanName ?? t.settingsTab.general.languageOptions.system,
-                        style: Theme.of(context).textTheme.titleMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                  buttonLabel: vm.settings.locale?.humanName ?? t.settingsTab.general.languageOptions.system,
+                  onTap: () => vm.onTapLanguage(context),
                 ),
                 if (checkPlatformIsDesktop()) ...[
                   /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
@@ -237,7 +225,6 @@ class SettingsTab extends StatelessWidget {
             ),
             _SettingsSection(
               title: t.settingsTab.network.title,
-              padding: const EdgeInsets.only(bottom: 0),
               children: [
                 AnimatedCrossFade(
                   crossFadeState: vm.serverState != null &&
@@ -397,6 +384,47 @@ class SettingsTab extends StatelessWidget {
                 ),
               ],
             ),
+            _SettingsSection(
+              title: t.settingsTab.other.title,
+              padding: const EdgeInsets.only(bottom: 0),
+              children: [
+                _ButtonEntry(
+                  label: 'LocalSend',
+                  buttonLabel: t.settingsTab.other.about,
+                  onTap: () async {
+                    await context.push(() => const AboutPage());
+                  },
+                ),
+                _ButtonEntry(
+                  label: t.settingsTab.other.support,
+                  buttonLabel: t.settingsTab.other.donate,
+                  onTap: () async {
+                    await context.push(() => const DonationPage());
+                  },
+                ),
+                _ButtonEntry(
+                  label: t.settingsTab.other.privacyPolicy,
+                  buttonLabel: t.general.open,
+                  onTap: () async {
+                    await launchUrl(
+                      Uri.parse('https://localsend.org/#/privacy'),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                ),
+                if (checkPlatform([TargetPlatform.iOS, TargetPlatform.macOS]))
+                  _ButtonEntry(
+                    label: t.settingsTab.other.termsOfUse,
+                    buttonLabel: t.general.open,
+                    onTap: () async {
+                      await launchUrl(
+                        Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'),
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                  ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -423,33 +451,16 @@ class SettingsTab extends StatelessWidget {
               '© ${DateTime.now().year} Tien Do Nam',
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 30),
-            Theme(
-              data: Theme.of(context).copyWith(
-                textButtonTheme: TextButtonThemeData(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onSurface,
-                  ),
+            Center(
+              child: TextButton.icon(
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextButton.icon(
-                    onPressed: () async {
-                      await context.push(() => const AboutPage());
-                    },
-                    icon: const Icon(Icons.info),
-                    label: Text(t.aboutPage.title),
-                  ),
-                  TextButton.icon(
-                    onPressed: () async {
-                      await context.push(() => const ChangelogPage());
-                    },
-                    icon: const Icon(Icons.history),
-                    label: Text(t.changelogPage.title),
-                  ),
-                ],
+                onPressed: () async {
+                  await context.push(() => const ChangelogPage());
+                },
+                icon: const Icon(Icons.history),
+                label: Text(t.changelogPage.title),
               ),
             ),
             const SizedBox(height: 80),
@@ -526,6 +537,42 @@ class _BooleanEntry extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// A specialized version of [_SettingsEntry].
+class _ButtonEntry extends StatelessWidget {
+  final String label;
+  final String buttonLabel;
+  final void Function() onTap;
+
+  const _ButtonEntry({
+    required this.label,
+    required this.buttonLabel,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _SettingsEntry(
+      label: label,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+          shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+          foregroundColor: Theme.of(context).colorScheme.onSurface,
+        ),
+        onPressed: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(
+            buttonLabel,
+            style: Theme.of(context).textTheme.titleMedium,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
