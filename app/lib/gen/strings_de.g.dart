@@ -518,7 +518,6 @@ class _StringsSettingsTabOtherDe extends _StringsSettingsTabOtherEn {
 
 	// Translations
 	@override String get title => 'Weitere';
-	@override String get about => 'Über';
 	@override String get support => 'LocalSend unterstützen';
 	@override String get donate => 'Spenden';
 	@override String get privacyPolicy => 'Datenschutzerklärung';

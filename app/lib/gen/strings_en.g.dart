@@ -588,7 +588,6 @@ class _StringsSettingsTabOtherEn {
 
 	// Translations
 	String get title => 'Other';
-	String get about => 'About';
 	String get support => 'Support LocalSend';
 	String get donate => 'Donate';
 	String get privacyPolicy => 'Privacy Policy';

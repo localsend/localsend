@@ -389,8 +389,8 @@ class SettingsTab extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 0),
               children: [
                 _ButtonEntry(
-                  label: 'LocalSend',
-                  buttonLabel: t.settingsTab.other.about,
+                  label: t.aboutPage.title,
+                  buttonLabel: t.general.open,
                   onTap: () async {
                     await context.push(() => const AboutPage());
                   },
