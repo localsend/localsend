@@ -21,29 +21,40 @@ class DonationPage extends StatelessWidget {
           appBar: AppBar(
             title: Text(t.donationPage.title),
           ),
-          body: ResponsiveListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          body: Stack(
             children: [
-              const SizedBox(height: 50),
-              Center(
-                child: Text(
-                  t.donationPage.info,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 50),
-              if (vm.purchased.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Center(
+              ResponsiveListView(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                children: [
+                  const SizedBox(height: 50),
+                  Center(
                     child: Text(
-                      t.donationPage.thanks,
+                      t.donationPage.info,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
+                  const SizedBox(height: 50),
+                  if (vm.purchased.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Center(
+                        child: Text(
+                          t.donationPage.thanks,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                    ),
+                  if (checkPlatformSupportPayment()) _StoreDonation(vm) else const _LinkDonation(),
+                ],
+              ),
+              if (vm.pending)
+                Container(
+                  color: Colors.black.withOpacity(0.1),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
-              if (checkPlatformSupportPayment()) _StoreDonation(vm) else const _LinkDonation(),
             ],
           ),
         );
