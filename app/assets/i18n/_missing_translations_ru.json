@@ -5,27 +5,27 @@
   ],
   "settingsTab": {
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "Другое",
+      "support": "Поддержать LocalSend",
+      "donate": "Пожертвовать",
+      "privacyPolicy": "Политика конфиденциальности",
+      "termsOfUse": "Условия использования"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSend — это бесплатное приложение с открытым исходным кодом, которое позволяет вам безопасно обмениваться файлами и сообщениями с находящимися поблизости устройствами через локальную сеть без необходимости подключения к Интернету.",
+      "Это приложение доступно на Android, iOS, macOS, Windows и Linux. Вы можете найти все варианты загрузки на официальной домашней странице."
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "Автор",
+    "contributors": "Участники",
+    "translators": "Переводчики"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "Пожертвовать",
+    "info": "LocalSend бесплатен, имеет открытый исходный код и не содержит рекламы. Если вам нравится приложение, вы можете поддержать его разработку пожертвованием.",
+    "donate": "Пожертвовать {amount}",
+    "thanks": "Большое спасибо!",
+    "restore": "Восстановить покупку"
   }
 }
