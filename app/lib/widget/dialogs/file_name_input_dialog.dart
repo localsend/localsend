@@ -60,8 +60,8 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-            foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
           ),
           onPressed: _submit,
           child: Text(t.general.confirm),
