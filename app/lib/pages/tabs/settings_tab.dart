@@ -625,13 +625,11 @@ extension on ThemeMode {
 
 extension on ColorMode {
   String get humanName {
-    switch (this) {
-      case ColorMode.system:
-        return t.settingsTab.general.colorOptions.system;
-      case ColorMode.localsend:
-        return t.appName;
-      case ColorMode.oled:
-        return t.settingsTab.general.colorOptions.oled;
-    }
+    return switch (this) {
+      ColorMode.system => t.settingsTab.general.colorOptions.system,
+      ColorMode.localsend => t.appName,
+      ColorMode.oled => t.settingsTab.general.colorOptions.oled,
+      ColorMode.yaru => 'Yaru',
+    };
   }
 }

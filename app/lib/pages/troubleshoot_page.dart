@@ -156,8 +156,8 @@ class _FixButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-        foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       onPressed: () async {
         if (onTap != null) {
