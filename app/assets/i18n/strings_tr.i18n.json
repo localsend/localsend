@@ -123,7 +123,14 @@
       "multicastGroup": "Çoklu yayın",
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
     },
-    "advancedSettings": "Gelişmiş ayarlar"
+    "advancedSettings": "Gelişmiş ayarlar",
+    "other": {
+      "title": "Diğer",
+      "support": "LocalSend'i destekle",
+      "donate": "Bağış yap",
+      "privacyPolicy": "Gizlilik politikası",
+      "termsOfUse": "Kullanım koşulları"
+    }
   },
   "troubleshootPage": {
     "title": "Sorun Giderme",
@@ -213,7 +220,21 @@
     "pendingRequests": "Bekleyen istekler: {n}"
   },
   "aboutPage": {
-    "title": "LocalSend hakkında"
+    "title": "LocalSend hakkında",
+    "description": [
+      "LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.",
+      "Bu uygulama Android, iOS, macOS, Windows ve Linux'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz."
+    ],
+    "author": "Yazar",
+    "contributors": "Katkıda bulunanlar",
+    "translators": "Çevirmenler"
+  },
+  "donationPage": {
+    "title": "Bağış yap",
+    "info": "LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Eğer uygulamayı beğendiyseniz, bağış yaparak uygulamanın gelişimine katkıda bulunabilirsiniz.",
+    "donate": "Bağışta bulun {amount}",
+    "thanks": "Çok teşekkür ederim!",
+    "restore": "Satın alınanları geri yükle"
   },
   "changelogPage": {
     "title": "Değişiklik günlüğü"
@@ -317,6 +338,10 @@
       "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
+    },
+    "historyClearDialog": {
+      "title": "Geçmişi temizle",
+      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
     }
   },
   "tray": {
