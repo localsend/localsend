@@ -298,10 +298,10 @@ class _ScanButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scanningIps = context.ref.watch(nearbyDevicesProvider.select((s) => s.runningIps));
+    final (scanningFavorites, scanningIps) = context.ref.watch(nearbyDevicesProvider.select((s) => (s.runningFavoriteScan, s.runningIps)));
     final animations = context.ref.watch(animationProvider);
 
-    final spinning = scanningIps.isNotEmpty && animations;
+    final spinning = (scanningFavorites || scanningIps.isNotEmpty) && animations;
     final iconColor = !animations && scanningIps.isNotEmpty ? Theme.of(context).colorScheme.warning : null;
 
     if (ips.length <= StartSmartScan.maxInterfaces) {

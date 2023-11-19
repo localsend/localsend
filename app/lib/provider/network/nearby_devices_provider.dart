@@ -43,6 +43,7 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
 
   @override
   NearbyDevicesState init() => const NearbyDevicesState(
+        runningFavoriteScan: false,
         runningIps: {},
         devices: {},
       );
@@ -189,10 +190,13 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
     if (devices.isEmpty) {
       return state;
     }
+    dispatch(_SetRunningFavoriteScanAction(true));
     await for (final device in notifier._getFavoriteStream(devices: devices, https: https)) {
       dispatch(RegisterDeviceAction(device));
     }
-    return state;
+    return state.copyWith(
+      runningFavoriteScan: false,
+    );
   }
 }
 
@@ -205,6 +209,19 @@ class _SetRunningIpsAction extends ReduxAction<NearbyDevicesService, NearbyDevic
   NearbyDevicesState reduce() {
     return state.copyWith(
       runningIps: runningIps,
+    );
+  }
+}
+
+class _SetRunningFavoriteScanAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  final bool running;
+
+  _SetRunningFavoriteScanAction(this.running);
+
+  @override
+  NearbyDevicesState reduce() {
+    return state.copyWith(
+      runningFavoriteScan: running,
     );
   }
 }

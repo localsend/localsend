@@ -25,6 +25,10 @@ class NearbyDevicesStateMapper extends ClassMapperBase<NearbyDevicesState> {
   @override
   final String id = 'NearbyDevicesState';
 
+  static bool _$runningFavoriteScan(NearbyDevicesState v) =>
+      v.runningFavoriteScan;
+  static const Field<NearbyDevicesState, bool> _f$runningFavoriteScan =
+      Field('runningFavoriteScan', _$runningFavoriteScan);
   static Set<String> _$runningIps(NearbyDevicesState v) => v.runningIps;
   static const Field<NearbyDevicesState, Set<String>> _f$runningIps =
       Field('runningIps', _$runningIps);
@@ -34,13 +38,16 @@ class NearbyDevicesStateMapper extends ClassMapperBase<NearbyDevicesState> {
 
   @override
   final Map<Symbol, Field<NearbyDevicesState, dynamic>> fields = const {
+    #runningFavoriteScan: _f$runningFavoriteScan,
     #runningIps: _f$runningIps,
     #devices: _f$devices,
   };
 
   static NearbyDevicesState _instantiate(DecodingData data) {
     return NearbyDevicesState(
-        runningIps: data.dec(_f$runningIps), devices: data.dec(_f$devices));
+        runningFavoriteScan: data.dec(_f$runningFavoriteScan),
+        runningIps: data.dec(_f$runningIps),
+        devices: data.dec(_f$devices));
   }
 
   @override
@@ -99,7 +106,10 @@ abstract class NearbyDevicesStateCopyWith<$R, $In extends NearbyDevicesState,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
   MapCopyWith<$R, String, Device, DeviceCopyWith<$R, Device, Device>>
       get devices;
-  $R call({Set<String>? runningIps, Map<String, Device>? devices});
+  $R call(
+      {bool? runningFavoriteScan,
+      Set<String>? runningIps,
+      Map<String, Device>? devices});
   NearbyDevicesStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -117,13 +127,20 @@ class _NearbyDevicesStateCopyWithImpl<$R, $Out>
       get devices => MapCopyWith($value.devices, (v, t) => v.copyWith.$chain(t),
           (v) => call(devices: v));
   @override
-  $R call({Set<String>? runningIps, Map<String, Device>? devices}) =>
+  $R call(
+          {bool? runningFavoriteScan,
+          Set<String>? runningIps,
+          Map<String, Device>? devices}) =>
       $apply(FieldCopyWithData({
+        if (runningFavoriteScan != null)
+          #runningFavoriteScan: runningFavoriteScan,
         if (runningIps != null) #runningIps: runningIps,
         if (devices != null) #devices: devices
       }));
   @override
   NearbyDevicesState $make(CopyWithData data) => NearbyDevicesState(
+      runningFavoriteScan:
+          data.get(#runningFavoriteScan, or: $value.runningFavoriteScan),
       runningIps: data.get(#runningIps, or: $value.runningIps),
       devices: data.get(#devices, or: $value.devices));
 
