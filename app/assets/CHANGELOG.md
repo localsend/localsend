@@ -4,6 +4,7 @@
 - feat: add donation options (@Tienisto)
 - feat(macos): add Command+W shortcut to close the window (@Q1CHENL)
 - fix: also show an OLED color mode option when dynamic colors are not supported by OS (@dhruvanbhalara)
+- fix(ios): fix permission error when picking directory (@Tienisto)
 - i18n: add Greek (@multipetros)
 
 ## 1.12.0 (2023-10-25)
