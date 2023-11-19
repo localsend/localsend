@@ -9,7 +9,7 @@ import 'package:localsend_app/pages/tabs/send_tab_vm.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/network/scan_provider.dart';
+import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -304,15 +304,15 @@ class _ScanButton extends StatelessWidget {
     final spinning = scanningIps.isNotEmpty && animations;
     final iconColor = !animations && scanningIps.isNotEmpty ? Theme.of(context).colorScheme.warning : null;
 
-    if (ips.length <= ScanFacade.maxInterfaces) {
+    if (ips.length <= StartSmartScan.maxInterfaces) {
       return RotatingWidget(
         duration: const Duration(seconds: 2),
         spinning: spinning,
         reverse: true,
         child: CustomIconButton(
           onPressed: () async {
-            context.ref.notifier(nearbyDevicesProvider).clearFoundDevices();
-            await context.ref.read(scanProvider).startSmartScan(forceLegacy: true);
+            context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
+            await context.ref.dispatchAsync(StartSmartScan(forceLegacy: true));
           },
           child: Icon(Icons.sync, color: iconColor),
         ),
@@ -322,8 +322,8 @@ class _ScanButton extends StatelessWidget {
     return _CircularPopupButton(
       tooltip: t.sendTab.scan,
       onSelected: (ip) async {
-        context.ref.notifier(nearbyDevicesProvider).clearFoundDevices();
-        await context.ref.read(scanProvider).startLegacySubnetScan([ip]);
+        context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
+        await context.ref.dispatchAsync(StartLegacySubnetScan(subnets: [ip]));
       },
       itemBuilder: (_) {
         return [

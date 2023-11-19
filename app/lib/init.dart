@@ -136,7 +136,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   }
 
   try {
-    ref.notifier(nearbyDevicesProvider).startMulticastListener();
+    ref.redux(nearbyDevicesProvider).dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
   } catch (e) {
     _logger.warning('Starting multicast listener failed', e);
   }

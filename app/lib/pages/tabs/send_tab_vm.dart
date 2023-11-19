@@ -11,7 +11,7 @@ import 'package:localsend_app/pages/web_send_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/network/scan_provider.dart';
+import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -190,7 +190,7 @@ class SendTabInitAction extends AsyncGlobalAction {
   Future<void> reduce() async {
     final devices = ref.read(nearbyDevicesProvider).devices;
     if (devices.isEmpty) {
-      await ref.read(scanProvider).startSmartScan(forceLegacy: false);
+      await dispatchAsync(StartSmartScan(forceLegacy: false));
       if (devices.isEmpty) {
         // After the first complete scan, if devices aren't found on IOS a Network trigger is called
         if (checkPlatform([TargetPlatform.iOS]) && context.mounted) {
