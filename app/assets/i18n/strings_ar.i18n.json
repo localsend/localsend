@@ -14,6 +14,7 @@
     "copiedToClipboard": "نسخ إلى الحافظة",
     "decline": "ارفض",
     "done": "انتهى",
+    "delete": "حذف",
     "edit": "تعديل",
     "error": "خطأ",
     "example": "مثال",
@@ -36,7 +37,8 @@
     "stop": "قف",
     "save": "احفظ",
     "unchanged": "دون تغيير",
-    "unknown": "مجهول"
+    "unknown": "مجهول",
+    "noItemInClipboard": "لا توجد عناصر في الحافظة"
   },
   "receiveTab": {
     "title": "استلام",
@@ -58,7 +60,8 @@
       "folder": "مجلد",
       "media": "وسائط",
       "text": "نص",
-      "app": "تطبيق"
+      "app": "تطبيق",
+      "clipboard": "لصق"
     },
     "shareIntentInfo": "يمكنك أيضًا استخدام ميزة \"مشاركة\" بجهازك المحمول لتحديد الملفات بسهولة.",
     "nearbyDevices": "الأجهزة القريبة",
@@ -86,7 +89,8 @@
       },
       "color": "لون",
       "colorOptions": {
-        "system": "النظام"
+        "system": "النظام",
+        "oled": "OLED"
       },
       "language": "لغة",
       "languageOptions": {
@@ -214,7 +218,7 @@
   "changelogPage": {
     "title": "التغييرات"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "قد تحتوي المناطق المختلفة على كلمات مختلفة ، وقد لا تتطابق 1:1",
     "adjectives": [
       "محبوب",
@@ -313,6 +317,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "المفضلة",
+      "noFavorites": "لا توجد أجهزة مفضلة بعد.",
+      "addFavorite": "إضافة"
+    },
+    "favoriteDeleteDialog": {
+      "title": "حذف من المفضلة",
+      "content": "هل ترغب حقًا في حذف \"{name}\" من قائمة المفضلة؟"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "إضافة إلى المفضلة",
+      "titleEdit": "تعديل",
+      "name": "الاسم",
+      "auto": "(تلقائي)",
+      "ip": "عنوان IP",
+      "port": "Port"
+    },
     "fileInfo": {
       "title": "معلومات الملف",
       "fileName": "اسم الملف:",
@@ -324,6 +345,10 @@
     "fileNameInput": {
       "title": "أدخل اسم الملف",
       "original": "أصلي: {original}"
+    },
+    "historyClearDialog": {
+      "title": "محو السجل",
+      "content": "هل ترغب حقًا في محو السجل بالكامل؟"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

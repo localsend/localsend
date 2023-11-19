@@ -14,6 +14,7 @@
     "copiedToClipboard": "در کلیپ بورد کپی شد",
     "decline": "نپذیرفتن",
     "done": "انجام شد",
+    "delete": "حذف",
     "edit": "ویرایش",
     "error": "خطا",
     "example": "مثال",
@@ -217,7 +218,7 @@
   "changelogPage": {
     "title": "تاریخچه تغییرات برنامه"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
       "ستودنی",
@@ -316,6 +317,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "علاقه‌مندی‌ها",
+      "noFavorites": "هنوز دستگاهی اضافه نشده",
+      "addFavorite": "افزودن"
+    },
+    "favoriteDeleteDialog": {
+      "title": "حذف از علاقه‌مندی‌ها",
+      "content": "واقعاً می خواهید از علاقه‌مندی‌ها حذف کنید \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "افزودن به علاقه‌مندی‌ها",
+      "titleEdit": "تنظیمات",
+      "name": "نام مستعار",
+      "auto": "(خودکار)",
+      "ip": "آدرس آی پی",
+      "port": "پورت"
+    },
     "fileInfo": {
       "title": "مشخصات فایل",
       "fileName": "نام فایل:",
@@ -327,6 +345,10 @@
     "fileNameInput": {
       "title": "نام فایل را وارد کنید",
       "original": "اصلی: {original}"
+    },
+    "historyClearDialog": {
+      "title": "پاکسازی تاریخچه",
+      "content": "واقعاً می خواهید کل تاریخچه را حذف کنید؟"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

@@ -64,6 +64,7 @@ class _StringsGeneralAr extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'نسخ إلى الحافظة';
 	@override String get decline => 'ارفض';
 	@override String get done => 'انتهى';
+	@override String get delete => 'حذف';
 	@override String get edit => 'تعديل';
 	@override String get error => 'خطأ';
 	@override String get example => 'مثال';
@@ -87,6 +88,7 @@ class _StringsGeneralAr extends _StringsGeneralEn {
 	@override String get save => 'احفظ';
 	@override String get unchanged => 'دون تغيير';
 	@override String get unknown => 'مجهول';
+	@override String get noItemInClipboard => 'لا توجد عناصر في الحافظة';
 }
 
 // Path: receiveTab
@@ -377,8 +379,12 @@ class _StringsDialogsAr extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileAr cannotOpenFile = _StringsDialogsCannotOpenFileAr._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeAr encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeAr._(_root);
 	@override late final _StringsDialogsErrorDialogAr errorDialog = _StringsDialogsErrorDialogAr._(_root);
+	@override late final _StringsDialogsFavoriteDialogAr favoriteDialog = _StringsDialogsFavoriteDialogAr._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogAr favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogAr._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogAr favoriteEditDialog = _StringsDialogsFavoriteEditDialogAr._(_root);
 	@override late final _StringsDialogsFileInfoAr fileInfo = _StringsDialogsFileInfoAr._(_root);
 	@override late final _StringsDialogsFileNameInputAr fileNameInput = _StringsDialogsFileNameInputAr._(_root);
+	@override late final _StringsDialogsHistoryClearDialogAr historyClearDialog = _StringsDialogsHistoryClearDialogAr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedAr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedAr._(_root);
 	@override late final _StringsDialogsMessageInputAr messageInput = _StringsDialogsMessageInputAr._(_root);
 	@override late final _StringsDialogsNoFilesAr noFiles = _StringsDialogsNoFilesAr._(_root);
@@ -488,6 +494,7 @@ class _StringsSendTabPickerAr extends _StringsSendTabPickerEn {
 	@override String get media => 'وسائط';
 	@override String get text => 'نص';
 	@override String get app => 'تطبيق';
+	@override String get clipboard => 'لصق';
 }
 
 // Path: sendTab.sendModes
@@ -673,6 +680,44 @@ class _StringsDialogsErrorDialogAr extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogAr extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'المفضلة';
+	@override String get noFavorites => 'لا توجد أجهزة مفضلة بعد.';
+	@override String get addFavorite => 'إضافة';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogAr extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'حذف من المفضلة';
+	@override String content({required Object name}) => 'هل ترغب حقًا في حذف "${name}" من قائمة المفضلة؟';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogAr extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'إضافة إلى المفضلة';
+	@override String get titleEdit => 'تعديل';
+	@override String get name => 'الاسم';
+	@override String get auto => '(تلقائي)';
+	@override String get ip => 'عنوان IP';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoAr extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoAr._(_StringsAr root) : this._root = root, super._(root);
@@ -697,6 +742,17 @@ class _StringsDialogsFileNameInputAr extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'أدخل اسم الملف';
 	@override String original({required Object original}) => 'أصلي: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogAr extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'محو السجل';
+	@override String get content => 'هل ترغب حقًا في محو السجل بالكامل؟';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -824,6 +880,7 @@ class _StringsSettingsTabGeneralColorOptionsAr extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'النظام';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

@@ -13,7 +13,7 @@
     "copy": "Kopyahin",
     "copiedToClipboard": "Kopyahin sa Clipboard",
     "decline": "Tanggihan",
-    "done": "Tapusin",
+    "done": "Tapos Na",
     "delete": "Tanggalin",
     "edit": "Baguhin",
     "error": "Error",
@@ -63,7 +63,7 @@
       "app": "App",
       "clipboard": "Paste"
     },
-    "shareIntentInfo": "Maaring gamitin ang \"Share\" feature sa iyong mobile device para sa mas madaling pagpili ng mga files.",
+    "shareIntentInfo": "Maaring gamitin ang \"Share\" feature sa iyong mobile device para sa mas madaling pagpili ng mga file.",
     "nearbyDevices": "Malalapit na mga device",
     "thisDevice": "Ang Device na Ito",
     "scan": "Maghanap ng mga device",
@@ -96,9 +96,9 @@
       "languageOptions": {
         "system": "System"
       },
-      "saveWindowPlacement": "Quit: I-Save ang window placement",
+      "saveWindowPlacement": "Quit: I-save ang window placement",
       "minimizeToTray": "Quit: Paliitin sa Tray/Menu Bar",
-      "launchAtStartup": "I-Autostart pagkatapos mag-login",
+      "launchAtStartup": "I-autostart pagkatapos mag-login",
       "launchMinimized": "Autostart: I-start nang nakatago",
       "animations": "Animations"
     },
@@ -107,12 +107,12 @@
       "quickSave": "@:general.quickSave",
       "destination": "Patutunguhan",
       "downloads": "(Downloads)",
-      "saveToGallery": "I-Save ang media sa gallery",
-      "saveToHistory": "I-Save sa history"
+      "saveToGallery": "I-save ang media sa gallery",
+      "saveToHistory": "I-save sa history"
     },
     "network": {
       "title": "Network",
-      "needRestart": "I-Restart ang server para i-apply ang settings!",
+      "needRestart": "I-restart ang server para i-apply ang settings!",
       "server": "Server",
       "alias": "Alias",
       "deviceType": "Device type",
@@ -131,12 +131,12 @@
     "solution": "Solusyon:",
     "fixButton": "Awtomatikong ayusin",
     "firewall": {
-      "symptom": "Ang app na ito ay nakakapag-padala ng mga file sa ibang devices ngunit ang ibang devices ay hindi makapag-padala sa device na ito.",
-      "solution": "Ito ay kadalasang isyu sa firewall. Maari mo maayos sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port {port}.",
+      "symptom": "Ang app na ito ay nakakapagpadala ng mga file sa ibang devices ngunit ang ibang devices ay hindi makapagpadala sa device na ito.",
+      "solution": "Ito ay kadalasang isyu sa firewall. Maari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port {port}.",
       "openFirewall": "Buksan ang Firewall"
     },
     "noConnection": {
-      "symptom": "Ang dalawa o higit pang devices ay hindi mo discover ang isa't isa o hindi makapag-share ng files.",
+      "symptom": "Ang dalawa o higit pang devices ay hindi mo discover ang isa't isa o hindi makapag-share ng mga file.",
       "solution": "Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router."
     }
   },
@@ -166,8 +166,8 @@
       "other": "ay gustong magpadala sa iyo ng {n} na mga file."
     },
     "subTitleMessage": "ay nagpadala sa iyo ng mensahe:",
-    "subTitleLink": "ay nagpadala sa iyo ng likn:",
-    "canceled": "Ang sender ay nag-kansela ng request."
+    "subTitleLink": "ay nagpadala sa iyo ng link:",
+    "canceled": "Ang sender ay nagkansela ng request."
   },
   "receiveOptionsPage": {
     "title": "Options",
@@ -184,10 +184,10 @@
   "progressPage": {
     "titleSending": "Nagpapadala ng mga file",
     "titleReceiving": "Tumatanggap ng mga file",
-    "savedToGallery": "Naka-Save sa Photos",
+    "savedToGallery": "Naka-save sa Photos",
     "total": {
       "title": {
-        "sending": "Kabuuang progress ({time})",
+        "sending": "Kabuuang progreso ({time})",
         "finishedError": "Natapos nang may error",
         "canceledSender": "Kinansela ng sender",
         "canceledReceiver": "Kinansela ng receiver"
@@ -198,10 +198,10 @@
     }
   },
   "webSharePage": {
-    "title": "I-Share gamit ang link",
+    "title": "I-share gamit ang link",
     "loading": "Binubuksan ang server...",
     "stopping": "Ihinihinto ang server...",
-    "error": "May nangyaring error habang buksan ang server.",
+    "error": "May nangyaring error habang binubuksan ang server.",
     "openLink": {
       "one": "Buksan ang link na ito sa browser:",
       "other": "Buksan ang isa sa mga link na ito sa browser:"
@@ -312,7 +312,7 @@
     },
     "encryptionDisabledNotice": {
       "title": "Ang encryption ay naka-disable",
-      "content": "Ang communication ay nangyayari ngayon gamit ang unencrypted HTTP protocol. Para gamitin ang HTTPS, muling i-enable ang encryption."
+      "content": "Ang communication ngayon ay nangyayari gamit ang unencrypted HTTP protocol. Para gamitin ang HTTPS, muling i-enable ang encryption."
     },
     "errorDialog": {
       "title": "@:general.error"
@@ -352,11 +352,11 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "Hindi makikita ng LocalSend ang ibang devices hangga't hindi nabibigyan ng permission para mag scan sa lokal na network. Mangyaring bigyan ito ng permission sa settings.",
+      "description": "Hindi makikita ng LocalSend ang ibang devices hangga't hindi nabibigyan ng permission para mag-scan sa lokal na network. Mangyaring bigyan ito ng permission sa settings.",
       "gotoSettings": "Settings"
     },
     "messageInput": {
-      "title": "I-Type ang message",
+      "title": "I-type ang message",
       "multiline": "Multiline"
     },
     "noFiles": {
@@ -384,19 +384,19 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring mag-padala sa iyo ng mga file."
+      "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring magpadala sa iyo ng mga file."
     },
     "sendModeHelp": {
       "title": "Send modes",
       "single": "Magpadala ng mga file sa iisang recipient o tatanggap. Ang mga pagpipilian ay maaalis pagkatapos ipadala ang file.",
       "multiple": "Magpadala ng mga file sa maraming recipient o tatanggap. Ang mga pagpipilian ay hindi maaalis.",
-      "link": "Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaring mag download nang mga napiling files sa pamamagitan ng pagbukas ng link sa kanilang browser."
+      "link": "Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaring mag download nang mga napiling file sa pamamagitan ng pagbukas ng link sa kanilang browser."
     }
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Isara ang LocalSend"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -419,11 +419,11 @@
     "unSupportedAssetType": "Hindi suportadong file type.",
     "unableToAccessAll": "Hindi ma-access ang lahat ng mga file sa device",
     "viewingLimitedAssetsTip": "Makikita lamang ang mga file at mga album na accessible sa app",
-    "changeAccessibleLimitedAssets": "I-Click para i-update ang accessible na mga file",
+    "changeAccessibleLimitedAssets": "I-click para i-update ang accessible na mga file",
     "accessAllTip": "Ang app na ito ay kaya lamang mag-access ng iilang mga file sa device. Magtungo sa system settings at i-allow ang app para ma-access ang lahat ng media sa device.",
     "goToSystemSettings": "Magpunta sa system settings",
     "accessLimitedAssets": "Ituloy nang limitadong access",
-    "accessiblePathName": "Accessible na mga files",
+    "accessiblePathName": "Accessible na mga file",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Image",
     "sTypeVideoLabel": "Video",

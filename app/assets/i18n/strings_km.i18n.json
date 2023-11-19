@@ -215,7 +215,7 @@
   "changelogPage": {
     "title": "កំណត់ត្រាការផ្លាស់ប្តូរ"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "មូលដ្ឋានផ្សេងគ្នាអាចមានពាក្យផ្សេងគ្នា វាប្រហែលជាមិនត្រូវគ្នានឹង 1:1 ទេ។",
     "adjectives": [
       "គួរអោយស្រលាញ់",

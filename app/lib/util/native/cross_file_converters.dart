@@ -76,3 +76,9 @@ class CrossFileConverters {
     );
   }
 }
+
+extension CompareFile on CrossFile {
+  bool isSameFile({required CrossFile otherFile}) {
+    return (path ?? '') == (otherFile.path ?? '');
+  }
+}

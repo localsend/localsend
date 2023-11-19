@@ -196,10 +196,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: "77a180d6938f78ca7d2382d2240eb626c0f6a735d0bfdce227d8ffb80f95c48b"
+      sha256: b502a681ba415272ecc41400bd04fe543ed1a62632137dc84d25a91e7746f55f
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.2"
+    version: "5.0.1"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -580,6 +580,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  gtk:
+    dependency: transitive
+    description:
+      name: gtk
+      sha256: e8ce9ca4b1df106e4d72dad201d345ea1a036cc12c360f1a7d5a758f78ffa42c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   html:
     dependency: transitive
     description:
@@ -700,6 +708,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+1"
+  in_app_purchase:
+    dependency: "direct main"
+    description:
+      name: in_app_purchase
+      sha256: bdda02b5b11b56d5e29c7f0c57c433db3452b0c8ce1c37cbfcf1de52946efd9f
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.11"
+  in_app_purchase_android:
+    dependency: transitive
+    description:
+      name: in_app_purchase_android
+      sha256: c4b84caa4e2c7ffebda444c5033fd8423cc3a45a6e1066929bbbcd4daf665db5
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0+15"
+  in_app_purchase_platform_interface:
+    dependency: transitive
+    description:
+      name: in_app_purchase_platform_interface
+      sha256: "5168afbc54f406f741252b66d41872c1193a0066a6edcb587176290b92e2d537"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.6"
+  in_app_purchase_storekit:
+    dependency: transitive
+    description:
+      name: in_app_purchase_storekit
+      sha256: "29526f5ce85bd908b4cacdadb2e8ef299bccbb516b90d2881805343f868502ab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.7"
   intl:
     dependency: "direct main"
     description:
@@ -1089,34 +1129,34 @@ packages:
     dependency: transitive
     description:
       name: refena
-      sha256: "8c1a5f818084886e4f9a38b0ce1f1c636992ac5fae7645f22c2236aa8982f439"
+      sha256: a5a94117091cc032418b6cc5bd7891fdec838262aa3f009bb9b8488a4297d077
       url: "https://pub.dev"
     source: hosted
-    version: "0.40.3"
+    version: "1.2.0"
   refena_flutter:
     dependency: "direct main"
     description:
       name: refena_flutter
-      sha256: "86291df3817a4962aced6de7de537e7e51bbb8acea41934122c798ea1d12693c"
+      sha256: "23a359c27d98fad16e2b3d7ddbc7c5fd8df64e81f0012471ee0ac0170f11e09d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.40.4"
+    version: "1.2.0"
   refena_inspector:
     dependency: "direct dev"
     description:
       name: refena_inspector
-      sha256: be1292f944ec3eadbff5bdb93969d8e3ff7b2538a9cd6ce39e2a1b08b5f82352
+      sha256: "799d1a582be72d69b89e426bf96949c67b40cea92015aa0ab568d4d0608e89e6"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.0"
+    version: "1.1.0"
   refena_inspector_client:
     dependency: "direct main"
     description:
       name: refena_inspector_client
-      sha256: "411cd55af364d6654f1ef117fe08e626c22b6fe514c28d9f22742eba2f80c551"
+      sha256: "474dd169eb3cc11d1fbffe7f0672138a34d99cb590ab52224acb317f7499a4cb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.0"
+    version: "1.1.0"
   routerino:
     dependency: "direct main"
     description:
@@ -1699,6 +1739,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  yaru:
+    dependency: "direct main"
+    description:
+      name: yaru
+      sha256: "037219db9ffe757eae0d929cb9dc1a8b27af9850dc6c0d89ecf597dc4f78a5b6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
 sdks:
   dart: ">=3.1.1 <4.0.0"
   flutter: ">=3.13.1"

@@ -76,8 +76,8 @@ class ReceiveTab extends StatelessWidget {
                       child: vm.quickSaveSettings
                           ? ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                                foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                               ),
                               onPressed: () async => vm.onSetQuickSave(context, false),
                               child: Text('${t.general.quickSave}: ${t.general.on}'),

@@ -47,8 +47,8 @@ It is recommended to download the app either from an app store or from a package
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
 | [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
 | [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
-| [Portable ZIP][latest]   |                         | [DEB][latest]      |                |               |            |
-|                          |                         | [AppImage][latest] |                |               |            |
+| [EXE Installer][latest]  |                         | [DEB][latest]      |                |               |            |
+| [Portable ZIP][latest]   |                         | [AppImage][latest] |                |               |            |
 
 Read more about [distribution channels][].
 

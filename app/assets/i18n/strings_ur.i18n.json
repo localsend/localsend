@@ -214,7 +214,7 @@
   "changelogPage": {
     "title": "چینج لاگ"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
   "dialogs": {

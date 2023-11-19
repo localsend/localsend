@@ -28,14 +28,14 @@ final settingsTabControllerProvider = ReduxProvider<SettingsTabController, Setti
 });
 
 class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
-  final SettingsNotifier _settingsService;
-  final ServerNotifier _serverService;
+  final SettingsService _settingsService;
+  final ServerService _serverService;
   final DeviceInfoResult _initialDeviceInfo;
   final bool _supportsDynamicColors;
 
   SettingsTabController({
-    required SettingsNotifier settingsService,
-    required ServerNotifier serverNotifier,
+    required SettingsService settingsService,
+    required ServerService serverNotifier,
     required DeviceInfoResult initialDeviceInfo,
     required bool supportsDynamicColors,
   })  : _settingsService = settingsService,

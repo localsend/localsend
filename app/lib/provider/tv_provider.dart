@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-final tvProvider = Provider<bool>((_) => throw Exception('tvProvider not initialized'));
+final tvProvider = Provider<bool>((_) => throw Exception('tvProvider not initialized'), debugLabel: 'tvProvider');
 
 /// Returns true, if this device is a TV.
 /// Currently, only supports Android TV.

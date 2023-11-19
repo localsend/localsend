@@ -7,14 +7,14 @@ import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-final settingsProvider = NotifierProvider<SettingsNotifier, SettingsState>((ref) {
-  return SettingsNotifier();
+final settingsProvider = NotifierProvider<SettingsService, SettingsState>((ref) {
+  return SettingsService();
 });
 
-class SettingsNotifier extends Notifier<SettingsState> {
+class SettingsService extends Notifier<SettingsState> {
   late PersistenceService _service;
 
-  SettingsNotifier();
+  SettingsService();
 
   @override
   SettingsState init() {
