@@ -2,30 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "other": {
-      "title": "Інше",
-      "support": "Підтримати LocalSend",
-      "donate": "Пожертвувати",
-      "privacyPolicy": "Політика конфіденційності",
-      "termsOfUse": "Умови використання"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend — це безкоштовний додаток з відкритим вихідним кодом, який дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.",
-      "Цей додаток доступний для Android, iOS, macOS, Windows і Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці."
-    ],
-    "author": "Автор",
-    "contributors": "Учасники",
-    "translators": "Перекладачі"
-  },
-  "donationPage": {
-    "title": "Пожертвувати",
-    "info": "LocalSend є безкоштовним, із відкритим вихідним кодом і без реклами. Якщо вам подобається додаток, ви можете підтримати його розробку пожертвою.",
-    "donate": "Пожертвувати {amount}",
-    "thanks": "Велике спасибі!",
-    "restore": "Відновити покупку"
-  }
+  ]
 }

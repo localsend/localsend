@@ -37,6 +37,7 @@ class _StringsRu extends _StringsEn {
 	@override late final _StringsProgressPageRu progressPage = _StringsProgressPageRu._(_root);
 	@override late final _StringsWebSharePageRu webSharePage = _StringsWebSharePageRu._(_root);
 	@override late final _StringsAboutPageRu aboutPage = _StringsAboutPageRu._(_root);
+	@override late final _StringsDonationPageRu donationPage = _StringsDonationPageRu._(_root);
 	@override late final _StringsChangelogPageRu changelogPage = _StringsChangelogPageRu._(_root);
 	@override late final _StringsAliasGeneratorRu aliasGenerator = _StringsAliasGeneratorRu._(_root);
 	@override late final _StringsDialogsRu dialogs = _StringsDialogsRu._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabRu extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralRu general = _StringsSettingsTabGeneralRu._(_root);
 	@override late final _StringsSettingsTabReceiveRu receive = _StringsSettingsTabReceiveRu._(_root);
 	@override late final _StringsSettingsTabNetworkRu network = _StringsSettingsTabNetworkRu._(_root);
+	@override late final _StringsSettingsTabOtherRu other = _StringsSettingsTabOtherRu._(_root);
 	@override String get advancedSettings => 'Дополнительные настройки';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageRu extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'О LocalSend';
+	@override List<String> get description => [
+		'LocalSend — это бесплатное приложение с открытым исходным кодом, которое позволяет вам безопасно обмениваться файлами и сообщениями с находящимися поблизости устройствами через локальную сеть без необходимости подключения к Интернету.',
+		'Это приложение доступно на Android, iOS, macOS, Windows и Linux. Вы можете найти все варианты загрузки на официальной домашней странице.',
+	];
+	@override String get author => 'Автор';
+	@override String get contributors => 'Участники';
+	@override String get translators => 'Переводчики';
+}
+
+// Path: donationPage
+class _StringsDonationPageRu extends _StringsDonationPageEn {
+	_StringsDonationPageRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Пожертвовать';
+	@override String get info => 'LocalSend бесплатен, имеет открытый исходный код и не содержит рекламы. Если вам нравится приложение, вы можете поддержать его разработку пожертвованием.';
+	@override String donate({required Object amount}) => 'Пожертвовать ${amount}';
+	@override String get thanks => 'Большое спасибо!';
+	@override String get restore => 'Восстановить покупку';
 }
 
 // Path: changelogPage
@@ -492,6 +515,20 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Шифрование';
 	@override String get multicastGroup => 'Мультивещание';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский адрес мультивещания. (default: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherRu extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Другое';
+	@override String get support => 'Поддержать LocalSend';
+	@override String get donate => 'Пожертвовать';
+	@override String get privacyPolicy => 'Политика конфиденциальности';
+	@override String get termsOfUse => 'Условия использования';
 }
 
 // Path: troubleshootPage.firewall
@@ -773,7 +810,7 @@ class _StringsDialogsQuickSaveNoticeRu extends _StringsDialogsQuickSaveNoticeEn 
 
 	// Translations
 	@override String get title => '${_root.general.quickSave}';
-	@override String get content => 'Запросы на приём файлов принимаются автоматически. Будьте аккуратны, все пользователи локальной сети могут отправлять вам файлы.';
+	@override String get content => 'Запросы на получение файлов теперь принимаются автоматически. Будьте осторожны, все пользователи этой локальной сети могут отправлять вам файлы.';
 }
 
 // Path: dialogs.sendModeHelp
