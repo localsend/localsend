@@ -33,31 +33,7 @@ You can help in translating this app to other languages!
 
 **_Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
-Thanks to all translators!
-
-| Language            | Translators                        |
-|---------------------|------------------------------------|
-| Czech               | @Amereyeu                          |
-| German              | Tien Do Nam (@Tienisto)            |
-| Italian             | @Francesco146                      |
-| Greek               | Petros Kyladitis (@multipetros)    |
-| Spanish             | Esteban Daniel Saracho (@esaracho) |
-| Persian             | @farshad991                        |
-| French              | @Nixuge                            |
-| Hungarian           | @gidano                            |
-| Hebrew              | @ShlomoCode                        |
-| Japanese            | @soya-daizu                        |
-| Khmer               | Chandara H. Wei (@nidexingg)       |
-| Korean              | @mgmix                             |
-| Russian             | Sergiy (@sergd88)                  |
-| Ukrainian           | Sergiy (@sergd88)                  |
-| Vietnamese          | @faea726                           |
-| Chinese (China)     | @nkh0472, @graphemecluster         |
-| Chinese (Hong Kong) | @graphemecluster                   |
-| Chinese (Taiwan)    | @Neo1102, @graphemecluster         |
-| Bangla              | @RishiASheth                       |
-
-Your name is missing? Please open a pull request!
+Thanks to all [translators](https://github.com/localsend/localsend/tree/main/app/lib/pages/about/translators.dart)!
 
 ## Contributing Guidelines
 

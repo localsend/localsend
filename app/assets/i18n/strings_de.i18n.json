@@ -220,7 +220,14 @@
     "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
-    "title": "Über LocalSend"
+    "title": "Über LocalSend",
+    "description": [
+      "LocalSend ist eine kostenlose Open-Source-App, mit der du Dateien und Nachrichten sicher über dein lokales Netzwerk mit Geräten in der Nähe teilen kannst, ohne dass eine Internetverbindung erforderlich ist.",
+      "Diese App ist für Android, iOS, macOS, Windows und Linux verfügbar. Alle Downloadmöglichkeiten findest du auf der offiziellen Homepage."
+    ],
+    "author": "Autor",
+    "contributors": "Mitwirkende",
+    "translators": "Übersetzer:innen"
   },
   "donationPage": {
     "title": "Spenden",

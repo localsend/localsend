@@ -276,6 +276,13 @@ class _StringsAboutPageDe extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Über LocalSend';
+	@override List<String> get description => [
+		'LocalSend ist eine kostenlose Open-Source-App, mit der du Dateien und Nachrichten sicher über dein lokales Netzwerk mit Geräten in der Nähe teilen kannst, ohne dass eine Internetverbindung erforderlich ist.',
+		'Diese App ist für Android, iOS, macOS, Windows und Linux verfügbar. Alle Downloadmöglichkeiten findest du auf der offiziellen Homepage.',
+	];
+	@override String get author => 'Autor';
+	@override String get contributors => 'Mitwirkende';
+	@override String get translators => 'Übersetzer:innen';
 }
 
 // Path: donationPage

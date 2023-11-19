@@ -6,20 +6,9 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final _body = '''
-          LocalSend is an open source app to share files and messages between nearby devices using the local wifi network.
-          The communication between devices is entirely end-to-end encrypted via HTTPS.
-          No Internet required. No tracking*. No ads.
-          
-          Currently, this app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.
+part 'contributors.dart';
 
-          *The operating system may still gather usage data.
-          '''
-    .splitMapJoin(
-  RegExp(r'^', multiLine: true),
-  onMatch: (_) => '\n',
-  onNonMatch: (n) => n.trim(),
-);
+part 'translators.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage();
@@ -48,7 +37,35 @@ class AboutPage extends StatelessWidget {
               child: const Text('localsend.org'),
             ),
           ),
-          Text(_body),
+          Text(t.aboutPage.description.join('\n\n')),
+          const SizedBox(height: 20),
+          Text(t.aboutPage.author, style: const TextStyle(fontWeight: FontWeight.bold)),
+          const Text('Tien Do Nam (@Tienisto)'),
+          const SizedBox(height: 20),
+          Text(t.aboutPage.contributors, style: const TextStyle(fontWeight: FontWeight.bold)),
+          ..._contributors.map((e) => Text(e)),
+          const SizedBox(height: 20),
+          Text(t.aboutPage.translators, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Table(
+            columnWidths: const {
+              0: IntrinsicColumnWidth(),
+              1: FlexColumnWidth(),
+            },
+            children: [
+              ..._translators.entries.map(
+                (e) => TableRow(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(e.key.translations.locale),
+                    ),
+                    Text(e.value.join('\n')),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

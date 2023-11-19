@@ -275,6 +275,13 @@ class _StringsAboutPageEn {
 
 	// Translations
 	String get title => 'About LocalSend';
+	List<String> get description => [
+		'LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.',
+		'This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.',
+	];
+	String get author => 'Author';
+	String get contributors => 'Contributors';
+	String get translators => 'Translators';
 }
 
 // Path: donationPage
