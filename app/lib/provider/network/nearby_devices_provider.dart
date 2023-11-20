@@ -6,7 +6,6 @@ import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
-import 'package:localsend_app/refena.dart';
 import 'package:localsend_app/util/task_runner.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
