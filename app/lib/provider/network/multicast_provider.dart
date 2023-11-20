@@ -68,10 +68,10 @@ class MulticastService {
             _answerAnnouncement(peer);
           }
         } catch (e) {
-          _ref.notifier(discoveryLogsProvider).addLog(e.toString());
+          _ref.notifier(discoveryLoggerProvider).addLog(e.toString());
         }
       });
-      _ref.notifier(discoveryLogsProvider).addLog(
+      _ref.notifier(discoveryLoggerProvider).addLog(
             'Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${settings.multicastGroup}, port: ${settings.port})',
           );
     }
@@ -92,13 +92,13 @@ class MulticastService {
     for (final wait in [100, 500, 2000]) {
       await sleepAsync(wait);
 
-      _ref.notifier(discoveryLogsProvider).addLog('[ANNOUNCE/UDP]');
+      _ref.notifier(discoveryLoggerProvider).addLog('[ANNOUNCE/UDP]');
       for (final socket in sockets) {
         try {
           socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
-          _ref.notifier(discoveryLogsProvider).addLog(e.toString());
+          _ref.notifier(discoveryLoggerProvider).addLog(e.toString());
         }
       }
     }
@@ -114,7 +114,7 @@ class MulticastService {
             ApiRoute.register.target(peer),
             data: _getRegisterDto().toJson(),
           );
-      _ref.notifier(discoveryLogsProvider).addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
+      _ref.notifier(discoveryLoggerProvider).addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
       // Fallback: Answer with UDP
       final sockets = await _getSockets(settings.multicastGroup);
@@ -124,11 +124,11 @@ class MulticastService {
           socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
-          _ref.notifier(discoveryLogsProvider).addLog(e.toString());
+          _ref.notifier(discoveryLoggerProvider).addLog(e.toString());
         }
       }
       _ref
-          .notifier(discoveryLogsProvider)
+          .notifier(discoveryLoggerProvider)
           .addLog('[RESPONSE/UDP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
     }
   }

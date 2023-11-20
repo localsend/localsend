@@ -155,8 +155,8 @@ class ReceiveController {
     }
 
     // Save device information
-    server.ref.notifier(nearbyDevicesProvider).registerDevice(requestDto.toDevice(request.ip, port, https));
-    server.ref.notifier(discoveryLogsProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
+    server.ref.redux(nearbyDevicesProvider).dispatch(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
+    server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
     final deviceInfo = server.ref.read(deviceInfoProvider);
 

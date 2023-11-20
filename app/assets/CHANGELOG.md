@@ -5,6 +5,7 @@
 - feat: add Yaru theme (@Tienisto)
 - feat(macos): add Command+W shortcut to close the window (@Q1CHENL)
 - fix: also show an OLED color mode option when dynamic colors are not supported by OS (@dhruvanbhalara)
+- fix: sync button should spin right away when clicked (@Tienisto)
 - fix(ios): fix permission error when picking directory (@Tienisto)
 - i18n: add Greek (@multipetros)
 

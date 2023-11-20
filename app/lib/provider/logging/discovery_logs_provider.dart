@@ -5,12 +5,12 @@ import 'package:refena_flutter/refena_flutter.dart';
 final _logger = Logger('Discovery');
 
 /// Contains the discovery logs for debugging purposes.
-final discoveryLogsProvider = NotifierProvider<DiscoveryLogsNotifier, List<LogEntry>>((ref) {
-  return DiscoveryLogsNotifier();
+final discoveryLoggerProvider = NotifierProvider<DiscoveryLogger, List<LogEntry>>((ref) {
+  return DiscoveryLogger();
 });
 
-class DiscoveryLogsNotifier extends Notifier<List<LogEntry>> {
-  DiscoveryLogsNotifier();
+class DiscoveryLogger extends Notifier<List<LogEntry>> {
+  DiscoveryLogger();
 
   @override
   List<LogEntry> init() {
