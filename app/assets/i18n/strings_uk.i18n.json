@@ -41,7 +41,7 @@
     "noItemInClipboard": "Буфер обміну порожній"
   },
   "receiveTab": {
-    "title": "Отримання",
+    "title": "Отримати",
     "infoBox": {
       "ip": "IP:",
       "port": "Порт:",
@@ -49,7 +49,7 @@
     }
   },
   "sendTab": {
-    "title": "Надсилання",
+    "title": "Надіслати",
     "selection": {
       "title": "Вибірка",
       "files": "Файлів: {files}",
