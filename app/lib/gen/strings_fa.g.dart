@@ -37,6 +37,7 @@ class _StringsFa extends _StringsEn {
 	@override late final _StringsProgressPageFa progressPage = _StringsProgressPageFa._(_root);
 	@override late final _StringsWebSharePageFa webSharePage = _StringsWebSharePageFa._(_root);
 	@override late final _StringsAboutPageFa aboutPage = _StringsAboutPageFa._(_root);
+	@override late final _StringsDonationPageFa donationPage = _StringsDonationPageFa._(_root);
 	@override late final _StringsChangelogPageFa changelogPage = _StringsChangelogPageFa._(_root);
 	@override late final _StringsAliasGeneratorFa aliasGenerator = _StringsAliasGeneratorFa._(_root);
 	@override late final _StringsDialogsFa dialogs = _StringsDialogsFa._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabFa extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralFa general = _StringsSettingsTabGeneralFa._(_root);
 	@override late final _StringsSettingsTabReceiveFa receive = _StringsSettingsTabReceiveFa._(_root);
 	@override late final _StringsSettingsTabNetworkFa network = _StringsSettingsTabNetworkFa._(_root);
+	@override late final _StringsSettingsTabOtherFa other = _StringsSettingsTabOtherFa._(_root);
 	@override String get advancedSettings => 'تنظیمات پیشرفته';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageFa extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'درباره لوکال سند';
+	@override List<String> get description => [
+		'لوکال‌سند یک برنامه رایگان و متن باز است که به شما امکان می‌دهد فایل‌ها و پیام‌ها را به‌طور ایمن با دستگاه‌های اطراف از طریق شبکه محلی خود و بدون نیاز به اینترنت به اشتراک بگذارید',
+		'این برنامه برای سیستم عامل های اندروید، آی او اس، مک او اس، ویندوز و لینوکس در دسترس است. شما می توانید با مراجعه به وبسایت رسمی برنامه کلیه روش‌های دانلود را مشاهده نمایید',
+	];
+	@override String get author => 'مولف';
+	@override String get contributors => 'مشارکت کنندگان';
+	@override String get translators => 'مترجمان';
+}
+
+// Path: donationPage
+class _StringsDonationPageFa extends _StringsDonationPageEn {
+	_StringsDonationPageFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'کمک مالی';
+	@override String get info => 'لوکال‌سند رایگان، متن باز و فاقد هر گونه تبلیغات است. اگر به این برنامه علاقه‌مندید، می توانید با کمک مالی از توسعه آن حمایت کنید';
+	@override String donate({required Object amount}) => 'کمک مالی ${amount}';
+	@override String get thanks => 'بسیار از شما سپاسگزاریم';
+	@override String get restore => 'بازیابی خرید';
 }
 
 // Path: changelogPage
@@ -563,6 +586,20 @@ class _StringsSettingsTabNetworkFa extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'رمزنگاری';
 	@override String get multicastGroup => 'چندپخشی';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه های دیگر شما را شناسایی نکنند (پیشفرض: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherFa extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'سایر';
+	@override String get support => 'حمایت از لوکال‌سند';
+	@override String get donate => 'کمک مالی';
+	@override String get privacyPolicy => 'سیاست حفظ حریم خصوصی';
+	@override String get termsOfUse => 'شرایط استفاده';
 }
 
 // Path: troubleshootPage.firewall

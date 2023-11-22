@@ -99,7 +99,7 @@ class _StringsReceiveTabUk extends _StringsReceiveTabEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Отримання';
+	@override String get title => 'Отримати';
 	@override late final _StringsReceiveTabInfoBoxUk infoBox = _StringsReceiveTabInfoBoxUk._(_root);
 }
 
@@ -110,7 +110,7 @@ class _StringsSendTabUk extends _StringsSendTabEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Надсилання';
+	@override String get title => 'Надіслати';
 	@override late final _StringsSendTabSelectionUk selection = _StringsSendTabSelectionUk._(_root);
 	@override late final _StringsSendTabPickerUk picker = _StringsSendTabPickerUk._(_root);
 	@override String get shareIntentInfo => 'Ви також можете використовувати кнопку "Поділитися" на своєму мобільному пристрої для швидкого вибору файлів.';
