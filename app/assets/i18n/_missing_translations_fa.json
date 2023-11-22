@@ -5,27 +5,27 @@
   ],
   "settingsTab": {
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "سایر",
+      "support": "حمایت از لوکال‌سند",
+      "donate": "کمک مالی",
+      "privacyPolicy": "سیاست حفظ حریم خصوصی",
+      "termsOfUse": "شرایط استفاده"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "لوکال‌سند یک برنامه رایگان و متن باز است که به شما امکان می‌دهد فایل‌ها و پیام‌ها را به‌طور ایمن با دستگاه‌های اطراف از طریق شبکه محلی خود و بدون نیاز به اینترنت به اشتراک بگذارید",
+      "این برنامه برای سیستم عامل های اندروید، آی او اس، مک او اس، ویندوز و لینوکس در دسترس است. شما می توانید با مراجعه به وبسایت رسمی برنامه کلیه روش‌های دانلود را مشاهده نمایید"
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "مولف",
+    "contributors": "مشارکت کنندگان",
+    "translators": "مترجمان"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "کمک مالی",
+    "info": "لوکال‌سند رایگان، متن باز و فاقد هر گونه تبلیغات است. اگر به این برنامه علاقه‌مندید، می توانید با کمک مالی از توسعه آن حمایت کنید",
+    "donate": "کمک مالی {amount}",
+    "thanks": "بسیار از شما سپاسگزاریم",
+    "restore": "بازیابی خرید"
   }
 }
