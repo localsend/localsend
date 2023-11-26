@@ -20,7 +20,7 @@ const _translators = <AppLocale, List<String>>{
   AppLocale.km: ['Chandara H. Wei (@nidexingg)'],
   AppLocale.ko: ['@mgmix'],
   AppLocale.pl: ['@Radplay', '@trag1c', '@j-koziel'],
-  AppLocale.ptBr: ['Gabriel Lima (@TheGB0077)'],
+  AppLocale.ptBr: ['Gabriel Lima (@TheGB0077)', 'Arthur Lobo (@ArthurLobopro)'],
   AppLocale.th: ['@watchakorn-18k'],
   AppLocale.tr: ['Mert Şişmanoğlu (@mertssmnoglu)'],
   AppLocale.ru: ['Sergiy Tkachuk (@sergd88)'],
