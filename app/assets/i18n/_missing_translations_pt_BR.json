@@ -2,36 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <pt-BR>.",
     "After editing this file, you can run 'dart run slang apply --locale=pt-BR' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "other": {
-      "title": "Outros",
-      "support": "Suporte LocalSend",
-      "donate": "Doar",
-      "privacyPolicy": "Política de Privacidade",
-      "termsOfUse": "Termos de Uso"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend é um app gratuito e open-source app que te permite enviar de forma segura arquivos e mensagens para dispositivos próximos pela sua rede local sem precisar de uma conexão com a internet.",
-      "Este app está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial."
-    ],
-    "author": "Autor",
-    "contributors": "Contribuidores",
-    "translators": "Tradutores"
-  },
-  "donationPage": {
-    "title": "Doar",
-    "info": "LocalSend é gratuito, open source e sem anúncios. Se você gosta do app, você pode auxiliar o desenvolvimento com uma doação.",
-    "donate": "Doar {amount}",
-    "thanks": "Muito obrigado!",
-    "restore": "Restaurar compra"
-  },
-  "dialogs": {
-    "historyClearDialog": {
-      "title": "Limpar histórico",
-      "content": "Você realmente deseja deletar todo o histórico?"
-    }
-  }
+  ]
 }

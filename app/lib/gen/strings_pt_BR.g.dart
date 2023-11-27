@@ -37,6 +37,7 @@ class _StringsPtBr extends _StringsEn {
 	@override late final _StringsProgressPagePtBr progressPage = _StringsProgressPagePtBr._(_root);
 	@override late final _StringsWebSharePagePtBr webSharePage = _StringsWebSharePagePtBr._(_root);
 	@override late final _StringsAboutPagePtBr aboutPage = _StringsAboutPagePtBr._(_root);
+	@override late final _StringsDonationPagePtBr donationPage = _StringsDonationPagePtBr._(_root);
 	@override late final _StringsChangelogPagePtBr changelogPage = _StringsChangelogPagePtBr._(_root);
 	@override late final _StringsAliasGeneratorPtBr aliasGenerator = _StringsAliasGeneratorPtBr._(_root);
 	@override late final _StringsDialogsPtBr dialogs = _StringsDialogsPtBr._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabPtBr extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralPtBr general = _StringsSettingsTabGeneralPtBr._(_root);
 	@override late final _StringsSettingsTabReceivePtBr receive = _StringsSettingsTabReceivePtBr._(_root);
 	@override late final _StringsSettingsTabNetworkPtBr network = _StringsSettingsTabNetworkPtBr._(_root);
+	@override late final _StringsSettingsTabOtherPtBr other = _StringsSettingsTabOtherPtBr._(_root);
 	@override String get advancedSettings => 'Configurações avançadas';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPagePtBr extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Sobre LocalSend';
+	@override List<String> get description => [
+		'LocalSend é um app gratuito e open-source app que te permite enviar de forma segura arquivos e mensagens para dispositivos próximos pela sua rede local sem precisar de uma conexão com a internet.',
+		'Este app está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial.',
+	];
+	@override String get author => 'Autor';
+	@override String get contributors => 'Contribuidores';
+	@override String get translators => 'Tradutores';
+}
+
+// Path: donationPage
+class _StringsDonationPagePtBr extends _StringsDonationPageEn {
+	_StringsDonationPagePtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Doar';
+	@override String get info => 'LocalSend é gratuito, open source e sem anúncios. Se você gosta do app, você pode auxiliar o desenvolvimento com uma doação.';
+	@override String donate({required Object amount}) => 'Doar ${amount}';
+	@override String get thanks => 'Muito obrigado!';
+	@override String get restore => 'Restaurar compra';
 }
 
 // Path: changelogPage
@@ -374,6 +397,7 @@ class _StringsDialogsPtBr extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogPtBr favoriteEditDialog = _StringsDialogsFavoriteEditDialogPtBr._(_root);
 	@override late final _StringsDialogsFileInfoPtBr fileInfo = _StringsDialogsFileInfoPtBr._(_root);
 	@override late final _StringsDialogsFileNameInputPtBr fileNameInput = _StringsDialogsFileNameInputPtBr._(_root);
+	@override late final _StringsDialogsHistoryClearDialogPtBr historyClearDialog = _StringsDialogsHistoryClearDialogPtBr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedPtBr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedPtBr._(_root);
 	@override late final _StringsDialogsMessageInputPtBr messageInput = _StringsDialogsMessageInputPtBr._(_root);
 	@override late final _StringsDialogsNoFilesPtBr noFiles = _StringsDialogsNoFilesPtBr._(_root);
@@ -554,6 +578,20 @@ class _StringsSettingsTabNetworkPtBr extends _StringsSettingsTabNetworkEn {
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: ${defaultMulticast})';
 }
 
+// Path: settingsTab.other
+class _StringsSettingsTabOtherPtBr extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherPtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Outros';
+	@override String get support => 'Suporte LocalSend';
+	@override String get donate => 'Doar';
+	@override String get privacyPolicy => 'Política de Privacidade';
+	@override String get termsOfUse => 'Termos de Uso';
+}
+
 // Path: troubleshootPage.firewall
 class _StringsTroubleshootPageFirewallPtBr extends _StringsTroubleshootPageFirewallEn {
 	_StringsTroubleshootPageFirewallPtBr._(_StringsPtBr root) : this._root = root, super._(root);
@@ -731,6 +769,17 @@ class _StringsDialogsFileNameInputPtBr extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Digite o nome do arquivo';
 	@override String original({required Object original}) => 'Original: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogPtBr extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogPtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Limpar histórico';
+	@override String get content => 'Você realmente deseja deletar todo o histórico?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

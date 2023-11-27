@@ -123,6 +123,13 @@
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego adresu multicast. (domyślnie: {defaultMulticast})"
     },
+    "other": {
+      "title": "Inne",
+      "support": "Wesprzyj LocalSend",
+      "donate": "Przekaż darowiznę",
+      "privacyPolicy": "Polityka prywatności",
+      "termsOfUse": "Warunki korzystania"
+    },
     "advancedSettings": "Zaawansowane ustawienia"
   },
   "troubleshootPage": {
@@ -213,7 +220,21 @@
     "pendingRequests": "Oczekujące żądania: {n}"
   },
   "aboutPage": {
-    "title": "O LocalSend"
+    "title": "O LocalSend",
+    "description": [
+      "LocalSend jest darmową, otwarto-źródłową aplikacją, która pozwala na bezpieczne udostępnianie plików i wiadomości urządzeniom w pobliżu poprzez twoją sieć lokalną, bez konieczności połączenia z internetem.",
+      "Ta aplikacja jest dostępna na systemach Android, iOS, macOS, Windows i Linux. Możesz znaleźć wszystkie opcje pobierania na oficjalnej stronie głównej."
+    ],
+    "author": "Autor",
+    "contributors": "Współautorzy",
+    "translators": "Tłumacze"
+  },
+  "donationPage": {
+    "title": "Przekaż darowiznę",
+    "info": "LocalSend jest darmową, otwarto-źródłową aplikacją bez żadnych reklam. Jeśli podoba Ci się aplikacja, możesz wesprzec jej rozwój przekazując darowiznę.",
+    "donate": "Przekaż {amount}",
+    "thanks": "Bardzo Ci dziękuję!",
+    "restore": "Przywróć zakupy"
   },
   "changelogPage": {
     "title": "Dziennik Zmian"

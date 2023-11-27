@@ -2,30 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fil-PH>.",
     "After editing this file, you can run 'dart run slang apply --locale=fil-PH' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "other": {
-      "title": "Iba Pa",
-      "support": "Suportahan ang LocalSend",
-      "donate": "Mag-donate",
-      "privacyPolicy": "Patakaran sa Privacy",
-      "termsOfUse": "Mga Tuntunin sa Paggamit"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "Ang LocalSend ay isang libre at open-source na app na nagbibigay-daan sa secure na pagbabahagi ng mga file at message sa mga kalapit na device sa iyong local network nang hindi nangangailangan ng koneksyon sa internet.",
-      "Available ang app na ito sa Android, iOS, macOS, Windows, at Linux. Maaari mong mahanap ang lahat ng mga pagpipilian sa pag-download sa opisyal na homepage."
-    ],
-    "author": "Author",
-    "contributors": "Mga Contributor",
-    "translators": "Mga Translator"
-  },
-  "donationPage": {
-    "title": "Mag-donate",
-    "info": "Ang LocalSend ay libre, open-source, at walang anumang mga ad. Kung iyong nagustuhan ang app, maari mong suportahan ang development sa pamamagitan ng donasyon.",
-    "donate": "Mag-donate ng {amount}",
-    "thanks": "Maraming salamat!",
-    "restore": "Restore purchase"
-  }
+  ]
 }
