@@ -37,6 +37,7 @@ class _StringsTr extends _StringsEn {
 	@override late final _StringsProgressPageTr progressPage = _StringsProgressPageTr._(_root);
 	@override late final _StringsWebSharePageTr webSharePage = _StringsWebSharePageTr._(_root);
 	@override late final _StringsAboutPageTr aboutPage = _StringsAboutPageTr._(_root);
+	@override late final _StringsDonationPageTr donationPage = _StringsDonationPageTr._(_root);
 	@override late final _StringsChangelogPageTr changelogPage = _StringsChangelogPageTr._(_root);
 	@override late final _StringsAliasGeneratorTr aliasGenerator = _StringsAliasGeneratorTr._(_root);
 	@override late final _StringsDialogsTr dialogs = _StringsDialogsTr._(_root);
@@ -135,6 +136,7 @@ class _StringsSettingsTabTr extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabReceiveTr receive = _StringsSettingsTabReceiveTr._(_root);
 	@override late final _StringsSettingsTabNetworkTr network = _StringsSettingsTabNetworkTr._(_root);
 	@override String get advancedSettings => 'Gelişmiş ayarlar';
+	@override late final _StringsSettingsTabOtherTr other = _StringsSettingsTabOtherTr._(_root);
 }
 
 // Path: troubleshootPage
@@ -274,6 +276,27 @@ class _StringsAboutPageTr extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'LocalSend hakkında';
+	@override List<String> get description => [
+		'LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.',
+		'Bu uygulama Android, iOS, macOS, Windows ve Linux\'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz.',
+	];
+	@override String get author => 'Yazar';
+	@override String get contributors => 'Katkıda bulunanlar';
+	@override String get translators => 'Çevirmenler';
+}
+
+// Path: donationPage
+class _StringsDonationPageTr extends _StringsDonationPageEn {
+	_StringsDonationPageTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bağış yap';
+	@override String get info => 'LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Eğer uygulamayı beğendiyseniz, bağış yaparak uygulamanın gelişimine katkıda bulunabilirsiniz.';
+	@override String donate({required Object amount}) => 'Bağışta bulun ${amount}';
+	@override String get thanks => 'Çok teşekkür ederim!';
+	@override String get restore => 'Satın alınanları geri yükle';
 }
 
 // Path: changelogPage
@@ -322,6 +345,7 @@ class _StringsDialogsTr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsTr quickActions = _StringsDialogsQuickActionsTr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeTr quickSaveNotice = _StringsDialogsQuickSaveNoticeTr._(_root);
 	@override late final _StringsDialogsSendModeHelpTr sendModeHelp = _StringsDialogsSendModeHelpTr._(_root);
+	@override late final _StringsDialogsHistoryClearDialogTr historyClearDialog = _StringsDialogsHistoryClearDialogTr._(_root);
 }
 
 // Path: tray
@@ -491,6 +515,20 @@ class _StringsSettingsTabNetworkTr extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Şifreleme';
 	@override String get multicastGroup => 'Çoklu yayın';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherTr extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Diğer';
+	@override String get support => 'LocalSend\'i destekle';
+	@override String get donate => 'Bağış yap';
+	@override String get privacyPolicy => 'Gizlilik politikası';
+	@override String get termsOfUse => 'Kullanım koşulları';
 }
 
 // Path: troubleshootPage.firewall
@@ -775,6 +813,17 @@ class _StringsDialogsSendModeHelpTr extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.';
 	@override String get multiple => 'Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.';
 	@override String get link => 'LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir.';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogTr extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Geçmişi temizle';
+	@override String get content => 'Gerçekten tüm geçmişi silmek istiyor musunuz?';
 }
 
 // Path: settingsTab.general.brightnessOptions

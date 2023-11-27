@@ -1,0 +1,130 @@
+{
+  "identifier" : "D8FDEAE9",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "5.0",
+      "familyShareable" : false,
+      "internalID" : "6472594578",
+      "localizations" : [
+        {
+          "description" : "LocalSend Donation",
+          "displayName" : "LocalSend Donation",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "localsend_ios_donate_5",
+      "referenceName" : "LocalSend Donation (05)",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "10.0",
+      "familyShareable" : false,
+      "internalID" : "6472594779",
+      "localizations" : [
+        {
+          "description" : "LocalSend Donation",
+          "displayName" : "LocalSend Donation",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "localsend_ios_donate_10",
+      "referenceName" : "LocalSend Donation (10)",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "20.0",
+      "familyShareable" : false,
+      "internalID" : "6472594819",
+      "localizations" : [
+        {
+          "description" : "LocalSend Donation",
+          "displayName" : "LocalSend Donation",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "localsend_ios_donate_20",
+      "referenceName" : "LocalSend Donation (20)",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "50.0",
+      "familyShareable" : false,
+      "internalID" : "6472595571",
+      "localizations" : [
+        {
+          "description" : "LocalSend Donation",
+          "displayName" : "LocalSend Donation",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "localsend_ios_donate_50",
+      "referenceName" : "LocalSend Donation (50)",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1661733229",
+    "_developerTeamID" : "3W7H4PYMCV",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 722042011.75185394,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

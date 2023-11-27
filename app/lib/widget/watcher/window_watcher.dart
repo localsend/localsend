@@ -22,6 +22,11 @@ class WindowWatcher extends StatefulWidget {
 
   @override
   State<WindowWatcher> createState() => _WindowWatcherState();
+
+  static Future<void> closeWindow(BuildContext context) async {
+    final state = context.findAncestorStateOfType<_WindowWatcherState>();
+    await state?.onWindowClose();
+  }
 }
 
 class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refena {

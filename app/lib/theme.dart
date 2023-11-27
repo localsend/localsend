@@ -6,10 +6,15 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:yaru/yaru.dart' as yaru;
 
 final _borderRadius = BorderRadius.circular(5);
 
 ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dynamicColors) {
+  if (colorMode == ColorMode.yaru) {
+    return _getYaruTheme(brightness);
+  }
+
   final colorScheme = _determineColorScheme(colorMode, brightness, dynamicColors);
 
   final lightInputBorder = OutlineInputBorder(
@@ -134,7 +139,50 @@ ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, Dynamic
         background: Colors.black,
         surface: Colors.black,
       ),
+    ColorMode.yaru => throw 'Should reach here',
   };
 
   return colorScheme ?? defaultColorScheme;
+}
+
+ThemeData _getYaruTheme(Brightness brightness) {
+  final baseTheme = brightness == Brightness.light ? yaru.yaruLight : yaru.yaruDark;
+  final colorScheme = baseTheme.colorScheme;
+
+  final lightInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: colorScheme.secondaryContainer),
+    borderRadius: _borderRadius,
+  );
+
+  final darkInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: colorScheme.secondaryContainer),
+    borderRadius: _borderRadius,
+  );
+
+  return baseTheme.copyWith(
+    navigationBarTheme: colorScheme.brightness == Brightness.dark
+        ? NavigationBarThemeData(
+            iconTheme: MaterialStateProperty.all(const IconThemeData(color: Colors.white)),
+          )
+        : null,
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: colorScheme.secondaryContainer,
+      border: colorScheme.brightness == Brightness.light ? lightInputBorder : darkInputBorder,
+      focusedBorder: colorScheme.brightness == Brightness.light ? lightInputBorder : darkInputBorder,
+      enabledBorder: colorScheme.brightness == Brightness.light ? lightInputBorder : darkInputBorder,
+      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: colorScheme.brightness == Brightness.dark ? Colors.white : null,
+        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+    ),
+  );
 }

@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_drop
   dynamic_color
   file_selector_linux
+  gtk
   pasteboard
   screen_retriever
   system_tray

@@ -37,6 +37,7 @@ class _StringsFa extends _StringsEn {
 	@override late final _StringsProgressPageFa progressPage = _StringsProgressPageFa._(_root);
 	@override late final _StringsWebSharePageFa webSharePage = _StringsWebSharePageFa._(_root);
 	@override late final _StringsAboutPageFa aboutPage = _StringsAboutPageFa._(_root);
+	@override late final _StringsDonationPageFa donationPage = _StringsDonationPageFa._(_root);
 	@override late final _StringsChangelogPageFa changelogPage = _StringsChangelogPageFa._(_root);
 	@override late final _StringsAliasGeneratorFa aliasGenerator = _StringsAliasGeneratorFa._(_root);
 	@override late final _StringsDialogsFa dialogs = _StringsDialogsFa._(_root);
@@ -64,6 +65,7 @@ class _StringsGeneralFa extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'در کلیپ بورد کپی شد';
 	@override String get decline => 'نپذیرفتن';
 	@override String get done => 'انجام شد';
+	@override String get delete => 'حذف';
 	@override String get edit => 'ویرایش';
 	@override String get error => 'خطا';
 	@override String get example => 'مثال';
@@ -133,6 +135,7 @@ class _StringsSettingsTabFa extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralFa general = _StringsSettingsTabGeneralFa._(_root);
 	@override late final _StringsSettingsTabReceiveFa receive = _StringsSettingsTabReceiveFa._(_root);
 	@override late final _StringsSettingsTabNetworkFa network = _StringsSettingsTabNetworkFa._(_root);
+	@override late final _StringsSettingsTabOtherFa other = _StringsSettingsTabOtherFa._(_root);
 	@override String get advancedSettings => 'تنظیمات پیشرفته';
 }
 
@@ -273,6 +276,27 @@ class _StringsAboutPageFa extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'درباره لوکال سند';
+	@override List<String> get description => [
+		'لوکال‌سند یک برنامه رایگان و متن باز است که به شما امکان می‌دهد فایل‌ها و پیام‌ها را به‌طور ایمن با دستگاه‌های اطراف از طریق شبکه محلی خود و بدون نیاز به اینترنت به اشتراک بگذارید',
+		'این برنامه برای سیستم عامل های اندروید، آی او اس، مک او اس، ویندوز و لینوکس در دسترس است. شما می توانید با مراجعه به وبسایت رسمی برنامه کلیه روش‌های دانلود را مشاهده نمایید',
+	];
+	@override String get author => 'مولف';
+	@override String get contributors => 'مشارکت کنندگان';
+	@override String get translators => 'مترجمان';
+}
+
+// Path: donationPage
+class _StringsDonationPageFa extends _StringsDonationPageEn {
+	_StringsDonationPageFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'کمک مالی';
+	@override String get info => 'لوکال‌سند رایگان، متن باز و فاقد هر گونه تبلیغات است. اگر به این برنامه علاقه‌مندید، می توانید با کمک مالی از توسعه آن حمایت کنید';
+	@override String donate({required Object amount}) => 'کمک مالی ${amount}';
+	@override String get thanks => 'بسیار از شما سپاسگزاریم';
+	@override String get restore => 'بازیابی خرید';
 }
 
 // Path: changelogPage
@@ -378,8 +402,12 @@ class _StringsDialogsFa extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileFa cannotOpenFile = _StringsDialogsCannotOpenFileFa._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeFa encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeFa._(_root);
 	@override late final _StringsDialogsErrorDialogFa errorDialog = _StringsDialogsErrorDialogFa._(_root);
+	@override late final _StringsDialogsFavoriteDialogFa favoriteDialog = _StringsDialogsFavoriteDialogFa._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogFa favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogFa._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogFa favoriteEditDialog = _StringsDialogsFavoriteEditDialogFa._(_root);
 	@override late final _StringsDialogsFileInfoFa fileInfo = _StringsDialogsFileInfoFa._(_root);
 	@override late final _StringsDialogsFileNameInputFa fileNameInput = _StringsDialogsFileNameInputFa._(_root);
+	@override late final _StringsDialogsHistoryClearDialogFa historyClearDialog = _StringsDialogsHistoryClearDialogFa._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedFa localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedFa._(_root);
 	@override late final _StringsDialogsMessageInputFa messageInput = _StringsDialogsMessageInputFa._(_root);
 	@override late final _StringsDialogsNoFilesFa noFiles = _StringsDialogsNoFilesFa._(_root);
@@ -560,6 +588,20 @@ class _StringsSettingsTabNetworkFa extends _StringsSettingsTabNetworkEn {
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه های دیگر شما را شناسایی نکنند (پیشفرض: ${defaultMulticast})';
 }
 
+// Path: settingsTab.other
+class _StringsSettingsTabOtherFa extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'سایر';
+	@override String get support => 'حمایت از لوکال‌سند';
+	@override String get donate => 'کمک مالی';
+	@override String get privacyPolicy => 'سیاست حفظ حریم خصوصی';
+	@override String get termsOfUse => 'شرایط استفاده';
+}
+
 // Path: troubleshootPage.firewall
 class _StringsTroubleshootPageFirewallFa extends _StringsTroubleshootPageFirewallEn {
 	_StringsTroubleshootPageFirewallFa._(_StringsFa root) : this._root = root, super._(root);
@@ -675,6 +717,44 @@ class _StringsDialogsErrorDialogFa extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogFa extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'علاقه‌مندی‌ها';
+	@override String get noFavorites => 'هنوز دستگاهی اضافه نشده';
+	@override String get addFavorite => 'افزودن';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogFa extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'حذف از علاقه‌مندی‌ها';
+	@override String content({required Object name}) => 'واقعاً می خواهید از علاقه‌مندی‌ها حذف کنید "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogFa extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'افزودن به علاقه‌مندی‌ها';
+	@override String get titleEdit => 'تنظیمات';
+	@override String get name => 'نام مستعار';
+	@override String get auto => '(خودکار)';
+	@override String get ip => 'آدرس آی پی';
+	@override String get port => 'پورت';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoFa extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoFa._(_StringsFa root) : this._root = root, super._(root);
@@ -699,6 +779,17 @@ class _StringsDialogsFileNameInputFa extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'نام فایل را وارد کنید';
 	@override String original({required Object original}) => 'اصلی: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogFa extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پاکسازی تاریخچه';
+	@override String get content => 'واقعاً می خواهید کل تاریخچه را حذف کنید؟';
 }
 
 // Path: dialogs.localNetworkUnauthorized

@@ -123,6 +123,13 @@
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },
+    "other": {
+      "title": "Other",
+      "support": "Support LocalSend",
+      "donate": "Donate",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use"
+    },
     "advancedSettings": "Advanced settings"
   },
   "troubleshootPage": {
@@ -213,7 +220,21 @@
     "pendingRequests": "Pending requests: {n}"
   },
   "aboutPage": {
-    "title": "About LocalSend"
+    "title": "About LocalSend",
+    "description": [
+      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
+      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+    ],
+    "author": "Author",
+    "contributors": "Contributors",
+    "translators": "Translators"
+  },
+  "donationPage": {
+    "title": "Donate",
+    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
+    "donate": "Donate {amount}",
+    "thanks": "Thank you very much!",
+    "restore": "Restore purchase"
   },
   "changelogPage": {
     "title": "Changelog"

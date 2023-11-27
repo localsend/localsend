@@ -218,7 +218,7 @@
   "changelogPage": {
     "title": "Változásnapló"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Az angol változatból örökölve"
   },
   "dialogs": {

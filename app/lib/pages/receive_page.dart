@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -73,6 +75,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
       );
     }
     final selectedFiles = ref.watch(selectedReceivingFilesProvider);
+    final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
     return WillPopScope(
       onWillPop: () async {
@@ -182,8 +185,8 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                             padding: const EdgeInsets.only(left: 20),
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                                                foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                               ),
                                               onPressed: () {
                                                 // ignore: discarded_futures
@@ -254,8 +257,9 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                             children: [
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.error,
-                                  foregroundColor: Theme.of(context).colorScheme.onError,
+                                  elevation: colorMode == ColorMode.yaru ? 0 : null,
+                                  backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
+                                  foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
                                   _decline();
@@ -267,8 +271,8 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                               const SizedBox(width: 20),
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                                  foregroundColor: Theme.of(context).buttonTheme.colorScheme!.onPrimary,
+                                  backgroundColor: Theme.of(context).colorScheme.primary,
+                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                 ),
                                 onPressed: selectedFiles.isEmpty
                                     ? null

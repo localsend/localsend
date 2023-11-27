@@ -218,7 +218,7 @@
   "changelogPage": {
     "title": "Histórico de alterações"
   },
-  "aliasGenerator(ignoreMissing)": {
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
       "Adorável",

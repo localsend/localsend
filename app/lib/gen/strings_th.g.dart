@@ -37,6 +37,7 @@ class _StringsTh extends _StringsEn {
 	@override late final _StringsProgressPageTh progressPage = _StringsProgressPageTh._(_root);
 	@override late final _StringsWebSharePageTh webSharePage = _StringsWebSharePageTh._(_root);
 	@override late final _StringsAboutPageTh aboutPage = _StringsAboutPageTh._(_root);
+	@override late final _StringsDonationPageTh donationPage = _StringsDonationPageTh._(_root);
 	@override late final _StringsChangelogPageTh changelogPage = _StringsChangelogPageTh._(_root);
 	@override late final _StringsAliasGeneratorTh aliasGenerator = _StringsAliasGeneratorTh._(_root);
 	@override late final _StringsDialogsTh dialogs = _StringsDialogsTh._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabTh extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralTh general = _StringsSettingsTabGeneralTh._(_root);
 	@override late final _StringsSettingsTabReceiveTh receive = _StringsSettingsTabReceiveTh._(_root);
 	@override late final _StringsSettingsTabNetworkTh network = _StringsSettingsTabNetworkTh._(_root);
+	@override late final _StringsSettingsTabOtherTh other = _StringsSettingsTabOtherTh._(_root);
 	@override String get advancedSettings => 'ตั้งค่าขั้นสูง';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageTh extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'เกี่ยวกับ LocalSend';
+	@override List<String> get description => [
+		'LocalSend เป็นแอปโอเพ่นซอร์สฟรีที่ช่วยให้คุณแบ่งปันไฟล์และข้อความอย่างปลอดภัยกับอุปกรณ์ใกล้เคียงผ่านเครือข่ายท้องถิ่นของคุณโดยไม่จำเป็นต้องเชื่อมต่ออินเทอร์เน็ต',
+		'แอปนี้พร้อมใช้งานบน Android, iOS, macOS, Windows และ Linux คุณสามารถค้นหาตัวเลือกการดาวน์โหลดทั้งหมดได้จากหน้าแรกของเว็บไซต์ที่ทางการ',
+	];
+	@override String get author => 'ผู้เขียน';
+	@override String get contributors => 'ผู้มีส่วนร่วม';
+	@override String get translators => 'ผู้แปล';
+}
+
+// Path: donationPage
+class _StringsDonationPageTh extends _StringsDonationPageEn {
+	_StringsDonationPageTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'บริจาค';
+	@override String get info => 'LocalSend เป็นบริการโอเพ่นซอร์สฟรีและไม่มีโฆษณา หากคุณชอบแอพนี้ คุณสามารถสนับสนุนการพัฒนาด้วยการบริจาค';
+	@override String donate({required Object amount}) => 'บริจาค ${amount}';
+	@override String get thanks => 'ขอบคุณมาก!';
+	@override String get restore => 'คืนค่าการซื้อ';
 }
 
 // Path: changelogPage
@@ -563,6 +586,20 @@ class _StringsSettingsTabNetworkTh extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'การเข้ารหัส';
 	@override String get multicastGroup => 'มัลติคาสต์';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'อุปกรณ์อื่นอาจตรวจไม่พบเนื่องจากคุณใช้ที่อยู่มัลติคาสต์แบบกำหนดเอง (default: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherTh extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'อื่นๆ';
+	@override String get support => 'สนับสนุน LocalSend';
+	@override String get donate => 'บริจาค';
+	@override String get privacyPolicy => 'นโยบายความเป็นส่วนตัว';
+	@override String get termsOfUse => 'ข้อกำหนดการใช้งาน';
 }
 
 // Path: troubleshootPage.firewall

@@ -3,43 +3,29 @@
     "Here are translations that exist in <en> but not in <ar>.",
     "After editing this file, you can run 'dart run slang apply --locale=ar' to quickly apply the newly added translations."
   ],
-  "general": {
-    "delete": "حذف",
-    "noItemInClipboard": "لا توجد عناصر في الحافظة"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "لصق"
-    }
-  },
   "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED"
-      }
+    "other": {
+      "title": "Other",
+      "support": "Support LocalSend",
+      "donate": "Donate",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use"
     }
   },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "المفضلة",
-      "noFavorites": "لا توجد أجهزة مفضلة بعد.",
-      "addFavorite": "إضافة"
-    },
-    "favoriteDeleteDialog": {
-      "title": "حذف من المفضلة",
-      "content": "هل ترغب حقًا في حذف \"{name}\" من قائمة المفضلة؟"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "إضافة إلى المفضلة",
-      "titleEdit": "تعديل",
-      "name": "الاسم",
-      "auto": "(تلقائي)",
-      "ip": "عنوان IP",
-      "port": "Port"
-    },
-    "historyClearDialog": {
-      "title": "محو السجل",
-      "content": "هل ترغب حقًا في محو السجل بالكامل؟"
-    }
+  "aboutPage": {
+    "description": [
+      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
+      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+    ],
+    "author": "Author",
+    "contributors": "Contributors",
+    "translators": "Translators"
+  },
+  "donationPage": {
+    "title": "Donate",
+    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
+    "donate": "Donate {amount}",
+    "thanks": "Thank you very much!",
+    "restore": "Restore purchase"
   }
 }

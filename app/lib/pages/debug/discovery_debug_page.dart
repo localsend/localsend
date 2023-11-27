@@ -14,7 +14,7 @@ class DiscoveryDebugPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ref = context.ref;
-    final logs = ref.watch(discoveryLogsProvider);
+    final logs = ref.watch(discoveryLoggerProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Discovery Debugging'),
@@ -25,12 +25,12 @@ class DiscoveryDebugPage extends StatelessWidget {
           Row(
             children: [
               ElevatedButton(
-                onPressed: () => ref.notifier(nearbyDevicesProvider).startMulticastScan(),
+                onPressed: () => ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan()),
                 child: const Text('Announce'),
               ),
               const SizedBox(width: 20),
               ElevatedButton(
-                onPressed: () => ref.notifier(discoveryLogsProvider).clear(),
+                onPressed: () => ref.notifier(discoveryLoggerProvider).clear(),
                 child: const Text('Clear'),
               ),
             ],
