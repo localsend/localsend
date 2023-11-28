@@ -59,8 +59,8 @@ class _SendPageState extends State<SendPage> with Refena {
     final waiting = sendState?.status == SessionStatus.waiting;
 
     return PopScope(
-      onPopInvoked: (bool didPop) {
-        if (didPop && widget.closeSessionOnClose) {
+      onPopInvoked: (_) {
+        if (widget.closeSessionOnClose) {
           _cancel();
         }
       },

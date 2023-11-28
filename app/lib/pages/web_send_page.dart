@@ -75,17 +75,18 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async {
-        if (didPop && mounted) {
-          setState(() {
-            _stateEnum = _ServerState.stopping;
-          });
-          await sleepAsync(250);
-          await _revertServerState();
-          await sleepAsync(250);
-          if (mounted) {
-            context.pop();
-          }
+      onPopInvoked: (_) async {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _stateEnum = _ServerState.stopping;
+        });
+        await sleepAsync(250);
+        await _revertServerState();
+        await sleepAsync(250);
+        if (mounted) {
+          context.pop();
         }
       },
       child: Scaffold(
@@ -124,9 +125,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
               );
             }
 
-            final serverState = ref.watch(serverProvider)!;
+            final serverState = context.watch(serverProvider)!;
             final webSendState = serverState.webSendState!;
-            final networkState = ref.watch(localIpProvider);
+            final networkState = context.watch(localIpProvider);
 
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

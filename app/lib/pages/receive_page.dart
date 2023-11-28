@@ -78,11 +78,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
     return PopScope(
-      onPopInvoked: (bool didPop) {
-        if (didPop) {
-          _decline();
-        }
-      },
+      onPopInvoked: (_) => _decline(),
       child: Scaffold(
         body: SafeArea(
           child: Center(
