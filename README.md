@@ -67,6 +67,23 @@ Read more about [distribution channels][].
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
+## Setup
+
+In most cases, LocalSend should work out of the box. However, if you are having trouble sending or receiving files, you may need to configure your firewall to allow LocalSend to communicate over your local network.
+
+| Traffic Type | Protocol | Port  | Action |
+|--------------|----------|-------|--------|
+| Incoming     | TCP, UDP | 53317 | Allow  |
+| Outgoing     | TCP, UDP | Any   | Allow  |
+
+**Portable Mode**
+
+(Introduced in v1.13.0)
+
+Create a file named `settings.json` located in the same directory as the executable.
+This file can be empty.
+The app will use this file to store settings instead of the default location.
+
 ## How it Works
 
 LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
