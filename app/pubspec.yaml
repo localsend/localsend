@@ -21,7 +21,7 @@ dependencies:
   device_info_plus: 9.1.1
   dio: 5.3.4
   dynamic_color: 1.6.8
-  file_picker: 5.5.0
+  file_picker: 6.1.1
   file_selector: 1.0.1
   flutter:
     sdk: flutter
