@@ -58,12 +58,11 @@ class _SendPageState extends State<SendPage> with Refena {
     final myDevice = ref.watch(deviceFullInfoProvider);
     final waiting = sendState?.status == SessionStatus.waiting;
 
-    return WillPopScope(
-      onWillPop: () async {
-        if (widget.closeSessionOnClose) {
+    return PopScope(
+      onPopInvoked: (bool didPop) {
+        if (didPop && widget.closeSessionOnClose) {
           _cancel();
         }
-        return true;
       },
       child: Scaffold(
         appBar: widget.showAppBar ? AppBar() : null,

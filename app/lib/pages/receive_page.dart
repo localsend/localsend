@@ -77,10 +77,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final selectedFiles = ref.watch(selectedReceivingFilesProvider);
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
-    return WillPopScope(
-      onWillPop: () async {
-        _decline();
-        return true;
+    return PopScope(
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          _decline();
+        }
       },
       child: Scaffold(
         body: SafeArea(
@@ -258,8 +259,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                   elevation: colorMode == ColorMode.yaru ? 0 : null,
-                                  backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
-                                  foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.onError,
+                                  backgroundColor:
+                                      colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
+                                  foregroundColor: colorMode == ColorMode.yaru
+                                      ? Theme.of(context).colorScheme.onBackground
+                                      : Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
                                   _decline();

@@ -43,6 +43,10 @@ dependencies:
   path: 1.8.3
   path_provider: 2.1.1
   permission_handler: 11.0.1
+
+  # Remove this when wechat_assets_picker is updated to 8.9.0
+  photo_manager: 3.0.0-dev.2
+
   pretty_qr_code: 2.0.3
   refena_flutter: 1.5.0
   refena_inspector_client: 1.2.0
@@ -66,7 +70,7 @@ dependencies:
   url_launcher: 6.1.14
   uuid: 3.0.7
   wakelock_plus: 1.1.3
-  wechat_assets_picker: 8.7.1
+  wechat_assets_picker: 8.9.0-dev.1
   window_manager: 0.3.7
   yaru: 1.2.0
 
