@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'receive_session_state.dart';
 
@@ -16,11 +17,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
       ReceivingFileMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -88,23 +84,23 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   final Function instantiate = _instantiate;
 
   static ReceiveSessionState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<ReceiveSessionState>(map));
+    return ensureInitialized().decodeMap<ReceiveSessionState>(map);
   }
 
   static ReceiveSessionState deserialize(String json) {
-    return _guard((c) => c.fromJson<ReceiveSessionState>(json));
+    return ensureInitialized().decodeJson<ReceiveSessionState>(json);
   }
 }
 
 mixin ReceiveSessionStateMappable {
   String serialize() {
-    return ReceiveSessionStateMapper._guard(
-        (c) => c.toJson(this as ReceiveSessionState));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .encodeJson<ReceiveSessionState>(this as ReceiveSessionState);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceiveSessionStateMapper._guard(
-        (c) => c.toMap(this as ReceiveSessionState));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .encodeMap<ReceiveSessionState>(this as ReceiveSessionState);
   }
 
   ReceiveSessionStateCopyWith<ReceiveSessionState, ReceiveSessionState,
@@ -113,19 +109,22 @@ mixin ReceiveSessionStateMappable {
           this as ReceiveSessionState, $identity, $identity);
   @override
   String toString() {
-    return ReceiveSessionStateMapper._guard((c) => c.asString(this));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .stringifyValue(this as ReceiveSessionState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            ReceiveSessionStateMapper._guard((c) => c.isEqual(this, other)));
+            ReceiveSessionStateMapper.ensureInitialized()
+                .isValueEqual(this as ReceiveSessionState, other));
   }
 
   @override
   int get hashCode {
-    return ReceiveSessionStateMapper._guard((c) => c.hash(this));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .hashValue(this as ReceiveSessionState);
   }
 }
 

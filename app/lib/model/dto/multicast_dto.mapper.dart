@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'multicast_dto.dart';
 
@@ -62,11 +63,6 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
       ProtocolTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -133,40 +129,45 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
   final Function instantiate = _instantiate;
 
   static MulticastDto fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<MulticastDto>(map));
+    return ensureInitialized().decodeMap<MulticastDto>(map);
   }
 
   static MulticastDto deserialize(String json) {
-    return _guard((c) => c.fromJson<MulticastDto>(json));
+    return ensureInitialized().decodeJson<MulticastDto>(json);
   }
 }
 
 mixin MulticastDtoMappable {
   String serialize() {
-    return MulticastDtoMapper._guard((c) => c.toJson(this as MulticastDto));
+    return MulticastDtoMapper.ensureInitialized()
+        .encodeJson<MulticastDto>(this as MulticastDto);
   }
 
   Map<String, dynamic> toJson() {
-    return MulticastDtoMapper._guard((c) => c.toMap(this as MulticastDto));
+    return MulticastDtoMapper.ensureInitialized()
+        .encodeMap<MulticastDto>(this as MulticastDto);
   }
 
   MulticastDtoCopyWith<MulticastDto, MulticastDto, MulticastDto> get copyWith =>
       _MulticastDtoCopyWithImpl(this as MulticastDto, $identity, $identity);
   @override
   String toString() {
-    return MulticastDtoMapper._guard((c) => c.asString(this));
+    return MulticastDtoMapper.ensureInitialized()
+        .stringifyValue(this as MulticastDto);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            MulticastDtoMapper._guard((c) => c.isEqual(this, other)));
+            MulticastDtoMapper.ensureInitialized()
+                .isValueEqual(this as MulticastDto, other));
   }
 
   @override
   int get hashCode {
-    return MulticastDtoMapper._guard((c) => c.hash(this));
+    return MulticastDtoMapper.ensureInitialized()
+        .hashValue(this as MulticastDto);
   }
 }
 

@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'server_state.dart';
 
@@ -16,11 +17,6 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
       WebSendStateMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -66,40 +62,44 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   final Function instantiate = _instantiate;
 
   static ServerState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<ServerState>(map));
+    return ensureInitialized().decodeMap<ServerState>(map);
   }
 
   static ServerState deserialize(String json) {
-    return _guard((c) => c.fromJson<ServerState>(json));
+    return ensureInitialized().decodeJson<ServerState>(json);
   }
 }
 
 mixin ServerStateMappable {
   String serialize() {
-    return ServerStateMapper._guard((c) => c.toJson(this as ServerState));
+    return ServerStateMapper.ensureInitialized()
+        .encodeJson<ServerState>(this as ServerState);
   }
 
   Map<String, dynamic> toJson() {
-    return ServerStateMapper._guard((c) => c.toMap(this as ServerState));
+    return ServerStateMapper.ensureInitialized()
+        .encodeMap<ServerState>(this as ServerState);
   }
 
   ServerStateCopyWith<ServerState, ServerState, ServerState> get copyWith =>
       _ServerStateCopyWithImpl(this as ServerState, $identity, $identity);
   @override
   String toString() {
-    return ServerStateMapper._guard((c) => c.asString(this));
+    return ServerStateMapper.ensureInitialized()
+        .stringifyValue(this as ServerState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            ServerStateMapper._guard((c) => c.isEqual(this, other)));
+            ServerStateMapper.ensureInitialized()
+                .isValueEqual(this as ServerState, other));
   }
 
   @override
   int get hashCode {
-    return ServerStateMapper._guard((c) => c.hash(this));
+    return ServerStateMapper.ensureInitialized().hashValue(this as ServerState);
   }
 }
 

@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'stored_security_context.dart';
 
@@ -15,11 +16,6 @@ class StoredSecurityContextMapper
       MapperContainer.globals.use(_instance = StoredSecurityContextMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -58,23 +54,23 @@ class StoredSecurityContextMapper
   final Function instantiate = _instantiate;
 
   static StoredSecurityContext fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<StoredSecurityContext>(map));
+    return ensureInitialized().decodeMap<StoredSecurityContext>(map);
   }
 
   static StoredSecurityContext deserialize(String json) {
-    return _guard((c) => c.fromJson<StoredSecurityContext>(json));
+    return ensureInitialized().decodeJson<StoredSecurityContext>(json);
   }
 }
 
 mixin StoredSecurityContextMappable {
   String serialize() {
-    return StoredSecurityContextMapper._guard(
-        (c) => c.toJson(this as StoredSecurityContext));
+    return StoredSecurityContextMapper.ensureInitialized()
+        .encodeJson<StoredSecurityContext>(this as StoredSecurityContext);
   }
 
   Map<String, dynamic> toJson() {
-    return StoredSecurityContextMapper._guard(
-        (c) => c.toMap(this as StoredSecurityContext));
+    return StoredSecurityContextMapper.ensureInitialized()
+        .encodeMap<StoredSecurityContext>(this as StoredSecurityContext);
   }
 
   StoredSecurityContextCopyWith<StoredSecurityContext, StoredSecurityContext,
@@ -83,19 +79,22 @@ mixin StoredSecurityContextMappable {
           this as StoredSecurityContext, $identity, $identity);
   @override
   String toString() {
-    return StoredSecurityContextMapper._guard((c) => c.asString(this));
+    return StoredSecurityContextMapper.ensureInitialized()
+        .stringifyValue(this as StoredSecurityContext);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            StoredSecurityContextMapper._guard((c) => c.isEqual(this, other)));
+            StoredSecurityContextMapper.ensureInitialized()
+                .isValueEqual(this as StoredSecurityContext, other));
   }
 
   @override
   int get hashCode {
-    return StoredSecurityContextMapper._guard((c) => c.hash(this));
+    return StoredSecurityContextMapper.ensureInitialized()
+        .hashValue(this as StoredSecurityContext);
   }
 }
 

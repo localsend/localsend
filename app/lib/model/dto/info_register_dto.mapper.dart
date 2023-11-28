@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'info_register_dto.dart';
 
@@ -16,11 +17,6 @@ class InfoRegisterDtoMapper extends ClassMapperBase<InfoRegisterDto> {
       ProtocolTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -78,23 +74,23 @@ class InfoRegisterDtoMapper extends ClassMapperBase<InfoRegisterDto> {
   final Function instantiate = _instantiate;
 
   static InfoRegisterDto fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<InfoRegisterDto>(map));
+    return ensureInitialized().decodeMap<InfoRegisterDto>(map);
   }
 
   static InfoRegisterDto deserialize(String json) {
-    return _guard((c) => c.fromJson<InfoRegisterDto>(json));
+    return ensureInitialized().decodeJson<InfoRegisterDto>(json);
   }
 }
 
 mixin InfoRegisterDtoMappable {
   String serialize() {
-    return InfoRegisterDtoMapper._guard(
-        (c) => c.toJson(this as InfoRegisterDto));
+    return InfoRegisterDtoMapper.ensureInitialized()
+        .encodeJson<InfoRegisterDto>(this as InfoRegisterDto);
   }
 
   Map<String, dynamic> toJson() {
-    return InfoRegisterDtoMapper._guard(
-        (c) => c.toMap(this as InfoRegisterDto));
+    return InfoRegisterDtoMapper.ensureInitialized()
+        .encodeMap<InfoRegisterDto>(this as InfoRegisterDto);
   }
 
   InfoRegisterDtoCopyWith<InfoRegisterDto, InfoRegisterDto, InfoRegisterDto>
@@ -102,19 +98,22 @@ mixin InfoRegisterDtoMappable {
           this as InfoRegisterDto, $identity, $identity);
   @override
   String toString() {
-    return InfoRegisterDtoMapper._guard((c) => c.asString(this));
+    return InfoRegisterDtoMapper.ensureInitialized()
+        .stringifyValue(this as InfoRegisterDto);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            InfoRegisterDtoMapper._guard((c) => c.isEqual(this, other)));
+            InfoRegisterDtoMapper.ensureInitialized()
+                .isValueEqual(this as InfoRegisterDto, other));
   }
 
   @override
   int get hashCode {
-    return InfoRegisterDtoMapper._guard((c) => c.hash(this));
+    return InfoRegisterDtoMapper.ensureInitialized()
+        .hashValue(this as InfoRegisterDto);
   }
 }
 

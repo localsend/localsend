@@ -101,10 +101,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "10c6bcdbf9d049a0b666702cf1cee4ddfdc38f02a19d35ae392863b47519848b"
+      sha256: "67d591d602906ef9201caf93452495ad1812bea2074f04e25dbd7c133785821b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.6"
+    version: "2.4.7"
   build_runner_core:
     dependency: transitive
     description:
@@ -268,18 +268,18 @@ packages:
     dependency: "direct main"
     description:
       name: dart_mappable
-      sha256: f3c0dacde18fe0a05818a797e811f76ab58d7295cdd326c5dbe3592fe62466da
+      sha256: c2d4775336d7166590766a1c4451edde2a302efe2a2a35ac09eef9025102e10f
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "4.0.1"
   dart_mappable_builder:
     dependency: "direct dev"
     description:
       name: dart_mappable_builder
-      sha256: ce10c4c19cb9071461703e6186bb50ff7ec806c99ef717cab9ed25099d09f8bd
+      sha256: "41926353f9bc20f659c39f1d83d90c9ae5fd0d14aec9b59732cf714eee589b7a"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.1"
   dart_style:
     dependency: transitive
     description:
@@ -518,10 +518,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: "8afc9a6aa6d8e8063523192ba837149dbf3d377a37c0b0fc579149a1fbd4a619"
+      sha256: "35108526a233cc0755664d445f8a6b4b61e6f8fe993b3658b80b4a26827fc196"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.18"
+    version: "0.6.18+2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -856,10 +856,10 @@ packages:
     dependency: "direct dev"
     description:
       name: msix
-      sha256: "6e76e2491d5c809d784ce2b68e6c3426097fb5c68e61fe121c8c3341ab89bf46"
+      sha256: "957d04eee260e4bd15bec1fdb988dfc73718285e201cf89d97ef01ef38e66d4c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.16.4"
+    version: "3.16.6"
   nested:
     dependency: transitive
     description:
@@ -1105,10 +1105,10 @@ packages:
     dependency: "direct main"
     description:
       name: pretty_qr_code
-      sha256: ea7ccb3069e0f5b89b441449b9ec10f4148ddda7a4bef89a130d2ebdaa0be647
+      sha256: "799fa8d5c605028302cb7debbf3f180ce56678c4927fb2ecc4b174a3bee526d6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.3"
+    version: "3.0.0"
   provider:
     dependency: transitive
     description:
@@ -1511,10 +1511,10 @@ packages:
     dependency: transitive
     description:
       name: type_plus
-      sha256: "52af1140887d0ce0ea89c768dfde1b244cd531221c7f48c8c29b1d24ae8aed9a"
+      sha256: "2e33cfac2e129297d5874567bdf7587502ec359881e9318551e014d91b02f84a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:

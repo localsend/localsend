@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'web_send_file.dart';
 
@@ -14,11 +15,6 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
       MapperContainer.globals.use(_instance = WebSendFileMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -54,40 +50,44 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
   final Function instantiate = _instantiate;
 
   static WebSendFile fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<WebSendFile>(map));
+    return ensureInitialized().decodeMap<WebSendFile>(map);
   }
 
   static WebSendFile deserialize(String json) {
-    return _guard((c) => c.fromJson<WebSendFile>(json));
+    return ensureInitialized().decodeJson<WebSendFile>(json);
   }
 }
 
 mixin WebSendFileMappable {
   String serialize() {
-    return WebSendFileMapper._guard((c) => c.toJson(this as WebSendFile));
+    return WebSendFileMapper.ensureInitialized()
+        .encodeJson<WebSendFile>(this as WebSendFile);
   }
 
   Map<String, dynamic> toJson() {
-    return WebSendFileMapper._guard((c) => c.toMap(this as WebSendFile));
+    return WebSendFileMapper.ensureInitialized()
+        .encodeMap<WebSendFile>(this as WebSendFile);
   }
 
   WebSendFileCopyWith<WebSendFile, WebSendFile, WebSendFile> get copyWith =>
       _WebSendFileCopyWithImpl(this as WebSendFile, $identity, $identity);
   @override
   String toString() {
-    return WebSendFileMapper._guard((c) => c.asString(this));
+    return WebSendFileMapper.ensureInitialized()
+        .stringifyValue(this as WebSendFile);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            WebSendFileMapper._guard((c) => c.isEqual(this, other)));
+            WebSendFileMapper.ensureInitialized()
+                .isValueEqual(this as WebSendFile, other));
   }
 
   @override
   int get hashCode {
-    return WebSendFileMapper._guard((c) => c.hash(this));
+    return WebSendFileMapper.ensureInitialized().hashValue(this as WebSendFile);
   }
 }
 

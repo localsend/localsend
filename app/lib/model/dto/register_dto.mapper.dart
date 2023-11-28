@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'register_dto.dart';
 
@@ -16,11 +17,6 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
       ProtocolTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -77,40 +73,44 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
   final Function instantiate = _instantiate;
 
   static RegisterDto fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<RegisterDto>(map));
+    return ensureInitialized().decodeMap<RegisterDto>(map);
   }
 
   static RegisterDto deserialize(String json) {
-    return _guard((c) => c.fromJson<RegisterDto>(json));
+    return ensureInitialized().decodeJson<RegisterDto>(json);
   }
 }
 
 mixin RegisterDtoMappable {
   String serialize() {
-    return RegisterDtoMapper._guard((c) => c.toJson(this as RegisterDto));
+    return RegisterDtoMapper.ensureInitialized()
+        .encodeJson<RegisterDto>(this as RegisterDto);
   }
 
   Map<String, dynamic> toJson() {
-    return RegisterDtoMapper._guard((c) => c.toMap(this as RegisterDto));
+    return RegisterDtoMapper.ensureInitialized()
+        .encodeMap<RegisterDto>(this as RegisterDto);
   }
 
   RegisterDtoCopyWith<RegisterDto, RegisterDto, RegisterDto> get copyWith =>
       _RegisterDtoCopyWithImpl(this as RegisterDto, $identity, $identity);
   @override
   String toString() {
-    return RegisterDtoMapper._guard((c) => c.asString(this));
+    return RegisterDtoMapper.ensureInitialized()
+        .stringifyValue(this as RegisterDto);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            RegisterDtoMapper._guard((c) => c.isEqual(this, other)));
+            RegisterDtoMapper.ensureInitialized()
+                .isValueEqual(this as RegisterDto, other));
   }
 
   @override
   int get hashCode {
-    return RegisterDtoMapper._guard((c) => c.hash(this));
+    return RegisterDtoMapper.ensureInitialized().hashValue(this as RegisterDto);
   }
 }
 

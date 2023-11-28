@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'purchase_state.dart';
 
@@ -14,11 +15,6 @@ class PurchaseStateMapper extends ClassMapperBase<PurchaseState> {
       MapperContainer.globals.use(_instance = PurchaseStateMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -53,21 +49,23 @@ class PurchaseStateMapper extends ClassMapperBase<PurchaseState> {
   final Function instantiate = _instantiate;
 
   static PurchaseState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<PurchaseState>(map));
+    return ensureInitialized().decodeMap<PurchaseState>(map);
   }
 
   static PurchaseState deserialize(String json) {
-    return _guard((c) => c.fromJson<PurchaseState>(json));
+    return ensureInitialized().decodeJson<PurchaseState>(json);
   }
 }
 
 mixin PurchaseStateMappable {
   String serialize() {
-    return PurchaseStateMapper._guard((c) => c.toJson(this as PurchaseState));
+    return PurchaseStateMapper.ensureInitialized()
+        .encodeJson<PurchaseState>(this as PurchaseState);
   }
 
   Map<String, dynamic> toJson() {
-    return PurchaseStateMapper._guard((c) => c.toMap(this as PurchaseState));
+    return PurchaseStateMapper.ensureInitialized()
+        .encodeMap<PurchaseState>(this as PurchaseState);
   }
 
   PurchaseStateCopyWith<PurchaseState, PurchaseState, PurchaseState>
@@ -75,19 +73,22 @@ mixin PurchaseStateMappable {
           this as PurchaseState, $identity, $identity);
   @override
   String toString() {
-    return PurchaseStateMapper._guard((c) => c.asString(this));
+    return PurchaseStateMapper.ensureInitialized()
+        .stringifyValue(this as PurchaseState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            PurchaseStateMapper._guard((c) => c.isEqual(this, other)));
+            PurchaseStateMapper.ensureInitialized()
+                .isValueEqual(this as PurchaseState, other));
   }
 
   @override
   int get hashCode {
-    return PurchaseStateMapper._guard((c) => c.hash(this));
+    return PurchaseStateMapper.ensureInitialized()
+        .hashValue(this as PurchaseState);
   }
 }
 
