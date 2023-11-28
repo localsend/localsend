@@ -8,6 +8,7 @@
 - fix: also show an OLED color mode option when dynamic colors are not supported by OS (@dhruvanbhalara)
 - fix: sync button should spin right away when clicked (@Tienisto)
 - fix(ios): fix permission error when picking directory (@Tienisto)
+- fix(ios): clear cache when file is shared from another app (@Tienisto)
 - i18n: add Greek (@multipetros)
 
 ## 1.12.0 (2023-10-25)
