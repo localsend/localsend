@@ -194,7 +194,7 @@ Future<HttpServer> _startServer({
   required SecurityContext? securityContext,
 }) async {
   return serve(
-    router,
+    router.call,
     '0.0.0.0',
     port,
     securityContext: securityContext,

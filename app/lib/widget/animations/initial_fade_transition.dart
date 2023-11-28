@@ -10,8 +10,8 @@ class InitialFadeTransition extends StatefulWidget {
     required this.child,
     required this.duration,
     this.delay = Duration.zero,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<InitialFadeTransition> createState() => _InitialFadeTransitionState();

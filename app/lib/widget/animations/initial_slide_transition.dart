@@ -16,8 +16,8 @@ class InitialSlideTransition extends StatefulWidget {
     this.curve = Curves.easeOutCubic,
     required this.duration,
     this.delay = Duration.zero,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<InitialSlideTransition> createState() => _InitialSlideTransitionState();

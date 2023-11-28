@@ -5,7 +5,7 @@ import 'package:routerino/routerino.dart';
 import 'package:system_settings/system_settings.dart';
 
 class IosLocalNetworkDialog extends StatelessWidget {
-  const IosLocalNetworkDialog({Key? key}) : super(key: key);
+  const IosLocalNetworkDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

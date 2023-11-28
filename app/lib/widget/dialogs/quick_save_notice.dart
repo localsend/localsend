@@ -5,7 +5,7 @@ import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
 
 class QuickSaveNotice extends StatelessWidget {
-  const QuickSaveNotice({Key? key}) : super(key: key);
+  const QuickSaveNotice({super.key});
 
   static Future<void> open(BuildContext context) async {
     if (checkPlatformIsDesktop()) {

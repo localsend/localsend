@@ -5,7 +5,7 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 class SecurityDebugPage extends StatelessWidget {
-  const SecurityDebugPage({Key? key}) : super(key: key);
+  const SecurityDebugPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 class LanguagePage extends StatelessWidget {
-  const LanguagePage({Key? key}) : super(key: key);
+  const LanguagePage({super.key});
 
   @override
   Widget build(BuildContext context) {

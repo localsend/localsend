@@ -12,7 +12,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class DebugPage extends StatelessWidget {
-  const DebugPage({Key? key}) : super(key: key);
+  const DebugPage({super.key});
 
   @override
   Widget build(BuildContext context) {

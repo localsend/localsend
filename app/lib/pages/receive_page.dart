@@ -21,7 +21,7 @@ import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReceivePage extends StatefulWidget {
-  const ReceivePage({Key? key}) : super(key: key);
+  const ReceivePage({super.key});
 
   @override
   State<ReceivePage> createState() => _ReceivePageState();

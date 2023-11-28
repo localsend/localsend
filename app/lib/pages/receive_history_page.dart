@@ -36,7 +36,7 @@ const _optionsAll = _EntryOption.values;
 final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
 
 class ReceiveHistoryPage extends StatelessWidget {
-  const ReceiveHistoryPage({Key? key}) : super(key: key);
+  const ReceiveHistoryPage({super.key});
 
   Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
     if (entry.path != null) {
