@@ -10,7 +10,7 @@ void main() {
       expect(AppLocale.en.translations.general.accept, 'Accept');
     });
 
-    test('All locales should be supported by Flutter', () async {
+    test('All locales should be supported by Flutter', () {
       for (final locale in AppLocale.values) {
         expect(kMaterialSupportedLanguages, contains(locale.languageCode));
       }
