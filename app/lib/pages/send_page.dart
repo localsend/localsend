@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
@@ -56,6 +58,8 @@ class _SendPageState extends State<SendPage> with Refena {
       );
     }
     final myDevice = ref.watch(deviceFullInfoProvider);
+    final targetDevice = sendState?.target ?? _targetDevice!;
+    final targetFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == targetDevice.fingerprint);
     final waiting = sendState?.status == SessionStatus.waiting;
 
     return PopScope(
@@ -92,9 +96,10 @@ class _SendPageState extends State<SendPage> with Refena {
                           ),
                           const SizedBox(height: 20),
                           Hero(
-                            tag: 'device-${(sendState?.target ?? _targetDevice)?.ip}',
+                            tag: 'device-${targetDevice.ip}',
                             child: DeviceListTile(
-                              device: sendState?.target ?? _targetDevice!,
+                              device: targetDevice,
+                              nameOverride: targetFavoriteEntry?.alias,
                             ),
                           ),
                         ],

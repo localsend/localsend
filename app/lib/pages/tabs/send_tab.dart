@@ -194,7 +194,7 @@ class SendTab extends StatelessWidget {
                 ),
               ),
             ...vm.nearbyDevices.map((device) {
-              final isFavorite = vm.favoriteDevices.any((e) => e.fingerprint == device.fingerprint);
+              final favoriteEntry = vm.favoriteDevices.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
                 child: Hero(
@@ -202,12 +202,14 @@ class SendTab extends StatelessWidget {
                   child: vm.sendMode == SendMode.multiple
                       ? _MultiSendDeviceListTile(
                           device: device,
-                          isFavorite: isFavorite,
+                          isFavorite: favoriteEntry != null,
+                          nameOverride: favoriteEntry?.alias,
                           vm: vm,
                         )
                       : DeviceListTile(
                           device: device,
-                          isFavorite: isFavorite,
+                          isFavorite: favoriteEntry != null,
+                          nameOverride: favoriteEntry?.alias,
                           onFavoriteTap: () async => await vm.onToggleFavorite(device),
                           onTap: () async => await vm.onTapDevice(context, device),
                         ),
@@ -486,11 +488,13 @@ class _SendModeButton extends StatelessWidget {
 class _MultiSendDeviceListTile extends StatelessWidget {
   final Device device;
   final bool isFavorite;
+  final String? nameOverride;
   final SendTabVm vm;
 
   const _MultiSendDeviceListTile({
     required this.device,
     required this.isFavorite,
+    required this.nameOverride,
     required this.vm,
   });
 
@@ -514,6 +518,7 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       info: session?.status.humanString,
       progress: progress,
       isFavorite: isFavorite,
+      nameOverride: nameOverride,
       onFavoriteTap: () async => await vm.onToggleFavorite(device),
       onTap: () async => await vm.onTapDeviceMultiSend(context, device),
     );

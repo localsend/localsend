@@ -19,6 +19,7 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
@@ -210,6 +211,7 @@ class ReceiveController {
           sessionId: sessionId,
           status: SessionStatus.waiting,
           sender: dto.info.toDevice(request.ip, port, https),
+          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == dto.info.fingerprint)?.alias ?? dto.info.alias,
           files: {
             for (final file in dto.files.values)
               file.id: ReceivingFile(
@@ -425,7 +427,7 @@ class ReceiveController {
             path: saveToGallery ? null : destinationPath,
             savedToGallery: saveToGallery,
             fileSize: receivingFile.file.size,
-            senderAlias: receiveState.sender.alias,
+            senderAlias: receiveState.senderAlias,
             timestamp: DateTime.now().toUtc(),
           );
 
@@ -575,7 +577,7 @@ class ReceiveController {
 
   void acceptFileRequest(Map<String, String> fileNameMap) {
     final controller = server.getState().session?.responseHandler;
-    if (controller == null) {
+    if (controller == null || controller.isClosed) {
       return;
     }
 
@@ -585,7 +587,7 @@ class ReceiveController {
 
   void declineFileRequest() {
     final controller = server.getState().session?.responseHandler;
-    if (controller == null) {
+    if (controller == null || controller.isClosed) {
       return;
     }
 

@@ -13,6 +13,10 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
   final String sessionId;
   final SessionStatus status;
   final Device sender;
+
+  // Might not be the same as sender.alias since it can be overridden as a favorite
+  final String senderAlias;
+
   final Map<String, ReceivingFile> files; // file id as key
   final int? startTime;
   final int? endTime;
@@ -24,6 +28,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
     required this.sessionId,
     required this.status,
     required this.sender,
+    required this.senderAlias,
     required this.files,
     required this.startTime,
     required this.endTime,
