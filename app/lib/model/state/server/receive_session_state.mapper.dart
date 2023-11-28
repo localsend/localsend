@@ -31,6 +31,9 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   static Device _$sender(ReceiveSessionState v) => v.sender;
   static const Field<ReceiveSessionState, Device> _f$sender =
       Field('sender', _$sender);
+  static String _$senderAlias(ReceiveSessionState v) => v.senderAlias;
+  static const Field<ReceiveSessionState, String> _f$senderAlias =
+      Field('senderAlias', _$senderAlias);
   static Map<String, ReceivingFile> _$files(ReceiveSessionState v) => v.files;
   static const Field<ReceiveSessionState, Map<String, ReceivingFile>> _f$files =
       Field('files', _$files);
@@ -59,6 +62,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #sessionId: _f$sessionId,
     #status: _f$status,
     #sender: _f$sender,
+    #senderAlias: _f$senderAlias,
     #files: _f$files,
     #startTime: _f$startTime,
     #endTime: _f$endTime,
@@ -72,6 +76,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
         sessionId: data.dec(_f$sessionId),
         status: data.dec(_f$status),
         sender: data.dec(_f$sender),
+        senderAlias: data.dec(_f$senderAlias),
         files: data.dec(_f$files),
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
@@ -144,6 +149,7 @@ abstract class ReceiveSessionStateCopyWith<$R, $In extends ReceiveSessionState,
       {String? sessionId,
       SessionStatus? status,
       Device? sender,
+      String? senderAlias,
       Map<String, ReceivingFile>? files,
       int? startTime,
       int? endTime,
@@ -175,6 +181,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
           {String? sessionId,
           SessionStatus? status,
           Device? sender,
+          String? senderAlias,
           Map<String, ReceivingFile>? files,
           Object? startTime = $none,
           Object? endTime = $none,
@@ -185,6 +192,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
         if (sessionId != null) #sessionId: sessionId,
         if (status != null) #status: status,
         if (sender != null) #sender: sender,
+        if (senderAlias != null) #senderAlias: senderAlias,
         if (files != null) #files: files,
         if (startTime != $none) #startTime: startTime,
         if (endTime != $none) #endTime: endTime,
@@ -198,6 +206,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
       sessionId: data.get(#sessionId, or: $value.sessionId),
       status: data.get(#status, or: $value.status),
       sender: data.get(#sender, or: $value.sender),
+      senderAlias: data.get(#senderAlias, or: $value.senderAlias),
       files: data.get(#files, or: $value.files),
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),
