@@ -55,6 +55,7 @@ dependencies:
   screen_retriever: 0.1.9
   share_handler: 0.0.19
   shared_preferences: 2.2.2
+  shared_preferences_platform_interface: any
   shared_storage: 0.8.0
   shelf: 1.4.1
   shelf_router: 1.1.4

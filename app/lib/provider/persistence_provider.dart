@@ -15,11 +15,13 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:localsend_app/util/shared_preferences_portable.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:uuid/uuid.dart';
 
 final _logger = Logger('PersistenceService');
@@ -76,6 +78,11 @@ class PersistenceService {
 
   static Future<PersistenceService> initialize() async {
     SharedPreferences prefs;
+
+    if (checkPlatform([TargetPlatform.windows]) && SharedPreferencesPortable.exists()) {
+      _logger.info('Using portable settings.');
+      SharedPreferencesStorePlatform.instance = SharedPreferencesPortable();
+    }
 
     try {
       prefs = await SharedPreferences.getInstance();
