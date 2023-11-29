@@ -47,7 +47,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
-  final persistenceService = await PersistenceService.initialize();
+  final dynamicColors = await getDynamicColors();
+
+  final persistenceService = await PersistenceService.initialize(dynamicColors);
 
   initI18n();
 
@@ -102,7 +104,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
       appArgumentsProvider.overrideWithValue(args),
       tvProvider.overrideWithValue(await checkIfTv()),
-      dynamicColorsProvider.overrideWithValue(await getDynamicColors()),
+      dynamicColorsProvider.overrideWithValue(dynamicColors),
       sleepProvider.overrideWithInitialState((ref) => startHidden),
     ],
   );

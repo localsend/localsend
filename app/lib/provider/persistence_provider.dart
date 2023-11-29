@@ -16,6 +16,7 @@ import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/shared_preferences_portable.dart';
+import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as path;
@@ -76,7 +77,7 @@ class PersistenceService {
 
   PersistenceService._(this._prefs);
 
-  static Future<PersistenceService> initialize() async {
+  static Future<PersistenceService> initialize(DynamicColors? dynamicColors) async {
     SharedPreferences prefs;
 
     if (checkPlatform([TargetPlatform.windows]) && SharedPreferencesPortable.exists()) {
@@ -122,11 +123,24 @@ class PersistenceService {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
     }
 
+    final supportsDynamicColors = dynamicColors != null;
     if (prefs.getString(_colorKey) == null) {
-      await prefs.setString(_colorKey, checkPlatform([TargetPlatform.android]) ? ColorMode.system.name : ColorMode.localsend.name);
+      await _initColorSetting(prefs, supportsDynamicColors);
+    } else {
+      // fix when device does not support dynamic colors
+      final supported = supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system);
+      final colorMode = supported.firstWhereOrNull((color) => color.name == prefs.getString(_colorKey));
+      if (colorMode == null) {
+        await _initColorSetting(prefs, supportsDynamicColors);
+      }
     }
 
     return PersistenceService._(prefs);
+  }
+
+  static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
+    await prefs.setString(
+        _colorKey, checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name);
   }
 
   StoredSecurityContext getSecurityContext() {
