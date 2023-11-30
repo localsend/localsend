@@ -31,6 +31,7 @@ class SettingsService extends Notifier<SettingsState> {
       saveToGallery: _service.isSaveToGallery(),
       saveToHistory: _service.isSaveToHistory(),
       quickSave: _service.isQuickSave(),
+      autoFinish: _service.isAutoFinish(),
       minimizeToTray: _service.isMinimizeToTray(),
       launchAtStartup: _service.isLaunchAtStartup(),
       autoStartLaunchMinimized: _service.isAutoStartLaunchMinimized(),
@@ -110,6 +111,13 @@ class SettingsService extends Notifier<SettingsState> {
     await _service.setQuickSave(quickSave);
     state = state.copyWith(
       quickSave: quickSave,
+    );
+  }
+
+  Future<void> setAutoFinish(bool autoFinish) async {
+    await _service.setAutoFinish(autoFinish);
+    state = state.copyWith(
+      autoFinish: autoFinish,
     );
   }
 

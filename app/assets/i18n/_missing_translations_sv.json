@@ -18,6 +18,9 @@
         "oled": "OLED"
       }
     },
+    "receive": {
+      "autoFinish": "Auto Finish"
+    },
     "other": {
       "title": "Other",
       "support": "Support LocalSend",

@@ -1,5 +1,6 @@
 ## 1.13.0 (unreleased)
 
+- feat: add option to automatically finish 
 - feat: show favorite name in the device list if marked as favorite (@Tienisto)
 - feat: ignore duplicate files when selected from file picker (@programmermager)
 - feat: add donation options (@Tienisto)

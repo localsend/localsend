@@ -215,6 +215,13 @@ class SettingsTab extends StatelessWidget {
                     },
                   ),
                 _BooleanEntry(
+                  label: t.settingsTab.receive.autoFinish,
+                  value: vm.settings.autoFinish,
+                  onChanged: (b) async {
+                    await ref.notifier(settingsProvider).setAutoFinish(b);
+                  },
+                ),
+                _BooleanEntry(
                   label: t.settingsTab.receive.saveToHistory,
                   value: vm.settings.saveToHistory,
                   onChanged: (b) async {

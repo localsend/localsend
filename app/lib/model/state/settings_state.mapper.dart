@@ -52,6 +52,9 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static bool _$quickSave(SettingsState v) => v.quickSave;
   static const Field<SettingsState, bool> _f$quickSave =
       Field('quickSave', _$quickSave);
+  static bool _$autoFinish(SettingsState v) => v.autoFinish;
+  static const Field<SettingsState, bool> _f$autoFinish =
+      Field('autoFinish', _$autoFinish);
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
   static const Field<SettingsState, bool> _f$minimizeToTray =
       Field('minimizeToTray', _$minimizeToTray);
@@ -93,6 +96,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #saveToGallery: _f$saveToGallery,
     #saveToHistory: _f$saveToHistory,
     #quickSave: _f$quickSave,
+    #autoFinish: _f$autoFinish,
     #minimizeToTray: _f$minimizeToTray,
     #launchAtStartup: _f$launchAtStartup,
     #autoStartLaunchMinimized: _f$autoStartLaunchMinimized,
@@ -117,6 +121,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         saveToGallery: data.dec(_f$saveToGallery),
         saveToHistory: data.dec(_f$saveToHistory),
         quickSave: data.dec(_f$quickSave),
+        autoFinish: data.dec(_f$autoFinish),
         minimizeToTray: data.dec(_f$minimizeToTray),
         launchAtStartup: data.dec(_f$launchAtStartup),
         autoStartLaunchMinimized: data.dec(_f$autoStartLaunchMinimized),
@@ -195,6 +200,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
       bool? saveToGallery,
       bool? saveToHistory,
       bool? quickSave,
+      bool? autoFinish,
       bool? minimizeToTray,
       bool? launchAtStartup,
       bool? autoStartLaunchMinimized,
@@ -228,6 +234,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
           bool? saveToGallery,
           bool? saveToHistory,
           bool? quickSave,
+          bool? autoFinish,
           bool? minimizeToTray,
           bool? launchAtStartup,
           bool? autoStartLaunchMinimized,
@@ -249,6 +256,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         if (saveToGallery != null) #saveToGallery: saveToGallery,
         if (saveToHistory != null) #saveToHistory: saveToHistory,
         if (quickSave != null) #quickSave: quickSave,
+        if (autoFinish != null) #autoFinish: autoFinish,
         if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
         if (launchAtStartup != null) #launchAtStartup: launchAtStartup,
         if (autoStartLaunchMinimized != null)
@@ -274,6 +282,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
       saveToHistory: data.get(#saveToHistory, or: $value.saveToHistory),
       quickSave: data.get(#quickSave, or: $value.quickSave),
+      autoFinish: data.get(#autoFinish, or: $value.autoFinish),
       minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
       launchAtStartup: data.get(#launchAtStartup, or: $value.launchAtStartup),
       autoStartLaunchMinimized: data.get(#autoStartLaunchMinimized,
