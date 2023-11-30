@@ -90,8 +90,8 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   }
 
   Future<bool> _onWillPop() async {
-    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
-    final sendSession = ref.watch(sendProvider)[widget.sessionId];
+    final receiveSession = ref.read(serverProvider.select((s) => s?.session));
+    final sendSession = ref.read(sendProvider)[widget.sessionId];
     final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
     if (status == null) {
       return true;

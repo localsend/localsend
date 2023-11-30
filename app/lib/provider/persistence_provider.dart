@@ -58,6 +58,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
+const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _launchAtStartup = 'ls_launch_at_startup';
 const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
@@ -274,6 +275,14 @@ class PersistenceService {
 
   Future<void> setQuickSave(bool quickSave) async {
     await _prefs.setBool(_quickSave, quickSave);
+  }
+
+  bool isAutoFinish() {
+    return _prefs.getBool(_autoFinish) ?? false;
+  }
+
+  Future<void> setAutoFinish(bool autoFinish) async {
+    await _prefs.setBool(_autoFinish, autoFinish);
   }
 
   bool isMinimizeToTray() {

@@ -561,6 +561,7 @@ class _StringsSettingsTabReceiveEn {
 	// Translations
 	String get title => 'Receive';
 	String get quickSave => '${_root.general.quickSave}';
+	String get autoFinish => 'Auto Finish';
 	String get destination => 'Destination';
 	String get downloads => '(Downloads)';
 	String get saveToGallery => 'Save media to gallery';

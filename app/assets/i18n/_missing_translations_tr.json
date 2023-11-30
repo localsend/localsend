@@ -2,5 +2,10 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <tr>.",
     "After editing this file, you can run 'dart run slang apply --locale=tr' to quickly apply the newly added translations."
-  ]
+  ],
+  "settingsTab": {
+    "receive": {
+      "autoFinish": "Auto Finish"
+    }
+  }
 }

@@ -16,6 +16,7 @@ import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
+import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -484,12 +485,13 @@ class ReceiveController {
           ),
         ),
       );
-      if (server.ref.read(settingsProvider).quickSave && server.getState().session?.message == null) {
-        // close the session after return of the response
+      if ((server.ref.read(settingsProvider).quickSave || server.ref.read(settingsProvider).autoFinish) &&
+          server.getState().session?.message == null) {
+        // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();
           // ignore: use_build_context_synchronously
-          Routerino.context.popUntilRoot();
+          Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
         });
       }
       _logger.info('Received all files.');
