@@ -14,6 +14,7 @@
     "copiedToClipboard": "已复制到剪贴板",
     "decline": "拒绝",
     "done": "完成",
+    "delete": "删除",
     "edit": "编辑",
     "error": "错误",
     "example": "示例",
@@ -37,8 +38,7 @@
     "save": "保存",
     "unchanged": "未更改",
     "unknown": "未知",
-    "noItemInClipboard": "剪贴板中没有项目",
-    "delete": "删除"
+    "noItemInClipboard": "剪贴板中没有项目"
   },
   "receiveTab": {
     "title": "接收",
@@ -74,7 +74,7 @@
       "link": "通过链接分享"
     },
     "sendModeHelp": "解释",
-    "help": "请确保目标连接的是同一个 Wi‑Fi 网络。",
+    "help": "请确保目标连接的是同一个 WiFi 网络。",
     "placeItems": "列出要分享的文件。"
   },
   "settingsTab": {
@@ -123,6 +123,13 @@
       "multicastGroup": "多播",
       "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     },
+    "other": {
+      "title": "其他",
+      "support": "支持LocalSend",
+      "donate": "捐赠",
+      "privacyPolicy": "隐私政策",
+      "termsOfUse": "使用条款"
+    },
     "advancedSettings": "高级设置"
   },
   "troubleshootPage": {
@@ -137,7 +144,7 @@
     },
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
-      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
+      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 WiFi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
     }
   },
   "receiveHistoryPage": {
@@ -213,13 +220,27 @@
     "pendingRequests": "待处理请求: {n}"
   },
   "aboutPage": {
-    "title": "关于 LocalSend"
+    "title": "关于 LocalSend",
+    "description": [
+      "LocalSend 是一款免费的开源应用程序，可让您通过本地网络与附近的设备安全地共享文件和信息，而无需互联网连接。",
+      "本程序可在 Android、iOS、macOS、Windows 和 Linux 上使用。您可以在官方主页找到所有下载选项。"
+    ],
+    "author": "作者",
+    "contributors": "贡献值",
+    "translators": "翻译者"
+  },
+  "donationPage": {
+    "title": "捐赠",
+    "info": "LocalSend 免费、开源、无广告。如果您喜欢这款应用程序，可以捐款支持开发。",
+    "donate": "捐款 {amount}",
+    "thanks": "非常感谢您的支持！",
+    "restore": "恢复购买"
   },
   "changelogPage": {
     "title": "更新日志"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Inherits from the English version. Different locales may have different words, it may not match 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -247,6 +268,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "收藏夹",
+      "noFavorites": "尚未配置收藏夹。",
+      "addFavorite": "新建"
+    },
+    "favoriteDeleteDialog": {
+      "title": "删除收藏夹",
+      "content": "确定要删除收藏夹 \"{name}\" 吗?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "添加收藏夹",
+      "titleEdit": "编辑收藏夹",
+      "name": "名称",
+      "auto": "(auto)",
+      "ip": "IP 地址",
+      "port": "端口"
+    },
     "fileInfo": {
       "title": "文件信息",
       "fileName": "文件名：",
@@ -258,6 +296,10 @@
     "fileNameInput": {
       "title": "输入文件名",
       "original": "原名：{original}"
+    },
+    "historyClearDialog": {
+      "title": "清空历史记录",
+      "content": "您确定要清空全部历史记录吗？"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -300,27 +342,6 @@
       "single": "发送文件给一个接收者。已选择的文件在发送后会取消选择。",
       "multiple": "发送文件给多个接收者。已选择的文件在发送后不会取消选择。",
       "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
-    },
-    "favoriteDialog": {
-      "title": "收藏夹",
-      "noFavorites": "尚未配置收藏夹。",
-      "addFavorite": "新建"
-    },
-    "favoriteDeleteDialog": {
-      "title": "删除收藏夹",
-      "content": "确定要删除收藏夹 \"{name}\" 吗?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "添加收藏夹",
-      "titleEdit": "编辑收藏夹",
-      "name": "名称",
-      "auto": "(auto)",
-      "ip": "IP 地址",
-      "port": "端口"
-    },
-    "historyClearDialog": {
-      "title": "清空历史记录",
-      "content": "您确定要清空全部历史记录吗？"
     }
   },
   "tray": {

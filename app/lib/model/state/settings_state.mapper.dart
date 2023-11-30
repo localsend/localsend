@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'settings_state.dart';
 
@@ -15,11 +16,6 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       DeviceTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -56,6 +52,9 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static bool _$quickSave(SettingsState v) => v.quickSave;
   static const Field<SettingsState, bool> _f$quickSave =
       Field('quickSave', _$quickSave);
+  static bool _$autoFinish(SettingsState v) => v.autoFinish;
+  static const Field<SettingsState, bool> _f$autoFinish =
+      Field('autoFinish', _$autoFinish);
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
   static const Field<SettingsState, bool> _f$minimizeToTray =
       Field('minimizeToTray', _$minimizeToTray);
@@ -97,6 +96,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #saveToGallery: _f$saveToGallery,
     #saveToHistory: _f$saveToHistory,
     #quickSave: _f$quickSave,
+    #autoFinish: _f$autoFinish,
     #minimizeToTray: _f$minimizeToTray,
     #launchAtStartup: _f$launchAtStartup,
     #autoStartLaunchMinimized: _f$autoStartLaunchMinimized,
@@ -121,6 +121,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         saveToGallery: data.dec(_f$saveToGallery),
         saveToHistory: data.dec(_f$saveToHistory),
         quickSave: data.dec(_f$quickSave),
+        autoFinish: data.dec(_f$autoFinish),
         minimizeToTray: data.dec(_f$minimizeToTray),
         launchAtStartup: data.dec(_f$launchAtStartup),
         autoStartLaunchMinimized: data.dec(_f$autoStartLaunchMinimized),
@@ -136,21 +137,23 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   final Function instantiate = _instantiate;
 
   static SettingsState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<SettingsState>(map));
+    return ensureInitialized().decodeMap<SettingsState>(map);
   }
 
   static SettingsState deserialize(String json) {
-    return _guard((c) => c.fromJson<SettingsState>(json));
+    return ensureInitialized().decodeJson<SettingsState>(json);
   }
 }
 
 mixin SettingsStateMappable {
   String serialize() {
-    return SettingsStateMapper._guard((c) => c.toJson(this as SettingsState));
+    return SettingsStateMapper.ensureInitialized()
+        .encodeJson<SettingsState>(this as SettingsState);
   }
 
   Map<String, dynamic> toJson() {
-    return SettingsStateMapper._guard((c) => c.toMap(this as SettingsState));
+    return SettingsStateMapper.ensureInitialized()
+        .encodeMap<SettingsState>(this as SettingsState);
   }
 
   SettingsStateCopyWith<SettingsState, SettingsState, SettingsState>
@@ -158,19 +161,22 @@ mixin SettingsStateMappable {
           this as SettingsState, $identity, $identity);
   @override
   String toString() {
-    return SettingsStateMapper._guard((c) => c.asString(this));
+    return SettingsStateMapper.ensureInitialized()
+        .stringifyValue(this as SettingsState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            SettingsStateMapper._guard((c) => c.isEqual(this, other)));
+            SettingsStateMapper.ensureInitialized()
+                .isValueEqual(this as SettingsState, other));
   }
 
   @override
   int get hashCode {
-    return SettingsStateMapper._guard((c) => c.hash(this));
+    return SettingsStateMapper.ensureInitialized()
+        .hashValue(this as SettingsState);
   }
 }
 
@@ -194,6 +200,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
       bool? saveToGallery,
       bool? saveToHistory,
       bool? quickSave,
+      bool? autoFinish,
       bool? minimizeToTray,
       bool? launchAtStartup,
       bool? autoStartLaunchMinimized,
@@ -227,6 +234,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
           bool? saveToGallery,
           bool? saveToHistory,
           bool? quickSave,
+          bool? autoFinish,
           bool? minimizeToTray,
           bool? launchAtStartup,
           bool? autoStartLaunchMinimized,
@@ -248,6 +256,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         if (saveToGallery != null) #saveToGallery: saveToGallery,
         if (saveToHistory != null) #saveToHistory: saveToHistory,
         if (quickSave != null) #quickSave: quickSave,
+        if (autoFinish != null) #autoFinish: autoFinish,
         if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
         if (launchAtStartup != null) #launchAtStartup: launchAtStartup,
         if (autoStartLaunchMinimized != null)
@@ -273,6 +282,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
       saveToHistory: data.get(#saveToHistory, or: $value.saveToHistory),
       quickSave: data.get(#quickSave, or: $value.quickSave),
+      autoFinish: data.get(#autoFinish, or: $value.autoFinish),
       minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
       launchAtStartup: data.get(#launchAtStartup, or: $value.launchAtStartup),
       autoStartLaunchMinimized: data.get(#autoStartLaunchMinimized,

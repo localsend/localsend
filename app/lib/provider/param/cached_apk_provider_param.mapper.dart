@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'cached_apk_provider_param.dart';
 
@@ -15,11 +16,6 @@ class CachedApkProviderParamMapper
       MapperContainer.globals.use(_instance = CachedApkProviderParamMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -50,23 +46,23 @@ class CachedApkProviderParamMapper
   final Function instantiate = _instantiate;
 
   static CachedApkProviderParam fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<CachedApkProviderParam>(map));
+    return ensureInitialized().decodeMap<CachedApkProviderParam>(map);
   }
 
   static CachedApkProviderParam deserialize(String json) {
-    return _guard((c) => c.fromJson<CachedApkProviderParam>(json));
+    return ensureInitialized().decodeJson<CachedApkProviderParam>(json);
   }
 }
 
 mixin CachedApkProviderParamMappable {
   String serialize() {
-    return CachedApkProviderParamMapper._guard(
-        (c) => c.toJson(this as CachedApkProviderParam));
+    return CachedApkProviderParamMapper.ensureInitialized()
+        .encodeJson<CachedApkProviderParam>(this as CachedApkProviderParam);
   }
 
   Map<String, dynamic> toJson() {
-    return CachedApkProviderParamMapper._guard(
-        (c) => c.toMap(this as CachedApkProviderParam));
+    return CachedApkProviderParamMapper.ensureInitialized()
+        .encodeMap<CachedApkProviderParam>(this as CachedApkProviderParam);
   }
 
   CachedApkProviderParamCopyWith<CachedApkProviderParam, CachedApkProviderParam,
@@ -75,19 +71,22 @@ mixin CachedApkProviderParamMappable {
           this as CachedApkProviderParam, $identity, $identity);
   @override
   String toString() {
-    return CachedApkProviderParamMapper._guard((c) => c.asString(this));
+    return CachedApkProviderParamMapper.ensureInitialized()
+        .stringifyValue(this as CachedApkProviderParam);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            CachedApkProviderParamMapper._guard((c) => c.isEqual(this, other)));
+            CachedApkProviderParamMapper.ensureInitialized()
+                .isValueEqual(this as CachedApkProviderParam, other));
   }
 
   @override
   int get hashCode {
-    return CachedApkProviderParamMapper._guard((c) => c.hash(this));
+    return CachedApkProviderParamMapper.ensureInitialized()
+        .hashValue(this as CachedApkProviderParam);
   }
 }
 

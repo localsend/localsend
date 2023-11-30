@@ -8,7 +8,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 final _dateFormat = DateFormat.Hms();
 
 class HttpLogsPage extends StatelessWidget {
-  const HttpLogsPage({Key? key}) : super(key: key);
+  const HttpLogsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

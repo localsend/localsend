@@ -140,7 +140,7 @@ SPEC CHECKSUMS:
   system_tray: e53c972838c69589ff2e77d6d3abfd71332f9e5d
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: d2691c7dd33ed713bf3544850a623080ec693d95
-  video_player_avfoundation: 8563f13d8fc8b2c29dc2d09e60b660e4e8128837
+  video_player_avfoundation: e9e6f9cae7d7a6d9b43519b0aab382bca60fcfd1
   wakelock_plus: 4783562c9a43d209c458cb9b30692134af456269
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 

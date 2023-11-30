@@ -47,7 +47,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
-  final persistenceService = await PersistenceService.initialize();
+  final dynamicColors = await getDynamicColors();
+
+  final persistenceService = await PersistenceService.initialize(dynamicColors);
 
   initI18n();
 
@@ -102,7 +104,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
       appArgumentsProvider.overrideWithValue(args),
       tvProvider.overrideWithValue(await checkIfTv()),
-      dynamicColorsProvider.overrideWithValue(await getDynamicColors()),
+      dynamicColorsProvider.overrideWithValue(dynamicColors),
       sleepProvider.overrideWithInitialState((ref) => startHidden),
     ],
   );
@@ -170,7 +172,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
-    ref.dispatch(ClearCacheAction());
+    ref.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
   }
 
 

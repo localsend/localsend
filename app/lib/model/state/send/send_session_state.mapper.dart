@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'send_session_state.dart';
 
@@ -16,11 +17,6 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
       SendingFileMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -89,23 +85,23 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
   final Function instantiate = _instantiate;
 
   static SendSessionState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<SendSessionState>(map));
+    return ensureInitialized().decodeMap<SendSessionState>(map);
   }
 
   static SendSessionState deserialize(String json) {
-    return _guard((c) => c.fromJson<SendSessionState>(json));
+    return ensureInitialized().decodeJson<SendSessionState>(json);
   }
 }
 
 mixin SendSessionStateMappable {
   String serialize() {
-    return SendSessionStateMapper._guard(
-        (c) => c.toJson(this as SendSessionState));
+    return SendSessionStateMapper.ensureInitialized()
+        .encodeJson<SendSessionState>(this as SendSessionState);
   }
 
   Map<String, dynamic> toJson() {
-    return SendSessionStateMapper._guard(
-        (c) => c.toMap(this as SendSessionState));
+    return SendSessionStateMapper.ensureInitialized()
+        .encodeMap<SendSessionState>(this as SendSessionState);
   }
 
   SendSessionStateCopyWith<SendSessionState, SendSessionState, SendSessionState>
@@ -113,19 +109,22 @@ mixin SendSessionStateMappable {
           this as SendSessionState, $identity, $identity);
   @override
   String toString() {
-    return SendSessionStateMapper._guard((c) => c.asString(this));
+    return SendSessionStateMapper.ensureInitialized()
+        .stringifyValue(this as SendSessionState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            SendSessionStateMapper._guard((c) => c.isEqual(this, other)));
+            SendSessionStateMapper.ensureInitialized()
+                .isValueEqual(this as SendSessionState, other));
   }
 
   @override
   int get hashCode {
-    return SendSessionStateMapper._guard((c) => c.hash(this));
+    return SendSessionStateMapper.ensureInitialized()
+        .hashValue(this as SendSessionState);
   }
 }
 

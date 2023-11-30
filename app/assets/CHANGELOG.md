@@ -1,12 +1,17 @@
 ## 1.13.0 (unreleased)
 
+- feat: add option to automatically finish after successful transfer (@Tienisto)
+- feat: show favorite name in the device list if marked as favorite (@Tienisto)
 - feat: ignore duplicate files when selected from file picker (@programmermager)
 - feat: add donation options (@Tienisto)
 - feat: add Yaru theme (@Tienisto)
+- feat(desktop): uses `settings.json` located next to the executable if available for portable mode (@Tienisto)
 - feat(macos): add Command+W shortcut to close the window (@Q1CHENL)
 - fix: also show an OLED color mode option when dynamic colors are not supported by OS (@dhruvanbhalara)
 - fix: sync button should spin right away when clicked (@Tienisto)
+- fix(android): request permission when saving files outside of downloads folder (@Tienisto)
 - fix(ios): fix permission error when picking directory (@Tienisto)
+- fix(ios): clear cache when file is shared from another app (@Tienisto)
 - i18n: add Greek (@multipetros)
 
 ## 1.12.0 (2023-10-25)

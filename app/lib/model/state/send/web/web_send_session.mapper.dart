@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'web_send_session.dart';
 
@@ -14,11 +15,6 @@ class WebSendSessionMapper extends ClassMapperBase<WebSendSession> {
       MapperContainer.globals.use(_instance = WebSendSessionMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -57,21 +53,23 @@ class WebSendSessionMapper extends ClassMapperBase<WebSendSession> {
   final Function instantiate = _instantiate;
 
   static WebSendSession fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<WebSendSession>(map));
+    return ensureInitialized().decodeMap<WebSendSession>(map);
   }
 
   static WebSendSession deserialize(String json) {
-    return _guard((c) => c.fromJson<WebSendSession>(json));
+    return ensureInitialized().decodeJson<WebSendSession>(json);
   }
 }
 
 mixin WebSendSessionMappable {
   String serialize() {
-    return WebSendSessionMapper._guard((c) => c.toJson(this as WebSendSession));
+    return WebSendSessionMapper.ensureInitialized()
+        .encodeJson<WebSendSession>(this as WebSendSession);
   }
 
   Map<String, dynamic> toJson() {
-    return WebSendSessionMapper._guard((c) => c.toMap(this as WebSendSession));
+    return WebSendSessionMapper.ensureInitialized()
+        .encodeMap<WebSendSession>(this as WebSendSession);
   }
 
   WebSendSessionCopyWith<WebSendSession, WebSendSession, WebSendSession>
@@ -79,19 +77,22 @@ mixin WebSendSessionMappable {
           this as WebSendSession, $identity, $identity);
   @override
   String toString() {
-    return WebSendSessionMapper._guard((c) => c.asString(this));
+    return WebSendSessionMapper.ensureInitialized()
+        .stringifyValue(this as WebSendSession);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            WebSendSessionMapper._guard((c) => c.isEqual(this, other)));
+            WebSendSessionMapper.ensureInitialized()
+                .isValueEqual(this as WebSendSession, other));
   }
 
   @override
   int get hashCode {
-    return WebSendSessionMapper._guard((c) => c.hash(this));
+    return WebSendSessionMapper.ensureInitialized()
+        .hashValue(this as WebSendSession);
   }
 }
 

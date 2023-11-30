@@ -37,6 +37,7 @@ class _StringsPl extends _StringsEn {
 	@override late final _StringsProgressPagePl progressPage = _StringsProgressPagePl._(_root);
 	@override late final _StringsWebSharePagePl webSharePage = _StringsWebSharePagePl._(_root);
 	@override late final _StringsAboutPagePl aboutPage = _StringsAboutPagePl._(_root);
+	@override late final _StringsDonationPagePl donationPage = _StringsDonationPagePl._(_root);
 	@override late final _StringsChangelogPagePl changelogPage = _StringsChangelogPagePl._(_root);
 	@override late final _StringsAliasGeneratorPl aliasGenerator = _StringsAliasGeneratorPl._(_root);
 	@override late final _StringsDialogsPl dialogs = _StringsDialogsPl._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabPl extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralPl general = _StringsSettingsTabGeneralPl._(_root);
 	@override late final _StringsSettingsTabReceivePl receive = _StringsSettingsTabReceivePl._(_root);
 	@override late final _StringsSettingsTabNetworkPl network = _StringsSettingsTabNetworkPl._(_root);
+	@override late final _StringsSettingsTabOtherPl other = _StringsSettingsTabOtherPl._(_root);
 	@override String get advancedSettings => 'Zaawansowane ustawienia';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPagePl extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'O LocalSend';
+	@override List<String> get description => [
+		'LocalSend jest darmową, otwarto-źródłową aplikacją, która pozwala na bezpieczne udostępnianie plików i wiadomości urządzeniom w pobliżu poprzez twoją sieć lokalną, bez konieczności połączenia z internetem.',
+		'Ta aplikacja jest dostępna na systemach Android, iOS, macOS, Windows i Linux. Możesz znaleźć wszystkie opcje pobierania na oficjalnej stronie głównej.',
+	];
+	@override String get author => 'Autor';
+	@override String get contributors => 'Współautorzy';
+	@override String get translators => 'Tłumacze';
+}
+
+// Path: donationPage
+class _StringsDonationPagePl extends _StringsDonationPageEn {
+	_StringsDonationPagePl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Przekaż darowiznę';
+	@override String get info => 'LocalSend jest darmową, otwarto-źródłową aplikacją bez żadnych reklam. Jeśli podoba Ci się aplikacja, możesz wesprzec jej rozwój przekazując darowiznę.';
+	@override String donate({required Object amount}) => 'Przekaż ${amount}';
+	@override String get thanks => 'Bardzo Ci dziękuję!';
+	@override String get restore => 'Przywróć zakupy';
 }
 
 // Path: changelogPage
@@ -492,6 +515,20 @@ class _StringsSettingsTabNetworkPl extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Szyfrowanie';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego adresu multicast. (domyślnie: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherPl extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Inne';
+	@override String get support => 'Wesprzyj LocalSend';
+	@override String get donate => 'Przekaż darowiznę';
+	@override String get privacyPolicy => 'Polityka prywatności';
+	@override String get termsOfUse => 'Warunki korzystania';
 }
 
 // Path: troubleshootPage.firewall

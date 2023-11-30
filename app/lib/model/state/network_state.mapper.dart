@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'network_state.dart';
 
@@ -14,11 +15,6 @@ class NetworkStateMapper extends ClassMapperBase<NetworkState> {
       MapperContainer.globals.use(_instance = NetworkStateMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -46,40 +42,45 @@ class NetworkStateMapper extends ClassMapperBase<NetworkState> {
   final Function instantiate = _instantiate;
 
   static NetworkState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<NetworkState>(map));
+    return ensureInitialized().decodeMap<NetworkState>(map);
   }
 
   static NetworkState deserialize(String json) {
-    return _guard((c) => c.fromJson<NetworkState>(json));
+    return ensureInitialized().decodeJson<NetworkState>(json);
   }
 }
 
 mixin NetworkStateMappable {
   String serialize() {
-    return NetworkStateMapper._guard((c) => c.toJson(this as NetworkState));
+    return NetworkStateMapper.ensureInitialized()
+        .encodeJson<NetworkState>(this as NetworkState);
   }
 
   Map<String, dynamic> toJson() {
-    return NetworkStateMapper._guard((c) => c.toMap(this as NetworkState));
+    return NetworkStateMapper.ensureInitialized()
+        .encodeMap<NetworkState>(this as NetworkState);
   }
 
   NetworkStateCopyWith<NetworkState, NetworkState, NetworkState> get copyWith =>
       _NetworkStateCopyWithImpl(this as NetworkState, $identity, $identity);
   @override
   String toString() {
-    return NetworkStateMapper._guard((c) => c.asString(this));
+    return NetworkStateMapper.ensureInitialized()
+        .stringifyValue(this as NetworkState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            NetworkStateMapper._guard((c) => c.isEqual(this, other)));
+            NetworkStateMapper.ensureInitialized()
+                .isValueEqual(this as NetworkState, other));
   }
 
   @override
   int get hashCode {
-    return NetworkStateMapper._guard((c) => c.hash(this));
+    return NetworkStateMapper.ensureInitialized()
+        .hashValue(this as NetworkState);
   }
 }
 

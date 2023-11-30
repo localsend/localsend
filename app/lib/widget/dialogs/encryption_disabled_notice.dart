@@ -5,7 +5,7 @@ import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
 
 class EncryptionDisabledNotice extends StatelessWidget {
-  const EncryptionDisabledNotice({Key? key}) : super(key: key);
+  const EncryptionDisabledNotice({super.key});
 
   static Future<void> open(BuildContext context) async {
     if (checkPlatformIsDesktop()) {

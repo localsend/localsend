@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'cross_file.dart';
 
@@ -15,11 +16,6 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
       FileTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -68,40 +64,44 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
   final Function instantiate = _instantiate;
 
   static CrossFile fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<CrossFile>(map));
+    return ensureInitialized().decodeMap<CrossFile>(map);
   }
 
   static CrossFile deserialize(String json) {
-    return _guard((c) => c.fromJson<CrossFile>(json));
+    return ensureInitialized().decodeJson<CrossFile>(json);
   }
 }
 
 mixin CrossFileMappable {
   String serialize() {
-    return CrossFileMapper._guard((c) => c.toJson(this as CrossFile));
+    return CrossFileMapper.ensureInitialized()
+        .encodeJson<CrossFile>(this as CrossFile);
   }
 
   Map<String, dynamic> toJson() {
-    return CrossFileMapper._guard((c) => c.toMap(this as CrossFile));
+    return CrossFileMapper.ensureInitialized()
+        .encodeMap<CrossFile>(this as CrossFile);
   }
 
   CrossFileCopyWith<CrossFile, CrossFile, CrossFile> get copyWith =>
       _CrossFileCopyWithImpl(this as CrossFile, $identity, $identity);
   @override
   String toString() {
-    return CrossFileMapper._guard((c) => c.asString(this));
+    return CrossFileMapper.ensureInitialized()
+        .stringifyValue(this as CrossFile);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            CrossFileMapper._guard((c) => c.isEqual(this, other)));
+            CrossFileMapper.ensureInitialized()
+                .isValueEqual(this as CrossFile, other));
   }
 
   @override
   int get hashCode {
-    return CrossFileMapper._guard((c) => c.hash(this));
+    return CrossFileMapper.ensureInitialized().hashValue(this as CrossFile);
   }
 }
 

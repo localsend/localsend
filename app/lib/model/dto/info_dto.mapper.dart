@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'info_dto.dart';
 
@@ -15,11 +16,6 @@ class InfoDtoMapper extends ClassMapperBase<InfoDto> {
       DeviceTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -65,40 +61,43 @@ class InfoDtoMapper extends ClassMapperBase<InfoDto> {
   final Function instantiate = _instantiate;
 
   static InfoDto fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<InfoDto>(map));
+    return ensureInitialized().decodeMap<InfoDto>(map);
   }
 
   static InfoDto deserialize(String json) {
-    return _guard((c) => c.fromJson<InfoDto>(json));
+    return ensureInitialized().decodeJson<InfoDto>(json);
   }
 }
 
 mixin InfoDtoMappable {
   String serialize() {
-    return InfoDtoMapper._guard((c) => c.toJson(this as InfoDto));
+    return InfoDtoMapper.ensureInitialized()
+        .encodeJson<InfoDto>(this as InfoDto);
   }
 
   Map<String, dynamic> toJson() {
-    return InfoDtoMapper._guard((c) => c.toMap(this as InfoDto));
+    return InfoDtoMapper.ensureInitialized()
+        .encodeMap<InfoDto>(this as InfoDto);
   }
 
   InfoDtoCopyWith<InfoDto, InfoDto, InfoDto> get copyWith =>
       _InfoDtoCopyWithImpl(this as InfoDto, $identity, $identity);
   @override
   String toString() {
-    return InfoDtoMapper._guard((c) => c.asString(this));
+    return InfoDtoMapper.ensureInitialized().stringifyValue(this as InfoDto);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            InfoDtoMapper._guard((c) => c.isEqual(this, other)));
+            InfoDtoMapper.ensureInitialized()
+                .isValueEqual(this as InfoDto, other));
   }
 
   @override
   int get hashCode {
-    return InfoDtoMapper._guard((c) => c.hash(this));
+    return InfoDtoMapper.ensureInitialized().hashValue(this as InfoDto);
   }
 }
 

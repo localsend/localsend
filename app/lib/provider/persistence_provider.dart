@@ -15,11 +15,14 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
+import 'package:localsend_app/util/shared_preferences_portable.dart';
+import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:uuid/uuid.dart';
 
 final _logger = Logger('PersistenceService');
@@ -55,6 +58,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
+const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _launchAtStartup = 'ls_launch_at_startup';
 const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
@@ -74,8 +78,13 @@ class PersistenceService {
 
   PersistenceService._(this._prefs);
 
-  static Future<PersistenceService> initialize() async {
+  static Future<PersistenceService> initialize(DynamicColors? dynamicColors) async {
     SharedPreferences prefs;
+
+    if (checkPlatform([TargetPlatform.windows]) && SharedPreferencesPortable.exists()) {
+      _logger.info('Using portable settings.');
+      SharedPreferencesStorePlatform.instance = SharedPreferencesPortable();
+    }
 
     try {
       prefs = await SharedPreferences.getInstance();
@@ -115,11 +124,24 @@ class PersistenceService {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
     }
 
+    final supportsDynamicColors = dynamicColors != null;
     if (prefs.getString(_colorKey) == null) {
-      await prefs.setString(_colorKey, checkPlatform([TargetPlatform.android]) ? ColorMode.system.name : ColorMode.localsend.name);
+      await _initColorSetting(prefs, supportsDynamicColors);
+    } else {
+      // fix when device does not support dynamic colors
+      final supported = supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system);
+      final colorMode = supported.firstWhereOrNull((color) => color.name == prefs.getString(_colorKey));
+      if (colorMode == null) {
+        await _initColorSetting(prefs, supportsDynamicColors);
+      }
     }
 
     return PersistenceService._(prefs);
+  }
+
+  static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
+    await prefs.setString(
+        _colorKey, checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name);
   }
 
   StoredSecurityContext getSecurityContext() {
@@ -253,6 +275,14 @@ class PersistenceService {
 
   Future<void> setQuickSave(bool quickSave) async {
     await _prefs.setBool(_quickSave, quickSave);
+  }
+
+  bool isAutoFinish() {
+    return _prefs.getBool(_autoFinish) ?? false;
+  }
+
+  Future<void> setAutoFinish(bool autoFinish) async {
+    await _prefs.setBool(_autoFinish, autoFinish);
   }
 
   bool isMinimizeToTray() {

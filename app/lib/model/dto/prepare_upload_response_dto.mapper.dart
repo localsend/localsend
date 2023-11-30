@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'prepare_upload_response_dto.dart';
 
@@ -16,11 +17,6 @@ class PrepareUploadResponseDtoMapper
           .use(_instance = PrepareUploadResponseDtoMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -48,23 +44,23 @@ class PrepareUploadResponseDtoMapper
   final Function instantiate = _instantiate;
 
   static PrepareUploadResponseDto fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<PrepareUploadResponseDto>(map));
+    return ensureInitialized().decodeMap<PrepareUploadResponseDto>(map);
   }
 
   static PrepareUploadResponseDto deserialize(String json) {
-    return _guard((c) => c.fromJson<PrepareUploadResponseDto>(json));
+    return ensureInitialized().decodeJson<PrepareUploadResponseDto>(json);
   }
 }
 
 mixin PrepareUploadResponseDtoMappable {
   String serialize() {
-    return PrepareUploadResponseDtoMapper._guard(
-        (c) => c.toJson(this as PrepareUploadResponseDto));
+    return PrepareUploadResponseDtoMapper.ensureInitialized()
+        .encodeJson<PrepareUploadResponseDto>(this as PrepareUploadResponseDto);
   }
 
   Map<String, dynamic> toJson() {
-    return PrepareUploadResponseDtoMapper._guard(
-        (c) => c.toMap(this as PrepareUploadResponseDto));
+    return PrepareUploadResponseDtoMapper.ensureInitialized()
+        .encodeMap<PrepareUploadResponseDto>(this as PrepareUploadResponseDto);
   }
 
   PrepareUploadResponseDtoCopyWith<PrepareUploadResponseDto,
@@ -73,20 +69,22 @@ mixin PrepareUploadResponseDtoMappable {
           this as PrepareUploadResponseDto, $identity, $identity);
   @override
   String toString() {
-    return PrepareUploadResponseDtoMapper._guard((c) => c.asString(this));
+    return PrepareUploadResponseDtoMapper.ensureInitialized()
+        .stringifyValue(this as PrepareUploadResponseDto);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            PrepareUploadResponseDtoMapper._guard(
-                (c) => c.isEqual(this, other)));
+            PrepareUploadResponseDtoMapper.ensureInitialized()
+                .isValueEqual(this as PrepareUploadResponseDto, other));
   }
 
   @override
   int get hashCode {
-    return PrepareUploadResponseDtoMapper._guard((c) => c.hash(this));
+    return PrepareUploadResponseDtoMapper.ensureInitialized()
+        .hashValue(this as PrepareUploadResponseDto);
   }
 }
 

@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'receive_history_entry.dart';
 
@@ -15,11 +16,6 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
       FileTypeMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -77,23 +73,23 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
   final Function instantiate = _instantiate;
 
   static ReceiveHistoryEntry fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<ReceiveHistoryEntry>(map));
+    return ensureInitialized().decodeMap<ReceiveHistoryEntry>(map);
   }
 
   static ReceiveHistoryEntry deserialize(String json) {
-    return _guard((c) => c.fromJson<ReceiveHistoryEntry>(json));
+    return ensureInitialized().decodeJson<ReceiveHistoryEntry>(json);
   }
 }
 
 mixin ReceiveHistoryEntryMappable {
   String serialize() {
-    return ReceiveHistoryEntryMapper._guard(
-        (c) => c.toJson(this as ReceiveHistoryEntry));
+    return ReceiveHistoryEntryMapper.ensureInitialized()
+        .encodeJson<ReceiveHistoryEntry>(this as ReceiveHistoryEntry);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceiveHistoryEntryMapper._guard(
-        (c) => c.toMap(this as ReceiveHistoryEntry));
+    return ReceiveHistoryEntryMapper.ensureInitialized()
+        .encodeMap<ReceiveHistoryEntry>(this as ReceiveHistoryEntry);
   }
 
   ReceiveHistoryEntryCopyWith<ReceiveHistoryEntry, ReceiveHistoryEntry,
@@ -102,19 +98,22 @@ mixin ReceiveHistoryEntryMappable {
           this as ReceiveHistoryEntry, $identity, $identity);
   @override
   String toString() {
-    return ReceiveHistoryEntryMapper._guard((c) => c.asString(this));
+    return ReceiveHistoryEntryMapper.ensureInitialized()
+        .stringifyValue(this as ReceiveHistoryEntry);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            ReceiveHistoryEntryMapper._guard((c) => c.isEqual(this, other)));
+            ReceiveHistoryEntryMapper.ensureInitialized()
+                .isValueEqual(this as ReceiveHistoryEntry, other));
   }
 
   @override
   int get hashCode {
-    return ReceiveHistoryEntryMapper._guard((c) => c.hash(this));
+    return ReceiveHistoryEntryMapper.ensureInitialized()
+        .hashValue(this as ReceiveHistoryEntry);
   }
 }
 

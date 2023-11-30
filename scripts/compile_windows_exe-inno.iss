@@ -32,6 +32,8 @@ Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 SignTool=MySignTool
+ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

@@ -105,6 +105,7 @@
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Auto Finish",
       "destination": "Destination",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",

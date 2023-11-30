@@ -37,6 +37,7 @@ class _StringsZhCn extends _StringsEn {
 	@override late final _StringsProgressPageZhCn progressPage = _StringsProgressPageZhCn._(_root);
 	@override late final _StringsWebSharePageZhCn webSharePage = _StringsWebSharePageZhCn._(_root);
 	@override late final _StringsAboutPageZhCn aboutPage = _StringsAboutPageZhCn._(_root);
+	@override late final _StringsDonationPageZhCn donationPage = _StringsDonationPageZhCn._(_root);
 	@override late final _StringsChangelogPageZhCn changelogPage = _StringsChangelogPageZhCn._(_root);
 	@override late final _StringsAliasGeneratorZhCn aliasGenerator = _StringsAliasGeneratorZhCn._(_root);
 	@override late final _StringsDialogsZhCn dialogs = _StringsDialogsZhCn._(_root);
@@ -64,6 +65,7 @@ class _StringsGeneralZhCn extends _StringsGeneralEn {
 	@override String get copiedToClipboard => '已复制到剪贴板';
 	@override String get decline => '拒绝';
 	@override String get done => '完成';
+	@override String get delete => '删除';
 	@override String get edit => '编辑';
 	@override String get error => '错误';
 	@override String get example => '示例';
@@ -88,7 +90,6 @@ class _StringsGeneralZhCn extends _StringsGeneralEn {
 	@override String get unchanged => '未更改';
 	@override String get unknown => '未知';
 	@override String get noItemInClipboard => '剪贴板中没有项目';
-	@override String get delete => '删除';
 }
 
 // Path: receiveTab
@@ -119,7 +120,7 @@ class _StringsSendTabZhCn extends _StringsSendTabEn {
 	@override String get sendMode => '发送模式';
 	@override late final _StringsSendTabSendModesZhCn sendModes = _StringsSendTabSendModesZhCn._(_root);
 	@override String get sendModeHelp => '解释';
-	@override String get help => '请确保目标连接的是同一个 Wi‑Fi 网络。';
+	@override String get help => '请确保目标连接的是同一个 WiFi 网络。';
 	@override String get placeItems => '列出要分享的文件。';
 }
 
@@ -134,6 +135,7 @@ class _StringsSettingsTabZhCn extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralZhCn general = _StringsSettingsTabGeneralZhCn._(_root);
 	@override late final _StringsSettingsTabReceiveZhCn receive = _StringsSettingsTabReceiveZhCn._(_root);
 	@override late final _StringsSettingsTabNetworkZhCn network = _StringsSettingsTabNetworkZhCn._(_root);
+	@override late final _StringsSettingsTabOtherZhCn other = _StringsSettingsTabOtherZhCn._(_root);
 	@override String get advancedSettings => '高级设置';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageZhCn extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => '关于 LocalSend';
+	@override List<String> get description => [
+		'LocalSend 是一款免费的开源应用程序，可让您通过本地网络与附近的设备安全地共享文件和信息，而无需互联网连接。',
+		'本程序可在 Android、iOS、macOS、Windows 和 Linux 上使用。您可以在官方主页找到所有下载选项。',
+	];
+	@override String get author => '作者';
+	@override String get contributors => '贡献值';
+	@override String get translators => '翻译者';
+}
+
+// Path: donationPage
+class _StringsDonationPageZhCn extends _StringsDonationPageEn {
+	_StringsDonationPageZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '捐赠';
+	@override String get info => 'LocalSend 免费、开源、无广告。如果您喜欢这款应用程序，可以捐款支持开发。';
+	@override String donate({required Object amount}) => '捐款 ${amount}';
+	@override String get thanks => '非常感谢您的支持！';
+	@override String get restore => '恢复购买';
 }
 
 // Path: changelogPage
@@ -308,8 +331,12 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileZhCn cannotOpenFile = _StringsDialogsCannotOpenFileZhCn._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeZhCn encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeZhCn._(_root);
 	@override late final _StringsDialogsErrorDialogZhCn errorDialog = _StringsDialogsErrorDialogZhCn._(_root);
+	@override late final _StringsDialogsFavoriteDialogZhCn favoriteDialog = _StringsDialogsFavoriteDialogZhCn._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogZhCn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogZhCn._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogZhCn favoriteEditDialog = _StringsDialogsFavoriteEditDialogZhCn._(_root);
 	@override late final _StringsDialogsFileInfoZhCn fileInfo = _StringsDialogsFileInfoZhCn._(_root);
 	@override late final _StringsDialogsFileNameInputZhCn fileNameInput = _StringsDialogsFileNameInputZhCn._(_root);
+	@override late final _StringsDialogsHistoryClearDialogZhCn historyClearDialog = _StringsDialogsHistoryClearDialogZhCn._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedZhCn localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedZhCn._(_root);
 	@override late final _StringsDialogsMessageInputZhCn messageInput = _StringsDialogsMessageInputZhCn._(_root);
 	@override late final _StringsDialogsNoFilesZhCn noFiles = _StringsDialogsNoFilesZhCn._(_root);
@@ -319,10 +346,6 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsZhCn quickActions = _StringsDialogsQuickActionsZhCn._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
-	@override late final _StringsDialogsFavoriteDialogZhCn favoriteDialog = _StringsDialogsFavoriteDialogZhCn._(_root);
-	@override late final _StringsDialogsFavoriteDeleteDialogZhCn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogZhCn._(_root);
-	@override late final _StringsDialogsFavoriteEditDialogZhCn favoriteEditDialog = _StringsDialogsFavoriteEditDialogZhCn._(_root);
-	@override late final _StringsDialogsHistoryClearDialogZhCn historyClearDialog = _StringsDialogsHistoryClearDialogZhCn._(_root);
 }
 
 // Path: tray
@@ -494,6 +517,20 @@ class _StringsSettingsTabNetworkZhCn extends _StringsSettingsTabNetworkEn {
 	@override String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
 }
 
+// Path: settingsTab.other
+class _StringsSettingsTabOtherZhCn extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '其他';
+	@override String get support => '支持LocalSend';
+	@override String get donate => '捐赠';
+	@override String get privacyPolicy => '隐私政策';
+	@override String get termsOfUse => '使用条款';
+}
+
 // Path: troubleshootPage.firewall
 class _StringsTroubleshootPageFirewallZhCn extends _StringsTroubleshootPageFirewallEn {
 	_StringsTroubleshootPageFirewallZhCn._(_StringsZhCn root) : this._root = root, super._(root);
@@ -514,7 +551,7 @@ class _StringsTroubleshootPageNoConnectionZhCn extends _StringsTroubleshootPageN
 
 	// Translations
 	@override String get symptom => '双方设备均无法发现对方或者分享文件。';
-	@override String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。';
+	@override String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一 WiFi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -609,6 +646,44 @@ class _StringsDialogsErrorDialogZhCn extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogZhCn extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '收藏夹';
+	@override String get noFavorites => '尚未配置收藏夹。';
+	@override String get addFavorite => '新建';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogZhCn extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '删除收藏夹';
+	@override String content({required Object name}) => '确定要删除收藏夹 "${name}" 吗?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogZhCn extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => '添加收藏夹';
+	@override String get titleEdit => '编辑收藏夹';
+	@override String get name => '名称';
+	@override String get auto => '(auto)';
+	@override String get ip => 'IP 地址';
+	@override String get port => '端口';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoZhCn extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoZhCn._(_StringsZhCn root) : this._root = root, super._(root);
@@ -633,6 +708,17 @@ class _StringsDialogsFileNameInputZhCn extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => '输入文件名';
 	@override String original({required Object original}) => '原名：${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogZhCn extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '清空历史记录';
+	@override String get content => '您确定要清空全部历史记录吗？';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -738,55 +824,6 @@ class _StringsDialogsSendModeHelpZhCn extends _StringsDialogsSendModeHelpEn {
 	@override String get single => '发送文件给一个接收者。已选择的文件在发送后会取消选择。';
 	@override String get multiple => '发送文件给多个接收者。已选择的文件在发送后不会取消选择。';
 	@override String get link => '未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。';
-}
-
-// Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogZhCn extends _StringsDialogsFavoriteDialogEn {
-	_StringsDialogsFavoriteDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
-
-	@override final _StringsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '收藏夹';
-	@override String get noFavorites => '尚未配置收藏夹。';
-	@override String get addFavorite => '新建';
-}
-
-// Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogZhCn extends _StringsDialogsFavoriteDeleteDialogEn {
-	_StringsDialogsFavoriteDeleteDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
-
-	@override final _StringsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '删除收藏夹';
-	@override String content({required Object name}) => '确定要删除收藏夹 "${name}" 吗?';
-}
-
-// Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogZhCn extends _StringsDialogsFavoriteEditDialogEn {
-	_StringsDialogsFavoriteEditDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
-
-	@override final _StringsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get titleAdd => '添加收藏夹';
-	@override String get titleEdit => '编辑收藏夹';
-	@override String get name => '名称';
-	@override String get auto => '(auto)';
-	@override String get ip => 'IP 地址';
-	@override String get port => '端口';
-}
-
-// Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogZhCn extends _StringsDialogsHistoryClearDialogEn {
-	_StringsDialogsHistoryClearDialogZhCn._(_StringsZhCn root) : this._root = root, super._(root);
-
-	@override final _StringsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '清空历史记录';
-	@override String get content => '您确定要清空全部历史记录吗？';
 }
 
 // Path: settingsTab.general.brightnessOptions

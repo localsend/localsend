@@ -21,7 +21,7 @@ enum _QuickAction {
 }
 
 class QuickActionsDialog extends StatefulWidget {
-  const QuickActionsDialog({Key? key}) : super(key: key);
+  const QuickActionsDialog({super.key});
 
   @override
   State<QuickActionsDialog> createState() => _QuickActionsDialogState();

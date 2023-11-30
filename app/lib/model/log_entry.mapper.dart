@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'log_entry.dart';
 
@@ -14,11 +15,6 @@ class LogEntryMapper extends ClassMapperBase<LogEntry> {
       MapperContainer.globals.use(_instance = LogEntryMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -44,40 +40,43 @@ class LogEntryMapper extends ClassMapperBase<LogEntry> {
   final Function instantiate = _instantiate;
 
   static LogEntry fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<LogEntry>(map));
+    return ensureInitialized().decodeMap<LogEntry>(map);
   }
 
   static LogEntry deserialize(String json) {
-    return _guard((c) => c.fromJson<LogEntry>(json));
+    return ensureInitialized().decodeJson<LogEntry>(json);
   }
 }
 
 mixin LogEntryMappable {
   String serialize() {
-    return LogEntryMapper._guard((c) => c.toJson(this as LogEntry));
+    return LogEntryMapper.ensureInitialized()
+        .encodeJson<LogEntry>(this as LogEntry);
   }
 
   Map<String, dynamic> toJson() {
-    return LogEntryMapper._guard((c) => c.toMap(this as LogEntry));
+    return LogEntryMapper.ensureInitialized()
+        .encodeMap<LogEntry>(this as LogEntry);
   }
 
   LogEntryCopyWith<LogEntry, LogEntry, LogEntry> get copyWith =>
       _LogEntryCopyWithImpl(this as LogEntry, $identity, $identity);
   @override
   String toString() {
-    return LogEntryMapper._guard((c) => c.asString(this));
+    return LogEntryMapper.ensureInitialized().stringifyValue(this as LogEntry);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            LogEntryMapper._guard((c) => c.isEqual(this, other)));
+            LogEntryMapper.ensureInitialized()
+                .isValueEqual(this as LogEntry, other));
   }
 
   @override
   int get hashCode {
-    return LogEntryMapper._guard((c) => c.hash(this));
+    return LogEntryMapper.ensureInitialized().hashValue(this as LogEntry);
   }
 }
 

@@ -188,7 +188,7 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
   @override
   void after() {
     if (state.isEmpty) {
-      global.dispatch(ClearCacheAction());
+      global.dispatchAsync(ClearCacheAction()); // ignore: discarded_futures
     }
   }
 }
@@ -202,6 +202,6 @@ class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, Lis
 
   @override
   void after() {
-    global.dispatch(ClearCacheAction());
+    global.dispatchAsync(ClearCacheAction()); // ignore: discarded_futures
   }
 }

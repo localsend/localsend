@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:gal/gal.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 final _logger = Logger('FileSaver');
 
@@ -18,14 +15,6 @@ Future<void> saveFile({
   required Stream<List<int>> stream,
   required void Function(int savedBytes) onProgress,
 }) async {
-  if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
-    try {
-      await Permission.storage.request();
-    } catch (e) {
-      _logger.warning('Could not request storage permission', e);
-    }
-  }
-
   final sink = File(destinationPath).openWrite();
   try {
     int savedBytes = 0;

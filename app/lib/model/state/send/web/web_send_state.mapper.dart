@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'web_send_state.dart';
 
@@ -16,11 +17,6 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
       WebSendFileMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -48,40 +44,45 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
   final Function instantiate = _instantiate;
 
   static WebSendState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<WebSendState>(map));
+    return ensureInitialized().decodeMap<WebSendState>(map);
   }
 
   static WebSendState deserialize(String json) {
-    return _guard((c) => c.fromJson<WebSendState>(json));
+    return ensureInitialized().decodeJson<WebSendState>(json);
   }
 }
 
 mixin WebSendStateMappable {
   String serialize() {
-    return WebSendStateMapper._guard((c) => c.toJson(this as WebSendState));
+    return WebSendStateMapper.ensureInitialized()
+        .encodeJson<WebSendState>(this as WebSendState);
   }
 
   Map<String, dynamic> toJson() {
-    return WebSendStateMapper._guard((c) => c.toMap(this as WebSendState));
+    return WebSendStateMapper.ensureInitialized()
+        .encodeMap<WebSendState>(this as WebSendState);
   }
 
   WebSendStateCopyWith<WebSendState, WebSendState, WebSendState> get copyWith =>
       _WebSendStateCopyWithImpl(this as WebSendState, $identity, $identity);
   @override
   String toString() {
-    return WebSendStateMapper._guard((c) => c.asString(this));
+    return WebSendStateMapper.ensureInitialized()
+        .stringifyValue(this as WebSendState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            WebSendStateMapper._guard((c) => c.isEqual(this, other)));
+            WebSendStateMapper.ensureInitialized()
+                .isValueEqual(this as WebSendState, other));
   }
 
   @override
   int get hashCode {
-    return WebSendStateMapper._guard((c) => c.hash(this));
+    return WebSendStateMapper.ensureInitialized()
+        .hashValue(this as WebSendState);
   }
 }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -7,6 +8,7 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -21,7 +23,7 @@ import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReceivePage extends StatefulWidget {
-  const ReceivePage({Key? key}) : super(key: key);
+  const ReceivePage({super.key});
 
   @override
   State<ReceivePage> createState() => _ReceivePageState();
@@ -77,11 +79,10 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final selectedFiles = ref.watch(selectedReceivingFilesProvider);
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
-    return WillPopScope(
-      onWillPop: () async {
-        _decline();
-        return true;
-      },
+    final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
+
+    return PopScope(
+      onPopInvoked: (_) => _decline(),
       child: Scaffold(
         body: SafeArea(
           child: Center(
@@ -106,7 +107,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                 ),
                               FittedBox(
                                 child: Text(
-                                  receiveSession.sender.alias,
+                                  senderFavoriteEntry?.alias ?? receiveSession.sender.alias,
                                   style: TextStyle(fontSize: smallUi ? 32 : 48),
                                   textAlign: TextAlign.center,
                                 ),
@@ -258,8 +259,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                   elevation: colorMode == ColorMode.yaru ? 0 : null,
-                                  backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
-                                  foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.onError,
+                                  backgroundColor:
+                                      colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
+                                  foregroundColor: colorMode == ColorMode.yaru
+                                      ? Theme.of(context).colorScheme.onBackground
+                                      : Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
                                   _decline();

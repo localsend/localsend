@@ -12,6 +12,7 @@ import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 
 enum _ServerState { initializing, running, error, stopping }
 
@@ -72,15 +73,21 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) async {
+        if (!mounted) {
+          return;
+        }
         setState(() {
           _stateEnum = _ServerState.stopping;
         });
         await sleepAsync(250);
         await _revertServerState();
         await sleepAsync(250);
-        return Future.value(true);
+        if (mounted) {
+          context.pop();
+        }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -118,9 +125,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
               );
             }
 
-            final serverState = ref.watch(serverProvider)!;
+            final serverState = context.watch(serverProvider)!;
             final webSendState = serverState.webSendState!;
-            final networkState = ref.watch(localIpProvider);
+            final networkState = context.watch(localIpProvider);
 
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

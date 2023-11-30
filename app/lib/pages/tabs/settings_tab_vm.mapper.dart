@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'settings_tab_vm.dart';
 
@@ -16,11 +17,6 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       ServerStateMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -137,21 +133,23 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   final Function instantiate = _instantiate;
 
   static SettingsTabVm fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<SettingsTabVm>(map));
+    return ensureInitialized().decodeMap<SettingsTabVm>(map);
   }
 
   static SettingsTabVm deserialize(String json) {
-    return _guard((c) => c.fromJson<SettingsTabVm>(json));
+    return ensureInitialized().decodeJson<SettingsTabVm>(json);
   }
 }
 
 mixin SettingsTabVmMappable {
   String serialize() {
-    return SettingsTabVmMapper._guard((c) => c.toJson(this as SettingsTabVm));
+    return SettingsTabVmMapper.ensureInitialized()
+        .encodeJson<SettingsTabVm>(this as SettingsTabVm);
   }
 
   Map<String, dynamic> toJson() {
-    return SettingsTabVmMapper._guard((c) => c.toMap(this as SettingsTabVm));
+    return SettingsTabVmMapper.ensureInitialized()
+        .encodeMap<SettingsTabVm>(this as SettingsTabVm);
   }
 
   SettingsTabVmCopyWith<SettingsTabVm, SettingsTabVm, SettingsTabVm>
@@ -159,19 +157,22 @@ mixin SettingsTabVmMappable {
           this as SettingsTabVm, $identity, $identity);
   @override
   String toString() {
-    return SettingsTabVmMapper._guard((c) => c.asString(this));
+    return SettingsTabVmMapper.ensureInitialized()
+        .stringifyValue(this as SettingsTabVm);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            SettingsTabVmMapper._guard((c) => c.isEqual(this, other)));
+            SettingsTabVmMapper.ensureInitialized()
+                .isValueEqual(this as SettingsTabVm, other));
   }
 
   @override
   int get hashCode {
-    return SettingsTabVmMapper._guard((c) => c.hash(this));
+    return SettingsTabVmMapper.ensureInitialized()
+        .hashValue(this as SettingsTabVm);
   }
 }
 

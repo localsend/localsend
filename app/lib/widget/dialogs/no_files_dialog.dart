@@ -4,7 +4,7 @@ import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
 
 class NoFilesDialog extends StatelessWidget {
-  const NoFilesDialog({Key? key}) : super(key: key);
+  const NoFilesDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

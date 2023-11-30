@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'receiving_file.dart';
 
@@ -14,11 +15,6 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
       MapperContainer.globals.use(_instance = ReceivingFileMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -69,21 +65,23 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
   final Function instantiate = _instantiate;
 
   static ReceivingFile fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<ReceivingFile>(map));
+    return ensureInitialized().decodeMap<ReceivingFile>(map);
   }
 
   static ReceivingFile deserialize(String json) {
-    return _guard((c) => c.fromJson<ReceivingFile>(json));
+    return ensureInitialized().decodeJson<ReceivingFile>(json);
   }
 }
 
 mixin ReceivingFileMappable {
   String serialize() {
-    return ReceivingFileMapper._guard((c) => c.toJson(this as ReceivingFile));
+    return ReceivingFileMapper.ensureInitialized()
+        .encodeJson<ReceivingFile>(this as ReceivingFile);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceivingFileMapper._guard((c) => c.toMap(this as ReceivingFile));
+    return ReceivingFileMapper.ensureInitialized()
+        .encodeMap<ReceivingFile>(this as ReceivingFile);
   }
 
   ReceivingFileCopyWith<ReceivingFile, ReceivingFile, ReceivingFile>
@@ -91,19 +89,22 @@ mixin ReceivingFileMappable {
           this as ReceivingFile, $identity, $identity);
   @override
   String toString() {
-    return ReceivingFileMapper._guard((c) => c.asString(this));
+    return ReceivingFileMapper.ensureInitialized()
+        .stringifyValue(this as ReceivingFile);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            ReceivingFileMapper._guard((c) => c.isEqual(this, other)));
+            ReceivingFileMapper.ensureInitialized()
+                .isValueEqual(this as ReceivingFile, other));
   }
 
   @override
   int get hashCode {
-    return ReceivingFileMapper._guard((c) => c.hash(this));
+    return ReceivingFileMapper.ensureInitialized()
+        .hashValue(this as ReceivingFile);
   }
 }
 

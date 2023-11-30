@@ -37,6 +37,7 @@ class _StringsFilPh extends _StringsEn {
 	@override late final _StringsProgressPageFilPh progressPage = _StringsProgressPageFilPh._(_root);
 	@override late final _StringsWebSharePageFilPh webSharePage = _StringsWebSharePageFilPh._(_root);
 	@override late final _StringsAboutPageFilPh aboutPage = _StringsAboutPageFilPh._(_root);
+	@override late final _StringsDonationPageFilPh donationPage = _StringsDonationPageFilPh._(_root);
 	@override late final _StringsChangelogPageFilPh changelogPage = _StringsChangelogPageFilPh._(_root);
 	@override late final _StringsAliasGeneratorFilPh aliasGenerator = _StringsAliasGeneratorFilPh._(_root);
 	@override late final _StringsDialogsFilPh dialogs = _StringsDialogsFilPh._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabFilPh extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralFilPh general = _StringsSettingsTabGeneralFilPh._(_root);
 	@override late final _StringsSettingsTabReceiveFilPh receive = _StringsSettingsTabReceiveFilPh._(_root);
 	@override late final _StringsSettingsTabNetworkFilPh network = _StringsSettingsTabNetworkFilPh._(_root);
+	@override late final _StringsSettingsTabOtherFilPh other = _StringsSettingsTabOtherFilPh._(_root);
 	@override String get advancedSettings => 'Advanced settings';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageFilPh extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Tungkol sa LocalSend';
+	@override List<String> get description => [
+		'Ang LocalSend ay isang libre at open-source na app na nagbibigay-daan sa secure na pagbabahagi ng mga file at message sa mga kalapit na device sa iyong local network nang hindi nangangailangan ng koneksyon sa internet.',
+		'Available ang app na ito sa Android, iOS, macOS, Windows, at Linux. Maaari mong mahanap ang lahat ng mga pagpipilian sa pag-download sa opisyal na homepage.',
+	];
+	@override String get author => 'Author';
+	@override String get contributors => 'Mga Contributor';
+	@override String get translators => 'Mga Translator';
+}
+
+// Path: donationPage
+class _StringsDonationPageFilPh extends _StringsDonationPageEn {
+	_StringsDonationPageFilPh._(_StringsFilPh root) : this._root = root, super._(root);
+
+	@override final _StringsFilPh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mag-donate';
+	@override String get info => 'Ang LocalSend ay libre, open-source, at walang anumang mga ad. Kung iyong nagustuhan ang app, maari mong suportahan ang development sa pamamagitan ng donasyon.';
+	@override String donate({required Object amount}) => 'Mag-donate ng ${amount}';
+	@override String get thanks => 'Maraming salamat!';
+	@override String get restore => 'Restore purchase';
 }
 
 // Path: changelogPage
@@ -563,6 +586,20 @@ class _StringsSettingsTabNetworkFilPh extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Encryption';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Maaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang multicast address. (default: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherFilPh extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherFilPh._(_StringsFilPh root) : this._root = root, super._(root);
+
+	@override final _StringsFilPh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Iba Pa';
+	@override String get support => 'Suportahan ang LocalSend';
+	@override String get donate => 'Mag-donate';
+	@override String get privacyPolicy => 'Patakaran sa Privacy';
+	@override String get termsOfUse => 'Mga Tuntunin sa Paggamit';
 }
 
 // Path: troubleshootPage.firewall

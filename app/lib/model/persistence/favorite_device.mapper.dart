@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'favorite_device.dart';
 
@@ -14,11 +15,6 @@ class FavoriteDeviceMapper extends ClassMapperBase<FavoriteDevice> {
       MapperContainer.globals.use(_instance = FavoriteDeviceMapper._());
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -58,21 +54,23 @@ class FavoriteDeviceMapper extends ClassMapperBase<FavoriteDevice> {
   final Function instantiate = _instantiate;
 
   static FavoriteDevice fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<FavoriteDevice>(map));
+    return ensureInitialized().decodeMap<FavoriteDevice>(map);
   }
 
   static FavoriteDevice deserialize(String json) {
-    return _guard((c) => c.fromJson<FavoriteDevice>(json));
+    return ensureInitialized().decodeJson<FavoriteDevice>(json);
   }
 }
 
 mixin FavoriteDeviceMappable {
   String serialize() {
-    return FavoriteDeviceMapper._guard((c) => c.toJson(this as FavoriteDevice));
+    return FavoriteDeviceMapper.ensureInitialized()
+        .encodeJson<FavoriteDevice>(this as FavoriteDevice);
   }
 
   Map<String, dynamic> toJson() {
-    return FavoriteDeviceMapper._guard((c) => c.toMap(this as FavoriteDevice));
+    return FavoriteDeviceMapper.ensureInitialized()
+        .encodeMap<FavoriteDevice>(this as FavoriteDevice);
   }
 
   FavoriteDeviceCopyWith<FavoriteDevice, FavoriteDevice, FavoriteDevice>
@@ -80,19 +78,22 @@ mixin FavoriteDeviceMappable {
           this as FavoriteDevice, $identity, $identity);
   @override
   String toString() {
-    return FavoriteDeviceMapper._guard((c) => c.asString(this));
+    return FavoriteDeviceMapper.ensureInitialized()
+        .stringifyValue(this as FavoriteDevice);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            FavoriteDeviceMapper._guard((c) => c.isEqual(this, other)));
+            FavoriteDeviceMapper.ensureInitialized()
+                .isValueEqual(this as FavoriteDevice, other));
   }
 
   @override
   int get hashCode {
-    return FavoriteDeviceMapper._guard((c) => c.hash(this));
+    return FavoriteDeviceMapper.ensureInitialized()
+        .hashValue(this as FavoriteDevice);
   }
 }
 

@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'receive_request_response_dto.dart';
 
@@ -17,11 +18,6 @@ class ReceiveRequestResponseDtoMapper
       InfoDtoMapper.ensureInitialized();
     }
     return _instance!;
-  }
-
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
   }
 
   @override
@@ -55,23 +51,25 @@ class ReceiveRequestResponseDtoMapper
   final Function instantiate = _instantiate;
 
   static ReceiveRequestResponseDto fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<ReceiveRequestResponseDto>(map));
+    return ensureInitialized().decodeMap<ReceiveRequestResponseDto>(map);
   }
 
   static ReceiveRequestResponseDto deserialize(String json) {
-    return _guard((c) => c.fromJson<ReceiveRequestResponseDto>(json));
+    return ensureInitialized().decodeJson<ReceiveRequestResponseDto>(json);
   }
 }
 
 mixin ReceiveRequestResponseDtoMappable {
   String serialize() {
-    return ReceiveRequestResponseDtoMapper._guard(
-        (c) => c.toJson(this as ReceiveRequestResponseDto));
+    return ReceiveRequestResponseDtoMapper.ensureInitialized()
+        .encodeJson<ReceiveRequestResponseDto>(
+            this as ReceiveRequestResponseDto);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceiveRequestResponseDtoMapper._guard(
-        (c) => c.toMap(this as ReceiveRequestResponseDto));
+    return ReceiveRequestResponseDtoMapper.ensureInitialized()
+        .encodeMap<ReceiveRequestResponseDto>(
+            this as ReceiveRequestResponseDto);
   }
 
   ReceiveRequestResponseDtoCopyWith<ReceiveRequestResponseDto,
@@ -80,20 +78,22 @@ mixin ReceiveRequestResponseDtoMappable {
           this as ReceiveRequestResponseDto, $identity, $identity);
   @override
   String toString() {
-    return ReceiveRequestResponseDtoMapper._guard((c) => c.asString(this));
+    return ReceiveRequestResponseDtoMapper.ensureInitialized()
+        .stringifyValue(this as ReceiveRequestResponseDto);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            ReceiveRequestResponseDtoMapper._guard(
-                (c) => c.isEqual(this, other)));
+            ReceiveRequestResponseDtoMapper.ensureInitialized()
+                .isValueEqual(this as ReceiveRequestResponseDto, other));
   }
 
   @override
   int get hashCode {
-    return ReceiveRequestResponseDtoMapper._guard((c) => c.hash(this));
+    return ReceiveRequestResponseDtoMapper.ensureInitialized()
+        .hashValue(this as ReceiveRequestResponseDto);
   }
 }
 

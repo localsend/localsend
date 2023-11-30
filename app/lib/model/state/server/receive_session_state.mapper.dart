@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'receive_session_state.dart';
 
@@ -18,11 +19,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     return _instance!;
   }
 
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
-  }
-
   @override
   final String id = 'ReceiveSessionState';
 
@@ -35,6 +31,9 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   static Device _$sender(ReceiveSessionState v) => v.sender;
   static const Field<ReceiveSessionState, Device> _f$sender =
       Field('sender', _$sender);
+  static String _$senderAlias(ReceiveSessionState v) => v.senderAlias;
+  static const Field<ReceiveSessionState, String> _f$senderAlias =
+      Field('senderAlias', _$senderAlias);
   static Map<String, ReceivingFile> _$files(ReceiveSessionState v) => v.files;
   static const Field<ReceiveSessionState, Map<String, ReceivingFile>> _f$files =
       Field('files', _$files);
@@ -63,6 +62,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #sessionId: _f$sessionId,
     #status: _f$status,
     #sender: _f$sender,
+    #senderAlias: _f$senderAlias,
     #files: _f$files,
     #startTime: _f$startTime,
     #endTime: _f$endTime,
@@ -76,6 +76,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
         sessionId: data.dec(_f$sessionId),
         status: data.dec(_f$status),
         sender: data.dec(_f$sender),
+        senderAlias: data.dec(_f$senderAlias),
         files: data.dec(_f$files),
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
@@ -88,23 +89,23 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   final Function instantiate = _instantiate;
 
   static ReceiveSessionState fromJson(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<ReceiveSessionState>(map));
+    return ensureInitialized().decodeMap<ReceiveSessionState>(map);
   }
 
   static ReceiveSessionState deserialize(String json) {
-    return _guard((c) => c.fromJson<ReceiveSessionState>(json));
+    return ensureInitialized().decodeJson<ReceiveSessionState>(json);
   }
 }
 
 mixin ReceiveSessionStateMappable {
   String serialize() {
-    return ReceiveSessionStateMapper._guard(
-        (c) => c.toJson(this as ReceiveSessionState));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .encodeJson<ReceiveSessionState>(this as ReceiveSessionState);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceiveSessionStateMapper._guard(
-        (c) => c.toMap(this as ReceiveSessionState));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .encodeMap<ReceiveSessionState>(this as ReceiveSessionState);
   }
 
   ReceiveSessionStateCopyWith<ReceiveSessionState, ReceiveSessionState,
@@ -113,19 +114,22 @@ mixin ReceiveSessionStateMappable {
           this as ReceiveSessionState, $identity, $identity);
   @override
   String toString() {
-    return ReceiveSessionStateMapper._guard((c) => c.asString(this));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .stringifyValue(this as ReceiveSessionState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            ReceiveSessionStateMapper._guard((c) => c.isEqual(this, other)));
+            ReceiveSessionStateMapper.ensureInitialized()
+                .isValueEqual(this as ReceiveSessionState, other));
   }
 
   @override
   int get hashCode {
-    return ReceiveSessionStateMapper._guard((c) => c.hash(this));
+    return ReceiveSessionStateMapper.ensureInitialized()
+        .hashValue(this as ReceiveSessionState);
   }
 }
 
@@ -145,6 +149,7 @@ abstract class ReceiveSessionStateCopyWith<$R, $In extends ReceiveSessionState,
       {String? sessionId,
       SessionStatus? status,
       Device? sender,
+      String? senderAlias,
       Map<String, ReceivingFile>? files,
       int? startTime,
       int? endTime,
@@ -176,6 +181,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
           {String? sessionId,
           SessionStatus? status,
           Device? sender,
+          String? senderAlias,
           Map<String, ReceivingFile>? files,
           Object? startTime = $none,
           Object? endTime = $none,
@@ -186,6 +192,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
         if (sessionId != null) #sessionId: sessionId,
         if (status != null) #status: status,
         if (sender != null) #sender: sender,
+        if (senderAlias != null) #senderAlias: senderAlias,
         if (files != null) #files: files,
         if (startTime != $none) #startTime: startTime,
         if (endTime != $none) #endTime: endTime,
@@ -199,6 +206,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
       sessionId: data.get(#sessionId, or: $value.sessionId),
       status: data.get(#status, or: $value.status),
       sender: data.get(#sender, or: $value.sender),
+      senderAlias: data.get(#senderAlias, or: $value.senderAlias),
       files: data.get(#files, or: $value.files),
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),

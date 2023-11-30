@@ -9,7 +9,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 final _dateFormat = DateFormat.Hms();
 
 class DiscoveryDebugPage extends StatelessWidget {
-  const DiscoveryDebugPage({Key? key}) : super(key: key);
+  const DiscoveryDebugPage({super.key});
 
   @override
   Widget build(BuildContext context) {

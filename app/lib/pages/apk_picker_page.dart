@@ -14,7 +14,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class ApkPickerPage extends StatefulWidget {
-  const ApkPickerPage({Key? key}) : super(key: key);
+  const ApkPickerPage({super.key});
 
   @override
   State<ApkPickerPage> createState() => _ApkPickerPageState();
