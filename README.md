@@ -118,10 +118,11 @@ You can help translate this app to other languages!
    - Fix existing translations: Update `strings_<locale>.i18n.json` in [app/assets/i18n][i18n]
    - Add new languages: Create a new file; see also: [locale codes][].
 3. Optional: Re-run this app
-   1. Make sure you have [run](#getting-started) this app once.
-   2. Update translations via `flutter pub run slang`
-   3. Run the app via `flutter run`
-4. Open a pull request
+   1. Run `cd app` to enter the app directory.
+   2. Make sure you have [run](#getting-started) this app once.
+   3. Update translations via `flutter pub run slang`
+   4. Run the app via `flutter run`
+   5. Open a pull request
 
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
