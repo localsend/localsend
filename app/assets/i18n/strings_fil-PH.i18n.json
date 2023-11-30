@@ -52,7 +52,7 @@
     "title": "Magpadala",
     "selection": {
       "title": "Pagpipilian",
-      "files": "Files: {files}",
+      "files": "Mga File: {files}",
       "size": "Size: {size}"
     },
     "picker": {
@@ -70,7 +70,7 @@
     "sendMode": "Send mode",
     "sendModes": {
       "single": "Isang tatanggap",
-      "multiple": "Maraming tatanggap",
+      "multiple": "Maramihang tatanggap",
       "link": "I-Share gamit ang link"
     },
     "sendModeHelp": "Paliwanag",
@@ -112,7 +112,7 @@
     },
     "network": {
       "title": "Network",
-      "needRestart": "I-restart ang server para i-apply ang settings!",
+      "needRestart": "I-restart ang server para ma-apply ang settings!",
       "server": "Server",
       "alias": "Alias",
       "deviceType": "Device type",
@@ -134,16 +134,16 @@
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
-    "subTitle": "Hindi gumagana ang app na ito gaya nang inaasahan? Narito mo mahahanap ang mga madalas na solusyon.",
+    "subTitle": "Hindi gumagana ang app na ito gaya nang inaasahan? Narito ang mga madalas na solusyon.",
     "solution": "Solusyon:",
     "fixButton": "Awtomatikong ayusin",
     "firewall": {
-      "symptom": "Ang app na ito ay nakakapagpadala ng mga file sa ibang devices ngunit ang ibang devices ay hindi makapagpadala sa device na ito.",
+      "symptom": "Ang app na ito ay nakakapagpadala ng mga file sa ibang mga device ngunit ang ibang mga device ay hindi makapagpadala sa device na ito.",
       "solution": "Ito ay kadalasang isyu sa firewall. Maari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port {port}.",
       "openFirewall": "Buksan ang Firewall"
     },
     "noConnection": {
-      "symptom": "Ang dalawa o higit pang devices ay hindi mo discover ang isa't isa o hindi makapag-share ng mga file.",
+      "symptom": "Ang dalawa o higit pang device ay hindi ma-discover ang isa't isa o hindi makapag-share ng mga file.",
       "solution": "Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router."
     }
   },
@@ -222,7 +222,7 @@
   "aboutPage": {
     "title": "Tungkol sa LocalSend",
     "description": [
-      "Ang LocalSend ay isang libre at open-source na app na nagbibigay-daan sa secure na pagbabahagi ng mga file at message sa mga kalapit na device sa iyong local network nang hindi nangangailangan ng koneksyon sa internet.",
+      "Ang LocalSend ay isang libre at open-source na app na nagbibigay-daan sa secure na pagbabahagi ng mga file at mga message sa mga kalapit na device sa iyong local network nang hindi nangangailangan ng koneksyon sa internet.",
       "Available ang app na ito sa Android, iOS, macOS, Windows, at Linux. Maaari mong mahanap ang lahat ng mga pagpipilian sa pag-download sa opisyal na homepage."
     ],
     "author": "Author",
