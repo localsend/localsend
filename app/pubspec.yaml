@@ -81,7 +81,7 @@ dev_dependencies:
   dart_mappable_builder: 4.0.1
   flutter_gen_runner: 5.3.2
   flutter_lints: 3.0.1
-  msix: 3.16.6
+  msix: 3.16.7
   refena_inspector: 1.2.0
   slang_build_runner: 3.25.0
   slang_gpt: 0.10.0
@@ -110,6 +110,7 @@ msix_config:
   # publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
+  architecture: x64
   languages: en, ar, bn, cs, de, el, es-ES, eu, fa, fr, he, hu, in, it, ja, ko, ne, nl, pl, pt-BR, ru, sv, th, tr, uk, vi, zh-CN, zh-HK, zh-TW
 
   # https://github.com/localsend/localsend/issues/398
