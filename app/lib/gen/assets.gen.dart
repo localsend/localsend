@@ -26,25 +26,18 @@ class $AssetsImgGen {
   AssetGenImage get logo32White =>
       const AssetGenImage('assets/img/logo-32-white.png');
 
-  /// File path: assets/img/logo-32.ico
-  String get logo32Ico => 'assets/img/logo-32.ico';
-
   /// File path: assets/img/logo-32.png
-  AssetGenImage get logo32Png => const AssetGenImage('assets/img/logo-32.png');
+  AssetGenImage get logo32 => const AssetGenImage('assets/img/logo-32.png');
 
   /// File path: assets/img/logo-512.png
   AssetGenImage get logo512 => const AssetGenImage('assets/img/logo-512.png');
 
+  /// File path: assets/img/logo.ico
+  String get logo => 'assets/img/logo.ico';
+
   /// List of all assets
-  List<dynamic> get values => [
-        logo128,
-        logo256,
-        logo32Black,
-        logo32White,
-        logo32Ico,
-        logo32Png,
-        logo512
-      ];
+  List<dynamic> get values =>
+      [logo128, logo256, logo32Black, logo32White, logo32, logo512, logo];
 }
 
 class $AssetsWebGen {
