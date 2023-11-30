@@ -249,12 +249,12 @@
     },
     "favoriteDialog": {
       "title": "お気に入り",
-      "noFavorites": "お気に入りした機器がありません。",
+      "noFavorites": "お気に入りしたデバイスがありません。",
       "addFavorite": "追加"
     },
     "favoriteDeleteDialog": {
       "title": "お気に入りから削除",
-      "content": "本当に \"{name}\" お気に入りから削除しますか？"
+      "content": "本当に\"{name}\"をお気に入りから削除しますか？"
     },
     "favoriteEditDialog": {
       "titleAdd": "お気に入りに追加",

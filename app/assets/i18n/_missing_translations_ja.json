@@ -5,30 +5,30 @@
   ],
   "settingsTab": {
     "receive": {
-      "autoFinish": "Auto Finish"
+      "autoFinish": "自動で完了"
     },
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "その他",
+      "support": "LocalSendを支援",
+      "donate": "寄付",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfUse": "利用規約"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSendは無料のオープンソースアプリで、インターネットに接続することなく、ローカルネットワーク経由で近くにあるデバイスとファイルやメッセージを安全に共有することができます。",
+      "本アプリはAndroid、iOS、macOS、Windows、Linuxで利用でき、公式ホームページからダウンロードすることができます。"
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "著者",
+    "contributors": "貢献者",
+    "translators": "翻訳者"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "寄付",
+    "info": "LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発をサポートすることができます。",
+    "donate": "{amount} 寄付する",
+    "thanks": "ありがとうございます！",
+    "restore": "購入を復元する"
   }
 }
