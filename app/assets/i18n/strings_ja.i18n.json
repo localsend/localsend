@@ -105,6 +105,7 @@
     "receive": {
       "title": "受信",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "自動で完了",
       "destination": "保存先",
       "downloads": "(ダウンロード)",
       "saveToGallery": "メディアをギャラリーに保存",
@@ -122,6 +123,13 @@
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
       "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
+    },
+    "other": {
+      "title": "その他",
+      "support": "LocalSendを支援",
+      "donate": "寄付",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfUse": "利用規約"
     },
     "advancedSettings": "詳細設定"
   },
@@ -213,7 +221,21 @@
     "pendingRequests": "保留中のリクエスト数: {n}"
   },
   "aboutPage": {
-    "title": "LocalSendについて"
+    "title": "LocalSendについて",
+    "description": [
+      "LocalSendは無料のオープンソースアプリで、インターネットに接続することなく、ローカルネットワーク経由で近くにあるデバイスとファイルやメッセージを安全に共有することができます。",
+      "本アプリはAndroid、iOS、macOS、Windows、Linuxで利用でき、公式ホームページからダウンロードすることができます。"
+    ],
+    "author": "著者",
+    "contributors": "貢献者",
+    "translators": "翻訳者"
+  },
+  "donationPage": {
+    "title": "寄付",
+    "info": "LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発をサポートすることができます。",
+    "donate": "{amount} 寄付する",
+    "thanks": "ありがとうございます！",
+    "restore": "購入を復元する"
   },
   "changelogPage": {
     "title": "更新履歴"

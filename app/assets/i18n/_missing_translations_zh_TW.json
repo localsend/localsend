@@ -2,33 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-TW>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-TW' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "autoFinish": "自動完成"
-    },
-    "other": {
-      "title": "其它",
-      "support": "支持LocalSend",
-      "donate": "贊助",
-      "privacyPolicy": "隱私權政策",
-      "termsOfUse": "使用條款"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的共享檔案和訊息，無需網際網路連線。",
-      "此應用程式可在 Android、iOS、macOS、Windows 和 Linux 上使用。 您可以在官網首頁上找到所有下載選項。"
-    ],
-    "author": "作者",
-    "contributors": "貢獻者",
-    "translators": "翻譯者"
-  },
-  "donationPage": {
-    "title": "贊助",
-    "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。",
-    "donate": "贊助 {amount}",
-    "thanks": "非常感謝您!",
-    "restore": "回復購買"
-  }
+  ]
 }

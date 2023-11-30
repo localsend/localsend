@@ -2,33 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <cs>.",
     "After editing this file, you can run 'dart run slang apply --locale=cs' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "autoFinish": "Automatické dokončování"
-    },
-    "other": {
-      "title": "Ostatní",
-      "support": "Podporujte LocalSend",
-      "donate": "Darovat",
-      "privacyPolicy": "Zásady ochrany osobních údajů",
-      "termsOfUse": "Podmínky použití"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend je bezplatná aplikace s otevřeným zdrojovým kódem, která vám umožňuje bezpečně sdílet soubory a zprávy s okolními zařízeními přes vaši místní síť, aniž byste potřebovali připojení k internetu.",
-      "Tato aplikace je dostupná pro Android, iOS, macOS, Windows a Linux. Všechny možnosti stahování najdete na oficiální domovské stránce."
-    ],
-    "author": "Autor",
-    "contributors": "Přispěvatelé",
-    "translators": "Překladatelé"
-  },
-  "donationPage": {
-    "title": "Darovat",
-    "info": "LocalSend je zdarma, open source a bez reklam. Pokud se vám aplikace líbí, můžete její vývoj podpořit darem.",
-    "donate": "Darovat {částku}",
-    "thanks": "Děkuji mnohokrát!",
-    "restore": "Obnovit"
-  }
+  ]
 }

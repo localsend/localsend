@@ -105,6 +105,7 @@
     "receive": {
       "title": "Tumanggap",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Auto Finish",
       "destination": "Patutunguhan",
       "downloads": "(Downloads)",
       "saveToGallery": "I-save ang media sa gallery",

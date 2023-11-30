@@ -105,6 +105,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "完成後自動關閉傳輸畫面",
       "destination": "儲存位置",
       "downloads": "（下載資料夾）",
       "saveToGallery": "Save 落相簿",
@@ -122,6 +123,13 @@
       "encryption": "加密傳送",
       "multicastGroup": "多播 IP 地址",
       "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）"
+    },
+    "other": {
+      "title": "其他",
+      "support": "支援 LocalSend",
+      "donate": "捐款",
+      "privacyPolicy": "私隱權政策",
+      "termsOfUse": "服務條款"
     },
     "advancedSettings": "進階設定"
   },
@@ -213,7 +221,21 @@
     "pendingRequests": "仲有 {n} 個請求未處理"
   },
   "aboutPage": {
-    "title": "關於 LocalSend"
+    "title": "關於 LocalSend",
+    "description": [
+      "LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網路幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。",
+      "呢個 app 喺 Android、iOS、macOS、Windows 同 Linux 都用得㗎。你可以喺我哋嘅網站揾到呢個 app 所有平台嘅版本同其他下載方式。"
+    ],
+    "author": "作者",
+    "contributors": "貢獻者",
+    "translators": "翻譯人員"
+  },
+  "donationPage": {
+    "title": "@:settingsTab.other.donate",
+    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？",
+    "donate": "捐 {amount}",
+    "thanks": "多謝支持！",
+    "restore": "還原 app 內購買"
   },
   "changelogPage": {
     "title": "更新記錄"

@@ -37,6 +37,7 @@ class _StringsZhTw extends _StringsEn {
 	@override late final _StringsProgressPageZhTw progressPage = _StringsProgressPageZhTw._(_root);
 	@override late final _StringsWebSharePageZhTw webSharePage = _StringsWebSharePageZhTw._(_root);
 	@override late final _StringsAboutPageZhTw aboutPage = _StringsAboutPageZhTw._(_root);
+	@override late final _StringsDonationPageZhTw donationPage = _StringsDonationPageZhTw._(_root);
 	@override late final _StringsChangelogPageZhTw changelogPage = _StringsChangelogPageZhTw._(_root);
 	@override late final _StringsAliasGeneratorZhTw aliasGenerator = _StringsAliasGeneratorZhTw._(_root);
 	@override late final _StringsDialogsZhTw dialogs = _StringsDialogsZhTw._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabZhTw extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralZhTw general = _StringsSettingsTabGeneralZhTw._(_root);
 	@override late final _StringsSettingsTabReceiveZhTw receive = _StringsSettingsTabReceiveZhTw._(_root);
 	@override late final _StringsSettingsTabNetworkZhTw network = _StringsSettingsTabNetworkZhTw._(_root);
+	@override late final _StringsSettingsTabOtherZhTw other = _StringsSettingsTabOtherZhTw._(_root);
 	@override String get advancedSettings => '進階設定';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageZhTw extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => '關於 LocalSend';
+	@override List<String> get description => [
+		'LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的共享檔案和訊息，無需網際網路連線。',
+		'此應用程式可在 Android、iOS、macOS、Windows 和 Linux 上使用。 您可以在官網首頁上找到所有下載選項。',
+	];
+	@override String get author => '作者';
+	@override String get contributors => '貢獻者';
+	@override String get translators => '翻譯者';
+}
+
+// Path: donationPage
+class _StringsDonationPageZhTw extends _StringsDonationPageEn {
+	_StringsDonationPageZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '贊助';
+	@override String get info => 'LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。';
+	@override String donate({required Object amount}) => '贊助 ${amount}';
+	@override String get thanks => '非常感謝您!';
+	@override String get restore => '回復購買';
 }
 
 // Path: changelogPage
@@ -468,6 +491,7 @@ class _StringsSettingsTabReceiveZhTw extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '接收';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => '自動完成';
 	@override String get destination => '儲存目錄';
 	@override String get downloads => '(下載)';
 	@override String get saveToGallery => '儲存媒體至相簿';
@@ -492,6 +516,20 @@ class _StringsSettingsTabNetworkZhTw extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多點傳送';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => '您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherZhTw extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '其它';
+	@override String get support => '支持LocalSend';
+	@override String get donate => '贊助';
+	@override String get privacyPolicy => '隱私權政策';
+	@override String get termsOfUse => '使用條款';
 }
 
 // Path: troubleshootPage.firewall

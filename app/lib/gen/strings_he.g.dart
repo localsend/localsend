@@ -37,6 +37,7 @@ class _StringsHe extends _StringsEn {
 	@override late final _StringsProgressPageHe progressPage = _StringsProgressPageHe._(_root);
 	@override late final _StringsWebSharePageHe webSharePage = _StringsWebSharePageHe._(_root);
 	@override late final _StringsAboutPageHe aboutPage = _StringsAboutPageHe._(_root);
+	@override late final _StringsDonationPageHe donationPage = _StringsDonationPageHe._(_root);
 	@override late final _StringsChangelogPageHe changelogPage = _StringsChangelogPageHe._(_root);
 	@override late final _StringsAliasGeneratorHe aliasGenerator = _StringsAliasGeneratorHe._(_root);
 	@override late final _StringsDialogsHe dialogs = _StringsDialogsHe._(_root);
@@ -61,10 +62,10 @@ class _StringsGeneralHe extends _StringsGeneralEn {
 	@override String get confirm => 'אישור';
 	@override String get continueStr => 'המשך';
 	@override String get copy => 'העתקה';
-	@override String get delete => 'מחיקה';
 	@override String get copiedToClipboard => 'הועתק ללוח';
 	@override String get decline => 'דחיה';
 	@override String get done => 'אישור';
+	@override String get delete => 'מחיקה';
 	@override String get edit => 'עריכה';
 	@override String get error => 'שגיאה';
 	@override String get example => 'דוגמא';
@@ -134,6 +135,7 @@ class _StringsSettingsTabHe extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralHe general = _StringsSettingsTabGeneralHe._(_root);
 	@override late final _StringsSettingsTabReceiveHe receive = _StringsSettingsTabReceiveHe._(_root);
 	@override late final _StringsSettingsTabNetworkHe network = _StringsSettingsTabNetworkHe._(_root);
+	@override late final _StringsSettingsTabOtherHe other = _StringsSettingsTabOtherHe._(_root);
 	@override String get advancedSettings => 'הגדרות מתקדמות';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageHe extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'אודות LocalSend';
+	@override List<String> get description => [
+		'LocalSend היא אפליקציית קוד פתוח חינמית המאפשרת לשתף קבצים והודעות בצורה מאובטחת עם מכשירים קרובים דרך הרשת המקומית מבלי להזדקק לחיבור לאינטרנט.',
+		'אפליקציה זו זמינה באנדרואיד, iOS, macOS, Windows ו-Linux. אתה יכול למצוא את כל אפשרויות ההורדה בדף הבית הרשמי.',
+	];
+	@override String get author => 'יוצר';
+	@override String get contributors => 'תורמים';
+	@override String get translators => 'מתרגמים';
+}
+
+// Path: donationPage
+class _StringsDonationPageHe extends _StringsDonationPageEn {
+	_StringsDonationPageHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'תרומה';
+	@override String get info => 'אפליקציית LocalSend היא חינמית, קוד פתוח וללא פרסומות. אם אתה אוהב את האפליקציה, אתה יכול לתמוך בפיתוח באמצעות תרומה.';
+	@override String donate({required Object amount}) => 'תרומת ${amount}';
+	@override String get thanks => 'תודה רבה!';
+	@override String get restore => 'שחזור רכישה';
 }
 
 // Path: changelogPage
@@ -308,8 +331,12 @@ class _StringsDialogsHe extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileHe cannotOpenFile = _StringsDialogsCannotOpenFileHe._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeHe encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeHe._(_root);
 	@override late final _StringsDialogsErrorDialogHe errorDialog = _StringsDialogsErrorDialogHe._(_root);
+	@override late final _StringsDialogsFavoriteDialogHe favoriteDialog = _StringsDialogsFavoriteDialogHe._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogHe favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogHe._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogHe favoriteEditDialog = _StringsDialogsFavoriteEditDialogHe._(_root);
 	@override late final _StringsDialogsFileInfoHe fileInfo = _StringsDialogsFileInfoHe._(_root);
 	@override late final _StringsDialogsFileNameInputHe fileNameInput = _StringsDialogsFileNameInputHe._(_root);
+	@override late final _StringsDialogsHistoryClearDialogHe historyClearDialog = _StringsDialogsHistoryClearDialogHe._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedHe localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedHe._(_root);
 	@override late final _StringsDialogsMessageInputHe messageInput = _StringsDialogsMessageInputHe._(_root);
 	@override late final _StringsDialogsNoFilesHe noFiles = _StringsDialogsNoFilesHe._(_root);
@@ -319,10 +346,6 @@ class _StringsDialogsHe extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsHe quickActions = _StringsDialogsQuickActionsHe._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeHe quickSaveNotice = _StringsDialogsQuickSaveNoticeHe._(_root);
 	@override late final _StringsDialogsSendModeHelpHe sendModeHelp = _StringsDialogsSendModeHelpHe._(_root);
-	@override late final _StringsDialogsFavoriteDialogHe favoriteDialog = _StringsDialogsFavoriteDialogHe._(_root);
-	@override late final _StringsDialogsFavoriteDeleteDialogHe favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogHe._(_root);
-	@override late final _StringsDialogsFavoriteEditDialogHe favoriteEditDialog = _StringsDialogsFavoriteEditDialogHe._(_root);
-	@override late final _StringsDialogsHistoryClearDialogHe historyClearDialog = _StringsDialogsHistoryClearDialogHe._(_root);
 }
 
 // Path: tray
@@ -468,6 +491,7 @@ class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'קבלה';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'סיום אוטומטי';
 	@override String get destination => 'יעד';
 	@override String get downloads => '(הורדות)';
 	@override String get saveToGallery => 'שמור מדיה לגלריה';
@@ -492,6 +516,20 @@ class _StringsSettingsTabNetworkHe extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'הצפנה';
 	@override String get multicastGroup => 'מולטיקאסט';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherHe extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'אחר';
+	@override String get support => 'תמיכה ב-LocalSend';
+	@override String get donate => 'תרומה';
+	@override String get privacyPolicy => 'מדיניות פרטיות';
+	@override String get termsOfUse => 'תנאי השימוש';
 }
 
 // Path: troubleshootPage.firewall
@@ -609,6 +647,44 @@ class _StringsDialogsErrorDialogHe extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogHe extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'מועדפים';
+	@override String get noFavorites => 'עדיין אין מכשירים מועדפים.';
+	@override String get addFavorite => 'הוספה';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogHe extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הסרה מהמועדפים';
+	@override String content({required Object name}) => 'האם אתה באמת רוצה להסיר מהמועדפים "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogHe extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'הוסף למועדפים';
+	@override String get titleEdit => 'עריכה';
+	@override String get name => 'כינוי';
+	@override String get auto => '(אוטומטי)';
+	@override String get ip => 'כתובת IP';
+	@override String get port => 'יציאה';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoHe extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoHe._(_StringsHe root) : this._root = root, super._(root);
@@ -633,6 +709,17 @@ class _StringsDialogsFileNameInputHe extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'הזן את שם הקובץ';
 	@override String original({required Object original}) => 'מקורי: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogHe extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ניקוי היסטוריה';
+	@override String get content => 'האם אתה באמת רוצה למחוק את כל ההיסטוריה?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -738,55 +825,6 @@ class _StringsDialogsSendModeHelpHe extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'שליחת קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.';
 	@override String get multiple => 'שליחת קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.';
 	@override String get link => 'מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן שלהם.';
-}
-
-// Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogHe extends _StringsDialogsFavoriteDialogEn {
-	_StringsDialogsFavoriteDialogHe._(_StringsHe root) : this._root = root, super._(root);
-
-	@override final _StringsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'מועדפים';
-	@override String get noFavorites => 'עדיין אין מכשירים מועדפים.';
-	@override String get addFavorite => 'הוספה';
-}
-
-// Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogHe extends _StringsDialogsFavoriteDeleteDialogEn {
-	_StringsDialogsFavoriteDeleteDialogHe._(_StringsHe root) : this._root = root, super._(root);
-
-	@override final _StringsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'הסרה מהמועדפים';
-	@override String content({required Object name}) => 'האם אתה באמת רוצה להסיר מהמועדפים "${name}"?';
-}
-
-// Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogHe extends _StringsDialogsFavoriteEditDialogEn {
-	_StringsDialogsFavoriteEditDialogHe._(_StringsHe root) : this._root = root, super._(root);
-
-	@override final _StringsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get titleAdd => 'הוסף למועדפים';
-	@override String get titleEdit => 'עריכה';
-	@override String get name => 'כינוי';
-	@override String get auto => '(אוטומטי)';
-	@override String get ip => 'כתובת IP';
-	@override String get port => 'יציאה';
-}
-
-// Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogHe extends _StringsDialogsHistoryClearDialogEn {
-	_StringsDialogsHistoryClearDialogHe._(_StringsHe root) : this._root = root, super._(root);
-
-	@override final _StringsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'ניקוי היסטוריה';
-	@override String get content => 'האם אתה באמת רוצה למחוק את כל ההיסטוריה?';
 }
 
 // Path: settingsTab.general.brightnessOptions

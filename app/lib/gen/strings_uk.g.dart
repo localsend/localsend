@@ -491,6 +491,7 @@ class _StringsSettingsTabReceiveUk extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Отримання';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Автозавершення';
 	@override String get destination => 'Зберігати в теку';
 	@override String get downloads => '(Завантаження)';
 	@override String get saveToGallery => 'Зберігати медіафайли до галереї';

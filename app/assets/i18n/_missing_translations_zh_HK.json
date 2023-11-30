@@ -2,33 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-HK>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-HK' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "autoFinish": "完成後自動關閉傳輸畫面"
-    },
-    "other": {
-      "title": "其他",
-      "support": "支援 LocalSend",
-      "donate": "捐款",
-      "privacyPolicy": "私隱權政策",
-      "termsOfUse": "服務條款"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網路幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。",
-      "呢個 app 喺 Android、iOS、macOS、Windows 同 Linux 都用得㗎。你可以喺我哋嘅網站揾到呢個 app 所有平台嘅版本同其他下載方式。"
-    ],
-    "author": "作者",
-    "contributors": "貢獻者",
-    "translators": "翻譯人員"
-  },
-  "donationPage": {
-    "title": "@:settingsTab.other.donate",
-    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？",
-    "donate": "捐 {amount}",
-    "thanks": "多謝支持！",
-    "restore": "還原 app 內購買"
-  }
+  ]
 }
