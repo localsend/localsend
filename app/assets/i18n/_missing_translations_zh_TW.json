@@ -5,30 +5,30 @@
   ],
   "settingsTab": {
     "receive": {
-      "autoFinish": "Auto Finish"
+      "autoFinish": "自動完成"
     },
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "其它",
+      "support": "支持LocalSend",
+      "donate": "贊助",
+      "privacyPolicy": "隱私權政策",
+      "termsOfUse": "使用條款"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的共享檔案和訊息，無需網際網路連線。",
+      "此應用程式可在 Android、iOS、macOS、Windows 和 Linux 上使用。 您可以在官網首頁上找到所有下載選項。"
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "作者",
+    "contributors": "貢獻者",
+    "translators": "翻譯者"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "贊助",
+    "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。",
+    "donate": "贊助 {amount}",
+    "thanks": "非常感謝您!",
+    "restore": "回復購買"
   }
 }
