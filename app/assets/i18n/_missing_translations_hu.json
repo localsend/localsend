@@ -5,30 +5,30 @@
   ],
   "settingsTab": {
     "receive": {
-      "autoFinish": "Auto Finish"
+      "autoFinish": "Autom. befejezés"
     },
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "Egyéb",
+      "support": "LocalSend támogatás",
+      "donate": "Adomány",
+      "privacyPolicy": "Adatvédelmi irányelvek",
+      "termsOfUse": "Használati feltételek"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "A LocalSend egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.",
+      "Ez az alkalmazás Android, iOS, macOS, Windows és Linux rendszereken érhető el. Az összes letöltési lehetőséget megtalálja a hivatalos honlapon."
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "Szerző",
+    "contributors": "Közreműködők",
+    "translators": "Fordítók"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "Adomány",
+    "info": "A LocalSend ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.",
+    "donate": "Adomány {amount}",
+    "thanks": "Köszönöm szépen!",
+    "restore": "Vásárlás visszaállítása"
   }
 }
