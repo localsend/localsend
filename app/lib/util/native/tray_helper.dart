@@ -25,12 +25,12 @@ Future<void> initTray() async {
     try {
       if (checkPlatform([TargetPlatform.windows])) {
         await tm.trayManager.setIcon(
-          Assets.img.logo32Ico,
+          Assets.img.logo,
         );
       } else if (checkPlatform([TargetPlatform.macOS])) {
         await tm.trayManager.setIcon(Assets.img.logo32Black.path, isTemplate: true);
       } else {
-        await tm.trayManager.setIcon(Assets.img.logo32Png.path);
+        await tm.trayManager.setIcon(Assets.img.logo32.path);
       }
 
       final items = [

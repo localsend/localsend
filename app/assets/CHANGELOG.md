@@ -6,6 +6,7 @@
 - feat: add donation options (@Tienisto)
 - feat: add Yaru theme (@Tienisto)
 - feat(desktop): uses `settings.json` located next to the executable if available for portable mode (@Tienisto)
+- feat(windows): make windows icon sharper (@Tienisto, @sergd88)
 - feat(macos): add Command+W shortcut to close the window (@Q1CHENL)
 - fix: also show an OLED color mode option when dynamic colors are not supported by OS (@dhruvanbhalara)
 - fix: sync button should spin right away when clicked (@Tienisto)
