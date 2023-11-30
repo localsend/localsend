@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/model/dto/info_dto.dart';
 import 'package:localsend_app/model/dto/info_register_dto.dart';
@@ -35,6 +36,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -310,6 +312,23 @@ class ReceiveController {
     final files = {
       for (final file in server.getState().session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
     };
+
+    if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
+      if (checkPlatform([TargetPlatform.android]) && !server.getState().session!.destinationDirectory.startsWith('/storage/emulated/0/Download')) {
+        // Android requires manageExternalStorage permission to save files outside of the Download directory
+        try {
+          final result = await Permission.manageExternalStorage.request();
+          _logger.info('manageExternalStorage permission: $result');
+        } catch (e) {
+          _logger.warning('Could not request manageExternalStorage permission', e);
+        }
+      }
+      try {
+        await Permission.storage.request();
+      } catch (e) {
+        _logger.warning('Could not request storage permission', e);
+      }
+    }
 
     if (v2) {
       return server.responseJson(200,
