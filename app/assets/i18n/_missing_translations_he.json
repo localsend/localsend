@@ -11,18 +11,18 @@
       "title": "Other",
       "support": "Support LocalSend",
       "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "privacyPolicy": "מדיניות הפרטיות",
+      "termsOfUse": "תנאי השימוש"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSend היא אפליקציית קוד פתוח חינמית המאפשרת לשתף קבצים והודעות בצורה מאובטחת עם מכשירים קרובים דרך הרשת המקומית מבלי להזדקק לחיבור לאינטרנט.",
+      "אפליקציה זו זמינה באנדרואיד, iOS, macOS, Windows ו-Linux. אתה יכול למצוא את כל אפשרויות ההורדה בדף הבית הרשמי."
     ],
-    "author": "Author",
+    "author": "יוצר",
     "contributors": "Contributors",
-    "translators": "Translators"
+    "translators": "מתרגמים"
   },
   "donationPage": {
     "title": "Donate",
