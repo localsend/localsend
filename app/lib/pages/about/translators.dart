@@ -29,7 +29,7 @@ const _translators = <AppLocale, List<String>>{
     '@farshad991',
   ],
   AppLocale.filPh: [
-    'Bryan James (@BryanJames16)',
+    'Bryan James Ilaga (@BryanJames16)',
   ],
   AppLocale.fr: [
     '@Nixuge',
