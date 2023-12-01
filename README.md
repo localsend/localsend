@@ -7,6 +7,8 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
+[中文](README_ZH.md)
+
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
 [github]: https://github.com/localsend/localsend
@@ -127,7 +129,7 @@ You can help translate this app to other languages!
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
-#### _Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+**_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
 ### Bug fixes and improvements
 
