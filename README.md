@@ -7,6 +7,8 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
+[中文](README_ZH.md)
+
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
 [github]: https://github.com/localsend/localsend
@@ -14,20 +16,24 @@
 
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
 
-- [About](#about)
-- [Screenshots](#screenshots)
-- [Download](#download)
-- [How it Works](#how-it-works)
-- [Getting Started](#getting-started)
-- [Contributing](#contributing)
-  - [Translation](#translation)
-  - [Bug fixes and improvements](#bug-fixes-and-improvements)
-- [Building](#building)
-  - [Android](#android)
-  - [iOS](#ios)
-  - [macOS](#macos)
-  - [Windows](#windows)
-  - [Linux](#linux)
+- [LocalSend](#localsend)
+  - [About](#about)
+  - [Screenshots](#screenshots)
+  - [Download](#download)
+  - [Setup](#setup)
+  - [How it Works](#how-it-works)
+  - [Getting Started](#getting-started)
+  - [Contributing](#contributing)
+    - [Translation](#translation)
+      - [_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.](#take-note-fields-decorated-with--are-not-meant-to-be-translated-they-are-not-used-in-the-app-in-any-way-being-merely-informative-text-about-the-file-or-to-give-context-to-the-translator)
+    - [Bug fixes and improvements](#bug-fixes-and-improvements)
+  - [Building](#building)
+    - [Android](#android)
+    - [iOS](#ios)
+    - [macOS](#macos)
+    - [Windows](#windows)
+    - [Linux](#linux)
+  - [Contributors](#contributors)
 
 ## About
 
