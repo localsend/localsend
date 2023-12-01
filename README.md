@@ -16,24 +16,20 @@
 
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
 
-- [LocalSend](#localsend)
-  - [About](#about)
-  - [Screenshots](#screenshots)
-  - [Download](#download)
-  - [Setup](#setup)
-  - [How it Works](#how-it-works)
-  - [Getting Started](#getting-started)
-  - [Contributing](#contributing)
-    - [Translation](#translation)
-      - [_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.](#take-note-fields-decorated-with--are-not-meant-to-be-translated-they-are-not-used-in-the-app-in-any-way-being-merely-informative-text-about-the-file-or-to-give-context-to-the-translator)
-    - [Bug fixes and improvements](#bug-fixes-and-improvements)
-  - [Building](#building)
-    - [Android](#android)
-    - [iOS](#ios)
-    - [macOS](#macos)
-    - [Windows](#windows)
-    - [Linux](#linux)
-  - [Contributors](#contributors)
+- [About](#about)
+- [Screenshots](#screenshots)
+- [Download](#download)
+- [How it Works](#how-it-works)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+  - [Translation](#translation)
+  - [Bug fixes and improvements](#bug-fixes-and-improvements)
+- [Building](#building)
+  - [Android](#android)
+  - [iOS](#ios)
+  - [macOS](#macos)
+  - [Windows](#windows)
+  - [Linux](#linux)
 
 ## About
 
@@ -133,7 +129,7 @@ You can help translate this app to other languages!
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
-#### _Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+**_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
 ### Bug fixes and improvements
 
