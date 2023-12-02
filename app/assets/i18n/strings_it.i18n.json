@@ -77,6 +77,13 @@
     "help": "Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.",
     "placeItems": "Inserire gli oggetti da condividere."
   },
+  "donationPage": {
+    "title": "Dona",
+    "info": "LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l'applicazione, puoi supportare lo sviluppo con una donazione.",
+    "donate": "Dona {amount}",
+    "thanks": "Grazie per il tuo supporto!",
+    "restore": "Ripristina acquisti"
+  },
   "settingsTab": {
     "title": "Impostazioni",
     "general": {
@@ -103,6 +110,7 @@
       "animations": "Animazioni"
     },
     "receive": {
+      "autoFinish": "Termina automaticamente",
       "title": "Ricevi",
       "quickSave": "@:general.quickSave",
       "destination": "Destinazione",
@@ -122,6 +130,13 @@
       "encryption": "Crittografia",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Altro",
+      "support": "Supporta LocalSend",
+      "donate": "Dona",
+      "privacyPolicy": "Informativa sulla privacy",
+      "termsOfUse": "Termini di utilizzo"
     },
     "advancedSettings": "Impostazioni avanzate"
   },
@@ -213,7 +228,14 @@
     "pendingRequests": "Richieste in sospeso: {n}"
   },
   "aboutPage": {
-    "title": "Riguardo LocalSend"
+    "title": "Riguardo LocalSend",
+    "description": [
+      "LocalSend è un'app gratuita e open-source che ti consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale senza bisogno di una connessione Internet.",
+      "Questa app è disponibile su Android, iOS, macOS, Windows e Linux. Puoi trovare tutte le opzioni di download sulla homepage ufficiale."
+    ],
+    "author": "Autore",
+    "contributors": "Contributori",
+    "translators": "Traduttori"
   },
   "changelogPage": {
     "title": "Changelog"
