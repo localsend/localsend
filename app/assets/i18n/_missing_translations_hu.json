@@ -2,33 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <hu>.",
     "After editing this file, you can run 'dart run slang apply --locale=hu' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "autoFinish": "Autom. befejezés"
-    },
-    "other": {
-      "title": "Egyéb",
-      "support": "LocalSend támogatás",
-      "donate": "Adomány",
-      "privacyPolicy": "Adatvédelmi irányelvek",
-      "termsOfUse": "Használati feltételek"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "A LocalSend egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.",
-      "Ez az alkalmazás Android, iOS, macOS, Windows és Linux rendszereken érhető el. Az összes letöltési lehetőséget megtalálja a hivatalos honlapon."
-    ],
-    "author": "Szerző",
-    "contributors": "Közreműködők",
-    "translators": "Fordítók"
-  },
-  "donationPage": {
-    "title": "Adomány",
-    "info": "A LocalSend ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.",
-    "donate": "Adomány {amount}",
-    "thanks": "Köszönöm szépen!",
-    "restore": "Vásárlás visszaállítása"
-  }
+  ]
 }

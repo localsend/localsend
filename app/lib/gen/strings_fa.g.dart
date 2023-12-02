@@ -562,6 +562,7 @@ class _StringsSettingsTabReceiveFa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'دریافت';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'پایان خودکار';
 	@override String get destination => 'مقصد';
 	@override String get downloads => '(دانلودها)';
 	@override String get saveToGallery => 'ذخیره رسانه در گالری';

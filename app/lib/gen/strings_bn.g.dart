@@ -37,6 +37,7 @@ class _StringsBn extends _StringsEn {
 	@override late final _StringsProgressPageBn progressPage = _StringsProgressPageBn._(_root);
 	@override late final _StringsWebSharePageBn webSharePage = _StringsWebSharePageBn._(_root);
 	@override late final _StringsAboutPageBn aboutPage = _StringsAboutPageBn._(_root);
+	@override late final _StringsDonationPageBn donationPage = _StringsDonationPageBn._(_root);
 	@override late final _StringsChangelogPageBn changelogPage = _StringsChangelogPageBn._(_root);
 	@override late final _StringsAliasGeneratorBn aliasGenerator = _StringsAliasGeneratorBn._(_root);
 	@override late final _StringsDialogsBn dialogs = _StringsDialogsBn._(_root);
@@ -134,6 +135,7 @@ class _StringsSettingsTabBn extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralBn general = _StringsSettingsTabGeneralBn._(_root);
 	@override late final _StringsSettingsTabReceiveBn receive = _StringsSettingsTabReceiveBn._(_root);
 	@override late final _StringsSettingsTabNetworkBn network = _StringsSettingsTabNetworkBn._(_root);
+	@override late final _StringsSettingsTabOtherBn other = _StringsSettingsTabOtherBn._(_root);
 	@override String get advancedSettings => 'উন্নত সেটিংস';
 }
 
@@ -274,6 +276,27 @@ class _StringsAboutPageBn extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'LocalSend সম্পর্কে';
+	@override List<String> get description => [
+		'LocalSend হল একটি বিনামূল্যের, ওপেন সোর্স অ্যাপ যা আপনাকে ইন্টারনেট সংযোগের প্রয়োজন ছাড়াই আপনার স্থানীয় নেটওয়ার্কে কাছাকাছি ডিভাইসগুলির সাথে ফাইল এবং বার্তাগুলিকে নিরাপদে ভাগ করতে দেয়৷',
+		'এই অ্যাপটি Android, iOS, macOS, Windows এবং Linux-এ উপলব্ধ। আপনি অফিসিয়াল হোমপেজে সমস্ত ডাউনলোড বিকল্প খুঁজে পেতে পারেন।',
+	];
+	@override String get author => 'লেখক';
+	@override String get contributors => 'অবদানকারী';
+	@override String get translators => 'অনুবাদক';
+}
+
+// Path: donationPage
+class _StringsDonationPageBn extends _StringsDonationPageEn {
+	_StringsDonationPageBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'দান';
+	@override String get info => 'LocalSend বিনামূল্যে, ওপেন সোর্স এবং কোনো বিজ্ঞাপন ছাড়াই। আপনি যদি অ্যাপটি পছন্দ করেন তবে আপনি একটি অনুদান দিয়ে বিকাশকে সমর্থন করতে পারেন।';
+	@override String donate({required Object amount}) => 'দান ${amount}';
+	@override String get thanks => 'আপনাকে অনেক ধন্যবাদ!';
+	@override String get restore => 'ক্রয় পুনরুদ্ধার';
 }
 
 // Path: changelogPage
@@ -283,7 +306,7 @@ class _StringsChangelogPageBn extends _StringsChangelogPageEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Changelog';
+	@override String get title => 'চেঞ্জলগ';
 }
 
 // Path: aliasGenerator
@@ -543,6 +566,7 @@ class _StringsSettingsTabReceiveBn extends _StringsSettingsTabReceiveEn {
 	@override String get quickSave => '${_root.general.quickSave}';
 	@override String get destination => 'গন্তব্য';
 	@override String get saveToGallery => 'গ্যালারিতে মিডিয়া সেভ করুন';
+	@override String get autoFinish => 'অটো ফিনিশ';
 }
 
 // Path: settingsTab.network
@@ -563,6 +587,20 @@ class _StringsSettingsTabNetworkBn extends _StringsSettingsTabNetworkEn {
 	@override String get port => 'পোর্ট';
 	@override String portWarning({required Object defaultPort}) => 'আপনি একটি কাস্টম পোর্ট ব্যবহার করছেন তাই আপনি অন্য ডিভাইস থেকে এই ডিভাইকে খুঁজে নাও হতে পারে. (default: ${defaultPort})';
 	@override String get encryption => 'এনক্রিপশন';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherBn extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'অন্যান্য';
+	@override String get support => 'লোকালসেন্ড সমর্থন করুন';
+	@override String get donate => 'দান';
+	@override String get privacyPolicy => 'গোপনীয়তা নীতি';
+	@override String get termsOfUse => 'ব্যবহারের শর্তাবলী';
 }
 
 // Path: troubleshootPage.firewall
@@ -631,7 +669,7 @@ class _StringsDialogsAddFileBn extends _StringsDialogsAddFileEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'সিলেকশনে যুক্ত করুন';
+	@override String get title => 'নির্বাচন যোগ করুন';
 	@override String get content => 'আপনি কি যোগ করতে চান?';
 }
 

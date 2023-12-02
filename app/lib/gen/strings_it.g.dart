@@ -26,6 +26,7 @@ class _StringsIt extends _StringsEn {
 	@override late final _StringsGeneralIt general = _StringsGeneralIt._(_root);
 	@override late final _StringsReceiveTabIt receiveTab = _StringsReceiveTabIt._(_root);
 	@override late final _StringsSendTabIt sendTab = _StringsSendTabIt._(_root);
+	@override late final _StringsDonationPageIt donationPage = _StringsDonationPageIt._(_root);
 	@override late final _StringsSettingsTabIt settingsTab = _StringsSettingsTabIt._(_root);
 	@override late final _StringsTroubleshootPageIt troubleshootPage = _StringsTroubleshootPageIt._(_root);
 	@override late final _StringsReceiveHistoryPageIt receiveHistoryPage = _StringsReceiveHistoryPageIt._(_root);
@@ -123,6 +124,20 @@ class _StringsSendTabIt extends _StringsSendTabEn {
 	@override String get placeItems => 'Inserire gli oggetti da condividere.';
 }
 
+// Path: donationPage
+class _StringsDonationPageIt extends _StringsDonationPageEn {
+	_StringsDonationPageIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dona';
+	@override String get info => 'LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l\'applicazione, puoi supportare lo sviluppo con una donazione.';
+	@override String donate({required Object amount}) => 'Dona ${amount}';
+	@override String get thanks => 'Grazie per il tuo supporto!';
+	@override String get restore => 'Ripristina acquisti';
+}
+
 // Path: settingsTab
 class _StringsSettingsTabIt extends _StringsSettingsTabEn {
 	_StringsSettingsTabIt._(_StringsIt root) : this._root = root, super._(root);
@@ -134,6 +149,7 @@ class _StringsSettingsTabIt extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralIt general = _StringsSettingsTabGeneralIt._(_root);
 	@override late final _StringsSettingsTabReceiveIt receive = _StringsSettingsTabReceiveIt._(_root);
 	@override late final _StringsSettingsTabNetworkIt network = _StringsSettingsTabNetworkIt._(_root);
+	@override late final _StringsSettingsTabOtherIt other = _StringsSettingsTabOtherIt._(_root);
 	@override String get advancedSettings => 'Impostazioni avanzate';
 }
 
@@ -274,6 +290,13 @@ class _StringsAboutPageIt extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Riguardo LocalSend';
+	@override List<String> get description => [
+		'LocalSend è un\'app gratuita e open-source che ti consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale senza bisogno di una connessione Internet.',
+		'Questa app è disponibile su Android, iOS, macOS, Windows e Linux. Puoi trovare tutte le opzioni di download sulla homepage ufficiale.',
+	];
+	@override String get author => 'Autore';
+	@override String get contributors => 'Contributori';
+	@override String get translators => 'Traduttori';
 }
 
 // Path: changelogPage
@@ -466,6 +489,7 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get autoFinish => 'Termina automaticamente';
 	@override String get title => 'Ricevi';
 	@override String get quickSave => '${_root.general.quickSave}';
 	@override String get destination => 'Destinazione';
@@ -492,6 +516,20 @@ class _StringsSettingsTabNetworkIt extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Crittografia';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherIt extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Altro';
+	@override String get support => 'Supporta LocalSend';
+	@override String get donate => 'Dona';
+	@override String get privacyPolicy => 'Informativa sulla privacy';
+	@override String get termsOfUse => 'Termini di utilizzo';
 }
 
 // Path: troubleshootPage.firewall
