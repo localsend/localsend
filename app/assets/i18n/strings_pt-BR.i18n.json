@@ -105,6 +105,7 @@
     "receive": {
       "title": "Recebimento",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Concluir Automaticamente",
       "destination": "Destino",
       "downloads": "(Downloads)",
       "saveToGallery": "Salvar mídia na Galeria",
@@ -125,7 +126,7 @@
     },
     "other": {
       "title": "Outros",
-      "support": "Suporte LocalSend",
+      "support": "Suporte o LocalSend",
       "donate": "Doar",
       "privacyPolicy": "Política de Privacidade",
       "termsOfUse": "Termos de Uso"
@@ -222,8 +223,8 @@
   "aboutPage": {
     "title": "Sobre LocalSend",
     "description": [
-      "LocalSend é um app gratuito e open-source app que te permite enviar de forma segura arquivos e mensagens para dispositivos próximos pela sua rede local sem precisar de uma conexão com a internet.",
-      "Este app está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial."
+      "LocalSend é um aplicativo gratuito e de código aberto que permite compartilhar arquivos e mensagens de forma segura com dispositivos próximos através da sua rede local, sem a necessidade de uma conexão com a internet.",
+      "Este aplicativo está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial."
     ],
     "author": "Autor",
     "contributors": "Contribuidores",
@@ -231,7 +232,7 @@
   },
   "donationPage": {
     "title": "Doar",
-    "info": "LocalSend é gratuito, open source e sem anúncios. Se você gosta do app, você pode auxiliar o desenvolvimento com uma doação.",
+    "info": "LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação!",
     "donate": "Doar {amount}",
     "thanks": "Muito obrigado!",
     "restore": "Restaurar compra"
