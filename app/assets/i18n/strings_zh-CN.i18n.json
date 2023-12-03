@@ -105,6 +105,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "自动完成",
       "destination": "保存目录",
       "downloads": "(下载)",
       "saveToGallery": "保存到相册",
