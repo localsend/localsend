@@ -18,7 +18,7 @@
     "edit": "Editar",
     "error": "Error",
     "example": "Ejemplo",
-    "files": "Ficheros",
+    "files": "Archivos",
     "finished": "Finalizado",
     "hide": "Ocultar",
     "off": "Apagado",
@@ -52,18 +52,18 @@
     "title": "Enviar",
     "selection": {
       "title": "Selección",
-      "files": "Ficheros: {files}",
+      "files": "Archivos: {files}",
       "size": "Tamaño: {size}"
     },
     "picker": {
-      "file": "Fichero",
-      "folder": "Directorio",
-      "media": "Media",
+      "file": "Archivo",
+      "folder": "Carpeta",
+      "media": "Medios",
       "text": "Texto",
       "app": "App",
       "clipboard": "Pegar"
     },
-    "shareIntentInfo": "También puedes usar la opción \"Compartir\" de tu dispositivo para seleccionar ficheros más fácilmente.",
+    "shareIntentInfo": "También puedes usar la opción \"Compartir\" de tu dispositivo para seleccionar archivos más fácilmente.",
     "nearbyDevices": "Dispositivos Cercanos",
     "thisDevice": "Este dispositivo",
     "scan": "Buscar dispositivos",
@@ -74,7 +74,7 @@
       "link": "Compartir enlace"
     },
     "sendModeHelp": "Explicación",
-    "help": "Asegúrate de que el destino elegido está en la misma red Wi-Fi.",
+    "help": "Asegúrate de que el destino elegido esté en la misma red Wi-Fi.",
     "placeItems": "Selecciona items para compartir."
   },
   "settingsTab": {
@@ -105,6 +105,7 @@
     "receive": {
       "title": "Recibir",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Auto finalizar",
       "destination": "Destino",
       "downloads": "(Descargas)",
       "saveToGallery": "Guardar media en la galería",
@@ -123,30 +124,37 @@
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})"
     },
+    "other": {
+      "title": "Otros",
+      "support": "Apoya a LocalSend",
+      "donate": "Donar",
+      "privacyPolicy": "Política de privacidad",
+      "termsOfUse": "Condiciones de uso"
+    },
     "advancedSettings": "Configuración avanzada"
   },
   "troubleshootPage": {
     "title": "Solucionar problemas",
-    "subTitle": "¿La aplicación no funciona como se espera? Aquí puedes encontrar soluciones a problemas comunes.",
+    "subTitle": "¿La aplicación no funciona como debería? Aquí puedes encontrar soluciones a problemas comunes.",
     "solution": "Solución:",
     "fixButton": "Corregir automáticamente",
     "firewall": {
-      "symptom": "Esta aplicación puede enviar ficheros a otros dispositivos pero otros dispositivos no pueden enviar ficheros a este.",
+      "symptom": "Esta aplicación puede enviar archivos a otros dispositivos pero otros dispositivos no pueden enviar archivos a este.",
       "solution": "Lo más probable es que se trate de un problema con el firewall, puedes solucionarlo permitiendo las conexiones entrantes (UDP y TCP) en el puerto {port}.",
       "openFirewall": "Abrir Firewall"
     },
     "noConnection": {
-      "symptom": "Ambos dispositivos no pueden descubrirse ni compartir ficheros.",
-      "solution": "¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los participantes. En este caso, hay que activar esta opción en el router."
+      "symptom": "Ambos dispositivos no pueden descubrirse ni compartir archivos.",
+      "solution": "¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los dispositivos. En este caso, hay que activar esta opción en el router."
     }
   },
   "receiveHistoryPage": {
     "title": "Historial",
-    "openFolder": "Abrir directorio",
+    "openFolder": "Abrir carpeta",
     "deleteHistory": "Borrar historial",
     "empty": "El historial está vacío.",
     "entryActions": {
-      "open": "Abrir fichero",
+      "open": "Abrir archivo",
       "info": "Información",
       "deleteFromHistory": "Borrar del historial"
     }
@@ -162,8 +170,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "quiere enviarte un fichero.",
-      "other": "quiere enviarte {n} ficheros."
+      "one": "quiere enviarte un archivo.",
+      "other": "quiere enviarte {n} archivos."
     },
     "subTitleMessage": "te ha enviado un mensaje:",
     "subTitleLink": "te ha enviado un enlace:",
@@ -172,9 +180,9 @@
   "receiveOptionsPage": {
     "title": "Opciones",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(directorio @:appName)",
+    "appDirectory": "(carpeta @:appName)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Desactivado automáticamente porque hay directorios."
+    "saveToGalleryOff": "Desactivado automáticamente porque hay carpetas."
   },
   "sendPage": {
     "waiting": "Esperando respuesta...",
@@ -182,8 +190,8 @@
     "busy": "El destino está ocupado con otra petición."
   },
   "progressPage": {
-    "titleSending": "Enviando ficheros",
-    "titleReceiving": "Recibiendo ficheros",
+    "titleSending": "Enviando archivos",
+    "titleReceiving": "Recibiendo archivos",
     "savedToGallery": "Guardado en fotos",
     "total": {
       "title": {
@@ -192,7 +200,7 @@
         "canceledSender": "Cancelado por remitente",
         "canceledReceiver": "Cancelado por destino"
       },
-      "count": "Ficheros: {curr} / {n}",
+      "count": "Archivos: {curr} / {n}",
       "size": "Tamaño: {curr} / {n}",
       "speed": "Velocidad: {speed}/s"
     }
@@ -213,7 +221,21 @@
     "pendingRequests": "Solicitudes pendientes: {n}"
   },
   "aboutPage": {
-    "title": "Sobre LocalSend"
+    "title": "Sobre LocalSend",
+    "description": [
+      "LocalSend es una aplicación libre, de código abierto, que te permite compartir archivos y mensajes de forma segura con dispositivos cercanos a través de tu red local sin necesidad de conexión a Internet.",
+      "Está disponible para Android, iOS, macOS, Windows y Linux. Puedes encontrar todas las opciones de descarga en la página web oficial."
+    ],
+    "author": "Autor",
+    "contributors": "Colaboradores",
+    "translators": "Traductores"
+  },
+  "donationPage": {
+    "title": "Donar",
+    "info": "LocalSend es libre, open source y no contiene anuncios. Si te gusta la aplicación puedes ayudar al desarrollo con una donación.",
+    "donate": "Donar {amount}",
+    "thanks": "¡Muchas gracias!",
+    "restore": "Restablecer compra"
   },
   "changelogPage": {
     "title": "Registro de cambios"
@@ -237,8 +259,8 @@
       "content": "¿Realmente quieres cancelar la transferencia de archivos?"
     },
     "cannotOpenFile": {
-      "title": "No se puede abrir el fichero",
-      "content": "No se ha podido abrir \"{file}\". ¿Es posible que el fichero se haya movido, renombrado o eliminado?"
+      "title": "No se puede abrir el archivo",
+      "content": "No se ha podido abrir \"{file}\". ¿Es posible que el archivo se haya movido, renombrado o eliminado?"
     },
     "encryptionDisabledNotice": {
       "title": "Encriptación deshabilitada",
@@ -258,15 +280,15 @@
     },
     "favoriteEditDialog": {
       "titleAdd": "Agregar a favoritos",
-      "titleEdit": "Ajustar",
+      "titleEdit": "Editar",
       "name": "Alias",
       "auto": "(auto)",
       "ip": "Dirección IP",
       "port": "Puerto"
     },
     "fileInfo": {
-      "title": "Información del fichero",
-      "fileName": "Nombre del fichero:",
+      "title": "Información del archivo",
+      "fileName": "Nombre del archivo:",
       "path": "Ruta:",
       "size": "Tamaño:",
       "sender": "Emisor:",
@@ -290,8 +312,8 @@
       "multiline": "Varias líneas"
     },
     "noFiles": {
-      "title": "Ningún fichero seleccionado",
-      "content": "Por favor selecciona al menos un fichero."
+      "title": "Ningún archivo seleccionado",
+      "content": "Por favor selecciona al menos un archivo."
     },
     "noPermission": {
       "title": "Sin autorización",
@@ -314,13 +336,13 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte ficheros."
+      "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos."
     },
     "sendModeHelp": {
       "title": "Modos de envío",
-      "single": "Enviar ficheros a un solo destino. La selección se borrará una vez finalizada la transferencia.",
-      "multiple": "Enviar ficheros a múltiples destinos. La selección no se borrará.",
-      "link": "Los destinatarios que no tengan LocalSend instalado pueden descargar los ficheros seleccionados abriendo el enlace en su navegador."
+      "single": "Enviar archivos a un solo destino. La selección se borrará una vez finalizada la transferencia.",
+      "multiple": "Enviar archivos a múltiples destinos. La selección no se borrará.",
+      "link": "Los destinatarios que no tengan LocalSend instalado pueden descargar los archivos seleccionados abriendo el enlace en su navegador."
     }
   },
   "tray": {
@@ -331,8 +353,8 @@
   "web": {
     "waiting": "@:sendPage.waiting",
     "rejected": "Rechazado",
-    "files": "Ficheros",
-    "fileName": "Nombre del fichero",
+    "files": "Archivos",
+    "fileName": "Nombre del archivo",
     "size": "Tamaño"
   },
   "assetPicker": {
@@ -346,14 +368,14 @@
     "preview": "Vista previa",
     "select": "Seleccionar",
     "emptyList": "Lista vacía",
-    "unSupportedAssetType": "Tipo de fichero no soportado.",
+    "unSupportedAssetType": "Tipo de archivo no soportado.",
     "unableToAccessAll": "No se puede acceder a los archivos del dispositivo.",
     "viewingLimitedAssetsTip": "Ver sólo los archivos y álbumes accesibles para la aplicación.",
     "changeAccessibleLimitedAssets": "Haga clic para actualizar los archivos accesibles",
     "accessAllTip": "La aplicación sólo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.",
     "goToSystemSettings": "Ir a los ajustes del sistema",
     "accessLimitedAssets": "Continuar con acceso limitado",
-    "accessiblePathName": "Ficheros accesibles",
+    "accessiblePathName": "Archivos accesibles",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Imagen",
     "sTypeVideoLabel": "Video",
