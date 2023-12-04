@@ -5,7 +5,6 @@
 cd app
 fvm flutter clean
 fvm flutter pub get
-fvm flutter pub run build_runner build -d
 fvm flutter build macos
 
 # sign the app
