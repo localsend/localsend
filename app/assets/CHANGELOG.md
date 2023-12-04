@@ -1,4 +1,4 @@
-## 1.13.0 (unreleased)
+## 1.13.0 (2023-12-04)
 
 - feat: add option to automatically finish after successful transfer (@Tienisto)
 - feat: show favorite name in the device list if marked as favorite (@Tienisto)
