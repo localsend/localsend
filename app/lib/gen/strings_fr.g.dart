@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsFr extends _StringsEn {
-
+class _StringsFr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsFr.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsFr extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <fr>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsFr _root = this; // ignore: unused_field
 
@@ -37,6 +36,7 @@ class _StringsFr extends _StringsEn {
 	@override late final _StringsProgressPageFr progressPage = _StringsProgressPageFr._(_root);
 	@override late final _StringsWebSharePageFr webSharePage = _StringsWebSharePageFr._(_root);
 	@override late final _StringsAboutPageFr aboutPage = _StringsAboutPageFr._(_root);
+	@override late final _StringsDonationPageFr donationPage = _StringsDonationPageFr._(_root);
 	@override late final _StringsChangelogPageFr changelogPage = _StringsChangelogPageFr._(_root);
 	@override late final _StringsAliasGeneratorFr aliasGenerator = _StringsAliasGeneratorFr._(_root);
 	@override late final _StringsDialogsFr dialogs = _StringsDialogsFr._(_root);
@@ -134,6 +134,7 @@ class _StringsSettingsTabFr extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralFr general = _StringsSettingsTabGeneralFr._(_root);
 	@override late final _StringsSettingsTabReceiveFr receive = _StringsSettingsTabReceiveFr._(_root);
 	@override late final _StringsSettingsTabNetworkFr network = _StringsSettingsTabNetworkFr._(_root);
+	@override late final _StringsSettingsTabOtherFr other = _StringsSettingsTabOtherFr._(_root);
 	@override String get advancedSettings => 'Paramètres avancés';
 }
 
@@ -274,6 +275,27 @@ class _StringsAboutPageFr extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'A propos de LocalSend';
+	@override List<String> get description => [
+		'Localsend est un logiciel gratuit et open-source qui vous permet de partager de manière sécurisée des fichers et des messages avec d\'autres appareils sur votre réseau local, sans même avoir besoin d\'une connexion à internet.',
+		'Localsend est disponible sur Android, iOS, macOS, Windows et Linux. Vous pouvez accéder à ces téléchargements sur la page officielle.',
+	];
+	@override String get author => 'Auteur';
+	@override String get contributors => 'Contributeurs';
+	@override String get translators => 'Traducteurs';
+}
+
+// Path: donationPage
+class _StringsDonationPageFr extends _StringsDonationPageEn {
+	_StringsDonationPageFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Faire une donation';
+	@override String get info => 'LocalSend est gratuit, open-source and sans aucune pub. Si vous aimez ce logiciel, vous pouvez faire un don pour supporter son développement.';
+	@override String donate({required Object amount}) => 'Donner ${amount}';
+	@override String get thanks => 'Merci beaucoup!';
+	@override String get restore => 'Restaurer les achats';
 }
 
 // Path: changelogPage
@@ -468,6 +490,7 @@ class _StringsSettingsTabReceiveFr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Reçu';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Finir automatiquement';
 	@override String get destination => 'Destination';
 	@override String get downloads => '(Téléchargements)';
 	@override String get saveToGallery => 'Sauvegarder les médias dans la galerie';
@@ -492,6 +515,20 @@ class _StringsSettingsTabNetworkFr extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Chiffrement';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Il est possible que vous ne soyez pas détecté par d\'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherFr extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Autre';
+	@override String get support => 'Supporter LocalSend';
+	@override String get donate => 'Faire une donation';
+	@override String get privacyPolicy => 'Politique de confidentialité';
+	@override String get termsOfUse => 'Conditions d\'utilisation';
 }
 
 // Path: troubleshootPage.firewall

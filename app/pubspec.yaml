@@ -59,8 +59,8 @@ dependencies:
   shared_storage: 0.8.0
   shelf: 1.4.1
   shelf_router: 1.1.4
-  slang: 3.25.0
-  slang_flutter: 3.25.0
+  slang: 3.26.0
+  slang_flutter: 3.26.0
   system_settings: 2.1.0
   system_tray: 2.0.3
   tray_manager:
@@ -83,7 +83,7 @@ dev_dependencies:
   flutter_lints: 3.0.1
   msix: 3.16.7
   refena_inspector: 1.2.0
-  slang_build_runner: 3.25.0
+  slang_build_runner: 3.26.0
   slang_gpt: 0.10.0
   test: ^1.24.9
 
