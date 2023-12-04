@@ -86,7 +86,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
         await _revertServerState();
         await sleepAsync(250);
         if (mounted) {
-          context.pop();
+          context.popUntilRoot();
         }
       },
       child: Scaffold(
