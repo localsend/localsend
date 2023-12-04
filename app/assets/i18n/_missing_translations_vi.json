@@ -5,30 +5,30 @@
   ],
   "settingsTab": {
     "receive": {
-      "autoFinish": "Auto Finish"
+      "autoFinish": "Tự động hoàn thành"
     },
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "Khác",
+      "support": "Hỗ trợ LocalSend",
+      "donate": "Ủng hộ",
+      "privacyPolicy": "Chính sách bảo mật",
+      "termsOfUse": "Điều khoản sử dụng"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSend là một phần mềm miễn phí mã nguồn mở, giúp bạn chia sẻ tập tin cũng như tin nhắn đến các thiết bị phụ cận một cách bảo mật thông qua mạng nội bộ mà không cần kết nối mạng đến bên ngoài.",
+      "Ứng dụng có trên Android, iOS, macOS, Windows và Linux. Bạn có thể tìm thấy các tuỳ chọn tải ở trang chủ."
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "Tác giả",
+    "contributors": "Người đóng góp",
+    "translators": "Người dịch"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "Ủng hộ",
+    "info": "LocalSend là ứng dụng miễn phí, mã nguồn mở, không chứa quảng cáo. Nếu bạn yêu thích ứng dụng này, bạn có thể hỗ trợ việc phát triển bằng việc ủng hộ.",
+    "donate": "Ủng hộ {amount}",
+    "thanks": "Xin chân thành cảm ơn!",
+    "restore": "Khôi phục lịch sử ủng hộ"
   }
 }
