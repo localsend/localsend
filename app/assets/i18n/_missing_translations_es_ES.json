@@ -5,30 +5,30 @@
   ],
   "settingsTab": {
     "receive": {
-      "autoFinish": "Auto Finish"
+      "autoFinish": "Auto finalizar"
     },
     "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "title": "Otros",
+      "support": "Apoya a LocalSend",
+      "donate": "Donar",
+      "privacyPolicy": "Política de privacidad",
+      "termsOfUse": "Condiciones de uso"
     }
   },
   "aboutPage": {
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSend es una aplicación libre, de código abierto, que te permite compartir archivos y mensajes de forma segura con dispositivos cercanos a través de tu red local sin necesidad de conexión a Internet.",
+      "Está disponible para Android, iOS, macOS, Windows y Linux. Puedes encontrar todas las opciones de descarga en la página web oficial."
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "Autor",
+    "contributors": "Colaboradores",
+    "translators": "Traductores"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "Donar",
+    "info": "LocalSend es libre, open source y no contiene anuncios. Si te gusta la aplicación puedes ayudar al desarrollo con una donación.",
+    "donate": "Donar {amount}",
+    "thanks": "¡Muchas gracias!",
+    "restore": "Restablecer compra"
   }
 }
