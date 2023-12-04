@@ -2,33 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <vi>.",
     "After editing this file, you can run 'dart run slang apply --locale=vi' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "autoFinish": "Tự động hoàn thành"
-    },
-    "other": {
-      "title": "Khác",
-      "support": "Hỗ trợ LocalSend",
-      "donate": "Ủng hộ",
-      "privacyPolicy": "Chính sách bảo mật",
-      "termsOfUse": "Điều khoản sử dụng"
-    }
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend là một phần mềm miễn phí mã nguồn mở, giúp bạn chia sẻ tập tin cũng như tin nhắn đến các thiết bị phụ cận một cách bảo mật thông qua mạng nội bộ mà không cần kết nối mạng đến bên ngoài.",
-      "Ứng dụng có trên Android, iOS, macOS, Windows và Linux. Bạn có thể tìm thấy các tuỳ chọn tải ở trang chủ."
-    ],
-    "author": "Tác giả",
-    "contributors": "Người đóng góp",
-    "translators": "Người dịch"
-  },
-  "donationPage": {
-    "title": "Ủng hộ",
-    "info": "LocalSend là ứng dụng miễn phí, mã nguồn mở, không chứa quảng cáo. Nếu bạn yêu thích ứng dụng này, bạn có thể hỗ trợ việc phát triển bằng việc ủng hộ.",
-    "donate": "Ủng hộ {amount}",
-    "thanks": "Xin chân thành cảm ơn!",
-    "restore": "Khôi phục lịch sử ủng hộ"
-  }
+  ]
 }

@@ -36,6 +36,7 @@ class _StringsVi extends Translations {
 	@override late final _StringsProgressPageVi progressPage = _StringsProgressPageVi._(_root);
 	@override late final _StringsWebSharePageVi webSharePage = _StringsWebSharePageVi._(_root);
 	@override late final _StringsAboutPageVi aboutPage = _StringsAboutPageVi._(_root);
+	@override late final _StringsDonationPageVi donationPage = _StringsDonationPageVi._(_root);
 	@override late final _StringsChangelogPageVi changelogPage = _StringsChangelogPageVi._(_root);
 	@override late final _StringsAliasGeneratorVi aliasGenerator = _StringsAliasGeneratorVi._(_root);
 	@override late final _StringsDialogsVi dialogs = _StringsDialogsVi._(_root);
@@ -133,6 +134,7 @@ class _StringsSettingsTabVi extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralVi general = _StringsSettingsTabGeneralVi._(_root);
 	@override late final _StringsSettingsTabReceiveVi receive = _StringsSettingsTabReceiveVi._(_root);
 	@override late final _StringsSettingsTabNetworkVi network = _StringsSettingsTabNetworkVi._(_root);
+	@override late final _StringsSettingsTabOtherVi other = _StringsSettingsTabOtherVi._(_root);
 	@override String get advancedSettings => 'Cài đặt nâng cao';
 }
 
@@ -273,6 +275,27 @@ class _StringsAboutPageVi extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Thông tin về LocalSend';
+	@override List<String> get description => [
+		'LocalSend là một phần mềm miễn phí mã nguồn mở, giúp bạn chia sẻ tập tin cũng như tin nhắn đến các thiết bị phụ cận một cách bảo mật thông qua mạng nội bộ mà không cần kết nối mạng đến bên ngoài.',
+		'Ứng dụng có trên Android, iOS, macOS, Windows và Linux. Bạn có thể tìm thấy các tuỳ chọn tải ở trang chủ.',
+	];
+	@override String get author => 'Tác giả';
+	@override String get contributors => 'Người đóng góp';
+	@override String get translators => 'Người dịch';
+}
+
+// Path: donationPage
+class _StringsDonationPageVi extends _StringsDonationPageEn {
+	_StringsDonationPageVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ủng hộ';
+	@override String get info => 'LocalSend là ứng dụng miễn phí, mã nguồn mở, không chứa quảng cáo. Nếu bạn yêu thích ứng dụng này, bạn có thể hỗ trợ việc phát triển bằng việc ủng hộ.';
+	@override String donate({required Object amount}) => 'Ủng hộ ${amount}';
+	@override String get thanks => 'Xin chân thành cảm ơn!';
+	@override String get restore => 'Khôi phục lịch sử ủng hộ';
 }
 
 // Path: changelogPage
@@ -467,6 +490,7 @@ class _StringsSettingsTabReceiveVi extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Nhận';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Tự động hoàn thành';
 	@override String get destination => 'Đích đến';
 	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'Lưu media vào thư viện';
@@ -491,6 +515,20 @@ class _StringsSettingsTabNetworkVi extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Mã hoá';
 	@override String get multicastGroup => 'Đa phương tiện';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherVi extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Khác';
+	@override String get support => 'Hỗ trợ LocalSend';
+	@override String get donate => 'Ủng hộ';
+	@override String get privacyPolicy => 'Chính sách bảo mật';
+	@override String get termsOfUse => 'Điều khoản sử dụng';
 }
 
 // Path: troubleshootPage.firewall
