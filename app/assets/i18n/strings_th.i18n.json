@@ -90,7 +90,7 @@
       "color": "สี",
       "colorOptions": {
         "system": "ระบบ",
-        "oled": "โอแอลอีดี"
+        "oled": "โอเล็ด"
       },
       "language": "ภาษา",
       "languageOptions": {
@@ -105,6 +105,7 @@
     "receive": {
       "title": "รับ",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "เสร็จสิ้นอัตโนมัติ",
       "destination": "ปลายทาง",
       "downloads": "(ดาวน์โหลด)",
       "saveToGallery": "บันทึกมีเดียลงแกลอรี่",
