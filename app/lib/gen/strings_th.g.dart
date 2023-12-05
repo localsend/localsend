@@ -916,7 +916,7 @@ class _StringsSettingsTabGeneralColorOptionsTh extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'ระบบ';
-	@override String get oled => 'โอแอลอีดี';
+	@override String get oled => 'โอเล็ด';
 }
 
 // Path: settingsTab.general.languageOptions
