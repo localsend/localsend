@@ -221,7 +221,7 @@
     "pendingRequests": "Függőben lévő kérések: {n}"
   },
   "aboutPage": {
-    "title": "A LocalSendről",
+    "title": "A LocalSend",
     "description": [
       "A LocalSend egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.",
       "Ez az alkalmazás Android, iOS, macOS, Windows és Linux rendszereken érhető el. Az összes letöltési lehetőséget megtalálja a hivatalos honlapon."
