@@ -62,11 +62,12 @@ class _SendPageState extends State<SendPage> with Refena {
     final targetFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == targetDevice.fingerprint);
     final waiting = sendState?.status == SessionStatus.waiting;
 
-    return PopScope(
-      onPopInvoked: (_) {
+    return WillPopScope(
+      onWillPop: () async {
         if (widget.closeSessionOnClose) {
           _cancel();
         }
+        return true;
       },
       child: Scaffold(
         appBar: widget.showAppBar ? AppBar() : null,

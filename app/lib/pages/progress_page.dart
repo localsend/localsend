@@ -150,12 +150,12 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       speedInBytes = null;
     }
 
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (_) async {
+    return WillPopScope(
+      onWillPop: () async {
         if (await _onWillPop() && mounted) {
-          context.popUntilRoot();
+          return true;
         }
+        return false;
       },
       child: Scaffold(
         appBar: widget.showAppBar

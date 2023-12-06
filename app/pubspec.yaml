@@ -6,13 +6,13 @@ publish_to: "none"
 version: 1.13.0+40
 
 environment:
-  flutter: ">=3.16.0"
-  sdk: ">=3.2.0 <4.0.0"
+  flutter: ">=3.13.0"
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
   app_group_directory: 2.0.0
   basic_utils: 5.7.0
-  collection: ^1.18.0 # allow newer versions, so it can compile with newer Flutter versions
+  collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   common:
     path: ../common
   connectivity_plus: 5.0.2
@@ -39,15 +39,11 @@ dependencies:
   mime: 1.0.4
   network_info_plus: 4.1.0
   open_filex: 4.3.4
-  package_info_plus: 5.0.1
+  package_info_plus: 4.2.0
   pasteboard: ^0.2.0
   path: 1.8.3
   path_provider: 2.1.1
-  permission_handler: 11.1.0
-
-  # Remove this when wechat_assets_picker is updated to 8.9.0
-  photo_manager: 3.0.0-dev.4
-
+  permission_handler: 11.0.1
   pretty_qr_code: 3.0.0
   refena_flutter: 1.5.0
   refena_inspector_client: 1.2.0
@@ -72,7 +68,7 @@ dependencies:
   url_launcher: 6.2.1
   uuid: 3.0.7
   wakelock_plus: 1.1.4
-  wechat_assets_picker: 8.9.0-dev.1
+  wechat_assets_picker: 8.8.0
   window_manager: 0.3.7
   yaru: 1.2.0
 
@@ -85,7 +81,7 @@ dev_dependencies:
   refena_inspector: 1.2.0
   slang_build_runner: 3.26.1
   slang_gpt: 0.10.0
-  test: ^1.24.9
+  test: ^1.24.3
 
 dependency_overrides:
   permission_handler_windows:
