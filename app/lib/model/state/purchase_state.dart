@@ -1,6 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
 part 'purchase_state.mapper.dart';
 
@@ -36,7 +35,7 @@ enum PurchaseItem {
 @MappableClass()
 class PurchaseState with PurchaseStateMappable {
   final Map<PurchaseItem, String> prices;
-  final Map<PurchaseItem, PurchaseDetails> purchases;
+  final Set<PurchaseItem> purchases;
   final bool pending;
 
   const PurchaseState({

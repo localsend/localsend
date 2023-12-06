@@ -123,7 +123,7 @@ class AddPurchaseAction extends ReduxAction<PurchaseService, PurchaseState> {
     return state.copyWith(
       purchases: {
         ...state.purchases,
-        item: purchase,
+        item,
       },
     );
   }
