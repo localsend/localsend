@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsFa extends _StringsEn {
-
+class _StringsFa extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsFa.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsFa extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <fa>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsFa _root = this; // ignore: unused_field
 
@@ -562,6 +561,7 @@ class _StringsSettingsTabReceiveFa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'دریافت';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'پایان خودکار';
 	@override String get destination => 'مقصد';
 	@override String get downloads => '(دانلودها)';
 	@override String get saveToGallery => 'ذخیره رسانه در گالری';

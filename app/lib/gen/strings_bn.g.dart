@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsBn extends _StringsEn {
-
+class _StringsBn extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsBn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsBn extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <bn>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsBn _root = this; // ignore: unused_field
 
@@ -37,6 +36,7 @@ class _StringsBn extends _StringsEn {
 	@override late final _StringsProgressPageBn progressPage = _StringsProgressPageBn._(_root);
 	@override late final _StringsWebSharePageBn webSharePage = _StringsWebSharePageBn._(_root);
 	@override late final _StringsAboutPageBn aboutPage = _StringsAboutPageBn._(_root);
+	@override late final _StringsDonationPageBn donationPage = _StringsDonationPageBn._(_root);
 	@override late final _StringsChangelogPageBn changelogPage = _StringsChangelogPageBn._(_root);
 	@override late final _StringsAliasGeneratorBn aliasGenerator = _StringsAliasGeneratorBn._(_root);
 	@override late final _StringsDialogsBn dialogs = _StringsDialogsBn._(_root);
@@ -53,6 +53,7 @@ class _StringsGeneralBn extends _StringsGeneralEn {
 
 	// Translations
 	@override String get accept => 'মেনে নিন';
+	@override String get accepted => 'গৃহীত';
 	@override String get add => 'যোগ করুন';
 	@override String get advanced => 'উন্নত করা হয়েছে';
 	@override String get cancel => 'বাতিল করুন';
@@ -63,6 +64,7 @@ class _StringsGeneralBn extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'ক্লিপবোর্ডে কপি করা হয়েছে';
 	@override String get decline => 'প্রত্যাখ্যান করুন';
 	@override String get done => 'সম্পন্ন';
+	@override String get delete => 'মুছে ফেলা';
 	@override String get edit => 'বাহির হোন';
 	@override String get error => 'ভুল হয়েছে';
 	@override String get example => 'উদাহরণ';
@@ -86,8 +88,6 @@ class _StringsGeneralBn extends _StringsGeneralEn {
 	@override String get save => 'সেভ করুন';
 	@override String get unchanged => 'অপরিবর্তিত';
 	@override String get unknown => 'অজানা';
-	@override String get accepted => 'গৃহীত';
-	@override String get delete => 'মুছে ফেলা';
 	@override String get noItemInClipboard => 'ক্লিপবোর্ডে কোনো আইটেম নেই';
 }
 
@@ -134,6 +134,7 @@ class _StringsSettingsTabBn extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralBn general = _StringsSettingsTabGeneralBn._(_root);
 	@override late final _StringsSettingsTabReceiveBn receive = _StringsSettingsTabReceiveBn._(_root);
 	@override late final _StringsSettingsTabNetworkBn network = _StringsSettingsTabNetworkBn._(_root);
+	@override late final _StringsSettingsTabOtherBn other = _StringsSettingsTabOtherBn._(_root);
 	@override String get advancedSettings => 'উন্নত সেটিংস';
 }
 
@@ -274,6 +275,27 @@ class _StringsAboutPageBn extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'LocalSend সম্পর্কে';
+	@override List<String> get description => [
+		'LocalSend হল একটি বিনামূল্যের, ওপেন সোর্স অ্যাপ যা আপনাকে ইন্টারনেট সংযোগের প্রয়োজন ছাড়াই আপনার স্থানীয় নেটওয়ার্কে কাছাকাছি ডিভাইসগুলির সাথে ফাইল এবং বার্তাগুলিকে নিরাপদে ভাগ করতে দেয়৷',
+		'এই অ্যাপটি Android, iOS, macOS, Windows এবং Linux-এ উপলব্ধ। আপনি অফিসিয়াল হোমপেজে সমস্ত ডাউনলোড বিকল্প খুঁজে পেতে পারেন।',
+	];
+	@override String get author => 'লেখক';
+	@override String get contributors => 'অবদানকারী';
+	@override String get translators => 'অনুবাদক';
+}
+
+// Path: donationPage
+class _StringsDonationPageBn extends _StringsDonationPageEn {
+	_StringsDonationPageBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'দান';
+	@override String get info => 'LocalSend বিনামূল্যে, ওপেন সোর্স এবং কোনো বিজ্ঞাপন ছাড়াই। আপনি যদি অ্যাপটি পছন্দ করেন তবে আপনি একটি অনুদান দিয়ে বিকাশকে সমর্থন করতে পারেন।';
+	@override String donate({required Object amount}) => 'দান ${amount}';
+	@override String get thanks => 'আপনাকে অনেক ধন্যবাদ!';
+	@override String get restore => 'ক্রয় পুনরুদ্ধার';
 }
 
 // Path: changelogPage
@@ -283,7 +305,7 @@ class _StringsChangelogPageBn extends _StringsChangelogPageEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Changelog';
+	@override String get title => 'চেঞ্জলগ';
 }
 
 // Path: aliasGenerator
@@ -373,11 +395,10 @@ class _StringsDialogsBn extends _StringsDialogsEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsDialogsHistoryClearDialogBn historyClearDialog = _StringsDialogsHistoryClearDialogBn._(_root);
 	@override late final _StringsDialogsAddFileBn addFile = _StringsDialogsAddFileBn._(_root);
 	@override late final _StringsDialogsAddressInputBn addressInput = _StringsDialogsAddressInputBn._(_root);
-	@override late final _StringsDialogsCannotOpenFileBn cannotOpenFile = _StringsDialogsCannotOpenFileBn._(_root);
 	@override late final _StringsDialogsCancelSessionBn cancelSession = _StringsDialogsCancelSessionBn._(_root);
+	@override late final _StringsDialogsCannotOpenFileBn cannotOpenFile = _StringsDialogsCannotOpenFileBn._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeBn encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeBn._(_root);
 	@override late final _StringsDialogsErrorDialogBn errorDialog = _StringsDialogsErrorDialogBn._(_root);
 	@override late final _StringsDialogsFavoriteDialogBn favoriteDialog = _StringsDialogsFavoriteDialogBn._(_root);
@@ -385,6 +406,7 @@ class _StringsDialogsBn extends _StringsDialogsEn {
 	@override late final _StringsDialogsFavoriteEditDialogBn favoriteEditDialog = _StringsDialogsFavoriteEditDialogBn._(_root);
 	@override late final _StringsDialogsFileInfoBn fileInfo = _StringsDialogsFileInfoBn._(_root);
 	@override late final _StringsDialogsFileNameInputBn fileNameInput = _StringsDialogsFileNameInputBn._(_root);
+	@override late final _StringsDialogsHistoryClearDialogBn historyClearDialog = _StringsDialogsHistoryClearDialogBn._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedBn localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedBn._(_root);
 	@override late final _StringsDialogsMessageInputBn messageInput = _StringsDialogsMessageInputBn._(_root);
 	@override late final _StringsDialogsNoFilesBn noFiles = _StringsDialogsNoFilesBn._(_root);
@@ -490,9 +512,9 @@ class _StringsSendTabPickerBn extends _StringsSendTabPickerEn {
 
 	// Translations
 	@override String get file => 'ফাইল';
+	@override String get folder => 'ফোল্ডার';
 	@override String get media => 'মিডিয়া';
 	@override String get text => 'টেক্সট';
-	@override String get folder => 'ফোল্ডার';
 	@override String get app => 'আবেদন';
 	@override String get clipboard => 'পেস্ট করুন';
 }
@@ -524,10 +546,10 @@ class _StringsSettingsTabGeneralBn extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'ভাষা';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsBn languageOptions = _StringsSettingsTabGeneralLanguageOptionsBn._(_root);
 	@override String get saveWindowPlacement => 'প্রস্থান করুন: উইন্ডো প্লেসমেন্ট সংরক্ষণ করুন';
-	@override String get animations => 'অ্যানিমেশন';
 	@override String get minimizeToTray => 'প্রস্থান করুন: ট্রেতে মিনিমাইজ করুন';
 	@override String get launchAtStartup => 'লগইন করার পরে অটোস্টার্ট করুন';
 	@override String get launchMinimized => 'অটোস্টার্ট: হিডেন থেকে শুরু করুন';
+	@override String get animations => 'অ্যানিমেশন';
 }
 
 // Path: settingsTab.receive
@@ -537,12 +559,13 @@ class _StringsSettingsTabReceiveBn extends _StringsSettingsTabReceiveEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get downloads => '(Downloads)';
-	@override String get saveToHistory => 'ইতিহাসে সংরক্ষণ করুন';
 	@override String get title => 'গ্রহণ করুন';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'অটো ফিনিশ';
 	@override String get destination => 'গন্তব্য';
+	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'গ্যালারিতে মিডিয়া সেভ করুন';
+	@override String get saveToHistory => 'ইতিহাসে সংরক্ষণ করুন';
 }
 
 // Path: settingsTab.network
@@ -552,17 +575,31 @@ class _StringsSettingsTabNetworkBn extends _StringsSettingsTabNetworkEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get deviceType => 'ডিভাইসের ধরন';
-	@override String get deviceModel => 'ডিভাইস মডেল';
-	@override String get multicastGroup => 'মাল্টিকাস্ট';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'আপনি একটি কাস্টম মাল্টিকাস্ট ঠিকানা ব্যবহার করছেন কারণ আপনি অন্য ডিভাইস দ্বারা সনাক্ত নাও হতে পারে. (default: ${defaultMulticast})';
 	@override String get title => 'নেটওয়ার্ক';
 	@override String get needRestart => 'সেটিংস প্রয়োগ করতে সার্ভার রিস্টার্ট করুন!';
 	@override String get server => 'সার্ভার';
 	@override String get alias => 'উপনাম';
+	@override String get deviceType => 'ডিভাইসের ধরন';
+	@override String get deviceModel => 'ডিভাইস মডেল';
 	@override String get port => 'পোর্ট';
 	@override String portWarning({required Object defaultPort}) => 'আপনি একটি কাস্টম পোর্ট ব্যবহার করছেন তাই আপনি অন্য ডিভাইস থেকে এই ডিভাইকে খুঁজে নাও হতে পারে. (default: ${defaultPort})';
 	@override String get encryption => 'এনক্রিপশন';
+	@override String get multicastGroup => 'মাল্টিকাস্ট';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'আপনি একটি কাস্টম মাল্টিকাস্ট ঠিকানা ব্যবহার করছেন কারণ আপনি অন্য ডিভাইস দ্বারা সনাক্ত নাও হতে পারে. (default: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherBn extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'অন্যান্য';
+	@override String get support => 'লোকালসেন্ড সমর্থন করুন';
+	@override String get donate => 'দান';
+	@override String get privacyPolicy => 'গোপনীয়তা নীতি';
+	@override String get termsOfUse => 'ব্যবহারের শর্তাবলী';
 }
 
 // Path: troubleshootPage.firewall
@@ -613,17 +650,6 @@ class _StringsProgressPageTotalBn extends _StringsProgressPageTotalEn {
 	@override String speed({required Object speed}) => 'স্পীড: ${speed}/s';
 }
 
-// Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogBn extends _StringsDialogsHistoryClearDialogEn {
-	_StringsDialogsHistoryClearDialogBn._(_StringsBn root) : this._root = root, super._(root);
-
-	@override final _StringsBn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'ইতিহাস পরিষ্কার করুন';
-	@override String get content => 'আপনি কি সত্যিই সমগ্র ইতিহাস মুছে ফেলতে চান?';
-}
-
 // Path: dialogs.addFile
 class _StringsDialogsAddFileBn extends _StringsDialogsAddFileEn {
 	_StringsDialogsAddFileBn._(_StringsBn root) : this._root = root, super._(root);
@@ -631,7 +657,7 @@ class _StringsDialogsAddFileBn extends _StringsDialogsAddFileEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'সিলেকশনে যুক্ত করুন';
+	@override String get title => 'নির্বাচন যোগ করুন';
 	@override String get content => 'আপনি কি যোগ করতে চান?';
 }
 
@@ -648,17 +674,6 @@ class _StringsDialogsAddressInputBn extends _StringsDialogsAddressInputEn {
 	@override String get recentlyUsed => 'সম্প্রতি ব্যবহৃত: ';
 }
 
-// Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileBn extends _StringsDialogsCannotOpenFileEn {
-	_StringsDialogsCannotOpenFileBn._(_StringsBn root) : this._root = root, super._(root);
-
-	@override final _StringsBn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'ফাইলটি খুলতে পারছি না';
-	@override String content({required Object file}) => '"${file}" খোলা যায়নি। এই ফাইলটি কি সরানো হয়েছে, নাম পরিবর্তন করা হয়েছে বা মুছে ফেলা হয়েছে?';
-}
-
 // Path: dialogs.cancelSession
 class _StringsDialogsCancelSessionBn extends _StringsDialogsCancelSessionEn {
 	_StringsDialogsCancelSessionBn._(_StringsBn root) : this._root = root, super._(root);
@@ -668,6 +683,17 @@ class _StringsDialogsCancelSessionBn extends _StringsDialogsCancelSessionEn {
 	// Translations
 	@override String get title => 'ফাইল ট্রান্সফার বাতিল করুন';
 	@override String get content => 'আপনি কি সত্যিই ফাইল ট্রান্সফার বাতিল করতে চান?';
+}
+
+// Path: dialogs.cannotOpenFile
+class _StringsDialogsCannotOpenFileBn extends _StringsDialogsCannotOpenFileEn {
+	_StringsDialogsCannotOpenFileBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ফাইলটি খুলতে পারছি না';
+	@override String content({required Object file}) => '"${file}" খোলা যায়নি। এই ফাইলটি কি সরানো হয়েছে, নাম পরিবর্তন করা হয়েছে বা মুছে ফেলা হয়েছে?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -753,6 +779,17 @@ class _StringsDialogsFileNameInputBn extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'ফাইলের নাম লিখুন';
 	@override String original({required Object original}) => 'আসল: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogBn extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogBn._(_StringsBn root) : this._root = root, super._(root);
+
+	@override final _StringsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ইতিহাস পরিষ্কার করুন';
+	@override String get content => 'আপনি কি সত্যিই সমগ্র ইতিহাস মুছে ফেলতে চান?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

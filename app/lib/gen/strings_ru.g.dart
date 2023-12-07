@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsRu extends _StringsEn {
-
+class _StringsRu extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsRu.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsRu extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <ru>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsRu _root = this; // ignore: unused_field
 
@@ -491,6 +490,7 @@ class _StringsSettingsTabReceiveRu extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Получение';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Автозавершение';
 	@override String get destination => 'Сохранять в';
 	@override String get downloads => '(Загрузки)';
 	@override String get saveToGallery => 'Сохранять медиафайлы в галерею';

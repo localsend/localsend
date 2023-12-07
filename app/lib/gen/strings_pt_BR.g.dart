@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsPtBr extends _StringsEn {
-
+class _StringsPtBr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsPtBr.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsPtBr extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <pt-BR>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsPtBr _root = this; // ignore: unused_field
 
@@ -277,8 +276,8 @@ class _StringsAboutPagePtBr extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Sobre LocalSend';
 	@override List<String> get description => [
-		'LocalSend é um app gratuito e open-source app que te permite enviar de forma segura arquivos e mensagens para dispositivos próximos pela sua rede local sem precisar de uma conexão com a internet.',
-		'Este app está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial.',
+		'LocalSend é um aplicativo gratuito e de código aberto que permite compartilhar arquivos e mensagens de forma segura com dispositivos próximos através da sua rede local, sem a necessidade de uma conexão com a internet.',
+		'Este aplicativo está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial.',
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Contribuidores';
@@ -293,7 +292,7 @@ class _StringsDonationPagePtBr extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Doar';
-	@override String get info => 'LocalSend é gratuito, open source e sem anúncios. Se você gosta do app, você pode auxiliar o desenvolvimento com uma doação.';
+	@override String get info => 'LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação!';
 	@override String donate({required Object amount}) => 'Doar ${amount}';
 	@override String get thanks => 'Muito obrigado!';
 	@override String get restore => 'Restaurar compra';
@@ -552,6 +551,7 @@ class _StringsSettingsTabReceivePtBr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Recebimento';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Concluir Automaticamente';
 	@override String get destination => 'Destino';
 	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'Salvar mídia na Galeria';
@@ -586,7 +586,7 @@ class _StringsSettingsTabOtherPtBr extends _StringsSettingsTabOtherEn {
 
 	// Translations
 	@override String get title => 'Outros';
-	@override String get support => 'Suporte LocalSend';
+	@override String get support => 'Suporte o LocalSend';
 	@override String get donate => 'Doar';
 	@override String get privacyPolicy => 'Política de Privacidade';
 	@override String get termsOfUse => 'Termos de Uso';

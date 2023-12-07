@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsCa extends _StringsEn {
-
+class _StringsCa extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsCa.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsCa extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <ca>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsCa _root = this; // ignore: unused_field
 

@@ -105,6 +105,7 @@
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Автозавершення",
       "destination": "Зберігати в теку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї",

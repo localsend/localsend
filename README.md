@@ -7,6 +7,8 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
+[中文](README_ZH.md)
+
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
 [github]: https://github.com/localsend/localsend
@@ -92,7 +94,7 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 
 ## Getting Started
 
-To compile LocalSend from source code, follow these steps:
+To compile LocalSend from the source code, follow these steps:
 
 1. Install [Flutter](https://flutter.dev).
 2. Clone the LocalSend repository.
@@ -100,9 +102,9 @@ To compile LocalSend from source code, follow these steps:
 4. Run `flutter pub get` to download dependencies.
 5. Run `flutter run` to start the app.
 
-It's possible that the issue is caused by a mismatch between the required Flutter version and the installed Flutter version.
+The issue may be caused by a mismatch between the required Flutter version and the installed Flutter version.
 
-LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you installed it, run `fvm flutter` instead of `flutter`.
+LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you install it, run `fvm flutter` instead of `flutter`.
 
 ## Contributing
 
@@ -118,15 +120,16 @@ You can help translate this app to other languages!
    - Fix existing translations: Update `strings_<locale>.i18n.json` in [app/assets/i18n][i18n]
    - Add new languages: Create a new file; see also: [locale codes][].
 3. Optional: Re-run this app
-   1. Make sure you have [run](#getting-started) this app once.
-   2. Update translations via `flutter pub run slang`
-   3. Run the app via `flutter run`
-4. Open a pull request
+   1. Run `cd app` to enter the app directory.
+   2. Make sure you have [run](#getting-started) this app once.
+   3. Update translations via `flutter pub run slang`
+   4. Run the app via `flutter run`
+   5. Open a pull request
 
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
-#### _Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
+**_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
 ### Bug fixes and improvements
 

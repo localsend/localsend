@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsZhCn extends _StringsEn {
-
+class _StringsZhCn extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsZhCn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsZhCn extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <zh-CN>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsZhCn _root = this; // ignore: unused_field
 
@@ -120,7 +119,7 @@ class _StringsSendTabZhCn extends _StringsSendTabEn {
 	@override String get sendMode => '发送模式';
 	@override late final _StringsSendTabSendModesZhCn sendModes = _StringsSendTabSendModesZhCn._(_root);
 	@override String get sendModeHelp => '解释';
-	@override String get help => '请确保目标连接的是同一个 WiFi 网络。';
+	@override String get help => '请确保目标连接的是同一个 Wi‑Fi 网络。';
 	@override String get placeItems => '列出要分享的文件。';
 }
 
@@ -216,7 +215,7 @@ class _StringsReceiveOptionsPageZhCn extends _StringsReceiveOptionsPageEn {
 	// Translations
 	@override String get title => '设置';
 	@override String get destination => '${_root.settingsTab.receive.destination}';
-	@override String get appDirectory => '(LocalSend-文件夹)';
+	@override String get appDirectory => '(LocalSend 文件夹)';
 	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
 	@override String get saveToGalleryOff => '由于存在目录，已自动关闭。';
 }
@@ -281,7 +280,7 @@ class _StringsAboutPageZhCn extends _StringsAboutPageEn {
 		'本程序可在 Android、iOS、macOS、Windows 和 Linux 上使用。您可以在官方主页找到所有下载选项。',
 	];
 	@override String get author => '作者';
-	@override String get contributors => '贡献值';
+	@override String get contributors => '贡献者';
 	@override String get translators => '翻译者';
 }
 
@@ -491,6 +490,7 @@ class _StringsSettingsTabReceiveZhCn extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '接收';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => '自动完成';
 	@override String get destination => '保存目录';
 	@override String get downloads => '(下载)';
 	@override String get saveToGallery => '保存到相册';
@@ -551,7 +551,7 @@ class _StringsTroubleshootPageNoConnectionZhCn extends _StringsTroubleshootPageN
 
 	// Translations
 	@override String get symptom => '双方设备均无法发现对方或者分享文件。';
-	@override String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一 WiFi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。';
+	@override String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。';
 }
 
 // Path: receiveHistoryPage.entryActions

@@ -154,7 +154,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       canPop: false,
       onPopInvoked: (_) async {
         if (await _onWillPop() && mounted) {
-          context.pop();
+          context.popUntilRoot();
         }
       },
       child: Scaffold(

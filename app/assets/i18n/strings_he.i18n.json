@@ -11,10 +11,10 @@
     "confirm": "אישור",
     "continueStr": "המשך",
     "copy": "העתקה",
-    "delete": "מחיקה",
     "copiedToClipboard": "הועתק ללוח",
     "decline": "דחיה",
     "done": "אישור",
+    "delete": "מחיקה",
     "edit": "עריכה",
     "error": "שגיאה",
     "example": "דוגמא",
@@ -105,6 +105,7 @@
     "receive": {
       "title": "קבלה",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "סיום אוטומטי",
       "destination": "יעד",
       "downloads": "(הורדות)",
       "saveToGallery": "שמור מדיה לגלריה",
@@ -122,6 +123,13 @@
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",
       "multicastGroupWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: {defaultMulticast})"
+    },
+    "other": {
+      "title": "אחר",
+      "support": "תמיכה ב-LocalSend",
+      "donate": "תרומה",
+      "privacyPolicy": "מדיניות פרטיות",
+      "termsOfUse": "תנאי השימוש"
     },
     "advancedSettings": "הגדרות מתקדמות"
   },
@@ -213,7 +221,21 @@
     "pendingRequests": "בקשות בהמתנה: {n}"
   },
   "aboutPage": {
-    "title": "אודות LocalSend"
+    "title": "אודות LocalSend",
+    "description": [
+      "LocalSend היא אפליקציית קוד פתוח חינמית המאפשרת לשתף קבצים והודעות בצורה מאובטחת עם מכשירים קרובים דרך הרשת המקומית מבלי להזדקק לחיבור לאינטרנט.",
+      "אפליקציה זו זמינה באנדרואיד, iOS, macOS, Windows ו-Linux. אתה יכול למצוא את כל אפשרויות ההורדה בדף הבית הרשמי."
+    ],
+    "author": "יוצר",
+    "contributors": "תורמים",
+    "translators": "מתרגמים"
+  },
+  "donationPage": {
+    "title": "תרומה",
+    "info": "אפליקציית LocalSend היא חינמית, קוד פתוח וללא פרסומות. אם אתה אוהב את האפליקציה, אתה יכול לתמוך בפיתוח באמצעות תרומה.",
+    "donate": "תרומת {amount}",
+    "thanks": "תודה רבה!",
+    "restore": "שחזור רכישה"
   },
   "changelogPage": {
     "title": "יומן שינויים"
@@ -247,6 +269,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "מועדפים",
+      "noFavorites": "עדיין אין מכשירים מועדפים.",
+      "addFavorite": "הוספה"
+    },
+    "favoriteDeleteDialog": {
+      "title": "הסרה מהמועדפים",
+      "content": "האם אתה באמת רוצה להסיר מהמועדפים \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "הוסף למועדפים",
+      "titleEdit": "עריכה",
+      "name": "כינוי",
+      "auto": "(אוטומטי)",
+      "ip": "כתובת IP",
+      "port": "יציאה"
+    },
     "fileInfo": {
       "title": "מידע על הקובץ",
       "fileName": "שם הקובץ:",
@@ -258,6 +297,10 @@
     "fileNameInput": {
       "title": "הזן את שם הקובץ",
       "original": "מקורי: {original}"
+    },
+    "historyClearDialog": {
+      "title": "ניקוי היסטוריה",
+      "content": "האם אתה באמת רוצה למחוק את כל ההיסטוריה?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -300,27 +343,6 @@
       "single": "שליחת קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.",
       "multiple": "שליחת קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.",
       "link": "מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן שלהם."
-    },
-    "favoriteDialog": {
-      "title": "מועדפים",
-      "noFavorites": "עדיין אין מכשירים מועדפים.",
-      "addFavorite": "הוספה"
-    },
-    "favoriteDeleteDialog": {
-      "title": "הסרה מהמועדפים",
-      "content": "האם אתה באמת רוצה להסיר מהמועדפים \"{name}\"?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "הוסף למועדפים",
-      "titleEdit": "עריכה",
-      "name": "כינוי",
-      "auto": "(אוטומטי)",
-      "ip": "כתובת IP",
-      "port": "יציאה"
-    },
-    "historyClearDialog": {
-      "title": "ניקוי היסטוריה",
-      "content": "האם אתה באמת רוצה למחוק את כל ההיסטוריה?"
     }
   },
   "tray": {

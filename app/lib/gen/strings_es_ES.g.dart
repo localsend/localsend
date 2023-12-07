@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsEsEs extends _StringsEn {
-
+class _StringsEsEs extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsEsEs.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsEsEs extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <es-ES>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsEsEs _root = this; // ignore: unused_field
 
@@ -37,6 +36,7 @@ class _StringsEsEs extends _StringsEn {
 	@override late final _StringsProgressPageEsEs progressPage = _StringsProgressPageEsEs._(_root);
 	@override late final _StringsWebSharePageEsEs webSharePage = _StringsWebSharePageEsEs._(_root);
 	@override late final _StringsAboutPageEsEs aboutPage = _StringsAboutPageEsEs._(_root);
+	@override late final _StringsDonationPageEsEs donationPage = _StringsDonationPageEsEs._(_root);
 	@override late final _StringsChangelogPageEsEs changelogPage = _StringsChangelogPageEsEs._(_root);
 	@override late final _StringsAliasGeneratorEsEs aliasGenerator = _StringsAliasGeneratorEsEs._(_root);
 	@override late final _StringsDialogsEsEs dialogs = _StringsDialogsEsEs._(_root);
@@ -68,7 +68,7 @@ class _StringsGeneralEsEs extends _StringsGeneralEn {
 	@override String get edit => 'Editar';
 	@override String get error => 'Error';
 	@override String get example => 'Ejemplo';
-	@override String get files => 'Ficheros';
+	@override String get files => 'Archivos';
 	@override String get finished => 'Finalizado';
 	@override String get hide => 'Ocultar';
 	@override String get off => 'Apagado';
@@ -112,14 +112,14 @@ class _StringsSendTabEsEs extends _StringsSendTabEn {
 	@override String get title => 'Enviar';
 	@override late final _StringsSendTabSelectionEsEs selection = _StringsSendTabSelectionEsEs._(_root);
 	@override late final _StringsSendTabPickerEsEs picker = _StringsSendTabPickerEsEs._(_root);
-	@override String get shareIntentInfo => 'También puedes usar la opción "Compartir" de tu dispositivo para seleccionar ficheros más fácilmente.';
+	@override String get shareIntentInfo => 'También puedes usar la opción "Compartir" de tu dispositivo para seleccionar archivos más fácilmente.';
 	@override String get nearbyDevices => 'Dispositivos Cercanos';
 	@override String get thisDevice => 'Este dispositivo';
 	@override String get scan => 'Buscar dispositivos';
 	@override String get sendMode => 'Modo de envío';
 	@override late final _StringsSendTabSendModesEsEs sendModes = _StringsSendTabSendModesEsEs._(_root);
 	@override String get sendModeHelp => 'Explicación';
-	@override String get help => 'Asegúrate de que el destino elegido está en la misma red Wi-Fi.';
+	@override String get help => 'Asegúrate de que el destino elegido esté en la misma red Wi-Fi.';
 	@override String get placeItems => 'Selecciona items para compartir.';
 }
 
@@ -134,6 +134,7 @@ class _StringsSettingsTabEsEs extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralEsEs general = _StringsSettingsTabGeneralEsEs._(_root);
 	@override late final _StringsSettingsTabReceiveEsEs receive = _StringsSettingsTabReceiveEsEs._(_root);
 	@override late final _StringsSettingsTabNetworkEsEs network = _StringsSettingsTabNetworkEsEs._(_root);
+	@override late final _StringsSettingsTabOtherEsEs other = _StringsSettingsTabOtherEsEs._(_root);
 	@override String get advancedSettings => 'Configuración avanzada';
 }
 
@@ -145,7 +146,7 @@ class _StringsTroubleshootPageEsEs extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'Solucionar problemas';
-	@override String get subTitle => '¿La aplicación no funciona como se espera? Aquí puedes encontrar soluciones a problemas comunes.';
+	@override String get subTitle => '¿La aplicación no funciona como debería? Aquí puedes encontrar soluciones a problemas comunes.';
 	@override String get solution => 'Solución:';
 	@override String get fixButton => 'Corregir automáticamente';
 	@override late final _StringsTroubleshootPageFirewallEsEs firewall = _StringsTroubleshootPageFirewallEsEs._(_root);
@@ -160,7 +161,7 @@ class _StringsReceiveHistoryPageEsEs extends _StringsReceiveHistoryPageEn {
 
 	// Translations
 	@override String get title => 'Historial';
-	@override String get openFolder => 'Abrir directorio';
+	@override String get openFolder => 'Abrir carpeta';
 	@override String get deleteHistory => 'Borrar historial';
 	@override String get empty => 'El historial está vacío.';
 	@override late final _StringsReceiveHistoryPageEntryActionsEsEs entryActions = _StringsReceiveHistoryPageEntryActionsEsEs._(_root);
@@ -197,8 +198,8 @@ class _StringsReceivePageEsEs extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
-		one: 'quiere enviarte un fichero.',
-		other: 'quiere enviarte ${n} ficheros.',
+		one: 'quiere enviarte un archivo.',
+		other: 'quiere enviarte ${n} archivos.',
 	);
 	@override String get subTitleMessage => 'te ha enviado un mensaje:';
 	@override String get subTitleLink => 'te ha enviado un enlace:';
@@ -214,9 +215,9 @@ class _StringsReceiveOptionsPageEsEs extends _StringsReceiveOptionsPageEn {
 	// Translations
 	@override String get title => 'Opciones';
 	@override String get destination => '${_root.settingsTab.receive.destination}';
-	@override String get appDirectory => '(directorio ${_root.appName})';
+	@override String get appDirectory => '(carpeta ${_root.appName})';
 	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
-	@override String get saveToGalleryOff => 'Desactivado automáticamente porque hay directorios.';
+	@override String get saveToGalleryOff => 'Desactivado automáticamente porque hay carpetas.';
 }
 
 // Path: sendPage
@@ -238,8 +239,8 @@ class _StringsProgressPageEsEs extends _StringsProgressPageEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get titleSending => 'Enviando ficheros';
-	@override String get titleReceiving => 'Recibiendo ficheros';
+	@override String get titleSending => 'Enviando archivos';
+	@override String get titleReceiving => 'Recibiendo archivos';
 	@override String get savedToGallery => 'Guardado en fotos';
 	@override late final _StringsProgressPageTotalEsEs total = _StringsProgressPageTotalEsEs._(_root);
 }
@@ -274,6 +275,27 @@ class _StringsAboutPageEsEs extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Sobre LocalSend';
+	@override List<String> get description => [
+		'LocalSend es una aplicación libre, de código abierto, que te permite compartir archivos y mensajes de forma segura con dispositivos cercanos a través de tu red local sin necesidad de conexión a Internet.',
+		'Está disponible para Android, iOS, macOS, Windows y Linux. Puedes encontrar todas las opciones de descarga en la página web oficial.',
+	];
+	@override String get author => 'Autor';
+	@override String get contributors => 'Colaboradores';
+	@override String get translators => 'Traductores';
+}
+
+// Path: donationPage
+class _StringsDonationPageEsEs extends _StringsDonationPageEn {
+	_StringsDonationPageEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Donar';
+	@override String get info => 'LocalSend es libre, open source y no contiene anuncios. Si te gusta la aplicación puedes ayudar al desarrollo con una donación.';
+	@override String donate({required Object amount}) => 'Donar ${amount}';
+	@override String get thanks => '¡Muchas gracias!';
+	@override String get restore => 'Restablecer compra';
 }
 
 // Path: changelogPage
@@ -345,8 +367,8 @@ class _StringsWebEsEs extends _StringsWebEn {
 	// Translations
 	@override String get waiting => '${_root.sendPage.waiting}';
 	@override String get rejected => 'Rechazado';
-	@override String get files => 'Ficheros';
-	@override String get fileName => 'Nombre del fichero';
+	@override String get files => 'Archivos';
+	@override String get fileName => 'Nombre del archivo';
 	@override String get size => 'Tamaño';
 }
 
@@ -366,14 +388,14 @@ class _StringsAssetPickerEsEs extends _StringsAssetPickerEn {
 	@override String get preview => 'Vista previa';
 	@override String get select => 'Seleccionar';
 	@override String get emptyList => 'Lista vacía';
-	@override String get unSupportedAssetType => 'Tipo de fichero no soportado.';
+	@override String get unSupportedAssetType => 'Tipo de archivo no soportado.';
 	@override String get unableToAccessAll => 'No se puede acceder a los archivos del dispositivo.';
 	@override String get viewingLimitedAssetsTip => 'Ver sólo los archivos y álbumes accesibles para la aplicación.';
 	@override String get changeAccessibleLimitedAssets => 'Haga clic para actualizar los archivos accesibles';
 	@override String get accessAllTip => 'La aplicación sólo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.';
 	@override String get goToSystemSettings => 'Ir a los ajustes del sistema';
 	@override String get accessLimitedAssets => 'Continuar con acceso limitado';
-	@override String get accessiblePathName => 'Ficheros accesibles';
+	@override String get accessiblePathName => 'Archivos accesibles';
 	@override String get sTypeAudioLabel => 'Audio';
 	@override String get sTypeImageLabel => 'Imagen';
 	@override String get sTypeVideoLabel => 'Video';
@@ -407,7 +429,7 @@ class _StringsSendTabSelectionEsEs extends _StringsSendTabSelectionEn {
 
 	// Translations
 	@override String get title => 'Selección';
-	@override String files({required Object files}) => 'Ficheros: ${files}';
+	@override String files({required Object files}) => 'Archivos: ${files}';
 	@override String size({required Object size}) => 'Tamaño: ${size}';
 }
 
@@ -418,9 +440,9 @@ class _StringsSendTabPickerEsEs extends _StringsSendTabPickerEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get file => 'Fichero';
-	@override String get folder => 'Directorio';
-	@override String get media => 'Media';
+	@override String get file => 'Archivo';
+	@override String get folder => 'Carpeta';
+	@override String get media => 'Medios';
 	@override String get text => 'Texto';
 	@override String get app => 'App';
 	@override String get clipboard => 'Pegar';
@@ -468,6 +490,7 @@ class _StringsSettingsTabReceiveEsEs extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Recibir';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Auto finalizar';
 	@override String get destination => 'Destino';
 	@override String get downloads => '(Descargas)';
 	@override String get saveToGallery => 'Guardar media en la galería';
@@ -494,6 +517,20 @@ class _StringsSettingsTabNetworkEsEs extends _StringsSettingsTabNetworkEn {
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: ${defaultMulticast})';
 }
 
+// Path: settingsTab.other
+class _StringsSettingsTabOtherEsEs extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Otros';
+	@override String get support => 'Apoya a LocalSend';
+	@override String get donate => 'Donar';
+	@override String get privacyPolicy => 'Política de privacidad';
+	@override String get termsOfUse => 'Condiciones de uso';
+}
+
 // Path: troubleshootPage.firewall
 class _StringsTroubleshootPageFirewallEsEs extends _StringsTroubleshootPageFirewallEn {
 	_StringsTroubleshootPageFirewallEsEs._(_StringsEsEs root) : this._root = root, super._(root);
@@ -501,7 +538,7 @@ class _StringsTroubleshootPageFirewallEsEs extends _StringsTroubleshootPageFirew
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Esta aplicación puede enviar ficheros a otros dispositivos pero otros dispositivos no pueden enviar ficheros a este.';
+	@override String get symptom => 'Esta aplicación puede enviar archivos a otros dispositivos pero otros dispositivos no pueden enviar archivos a este.';
 	@override String solution({required Object port}) => 'Lo más probable es que se trate de un problema con el firewall, puedes solucionarlo permitiendo las conexiones entrantes (UDP y TCP) en el puerto ${port}.';
 	@override String get openFirewall => 'Abrir Firewall';
 }
@@ -513,8 +550,8 @@ class _StringsTroubleshootPageNoConnectionEsEs extends _StringsTroubleshootPageN
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Ambos dispositivos no pueden descubrirse ni compartir ficheros.';
-	@override String get solution => '¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los participantes. En este caso, hay que activar esta opción en el router.';
+	@override String get symptom => 'Ambos dispositivos no pueden descubrirse ni compartir archivos.';
+	@override String get solution => '¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los dispositivos. En este caso, hay que activar esta opción en el router.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -524,7 +561,7 @@ class _StringsReceiveHistoryPageEntryActionsEsEs extends _StringsReceiveHistoryP
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => 'Abrir fichero';
+	@override String get open => 'Abrir archivo';
 	@override String get info => 'Información';
 	@override String get deleteFromHistory => 'Borrar del historial';
 }
@@ -537,7 +574,7 @@ class _StringsProgressPageTotalEsEs extends _StringsProgressPageTotalEn {
 
 	// Translations
 	@override late final _StringsProgressPageTotalTitleEsEs title = _StringsProgressPageTotalTitleEsEs._(_root);
-	@override String count({required Object curr, required Object n}) => 'Ficheros: ${curr} / ${n}';
+	@override String count({required Object curr, required Object n}) => 'Archivos: ${curr} / ${n}';
 	@override String size({required Object curr, required Object n}) => 'Tamaño: ${curr} / ${n}';
 	@override String speed({required Object speed}) => 'Velocidad: ${speed}/s';
 }
@@ -584,8 +621,8 @@ class _StringsDialogsCannotOpenFileEsEs extends _StringsDialogsCannotOpenFileEn 
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'No se puede abrir el fichero';
-	@override String content({required Object file}) => 'No se ha podido abrir "${file}". ¿Es posible que el fichero se haya movido, renombrado o eliminado?';
+	@override String get title => 'No se puede abrir el archivo';
+	@override String content({required Object file}) => 'No se ha podido abrir "${file}". ¿Es posible que el archivo se haya movido, renombrado o eliminado?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -640,7 +677,7 @@ class _StringsDialogsFavoriteEditDialogEsEs extends _StringsDialogsFavoriteEditD
 
 	// Translations
 	@override String get titleAdd => 'Agregar a favoritos';
-	@override String get titleEdit => 'Ajustar';
+	@override String get titleEdit => 'Editar';
 	@override String get name => 'Alias';
 	@override String get auto => '(auto)';
 	@override String get ip => 'Dirección IP';
@@ -654,8 +691,8 @@ class _StringsDialogsFileInfoEsEs extends _StringsDialogsFileInfoEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Información del fichero';
-	@override String get fileName => 'Nombre del fichero:';
+	@override String get title => 'Información del archivo';
+	@override String get fileName => 'Nombre del archivo:';
 	@override String get path => 'Ruta:';
 	@override String get size => 'Tamaño:';
 	@override String get sender => 'Emisor:';
@@ -714,8 +751,8 @@ class _StringsDialogsNoFilesEsEs extends _StringsDialogsNoFilesEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ningún fichero seleccionado';
-	@override String get content => 'Por favor selecciona al menos un fichero.';
+	@override String get title => 'Ningún archivo seleccionado';
+	@override String get content => 'Por favor selecciona al menos un archivo.';
 }
 
 // Path: dialogs.noPermission
@@ -773,7 +810,7 @@ class _StringsDialogsQuickSaveNoticeEsEs extends _StringsDialogsQuickSaveNoticeE
 
 	// Translations
 	@override String get title => '${_root.general.quickSave}';
-	@override String get content => 'Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte ficheros.';
+	@override String get content => 'Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -784,9 +821,9 @@ class _StringsDialogsSendModeHelpEsEs extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Modos de envío';
-	@override String get single => 'Enviar ficheros a un solo destino. La selección se borrará una vez finalizada la transferencia.';
-	@override String get multiple => 'Enviar ficheros a múltiples destinos. La selección no se borrará.';
-	@override String get link => 'Los destinatarios que no tengan LocalSend instalado pueden descargar los ficheros seleccionados abriendo el enlace en su navegador.';
+	@override String get single => 'Enviar archivos a un solo destino. La selección se borrará una vez finalizada la transferencia.';
+	@override String get multiple => 'Enviar archivos a múltiples destinos. La selección no se borrará.';
+	@override String get link => 'Los destinatarios que no tengan LocalSend instalado pueden descargar los archivos seleccionados abriendo el enlace en su navegador.';
 }
 
 // Path: settingsTab.general.brightnessOptions

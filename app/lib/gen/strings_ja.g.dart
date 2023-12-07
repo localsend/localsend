@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsJa extends _StringsEn {
-
+class _StringsJa extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsJa.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsJa extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <ja>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsJa _root = this; // ignore: unused_field
 
@@ -37,6 +36,7 @@ class _StringsJa extends _StringsEn {
 	@override late final _StringsProgressPageJa progressPage = _StringsProgressPageJa._(_root);
 	@override late final _StringsWebSharePageJa webSharePage = _StringsWebSharePageJa._(_root);
 	@override late final _StringsAboutPageJa aboutPage = _StringsAboutPageJa._(_root);
+	@override late final _StringsDonationPageJa donationPage = _StringsDonationPageJa._(_root);
 	@override late final _StringsChangelogPageJa changelogPage = _StringsChangelogPageJa._(_root);
 	@override late final _StringsAliasGeneratorJa aliasGenerator = _StringsAliasGeneratorJa._(_root);
 	@override late final _StringsDialogsJa dialogs = _StringsDialogsJa._(_root);
@@ -134,6 +134,7 @@ class _StringsSettingsTabJa extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralJa general = _StringsSettingsTabGeneralJa._(_root);
 	@override late final _StringsSettingsTabReceiveJa receive = _StringsSettingsTabReceiveJa._(_root);
 	@override late final _StringsSettingsTabNetworkJa network = _StringsSettingsTabNetworkJa._(_root);
+	@override late final _StringsSettingsTabOtherJa other = _StringsSettingsTabOtherJa._(_root);
 	@override String get advancedSettings => '詳細設定';
 }
 
@@ -274,6 +275,27 @@ class _StringsAboutPageJa extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'LocalSendについて';
+	@override List<String> get description => [
+		'LocalSendは無料のオープンソースアプリで、インターネットに接続することなく、ローカルネットワーク経由で近くにあるデバイスとファイルやメッセージを安全に共有することができます。',
+		'本アプリはAndroid、iOS、macOS、Windows、Linuxで利用でき、公式ホームページからダウンロードすることができます。',
+	];
+	@override String get author => '著者';
+	@override String get contributors => '貢献者';
+	@override String get translators => '翻訳者';
+}
+
+// Path: donationPage
+class _StringsDonationPageJa extends _StringsDonationPageEn {
+	_StringsDonationPageJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '寄付';
+	@override String get info => 'LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発をサポートすることができます。';
+	@override String donate({required Object amount}) => '${amount} 寄付する';
+	@override String get thanks => 'ありがとうございます！';
+	@override String get restore => '購入を復元する';
 }
 
 // Path: changelogPage
@@ -468,6 +490,7 @@ class _StringsSettingsTabReceiveJa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '受信';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => '自動で完了';
 	@override String get destination => '保存先';
 	@override String get downloads => '(ダウンロード)';
 	@override String get saveToGallery => 'メディアをギャラリーに保存';
@@ -492,6 +515,20 @@ class _StringsSettingsTabNetworkJa extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => '暗号化';
 	@override String get multicastGroup => 'マルチキャスト';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherJa extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'その他';
+	@override String get support => 'LocalSendを支援';
+	@override String get donate => '寄付';
+	@override String get privacyPolicy => 'プライバシーポリシー';
+	@override String get termsOfUse => '利用規約';
 }
 
 // Path: troubleshootPage.firewall
@@ -617,7 +654,7 @@ class _StringsDialogsFavoriteDialogJa extends _StringsDialogsFavoriteDialogEn {
 
 	// Translations
 	@override String get title => 'お気に入り';
-	@override String get noFavorites => 'お気に入りした機器がありません。';
+	@override String get noFavorites => 'お気に入りしたデバイスがありません。';
 	@override String get addFavorite => '追加';
 }
 
@@ -629,7 +666,7 @@ class _StringsDialogsFavoriteDeleteDialogJa extends _StringsDialogsFavoriteDelet
 
 	// Translations
 	@override String get title => 'お気に入りから削除';
-	@override String content({required Object name}) => '本当に "${name}" お気に入りから削除しますか？';
+	@override String content({required Object name}) => '本当に"${name}"をお気に入りから削除しますか？';
 }
 
 // Path: dialogs.favoriteEditDialog

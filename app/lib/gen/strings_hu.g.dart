@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsHu extends _StringsEn {
-
+class _StringsHu extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsHu.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsHu extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <hu>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsHu _root = this; // ignore: unused_field
 
@@ -37,6 +36,7 @@ class _StringsHu extends _StringsEn {
 	@override late final _StringsProgressPageHu progressPage = _StringsProgressPageHu._(_root);
 	@override late final _StringsWebSharePageHu webSharePage = _StringsWebSharePageHu._(_root);
 	@override late final _StringsAboutPageHu aboutPage = _StringsAboutPageHu._(_root);
+	@override late final _StringsDonationPageHu donationPage = _StringsDonationPageHu._(_root);
 	@override late final _StringsChangelogPageHu changelogPage = _StringsChangelogPageHu._(_root);
 	@override late final _StringsAliasGeneratorHu aliasGenerator = _StringsAliasGeneratorHu._(_root);
 	@override late final _StringsDialogsHu dialogs = _StringsDialogsHu._(_root);
@@ -134,6 +134,7 @@ class _StringsSettingsTabHu extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralHu general = _StringsSettingsTabGeneralHu._(_root);
 	@override late final _StringsSettingsTabReceiveHu receive = _StringsSettingsTabReceiveHu._(_root);
 	@override late final _StringsSettingsTabNetworkHu network = _StringsSettingsTabNetworkHu._(_root);
+	@override late final _StringsSettingsTabOtherHu other = _StringsSettingsTabOtherHu._(_root);
 	@override String get advancedSettings => 'Haladó beállítások';
 }
 
@@ -274,6 +275,27 @@ class _StringsAboutPageHu extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'A LocalSendről';
+	@override List<String> get description => [
+		'A LocalSend egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.',
+		'Ez az alkalmazás Android, iOS, macOS, Windows és Linux rendszereken érhető el. Az összes letöltési lehetőséget megtalálja a hivatalos honlapon.',
+	];
+	@override String get author => 'Szerző';
+	@override String get contributors => 'Közreműködők';
+	@override String get translators => 'Fordítók';
+}
+
+// Path: donationPage
+class _StringsDonationPageHu extends _StringsDonationPageEn {
+	_StringsDonationPageHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Adomány';
+	@override String get info => 'A LocalSend ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.';
+	@override String donate({required Object amount}) => 'Adomány ${amount}';
+	@override String get thanks => 'Köszönöm szépen!';
+	@override String get restore => 'Vásárlás visszaállítása';
 }
 
 // Path: changelogPage
@@ -468,6 +490,7 @@ class _StringsSettingsTabReceiveHu extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Fogadás';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Autom. befejezés';
 	@override String get destination => 'Mentés helye';
 	@override String get downloads => '(Letöltések)';
 	@override String get saveToGallery => 'Média mentése a galériába';
@@ -492,6 +515,20 @@ class _StringsSettingsTabNetworkHu extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Titkosítás';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherHu extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Egyéb';
+	@override String get support => 'LocalSend támogatás';
+	@override String get donate => 'Adomány';
+	@override String get privacyPolicy => 'Adatvédelmi irányelvek';
+	@override String get termsOfUse => 'Használati feltételek';
 }
 
 // Path: troubleshootPage.firewall

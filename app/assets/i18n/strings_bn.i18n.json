@@ -3,6 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "মেনে নিন",
+    "accepted": "গৃহীত",
     "add": "যোগ করুন",
     "advanced": "উন্নত করা হয়েছে",
     "cancel": "বাতিল করুন",
@@ -13,6 +14,7 @@
     "copiedToClipboard": "ক্লিপবোর্ডে কপি করা হয়েছে",
     "decline": "প্রত্যাখ্যান করুন",
     "done": "সম্পন্ন",
+    "delete": "মুছে ফেলা",
     "edit": "বাহির হোন",
     "error": "ভুল হয়েছে",
     "example": "উদাহরণ",
@@ -36,8 +38,6 @@
     "save": "সেভ করুন",
     "unchanged": "অপরিবর্তিত",
     "unknown": "অজানা",
-    "accepted": "গৃহীত",
-    "delete": "মুছে ফেলা",
     "noItemInClipboard": "ক্লিপবোর্ডে কোনো আইটেম নেই"
   },
   "receiveTab": {
@@ -57,9 +57,9 @@
     },
     "picker": {
       "file": "ফাইল",
+      "folder": "ফোল্ডার",
       "media": "মিডিয়া",
       "text": "টেক্সট",
-      "folder": "ফোল্ডার",
       "app": "আবেদন",
       "clipboard": "পেস্ট করুন"
     },
@@ -97,31 +97,39 @@
         "system": "সিস্টেম"
       },
       "saveWindowPlacement": "প্রস্থান করুন: উইন্ডো প্লেসমেন্ট সংরক্ষণ করুন",
-      "animations": "অ্যানিমেশন",
       "minimizeToTray": "প্রস্থান করুন: ট্রেতে মিনিমাইজ করুন",
       "launchAtStartup": "লগইন করার পরে অটোস্টার্ট করুন",
-      "launchMinimized": "অটোস্টার্ট: হিডেন থেকে শুরু করুন"
+      "launchMinimized": "অটোস্টার্ট: হিডেন থেকে শুরু করুন",
+      "animations": "অ্যানিমেশন"
     },
     "receive": {
-      "downloads": "(Downloads)",
-      "saveToHistory": "ইতিহাসে সংরক্ষণ করুন",
       "title": "গ্রহণ করুন",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "অটো ফিনিশ",
       "destination": "গন্তব্য",
-      "saveToGallery": "গ্যালারিতে মিডিয়া সেভ করুন"
+      "downloads": "(Downloads)",
+      "saveToGallery": "গ্যালারিতে মিডিয়া সেভ করুন",
+      "saveToHistory": "ইতিহাসে সংরক্ষণ করুন"
     },
     "network": {
-      "deviceType": "ডিভাইসের ধরন",
-      "deviceModel": "ডিভাইস মডেল",
-      "multicastGroup": "মাল্টিকাস্ট",
-      "multicastGroupWarning": "আপনি একটি কাস্টম মাল্টিকাস্ট ঠিকানা ব্যবহার করছেন কারণ আপনি অন্য ডিভাইস দ্বারা সনাক্ত নাও হতে পারে. (default: {defaultMulticast})",
       "title": "নেটওয়ার্ক",
       "needRestart": "সেটিংস প্রয়োগ করতে সার্ভার রিস্টার্ট করুন!",
       "server": "সার্ভার",
       "alias": "উপনাম",
+      "deviceType": "ডিভাইসের ধরন",
+      "deviceModel": "ডিভাইস মডেল",
       "port": "পোর্ট",
       "portWarning": "আপনি একটি কাস্টম পোর্ট ব্যবহার করছেন তাই আপনি অন্য ডিভাইস থেকে এই ডিভাইকে খুঁজে নাও হতে পারে. (default: {defaultPort})",
-      "encryption": "এনক্রিপশন"
+      "encryption": "এনক্রিপশন",
+      "multicastGroup": "মাল্টিকাস্ট",
+      "multicastGroupWarning": "আপনি একটি কাস্টম মাল্টিকাস্ট ঠিকানা ব্যবহার করছেন কারণ আপনি অন্য ডিভাইস দ্বারা সনাক্ত নাও হতে পারে. (default: {defaultMulticast})"
+    },
+    "other": {
+      "title": "অন্যান্য",
+      "support": "লোকালসেন্ড সমর্থন করুন",
+      "donate": "দান",
+      "privacyPolicy": "গোপনীয়তা নীতি",
+      "termsOfUse": "ব্যবহারের শর্তাবলী"
     },
     "advancedSettings": "উন্নত সেটিংস"
   },
@@ -213,10 +221,24 @@
     "pendingRequests": "অনুরোধ অপেক্ষারত: {n}"
   },
   "aboutPage": {
-    "title": "LocalSend সম্পর্কে"
+    "title": "LocalSend সম্পর্কে",
+    "description": [
+      "LocalSend হল একটি বিনামূল্যের, ওপেন সোর্স অ্যাপ যা আপনাকে ইন্টারনেট সংযোগের প্রয়োজন ছাড়াই আপনার স্থানীয় নেটওয়ার্কে কাছাকাছি ডিভাইসগুলির সাথে ফাইল এবং বার্তাগুলিকে নিরাপদে ভাগ করতে দেয়৷",
+      "এই অ্যাপটি Android, iOS, macOS, Windows এবং Linux-এ উপলব্ধ। আপনি অফিসিয়াল হোমপেজে সমস্ত ডাউনলোড বিকল্প খুঁজে পেতে পারেন।"
+    ],
+    "author": "লেখক",
+    "contributors": "অবদানকারী",
+    "translators": "অনুবাদক"
+  },
+  "donationPage": {
+    "title": "দান",
+    "info": "LocalSend বিনামূল্যে, ওপেন সোর্স এবং কোনো বিজ্ঞাপন ছাড়াই। আপনি যদি অ্যাপটি পছন্দ করেন তবে আপনি একটি অনুদান দিয়ে বিকাশকে সমর্থন করতে পারেন।",
+    "donate": "দান {amount}",
+    "thanks": "আপনাকে অনেক ধন্যবাদ!",
+    "restore": "ক্রয় পুনরুদ্ধার"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "চেঞ্জলগ"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
@@ -292,12 +314,8 @@
     "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
-    "historyClearDialog": {
-      "title": "ইতিহাস পরিষ্কার করুন",
-      "content": "আপনি কি সত্যিই সমগ্র ইতিহাস মুছে ফেলতে চান?"
-    },
     "addFile": {
-      "title": "সিলেকশনে যুক্ত করুন",
+      "title": "নির্বাচন যোগ করুন",
       "content": "আপনি কি যোগ করতে চান?"
     },
     "addressInput": {
@@ -306,13 +324,13 @@
       "ip": "আইপি অ্যাড্রেস",
       "recentlyUsed": "সম্প্রতি ব্যবহৃত: "
     },
-    "cannotOpenFile": {
-      "title": "ফাইলটি খুলতে পারছি না",
-      "content": "\"{file}\" খোলা যায়নি। এই ফাইলটি কি সরানো হয়েছে, নাম পরিবর্তন করা হয়েছে বা মুছে ফেলা হয়েছে?"
-    },
     "cancelSession": {
       "title": "ফাইল ট্রান্সফার বাতিল করুন",
       "content": "আপনি কি সত্যিই ফাইল ট্রান্সফার বাতিল করতে চান?"
+    },
+    "cannotOpenFile": {
+      "title": "ফাইলটি খুলতে পারছি না",
+      "content": "\"{file}\" খোলা যায়নি। এই ফাইলটি কি সরানো হয়েছে, নাম পরিবর্তন করা হয়েছে বা মুছে ফেলা হয়েছে?"
     },
     "encryptionDisabledNotice": {
       "title": "Encryption বন্ধ করা হয়েছে",
@@ -349,6 +367,10 @@
     "fileNameInput": {
       "title": "ফাইলের নাম লিখুন",
       "original": "আসল: {original}"
+    },
+    "historyClearDialog": {
+      "title": "ইতিহাস পরিষ্কার করুন",
+      "content": "আপনি কি সত্যিই সমগ্র ইতিহাস মুছে ফেলতে চান?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

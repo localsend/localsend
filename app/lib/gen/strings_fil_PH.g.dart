@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsFilPh extends _StringsEn {
-
+class _StringsFilPh extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsFilPh.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsFilPh extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <fil-PH>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsFilPh _root = this; // ignore: unused_field
 
@@ -147,7 +146,7 @@ class _StringsTroubleshootPageFilPh extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'Troubleshoot';
-	@override String get subTitle => 'Hindi gumagana ang app na ito gaya nang inaasahan? Narito mo mahahanap ang mga madalas na solusyon.';
+	@override String get subTitle => 'Hindi gumagana ang app na ito gaya nang inaasahan? Narito ang mga madalas na solusyon.';
 	@override String get solution => 'Solusyon:';
 	@override String get fixButton => 'Awtomatikong ayusin';
 	@override late final _StringsTroubleshootPageFirewallFilPh firewall = _StringsTroubleshootPageFirewallFilPh._(_root);
@@ -277,7 +276,7 @@ class _StringsAboutPageFilPh extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Tungkol sa LocalSend';
 	@override List<String> get description => [
-		'Ang LocalSend ay isang libre at open-source na app na nagbibigay-daan sa secure na pagbabahagi ng mga file at message sa mga kalapit na device sa iyong local network nang hindi nangangailangan ng koneksyon sa internet.',
+		'Ang LocalSend ay isang libre at open-source na app na nagbibigay-daan sa secure na pagbabahagi ng mga file at mga message sa mga kalapit na device sa iyong local network nang hindi nangangailangan ng koneksyon sa internet.',
 		'Available ang app na ito sa Android, iOS, macOS, Windows, at Linux. Maaari mong mahanap ang lahat ng mga pagpipilian sa pag-download sa opisyal na homepage.',
 	];
 	@override String get author => 'Author';
@@ -501,7 +500,7 @@ class _StringsSendTabSelectionFilPh extends _StringsSendTabSelectionEn {
 
 	// Translations
 	@override String get title => 'Pagpipilian';
-	@override String files({required Object files}) => 'Files: ${files}';
+	@override String files({required Object files}) => 'Mga File: ${files}';
 	@override String size({required Object size}) => 'Size: ${size}';
 }
 
@@ -528,7 +527,7 @@ class _StringsSendTabSendModesFilPh extends _StringsSendTabSendModesEn {
 
 	// Translations
 	@override String get single => 'Isang tatanggap';
-	@override String get multiple => 'Maraming tatanggap';
+	@override String get multiple => 'Maramihang tatanggap';
 	@override String get link => 'I-Share gamit ang link';
 }
 
@@ -562,6 +561,7 @@ class _StringsSettingsTabReceiveFilPh extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Tumanggap';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Auto Finish';
 	@override String get destination => 'Patutunguhan';
 	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'I-save ang media sa gallery';
@@ -576,7 +576,7 @@ class _StringsSettingsTabNetworkFilPh extends _StringsSettingsTabNetworkEn {
 
 	// Translations
 	@override String get title => 'Network';
-	@override String get needRestart => 'I-restart ang server para i-apply ang settings!';
+	@override String get needRestart => 'I-restart ang server para ma-apply ang settings!';
 	@override String get server => 'Server';
 	@override String get alias => 'Alias';
 	@override String get deviceType => 'Device type';
@@ -609,7 +609,7 @@ class _StringsTroubleshootPageFirewallFilPh extends _StringsTroubleshootPageFire
 	@override final _StringsFilPh _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Ang app na ito ay nakakapagpadala ng mga file sa ibang devices ngunit ang ibang devices ay hindi makapagpadala sa device na ito.';
+	@override String get symptom => 'Ang app na ito ay nakakapagpadala ng mga file sa ibang mga device ngunit ang ibang mga device ay hindi makapagpadala sa device na ito.';
 	@override String solution({required Object port}) => 'Ito ay kadalasang isyu sa firewall. Maari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port ${port}.';
 	@override String get openFirewall => 'Buksan ang Firewall';
 }
@@ -621,7 +621,7 @@ class _StringsTroubleshootPageNoConnectionFilPh extends _StringsTroubleshootPage
 	@override final _StringsFilPh _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Ang dalawa o higit pang devices ay hindi mo discover ang isa\'t isa o hindi makapag-share ng mga file.';
+	@override String get symptom => 'Ang dalawa o higit pang device ay hindi ma-discover ang isa\'t isa o hindi makapag-share ng mga file.';
 	@override String get solution => 'Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router.';
 }
 

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/purchase_state.dart';
 import 'package:localsend_app/pages/donation/donation_page_vm.dart';
+// [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
+// [FOSS_REMOVE_END]
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,7 +16,9 @@ class DonationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder(
       provider: donationPageVmProvider,
+      // [FOSS_REMOVE_START]
       init: (context, ref) => ref.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction()), // ignore: discarded_futures
+      // [FOSS_REMOVE_END]
       builder: (context, vm) {
         return Scaffold(
           appBar: AppBar(
@@ -45,7 +48,7 @@ class DonationPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (checkPlatformSupportPayment()) _StoreDonation(vm) else const _LinkDonation(),
+                  if (vm.platformSupportPayment) _StoreDonation(vm) else const _LinkDonation(),
                 ],
               ),
               if (vm.pending)

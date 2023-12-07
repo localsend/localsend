@@ -105,6 +105,7 @@
     "receive": {
       "title": "Reçu",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Finir automatiquement",
       "destination": "Destination",
       "downloads": "(Téléchargements)",
       "saveToGallery": "Sauvegarder les médias dans la galerie",
@@ -122,6 +123,13 @@
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Autre",
+      "support": "Supporter LocalSend",
+      "donate": "Faire une donation",
+      "privacyPolicy": "Politique de confidentialité",
+      "termsOfUse": "Conditions d'utilisation"
     },
     "advancedSettings": "Paramètres avancés"
   },
@@ -213,7 +221,21 @@
     "pendingRequests": "Requêtes en attente: {n}"
   },
   "aboutPage": {
-    "title": "A propos de LocalSend"
+    "title": "A propos de LocalSend",
+    "description": [
+      "Localsend est un logiciel gratuit et open-source qui vous permet de partager de manière sécurisée des fichers et des messages avec d'autres appareils sur votre réseau local, sans même avoir besoin d'une connexion à internet.",
+      "Localsend est disponible sur Android, iOS, macOS, Windows et Linux. Vous pouvez accéder à ces téléchargements sur la page officielle."
+    ],
+    "author": "Auteur",
+    "contributors": "Contributeurs",
+    "translators": "Traducteurs"
+  },
+  "donationPage": {
+    "title": "Faire une donation",
+    "info": "LocalSend est gratuit, open-source and sans aucune pub. Si vous aimez ce logiciel, vous pouvez faire un don pour supporter son développement.",
+    "donate": "Donner {amount}",
+    "thanks": "Merci beaucoup!",
+    "restore": "Restaurer les achats"
   },
   "changelogPage": {
     "title": "Historique des mises à jour"

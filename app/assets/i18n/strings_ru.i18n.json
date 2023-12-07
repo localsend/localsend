@@ -105,6 +105,7 @@
     "receive": {
       "title": "Получение",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Автозавершение",
       "destination": "Сохранять в",
       "downloads": "(Загрузки)",
       "saveToGallery": "Сохранять медиафайлы в галерею",

@@ -105,6 +105,7 @@
     "receive": {
       "title": "دریافت",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "پایان خودکار",
       "destination": "مقصد",
       "downloads": "(دانلودها)",
       "saveToGallery": "ذخیره رسانه در گالری",

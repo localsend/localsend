@@ -1,8 +1,7 @@
 part of 'strings.g.dart';
 
 // Path: <root>
-class _StringsCs extends _StringsEn {
-
+class _StringsCs extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsCs.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +15,7 @@ class _StringsCs extends _StringsEn {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <cs>.
-	@override final TranslationMetadata<AppLocale, _StringsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final _StringsCs _root = this; // ignore: unused_field
 
@@ -37,6 +36,7 @@ class _StringsCs extends _StringsEn {
 	@override late final _StringsProgressPageCs progressPage = _StringsProgressPageCs._(_root);
 	@override late final _StringsWebSharePageCs webSharePage = _StringsWebSharePageCs._(_root);
 	@override late final _StringsAboutPageCs aboutPage = _StringsAboutPageCs._(_root);
+	@override late final _StringsDonationPageCs donationPage = _StringsDonationPageCs._(_root);
 	@override late final _StringsChangelogPageCs changelogPage = _StringsChangelogPageCs._(_root);
 	@override late final _StringsAliasGeneratorCs aliasGenerator = _StringsAliasGeneratorCs._(_root);
 	@override late final _StringsDialogsCs dialogs = _StringsDialogsCs._(_root);
@@ -134,6 +134,7 @@ class _StringsSettingsTabCs extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralCs general = _StringsSettingsTabGeneralCs._(_root);
 	@override late final _StringsSettingsTabReceiveCs receive = _StringsSettingsTabReceiveCs._(_root);
 	@override late final _StringsSettingsTabNetworkCs network = _StringsSettingsTabNetworkCs._(_root);
+	@override late final _StringsSettingsTabOtherCs other = _StringsSettingsTabOtherCs._(_root);
 	@override String get advancedSettings => 'Pokročilá nastavení';
 }
 
@@ -274,6 +275,27 @@ class _StringsAboutPageCs extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'O aplikaci LocalSend';
+	@override List<String> get description => [
+		'LocalSend je bezplatná aplikace s otevřeným zdrojovým kódem, která vám umožňuje bezpečně sdílet soubory a zprávy s okolními zařízeními přes vaši místní síť, aniž byste potřebovali připojení k internetu.',
+		'Tato aplikace je dostupná pro Android, iOS, macOS, Windows a Linux. Všechny možnosti stahování najdete na oficiální domovské stránce.',
+	];
+	@override String get author => 'Autor';
+	@override String get contributors => 'Přispěvatelé';
+	@override String get translators => 'Překladatelé';
+}
+
+// Path: donationPage
+class _StringsDonationPageCs extends _StringsDonationPageEn {
+	_StringsDonationPageCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Darovat';
+	@override String get info => 'LocalSend je zdarma, open source a bez reklam. Pokud se vám aplikace líbí, můžete její vývoj podpořit darem.';
+	@override String donate({required Object amount}) => 'Darovat ${amount}';
+	@override String get thanks => 'Děkuji mnohokrát!';
+	@override String get restore => 'Obnovit';
 }
 
 // Path: changelogPage
@@ -468,6 +490,7 @@ class _StringsSettingsTabReceiveCs extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Příjmout';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Automatické dokončování';
 	@override String get destination => 'Uložit do';
 	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'Uložit média do galerie';
@@ -492,6 +515,20 @@ class _StringsSettingsTabNetworkCs extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Šifrování';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherCs extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ostatní';
+	@override String get support => 'Podporujte LocalSend';
+	@override String get donate => 'Darovat';
+	@override String get privacyPolicy => 'Zásady ochrany osobních údajů';
+	@override String get termsOfUse => 'Podmínky použití';
 }
 
 // Path: troubleshootPage.firewall
