@@ -13,7 +13,7 @@
 - fix(android): request permission when saving files outside of downloads folder (@Tienisto)
 - fix(ios): fix permission error when picking directory (@Tienisto)
 - fix(ios): clear cache when file is shared from another app (@Tienisto)
-- i18n: add Greek (@multipetros)
+- i18n: add Greek (@multipetros), Khmer (@nidexingg)
 
 ## 1.12.0 (2023-10-25)
 
