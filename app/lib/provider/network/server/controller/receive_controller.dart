@@ -485,8 +485,7 @@ class ReceiveController {
           ),
         ),
       );
-      if ((server.ref.read(settingsProvider).quickSave || server.ref.read(settingsProvider).autoFinish) &&
-          server.getState().session?.message == null) {
+      if (server.ref.read(settingsProvider).quickSave && server.getState().session?.message == null) {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();
