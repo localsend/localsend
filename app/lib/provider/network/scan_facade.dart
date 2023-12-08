@@ -30,10 +30,9 @@ class StartSmartScan extends AsyncGlobalAction {
     final https = ref.read(settingsProvider).https;
     await ref.redux(nearbyDevicesProvider).dispatchAsync(StartFavoriteScan(devices: favorites, https: https));
 
-    if (!forceLegacy && favorites.isEmpty) {
+    if (!forceLegacy) {
       // Wait a bit before trying the legacy method.
       // Skip waiting if [forceLegacy] is true.
-      // Also skip waiting if there are favorites.
       await sleepAsync(1000);
     }
 
