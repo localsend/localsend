@@ -328,7 +328,7 @@ jobs:
 
       - name: Zip compiled files
         working-directory: app
-        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
+        run: Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend.zip
 
       - name: Upload zip
         uses: actions/upload-artifact@v3
