@@ -1,3 +1,10 @@
+## 1.13.1 (2023-12-08)
+
+- feat: add a short delay when "Auto Finish" is enabled (@Tienisto)
+- feat: automatically update the device name of favorite devices when they were unchanged by the user (@Tienisto)
+- feat: expand file picker buttons if the button text is too long (@Tienisto)
+- fix: various crash issues by downgrading Flutter from 3.16 to 3.13 (@Tienisto)
+
 ## 1.13.0 (2023-12-04)
 
 - feat: add option to automatically finish after successful transfer (@Tienisto)
