@@ -127,16 +127,21 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                   }
 
                   if (widget.favorite != null) {
-                    if (_aliasController.text.trim().isEmpty) {
+                    // Update existing favorite
+                    final existingFavorite = widget.favorite!;
+                    final trimmedNewAlias = _aliasController.text.trim();
+                    if (trimmedNewAlias.isEmpty) {
                       return;
                     }
 
-                    await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(widget.favorite!.copyWith(
+                    await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(existingFavorite.copyWith(
                           ip: _ipController.text,
                           port: int.parse(_portController.text),
-                          alias: _aliasController.text,
+                          alias: trimmedNewAlias,
+                          customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
                         )));
                   } else {
+                    // Add new favorite
                     final ip = _ipController.text;
                     final port = int.parse(_portController.text);
                     final https = ref.read(settingsProvider).https;

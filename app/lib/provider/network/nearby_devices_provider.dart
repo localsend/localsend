@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/multicast_provider.dart';
 import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
@@ -22,6 +24,7 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
     discoveryLogs: ref.notifier(discoveryLoggerProvider),
     targetedDiscoveryService: ref.accessor(targetedDiscoveryProvider),
     multicastService: ref.accessor(multicastProvider),
+    favoriteService: ref.notifier(favoritesProvider),
   );
 });
 
@@ -31,14 +34,17 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
   final DiscoveryLogger _discoveryLogs;
   final StateAccessor<TargetedDiscoveryService> _targetedDiscoveryService;
   final StateAccessor<MulticastService> _multicastService;
+  final FavoritesService _favoriteService;
 
   NearbyDevicesService({
     required DiscoveryLogger discoveryLogs,
     required StateAccessor<TargetedDiscoveryService> targetedDiscoveryService,
     required StateAccessor<MulticastService> multicastService,
+    required FavoritesService favoriteService,
   })  : _discoveryLogs = discoveryLogs,
         _targetedDiscoveryService = targetedDiscoveryService,
-        _multicastService = multicastService;
+        _multicastService = multicastService,
+        _favoriteService = favoriteService;
 
   @override
   NearbyDevicesState init() => const NearbyDevicesState(
@@ -98,7 +104,7 @@ class StartMulticastListener extends AsyncReduxAction<NearbyDevicesService, Near
   @override
   Future<NearbyDevicesState> reduce() async {
     await for (final device in notifier._multicastService.state.startListener()) {
-      dispatch(RegisterDeviceAction(device));
+      await dispatchAsync(RegisterDeviceAction(device));
       notifier._discoveryLogs.addLog('[DISCOVER/UDP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
     }
     return state;
@@ -117,7 +123,7 @@ class ClearFoundDevicesAction extends ReduxAction<NearbyDevicesService, NearbyDe
 
 /// Registers a device in the state.
 /// It will override any existing device with the same IP.
-class RegisterDeviceAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
+class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
   final Device device;
 
   RegisterDeviceAction(this.device);
@@ -126,7 +132,12 @@ class RegisterDeviceAction extends ReduxAction<NearbyDevicesService, NearbyDevic
   bool get trackOrigin => false;
 
   @override
-  NearbyDevicesState reduce() {
+  Future<NearbyDevicesState> reduce() async {
+    final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
+    if (favoriteDevice != null && !favoriteDevice.customAlias) {
+      // Update existing favorite with new alias
+      await external(notifier._favoriteService).dispatchAsync(UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)));
+    }
     return state.copyWith(
       devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
     );
@@ -166,7 +177,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
     dispatch(_SetRunningIpsAction({...state.runningIps, localIp}));
 
     await for (final device in notifier._getStream(localIp, port, https)) {
-      dispatch(RegisterDeviceAction(device));
+      await dispatchAsync(RegisterDeviceAction(device));
     }
 
     return state.copyWith(
@@ -191,7 +202,7 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
     }
     dispatch(_SetRunningFavoriteScanAction(true));
     await for (final device in notifier._getFavoriteStream(devices: devices, https: https)) {
-      dispatch(RegisterDeviceAction(device));
+      await dispatchAsync(RegisterDeviceAction(device));
     }
     return state.copyWith(
       runningFavoriteScan: false,
