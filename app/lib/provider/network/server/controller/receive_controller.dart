@@ -159,7 +159,7 @@ class ReceiveController {
     }
 
     // Save device information
-    server.ref.redux(nearbyDevicesProvider).dispatch(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
+    await server.ref.redux(nearbyDevicesProvider).dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
     server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
     final deviceInfo = server.ref.read(deviceInfoProvider);
