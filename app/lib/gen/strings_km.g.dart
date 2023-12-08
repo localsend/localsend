@@ -36,6 +36,7 @@ class _StringsKm extends Translations {
 	@override late final _StringsProgressPageKm progressPage = _StringsProgressPageKm._(_root);
 	@override late final _StringsWebSharePageKm webSharePage = _StringsWebSharePageKm._(_root);
 	@override late final _StringsAboutPageKm aboutPage = _StringsAboutPageKm._(_root);
+	@override late final _StringsDonationPageKm donationPage = _StringsDonationPageKm._(_root);
 	@override late final _StringsChangelogPageKm changelogPage = _StringsChangelogPageKm._(_root);
 	@override late final _StringsAliasGeneratorKm aliasGenerator = _StringsAliasGeneratorKm._(_root);
 	@override late final _StringsDialogsKm dialogs = _StringsDialogsKm._(_root);
@@ -63,6 +64,7 @@ class _StringsGeneralKm extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'បានចម្លង';
 	@override String get decline => 'បដិសេធ';
 	@override String get done => 'រួចរាល់';
+	@override String get delete => 'លុប';
 	@override String get edit => 'កែប្រែ';
 	@override String get error => 'មានបញ្ហា';
 	@override String get example => 'ឧទាហរណ៍';
@@ -86,6 +88,7 @@ class _StringsGeneralKm extends _StringsGeneralEn {
 	@override String get save => 'រក្សាទុក';
 	@override String get unchanged => 'មិនបានផ្លាស់ប្តូរ';
 	@override String get unknown => 'មិនស្គាល់';
+	@override String get noItemInClipboard => 'មិនមានរបស់នៅក្នុងក្តារចម្លង';
 }
 
 // Path: receiveTab
@@ -131,6 +134,7 @@ class _StringsSettingsTabKm extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralKm general = _StringsSettingsTabGeneralKm._(_root);
 	@override late final _StringsSettingsTabReceiveKm receive = _StringsSettingsTabReceiveKm._(_root);
 	@override late final _StringsSettingsTabNetworkKm network = _StringsSettingsTabNetworkKm._(_root);
+	@override late final _StringsSettingsTabOtherKm other = _StringsSettingsTabOtherKm._(_root);
 	@override String get advancedSettings => 'ការកំណត់កម្រិតខ្ពស់';
 }
 
@@ -271,6 +275,27 @@ class _StringsAboutPageKm extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'អំពី LocalSend';
+	@override List<String> get description => [
+		'LocalSend គឺជាកម្មវិធីដែលប្រើដោយឥតគិតថ្លៃ និងបើកចំហនូវប្រភពកូដ ដែលអនុញ្ញាតឱ្យអ្នកអាចចែករំលែកឯកសារ និងសារដោយសុវត្ថិភាពជាមួយនឹងឧបករណ៍ដែលនៅជិតៗដែលនៅលើបណ្តាញមូលដ្ឋានរួមគ្នាដោយមិនចាំបាច់ភ្ជាប់អ៊ីនធឺណិត។',
+		'កម្មវិធីនេះគឺអាចដំណើរការនៅលើគ្រប់ប្រព័ន្ធប្រតិបត្តិការទាំងអស់រួមមានដូចជា Android, iOS, macOS, Windows និង Linux ។ អ្នកអាចស្វែងរក និងទាញយកបានច្រើនវិធីសាស្ត្រតាមរយៈគេហទំព័រផ្លូវការរបស់ LocalSend ។',
+	];
+	@override String get author => 'ម្ចាស់កម្មសិទ្ធ';
+	@override String get contributors => 'អ្នកចូលរួមចំណែក';
+	@override String get translators => 'អ្នកបកប្រែ';
+}
+
+// Path: donationPage
+class _StringsDonationPageKm extends _StringsDonationPageEn {
+	_StringsDonationPageKm._(_StringsKm root) : this._root = root, super._(root);
+
+	@override final _StringsKm _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ការឧបត្ថម្ភ';
+	@override String get info => 'LocalSend ជាកម្មវិធីដែលឥតគិតថ្លៃ, បើកបង្ហាញប្រភពកូដជាសាធារណៈ និងមិនមានការបង្ហាញនូវផ្ទាំងពាណិជ្ជកម្មរំខានឡើយ។ ប្រសិនបើអ្នកពេញចិត្តកម្មវិធីនេះ​ និងចង់ជួយពួកយើង, អ្នកអាចចូលរួមលើកស្ទួយការអភិវឌ្ឍន៍កម្មវិធីនេះជាមួយពួកយើងតាមរយៈការឧបត្ថម្ភជាថវិកា។';
+	@override String donate({required Object amount}) => 'ឧបត្ថម្ភចំនួន ${amount}';
+	@override String get thanks => 'អរគុណអ្នកខ្លាំងណាស់សម្រាប់ការឧបត្ថម្ភមកកាន់ពួកយើង!';
+	@override String get restore => 'ស្តារការទូទាត់ត្រឡប់មកវិញ';
 }
 
 // Path: changelogPage
@@ -376,8 +401,12 @@ class _StringsDialogsKm extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileKm cannotOpenFile = _StringsDialogsCannotOpenFileKm._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeKm encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeKm._(_root);
 	@override late final _StringsDialogsErrorDialogKm errorDialog = _StringsDialogsErrorDialogKm._(_root);
+	@override late final _StringsDialogsFavoriteDialogKm favoriteDialog = _StringsDialogsFavoriteDialogKm._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogKm favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogKm._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogKm favoriteEditDialog = _StringsDialogsFavoriteEditDialogKm._(_root);
 	@override late final _StringsDialogsFileInfoKm fileInfo = _StringsDialogsFileInfoKm._(_root);
 	@override late final _StringsDialogsFileNameInputKm fileNameInput = _StringsDialogsFileNameInputKm._(_root);
+	@override late final _StringsDialogsHistoryClearDialogKm historyClearDialog = _StringsDialogsHistoryClearDialogKm._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedKm localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedKm._(_root);
 	@override late final _StringsDialogsMessageInputKm messageInput = _StringsDialogsMessageInputKm._(_root);
 	@override late final _StringsDialogsNoFilesKm noFiles = _StringsDialogsNoFilesKm._(_root);
@@ -487,6 +516,7 @@ class _StringsSendTabPickerKm extends _StringsSendTabPickerEn {
 	@override String get media => 'មេឌៀ';
 	@override String get text => 'សំណេរ';
 	@override String get app => 'កម្មវិធី';
+	@override String get clipboard => 'បិទភ្ជាប់';
 }
 
 // Path: sendTab.sendModes
@@ -531,6 +561,7 @@ class _StringsSettingsTabReceiveKm extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'ការទទួល';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'បញ្ចប់ដោយស្វ័យប្រវត្តិ';
 	@override String get destination => 'ទិសដៅ';
 	@override String get downloads => '(ទាញយក)';
 	@override String get saveToGallery => 'រក្សាទុកទៅកាន់កម្មវិធីវិចិត្រសាល';
@@ -555,6 +586,20 @@ class _StringsSettingsTabNetworkKm extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'ការការពារទិន្នន័យ';
 	@override String get multicastGroup => 'ពហុផ្សាយ';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើអាសយដ្ឋានពហុផ្សាយដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherKm extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherKm._(_StringsKm root) : this._root = root, super._(root);
+
+	@override final _StringsKm _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ផ្សេងៗ';
+	@override String get support => 'ជួយគាំទ្រ LocalSend';
+	@override String get donate => 'ការឧបត្ថម្ភ';
+	@override String get privacyPolicy => 'ច្បាប់ស្តីអំពីឯកជនភាព';
+	@override String get termsOfUse => 'លក្ខខណ្ឌនៃការប្រើប្រាស់';
 }
 
 // Path: troubleshootPage.firewall
@@ -672,6 +717,44 @@ class _StringsDialogsErrorDialogKm extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogKm extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogKm._(_StringsKm root) : this._root = root, super._(root);
+
+	@override final _StringsKm _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ឧបករណ៍សំណព្វ';
+	@override String get noFavorites => 'មិនទាន់មានឧបករណ៍សំណព្វនៅឡើយទេ';
+	@override String get addFavorite => 'បន្ថែម';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogKm extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogKm._(_StringsKm root) : this._root = root, super._(root);
+
+	@override final _StringsKm _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'លុបចេញពីឧបករណ៍សំណព្វ';
+	@override String content({required Object name}) => 'តើអ្នកប្រាកដដែរឬទេថាចង់ដក "${name}" ចេញពីឧបករណ៍សំណព្វ?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogKm extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogKm._(_StringsKm root) : this._root = root, super._(root);
+
+	@override final _StringsKm _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'បន្ថែមទៅកាន់ឧបករណ៍សំណព្វ';
+	@override String get titleEdit => 'ការកំណត់';
+	@override String get name => 'ឈ្មោះឧបករណ៍';
+	@override String get auto => '(auto)';
+	@override String get ip => 'អាសយដ្ឋាន IP';
+	@override String get port => 'ច្រក';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoKm extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoKm._(_StringsKm root) : this._root = root, super._(root);
@@ -696,6 +779,17 @@ class _StringsDialogsFileNameInputKm extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'បញ្ចូលឈ្មោះឯកសារ';
 	@override String original({required Object original}) => 'ច្បាប់ដើម: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogKm extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogKm._(_StringsKm root) : this._root = root, super._(root);
+
+	@override final _StringsKm _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'លុបជម្រះប្រវត្តិ';
+	@override String get content => 'តើអ្នកប្រាកដទេថាចង់លុបនូវរាល់ប្រវត្តិនៃការប្រើប្រាស់ទាំងអស់នេះ?';
 }
 
 // Path: dialogs.localNetworkUnauthorized

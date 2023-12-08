@@ -112,7 +112,7 @@ class _StringsSendTabFilPh extends _StringsSendTabEn {
 	@override String get title => 'Magpadala';
 	@override late final _StringsSendTabSelectionFilPh selection = _StringsSendTabSelectionFilPh._(_root);
 	@override late final _StringsSendTabPickerFilPh picker = _StringsSendTabPickerFilPh._(_root);
-	@override String get shareIntentInfo => 'Maaring gamitin ang "Share" feature sa iyong mobile device para sa mas madaling pagpili ng mga file.';
+	@override String get shareIntentInfo => 'Maaaring gamitin ang "Share" feature sa iyong mobile device para sa mas madaling pagpili ng mga file.';
 	@override String get nearbyDevices => 'Malalapit na mga device';
 	@override String get thisDevice => 'Ang Device na Ito';
 	@override String get scan => 'Maghanap ng mga device';
@@ -292,7 +292,7 @@ class _StringsDonationPageFilPh extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Mag-donate';
-	@override String get info => 'Ang LocalSend ay libre, open-source, at walang anumang mga ad. Kung iyong nagustuhan ang app, maari mong suportahan ang development sa pamamagitan ng donasyon.';
+	@override String get info => 'Ang LocalSend ay libre, open-source, at walang anumang mga ad. Kung iyong nagustuhan ang app, maaari mong suportahan ang development sa pamamagitan ng donasyon.';
 	@override String donate({required Object amount}) => 'Mag-donate ng ${amount}';
 	@override String get thanks => 'Maraming salamat!';
 	@override String get restore => 'Restore purchase';
@@ -528,7 +528,7 @@ class _StringsSendTabSendModesFilPh extends _StringsSendTabSendModesEn {
 	// Translations
 	@override String get single => 'Isang tatanggap';
 	@override String get multiple => 'Maramihang tatanggap';
-	@override String get link => 'I-Share gamit ang link';
+	@override String get link => 'I-share gamit ang link';
 }
 
 // Path: settingsTab.general
@@ -585,7 +585,7 @@ class _StringsSettingsTabNetworkFilPh extends _StringsSettingsTabNetworkEn {
 	@override String portWarning({required Object defaultPort}) => 'Maaaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang port. (default: ${defaultPort})';
 	@override String get encryption => 'Encryption';
 	@override String get multicastGroup => 'Multicast';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Maaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang multicast address. (default: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Maaaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang multicast address. (default: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -610,7 +610,7 @@ class _StringsTroubleshootPageFirewallFilPh extends _StringsTroubleshootPageFire
 
 	// Translations
 	@override String get symptom => 'Ang app na ito ay nakakapagpadala ng mga file sa ibang mga device ngunit ang ibang mga device ay hindi makapagpadala sa device na ito.';
-	@override String solution({required Object port}) => 'Ito ay kadalasang isyu sa firewall. Maari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port ${port}.';
+	@override String solution({required Object port}) => 'Ito ay kadalasang isyu sa firewall. Maaari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port ${port}.';
 	@override String get openFirewall => 'Buksan ang Firewall';
 }
 
@@ -622,7 +622,7 @@ class _StringsTroubleshootPageNoConnectionFilPh extends _StringsTroubleshootPage
 
 	// Translations
 	@override String get symptom => 'Ang dalawa o higit pang device ay hindi ma-discover ang isa\'t isa o hindi makapag-share ng mga file.';
-	@override String get solution => 'Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router.';
+	@override String get solution => 'Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -894,7 +894,7 @@ class _StringsDialogsSendModeHelpFilPh extends _StringsDialogsSendModeHelpEn {
 	@override String get title => 'Send modes';
 	@override String get single => 'Magpadala ng mga file sa iisang recipient o tatanggap. Ang mga pagpipilian ay maaalis pagkatapos ipadala ang file.';
 	@override String get multiple => 'Magpadala ng mga file sa maraming recipient o tatanggap. Ang mga pagpipilian ay hindi maaalis.';
-	@override String get link => 'Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaring mag download nang mga napiling file sa pamamagitan ng pagbukas ng link sa kanilang browser.';
+	@override String get link => 'Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaaring mag download nang mga napiling file sa pamamagitan ng pagbukas ng link sa kanilang browser.';
 }
 
 // Path: settingsTab.general.brightnessOptions
