@@ -15,7 +15,6 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7DA3203436DA0EAD484C6129 /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052009B9C8E63670A6F30787 /* Pods_ShareExtension.framework */; };
 		840EA3FC2B0910B000C0FED7 /* MyLocalSendStoreKit.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 840EA3FB2B0910B000C0FED7 /* MyLocalSendStoreKit.storekit */; };
-		841A12B929EC22BD00B99343 /* LocalNetworkAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A12B829EC22BD00B99343 /* LocalNetworkAuthorization.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
