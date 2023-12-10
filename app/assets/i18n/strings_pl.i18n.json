@@ -97,7 +97,7 @@
         "system": "System"
       },
       "saveWindowPlacement": "Zamknij: Zapisz położenie okna",
-      "minimizeToTray": "Quit: Minimize to tray",
+      "minimizeToTray": "Wyjdź: zminimalizuj do menu ukrytych ikon",
       "launchAtStartup": "Autostart po zalogowaniu",
       "launchMinimized": "Autostart: Start ukryty",
       "animations": "Animacje"
