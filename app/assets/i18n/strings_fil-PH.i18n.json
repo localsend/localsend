@@ -170,8 +170,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "ay gustong magpadala sa iyo ng file.",
-      "other": "ay gustong magpadala sa iyo ng {n} na mga file."
+      "one": "ay gustong magpadala sa iyo ng file",
+      "other": "ay gustong magpadala sa iyo ng {n} na mga file"
     },
     "subTitleMessage": "ay nagpadala sa iyo ng mensahe:",
     "subTitleLink": "ay nagpadala sa iyo ng link:",
