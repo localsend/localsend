@@ -177,8 +177,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "vuole inviarti un file.",
-      "other": "vuole inviarti {n} files."
+      "one": "vuole inviarti un file",
+      "other": "vuole inviarti {n} files"
     },
     "subTitleMessage": "ti ha inviato un messaggio:",
     "subTitleLink": "ti ha inviato un link:",
