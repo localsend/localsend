@@ -169,8 +169,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "sana bir dosya göndermek istiyor.",
-      "other": "sana {n} tane dosya göndermek istiyor."
+      "one": "sana bir dosya göndermek istiyor",
+      "other": "sana {n} tane dosya göndermek istiyor"
     },
     "subTitleMessage": "bir mesaj gönderdi:",
     "subTitleLink": "bir bağlantı gönderdi:",
