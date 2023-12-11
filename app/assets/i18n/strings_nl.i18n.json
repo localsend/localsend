@@ -162,8 +162,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "wil je een bestand verzenden.",
-      "other": "wil je {n} bestanden verzenden."
+      "one": "wil je een bestand verzenden",
+      "other": "wil je {n} bestanden verzenden"
     },
     "subTitleMessage": "heeft je een bericht verzonden:",
     "subTitleLink": "heeft je een link verzonden:",

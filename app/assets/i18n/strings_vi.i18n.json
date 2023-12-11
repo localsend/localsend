@@ -170,8 +170,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "muốn gửi cho bạn một tập tin.",
-      "other": "muốn gửi cho bạn {n} tập tin."
+      "one": "muốn gửi cho bạn một tập tin",
+      "other": "muốn gửi cho bạn {n} tập tin"
     },
     "subTitleMessage": "đã gửi cho bạn một tin nhắn:",
     "subTitleLink": "đã gửi cho bạn một liên kết:",

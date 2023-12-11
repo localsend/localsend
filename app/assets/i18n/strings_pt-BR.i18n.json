@@ -170,8 +170,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "quer enviar um arquivo.",
-      "other": "quer enviar {n} arquivos."
+      "one": "quer enviar um arquivo",
+      "other": "quer enviar {n} arquivos"
     },
     "subTitleMessage": "enviou uma mensagem:",
     "subTitleLink": "enviou um link:",

@@ -162,8 +162,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "-(e)k fitxategi bat bidali nahi dizu.",
-      "other": "-(e)k {n} fitxategi bidali nahi dizkizu."
+      "one": "-(e)k fitxategi bat bidali nahi dizu",
+      "other": "-(e)k {n} fitxategi bidali nahi dizkizu"
     },
     "subTitleMessage": "-(e)k mezu bat bidali dizu:",
     "subTitleLink": "-(e)k lotura bat bidali dizu:",
