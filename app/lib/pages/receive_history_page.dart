@@ -38,21 +38,24 @@ final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
 class ReceiveHistoryPage extends StatelessWidget {
   const ReceiveHistoryPage({super.key});
 
-  Future<void> _openFile(BuildContext context, ReceiveHistoryEntry entry, ReceiveHistoryNotifier filesRef) async {
+  Future<void> _openFile(
+    BuildContext context,
+    ReceiveHistoryEntry entry,
+    Dispatcher<ReceiveHistoryNotifier, List<ReceiveHistoryEntry>> dispatcher,
+  ) async {
     if (entry.path != null) {
       await openFile(
         context,
         entry.fileType,
         entry.path!,
-        onDeleteTap: () => filesRef.removeEntry(entry.id),
+        onDeleteTap: () => dispatcher.dispatchAsync(RemoveHistoryEntryAction(entry.id)),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final ref = context.ref;
-    final entries = ref.watch(receiveHistoryProvider);
+    final entries = context.watch(receiveHistoryProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +77,8 @@ class ReceiveHistoryPage extends StatelessWidget {
                   onPressed: checkPlatform([TargetPlatform.iOS])
                       ? null
                       : () async {
-                          final destination = ref.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
+                          // ignore: use_build_context_synchronously
+                          final destination = context.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
                           await openFolder(destination);
                         },
                   icon: const Icon(Icons.folder),
@@ -94,8 +98,8 @@ class ReceiveHistoryPage extends StatelessWidget {
                             builder: (_) => const HistoryClearDialog(),
                           );
 
-                          if (result == true) {
-                            await ref.notifier(receiveHistoryProvider).removeAll();
+                          if (context.mounted && result == true) {
+                            await context.redux(receiveHistoryProvider).dispatchAsync(RemoveAllHistoryEntriesAction());
                           }
                         },
                   icon: const Icon(Icons.delete),
@@ -119,7 +123,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                   splashFactory: NoSplash.splashFactory,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: entry.path != null ? () async => _openFile(context, entry, ref.notifier(receiveHistoryProvider)) : null,
+                  onTap: entry.path != null ? () async => _openFile(context, entry, context.redux(receiveHistoryProvider)) : null,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -155,7 +159,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                         onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:
-                              await _openFile(context, entry, ref.notifier(receiveHistoryProvider));
+                              await _openFile(context, entry, context.redux(receiveHistoryProvider));
                               break;
                             case _EntryOption.info:
                               // ignore: use_build_context_synchronously
@@ -165,7 +169,8 @@ class ReceiveHistoryPage extends StatelessWidget {
                               );
                               break;
                             case _EntryOption.delete:
-                              await ref.notifier(receiveHistoryProvider).removeEntry(entry.id);
+                              // ignore: use_build_context_synchronously
+                              await context.redux(receiveHistoryProvider).dispatchAsync(RemoveHistoryEntryAction(entry.id));
                               break;
                           }
                         },

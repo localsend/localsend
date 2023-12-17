@@ -69,7 +69,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
       if (device != null) {
         found = true;
         if (mounted) {
-          ref.notifier(lastDevicesProvider).addDevice(device);
+          ref.redux(lastDevicesProvider).dispatch(AddLastDeviceAction(device));
           context.pop(device);
         }
         break;
