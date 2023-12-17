@@ -41,7 +41,7 @@ class ReceiveHistoryPage extends StatelessWidget {
   Future<void> _openFile(
     BuildContext context,
     ReceiveHistoryEntry entry,
-    Dispatcher<ReceiveHistoryNotifier, List<ReceiveHistoryEntry>> dispatcher,
+    Dispatcher<ReceiveHistoryService, List<ReceiveHistoryEntry>> dispatcher,
   ) async {
     if (entry.path != null) {
       await openFile(

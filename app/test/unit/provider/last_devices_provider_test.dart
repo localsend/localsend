@@ -5,31 +5,31 @@ import 'package:test/test.dart';
 
 void main() {
   test('Should add a device', () {
-    final notifier = ReduxNotifier.test(
-      redux: LastDevicesNotifier(),
+    final service = ReduxNotifier.test(
+      redux: LastDevicesService(),
     );
 
-    expect(notifier.state, []);
+    expect(service.state, []);
 
     final device = _createDevice('123.123');
-    notifier.dispatch(AddLastDeviceAction(device));
+    service.dispatch(AddLastDeviceAction(device));
 
-    expect(notifier.state, [device]);
+    expect(service.state, [device]);
   });
 
   test('Should remove the 5th device', () {
-    final notifier = ReduxNotifier.test(
-      redux: LastDevicesNotifier(),
+    final service = ReduxNotifier.test(
+      redux: LastDevicesService(),
     );
 
-    notifier.dispatch(AddLastDeviceAction(_createDevice('1')));
-    notifier.dispatch(AddLastDeviceAction(_createDevice('2')));
-    notifier.dispatch(AddLastDeviceAction(_createDevice('3')));
-    notifier.dispatch(AddLastDeviceAction(_createDevice('4')));
-    notifier.dispatch(AddLastDeviceAction(_createDevice('5')));
+    service.dispatch(AddLastDeviceAction(_createDevice('1')));
+    service.dispatch(AddLastDeviceAction(_createDevice('2')));
+    service.dispatch(AddLastDeviceAction(_createDevice('3')));
+    service.dispatch(AddLastDeviceAction(_createDevice('4')));
+    service.dispatch(AddLastDeviceAction(_createDevice('5')));
 
-    expect(notifier.state.length, 5);
-    expect(notifier.state, [
+    expect(service.state.length, 5);
+    expect(service.state, [
       _createDevice('5'),
       _createDevice('4'),
       _createDevice('3'),
@@ -37,10 +37,10 @@ void main() {
       _createDevice('1'),
     ]);
 
-    notifier.dispatch(AddLastDeviceAction(_createDevice('6')));
+    service.dispatch(AddLastDeviceAction(_createDevice('6')));
 
-    expect(notifier.state.length, 5);
-    expect(notifier.state, [
+    expect(service.state.length, 5);
+    expect(service.state, [
       _createDevice('6'),
       _createDevice('5'),
       _createDevice('4'),

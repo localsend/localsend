@@ -43,6 +43,10 @@ class UpdateFavoriteAction extends AsyncReduxAction<FavoritesService, List<Favor
   @override
   Future<List<FavoriteDevice>> reduce() async {
     final index = state.indexWhere((e) => e.id == device.id);
+    if (index == -1) {
+      // Unknown device
+      return state;
+    }
     final updated = List<FavoriteDevice>.unmodifiable(<FavoriteDevice>[
       ...state,
     ]..replaceRange(index, index + 1, [device]));
@@ -61,9 +65,14 @@ class RemoveFavoriteAction extends AsyncReduxAction<FavoritesService, List<Favor
 
   @override
   Future<List<FavoriteDevice>> reduce() async {
+    final index = state.indexWhere((e) => e.fingerprint == deviceFingerprint);
+    if (index == -1) {
+      // Unknown device
+      return state;
+    }
     final updated = List<FavoriteDevice>.unmodifiable(<FavoriteDevice>[
       ...state,
-    ]..removeWhere((e) => e.fingerprint == deviceFingerprint));
+    ]..removeAt(index));
     await notifier._persistence.setFavorites(updated);
     return updated;
   }
