@@ -78,6 +78,8 @@ In most cases, LocalSend should work out of the box. However, if you are having 
 | Incoming     | TCP, UDP | 53317 | Allow  |
 | Outgoing     | TCP, UDP | Any   | Allow  |
 
+Also make sure to disable AP isolation on your router. It should be usually disabled by default but some routers may have it enabled (especially guest networks).
+
 **Portable Mode**
 
 (Introduced in v1.13.0)
