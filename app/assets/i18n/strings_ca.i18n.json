@@ -158,8 +158,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "vol enviar un fitxer.",
-      "other": "vol enviar {n} fitxers."
+      "one": "vol enviar un fitxer",
+      "other": "vol enviar {n} fitxers"
     },
     "subTitleMessage": "t'ha enviat un missatge:",
     "subTitleLink": "t'ha enviat un enllaç:",

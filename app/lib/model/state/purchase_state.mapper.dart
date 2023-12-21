@@ -23,10 +23,9 @@ class PurchaseStateMapper extends ClassMapperBase<PurchaseState> {
   static Map<PurchaseItem, String> _$prices(PurchaseState v) => v.prices;
   static const Field<PurchaseState, Map<PurchaseItem, String>> _f$prices =
       Field('prices', _$prices);
-  static Map<PurchaseItem, PurchaseDetails> _$purchases(PurchaseState v) =>
-      v.purchases;
-  static const Field<PurchaseState, Map<PurchaseItem, PurchaseDetails>>
-      _f$purchases = Field('purchases', _$purchases);
+  static Set<PurchaseItem> _$purchases(PurchaseState v) => v.purchases;
+  static const Field<PurchaseState, Set<PurchaseItem>> _f$purchases =
+      Field('purchases', _$purchases);
   static bool _$pending(PurchaseState v) => v.pending;
   static const Field<PurchaseState, bool> _f$pending =
       Field('pending', _$pending);
@@ -102,11 +101,9 @@ abstract class PurchaseStateCopyWith<$R, $In extends PurchaseState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   MapCopyWith<$R, PurchaseItem, String, ObjectCopyWith<$R, String, String>>
       get prices;
-  MapCopyWith<$R, PurchaseItem, PurchaseDetails,
-      ObjectCopyWith<$R, PurchaseDetails, PurchaseDetails>> get purchases;
   $R call(
       {Map<PurchaseItem, String>? prices,
-      Map<PurchaseItem, PurchaseDetails>? purchases,
+      Set<PurchaseItem>? purchases,
       bool? pending});
   PurchaseStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -124,14 +121,9 @@ class _PurchaseStateCopyWithImpl<$R, $Out>
       get prices => MapCopyWith($value.prices,
           (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(prices: v));
   @override
-  MapCopyWith<$R, PurchaseItem, PurchaseDetails,
-          ObjectCopyWith<$R, PurchaseDetails, PurchaseDetails>>
-      get purchases => MapCopyWith($value.purchases,
-          (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(purchases: v));
-  @override
   $R call(
           {Map<PurchaseItem, String>? prices,
-          Map<PurchaseItem, PurchaseDetails>? purchases,
+          Set<PurchaseItem>? purchases,
           bool? pending}) =>
       $apply(FieldCopyWithData({
         if (prices != null) #prices: prices,

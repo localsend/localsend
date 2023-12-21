@@ -561,6 +561,7 @@ class _StringsSettingsTabReceiveTh extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'รับ';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'เสร็จสิ้นอัตโนมัติ';
 	@override String get destination => 'ปลายทาง';
 	@override String get downloads => '(ดาวน์โหลด)';
 	@override String get saveToGallery => 'บันทึกมีเดียลงแกลอรี่';
@@ -916,7 +917,7 @@ class _StringsSettingsTabGeneralColorOptionsTh extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'ระบบ';
-	@override String get oled => 'โอแอลอีดี';
+	@override String get oled => 'โอเล็ด';
 }
 
 // Path: settingsTab.general.languageOptions

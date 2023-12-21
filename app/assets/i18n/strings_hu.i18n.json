@@ -170,8 +170,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "fájlt szeretne küldeni.",
-      "other": "{n} fájlt szeretne küldeni."
+      "one": "fájlt szeretne küldeni",
+      "other": "{n} fájlt szeretne küldeni"
     },
     "subTitleMessage": "üzenetet küldött:",
     "subTitleLink": "Linket küldött:",

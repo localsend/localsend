@@ -1,3 +1,10 @@
+## 1.13.1 (2023-12-08)
+
+- feat: add a short delay when "Auto Finish" is enabled (@Tienisto)
+- feat: automatically update the device name of favorite devices when they were unchanged by the user (@Tienisto)
+- feat: expand file picker buttons if the button text is too long (@Tienisto)
+- fix: various crash issues by downgrading Flutter from 3.16 to 3.13 (@Tienisto)
+
 ## 1.13.0 (2023-12-04)
 
 - feat: add option to automatically finish after successful transfer (@Tienisto)
@@ -13,7 +20,7 @@
 - fix(android): request permission when saving files outside of downloads folder (@Tienisto)
 - fix(ios): fix permission error when picking directory (@Tienisto)
 - fix(ios): clear cache when file is shared from another app (@Tienisto)
-- i18n: add Greek (@multipetros)
+- i18n: add Greek (@multipetros), Khmer (@nidexingg)
 
 ## 1.12.0 (2023-10-25)
 

@@ -6,6 +6,8 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/file_type.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+const double defaultThumbnailSize = 50;
+
 class SmartFileThumbnail extends StatelessWidget {
   final Uint8List? bytes;
   final AssetEntity? asset;
@@ -112,7 +114,7 @@ class MemoryThumbnail extends StatelessWidget {
   const MemoryThumbnail({
     required this.bytes,
     required this.fileType,
-    this.size = 50,
+    this.size = defaultThumbnailSize,
   });
 
   @override
@@ -149,7 +151,7 @@ class _Thumbnail extends StatelessWidget {
   const _Thumbnail({
     required this.thumbnail,
     required this.icon,
-    this.size = 50,
+    this.size = defaultThumbnailSize,
   });
 
   @override

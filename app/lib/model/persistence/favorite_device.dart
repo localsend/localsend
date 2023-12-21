@@ -13,12 +13,18 @@ class FavoriteDevice with FavoriteDeviceMappable {
   final int port;
   final String alias;
 
+  /// If true, the alias was set by the user.
+  /// If false, the alias is derived from the original device alias and
+  /// should be updated when the original device alias changes.
+  final bool customAlias;
+
   const FavoriteDevice({
     required this.id,
     required this.fingerprint,
     required this.ip,
     required this.port,
     required this.alias,
+    this.customAlias = false,
   });
 
   factory FavoriteDevice.fromValues({
@@ -33,6 +39,7 @@ class FavoriteDevice with FavoriteDeviceMappable {
       ip: ip,
       port: port,
       alias: alias,
+      customAlias: false,
     );
   }
 

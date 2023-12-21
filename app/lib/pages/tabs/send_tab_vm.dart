@@ -15,8 +15,6 @@ import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/native/ios_network_permission_helper.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
@@ -191,12 +189,6 @@ class SendTabInitAction extends AsyncGlobalAction {
     final devices = ref.read(nearbyDevicesProvider).devices;
     if (devices.isEmpty) {
       await dispatchAsync(StartSmartScan(forceLegacy: false));
-      if (devices.isEmpty) {
-        // After the first complete scan, if devices aren't found on IOS a Network trigger is called
-        if (checkPlatform([TargetPlatform.iOS]) && context.mounted) {
-          checkIosNetworkPermission(context);
-        }
-      }
     }
   }
 }

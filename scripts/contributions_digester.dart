@@ -9,17 +9,18 @@ void main() {
   final documentations = <String>{}; // list of "@user"
   final translators = <String>{}; // list of "@user"
   for (String pr in contributions) {
+    final originalPr = pr;
     pr = pr.toLowerCase();
     if (pr.contains('@dependabot')) {
       continue;
     }
 
-    if (pr.contains('i18n') || pr.contains('translation') || pr.contains('translator') || pr.contains('language')) {
-      translators.add('@' + pr.split(' @').last);
+    if (pr.contains('i18n') || pr.contains('translation') || pr.contains('translator') || pr.contains('translate') || pr.contains('language')) {
+      translators.add('@' + originalPr.split(' @').last);
     } else if (pr.contains('readme') || pr.contains('contributing')) {
-      documentations.add('@' + pr.split(' @').last);
+      documentations.add('@' + originalPr.split(' @').last);
     } else {
-      newContributions.add(pr);
+      newContributions.add(originalPr);
     }
   }
 

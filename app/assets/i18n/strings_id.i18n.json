@@ -158,8 +158,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "ingin mengirim file.",
-      "other": "ingin mengirim {n} file."
+      "one": "ingin mengirim file",
+      "other": "ingin mengirim {n} file"
     },
     "subTitleMessage": "mengirim pesan:",
     "subTitleLink": "mengirim link:",

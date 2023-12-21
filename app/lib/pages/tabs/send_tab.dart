@@ -97,17 +97,18 @@ class SendTab extends StatelessWidget {
                       Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
                       Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
                       const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...vm.selectedFiles.map((file) {
-                              return [
-                                SmartFileThumbnail.fromCrossFile(file),
-                                const SizedBox(width: 10),
-                              ];
-                            }).expand((e) => e),
-                          ],
+                      SizedBox(
+                        height: defaultThumbnailSize,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: vm.selectedFiles.length,
+                          itemBuilder: (context, index) {
+                            final file = vm.selectedFiles[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: SmartFileThumbnail.fromCrossFile(file),
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(height: 10),

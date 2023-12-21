@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.16.2"
+  FLUTTER_VERSION: "3.13.9"
 
 jobs:
 #  format:

@@ -19,11 +19,9 @@ class BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
-    final buttonWidth = sizingInformation.isDesktop ? 100.0 : 90.0;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: buttonWidth,
-        minWidth: buttonWidth,
+        minWidth: sizingInformation.isDesktop ? 100.0 : 90.0,
         minHeight: 65,
       ),
       child: ElevatedButton(
@@ -40,9 +38,7 @@ class BigButton extends StatelessWidget {
           children: [
             Icon(icon),
             const SizedBox(height: 5),
-            FittedBox(
-              child: Text(label, maxLines: 1),
-            ),
+            Text(label, maxLines: 1),
           ],
         ),
       ),

@@ -81,8 +81,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
 
     final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
 
-    return PopScope(
-      onPopInvoked: (_) => _decline(),
+    return WillPopScope(
+      onWillPop: () async {
+        _decline();
+        return true;
+      },
       child: Scaffold(
         body: SafeArea(
           child: Center(

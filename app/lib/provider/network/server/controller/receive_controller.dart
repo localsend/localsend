@@ -159,7 +159,7 @@ class ReceiveController {
     }
 
     // Save device information
-    server.ref.redux(nearbyDevicesProvider).dispatch(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
+    await server.ref.redux(nearbyDevicesProvider).dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
     server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
     final deviceInfo = server.ref.read(deviceInfoProvider);
@@ -440,8 +440,8 @@ class ReceiveController {
       );
 
       // Track it in history
-      await server.ref.notifier(receiveHistoryProvider).addEntry(
-            id: fileId,
+      await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
+            entryId: fileId,
             fileName: receivingFile.desiredName!,
             fileType: receivingFile.file.fileType,
             path: saveToGallery ? null : destinationPath,
@@ -449,7 +449,7 @@ class ReceiveController {
             fileSize: receivingFile.file.size,
             senderAlias: receiveState.senderAlias,
             timestamp: DateTime.now().toUtc(),
-          );
+          ));
 
       _logger.info('Saved ${receivingFile.file.fileName}.');
     } catch (e, st) {
@@ -485,8 +485,7 @@ class ReceiveController {
           ),
         ),
       );
-      if ((server.ref.read(settingsProvider).quickSave || server.ref.read(settingsProvider).autoFinish) &&
-          server.getState().session?.message == null) {
+      if (server.ref.read(settingsProvider).quickSave && server.getState().session?.message == null) {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();

@@ -525,7 +525,7 @@ class _StringsSettingsTabOtherZhCn extends _StringsSettingsTabOtherEn {
 
 	// Translations
 	@override String get title => '其他';
-	@override String get support => '支持LocalSend';
+	@override String get support => '支持 LocalSend';
 	@override String get donate => '捐赠';
 	@override String get privacyPolicy => '隐私政策';
 	@override String get termsOfUse => '使用条款';
