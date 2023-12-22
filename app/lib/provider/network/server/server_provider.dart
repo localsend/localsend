@@ -84,42 +84,45 @@ class ServerService extends Notifier<ServerState?> {
       alias: alias,
       fingerprint: fingerprint,
     );
+_logger.info('Starting server...');
+ServerState? newServerState;
 
-    _logger.info('Starting server...');
-    ServerState? newServerState;
+if (https) {
+  final securityContext = SecurityContext()
+    ..setAlpnProtocols(['h2', 'http/1.1'], true)
+    ..setSupportedProtocols(['TLSv1.2', 'TLSv1.3'])
+    ..setCipherSuites(SecurityContext.defaultCipherSuites)
+    ..usePrivateKeyBytes(ref.read(securityProvider).privateKey.codeUnits)
+    ..useCertificateChainBytes(ref.read(securityProvider).certificate.codeUnits);
 
-    if (https) {
-      final securityContext = ref.read(securityProvider);
-      newServerState = ServerState(
-        httpServer: await _startServer(
-          router: router,
-          port: port,
-          securityContext: SecurityContext()
-            ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
-            ..useCertificateChainBytes(securityContext.certificate.codeUnits),
-        ),
-        alias: alias,
-        port: port,
-        https: true,
-        session: null,
-        webSendState: null,
-      );
-      _logger.info('Server started. (Port: ${newServerState.port}, HTTPS only)');
-    } else {
-      newServerState = ServerState(
-        httpServer: await _startServer(
-          router: router,
-          port: port,
-          securityContext: null,
-        ),
-        alias: alias,
-        port: port,
-        https: false,
-        session: null,
-        webSendState: null,
-      );
-      _logger.info('Server started. (Port: ${newServerState.port}, HTTP only)');
-    }
+  newServerState = ServerState(
+    httpServer: await _startServer(
+      router: router,
+      port: port,
+      securityContext: securityContext,
+    ),
+    alias: alias,
+    port: port,
+    https: true,
+    session: null,
+    webSendState: null,
+  );
+  _logger.info('Server started. (Port: ${newServerState.port}, HTTPS only)');
+} else {
+  newServerState = ServerState(
+    httpServer: await _startServer(
+      router: router,
+      port: port,
+      securityContext: null,
+    ),
+    alias: alias,
+    port: port,
+    https: false,
+    session: null,
+    webSendState: null,
+  );
+  _logger.info('Server started. (Port: ${newServerState.port}, HTTP only)');
+}
 
     state = newServerState;
     return newServerState;
