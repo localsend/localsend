@@ -16,6 +16,19 @@
 
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
 
+<div align="center">
+
+**Share LocalSend App**
+
+[![Share on X](https://img.shields.io/badge/-Share%20on%20X-black?style=flat&logo=x&logoColor=white)](https://x.com/intent/tweet?hashtags=LocalSend%2Cfilesharing%2Cmessages&text=Check%20out%20this%20awesome%20LocalSend%20app%20%F0%9F%93%A4%20Securely%20share%20files%20and%20messages%20with%20nearby%20devices%20over%20your%20local%20network%20&url=https%3A%2F%2Flocal-send.app)
+[![Share on Reddit](https://img.shields.io/badge/-Share%20on%20Reddit-ff4500?style=flat&logo=reddit&logoColor=white)](https://www.reddit.com/submit?title=Discover%20LocalSend%20-%20A%20free%20app%20for%20secure%20file%20and%20message%20sharing%20over%20local%20networks.%20%23LocalSend%20%23filesharing%20%23messages&url=https%3A%2F%2Flocal-send.app)
+[![Share on Telegram](https://img.shields.io/badge/-Share%20on%20Telegram-0088cc?style=flat&logo=telegram&logoColor=white)](https://t.me/share/url"?text=Check%20out%20this%20awesome%20LocalSend%20app%20%F0%9F%93%A4%20Securely%20share%20files%20and%20messages%20with%20nearby%20devices%20over%20your%20local%20network%20%23LocalSend%20%23filesharing&url=https%3A%2F%2Flocal-send.app)
+[![Share on WhatsApp](https://img.shields.io/badge/-Share%20on%20WhatsApp-128c7e?style=flat&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send?text=Discover%20LocalSend%20-%20A%20free%20app%20for%20secure%20file%20and%20message%20sharing%20over%20local%20networks.%20https%3A%2F%2Flocal-send.app%20%23LocalSend%20%23filesharing%20%23messages)
+[![Share on Mastodon](https://img.shields.io/badge/-Share%20on%20Mastodon-5c4ee8?style=flat&logo=mastodon&logoColor=white)](https://mastodon.social/share?text=Check%20out%20this%20awesome%20LocalSend%20app%20%F0%9F%93%A4%20Securely%20share%20files%20and%20messages%20with%20nearby%20devices%20over%20your%20local%20network%20%23LocalSend%20%23filesharing%20%23messages&url=https%3A%2F%2Flocal-send.app)
+[![Share on LinkedIn](https://img.shields.io/badge/-Share%20on%20LinkedIn-0077b5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/feed)
+
+</div>
+
 - [About](#about)
 - [Screenshots](#screenshots)
 - [Download](#download)
@@ -44,7 +57,7 @@ LocalSend is a cross-platform app that enables secure communication between devi
 It is recommended to download the app either from an app store or from a package manager because the app does not have an auto-update.
 
 | Windows                  | macOS                   | Linux              | Android        | iOS           | Fire OS    |
-|--------------------------|-------------------------|--------------------|----------------|---------------|------------|
+| ------------------------ | ----------------------- | ------------------ | -------------- | ------------- | ---------- |
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
 | [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
@@ -74,7 +87,7 @@ Read more about [distribution channels][].
 In most cases, LocalSend should work out of the box. However, if you are having trouble sending or receiving files, you may need to configure your firewall to allow LocalSend to communicate over your local network.
 
 | Traffic Type | Protocol | Port  | Action |
-|--------------|----------|-------|--------|
+| ------------ | -------- | ----- | ------ |
 | Incoming     | TCP, UDP | 53317 | Allow  |
 | Outgoing     | TCP, UDP | Any   | Allow  |
 
