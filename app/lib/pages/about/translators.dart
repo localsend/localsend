@@ -13,6 +13,9 @@ const _translators = <AppLocale, List<String>>{
   AppLocale.cs: [
     '@Amereyeu',
   ],
+  AppLocale.da: [
+    '@Limfjorden',
+  ],
   AppLocale.de: [
     'Tien Do Nam (@Tienisto)',
   ],

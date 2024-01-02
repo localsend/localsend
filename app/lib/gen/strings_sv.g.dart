@@ -194,8 +194,8 @@ class _StringsReceivePageSv extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
-		one: 'vill skicka en fil till dig.',
-		other: 'Vill skick ${n} filer till dig.',
+		one: 'vill skicka en fil till dig',
+		other: 'Vill skick ${n} filer till dig',
 	);
 	@override String get subTitleMessage => 'skickade ett meddelande till dig:';
 	@override String get subTitleLink => 'skickade en länk till dig:';

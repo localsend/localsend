@@ -198,8 +198,8 @@ class _StringsReceivePageHu extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(n,
-		one: 'fájlt szeretne küldeni.',
-		other: '${n} fájlt szeretne küldeni.',
+		one: 'fájlt szeretne küldeni',
+		other: '${n} fájlt szeretne küldeni',
 	);
 	@override String get subTitleMessage => 'üzenetet küldött:';
 	@override String get subTitleLink => 'Linket küldött:';

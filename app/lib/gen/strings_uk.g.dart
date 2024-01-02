@@ -198,11 +198,11 @@ class _StringsReceivePageUk extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
-		one: 'хоче надіслати вам файл.',
-		other: 'хоче відправити ${n} файлів.',
+		one: 'хоче надіслати вам файл',
+		other: 'хоче надіслати вам ${n} файли (-ів)',
 	);
 	@override String get subTitleMessage => 'надіслав вам повідомлення:';
-	@override String get subTitleLink => 'відправив вам посилання:';
+	@override String get subTitleLink => 'надіслав вам посилання:';
 	@override String get canceled => 'Відправник скасував запит на передачу файлів.';
 }
 

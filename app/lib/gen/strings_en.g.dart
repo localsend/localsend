@@ -203,8 +203,8 @@ class _StringsReceivePageEn {
 
 	// Translations
 	String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: 'wants to send you a file.',
-		other: 'wants to send you ${n} files.',
+		one: 'wants to send you a file',
+		other: 'wants to send you ${n} files',
 	);
 	String get subTitleMessage => 'sent you a message:';
 	String get subTitleLink => 'sent you a link:';

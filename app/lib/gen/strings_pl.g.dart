@@ -198,8 +198,8 @@ class _StringsReceivePagePl extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pl'))(n,
-		one: 'chce wysłać ci plik.',
-		other: 'chce wysłać ci ${n} plików.',
+		one: 'chce wysłać ci plik',
+		other: 'chce wysłać ci ${n} plików',
 	);
 	@override String get subTitleMessage => 'wysłał ci wiadomość:';
 	@override String get subTitleLink => 'wysłał ci link:';
@@ -475,7 +475,7 @@ class _StringsSettingsTabGeneralPl extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Język';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsPl languageOptions = _StringsSettingsTabGeneralLanguageOptionsPl._(_root);
 	@override String get saveWindowPlacement => 'Zamknij: Zapisz położenie okna';
-	@override String get minimizeToTray => 'Quit: Minimize to tray';
+	@override String get minimizeToTray => 'Wyjdź: zminimalizuj do menu ukrytych ikon';
 	@override String get launchAtStartup => 'Autostart po zalogowaniu';
 	@override String get launchMinimized => 'Autostart: Start ukryty';
 	@override String get animations => 'Animacje';

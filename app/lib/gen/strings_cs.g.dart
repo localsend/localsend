@@ -198,8 +198,8 @@ class _StringsReceivePageCs extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
-		one: 'vám chce poslat soubor.',
-		other: 'vám chce poslat ${n} souborů.',
+		one: 'vám chce poslat soubor',
+		other: 'vám chce poslat ${n} souborů',
 	);
 	@override String get subTitleMessage => 'vám poslal zprávu:';
 	@override String get subTitleLink => 'vám poslal odkaz:';

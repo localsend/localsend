@@ -1,3 +1,7 @@
+## 1.14.0 (unreleased)
+
+- i18n: add Danish (@Limfjorden)
+
 ## 1.13.1 (2023-12-08)
 
 - feat: add a short delay when "Auto Finish" is enabled (@Tienisto)

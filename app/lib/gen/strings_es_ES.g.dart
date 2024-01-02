@@ -198,8 +198,8 @@ class _StringsReceivePageEsEs extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
-		one: 'quiere enviarte un archivo.',
-		other: 'quiere enviarte ${n} archivos.',
+		one: 'quiere enviarte un archivo',
+		other: 'quiere enviarte ${n} archivos',
 	);
 	@override String get subTitleMessage => 'te ha enviado un mensaje:';
 	@override String get subTitleLink => 'te ha enviado un enlace:';
