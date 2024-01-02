@@ -1,5 +1,6 @@
 ## 1.14.0 (unreleased)
 
+- fix: picking many files should not freeze the UI (@Tienisto)
 - i18n: add Danish (@Limfjorden)
 
 ## 1.13.1 (2023-12-08)
