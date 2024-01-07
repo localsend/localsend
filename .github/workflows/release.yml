@@ -228,17 +228,6 @@ jobs:
             exit 1
           fi
 
-      # Remove this when: https://github.com/leanflutter/flutter_distributor/pull/150 is merged
-      - name: Update Architecture
-        run: |
-          mkdir temp
-          cd temp
-          ar x ../${{ steps.find_deb.outputs.deb_path }}
-          tar xJf control.tar.xz --overwrite
-          sed -i '/Architecture:/c\Architecture: arm64' ./control
-          tar cJf control.tar.xz control postinst postrm
-          ar rcs ../${{ steps.find_deb.outputs.deb_path }} debian-binary control.tar.xz data.tar.xz
-
       - name: Upload deb file
         uses: actions/upload-artifact@v3
         with:
