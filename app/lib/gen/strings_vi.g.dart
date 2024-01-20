@@ -198,8 +198,8 @@ class _StringsReceivePageVi extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(n,
-		one: 'muốn gửi cho bạn một tập tin.',
-		other: 'muốn gửi cho bạn ${n} tập tin.',
+		one: 'muốn gửi cho bạn một tập tin',
+		other: 'muốn gửi cho bạn ${n} tập tin',
 	);
 	@override String get subTitleMessage => 'đã gửi cho bạn một tin nhắn:';
 	@override String get subTitleLink => 'đã gửi cho bạn một liên kết:';

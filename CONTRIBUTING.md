@@ -50,7 +50,7 @@ If you encounter a bug in LocalSend or have a feature request, please submit an 
 
 ## Security Issues
 
-If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [localsendapp@gmail.com](mailto:localsendapp@gmail.com) so that we can address the issue as quickly and effectively as possible.
+If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [support@localsend.org](mailto:support@localsend.org) so that we can address the issue as quickly and effectively as possible.
 
 ## Distribution
 

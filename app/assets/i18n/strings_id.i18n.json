@@ -14,6 +14,7 @@
     "copiedToClipboard": "Disalin ke Papanklip",
     "decline": "Tolak",
     "done": "Selesai",
+    "delete": "Hapus",
     "edit": "Ubah",
     "error": "Kesalahan",
     "example": "Contoh",
@@ -36,7 +37,8 @@
     "stop": "Berhenti",
     "save": "Simpan",
     "unchanged": "Tidak berubah",
-    "unknown": "Tidak dikenal"
+    "unknown": "Tidak dikenal",
+    "noItemInClipboard": "Tidak ada item di Clipboard"
   },
   "receiveTab": {
     "title": "Menerima",
@@ -58,7 +60,8 @@
       "folder": "Folder",
       "media": "Media",
       "text": "Teks",
-      "app": "Aplikasi"
+      "app": "Aplikasi",
+      "clipboard": "Tempel"
     },
     "shareIntentInfo": "Anda juga dapat menggunakan fitur \"Berbagi\" untuk memilih file dengan lebih mudah.",
     "nearbyDevices": "Perangkat terdekat",
@@ -86,7 +89,8 @@
       },
       "color": "Warna",
       "colorOptions": {
-        "system": "Sistem"
+        "system": "Sistem",
+        "oled": "OLED"
       },
       "language": "Bahasa",
       "languageOptions": {
@@ -101,6 +105,7 @@
     "receive": {
       "title": "Menerima",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Selesai Otomatis",
       "destination": "Tujuan",
       "downloads": "(Unduhan)",
       "saveToGallery": "Simpan media ke galeri",
@@ -118,6 +123,13 @@
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
       "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena Anda menggunakan alamat multicast khusus. (default: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Lainnya",
+      "support": "Dukung LocalSend",
+      "donate": "Berikan Donasi",
+      "privacyPolicy": "Kebijakan Privasi",
+      "termsOfUse": "Syarat dan Ketentuan Penggunaan"
     },
     "advancedSettings": "Pengaturan Lanjutan"
   },
@@ -209,7 +221,21 @@
     "pendingRequests": "Permintaan tertunda: {n}"
   },
   "aboutPage": {
-    "title": "Tentang LocalSend"
+    "title": "Tentang LocalSend",
+    "description": [
+      "LocalSend merupakan aplikasi gratis, open-source (terbuka) yang dapat membantu anda untuk transfer file dan pesan secara aman dengan perangkat terdekat lain melalui jaringan lokal tanpa perlu koneksi internet atau paket data.",
+      "Aplikasi ini tersedia untuk Android, iOS, macOS, Windows dan Linux. Anda dapat menemukan semua pilihan download pada halaman resmi kami."
+    ],
+    "author": "Pencipta",
+    "contributors": "Daftar Kontributor",
+    "translators": "Daftar Terjemahan"
+  },
+  "donationPage": {
+    "title": "Donasi",
+    "info": "LocalSend merupakan aplikasi gratis, terbuka dan bebas iklan. Jika anda menyukai aplikasi ini, anda dapat membantu dengan cara memberikan donasi.",
+    "donate": "Donasi {amount}",
+    "thanks": "Terima kasih banyak!",
+    "restore": "Kembalikan dana"
   },
   "changelogPage": {
     "title": "Catatan Perubahan"
@@ -313,6 +339,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "Favorit",
+      "noFavorites": "Tidak adan perangkat difavoritkan.",
+      "addFavorite": "Tambah"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Hapus dari daftar favorit",
+      "content": "Anda yakin ingin menghapus ini dari daftar favorit? \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Tambah ke daftar favorit",
+      "titleEdit": "Pengaturan",
+      "name": "Nama perangkat",
+      "auto": "(auto)",
+      "ip": "Alamat IP",
+      "port": "Port"
+    },
     "fileInfo": {
       "title": "Informasi file",
       "fileName": "Nama file:",
@@ -324,6 +367,10 @@
     "fileNameInput": {
       "title": "Masukan nama file",
       "original": "Asli: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Hapus riwayat",
+      "content": "Anda yakin ingin menghapus seluruh riwayat?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",

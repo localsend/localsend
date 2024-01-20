@@ -52,7 +52,7 @@ class _StringsGeneralNl extends _StringsGeneralEn {
 
 	// Translations
 	@override String get accept => 'Accepteren';
-	@override String get accepted => 'Geäccepteerd';
+	@override String get accepted => 'Geaccepteerd';
 	@override String get add => 'Toevoegen';
 	@override String get advanced => 'Geavanceerd';
 	@override String get cancel => 'Annuleren';
@@ -118,7 +118,7 @@ class _StringsSendTabNl extends _StringsSendTabEn {
 	@override String get sendMode => 'Verzend modus';
 	@override late final _StringsSendTabSendModesNl sendModes = _StringsSendTabSendModesNl._(_root);
 	@override String get sendModeHelp => 'Info';
-	@override String get help => 'Zorg ervoor dat het gewenste doel zick ook in hetzelfde wifi netwerk bevindt.';
+	@override String get help => 'Zorg ervoor dat het gewenste doel zich ook in hetzelfde wifi-netwerk bevindt.';
 	@override String get placeItems => 'Plaats items om te delen.';
 }
 
@@ -144,7 +144,7 @@ class _StringsTroubleshootPageNl extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'Probleem oplossen';
-	@override String get subTitle => 'Werkt de app niet als verwacht? Hier kan je algemene oplossingen vinden.';
+	@override String get subTitle => 'Werkt de app niet als verwacht? Hier kun je algemene oplossingen vinden.';
 	@override String get solution => 'Oplossing:';
 	@override String get fixButton => 'Automatisch oplossen';
 	@override late final _StringsTroubleshootPageFirewallNl firewall = _StringsTroubleshootPageFirewallNl._(_root);
@@ -196,8 +196,8 @@ class _StringsReceivePageNl extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
-		one: 'wil je een bestand verzenden.',
-		other: 'wil je ${n} bestanden verzenden.',
+		one: 'wil je een bestand verzenden',
+		other: 'wil je ${n} bestanden verzenden',
 	);
 	@override String get subTitleMessage => 'heeft je een bericht verzonden:';
 	@override String get subTitleLink => 'heeft je een link verzonden:';
@@ -215,7 +215,7 @@ class _StringsReceiveOptionsPageNl extends _StringsReceiveOptionsPageEn {
 	@override String get destination => '${_root.settingsTab.receive.destination}';
 	@override String get appDirectory => '(LocalSend folder)';
 	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
-	@override String get saveToGalleryOff => 'Turned off automatically because there are directories.';
+	@override String get saveToGalleryOff => 'Automatisch uitgezet want er zijn mappen.';
 }
 
 // Path: sendPage
@@ -239,7 +239,7 @@ class _StringsProgressPageNl extends _StringsProgressPageEn {
 	// Translations
 	@override String get titleSending => 'Verzenden bestanden';
 	@override String get titleReceiving => 'Ontvangen bestanden';
-	@override String get savedToGallery => 'In foto\'s bewaard';
+	@override String get savedToGallery => 'Bewaard in foto\'s';
 	@override late final _StringsProgressPageTotalNl total = _StringsProgressPageTotalNl._(_root);
 }
 
@@ -371,7 +371,7 @@ class _StringsAssetPickerNl extends _StringsAssetPickerEn {
 	@override String get changeAccessibleLimitedAssets => 'toegangelijke bestanden voor deze app aanpassen';
 	@override String get accessAllTip => 'De app heeft slechts beperkte toegang tot uw bestanden. Ga naar het instellingen menu van uw apparaat om de toegangsrechten aan te passen.';
 	@override String get goToSystemSettings => 'Ga naar het instellingen menu';
-	@override String get accessLimitedAssets => 'Behoudt beperkte toegang tot bestanden';
+	@override String get accessLimitedAssets => 'Behoud beperkte toegang tot bestanden';
 	@override String get accessiblePathName => 'Toegangkelijke bestanden';
 	@override String get sTypeAudioLabel => 'Audio';
 	@override String get sTypeImageLabel => 'Fotos';
@@ -490,7 +490,7 @@ class _StringsSettingsTabNetworkNl extends _StringsSettingsTabNetworkEn {
 	@override String portWarning({required Object defaultPort}) => 'Je wordt mogelijk niet gedetecteerd door andere apparaten omdat je een aagepaste poort gebruikt. (standaard: ${defaultPort})';
 	@override String get encryption => 'Encryptie';
 	@override String get multicastGroup => 'Multicast';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Je wordt mogelijk niet gedetecteerd door andere apparaten omdate je een aangepaste multicast-addres gebruikt. (standaard: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Je wordt mogelijk niet gedetecteerd door andere apparaten omdate je een aangepast multicast-addres gebruikt. (standaard: ${defaultMulticast})';
 }
 
 // Path: troubleshootPage.firewall
@@ -573,7 +573,7 @@ class _StringsDialogsCancelSessionNl extends _StringsDialogsCancelSessionEn {
 
 	// Translations
 	@override String get title => 'Bestandsoverdracht annuleren';
-	@override String get content => 'Ben je zeker dat je de bestandsoverdracht wil annuleren?';
+	@override String get content => 'Weet je zeker dat je de bestandsoverdracht wil annuleren?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -691,7 +691,7 @@ class _StringsDialogsLocalNetworkUnauthorizedNl extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => '${_root.dialogs.noPermission.title}';
-	@override String get description => 'LocalSend kan geen andere apparaten op uw netwerk vinden zonder de juiste permissies voor netwerktoegang te hebben verkregen. Stel deze correct in in het instellingen menu.';
+	@override String get description => 'LocalSend kan geen andere apparaten op uw netwerk vinden zonder de juiste rechten voor netwerktoegang te hebben verkregen. Stel deze correct in in het instellingen menu.';
 	@override String get gotoSettings => 'Instellingen';
 }
 
@@ -724,7 +724,7 @@ class _StringsDialogsNoPermissionNl extends _StringsDialogsNoPermissionEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Geen permissie';
+	@override String get title => 'Geen rechten';
 	@override String get content => 'U heeft de benodigde rechten niet verleend. Verleen deze alstublieft in de instellingen.';
 }
 
@@ -829,7 +829,7 @@ class _StringsProgressPageTotalTitleNl extends _StringsProgressPageTotalTitleEn 
 
 	// Translations
 	@override String sending({required Object time}) => 'Totale vooruitgang (${time})';
-	@override String get finishedError => 'Afgewerkt met een foutmelding';
+	@override String get finishedError => 'Afgerond met een foutmelding';
 	@override String get canceledSender => 'Geannuleerd door de verzender';
 	@override String get canceledReceiver => 'Geannuleerd door de ontvanger';
 }

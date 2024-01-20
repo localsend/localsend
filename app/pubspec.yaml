@@ -108,7 +108,7 @@ msix_config:
   identity_name: 11157TienDoNam.LocalSend
   logo_path: assets\img\logo-512.png
   architecture: x64
-  languages: en, ar, bn, cs, de, el, es-ES, eu, fa, fr, he, hu, in, it, ja, ko, ne, nl, pl, pt-BR, ru, sv, th, tr, uk, vi, zh-CN, zh-HK, zh-TW
+  languages: en, ar, bn, cs, da, de, el, es-ES, eu, fa, fr, he, hu, in, it, ja, ko, ne, nl, pl, pt-BR, ru, sv, th, tr, uk, vi, zh-CN, zh-HK, zh-TW
 
   # https://github.com/localsend/localsend/issues/398
   os_min_version: 10.0.19041.0

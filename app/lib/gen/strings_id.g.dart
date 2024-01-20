@@ -194,8 +194,8 @@ class _StringsReceivePageId extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('id'))(n,
-		one: 'ingin mengirim file.',
-		other: 'ingin mengirim ${n} file.',
+		one: 'ingin mengirim file',
+		other: 'ingin mengirim ${n} file',
 	);
 	@override String get subTitleMessage => 'mengirim pesan:';
 	@override String get subTitleLink => 'mengirim link:';
