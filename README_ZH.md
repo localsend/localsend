@@ -10,6 +10,8 @@
 
 [English](README.md)
 
+> 注意：中文文档更新可能不够及时，请以英文文档为准。
+
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
 [github]: https://github.com/localsend/localsend
@@ -81,6 +83,8 @@ LocalSend 是一个跨平台应用程序，使用REST API和HTTPS加密实现设
 |---------|------|------|------|
 | 传入     | TCP, UDP | 53317 | 允许  |
 | 传出     | TCP, UDP | 任意   | 允许  |
+
+另外，请确保禁用路由器上的 AP 隔离。通常默认情况下应禁用它，但某些路由器可能会启用它（比如访客网络）。
 
 **便携模式**
 
