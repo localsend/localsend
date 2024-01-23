@@ -27,7 +27,7 @@
     "online": "In linea",
     "open": "Apri",
     "queue": "Coda",
-    "quickSave": "Salva rapido",
+    "quickSave": "Salvataggio rapido",
     "renamed": "Rinominato",
     "reset": "Reset",
     "restart": "Riavvia",
@@ -88,7 +88,7 @@
     "title": "Impostazioni",
     "general": {
       "title": "Generale",
-      "brightness": "Luminosità",
+      "brightness": "Tema",
       "brightnessOptions": {
         "system": "Sistema",
         "dark": "Scuro",
@@ -115,7 +115,7 @@
       "quickSave": "@:general.quickSave",
       "destination": "Destinazione",
       "downloads": "(Download)",
-      "saveToGallery": "Salva i dati nella galleria",
+      "saveToGallery": "Salva i media nella galleria",
       "saveToHistory": "Salva nella cronologia"
     },
     "network": {
