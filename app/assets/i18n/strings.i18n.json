@@ -38,7 +38,7 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No item in Clipboard"
+    "noItemInClipboard": "No items in Clipboard"
   },
   "receiveTab": {
     "title": "Receive",
@@ -74,7 +74,7 @@
       "link": "Share via link"
     },
     "sendModeHelp": "Explanation",
-    "help": "Please ensure that the desired target is also in the same wifi network.",
+    "help": "Please ensure that the desired target is also in the same Wi-Fi network.",
     "placeItems": "Place items to share."
   },
   "settingsTab": {
@@ -145,7 +145,7 @@
     },
     "noConnection": {
       "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
     }
   },
   "receiveHistoryPage": {
@@ -341,7 +341,7 @@
     },
     "favoriteDialog": {
       "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
+      "noFavorites": "No favorite devices yet.",
       "addFavorite": "Add"
     },
     "favoriteDeleteDialog": {
@@ -428,7 +428,7 @@
     "size": "Size"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "edit": "Edit",
