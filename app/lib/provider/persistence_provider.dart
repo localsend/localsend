@@ -113,10 +113,6 @@ class PersistenceService {
       await prefs.setInt(_version, 1);
     }
 
-    if (prefs.getInt(_anonymousAccess) == null) {
-      await prefs.setInt(_anonymousAccess, 0);
-    }
-
     if (prefs.getString(_showToken) == null) {
       await prefs.setString(_showToken, const Uuid().v4());
     }
