@@ -108,7 +108,8 @@
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet"
+      "saveToHistory": "Geçmişe kaydet",
+      "autoFinish": "Otomatik bitir"
     },
     "network": {
       "title": "Ağ",
