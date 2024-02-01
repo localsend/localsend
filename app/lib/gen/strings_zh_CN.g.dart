@@ -480,6 +480,7 @@ class _StringsSettingsTabGeneralZhCn extends _StringsSettingsTabGeneralEn {
 	@override String get launchMinimized => '静默自启：只启动托盘服务';
 	@override String get animations => '动画效果';
 	@override String get anonymousAccess => '链接分享：允许匿名访问';
+	@override String get anonymousAccessTips => '全局配置';
 }
 
 // Path: settingsTab.receive

@@ -480,6 +480,7 @@ class _StringsSettingsTabGeneralZhHk extends _StringsSettingsTabGeneralEn {
 	@override String get launchMinimized => '自動啟動成通知圖示';
 	@override String get animations => '動畫';
 	@override String get anonymousAccess => '鏈接分享：允許匿名訪問';
+	@override String get anonymousAccessTips => '全局配置';
 }
 
 // Path: settingsTab.receive
