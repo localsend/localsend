@@ -557,7 +557,7 @@ class _StringsSettingsTabGeneralEn {
 	String get launchAtStartup => 'Autostart after login';
 	String get launchMinimized => 'Autostart: Start hidden';
 	String get animations => 'Animations';
-	String get anonymousAccess => 'ShareWithLink: Allow Anonymous Access';
+	String get anonymousAccess => 'ShareViaLink: Allow Anonymous Access';
 	String get anonymousAccessTips => 'Global Setting';
 
 }
