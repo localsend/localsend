@@ -27,22 +27,28 @@ class WebSendPage extends StatefulWidget {
 class _WebSendPageState extends State<WebSendPage> with Refena {
   _ServerState _stateEnum = _ServerState.initializing;
   bool _encrypted = false;
+  int _anonymousAccess = 0;
   String? _initializedError;
+
+
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _init(encrypted: false);
+      _init(encrypted: false, anonymousAccess: 0);
     });
   }
 
-  void _init({required bool encrypted}) async {
+  void _init({required bool encrypted, required int anonymousAccess}) async {
     final settings = ref.read(settingsProvider);
+    anonymousAccess = anonymousAccess | (settings.anonymousAccess & 1 == 1 ? 3 : 0);
+
     setState(() {
       _stateEnum = _ServerState.initializing;
       _encrypted = encrypted;
       _initializedError = null;
+      _anonymousAccess = anonymousAccess;
     });
     await sleepAsync(500);
     try {
@@ -50,7 +56,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
             alias: settings.alias,
             port: settings.port,
             https: _encrypted,
+            anonymousAccess: settings.anonymousAccess
           );
+      await ref.notifier(settingsProvider).setAnonymousAccess(anonymousAccess);
       await ref.notifier(serverProvider).initializeWebSend(widget.files);
       setState(() {
         _stateEnum = _ServerState.running;
@@ -255,11 +263,27 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                     Checkbox(
                       value: _encrypted,
                       onChanged: (value) {
-                        _init(encrypted: value == true);
+                        _init(encrypted: value == true, anonymousAccess: _anonymousAccess);
                       },
                     ),
                   ],
                 ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(t.webSharePage.anonymousAccess, style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(width: 10),
+                    Checkbox(
+                      value: (_anonymousAccess & 2) == 2,
+                      onChanged: (value) {
+                        _init(encrypted: _encrypted, anonymousAccess: value == true ? 2 : 0);
+                      },
+                    ),
+                    if((_anonymousAccess & 1) == 1)
+                      Text(t.webSharePage.anonymousAccessTips, style: Theme.of(context).textTheme.titleMedium),
+                  ],
+                ),
+
                 if (_encrypted)
                   Text(
                     t.webSharePage.encryptionHint,

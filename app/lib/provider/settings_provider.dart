@@ -39,7 +39,17 @@ class SettingsService extends PureNotifier<SettingsState> {
         enableAnimations: _persistence.getEnableAnimations(),
         deviceType: _persistence.getDeviceType(),
         deviceModel: _persistence.getDeviceModel(),
+        anonymousAccess: _persistence.getAnonymousAccess(),
       );
+
+
+  Future<void> setAnonymousAccess(int anonymousAccess) async {
+    await _persistence.setAnonymousAccess(anonymousAccess);
+
+    state = state.copyWith(
+      anonymousAccess: anonymousAccess,
+    );
+  }
 
   Future<void> setAlias(String alias) async {
     await _persistence.setAlias(alias);

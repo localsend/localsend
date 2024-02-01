@@ -268,6 +268,8 @@ class _StringsWebSharePageEn {
 	String get requests => 'Requests';
 	String get noRequests => 'No requests yet.';
 	String get encryption => '${_root.settingsTab.network.encryption}';
+	String get anonymousAccess => '${_root.settingsTab.general.anonymousAccess}';
+	String get anonymousAccessTips => '${_root.settingsTab.general.anonymousAccess}(Global)';
 	String get encryptionHint => 'LocalSend uses a self-signed certificate. You need to accept it in the browser.';
 	String pendingRequests({required Object n}) => 'Pending requests: ${n}';
 }
@@ -555,6 +557,8 @@ class _StringsSettingsTabGeneralEn {
 	String get launchAtStartup => 'Autostart after login';
 	String get launchMinimized => 'Autostart: Start hidden';
 	String get animations => 'Animations';
+	String get anonymousAccess => 'ShareWithLink: Allow Anonymous Access';
+
 }
 
 // Path: settingsTab.receive

@@ -67,6 +67,7 @@ const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
+const _anonymousAccess = 'ls_anonymous_access';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -110,6 +111,10 @@ class PersistenceService {
 
     if (prefs.getInt(_version) == null) {
       await prefs.setInt(_version, 1);
+    }
+
+    if (prefs.getInt(_anonymousAccess) == null) {
+      await prefs.setInt(_anonymousAccess, 0);
     }
 
     if (prefs.getString(_showToken) == null) {
@@ -231,6 +236,14 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  int getAnonymousAccess() {
+    return _prefs.getInt(_anonymousAccess) ?? 0;
+  }
+
+  Future<void> setAnonymousAccess(int anonymousAccess) async {
+    await _prefs.setInt(_anonymousAccess, anonymousAccess);
   }
 
   String getMulticastGroup() {

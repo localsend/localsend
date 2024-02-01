@@ -155,7 +155,15 @@ class SettingsTab extends StatelessWidget {
                             },
                           ),
                         )),
+                  _BooleanEntry(
+                    label: t.settingsTab.general.anonymousAccess,
+                    value: (vm.settings.anonymousAccess & 1) == 1,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setAnonymousAccess(b == true ? 1 : 0);
+                    },
+                  ),
                 ],
+
                 if (vm.advanced)
                   _BooleanEntry(
                     label: t.settingsTab.general.animations,
