@@ -67,7 +67,9 @@ const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
-const _anonymousAccess = 'ls_anonymous_access';
+const _anonymousAccessForGlobal = 'ls_anonymous_access_for_global';
+const _anonymousAccessForTemporary = 'ls_anonymous_access_for_temporary';
+
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -234,12 +236,20 @@ class PersistenceService {
     await _prefs.setInt(_portKey, port);
   }
 
-  int getAnonymousAccess() {
-    return _prefs.getInt(_anonymousAccess) ?? 0;
+  bool getEnableGlobalAnonymousAccess() {
+    return _prefs.getBool(_anonymousAccessForGlobal) ?? false;
   }
 
-  Future<void> setAnonymousAccess(int anonymousAccess) async {
-    await _prefs.setInt(_anonymousAccess, anonymousAccess);
+  Future<void> setEnableGlobalAnonymousAccess(bool anonymousAccess) async {
+    await _prefs.setBool(_anonymousAccessForGlobal, anonymousAccess);
+  }
+
+  bool getEnableTemporaryAnonymousAccess() {
+    return _prefs.getBool(_anonymousAccessForTemporary) ?? false;
+  }
+
+  Future<void> setEnableTemporaryAnonymousAccess(bool v) async {
+    await _prefs.setBool(_anonymousAccessForTemporary, v);
   }
 
   String getMulticastGroup() {

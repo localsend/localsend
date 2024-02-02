@@ -30,7 +30,8 @@ class SettingsState with SettingsStateMappable {
   final bool enableAnimations;
   final DeviceType? deviceType;
   final String? deviceModel;
-  final int anonymousAccess;  // bit 1 for globalSetting,bit 2 for tmpSetting
+  final bool enableGlobalAnonymousAccess;
+  final bool enableTemporaryAnonymousAccess;
 
   const SettingsState({
     required this.showToken,
@@ -54,6 +55,7 @@ class SettingsState with SettingsStateMappable {
     required this.enableAnimations,
     required this.deviceType,
     required this.deviceModel,
-    required this.anonymousAccess,
+    required this.enableGlobalAnonymousAccess,
+    required this.enableTemporaryAnonymousAccess,
   });
 }

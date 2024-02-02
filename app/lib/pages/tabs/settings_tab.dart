@@ -157,9 +157,9 @@ class SettingsTab extends StatelessWidget {
                         )),
                   _BooleanEntry(
                     label: t.settingsTab.general.anonymousAccess,
-                    value: (vm.settings.anonymousAccess & 1) == 1,
+                    value: vm.settings.enableGlobalAnonymousAccess,
                     onChanged: (b) async {
-                      await ref.notifier(settingsProvider).setAnonymousAccess(b == true ? 1 : 0);
+                      await ref.notifier(settingsProvider).setEnableGlobalAnonymousAccess(b == true);
                     },
                   ),
                 ],

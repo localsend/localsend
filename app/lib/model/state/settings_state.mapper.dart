@@ -82,9 +82,15 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static String? _$deviceModel(SettingsState v) => v.deviceModel;
   static const Field<SettingsState, String> _f$deviceModel =
       Field('deviceModel', _$deviceModel);
-  static int _$anonymousAccess(SettingsState v) => v.anonymousAccess;
-  static const Field<SettingsState, int> _f$anonymousAccess =
-      Field('anonymousAccess', _$anonymousAccess);
+  static bool _$enableGlobalAnonymousAccess(SettingsState v) =>
+      v.enableGlobalAnonymousAccess;
+  static const Field<SettingsState, bool> _f$enableGlobalAnonymousAccess =
+      Field('enableGlobalAnonymousAccess', _$enableGlobalAnonymousAccess);
+  static bool _$enableTemporaryAnonymousAccess(SettingsState v) =>
+      v.enableTemporaryAnonymousAccess;
+  static const Field<SettingsState, bool> _f$enableTemporaryAnonymousAccess =
+  Field('enableTemporaryAnonymousAccess', _$enableTemporaryAnonymousAccess);
+
   @override
   final Map<Symbol, Field<SettingsState, dynamic>> fields = const {
     #showToken: _f$showToken,
@@ -108,7 +114,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #enableAnimations: _f$enableAnimations,
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
-    #anonymousAccess: _f$anonymousAccess,
+    #enableGlobalAnonymousAccess: _f$enableGlobalAnonymousAccess,
+    #enableTemporaryAnonymousAccess: _f$enableTemporaryAnonymousAccess,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -134,7 +141,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         enableAnimations: data.dec(_f$enableAnimations),
         deviceType: data.dec(_f$deviceType),
         deviceModel: data.dec(_f$deviceModel),
-        anonymousAccess: data.dec(_f$anonymousAccess),
+        enableGlobalAnonymousAccess: data.dec(_f$enableGlobalAnonymousAccess),
+        enableTemporaryAnonymousAccess: data.dec(_f$enableTemporaryAnonymousAccess),
 
     );
   }
@@ -216,7 +224,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
       bool? enableAnimations,
       DeviceType? deviceType,
       String? deviceModel,
-      int? anonymousAccess,
+      bool? enableGlobalAnonymousAccess,
+      bool? enableTemporaryAnonymousAccess,
       });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -252,7 +261,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
           bool? enableAnimations,
           Object? deviceType = $none,
           Object? deviceModel = $none,
-          int? anonymousAccess,
+          bool? enableGlobalAnonymousAccess,
+          bool? enableTemporaryAnonymousAccess,
           }) =>
       $apply(FieldCopyWithData({
         if (showToken != null) #showToken: showToken,
@@ -278,7 +288,9 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         if (enableAnimations != null) #enableAnimations: enableAnimations,
         if (deviceType != $none) #deviceType: deviceType,
         if (deviceModel != $none) #deviceModel: deviceModel,
-        if (anonymousAccess != null) #anonymousAccess: anonymousAccess,
+        if (enableGlobalAnonymousAccess != null) #enableGlobalAnonymousAccess: enableGlobalAnonymousAccess,
+        if (enableTemporaryAnonymousAccess != null) #enableTemporaryAnonymousAccess: enableTemporaryAnonymousAccess,
+
       }));
   @override
   SettingsState $make(CopyWithData data) => SettingsState(
@@ -306,7 +318,11 @@ class _SettingsStateCopyWithImpl<$R, $Out>
           data.get(#enableAnimations, or: $value.enableAnimations),
       deviceType: data.get(#deviceType, or: $value.deviceType),
       deviceModel: data.get(#deviceModel, or: $value.deviceModel),
-      anonymousAccess:data.get(#anonymousAccess, or: $value.anonymousAccess),
+      enableGlobalAnonymousAccess:
+        data.get(#enableGlobalAnonymousAccess, or: $value.enableGlobalAnonymousAccess),
+      enableTemporaryAnonymousAccess:
+        data.get(#enableTemporaryAnonymousAccess, or: $value.enableTemporaryAnonymousAccess),
+
   );
 
   @override

@@ -120,7 +120,7 @@ class SendController {
         ),
       );
       final settings = server.ref.read(settingsProvider);
-      if(settings.anonymousAccess > 0) {
+      if(settings.enableGlobalAnonymousAccess  || settings.enableTemporaryAnonymousAccess) {
         acceptRequest(sessionId);
       }
       final accepted = await streamController.stream.first;
