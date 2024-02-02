@@ -38,7 +38,7 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No item in Clipboard"
+    "noItemInClipboard": "No items in Clipboard"
   },
   "receiveTab": {
     "title": "Receive",
@@ -74,7 +74,7 @@
       "link": "Share via link"
     },
     "sendModeHelp": "Explanation",
-    "help": "Please ensure that the desired target is also in the same wifi network.",
+    "help": "Please ensure that the desired target is also on the same Wi-Fi network.",
     "placeItems": "Place items to share."
   },
   "settingsTab": {
@@ -135,17 +135,17 @@
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
-    "subTitle": "This app does not work as expected? Here you can find common solutions.",
+    "subTitle": "Does the app not work as expected? Here you can find some common solutions.",
     "solution": "Solution:",
     "fixButton": "Fix automatically",
     "firewall": {
-      "symptom": "This app can send files to other devices but other devices cannot send files to this device.",
+      "symptom": "This app can send files to other devices; but other devices cannot send files to this device.",
       "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
       "openFirewall": "Open Firewall"
     },
     "noConnection": {
       "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "The problem exists on both sides? Then you need to make sure that both devices are in the same wifi network and share the same configuration (port, multicast address, encryption). The wifi may not allow communication between participants. In this case, this option must be enabled on the router."
+      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
     }
   },
   "receiveHistoryPage": {
@@ -211,13 +211,13 @@
     "stopping": "Stopping server...",
     "error": "An error occurred while starting the server.",
     "openLink": {
-      "one": "Open this link in the browser:",
-      "other": "Open one of these links in the browser:"
+      "one": "Open this link in your browser:",
+      "other": "Open one of these links in your browser:"
     },
     "requests": "Requests",
     "noRequests": "No requests yet.",
     "encryption": "@:settingsTab.network.encryption",
-    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in the browser.",
+    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
     "pendingRequests": "Pending requests: {n}"
   },
   "aboutPage": {
@@ -341,7 +341,7 @@
     },
     "favoriteDialog": {
       "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
+      "noFavorites": "No favorite devices yet.",
       "addFavorite": "Add"
     },
     "favoriteDeleteDialog": {
@@ -406,7 +406,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "File requests are automatically accepted. Be aware that everyone in the local network can send you files."
+      "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
     },
     "sendModeHelp": {
       "title": "Send modes",
@@ -428,7 +428,7 @@
     "size": "Size"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "edit": "Edit",
