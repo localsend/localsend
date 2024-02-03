@@ -15,6 +15,7 @@ import 'package:localsend_app/model/state/send/web/web_send_session.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -118,7 +119,10 @@ class SendController {
           ),
         ),
       );
-
+      final settings = server.ref.read(settingsProvider);
+      if(settings.enableGlobalAnonymousAccess  || settings.enableTemporaryAnonymousAccess) {
+        acceptRequest(sessionId);
+      }
       final accepted = await streamController.stream.first;
       if (!accepted) {
         // user rejected the file transfer

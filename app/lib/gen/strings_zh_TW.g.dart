@@ -479,6 +479,8 @@ class _StringsSettingsTabGeneralZhTw extends _StringsSettingsTabGeneralEn {
 	@override String get launchAtStartup => '登入後自動啟動';
 	@override String get launchMinimized => '自動啟動至系統匣';
 	@override String get animations => '動畫效果';
+	@override String get anonymousAccess => '鏈接分享：允許匿名訪問';
+	@override String get anonymousAccessTips => '全局配置';
 }
 
 // Path: settingsTab.receive

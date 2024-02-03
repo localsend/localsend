@@ -50,11 +50,13 @@ class ServerService extends Notifier<ServerState?> {
       alias: settings.alias,
       port: settings.port,
       https: settings.https,
+      anonymousAccess: settings.enableGlobalAnonymousAccess
     );
   }
 
   /// Starts the server.
-  Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
+  Future<ServerState?> startServer({required String alias, required int port,
+    required bool https, required bool anonymousAccess}) async {
     if (state != null) {
       _logger.info('Server already running.');
       return null;
@@ -137,9 +139,10 @@ class ServerService extends Notifier<ServerState?> {
     return await startServerFromSettings();
   }
 
-  Future<ServerState?> restartServer({required String alias, required int port, required bool https}) async {
+  Future<ServerState?> restartServer({required String alias, required int port,
+    required bool https, required bool anonymousAccess}) async {
     await stopServer();
-    return await startServer(alias: alias, port: port, https: https);
+    return await startServer(alias: alias, port: port, https: https, anonymousAccess:anonymousAccess);
   }
 
   void acceptFileRequest(Map<String, String> fileNameMap) {

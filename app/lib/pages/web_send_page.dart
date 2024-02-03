@@ -27,22 +27,29 @@ class WebSendPage extends StatefulWidget {
 class _WebSendPageState extends State<WebSendPage> with Refena {
   _ServerState _stateEnum = _ServerState.initializing;
   bool _encrypted = false;
+  bool _enableTemporaryAnonymousAccess = false;
+  bool _enableGlobalAnonymousAccess = false;
   String? _initializedError;
+
+
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _init(encrypted: false);
+      _init(encrypted: false, anonymousAccess: false);
     });
   }
 
-  void _init({required bool encrypted}) async {
+  void _init({required bool encrypted, required bool anonymousAccess}) async {
     final settings = ref.read(settingsProvider);
+    _enableGlobalAnonymousAccess = settings.enableGlobalAnonymousAccess;
+    anonymousAccess = anonymousAccess | _enableGlobalAnonymousAccess;
     setState(() {
       _stateEnum = _ServerState.initializing;
       _encrypted = encrypted;
       _initializedError = null;
+      _enableTemporaryAnonymousAccess = anonymousAccess;
     });
     await sleepAsync(500);
     try {
@@ -50,7 +57,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
             alias: settings.alias,
             port: settings.port,
             https: _encrypted,
+            anonymousAccess: anonymousAccess
           );
+      await ref.notifier(settingsProvider).setEnableTemporaryAnonymousAccess(anonymousAccess);
       await ref.notifier(serverProvider).initializeWebSend(widget.files);
       setState(() {
         _stateEnum = _ServerState.running;
@@ -255,11 +264,31 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                     Checkbox(
                       value: _encrypted,
                       onChanged: (value) {
-                        _init(encrypted: value == true);
+                        _init(encrypted: value == true, anonymousAccess: _enableTemporaryAnonymousAccess);
                       },
                     ),
                   ],
                 ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(t.webSharePage.anonymousAccess, style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(width: 10),
+                    Checkbox(
+                      value: _enableTemporaryAnonymousAccess,
+                      onChanged: (value) {
+                        if(_enableGlobalAnonymousAccess)
+                          // global setting will override to temporary
+                          // so can't change this if global is on
+                          return null;
+                        _init(encrypted: _encrypted, anonymousAccess: value == true );
+                      },
+                    ),
+                    if(_enableGlobalAnonymousAccess)
+                      Text(t.webSharePage.anonymousAccessTips, style: Theme.of(context).textTheme.titleMedium),
+                  ],
+                ),
+
                 if (_encrypted)
                   Text(
                     t.webSharePage.encryptionHint,
