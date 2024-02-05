@@ -119,11 +119,8 @@ class SendController {
           ),
         ),
       );
-      final settings = server.ref.read(settingsProvider);
-      if(settings.enableGlobalAnonymousAccess  || settings.enableTemporaryAnonymousAccess) {
-        acceptRequest(sessionId);
-      }
-      final accepted = await streamController.stream.first;
+
+      final accepted = state.webSendState?.autoAccept == true || await streamController.stream.first;
       if (!accepted) {
         // user rejected the file transfer
         server.setState(
@@ -238,6 +235,7 @@ class SendController {
           ),
         );
       }))),
+      autoAccept: server.ref.read(settingsProvider).shareViaLinkAutoAccept,
     );
 
     server.setState(

@@ -36,6 +36,7 @@ class _StringsAr extends Translations {
 	@override late final _StringsProgressPageAr progressPage = _StringsProgressPageAr._(_root);
 	@override late final _StringsWebSharePageAr webSharePage = _StringsWebSharePageAr._(_root);
 	@override late final _StringsAboutPageAr aboutPage = _StringsAboutPageAr._(_root);
+	@override late final _StringsDonationPageAr donationPage = _StringsDonationPageAr._(_root);
 	@override late final _StringsChangelogPageAr changelogPage = _StringsChangelogPageAr._(_root);
 	@override late final _StringsAliasGeneratorAr aliasGenerator = _StringsAliasGeneratorAr._(_root);
 	@override late final _StringsDialogsAr dialogs = _StringsDialogsAr._(_root);
@@ -133,6 +134,7 @@ class _StringsSettingsTabAr extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralAr general = _StringsSettingsTabGeneralAr._(_root);
 	@override late final _StringsSettingsTabReceiveAr receive = _StringsSettingsTabReceiveAr._(_root);
 	@override late final _StringsSettingsTabNetworkAr network = _StringsSettingsTabNetworkAr._(_root);
+	@override late final _StringsSettingsTabOtherAr other = _StringsSettingsTabOtherAr._(_root);
 	@override String get advancedSettings => 'الإعدادات المتقدمة';
 }
 
@@ -273,6 +275,27 @@ class _StringsAboutPageAr extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'عن LocalSend';
+	@override List<String> get description => [
+		'LocalSend هو تطبيق مجاني مفتوح المصدر يسمح لك بمشاركة الملفات والرسائل بشكل آمن مع الأجهزة القريبة عبر شبكتك المحلية دون الحاجة إلى اتصال بالإنترنت.',
+		'هذا التطبيق متاح على أنظمة Android وiOS وmacOS وWindows وLinux. يمكنك العثور على جميع خيارات التنزيل على الصفحة الرئيسية الرسمية.',
+	];
+	@override String get author => 'المؤلف';
+	@override String get contributors => 'المساهمون';
+	@override String get translators => 'المترجمون';
+}
+
+// Path: donationPage
+class _StringsDonationPageAr extends _StringsDonationPageEn {
+	_StringsDonationPageAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تبرّع';
+	@override String get info => 'LocalSend مجاني ومفتوح المصدر وبدون أي إعلانات. إذا أعجبك التطبيق، يمكنك دعم التطوير بالتبرع.';
+	@override String donate({required Object amount}) => 'تبرّع ${amount}';
+	@override String get thanks => 'شكراً جزيلاً!';
+	@override String get restore => 'استعادة شراء';
 }
 
 // Path: changelogPage
@@ -538,6 +561,7 @@ class _StringsSettingsTabReceiveAr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'استلم';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'إنهاء تلقائي';
 	@override String get destination => 'حفظ في';
 	@override String get downloads => '(التنزيلات)';
 	@override String get saveToGallery => 'حفظ الوسائط في المعرض';
@@ -562,6 +586,20 @@ class _StringsSettingsTabNetworkAr extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'التشفير';
 	@override String get multicastGroup => 'فرق البث المتعدد';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherAr extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'أخرى';
+	@override String get support => 'دعم LocalSend';
+	@override String get donate => 'تبرّع';
+	@override String get privacyPolicy => 'سياسة الخصوصيّة';
+	@override String get termsOfUse => 'شروط الاستخدام';
 }
 
 // Path: troubleshootPage.firewall

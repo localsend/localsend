@@ -78,7 +78,6 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
             alias: _settingsService.state.alias,
             port: _settingsService.state.port,
             https: _settingsService.state.https,
-            anonymousAccess: _settingsService.state.enableGlobalAnonymousAccess,
           );
 
           if (newServerState != null) {

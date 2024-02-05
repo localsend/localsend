@@ -250,6 +250,27 @@ class MockPersistenceService extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
+  bool getShareViaLinkAutoAccept() => (super.noSuchMethod(
+        Invocation.method(
+          #getShareViaLinkAutoAccept,
+          [],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i4.Future<void> setShareViaLinkAutoAccept(bool? shareViaLinkAutoAccept) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setShareViaLinkAutoAccept,
+          [shareViaLinkAutoAccept],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   String getMulticastGroup() => (super.noSuchMethod(
         Invocation.method(
           #getMulticastGroup,

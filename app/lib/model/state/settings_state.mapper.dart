@@ -82,14 +82,10 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static String? _$deviceModel(SettingsState v) => v.deviceModel;
   static const Field<SettingsState, String> _f$deviceModel =
       Field('deviceModel', _$deviceModel);
-  static bool _$enableGlobalAnonymousAccess(SettingsState v) =>
-      v.enableGlobalAnonymousAccess;
-  static const Field<SettingsState, bool> _f$enableGlobalAnonymousAccess =
-      Field('enableGlobalAnonymousAccess', _$enableGlobalAnonymousAccess);
-  static bool _$enableTemporaryAnonymousAccess(SettingsState v) =>
-      v.enableTemporaryAnonymousAccess;
-  static const Field<SettingsState, bool> _f$enableTemporaryAnonymousAccess =
-  Field('enableTemporaryAnonymousAccess', _$enableTemporaryAnonymousAccess);
+  static bool _$shareViaLinkAutoAccept(SettingsState v) =>
+      v.shareViaLinkAutoAccept;
+  static const Field<SettingsState, bool> _f$shareViaLinkAutoAccept =
+      Field('shareViaLinkAutoAccept', _$shareViaLinkAutoAccept);
 
   @override
   final Map<Symbol, Field<SettingsState, dynamic>> fields = const {
@@ -114,8 +110,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #enableAnimations: _f$enableAnimations,
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
-    #enableGlobalAnonymousAccess: _f$enableGlobalAnonymousAccess,
-    #enableTemporaryAnonymousAccess: _f$enableTemporaryAnonymousAccess,
+    #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -141,10 +136,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         enableAnimations: data.dec(_f$enableAnimations),
         deviceType: data.dec(_f$deviceType),
         deviceModel: data.dec(_f$deviceModel),
-        enableGlobalAnonymousAccess: data.dec(_f$enableGlobalAnonymousAccess),
-        enableTemporaryAnonymousAccess: data.dec(_f$enableTemporaryAnonymousAccess),
-
-    );
+        shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept));
   }
 
   @override
@@ -224,9 +216,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
       bool? enableAnimations,
       DeviceType? deviceType,
       String? deviceModel,
-      bool? enableGlobalAnonymousAccess,
-      bool? enableTemporaryAnonymousAccess,
-      });
+      bool? shareViaLinkAutoAccept});
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -261,9 +251,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
           bool? enableAnimations,
           Object? deviceType = $none,
           Object? deviceModel = $none,
-          bool? enableGlobalAnonymousAccess,
-          bool? enableTemporaryAnonymousAccess,
-          }) =>
+          bool? shareViaLinkAutoAccept}) =>
       $apply(FieldCopyWithData({
         if (showToken != null) #showToken: showToken,
         if (alias != null) #alias: alias,
@@ -288,9 +276,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         if (enableAnimations != null) #enableAnimations: enableAnimations,
         if (deviceType != $none) #deviceType: deviceType,
         if (deviceModel != $none) #deviceModel: deviceModel,
-        if (enableGlobalAnonymousAccess != null) #enableGlobalAnonymousAccess: enableGlobalAnonymousAccess,
-        if (enableTemporaryAnonymousAccess != null) #enableTemporaryAnonymousAccess: enableTemporaryAnonymousAccess,
-
+        if (shareViaLinkAutoAccept != null)
+          #shareViaLinkAutoAccept: shareViaLinkAutoAccept
       }));
   @override
   SettingsState $make(CopyWithData data) => SettingsState(
@@ -318,12 +305,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
           data.get(#enableAnimations, or: $value.enableAnimations),
       deviceType: data.get(#deviceType, or: $value.deviceType),
       deviceModel: data.get(#deviceModel, or: $value.deviceModel),
-      enableGlobalAnonymousAccess:
-        data.get(#enableGlobalAnonymousAccess, or: $value.enableGlobalAnonymousAccess),
-      enableTemporaryAnonymousAccess:
-        data.get(#enableTemporaryAnonymousAccess, or: $value.enableTemporaryAnonymousAccess),
-
-  );
+      shareViaLinkAutoAccept:
+          data.get(#shareViaLinkAutoAccept, or: $value.shareViaLinkAutoAccept));
 
   @override
   SettingsStateCopyWith<$R2, SettingsState, $Out2> $chain<$R2, $Out2>(

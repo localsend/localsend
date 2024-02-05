@@ -111,6 +111,10 @@
       "saveToGallery": "Save media to gallery",
       "saveToHistory": "Save to history"
     },
+    "send": {
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+    },
     "network": {
       "title": "Network",
       "needRestart": "Restart the server to apply the settings!",
@@ -217,6 +221,7 @@
     "requests": "Requests",
     "noRequests": "No requests yet.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automatically accept requests",
     "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
     "pendingRequests": "Pending requests: {n}"
   },

@@ -67,8 +67,7 @@ const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
-const _anonymousAccessForGlobal = 'ls_anonymous_access_for_global';
-const _anonymousAccessForTemporary = 'ls_anonymous_access_for_temporary';
+const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
 
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
@@ -236,20 +235,12 @@ class PersistenceService {
     await _prefs.setInt(_portKey, port);
   }
 
-  bool getEnableGlobalAnonymousAccess() {
-    return _prefs.getBool(_anonymousAccessForGlobal) ?? false;
+  bool getShareViaLinkAutoAccept() {
+    return _prefs.getBool(_shareViaLinkAutoAccept) ?? false;
   }
 
-  Future<void> setEnableGlobalAnonymousAccess(bool anonymousAccess) async {
-    await _prefs.setBool(_anonymousAccessForGlobal, anonymousAccess);
-  }
-
-  bool getEnableTemporaryAnonymousAccess() {
-    return _prefs.getBool(_anonymousAccessForTemporary) ?? false;
-  }
-
-  Future<void> setEnableTemporaryAnonymousAccess(bool v) async {
-    await _prefs.setBool(_anonymousAccessForTemporary, v);
+  Future<void> setShareViaLinkAutoAccept(bool shareViaLinkAutoAccept) async {
+    await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
   }
 
   String getMulticastGroup() {

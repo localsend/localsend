@@ -1,6 +1,8 @@
 ## 1.14.0 (unreleased)
 
+- feat: add option to automatically accept requests when sharing via link (@MisterChangRay, @Tienisto)
 - fix: picking many files should not freeze the UI (@Tienisto)
+- fix: do not create a new session for the same IP when sharing via link (@MisterChangRay)
 - i18n: add Danish (@Limfjorden)
 
 ## 1.13.1 (2023-12-08)

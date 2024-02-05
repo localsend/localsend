@@ -50,13 +50,15 @@ class ServerService extends Notifier<ServerState?> {
       alias: settings.alias,
       port: settings.port,
       https: settings.https,
-      anonymousAccess: settings.enableGlobalAnonymousAccess
     );
   }
 
   /// Starts the server.
-  Future<ServerState?> startServer({required String alias, required int port,
-    required bool https, required bool anonymousAccess}) async {
+  Future<ServerState?> startServer({
+    required String alias,
+    required int port,
+    required bool https,
+  }) async {
     if (state != null) {
       _logger.info('Server already running.');
       return null;
@@ -139,10 +141,9 @@ class ServerService extends Notifier<ServerState?> {
     return await startServerFromSettings();
   }
 
-  Future<ServerState?> restartServer({required String alias, required int port,
-    required bool https, required bool anonymousAccess}) async {
+  Future<ServerState?> restartServer({required String alias, required int port, required bool https}) async {
     await stopServer();
-    return await startServer(alias: alias, port: port, https: https, anonymousAccess:anonymousAccess);
+    return await startServer(alias: alias, port: port, https: https);
   }
 
   void acceptFileRequest(Map<String, String> fileNameMap) {
@@ -176,6 +177,15 @@ class ServerService extends Notifier<ServerState?> {
   /// Initializes the web send state.
   Future<void> initializeWebSend(List<CrossFile> files) async {
     await _sendController.initializeWebSend(files: files);
+  }
+
+  /// Updates the auto accept setting for web send.
+  void setWebSendAutoAccept(bool autoAccept) {
+    state = state?.copyWith(
+      webSendState: state?.webSendState?.copyWith(
+        autoAccept: autoAccept,
+      ),
+    );
   }
 
   /// Accepts the web send request.
