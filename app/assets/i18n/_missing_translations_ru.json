@@ -5,11 +5,11 @@
   ],
   "settingsTab": {
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "title": "Отправить",
+      "shareViaLinkAutoAccept": "Поделиться по ссылке: Принимать автоматически"
     }
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "Автоматически принимать запросы"
   }
 }
