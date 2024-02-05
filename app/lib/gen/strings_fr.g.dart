@@ -198,8 +198,8 @@ class _StringsReceivePageFr extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
-		one: 'veut vous envoyer un fichier.',
-		other: 'veut vous envoyer ${n} fichiers.',
+		one: 'veut vous envoyer un fichier',
+		other: 'veut vous envoyer ${n} fichiers',
 	);
 	@override String get subTitleMessage => 'vous a envoyé un message :';
 	@override String get subTitleLink => 'vous a envoyé un lien :';

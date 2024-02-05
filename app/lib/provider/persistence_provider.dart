@@ -67,6 +67,8 @@ const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
+const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -231,6 +233,14 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  bool getShareViaLinkAutoAccept() {
+    return _prefs.getBool(_shareViaLinkAutoAccept) ?? false;
+  }
+
+  Future<void> setShareViaLinkAutoAccept(bool shareViaLinkAutoAccept) async {
+    await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
   }
 
   String getMulticastGroup() {

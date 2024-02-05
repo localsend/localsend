@@ -440,8 +440,8 @@ class ReceiveController {
       );
 
       // Track it in history
-      await server.ref.notifier(receiveHistoryProvider).addEntry(
-            id: fileId,
+      await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
+            entryId: fileId,
             fileName: receivingFile.desiredName!,
             fileType: receivingFile.file.fileType,
             path: saveToGallery ? null : destinationPath,
@@ -449,7 +449,7 @@ class ReceiveController {
             fileSize: receivingFile.file.size,
             senderAlias: receiveState.senderAlias,
             timestamp: DateTime.now().toUtc(),
-          );
+          ));
 
       _logger.info('Saved ${receivingFile.file.fileName}.');
     } catch (e, st) {

@@ -30,6 +30,7 @@ class SettingsState with SettingsStateMappable {
   final bool enableAnimations;
   final DeviceType? deviceType;
   final String? deviceModel;
+  final bool shareViaLinkAutoAccept;
 
   const SettingsState({
     required this.showToken,
@@ -53,5 +54,6 @@ class SettingsState with SettingsStateMappable {
     required this.enableAnimations,
     required this.deviceType,
     required this.deviceModel,
+    required this.shareViaLinkAutoAccept,
   });
 }

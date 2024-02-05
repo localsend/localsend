@@ -28,16 +28,22 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
   static Map<String, WebSendFile> _$files(WebSendState v) => v.files;
   static const Field<WebSendState, Map<String, WebSendFile>> _f$files =
       Field('files', _$files);
+  static bool _$autoAccept(WebSendState v) => v.autoAccept;
+  static const Field<WebSendState, bool> _f$autoAccept =
+      Field('autoAccept', _$autoAccept);
 
   @override
   final Map<Symbol, Field<WebSendState, dynamic>> fields = const {
     #sessions: _f$sessions,
     #files: _f$files,
+    #autoAccept: _f$autoAccept,
   };
 
   static WebSendState _instantiate(DecodingData data) {
     return WebSendState(
-        sessions: data.dec(_f$sessions), files: data.dec(_f$files));
+        sessions: data.dec(_f$sessions),
+        files: data.dec(_f$files),
+        autoAccept: data.dec(_f$autoAccept));
   }
 
   @override
@@ -99,7 +105,9 @@ abstract class WebSendStateCopyWith<$R, $In extends WebSendState, $Out>
   MapCopyWith<$R, String, WebSendFile,
       WebSendFileCopyWith<$R, WebSendFile, WebSendFile>> get files;
   $R call(
-      {Map<String, WebSendSession>? sessions, Map<String, WebSendFile>? files});
+      {Map<String, WebSendSession>? sessions,
+      Map<String, WebSendFile>? files,
+      bool? autoAccept});
   WebSendStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -124,15 +132,18 @@ class _WebSendStateCopyWithImpl<$R, $Out>
   @override
   $R call(
           {Map<String, WebSendSession>? sessions,
-          Map<String, WebSendFile>? files}) =>
+          Map<String, WebSendFile>? files,
+          bool? autoAccept}) =>
       $apply(FieldCopyWithData({
         if (sessions != null) #sessions: sessions,
-        if (files != null) #files: files
+        if (files != null) #files: files,
+        if (autoAccept != null) #autoAccept: autoAccept
       }));
   @override
   WebSendState $make(CopyWithData data) => WebSendState(
       sessions: data.get(#sessions, or: $value.sessions),
-      files: data.get(#files, or: $value.files));
+      files: data.get(#files, or: $value.files),
+      autoAccept: data.get(#autoAccept, or: $value.autoAccept));
 
   @override
   WebSendStateCopyWith<$R2, WebSendState, $Out2> $chain<$R2, $Out2>(

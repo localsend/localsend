@@ -103,7 +103,7 @@
       "animations": "Animace"
     },
     "receive": {
-      "title": "Příjmout",
+      "title": "Soubory",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Automatické dokončování",
       "destination": "Uložit do",
@@ -126,7 +126,7 @@
     },
     "other": {
       "title": "Ostatní",
-      "support": "Podporujte LocalSend",
+      "support": "Podpora LocalSend",
       "donate": "Darovat",
       "privacyPolicy": "Zásady ochrany osobních údajů",
       "termsOfUse": "Podmínky použití"
@@ -171,7 +171,7 @@
   "receivePage": {
     "subTitle": {
       "one": "vám chce poslat soubor",
-      "other": "vám chce poslat {n} souborů"
+      "other": "vám chce poslat několik souborů: {n}"
     },
     "subTitleMessage": "vám poslal zprávu:",
     "subTitleLink": "vám poslal odkaz:",
@@ -281,7 +281,7 @@
     "favoriteEditDialog": {
       "titleAdd": "Přidat k oblíbeným",
       "titleEdit": "Upravit",
-      "name": "Přezdívka",
+      "name": "Název zařízení",
       "auto": "(auto)",
       "ip": "IP adresa",
       "port": "Port"

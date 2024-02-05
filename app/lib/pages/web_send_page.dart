@@ -265,6 +265,19 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                     t.webSharePage.encryptionHint,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
                   ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(t.webSharePage.autoAccept, style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(width: 10),
+                    Checkbox(
+                      value: webSendState.autoAccept,
+                      onChanged: (value) {
+                        ref.notifier(serverProvider).setWebSendAutoAccept(value == true);
+                      },
+                    ),
+                  ],
+                ),
               ],
             );
           },

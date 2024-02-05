@@ -196,8 +196,8 @@ class _StringsReceivePageEu extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(n,
-		one: '-(e)k fitxategi bat bidali nahi dizu.',
-		other: '-(e)k ${n} fitxategi bidali nahi dizkizu.',
+		one: '-(e)k fitxategi bat bidali nahi dizu',
+		other: '-(e)k ${n} fitxategi bidali nahi dizkizu',
 	);
 	@override String get subTitleMessage => '-(e)k mezu bat bidali dizu:';
 	@override String get subTitleLink => '-(e)k lotura bat bidali dizu:';

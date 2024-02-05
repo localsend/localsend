@@ -3,69 +3,13 @@
     "Here are translations that exist in <en> but not in <id>.",
     "After editing this file, you can run 'dart run slang apply --locale=id' to quickly apply the newly added translations."
   ],
-  "general": {
-    "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "Paste"
-    }
-  },
   "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "oled": "OLED"
-      }
-    },
-    "receive": {
-      "autoFinish": "Auto Finish"
-    },
-    "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+    "send": {
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Share via link: Auto accept"
     }
   },
-  "aboutPage": {
-    "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
-    ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
-  },
-  "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
-  },
-  "dialogs": {
-    "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
-      "addFavorite": "Add"
-    },
-    "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Settings",
-      "name": "Device name",
-      "auto": "(auto)",
-      "ip": "IP Address",
-      "port": "Port"
-    },
-    "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
-    }
+  "webSharePage": {
+    "autoAccept": "Automatically accept requests"
   }
 }

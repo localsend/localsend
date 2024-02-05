@@ -198,8 +198,8 @@ class _StringsReceivePageFilPh extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(n,
-		one: 'ay gustong magpadala sa iyo ng file.',
-		other: 'ay gustong magpadala sa iyo ng ${n} na mga file.',
+		one: 'ay gustong magpadala sa iyo ng file',
+		other: 'ay gustong magpadala sa iyo ng ${n} na mga file',
 	);
 	@override String get subTitleMessage => 'ay nagpadala sa iyo ng mensahe:';
 	@override String get subTitleLink => 'ay nagpadala sa iyo ng link:';
