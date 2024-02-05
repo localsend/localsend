@@ -21,6 +21,10 @@
     "receive": {
       "autoFinish": "Auto Finish"
     },
+    "send": {
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+    },
     "other": {
       "title": "Other",
       "support": "Support LocalSend",
@@ -28,6 +32,9 @@
       "privacyPolicy": "Privacy Policy",
       "termsOfUse": "Terms of Use"
     }
+  },
+  "webSharePage": {
+    "autoAccept": "Automatically accept requests"
   },
   "aboutPage": {
     "description": [
