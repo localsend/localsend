@@ -103,7 +103,7 @@ class SendController {
       }
 
       final streamController = StreamController<bool>();
-      final sessionId = _uuid.v4();
+      final sessionId = request.ip;
       server.setState(
         (oldState) => oldState!.copyWith(
           webSendState: oldState.webSendState!.copyWith(
