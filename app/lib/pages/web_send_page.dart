@@ -277,10 +277,11 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                     Checkbox(
                       value: _enableTemporaryAnonymousAccess,
                       onChanged: (value) {
-                        if(_enableGlobalAnonymousAccess)
+                        if(_enableGlobalAnonymousAccess) {
                           // global setting will override to temporary
                           // so can't change this if global is on
-                          return null;
+                          return;
+                        }
                         _init(encrypted: _encrypted, anonymousAccess: value == true );
                       },
                     ),
