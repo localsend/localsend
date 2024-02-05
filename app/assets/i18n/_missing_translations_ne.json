@@ -5,7 +5,7 @@
   ],
   "general": {
     "delete": "Delete",
-    "noItemInClipboard": "No item in Clipboard"
+    "noItemInClipboard": "No items in Clipboard"
   },
   "sendTab": {
     "picker": {
@@ -48,7 +48,7 @@
   "dialogs": {
     "favoriteDialog": {
       "title": "Favorites",
-      "noFavorites": "No favorites devices yet.",
+      "noFavorites": "No favorite devices yet.",
       "addFavorite": "Add"
     },
     "favoriteDeleteDialog": {
