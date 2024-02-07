@@ -111,6 +111,10 @@
       "saveToGallery": "保存到相册",
       "saveToHistory": "保存到历史记录"
     },
+    "send": {
+      "title": "发送",
+      "shareViaLinkAutoAccept": "通过链接分享: 自动接受"
+    },
     "network": {
       "title": "网络",
       "needRestart": "重启服务器生效！",
@@ -217,6 +221,7 @@
     "requests": "请求",
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "自动接受请求",
     "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中接受它。",
     "pendingRequests": "待处理请求: {n}"
   },
