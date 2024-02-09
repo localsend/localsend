@@ -11,3 +11,4 @@ export 'package:common/src/model/dto/register_dto.dart';
 export 'package:common/src/model/file_status.dart';
 export 'package:common/src/model/file_type.dart';
 export 'package:common/src/model/session_status.dart';
+export 'package:common/src/model/stored_security_context.dart';

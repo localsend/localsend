@@ -6,20 +6,18 @@
 import 'dart:async' as _i4;
 import 'dart:ui' as _i12;
 
-import 'package:common/common.dart' as _i13;
+import 'package:common/common.dart' as _i2;
 import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
 import 'package:localsend_app/model/persistence/receive_history_entry.dart'
     as _i5;
-import 'package:localsend_app/model/persistence/stored_security_context.dart'
-    as _i2;
 import 'package:localsend_app/model/send_mode.dart' as _i11;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
-import 'package:shared_preferences/shared_preferences.dart' as _i14;
+import 'package:shared_preferences/shared_preferences.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -589,7 +587,7 @@ class MockPersistenceService extends _i1.Mock
       ) as bool);
 
   @override
-  _i4.Future<void> setDeviceType(_i13.DeviceType? deviceType) =>
+  _i4.Future<void> setDeviceType(_i2.DeviceType? deviceType) =>
       (super.noSuchMethod(
         Invocation.method(
           #setDeviceType,
@@ -623,7 +621,7 @@ class MockPersistenceService extends _i1.Mock
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i14.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i13.SharedPreferences {
   @override
   Set<String> getKeys() => (super.noSuchMethod(
         Invocation.method(

@@ -20,11 +20,13 @@ class IsolateCommunication<R, S> {
 /// Starts an isolate and setups the [SendPort] and [ReceivePort] to communicate with it.
 /// [R] is the type of the messages that the main isolate will **receive** from the spawned isolate.
 /// [S] is the type of the messages that the main isolate will **send** to the spawned isolate.
-Future<IsolateCommunication<R, S>> startIsolate<R, S>({
-  required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain) task,
+/// [P] is the type of the parameter that is passed to the spawned isolate.
+Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
+  required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P? param) task,
+  P? param,
 }) async {
   final receivePort = ReceivePort();
-  final isolate = await Isolate.spawn((param) => _isolateRunner<R, S>(param), _IsolateParam<R, S>(receivePort.sendPort, task));
+  final isolate = await Isolate.spawn((param) => _isolateRunner<R, S, P>(param), _IsolateParam<R, S, P>(receivePort.sendPort, task, param));
 
   final receiveFromIsolateController = StreamController<R>();
   final sendToIsolateCompleter = Completer<SendPort>();
@@ -55,17 +57,18 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S>({
   );
 }
 
-class _IsolateParam<R, S> {
+class _IsolateParam<R, S, P> {
   final SendPort _sendToMain;
-  final Future<void> Function(Stream<S>, void Function(R) sendToMain) task;
+  final Future<void> Function(Stream<S>, void Function(R) sendToMain, P? param) task;
+  final P? param;
 
-  _IsolateParam(this._sendToMain, this.task);
+  _IsolateParam(this._sendToMain, this.task, this.param);
 }
 
 /// A message that is sent to the isolate to signal that the [SendPort] is ready.
 class _SendToIsolateReceived {}
 
-Future<void> _isolateRunner<R, S>(_IsolateParam<R, S> params) async {
+Future<void> _isolateRunner<R, S, P>(_IsolateParam<R, S, P> params) async {
   final receivePort = ReceivePort();
   params._sendToMain.send(receivePort.sendPort);
 
@@ -86,5 +89,6 @@ Future<void> _isolateRunner<R, S>(_IsolateParam<R, S> params) async {
   await params.task(
     receiveFromMainController.stream,
     (data) => params._sendToMain.send(data),
+    params.param,
   );
 }

@@ -1,5 +1,5 @@
 name: common
-description: A starting point for Dart libraries or applications.
+description: Common code used by the app and by the cli.
 version: 1.0.0
 publish_to: "none"
 
@@ -9,7 +9,9 @@ environment:
 dependencies:
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   dart_mappable: 4.0.1
+  logging: 1.2.0
   mime: 1.0.4
+  refena: 1.6.1
 
 dev_dependencies:
   build_runner: 2.4.7

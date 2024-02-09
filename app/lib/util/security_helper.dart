@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:basic_utils/basic_utils.dart';
-import 'package:localsend_app/model/persistence/stored_security_context.dart';
+import 'package:common/common.dart';
 
 /// Generates a random [SecurityContextResult].
 StoredSecurityContext generateSecurityContext([AsymmetricKeyPair? keyPair]) {
