@@ -111,6 +111,10 @@
       "saveToGallery": "Сохранять медиафайлы в галерею",
       "saveToHistory": "Сохранять историю"
     },
+    "send": {
+      "title": "Отправить",
+      "shareViaLinkAutoAccept": "Поделиться по ссылке: Принимать автоматически"
+    },
     "network": {
       "title": "Сеть",
       "needRestart": "Для применения изменений необходимо перезапустить сервер!",
@@ -217,6 +221,7 @@
     "requests": "Запросы",
     "noRequests": "Запросов пока нет.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Автоматически принимать запросы",
     "encryptionHint": "LocalSend использует самоподписанный сертификат. Вам необходимо принять его в браузере.",
     "pendingRequests": "Ожидающие запросы: {n}"
   },

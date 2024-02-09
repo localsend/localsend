@@ -133,6 +133,7 @@ class _StringsSettingsTabRu extends _StringsSettingsTabEn {
 	@override String get title => 'Настройки';
 	@override late final _StringsSettingsTabGeneralRu general = _StringsSettingsTabGeneralRu._(_root);
 	@override late final _StringsSettingsTabReceiveRu receive = _StringsSettingsTabReceiveRu._(_root);
+	@override late final _StringsSettingsTabSendRu send = _StringsSettingsTabSendRu._(_root);
 	@override late final _StringsSettingsTabNetworkRu network = _StringsSettingsTabNetworkRu._(_root);
 	@override late final _StringsSettingsTabOtherRu other = _StringsSettingsTabOtherRu._(_root);
 	@override String get advancedSettings => 'Дополнительные настройки';
@@ -263,6 +264,7 @@ class _StringsWebSharePageRu extends _StringsWebSharePageEn {
 	@override String get requests => 'Запросы';
 	@override String get noRequests => 'Запросов пока нет.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'Автоматически принимать запросы';
 	@override String get encryptionHint => 'LocalSend использует самоподписанный сертификат. Вам необходимо принять его в браузере.';
 	@override String pendingRequests({required Object n}) => 'Ожидающие запросы: ${n}';
 }
@@ -495,6 +497,17 @@ class _StringsSettingsTabReceiveRu extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(Загрузки)';
 	@override String get saveToGallery => 'Сохранять медиафайлы в галерею';
 	@override String get saveToHistory => 'Сохранять историю';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendRu extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Отправить';
+	@override String get shareViaLinkAutoAccept => 'Поделиться по ссылке: Принимать автоматически';
 }
 
 // Path: settingsTab.network

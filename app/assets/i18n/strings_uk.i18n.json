@@ -111,6 +111,10 @@
       "saveToGallery": "Зберігати медіафайли до галереї",
       "saveToHistory": "Зберігати історію"
     },
+    "send": {
+      "title": "Надіслати",
+      "shareViaLinkAutoAccept": "Поділитися через посилання: Приймати автоматично"
+    },
     "network": {
       "title": "Мережа",
       "needRestart": "Для застосування змін необхідно перезапустити сервер!",
@@ -217,6 +221,7 @@
     "requests": "Запити",
     "noRequests": "Запитів поки що немає.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Автоматично приймати запити",
     "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
