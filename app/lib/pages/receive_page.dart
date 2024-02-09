@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
@@ -13,6 +13,7 @@ import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';

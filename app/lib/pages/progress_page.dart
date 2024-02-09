@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:common/common.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/dto/file_dto.dart';
-import 'package:localsend_app/model/file_status.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';

@@ -1,4 +1,4 @@
-import 'package:localsend_app/model/file_type.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:mockito/mockito.dart';

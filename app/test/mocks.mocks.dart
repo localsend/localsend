@@ -6,9 +6,9 @@
 import 'dart:async' as _i4;
 import 'dart:ui' as _i12;
 
+import 'package:common/common.dart' as _i13;
 import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
-import 'package:localsend_app/model/device.dart' as _i13;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
 import 'package:localsend_app/model/persistence/receive_history_entry.dart'

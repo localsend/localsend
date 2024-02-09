@@ -633,7 +633,7 @@ class _StringsDialogsEncryptionDisabledNoticeRu extends _StringsDialogsEncryptio
 
 	// Translations
 	@override String get title => 'Шифрование отключено';
-	@override String get content => 'Связь происходит по незашифрованному HTTP-протоколу. Чтобы использовать HTTPS, включите шифрование.';
+	@override String get content => 'Связь теперь происходит по незашифрованному HTTP протоколу. Чтобы использовать HTTPS, снова включите шифрование.';
 }
 
 // Path: dialogs.errorDialog
@@ -821,9 +821,9 @@ class _StringsDialogsSendModeHelpRu extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Режимы отправки';
-	@override String get single => 'Отправляет файлы одному получателю. Выбор будет очищен после завершения передачи файла.';
+	@override String get single => 'Отправляет файлы одному получателю. После завершения передачи, выбор будет очищен.';
 	@override String get multiple => 'Отправляет файлы нескольким получателям. Выбор не будет очищен.';
-	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы по ссылке.';
+	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы, открыв ссылку в своем браузере.';
 }
 
 // Path: settingsTab.general.brightnessOptions

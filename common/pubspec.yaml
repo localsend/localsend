@@ -6,10 +6,13 @@ publish_to: "none"
 environment:
   sdk: ^3.1.1
 
-# Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
+  collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
+  dart_mappable: 4.0.1
+  mime: 1.0.4
 
 dev_dependencies:
+  build_runner: 2.4.7
+  dart_mappable_builder: 4.0.1
   lints: ^2.0.0
   test: ^1.21.0

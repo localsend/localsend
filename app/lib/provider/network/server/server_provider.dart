@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:localsend_app/constants.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';

@@ -1,6 +1,6 @@
+import 'package:common/common.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:slang/builder/model/enums.dart';
 import 'package:slang/builder/utils/string_extensions.dart';
 

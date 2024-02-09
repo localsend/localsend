@@ -1,9 +1,8 @@
 import 'package:collection/collection.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/send_mode.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/pages/tabs/send_tab_vm.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';

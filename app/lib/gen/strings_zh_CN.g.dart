@@ -133,6 +133,7 @@ class _StringsSettingsTabZhCn extends _StringsSettingsTabEn {
 	@override String get title => '设置';
 	@override late final _StringsSettingsTabGeneralZhCn general = _StringsSettingsTabGeneralZhCn._(_root);
 	@override late final _StringsSettingsTabReceiveZhCn receive = _StringsSettingsTabReceiveZhCn._(_root);
+	@override late final _StringsSettingsTabSendZhCn send = _StringsSettingsTabSendZhCn._(_root);
 	@override late final _StringsSettingsTabNetworkZhCn network = _StringsSettingsTabNetworkZhCn._(_root);
 	@override late final _StringsSettingsTabOtherZhCn other = _StringsSettingsTabOtherZhCn._(_root);
 	@override String get advancedSettings => '高级设置';
@@ -263,6 +264,7 @@ class _StringsWebSharePageZhCn extends _StringsWebSharePageEn {
 	@override String get requests => '请求';
 	@override String get noRequests => '尚无请求。';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => '自动接受请求';
 	@override String get encryptionHint => 'LocalSend 使用自签名证书。您需要在浏览器中接受它。';
 	@override String pendingRequests({required Object n}) => '待处理请求: ${n}';
 }
@@ -495,6 +497,17 @@ class _StringsSettingsTabReceiveZhCn extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(下载)';
 	@override String get saveToGallery => '保存到相册';
 	@override String get saveToHistory => '保存到历史记录';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendZhCn extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '发送';
+	@override String get shareViaLinkAutoAccept => '通过链接分享: 自动接受';
 }
 
 // Path: settingsTab.network

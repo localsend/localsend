@@ -1,19 +1,14 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flutter/material.dart';
 
 part 'device.mapper.dart';
 
 @MappableEnum(defaultValue: DeviceType.desktop)
 enum DeviceType {
-  mobile(Icons.smartphone),
-  desktop(Icons.computer),
-  web(Icons.language),
-  headless(Icons.terminal),
-  server(Icons.dns);
-
-  const DeviceType(this.icon);
-
-  final IconData icon;
+  mobile,
+  desktop,
+  web,
+  headless,
+  server,
 }
 
 /// Internal device model.

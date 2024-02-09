@@ -1,7 +1,6 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
@@ -11,6 +10,7 @@ import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';

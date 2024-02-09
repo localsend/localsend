@@ -457,7 +457,7 @@ class _StringsSendTabSendModesUk extends _StringsSendTabSendModesEn {
 	// Translations
 	@override String get single => 'Один одержувач';
 	@override String get multiple => 'Кілька одержувачів';
-	@override String get link => 'Поділіться через посилання';
+	@override String get link => 'Поділитися через посилання';
 }
 
 // Path: settingsTab.general
@@ -633,7 +633,7 @@ class _StringsDialogsEncryptionDisabledNoticeUk extends _StringsDialogsEncryptio
 
 	// Translations
 	@override String get title => 'Шифрування вимкнено';
-	@override String get content => 'Зв\'язок тепер відбувається через незашифрований протокол HTTP. Щоб використовувати HTTPS, знову ввімкніть шифрування.';
+	@override String get content => 'Зв\'язок тепер відбувається через незашифрований HTTP протокол. Щоб використовувати HTTPS, знову увімкніть шифрування.';
 }
 
 // Path: dialogs.errorDialog
@@ -821,9 +821,9 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Режими надсилання';
-	@override String get single => 'Надсилає файли одному одержувачу. Після завершення передачі файлу (-ів), виділення буде знято.';
+	@override String get single => 'Надсилає файли одному одержувачу. Після завершення передачі, виділення буде знято.';
 	@override String get multiple => 'Надсилає файли кільком одержувачам. Виділення не буде знято.';
-	@override String get link => 'Одержувачі, у яких не встановлено LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері.';
+	@override String get link => 'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері.';
 }
 
 // Path: settingsTab.general.brightnessOptions

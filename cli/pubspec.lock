@@ -80,6 +80,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  dart_mappable:
+    dependency: transitive
+    description:
+      name: dart_mappable
+      sha256: c2d4775336d7166590766a1c4451edde2a302efe2a2a35ac09eef9025102e10f
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   file:
     dependency: transitive
     description:
@@ -328,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.6"
+  type_plus:
+    dependency: transitive
+    description:
+      name: type_plus
+      sha256: "2e33cfac2e129297d5874567bdf7587502ec359881e9318551e014d91b02f84a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:

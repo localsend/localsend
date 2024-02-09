@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:common/common.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 part 'cross_file.mapper.dart';

@@ -1,25 +1,25 @@
+import 'package:common/common.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/dto/multicast_dto.dart';
 
-part 'info_register_dto.mapper.dart';
+part 'multicast_dto.mapper.dart';
 
-/// Used only for /prepare-upload to be compatible with v1.
-/// The [fingerprint] does not exist in v1, so it is nullable here.
-/// TODO: replace with [RegisterDto] when v1 compatibility is removed
+@MappableEnum(defaultValue: ProtocolType.https)
+enum ProtocolType { http, https }
+
 @MappableClass()
-class InfoRegisterDto with InfoRegisterDtoMappable {
+class MulticastDto with MulticastDtoMappable {
   final String alias;
   final String? version; // v2, format: major.minor
   final String? deviceModel;
-  final DeviceType? deviceType;
-  final String? fingerprint;
+  final DeviceType? deviceType; // nullable since v2
+  final String fingerprint;
   final int? port; // v2
   final ProtocolType? protocol; // v2
   final bool? download; // v2
+  final bool? announcement; // v1
+  final bool? announce; // v2
 
-  const InfoRegisterDto({
+  const MulticastDto({
     required this.alias,
     required this.version,
     required this.deviceModel,
@@ -28,19 +28,21 @@ class InfoRegisterDto with InfoRegisterDtoMappable {
     required this.port,
     required this.protocol,
     required this.download,
+    required this.announcement,
+    required this.announce,
   });
 
-  static const fromJson = InfoRegisterDtoMapper.fromJson;
+  static const fromJson = MulticastDtoMapper.fromJson;
 }
 
-extension RegisterDtoExt on InfoRegisterDto {
+extension MulticastDtoToDeviceExt on MulticastDto {
   Device toDevice(String ip, int ownPort, bool ownHttps) {
     return Device(
       ip: ip,
       version: version ?? fallbackProtocolVersion,
       port: port ?? ownPort,
       https: protocol != null ? protocol == ProtocolType.https : ownHttps,
-      fingerprint: fingerprint ?? '',
+      fingerprint: fingerprint,
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,

@@ -2,14 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:localsend_app/constants.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
-import 'package:localsend_app/model/dto/file_dto.dart';
-import 'package:localsend_app/model/dto/info_dto.dart';
-import 'package:localsend_app/model/dto/receive_request_response_dto.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/state/send/web/web_send_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_session.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';

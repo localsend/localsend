@@ -1,8 +1,7 @@
 import 'package:collection/collection.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';

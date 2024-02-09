@@ -1,5 +1,6 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/model/device.dart';
+import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
