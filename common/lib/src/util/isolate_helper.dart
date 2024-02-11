@@ -17,7 +17,9 @@ class IsolateCommunication<R, S> {
   }
 }
 
+/// A helper function to easier work with isolates.
 /// Starts an isolate and setups the [SendPort] and [ReceivePort] to communicate with it.
+///
 /// [R] is the type of the messages that the main isolate will **receive** from the spawned isolate.
 /// [S] is the type of the messages that the main isolate will **send** to the spawned isolate.
 /// [P] is the type of the parameter that is passed to the spawned isolate.
@@ -26,7 +28,10 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
   P? param,
 }) async {
   final receivePort = ReceivePort();
-  final isolate = await Isolate.spawn((param) => _isolateRunner<R, S, P>(param), _IsolateParam<R, S, P>(receivePort.sendPort, task, param));
+  final isolate = await Isolate.spawn(
+    (param) => _isolateRunner<R, S, P>(param),
+    _IsolateParam<R, S, P>(receivePort.sendPort, task, param),
+  );
 
   final receiveFromIsolateController = StreamController<R>();
   final sendToIsolateCompleter = Completer<SendPort>();
@@ -40,12 +45,6 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
     }
   });
   final sendToIsolate = await sendToIsolateCompleter.future;
-
-  // Transform SendPort to Sink for more type-safety
-  final sendToIsolateSink = StreamController<S>();
-  sendToIsolateSink.stream.listen((message) {
-    sendToIsolate.send(message);
-  });
 
   // Callback to signal that the [SendPort] is ready
   sendToIsolate.send(_SendToIsolateReceived());
