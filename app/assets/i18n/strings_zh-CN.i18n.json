@@ -38,7 +38,7 @@
     "save": "保存",
     "unchanged": "未更改",
     "unknown": "未知",
-    "noItemInClipboard": "剪贴板中没有项目"
+    "noItemInClipboard": "剪贴板中没有内容"
   },
   "receiveTab": {
     "title": "接收",
@@ -63,7 +63,7 @@
       "app": "应用",
       "clipboard": "剪贴板"
     },
-    "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件。",
+    "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件",
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
@@ -117,7 +117,7 @@
     },
     "network": {
       "title": "网络",
-      "needRestart": "重启服务器生效！",
+      "needRestart": "重启服务器后生效！",
       "server": "服务器",
       "alias": "别名",
       "deviceType": "设备类型",
@@ -240,7 +240,7 @@
     "info": "LocalSend 免费、开源、无广告。如果您喜欢这款应用程序，可以捐款支持开发。",
     "donate": "捐款 {amount}",
     "thanks": "非常感谢您的支持！",
-    "restore": "恢复购买"
+    "restore": "恢复"
   },
   "changelogPage": {
     "title": "更新日志"
