@@ -222,7 +222,7 @@
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自动接受请求",
-    "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中接受它。",
+    "encryptionHint": "LocalSend 使用自签名证书,您需要在浏览器中接受它。",
     "pendingRequests": "待处理请求: {n}"
   },
   "aboutPage": {
