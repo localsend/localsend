@@ -41,7 +41,7 @@
     "noItemInClipboard": "剪貼簿冇嘢"
   },
   "receiveTab": {
-    "title": "接收",
+    "title": "@:settingsTab.receive.title",
     "infoBox": {
       "ip": "IP：",
       "port": "Port：",
@@ -49,7 +49,7 @@
     }
   },
   "sendTab": {
-    "title": "傳送",
+    "title": "@:settingsTab.send.title",
     "selection": {
       "title": "揀選",
       "files": "檔案：{files}",
