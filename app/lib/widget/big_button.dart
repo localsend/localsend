@@ -19,10 +19,14 @@ class BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
+    final buttonWidth = sizingInformation.isDesktop ? 100.0 : 90.0;
+    const buttonHeight = 65.0;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: sizingInformation.isDesktop ? 100.0 : 90.0,
-        minHeight: 65,
+        maxWidth: buttonWidth,
+        minWidth: buttonWidth,
+        minHeight: buttonHeight,
+        maxHeight: buttonHeight,
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -31,14 +35,18 @@ class BigButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
+          padding: const EdgeInsets.only(left: 2, right: 2, top: 18, bottom: 16),
         ),
         onPressed: onTap,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(icon),
-            const SizedBox(height: 5),
-            Text(label, maxLines: 1),
+            FittedBox(
+              alignment: Alignment.bottomCenter,
+              child: Text(label, maxLines: 1),
+            ),
           ],
         ),
       ),
