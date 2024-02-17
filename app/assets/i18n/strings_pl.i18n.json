@@ -1,5 +1,5 @@
 {
-  "locale": "Polska",
+  "locale": "Polski",
   "appName": "LocalSend",
   "general": {
     "accept": "Akceptuj",
@@ -11,7 +11,7 @@
     "confirm": "Potwierdź",
     "continueStr": "Dalej",
     "copy": "Kopiuj",
-    "copiedToClipboard": "Skopiowane do Schowka",
+    "copiedToClipboard": "Skopiowane do schowka",
     "decline": "Odrzuć",
     "done": "Gotowe",
     "delete": "Usuń",
@@ -27,7 +27,7 @@
     "online": "Online",
     "open": "Otwórz",
     "queue": "Kolejka",
-    "quickSave": "Szybki Zapis",
+    "quickSave": "Szybki zapis",
     "renamed": "Przemianowany",
     "reset": "Resetowanie",
     "restart": "Restartuj",
@@ -36,7 +36,7 @@
     "start": "Zacznij",
     "stop": "Zatrzymaj",
     "save": "Zapisz",
-    "unchanged": "Bez Zmian",
+    "unchanged": "Bez zmian",
     "unknown": "Nieznany",
     "noItemInClipboard": "Schowek jest pusty"
   },
@@ -83,23 +83,23 @@
       "title": "Ogólne",
       "brightness": "Motyw",
       "brightnessOptions": {
-        "system": "System",
+        "system": "Systemowy",
         "dark": "Ciemny",
         "light": "Jasny"
       },
       "color": "Kolor",
       "colorOptions": {
-        "system": "System",
+        "system": "Systemowy",
         "oled": "OLED"
       },
       "language": "Język",
       "languageOptions": {
-        "system": "System"
+        "system": "Systemowy"
       },
-      "saveWindowPlacement": "Zamknij: Zapisz położenie okna",
+      "saveWindowPlacement": "Zamknij: zapisz położenie okna",
       "minimizeToTray": "Wyjdź: zminimalizuj do menu ukrytych ikon",
       "launchAtStartup": "Autostart po zalogowaniu",
-      "launchMinimized": "Autostart: Start ukryty",
+      "launchMinimized": "Autostart: start ukryty",
       "animations": "Animacje"
     },
     "receive": {
@@ -108,8 +108,12 @@
       "autoFinish": "Zakończ automatycznie",
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
-      "saveToGallery": "Zapisz multimedia w galerii",
-      "saveToHistory": "Zapisz do historii"
+      "saveToGallery": "Zapisz media w galerii",
+      "saveToHistory": "Zapisz w historii"
+    },
+    "send": {
+      "title": "Wyślij",
+      "shareViaLinkAutoAccept": "Udostępnij przez link: akceptuj automatycznie"
     },
     "network": {
       "title": "Sieć",
@@ -163,24 +167,24 @@
     "title": "Aplikacje (APK)",
     "excludeSystemApps": "Wyklucz aplikacje systemowe",
     "excludeAppsWithoutLaunchIntent": "Wyklucz aplikacje niewystartowalne",
-    "apps": "{n} Aplikacje"
+    "apps": "{n} aplikacje"
   },
   "selectedFilesPage": {
     "deleteAll": "Usuń wszystko"
   },
   "receivePage": {
     "subTitle": {
-      "one": "chce wysłać ci plik",
-      "other": "chce wysłać ci {n} plików"
+      "one": "chce wysłać Ci plik",
+      "other": "chce wysłać Ci {n} plików"
     },
-    "subTitleMessage": "wysłał ci wiadomość:",
-    "subTitleLink": "wysłał ci link:",
+    "subTitleMessage": "wysłał Ci wiadomość:",
+    "subTitleLink": "wysłał Ci link:",
     "canceled": "Nadawca anulował żądanie."
   },
   "receiveOptionsPage": {
     "title": "Opcje",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(Folder LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Wyłączono automatycznie, ponieważ istnieją katalogi."
   },
@@ -192,7 +196,7 @@
   "progressPage": {
     "titleSending": "Wysyłanie plików",
     "titleReceiving": "Odbieranie plików",
-    "savedToGallery": "Zapisane w Zdjęciach",
+    "savedToGallery": "Zapisane w galerii",
     "total": {
       "title": {
         "sending": "Całkowity postęp ({time})",
@@ -217,13 +221,14 @@
     "requests": "Żądania",
     "noRequests": "Brak żądań.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automatycznie akceptuj żądania",
     "encryptionHint": "LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.",
     "pendingRequests": "Oczekujące żądania: {n}"
   },
   "aboutPage": {
     "title": "O LocalSend",
     "description": [
-      "LocalSend jest darmową, otwarto-źródłową aplikacją, która pozwala na bezpieczne udostępnianie plików i wiadomości urządzeniom w pobliżu poprzez twoją sieć lokalną, bez konieczności połączenia z internetem.",
+      "LocalSend jest darmową, otwartoźródłową aplikacją, która pozwala na bezpieczne udostępnianie plików i wiadomości urządzeniom w pobliżu poprzez Twoją sieć lokalną, bez konieczności połączenia z internetem.",
       "Ta aplikacja jest dostępna na systemach Android, iOS, macOS, Windows i Linux. Możesz znaleźć wszystkie opcje pobierania na oficjalnej stronie głównej."
     ],
     "author": "Autor",
@@ -232,13 +237,13 @@
   },
   "donationPage": {
     "title": "Przekaż darowiznę",
-    "info": "LocalSend jest darmową, otwarto-źródłową aplikacją bez żadnych reklam. Jeśli podoba Ci się aplikacja, możesz wesprzec jej rozwój przekazując darowiznę.",
+    "info": "LocalSend jest darmową, otwartoźródłową aplikacją bez żadnych reklam. Jeśli podoba Ci się aplikacja, możesz wesprzeć jej rozwój darowizną.",
     "donate": "Przekaż {amount}",
     "thanks": "Bardzo Ci dziękuję!",
-    "restore": "Przywróć zakupy"
+    "restore": "Przywróć zakup"
   },
   "changelogPage": {
-    "title": "Dziennik Zmian"
+    "title": "Dziennik zmian"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -256,7 +261,7 @@
     },
     "cancelSession": {
       "title": "Anuluj transfer plików",
-      "content": "Czy na pewno?"
+      "content": "Czy na pewno chcesz anulować transfer plików?"
     },
     "cannotOpenFile": {
       "title": "Nie można otworzyć pliku",
@@ -295,7 +300,7 @@
       "time": "Czas:"
     },
     "fileNameInput": {
-      "title": "Wpisz imię",
+      "title": "Wpisz nazwę pliku",
       "original": "Oryginalny: {original}"
     },
     "historyClearDialog": {
@@ -313,11 +318,11 @@
     },
     "noFiles": {
       "title": "Nie wybrano pliku",
-      "content": "Proszę wybierz jeden plik."
+      "content": "Wybierz jeden plik."
     },
     "noPermission": {
       "title": "Brak uprawnień",
-      "content": "Nie udzieliłeś wymaganych uprawnień. Proszę udziel ich w ustawieniach."
+      "content": "Nie udzieliłeś wymaganych uprawnień. Udziel ich w ustawieniach."
     },
     "notAvailableOnPlatform": {
       "title": "Niedostępne",
@@ -336,7 +341,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać ci pliki."
+      "content": "Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki."
     },
     "sendModeHelp": {
       "title": "Tryby wysyłania",
@@ -386,6 +391,6 @@
     "sActionSwitchPathLabel": "zmień ścieżkę",
     "sActionUseCameraHint": "użyj kamery",
     "sNameDurationLabel": "czas trwania",
-    "sUnitAssetCountLabel": "ilość"
+    "sUnitAssetCountLabel": "liczba"
   }
 }
