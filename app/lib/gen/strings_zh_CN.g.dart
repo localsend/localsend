@@ -88,7 +88,7 @@ class _StringsGeneralZhCn extends _StringsGeneralEn {
 	@override String get save => '保存';
 	@override String get unchanged => '未更改';
 	@override String get unknown => '未知';
-	@override String get noItemInClipboard => '剪贴板中没有项目';
+	@override String get noItemInClipboard => '剪贴板中没有内容';
 }
 
 // Path: receiveTab
@@ -112,15 +112,15 @@ class _StringsSendTabZhCn extends _StringsSendTabEn {
 	@override String get title => '发送';
 	@override late final _StringsSendTabSelectionZhCn selection = _StringsSendTabSelectionZhCn._(_root);
 	@override late final _StringsSendTabPickerZhCn picker = _StringsSendTabPickerZhCn._(_root);
-	@override String get shareIntentInfo => '你也可以使用你的移动设备中的“分享”功能来更简单的选择文件。';
+	@override String get shareIntentInfo => '你也可以使用你的移动设备中的“分享”功能来更简单的选择文件';
 	@override String get nearbyDevices => '附近的设备';
 	@override String get thisDevice => '这台设备';
 	@override String get scan => '扫描设备';
 	@override String get sendMode => '发送模式';
 	@override late final _StringsSendTabSendModesZhCn sendModes = _StringsSendTabSendModesZhCn._(_root);
 	@override String get sendModeHelp => '解释';
-	@override String get help => '请确保目标连接的是同一个 Wi‑Fi 网络。';
-	@override String get placeItems => '列出要分享的文件。';
+	@override String get help => '请确保目标连接的是同一个 Wi‑Fi 网络';
+	@override String get placeItems => '列出要分享的文件';
 }
 
 // Path: settingsTab
@@ -147,7 +147,7 @@ class _StringsTroubleshootPageZhCn extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => '故障排除';
-	@override String get subTitle => '应用没有按预期工作？您可以在这里找到常用解决方案。';
+	@override String get subTitle => '应用没有按预期工作？您可以在这里找到常用解决方案';
 	@override String get solution => '解决方案：';
 	@override String get fixButton => '自动修复';
 	@override late final _StringsTroubleshootPageFirewallZhCn firewall = _StringsTroubleshootPageFirewallZhCn._(_root);
@@ -229,8 +229,8 @@ class _StringsSendPageZhCn extends _StringsSendPageEn {
 
 	// Translations
 	@override String get waiting => '等待响应中...';
-	@override String get rejected => '对方拒绝了请求。';
-	@override String get busy => '对方正在处理另一个请求。';
+	@override String get rejected => '对方拒绝了请求';
+	@override String get busy => '对方正在处理另一个请求';
 }
 
 // Path: progressPage
@@ -256,7 +256,7 @@ class _StringsWebSharePageZhCn extends _StringsWebSharePageEn {
 	@override String get title => '分享为链接';
 	@override String get loading => '正在启动服务器...';
 	@override String get stopping => '正在停止服务器...';
-	@override String get error => '在启动服务器过程中发生了错误。';
+	@override String get error => '在启动服务器过程中发生了错误';
 	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
 		one: '在浏览器中打开本链接:',
 		other: '在浏览器中打开其中的一个链接:',
@@ -265,7 +265,7 @@ class _StringsWebSharePageZhCn extends _StringsWebSharePageEn {
 	@override String get noRequests => '尚无请求。';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
 	@override String get autoAccept => '自动接受请求';
-	@override String get encryptionHint => 'LocalSend 使用自签名证书。您需要在浏览器中接受它。';
+	@override String get encryptionHint => 'LocalSend 使用自签名证书,您需要在浏览器中接受它';
 	@override String pendingRequests({required Object n}) => '待处理请求: ${n}';
 }
 
@@ -297,7 +297,7 @@ class _StringsDonationPageZhCn extends _StringsDonationPageEn {
 	@override String get info => 'LocalSend 免费、开源、无广告。如果您喜欢这款应用程序，可以捐款支持开发。';
 	@override String donate({required Object amount}) => '捐款 ${amount}';
 	@override String get thanks => '非常感谢您的支持！';
-	@override String get restore => '恢复购买';
+	@override String get restore => '恢复';
 }
 
 // Path: changelogPage
@@ -390,11 +390,11 @@ class _StringsAssetPickerZhCn extends _StringsAssetPickerEn {
 	@override String get preview => '预览';
 	@override String get select => '选择';
 	@override String get emptyList => '清空列表';
-	@override String get unSupportedAssetType => '不支持的文件格式。';
+	@override String get unSupportedAssetType => '不支持的文件格式';
 	@override String get unableToAccessAll => '无法访问设备上的所有文件';
-	@override String get viewingLimitedAssetsTip => '应用程序仅能查看可访问的文件和相册。';
+	@override String get viewingLimitedAssetsTip => '应用程序仅能查看可访问的文件和相册';
 	@override String get changeAccessibleLimitedAssets => '单击以更新可访问文件';
-	@override String get accessAllTip => '应用程序只能访问设备上的部分文件。转到系统设置并允许该应用访问设备上的所有媒体文件。';
+	@override String get accessAllTip => '应用程序只能访问设备上的部分文件,转到系统设置并允许该应用访问设备上的所有媒体文件。';
 	@override String get goToSystemSettings => '转到系统设置';
 	@override String get accessLimitedAssets => '继续受限访问';
 	@override String get accessiblePathName => '可访问的文件';
@@ -518,7 +518,7 @@ class _StringsSettingsTabNetworkZhCn extends _StringsSettingsTabNetworkEn {
 
 	// Translations
 	@override String get title => '网络';
-	@override String get needRestart => '重启服务器生效！';
+	@override String get needRestart => '重启服务器后生效！';
 	@override String get server => '服务器';
 	@override String get alias => '别名';
 	@override String get deviceType => '设备类型';
@@ -527,7 +527,7 @@ class _StringsSettingsTabNetworkZhCn extends _StringsSettingsTabNetworkEn {
 	@override String portWarning({required Object defaultPort}) => '由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：${defaultPort}）';
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多播';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到（默认地址：${defaultMulticast}）';
 }
 
 // Path: settingsTab.other
@@ -551,8 +551,8 @@ class _StringsTroubleshootPageFirewallZhCn extends _StringsTroubleshootPageFirew
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => '此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。';
-	@override String solution({required Object port}) => '这最可能是由防火墙引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。';
+	@override String get symptom => '此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备';
+	@override String solution({required Object port}) => '这最可能是由防火墙引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP）的传入请求来解决这个问题';
 	@override String get openFirewall => '打开防火墙';
 }
 
@@ -667,7 +667,7 @@ class _StringsDialogsFavoriteDialogZhCn extends _StringsDialogsFavoriteDialogEn 
 
 	// Translations
 	@override String get title => '收藏夹';
-	@override String get noFavorites => '尚未配置收藏夹。';
+	@override String get noFavorites => '尚未配置收藏夹';
 	@override String get addFavorite => '新建';
 }
 

@@ -2,14 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fa>.",
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "send": {
-      "title": "ارسال",
-      "shareViaLinkAutoAccept": "اشتراک گذاری از طریق لینک: تایید خودکار"
-    }
-  },
-  "webSharePage": {
-    "autoAccept": "درخواست ها به طور خودکار پذیرفته میشوند"
-  }
+  ]
 }

@@ -20,7 +20,7 @@ class _StringsPl extends Translations {
 	@override late final _StringsPl _root = this; // ignore: unused_field
 
 	// Translations
-	@override String get locale => 'Polska';
+	@override String get locale => 'Polski';
 	@override String get appName => 'LocalSend';
 	@override late final _StringsGeneralPl general = _StringsGeneralPl._(_root);
 	@override late final _StringsReceiveTabPl receiveTab = _StringsReceiveTabPl._(_root);
@@ -61,7 +61,7 @@ class _StringsGeneralPl extends _StringsGeneralEn {
 	@override String get confirm => 'Potwierdź';
 	@override String get continueStr => 'Dalej';
 	@override String get copy => 'Kopiuj';
-	@override String get copiedToClipboard => 'Skopiowane do Schowka';
+	@override String get copiedToClipboard => 'Skopiowane do schowka';
 	@override String get decline => 'Odrzuć';
 	@override String get done => 'Gotowe';
 	@override String get delete => 'Usuń';
@@ -77,7 +77,7 @@ class _StringsGeneralPl extends _StringsGeneralEn {
 	@override String get online => 'Online';
 	@override String get open => 'Otwórz';
 	@override String get queue => 'Kolejka';
-	@override String get quickSave => 'Szybki Zapis';
+	@override String get quickSave => 'Szybki zapis';
 	@override String get renamed => 'Przemianowany';
 	@override String get reset => 'Resetowanie';
 	@override String get restart => 'Restartuj';
@@ -86,7 +86,7 @@ class _StringsGeneralPl extends _StringsGeneralEn {
 	@override String get start => 'Zacznij';
 	@override String get stop => 'Zatrzymaj';
 	@override String get save => 'Zapisz';
-	@override String get unchanged => 'Bez Zmian';
+	@override String get unchanged => 'Bez zmian';
 	@override String get unknown => 'Nieznany';
 	@override String get noItemInClipboard => 'Schowek jest pusty';
 }
@@ -133,6 +133,7 @@ class _StringsSettingsTabPl extends _StringsSettingsTabEn {
 	@override String get title => 'Ustawienia';
 	@override late final _StringsSettingsTabGeneralPl general = _StringsSettingsTabGeneralPl._(_root);
 	@override late final _StringsSettingsTabReceivePl receive = _StringsSettingsTabReceivePl._(_root);
+	@override late final _StringsSettingsTabSendPl send = _StringsSettingsTabSendPl._(_root);
 	@override late final _StringsSettingsTabNetworkPl network = _StringsSettingsTabNetworkPl._(_root);
 	@override late final _StringsSettingsTabOtherPl other = _StringsSettingsTabOtherPl._(_root);
 	@override String get advancedSettings => 'Zaawansowane ustawienia';
@@ -177,7 +178,7 @@ class _StringsApkPickerPagePl extends _StringsApkPickerPageEn {
 	@override String get title => 'Aplikacje (APK)';
 	@override String get excludeSystemApps => 'Wyklucz aplikacje systemowe';
 	@override String get excludeAppsWithoutLaunchIntent => 'Wyklucz aplikacje niewystartowalne';
-	@override String apps({required Object n}) => '${n} Aplikacje';
+	@override String apps({required Object n}) => '${n} aplikacje';
 }
 
 // Path: selectedFilesPage
@@ -198,11 +199,11 @@ class _StringsReceivePagePl extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pl'))(n,
-		one: 'chce wysłać ci plik',
-		other: 'chce wysłać ci ${n} plików',
+		one: 'chce wysłać Ci plik',
+		other: 'chce wysłać Ci ${n} plików',
 	);
-	@override String get subTitleMessage => 'wysłał ci wiadomość:';
-	@override String get subTitleLink => 'wysłał ci link:';
+	@override String get subTitleMessage => 'wysłał Ci wiadomość:';
+	@override String get subTitleLink => 'wysłał Ci link:';
 	@override String get canceled => 'Nadawca anulował żądanie.';
 }
 
@@ -215,7 +216,7 @@ class _StringsReceiveOptionsPagePl extends _StringsReceiveOptionsPageEn {
 	// Translations
 	@override String get title => 'Opcje';
 	@override String get destination => '${_root.settingsTab.receive.destination}';
-	@override String get appDirectory => '(LocalSend folder)';
+	@override String get appDirectory => '(Folder LocalSend)';
 	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
 	@override String get saveToGalleryOff => 'Wyłączono automatycznie, ponieważ istnieją katalogi.';
 }
@@ -241,7 +242,7 @@ class _StringsProgressPagePl extends _StringsProgressPageEn {
 	// Translations
 	@override String get titleSending => 'Wysyłanie plików';
 	@override String get titleReceiving => 'Odbieranie plików';
-	@override String get savedToGallery => 'Zapisane w Zdjęciach';
+	@override String get savedToGallery => 'Zapisane w galerii';
 	@override late final _StringsProgressPageTotalPl total = _StringsProgressPageTotalPl._(_root);
 }
 
@@ -263,6 +264,7 @@ class _StringsWebSharePagePl extends _StringsWebSharePageEn {
 	@override String get requests => 'Żądania';
 	@override String get noRequests => 'Brak żądań.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'Automatycznie akceptuj żądania';
 	@override String get encryptionHint => 'LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.';
 	@override String pendingRequests({required Object n}) => 'Oczekujące żądania: ${n}';
 }
@@ -276,7 +278,7 @@ class _StringsAboutPagePl extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'O LocalSend';
 	@override List<String> get description => [
-		'LocalSend jest darmową, otwarto-źródłową aplikacją, która pozwala na bezpieczne udostępnianie plików i wiadomości urządzeniom w pobliżu poprzez twoją sieć lokalną, bez konieczności połączenia z internetem.',
+		'LocalSend jest darmową, otwartoźródłową aplikacją, która pozwala na bezpieczne udostępnianie plików i wiadomości urządzeniom w pobliżu poprzez Twoją sieć lokalną, bez konieczności połączenia z internetem.',
 		'Ta aplikacja jest dostępna na systemach Android, iOS, macOS, Windows i Linux. Możesz znaleźć wszystkie opcje pobierania na oficjalnej stronie głównej.',
 	];
 	@override String get author => 'Autor';
@@ -292,10 +294,10 @@ class _StringsDonationPagePl extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Przekaż darowiznę';
-	@override String get info => 'LocalSend jest darmową, otwarto-źródłową aplikacją bez żadnych reklam. Jeśli podoba Ci się aplikacja, możesz wesprzec jej rozwój przekazując darowiznę.';
+	@override String get info => 'LocalSend jest darmową, otwartoźródłową aplikacją bez żadnych reklam. Jeśli podoba Ci się aplikacja, możesz wesprzeć jej rozwój darowizną.';
 	@override String donate({required Object amount}) => 'Przekaż ${amount}';
 	@override String get thanks => 'Bardzo Ci dziękuję!';
-	@override String get restore => 'Przywróć zakupy';
+	@override String get restore => 'Przywróć zakup';
 }
 
 // Path: changelogPage
@@ -305,7 +307,7 @@ class _StringsChangelogPagePl extends _StringsChangelogPageEn {
 	@override final _StringsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Dziennik Zmian';
+	@override String get title => 'Dziennik zmian';
 }
 
 // Path: aliasGenerator
@@ -406,7 +408,7 @@ class _StringsAssetPickerPl extends _StringsAssetPickerEn {
 	@override String get sActionSwitchPathLabel => 'zmień ścieżkę';
 	@override String get sActionUseCameraHint => 'użyj kamery';
 	@override String get sNameDurationLabel => 'czas trwania';
-	@override String get sUnitAssetCountLabel => 'ilość';
+	@override String get sUnitAssetCountLabel => 'liczba';
 }
 
 // Path: receiveTab.infoBox
@@ -474,10 +476,10 @@ class _StringsSettingsTabGeneralPl extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsPl colorOptions = _StringsSettingsTabGeneralColorOptionsPl._(_root);
 	@override String get language => 'Język';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsPl languageOptions = _StringsSettingsTabGeneralLanguageOptionsPl._(_root);
-	@override String get saveWindowPlacement => 'Zamknij: Zapisz położenie okna';
+	@override String get saveWindowPlacement => 'Zamknij: zapisz położenie okna';
 	@override String get minimizeToTray => 'Wyjdź: zminimalizuj do menu ukrytych ikon';
 	@override String get launchAtStartup => 'Autostart po zalogowaniu';
-	@override String get launchMinimized => 'Autostart: Start ukryty';
+	@override String get launchMinimized => 'Autostart: start ukryty';
 	@override String get animations => 'Animacje';
 }
 
@@ -493,8 +495,19 @@ class _StringsSettingsTabReceivePl extends _StringsSettingsTabReceiveEn {
 	@override String get autoFinish => 'Zakończ automatycznie';
 	@override String get destination => 'Miejsce docelowe';
 	@override String get downloads => '(Pobrane)';
-	@override String get saveToGallery => 'Zapisz multimedia w galerii';
-	@override String get saveToHistory => 'Zapisz do historii';
+	@override String get saveToGallery => 'Zapisz media w galerii';
+	@override String get saveToHistory => 'Zapisz w historii';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendPl extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wyślij';
+	@override String get shareViaLinkAutoAccept => 'Udostępnij przez link: akceptuj automatycznie';
 }
 
 // Path: settingsTab.network
@@ -611,7 +624,7 @@ class _StringsDialogsCancelSessionPl extends _StringsDialogsCancelSessionEn {
 
 	// Translations
 	@override String get title => 'Anuluj transfer plików';
-	@override String get content => 'Czy na pewno?';
+	@override String get content => 'Czy na pewno chcesz anulować transfer plików?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -706,7 +719,7 @@ class _StringsDialogsFileNameInputPl extends _StringsDialogsFileNameInputEn {
 	@override final _StringsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Wpisz imię';
+	@override String get title => 'Wpisz nazwę pliku';
 	@override String original({required Object original}) => 'Oryginalny: ${original}';
 }
 
@@ -752,7 +765,7 @@ class _StringsDialogsNoFilesPl extends _StringsDialogsNoFilesEn {
 
 	// Translations
 	@override String get title => 'Nie wybrano pliku';
-	@override String get content => 'Proszę wybierz jeden plik.';
+	@override String get content => 'Wybierz jeden plik.';
 }
 
 // Path: dialogs.noPermission
@@ -763,7 +776,7 @@ class _StringsDialogsNoPermissionPl extends _StringsDialogsNoPermissionEn {
 
 	// Translations
 	@override String get title => 'Brak uprawnień';
-	@override String get content => 'Nie udzieliłeś wymaganych uprawnień. Proszę udziel ich w ustawieniach.';
+	@override String get content => 'Nie udzieliłeś wymaganych uprawnień. Udziel ich w ustawieniach.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -810,7 +823,7 @@ class _StringsDialogsQuickSaveNoticePl extends _StringsDialogsQuickSaveNoticeEn 
 
 	// Translations
 	@override String get title => '${_root.general.quickSave}';
-	@override String get content => 'Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać ci pliki.';
+	@override String get content => 'Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -833,7 +846,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsPl extends _StringsSettingsTabG
 	@override final _StringsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => 'System';
+	@override String get system => 'Systemowy';
 	@override String get dark => 'Ciemny';
 	@override String get light => 'Jasny';
 }
@@ -845,7 +858,7 @@ class _StringsSettingsTabGeneralColorOptionsPl extends _StringsSettingsTabGenera
 	@override final _StringsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => 'System';
+	@override String get system => 'Systemowy';
 	@override String get oled => 'OLED';
 }
 
@@ -856,7 +869,7 @@ class _StringsSettingsTabGeneralLanguageOptionsPl extends _StringsSettingsTabGen
 	@override final _StringsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => 'System';
+	@override String get system => 'Systemowy';
 }
 
 // Path: progressPage.total.title
