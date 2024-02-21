@@ -2,19 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:localsend_app/constants.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
-import 'package:localsend_app/model/dto/file_dto.dart';
-import 'package:localsend_app/model/dto/info_dto.dart';
-import 'package:localsend_app/model/dto/receive_request_response_dto.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/model/state/send/web/web_send_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_session.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -102,7 +99,7 @@ class SendController {
       }
 
       final streamController = StreamController<bool>();
-      final sessionId = _uuid.v4();
+      final sessionId = request.ip;
       server.setState(
         (oldState) => oldState!.copyWith(
           webSendState: oldState.webSendState!.copyWith(
@@ -119,7 +116,7 @@ class SendController {
         ),
       );
 
-      final accepted = await streamController.stream.first;
+      final accepted = state.webSendState?.autoAccept == true || await streamController.stream.first;
       if (!accepted) {
         // user rejected the file transfer
         server.setState(
@@ -234,6 +231,7 @@ class SendController {
           ),
         );
       }))),
+      autoAccept: server.ref.read(settingsProvider).shareViaLinkAutoAccept,
     );
 
     server.setState(

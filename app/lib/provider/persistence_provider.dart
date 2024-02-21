@@ -2,14 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
-import 'package:localsend_app/model/persistence/stored_security_context.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -67,6 +65,8 @@ const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
+const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -231,6 +231,14 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  bool getShareViaLinkAutoAccept() {
+    return _prefs.getBool(_shareViaLinkAutoAccept) ?? false;
+  }
+
+  Future<void> setShareViaLinkAutoAccept(bool shareViaLinkAutoAccept) async {
+    await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
   }
 
   String getMulticastGroup() {

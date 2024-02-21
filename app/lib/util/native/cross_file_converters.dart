@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:common/common.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart' as file_picker;
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';

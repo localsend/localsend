@@ -1,6 +1,6 @@
+import 'package:common/src/constants.dart';
+import 'package:common/src/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/model/device.dart';
 
 part 'info_dto.mapper.dart';
 

@@ -105,6 +105,7 @@
     "receive": {
       "title": "استلم",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "إنهاء تلقائي",
       "destination": "حفظ في",
       "downloads": "(التنزيلات)",
       "saveToGallery": "حفظ الوسائط في المعرض",
@@ -122,6 +123,13 @@
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
       "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
+    },
+    "other": {
+      "title": "أخرى",
+      "support": "دعم LocalSend",
+      "donate": "تبرّع",
+      "privacyPolicy": "سياسة الخصوصيّة",
+      "termsOfUse": "شروط الاستخدام"
     },
     "advancedSettings": "الإعدادات المتقدمة"
   },
@@ -213,7 +221,21 @@
     "pendingRequests": "الطلبات المعلقة: {n}"
   },
   "aboutPage": {
-    "title": "عن LocalSend"
+    "title": "عن LocalSend",
+    "description": [
+      "LocalSend هو تطبيق مجاني مفتوح المصدر يسمح لك بمشاركة الملفات والرسائل بشكل آمن مع الأجهزة القريبة عبر شبكتك المحلية دون الحاجة إلى اتصال بالإنترنت.",
+      "هذا التطبيق متاح على أنظمة Android وiOS وmacOS وWindows وLinux. يمكنك العثور على جميع خيارات التنزيل على الصفحة الرئيسية الرسمية."
+    ],
+    "author": "المؤلف",
+    "contributors": "المساهمون",
+    "translators": "المترجمون"
+  },
+  "donationPage": {
+    "title": "تبرّع",
+    "info": "LocalSend مجاني ومفتوح المصدر وبدون أي إعلانات. إذا أعجبك التطبيق، يمكنك دعم التطوير بالتبرع.",
+    "donate": "تبرّع {amount}",
+    "thanks": "شكراً جزيلاً!",
+    "restore": "استعادة شراء"
   },
   "changelogPage": {
     "title": "التغييرات"

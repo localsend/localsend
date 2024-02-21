@@ -1,4 +1,4 @@
-import 'package:localsend_app/model/device.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:test/test.dart';
 

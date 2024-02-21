@@ -7,8 +7,10 @@ environment:
   sdk: ^3.1.1
 
 dependencies:
+  args: 2.4.2
   common:
     path: ../common
+  path: 1.9.0
 
 dev_dependencies:
   lints: ^2.0.0

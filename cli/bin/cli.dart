@@ -1,5 +1,5 @@
 import 'package:cli/main.dart' as m;
 
-void main(List<String> arguments) {
-  m.main(arguments);
+Future<void> main(List<String> arguments) async {
+  await m.main(arguments);
 }

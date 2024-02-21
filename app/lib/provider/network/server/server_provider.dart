@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:localsend_app/constants.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
@@ -54,7 +54,11 @@ class ServerService extends Notifier<ServerState?> {
   }
 
   /// Starts the server.
-  Future<ServerState?> startServer({required String alias, required int port, required bool https}) async {
+  Future<ServerState?> startServer({
+    required String alias,
+    required int port,
+    required bool https,
+  }) async {
     if (state != null) {
       _logger.info('Server already running.');
       return null;
@@ -173,6 +177,15 @@ class ServerService extends Notifier<ServerState?> {
   /// Initializes the web send state.
   Future<void> initializeWebSend(List<CrossFile> files) async {
     await _sendController.initializeWebSend(files: files);
+  }
+
+  /// Updates the auto accept setting for web send.
+  void setWebSendAutoAccept(bool autoAccept) {
+    state = state?.copyWith(
+      webSendState: state?.webSendState?.copyWith(
+        autoAccept: autoAccept,
+      ),
+    );
   }
 
   /// Accepts the web send request.

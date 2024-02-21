@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:file_picker/file_picker.dart';
+import 'package:common/common.dart';
+import 'package:file_picker/file_picker.dart' as file_picker;
 import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/file_type.dart' as file_type;
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
@@ -147,7 +147,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
   try {
     if (checkPlatform([TargetPlatform.android])) {
       // We also need to use the file_picker package because file_selector does not expose the raw path.
-      final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+      final result = await file_picker.FilePicker.platform.pickFiles(allowMultiple: true);
       if (result != null) {
         await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
               files: result.files,
@@ -265,7 +265,7 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
         'clipboard_${now.year}-${now.month.twoDigitString}-${now.day.twoDigitString}_${now.hour.twoDigitString}-${now.minute.twoDigitString}.${determineImageType(image)}';
     ref.redux(selectedSendingFilesProvider).dispatch(AddBinaryAction(
           bytes: image,
-          fileType: file_type.FileType.image,
+          fileType: FileType.image,
           fileName: fileName,
         ));
     return;

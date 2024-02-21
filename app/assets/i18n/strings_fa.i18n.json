@@ -111,6 +111,10 @@
       "saveToGallery": "ذخیره رسانه در گالری",
       "saveToHistory": "ذخیره در تاریخچه"
     },
+    "send": {
+      "title": "ارسال",
+      "shareViaLinkAutoAccept": "اشتراک گذاری از طریق لینک: تایید خودکار"
+    },
     "network": {
       "title": "شبکه",
       "needRestart": "برای اعمال تنظیمات سرور را مجدد راه اندازی کنید",
@@ -217,6 +221,7 @@
     "requests": "درخواست ها",
     "noRequests": "هنوز درخواستی وجود ندارد",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "درخواست ها به طور خودکار پذیرفته میشوند",
     "encryptionHint": "LocalSend از یک گواهی خودامضا استفاده می‌کند. شما باید آن را در مرورگر قبول کنید.",
     "pendingRequests": "درخواست های در حال انتظار: {n}"
   },

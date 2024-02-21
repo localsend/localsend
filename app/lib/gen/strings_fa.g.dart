@@ -133,6 +133,7 @@ class _StringsSettingsTabFa extends _StringsSettingsTabEn {
 	@override String get title => 'تنظیمات';
 	@override late final _StringsSettingsTabGeneralFa general = _StringsSettingsTabGeneralFa._(_root);
 	@override late final _StringsSettingsTabReceiveFa receive = _StringsSettingsTabReceiveFa._(_root);
+	@override late final _StringsSettingsTabSendFa send = _StringsSettingsTabSendFa._(_root);
 	@override late final _StringsSettingsTabNetworkFa network = _StringsSettingsTabNetworkFa._(_root);
 	@override late final _StringsSettingsTabOtherFa other = _StringsSettingsTabOtherFa._(_root);
 	@override String get advancedSettings => 'تنظیمات پیشرفته';
@@ -263,6 +264,7 @@ class _StringsWebSharePageFa extends _StringsWebSharePageEn {
 	@override String get requests => 'درخواست ها';
 	@override String get noRequests => 'هنوز درخواستی وجود ندارد';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'درخواست ها به طور خودکار پذیرفته میشوند';
 	@override String get encryptionHint => 'LocalSend از یک گواهی خودامضا استفاده می‌کند. شما باید آن را در مرورگر قبول کنید.';
 	@override String pendingRequests({required Object n}) => 'درخواست های در حال انتظار: ${n}';
 }
@@ -566,6 +568,17 @@ class _StringsSettingsTabReceiveFa extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(دانلودها)';
 	@override String get saveToGallery => 'ذخیره رسانه در گالری';
 	@override String get saveToHistory => 'ذخیره در تاریخچه';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendFa extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ارسال';
+	@override String get shareViaLinkAutoAccept => 'اشتراک گذاری از طریق لینک: تایید خودکار';
 }
 
 // Path: settingsTab.network

@@ -1,7 +1,6 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/constants.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
@@ -11,6 +10,7 @@ import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -139,31 +139,31 @@ class SettingsTab extends StatelessWidget {
                     ),
                   if (_isWindows || _isLinux)
                     Visibility(
-                        visible: vm.settings.launchAtStartup || _isWindows,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        child: AnimatedOpacity(
-                          opacity: vm.settings.launchAtStartup || _isWindows ? 1.0 : 0.0,
-                          duration: const Duration(milliseconds: 500),
-                          child: _BooleanEntry(
-                            label: t.settingsTab.general.launchMinimized,
-                            value: vm.settings.autoStartLaunchMinimized,
-                            onChanged: (b) async {
-                              await initDisableAutoStart(vm.settings);
-                              await ref.notifier(settingsProvider).setAutoStartLaunchMinimized(b);
-                              await initEnableAutoStartAndOpenSettings(vm.settings, _isWindows);
-                            },
-                          ),
-                        )),
+                      visible: vm.settings.launchAtStartup || _isWindows,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: AnimatedOpacity(
+                        opacity: vm.settings.launchAtStartup || _isWindows ? 1.0 : 0.0,
+                        duration: const Duration(milliseconds: 500),
+                        child: _BooleanEntry(
+                          label: t.settingsTab.general.launchMinimized,
+                          value: vm.settings.autoStartLaunchMinimized,
+                          onChanged: (b) async {
+                            await initDisableAutoStart(vm.settings);
+                            await ref.notifier(settingsProvider).setAutoStartLaunchMinimized(b);
+                            await initEnableAutoStartAndOpenSettings(vm.settings, _isWindows);
+                          },
+                        ),
+                      ),
+                    ),
                 ],
-                if (vm.advanced)
-                  _BooleanEntry(
-                    label: t.settingsTab.general.animations,
-                    value: vm.settings.enableAnimations,
-                    onChanged: (b) async {
-                      await ref.notifier(settingsProvider).setEnableAnimations(b);
-                    },
-                  ),
+                _BooleanEntry(
+                  label: t.settingsTab.general.animations,
+                  value: vm.settings.enableAnimations,
+                  onChanged: (b) async {
+                    await ref.notifier(settingsProvider).setEnableAnimations(b);
+                  },
+                ),
               ],
             ),
             _SettingsSection(
@@ -230,6 +230,19 @@ class SettingsTab extends StatelessWidget {
                 ),
               ],
             ),
+            if (vm.advanced)
+              _SettingsSection(
+                title: t.settingsTab.send.title,
+                children: [
+                  _BooleanEntry(
+                    label: t.settingsTab.send.shareViaLinkAutoAccept,
+                    value: vm.settings.shareViaLinkAutoAccept,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setShareViaLinkAutoAccept(b);
+                    },
+                  ),
+                ],
+              ),
             _SettingsSection(
               title: t.settingsTab.network.title,
               children: [

@@ -1,4 +1,4 @@
-import 'package:localsend_app/model/device.dart';
+import 'package:common/common.dart';
 
 const _basePath = '/api/localsend';
 
