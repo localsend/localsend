@@ -5,11 +5,11 @@
   ],
   "settingsTab": {
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "title": "傳送",
+      "shareViaLinkAutoAccept": "透過連結分享：自動接受"
     }
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "自動接受請求"
   }
 }
