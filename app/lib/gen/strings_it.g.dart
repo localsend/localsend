@@ -77,7 +77,7 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get online => 'In linea';
 	@override String get open => 'Apri';
 	@override String get queue => 'Coda';
-	@override String get quickSave => 'Salva rapido';
+	@override String get quickSave => 'Salvataggio rapido';
 	@override String get renamed => 'Rinominato';
 	@override String get reset => 'Reset';
 	@override String get restart => 'Riavvia';
@@ -468,7 +468,7 @@ class _StringsSettingsTabGeneralIt extends _StringsSettingsTabGeneralEn {
 
 	// Translations
 	@override String get title => 'Generale';
-	@override String get brightness => 'Luminosità';
+	@override String get brightness => 'Tema';
 	@override late final _StringsSettingsTabGeneralBrightnessOptionsIt brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsIt._(_root);
 	@override String get color => 'Colore';
 	@override late final _StringsSettingsTabGeneralColorOptionsIt colorOptions = _StringsSettingsTabGeneralColorOptionsIt._(_root);
@@ -493,7 +493,7 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 	@override String get quickSave => '${_root.general.quickSave}';
 	@override String get destination => 'Destinazione';
 	@override String get downloads => '(Download)';
-	@override String get saveToGallery => 'Salva i dati nella galleria';
+	@override String get saveToGallery => 'Salva i media nella galleria';
 	@override String get saveToHistory => 'Salva nella cronologia';
 }
 

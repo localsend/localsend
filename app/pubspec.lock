@@ -1145,18 +1145,18 @@ packages:
     dependency: transitive
     description:
       name: refena
-      sha256: dad98c0d372617054a86b33a504fb973ba083c21b7a2b321a4b2142fae3342a2
+      sha256: a29603854d785e5259c6fb99268847e918f54463a861accc36cc913daea95cb8
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "1.6.1"
   refena_flutter:
     dependency: "direct main"
     description:
       name: refena_flutter
-      sha256: fcd8e28e50515182a40abc2718600bbac11ba4757c2b2b92b71177fbc2ee9721
+      sha256: "2bee85271c8d8ced0238d98c1c056dbabfd4af207f9cc248d10af5a37820ae3e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "1.6.0"
   refena_inspector:
     dependency: "direct dev"
     description:

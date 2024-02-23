@@ -199,7 +199,7 @@ class _StringsReceivePageCs extends _StringsReceivePageEn {
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
 		one: 'vám chce poslat soubor',
-		other: 'vám chce poslat ${n} souborů',
+		other: 'vám chce poslat několik souborů: ${n}',
 	);
 	@override String get subTitleMessage => 'vám poslal zprávu:';
 	@override String get subTitleLink => 'vám poslal odkaz:';
@@ -488,7 +488,7 @@ class _StringsSettingsTabReceiveCs extends _StringsSettingsTabReceiveEn {
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Příjmout';
+	@override String get title => 'Soubory';
 	@override String get quickSave => '${_root.general.quickSave}';
 	@override String get autoFinish => 'Automatické dokončování';
 	@override String get destination => 'Uložit do';
@@ -525,7 +525,7 @@ class _StringsSettingsTabOtherCs extends _StringsSettingsTabOtherEn {
 
 	// Translations
 	@override String get title => 'Ostatní';
-	@override String get support => 'Podporujte LocalSend';
+	@override String get support => 'Podpora LocalSend';
 	@override String get donate => 'Darovat';
 	@override String get privacyPolicy => 'Zásady ochrany osobních údajů';
 	@override String get termsOfUse => 'Podmínky použití';
@@ -678,7 +678,7 @@ class _StringsDialogsFavoriteEditDialogCs extends _StringsDialogsFavoriteEditDia
 	// Translations
 	@override String get titleAdd => 'Přidat k oblíbeným';
 	@override String get titleEdit => 'Upravit';
-	@override String get name => 'Přezdívka';
+	@override String get name => 'Název zařízení';
 	@override String get auto => '(auto)';
 	@override String get ip => 'IP adresa';
 	@override String get port => 'Port';

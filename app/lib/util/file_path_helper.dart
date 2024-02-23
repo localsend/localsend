@@ -1,4 +1,4 @@
-import 'package:localsend_app/model/file_type.dart';
+import 'package:common/common.dart';
 
 /// Matches myFile-123 -> 123
 final _fileNumberRegex = RegExp(r'^(.*)(?:-(\d+))$');

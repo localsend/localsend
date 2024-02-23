@@ -45,7 +45,7 @@ dependencies:
   path_provider: 2.1.1
   permission_handler: 11.0.1
   pretty_qr_code: 3.0.0
-  refena_flutter: 1.5.0
+  refena_flutter: 1.6.0
   refena_inspector_client: 1.2.0
   routerino: 0.8.0
   screen_retriever: 0.1.9

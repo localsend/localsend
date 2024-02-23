@@ -1,5 +1,5 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/cannot_open_file_dialog.dart';
 import 'package:open_filex/open_filex.dart';

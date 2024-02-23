@@ -1,7 +1,7 @@
+import 'package:common/common.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 
@@ -30,6 +30,7 @@ class SettingsState with SettingsStateMappable {
   final bool enableAnimations;
   final DeviceType? deviceType;
   final String? deviceModel;
+  final bool shareViaLinkAutoAccept;
 
   const SettingsState({
     required this.showToken,
@@ -53,5 +54,6 @@ class SettingsState with SettingsStateMappable {
     required this.enableAnimations,
     required this.deviceType,
     required this.deviceModel,
+    required this.shareViaLinkAutoAccept,
   });
 }

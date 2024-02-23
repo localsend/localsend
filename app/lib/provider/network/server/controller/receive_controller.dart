@@ -3,16 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:common/common.dart';
 import 'package:flutter/foundation.dart';
-import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/model/dto/info_dto.dart';
-import 'package:localsend_app/model/dto/info_register_dto.dart';
-import 'package:localsend_app/model/dto/prepare_upload_request_dto.dart';
-import 'package:localsend_app/model/dto/prepare_upload_response_dto.dart';
-import 'package:localsend_app/model/dto/register_dto.dart';
-import 'package:localsend_app/model/file_status.dart';
-import 'package:localsend_app/model/file_type.dart';
-import 'package:localsend_app/model/session_status.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';

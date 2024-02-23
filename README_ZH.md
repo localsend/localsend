@@ -212,7 +212,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-欢迎提交拉取请求。有一个 `snap` 分支可以尝试使用。
+欢迎提交拉取请求!有一个 `snap` 分支可以尝试使用。
 
 ## 贡献者
 

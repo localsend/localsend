@@ -2,10 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/dto/multicast_dto.dart';
-import 'package:localsend_app/model/dto/register_dto.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';

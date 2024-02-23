@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/model/device.dart';
+import 'package:common/common.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';

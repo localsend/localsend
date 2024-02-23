@@ -36,6 +36,7 @@ class _StringsId extends Translations {
 	@override late final _StringsProgressPageId progressPage = _StringsProgressPageId._(_root);
 	@override late final _StringsWebSharePageId webSharePage = _StringsWebSharePageId._(_root);
 	@override late final _StringsAboutPageId aboutPage = _StringsAboutPageId._(_root);
+	@override late final _StringsDonationPageId donationPage = _StringsDonationPageId._(_root);
 	@override late final _StringsChangelogPageId changelogPage = _StringsChangelogPageId._(_root);
 	@override late final _StringsAliasGeneratorId aliasGenerator = _StringsAliasGeneratorId._(_root);
 	@override late final _StringsDialogsId dialogs = _StringsDialogsId._(_root);
@@ -63,6 +64,7 @@ class _StringsGeneralId extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Disalin ke Papanklip';
 	@override String get decline => 'Tolak';
 	@override String get done => 'Selesai';
+	@override String get delete => 'Hapus';
 	@override String get edit => 'Ubah';
 	@override String get error => 'Kesalahan';
 	@override String get example => 'Contoh';
@@ -86,6 +88,7 @@ class _StringsGeneralId extends _StringsGeneralEn {
 	@override String get save => 'Simpan';
 	@override String get unchanged => 'Tidak berubah';
 	@override String get unknown => 'Tidak dikenal';
+	@override String get noItemInClipboard => 'Tidak ada item di Clipboard';
 }
 
 // Path: receiveTab
@@ -131,6 +134,7 @@ class _StringsSettingsTabId extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabGeneralId general = _StringsSettingsTabGeneralId._(_root);
 	@override late final _StringsSettingsTabReceiveId receive = _StringsSettingsTabReceiveId._(_root);
 	@override late final _StringsSettingsTabNetworkId network = _StringsSettingsTabNetworkId._(_root);
+	@override late final _StringsSettingsTabOtherId other = _StringsSettingsTabOtherId._(_root);
 	@override String get advancedSettings => 'Pengaturan Lanjutan';
 }
 
@@ -271,6 +275,27 @@ class _StringsAboutPageId extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Tentang LocalSend';
+	@override List<String> get description => [
+		'LocalSend merupakan aplikasi gratis, open-source (terbuka) yang dapat membantu anda untuk transfer file dan pesan secara aman dengan perangkat terdekat lain melalui jaringan lokal tanpa perlu koneksi internet atau paket data.',
+		'Aplikasi ini tersedia untuk Android, iOS, macOS, Windows dan Linux. Anda dapat menemukan semua pilihan download pada halaman resmi kami.',
+	];
+	@override String get author => 'Pencipta';
+	@override String get contributors => 'Daftar Kontributor';
+	@override String get translators => 'Daftar Terjemahan';
+}
+
+// Path: donationPage
+class _StringsDonationPageId extends _StringsDonationPageEn {
+	_StringsDonationPageId._(_StringsId root) : this._root = root, super._(root);
+
+	@override final _StringsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Donasi';
+	@override String get info => 'LocalSend merupakan aplikasi gratis, terbuka dan bebas iklan. Jika anda menyukai aplikasi ini, anda dapat membantu dengan cara memberikan donasi.';
+	@override String donate({required Object amount}) => 'Donasi ${amount}';
+	@override String get thanks => 'Terima kasih banyak!';
+	@override String get restore => 'Kembalikan dana';
 }
 
 // Path: changelogPage
@@ -376,8 +401,12 @@ class _StringsDialogsId extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileId cannotOpenFile = _StringsDialogsCannotOpenFileId._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeId encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeId._(_root);
 	@override late final _StringsDialogsErrorDialogId errorDialog = _StringsDialogsErrorDialogId._(_root);
+	@override late final _StringsDialogsFavoriteDialogId favoriteDialog = _StringsDialogsFavoriteDialogId._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogId favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogId._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogId favoriteEditDialog = _StringsDialogsFavoriteEditDialogId._(_root);
 	@override late final _StringsDialogsFileInfoId fileInfo = _StringsDialogsFileInfoId._(_root);
 	@override late final _StringsDialogsFileNameInputId fileNameInput = _StringsDialogsFileNameInputId._(_root);
+	@override late final _StringsDialogsHistoryClearDialogId historyClearDialog = _StringsDialogsHistoryClearDialogId._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedId localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedId._(_root);
 	@override late final _StringsDialogsMessageInputId messageInput = _StringsDialogsMessageInputId._(_root);
 	@override late final _StringsDialogsNoFilesId noFiles = _StringsDialogsNoFilesId._(_root);
@@ -487,6 +516,7 @@ class _StringsSendTabPickerId extends _StringsSendTabPickerEn {
 	@override String get media => 'Media';
 	@override String get text => 'Teks';
 	@override String get app => 'Aplikasi';
+	@override String get clipboard => 'Tempel';
 }
 
 // Path: sendTab.sendModes
@@ -531,6 +561,7 @@ class _StringsSettingsTabReceiveId extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Menerima';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Selesai Otomatis';
 	@override String get destination => 'Tujuan';
 	@override String get downloads => '(Unduhan)';
 	@override String get saveToGallery => 'Simpan media ke galeri';
@@ -555,6 +586,20 @@ class _StringsSettingsTabNetworkId extends _StringsSettingsTabNetworkEn {
 	@override String get encryption => 'Encryption';
 	@override String get multicastGroup => 'Multicast';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Anda mungkin tidak terdeteksi oleh perangkat lain karena Anda menggunakan alamat multicast khusus. (default: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherId extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherId._(_StringsId root) : this._root = root, super._(root);
+
+	@override final _StringsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Lainnya';
+	@override String get support => 'Dukung LocalSend';
+	@override String get donate => 'Berikan Donasi';
+	@override String get privacyPolicy => 'Kebijakan Privasi';
+	@override String get termsOfUse => 'Syarat dan Ketentuan Penggunaan';
 }
 
 // Path: troubleshootPage.firewall
@@ -672,6 +717,44 @@ class _StringsDialogsErrorDialogId extends _StringsDialogsErrorDialogEn {
 	@override String get title => '${_root.general.error}';
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogId extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogId._(_StringsId root) : this._root = root, super._(root);
+
+	@override final _StringsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favorit';
+	@override String get noFavorites => 'Tidak adan perangkat difavoritkan.';
+	@override String get addFavorite => 'Tambah';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogId extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogId._(_StringsId root) : this._root = root, super._(root);
+
+	@override final _StringsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hapus dari daftar favorit';
+	@override String content({required Object name}) => 'Anda yakin ingin menghapus ini dari daftar favorit? "${name}"?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogId extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogId._(_StringsId root) : this._root = root, super._(root);
+
+	@override final _StringsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'Tambah ke daftar favorit';
+	@override String get titleEdit => 'Pengaturan';
+	@override String get name => 'Nama perangkat';
+	@override String get auto => '(auto)';
+	@override String get ip => 'Alamat IP';
+	@override String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoId extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoId._(_StringsId root) : this._root = root, super._(root);
@@ -696,6 +779,17 @@ class _StringsDialogsFileNameInputId extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'Masukan nama file';
 	@override String original({required Object original}) => 'Asli: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogId extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogId._(_StringsId root) : this._root = root, super._(root);
+
+	@override final _StringsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hapus riwayat';
+	@override String get content => 'Anda yakin ingin menghapus seluruh riwayat?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -823,6 +917,7 @@ class _StringsSettingsTabGeneralColorOptionsId extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'Sistem';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions

@@ -494,6 +494,7 @@ class _StringsSettingsTabReceiveTr extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(İndirilenler)';
 	@override String get saveToGallery => 'Medyayı galeriye kaydet';
 	@override String get saveToHistory => 'Geçmişe kaydet';
+	@override String get autoFinish => 'Otomatik bitir';
 }
 
 // Path: settingsTab.network

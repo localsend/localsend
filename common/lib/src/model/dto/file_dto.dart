@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
+import 'package:common/src/model/file_type.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/model/file_type.dart';
 import 'package:mime/mime.dart';
 
 /// The file DTO that is sent between server and client.

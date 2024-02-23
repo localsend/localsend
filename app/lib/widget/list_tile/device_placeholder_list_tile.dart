@@ -1,6 +1,7 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/model/device.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/list_tile/custom_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';

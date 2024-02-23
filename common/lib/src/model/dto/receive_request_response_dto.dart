@@ -1,6 +1,6 @@
+import 'package:common/src/model/dto/file_dto.dart';
+import 'package:common/src/model/dto/info_dto.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/model/dto/file_dto.dart';
-import 'package:localsend_app/model/dto/info_dto.dart';
 
 part 'receive_request_response_dto.mapper.dart';
 

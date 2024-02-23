@@ -1,6 +1,5 @@
+import 'package:common/common.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/model/dto/file_dto.dart';
-import 'package:localsend_app/model/file_status.dart';
 
 part 'receiving_file.mapper.dart';
 

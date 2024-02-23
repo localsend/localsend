@@ -24,6 +24,7 @@ const _translators = <AppLocale, List<String>>{
   ],
   AppLocale.en: [
     'Tien Do Nam (@Tienisto)',
+    '@Coopydood',
   ],
   AppLocale.esEs: [
     'Esteban Daniel Saracho (@esaracho)',

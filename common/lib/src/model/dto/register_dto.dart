@@ -1,7 +1,7 @@
+import 'package:common/src/constants.dart';
+import 'package:common/src/model/device.dart';
+import 'package:common/src/model/dto/multicast_dto.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/constants.dart';
-import 'package:localsend_app/model/device.dart';
-import 'package:localsend_app/model/dto/multicast_dto.dart';
 
 part 'register_dto.mapper.dart';
 
