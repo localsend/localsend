@@ -5,11 +5,11 @@
   ],
   "settingsTab": {
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "title": "Küld",
+      "shareViaLinkAutoAccept": "Megosztás linken keresztül: Auto. elfogadás"
     }
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "Kérések automatikus elfogadása"
   }
 }
