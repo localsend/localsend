@@ -16,47 +16,48 @@ dependencies:
   common:
     path: ../common
   connectivity_plus: 5.0.2
-  dart_mappable: 4.0.1
+  dart_mappable: 4.2.0
   desktop_drop: 0.4.4
   device_apps: 2.2.0
-  device_info_plus: 9.1.1
-  dio: 5.4.0
-  dynamic_color: 1.6.8
+  device_info_plus: 9.1.2
+  dio: 5.4.1
+  dynamic_color: 1.6.9
   file_picker: 6.1.1
-  file_selector: 1.0.1
+  file_selector: 1.0.3
   flutter:
     sdk: flutter
   flutter_displaymode: 0.6.0
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: 0.6.18+2
-  gal: 2.1.4
-  image_picker: 1.0.4
-  in_app_purchase: 3.1.11 # [FOSS_REMOVE]
+  flutter_markdown: 0.6.19
+  gal: 2.3.0
+  image_picker: 1.0.7
+  in_app_purchase: 3.1.13 # [FOSS_REMOVE]
   intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
   launch_at_startup: 0.2.2
   logging: 1.2.0
   mime: 1.0.4
-  network_info_plus: 4.1.0
-  open_filex: 4.3.4
+  network_info_plus: 4.1.0+1
+  open_filex: 4.4.0
   package_info_plus: 4.2.0
   pasteboard: ^0.2.0
   path: 1.8.3
-  path_provider: 2.1.1
+  path_provider: 2.1.2
   permission_handler: 11.0.1
-  pretty_qr_code: 3.0.0
+  pretty_qr_code: 3.2.1
   refena_flutter: 1.6.0
   refena_inspector_client: 1.2.0
   routerino: 0.8.0
   screen_retriever: 0.1.9
   share_handler: 0.0.19
+  share_handler_ios: 0.0.12 # Keep iOS <14 support
   shared_preferences: 2.2.2
   shared_preferences_platform_interface: any
-  shared_storage: 0.8.0
+  shared_storage: 0.8.1
   shelf: 1.4.1
   shelf_router: 1.1.4
-  slang: 3.26.1
-  slang_flutter: 3.26.1
+  slang: 3.29.0
+  slang_flutter: 3.29.0
   system_settings: 2.1.0
   system_tray: 2.0.3
   tray_manager:
@@ -65,22 +66,22 @@ dependencies:
     git:
       url: https://github.com/Tienisto/tray_manager.git
       ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
-  url_launcher: 6.2.1
+  url_launcher: 6.2.4
   uuid: 3.0.7
   wakelock_plus: 1.1.4
   wechat_assets_picker: 8.8.0
-  window_manager: 0.3.7
-  yaru: 1.2.0
+  window_manager: 0.3.8
+  yaru: 1.2.2
 
 dev_dependencies:
-  build_runner: 2.4.7
-  dart_mappable_builder: 4.0.1
+  build_runner: 2.4.8
+  dart_mappable_builder: 4.2.0
   flutter_gen_runner: 5.3.2
   flutter_lints: 3.0.1
   mockito: 5.4.4
   msix: 3.16.7
   refena_inspector: 1.2.0
-  slang_build_runner: 3.26.1
+  slang_build_runner: 3.29.0
   slang_gpt: 0.10.0
   test: ^1.24.3
 

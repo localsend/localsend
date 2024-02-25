@@ -181,26 +181,26 @@ SPEC CHECKSUMS:
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 15fd9539e4eb735dc54bae8c0534a7a9511a03de
-  file_selector_ios: 8c25d700d625e1dcdd6599f2d927072f2254647b
+  file_selector_ios: b6a6c6667913d571590169ef946afbafe3b52688
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   gal: 61e868295d28fe67ffa297fae6dacebf56fd53e1
-  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
-  in_app_purchase_storekit: 4fb7ee9e824b1f09107fbfbbce8c4b276366dc43
+  image_picker_ios: 99dfe1854b4fa34d0364e74a78448a0151025425
+  in_app_purchase_storekit: 9e9931234f0adcf71ae323f8c83785b96030edf1
   network_info_plus: 6d0c3eb8367b8164fa3fb0c19875e3f59d49697f
   open_filex: 6e26e659846ec990262224a12ef1c528bb4edbe4
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SDWebImage: 3d8caa2430f3d674dbb3e515df4a100a2105af5f
   share_handler_ios: ae3584532280673e02aacdf77f2cdfb2c96b9211
   share_handler_ios_models: fc638c9b4330dc7f082586c92aee9dfa0b87b871
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
   system_settings: 8f5cdbfa72c677fc8d665b863bcc20d393d87e9d
-  url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
+  url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
   video_player_avfoundation: e9e6f9cae7d7a6d9b43519b0aab382bca60fcfd1
   wakelock_plus: 8b09852c8876491e4b6d179e17dfe2a0b5f60d47
 
