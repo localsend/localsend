@@ -31,17 +31,13 @@ class ShortcutWatcher extends StatelessWidget {
         // Control+V and Command+V
         LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV): _PasteIntent(),
         LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyV): _PasteIntent(),
-
       },
       child: Actions(
         actions: {
           _ExitAppIntent: CallbackAction(onInvoke: (_) => exit(0)),
-          _PopPageIntent: CallbackAction(
-              onInvoke: (_) async =>
-                  Navigator.of(Routerino.context).maybePop()),
+          _PopPageIntent: CallbackAction(onInvoke: (_) async => Navigator.of(Routerino.context).maybePop()),
           _PasteIntent: CallbackAction(onInvoke: (_) async {
-            await context.ref.dispatchAsync(PickFileAction(
-                option: FilePickerOption.clipboard, context: context));
+            await context.ref.dispatchAsync(PickFileAction(option: FilePickerOption.clipboard, context: context));
             return null;
           }),
           _CloseWindowIntent: CallbackAction<_CloseWindowIntent>(

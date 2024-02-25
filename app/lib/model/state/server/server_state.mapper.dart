@@ -23,8 +23,7 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   final String id = 'ServerState';
 
   static HttpServer _$httpServer(ServerState v) => v.httpServer;
-  static const Field<ServerState, HttpServer> _f$httpServer =
-      Field('httpServer', _$httpServer);
+  static const Field<ServerState, HttpServer> _f$httpServer = Field('httpServer', _$httpServer);
   static String _$alias(ServerState v) => v.alias;
   static const Field<ServerState, String> _f$alias = Field('alias', _$alias);
   static int _$port(ServerState v) => v.port;
@@ -32,11 +31,9 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   static bool _$https(ServerState v) => v.https;
   static const Field<ServerState, bool> _f$https = Field('https', _$https);
   static ReceiveSessionState? _$session(ServerState v) => v.session;
-  static const Field<ServerState, ReceiveSessionState> _f$session =
-      Field('session', _$session);
+  static const Field<ServerState, ReceiveSessionState> _f$session = Field('session', _$session);
   static WebSendState? _$webSendState(ServerState v) => v.webSendState;
-  static const Field<ServerState, WebSendState> _f$webSendState =
-      Field('webSendState', _$webSendState);
+  static const Field<ServerState, WebSendState> _f$webSendState = Field('webSendState', _$webSendState);
 
   @override
   final Map<Symbol, Field<ServerState, dynamic>> fields = const {
@@ -72,29 +69,23 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
 
 mixin ServerStateMappable {
   String serialize() {
-    return ServerStateMapper.ensureInitialized()
-        .encodeJson<ServerState>(this as ServerState);
+    return ServerStateMapper.ensureInitialized().encodeJson<ServerState>(this as ServerState);
   }
 
   Map<String, dynamic> toJson() {
-    return ServerStateMapper.ensureInitialized()
-        .encodeMap<ServerState>(this as ServerState);
+    return ServerStateMapper.ensureInitialized().encodeMap<ServerState>(this as ServerState);
   }
 
-  ServerStateCopyWith<ServerState, ServerState, ServerState> get copyWith =>
-      _ServerStateCopyWithImpl(this as ServerState, $identity, $identity);
+  ServerStateCopyWith<ServerState, ServerState, ServerState> get copyWith => _ServerStateCopyWithImpl(this as ServerState, $identity, $identity);
   @override
   String toString() {
-    return ServerStateMapper.ensureInitialized()
-        .stringifyValue(this as ServerState);
+    return ServerStateMapper.ensureInitialized().stringifyValue(this as ServerState);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            ServerStateMapper.ensureInitialized()
-                .isValueEqual(this as ServerState, other));
+        (runtimeType == other.runtimeType && ServerStateMapper.ensureInitialized().isValueEqual(this as ServerState, other));
   }
 
   @override
@@ -103,49 +94,28 @@ mixin ServerStateMappable {
   }
 }
 
-extension ServerStateValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, ServerState, $Out> {
-  ServerStateCopyWith<$R, ServerState, $Out> get $asServerState =>
-      $base.as((v, t, t2) => _ServerStateCopyWithImpl(v, t, t2));
+extension ServerStateValueCopy<$R, $Out> on ObjectCopyWith<$R, ServerState, $Out> {
+  ServerStateCopyWith<$R, ServerState, $Out> get $asServerState => $base.as((v, t, t2) => _ServerStateCopyWithImpl(v, t, t2));
 }
 
-abstract class ServerStateCopyWith<$R, $In extends ServerState, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
-  ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>?
-      get session;
+abstract class ServerStateCopyWith<$R, $In extends ServerState, $Out> implements ClassCopyWith<$R, $In, $Out> {
+  ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>? get session;
   WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState;
-  $R call(
-      {HttpServer? httpServer,
-      String? alias,
-      int? port,
-      bool? https,
-      ReceiveSessionState? session,
-      WebSendState? webSendState});
+  $R call({HttpServer? httpServer, String? alias, int? port, bool? https, ReceiveSessionState? session, WebSendState? webSendState});
   ServerStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _ServerStateCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, ServerState, $Out>
-    implements ServerStateCopyWith<$R, ServerState, $Out> {
+class _ServerStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ServerState, $Out> implements ServerStateCopyWith<$R, ServerState, $Out> {
   _ServerStateCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ServerState> $mapper =
-      ServerStateMapper.ensureInitialized();
+  late final ClassMapperBase<ServerState> $mapper = ServerStateMapper.ensureInitialized();
   @override
-  ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>?
-      get session => $value.session?.copyWith.$chain((v) => call(session: v));
+  ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>? get session => $value.session?.copyWith.$chain((v) => call(session: v));
   @override
-  WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState =>
-      $value.webSendState?.copyWith.$chain((v) => call(webSendState: v));
+  WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState => $value.webSendState?.copyWith.$chain((v) => call(webSendState: v));
   @override
-  $R call(
-          {HttpServer? httpServer,
-          String? alias,
-          int? port,
-          bool? https,
-          Object? session = $none,
-          Object? webSendState = $none}) =>
+  $R call({HttpServer? httpServer, String? alias, int? port, bool? https, Object? session = $none, Object? webSendState = $none}) =>
       $apply(FieldCopyWithData({
         if (httpServer != null) #httpServer: httpServer,
         if (alias != null) #alias: alias,
@@ -164,7 +134,5 @@ class _ServerStateCopyWithImpl<$R, $Out>
       webSendState: data.get(#webSendState, or: $value.webSendState));
 
   @override
-  ServerStateCopyWith<$R2, ServerState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ServerStateCopyWithImpl($value, $cast, t);
+  ServerStateCopyWith<$R2, ServerState, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _ServerStateCopyWithImpl($value, $cast, t);
 }

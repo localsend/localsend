@@ -41,7 +41,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   })  : _settingsService = settingsService,
         _serverService = serverNotifier,
         _initialDeviceInfo = initialDeviceInfo,
-    _supportsDynamicColors = supportsDynamicColors;
+        _supportsDynamicColors = supportsDynamicColors;
 
   @override
   SettingsTabVm init() {

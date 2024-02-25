@@ -10,21 +10,24 @@ env:
   FLUTTER_VERSION: "3.13.9"
 
 jobs:
-#  format:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: subosito/flutter-action@v2
-#        with:
-#          flutter-version: ${{ env.FLUTTER_VERSION }}
-#          channel: "stable"
-#      - name: Dependencies
-#        working-directory: app
-#        run: flutter pub get
-#      - name: Check format
-#        working-directory: app
-#        run: dart format --line-length 150 --set-exit-if-changed lib test
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Remove gen directory
+        working-directory: app
+        run: rm -rf lib/gen
+      - name: Check format
+        working-directory: app
+        run: dart format --line-length 150 --set-exit-if-changed lib test
 
   test:
     runs-on: ubuntu-latest

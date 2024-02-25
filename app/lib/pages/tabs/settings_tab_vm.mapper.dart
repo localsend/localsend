@@ -23,70 +23,39 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   final String id = 'SettingsTabVm';
 
   static bool _$advanced(SettingsTabVm v) => v.advanced;
-  static const Field<SettingsTabVm, bool> _f$advanced =
-      Field('advanced', _$advanced);
-  static TextEditingController _$aliasController(SettingsTabVm v) =>
-      v.aliasController;
-  static const Field<SettingsTabVm, TextEditingController> _f$aliasController =
-      Field('aliasController', _$aliasController);
-  static TextEditingController _$deviceModelController(SettingsTabVm v) =>
-      v.deviceModelController;
-  static const Field<SettingsTabVm, TextEditingController>
-      _f$deviceModelController =
-      Field('deviceModelController', _$deviceModelController);
-  static TextEditingController _$portController(SettingsTabVm v) =>
-      v.portController;
-  static const Field<SettingsTabVm, TextEditingController> _f$portController =
-      Field('portController', _$portController);
-  static TextEditingController _$multicastController(SettingsTabVm v) =>
-      v.multicastController;
-  static const Field<SettingsTabVm, TextEditingController>
-      _f$multicastController =
-      Field('multicastController', _$multicastController);
+  static const Field<SettingsTabVm, bool> _f$advanced = Field('advanced', _$advanced);
+  static TextEditingController _$aliasController(SettingsTabVm v) => v.aliasController;
+  static const Field<SettingsTabVm, TextEditingController> _f$aliasController = Field('aliasController', _$aliasController);
+  static TextEditingController _$deviceModelController(SettingsTabVm v) => v.deviceModelController;
+  static const Field<SettingsTabVm, TextEditingController> _f$deviceModelController = Field('deviceModelController', _$deviceModelController);
+  static TextEditingController _$portController(SettingsTabVm v) => v.portController;
+  static const Field<SettingsTabVm, TextEditingController> _f$portController = Field('portController', _$portController);
+  static TextEditingController _$multicastController(SettingsTabVm v) => v.multicastController;
+  static const Field<SettingsTabVm, TextEditingController> _f$multicastController = Field('multicastController', _$multicastController);
   static SettingsState _$settings(SettingsTabVm v) => v.settings;
-  static const Field<SettingsTabVm, SettingsState> _f$settings =
-      Field('settings', _$settings);
+  static const Field<SettingsTabVm, SettingsState> _f$settings = Field('settings', _$settings);
   static ServerState? _$serverState(SettingsTabVm v) => v.serverState;
-  static const Field<SettingsTabVm, ServerState> _f$serverState =
-      Field('serverState', _$serverState);
+  static const Field<SettingsTabVm, ServerState> _f$serverState = Field('serverState', _$serverState);
   static DeviceInfoResult _$deviceInfo(SettingsTabVm v) => v.deviceInfo;
-  static const Field<SettingsTabVm, DeviceInfoResult> _f$deviceInfo =
-      Field('deviceInfo', _$deviceInfo);
+  static const Field<SettingsTabVm, DeviceInfoResult> _f$deviceInfo = Field('deviceInfo', _$deviceInfo);
   static List<ColorMode> _$colorModes(SettingsTabVm v) => v.colorModes;
-  static const Field<SettingsTabVm, List<ColorMode>> _f$colorModes =
-      Field('colorModes', _$colorModes);
-  static void Function(BuildContext, ThemeMode) _$onChangeTheme(
-          SettingsTabVm v) =>
-      v.onChangeTheme;
-  static const Field<SettingsTabVm, void Function(BuildContext, ThemeMode)>
-      _f$onChangeTheme = Field('onChangeTheme', _$onChangeTheme);
-  static void Function(ColorMode) _$onChangeColorMode(SettingsTabVm v) =>
-      v.onChangeColorMode;
-  static const Field<SettingsTabVm, void Function(ColorMode)>
-      _f$onChangeColorMode = Field('onChangeColorMode', _$onChangeColorMode);
-  static void Function(BuildContext) _$onTapLanguage(SettingsTabVm v) =>
-      v.onTapLanguage;
-  static const Field<SettingsTabVm, void Function(BuildContext)>
-      _f$onTapLanguage = Field('onTapLanguage', _$onTapLanguage);
-  static void Function(BuildContext) _$onTapRestartServer(SettingsTabVm v) =>
-      v.onTapRestartServer;
-  static const Field<SettingsTabVm, void Function(BuildContext)>
-      _f$onTapRestartServer = Field('onTapRestartServer', _$onTapRestartServer);
-  static void Function(BuildContext) _$onTapStartServer(SettingsTabVm v) =>
-      v.onTapStartServer;
-  static const Field<SettingsTabVm, void Function(BuildContext)>
-      _f$onTapStartServer = Field('onTapStartServer', _$onTapStartServer);
-  static void Function() _$onTapStopServer(SettingsTabVm v) =>
-      v.onTapStopServer;
-  static const Field<SettingsTabVm, void Function()> _f$onTapStopServer =
-      Field('onTapStopServer', _$onTapStopServer);
-  static void Function(bool) _$onTapAdvanced(SettingsTabVm v) =>
-      v.onTapAdvanced;
-  static const Field<SettingsTabVm, void Function(bool)> _f$onTapAdvanced =
-      Field('onTapAdvanced', _$onTapAdvanced);
+  static const Field<SettingsTabVm, List<ColorMode>> _f$colorModes = Field('colorModes', _$colorModes);
+  static void Function(BuildContext, ThemeMode) _$onChangeTheme(SettingsTabVm v) => v.onChangeTheme;
+  static const Field<SettingsTabVm, void Function(BuildContext, ThemeMode)> _f$onChangeTheme = Field('onChangeTheme', _$onChangeTheme);
+  static void Function(ColorMode) _$onChangeColorMode(SettingsTabVm v) => v.onChangeColorMode;
+  static const Field<SettingsTabVm, void Function(ColorMode)> _f$onChangeColorMode = Field('onChangeColorMode', _$onChangeColorMode);
+  static void Function(BuildContext) _$onTapLanguage(SettingsTabVm v) => v.onTapLanguage;
+  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onTapLanguage = Field('onTapLanguage', _$onTapLanguage);
+  static void Function(BuildContext) _$onTapRestartServer(SettingsTabVm v) => v.onTapRestartServer;
+  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onTapRestartServer = Field('onTapRestartServer', _$onTapRestartServer);
+  static void Function(BuildContext) _$onTapStartServer(SettingsTabVm v) => v.onTapStartServer;
+  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onTapStartServer = Field('onTapStartServer', _$onTapStartServer);
+  static void Function() _$onTapStopServer(SettingsTabVm v) => v.onTapStopServer;
+  static const Field<SettingsTabVm, void Function()> _f$onTapStopServer = Field('onTapStopServer', _$onTapStopServer);
+  static void Function(bool) _$onTapAdvanced(SettingsTabVm v) => v.onTapAdvanced;
+  static const Field<SettingsTabVm, void Function(bool)> _f$onTapAdvanced = Field('onTapAdvanced', _$onTapAdvanced);
   static List<ThemeMode> _$themeModes(SettingsTabVm v) => v.themeModes;
-  static const Field<SettingsTabVm, List<ThemeMode>> _f$themeModes =
-      Field('themeModes', _$themeModes, mode: FieldMode.member);
+  static const Field<SettingsTabVm, List<ThemeMode>> _f$themeModes = Field('themeModes', _$themeModes, mode: FieldMode.member);
 
   @override
   final Map<Symbol, Field<SettingsTabVm, dynamic>> fields = const {
@@ -143,51 +112,40 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
 
 mixin SettingsTabVmMappable {
   String serialize() {
-    return SettingsTabVmMapper.ensureInitialized()
-        .encodeJson<SettingsTabVm>(this as SettingsTabVm);
+    return SettingsTabVmMapper.ensureInitialized().encodeJson<SettingsTabVm>(this as SettingsTabVm);
   }
 
   Map<String, dynamic> toJson() {
-    return SettingsTabVmMapper.ensureInitialized()
-        .encodeMap<SettingsTabVm>(this as SettingsTabVm);
+    return SettingsTabVmMapper.ensureInitialized().encodeMap<SettingsTabVm>(this as SettingsTabVm);
   }
 
-  SettingsTabVmCopyWith<SettingsTabVm, SettingsTabVm, SettingsTabVm>
-      get copyWith => _SettingsTabVmCopyWithImpl(
-          this as SettingsTabVm, $identity, $identity);
+  SettingsTabVmCopyWith<SettingsTabVm, SettingsTabVm, SettingsTabVm> get copyWith =>
+      _SettingsTabVmCopyWithImpl(this as SettingsTabVm, $identity, $identity);
   @override
   String toString() {
-    return SettingsTabVmMapper.ensureInitialized()
-        .stringifyValue(this as SettingsTabVm);
+    return SettingsTabVmMapper.ensureInitialized().stringifyValue(this as SettingsTabVm);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            SettingsTabVmMapper.ensureInitialized()
-                .isValueEqual(this as SettingsTabVm, other));
+        (runtimeType == other.runtimeType && SettingsTabVmMapper.ensureInitialized().isValueEqual(this as SettingsTabVm, other));
   }
 
   @override
   int get hashCode {
-    return SettingsTabVmMapper.ensureInitialized()
-        .hashValue(this as SettingsTabVm);
+    return SettingsTabVmMapper.ensureInitialized().hashValue(this as SettingsTabVm);
   }
 }
 
-extension SettingsTabVmValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, SettingsTabVm, $Out> {
-  SettingsTabVmCopyWith<$R, SettingsTabVm, $Out> get $asSettingsTabVm =>
-      $base.as((v, t, t2) => _SettingsTabVmCopyWithImpl(v, t, t2));
+extension SettingsTabVmValueCopy<$R, $Out> on ObjectCopyWith<$R, SettingsTabVm, $Out> {
+  SettingsTabVmCopyWith<$R, SettingsTabVm, $Out> get $asSettingsTabVm => $base.as((v, t, t2) => _SettingsTabVmCopyWithImpl(v, t, t2));
 }
 
-abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
+abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out> implements ClassCopyWith<$R, $In, $Out> {
   SettingsStateCopyWith<$R, SettingsState, SettingsState> get settings;
   ServerStateCopyWith<$R, ServerState, ServerState>? get serverState;
-  ListCopyWith<$R, ColorMode, ObjectCopyWith<$R, ColorMode, ColorMode>>
-      get colorModes;
+  ListCopyWith<$R, ColorMode, ObjectCopyWith<$R, ColorMode, ColorMode>> get colorModes;
   $R call(
       {bool? advanced,
       TextEditingController? aliasController,
@@ -208,26 +166,19 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
   SettingsTabVmCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _SettingsTabVmCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, SettingsTabVm, $Out>
+class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, SettingsTabVm, $Out>
     implements SettingsTabVmCopyWith<$R, SettingsTabVm, $Out> {
   _SettingsTabVmCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<SettingsTabVm> $mapper =
-      SettingsTabVmMapper.ensureInitialized();
+  late final ClassMapperBase<SettingsTabVm> $mapper = SettingsTabVmMapper.ensureInitialized();
   @override
-  SettingsStateCopyWith<$R, SettingsState, SettingsState> get settings =>
-      $value.settings.copyWith.$chain((v) => call(settings: v));
+  SettingsStateCopyWith<$R, SettingsState, SettingsState> get settings => $value.settings.copyWith.$chain((v) => call(settings: v));
   @override
-  ServerStateCopyWith<$R, ServerState, ServerState>? get serverState =>
-      $value.serverState?.copyWith.$chain((v) => call(serverState: v));
+  ServerStateCopyWith<$R, ServerState, ServerState>? get serverState => $value.serverState?.copyWith.$chain((v) => call(serverState: v));
   @override
-  ListCopyWith<$R, ColorMode, ObjectCopyWith<$R, ColorMode, ColorMode>>
-      get colorModes => ListCopyWith(
-          $value.colorModes,
-          (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(colorModes: v));
+  ListCopyWith<$R, ColorMode, ObjectCopyWith<$R, ColorMode, ColorMode>> get colorModes =>
+      ListCopyWith($value.colorModes, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(colorModes: v));
   @override
   $R call(
           {bool? advanced,
@@ -249,11 +200,9 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
       $apply(FieldCopyWithData({
         if (advanced != null) #advanced: advanced,
         if (aliasController != null) #aliasController: aliasController,
-        if (deviceModelController != null)
-          #deviceModelController: deviceModelController,
+        if (deviceModelController != null) #deviceModelController: deviceModelController,
         if (portController != null) #portController: portController,
-        if (multicastController != null)
-          #multicastController: multicastController,
+        if (multicastController != null) #multicastController: multicastController,
         if (settings != null) #settings: settings,
         if (serverState != $none) #serverState: serverState,
         if (deviceInfo != null) #deviceInfo: deviceInfo,
@@ -270,28 +219,21 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
   SettingsTabVm $make(CopyWithData data) => SettingsTabVm(
       advanced: data.get(#advanced, or: $value.advanced),
       aliasController: data.get(#aliasController, or: $value.aliasController),
-      deviceModelController:
-          data.get(#deviceModelController, or: $value.deviceModelController),
+      deviceModelController: data.get(#deviceModelController, or: $value.deviceModelController),
       portController: data.get(#portController, or: $value.portController),
-      multicastController:
-          data.get(#multicastController, or: $value.multicastController),
+      multicastController: data.get(#multicastController, or: $value.multicastController),
       settings: data.get(#settings, or: $value.settings),
       serverState: data.get(#serverState, or: $value.serverState),
       deviceInfo: data.get(#deviceInfo, or: $value.deviceInfo),
       colorModes: data.get(#colorModes, or: $value.colorModes),
       onChangeTheme: data.get(#onChangeTheme, or: $value.onChangeTheme),
-      onChangeColorMode:
-          data.get(#onChangeColorMode, or: $value.onChangeColorMode),
+      onChangeColorMode: data.get(#onChangeColorMode, or: $value.onChangeColorMode),
       onTapLanguage: data.get(#onTapLanguage, or: $value.onTapLanguage),
-      onTapRestartServer:
-          data.get(#onTapRestartServer, or: $value.onTapRestartServer),
-      onTapStartServer:
-          data.get(#onTapStartServer, or: $value.onTapStartServer),
+      onTapRestartServer: data.get(#onTapRestartServer, or: $value.onTapRestartServer),
+      onTapStartServer: data.get(#onTapStartServer, or: $value.onTapStartServer),
       onTapStopServer: data.get(#onTapStopServer, or: $value.onTapStopServer),
       onTapAdvanced: data.get(#onTapAdvanced, or: $value.onTapAdvanced));
 
   @override
-  SettingsTabVmCopyWith<$R2, SettingsTabVm, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _SettingsTabVmCopyWithImpl($value, $cast, t);
+  SettingsTabVmCopyWith<$R2, SettingsTabVm, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _SettingsTabVmCopyWithImpl($value, $cast, t);
 }
