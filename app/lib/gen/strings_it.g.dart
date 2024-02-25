@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -145,6 +151,7 @@ class _StringsSettingsTabIt extends _StringsSettingsTabEn {
 
 	// Translations
 	@override String get title => 'Impostazioni';
+	@override late final _StringsSettingsTabSendIt send = _StringsSettingsTabSendIt._(_root);
 	@override late final _StringsSettingsTabGeneralIt general = _StringsSettingsTabGeneralIt._(_root);
 	@override late final _StringsSettingsTabReceiveIt receive = _StringsSettingsTabReceiveIt._(_root);
 	@override late final _StringsSettingsTabNetworkIt network = _StringsSettingsTabNetworkIt._(_root);
@@ -266,6 +273,7 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get autoAccept => 'Accetta automaticamente le richieste';
 	@override String get title => 'Condividi tramite link';
 	@override String get loading => 'Avvio del server...';
 	@override String get stopping => 'Arresto del server...';
@@ -458,6 +466,17 @@ class _StringsSendTabSendModesIt extends _StringsSendTabSendModesEn {
 	@override String get single => 'Singolo destinatario';
 	@override String get multiple => 'Destinatari multipli';
 	@override String get link => 'Condividi tramite link';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendIt extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Invia';
+	@override String get shareViaLinkAutoAccept => 'Condividi via link: Accetta automaticamente';
 }
 
 // Path: settingsTab.general
