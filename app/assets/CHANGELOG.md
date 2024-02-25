@@ -1,6 +1,7 @@
 ## 1.14.0 (unreleased)
 
 - feat: add option to automatically accept requests when sharing via link (@MisterChangRay, @Tienisto)
+- feat: use fix button width for all buttons in the selection row (only noticeable in Russian) (@Tienisto)
 - fix: picking many files should not freeze the UI (@Tienisto)
 - fix: do not create a new session for the same IP when sharing via link (@MisterChangRay)
 - i18n: add Danish (@Limfjorden)
