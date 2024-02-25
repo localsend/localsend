@@ -86,6 +86,10 @@
   },
   "settingsTab": {
     "title": "Impostazioni",
+    "send": {
+      "title": "Invia",
+      "shareViaLinkAutoAccept": "Condividi via link: Accetta automaticamente"
+    },
     "general": {
       "title": "Generale",
       "brightness": "Tema",
@@ -213,6 +217,7 @@
     }
   },
   "webSharePage": {
+    "autoAccept": "Accetta automaticamente le richieste",
     "title": "Condividi tramite link",
     "loading": "Avvio del server...",
     "stopping": "Arresto del server...",
