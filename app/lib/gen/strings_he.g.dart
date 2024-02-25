@@ -133,6 +133,7 @@ class _StringsSettingsTabHe extends _StringsSettingsTabEn {
 	@override String get title => 'הגדרות';
 	@override late final _StringsSettingsTabGeneralHe general = _StringsSettingsTabGeneralHe._(_root);
 	@override late final _StringsSettingsTabReceiveHe receive = _StringsSettingsTabReceiveHe._(_root);
+	@override late final _StringsSettingsTabSendHe send = _StringsSettingsTabSendHe._(_root);
 	@override late final _StringsSettingsTabNetworkHe network = _StringsSettingsTabNetworkHe._(_root);
 	@override late final _StringsSettingsTabOtherHe other = _StringsSettingsTabOtherHe._(_root);
 	@override String get advancedSettings => 'הגדרות מתקדמות';
@@ -263,6 +264,7 @@ class _StringsWebSharePageHe extends _StringsWebSharePageEn {
 	@override String get requests => 'בקשות';
 	@override String get noRequests => 'אין כרגע בקשות.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'אישור בקשות באופן אוטומטי';
 	@override String get encryptionHint => 'LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.';
 	@override String pendingRequests({required Object n}) => 'בקשות בהמתנה: ${n}';
 }
@@ -495,6 +497,17 @@ class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(הורדות)';
 	@override String get saveToGallery => 'שמור מדיה לגלריה';
 	@override String get saveToHistory => 'שמור בהיסטוריה';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendHe extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'שליחה';
+	@override String get shareViaLinkAutoAccept => 'שיתוף באמצעות קישור: אישור אוטומטי';
 }
 
 // Path: settingsTab.network

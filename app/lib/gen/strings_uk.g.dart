@@ -834,9 +834,9 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Режими надсилання';
-	@override String get single => 'Надсилає файли одному одержувачу. Після завершення передачі, виділення буде знято.';
-	@override String get multiple => 'Надсилає файли кільком одержувачам. Виділення не буде знято.';
-	@override String get link => 'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері.';
+	@override String get single => 'Надсилає файли одному одержувачу. Вибірку буде очищено після завершення передачі файлів.';
+	@override String get multiple => 'Надсилає файли кільком одержувачам. Вибірку не буде очищено.';
+	@override String get link => 'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
 }
 
 // Path: settingsTab.general.brightnessOptions

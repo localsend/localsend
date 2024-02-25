@@ -133,6 +133,7 @@ class _StringsSettingsTabVi extends _StringsSettingsTabEn {
 	@override String get title => 'Cài đặt';
 	@override late final _StringsSettingsTabGeneralVi general = _StringsSettingsTabGeneralVi._(_root);
 	@override late final _StringsSettingsTabReceiveVi receive = _StringsSettingsTabReceiveVi._(_root);
+	@override late final _StringsSettingsTabSendVi send = _StringsSettingsTabSendVi._(_root);
 	@override late final _StringsSettingsTabNetworkVi network = _StringsSettingsTabNetworkVi._(_root);
 	@override late final _StringsSettingsTabOtherVi other = _StringsSettingsTabOtherVi._(_root);
 	@override String get advancedSettings => 'Cài đặt nâng cao';
@@ -263,6 +264,7 @@ class _StringsWebSharePageVi extends _StringsWebSharePageEn {
 	@override String get requests => 'Yêu cầu';
 	@override String get noRequests => 'Hiện không có yêu cầu nào.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'Tự động chấp nhận yêu cầu';
 	@override String get encryptionHint => 'LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.';
 	@override String pendingRequests({required Object n}) => 'Yêu cầu chờ: ${n}';
 }
@@ -495,6 +497,17 @@ class _StringsSettingsTabReceiveVi extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'Lưu media vào thư viện';
 	@override String get saveToHistory => 'Lưu vào lịch sử';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendVi extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gửi';
+	@override String get shareViaLinkAutoAccept => 'Chia sẻ qua liên kết: Tự động chấp nhận';
 }
 
 // Path: settingsTab.network

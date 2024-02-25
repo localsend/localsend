@@ -111,6 +111,10 @@
       "saveToGallery": "Medien in die Gallerie speichern",
       "saveToHistory": "In Verlauf speichern"
     },
+    "send": {
+      "title": "Senden",
+      "shareViaLinkAutoAccept": "Link teilen: Autom. aktzeptieren"
+    },
     "network": {
       "title": "Netzwerk",
       "needRestart": "Starte den Server neu, um die Änderungen zu übernehmen!",
@@ -217,6 +221,7 @@
     "requests": "Anfragen",
     "noRequests": "Bisher keine Anfragen erhalten.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Anfragen automatisch aktzeptieren",
     "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },

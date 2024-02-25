@@ -133,6 +133,7 @@ class _StringsSettingsTabJa extends _StringsSettingsTabEn {
 	@override String get title => '設定';
 	@override late final _StringsSettingsTabGeneralJa general = _StringsSettingsTabGeneralJa._(_root);
 	@override late final _StringsSettingsTabReceiveJa receive = _StringsSettingsTabReceiveJa._(_root);
+	@override late final _StringsSettingsTabSendJa send = _StringsSettingsTabSendJa._(_root);
 	@override late final _StringsSettingsTabNetworkJa network = _StringsSettingsTabNetworkJa._(_root);
 	@override late final _StringsSettingsTabOtherJa other = _StringsSettingsTabOtherJa._(_root);
 	@override String get advancedSettings => '詳細設定';
@@ -263,6 +264,7 @@ class _StringsWebSharePageJa extends _StringsWebSharePageEn {
 	@override String get requests => 'リクエスト';
 	@override String get noRequests => 'リクエストはまだありません。';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => '自動でリクエストを承諾する';
 	@override String get encryptionHint => 'LocalSendは自己署名証明書を使用しています。ブラウザでそれを受け入れる必要があります。';
 	@override String pendingRequests({required Object n}) => '保留中のリクエスト数: ${n}';
 }
@@ -495,6 +497,17 @@ class _StringsSettingsTabReceiveJa extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(ダウンロード)';
 	@override String get saveToGallery => 'メディアをギャラリーに保存';
 	@override String get saveToHistory => '履歴に保存';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendJa extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '送信';
+	@override String get shareViaLinkAutoAccept => 'リンク経由で共有時: 自動で承諾';
 }
 
 // Path: settingsTab.network

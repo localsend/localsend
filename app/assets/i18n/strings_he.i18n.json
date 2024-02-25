@@ -111,6 +111,10 @@
       "saveToGallery": "שמור מדיה לגלריה",
       "saveToHistory": "שמור בהיסטוריה"
     },
+    "send": {
+      "title": "שליחה",
+      "shareViaLinkAutoAccept": "שיתוף באמצעות קישור: אישור אוטומטי"
+    },
     "network": {
       "title": "רשת",
       "needRestart": "הפעל מחדש את השרת כדי להחיל את ההגדרות!",
@@ -217,6 +221,7 @@
     "requests": "בקשות",
     "noRequests": "אין כרגע בקשות.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "אישור בקשות באופן אוטומטי",
     "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
     "pendingRequests": "בקשות בהמתנה: {n}"
   },

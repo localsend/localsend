@@ -133,6 +133,7 @@ class _StringsSettingsTabHu extends _StringsSettingsTabEn {
 	@override String get title => 'Beállítások';
 	@override late final _StringsSettingsTabGeneralHu general = _StringsSettingsTabGeneralHu._(_root);
 	@override late final _StringsSettingsTabReceiveHu receive = _StringsSettingsTabReceiveHu._(_root);
+	@override late final _StringsSettingsTabSendHu send = _StringsSettingsTabSendHu._(_root);
 	@override late final _StringsSettingsTabNetworkHu network = _StringsSettingsTabNetworkHu._(_root);
 	@override late final _StringsSettingsTabOtherHu other = _StringsSettingsTabOtherHu._(_root);
 	@override String get advancedSettings => 'Haladó beállítások';
@@ -263,6 +264,7 @@ class _StringsWebSharePageHu extends _StringsWebSharePageEn {
 	@override String get requests => 'Kérések';
 	@override String get noRequests => 'Még nincsenek kérések.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'Kérések automatikus elfogadása';
 	@override String get encryptionHint => 'A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
 	@override String pendingRequests({required Object n}) => 'Függőben lévő kérések: ${n}';
 }
@@ -495,6 +497,17 @@ class _StringsSettingsTabReceiveHu extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(Letöltések)';
 	@override String get saveToGallery => 'Média mentése a galériába';
 	@override String get saveToHistory => 'Mentés az előzmények közé';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendHu extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Küld';
+	@override String get shareViaLinkAutoAccept => 'Megosztás linken keresztül: Auto. elfogadás';
 }
 
 // Path: settingsTab.network

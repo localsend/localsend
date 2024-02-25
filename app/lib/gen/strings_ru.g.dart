@@ -834,9 +834,9 @@ class _StringsDialogsSendModeHelpRu extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Режимы отправки';
-	@override String get single => 'Отправляет файлы одному получателю. После завершения передачи, выбор будет очищен.';
-	@override String get multiple => 'Отправляет файлы нескольким получателям. Выбор не будет очищен.';
-	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы, открыв ссылку в своем браузере.';
+	@override String get single => 'Отправляет файлы одному получателю. Выборка будет очищена после завершения передачи файлов.';
+	@override String get multiple => 'Отправляет файлы нескольким получателям. Выборка не будет очищена.';
+	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы открыв ссылку в своем браузере.';
 }
 
 // Path: settingsTab.general.brightnessOptions

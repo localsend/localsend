@@ -133,6 +133,7 @@ class _StringsSettingsTabEl extends _StringsSettingsTabEn {
 	@override String get title => 'Ρυθμίσεις';
 	@override late final _StringsSettingsTabGeneralEl general = _StringsSettingsTabGeneralEl._(_root);
 	@override late final _StringsSettingsTabReceiveEl receive = _StringsSettingsTabReceiveEl._(_root);
+	@override late final _StringsSettingsTabSendEl send = _StringsSettingsTabSendEl._(_root);
 	@override late final _StringsSettingsTabNetworkEl network = _StringsSettingsTabNetworkEl._(_root);
 	@override String get advancedSettings => 'Προχωρημένες ρυθμίσεις';
 	@override late final _StringsSettingsTabOtherEl other = _StringsSettingsTabOtherEl._(_root);
@@ -265,6 +266,7 @@ class _StringsWebSharePageEl extends _StringsWebSharePageEn {
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
 	@override String get encryptionHint => 'Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.';
 	@override String pendingRequests({required Object n}) => 'Αναμονή αιτημάτων: ${n}';
+	@override String get autoAccept => 'Αυτόματη αποδοχή αιτημάτων';
 }
 
 // Path: aboutPage
@@ -566,6 +568,17 @@ class _StringsSettingsTabReceiveEl extends _StringsSettingsTabReceiveEn {
 	@override String get saveToGallery => 'Αποθήκευση μέσου στη συλλογή';
 	@override String get saveToHistory => 'Αποθήκευση στο ιστορικό';
 	@override String get autoFinish => 'Αυτόματη ολοκλήρωση';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendEl extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendEl._(_StringsEl root) : this._root = root, super._(root);
+
+	@override final _StringsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Αποστολή';
+	@override String get shareViaLinkAutoAccept => 'Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή';
 }
 
 // Path: settingsTab.network

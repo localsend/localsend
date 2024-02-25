@@ -111,6 +111,10 @@
       "saveToGallery": "メディアをギャラリーに保存",
       "saveToHistory": "履歴に保存"
     },
+    "send": {
+      "title": "送信",
+      "shareViaLinkAutoAccept": "リンク経由で共有時: 自動で承諾"
+    },
     "network": {
       "title": "ネットワーク",
       "needRestart": "設定を反映するにはサーバーを再起動してください！",
@@ -217,6 +221,7 @@
     "requests": "リクエスト",
     "noRequests": "リクエストはまだありません。",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "自動でリクエストを承諾する",
     "encryptionHint": "LocalSendは自己署名証明書を使用しています。ブラウザでそれを受け入れる必要があります。",
     "pendingRequests": "保留中のリクエスト数: {n}"
   },

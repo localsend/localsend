@@ -114,7 +114,7 @@
     "send": {
       "title": "Αποστολή",
       "shareViaLinkAutoAccept": "Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή"
-    }
+    },
     "network": {
       "title": "Δίκτυο",
       "needRestart": "Κάντε επανεκκίνηση του διακομιστή για να εφαρμοστούν οι ρυθμίσεις!",
@@ -222,7 +222,7 @@
     "noRequests": "Κανένα αίτμηα ακόμα.",
     "encryption": "@:settingsTab.network.encryption",
     "encryptionHint": "Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.",
-    "pendingRequests": "Αναμονή αιτημάτων: {n}"
+    "pendingRequests": "Αναμονή αιτημάτων: {n}",
     "autoAccept": "Αυτόματη αποδοχή αιτημάτων"
   },
   "aboutPage": {
