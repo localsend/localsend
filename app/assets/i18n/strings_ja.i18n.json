@@ -36,7 +36,7 @@
     "start": "開始",
     "stop": "停止",
     "save": "保存",
-    "unchanged": "未変更",
+    "unchanged": "変更なし",
     "unknown": "不明",
     "noItemInClipboard": "クリップボードにアイテムがありません"
   },
@@ -45,7 +45,7 @@
     "infoBox": {
       "ip": "IP:",
       "port": "ポート:",
-      "alias": "エイリアス:"
+      "alias": "別名:"
     }
   },
   "sendTab": {
@@ -75,7 +75,7 @@
     },
     "sendModeHelp": "説明",
     "help": "目標のデバイスが同じWi-Fiネットワーク内にあることを確認してください。",
-    "placeItems": "ドロップして共有します。"
+    "placeItems": "共有するアイテムを配置してください。"
   },
   "settingsTab": {
     "title": "設定",
@@ -98,7 +98,7 @@
       },
       "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
       "minimizeToTray": "終了時: トレイに最小化",
-      "launchAtStartup": "ログイン時に自動起動",
+      "launchAtStartup": "ログイン時に自動で起動",
       "launchMinimized": "自動起動時: 隠れた状態で開始",
       "animations": "アニメーション"
     },
@@ -119,14 +119,14 @@
       "title": "ネットワーク",
       "needRestart": "設定を反映するにはサーバーを再起動してください！",
       "server": "サーバー",
-      "alias": "エイリアス",
+      "alias": "別名",
       "deviceType": "デバイスタイプ",
       "deviceModel": "デバイスモデル",
       "port": "ポート",
-      "portWarning": "カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: {defaultPort})",
+      "portWarning": "ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
-      "multicastGroupWarning": "カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: {defaultMulticast})"
+      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})"
     },
     "other": {
       "title": "その他",
@@ -144,12 +144,12 @@
     "fixButton": "自動で修正する",
     "firewall": {
       "symptom": "このアプリから他のデバイスへはファイルを送信できるのに、他のデバイスからこのデバイスへはファイルが送信できない。",
-      "solution": "ファイアウォールに問題があると思われます。ポート{port}の受け入れ(UDPとTCP)を許可することでこの問題を解決できます。",
+      "solution": "ファイアウォールに問題があると思われます。ポート {port} の受け入れ (UDPとTCP) を許可することでこの問題を解決できます。",
       "openFirewall": "ファイアウォールを開く"
     },
     "noConnection": {
       "symptom": "どちらのデバイスも互いに表示されず、ファイルも共有できない。",
-      "solution": "双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、同じ設定(ポート、マルチキャストアドレス、暗号化)を共有していることを確認してください。Wi-Fiが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。"
+      "solution": "双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、ポート・マルチキャストアドレス・暗号化の設定が一致していることを確認してください。Wi-Fiネットワークが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。"
     }
   },
   "receiveHistoryPage": {
@@ -175,7 +175,7 @@
   "receivePage": {
     "subTitle": {
       "one": "がファイルを送信しようとしています。",
-      "other": "が{n}件のファイルを送信しようとしています。"
+      "other": "が {n} 件のファイルを送信しようとしています。"
     },
     "subTitleMessage": "がメッセージを送信しました:",
     "subTitleLink": "がリンクを送信しました:",
@@ -191,7 +191,7 @@
   "sendPage": {
     "waiting": "返答を待っています...",
     "rejected": "受信者がリクエストを拒否しました。",
-    "busy": "受信者は他のリクエストでビジー状態です。"
+    "busy": "受信者は他のリクエストの処理中です。"
   },
   "progressPage": {
     "titleSending": "ファイルを送信中",
@@ -222,7 +222,7 @@
     "noRequests": "リクエストはまだありません。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自動でリクエストを承諾する",
-    "encryptionHint": "LocalSendは自己署名証明書を使用しています。ブラウザでそれを受け入れる必要があります。",
+    "encryptionHint": "LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。",
     "pendingRequests": "保留中のリクエスト数: {n}"
   },
   "aboutPage": {
@@ -231,13 +231,13 @@
       "LocalSendは無料のオープンソースアプリで、インターネットに接続することなく、ローカルネットワーク経由で近くにあるデバイスとファイルやメッセージを安全に共有することができます。",
       "本アプリはAndroid、iOS、macOS、Windows、Linuxで利用でき、公式ホームページからダウンロードすることができます。"
     ],
-    "author": "著者",
+    "author": "制作者",
     "contributors": "貢献者",
     "translators": "翻訳者"
   },
   "donationPage": {
     "title": "寄付",
-    "info": "LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発をサポートすることができます。",
+    "info": "LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発を支援することができます。",
     "donate": "{amount} 寄付する",
     "thanks": "ありがとうございます！",
     "restore": "購入を復元する"
@@ -286,7 +286,7 @@
     "favoriteEditDialog": {
       "titleAdd": "お気に入りに追加",
       "titleEdit": "編集",
-      "name": "エイリアス",
+      "name": "別名",
       "auto": "(自動)",
       "ip": "IPアドレス",
       "port": "ポート"
@@ -309,7 +309,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。",
+      "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定よりこの権限を付与してください。",
       "gotoSettings": "設定"
     },
     "messageInput": {
@@ -335,7 +335,7 @@
       "title": "クイックアクション",
       "counter": "カウンター",
       "prefix": "接頭辞",
-      "padZero": "ゼロで埋める",
+      "padZero": "先頭をゼロで埋める",
       "sortBeforeCount": "事前にアルファベット順で並べる",
       "random": "ランダム"
     },
@@ -367,19 +367,19 @@
     "confirm": "確認",
     "cancel": "キャンセル",
     "edit": "編集",
-    "gifIndicator": "GIF画像",
+    "gifIndicator": "GIF",
     "loadFailed": "読み込みに失敗しました",
     "original": "元の画像",
     "preview": "プレビュー",
     "select": "選択",
     "emptyList": "リストが空です",
-    "unSupportedAssetType": "未対応のフォーマットです。",
-    "unableToAccessAll": "デバイス内のすべてのファイルにアクセスすることができません",
-    "viewingLimitedAssetsTip": "アプリからアクセスできるファイルやアルバムのみを表示します。",
-    "changeAccessibleLimitedAssets": "クリックしてアクセスできるファイルを設定する",
+    "unSupportedAssetType": "未対応のファイル形式です。",
+    "unableToAccessAll": "デバイス上のすべてのファイルにアクセスできません",
+    "viewingLimitedAssetsTip": "アプリからアクセス可能なファイルやアルバムのみを表示します。",
+    "changeAccessibleLimitedAssets": "クリックしてアクセス可能なファイルを設定する",
     "accessAllTip": "アプリが端末の一部のファイルにしかアクセスできません。システム設定を開き、アプリがデバイス上のすべてのメディアにアクセスすることを許可してください。",
     "goToSystemSettings": "システム設定に移動",
-    "accessLimitedAssets": "限られたアクセスで続ける",
+    "accessLimitedAssets": "限定されたアクセスで続ける",
     "accessiblePathName": "アクセス可能なファイル",
     "sTypeAudioLabel": "音声",
     "sTypeImageLabel": "画像",
@@ -391,6 +391,6 @@
     "sActionSwitchPathLabel": "パスを切り替え",
     "sActionUseCameraHint": "カメラを使う",
     "sNameDurationLabel": "長さ",
-    "sUnitAssetCountLabel": "数"
+    "sUnitAssetCountLabel": "個数"
   }
 }
