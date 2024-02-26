@@ -92,7 +92,7 @@ class _StringsGeneralJa extends _StringsGeneralEn {
 	@override String get start => '開始';
 	@override String get stop => '停止';
 	@override String get save => '保存';
-	@override String get unchanged => '未変更';
+	@override String get unchanged => '変更なし';
 	@override String get unknown => '不明';
 	@override String get noItemInClipboard => 'クリップボードにアイテムがありません';
 }
@@ -126,7 +126,7 @@ class _StringsSendTabJa extends _StringsSendTabEn {
 	@override late final _StringsSendTabSendModesJa sendModes = _StringsSendTabSendModesJa._(_root);
 	@override String get sendModeHelp => '説明';
 	@override String get help => '目標のデバイスが同じWi-Fiネットワーク内にあることを確認してください。';
-	@override String get placeItems => 'ドロップして共有します。';
+	@override String get placeItems => '共有するアイテムを配置してください。';
 }
 
 // Path: settingsTab
@@ -206,7 +206,7 @@ class _StringsReceivePageJa extends _StringsReceivePageEn {
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
 		one: 'がファイルを送信しようとしています。',
-		other: 'が${n}件のファイルを送信しようとしています。',
+		other: 'が ${n} 件のファイルを送信しようとしています。',
 	);
 	@override String get subTitleMessage => 'がメッセージを送信しました:';
 	@override String get subTitleLink => 'がリンクを送信しました:';
@@ -236,7 +236,7 @@ class _StringsSendPageJa extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => '返答を待っています...';
 	@override String get rejected => '受信者がリクエストを拒否しました。';
-	@override String get busy => '受信者は他のリクエストでビジー状態です。';
+	@override String get busy => '受信者は他のリクエストの処理中です。';
 }
 
 // Path: progressPage
@@ -271,7 +271,7 @@ class _StringsWebSharePageJa extends _StringsWebSharePageEn {
 	@override String get noRequests => 'リクエストはまだありません。';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
 	@override String get autoAccept => '自動でリクエストを承諾する';
-	@override String get encryptionHint => 'LocalSendは自己署名証明書を使用しています。ブラウザでそれを受け入れる必要があります。';
+	@override String get encryptionHint => 'LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。';
 	@override String pendingRequests({required Object n}) => '保留中のリクエスト数: ${n}';
 }
 
@@ -287,7 +287,7 @@ class _StringsAboutPageJa extends _StringsAboutPageEn {
 		'LocalSendは無料のオープンソースアプリで、インターネットに接続することなく、ローカルネットワーク経由で近くにあるデバイスとファイルやメッセージを安全に共有することができます。',
 		'本アプリはAndroid、iOS、macOS、Windows、Linuxで利用でき、公式ホームページからダウンロードすることができます。',
 	];
-	@override String get author => '著者';
+	@override String get author => '制作者';
 	@override String get contributors => '貢献者';
 	@override String get translators => '翻訳者';
 }
@@ -300,7 +300,7 @@ class _StringsDonationPageJa extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => '寄付';
-	@override String get info => 'LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発をサポートすることができます。';
+	@override String get info => 'LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発を支援することができます。';
 	@override String donate({required Object amount}) => '${amount} 寄付する';
 	@override String get thanks => 'ありがとうございます！';
 	@override String get restore => '購入を復元する';
@@ -390,19 +390,19 @@ class _StringsAssetPickerJa extends _StringsAssetPickerEn {
 	@override String get confirm => '確認';
 	@override String get cancel => 'キャンセル';
 	@override String get edit => '編集';
-	@override String get gifIndicator => 'GIF画像';
+	@override String get gifIndicator => 'GIF';
 	@override String get loadFailed => '読み込みに失敗しました';
 	@override String get original => '元の画像';
 	@override String get preview => 'プレビュー';
 	@override String get select => '選択';
 	@override String get emptyList => 'リストが空です';
-	@override String get unSupportedAssetType => '未対応のフォーマットです。';
-	@override String get unableToAccessAll => 'デバイス内のすべてのファイルにアクセスすることができません';
-	@override String get viewingLimitedAssetsTip => 'アプリからアクセスできるファイルやアルバムのみを表示します。';
-	@override String get changeAccessibleLimitedAssets => 'クリックしてアクセスできるファイルを設定する';
+	@override String get unSupportedAssetType => '未対応のファイル形式です。';
+	@override String get unableToAccessAll => 'デバイス上のすべてのファイルにアクセスできません';
+	@override String get viewingLimitedAssetsTip => 'アプリからアクセス可能なファイルやアルバムのみを表示します。';
+	@override String get changeAccessibleLimitedAssets => 'クリックしてアクセス可能なファイルを設定する';
 	@override String get accessAllTip => 'アプリが端末の一部のファイルにしかアクセスできません。システム設定を開き、アプリがデバイス上のすべてのメディアにアクセスすることを許可してください。';
 	@override String get goToSystemSettings => 'システム設定に移動';
-	@override String get accessLimitedAssets => '限られたアクセスで続ける';
+	@override String get accessLimitedAssets => '限定されたアクセスで続ける';
 	@override String get accessiblePathName => 'アクセス可能なファイル';
 	@override String get sTypeAudioLabel => '音声';
 	@override String get sTypeImageLabel => '画像';
@@ -414,7 +414,7 @@ class _StringsAssetPickerJa extends _StringsAssetPickerEn {
 	@override String get sActionSwitchPathLabel => 'パスを切り替え';
 	@override String get sActionUseCameraHint => 'カメラを使う';
 	@override String get sNameDurationLabel => '長さ';
-	@override String get sUnitAssetCountLabel => '数';
+	@override String get sUnitAssetCountLabel => '個数';
 }
 
 // Path: receiveTab.infoBox
@@ -426,7 +426,7 @@ class _StringsReceiveTabInfoBoxJa extends _StringsReceiveTabInfoBoxEn {
 	// Translations
 	@override String get ip => 'IP:';
 	@override String get port => 'ポート:';
-	@override String get alias => 'エイリアス:';
+	@override String get alias => '別名:';
 }
 
 // Path: sendTab.selection
@@ -484,7 +484,7 @@ class _StringsSettingsTabGeneralJa extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralLanguageOptionsJa languageOptions = _StringsSettingsTabGeneralLanguageOptionsJa._(_root);
 	@override String get saveWindowPlacement => '終了時: ウィンドウ配置を記憶';
 	@override String get minimizeToTray => '終了時: トレイに最小化';
-	@override String get launchAtStartup => 'ログイン時に自動起動';
+	@override String get launchAtStartup => 'ログイン時に自動で起動';
 	@override String get launchMinimized => '自動起動時: 隠れた状態で開始';
 	@override String get animations => 'アニメーション';
 }
@@ -526,14 +526,14 @@ class _StringsSettingsTabNetworkJa extends _StringsSettingsTabNetworkEn {
 	@override String get title => 'ネットワーク';
 	@override String get needRestart => '設定を反映するにはサーバーを再起動してください！';
 	@override String get server => 'サーバー';
-	@override String get alias => 'エイリアス';
+	@override String get alias => '別名';
 	@override String get deviceType => 'デバイスタイプ';
 	@override String get deviceModel => 'デバイスモデル';
 	@override String get port => 'ポート';
-	@override String portWarning({required Object defaultPort}) => 'カスタムポートを使用すると、このデバイスが他のデバイスから検出されない場合があります。(デフォルト: ${defaultPort})';
+	@override String portWarning({required Object defaultPort}) => 'ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: ${defaultPort})';
 	@override String get encryption => '暗号化';
 	@override String get multicastGroup => 'マルチキャスト';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'カスタムのマルチキャストアドレスを使用しているため、他のデバイスから検出されない場合があります。(デフォルト: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -558,7 +558,7 @@ class _StringsTroubleshootPageFirewallJa extends _StringsTroubleshootPageFirewal
 
 	// Translations
 	@override String get symptom => 'このアプリから他のデバイスへはファイルを送信できるのに、他のデバイスからこのデバイスへはファイルが送信できない。';
-	@override String solution({required Object port}) => 'ファイアウォールに問題があると思われます。ポート${port}の受け入れ(UDPとTCP)を許可することでこの問題を解決できます。';
+	@override String solution({required Object port}) => 'ファイアウォールに問題があると思われます。ポート ${port} の受け入れ (UDPとTCP) を許可することでこの問題を解決できます。';
 	@override String get openFirewall => 'ファイアウォールを開く';
 }
 
@@ -570,7 +570,7 @@ class _StringsTroubleshootPageNoConnectionJa extends _StringsTroubleshootPageNoC
 
 	// Translations
 	@override String get symptom => 'どちらのデバイスも互いに表示されず、ファイルも共有できない。';
-	@override String get solution => '双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、同じ設定(ポート、マルチキャストアドレス、暗号化)を共有していることを確認してください。Wi-Fiが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。';
+	@override String get solution => '双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、ポート・マルチキャストアドレス・暗号化の設定が一致していることを確認してください。Wi-Fiネットワークが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -697,7 +697,7 @@ class _StringsDialogsFavoriteEditDialogJa extends _StringsDialogsFavoriteEditDia
 	// Translations
 	@override String get titleAdd => 'お気に入りに追加';
 	@override String get titleEdit => '編集';
-	@override String get name => 'エイリアス';
+	@override String get name => '別名';
 	@override String get auto => '(自動)';
 	@override String get ip => 'IPアドレス';
 	@override String get port => 'ポート';
@@ -748,7 +748,7 @@ class _StringsDialogsLocalNetworkUnauthorizedJa extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => '${_root.dialogs.noPermission.title}';
-	@override String get description => 'ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定でこの権限を付与してください。';
+	@override String get description => 'ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定よりこの権限を付与してください。';
 	@override String get gotoSettings => '設定';
 }
 
@@ -816,7 +816,7 @@ class _StringsDialogsQuickActionsJa extends _StringsDialogsQuickActionsEn {
 	@override String get title => 'クイックアクション';
 	@override String get counter => 'カウンター';
 	@override String get prefix => '接頭辞';
-	@override String get padZero => 'ゼロで埋める';
+	@override String get padZero => '先頭をゼロで埋める';
 	@override String get sortBeforeCount => '事前にアルファベット順で並べる';
 	@override String get random => 'ランダム';
 }
