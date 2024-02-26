@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
@@ -22,13 +21,11 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
-import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
-import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -194,6 +191,7 @@ class ReceiveController {
 
     final settings = server.ref.read(settingsProvider);
     final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+    final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 
     _logger.info('Session Id: $sessionId');
@@ -222,6 +220,7 @@ class ReceiveController {
           startTime: null,
           endTime: null,
           destinationDirectory: destinationDir,
+          cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
           responseHandler: streamController,
         ),
@@ -391,21 +390,23 @@ class ReceiveController {
     );
 
     try {
-      final destinationPath = await _digestFilePathAndPrepareDirectory(
-        parentDirectory: receiveState.destinationDirectory,
+      final fileType = receivingFile.file.fileType;
+      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+
+      final destinationPath = await digestFilePathAndPrepareDirectory(
+        parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
       );
 
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-      final fileType = receivingFile.file.fileType;
-      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
       await saveFile(
         destinationPath: destinationPath,
         name: receivingFile.desiredName!,
         saveToGallery: saveToGallery,
         isImage: fileType == FileType.image,
         stream: request.read(),
+        androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
             server.ref.notifier(progressProvider).setProgress(
@@ -686,23 +687,6 @@ void _cancelBySender(ServerUtils server) {
           endTime: DateTime.now().millisecondsSinceEpoch,
         ),
       ));
-}
-
-/// If there is a file with the same name, then it appends a number to its file name
-Future<String> _digestFilePathAndPrepareDirectory({required String parentDirectory, required String fileName}) async {
-  final actualFileName = p.basename(fileName);
-  final fileNameParts = p.split(fileName);
-  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
-
-  Directory(dir).createSync(recursive: true);
-
-  String destinationPath;
-  int counter = 1;
-  do {
-    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
-    counter++;
-  } while (await File(destinationPath).exists());
-  return destinationPath;
 }
 
 extension on ReceiveSessionState {

@@ -33,3 +33,7 @@ Future<String> getDefaultDestinationDirectory() async {
       return downloadDir.path.replaceAll('\\', '/');
   }
 }
+
+Future<String> getCacheDirectory() async {
+  return (await path.getTemporaryDirectory()).path;
+}
