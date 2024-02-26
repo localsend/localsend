@@ -1,4 +1,4 @@
-## 1.14.0 (unreleased)
+## 1.14.0 (2024-02-26)
 
 - feat: add option to automatically accept requests when sharing via link (@MisterChangRay, @Tienisto)
 - feat: use fix button width for all buttons in the selection row (only noticeable in Russian) (@Tienisto)
