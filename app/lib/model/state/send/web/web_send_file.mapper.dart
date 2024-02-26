@@ -30,7 +30,7 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
   static const Field<WebSendFile, List<int>> _f$bytes = Field('bytes', _$bytes);
 
   @override
-  final Map<Symbol, Field<WebSendFile, dynamic>> fields = const {
+  final MappableFields<WebSendFile> fields = const {
     #file: _f$file,
     #asset: _f$asset,
     #path: _f$path,

@@ -30,7 +30,7 @@ class WebSendSessionMapper extends ClassMapperBase<WebSendSession> {
   static const Field<WebSendSession, String> _f$deviceInfo = Field('deviceInfo', _$deviceInfo);
 
   @override
-  final Map<Symbol, Field<WebSendSession, dynamic>> fields = const {
+  final MappableFields<WebSendSession> fields = const {
     #sessionId: _f$sessionId,
     #responseHandler: _f$responseHandler,
     #ip: _f$ip,

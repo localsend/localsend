@@ -67,7 +67,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, bool> _f$shareViaLinkAutoAccept = Field('shareViaLinkAutoAccept', _$shareViaLinkAutoAccept);
 
   @override
-  final Map<Symbol, Field<SettingsState, dynamic>> fields = const {
+  final MappableFields<SettingsState> fields = const {
     #showToken: _f$showToken,
     #alias: _f$alias,
     #theme: _f$theme,

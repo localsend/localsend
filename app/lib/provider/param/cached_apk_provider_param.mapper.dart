@@ -26,7 +26,7 @@ class CachedApkProviderParamMapper extends ClassMapperBase<CachedApkProviderPara
   static const Field<CachedApkProviderParam, bool> _f$onlyAppsWithLaunchIntent = Field('onlyAppsWithLaunchIntent', _$onlyAppsWithLaunchIntent);
 
   @override
-  final Map<Symbol, Field<CachedApkProviderParam, dynamic>> fields = const {
+  final MappableFields<CachedApkProviderParam> fields = const {
     #includeSystemApps: _f$includeSystemApps,
     #onlyAppsWithLaunchIntent: _f$onlyAppsWithLaunchIntent,
   };

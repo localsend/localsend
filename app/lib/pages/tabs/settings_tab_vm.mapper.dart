@@ -58,7 +58,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   static const Field<SettingsTabVm, List<ThemeMode>> _f$themeModes = Field('themeModes', _$themeModes, mode: FieldMode.member);
 
   @override
-  final Map<Symbol, Field<SettingsTabVm, dynamic>> fields = const {
+  final MappableFields<SettingsTabVm> fields = const {
     #advanced: _f$advanced,
     #aliasController: _f$aliasController,
     #deviceModelController: _f$deviceModelController,

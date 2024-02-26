@@ -44,7 +44,7 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
   static const Field<SendSessionState, String> _f$errorMessage = Field('errorMessage', _$errorMessage);
 
   @override
-  final Map<Symbol, Field<SendSessionState, dynamic>> fields = const {
+  final MappableFields<SendSessionState> fields = const {
     #sessionId: _f$sessionId,
     #remoteSessionId: _f$remoteSessionId,
     #background: _f$background,

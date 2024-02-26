@@ -37,7 +37,7 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
   static const Field<CrossFile, List<int>> _f$bytes = Field('bytes', _$bytes);
 
   @override
-  final Map<Symbol, Field<CrossFile, dynamic>> fields = const {
+  final MappableFields<CrossFile> fields = const {
     #name: _f$name,
     #fileType: _f$fileType,
     #size: _f$size,

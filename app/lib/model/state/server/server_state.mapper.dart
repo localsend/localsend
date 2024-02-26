@@ -36,7 +36,7 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   static const Field<ServerState, WebSendState> _f$webSendState = Field('webSendState', _$webSendState);
 
   @override
-  final Map<Symbol, Field<ServerState, dynamic>> fields = const {
+  final MappableFields<ServerState> fields = const {
     #httpServer: _f$httpServer,
     #alias: _f$alias,
     #port: _f$port,

@@ -30,7 +30,7 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
   static const Field<WebSendState, bool> _f$autoAccept = Field('autoAccept', _$autoAccept);
 
   @override
-  final Map<Symbol, Field<WebSendState, dynamic>> fields = const {
+  final MappableFields<WebSendState> fields = const {
     #sessions: _f$sessions,
     #files: _f$files,
     #autoAccept: _f$autoAccept,

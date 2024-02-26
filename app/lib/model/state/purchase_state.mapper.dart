@@ -28,7 +28,7 @@ class PurchaseStateMapper extends ClassMapperBase<PurchaseState> {
   static const Field<PurchaseState, bool> _f$pending = Field('pending', _$pending);
 
   @override
-  final Map<Symbol, Field<PurchaseState, dynamic>> fields = const {
+  final MappableFields<PurchaseState> fields = const {
     #prices: _f$prices,
     #purchases: _f$purchases,
     #pending: _f$pending,

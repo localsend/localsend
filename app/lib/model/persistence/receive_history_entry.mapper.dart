@@ -39,7 +39,7 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
   static const Field<ReceiveHistoryEntry, DateTime> _f$timestamp = Field('timestamp', _$timestamp);
 
   @override
-  final Map<Symbol, Field<ReceiveHistoryEntry, dynamic>> fields = const {
+  final MappableFields<ReceiveHistoryEntry> fields = const {
     #id: _f$id,
     #fileName: _f$fileName,
     #fileType: _f$fileType,

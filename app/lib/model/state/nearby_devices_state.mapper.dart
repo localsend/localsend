@@ -29,7 +29,7 @@ class NearbyDevicesStateMapper extends ClassMapperBase<NearbyDevicesState> {
   static const Field<NearbyDevicesState, Map<String, Device>> _f$devices = Field('devices', _$devices);
 
   @override
-  final Map<Symbol, Field<NearbyDevicesState, dynamic>> fields = const {
+  final MappableFields<NearbyDevicesState> fields = const {
     #runningFavoriteScan: _f$runningFavoriteScan,
     #runningIps: _f$runningIps,
     #devices: _f$devices,

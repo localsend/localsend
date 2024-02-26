@@ -26,7 +26,7 @@ class NetworkStateMapper extends ClassMapperBase<NetworkState> {
   static const Field<NetworkState, bool> _f$initialized = Field('initialized', _$initialized);
 
   @override
-  final Map<Symbol, Field<NetworkState, dynamic>> fields = const {
+  final MappableFields<NetworkState> fields = const {
     #localIps: _f$localIps,
     #initialized: _f$initialized,
   };

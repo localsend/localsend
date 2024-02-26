@@ -26,7 +26,7 @@ class LogEntryMapper extends ClassMapperBase<LogEntry> {
   static const Field<LogEntry, String> _f$log = Field('log', _$log);
 
   @override
-  final Map<Symbol, Field<LogEntry, dynamic>> fields = const {
+  final MappableFields<LogEntry> fields = const {
     #timestamp: _f$timestamp,
     #log: _f$log,
   };

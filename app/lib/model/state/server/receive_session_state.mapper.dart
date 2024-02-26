@@ -44,7 +44,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   static const Field<ReceiveSessionState, StreamController<Map<String, String>?>> _f$responseHandler = Field('responseHandler', _$responseHandler);
 
   @override
-  final Map<Symbol, Field<ReceiveSessionState, dynamic>> fields = const {
+  final MappableFields<ReceiveSessionState> fields = const {
     #sessionId: _f$sessionId,
     #status: _f$status,
     #sender: _f$sender,

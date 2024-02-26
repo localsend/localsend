@@ -34,7 +34,7 @@ class FavoriteDeviceMapper extends ClassMapperBase<FavoriteDevice> {
   static const Field<FavoriteDevice, bool> _f$customAlias = Field('customAlias', _$customAlias, opt: true, def: false);
 
   @override
-  final Map<Symbol, Field<FavoriteDevice, dynamic>> fields = const {
+  final MappableFields<FavoriteDevice> fields = const {
     #id: _f$id,
     #fingerprint: _f$fingerprint,
     #ip: _f$ip,

@@ -38,7 +38,7 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
   static const Field<SendingFile, String> _f$errorMessage = Field('errorMessage', _$errorMessage);
 
   @override
-  final Map<Symbol, Field<SendingFile, dynamic>> fields = const {
+  final MappableFields<SendingFile> fields = const {
     #file: _f$file,
     #status: _f$status,
     #token: _f$token,

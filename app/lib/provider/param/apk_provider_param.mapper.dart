@@ -28,7 +28,7 @@ class ApkProviderParamMapper extends ClassMapperBase<ApkProviderParam> {
   static const Field<ApkProviderParam, bool> _f$onlyAppsWithLaunchIntent = Field('onlyAppsWithLaunchIntent', _$onlyAppsWithLaunchIntent);
 
   @override
-  final Map<Symbol, Field<ApkProviderParam, dynamic>> fields = const {
+  final MappableFields<ApkProviderParam> fields = const {
     #query: _f$query,
     #includeSystemApps: _f$includeSystemApps,
     #onlyAppsWithLaunchIntent: _f$onlyAppsWithLaunchIntent,
