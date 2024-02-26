@@ -105,10 +105,15 @@
     "receive": {
       "title": "수신",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "자동 완료",
       "destination": "저장 위치",
       "downloads": "(다운로드 폴더)",
       "saveToGallery": "미디어를 갤러리에 저장",
       "saveToHistory": "히스토리에 저장"
+    },
+    "send": {
+      "title": "전송",
+      "shareViaLinkAutoAccept": "링크 공유: 자동 수락"
     },
     "network": {
       "title": "네트워크",
@@ -122,6 +127,13 @@
       "encryption": "암호화",
       "multicastGroup": "멀티캐스트",
       "multicastGroupWarning": "사용자 지정 멀티캐스트 주소를 사용하고 있기 때문에 다른 기기에서 감지되지 않을 수 있습니다. (기본값: {defaultMulticast})"
+    },
+    "other": {
+      "title": "기타",
+      "support": "LocalSend 지원",
+      "donate": "기부",
+      "privacyPolicy": "개인정보 처리 방침",
+      "termsOfUse": "이용 약관"
     },
     "advancedSettings": "고급 설정"
   },
@@ -209,11 +221,26 @@
     "requests": "요청",
     "noRequests": "아직 요청이 없습니다.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "요청 자동 수락",
     "encryptionHint": "LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 수락해야 합니다.",
     "pendingRequests": "대기중인 요청: {n}"
   },
   "aboutPage": {
-    "title": "LocalSend에 대해"
+    "title": "LocalSend에 대해",
+    "description": [
+      "LocalSend는 인터넷 연결이 필요 없이 로컬 네트워크를 통해 주변 기기와 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 앱입니다.",
+      "이 앱은 Android, iOS, macOS, Windows 및 Linux에서 사용할 수 있습니다. 모든 다운로드 옵션은 공식 홈페이지에서 확인할 수 있습니다."
+    ],
+    "author": "작성자",
+    "contributors": "기여자",
+    "translators": "번역자"
+  },
+  "donationPage": {
+    "title": "기부",
+    "info": "LocalSend는 광고 없이 무료이며 오픈소스입니다. 앱을 좋아하신다면 개발을 후원하는 기부를 해주세요.",
+    "donate": "{amount} 기부하기",
+    "thanks": "정말 감사합니다!",
+    "restore": "구매 복원"
   },
   "changelogPage": {
     "title": "업데이트 이력"
