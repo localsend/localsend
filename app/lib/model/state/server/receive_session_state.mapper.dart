@@ -38,6 +38,8 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   static const Field<ReceiveSessionState, int> _f$endTime = Field('endTime', _$endTime);
   static String _$destinationDirectory(ReceiveSessionState v) => v.destinationDirectory;
   static const Field<ReceiveSessionState, String> _f$destinationDirectory = Field('destinationDirectory', _$destinationDirectory);
+  static String _$cacheDirectory(ReceiveSessionState v) => v.cacheDirectory;
+  static const Field<ReceiveSessionState, String> _f$cacheDirectory = Field('cacheDirectory', _$cacheDirectory);
   static bool _$saveToGallery(ReceiveSessionState v) => v.saveToGallery;
   static const Field<ReceiveSessionState, bool> _f$saveToGallery = Field('saveToGallery', _$saveToGallery);
   static StreamController<Map<String, String>?>? _$responseHandler(ReceiveSessionState v) => v.responseHandler;
@@ -53,6 +55,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #startTime: _f$startTime,
     #endTime: _f$endTime,
     #destinationDirectory: _f$destinationDirectory,
+    #cacheDirectory: _f$cacheDirectory,
     #saveToGallery: _f$saveToGallery,
     #responseHandler: _f$responseHandler,
   };
@@ -67,6 +70,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
         destinationDirectory: data.dec(_f$destinationDirectory),
+        cacheDirectory: data.dec(_f$cacheDirectory),
         saveToGallery: data.dec(_f$saveToGallery),
         responseHandler: data.dec(_f$responseHandler));
   }
@@ -128,6 +132,7 @@ abstract class ReceiveSessionStateCopyWith<$R, $In extends ReceiveSessionState, 
       int? startTime,
       int? endTime,
       String? destinationDirectory,
+      String? cacheDirectory,
       bool? saveToGallery,
       StreamController<Map<String, String>?>? responseHandler});
   ReceiveSessionStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -154,6 +159,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
           Object? startTime = $none,
           Object? endTime = $none,
           String? destinationDirectory,
+          String? cacheDirectory,
           bool? saveToGallery,
           Object? responseHandler = $none}) =>
       $apply(FieldCopyWithData({
@@ -165,6 +171,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
         if (startTime != $none) #startTime: startTime,
         if (endTime != $none) #endTime: endTime,
         if (destinationDirectory != null) #destinationDirectory: destinationDirectory,
+        if (cacheDirectory != null) #cacheDirectory: cacheDirectory,
         if (saveToGallery != null) #saveToGallery: saveToGallery,
         if (responseHandler != $none) #responseHandler: responseHandler
       }));
@@ -178,6 +185,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),
       destinationDirectory: data.get(#destinationDirectory, or: $value.destinationDirectory),
+      cacheDirectory: data.get(#cacheDirectory, or: $value.cacheDirectory),
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
       responseHandler: data.get(#responseHandler, or: $value.responseHandler));
 

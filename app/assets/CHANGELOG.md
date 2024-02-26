@@ -4,6 +4,7 @@
 - feat: use fix button width for all buttons in the selection row (only noticeable in Russian) (@Tienisto)
 - fix: picking many files should not freeze the UI (@Tienisto)
 - fix: do not create a new session for the same IP when sharing via link (@MisterChangRay)
+- fix(android): save files to SD card on Android 10 or older (@Tienisto)
 - i18n: add Danish (@Limfjorden)
 
 ## 1.13.1 (2023-12-08)
