@@ -2,40 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ko>.",
     "After editing this file, you can run 'dart run slang apply --locale=ko' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "autoFinish": "자동 완료"
-    },
-    "send": {
-      "title": "전송",
-      "shareViaLinkAutoAccept": "링크 공유: 자동 수락"
-    },
-    "other": {
-      "title": "기타",
-      "support": "LocalSend 지원",
-      "donate": "기부",
-      "privacyPolicy": "개인정보 처리 방침",
-      "termsOfUse": "이용 약관"
-    }
-  },
-  "webSharePage": {
-    "autoAccept": "요청 자동 수락"
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend는 인터넷 연결이 필요 없이 로컬 네트워크를 통해 주변 기기와 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 앱입니다.",
-      "이 앱은 Android, iOS, macOS, Windows 및 Linux에서 사용할 수 있습니다. 모든 다운로드 옵션은 공식 홈페이지에서 확인할 수 있습니다."
-    ],
-    "author": "작성자",
-    "contributors": "기여자",
-    "translators": "번역자"
-  },
-  "donationPage": {
-    "title": "기부",
-    "info": "LocalSend는 광고 없이 무료이며 오픈소스입니다. 앱을 좋아하신다면 개발을 후원하는 기부를 해주세요.",
-    "donate": "{amount} 기부하기",
-    "thanks": "정말 감사합니다!",
-    "restore": "구매 복원"
-  }
+  ]
 }
