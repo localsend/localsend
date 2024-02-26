@@ -19,6 +19,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
   final int? startTime;
   final int? endTime;
   final String destinationDirectory;
+  final String cacheDirectory;
   final bool saveToGallery;
   final StreamController<Map<String, String>?>? responseHandler;
 
@@ -31,6 +32,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
     required this.startTime,
     required this.endTime,
     required this.destinationDirectory,
+    required this.cacheDirectory,
     required this.saveToGallery,
     required this.responseHandler,
   });

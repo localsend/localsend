@@ -111,6 +111,10 @@
       "saveToGallery": "儲存媒體至相簿",
       "saveToHistory": "儲存至歷史紀錄"
     },
+    "send": {
+      "title": "傳送",
+      "shareViaLinkAutoAccept": "透過連結分享：自動接受"
+    },
     "network": {
       "title": "網路",
       "needRestart": "重新啟動伺服器以套用設定！",
@@ -217,6 +221,7 @@
     "requests": "要求",
     "noRequests": "目前沒有任何要求。",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "自動接受請求",
     "encryptionHint": "LocalSend 使用自簽名憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
   },

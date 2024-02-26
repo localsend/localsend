@@ -10,21 +10,24 @@ env:
   FLUTTER_VERSION: "3.13.9"
 
 jobs:
-#  format:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: subosito/flutter-action@v2
-#        with:
-#          flutter-version: ${{ env.FLUTTER_VERSION }}
-#          channel: "stable"
-#      - name: Dependencies
-#        working-directory: app
-#        run: flutter pub get
-#      - name: Check format
-#        working-directory: app
-#        run: dart format --line-length 150 --set-exit-if-changed lib test
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Remove gen directory
+        working-directory: app
+        run: rm -rf lib/gen
+      - name: Check format
+        working-directory: app
+        run: dart format --line-length 150 --set-exit-if-changed lib test
 
   test:
     runs-on: ubuntu-latest
@@ -44,3 +47,31 @@ jobs:
       - name: Test
         working-directory: app
         run: flutter test
+
+  packaging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract version from pubspec.yaml
+        id: pubspec_version
+        run: |
+          VERSION=$(grep '^version: ' app/pubspec.yaml | sed 's/version: //' | sed 's/\+.*//')
+          echo "Pubspec version is $VERSION"
+          echo "pubspec_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Extract version from Inno Setup configuration
+        id: inno_version
+        run: |
+          VERSION=$(grep '#define MyAppVersion ' scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
+          echo "Inno Setup version is $VERSION"
+          echo "inno_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Compare pubspec and Inno Setup versions
+        run: |
+          if [ "$pubspec_version" != "$inno_version" ]; then
+            echo "Version mismatch detected!"
+            exit 1
+          else
+            echo "Versions match."
+          fi

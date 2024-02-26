@@ -27,11 +27,13 @@ class CustomDropdownButton<T> extends StatelessWidget {
         underline: Container(),
         borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
         items: items,
-        onChanged: onChanged == null ? null : (value) {
-          if (value != null) {
-            onChanged!(value);
-          }
-        },
+        onChanged: onChanged == null
+            ? null
+            : (value) {
+                if (value != null) {
+                  onChanged!(value);
+                }
+              },
       ),
     );
   }

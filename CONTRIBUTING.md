@@ -161,3 +161,35 @@ Suppose we want to update flutter to `3.7.8` (see https://github.com/localsend/l
 3. Update flutter constraints:
    1. In CI: `.github/workflows/ci.yml`
    2. In pubspec: `pubspec.yaml`
+
+### Release
+
+Make sure to set up the self-hosted runner to compile arm64 linux binaries.
+
+To set up the runner, follow the following instructions:
+
+Install Flutter
+
+```bash
+sudo apt install git
+git clone https://github.com/flutter/flutter.git $HOME/flutter
+nano $HOME/.bashrc
+```
+
+Add the following to the end of the file:
+
+```bash
+export PATH="$PATH:$HOME/flutter/bin"
+```
+
+Restart the terminal.
+
+```bash
+flutter doctor
+```
+
+Next, follow the instructions to set up the GitHub runner.
+
+Start the "Release Draft" workflow from the "Actions" tab: https://github.com/localsend/localsend/actions/workflows/release.yml
+
+Finally, compile binaries not yet supported by the pipeline.
