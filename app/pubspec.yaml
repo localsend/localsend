@@ -70,7 +70,7 @@ dependencies:
   url_launcher: 6.2.4
   uuid: 3.0.7
   wakelock_plus: 1.1.4
-  wechat_assets_picker: 8.8.0
+  wechat_assets_picker: 8.8.1+1
   window_manager: 0.3.8
   yaru: 1.2.2
 

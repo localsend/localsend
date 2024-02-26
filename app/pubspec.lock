@@ -1711,10 +1711,10 @@ packages:
     dependency: "direct main"
     description:
       name: wechat_assets_picker
-      sha256: "0856437acd3a013f34cbca4448ad08bd004f387fc2b11b007b4713f00d63fcb7"
+      sha256: f78c7797dc88e3c9170d318acc9f535ca104ab648cc69ab3b7745f1ceac29910
       url: "https://pub.dev"
     source: hosted
-    version: "8.8.0"
+    version: "8.8.1+1"
   win32:
     dependency: transitive
     description:
