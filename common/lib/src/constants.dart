@@ -18,6 +18,8 @@ const fallbackProtocolVersion = '1.0';
 /// The default http server port and
 /// and multicast port.
 const defaultPort = 53317;
+const defaultHttps = false;
+var defaultAlias = 'Headless drift';
 
 /// The default multicast group should be 224.0.0.0/24
 /// because on some Android devices this is the only IP range
