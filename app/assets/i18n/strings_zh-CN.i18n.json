@@ -126,7 +126,7 @@
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多播",
-      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到（默认地址：{defaultMulticast}）"
+      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     },
     "other": {
       "title": "其他",
@@ -139,12 +139,12 @@
   },
   "troubleshootPage": {
     "title": "故障排除",
-    "subTitle": "应用没有按预期工作？您可以在这里找到常用解决方案",
+    "subTitle": "应用没有按预期工作？您可以在这里找到常用解决方案。",
     "solution": "解决方案：",
     "fixButton": "自动修复",
     "firewall": {
-      "symptom": "此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备",
-      "solution": "这最可能是由防火墙引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP）的传入请求来解决这个问题",
+      "symptom": "此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。",
+      "solution": "这最可能是由防火墙引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。",
       "openFirewall": "打开防火墙"
     },
     "noConnection": {
@@ -222,7 +222,7 @@
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自动接受请求",
-    "encryptionHint": "LocalSend 使用自签名证书,您需要在浏览器中接受它",
+    "encryptionHint": "LocalSend 使用自签名证书，您需要在浏览器中接受它。",
     "pendingRequests": "待处理请求: {n}"
   },
   "aboutPage": {
@@ -240,7 +240,7 @@
     "info": "LocalSend 免费、开源、无广告。如果您喜欢这款应用程序，可以捐款支持开发。",
     "donate": "捐款 {amount}",
     "thanks": "非常感谢您的支持！",
-    "restore": "恢复"
+    "restore": "恢复购买"
   },
   "changelogPage": {
     "title": "更新日志"
@@ -375,9 +375,9 @@
     "emptyList": "清空列表",
     "unSupportedAssetType": "不支持的文件格式",
     "unableToAccessAll": "无法访问设备上的所有文件",
-    "viewingLimitedAssetsTip": "应用程序仅能查看可访问的文件和相册",
+    "viewingLimitedAssetsTip": "应用程序仅能查看可访问的文件和相册。",
     "changeAccessibleLimitedAssets": "单击以更新可访问文件",
-    "accessAllTip": "应用程序只能访问设备上的部分文件,转到系统设置并允许该应用访问设备上的所有媒体文件。",
+    "accessAllTip": "应用程序只能访问设备上的部分文件，转到系统设置并允许该应用访问设备上的所有媒体文件。",
     "goToSystemSettings": "转到系统设置",
     "accessLimitedAssets": "继续受限访问",
     "accessiblePathName": "可访问的文件",
