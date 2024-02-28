@@ -17,7 +17,7 @@
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend 是一个免费、开源的应用程序，允许你在本地网络上安全地与附近设备共享文件和消息，无需互联网连接。
+LocalSend 是一个自由、开源的应用程序，允许你在本地网络上安全地与附近设备共享文件和消息，无需互联网连接。
 
 - [关于](#关于)
 - [截图](#截图)
@@ -38,7 +38,7 @@ LocalSend 是一个免费、开源的应用程序，允许你在本地网络上�
 
 ## 关于
 
-LocalSend 是一个跨平台应用程序，使用REST API和HTTPS加密实现设备之间的安全通信。与依赖外部服务器的其他消息应用程序不同，LocalSend 不需要互联网连接或第三方服务器，因此成为本地通信的快速可靠解决方案。
+LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实现设备之间的安全通信。与依赖外部服务器的其他消息应用程序不同，LocalSend 不需要互联网连接或第三方服务器，因此成为本地通信的快速可靠解决方案。
 
 ## 截图
 
