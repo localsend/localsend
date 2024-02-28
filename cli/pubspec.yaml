@@ -9,7 +9,9 @@ environment:
 dependencies:
   args: 2.4.2
   common:
-    path: ../common
+    git:
+      url: https://github.com/eugenechyrski/localsend.git
+      path: common
   path: 1.9.0
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
 
