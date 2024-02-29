@@ -129,7 +129,7 @@ LocalSend 使用 [fvm](https://fvm.app) 管理项目的 Flutter 版本（在 [.f
    - 添加新的语言：创建一个新文件；参见：[语言代码][locale codes]。
 3. 可选步骤：重新运行此应用程序
    1. 执行 `cd app` 进入 app 目录。
-   2. 确保你已经 [运行](#getting-started) 过此应用程序一次。
+   2. 确保你已经 [运行](#开始使用) 过此应用程序一次。
    3. 通过 `flutter pub run slang` 更新翻译
    4. 通过 `flutter run` 运行应用程序
    5. 提交拉取请求
