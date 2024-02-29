@@ -1,12 +1,11 @@
 # LocalSend
 
-[![CI状态][ci-badge]][ci-workflow]
+[![CI 状态][ci-badge]][ci-workflow]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
 [主页][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
-
 
 [English](README.md)
 
@@ -139,7 +138,7 @@ LocalSend 使用 [fvm](https://fvm.app) 管理项目的 Flutter 版本（在 [.f
 
 **_注意：_ 用 `@` 装饰的字段不是用于翻译的；它们在应用程序中没有任何用处，仅仅是关于文件的信息性文本或为翻译者提供上下文。**
 
-### Bug修复和改进
+### Bug 修复和改进
 
 - **Bug 修复：** 如果发现 bug，请创建一个带有清晰描述问题及解决方法的拉取请求。
 - **改进：** 有改进 LocalSend 的想法吗？请先创建一个问题来讨论为什么需要这个改进。
