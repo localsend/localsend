@@ -153,7 +153,7 @@ class _StringsTroubleshootPageZhCn extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => '故障排除';
-	@override String get subTitle => '应用没有按预期工作？您可以在这里找到常用解决方案';
+	@override String get subTitle => '应用没有按预期工作？您可以在这里找到常用解决方案。';
 	@override String get solution => '解决方案：';
 	@override String get fixButton => '自动修复';
 	@override late final _StringsTroubleshootPageFirewallZhCn firewall = _StringsTroubleshootPageFirewallZhCn._(_root);
@@ -271,7 +271,7 @@ class _StringsWebSharePageZhCn extends _StringsWebSharePageEn {
 	@override String get noRequests => '尚无请求。';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
 	@override String get autoAccept => '自动接受请求';
-	@override String get encryptionHint => 'LocalSend 使用自签名证书,您需要在浏览器中接受它';
+	@override String get encryptionHint => 'LocalSend 使用自签名证书，您需要在浏览器中接受它。';
 	@override String pendingRequests({required Object n}) => '待处理请求: ${n}';
 }
 
@@ -303,7 +303,7 @@ class _StringsDonationPageZhCn extends _StringsDonationPageEn {
 	@override String get info => 'LocalSend 免费、开源、无广告。如果您喜欢这款应用程序，可以捐款支持开发。';
 	@override String donate({required Object amount}) => '捐款 ${amount}';
 	@override String get thanks => '非常感谢您的支持！';
-	@override String get restore => '恢复';
+	@override String get restore => '恢复购买';
 }
 
 // Path: changelogPage
@@ -398,9 +398,9 @@ class _StringsAssetPickerZhCn extends _StringsAssetPickerEn {
 	@override String get emptyList => '清空列表';
 	@override String get unSupportedAssetType => '不支持的文件格式';
 	@override String get unableToAccessAll => '无法访问设备上的所有文件';
-	@override String get viewingLimitedAssetsTip => '应用程序仅能查看可访问的文件和相册';
+	@override String get viewingLimitedAssetsTip => '应用程序仅能查看可访问的文件和相册。';
 	@override String get changeAccessibleLimitedAssets => '单击以更新可访问文件';
-	@override String get accessAllTip => '应用程序只能访问设备上的部分文件,转到系统设置并允许该应用访问设备上的所有媒体文件。';
+	@override String get accessAllTip => '应用程序只能访问设备上的部分文件，转到系统设置并允许该应用访问设备上的所有媒体文件。';
 	@override String get goToSystemSettings => '转到系统设置';
 	@override String get accessLimitedAssets => '继续受限访问';
 	@override String get accessiblePathName => '可访问的文件';
@@ -533,7 +533,7 @@ class _StringsSettingsTabNetworkZhCn extends _StringsSettingsTabNetworkEn {
 	@override String portWarning({required Object defaultPort}) => '由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：${defaultPort}）';
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多播';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到（默认地址：${defaultMulticast}）';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
 }
 
 // Path: settingsTab.other
@@ -557,8 +557,8 @@ class _StringsTroubleshootPageFirewallZhCn extends _StringsTroubleshootPageFirew
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => '此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备';
-	@override String solution({required Object port}) => '这最可能是由防火墙引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP）的传入请求来解决这个问题';
+	@override String get symptom => '此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。';
+	@override String solution({required Object port}) => '这最可能是由防火墙引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。';
 	@override String get openFirewall => '打开防火墙';
 }
 

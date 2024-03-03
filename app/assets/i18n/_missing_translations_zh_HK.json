@@ -2,15 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-HK>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-HK' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "send": {
-      "title": "傳送",
-      "shareViaLinkAutoAccept": "用 link 分享檔案嗰陣自動接收",
-      "@info": "Translating to 接收 rather than 接受 is intentional to reflect the actual usage."
-    }
-  },
-  "webSharePage": {
-    "autoAccept": "自動接受請求"
-  }
+  ]
 }

@@ -111,6 +111,11 @@
       "saveToGallery": "Save 落相簿",
       "saveToHistory": "Save 去歷史紀錄"
     },
+    "send": {
+      "title": "傳送",
+      "shareViaLinkAutoAccept": "用 link 分享檔案嗰陣自動接收",
+      "@info": "Translating to 接收 rather than 接受 is intentional to reflect the actual usage."
+    },
     "network": {
       "title": "網路",
       "needRestart": "熄咗個 server 再開過，設定先會生效",
@@ -217,6 +222,7 @@
     "requests": "請求",
     "noRequests": "未有",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "自動接受請求",
     "encryptionHint": "LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。",
     "pendingRequests": "仲有 {n} 個請求未處理"
   },

@@ -104,7 +104,7 @@ class _StringsReceiveTabZhHk extends _StringsReceiveTabEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '接收';
+	@override String get title => '${_root.settingsTab.receive.title}';
 	@override late final _StringsReceiveTabInfoBoxZhHk infoBox = _StringsReceiveTabInfoBoxZhHk._(_root);
 }
 
@@ -115,7 +115,7 @@ class _StringsSendTabZhHk extends _StringsSendTabEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '傳送';
+	@override String get title => '${_root.settingsTab.send.title}';
 	@override late final _StringsSendTabSelectionZhHk selection = _StringsSendTabSelectionZhHk._(_root);
 	@override late final _StringsSendTabPickerZhHk picker = _StringsSendTabPickerZhHk._(_root);
 	@override String get shareIntentInfo => '用你裝置嘅「分享」功能以更方便揀選檔案。';
@@ -139,6 +139,7 @@ class _StringsSettingsTabZhHk extends _StringsSettingsTabEn {
 	@override String get title => '${_root.general.settings}';
 	@override late final _StringsSettingsTabGeneralZhHk general = _StringsSettingsTabGeneralZhHk._(_root);
 	@override late final _StringsSettingsTabReceiveZhHk receive = _StringsSettingsTabReceiveZhHk._(_root);
+	@override late final _StringsSettingsTabSendZhHk send = _StringsSettingsTabSendZhHk._(_root);
 	@override late final _StringsSettingsTabNetworkZhHk network = _StringsSettingsTabNetworkZhHk._(_root);
 	@override late final _StringsSettingsTabOtherZhHk other = _StringsSettingsTabOtherZhHk._(_root);
 	@override String get advancedSettings => '進階設定';
@@ -269,6 +270,7 @@ class _StringsWebSharePageZhHk extends _StringsWebSharePageEn {
 	@override String get requests => '請求';
 	@override String get noRequests => '未有';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => '自動接受請求';
 	@override String get encryptionHint => 'LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。';
 	@override String pendingRequests({required Object n}) => '仲有 ${n} 個請求未處理';
 }
@@ -501,6 +503,17 @@ class _StringsSettingsTabReceiveZhHk extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '（下載資料夾）';
 	@override String get saveToGallery => 'Save 落相簿';
 	@override String get saveToHistory => 'Save 去歷史紀錄';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendZhHk extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendZhHk._(_StringsZhHk root) : this._root = root, super._(root);
+
+	@override final _StringsZhHk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '傳送';
+	@override String get shareViaLinkAutoAccept => '用 link 分享檔案嗰陣自動接收';
 }
 
 // Path: settingsTab.network
