@@ -1,0 +1,466 @@
+{
+  "locale": "Srpski",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Prihvati",
+    "accepted": "Prihvaćeno",
+    "add": "Dodaj",
+    "advanced": "Napredno",
+    "cancel": "Odustani",
+    "close": "Zatvori",
+    "confirm": "Potvrdi",
+    "continueStr": "Nastavi",
+    "copy": "Kopiraj",
+    "copiedToClipboard": "Kopirano u Clipboard",
+    "decline": "Odbij",
+    "done": "Gotovo",
+    "delete": "Izbriši",
+    "edit": "Izmeni",
+    "error": "Grešla",
+    "example": "Primer",
+    "files": "Fajlovi",
+    "finished": "Završeno",
+    "hide": "Sakri",
+    "off": "Isključeno",
+    "offline": "Offline",
+    "on": "On",
+    "online": "Online",
+    "open": "Otvori",
+    "queue": "Stavi u Queue",
+    "quickSave": "Brzo snimi",
+    "renamed": "Preimenovano",
+    "reset": "Resetuj",
+    "restart": "Restartuj",
+    "settings": "Postavke",
+    "skipped": "Propušteno",
+    "start": "Startuj",
+    "stop": "Zaustavi",
+    "save": "Snimi",
+    "unchanged": "Nepromenjeno",
+    "unknown": "Nepoznato",
+    "noItemInClipboard": "Nema itema u Clipboard-u"
+  },
+  "receiveTab": {
+    "title": "Primanje",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Ime uredjaja:"
+    }
+  },
+  "sendTab": {
+    "title": "Slanje",
+    "selection": {
+      "title": "Selekcija",
+      "files": "Fajlovi: {files}",
+      "size": "Veličina: {size}"
+    },
+    "picker": {
+      "file": "Fajl",
+      "folder": "Folder",
+      "media": "Media",
+      "text": "Tekst",
+      "app": "App",
+      "clipboard": "Nalepi"
+    },
+    "shareIntentInfo": "Možeš takodje da koristiš i \"Share\" opciju tvog mobilnog uredjaja da bi lakše selektovao fajlove.",
+    "nearbyDevices": "Uredjaji u blizini",
+    "thisDevice": "Ovaj uredjaj",
+    "scan": "Potraži uredjaje",
+    "sendMode": "Mod za slanje",
+    "sendModes": {
+      "single": "Jedan primalac",
+      "multiple": "Više primalaca",
+      "link": "Deli pomoću Linka"
+    },
+    "sendModeHelp": "Objašnjenje",
+    "help": "Molim uveri se da je željena destinacija takodje na istoj WiFi mreži.",
+    "placeItems": "Postavi šta želiš da share-uješ."
+  },
+  "settingsTab": {
+    "title": "Podešavanje",
+    "general": {
+      "title": "Uopšteno",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistem",
+        "dark": "Tamno",
+        "light": "Svetlo"
+      },
+      "color": "Boja",
+      "colorOptions": {
+        "system": "Sistem",
+        "oled": "OLED"
+      },
+      "language": "Jezik",
+      "languageOptions": {
+        "system": "Sistem"
+      },
+      "saveWindowPlacement": "Izadji: Snimi položaj prozora",
+      "minimizeToTray": "Izadji: Minimizuj u Tray/MenuBar",
+      "launchAtStartup": "Autostartuj posle login-a",
+      "launchMinimized": "Autostartuj: Start sakriven",
+      "animations": "Animacije"
+    },
+    "receive": {
+      "title": "Primanje",
+      "quickSave": "@:general.quickSave",
+      "autoFinish": "Automatski završi",
+      "destination": "Destinacija",
+      "downloads": "(Downloads)",
+      "saveToGallery": "Snimi media-fajlove u Galeriju",
+      "saveToHistory": "Snimi u Istoriju"
+    },
+    "send": {
+      "title": "Slanje",
+      "shareViaLinkAutoAccept": "Podeli preko Link-a: Automatski prihvati"
+    },
+    "network": {
+      "title": "Mreža",
+      "needRestart": "Restartuj server da bi Podešavanja bila primenjena!",
+      "server": "Server",
+      "alias": "Ime uredjaja",
+      "deviceType": "Tip uredjaja",
+      "deviceModel": "Model uredjaja",
+      "port": "Port",
+      "portWarning": "Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom Port.(default: {defaultPort})",
+      "encryption": "Enkripcija",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom multicast adresu. (default: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Drugo",
+      "support": "Podrži LocalSend",
+      "donate": "Doniraj",
+      "privacyPolicy": "Politika Privatnosti",
+      "termsOfUse": "Uslovi korišćenja"
+    },
+    "advancedSettings": "Napredna podešavanja"
+  },
+  "troubleshootPage": {
+    "title": "Troubleshoot",
+    "subTitle": "Does the app not work as expected? Here you can find some common solutions.",
+    "solution": "Solution:",
+    "fixButton": "Fix automatically",
+    "firewall": {
+      "symptom": "This app can send files to other devices; but other devices cannot send files to this device.",
+      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
+      "openFirewall": "Open Firewall"
+    },
+    "noConnection": {
+      "symptom": "Both devices cannot discover each other nor can they share files.",
+      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "History",
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history",
+    "empty": "The history is empty.",
+    "entryActions": {
+      "open": "Open file",
+      "info": "Information",
+      "deleteFromHistory": "Delete from history"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Exclude system apps",
+    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "apps": "{n} Apps"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Delete all"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "wants to send you a file",
+      "other": "wants to send you {n} files"
+    },
+    "subTitleMessage": "sent you a message:",
+    "subTitleLink": "sent you a link:",
+    "canceled": "The sender has canceled the request."
+  },
+  "receiveOptionsPage": {
+    "title": "Options",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are directories."
+  },
+  "sendPage": {
+    "waiting": "Waiting for response...",
+    "rejected": "The recipient has rejected the request.",
+    "busy": "The recipient is busy with another request."
+  },
+  "progressPage": {
+    "titleSending": "Sending files",
+    "titleReceiving": "Receiving files",
+    "savedToGallery": "Saved in Photos",
+    "total": {
+      "title": {
+        "sending": "Total progress ({time})",
+        "finishedError": "Finished with error",
+        "canceledSender": "Canceled by sender",
+        "canceledReceiver": "Canceled by receiver"
+      },
+      "count": "Files: {curr} / {n}",
+      "size": "Size: {curr} / {n}",
+      "speed": "Speed: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server...",
+    "stopping": "Stopping server...",
+    "error": "An error occurred while starting the server.",
+    "openLink": {
+      "one": "Open this link in your browser:",
+      "other": "Open one of these links in your browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automatically accept requests",
+    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
+    "pendingRequests": "Pending requests: {n}"
+  },
+  "aboutPage": {
+    "title": "About LocalSend",
+    "description": [
+      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
+      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+    ],
+    "author": "Author",
+    "contributors": "Contributors",
+    "translators": "Translators"
+  },
+  "donationPage": {
+    "title": "Donate",
+    "info": "LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.",
+    "donate": "Donate {amount}",
+    "thanks": "Thank you very much!",
+    "restore": "Restore purchase"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Adorable",
+      "Beautiful",
+      "Big",
+      "Bright",
+      "Clean",
+      "Clever",
+      "Cool",
+      "Cute",
+      "Cunning",
+      "Determined",
+      "Energetic",
+      "Efficient",
+      "Fantastic",
+      "Fast",
+      "Fine",
+      "Fresh",
+      "Good",
+      "Gorgeous",
+      "Great",
+      "Handsome",
+      "Hot",
+      "Kind",
+      "Lovely",
+      "Mystic",
+      "Neat",
+      "Nice",
+      "Patient",
+      "Pretty",
+      "Powerful",
+      "Rich",
+      "Secret",
+      "Smart",
+      "Solid",
+      "Special",
+      "Strategic",
+      "Strong",
+      "Tidy",
+      "Wise"
+    ],
+    "fruits": [
+      "Apple",
+      "Avocado",
+      "Banana",
+      "Blackberry",
+      "Blueberry",
+      "Broccoli",
+      "Carrot",
+      "Cherry",
+      "Coconut",
+      "Grape",
+      "Lemon",
+      "Lettuce",
+      "Mango",
+      "Melon",
+      "Mushroom",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Peach",
+      "Pear",
+      "Pineapple",
+      "Potato",
+      "Pumpkin",
+      "Raspberry",
+      "Strawberry",
+      "Tomato"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Add to selection",
+      "content": "What do you want to add?"
+    },
+    "addressInput": {
+      "title": "Enter address",
+      "hashtag": "Hashtag",
+      "ip": "IP Address",
+      "recentlyUsed": "Recently used: "
+    },
+    "cancelSession": {
+      "title": "Cancel file transfer",
+      "content": "Do you really want to cancel the file transfer?"
+    },
+    "cannotOpenFile": {
+      "title": "Cannot open file",
+      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption disabled",
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorites",
+      "noFavorites": "No favorite devices yet.",
+      "addFavorite": "Add"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Delete from favorites",
+      "content": "Do you really want to delete from favorites \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Add to favorites",
+      "titleEdit": "Settings",
+      "name": "Device name",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "File information",
+      "fileName": "File name:",
+      "path": "Path:",
+      "size": "Size:",
+      "sender": "Sender:",
+      "time": "Time:"
+    },
+    "fileNameInput": {
+      "title": "Enter file name",
+      "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
+    "messageInput": {
+      "title": "Type message",
+      "multiline": "Multiline"
+    },
+    "noFiles": {
+      "title": "No file selected",
+      "content": "Please select at least one file."
+    },
+    "noPermission": {
+      "title": "No permission",
+      "content": "You have not granted the necessary permissions. Please grant them in the settings."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Counter",
+      "prefix": "Prefix",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "Sort alphabetically beforehand",
+      "random": "Random"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
+    },
+    "sendModeHelp": {
+      "title": "Send modes",
+      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
+      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
+      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+    }
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Quit LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "gifIndicator": "GIF",
+    "loadFailed": "Load failed",
+    "original": "Origin",
+    "preview": "Preview",
+    "select": "Select",
+    "emptyList": "Empty list",
+    "unSupportedAssetType": "Unsupported file type.",
+    "unableToAccessAll": "Unable to access all files on the device",
+    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
+    "changeAccessibleLimitedAssets": "Click to update accessible files",
+    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
+    "goToSystemSettings": "Go to system settings",
+    "accessLimitedAssets": "Continue with limited access",
+    "accessiblePathName": "Accessible files",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Image",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Other media",
+    "sActionPlayHint": "play",
+    "sActionPreviewHint": "preview",
+    "sActionSelectHint": "select",
+    "sActionSwitchPathLabel": "change path",
+    "sActionUseCameraHint": "use camera",
+    "sNameDurationLabel": "duration",
+    "sUnitAssetCountLabel": "count"
+  }
+}
