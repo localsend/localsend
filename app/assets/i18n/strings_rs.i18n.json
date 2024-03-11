@@ -248,176 +248,176 @@
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
-      "Adorable",
-      "Beautiful",
-      "Big",
-      "Bright",
-      "Clean",
-      "Clever",
-      "Cool",
-      "Cute",
-      "Cunning",
-      "Determined",
-      "Energetic",
-      "Efficient",
-      "Fantastic",
-      "Fast",
-      "Fine",
-      "Fresh",
-      "Good",
-      "Gorgeous",
-      "Great",
-      "Handsome",
-      "Hot",
-      "Kind",
-      "Lovely",
-      "Mystic",
-      "Neat",
-      "Nice",
-      "Patient",
-      "Pretty",
-      "Powerful",
-      "Rich",
-      "Secret",
-      "Smart",
-      "Solid",
-      "Special",
-      "Strategic",
-      "Strong",
-      "Tidy",
-      "Wise"
+      "Neodoljiva",
+      "Prelepa",
+      "Velika",
+      "Bistra",
+      "Čista",
+      "Pametna",
+      "Hladnjikava",
+      "Slatka",
+      "Lukava",
+      "Odlučna",
+      "Energetska",
+      "Efikasna",
+      "Fantastična",
+      "Brza",
+      "Fina",
+      "Sveža",
+      "Dobra",
+      "Divna",
+      "Velika",
+      "Zgodna",
+      "Vruća",
+      "Nežna",
+      "Ljubazna",
+      "Mistična",
+      "Uredna",
+      "Lepa",
+      "Strpljiva",
+      "Prelepa",
+      "Moćna",
+      "Bogata",
+      "Tajnovita",
+      "Pametna",
+      "Čvrsta",
+      "Specijalna",
+      "Budjava",
+      "Jaka",
+      "Uredna",
+      "Mudra"
     ],
     "fruits": [
-      "Apple",
-      "Avocado",
+      "Jabuka",
+      "Šljiva",
       "Banana",
-      "Blackberry",
-      "Blueberry",
-      "Broccoli",
-      "Carrot",
-      "Cherry",
-      "Coconut",
-      "Grape",
-      "Lemon",
-      "Lettuce",
-      "Mango",
-      "Melon",
-      "Mushroom",
-      "Onion",
-      "Orange",
-      "Papaya",
-      "Peach",
-      "Pear",
-      "Pineapple",
-      "Potato",
-      "Pumpkin",
-      "Raspberry",
-      "Strawberry",
-      "Tomato"
+      "Borovnica",
+      "Ribizla",
+      "Kajsija",
+      "Šargarepa",
+      "Trešnja",
+      "Paprika",
+      "Papričica",
+      "Krompiruša",
+      "Kupusara",
+      "Rotkvica",
+      "Lubenica",
+      "Pečurka",
+      "Mandarina",
+      "Pomorandža",
+      "Papaja",
+      "Breskva",
+      "Kruška",
+      "Šišarka",
+      "Dinja",
+      "Bundeva",
+      "Višnja",
+      "Jagoda",
+      "Dunja"
     ],
     "combination": "{adjective} {fruit}",
-    "@combination": "In some languages, the adjective must be last."
+    "@combination": "In some languages, the adjective must be last. Not the case in Serbian, but serbian adjektives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation."
   },
   "dialogs": {
     "addFile": {
-      "title": "Add to selection",
-      "content": "What do you want to add?"
+      "title": "Dodaj u Selekciju",
+      "content": "Šta želiš da dodaš?"
     },
     "addressInput": {
-      "title": "Enter address",
+      "title": "Upiši adresu",
       "hashtag": "Hashtag",
-      "ip": "IP Address",
-      "recentlyUsed": "Recently used: "
+      "ip": "IP Adresa",
+      "recentlyUsed": "Nedavno korišćeno: "
     },
     "cancelSession": {
-      "title": "Cancel file transfer",
-      "content": "Do you really want to cancel the file transfer?"
+      "title": "Odustani od prebacivanja fajla",
+      "content": "Da li stvarno želiš da odustaneš od slanja fajla?"
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "Ne mogu da otvorim fajl",
+      "content": "Ne mogu da otvorim \"{file}\". Da li je ovaj fajl negde pomeren, preimenovan, ili obrisan?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "title": "Enkripcija onemogućena",
+      "content": "Komunikacija se sada vrši preko ne-enkriptovanog HTTP protokola. Da bi koristio HTTPS, omogući Enkripciju opet."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorite devices yet.",
-      "addFavorite": "Add"
+      "title": "Omiljeni",
+      "noFavorites": "Nema omiljenih uredjaja još uvek.",
+      "addFavorite": "Dodaj"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "Izbriši iz Omiljenih",
+      "content": "Da li stvarno želiš da izbrišeš iz Omiljenih \"{name}\"?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Settings",
-      "name": "Device name",
+      "titleAdd": "Dodaj u Omiljene",
+      "titleEdit": "Podešavanja",
+      "name": "Ime Uredjaja",
       "auto": "(auto)",
-      "ip": "IP Address",
+      "ip": "IP Adresa",
       "port": "Port"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "Informacije o fajlu",
+      "fileName": "Ime fajla:",
+      "path": "Putanja:",
+      "size": "Veličina:",
+      "sender": "Pošiljalac:",
+      "time": "Vreme:"
     },
     "fileNameInput": {
-      "title": "Enter file name",
+      "title": "Ubaci ima fajla",
       "original": "Original: {original}"
     },
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "Očisti Istoriju",
+      "content": "Da li stvarno želiš da izbrišeš celu Istoriju?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "description": "LocalSend ne može da nadje druge uredjaje bez dozvole da skenira lokalnu mrežu. Molim dodajte ovu dozvolu u Podešavanja.",
+      "gotoSettings": "Podešavanja"
     },
     "messageInput": {
-      "title": "Type message",
+      "title": "Upiši poruku",
       "multiline": "Multiline"
     },
     "noFiles": {
-      "title": "No file selected",
-      "content": "Please select at least one file."
+      "title": "Nijedan fajl nije izabran",
+      "content": "Molim izaberite bar jedan fajl."
     },
     "noPermission": {
-      "title": "No permission",
-      "content": "You have not granted the necessary permissions. Please grant them in the settings."
+      "title": "Nema dozvole",
+      "content": "Niste dodali neophodne dozvole. Molim dodajte ih u Podešavanja."
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Nije dostupno",
+      "content": "Ova opcija je dostupna samo na:"
     },
     "qr": {
       "title": "QR Code"
     },
     "quickActions": {
-      "title": "Quick Actions",
-      "counter": "Counter",
-      "prefix": "Prefix",
-      "padZero": "Pad with zeros",
-      "sortBeforeCount": "Sort alphabetically beforehand",
+      "title": "Brze Akcije",
+      "counter": "Merač",
+      "prefix": "Prefiks",
+      "padZero": "Bez padding-a",
+      "sortBeforeCount": "Sortiraj po abecedi prethodno",
       "random": "Random"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
+      "content": "Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl."
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Mod za slanje",
+      "single": "Pošalji fajlove jednom primaocu. Selekcija će biti resetovana nakon završenog slanja.",
+      "multiple": "Pošalji fajlove za više primalaca. Selekcija neće biti resetovana nakon završenog slanja.",
+      "link": "Primaoci koji nemaju LocalSend instaliran, mogu da download-uju selektovane fajlove preko Linka u browseru."
     }
   },
   "tray": {
@@ -427,40 +427,40 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "rejected": "Odbijeno",
+    "files": "Fajlovi",
+    "fileName": "Ime fajla",
+    "size": "Veličina"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and iPhone",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "edit": "Edit",
+    "confirm": "Potvrdi",
+    "cancel": "Odustani",
+    "edit": "Izmeni",
     "gifIndicator": "GIF",
-    "loadFailed": "Load failed",
-    "original": "Origin",
-    "preview": "Preview",
-    "select": "Select",
-    "emptyList": "Empty list",
-    "unSupportedAssetType": "Unsupported file type.",
-    "unableToAccessAll": "Unable to access all files on the device",
-    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
-    "changeAccessibleLimitedAssets": "Click to update accessible files",
-    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
-    "goToSystemSettings": "Go to system settings",
-    "accessLimitedAssets": "Continue with limited access",
-    "accessiblePathName": "Accessible files",
+    "loadFailed": "Učitavanje neuspešno",
+    "original": "Poreklo",
+    "preview": "Pogledaj",
+    "select": "Izaberi",
+    "emptyList": "Isprazni listu",
+    "unSupportedAssetType": "Tip fajla nije podržan.",
+    "unableToAccessAll": "Nemoguće pristupiti svim fajlovima na ovom uredjaju",
+    "viewingLimitedAssetsTip": "Samo view fajlovi i albumi dostupni aplikaciji.",
+    "changeAccessibleLimitedAssets": "Klikni da updatuješ dostupne fajlove",
+    "accessAllTip": "Aplikacija može da pristupi samo nekim fajlovima na uredjaju.Idi u Sistemska podešavanja i dozvoli aplikaciji pristup svim medijskim fajlovima na uredjaju.",
+    "goToSystemSettings": "Idi u Sistemska podešavanja",
+    "accessLimitedAssets": "Nastavi sa ograničenim pristupom",
+    "accessiblePathName": "Dostupni fajlovi",
     "sTypeAudioLabel": "Audio",
-    "sTypeImageLabel": "Image",
+    "sTypeImageLabel": "Slika",
     "sTypeVideoLabel": "Video",
-    "sTypeOtherLabel": "Other media",
+    "sTypeOtherLabel": "Druga vrsta medija",
     "sActionPlayHint": "play",
     "sActionPreviewHint": "preview",
-    "sActionSelectHint": "select",
-    "sActionSwitchPathLabel": "change path",
-    "sActionUseCameraHint": "use camera",
-    "sNameDurationLabel": "duration",
-    "sUnitAssetCountLabel": "count"
+    "sActionSelectHint": "izaberi",
+    "sActionSwitchPathLabel": "promeni putanju",
+    "sActionUseCameraHint": "koristi kameru",
+    "sNameDurationLabel": "trajanje",
+    "sUnitAssetCountLabel": "broj"
   }
 }
