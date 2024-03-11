@@ -139,111 +139,111 @@
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
-    "subTitle": "Does the app not work as expected? Here you can find some common solutions.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "subTitle": "Da li aplikacija radi kako treba? Ovde možete naći neka uobičajena rešenja.",
+    "solution": "Rešenje:",
+    "fixButton": "Popravi automatski",
     "firewall": {
-      "symptom": "This app can send files to other devices; but other devices cannot send files to this device.",
-      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
-      "openFirewall": "Open Firewall"
+      "symptom": "Ova aplikacija može poslati fajlove drugim uredjajima; ali drugi uredjaji ne mogu poslati fajlove ovom uredjaju.",
+      "solution": "Ovo je najverovatnije Firewall problem. Možete rešiti ovo omogućavanjem dolaznih konekcija (UDP and TCP) na portu {port}.",
+      "openFirewall": "Otvori Firewall"
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
+      "symptom": "Uredjaji ne mogu ni da pronadju jedan drugog, ni da podele fajlove.",
+      "solution": "Da li problem postoji na obe strane? Ako je tako, morate da se uverite da se oba uredjaja nalaze na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multicast adresa, enkripcija). Mreža možda ne dozvoljava komunikaciju medju uredjajima. U ovom slučaju, ova opcija mora biti omogućena na ruteru."
     }
   },
   "receiveHistoryPage": {
-    "title": "History",
-    "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "title": "Istorija",
+    "openFolder": "Otvori folder",
+    "deleteHistory": "Obriši Istoriju",
+    "empty": "Istorija je prazna.",
     "entryActions": {
-      "open": "Open file",
-      "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "open": "Otvori fajl",
+      "info": "Informacije",
+      "deleteFromHistory": "Obriši iz Istorije."
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
-    "excludeSystemApps": "Exclude system apps",
-    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "title": "Aplikacije (APK)",
+    "excludeSystemApps": "Izostavi sistemske aplikacije",
+    "excludeAppsWithoutLaunchIntent": "Izostavi aplikacije koje se ne pokreću",
     "apps": "{n} Apps"
   },
   "selectedFilesPage": {
-    "deleteAll": "Delete all"
+    "deleteAll": "Obriši sve"
   },
   "receivePage": {
     "subTitle": {
-      "one": "wants to send you a file",
-      "other": "wants to send you {n} files"
+      "one": "želi da pošalje fajl",
+      "other": "želi da pošalje {n} fajlova"
     },
-    "subTitleMessage": "sent you a message:",
-    "subTitleLink": "sent you a link:",
-    "canceled": "The sender has canceled the request."
+    "subTitleMessage": "je poslao poruku:",
+    "subTitleLink": "je poslao Link:",
+    "canceled": "Pošiljalac je poništio zahtev."
   },
   "receiveOptionsPage": {
-    "title": "Options",
+    "title": "Opcije",
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "Isključeno automatski zato što postoje folderi."
   },
   "sendPage": {
-    "waiting": "Waiting for response...",
-    "rejected": "The recipient has rejected the request.",
-    "busy": "The recipient is busy with another request."
+    "waiting": "Čekam odgovor...",
+    "rejected": "Primalac je odbio zahtev.",
+    "busy": "Primalac je zauzet nekim drugim zahtevom za slanje."
   },
   "progressPage": {
-    "titleSending": "Sending files",
-    "titleReceiving": "Receiving files",
-    "savedToGallery": "Saved in Photos",
+    "titleSending": "Slanje fajlova",
+    "titleReceiving": "Primanje fajlova",
+    "savedToGallery": "Snimljeno u Slike",
     "total": {
       "title": {
-        "sending": "Total progress ({time})",
-        "finishedError": "Finished with error",
-        "canceledSender": "Canceled by sender",
-        "canceledReceiver": "Canceled by receiver"
+        "sending": "Ukupan progres ({time})",
+        "finishedError": "Završeno sa greškom",
+        "canceledSender": "Pošiljalac odustao",
+        "canceledReceiver": "Primalac odustao"
       },
-      "count": "Files: {curr} / {n}",
-      "size": "Size: {curr} / {n}",
-      "speed": "Speed: {speed}/s"
+      "count": "Fajlova: {curr} / {n}",
+      "size": "Veličina: {curr} / {n}",
+      "speed": "Brzina: {speed}/s"
     }
   },
   "webSharePage": {
-    "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
-    "error": "An error occurred while starting the server.",
+    "title": "Deli pomoću Linka",
+    "loading": "Pokrećem server...",
+    "stopping": "Zaustavljam server...",
+    "error": "Prilikom pokretanja servera dogodila se greška.",
     "openLink": {
-      "one": "Open this link in your browser:",
-      "other": "Open one of these links in your browser:"
+      "one": "Otvori ovaj link u browseru:",
+      "other": "Otvori jedan od ovih linkova u browseru:"
     },
-    "requests": "Requests",
-    "noRequests": "No requests yet.",
+    "requests": "Zahtevi",
+    "noRequests": "Nema zahteva još uvek.",
     "encryption": "@:settingsTab.network.encryption",
-    "autoAccept": "Automatically accept requests",
-    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
-    "pendingRequests": "Pending requests: {n}"
+    "autoAccept": "Automatski prihvati zahteve",
+    "encryptionHint": "LocalSend koristi sertifikate koji su self-signed. Morate da prihvatite to u browseru.",
+    "pendingRequests": "Zahtevi na čekanju: {n}"
   },
   "aboutPage": {
-    "title": "About LocalSend",
+    "title": "O LocalSend-u",
     "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+      "LocalSend je besplatna (slobodna) open-source aplikacija, koja vam omogućava da delite fajlove i poruke sa obližnjim uredjajima sigurno, preko lokalne mreže, bez potrebe za internet konekcijom.",
+      "Ova aplikacije je dostupna za Android, iOS, macOS, Windows i Linux. Možete pronaći sve opcije za download na oficijelnoj web strani."
     ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "translators": "Translators"
+    "author": "Autor",
+    "contributors": "Saradnici",
+    "translators": "Prevodioci"
   },
   "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
+    "title": "Doniraj",
+    "info": "LocalSend je slobodna, open-source aplikacije bez reklama. Ako vam se dopada aplikacija, možete podržati razvoj putem donacije.",
+    "donate": "Doniraj {amount}",
+    "thanks": "Hvala vam!",
+    "restore": "Obnovi kupovinu"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "Log Promena"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
