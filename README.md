@@ -19,11 +19,11 @@ LocalSend is a free, open-source app that allows you to securely share files and
 - [About](#about)
 - [Screenshots](#screenshots)
 - [Download](#download)
-- [How it Works](#how-it-works)
+- [How It Works](#how-it-works)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
   - [Translation](#translation)
-  - [Bug fixes and improvements](#bug-fixes-and-improvements)
+  - [Bug Fixes and Improvements](#bug-fixes-and-improvements)
 - [Building](#building)
   - [Android](#android)
   - [iOS](#ios)
@@ -88,7 +88,7 @@ Create a file named `settings.json` located in the same directory as the executa
 This file can be empty.
 The app will use this file to store settings instead of the default location.
 
-## How it Works
+## How It Works
 
 LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
 
@@ -133,7 +133,7 @@ You can help translate this app to other languages!
 
 **_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
-### Bug fixes and improvements
+### Bug Fixes and Improvements
 
 - **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
 - **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
