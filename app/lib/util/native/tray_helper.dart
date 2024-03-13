@@ -105,3 +105,9 @@ Future<void> showFromTray() async {
   // Enable animations
   RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => false);
 }
+
+Future<void> destroyTray() async {
+  if (!checkPlatform([TargetPlatform.linux])) {
+    await tm.trayManager.destroy();
+  }
+}
