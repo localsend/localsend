@@ -1,3 +1,8 @@
+## 1.15.0 (unreleased)
+
+- fix(windows): correctly remove tray icon when closing the app (@zpp0196)
+- i18n: add Serbian (@nebojsatomic)
+
 ## 1.14.0 (2024-02-26)
 
 - feat: add option to automatically accept requests when sharing via link (@MisterChangRay, @Tienisto)
