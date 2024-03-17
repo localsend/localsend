@@ -21,6 +21,7 @@ import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:macos_dock_progress/macos_dock_progress.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -118,6 +119,8 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     _finishTimer?.cancel();
     if (Platform.isWindows) {
       unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress));
+    } else if (Platform.isMacOS) {
+      unawaited(DockProgress.setProgress(1.0));
     }
     try {
       unawaited(WakelockPlus.disable());
@@ -167,10 +170,16 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final currBytes = _files.fold<int>(
         0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
 
-    if (Platform.isWindows && _totalBytes != double.minPositive.toInt() && _totalBytes != double.maxFinite.toInt()) {
-      unawaited(WindowsTaskbar.setProgress(currBytes, _totalBytes));
+    if (_totalBytes != double.minPositive.toInt() && _totalBytes != double.maxFinite.toInt()) {
+      if (Platform.isWindows) {
+        unawaited(WindowsTaskbar.setProgress(currBytes, _totalBytes));
+      } else if (Platform.isMacOS) {
+        unawaited(DockProgress.setProgress((currBytes / _totalBytes).roundToDouble()));
+      }
     } else {
-      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
+      if (Platform.isWindows) {
+        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
+      }
     }
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
