@@ -43,6 +43,14 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     WidgetsBinding.instance.addPostFrameCallback((_) async => _init());
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    if (Platform.isWindows) {
+      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress));
+    }
+  }
+
   Future<void> _init() async {
     final receiveSession = ref.read(serverProvider)?.session;
     if (receiveSession == null) {
