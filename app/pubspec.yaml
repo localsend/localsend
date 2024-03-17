@@ -71,8 +71,8 @@ dependencies:
   uuid: 3.0.7
   wakelock_plus: 1.1.4
   wechat_assets_picker: 8.8.1+1
-  windows_taskbar: 1.1.2
   window_manager: 0.3.8
+  windows_taskbar: 1.1.2
   yaru: 1.2.2
 
 dev_dependencies:
