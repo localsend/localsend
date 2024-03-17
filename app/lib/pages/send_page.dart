@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:windows_taskbar/windows_taskbar.dart';
 
 class SendPage extends StatefulWidget {
   final bool showAppBar;
@@ -32,6 +36,14 @@ class SendPage extends StatefulWidget {
 class _SendPageState extends State<SendPage> with Refena {
   Device? _myDevice;
   Device? _targetDevice;
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (Platform.isWindows) {
+      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress));
+    }
+  }
 
   void _cancel() {
     // the state will be lost so we store them temporarily (only for UI)
@@ -60,6 +72,14 @@ class _SendPageState extends State<SendPage> with Refena {
     final targetDevice = sendState?.target ?? _targetDevice!;
     final targetFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == targetDevice.fingerprint);
     final waiting = sendState?.status == SessionStatus.waiting;
+
+    if (Platform.isWindows && sendState != null) {
+      if (sendState.status == SessionStatus.declined || sendState.status == SessionStatus.finishedWithErrors) {
+        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.error));
+      } else {
+        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
+      }
+    }
 
     return WillPopScope(
       onWillPop: () async {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:common/common.dart';
@@ -24,6 +25,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:windows_taskbar/windows_taskbar.dart';
 
 class ProgressPage extends StatefulWidget {
   final bool showAppBar;
@@ -114,6 +116,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   void dispose() {
     super.dispose();
     _finishTimer?.cancel();
+    if (Platform.isWindows) {
+      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress));
+    }
     try {
       unawaited(WakelockPlus.disable());
     } catch (_) {}
@@ -161,6 +166,12 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final progressNotifier = ref.watch(progressProvider);
     final currBytes = _files.fold<int>(
         0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
+
+    if (Platform.isWindows && _totalBytes != double.minPositive.toInt() && _totalBytes != double.maxFinite.toInt()) {
+      unawaited(WindowsTaskbar.setProgress(currBytes, _totalBytes));
+    } else {
+      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
+    }
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     final sendSession = ref.watch(sendProvider)[widget.sessionId];

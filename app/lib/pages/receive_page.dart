@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
@@ -22,6 +23,7 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:windows_taskbar/windows_taskbar.dart';
 
 class ReceivePage extends StatefulWidget {
   const ReceivePage({super.key});
@@ -81,6 +83,14 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
     final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
+
+    if (Platform.isWindows) {
+      if (receiveSession.status == SessionStatus.canceledBySender) {
+        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.error));
+      } else {
+        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
+      }
+    }
 
     return WillPopScope(
       onWillPop: () async {
