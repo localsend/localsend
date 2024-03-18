@@ -139,6 +139,7 @@ class _StringsSettingsTabEsEs extends _StringsSettingsTabEn {
 	@override String get title => 'Ajustes';
 	@override late final _StringsSettingsTabGeneralEsEs general = _StringsSettingsTabGeneralEsEs._(_root);
 	@override late final _StringsSettingsTabReceiveEsEs receive = _StringsSettingsTabReceiveEsEs._(_root);
+	@override late final _StringsSettingsTabSendEsEs send = _StringsSettingsTabSendEsEs._(_root);
 	@override late final _StringsSettingsTabNetworkEsEs network = _StringsSettingsTabNetworkEsEs._(_root);
 	@override late final _StringsSettingsTabOtherEsEs other = _StringsSettingsTabOtherEsEs._(_root);
 	@override String get advancedSettings => 'Configuración avanzada';
@@ -269,6 +270,7 @@ class _StringsWebSharePageEsEs extends _StringsWebSharePageEn {
 	@override String get requests => 'Solicitudes';
 	@override String get noRequests => 'Aún no hay solicitudes.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'Aceptar solicitudes automáticamente';
 	@override String get encryptionHint => 'LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.';
 	@override String pendingRequests({required Object n}) => 'Solicitudes pendientes: ${n}';
 }
@@ -501,6 +503,17 @@ class _StringsSettingsTabReceiveEsEs extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(Descargas)';
 	@override String get saveToGallery => 'Guardar media en la galería';
 	@override String get saveToHistory => 'Guardar en el historial';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendEsEs extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Enviar';
+	@override String get shareViaLinkAutoAccept => 'Enviar enlace: Aceptar automáticamente';
 }
 
 // Path: settingsTab.network

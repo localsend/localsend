@@ -3,8 +3,8 @@
 /// Original: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 34
-/// Strings: 9693 (285 per locale)
+/// Locales: 35
+/// Strings: 10031 (286 per locale)
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -39,6 +39,7 @@ part 'strings_nl.g.dart';
 part 'strings_pl.g.dart';
 part 'strings_pt_BR.g.dart';
 part 'strings_ru.g.dart';
+part 'strings_sr.g.dart';
 part 'strings_sv.g.dart';
 part 'strings_th.g.dart';
 part 'strings_tr.g.dart';
@@ -83,6 +84,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	pl(languageCode: 'pl', build: _StringsPl.build),
 	ptBr(languageCode: 'pt', countryCode: 'BR', build: _StringsPtBr.build),
 	ru(languageCode: 'ru', build: _StringsRu.build),
+	sr(languageCode: 'sr', build: _StringsSr.build),
 	sv(languageCode: 'sv', build: _StringsSv.build),
 	th(languageCode: 'th', build: _StringsTh.build),
 	tr(languageCode: 'tr', build: _StringsTr.build),
