@@ -12,7 +12,7 @@
     "continueStr": "Настави",
     "copy": "Копирај",
     "copiedToClipboard": "Копирано у Clipboard",
-    "decline": "Одби",
+    "decline": "Одбиј",
     "done": "Готово",
     "delete": "Избриши",
     "edit": "Измени",
@@ -20,7 +20,7 @@
     "example": "Пример",
     "files": "Фајлови",
     "finished": "Завршено",
-    "hide": "Сакри",
+    "hide": "Сакриј",
     "off": "Искључено",
     "offline": "Ван мреже",
     "on": "Укључено",
@@ -149,7 +149,7 @@
     },
     "noConnection": {
       "symptom": "Уређаји не могу ни да пронађу један другог ни да поделе фајлове.",
-      "solution": "Да ли проблем постоји на обе стране? Ако је тако, морате да се уверите да се оба уређаја налазе на истој Wi-Fi мрежи и да деле исту конфигурацију ( порт, мултикаст адреса, енкрипција). Мрежа можда не дозвољава комуникацију међу уређајима. У овом случају, ова опција мора бити омогућена на рутеру."
+      "solution": "Да ли проблем постоји на обе стране? Ако је тако, морате да се уверите да се оба уређаја налазе на истој Wi-Fi мрежи и да деле исту конфигурацију (порт, мултикаст адреса, енкрипција). Мрежа можда не дозвољава комуникацију међу уређајима. У овом случају, ова опција мора бити омогућена на рутеру."
     }
   },
   "receiveHistoryPage": {
@@ -228,8 +228,8 @@
   "aboutPage": {
     "title": "О LocalSend-у",
     "description": [
-      "LocalSend је бесплатна ( слободна ) апликација отвореног кода, која Вам омогућава да делите фајлове и поруке са оближњим уређајима сигурно, преко локалне мреже, без потребе за интернет конекцијом.",
-      "Ова апликације је доступна за Android, iOS, macOS, Windows i Linux. Можете пронаћи све опције за преузимање на официјелној итернет страници."
+      "LocalSend је бесплатна (слободна) апликација отвореног кода, која Вам омогућава да делите фајлове и поруке са оближњим уређајима сигурно, преко локалне мреже, без потребе за интернет конекцијом.",
+      "Ова апликације је доступна за Android, iOS, macOS, Windows i Linux. Можете пронаћи све опције за преузимање на официјелној интернет страници."
     ],
     "author": "Аутор",
     "contributors": "Сарадници",
@@ -316,7 +316,7 @@
       "Дуња"
     ],
     "combination": "{adjective} {fruit}",
-    "@combination": "In some languages, the adjective must be last. Not the case in Serbian, but serbian adjektives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation."
+    "@combination": "In some languages, the adjective must be last. Not the case in Serbian, but serbian adjectives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation."
   },
   "dialogs": {
     "addFile": {
