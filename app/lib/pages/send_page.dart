@@ -70,13 +70,13 @@ class _SendPageState extends State<SendPage> with Refena {
     final targetDevice = sendState?.target ?? _targetDevice!;
     final targetFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == targetDevice.fingerprint);
     final waiting = sendState?.status == SessionStatus.waiting;
-    
+
     if (sendState?.status == SessionStatus.declined || sendState?.status == SessionStatus.finishedWithErrors) {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
     } else {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
     }
-    
+
     return WillPopScope(
       onWillPop: () async {
         if (widget.closeSessionOnClose) {

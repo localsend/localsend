@@ -89,7 +89,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
     final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
-    
+
     if (receiveSession.status == SessionStatus.canceledBySender) {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
     } else {
