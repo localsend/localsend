@@ -7,7 +7,7 @@ class TaskbarHelper {
   static final _isWindows = checkPlatform([TargetPlatform.windows]);
   static final _isMacos = checkPlatform([TargetPlatform.macOS]);
 
-  static Future<void> clearPregressBar() async {
+  static Future<void> clearProgressBar() async {
     if (_isWindows) {
       await WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
     } else if (_isMacos) {

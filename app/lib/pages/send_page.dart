@@ -40,7 +40,7 @@ class _SendPageState extends State<SendPage> with Refena {
   @override
   void dispose() {
     super.dispose();
-    unawaited(TaskbarHelper.clearPregressBar());
+    unawaited(TaskbarHelper.clearProgressBar());
   }
 
   void _cancel() {

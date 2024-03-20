@@ -46,7 +46,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
   @override
   void dispose() {
     super.dispose();
-    unawaited(TaskbarHelper.clearPregressBar());
+    unawaited(TaskbarHelper.clearProgressBar());
   }
 
   Future<void> _init() async {

@@ -115,7 +115,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   void dispose() {
     super.dispose();
     _finishTimer?.cancel();
-    unawaited(TaskbarHelper.clearPregressBar());
+    unawaited(TaskbarHelper.clearProgressBar());
     try {
       unawaited(WakelockPlus.disable());
     } catch (_) {}
