@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
@@ -9,6 +8,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/animations/initial_slide_transition.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -40,9 +40,7 @@ class _SendPageState extends State<SendPage> with Refena {
   @override
   void dispose() {
     super.dispose();
-    if (Platform.isWindows) {
-      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress));
-    }
+    unawaited(TaskbarHelper.clearPregressBar());
   }
 
   void _cancel() {
@@ -72,15 +70,13 @@ class _SendPageState extends State<SendPage> with Refena {
     final targetDevice = sendState?.target ?? _targetDevice!;
     final targetFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == targetDevice.fingerprint);
     final waiting = sendState?.status == SessionStatus.waiting;
-
-    if (Platform.isWindows && sendState != null) {
-      if (sendState.status == SessionStatus.declined || sendState.status == SessionStatus.finishedWithErrors) {
-        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.error));
-      } else {
-        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
-      }
+    
+    if (sendState?.status == SessionStatus.declined || sendState?.status == SessionStatus.finishedWithErrors) {
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
+    } else {
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
     }
-
+    
     return WillPopScope(
       onWillPop: () async {
         if (widget.closeSessionOnClose) {

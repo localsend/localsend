@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
@@ -17,6 +16,7 @@ import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -46,9 +46,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
   @override
   void dispose() {
     super.dispose();
-    if (Platform.isWindows) {
-      unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress));
-    }
+    unawaited(TaskbarHelper.clearPregressBar());
   }
 
   Future<void> _init() async {
@@ -91,13 +89,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
     final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
-
-    if (Platform.isWindows) {
-      if (receiveSession.status == SessionStatus.canceledBySender) {
-        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.error));
-      } else {
-        unawaited(WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate));
-      }
+    
+    if (receiveSession.status == SessionStatus.canceledBySender) {
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
+    } else {
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
     }
 
     return WillPopScope(
