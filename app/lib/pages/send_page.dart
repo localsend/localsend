@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/animations/initial_slide_transition.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -13,6 +16,7 @@ import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:windows_taskbar/windows_taskbar.dart';
 
 class SendPage extends StatefulWidget {
   final bool showAppBar;
@@ -32,6 +36,12 @@ class SendPage extends StatefulWidget {
 class _SendPageState extends State<SendPage> with Refena {
   Device? _myDevice;
   Device? _targetDevice;
+
+  @override
+  void dispose() {
+    super.dispose();
+    unawaited(TaskbarHelper.clearProgressBar());
+  }
 
   void _cancel() {
     // the state will be lost so we store them temporarily (only for UI)
@@ -60,6 +70,12 @@ class _SendPageState extends State<SendPage> with Refena {
     final targetDevice = sendState?.target ?? _targetDevice!;
     final targetFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == targetDevice.fingerprint);
     final waiting = sendState?.status == SessionStatus.waiting;
+
+    if (sendState?.status == SessionStatus.declined || sendState?.status == SessionStatus.finishedWithErrors) {
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
+    } else {
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
+    }
 
     return WillPopScope(
       onWillPop: () async {

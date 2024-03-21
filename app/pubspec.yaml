@@ -36,6 +36,7 @@ dependencies:
   intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
   launch_at_startup: 0.2.2
   logging: 1.2.0
+  macos_dock_progress: ^1.0.0
   mime: 1.0.4
   network_info_plus: 4.1.0+1
   open_filex: 4.4.0
@@ -72,6 +73,7 @@ dependencies:
   wakelock_plus: 1.1.4
   wechat_assets_picker: 8.8.1+1
   window_manager: 0.3.8
+  windows_taskbar: 1.1.2
   yaru: 1.2.2
 
 dev_dependencies:
