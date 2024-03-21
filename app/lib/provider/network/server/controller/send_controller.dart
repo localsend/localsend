@@ -199,7 +199,7 @@ class SendController {
       } else {
         return Response(
           200,
-          body: File(file.path!).openRead(),
+          body: File(file.path!).openRead().asBroadcastStream(),
           headers: headers,
         );
       }
