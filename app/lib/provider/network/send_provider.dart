@@ -282,7 +282,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               'Content-Type': file.file.lookupMime(),
             },
           ),
-          data: file.path != null ? File(file.path!).openRead() : Stream.fromIterable([file.bytes!]),
+          data: file.path != null ? File(file.path!).openRead().asBroadcastStream() : file.bytes!,
           onSendProgress: (curr, total) {
             if (stopwatch.elapsedMilliseconds >= 100) {
               stopwatch.reset();
