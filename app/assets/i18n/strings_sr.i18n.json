@@ -20,7 +20,7 @@
     "example": "Primer",
     "files": "Fajlovi",
     "finished": "Završeno",
-    "hide": "Sakri",
+    "hide": "Sakrij",
     "off": "Isključeno",
     "offline": "Offline",
     "on": "On",
@@ -316,7 +316,7 @@
       "Dunja"
     ],
     "combination": "{adjective} {fruit}",
-    "@combination": "In some languages, the adjective must be last. Not the case in Serbian, but serbian adjektives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation."
+    "@combination": "In some languages, the adjective must be last. Not the case in Serbian, but serbian adjectives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation."
   },
   "dialogs": {
     "addFile": {
