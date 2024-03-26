@@ -84,10 +84,10 @@ packages:
     dependency: transitive
     description:
       name: dart_mappable
-      sha256: c2d4775336d7166590766a1c4451edde2a302efe2a2a35ac09eef9025102e10f
+      sha256: f9f272f2af6c11adf4abc22574eb946df110251052a0d00c03519ecf2442defc
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.2.1"
   file:
     dependency: transitive
     description:
@@ -148,10 +148,10 @@ packages:
     dependency: "direct dev"
     description:
       name: lints
-      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
+      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "3.0.0"
   logging:
     dependency: transitive
     description:
@@ -224,6 +224,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  refena:
+    dependency: transitive
+    description:
+      name: refena
+      sha256: a29603854d785e5259c6fb99268847e918f54463a861accc36cc913daea95cb8
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.1"
   shelf:
     dependency: transitive
     description:
