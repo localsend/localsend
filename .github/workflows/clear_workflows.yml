@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@998b89248266543a3c7827da0a73cf49d0131222 # 2.0.5
+        uses: Mattraks/delete-workflow-runs@39f0bbed25d76b34de5594dceab824811479e5de # 2.0.6
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
