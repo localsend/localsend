@@ -1,0 +1,14 @@
+{
+  "labels": [
+    "dependencies"
+  ],
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "packageRules": [
+    {
+      "groupName": "Kotlin",
+      "matchPackagePatterns": [
+        "org.jetbrains.kotlin.*"
+      ]
+    }
+  ]
+}
