@@ -20,7 +20,6 @@ import path_provider_foundation
 import photo_manager
 import screen_retriever
 import shared_preferences_foundation
-import system_tray
 import tray_manager
 import url_launcher_macos
 import video_player_avfoundation
@@ -43,7 +42,6 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   PhotoManagerPlugin.register(with: registry.registrar(forPlugin: "PhotoManagerPlugin"))
   ScreenRetrieverPlugin.register(with: registry.registrar(forPlugin: "ScreenRetrieverPlugin"))
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
-  SystemTrayPlugin.register(with: registry.registrar(forPlugin: "SystemTrayPlugin"))
   TrayManagerPlugin.register(with: registry.registrar(forPlugin: "TrayManagerPlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
   FVPVideoPlayerPlugin.register(with: registry.registrar(forPlugin: "FVPVideoPlayerPlugin"))

@@ -61,7 +61,6 @@ dependencies:
   slang: 3.29.0
   slang_flutter: 3.29.0
   system_settings: 2.1.0
-  system_tray: 2.0.3
   tray_manager: 0.2.2
   url_launcher: 6.2.4
   uuid: 3.0.7
