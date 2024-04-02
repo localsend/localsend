@@ -812,6 +812,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  macos_dock_progress:
+    dependency: "direct main"
+    description:
+      name: macos_dock_progress
+      sha256: "4dfd32c3117903944d9069ec2b22054e5226180cea57ad94b5908436609eb884"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   markdown:
     dependency: transitive
     description:
@@ -1738,6 +1746,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.8"
+  windows_taskbar:
+    dependency: "direct main"
+    description:
+      name: windows_taskbar
+      sha256: "204edfdb280a7053febdf50fc9b49b3c007255bd8a83c082d10c174ec6548f33"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   xdg_directories:
     dependency: transitive
     description:
