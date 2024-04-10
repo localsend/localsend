@@ -40,10 +40,7 @@ class SendTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder(
       provider: sendTabVmProvider,
-      init: (context, ref) {
-        // ignore: discarded_futures
-        ref.dispatchAsync(SendTabInitAction(context));
-      },
+      init: (context, ref) => ref.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
         final ref = context.ref;
         return ResponsiveListView(
@@ -85,7 +82,7 @@ class SendTab extends StatelessWidget {
               Card(
                 margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.only(left: 15, top: 5, bottom: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -97,16 +94,10 @@ class SendTab extends StatelessWidget {
                           ),
                           const Spacer(),
                           CustomIconButton(
-                            onPressed: () {
-                              ref
-                                .redux(selectedSendingFilesProvider)
-                                .dispatch(ClearSelectionAction());
-                            },
-                            child: Icon(
-                              Icons.close,
-                              color: Theme.of(context).colorScheme.secondary
-                            ),
+                            onPressed: () => ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction()),
+                            child: Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
                           ),
+                          const SizedBox(width: 5),
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -163,6 +154,7 @@ class SendTab extends StatelessWidget {
                             icon: const Icon(Icons.add),
                             label: Text(t.general.add),
                           ),
+                          const SizedBox(width: 15),
                         ],
                       ),
                     ],
