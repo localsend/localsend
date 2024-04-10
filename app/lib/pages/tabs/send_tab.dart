@@ -101,7 +101,6 @@ class SendTab extends StatelessWidget {
                               ref
                                 .redux(selectedSendingFilesProvider)
                                 .dispatch(ClearSelectionAction());
-                              context.popUntilRoot();
                             },
                             child: Icon(
                               Icons.close,
