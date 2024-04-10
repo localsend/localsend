@@ -11,6 +11,7 @@ import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
@@ -88,9 +89,25 @@ class SendTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        t.sendTab.selection.title,
-                        style: Theme.of(context).textTheme.titleMedium,
+                      Row(
+                        children: [
+                          Text(
+                            t.sendTab.selection.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Spacer(),
+                          CustomIconButton(
+                            onPressed: () {
+                              ref
+                                .redux(selectedSendingFilesProvider)
+                                .dispatch(ClearSelectionAction());
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: Theme.of(context).colorScheme.secondary
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 5),
                       Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
