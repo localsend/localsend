@@ -61,13 +61,7 @@ dependencies:
   slang: 3.29.0
   slang_flutter: 3.29.0
   system_settings: 2.1.0
-  system_tray: 2.0.3
-  tray_manager:
-    # https://github.com/leanflutter/tray_manager/issues/30
-    # The Linux tray manager is disabled for now
-    git:
-      url: https://github.com/Tienisto/tray_manager.git
-      ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
+  tray_manager: 0.2.2
   url_launcher: 6.2.4
   uuid: 3.0.7
   wakelock_plus: 1.1.4
