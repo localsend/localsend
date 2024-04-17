@@ -64,7 +64,7 @@ Git based distribution:
 | [Homebrew][]   | [Homebrew Repo][]   | [@Tienisto][], Github Actions                      |
 | [Flathub][]    | [Flathub Repo][]    | [@proletarius101][], [@Tienisto][], Github Actions |
 | [AUR][]        | [AUR Repo][]        | [@Nixuge][]                                        |
-| [NixOS][]      | [NixOS Repo][]      | [@sikmir][], [@linsui][]                           |
+| [Nixpkgs][]    | [Nixpkgs Repo][]    | [@sikmir][], [@linsui][]                           |
 | [F-Droid][]    | [F-Droid Repo][]    | [@linsui][], [@Tienisto][], [F-Droid CI][]         |
 
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
