@@ -47,7 +47,7 @@ It is recommended to download the app either from an app store or from a package
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [Nixpkgs][]        | [APK][latest]  |               |            |
 | [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
 | [EXE Installer][latest]  |                         | [DEB][latest]      |                |               |            |
 | [Portable ZIP][latest]   |                         | [AppImage][latest] |                |               |            |
@@ -65,7 +65,7 @@ Read more about [distribution channels][].
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
-[nixos]: https://search.nixos.org/packages?show=localsend
+[nixpkgs]: https://search.nixos.org/packages?show=localsend
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
@@ -98,15 +98,17 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 
 To compile LocalSend from the source code, follow these steps:
 
-1. Install [Flutter](https://flutter.dev).
-2. Clone the LocalSend repository.
-3. Run `cd app` to enter the app directory.
-4. Run `flutter pub get` to download dependencies.
-5. Run `flutter run` to start the app.
+1. Install Flutter [directly](https://flutter.dev) or using [fvm](https://fvm.app) (see [version required](.fvm/fvm_config.json))
+2. Clone the `LocalSend` repository
+3. Run `cd app` to enter the app directory
+4. Run `flutter pub get` to download dependencies
+5. Run `flutter run` to start the app
 
-The issue may be caused by a mismatch between the required Flutter version and the installed Flutter version.
-
-LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json)). After you install it, run `fvm flutter` instead of `flutter`.
+> [!NOTE]
+> LocalSend currently requires an older Flutter version (specified in [.fvm/fvm_config.json](.fvm/fvm_config.json))
+> and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
+> To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
+> After installing `fvm`, run `fvm flutter` instead of `flutter`.
 
 ## Contributing
 
