@@ -169,16 +169,24 @@ class SettingsTab extends StatelessWidget {
             _SettingsSection(
               title: t.settingsTab.receive.title,
               children: [
-                _BooleanEntry(
+                _SettingsEntry(
                   label: t.settingsTab.receive.quickSave,
-                  value: vm.settings.quickSave,
-                  onChanged: (b) async {
-                    final old = vm.settings.quickSave;
-                    await ref.notifier(settingsProvider).setQuickSave(b);
-                    if (!old && b && context.mounted) {
-                      await QuickSaveNotice.open(context);
-                    }
-                  },
+                  child: CustomDropdownButton<QuickSaveType>(
+                    value: vm.settings.quickSaveType,
+                    items: QuickSaveType.values.map((quickSaveType) {
+                      return DropdownMenuItem(
+                        value: quickSaveType,
+                        alignment: Alignment.center,
+                        child: Text(quickSaveType.humanName, textAlign: TextAlign.center),
+                      );
+                    }).toList(),
+                    onChanged: (quickSaveType) async {
+                      await ref.notifier(settingsProvider).setQuickSave(quickSaveType);
+                      if (quickSaveType == QuickSaveType.enabled && context.mounted) {
+                        await QuickSaveNotice.open(context);
+                      }
+                    },
+                  ),
                 ),
                 if (checkPlatformWithFileSystem())
                   _SettingsEntry(
@@ -650,6 +658,16 @@ extension on ColorMode {
       ColorMode.localsend => t.appName,
       ColorMode.oled => t.settingsTab.general.colorOptions.oled,
       ColorMode.yaru => 'Yaru',
+    };
+  }
+}
+
+extension on QuickSaveType {
+  String get humanName {
+    return switch (this) {
+      QuickSaveType.disabled => t.settingsTab.receive.quickSaveType.disabled,
+      QuickSaveType.enabledForTrusted => t.settingsTab.receive.quickSaveType.enabledForTrusted,
+      QuickSaveType.enabled => t.settingsTab.receive.quickSaveType.enabled,
     };
   }
 }

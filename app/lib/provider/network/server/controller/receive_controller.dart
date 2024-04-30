@@ -227,9 +227,21 @@ class ReceiveController {
       ),
     );
 
-    final quickSave = settings.quickSave && server.getState().session?.message == null;
+    bool isQuickSave = false;
+    var quickSaveType = settings.quickSaveType;
+
     final Map<String, String>? selection;
-    if (quickSave) {
+
+    if (quickSaveType == QuickSaveType.enabledForTrusted) {
+      var isTrusted = server.ref.read(favoritesProvider).where((e) => e.fingerprint == dto.info.fingerprint).isNotEmpty;
+      if (isTrusted) isQuickSave = true;
+    } else if (quickSaveType == QuickSaveType.enabled) {
+      isQuickSave = true;
+    }
+
+    if (server.getState().session?.message != null) isQuickSave = false;
+
+    if (isQuickSave) {
       // accept all files
       selection = {
         for (final f in dto.files.values) f.id: f.fileName,
@@ -292,7 +304,7 @@ class ReceiveController {
       },
     );
 
-    if (quickSave) {
+    if (isQuickSave) {
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushImmediately(() => ProgressPage(
             showAppBar: false,
@@ -478,7 +490,7 @@ class ReceiveController {
           ),
         ),
       );
-      if (server.ref.read(settingsProvider).quickSave && server.getState().session?.message == null) {
+      if (server.ref.read(settingsProvider).quickSaveType != QuickSaveType.disabled && server.getState().session?.message == null) {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();

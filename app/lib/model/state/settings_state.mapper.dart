@@ -41,8 +41,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, bool> _f$saveToGallery = Field('saveToGallery', _$saveToGallery);
   static bool _$saveToHistory(SettingsState v) => v.saveToHistory;
   static const Field<SettingsState, bool> _f$saveToHistory = Field('saveToHistory', _$saveToHistory);
-  static bool _$quickSave(SettingsState v) => v.quickSave;
-  static const Field<SettingsState, bool> _f$quickSave = Field('quickSave', _$quickSave);
+  static QuickSaveType _$quickSaveType(SettingsState v) => v.quickSaveType;
+  static const Field<SettingsState, QuickSaveType> _f$quickSaveType = Field('quickSaveType', _$quickSaveType);
   static bool _$autoFinish(SettingsState v) => v.autoFinish;
   static const Field<SettingsState, bool> _f$autoFinish = Field('autoFinish', _$autoFinish);
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
@@ -78,7 +78,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #destination: _f$destination,
     #saveToGallery: _f$saveToGallery,
     #saveToHistory: _f$saveToHistory,
-    #quickSave: _f$quickSave,
+    #quickSaveType: _f$quickSaveType,
     #autoFinish: _f$autoFinish,
     #minimizeToTray: _f$minimizeToTray,
     #launchAtStartup: _f$launchAtStartup,
@@ -104,7 +104,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         destination: data.dec(_f$destination),
         saveToGallery: data.dec(_f$saveToGallery),
         saveToHistory: data.dec(_f$saveToHistory),
-        quickSave: data.dec(_f$quickSave),
+        quickSaveType: data.dec(_f$quickSaveType),
         autoFinish: data.dec(_f$autoFinish),
         minimizeToTray: data.dec(_f$minimizeToTray),
         launchAtStartup: data.dec(_f$launchAtStartup),
@@ -174,7 +174,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       String? destination,
       bool? saveToGallery,
       bool? saveToHistory,
-      bool? quickSave,
+      QuickSaveType? quickSaveType,
       bool? autoFinish,
       bool? minimizeToTray,
       bool? launchAtStartup,
@@ -207,7 +207,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           Object? destination = $none,
           bool? saveToGallery,
           bool? saveToHistory,
-          bool? quickSave,
+          QuickSaveType? quickSaveType,
           bool? autoFinish,
           bool? minimizeToTray,
           bool? launchAtStartup,
@@ -230,7 +230,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (destination != $none) #destination: destination,
         if (saveToGallery != null) #saveToGallery: saveToGallery,
         if (saveToHistory != null) #saveToHistory: saveToHistory,
-        if (quickSave != null) #quickSave: quickSave,
+        if (quickSaveType != null) #quickSaveType: quickSaveType,
         if (autoFinish != null) #autoFinish: autoFinish,
         if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
         if (launchAtStartup != null) #launchAtStartup: launchAtStartup,
@@ -255,7 +255,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       destination: data.get(#destination, or: $value.destination),
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
       saveToHistory: data.get(#saveToHistory, or: $value.saveToHistory),
-      quickSave: data.get(#quickSave, or: $value.quickSave),
+      quickSaveType: data.get(#quickSaveType, or: $value.quickSaveType),
       autoFinish: data.get(#autoFinish, or: $value.autoFinish),
       minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
       launchAtStartup: data.get(#launchAtStartup, or: $value.launchAtStartup),

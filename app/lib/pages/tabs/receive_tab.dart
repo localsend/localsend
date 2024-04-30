@@ -1,3 +1,4 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -7,6 +8,7 @@ import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/ui/home_tab_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
+import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -73,22 +75,26 @@ class ReceiveTab extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Center(
-                      child: vm.quickSaveSettings
-                          ? ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).colorScheme.primary,
-                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                              onPressed: () async => vm.onSetQuickSave(context, false),
-                              child: Text('${t.general.quickSave}: ${t.general.on}'),
-                            )
-                          : TextButton(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Colors.grey,
-                              ),
-                              onPressed: () async => vm.onSetQuickSave(context, true),
-                              child: Text('${t.general.quickSave}: ${t.general.off}'),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(t.settingsTab.receive.quickSave),
+                          ),
+                          Expanded(
+                            child: CustomDropdownButton<QuickSaveType>(
+                              value: vm.quickSaveSettings,
+                              items: QuickSaveType.values.map((type) {
+                                return DropdownMenuItem(
+                                  value: type,
+                                  alignment: Alignment.center,
+                                  child: Text(type.humanName, textAlign: TextAlign.center),
+                                );
+                              }).toList(),
+                              onChanged: (type) async => await vm.onSetQuickSave(context, type),
                             ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -181,5 +187,15 @@ class ReceiveTab extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+extension on QuickSaveType {
+  String get humanName {
+    return switch (this) {
+      QuickSaveType.disabled => t.settingsTab.receive.quickSaveType.disabled,
+      QuickSaveType.enabledForTrusted => t.settingsTab.receive.quickSaveType.enabledForTrusted,
+      QuickSaveType.enabled => t.settingsTab.receive.quickSaveType.enabled,
+    };
   }
 }

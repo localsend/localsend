@@ -1,3 +1,4 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
@@ -16,13 +17,13 @@ final _showHistoryButtonProvider = StateProvider<bool>((ref) => true, debugLabel
 
 class ReceiveTabVm {
   final String aliasSettings;
-  final bool quickSaveSettings;
+  final QuickSaveType quickSaveSettings;
   final ServerState? serverState;
   final List<String> localIps;
   final bool showAdvanced;
   final bool showHistoryButton;
   final Future<void> Function() toggleAdvanced;
-  final Future<void> Function(BuildContext context, bool enable) onSetQuickSave;
+  final Future<void> Function(BuildContext context, QuickSaveType enable) onSetQuickSave;
 
   const ReceiveTabVm({
     required this.aliasSettings,
@@ -37,7 +38,7 @@ class ReceiveTabVm {
 }
 
 final receiveTabVmProvider = ViewProvider((ref) {
-  final (alias, quickSave) = ref.watch(settingsProvider.select((s) => (s.alias, s.quickSave)));
+  final (alias, quickSaveType) = ref.watch(settingsProvider.select((s) => (s.alias, s.quickSaveType)));
   final networkInfo = ref.watch(localIpProvider).localIps;
   final serverState = ref.watch(serverProvider);
   final showAdvanced = ref.watch(_showAdvancedProvider);
@@ -45,7 +46,7 @@ final receiveTabVmProvider = ViewProvider((ref) {
 
   return ReceiveTabVm(
     aliasSettings: alias,
-    quickSaveSettings: quickSave,
+    quickSaveSettings: quickSaveType,
     serverState: serverState,
     localIps: networkInfo,
     showAdvanced: showAdvanced,
@@ -60,9 +61,9 @@ final receiveTabVmProvider = ViewProvider((ref) {
         ref.notifier(_showHistoryButtonProvider).setState((_) => false);
       }
     },
-    onSetQuickSave: (context, enable) async {
-      await ref.notifier(settingsProvider).setQuickSave(enable);
-      if (enable && context.mounted) {
+    onSetQuickSave: (context, quickSaveType) async {
+      await ref.notifier(settingsProvider).setQuickSave(quickSaveType);
+      if (quickSaveType == QuickSaveType.enabled && context.mounted) {
         await QuickSaveNotice.open(context);
       }
     },

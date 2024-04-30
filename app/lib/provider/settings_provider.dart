@@ -28,7 +28,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         destination: _persistence.getDestination(),
         saveToGallery: _persistence.isSaveToGallery(),
         saveToHistory: _persistence.isSaveToHistory(),
-        quickSave: _persistence.isQuickSave(),
+        quickSaveType: _persistence.getQuickSaveType(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
         launchAtStartup: _persistence.isLaunchAtStartup(),
@@ -105,10 +105,10 @@ class SettingsService extends PureNotifier<SettingsState> {
     );
   }
 
-  Future<void> setQuickSave(bool quickSave) async {
-    await _persistence.setQuickSave(quickSave);
+  Future<void> setQuickSave(QuickSaveType quickSaveType) async {
+    await _persistence.setQuickSaveType(quickSaveType);
     state = state.copyWith(
-      quickSave: quickSave,
+      quickSaveType: quickSaveType,
     );
   }
 

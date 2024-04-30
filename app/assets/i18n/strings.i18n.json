@@ -105,6 +105,11 @@
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
+      "quickSaveType": {
+        "disabled": "Disabled",
+        "enabledForTrusted": "Only favorite devices",
+        "enabled": "Enabled for all"
+      },
       "autoFinish": "Auto Finish",
       "destination": "Destination",
       "downloads": "(Downloads)",

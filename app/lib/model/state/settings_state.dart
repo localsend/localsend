@@ -19,7 +19,7 @@ class SettingsState with SettingsStateMappable {
   final String? destination; // null = default
   final bool saveToGallery; // only Android, iOS
   final bool saveToHistory;
-  final bool quickSave; // automatically accept file requests
+  final QuickSaveType quickSaveType; // whether to automatically accept file requests
   final bool autoFinish; // automatically finish sessions
   final bool minimizeToTray; // minimize to tray instead of exiting the app
   final bool launchAtStartup; // Tracks if the option is enabled on Linux
@@ -43,7 +43,7 @@ class SettingsState with SettingsStateMappable {
     required this.destination,
     required this.saveToGallery,
     required this.saveToHistory,
-    required this.quickSave,
+    required this.quickSaveType,
     required this.autoFinish,
     required this.minimizeToTray,
     required this.launchAtStartup,

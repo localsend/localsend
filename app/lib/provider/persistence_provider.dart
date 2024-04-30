@@ -55,7 +55,7 @@ const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
-const _quickSave = 'ls_quick_save';
+const _quickSaveType = 'ls_quick_save_type';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _launchAtStartup = 'ls_launch_at_startup';
@@ -276,12 +276,12 @@ class PersistenceService {
     await _prefs.setBool(_saveToHistory, saveToHistory);
   }
 
-  bool isQuickSave() {
-    return _prefs.getBool(_quickSave) ?? false;
+  QuickSaveType getQuickSaveType() {
+    return QuickSaveType.values.firstWhereOrNull((m) => m.name == _prefs.getString(_quickSaveType)) ?? QuickSaveType.disabled;
   }
 
-  Future<void> setQuickSave(bool quickSave) async {
-    await _prefs.setBool(_quickSave, quickSave);
+  Future<void> setQuickSaveType(QuickSaveType quickSaveType) async {
+    await _prefs.setString(_quickSaveType, quickSaveType.name);
   }
 
   bool isAutoFinish() {
