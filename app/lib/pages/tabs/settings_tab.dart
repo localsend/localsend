@@ -354,6 +354,20 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ),
                 if (vm.advanced)
+                  _SettingsEntry(
+                    label: t.settingsTab.network.discoveryTimeout,
+                    child: TextFieldTv(
+                      name: t.settingsTab.network.discoveryTimeout,
+                      controller: vm.timeoutController,
+                      onChanged: (s) async {
+                        final timeout = int.tryParse(s);
+                        if (timeout != null) {
+                          await ref.notifier(settingsProvider).setDiscoveryTimeout(timeout);
+                        }
+                      },
+                    ),
+                  ),
+                if (vm.advanced)
                   _BooleanEntry(
                     label: t.settingsTab.network.encryption,
                     value: vm.settings.https,
