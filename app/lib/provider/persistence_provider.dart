@@ -226,15 +226,15 @@ class PersistenceService {
   }
 
   int getPort() {
-    return _prefs.getInt(_portKey) ?? defaultDiscoveryTimeout;
-  }
-
-  int getDiscoveryTimeout() {
-    return _prefs.getInt(_timeoutKey) ?? defaultDiscoveryTimeout;
+    return _prefs.getInt(_portKey) ?? defaultPort;
   }
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  int getDiscoveryTimeout() {
+    return _prefs.getInt(_timeoutKey) ?? defaultDiscoveryTimeout;
   }
 
   Future<void> setDiscoveryTimeout(int timeout) async {
