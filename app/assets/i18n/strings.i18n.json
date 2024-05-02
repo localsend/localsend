@@ -402,6 +402,9 @@
     "qr": {
       "title": "QR Code"
     },
+    "zoom": {
+      "title": "URL"
+    },
     "quickActions": {
       "title": "Quick Actions",
       "counter": "Counter",
