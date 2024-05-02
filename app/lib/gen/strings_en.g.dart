@@ -606,6 +606,7 @@ class _StringsSettingsTabNetworkEn {
 	String get deviceType => 'Device type';
 	String get deviceModel => 'Device model';
 	String get port => 'Port';
+	String get discoveryTimeout => 'Discovery Timeout';
 	String portWarning({required Object defaultPort}) => 'You might not be detected by other devices because you are using a custom port. (default: ${defaultPort})';
 	String get encryption => 'Encryption';
 	String get multicastGroup => 'Multicast';
