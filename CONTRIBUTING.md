@@ -79,8 +79,8 @@ Git based distribution:
 [flathub repo]: https://github.com/flathub/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [aur repo]: https://aur.archlinux.org/localsend-bin.git
-[nixos]: https://search.nixos.org/packages?show=localsend
-[nixos repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
+[nixpkgs]: https://search.nixos.org/packages?show=localsend
+[nixpkgs repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [f-droid repo]: https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.localsend.localsend_app.yml
 
