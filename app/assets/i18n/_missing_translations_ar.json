@@ -5,11 +5,19 @@
   ],
   "settingsTab": {
     "send": {
-      "title": "أرسِل",
-      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي"
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+    },
+    "network": {
+      "discoveryTimeout": "Discovery Timeout"
     }
   },
   "webSharePage": {
-    "autoAccept": "قبول الطلبات تلقائيا"
+    "autoAccept": "Automatically accept requests"
+  },
+  "dialogs": {
+    "zoom": {
+      "title": "URL"
+    }
   }
 }

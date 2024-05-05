@@ -25,6 +25,9 @@
       "title": "Send",
       "shareViaLinkAutoAccept": "Share via link: Auto accept"
     },
+    "network": {
+      "discoveryTimeout": "Discovery Timeout"
+    },
     "other": {
       "title": "Other",
       "support": "Support LocalSend",
@@ -73,6 +76,9 @@
     "historyClearDialog": {
       "title": "Clear history",
       "content": "Do you really want to delete the entire history?"
+    },
+    "zoom": {
+      "title": "URL"
     }
   }
 }
