@@ -76,7 +76,7 @@ class _StringsGeneralSr extends _StringsGeneralEn {
 	@override String get example => 'Primer';
 	@override String get files => 'Fajlovi';
 	@override String get finished => 'Završeno';
-	@override String get hide => 'Sakri';
+	@override String get hide => 'Sakrij';
 	@override String get off => 'Isključeno';
 	@override String get offline => 'Offline';
 	@override String get on => 'On';
@@ -392,7 +392,7 @@ class _StringsAliasGeneratorSr extends _StringsAliasGeneratorEn {
 		'Dunja',
 	];
 
-	/// In some languages, the adjective must be last. Not the case in Serbian, but serbian adjektives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation.
+	/// In some languages, the adjective must be last. Not the case in Serbian, but serbian adjectives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation.
 	@override String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 

@@ -426,6 +426,7 @@ class _StringsDialogsEn {
 	late final _StringsDialogsNoPermissionEn noPermission = _StringsDialogsNoPermissionEn._(_root);
 	late final _StringsDialogsNotAvailableOnPlatformEn notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEn._(_root);
 	late final _StringsDialogsQrEn qr = _StringsDialogsQrEn._(_root);
+	late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
 	late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
 	late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
 	late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
@@ -881,6 +882,16 @@ class _StringsDialogsQrEn {
 
 	// Translations
 	String get title => 'QR Code';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomEn {
+	_StringsDialogsZoomEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

@@ -139,6 +139,7 @@ class _StringsSettingsTabTr extends _StringsSettingsTabEn {
 	@override String get title => 'Ayarlar';
 	@override late final _StringsSettingsTabGeneralTr general = _StringsSettingsTabGeneralTr._(_root);
 	@override late final _StringsSettingsTabReceiveTr receive = _StringsSettingsTabReceiveTr._(_root);
+	@override late final _StringsSettingsTabSendTr send = _StringsSettingsTabSendTr._(_root);
 	@override late final _StringsSettingsTabNetworkTr network = _StringsSettingsTabNetworkTr._(_root);
 	@override String get advancedSettings => 'Gelişmiş ayarlar';
 	@override late final _StringsSettingsTabOtherTr other = _StringsSettingsTabOtherTr._(_root);
@@ -269,6 +270,7 @@ class _StringsWebSharePageTr extends _StringsWebSharePageEn {
 	@override String get requests => 'İstekler';
 	@override String get noRequests => 'Henüz istek yok.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'İstekleri otomatik olarak kabul et';
 	@override String get encryptionHint => 'LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.';
 	@override String pendingRequests({required Object n}) => 'Bekleyen istekler: ${n}';
 }
@@ -501,6 +503,17 @@ class _StringsSettingsTabReceiveTr extends _StringsSettingsTabReceiveEn {
 	@override String get saveToGallery => 'Medyayı galeriye kaydet';
 	@override String get saveToHistory => 'Geçmişe kaydet';
 	@override String get autoFinish => 'Otomatik bitir';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendTr extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gönder';
+	@override String get shareViaLinkAutoAccept => 'Link aracılığıyla paylaş: Otomatik olarak kabul et';
 }
 
 // Path: settingsTab.network
