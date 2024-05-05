@@ -95,30 +95,24 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (_stateEnum == _ServerState.initializing ||
-                      _stateEnum == _ServerState.stopping) ...[
+                  if (_stateEnum == _ServerState.initializing || _stateEnum == _ServerState.stopping) ...[
                     const CircularProgressIndicator(),
                     const SizedBox(height: 20),
                     Center(
                       child: Text(
-                        _stateEnum == _ServerState.initializing
-                            ? t.webSharePage.loading
-                            : t.webSharePage.stopping,
+                        _stateEnum == _ServerState.initializing ? t.webSharePage.loading : t.webSharePage.stopping,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                   ] else if (_initializedError != null) ...[
-                    const Icon(Icons.error_outline,
-                        size: 48, color: Colors.red),
+                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
                     const SizedBox(height: 10),
                     Center(
-                      child: Text(t.webSharePage.error,
-                          style: Theme.of(context).textTheme.titleLarge),
+                      child: Text(t.webSharePage.error, style: Theme.of(context).textTheme.titleLarge),
                     ),
                     const SizedBox(height: 10),
                     Center(
-                      child: SelectableText(_initializedError!,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                      child: SelectableText(_initializedError!, style: Theme.of(context).textTheme.bodyMedium),
                     ),
                   ],
                 ],
@@ -132,8 +126,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               children: [
-                Text(t.webSharePage.openLink(n: networkState.localIps.length),
-                    style: Theme.of(context).textTheme.titleMedium),
+                Text(t.webSharePage.openLink(n: networkState.localIps.length), style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 10),
                 Card(
                   color: Theme.of(context).colorScheme.secondaryContainer,
@@ -143,8 +136,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ...networkState.localIps.map((ip) {
-                          final url =
-                              '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
+                          final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
                           return Padding(
                             padding: const EdgeInsets.all(5),
                             child: Row(
@@ -156,16 +148,13 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 const SizedBox(width: 5),
                                 InkWell(
                                   onTap: () async {
-                                    await Clipboard.setData(
-                                        ClipboardData(text: url));
+                                    await Clipboard.setData(ClipboardData(text: url));
                                     if (mounted && checkPlatformIsDesktop()) {
-                                      context.showSnackBar(
-                                          t.general.copiedToClipboard);
+                                      context.showSnackBar(t.general.copiedToClipboard);
                                     }
                                   },
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2),
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                     child: Icon(Icons.content_copy, size: 16),
                                   ),
                                 ),
@@ -180,8 +169,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                     );
                                   },
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2),
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                     child: Icon(Icons.qr_code, size: 16),
                                   ),
                                 ),
@@ -196,8 +184,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                     );
                                   },
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2),
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                     child: Icon(Icons.zoom_in_map, size: 16),
                                   ),
                                 ),
@@ -210,8 +197,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Text(t.webSharePage.requests,
-                    style: Theme.of(context).textTheme.titleMedium),
+                Text(t.webSharePage.requests, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 10),
                 if (webSendState.sessions.isEmpty)
                   Padding(
@@ -233,64 +219,41 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 children: [
                                   Text(
                                     session.deviceInfo,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          color: session.responseHandler != null
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .warning
-                                              : null,
+                                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                          color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
                                         ),
                                   ),
                                   const SizedBox(height: 5),
-                                  Text(session.ip,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(color: Colors.grey)),
+                                  Text(session.ip, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey)),
                                 ],
                               ),
                             ),
                             if (session.responseHandler != null) ...[
                               TextButton(
                                 onPressed: () {
-                                  ref
-                                      .notifier(serverProvider)
-                                      .declineWebSendRequest(session.sessionId);
+                                  ref.notifier(serverProvider).declineWebSendRequest(session.sessionId);
                                 },
                                 style: TextButton.styleFrom(
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
                                 ),
                                 child: const Icon(Icons.close),
                               ),
                               TextButton(
                                 onPressed: () {
-                                  ref
-                                      .notifier(serverProvider)
-                                      .acceptWebSendRequest(session.sessionId);
+                                  ref.notifier(serverProvider).acceptWebSendRequest(session.sessionId);
                                 },
                                 style: TextButton.styleFrom(
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
                                 ),
                                 child: const Icon(Icons.check_circle),
                               ),
                             ] else
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
                                   t.general.accepted,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondaryContainer,
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                        color: Theme.of(context).colorScheme.onSecondaryContainer,
                                       ),
                                 ),
                               ),
@@ -303,8 +266,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(t.webSharePage.encryption,
-                        style: Theme.of(context).textTheme.titleMedium),
+                    Text(t.webSharePage.encryption, style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _encrypted,
@@ -317,23 +279,17 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                 if (_encrypted)
                   Text(
                     t.webSharePage.encryptionHint,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Theme.of(context).colorScheme.warning),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
                   ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(t.webSharePage.autoAccept,
-                        style: Theme.of(context).textTheme.titleMedium),
+                    Text(t.webSharePage.autoAccept, style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: webSendState.autoAccept,
                       onChanged: (value) {
-                        ref
-                            .notifier(serverProvider)
-                            .setWebSendAutoAccept(value == true);
+                        ref.notifier(serverProvider).setWebSendAutoAccept(value == true);
                       },
                     ),
                   ],
