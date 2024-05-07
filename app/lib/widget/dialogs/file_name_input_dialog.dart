@@ -33,14 +33,14 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
   bool _validate(String input) {
     if (_textController.text.isEmpty) {
       setState(() {
-        _errorMessage = 'You must enter a file name.';
+        _errorMessage = t.sanitization.empty;
       });
       return false;
     }
 
     if (!isValidFilename(input, os: Platform.operatingSystem)) {
       setState(() {
-        _errorMessage = 'Filename contains invalid characters.';
+        _errorMessage = t.sanitization.invalid;
       });
       return false;
     }

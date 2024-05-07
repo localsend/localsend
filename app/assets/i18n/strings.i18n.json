@@ -424,6 +424,10 @@
       "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
     }
   },
+  "sanitization": {
+    "empty": "Filename cannot be empty",
+    "invalid": "Filename contains invalid characters"
+  },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",

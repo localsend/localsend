@@ -108,7 +108,7 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
             Visibility(
                 visible: !_isValid,
                 child: Text(
-                  'Filename contains invalid characters',
+                  t.sanitization.invalid,
                   style: TextStyle(color: Theme.of(context).colorScheme.warning),
                 )),
             const SizedBox(height: 10),
