@@ -51,7 +51,7 @@ LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实�
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [Nixpkgs][]        | [APK][latest]  |               |            |
 | [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
 | [EXE Installer][latest]  |                         | [DEB][latest]      |                |               |            |
 | [Portable ZIP][latest]   |                         | [AppImage][latest] |                |               |            |
@@ -70,7 +70,7 @@ LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实�
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
-[nixos]: https://search.nixos.org/packages?show=localsend
+[nixpkgs]: https://search.nixos.org/packages?show=localsend
 [latest]: https://github.com/localsend/localsend/releases/latest
 [发行渠道]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 

@@ -123,6 +123,7 @@
       "deviceType": "Device type",
       "deviceModel": "Device model",
       "port": "Port",
+      "discoveryTimeout": "Discovery Timeout",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
@@ -400,6 +401,9 @@
     },
     "qr": {
       "title": "QR Code"
+    },
+    "zoom": {
+      "title": "URL"
     },
     "quickActions": {
       "title": "Quick Actions",

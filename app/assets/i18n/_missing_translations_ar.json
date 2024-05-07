@@ -4,12 +4,13 @@
     "After editing this file, you can run 'dart run slang apply --locale=ar' to quickly apply the newly added translations."
   ],
   "settingsTab": {
-    "send": {
-      "title": "أرسِل",
-      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي"
+    "network": {
+      "discoveryTimeout": "Discovery Timeout"
     }
   },
-  "webSharePage": {
-    "autoAccept": "قبول الطلبات تلقائيا"
+  "dialogs": {
+    "zoom": {
+      "title": "URL"
+    }
   }
 }
