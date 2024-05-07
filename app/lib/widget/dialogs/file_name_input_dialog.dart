@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:routerino/routerino.dart';
+import 'package:legalize/legalize.dart';
 
 class FileNameInputDialog extends StatefulWidget {
   final String originalName;
@@ -18,6 +22,7 @@ class FileNameInputDialog extends StatefulWidget {
 
 class _FileNameInputDialogState extends State<FileNameInputDialog> {
   final _textController = TextEditingController();
+  String _errorMessage = '';
 
   @override
   void initState() {
@@ -25,9 +30,38 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
     _textController.text = widget.initialName;
   }
 
+  bool _validate(String input) {
+    if (_textController.text.isEmpty) {
+      setState(() {
+        _errorMessage = 'You must enter a file name.';
+      });
+      return false;
+    }
+
+    if (!isValidFilename(input, os: Platform.operatingSystem)) {
+      setState(() {
+        _errorMessage = 'Filename contains invalid characters.';
+      });
+      return false;
+    }
+
+    if (_errorMessage.isNotEmpty) {
+      setState(() {
+        _errorMessage = '';
+      });
+    }
+
+    return true;
+  }
+
   void _submit() {
     if (mounted) {
       String input = _textController.text.trim();
+
+      if (!_validate(_textController.text)) {
+        return;
+      }
+
       if (!input.contains('.') && widget.originalName.contains('.')) {
         // user forgot extension, we fix it
         input = input.withExtension(widget.originalName.extension);
@@ -49,8 +83,18 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
           TextFormField(
             controller: _textController,
             autofocus: true,
+            onChanged: (value) => _validate(value.trim()),
             onFieldSubmitted: (_) => _submit,
           ),
+          const SizedBox(height: 5),
+          Visibility(
+              visible: _errorMessage.isNotEmpty,
+              child: Text(
+                _errorMessage,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.warning,
+                ),
+              )),
         ],
       ),
       actions: [
