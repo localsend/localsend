@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:gal/gal.dart';
+import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
@@ -111,7 +112,7 @@ Future<void> _saveFile({
 
 /// If there is a file with the same name, then it appends a number to its file name
 Future<String> digestFilePathAndPrepareDirectory({required String parentDirectory, required String fileName}) async {
-  final actualFileName = p.basename(fileName);
+  final actualFileName = legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 

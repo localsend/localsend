@@ -26,6 +26,7 @@ import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -398,11 +399,13 @@ class ReceiveController {
         fileName: receivingFile.desiredName!,
       );
 
+      final finalName = p.basename(destinationPath);
+
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       await saveFile(
         destinationPath: destinationPath,
-        name: receivingFile.desiredName!,
+        name: finalName,
         saveToGallery: saveToGallery,
         isImage: fileType == FileType.image,
         stream: request.read(),
