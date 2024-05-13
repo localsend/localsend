@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Tempo limite de deteção"
     }
   },
   "dialogs": {
