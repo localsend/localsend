@@ -304,8 +304,8 @@
       "original": "Originale: {original}"
     },
     "historyClearDialog": {
-      "title": "Cancella cronologia,
-      "content": "Vuoi davvero eliminare l'intera cronologia??"
+      "title": "Cancella cronologia",
+      "content": "Vuoi davvero eliminare l'intera cronologia?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
