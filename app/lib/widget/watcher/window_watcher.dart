@@ -101,6 +101,7 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
       if (ref.read(settingsProvider).minimizeToTray) {
         await hideToTray();
       } else {
+        await destroyTray();
         exit(0);
       }
     } catch (e) {

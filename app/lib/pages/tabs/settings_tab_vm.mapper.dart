@@ -30,6 +30,8 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   static const Field<SettingsTabVm, TextEditingController> _f$deviceModelController = Field('deviceModelController', _$deviceModelController);
   static TextEditingController _$portController(SettingsTabVm v) => v.portController;
   static const Field<SettingsTabVm, TextEditingController> _f$portController = Field('portController', _$portController);
+  static TextEditingController _$timeoutController(SettingsTabVm v) => v.timeoutController;
+  static const Field<SettingsTabVm, TextEditingController> _f$timeoutController = Field('timeoutController', _$timeoutController);
   static TextEditingController _$multicastController(SettingsTabVm v) => v.multicastController;
   static const Field<SettingsTabVm, TextEditingController> _f$multicastController = Field('multicastController', _$multicastController);
   static SettingsState _$settings(SettingsTabVm v) => v.settings;
@@ -63,6 +65,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     #aliasController: _f$aliasController,
     #deviceModelController: _f$deviceModelController,
     #portController: _f$portController,
+    #timeoutController: _f$timeoutController,
     #multicastController: _f$multicastController,
     #settings: _f$settings,
     #serverState: _f$serverState,
@@ -84,6 +87,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
         aliasController: data.dec(_f$aliasController),
         deviceModelController: data.dec(_f$deviceModelController),
         portController: data.dec(_f$portController),
+        timeoutController: data.dec(_f$timeoutController),
         multicastController: data.dec(_f$multicastController),
         settings: data.dec(_f$settings),
         serverState: data.dec(_f$serverState),
@@ -151,6 +155,7 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out> implem
       TextEditingController? aliasController,
       TextEditingController? deviceModelController,
       TextEditingController? portController,
+      TextEditingController? timeoutController,
       TextEditingController? multicastController,
       SettingsState? settings,
       ServerState? serverState,
@@ -185,6 +190,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           TextEditingController? aliasController,
           TextEditingController? deviceModelController,
           TextEditingController? portController,
+          TextEditingController? timeoutController,
           TextEditingController? multicastController,
           SettingsState? settings,
           Object? serverState = $none,
@@ -202,6 +208,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (aliasController != null) #aliasController: aliasController,
         if (deviceModelController != null) #deviceModelController: deviceModelController,
         if (portController != null) #portController: portController,
+        if (timeoutController != null) #timeoutController: timeoutController,
         if (multicastController != null) #multicastController: multicastController,
         if (settings != null) #settings: settings,
         if (serverState != $none) #serverState: serverState,
@@ -221,6 +228,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       aliasController: data.get(#aliasController, or: $value.aliasController),
       deviceModelController: data.get(#deviceModelController, or: $value.deviceModelController),
       portController: data.get(#portController, or: $value.portController),
+      timeoutController: data.get(#timeoutController, or: $value.timeoutController),
       multicastController: data.get(#multicastController, or: $value.multicastController),
       settings: data.get(#settings, or: $value.settings),
       serverState: data.get(#serverState, or: $value.serverState),

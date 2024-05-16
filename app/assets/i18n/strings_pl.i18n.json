@@ -123,6 +123,7 @@
       "deviceType": "Typ urządzenia",
       "deviceModel": "Model urządzenia",
       "port": "Port",
+      "discoveryTimeout": "Limit czasu wykrywania",
       "portWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: {defaultPort})",
       "encryption": "Szyfrowanie",
       "multicastGroup": "Multicast",
@@ -330,6 +331,9 @@
     },
     "qr": {
       "title": "Kod QR"
+    },
+    "zoom": {
+      "title": "Adres URL"
     },
     "quickActions": {
       "title": "Szybkie akcje",

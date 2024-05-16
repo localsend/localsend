@@ -426,6 +426,7 @@ class _StringsDialogsEn {
 	late final _StringsDialogsNoPermissionEn noPermission = _StringsDialogsNoPermissionEn._(_root);
 	late final _StringsDialogsNotAvailableOnPlatformEn notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEn._(_root);
 	late final _StringsDialogsQrEn qr = _StringsDialogsQrEn._(_root);
+	late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
 	late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
 	late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
 	late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
@@ -606,6 +607,7 @@ class _StringsSettingsTabNetworkEn {
 	String get deviceType => 'Device type';
 	String get deviceModel => 'Device model';
 	String get port => 'Port';
+	String get discoveryTimeout => 'Discovery Timeout';
 	String portWarning({required Object defaultPort}) => 'You might not be detected by other devices because you are using a custom port. (default: ${defaultPort})';
 	String get encryption => 'Encryption';
 	String get multicastGroup => 'Multicast';
@@ -880,6 +882,16 @@ class _StringsDialogsQrEn {
 
 	// Translations
 	String get title => 'QR Code';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomEn {
+	_StringsDialogsZoomEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

@@ -19,6 +19,11 @@ const fallbackProtocolVersion = '1.0';
 /// and multicast port.
 const defaultPort = 53317;
 
+/// The default discovery timeout in milliseconds.
+/// This is the time the discovery server waits for responses.
+/// If no response is received within this time, the target server is unavailable.
+const defaultDiscoveryTimeout = 2000;
+
 /// The default multicast group should be 224.0.0.0/24
 /// because on some Android devices this is the only IP range
 /// that can receive UDP multicast messages.

@@ -1,12 +1,11 @@
 # LocalSend
 
-[![CI状态][ci-badge]][ci-workflow]
+[![CI 状态][ci-badge]][ci-workflow]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
 [主页][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
-
 
 [English](README.md)
 
@@ -17,7 +16,7 @@
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend 是一个免费、开源的应用程序，允许你在本地网络上安全地与附近设备共享文件和消息，无需互联网连接。
+LocalSend 是一个自由、开源的应用程序，允许你在本地网络上安全地与附近设备共享文件和消息，无需互联网连接。
 
 - [关于](#关于)
 - [截图](#截图)
@@ -38,7 +37,7 @@ LocalSend 是一个免费、开源的应用程序，允许你在本地网络上�
 
 ## 关于
 
-LocalSend 是一个跨平台应用程序，使用REST API和HTTPS加密实现设备之间的安全通信。与依赖外部服务器的其他消息应用程序不同，LocalSend 不需要互联网连接或第三方服务器，因此成为本地通信的快速可靠解决方案。
+LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实现设备之间的安全通信。与依赖外部服务器的其他消息应用程序不同，LocalSend 不需要互联网连接或第三方服务器，因此成为本地通信的快速可靠解决方案。
 
 ## 截图
 
@@ -52,7 +51,7 @@ LocalSend 是一个跨平台应用程序，使用REST API和HTTPS加密实现设
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [NixOS][]          | [APK][latest]  |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [Nixpkgs][]        | [APK][latest]  |               |            |
 | [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
 | [EXE Installer][latest]  |                         | [DEB][latest]      |                |               |            |
 | [Portable ZIP][latest]   |                         | [AppImage][latest] |                |               |            |
@@ -71,7 +70,7 @@ LocalSend 是一个跨平台应用程序，使用REST API和HTTPS加密实现设
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
-[nixos]: https://search.nixos.org/packages?show=localsend
+[nixpkgs]: https://search.nixos.org/packages?show=localsend
 [latest]: https://github.com/localsend/localsend/releases/latest
 [发行渠道]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
@@ -129,7 +128,7 @@ LocalSend 使用 [fvm](https://fvm.app) 管理项目的 Flutter 版本（在 [.f
    - 添加新的语言：创建一个新文件；参见：[语言代码][locale codes]。
 3. 可选步骤：重新运行此应用程序
    1. 执行 `cd app` 进入 app 目录。
-   2. 确保你已经 [运行](#getting-started) 过此应用程序一次。
+   2. 确保你已经 [运行](#开始使用) 过此应用程序一次。
    3. 通过 `flutter pub run slang` 更新翻译
    4. 通过 `flutter run` 运行应用程序
    5. 提交拉取请求
@@ -139,7 +138,7 @@ LocalSend 使用 [fvm](https://fvm.app) 管理项目的 Flutter 版本（在 [.f
 
 **_注意：_ 用 `@` 装饰的字段不是用于翻译的；它们在应用程序中没有任何用处，仅仅是关于文件的信息性文本或为翻译者提供上下文。**
 
-### Bug修复和改进
+### Bug 修复和改进
 
 - **Bug 修复：** 如果发现 bug，请创建一个带有清晰描述问题及解决方法的拉取请求。
 - **改进：** 有改进 LocalSend 的想法吗？请先创建一个问题来讨论为什么需要这个改进。
@@ -212,7 +211,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-欢迎提交拉取请求!有一个 `snap` 分支可以尝试使用。
+欢迎提交拉取请求！仓库有一个 `snap` 分支可以尝试使用。
 
 ## 贡献者
 

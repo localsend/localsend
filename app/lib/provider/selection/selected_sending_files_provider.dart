@@ -197,7 +197,7 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
 class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
   @override
   List<CrossFile> reduce() {
-    return List.empty(growable: false);
+    return const [];
   }
 
   @override

@@ -111,6 +111,10 @@
       "saveToGallery": "حفظ الوسائط في المعرض",
       "saveToHistory": "حفظ في التاريخ"
     },
+    "send": {
+      "title": "أرسِل",
+      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي"
+    },
     "network": {
       "title": "شبكة الاتصال",
       "needRestart": "أعد تشغيل الخادم لتطبيق الإعدادات!",
@@ -217,6 +221,7 @@
     "requests": "الطلبات",
     "noRequests": "لا يوجد طلبات حتى الآن.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "قبول الطلبات تلقائيا",
     "encryptionHint": "يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
     "pendingRequests": "الطلبات المعلقة: {n}"
   },

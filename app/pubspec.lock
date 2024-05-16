@@ -812,6 +812,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  macos_dock_progress:
+    dependency: "direct main"
+    description:
+      name: macos_dock_progress
+      sha256: "4dfd32c3117903944d9069ec2b22054e5226180cea57ad94b5908436609eb884"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   markdown:
     dependency: transitive
     description:
@@ -1450,14 +1458,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  system_tray:
-    dependency: "direct main"
-    description:
-      name: system_tray
-      sha256: "40444e5de8ed907822a98694fd031b8accc3cb3c0baa547634ce76189cf3d9cf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
   term_glyph:
     dependency: transitive
     description:
@@ -1509,12 +1509,11 @@ packages:
   tray_manager:
     dependency: "direct main"
     description:
-      path: "."
-      ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
-      resolved-ref: b37f5e088e0f02c45a684ae41e9d2da2d5c596db
-      url: "https://github.com/Tienisto/tray_manager.git"
-    source: git
-    version: "0.2.0"
+      name: tray_manager
+      sha256: e0ac9a88b2700f366b8629b97e8663b6ef450a2f169560a685dc167bfe9c9c29
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   type_plus:
     dependency: transitive
     description:
@@ -1739,6 +1738,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.8"
+  windows_taskbar:
+    dependency: "direct main"
+    description:
+      name: windows_taskbar
+      sha256: "204edfdb280a7053febdf50fc9b49b3c007255bd8a83c082d10c174ec6548f33"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   xdg_directories:
     dependency: transitive
     description:

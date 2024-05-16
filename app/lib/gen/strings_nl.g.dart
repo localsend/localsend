@@ -544,7 +544,7 @@ class _StringsProgressPageTotalNl extends _StringsProgressPageTotalEn {
 	@override late final _StringsProgressPageTotalTitleNl title = _StringsProgressPageTotalTitleNl._(_root);
 	@override String count({required Object curr, required Object n}) => 'Bestanden: ${curr} / ${n}';
 	@override String size({required Object curr, required Object n}) => 'Grootte: ${curr} / ${n}';
-	@override String speed({required Object speed}) => 'Sneelheid: ${speed}/s';
+	@override String speed({required Object speed}) => 'Snelheid: ${speed}/s';
 }
 
 // Path: dialogs.addFile

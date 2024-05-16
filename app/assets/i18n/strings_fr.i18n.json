@@ -111,6 +111,10 @@
       "saveToGallery": "Sauvegarder les médias dans la galerie",
       "saveToHistory": "Enregistrer dans l'historique"
     },
+    "send": {
+      "title": "Envoyer",
+      "shareViaLinkAutoAccept": "Envoyer via un lien: Accepter automatiquement"
+    },
     "network": {
       "title": "Réseau",
       "needRestart": "Redémarrez le serveur pour appliquer les paramètres !",
@@ -217,6 +221,7 @@
     "requests": "Requêtes",
     "noRequests": "Aucune requête en attente.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Accepter automatiquement les requêtes",
     "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente: {n}"
   },

@@ -40,6 +40,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         deviceType: _persistence.getDeviceType(),
         deviceModel: _persistence.getDeviceModel(),
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
+        discoveryTimeout: _persistence.getDiscoveryTimeout(),
       );
 
   Future<void> setAlias(String alias) async {
@@ -74,6 +75,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setPort(port);
     state = state.copyWith(
       port: port,
+    );
+  }
+
+  Future<void> setDiscoveryTimeout(int timeout) async {
+    await _persistence.setDiscoveryTimeout(timeout);
+    state = state.copyWith(
+      discoveryTimeout: timeout,
     );
   }
 

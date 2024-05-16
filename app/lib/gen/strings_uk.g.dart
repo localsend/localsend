@@ -512,7 +512,7 @@ class _StringsSettingsTabSendUk extends _StringsSettingsTabSendEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Надіслати';
+	@override String get title => 'Надсилання';
 	@override String get shareViaLinkAutoAccept => 'Поділитися через посилання: Приймати автоматично';
 }
 

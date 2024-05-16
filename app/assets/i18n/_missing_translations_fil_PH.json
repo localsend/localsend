@@ -7,9 +7,17 @@
     "send": {
       "title": "Send",
       "shareViaLinkAutoAccept": "Share via link: Auto accept"
+    },
+    "network": {
+      "discoveryTimeout": "Discovery Timeout"
     }
   },
   "webSharePage": {
     "autoAccept": "Automatically accept requests"
+  },
+  "dialogs": {
+    "zoom": {
+      "title": "URL"
+    }
   }
 }

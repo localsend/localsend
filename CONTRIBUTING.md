@@ -64,8 +64,8 @@ Git based distribution:
 | [Homebrew][]   | [Homebrew Repo][]   | [@Tienisto][], Github Actions                      |
 | [Flathub][]    | [Flathub Repo][]    | [@proletarius101][], [@Tienisto][], Github Actions |
 | [AUR][]        | [AUR Repo][]        | [@Nixuge][]                                        |
-| [NixOS][]      | [NixOS Repo][]      | [@sikmir][], [@linsui][]                           |
-| [F-Droid][]    | [F-Droid Repo][]    | [@Tienisto][], [F-Droid CI][]                      |
+| [Nixpkgs][]    | [Nixpkgs Repo][]    | [@sikmir][], [@linsui][]                           |
+| [F-Droid][]    | [F-Droid Repo][]    | [@linsui][], [@Tienisto][], [F-Droid CI][]         |
 
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
 [winget repo]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
@@ -79,8 +79,8 @@ Git based distribution:
 [flathub repo]: https://github.com/flathub/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [aur repo]: https://aur.archlinux.org/localsend-bin.git
-[nixos]: https://search.nixos.org/packages?show=localsend
-[nixos repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
+[nixpkgs]: https://search.nixos.org/packages?show=localsend
+[nixpkgs repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [f-droid repo]: https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.localsend.localsend_app.yml
 

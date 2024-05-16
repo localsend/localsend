@@ -194,7 +194,7 @@
       },
       "count": "Bestanden: {curr} / {n}",
       "size": "Grootte: {curr} / {n}",
-      "speed": "Sneelheid: {speed}/s"
+      "speed": "Snelheid: {speed}/s"
     }
   },
   "webSharePage": {
