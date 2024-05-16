@@ -31,7 +31,6 @@ class _StringsIt extends Translations {
 	@override late final _StringsGeneralIt general = _StringsGeneralIt._(_root);
 	@override late final _StringsReceiveTabIt receiveTab = _StringsReceiveTabIt._(_root);
 	@override late final _StringsSendTabIt sendTab = _StringsSendTabIt._(_root);
-	@override late final _StringsDonationPageIt donationPage = _StringsDonationPageIt._(_root);
 	@override late final _StringsSettingsTabIt settingsTab = _StringsSettingsTabIt._(_root);
 	@override late final _StringsTroubleshootPageIt troubleshootPage = _StringsTroubleshootPageIt._(_root);
 	@override late final _StringsReceiveHistoryPageIt receiveHistoryPage = _StringsReceiveHistoryPageIt._(_root);
@@ -43,6 +42,7 @@ class _StringsIt extends Translations {
 	@override late final _StringsProgressPageIt progressPage = _StringsProgressPageIt._(_root);
 	@override late final _StringsWebSharePageIt webSharePage = _StringsWebSharePageIt._(_root);
 	@override late final _StringsAboutPageIt aboutPage = _StringsAboutPageIt._(_root);
+	@override late final _StringsDonationPageIt donationPage = _StringsDonationPageIt._(_root);
 	@override late final _StringsChangelogPageIt changelogPage = _StringsChangelogPageIt._(_root);
 	@override late final _StringsAliasGeneratorIt aliasGenerator = _StringsAliasGeneratorIt._(_root);
 	@override late final _StringsDialogsIt dialogs = _StringsDialogsIt._(_root);
@@ -62,7 +62,7 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get accepted => 'Accettato';
 	@override String get add => 'Aggiungi';
 	@override String get advanced => 'Avanzate';
-	@override String get cancel => 'Interrompi';
+	@override String get cancel => 'Annulla';
 	@override String get close => 'Chiudi';
 	@override String get confirm => 'Conferma';
 	@override String get continueStr => 'Continua';
@@ -129,20 +129,6 @@ class _StringsSendTabIt extends _StringsSendTabEn {
 	@override String get placeItems => 'Inserire gli oggetti da condividere.';
 }
 
-// Path: donationPage
-class _StringsDonationPageIt extends _StringsDonationPageEn {
-	_StringsDonationPageIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Dona';
-	@override String get info => 'LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l\'applicazione, puoi supportare lo sviluppo con una donazione.';
-	@override String donate({required Object amount}) => 'Dona ${amount}';
-	@override String get thanks => 'Grazie per il tuo supporto!';
-	@override String get restore => 'Ripristina acquisti';
-}
-
 // Path: settingsTab
 class _StringsSettingsTabIt extends _StringsSettingsTabEn {
 	_StringsSettingsTabIt._(_StringsIt root) : this._root = root, super._(root);
@@ -151,9 +137,9 @@ class _StringsSettingsTabIt extends _StringsSettingsTabEn {
 
 	// Translations
 	@override String get title => 'Impostazioni';
-	@override late final _StringsSettingsTabSendIt send = _StringsSettingsTabSendIt._(_root);
 	@override late final _StringsSettingsTabGeneralIt general = _StringsSettingsTabGeneralIt._(_root);
 	@override late final _StringsSettingsTabReceiveIt receive = _StringsSettingsTabReceiveIt._(_root);
+	@override late final _StringsSettingsTabSendIt send = _StringsSettingsTabSendIt._(_root);
 	@override late final _StringsSettingsTabNetworkIt network = _StringsSettingsTabNetworkIt._(_root);
 	@override late final _StringsSettingsTabOtherIt other = _StringsSettingsTabOtherIt._(_root);
 	@override String get advancedSettings => 'Impostazioni avanzate';
@@ -273,7 +259,6 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get autoAccept => 'Accetta automaticamente le richieste';
 	@override String get title => 'Condividi tramite link';
 	@override String get loading => 'Avvio del server...';
 	@override String get stopping => 'Arresto del server...';
@@ -285,6 +270,7 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 	@override String get requests => 'Richieste';
 	@override String get noRequests => 'Nessuna richiesta ancora.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'Accetta automaticamente le richieste';
 	@override String get encryptionHint => 'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
 	@override String pendingRequests({required Object n}) => 'Richieste in sospeso: ${n}';
 }
@@ -304,6 +290,20 @@ class _StringsAboutPageIt extends _StringsAboutPageEn {
 	@override String get author => 'Autore';
 	@override String get contributors => 'Contributori';
 	@override String get translators => 'Traduttori';
+}
+
+// Path: donationPage
+class _StringsDonationPageIt extends _StringsDonationPageEn {
+	_StringsDonationPageIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dona';
+	@override String get info => 'LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l\'applicazione, puoi supportare lo sviluppo con una donazione.';
+	@override String donate({required Object amount}) => 'Dona ${amount}';
+	@override String get thanks => 'Grazie per il tuo supporto!';
+	@override String get restore => 'Ripristina acquisti';
 }
 
 // Path: changelogPage
@@ -350,6 +350,7 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionIt noPermission = _StringsDialogsNoPermissionIt._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformIt notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformIt._(_root);
 	@override late final _StringsDialogsQrIt qr = _StringsDialogsQrIt._(_root);
+	@override late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
 	@override late final _StringsDialogsQuickActionsIt quickActions = _StringsDialogsQuickActionsIt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice = _StringsDialogsQuickSaveNoticeIt._(_root);
 	@override late final _StringsDialogsSendModeHelpIt sendModeHelp = _StringsDialogsSendModeHelpIt._(_root);
@@ -468,17 +469,6 @@ class _StringsSendTabSendModesIt extends _StringsSendTabSendModesEn {
 	@override String get link => 'Condividi tramite link';
 }
 
-// Path: settingsTab.send
-class _StringsSettingsTabSendIt extends _StringsSettingsTabSendEn {
-	_StringsSettingsTabSendIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Invia';
-	@override String get shareViaLinkAutoAccept => 'Condividi via link: Accetta automaticamente';
-}
-
 // Path: settingsTab.general
 class _StringsSettingsTabGeneralIt extends _StringsSettingsTabGeneralEn {
 	_StringsSettingsTabGeneralIt._(_StringsIt root) : this._root = root, super._(root);
@@ -507,13 +497,24 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get autoFinish => 'Termina automaticamente';
 	@override String get title => 'Ricevi';
 	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get autoFinish => 'Termina automaticamente';
 	@override String get destination => 'Destinazione';
 	@override String get downloads => '(Download)';
 	@override String get saveToGallery => 'Salva i media nella galleria';
 	@override String get saveToHistory => 'Salva nella cronologia';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendIt extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Invia';
+	@override String get shareViaLinkAutoAccept => 'Condividi via link: Accetta automaticamente';
 }
 
 // Path: settingsTab.network
@@ -530,6 +531,7 @@ class _StringsSettingsTabNetworkIt extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Tipo di dispositivo';
 	@override String get deviceModel => 'Modello di dispositivo';
 	@override String get port => 'Porta';
+	@override String get discoveryTimeout => 'Timeout di rilevamento';
 	@override String portWarning({required Object defaultPort}) => 'Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: ${defaultPort})';
 	@override String get encryption => 'Crittografia';
 	@override String get multicastGroup => 'Multicast';
@@ -736,8 +738,8 @@ class _StringsDialogsHistoryClearDialogIt extends _StringsDialogsHistoryClearDia
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Clear history';
-	@override String get content => 'Do you really want to delete the entire history?';
+	@override String get title => 'Cancella cronologia';
+	@override String get content => 'Vuoi davvero eliminare l\'intera cronologia?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -804,6 +806,16 @@ class _StringsDialogsQrIt extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'Codice QR';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomIt extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

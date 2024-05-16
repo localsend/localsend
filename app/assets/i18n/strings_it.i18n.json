@@ -77,19 +77,8 @@
     "help": "Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.",
     "placeItems": "Inserire gli oggetti da condividere."
   },
-  "donationPage": {
-    "title": "Dona",
-    "info": "LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l'applicazione, puoi supportare lo sviluppo con una donazione.",
-    "donate": "Dona {amount}",
-    "thanks": "Grazie per il tuo supporto!",
-    "restore": "Ripristina acquisti"
-  },
   "settingsTab": {
     "title": "Impostazioni",
-    "send": {
-      "title": "Invia",
-      "shareViaLinkAutoAccept": "Condividi via link: Accetta automaticamente"
-    },
     "general": {
       "title": "Generale",
       "brightness": "Tema",
@@ -114,13 +103,17 @@
       "animations": "Animazioni"
     },
     "receive": {
-      "autoFinish": "Termina automaticamente",
       "title": "Ricevi",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Termina automaticamente",
       "destination": "Destinazione",
       "downloads": "(Download)",
       "saveToGallery": "Salva i media nella galleria",
       "saveToHistory": "Salva nella cronologia"
+    },
+    "send": {
+      "title": "Invia",
+      "shareViaLinkAutoAccept": "Condividi via link: Accetta automaticamente"
     },
     "network": {
       "title": "Rete",
@@ -130,6 +123,7 @@
       "deviceType": "Tipo di dispositivo",
       "deviceModel": "Modello di dispositivo",
       "port": "Porta",
+      "discoveryTimeout": "Timeout di rilevamento",
       "portWarning": "Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: {defaultPort})",
       "encryption": "Crittografia",
       "multicastGroup": "Multicast",
@@ -217,7 +211,6 @@
     }
   },
   "webSharePage": {
-    "autoAccept": "Accetta automaticamente le richieste",
     "title": "Condividi tramite link",
     "loading": "Avvio del server...",
     "stopping": "Arresto del server...",
@@ -229,6 +222,7 @@
     "requests": "Richieste",
     "noRequests": "Nessuna richiesta ancora.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Accetta automaticamente le richieste",
     "encryptionHint": "LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
   },
@@ -241,6 +235,13 @@
     "author": "Autore",
     "contributors": "Contributori",
     "translators": "Traduttori"
+  },
+  "donationPage": {
+    "title": "Dona",
+    "info": "LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l'applicazione, puoi supportare lo sviluppo con una donazione.",
+    "donate": "Dona {amount}",
+    "thanks": "Grazie per il tuo supporto!",
+    "restore": "Ripristina acquisti"
   },
   "changelogPage": {
     "title": "Changelog"
@@ -330,6 +331,9 @@
     },
     "qr": {
       "title": "Codice QR"
+    },
+    "zoom": {
+      "title": "URL"
     },
     "quickActions": {
       "title": "Azioni Rapide",

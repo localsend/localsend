@@ -45,5 +45,9 @@
     "zoom": {
       "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Filename cannot be empty",
+    "invalid": "Filename contains invalid characters"
   }
 }

@@ -353,6 +353,7 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsZhCn quickActions = _StringsDialogsQuickActionsZhCn._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
+	@override late final _StringsDialogsDialogsZhCn dialogs = _StringsDialogsDialogsZhCn._(_root);
 }
 
 // Path: tray
@@ -846,6 +847,16 @@ class _StringsDialogsSendModeHelpZhCn extends _StringsDialogsSendModeHelpEn {
 	@override String get link => '未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。';
 }
 
+// Path: dialogs.dialogs
+class _StringsDialogsDialogsZhCn extends _StringsDialogsDialogsEn {
+	_StringsDialogsDialogsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsDialogsDialogsZoomZhCn zoom = _StringsDialogsDialogsZoomZhCn._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _StringsSettingsTabGeneralBrightnessOptionsZhCn extends _StringsSettingsTabGeneralBrightnessOptionsEn {
 	_StringsSettingsTabGeneralBrightnessOptionsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
@@ -890,4 +901,14 @@ class _StringsProgressPageTotalTitleZhCn extends _StringsProgressPageTotalTitleE
 	@override String get finishedError => '已完成，但发生错误';
 	@override String get canceledSender => '发送者已取消';
 	@override String get canceledReceiver => '接收者已取消';
+}
+
+// Path: dialogs.dialogs.zoom
+class _StringsDialogsDialogsZoomZhCn extends _StringsDialogsDialogsZoomEn {
+	_StringsDialogsDialogsZoomZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }

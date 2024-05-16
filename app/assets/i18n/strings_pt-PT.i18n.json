@@ -123,6 +123,7 @@
       "deviceType": "Tipo de dispositivo",
       "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
+      "discoveryTimeout": "Tempo limite de deteção",
       "portWarning": "Pode estar indetectável para outros dispositivos por estar a usar uma porta personalizada. (Padrão: {defaultPort})",
       "encryption": "Encriptação",
       "multicastGroup": "Multicast",
@@ -403,6 +404,9 @@
     },
     "qr": {
       "title": "QR Code"
+    },
+    "zoom": {
+      "title": "URL"
     },
     "quickActions": {
       "title": "Ações rápidas",

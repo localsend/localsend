@@ -3,14 +3,8 @@
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
   ],
-  "settingsTab": {
-    "network": {
-      "discoveryTimeout": "Тайм-аут виявлення"
-    }
-  },
-  "dialogs": {
-    "zoom": {
-      "title": "URL-адреса"
-    }
+  "sanitization": {
+    "empty": "Filename cannot be empty",
+    "invalid": "Filename contains invalid characters"
   }
 }

@@ -501,7 +501,7 @@ class _StringsSettingsTabReceiveDe extends _StringsSettingsTabReceiveEn {
 	@override String get autoFinish => 'Autom. beenden';
 	@override String get destination => 'Ziel-Ordner';
 	@override String get downloads => '(Downloads)';
-	@override String get saveToGallery => 'Medien in die Gallerie speichern';
+	@override String get saveToGallery => 'Medien in die Galerie speichern';
 	@override String get saveToHistory => 'In Verlauf speichern';
 }
 

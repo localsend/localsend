@@ -123,6 +123,7 @@
       "deviceType": "Тип пристрою",
       "deviceModel": "Модель пристрою",
       "port": "Порт",
+      "discoveryTimeout": "Тайм-аут виявлення",
       "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
       "multicastGroup": "Групова передача",
@@ -330,6 +331,9 @@
     },
     "qr": {
       "title": "QR-код"
+    },
+    "zoom": {
+      "title": "URL-адреса"
     },
     "quickActions": {
       "title": "Швидкі дії",

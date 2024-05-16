@@ -123,6 +123,7 @@
       "deviceType": "Тип устройства",
       "deviceModel": "Модель устройства",
       "port": "Порт",
+      "discoveryTimeout": "Тайм-аут обнаружения",
       "portWarning": "Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский порт. (default: {defaultPort})",
       "encryption": "Шифрование",
       "multicastGroup": "Мультивещание",
@@ -330,6 +331,9 @@
     },
     "qr": {
       "title": "QR-код"
+    },
+    "zoom": {
+      "title": "URL-адрес"
     },
     "quickActions": {
       "title": "Быстрые действия",

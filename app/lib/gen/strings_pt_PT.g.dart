@@ -424,6 +424,7 @@ class _StringsDialogsPtPt extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionPtPt noPermission = _StringsDialogsNoPermissionPtPt._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformPtPt notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformPtPt._(_root);
 	@override late final _StringsDialogsQrPtPt qr = _StringsDialogsQrPtPt._(_root);
+	@override late final _StringsDialogsZoomPtPt zoom = _StringsDialogsZoomPtPt._(_root);
 	@override late final _StringsDialogsQuickActionsPtPt quickActions = _StringsDialogsQuickActionsPtPt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticePtPt quickSaveNotice = _StringsDialogsQuickSaveNoticePtPt._(_root);
 	@override late final _StringsDialogsSendModeHelpPtPt sendModeHelp = _StringsDialogsSendModeHelpPtPt._(_root);
@@ -604,6 +605,7 @@ class _StringsSettingsTabNetworkPtPt extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Tipo de dispositivo';
 	@override String get deviceModel => 'Modelo do dispositivo';
 	@override String get port => 'Porta';
+	@override String get discoveryTimeout => 'Tempo limite de deteção';
 	@override String portWarning({required Object defaultPort}) => 'Pode estar indetectável para outros dispositivos por estar a usar uma porta personalizada. (Padrão: ${defaultPort})';
 	@override String get encryption => 'Encriptação';
 	@override String get multicastGroup => 'Multicast';
@@ -878,6 +880,16 @@ class _StringsDialogsQrPtPt extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR Code';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomPtPt extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomPtPt._(_StringsPtPt root) : this._root = root, super._(root);
+
+	@override final _StringsPtPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

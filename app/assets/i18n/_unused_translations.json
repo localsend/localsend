@@ -51,7 +51,15 @@
   "uk": {},
   "ur": {},
   "vi": {},
-  "zh-CN": {},
+  "zh-CN": {
+    "dialogs": {
+      "dialogs": {
+        "zoom": {
+          "title": "URL"
+        }
+      }
+    }
+  },
   "zh-HK": {},
   "zh-TW": {}
 }

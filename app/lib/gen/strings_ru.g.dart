@@ -350,6 +350,7 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionRu noPermission = _StringsDialogsNoPermissionRu._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformRu notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformRu._(_root);
 	@override late final _StringsDialogsQrRu qr = _StringsDialogsQrRu._(_root);
+	@override late final _StringsDialogsZoomRu zoom = _StringsDialogsZoomRu._(_root);
 	@override late final _StringsDialogsQuickActionsRu quickActions = _StringsDialogsQuickActionsRu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeRu quickSaveNotice = _StringsDialogsQuickSaveNoticeRu._(_root);
 	@override late final _StringsDialogsSendModeHelpRu sendModeHelp = _StringsDialogsSendModeHelpRu._(_root);
@@ -530,6 +531,7 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Тип устройства';
 	@override String get deviceModel => 'Модель устройства';
 	@override String get port => 'Порт';
+	@override String get discoveryTimeout => 'Тайм-аут обнаружения';
 	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрование';
 	@override String get multicastGroup => 'Мультивещание';
@@ -804,6 +806,16 @@ class _StringsDialogsQrRu extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR-код';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomRu extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL-адрес';
 }
 
 // Path: dialogs.quickActions

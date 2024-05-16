@@ -350,6 +350,7 @@ class _StringsDialogsPl extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionPl noPermission = _StringsDialogsNoPermissionPl._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformPl notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformPl._(_root);
 	@override late final _StringsDialogsQrPl qr = _StringsDialogsQrPl._(_root);
+	@override late final _StringsDialogsZoomPl zoom = _StringsDialogsZoomPl._(_root);
 	@override late final _StringsDialogsQuickActionsPl quickActions = _StringsDialogsQuickActionsPl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticePl quickSaveNotice = _StringsDialogsQuickSaveNoticePl._(_root);
 	@override late final _StringsDialogsSendModeHelpPl sendModeHelp = _StringsDialogsSendModeHelpPl._(_root);
@@ -530,6 +531,7 @@ class _StringsSettingsTabNetworkPl extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Typ urządzenia';
 	@override String get deviceModel => 'Model urządzenia';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Limit czasu wykrywania';
 	@override String portWarning({required Object defaultPort}) => 'Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: ${defaultPort})';
 	@override String get encryption => 'Szyfrowanie';
 	@override String get multicastGroup => 'Multicast';
@@ -804,6 +806,16 @@ class _StringsDialogsQrPl extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'Kod QR';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomPl extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Adres URL';
 }
 
 // Path: dialogs.quickActions
