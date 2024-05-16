@@ -5,12 +5,12 @@
   ],
   "settingsTab": {
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Тайм-аут виявлення"
     }
   },
   "dialogs": {
     "zoom": {
-      "title": "URL"
+      "title": "URL-адреса"
     }
   }
 }
