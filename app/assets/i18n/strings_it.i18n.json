@@ -304,8 +304,8 @@
       "original": "Originale: {original}"
     },
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "Cancella cronologia",
+      "content": "Vuoi davvero eliminare l'intera cronologia?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -351,7 +351,7 @@
     }
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Le linee guida Apple sono molto rigide riguardo alla dicitura 'close'.",
     "open": "@:general.open",
     "close": "Chiudi LocalSend"
   },
@@ -363,7 +363,7 @@
     "size": "Dimensione"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Traduzioni per lo strumento di selezione multimediale per Android e Iphone",
     "confirm": "Conferma",
     "cancel": "Annulla",
     "edit": "Modifica",
