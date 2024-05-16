@@ -350,10 +350,8 @@
       "multiple": "发送文件给多个接收者。已选择的文件在发送后不会取消选择。",
       "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
     },
-    "dialogs": {
-      "zoom": {
-        "title": "URL"
-      }
+    "zoom": {
+      "title": "URL"
     }
   },
   "tray": {
