@@ -51,6 +51,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsChangelogPageEn changelogPage = _StringsChangelogPageEn._(_root);
 	late final _StringsAliasGeneratorEn aliasGenerator = _StringsAliasGeneratorEn._(_root);
 	late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
+	late final _StringsSanitizationEn sanitization = _StringsSanitizationEn._(_root);
 	late final _StringsTrayEn tray = _StringsTrayEn._(_root);
 	late final _StringsWebEn web = _StringsWebEn._(_root);
 	late final _StringsAssetPickerEn assetPicker = _StringsAssetPickerEn._(_root);
@@ -430,6 +431,17 @@ class _StringsDialogsEn {
 	late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
 	late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
 	late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationEn {
+	_StringsSanitizationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Filename cannot be empty';
+	String get invalid => 'Filename contains invalid characters';
 }
 
 // Path: tray

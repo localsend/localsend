@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:legalize/legalize.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -38,6 +42,26 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
   // random
   final _randomUuid = const Uuid().v4();
 
+  // sanity check
+  bool _isValid = true;
+
+  bool _validate(String input) {
+    if (!isValidFilename(input, os: Platform.operatingSystem) && input.isNotEmpty) {
+      setState(() {
+        _isValid = false;
+      });
+      return false;
+    }
+
+    if (!_isValid) {
+      setState(() {
+        _isValid = true;
+      });
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -74,11 +98,19 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
             TextField(
               autofocus: true,
               onChanged: (s) {
+                _validate(s);
                 setState(() {
                   _prefix = s;
                 });
               },
             ),
+            const SizedBox(height: 5),
+            Visibility(
+                visible: !_isValid,
+                child: Text(
+                  t.sanitization.invalid,
+                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                )),
             const SizedBox(height: 10),
             LabeledCheckbox(
               label: t.dialogs.quickActions.padZero,
@@ -118,6 +150,9 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
           onPressed: () {
             switch (_action) {
               case _QuickAction.counter:
+                if (!_isValid) {
+                  return;
+                }
                 ref.notifier(selectedReceivingFilesProvider).applyCounter(
                       prefix: _prefix,
                       padZero: _padZero,
