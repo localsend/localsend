@@ -350,6 +350,10 @@
       "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
     }
   },
+"sanitization": {
+    "empty": "Le nom du fichier ne peut pas être vide",
+    "invalid": "Le nom du fichier contient des caractères non valides"
+  },
   "tray": {
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
     "open": "@:general.open",
