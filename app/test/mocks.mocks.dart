@@ -11,7 +11,8 @@ import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
-import 'package:localsend_app/model/persistence/receive_history_entry.dart' as _i5;
+import 'package:localsend_app/model/persistence/receive_history_entry.dart'
+    as _i5;
 import 'package:localsend_app/model/send_mode.dart' as _i11;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -31,7 +32,8 @@ import 'package:shared_preferences/shared_preferences.dart' as _i13;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeStoredSecurityContext_0 extends _i1.SmartFake implements _i2.StoredSecurityContext {
+class _FakeStoredSecurityContext_0 extends _i1.SmartFake
+    implements _i2.StoredSecurityContext {
   _FakeStoredSecurityContext_0(
     Object parent,
     Invocation parentInvocation,
@@ -44,7 +46,8 @@ class _FakeStoredSecurityContext_0 extends _i1.SmartFake implements _i2.StoredSe
 /// A class which mocks [PersistenceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService {
+class MockPersistenceService extends _i1.Mock
+    implements _i3.PersistenceService {
   @override
   _i2.StoredSecurityContext getSecurityContext() => (super.noSuchMethod(
         Invocation.method(
@@ -68,7 +71,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i2.StoredSecurityContext);
 
   @override
-  _i4.Future<void> setSecurityContext(_i2.StoredSecurityContext? context) => (super.noSuchMethod(
+  _i4.Future<void> setSecurityContext(_i2.StoredSecurityContext? context) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setSecurityContext,
           [context],
@@ -88,7 +92,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as List<_i5.ReceiveHistoryEntry>);
 
   @override
-  _i4.Future<void> setReceiveHistory(List<_i5.ReceiveHistoryEntry>? entries) => (super.noSuchMethod(
+  _i4.Future<void> setReceiveHistory(List<_i5.ReceiveHistoryEntry>? entries) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setReceiveHistory,
           [entries],
@@ -108,7 +113,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as List<_i6.FavoriteDevice>);
 
   @override
-  _i4.Future<void> setFavorites(List<_i6.FavoriteDevice>? entries) => (super.noSuchMethod(
+  _i4.Future<void> setFavorites(List<_i6.FavoriteDevice>? entries) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setFavorites,
           [entries],
@@ -242,6 +248,26 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  int getDiscoveryTimeout() => (super.noSuchMethod(
+        Invocation.method(
+          #getDiscoveryTimeout,
+          [],
+        ),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  _i4.Future<void> setDiscoveryTimeout(int? timeout) => (super.noSuchMethod(
+        Invocation.method(
+          #setDiscoveryTimeout,
+          [timeout],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   bool getShareViaLinkAutoAccept() => (super.noSuchMethod(
         Invocation.method(
           #getShareViaLinkAutoAccept,
@@ -252,7 +278,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as bool);
 
   @override
-  _i4.Future<void> setShareViaLinkAutoAccept(bool? shareViaLinkAutoAccept) => (super.noSuchMethod(
+  _i4.Future<void> setShareViaLinkAutoAccept(bool? shareViaLinkAutoAccept) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setShareViaLinkAutoAccept,
           [shareViaLinkAutoAccept],
@@ -394,7 +421,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as bool);
 
   @override
-  _i4.Future<void> setMinimizeToTray(bool? minimizeToTray) => (super.noSuchMethod(
+  _i4.Future<void> setMinimizeToTray(bool? minimizeToTray) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setMinimizeToTray,
           [minimizeToTray],
@@ -414,7 +442,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as bool);
 
   @override
-  _i4.Future<void> setLaunchAtStartup(bool? launchAtStartup) => (super.noSuchMethod(
+  _i4.Future<void> setLaunchAtStartup(bool? launchAtStartup) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setLaunchAtStartup,
           [launchAtStartup],
@@ -434,7 +463,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as bool);
 
   @override
-  _i4.Future<void> setAutoStartLaunchMinimized(bool? launchMinimized) => (super.noSuchMethod(
+  _i4.Future<void> setAutoStartLaunchMinimized(bool? launchMinimized) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setAutoStartLaunchMinimized,
           [launchMinimized],
@@ -524,7 +554,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
-  Map<String, _i12.OffsetBase?> getWindowLastDimensions() => (super.noSuchMethod(
+  Map<String, _i12.OffsetBase?> getWindowLastDimensions() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getWindowLastDimensions,
           [],
@@ -534,7 +565,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as Map<String, _i12.OffsetBase?>);
 
   @override
-  _i4.Future<void> setSaveWindowPlacement(bool? savePlacement) => (super.noSuchMethod(
+  _i4.Future<void> setSaveWindowPlacement(bool? savePlacement) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setSaveWindowPlacement,
           [savePlacement],
@@ -554,7 +586,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as bool);
 
   @override
-  _i4.Future<void> setEnableAnimations(bool? enableAnimations) => (super.noSuchMethod(
+  _i4.Future<void> setEnableAnimations(bool? enableAnimations) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setEnableAnimations,
           [enableAnimations],
@@ -574,7 +607,8 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as bool);
 
   @override
-  _i4.Future<void> setDeviceType(_i2.DeviceType? deviceType) => (super.noSuchMethod(
+  _i4.Future<void> setDeviceType(_i2.DeviceType? deviceType) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setDeviceType,
           [deviceType],

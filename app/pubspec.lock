@@ -796,6 +796,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.2"
+  legalize:
+    dependency: "direct main"
+    description:
+      name: legalize
+      sha256: bc3068aa4f14588575c8b5ba2a9e608c242dad325e7f7c56fedd68adba33526a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   lints:
     dependency: transitive
     description:
