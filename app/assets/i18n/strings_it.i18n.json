@@ -226,6 +226,10 @@
     "encryptionHint": "LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
   },
+  "sanitization": {
+    "empty": "Il nome del file non può essere vuoto",
+    "invalid": "Il nome del file contiene caratteri invalidi"
+  },
   "aboutPage": {
     "title": "Riguardo LocalSend",
     "description": [
