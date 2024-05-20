@@ -354,6 +354,10 @@
       "title": "URL"
     }
   },
+  "sanitization": {
+    "empty": "文件名不能为空",
+    "invalid": "文件名包含无效字符"
+  },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
