@@ -5,15 +5,14 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:localsend_app/provider/logging/http_logs_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 class DioCollection {
-  final Dio startupCheckAnotherInstance;
   final Dio discovery;
   final Dio longLiving;
 
   DioCollection({
-    required this.startupCheckAnotherInstance,
     required this.discovery,
     required this.longLiving,
   });
@@ -22,9 +21,9 @@ class DioCollection {
 /// Provides a dio having a specific timeout.
 final dioProvider = ViewProvider((ref) {
   final securityContext = ref.watch(securityProvider);
+  final discoveryTimeout = ref.watch(settingsProvider.select((state) => state.discoveryTimeout));
   return DioCollection(
-    startupCheckAnotherInstance: createDio(const Duration(milliseconds: 100), securityContext, null),
-    discovery: createDio(const Duration(seconds: 2), securityContext, null),
+    discovery: createDio(Duration(milliseconds: discoveryTimeout), securityContext, null),
     longLiving: createDio(const Duration(days: 30), securityContext, ref),
   );
 });

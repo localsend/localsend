@@ -79,7 +79,7 @@ class _StringsGeneralSv extends _StringsGeneralEn {
 	@override String get offline => 'Offline';
 	@override String get on => 'På';
 	@override String get online => 'Online';
-	@override String get open => 'Öppen';
+	@override String get open => 'Öppna';
 	@override String get queue => 'Kö';
 	@override String get quickSave => 'Snabbspara';
 	@override String get renamed => 'Bytt namn';

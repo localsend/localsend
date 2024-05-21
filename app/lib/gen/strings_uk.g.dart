@@ -125,7 +125,7 @@ class _StringsSendTabUk extends _StringsSendTabEn {
 	@override String get sendMode => 'Режим надсилання';
 	@override late final _StringsSendTabSendModesUk sendModes = _StringsSendTabSendModesUk._(_root);
 	@override String get sendModeHelp => 'Довідка';
-	@override String get help => 'Будь ласка, переконайтесь, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.';
+	@override String get help => 'Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.';
 	@override String get placeItems => 'Додайте сюди файли, щоб поділитися.';
 }
 
@@ -285,7 +285,7 @@ class _StringsAboutPageUk extends _StringsAboutPageEn {
 	@override String get title => 'Про LocalSend';
 	@override List<String> get description => [
 		'LocalSend — це безкоштовний додаток з відкритим вихідним кодом, який дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.',
-		'Цей додаток доступний для Android, iOS, macOS, Windows і Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці.',
+		'Цей додаток доступний для Android, iOS, macOS, Windows та Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці.',
 	];
 	@override String get author => 'Автор';
 	@override String get contributors => 'Учасники';
@@ -350,6 +350,7 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionUk noPermission = _StringsDialogsNoPermissionUk._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformUk notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformUk._(_root);
 	@override late final _StringsDialogsQrUk qr = _StringsDialogsQrUk._(_root);
+	@override late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
 	@override late final _StringsDialogsQuickActionsUk quickActions = _StringsDialogsQuickActionsUk._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice = _StringsDialogsQuickSaveNoticeUk._(_root);
 	@override late final _StringsDialogsSendModeHelpUk sendModeHelp = _StringsDialogsSendModeHelpUk._(_root);
@@ -391,7 +392,7 @@ class _StringsAssetPickerUk extends _StringsAssetPickerEn {
 	@override String get cancel => 'Скасувати';
 	@override String get edit => 'Редагувати';
 	@override String get gifIndicator => 'GIF';
-	@override String get loadFailed => 'Помилка завантаження';
+	@override String get loadFailed => 'Не вдалося завантажити';
 	@override String get original => 'Оригінал';
 	@override String get preview => 'Попередній перегляд';
 	@override String get select => 'Вибрати';
@@ -530,6 +531,7 @@ class _StringsSettingsTabNetworkUk extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Тип пристрою';
 	@override String get deviceModel => 'Модель пристрою';
 	@override String get port => 'Порт';
+	@override String get discoveryTimeout => 'Тайм-аут виявлення';
 	@override String portWarning({required Object defaultPort}) => 'Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрування';
 	@override String get multicastGroup => 'Групова передача';
@@ -804,6 +806,16 @@ class _StringsDialogsQrUk extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR-код';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomUk extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL-адреса';
 }
 
 // Path: dialogs.quickActions

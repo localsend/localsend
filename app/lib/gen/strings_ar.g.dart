@@ -139,6 +139,7 @@ class _StringsSettingsTabAr extends _StringsSettingsTabEn {
 	@override String get title => 'إعدادات';
 	@override late final _StringsSettingsTabGeneralAr general = _StringsSettingsTabGeneralAr._(_root);
 	@override late final _StringsSettingsTabReceiveAr receive = _StringsSettingsTabReceiveAr._(_root);
+	@override late final _StringsSettingsTabSendAr send = _StringsSettingsTabSendAr._(_root);
 	@override late final _StringsSettingsTabNetworkAr network = _StringsSettingsTabNetworkAr._(_root);
 	@override late final _StringsSettingsTabOtherAr other = _StringsSettingsTabOtherAr._(_root);
 	@override String get advancedSettings => 'الإعدادات المتقدمة';
@@ -269,6 +270,7 @@ class _StringsWebSharePageAr extends _StringsWebSharePageEn {
 	@override String get requests => 'الطلبات';
 	@override String get noRequests => 'لا يوجد طلبات حتى الآن.';
 	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get autoAccept => 'قبول الطلبات تلقائيا';
 	@override String get encryptionHint => 'يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.';
 	@override String pendingRequests({required Object n}) => 'الطلبات المعلقة: ${n}';
 }
@@ -572,6 +574,17 @@ class _StringsSettingsTabReceiveAr extends _StringsSettingsTabReceiveEn {
 	@override String get downloads => '(التنزيلات)';
 	@override String get saveToGallery => 'حفظ الوسائط في المعرض';
 	@override String get saveToHistory => 'حفظ في التاريخ';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendAr extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'أرسِل';
+	@override String get shareViaLinkAutoAccept => 'المشاركة عبر الرابط: قبول تلقائي';
 }
 
 // Path: settingsTab.network

@@ -51,6 +51,7 @@ const _themeKey = 'ls_theme'; // now called brightness
 const _colorKey = 'ls_color';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
+const _timeoutKey = 'ls_timeout';
 const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
@@ -230,6 +231,14 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  int getDiscoveryTimeout() {
+    return _prefs.getInt(_timeoutKey) ?? defaultDiscoveryTimeout;
+  }
+
+  Future<void> setDiscoveryTimeout(int timeout) async {
+    await _prefs.setInt(_timeoutKey, timeout);
   }
 
   bool getShareViaLinkAutoAccept() {

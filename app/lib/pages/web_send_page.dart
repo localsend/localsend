@@ -10,6 +10,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
+import 'package:localsend_app/widget/dialogs/zoom_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -170,6 +171,21 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                   child: const Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                     child: Icon(Icons.qr_code, size: 16),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (_) => ZoomDialog(
+                                        data: url,
+                                        listenIncomingWebSendRequests: true,
+                                      ),
+                                    );
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    child: Icon(Icons.zoom_in_map, size: 16),
                                   ),
                                 ),
                               ],

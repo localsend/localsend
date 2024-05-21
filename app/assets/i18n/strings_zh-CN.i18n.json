@@ -123,6 +123,7 @@
       "deviceType": "设备类型",
       "deviceModel": "设备型号",
       "port": "端口",
+      "discoveryTimeout": "发现超时",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多播",
@@ -348,6 +349,9 @@
       "single": "发送文件给一个接收者。已选择的文件在发送后会取消选择。",
       "multiple": "发送文件给多个接收者。已选择的文件在发送后不会取消选择。",
       "link": "未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。"
+    },
+    "zoom": {
+      "title": "URL"
     }
   },
   "tray": {

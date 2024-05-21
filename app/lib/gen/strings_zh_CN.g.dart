@@ -353,6 +353,7 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsZhCn quickActions = _StringsDialogsQuickActionsZhCn._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
+	@override late final _StringsDialogsZoomZhCn zoom = _StringsDialogsZoomZhCn._(_root);
 }
 
 // Path: tray
@@ -530,6 +531,7 @@ class _StringsSettingsTabNetworkZhCn extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => '设备类型';
 	@override String get deviceModel => '设备型号';
 	@override String get port => '端口';
+	@override String get discoveryTimeout => '发现超时';
 	@override String portWarning({required Object defaultPort}) => '由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：${defaultPort}）';
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多播';
@@ -843,6 +845,16 @@ class _StringsDialogsSendModeHelpZhCn extends _StringsDialogsSendModeHelpEn {
 	@override String get single => '发送文件给一个接收者。已选择的文件在发送后会取消选择。';
 	@override String get multiple => '发送文件给多个接收者。已选择的文件在发送后不会取消选择。';
 	@override String get link => '未安装 LocalSend 的接收者可以在浏览器中打开链接以下载选中的文件。';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomZhCn extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
