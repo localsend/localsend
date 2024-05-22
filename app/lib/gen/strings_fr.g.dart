@@ -46,6 +46,7 @@ class _StringsFr extends Translations {
 	@override late final _StringsChangelogPageFr changelogPage = _StringsChangelogPageFr._(_root);
 	@override late final _StringsAliasGeneratorFr aliasGenerator = _StringsAliasGeneratorFr._(_root);
 	@override late final _StringsDialogsFr dialogs = _StringsDialogsFr._(_root);
+	@override late final _StringsSanitizationFr sanitization = _StringsSanitizationFr._(_root);
 	@override late final _StringsTrayFr tray = _StringsTrayFr._(_root);
 	@override late final _StringsWebFr web = _StringsWebFr._(_root);
 	@override late final _StringsAssetPickerFr assetPicker = _StringsAssetPickerFr._(_root);
@@ -353,6 +354,17 @@ class _StringsDialogsFr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsFr quickActions = _StringsDialogsQuickActionsFr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFr quickSaveNotice = _StringsDialogsQuickSaveNoticeFr._(_root);
 	@override late final _StringsDialogsSendModeHelpFr sendModeHelp = _StringsDialogsSendModeHelpFr._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationFr extends _StringsSanitizationEn {
+	_StringsSanitizationFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Le nom du fichier ne peut pas être vide';
+	@override String get invalid => 'Le nom du fichier contient des caractères non valides';
 }
 
 // Path: tray
