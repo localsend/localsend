@@ -46,6 +46,7 @@ class _StringsFa extends Translations {
 	@override late final _StringsChangelogPageFa changelogPage = _StringsChangelogPageFa._(_root);
 	@override late final _StringsAliasGeneratorFa aliasGenerator = _StringsAliasGeneratorFa._(_root);
 	@override late final _StringsDialogsFa dialogs = _StringsDialogsFa._(_root);
+	@override late final _StringsSanitizationFa sanitization = _StringsSanitizationFa._(_root);
 	@override late final _StringsTrayFa tray = _StringsTrayFa._(_root);
 	@override late final _StringsWebFa web = _StringsWebFa._(_root);
 	@override late final _StringsAssetPickerFa assetPicker = _StringsAssetPickerFa._(_root);
@@ -421,9 +422,21 @@ class _StringsDialogsFa extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionFa noPermission = _StringsDialogsNoPermissionFa._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformFa notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformFa._(_root);
 	@override late final _StringsDialogsQrFa qr = _StringsDialogsQrFa._(_root);
+	@override late final _StringsDialogsZoomFa zoom = _StringsDialogsZoomFa._(_root);
 	@override late final _StringsDialogsQuickActionsFa quickActions = _StringsDialogsQuickActionsFa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFa quickSaveNotice = _StringsDialogsQuickSaveNoticeFa._(_root);
 	@override late final _StringsDialogsSendModeHelpFa sendModeHelp = _StringsDialogsSendModeHelpFa._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationFa extends _StringsSanitizationEn {
+	_StringsSanitizationFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'نام فایل نمی تواند خالی باشد';
+	@override String get invalid => 'نام فایل حاوی کاراکترهای نامعتبر است';
 }
 
 // Path: tray
@@ -601,6 +614,7 @@ class _StringsSettingsTabNetworkFa extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'نوع دستگاه';
 	@override String get deviceModel => 'مدل دستگاه';
 	@override String get port => 'پورت';
+	@override String get discoveryTimeout => 'مدت یابش';
 	@override String portWarning({required Object defaultPort}) => 'ممکن است به دلیل استفاده از یک پورت سفارشی، دستگاه های دیگر شما را شناسایی نکنند (پیشفرض : ${defaultPort})';
 	@override String get encryption => 'رمزنگاری';
 	@override String get multicastGroup => 'چندپخشی';
@@ -875,6 +889,16 @@ class _StringsDialogsQrFa extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR کد';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomFa extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'آدرس اینترنتی';
 }
 
 // Path: dialogs.quickActions

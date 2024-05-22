@@ -46,6 +46,7 @@ class _StringsPtPt extends Translations {
 	@override late final _StringsChangelogPagePtPt changelogPage = _StringsChangelogPagePtPt._(_root);
 	@override late final _StringsAliasGeneratorPtPt aliasGenerator = _StringsAliasGeneratorPtPt._(_root);
 	@override late final _StringsDialogsPtPt dialogs = _StringsDialogsPtPt._(_root);
+	@override late final _StringsSanitizationPtPt sanitization = _StringsSanitizationPtPt._(_root);
 	@override late final _StringsTrayPtPt tray = _StringsTrayPtPt._(_root);
 	@override late final _StringsWebPtPt web = _StringsWebPtPt._(_root);
 	@override late final _StringsAssetPickerPtPt assetPicker = _StringsAssetPickerPtPt._(_root);
@@ -428,6 +429,17 @@ class _StringsDialogsPtPt extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsPtPt quickActions = _StringsDialogsQuickActionsPtPt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticePtPt quickSaveNotice = _StringsDialogsQuickSaveNoticePtPt._(_root);
 	@override late final _StringsDialogsSendModeHelpPtPt sendModeHelp = _StringsDialogsSendModeHelpPtPt._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationPtPt extends _StringsSanitizationEn {
+	_StringsSanitizationPtPt._(_StringsPtPt root) : this._root = root, super._(root);
+
+	@override final _StringsPtPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'O nome do ficheiro não pode estar em branco';
+	@override String get invalid => 'O nome do ficheiro contém caracteres inválidos';
 }
 
 // Path: tray

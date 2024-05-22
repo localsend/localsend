@@ -46,6 +46,7 @@ class _StringsSrCyrl extends Translations {
 	@override late final _StringsChangelogPageSrCyrl changelogPage = _StringsChangelogPageSrCyrl._(_root);
 	@override late final _StringsAliasGeneratorSrCyrl aliasGenerator = _StringsAliasGeneratorSrCyrl._(_root);
 	@override late final _StringsDialogsSrCyrl dialogs = _StringsDialogsSrCyrl._(_root);
+	@override late final _StringsSanitizationSrCyrl sanitization = _StringsSanitizationSrCyrl._(_root);
 	@override late final _StringsTraySrCyrl tray = _StringsTraySrCyrl._(_root);
 	@override late final _StringsWebSrCyrl web = _StringsWebSrCyrl._(_root);
 	@override late final _StringsAssetPickerSrCyrl assetPicker = _StringsAssetPickerSrCyrl._(_root);
@@ -421,9 +422,21 @@ class _StringsDialogsSrCyrl extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionSrCyrl noPermission = _StringsDialogsNoPermissionSrCyrl._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformSrCyrl notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformSrCyrl._(_root);
 	@override late final _StringsDialogsQrSrCyrl qr = _StringsDialogsQrSrCyrl._(_root);
+	@override late final _StringsDialogsZoomSrCyrl zoom = _StringsDialogsZoomSrCyrl._(_root);
 	@override late final _StringsDialogsQuickActionsSrCyrl quickActions = _StringsDialogsQuickActionsSrCyrl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeSrCyrl quickSaveNotice = _StringsDialogsQuickSaveNoticeSrCyrl._(_root);
 	@override late final _StringsDialogsSendModeHelpSrCyrl sendModeHelp = _StringsDialogsSendModeHelpSrCyrl._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationSrCyrl extends _StringsSanitizationEn {
+	_StringsSanitizationSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
+
+	@override final _StringsSrCyrl _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Име фајла не може бити празно';
+	@override String get invalid => 'Име фајла садржи недозвољене карактере';
 }
 
 // Path: tray
@@ -601,6 +614,7 @@ class _StringsSettingsTabNetworkSrCyrl extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Тип уређаја';
 	@override String get deviceModel => 'Модел уређаја';
 	@override String get port => 'Порт';
+	@override String get discoveryTimeout => 'Откривање отказано';
 	@override String portWarning({required Object defaultPort}) => 'Можда нећете бити пронађени од стране других уређаја јер користите неки други Порт. (default: ${defaultPort})';
 	@override String get encryption => 'Енкрипција';
 	@override String get multicastGroup => 'Мултикаст';
@@ -875,6 +889,16 @@ class _StringsDialogsQrSrCyrl extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR Код';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomSrCyrl extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
+
+	@override final _StringsSrCyrl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

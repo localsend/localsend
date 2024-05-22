@@ -41,6 +41,7 @@ class _StringsIt extends Translations {
 	@override late final _StringsSendPageIt sendPage = _StringsSendPageIt._(_root);
 	@override late final _StringsProgressPageIt progressPage = _StringsProgressPageIt._(_root);
 	@override late final _StringsWebSharePageIt webSharePage = _StringsWebSharePageIt._(_root);
+	@override late final _StringsSanitizationIt sanitization = _StringsSanitizationIt._(_root);
 	@override late final _StringsAboutPageIt aboutPage = _StringsAboutPageIt._(_root);
 	@override late final _StringsDonationPageIt donationPage = _StringsDonationPageIt._(_root);
 	@override late final _StringsChangelogPageIt changelogPage = _StringsChangelogPageIt._(_root);
@@ -273,6 +274,17 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 	@override String get autoAccept => 'Accetta automaticamente le richieste';
 	@override String get encryptionHint => 'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
 	@override String pendingRequests({required Object n}) => 'Richieste in sospeso: ${n}';
+}
+
+// Path: sanitization
+class _StringsSanitizationIt extends _StringsSanitizationEn {
+	_StringsSanitizationIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Il nome del file non può essere vuoto';
+	@override String get invalid => 'Il nome del file contiene caratteri invalidi';
 }
 
 // Path: aboutPage

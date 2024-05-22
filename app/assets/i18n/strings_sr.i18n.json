@@ -123,6 +123,7 @@
       "deviceType": "Tip uredjaja",
       "deviceModel": "Model uredjaja",
       "port": "Port",
+      "discoveryTimeout": "Otkrivanje otkazano",
       "portWarning": "Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom Port.(default: {defaultPort})",
       "encryption": "Enkripcija",
       "multicastGroup": "Multicast",
@@ -401,6 +402,9 @@
     "qr": {
       "title": "QR Code"
     },
+    "zoom": {
+      "title": "URL"
+    },
     "quickActions": {
       "title": "Brze Akcije",
       "counter": "Merač",
@@ -419,6 +423,10 @@
       "multiple": "Pošalji fajlove za više primalaca. Selekcija neće biti resetovana nakon završenog slanja.",
       "link": "Primaoci koji nemaju LocalSend instaliran, mogu da download-uju selektovane fajlove preko Linka u browseru."
     }
+  },
+  "sanitization": {
+    "empty": "Ime fajla ne može biti prazno",
+    "invalid": "Ime fajla sadrži nedozvoljene karaktere"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",

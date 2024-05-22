@@ -46,6 +46,7 @@ class _StringsSr extends Translations {
 	@override late final _StringsChangelogPageSr changelogPage = _StringsChangelogPageSr._(_root);
 	@override late final _StringsAliasGeneratorSr aliasGenerator = _StringsAliasGeneratorSr._(_root);
 	@override late final _StringsDialogsSr dialogs = _StringsDialogsSr._(_root);
+	@override late final _StringsSanitizationSr sanitization = _StringsSanitizationSr._(_root);
 	@override late final _StringsTraySr tray = _StringsTraySr._(_root);
 	@override late final _StringsWebSr web = _StringsWebSr._(_root);
 	@override late final _StringsAssetPickerSr assetPicker = _StringsAssetPickerSr._(_root);
@@ -72,14 +73,14 @@ class _StringsGeneralSr extends _StringsGeneralEn {
 	@override String get done => 'Gotovo';
 	@override String get delete => 'Izbriši';
 	@override String get edit => 'Izmeni';
-	@override String get error => 'Grešla';
+	@override String get error => 'Greška';
 	@override String get example => 'Primer';
 	@override String get files => 'Fajlovi';
 	@override String get finished => 'Završeno';
 	@override String get hide => 'Sakrij';
 	@override String get off => 'Isključeno';
 	@override String get offline => 'Offline';
-	@override String get on => 'On';
+	@override String get on => 'Uključeno';
 	@override String get online => 'Online';
 	@override String get open => 'Otvori';
 	@override String get queue => 'Stavi u Queue';
@@ -421,9 +422,21 @@ class _StringsDialogsSr extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionSr noPermission = _StringsDialogsNoPermissionSr._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformSr notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformSr._(_root);
 	@override late final _StringsDialogsQrSr qr = _StringsDialogsQrSr._(_root);
+	@override late final _StringsDialogsZoomSr zoom = _StringsDialogsZoomSr._(_root);
 	@override late final _StringsDialogsQuickActionsSr quickActions = _StringsDialogsQuickActionsSr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeSr quickSaveNotice = _StringsDialogsQuickSaveNoticeSr._(_root);
 	@override late final _StringsDialogsSendModeHelpSr sendModeHelp = _StringsDialogsSendModeHelpSr._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationSr extends _StringsSanitizationEn {
+	_StringsSanitizationSr._(_StringsSr root) : this._root = root, super._(root);
+
+	@override final _StringsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ime fajla ne može biti prazno';
+	@override String get invalid => 'Ime fajla sadrži nedozvoljene karaktere';
 }
 
 // Path: tray
@@ -601,6 +614,7 @@ class _StringsSettingsTabNetworkSr extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Tip uredjaja';
 	@override String get deviceModel => 'Model uredjaja';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Otkrivanje otkazano';
 	@override String portWarning({required Object defaultPort}) => 'Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom Port.(default: ${defaultPort})';
 	@override String get encryption => 'Enkripcija';
 	@override String get multicastGroup => 'Multicast';
@@ -875,6 +889,16 @@ class _StringsDialogsQrSr extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR Code';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomSr extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomSr._(_StringsSr root) : this._root = root, super._(root);
+
+	@override final _StringsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

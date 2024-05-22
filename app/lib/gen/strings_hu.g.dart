@@ -46,6 +46,7 @@ class _StringsHu extends Translations {
 	@override late final _StringsChangelogPageHu changelogPage = _StringsChangelogPageHu._(_root);
 	@override late final _StringsAliasGeneratorHu aliasGenerator = _StringsAliasGeneratorHu._(_root);
 	@override late final _StringsDialogsHu dialogs = _StringsDialogsHu._(_root);
+	@override late final _StringsSanitizationHu sanitization = _StringsSanitizationHu._(_root);
 	@override late final _StringsTrayHu tray = _StringsTrayHu._(_root);
 	@override late final _StringsWebHu web = _StringsWebHu._(_root);
 	@override late final _StringsAssetPickerHu assetPicker = _StringsAssetPickerHu._(_root);
@@ -350,9 +351,21 @@ class _StringsDialogsHu extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionHu noPermission = _StringsDialogsNoPermissionHu._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformHu notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformHu._(_root);
 	@override late final _StringsDialogsQrHu qr = _StringsDialogsQrHu._(_root);
+	@override late final _StringsDialogsZoomHu zoom = _StringsDialogsZoomHu._(_root);
 	@override late final _StringsDialogsQuickActionsHu quickActions = _StringsDialogsQuickActionsHu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeHu quickSaveNotice = _StringsDialogsQuickSaveNoticeHu._(_root);
 	@override late final _StringsDialogsSendModeHelpHu sendModeHelp = _StringsDialogsSendModeHelpHu._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationHu extends _StringsSanitizationEn {
+	_StringsSanitizationHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'A fájlnév nem lehet üres';
+	@override String get invalid => 'A fájlnév érvénytelen karaktereket tartalmaz';
 }
 
 // Path: tray
@@ -530,6 +543,7 @@ class _StringsSettingsTabNetworkHu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Eszköz típusa';
 	@override String get deviceModel => 'Eszköz modell';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Felfedezési időtúllépés';
 	@override String portWarning({required Object defaultPort}) => 'Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: ${defaultPort})';
 	@override String get encryption => 'Titkosítás';
 	@override String get multicastGroup => 'Multicast';
@@ -804,6 +818,16 @@ class _StringsDialogsQrHu extends _StringsDialogsQrEn {
 
 	// Translations
 	@override String get title => 'QR-kód';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomHu extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: dialogs.quickActions

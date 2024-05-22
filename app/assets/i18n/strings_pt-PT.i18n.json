@@ -427,6 +427,10 @@
       "link": "Os destinatários que não têm o LocalSend instalado podem descarregar os ficheiros selecionados abrindo o link fornecido no navegador."
     }
   },
+  "sanitization": {
+    "empty": "O nome do ficheiro não pode estar em branco",
+    "invalid": "O nome do ficheiro contém caracteres inválidos"
+  },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",

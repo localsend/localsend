@@ -46,6 +46,7 @@ class _StringsZhCn extends Translations {
 	@override late final _StringsChangelogPageZhCn changelogPage = _StringsChangelogPageZhCn._(_root);
 	@override late final _StringsAliasGeneratorZhCn aliasGenerator = _StringsAliasGeneratorZhCn._(_root);
 	@override late final _StringsDialogsZhCn dialogs = _StringsDialogsZhCn._(_root);
+	@override late final _StringsSanitizationZhCn sanitization = _StringsSanitizationZhCn._(_root);
 	@override late final _StringsTrayZhCn tray = _StringsTrayZhCn._(_root);
 	@override late final _StringsWebZhCn web = _StringsWebZhCn._(_root);
 	@override late final _StringsAssetPickerZhCn assetPicker = _StringsAssetPickerZhCn._(_root);
@@ -354,6 +355,17 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
 	@override late final _StringsDialogsZoomZhCn zoom = _StringsDialogsZoomZhCn._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationZhCn extends _StringsSanitizationEn {
+	_StringsSanitizationZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '文件名不能为空';
+	@override String get invalid => '文件名包含无效字符';
 }
 
 // Path: tray

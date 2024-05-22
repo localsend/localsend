@@ -101,7 +101,6 @@
       "launchAtStartup": "Auto. indítás bejelentkezés után",
       "launchMinimized": "Auto. indítás: Kis méretben",
       "animations": "Animációk"
-      },
     },
     "receive": {
       "title": "Fogadás",
@@ -123,8 +122,8 @@
       "alias": "Álnév",
       "deviceType": "Eszköz típusa",
       "deviceModel": "Eszköz modell",
-      "discoveryTimeout": "Felfedezési időtúllépés",
       "port": "Port",
+      "discoveryTimeout": "Felfedezési időtúllépés",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
@@ -333,6 +332,9 @@
     "qr": {
       "title": "QR-kód"
     },
+    "zoom": {
+      "title": "URL"
+    },
     "quickActions": {
       "title": "Gyors műveletek",
       "counter": "Számláló",
@@ -351,6 +353,10 @@
       "multiple": "Fájlokat küld több címzettnek. A kijelölés nem törlődik.",
       "link": "Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben."
     }
+  },
+  "sanitization": {
+    "empty": "A fájlnév nem lehet üres",
+    "invalid": "A fájlnév érvénytelen karaktereket tartalmaz"
   },
   "tray": {
     "@info": "Az Apple irányelvei nagyon szigorúak a 'közeli' megfogalmazással kapcsolatban.",
@@ -394,9 +400,5 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
-  },
-  "sanitization": {
-    "empty": "A fájlnév nem lehet üres",
-    "invalid": "A fájlnév érvénytelen karaktereket tartalmaz"
   }
 }

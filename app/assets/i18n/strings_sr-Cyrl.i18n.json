@@ -123,6 +123,7 @@
       "deviceType": "Тип уређаја",
       "deviceModel": "Модел уређаја",
       "port": "Порт",
+      "discoveryTimeout": "Откривање отказано",
       "portWarning": "Можда нећете бити пронађени од стране других уређаја јер користите неки други Порт. (default: {defaultPort})",
       "encryption": "Енкрипција",
       "multicastGroup": "Мултикаст",
@@ -401,6 +402,9 @@
     "qr": {
       "title": "QR Код"
     },
+    "zoom": {
+      "title": "URL"
+    },
     "quickActions": {
       "title": "Брзе акције",
       "counter": "Мерач",
@@ -419,6 +423,10 @@
       "multiple": "Пошаљи фајлове за више прималаца. Селекција неће бити ресетована након завршеног слања.",
       "link": "Примаоци који немају LocalSend инсталиран, могу да преузму селектоване фајлове преко Линка у browseru."
     }
+  },
+  "sanitization": {
+    "empty": "Име фајла не може бити празно",
+    "invalid": "Име фајла садржи недозвољене карактере"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",

@@ -2,9 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <pt-PT>.",
     "After editing this file, you can run 'dart run slang apply --locale=pt-PT' to quickly apply the newly added translations."
-  ],
-  "sanitization": {
-    "empty": "O nome do ficheiro não pode estar em branco",
-    "invalid": "O nome do ficheiro contém caracteres inválidos"
-  }
+  ]
 }
