@@ -5,16 +5,16 @@
   ],
   "settingsTab": {
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "مدت یابش"
     }
   },
   "dialogs": {
     "zoom": {
-      "title": "URL"
+      "title": "آدرس اینترنتی"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "نام فایل نمی تواند خالی باشد",
+    "invalid": "نام فایل حاوی کاراکترهای نامعتبر است"
   }
 }
