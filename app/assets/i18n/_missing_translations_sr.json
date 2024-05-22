@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Otkrivanje otkazano"
     }
   },
   "dialogs": {
@@ -14,7 +14,7 @@
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Ime fajla ne može biti prazno",
+    "invalid": "Ime fajla sadrži nedozvoljene karaktere"
   }
 }
