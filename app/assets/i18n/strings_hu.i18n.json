@@ -101,6 +101,7 @@
       "launchAtStartup": "Auto. indítás bejelentkezés után",
       "launchMinimized": "Auto. indítás: Kis méretben",
       "animations": "Animációk"
+      },
     },
     "receive": {
       "title": "Fogadás",
@@ -122,6 +123,7 @@
       "alias": "Álnév",
       "deviceType": "Eszköz típusa",
       "deviceModel": "Eszköz modell",
+      "discoveryTimeout": "Felfedezési időtúllépés",
       "port": "Port",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
@@ -392,5 +394,9 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
+  },
+  "sanitization": {
+    "empty": "A fájlnév nem lehet üres",
+    "invalid": "A fájlnév érvénytelen karaktereket tartalmaz"
   }
 }
