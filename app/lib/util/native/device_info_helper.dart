@@ -2,7 +2,9 @@ import 'package:common/common.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:slang/builder/model/enums.dart';
-import 'package:slang/builder/utils/string_extensions.dart';
+
+// ignore: implementation_imports
+import 'package:slang/src/builder/utils/string_extensions.dart';
 
 class DeviceInfoResult {
   final DeviceType deviceType;
