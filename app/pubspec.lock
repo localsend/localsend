@@ -796,6 +796,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.2"
+  legalize:
+    dependency: "direct main"
+    description:
+      name: legalize
+      sha256: bc3068aa4f14588575c8b5ba2a9e608c242dad325e7f7c56fedd68adba33526a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   lints:
     dependency: transitive
     description:
@@ -1358,26 +1366,26 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: "95dee03eb3fd1b36c99f365d4eace270a0d83c6148f8e7d1057806ef60cfaf12"
+      sha256: "0d8a8cbfd7858ed2bd9164a79bfb664ea83f1e124740b28acd0618757fc87ecc"
       url: "https://pub.dev"
     source: hosted
-    version: "3.29.0"
+    version: "3.31.0"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: "929ea4bf24f11e09afd2b01abd658f550da7eb4039ae83d91bc220f942e18cb3"
+      sha256: "6e60160e8000b91824c47221b20d9642e7408287a5a21837ecefc75270197586"
       url: "https://pub.dev"
     source: hosted
-    version: "3.29.0"
+    version: "3.31.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: "34c7cf297c608e24d3957a29e75c6790f4dbbfb1a4783d261a6c1e33ede7ad0f"
+      sha256: f8400292be49c11697d94af58d7f7d054c91af759f41ffe71e4e5413871ffc62
       url: "https://pub.dev"
     source: hosted
-    version: "3.29.0"
+    version: "3.31.0"
   slang_gpt:
     dependency: "direct dev"
     description:

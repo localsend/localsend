@@ -332,9 +332,6 @@
     "qr": {
       "title": "Kod QR"
     },
-    "zoom": {
-      "title": "Adres URL"
-    },
     "quickActions": {
       "title": "Szybkie akcje",
       "counter": "Licznik",
@@ -352,6 +349,9 @@
       "single": "Wysyła pliki do jednego odbiorcy. Wybór zostanie wyczyszczony po zakończonym transferze pliku.",
       "multiple": "Wysyła pliki do wielu odbiorców. Wybór nie zostanie wyczyszczony.",
       "link": "Odbiorcy, którzy nie mają zainstalowanego LocalSend, mogą pobrać wybrane pliki, otwierając link w swojej przeglądarce."
+    },
+    "zoom": {
+      "title": "Adres URL"
     }
   },
   "tray": {

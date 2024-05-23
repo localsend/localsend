@@ -105,11 +105,11 @@
     "receive": {
       "title": "Alım",
       "quickSave": "@:general.quickSave",
+      "autoFinish": "Otomatik bitir",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet",
-      "autoFinish": "Otomatik bitir"
+      "saveToHistory": "Geçmişe kaydet"
     },
     "send": {
       "title": "Gönder",
@@ -128,14 +128,14 @@
       "multicastGroup": "Çoklu yayın",
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
     },
-    "advancedSettings": "Gelişmiş ayarlar",
     "other": {
       "title": "Diğer",
       "support": "LocalSend'i destekle",
       "donate": "Bağış yap",
       "privacyPolicy": "Gizlilik politikası",
       "termsOfUse": "Kullanım koşulları"
-    }
+    },
+    "advancedSettings": "Gelişmiş ayarlar"
   },
   "troubleshootPage": {
     "title": "Sorun Giderme",
@@ -303,6 +303,10 @@
       "title": "Dosya adını giriniz",
       "original": "Orijinal: {original}"
     },
+    "historyClearDialog": {
+      "title": "Geçmişi temizle",
+      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
@@ -344,10 +348,6 @@
       "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
-    },
-    "historyClearDialog": {
-      "title": "Geçmişi temizle",
-      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
     }
   },
   "tray": {

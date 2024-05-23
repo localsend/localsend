@@ -405,9 +405,6 @@
     "qr": {
       "title": "QR Code"
     },
-    "zoom": {
-      "title": "URL"
-    },
     "quickActions": {
       "title": "Ações rápidas",
       "counter": "Contador",
@@ -425,6 +422,9 @@
       "single": "Envia ficheiros para um destinatário. A seleção será apagada após a conclusão da transferência dos ficheiros.",
       "multiple": "Envia ficheiros para vários destinatários. A seleção não será apagada.",
       "link": "Os destinatários que não têm o LocalSend instalado podem descarregar os ficheiros selecionados abrindo o link fornecido no navegador."
+    },
+    "zoom": {
+      "title": "URL"
     }
   },
   "sanitization": {

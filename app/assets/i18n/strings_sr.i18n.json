@@ -402,9 +402,6 @@
     "qr": {
       "title": "QR Code"
     },
-    "zoom": {
-      "title": "URL"
-    },
     "quickActions": {
       "title": "Brze Akcije",
       "counter": "Merač",
@@ -422,6 +419,9 @@
       "single": "Pošalji fajlove jednom primaocu. Selekcija će biti resetovana nakon završenog slanja.",
       "multiple": "Pošalji fajlove za više primalaca. Selekcija neće biti resetovana nakon završenog slanja.",
       "link": "Primaoci koji nemaju LocalSend instaliran, mogu da download-uju selektovane fajlove preko Linka u browseru."
+    },
+    "zoom": {
+      "title": "URL"
     }
   },
   "sanitization": {

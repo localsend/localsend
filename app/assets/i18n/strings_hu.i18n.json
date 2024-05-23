@@ -332,9 +332,6 @@
     "qr": {
       "title": "QR-kód"
     },
-    "zoom": {
-      "title": "URL"
-    },
     "quickActions": {
       "title": "Gyors műveletek",
       "counter": "Számláló",
@@ -352,6 +349,9 @@
       "single": "Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.",
       "multiple": "Fájlokat küld több címzettnek. A kijelölés nem törlődik.",
       "link": "Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben."
+    },
+    "zoom": {
+      "title": "URL"
     }
   },
   "sanitization": {
