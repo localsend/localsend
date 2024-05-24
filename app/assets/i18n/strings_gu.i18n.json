@@ -1,0 +1,316 @@
+{
+  "locale": "Gujarati",
+  "appName": "લોકલસેન્ડ",
+  "general": {
+    "accept": "સ્વીકારો",
+    "accepted": "સ્વીકૃત",
+    "add": "ઉમેરો",
+    "advanced": "અદ્યતન",
+    "cancel": "રદ કરો",
+    "close": "બંધ કરો",
+    "confirm": "પુષ્ટિ કરો",
+    "continueStr": "ચાલુ રાખો",
+    "copy": "નકલ કરો",
+    "copiedToClipboard": "ક્લિપબોર્ડમાં નકલ કર્યું",
+    "decline": "નામંજૂર કરો",
+    "done": "પૂરેપૂરૂં",
+    "delete": "કાઢી નાખો",
+    "edit": "ફેરફાર કરો",
+    "error": "ભુલ",
+    "example": "ઉદાહરણ",
+    "files": "ફાઈલો",
+    "finished": "સમાપ્ત",
+    "hide": "છુપાવો",
+    "off": "બંધ",
+    "offline": "ઑફલાઈન",
+    "on": "ચાલું",
+    "online": "ઑનલાઈન",
+    "open": "ખોલો",
+    "queue": "કતાર",
+    "quickSave": "ઝડપી સંગ્રહ",
+    "renamed": "નામ બદલ્યું",
+    "reset": "ફરીથી સેટ કરો",
+    "restart": "ફરીથી શરૂ કરો",
+    "settings": "સેટિંગ્સ",
+    "skipped": "છોડી દેવામાં આવ્યું",
+    "start": "શરૂ કરો",
+    "stop": "બંધ કરો",
+    "save": "સંગ્રહો",
+    "unchanged": "અપરિવર્તિત",
+    "unknown": "અજાણ",
+    "noItemInClipboard": "ક્લિપબોર્ડમાં કોઈ આઇટમ નથી"
+  },
+  "receiveTab": {
+    "title": "પ્રાપ્ત કરો",
+    "infoBox": {
+      "ip": "આઇપી:",
+      "port": "પોર્ટ:",
+      "alias": "ડિવાઇસ નામ:"
+    }
+  },
+  "sendTab": {
+    "title": "મોકલો",
+    "selection": {
+      "title": "પસંદ",
+      "files": "ફાઈલો: {files}",
+      "size": "કદ: {size}"
+    },
+    "picker": {
+      "file": "ફાઇલ",
+      "folder": "ફોલ્ડર",
+      "media": "મિડીયા",
+      "text": "ટેક્સ્ટ",
+      "app": "ઍપ",
+      "clipboard": "પેસ્ટ કરો"
+    },
+    "shareIntentInfo": "તમારા મોબાઇલ ઉપકરણની \"શેર\" સુવિધાનો ઉપયોગ કરીને ફાઇલો સરળતાથી પસંદ કરી શકો છો.",
+    "nearbyDevices": "નજીકના ઉપકરણો",
+    "thisDevice": "આ ઉપકરણ",
+    "scan": "ડિવાઇસ સ્કેન કરો",
+    "sendMode": "મોકલવાનો મોડ",
+    "sendModes": {
+      "single": "એકલ સ્વીકારક",
+      "multiple": "મલ્ટીપલ સ્વીકારક",
+      "link": "લિંક દ્વારા શેર કરો"
+    },
+    "sendModeHelp": "સમજૂતી",
+    "help": "કૃપા કરીને ખાતરી કરો કે ઇચ્છિત લક્ષ્ય પણ સમાન વાઇ-ફાઇ નેટવર્ક પર છે.",
+    "placeItems": "શેર કરવા માટે વસ્તુઓ મૂકો."
+  },
+  "settingsTab": {
+    "title": "સેટિંગ્સ",
+    "general": {
+      "title": "જનરલ",
+      "brightness": "થિમ",
+      "brightnessOptions": {
+        "system": "સિસ્ટમ",
+        "dark": "ડાર્ક",
+        "light": "લાઇટ"
+      },
+      "color": "રંગ",
+      "colorOptions": {
+        "system": "સિસ્ટમ",
+        "oled": "OLED"
+      },
+      "language": "ભાષા",
+      "languageOptions": {
+        "system": "સિસ્ટમ"
+      },
+      "saveWindowPlacement": "બંધ કરો: વિન્ડો પ્લેસમેન્ટ સાચવો",
+      "minimizeToTray": "બંધ કરો: ટ્રે/મેનુ બારમાં ન્યુનતમ કરો",
+      "launchAtStartup": "લોગિન પછી આપમેળે પ્રારંભ",
+      "launchMinimized": "આપમેળે પ્રારંભ: લુકાવામાં શરૂ કરો",
+      "animations": "એનિમેશન"
+    },
+    "receive": {
+      "title": "પ્રાપ્ત કરો",
+      "quickSave": "@:general.quickSave",
+      "autoFinish": "આપમેળે સમાપ્ત",
+      "destination": "ગંતવ્ય",
+      "downloads": "(ડાઉનલોડ્સ)",
+      "saveToGallery": "મિડિયા ગેલેરીમાં સાચવો",
+      "saveToHistory": "ઇતિહાસમાં સાચવો"
+    },
+    "send": {
+      "title": "મોકલો",
+      "shareViaLinkAutoAccept": "લિંક દ્વારા શેર કરો: આપમેળે સ્વીકારો"
+    },
+    "network": {
+      "title": "નેટવર્ક",
+      "needRestart": "સેટિંગ્સ લાગુ કરવા માટે સર્વરને ફરીથી શરૂ કરો!",
+      "server": "સર્વર",
+      "alias": "ડિવાઇસ નામ",
+      "deviceType": "ડિવાઇસ પ્રકાર",
+      "deviceModel": "ડિવાઇસ મોડલ",
+      "port": "પોર્ટ",
+      "discoveryTimeout": "ડિસ્કવરી ટાઈમઆઉટ",
+      "portWarning": "તમે કસ્ટમ પોર્ટનો ઉપયોગ કરી રહ્યા છો, તેથી અન્ય ઉપકરણો દ્વારા તમને શોધી શકાય નહીં. (ડિફૉલ્ટ: {defaultPort})",
+      "encryption": "એન્ક્રિપ્શન",
+      "multicastGroup": "મલ્ટિકાસ્ટ",
+      "multicastGroupWarning": "તમે કસ્ટમ મલ્ટિકાસ્ટ સરનામું વાપરી રહ્યા છો, તેથી અન્ય ઉપકરણો દ્વારા તમને શોધી શકાય નહીં. (ડિફૉલ્ટ: {defaultMulticast})"
+    },
+    "other": {
+      "title": "અન્ય",
+      "support": "લોકલસેન્ડને સપોર્ટ કરો",
+      "donate": "દાન કરો",
+      "privacyPolicy": "ગોપનીયતા નીતિ",
+      "termsOfUse": "વપરાશની શરતો"
+    },
+    "advancedSettings": "ઉન્નત સેટિંગ્સ"
+  },
+  "troubleshootPage": {
+    "title": "ટ્રબલશૂટ",
+    "subTitle": "ઍપ અપેક્ષિત રીતે કામ નથી કરતું? અહીં તમને કેટલાક સામાન્ય ઉકેલો મળી શકે છે.",
+    "solution": "ઉકેલ:",
+    "fixButton": "આપમેળે ઠીક કરો",
+    "firewall": {
+      "symptom": "આ ઍપ અન્ય ઉપકરણોને ફાઇલો મોકલી શકે છે; પરંતુ અન્ય ઉપકરણો આ ઉપકરણને ફાઇલો મોકલી શકતા નથી.",
+      "solution": "આ સૌથી વધુ સંભાવના છે કે આ ફાયરવોલની સમસ્યા છે. તમે પોર્ટ {port} પર આવનારા કનેક્શન (UDP અને TCP)ની પરવાનગી આપીને તેને ઠીક કરી શકો છો.",
+      "openFirewall": "ફાયરવોલ ખોલો"
+    },
+    "noConnection": {
+      "symptom": "બંને ઉપકરણો એકબીજાને શોધી શકતા નથી અને ન ફાઇલો શેર કરી શકતા નથી.",
+      "solution": "શા માટે સમસ્યા બંને બાજુ છે? જો હા, તો તમારે ખાતરી કરવી જોઈએ કે બંને ઉપકરણો સમાન વાઇ-ફાઇ નેટવર્ક પર છે અને સમાન રૂપરેખાંકન (પોર્ટ, મલ્ટિકાસ્ટ સરનામું, એન્ક્રિપ્શન) શેર કરે છે. નેટવર્કના ભાગીદારો વચ્ચે સંચારની પરવાનગી આપવી પડશે. આ કિસ્સામાં, આ વિકલ્પ રાઉટર પર સક્ષમ હોવો જોઈએ."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "ઇતિહાસ",
+    "openFolder": "ફોલ્ડર ખોલો",
+    "deleteHistory": "ઇતિહાસ ડિલીટ કરો",
+    "empty": "ઇતિહાસ ખાલી છે.",
+    "entryActions": {
+      "open": "ફાઇલ ખોલો",
+      "info": "માહિતી",
+      "deleteFromHistory": "ઇતિહાસમાંથી હટાવો"
+    }
+  },
+  "apkPickerPage": {
+    "title": "ઍપ્સ (APK)",
+    "excludeSystemApps": "સિસ્ટમ ઍપ્સને બાકાત કરો",
+    "excludeAppsWithoutLaunchIntent": "લૉન્ચ કરવા ન પાત્ર ઍપ્સને બાકાત કરો",
+    "apps": "{n} ઍપ્સ"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "બધું ડિલીટ કરો"
+  },
+  "receiveOptionsPage": {
+    "destination": "@:settingsTab.receive.destination",
+    "downloads": "@:settingsTab.receive.downloads",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToHistory": "@:settingsTab.receive.saveToHistory"
+  },
+  "sendPage": {
+    "waiting": "પ્રતિસાદની રાહ જોવામાં આવી રહી છે...",
+    "rejected": "પ્રાપ્તકર્તાએ વિનંતી ના પાડી છે."
+  },
+  "progressPage": {
+    "titleSending": "ફાઈલો મોકલવી",
+    "titleReceiving": "ફાઈલો પ્રાપ્ત કરવી",
+    "savedToGallery": "મીડિયા ગેલેરીમાં સંગ્રહિત",
+    "total": {
+      "title": {
+        "sending": "કુલ પ્રગતિ (મોકલવું)",
+        "receiving": "કુલ પ્રગતિ (પ્રાપત કરવી)"
+      },
+      "count": "ફાઈલો: {curr}/{n}",
+      "size": "કદ: {curr}/{n}",
+      "speed": "ગતિ: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "લોકલસેન્ડ વિશે"
+  },
+  "changelogPage": {
+    "title": "ચેન્જલોગ"
+  },
+  "apkPickerPage": {
+    "title": "ઍપ્સ (APK)"
+  },
+  "dialogs": {
+    "addFile": "ફાઇલ ઉમેરો",
+    "addFolder": "ફોલ્ડર ઉમેરો",
+    "addText": "ટેક્સ્ટ ઉમેરો",
+    "addUrl": "URL ઉમેરો",
+    "allFiles": "બધી ફાઇલો",
+    "allFolders": "બધા ફોલ્ડર્સ",
+    "browseFile": "ફાઇલ બ્રાઉઝ કરો",
+    "browseFolder": "ફોલ્ડર બ્રાઉઝ કરો",
+    "cancel": "રદ કરો",
+    "choose": "પસંદ કરો",
+    "chooseDestinationFolder": "લક્ષ્ય ફોલ્ડર પસંદ કરો",
+    "confirm": "પુષ્ટિ કરો",
+    "copy": "નકલ કરો",
+    "createFolder": "ફોલ્ડર બનાવો",
+    "delete": "કાઢી નાખો",
+    "deleteAll": "બધું ડિલીટ કરો",
+    "enterFileName": "ફાઇલનું નામ દાખલ કરો",
+    "enterFolderName": "ફોલ્ડરનું નામ દાખલ કરો",
+    "export": "નિકાસ",
+    "hide": "છુપાવો",
+    "move": "ખસેડો",
+    "newFile": "નવી ફાઇલ",
+    "newFolder": "નવું ફોલ્ડર",
+    "open": "ખોલો",
+    "overwrite": "ઓવરરાઇટ કરો",
+    "rename": "નામ બદલો",
+    "replace": "બદલો",
+    "retry": "ફરીથી પ્રયત્ન કરો",
+    "save": "સંગ્રહો",
+    "saveTo": "અહિ સંગ્રહો",
+    "selectAll": "બધું પસંદ કરો",
+    "selectNone": "કશું પસંદ ના કરો",
+    "send": "મોકલો",
+    "show": "દેખાડો",
+    "skip": "છોડો",
+    "start": "શરૂ કરો",
+    "stop": "બંધ કરો",
+    "yes": "હા",
+    "no": "ના",
+    "fileExists": "ફાઇલ પહેલાથી જ અહીં છે"
+  },
+  "fileExistsPage": {
+    "title": "ફાઇલ પહેલાથી જ અસ્તિત્વમાં છે",
+    "subTitle": "ફાઇલ \"{file}\" પહેલાથી જ અસ્તિત્વમાં છે.",
+    "options": {
+      "overwrite": "ઓવરરાઇટ કરો",
+      "rename": "નામ બદલો",
+      "skip": "છોડો"
+    }
+  },
+  "filesPage": {
+    "title": "ફાઈલો",
+    "subTitle": "ફાઇલો મેનેજ કરો.",
+    "sortBy": "અનુક્રમ દ્વારા:",
+    "actions": {
+      "addFile": "ફાઇલ ઉમેરો",
+      "addFolder": "ફોલ્ડર ઉમેરો",
+      "rename": "નામ બદલો",
+      "delete": "કાઢી નાખો",
+      "copy": "નકલ કરો",
+      "move": "ખસેડો"
+    },
+    "fileActions": {
+      "open": "ખોલો",
+      "info": "માહિતી",
+      "copy": "નકલ કરો",
+      "move": "ખસેડો",
+      "delete": "કાઢી નાખો",
+      "rename": "નામ બદલો",
+      "share": "વિત્રીણ કરો"
+    }
+  },
+  "server": {
+    "address": "સરનામું",
+    "port": "પોર્ટ",
+    "connections": "કનેક્શન",
+    "connectionStatus": "કનેક્શન સ્થિતિ",
+    "connectionType": "કનેક્શન પ્રકાર",
+    "encryption": "એન્ક્રિપ્શન",
+    "ssl": "SSL",
+    "plaintext": "પ્લેઇનટેક્સ્ટ",
+    "connected": "કનેક્ટેડ",
+    "disconnected": "ડિસકનેક્ટેડ",
+    "disconnect": "ડિસકનેક્ટ",
+    "start": "શરૂ કરો",
+    "stop": "બંધ કરો",
+    "idle": "આઈડલ",
+    "active": "સક્રિય",
+    "error": "ભુલ",
+    "notFound": "મળ્યું નથી",
+    "addressAlreadyInUse": "સરનામું પહેલાથી જ વપરાઈ રહ્યું છે",
+    "bindError": "બાઇન્ડ ભૂલ",
+    "unknown": "અજ્ઞાત",
+    "connectionFailed": "કનેક્શન નિષ્ફળ",
+    "certificate": "પ્રમાણપત્ર",
+    "generate": "ઉત્પાદન",
+    "certificateExpired": "પ્રમાણપત્રની મુદત પૂરી",
+    "invalidCertificate": "અમાન્ય પ્રમાણપત્ર",
+    "revoke": "રદ કરો",
+    "generateNewCertificate": "નવું પ્રમાણપત્ર ઉત્પન્ન કરો",
+    "accept": "સ્વીકારો",
+    "refuse": "નામંજૂર",
+    "addressUnavailable": "સરનામું ઉપલબ્ધ નથી",
+    "notSupported": "સમર્થિત નથી",
+    "unknownError": "અજ્ઞાત ભૂલ"
+  }
+}
