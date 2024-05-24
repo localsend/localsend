@@ -13,6 +13,12 @@ const _translators = <AppLocale, List<String>>{
   AppLocale.cs: [
     '@Amereyeu',
   ],
+  AppLocale.hindi: [
+    '@iharshsavaliya',
+  ],
+  AppLocale.gujarati: [
+    '@iharshsavaliya',
+  ],
   AppLocale.da: [
     '@Limfjorden',
   ],
