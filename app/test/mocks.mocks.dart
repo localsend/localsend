@@ -242,6 +242,26 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  int getDiscoveryTimeout() => (super.noSuchMethod(
+        Invocation.method(
+          #getDiscoveryTimeout,
+          [],
+        ),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  _i4.Future<void> setDiscoveryTimeout(int? timeout) => (super.noSuchMethod(
+        Invocation.method(
+          #setDiscoveryTimeout,
+          [timeout],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   bool getShareViaLinkAutoAccept() => (super.noSuchMethod(
         Invocation.method(
           #getShareViaLinkAutoAccept,
