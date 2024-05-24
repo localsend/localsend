@@ -47,8 +47,8 @@ dependencies:
   path_provider: 2.1.2
   permission_handler: 11.0.1
   pretty_qr_code: 3.2.1
-  refena_flutter: 1.6.0
-  refena_inspector_client: 1.2.0
+  refena_flutter: 2.0.0
+  refena_inspector_client: 2.0.0
   routerino: 0.8.0
   saf_stream: 0.4.0 # Saving files to SD card for Android <11
   screen_retriever: 0.1.9
@@ -78,7 +78,7 @@ dev_dependencies:
   flutter_lints: 3.0.1
   mockito: 5.4.4
   msix: 3.16.7
-  refena_inspector: 1.2.0
+  refena_inspector: 2.0.0
   slang_build_runner: 3.31.0
   slang_gpt: 0.10.0
   test: ^1.24.3

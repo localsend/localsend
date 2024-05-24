@@ -40,7 +40,7 @@ class SendTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder(
       provider: sendTabVmProvider,
-      init: (context, ref) => ref.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
+      init: (context) => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
         final ref = context.ref;
         return ResponsiveListView(
@@ -67,7 +67,7 @@ class SendTab extends StatelessWidget {
                           icon: option.icon,
                           label: option.label,
                           filled: false,
-                          onTap: () async => ref.dispatchAsync(PickFileAction(
+                          onTap: () async => ref.global.dispatchAsync(PickFileAction(
                             option: option,
                             context: context,
                           )),
@@ -140,7 +140,7 @@ class SendTab extends StatelessWidget {
                             onPressed: () async {
                               if (_options.length == 1) {
                                 // open directly
-                                await ref.dispatchAsync(PickFileAction(
+                                await ref.global.dispatchAsync(PickFileAction(
                                   option: _options.first,
                                   context: context,
                                 ));
@@ -323,7 +323,7 @@ class _ScanButton extends StatelessWidget {
         child: CustomIconButton(
           onPressed: () async {
             context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
-            await context.ref.dispatchAsync(StartSmartScan(forceLegacy: true));
+            await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
           },
           child: Icon(Icons.sync, color: iconColor),
         ),
@@ -334,7 +334,7 @@ class _ScanButton extends StatelessWidget {
       tooltip: t.sendTab.scan,
       onSelected: (ip) async {
         context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
-        await context.ref.dispatchAsync(StartLegacySubnetScan(subnets: [ip]));
+        await context.global.dispatchAsync(StartLegacySubnetScan(subnets: [ip]));
       },
       itemBuilder: (_) {
         return [

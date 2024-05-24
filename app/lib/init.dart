@@ -154,7 +154,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
       if (initialSharedPayload != null) {
         hasInitialShare = true;
         // ignore: unawaited_futures
-        ref.dispatchAsync(_HandleShareIntentAction(
+        ref.global.dispatchAsync(_HandleShareIntentAction(
           payload: initialSharedPayload,
           goToPage: goToPage,
         ));
@@ -163,7 +163,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
-      ref.dispatchAsync(_HandleShareIntentAction(
+      ref.global.dispatchAsync(_HandleShareIntentAction(
         payload: payload,
         goToPage: goToPage,
       ));
@@ -173,7 +173,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
-    ref.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
+    ref.global.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
   }
 
   // [FOSS_REMOVE_START]
