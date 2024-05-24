@@ -6,6 +6,7 @@ PODS:
     - FlutterMacOS
   - device_info_plus (0.0.1):
     - FlutterMacOS
+  - DockProgress (3.2.0)
   - dynamic_color (0.0.2):
     - FlutterMacOS
   - file_selector_macos (0.0.1):
@@ -16,6 +17,9 @@ PODS:
     - FlutterMacOS
   - in_app_purchase_storekit (0.0.1):
     - Flutter
+    - FlutterMacOS
+  - macos_dock_progress (0.0.1):
+    - DockProgress
     - FlutterMacOS
   - network_info_plus (0.0.1):
     - FlutterMacOS
@@ -34,8 +38,6 @@ PODS:
     - FlutterMacOS
   - shared_preferences_foundation (0.0.1):
     - Flutter
-    - FlutterMacOS
-  - system_tray (0.0.1):
     - FlutterMacOS
   - tray_manager (0.0.1):
     - FlutterMacOS
@@ -58,6 +60,7 @@ DEPENDENCIES:
   - FlutterMacOS (from `Flutter/ephemeral`)
   - gal (from `Flutter/ephemeral/.symlinks/plugins/gal/darwin`)
   - in_app_purchase_storekit (from `Flutter/ephemeral/.symlinks/plugins/in_app_purchase_storekit/darwin`)
+  - macos_dock_progress (from `Flutter/ephemeral/.symlinks/plugins/macos_dock_progress/macos`)
   - network_info_plus (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - pasteboard (from `Flutter/ephemeral/.symlinks/plugins/pasteboard/macos`)
@@ -65,7 +68,6 @@ DEPENDENCIES:
   - photo_manager (from `Flutter/ephemeral/.symlinks/plugins/photo_manager/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
-  - system_tray (from `Flutter/ephemeral/.symlinks/plugins/system_tray/macos`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - video_player_avfoundation (from `Flutter/ephemeral/.symlinks/plugins/video_player_avfoundation/darwin`)
@@ -74,6 +76,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - DockProgress
     - ReachabilitySwift
 
 EXTERNAL SOURCES:
@@ -93,6 +96,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/gal/darwin
   in_app_purchase_storekit:
     :path: Flutter/ephemeral/.symlinks/plugins/in_app_purchase_storekit/darwin
+  macos_dock_progress:
+    :path: Flutter/ephemeral/.symlinks/plugins/macos_dock_progress/macos
   network_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos
   package_info_plus:
@@ -107,8 +112,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
-  system_tray:
-    :path: Flutter/ephemeral/.symlinks/plugins/system_tray/macos
   tray_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   url_launcher_macos:
@@ -124,11 +127,13 @@ SPEC CHECKSUMS:
   connectivity_plus: 18d3c32514c886e046de60e9c13895109866c747
   desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
   device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
+  DockProgress: 94765d097d5c54579bf93385b5be71bd6a74fdf6
   dynamic_color: 2eaa27267de1ca20d879fbd6e01259773fb1670f
   file_selector_macos: 468fb6b81fac7c0e88d71317f3eec34c3b008ff9
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   gal: 61e868295d28fe67ffa297fae6dacebf56fd53e1
   in_app_purchase_storekit: 9e9931234f0adcf71ae323f8c83785b96030edf1
+  macos_dock_progress: 68c953075416697939d2ee794a044121e7186f2b
   network_info_plus: f4fbc7877ab7b3294500d9441dfa53cd54972d05
   package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
   pasteboard: 9b69dba6fedbb04866be632205d532fe2f6b1d99
@@ -137,7 +142,6 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
-  system_tray: e53c972838c69589ff2e77d6d3abfd71332f9e5d
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: d2691c7dd33ed713bf3544850a623080ec693d95
   video_player_avfoundation: e9e6f9cae7d7a6d9b43519b0aab382bca60fcfd1
