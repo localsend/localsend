@@ -123,6 +123,7 @@
       "deviceType": "Cihaz tipi",
       "deviceModel": "Cihaz modeli",
       "port": "Port",
+      "discoveryTimeout": "Arama zaman aşımına uğradı",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
@@ -348,7 +349,14 @@
       "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Dosya ismi boş olamaz",
+    "invalid": "Dosya ismi geçersiz karakter bulunduruyor"
   },
   "tray": {
     "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
