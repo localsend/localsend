@@ -216,9 +216,9 @@ class _StringsReceiveOptionsPageCa extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Opcions';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(Carpeta LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'S\'ha desactivat automàticament perquè hi ha carpetes.';
 }
 
@@ -264,7 +264,7 @@ class _StringsWebSharePageCa extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Peticions';
 	@override String get noRequests => 'Encar ano hi ha peticions.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend utilitza un certificat auto-signat. Cal que l\'accepteu al navegador.';
 	@override String pendingRequests({required Object n}) => 'Peticions pendents: ${n}';
 }
@@ -402,7 +402,7 @@ class _StringsTrayCa extends _StringsTrayEn {
 	@override final _StringsCa _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Sortir de LocalSend';
 }
 
@@ -413,7 +413,7 @@ class _StringsWebCa extends _StringsWebEn {
 	@override final _StringsCa _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Rebutjat';
 	@override String get files => 'Fitxers';
 	@override String get fileName => 'Nom del fitxer';
@@ -536,7 +536,7 @@ class _StringsSettingsTabReceiveCa extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Rebre';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get destination => 'Destinació';
 	@override String get downloads => '(Descàrregues)';
 	@override String get saveToGallery => 'Desar media a la galeria';
@@ -675,7 +675,7 @@ class _StringsDialogsErrorDialogCa extends _StringsDialogsErrorDialogEn {
 	@override final _StringsCa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.fileInfo
@@ -711,7 +711,7 @@ class _StringsDialogsLocalNetworkUnauthorizedCa extends _StringsDialogsLocalNetw
 	@override final _StringsCa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend no pot trobar altres dispositius sense tenir el permís per escanejar la xarxa local. Concediu aquest permís a la configuració.';
 	@override String get gotoSettings => 'Configuració';
 }
@@ -792,7 +792,7 @@ class _StringsDialogsQuickSaveNoticeCa extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsCa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Les sol·licituds d\'arxiu s\'accepten automàticament. Tingueu en compte que tothom a la xarxa local us pot enviar fitxers.';
 }
 

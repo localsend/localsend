@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageUk extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Параметри отримання';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(Тека LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Вимкнено автоматично, оскільки є каталоги.';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageUk extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Запити';
 	@override String get noRequests => 'Запитів поки що немає.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Автоматично приймати запити';
 	@override String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
 	@override String pendingRequests({required Object n}) => 'Запити, що очікують на розгляд: ${n}';
@@ -350,10 +350,10 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionUk noPermission = _StringsDialogsNoPermissionUk._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformUk notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformUk._(_root);
 	@override late final _StringsDialogsQrUk qr = _StringsDialogsQrUk._(_root);
-	@override late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
 	@override late final _StringsDialogsQuickActionsUk quickActions = _StringsDialogsQuickActionsUk._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice = _StringsDialogsQuickSaveNoticeUk._(_root);
 	@override late final _StringsDialogsSendModeHelpUk sendModeHelp = _StringsDialogsSendModeHelpUk._(_root);
+	@override late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
 }
 
 // Path: tray
@@ -363,7 +363,7 @@ class _StringsTrayUk extends _StringsTrayEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Вихід із LocalSend';
 }
 
@@ -374,7 +374,7 @@ class _StringsWebUk extends _StringsWebEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Відхилено';
 	@override String get files => 'Файлів';
 	@override String get fileName => 'Ім\'я файлу';
@@ -498,7 +498,7 @@ class _StringsSettingsTabReceiveUk extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Отримання';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Автозавершення';
 	@override String get destination => 'Зберігати в теку';
 	@override String get downloads => '(Завантаження)';
@@ -664,7 +664,7 @@ class _StringsDialogsErrorDialogUk extends _StringsDialogsErrorDialogEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -749,7 +749,7 @@ class _StringsDialogsLocalNetworkUnauthorizedUk extends _StringsDialogsLocalNetw
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.';
 	@override String get gotoSettings => 'Налаштування';
 }
@@ -808,16 +808,6 @@ class _StringsDialogsQrUk extends _StringsDialogsQrEn {
 	@override String get title => 'QR-код';
 }
 
-// Path: dialogs.zoom
-class _StringsDialogsZoomUk extends _StringsDialogsZoomEn {
-	_StringsDialogsZoomUk._(_StringsUk root) : this._root = root, super._(root);
-
-	@override final _StringsUk _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'URL-адреса';
-}
-
 // Path: dialogs.quickActions
 class _StringsDialogsQuickActionsUk extends _StringsDialogsQuickActionsEn {
 	_StringsDialogsQuickActionsUk._(_StringsUk root) : this._root = root, super._(root);
@@ -840,7 +830,7 @@ class _StringsDialogsQuickSaveNoticeUk extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Запити на отримання файлів відтепер приймаються автоматично. Будьте обережні, всі користувачі цієї локальної мережі можуть надсилати вам файли.';
 }
 
@@ -855,6 +845,16 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Надсилає файли одному одержувачу. Вибірку буде очищено після завершення передачі файлів.';
 	@override String get multiple => 'Надсилає файли кільком одержувачам. Вибірку не буде очищено.';
 	@override String get link => 'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomUk extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL-адреса';
 }
 
 // Path: settingsTab.general.brightnessOptions

@@ -227,9 +227,9 @@ class _StringsReceiveOptionsPageEn {
 
 	// Translations
 	String get title => 'Options';
-	String get destination => '${_root.settingsTab.receive.destination}';
+	String get destination => _root.settingsTab.receive.destination;
 	String get appDirectory => '(LocalSend folder)';
-	String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	String get saveToGalleryOff => 'Turned off automatically because there are directories.';
 }
 
@@ -275,7 +275,7 @@ class _StringsWebSharePageEn {
 	);
 	String get requests => 'Requests';
 	String get noRequests => 'No requests yet.';
-	String get encryption => '${_root.settingsTab.network.encryption}';
+	String get encryption => _root.settingsTab.network.encryption;
 	String get autoAccept => 'Automatically accept requests';
 	String get encryptionHint => 'LocalSend uses a self-signed certificate. You need to accept it in your browser.';
 	String pendingRequests({required Object n}) => 'Pending requests: ${n}';
@@ -427,10 +427,10 @@ class _StringsDialogsEn {
 	late final _StringsDialogsNoPermissionEn noPermission = _StringsDialogsNoPermissionEn._(_root);
 	late final _StringsDialogsNotAvailableOnPlatformEn notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEn._(_root);
 	late final _StringsDialogsQrEn qr = _StringsDialogsQrEn._(_root);
-	late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
 	late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
 	late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
 	late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
+	late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
 }
 
 // Path: sanitization
@@ -451,7 +451,7 @@ class _StringsTrayEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get open => '${_root.general.open}';
+	String get open => _root.general.open;
 	String get close => 'Quit LocalSend';
 }
 
@@ -462,7 +462,7 @@ class _StringsWebEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get waiting => '${_root.sendPage.waiting}';
+	String get waiting => _root.sendPage.waiting;
 	String get rejected => 'Rejected';
 	String get files => 'Files';
 	String get fileName => 'File name';
@@ -586,7 +586,7 @@ class _StringsSettingsTabReceiveEn {
 
 	// Translations
 	String get title => 'Receive';
-	String get quickSave => '${_root.general.quickSave}';
+	String get quickSave => _root.general.quickSave;
 	String get autoFinish => 'Auto Finish';
 	String get destination => 'Destination';
 	String get downloads => '(Downloads)';
@@ -752,7 +752,7 @@ class _StringsDialogsErrorDialogEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => '${_root.general.error}';
+	String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -837,7 +837,7 @@ class _StringsDialogsLocalNetworkUnauthorizedEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => '${_root.dialogs.noPermission.title}';
+	String get title => _root.dialogs.noPermission.title;
 	String get description => 'LocalSend can\'t find other devices without having the permission to scan the local network. Please grant this permission in the settings.';
 	String get gotoSettings => 'Settings';
 }
@@ -896,16 +896,6 @@ class _StringsDialogsQrEn {
 	String get title => 'QR Code';
 }
 
-// Path: dialogs.zoom
-class _StringsDialogsZoomEn {
-	_StringsDialogsZoomEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get title => 'URL';
-}
-
 // Path: dialogs.quickActions
 class _StringsDialogsQuickActionsEn {
 	_StringsDialogsQuickActionsEn._(this._root);
@@ -928,7 +918,7 @@ class _StringsDialogsQuickSaveNoticeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => '${_root.general.quickSave}';
+	String get title => _root.general.quickSave;
 	String get content => 'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
 }
 
@@ -943,6 +933,16 @@ class _StringsDialogsSendModeHelpEn {
 	String get single => 'Sends files to one recipient. Selection will be cleared after finished file transfer.';
 	String get multiple => 'Sends files to multiple recipients. Selection will not be cleared.';
 	String get link => 'Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomEn {
+	_StringsDialogsZoomEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

@@ -216,7 +216,7 @@ class _StringsReceiveOptionsPageUr extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'اختیارات';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(${_root.appName} folder)';
 	@override String get saveToGallery => '. گیلری میں محفوظ کریں${_root.settingsTab.receive.saveToGallery}';
 	@override String get saveToGalleryOff => 'خود کار طور پر منقطع ہوگیا ہے کیونکہ ڈائریکٹریاں ہیں۔';
@@ -264,7 +264,7 @@ class _StringsWebSharePageUr extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'درخواستیں';
 	@override String get noRequests => 'ابھی تک کوئی درخواست نہیں۔';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend براؤزر میں استعمال کرنے کیلئے آپ کوخود سائن کردہ سرٹیفکیٹ قبول کرنا ہوگا۔';
 	@override String pendingRequests({required Object n}) => 'زیر التواء درخواستیں: ${n}';
 }
@@ -331,7 +331,7 @@ class _StringsTrayUr extends _StringsTrayEn {
 	@override final _StringsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'چھوڑو LocalSend';
 }
 
@@ -342,7 +342,7 @@ class _StringsWebUr extends _StringsWebEn {
 	@override final _StringsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'منسوخ کردیا';
 	@override String get files => 'فائلیں';
 	@override String get fileName => 'فائل کا نام';
@@ -465,7 +465,7 @@ class _StringsSettingsTabReceiveUr extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'وصول کریں';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get destination => 'منزل';
 	@override String get downloads => '(ڈاؤن لوڈ)';
 	@override String get saveToGallery => 'میڈیا کو گیلری میں محفوظ کریں۔';
@@ -604,7 +604,7 @@ class _StringsDialogsErrorDialogUr extends _StringsDialogsErrorDialogEn {
 	@override final _StringsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.fileInfo
@@ -640,7 +640,7 @@ class _StringsDialogsLocalNetworkUnauthorizedUr extends _StringsDialogsLocalNetw
 	@override final _StringsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'لوکل نیٹ ورک کا سکین کرنے کی اجازت کے بغیر LocalSend، دیگر ڈیوائسز تلاش نہیں کرسکتا ہے۔ براہ کرم ترتیبات میں اس اجازت کو منظور کریں۔';
 	@override String get gotoSettings => 'ترتیبات';
 }
@@ -721,7 +721,7 @@ class _StringsDialogsQuickSaveNoticeUr extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔';
 }
 

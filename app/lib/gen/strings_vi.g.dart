@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageVi extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Tuỳ chọn';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(Thư mục LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Đã tự động tắt vì là thư mục.';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageVi extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Yêu cầu';
 	@override String get noRequests => 'Hiện không có yêu cầu nào.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Tự động chấp nhận yêu cầu';
 	@override String get encryptionHint => 'LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.';
 	@override String pendingRequests({required Object n}) => 'Yêu cầu chờ: ${n}';
@@ -362,7 +362,7 @@ class _StringsTrayVi extends _StringsTrayEn {
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Đóng LocalSend';
 }
 
@@ -373,7 +373,7 @@ class _StringsWebVi extends _StringsWebEn {
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Đã từ chối';
 	@override String get files => 'Tập tin';
 	@override String get fileName => 'Tên';
@@ -497,7 +497,7 @@ class _StringsSettingsTabReceiveVi extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Nhận';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Tự động hoàn thành';
 	@override String get destination => 'Đích đến';
 	@override String get downloads => '(Downloads)';
@@ -662,7 +662,7 @@ class _StringsDialogsErrorDialogVi extends _StringsDialogsErrorDialogEn {
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -747,7 +747,7 @@ class _StringsDialogsLocalNetworkUnauthorizedVi extends _StringsDialogsLocalNetw
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend không thể tìm kiếm thiết bị khác khi không được phép quét mạng nội bộ. Vui lòng trao quyền cho ứng dụng trong cài đặt.';
 	@override String get gotoSettings => 'Cài đặt';
 }
@@ -828,7 +828,7 @@ class _StringsDialogsQuickSaveNoticeVi extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Yêu cầu tập tin đã được chấp thuận tự động. Chú ý rằng bất kỳ ai dùng chung mạng nội bộ với bạn đều có thể gửi tập tin cho bạn.';
 }
 

@@ -220,9 +220,9 @@ class _StringsReceiveOptionsPageTh extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'ตัวเลือก';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(โฟลเดอร์ของ LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'ปิดโดยอัตโนมัติเนื่องจากมีไดเร็กทอรี';
 }
 
@@ -268,7 +268,7 @@ class _StringsWebSharePageTh extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'คำขอ';
 	@override String get noRequests => 'ยังไม่มีคำขอ';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend ใช้ใบรับรองที่ลงนามด้วยตัวเอง คุณต้องยอมรับในเบราว์เซอร์';
 	@override String pendingRequests({required Object n}) => 'คำขอที่รอดำเนินการ: ${n}';
 }
@@ -431,7 +431,7 @@ class _StringsTrayTh extends _StringsTrayEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'ออกจาก LocalSend';
 }
 
@@ -442,7 +442,7 @@ class _StringsWebTh extends _StringsWebEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'ถูกปฏิเสธ';
 	@override String get files => 'ไฟล์';
 	@override String get fileName => 'ชื่อไฟล์';
@@ -566,7 +566,7 @@ class _StringsSettingsTabReceiveTh extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'รับ';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'เสร็จสิ้นอัตโนมัติ';
 	@override String get destination => 'ปลายทาง';
 	@override String get downloads => '(ดาวน์โหลด)';
@@ -720,7 +720,7 @@ class _StringsDialogsErrorDialogTh extends _StringsDialogsErrorDialogEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -805,7 +805,7 @@ class _StringsDialogsLocalNetworkUnauthorizedTh extends _StringsDialogsLocalNetw
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend ไม่สามารถค้นหาอุปกรณ์อื่นได้หากไม่มีสิทธิ์ในการสแกนเครือข่ายท้องถิ่น โปรดอนุญาตสิทธิ์นี้ในการตั้งค่า';
 	@override String get gotoSettings => 'การตั้งค่า';
 }
@@ -886,7 +886,7 @@ class _StringsDialogsQuickSaveNoticeTh extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายท้องถิ่นสามารถส่งไฟล์ถึงคุณได้';
 }
 

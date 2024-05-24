@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageHe extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'אפשרויות';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(תיקיית LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'כבוי באופן אוטומטי בשל קיום ספריות.';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageHe extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'בקשות';
 	@override String get noRequests => 'אין כרגע בקשות.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'אישור בקשות באופן אוטומטי';
 	@override String get encryptionHint => 'LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.';
 	@override String pendingRequests({required Object n}) => 'בקשות בהמתנה: ${n}';
@@ -362,7 +362,7 @@ class _StringsTrayHe extends _StringsTrayEn {
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'צא מ-LocalSend';
 }
 
@@ -373,7 +373,7 @@ class _StringsWebHe extends _StringsWebEn {
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'נדחה';
 	@override String get files => 'קבצים';
 	@override String get fileName => 'שם קובץ';
@@ -497,7 +497,7 @@ class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'קבלה';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'סיום אוטומטי';
 	@override String get destination => 'יעד';
 	@override String get downloads => '(הורדות)';
@@ -662,7 +662,7 @@ class _StringsDialogsErrorDialogHe extends _StringsDialogsErrorDialogEn {
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -747,7 +747,7 @@ class _StringsDialogsLocalNetworkUnauthorizedHe extends _StringsDialogsLocalNetw
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. אנא הענק את ההרשאה הזו בהגדרות.';
 	@override String get gotoSettings => 'הגדרות';
 }
@@ -828,7 +828,7 @@ class _StringsDialogsQuickSaveNoticeHe extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים.';
 }
 

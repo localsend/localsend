@@ -41,12 +41,12 @@ class _StringsIt extends Translations {
 	@override late final _StringsSendPageIt sendPage = _StringsSendPageIt._(_root);
 	@override late final _StringsProgressPageIt progressPage = _StringsProgressPageIt._(_root);
 	@override late final _StringsWebSharePageIt webSharePage = _StringsWebSharePageIt._(_root);
-	@override late final _StringsSanitizationIt sanitization = _StringsSanitizationIt._(_root);
 	@override late final _StringsAboutPageIt aboutPage = _StringsAboutPageIt._(_root);
 	@override late final _StringsDonationPageIt donationPage = _StringsDonationPageIt._(_root);
 	@override late final _StringsChangelogPageIt changelogPage = _StringsChangelogPageIt._(_root);
 	@override late final _StringsAliasGeneratorIt aliasGenerator = _StringsAliasGeneratorIt._(_root);
 	@override late final _StringsDialogsIt dialogs = _StringsDialogsIt._(_root);
+	@override late final _StringsSanitizationIt sanitization = _StringsSanitizationIt._(_root);
 	@override late final _StringsTrayIt tray = _StringsTrayIt._(_root);
 	@override late final _StringsWebIt web = _StringsWebIt._(_root);
 	@override late final _StringsAssetPickerIt assetPicker = _StringsAssetPickerIt._(_root);
@@ -222,9 +222,9 @@ class _StringsReceiveOptionsPageIt extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Opzioni';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend cartella)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Disattivato automaticamente perché ci sono delle cartelle.';
 }
 
@@ -270,21 +270,10 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Richieste';
 	@override String get noRequests => 'Nessuna richiesta ancora.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Accetta automaticamente le richieste';
 	@override String get encryptionHint => 'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
 	@override String pendingRequests({required Object n}) => 'Richieste in sospeso: ${n}';
-}
-
-// Path: sanitization
-class _StringsSanitizationIt extends _StringsSanitizationEn {
-	_StringsSanitizationIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get empty => 'Il nome del file non può essere vuoto';
-	@override String get invalid => 'Il nome del file contiene caratteri invalidi';
 }
 
 // Path: aboutPage
@@ -362,10 +351,21 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionIt noPermission = _StringsDialogsNoPermissionIt._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformIt notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformIt._(_root);
 	@override late final _StringsDialogsQrIt qr = _StringsDialogsQrIt._(_root);
-	@override late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
 	@override late final _StringsDialogsQuickActionsIt quickActions = _StringsDialogsQuickActionsIt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice = _StringsDialogsQuickSaveNoticeIt._(_root);
 	@override late final _StringsDialogsSendModeHelpIt sendModeHelp = _StringsDialogsSendModeHelpIt._(_root);
+	@override late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationIt extends _StringsSanitizationEn {
+	_StringsSanitizationIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Il nome del file non può essere vuoto';
+	@override String get invalid => 'Il nome del file contiene caratteri invalidi';
 }
 
 // Path: tray
@@ -375,7 +375,7 @@ class _StringsTrayIt extends _StringsTrayEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Chiudi LocalSend';
 }
 
@@ -386,7 +386,7 @@ class _StringsWebIt extends _StringsWebEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Rifiutato';
 	@override String get files => 'File';
 	@override String get fileName => 'Nome del file';
@@ -510,7 +510,7 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Ricevi';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Termina automaticamente';
 	@override String get destination => 'Destinazione';
 	@override String get downloads => '(Download)';
@@ -676,7 +676,7 @@ class _StringsDialogsErrorDialogIt extends _StringsDialogsErrorDialogEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -761,7 +761,7 @@ class _StringsDialogsLocalNetworkUnauthorizedIt extends _StringsDialogsLocalNetw
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend non può trovare altri dispositivi senza avere il permesso di eseguire la scansione della rete locale. Si prega di concedere questo permesso nelle impostazioni.';
 	@override String get gotoSettings => 'Impostazioni';
 }
@@ -820,16 +820,6 @@ class _StringsDialogsQrIt extends _StringsDialogsQrEn {
 	@override String get title => 'Codice QR';
 }
 
-// Path: dialogs.zoom
-class _StringsDialogsZoomIt extends _StringsDialogsZoomEn {
-	_StringsDialogsZoomIt._(_StringsIt root) : this._root = root, super._(root);
-
-	@override final _StringsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'URL';
-}
-
 // Path: dialogs.quickActions
 class _StringsDialogsQuickActionsIt extends _StringsDialogsQuickActionsEn {
 	_StringsDialogsQuickActionsIt._(_StringsIt root) : this._root = root, super._(root);
@@ -852,7 +842,7 @@ class _StringsDialogsQuickSaveNoticeIt extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file.';
 }
 
@@ -867,6 +857,16 @@ class _StringsDialogsSendModeHelpIt extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Invia file a un destinatario. La selezione verrà cancellata dopo il trasferimento del file.';
 	@override String get multiple => 'Invia file a più destinatari. La selezione non verrà cancellata.';
 	@override String get link => 'I destinatari che non hanno installato LocalSend possono scaricare i file selezionati aprendo il link nel loro browser.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomIt extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

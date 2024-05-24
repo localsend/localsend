@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageAr extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'خيارات';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend folder)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'تم إيقافه تلقائيًا لوجود دلائل.';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageAr extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'الطلبات';
 	@override String get noRequests => 'لا يوجد طلبات حتى الآن.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'قبول الطلبات تلقائيا';
 	@override String get encryptionHint => 'يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.';
 	@override String pendingRequests({required Object n}) => 'الطلبات المعلقة: ${n}';
@@ -433,7 +433,7 @@ class _StringsTrayAr extends _StringsTrayEn {
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'أغلق LocalSend';
 }
 
@@ -444,7 +444,7 @@ class _StringsWebAr extends _StringsWebEn {
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'مرفوضة';
 	@override String get files => 'الملفات';
 	@override String get fileName => 'اسم الملف';
@@ -568,7 +568,7 @@ class _StringsSettingsTabReceiveAr extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'استلم';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'إنهاء تلقائي';
 	@override String get destination => 'حفظ في';
 	@override String get downloads => '(التنزيلات)';
@@ -733,7 +733,7 @@ class _StringsDialogsErrorDialogAr extends _StringsDialogsErrorDialogEn {
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -818,7 +818,7 @@ class _StringsDialogsLocalNetworkUnauthorizedAr extends _StringsDialogsLocalNetw
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يرجى منح هذا الإذن في الإعدادات.';
 	@override String get gotoSettings => 'الإعدادات';
 }
@@ -899,7 +899,7 @@ class _StringsDialogsQuickSaveNoticeAr extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك.';
 }
 

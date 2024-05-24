@@ -220,9 +220,9 @@ class _StringsReceiveOptionsPageCs extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Možnosti';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend folder)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Automaticky vypnuto, protože existují adresáře.';
 }
 
@@ -268,7 +268,7 @@ class _StringsWebSharePageCs extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Žádosti';
 	@override String get noRequests => 'Zatím žádné žádosti.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.';
 	@override String pendingRequests({required Object n}) => 'Čekající žádosti: ${n}';
 }
@@ -360,7 +360,7 @@ class _StringsTrayCs extends _StringsTrayEn {
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Ukončit LocalSend';
 }
 
@@ -371,7 +371,7 @@ class _StringsWebCs extends _StringsWebEn {
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Odmítnuto';
 	@override String get files => 'Soubory';
 	@override String get fileName => 'Název souboru';
@@ -495,7 +495,7 @@ class _StringsSettingsTabReceiveCs extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Soubory';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Automatické dokončování';
 	@override String get destination => 'Uložit do';
 	@override String get downloads => '(Downloads)';
@@ -649,7 +649,7 @@ class _StringsDialogsErrorDialogCs extends _StringsDialogsErrorDialogEn {
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -734,7 +734,7 @@ class _StringsDialogsLocalNetworkUnauthorizedCs extends _StringsDialogsLocalNetw
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend nemůže najít jiná zařízení, aniž by měl oprávnění skenovat místní síť. Udělte prosím toto oprávnění v nastavení.';
 	@override String get gotoSettings => 'Nastavení';
 }
@@ -815,7 +815,7 @@ class _StringsDialogsQuickSaveNoticeCs extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory.';
 }
 

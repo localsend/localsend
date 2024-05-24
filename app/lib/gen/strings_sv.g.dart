@@ -216,9 +216,9 @@ class _StringsReceiveOptionsPageSv extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Alternativ';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend-mappen)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Avstängd automatiskt eftersom det finns kataloger.';
 }
 
@@ -264,7 +264,7 @@ class _StringsWebSharePageSv extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Förfrågningar';
 	@override String get noRequests => 'Inga förfrågningar ännu.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend använder ett självsignerat certifikat. Du behöver acceptera det i webbläsaren.';
 	@override String pendingRequests({required Object n}) => 'Väntande förfrågningar: ${n}';
 }
@@ -402,7 +402,7 @@ class _StringsTraySv extends _StringsTrayEn {
 	@override final _StringsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Avsluta LocalSend';
 }
 
@@ -413,7 +413,7 @@ class _StringsWebSv extends _StringsWebEn {
 	@override final _StringsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Avvisad';
 	@override String get files => 'Filer';
 	@override String get fileName => 'Filnamn';
@@ -536,7 +536,7 @@ class _StringsSettingsTabReceiveSv extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Ta emot';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get destination => 'Destination';
 	@override String get downloads => '(Hämtade)';
 	@override String get saveToGallery => 'Spara media i galleriet';
@@ -675,7 +675,7 @@ class _StringsDialogsErrorDialogSv extends _StringsDialogsErrorDialogEn {
 	@override final _StringsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.fileInfo
@@ -711,7 +711,7 @@ class _StringsDialogsLocalNetworkUnauthorizedSv extends _StringsDialogsLocalNetw
 	@override final _StringsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend kan inte hitta andra enheter utan att ha behörighet att skanna det lokala nätverket. Bevilja denna behörighet i inställningarna.';
 	@override String get gotoSettings => 'Inställningar';
 }
@@ -792,7 +792,7 @@ class _StringsDialogsQuickSaveNoticeSv extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Filförfrågningar accepteras automatiskt. Observera att alla i lokala nätverket kan skicka filer till dig.';
 }
 

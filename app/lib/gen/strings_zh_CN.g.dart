@@ -222,9 +222,9 @@ class _StringsReceiveOptionsPageZhCn extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => '设置';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend 文件夹)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => '由于存在目录，已自动关闭。';
 }
 
@@ -270,7 +270,7 @@ class _StringsWebSharePageZhCn extends _StringsWebSharePageEn {
 	);
 	@override String get requests => '请求';
 	@override String get noRequests => '尚无请求。';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '自动接受请求';
 	@override String get encryptionHint => 'LocalSend 使用自签名证书，您需要在浏览器中接受它。';
 	@override String pendingRequests({required Object n}) => '待处理请求: ${n}';
@@ -375,7 +375,7 @@ class _StringsTrayZhCn extends _StringsTrayEn {
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => '退出 LocalSend';
 }
 
@@ -386,7 +386,7 @@ class _StringsWebZhCn extends _StringsWebEn {
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => '已拒绝';
 	@override String get files => '文件';
 	@override String get fileName => '文件名';
@@ -510,7 +510,7 @@ class _StringsSettingsTabReceiveZhCn extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => '接收';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => '自动完成';
 	@override String get destination => '保存目录';
 	@override String get downloads => '(下载)';
@@ -676,7 +676,7 @@ class _StringsDialogsErrorDialogZhCn extends _StringsDialogsErrorDialogEn {
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -761,7 +761,7 @@ class _StringsDialogsLocalNetworkUnauthorizedZhCn extends _StringsDialogsLocalNe
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend 在没有扫描本地网络的权限的情况下无法找到其他设备。请在设置中授予此权限。';
 	@override String get gotoSettings => '设置';
 }
@@ -842,7 +842,7 @@ class _StringsDialogsQuickSaveNoticeZhCn extends _StringsDialogsQuickSaveNoticeE
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => '自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。';
 }
 

@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageKo extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => '옵션';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend 폴더)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => '디렉토리가 있어 자동으로 꺼집니다.';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageKo extends _StringsWebSharePageEn {
 	);
 	@override String get requests => '요청';
 	@override String get noRequests => '아직 요청이 없습니다.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '요청 자동 수락';
 	@override String get encryptionHint => 'LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 수락해야 합니다.';
 	@override String pendingRequests({required Object n}) => '대기중인 요청: ${n}';
@@ -362,7 +362,7 @@ class _StringsTrayKo extends _StringsTrayEn {
 	@override final _StringsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend 종료';
 }
 
@@ -373,7 +373,7 @@ class _StringsWebKo extends _StringsWebEn {
 	@override final _StringsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => '거부됨';
 	@override String get files => '파일';
 	@override String get fileName => '파일 이름';
@@ -497,7 +497,7 @@ class _StringsSettingsTabReceiveKo extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => '수신';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => '자동 완료';
 	@override String get destination => '저장 위치';
 	@override String get downloads => '(다운로드 폴더)';
@@ -662,7 +662,7 @@ class _StringsDialogsErrorDialogKo extends _StringsDialogsErrorDialogEn {
 	@override final _StringsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -747,7 +747,7 @@ class _StringsDialogsLocalNetworkUnauthorizedKo extends _StringsDialogsLocalNetw
 	@override final _StringsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => '로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.';
 	@override String get gotoSettings => '설정';
 }
@@ -828,7 +828,7 @@ class _StringsDialogsQuickSaveNoticeKo extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => '파일 요청이 자동으로 수락됩니다. 로컬 네트워크의 누구나 파일을 보낼 수 있게되므로 주의해 주세요.';
 }
 

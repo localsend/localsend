@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageEsEs extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Opciones';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(carpeta ${_root.appName})';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Desactivado automáticamente porque hay carpetas.';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageEsEs extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Solicitudes';
 	@override String get noRequests => 'Aún no hay solicitudes.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Aceptar solicitudes automáticamente';
 	@override String get encryptionHint => 'LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.';
 	@override String pendingRequests({required Object n}) => 'Solicitudes pendientes: ${n}';
@@ -362,7 +362,7 @@ class _StringsTrayEsEs extends _StringsTrayEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Cerrar LocalSend';
 }
 
@@ -373,7 +373,7 @@ class _StringsWebEsEs extends _StringsWebEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Rechazado';
 	@override String get files => 'Archivos';
 	@override String get fileName => 'Nombre del archivo';
@@ -497,7 +497,7 @@ class _StringsSettingsTabReceiveEsEs extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Recibir';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Auto finalizar';
 	@override String get destination => 'Destino';
 	@override String get downloads => '(Descargas)';
@@ -662,7 +662,7 @@ class _StringsDialogsErrorDialogEsEs extends _StringsDialogsErrorDialogEn {
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -747,7 +747,7 @@ class _StringsDialogsLocalNetworkUnauthorizedEsEs extends _StringsDialogsLocalNe
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend no puede encontrar otros dispositivos sin tener permiso para escanear la red local. Por favor, concede este permiso en los ajustes.';
 	@override String get gotoSettings => 'Ajustes';
 }
@@ -828,7 +828,7 @@ class _StringsDialogsQuickSaveNoticeEsEs extends _StringsDialogsQuickSaveNoticeE
 	@override final _StringsEsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos.';
 }
 

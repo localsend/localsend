@@ -220,9 +220,9 @@ class _StringsReceiveOptionsPageDa extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Muligheder';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend mappe)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Aufgrund von Ordnern automatisch ausgeschaltet.';
 }
 
@@ -268,7 +268,7 @@ class _StringsWebSharePageDa extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Forespørgsler';
 	@override String get noRequests => 'Ingen forespørgsler endnu.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.';
 	@override String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
 }
@@ -360,7 +360,7 @@ class _StringsTrayDa extends _StringsTrayEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend beenden';
 }
 
@@ -371,7 +371,7 @@ class _StringsWebDa extends _StringsWebEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Afvist';
 	@override String get files => 'Filer';
 	@override String get fileName => 'Filname';
@@ -495,7 +495,7 @@ class _StringsSettingsTabReceiveDa extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Modtag';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Fuldend automatisk';
 	@override String get destination => 'Placering';
 	@override String get downloads => '(Overførsler)';
@@ -649,7 +649,7 @@ class _StringsDialogsErrorDialogDa extends _StringsDialogsErrorDialogEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -734,7 +734,7 @@ class _StringsDialogsLocalNetworkUnauthorizedDa extends _StringsDialogsLocalNetw
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend kan ikke finde andre enheder uden tilladelse til at scanne det lokale netværk. Giv venligst tilladelse i systemindstillingerne.';
 	@override String get gotoSettings => 'Einstellungen';
 }
@@ -815,7 +815,7 @@ class _StringsDialogsQuickSaveNoticeDa extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer.';
 }
 

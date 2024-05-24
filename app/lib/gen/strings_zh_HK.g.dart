@@ -104,7 +104,7 @@ class _StringsReceiveTabZhHk extends _StringsReceiveTabEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.settingsTab.receive.title}';
+	@override String get title => _root.settingsTab.receive.title;
 	@override late final _StringsReceiveTabInfoBoxZhHk infoBox = _StringsReceiveTabInfoBoxZhHk._(_root);
 }
 
@@ -115,7 +115,7 @@ class _StringsSendTabZhHk extends _StringsSendTabEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.settingsTab.send.title}';
+	@override String get title => _root.settingsTab.send.title;
 	@override late final _StringsSendTabSelectionZhHk selection = _StringsSendTabSelectionZhHk._(_root);
 	@override late final _StringsSendTabPickerZhHk picker = _StringsSendTabPickerZhHk._(_root);
 	@override String get shareIntentInfo => '用你裝置嘅「分享」功能以更方便揀選檔案。';
@@ -136,7 +136,7 @@ class _StringsSettingsTabZhHk extends _StringsSettingsTabEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.settings}';
+	@override String get title => _root.general.settings;
 	@override late final _StringsSettingsTabGeneralZhHk general = _StringsSettingsTabGeneralZhHk._(_root);
 	@override late final _StringsSettingsTabReceiveZhHk receive = _StringsSettingsTabReceiveZhHk._(_root);
 	@override late final _StringsSettingsTabSendZhHk send = _StringsSettingsTabSendZhHk._(_root);
@@ -220,10 +220,10 @@ class _StringsReceiveOptionsPageZhHk extends _StringsReceiveOptionsPageEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.settings}';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get title => _root.general.settings;
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '（LocalSend 資料夾）';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => '因為有資料夾存在而自動閂咗';
 }
 
@@ -259,7 +259,7 @@ class _StringsWebSharePageZhHk extends _StringsWebSharePageEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.sendTab.sendModes.link}';
+	@override String get title => _root.sendTab.sendModes.link;
 	@override String get loading => '開緊個 server……';
 	@override String get stopping => '閂緊個 server……';
 	@override String get error => '開 server 嗰陣發生錯誤。';
@@ -269,7 +269,7 @@ class _StringsWebSharePageZhHk extends _StringsWebSharePageEn {
 	);
 	@override String get requests => '請求';
 	@override String get noRequests => '未有';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '自動接受請求';
 	@override String get encryptionHint => 'LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。';
 	@override String pendingRequests({required Object n}) => '仲有 ${n} 個請求未處理';
@@ -299,7 +299,7 @@ class _StringsDonationPageZhHk extends _StringsDonationPageEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.settingsTab.other.donate}';
+	@override String get title => _root.settingsTab.other.donate;
 	@override String get info => 'LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？';
 	@override String donate({required Object amount}) => '捐 ${amount}';
 	@override String get thanks => '多謝支持！';
@@ -362,7 +362,7 @@ class _StringsTrayZhHk extends _StringsTrayEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => '退出 LocalSend';
 }
 
@@ -373,9 +373,9 @@ class _StringsWebZhHk extends _StringsWebEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => '已遭對方拒絕';
-	@override String get files => '${_root.general.files}';
+	@override String get files => _root.general.files;
 	@override String get fileName => '檔案名稱';
 	@override String get size => '大細';
 }
@@ -387,9 +387,9 @@ class _StringsAssetPickerZhHk extends _StringsAssetPickerEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get confirm => '${_root.general.confirm}';
-	@override String get cancel => '${_root.general.cancel}';
-	@override String get edit => '${_root.general.edit}';
+	@override String get confirm => _root.general.confirm;
+	@override String get cancel => _root.general.cancel;
+	@override String get edit => _root.general.edit;
 	@override String get gifIndicator => 'GIF';
 	@override String get loadFailed => '載入失敗';
 	@override String get original => '原始檔案';
@@ -409,8 +409,8 @@ class _StringsAssetPickerZhHk extends _StringsAssetPickerEn {
 	@override String get sTypeVideoLabel => '影片';
 	@override String get sTypeOtherLabel => '其他媒體';
 	@override String get sActionPlayHint => '播放';
-	@override String get sActionPreviewHint => '${_root.assetPicker.preview}';
-	@override String get sActionSelectHint => '${_root.assetPicker.select}';
+	@override String get sActionPreviewHint => _root.assetPicker.preview;
+	@override String get sActionSelectHint => _root.assetPicker.select;
 	@override String get sActionSwitchPathLabel => '更改路徑';
 	@override String get sActionUseCameraHint => '影相';
 	@override String get sNameDurationLabel => '持續時間';
@@ -497,7 +497,7 @@ class _StringsSettingsTabReceiveZhHk extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => '接收';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => '完成後自動關閉傳輸畫面';
 	@override String get destination => '儲存位置';
 	@override String get downloads => '（下載資料夾）';
@@ -662,7 +662,7 @@ class _StringsDialogsErrorDialogZhHk extends _StringsDialogsErrorDialogEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -674,7 +674,7 @@ class _StringsDialogsFavoriteDialogZhHk extends _StringsDialogsFavoriteDialogEn 
 	// Translations
 	@override String get title => '收藏';
 	@override String get noFavorites => '未收藏任何裝置';
-	@override String get addFavorite => '${_root.general.add}';
+	@override String get addFavorite => _root.general.add;
 }
 
 // Path: dialogs.favoriteDeleteDialog
@@ -747,7 +747,7 @@ class _StringsDialogsLocalNetworkUnauthorizedZhHk extends _StringsDialogsLocalNe
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => '喺冇權掃描區域網路嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。';
 	@override String get gotoSettings => '開啟系統設定';
 }
@@ -828,7 +828,7 @@ class _StringsDialogsQuickSaveNoticeZhHk extends _StringsDialogsQuickSaveNoticeE
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => '自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。';
 }
 
@@ -839,7 +839,7 @@ class _StringsDialogsSendModeHelpZhHk extends _StringsDialogsSendModeHelpEn {
 	@override final _StringsZhHk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.sendTab.sendMode}';
+	@override String get title => _root.sendTab.sendMode;
 	@override String get single => '淨係 send 畀一部裝置，傳輸完成後會清除揀選項目。';
 	@override String get multiple => '一次過 send 畀多部裝置，揀選項目會一路保留。';
 	@override String get link => '冇裝 LocalSend 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。';

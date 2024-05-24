@@ -220,9 +220,9 @@ class _StringsReceiveOptionsPageId extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Opsi';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend folder)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Dimatikan secara otomatis karena ada direktori.';
 }
 
@@ -268,7 +268,7 @@ class _StringsWebSharePageId extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Permintaan';
 	@override String get noRequests => 'Belum ada permintaan.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.';
 	@override String pendingRequests({required Object n}) => 'Permintaan tertunda: ${n}';
 }
@@ -431,7 +431,7 @@ class _StringsTrayId extends _StringsTrayEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Tutup LocalSend';
 }
 
@@ -442,7 +442,7 @@ class _StringsWebId extends _StringsWebEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Ditolak';
 	@override String get files => 'Berkas';
 	@override String get fileName => 'Nama file';
@@ -566,7 +566,7 @@ class _StringsSettingsTabReceiveId extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Menerima';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Selesai Otomatis';
 	@override String get destination => 'Tujuan';
 	@override String get downloads => '(Unduhan)';
@@ -720,7 +720,7 @@ class _StringsDialogsErrorDialogId extends _StringsDialogsErrorDialogEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -805,7 +805,7 @@ class _StringsDialogsLocalNetworkUnauthorizedId extends _StringsDialogsLocalNetw
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.';
 	@override String get gotoSettings => 'Pengaturan';
 }
@@ -886,7 +886,7 @@ class _StringsDialogsQuickSaveNoticeId extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim file.';
 }
 

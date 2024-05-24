@@ -222,9 +222,9 @@ class _StringsReceiveOptionsPageSrCyrl extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Опције';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend folder)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Искључено аутоматски зато што постоје фолдери.';
 }
 
@@ -270,7 +270,7 @@ class _StringsWebSharePageSrCyrl extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Захтеви';
 	@override String get noRequests => 'Нема захтева још увек.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Аутоматски прихвати захтеве';
 	@override String get encryptionHint => 'LocalSend користи сертификате који су self-signed. Морате да прихватите то у browseru.';
 	@override String pendingRequests({required Object n}) => 'Захтеви на чекању: ${n}';
@@ -422,10 +422,10 @@ class _StringsDialogsSrCyrl extends _StringsDialogsEn {
 	@override late final _StringsDialogsNoPermissionSrCyrl noPermission = _StringsDialogsNoPermissionSrCyrl._(_root);
 	@override late final _StringsDialogsNotAvailableOnPlatformSrCyrl notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformSrCyrl._(_root);
 	@override late final _StringsDialogsQrSrCyrl qr = _StringsDialogsQrSrCyrl._(_root);
-	@override late final _StringsDialogsZoomSrCyrl zoom = _StringsDialogsZoomSrCyrl._(_root);
 	@override late final _StringsDialogsQuickActionsSrCyrl quickActions = _StringsDialogsQuickActionsSrCyrl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeSrCyrl quickSaveNotice = _StringsDialogsQuickSaveNoticeSrCyrl._(_root);
 	@override late final _StringsDialogsSendModeHelpSrCyrl sendModeHelp = _StringsDialogsSendModeHelpSrCyrl._(_root);
+	@override late final _StringsDialogsZoomSrCyrl zoom = _StringsDialogsZoomSrCyrl._(_root);
 }
 
 // Path: sanitization
@@ -446,7 +446,7 @@ class _StringsTraySrCyrl extends _StringsTrayEn {
 	@override final _StringsSrCyrl _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Quit LocalSend';
 }
 
@@ -457,7 +457,7 @@ class _StringsWebSrCyrl extends _StringsWebEn {
 	@override final _StringsSrCyrl _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Одбијено';
 	@override String get files => 'Фајлови';
 	@override String get fileName => 'Име фајла';
@@ -581,7 +581,7 @@ class _StringsSettingsTabReceiveSrCyrl extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Примање';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Аутоматски заврши';
 	@override String get destination => 'Дестинација';
 	@override String get downloads => '(Downloads)';
@@ -747,7 +747,7 @@ class _StringsDialogsErrorDialogSrCyrl extends _StringsDialogsErrorDialogEn {
 	@override final _StringsSrCyrl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -832,7 +832,7 @@ class _StringsDialogsLocalNetworkUnauthorizedSrCyrl extends _StringsDialogsLocal
 	@override final _StringsSrCyrl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend не може да нађе друге уређаје без дозволе да скенира локалну мрежу. Молим додајте ову дозволу у Подешавања.';
 	@override String get gotoSettings => 'Подешавања';
 }
@@ -891,16 +891,6 @@ class _StringsDialogsQrSrCyrl extends _StringsDialogsQrEn {
 	@override String get title => 'QR Код';
 }
 
-// Path: dialogs.zoom
-class _StringsDialogsZoomSrCyrl extends _StringsDialogsZoomEn {
-	_StringsDialogsZoomSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
-
-	@override final _StringsSrCyrl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'URL';
-}
-
 // Path: dialogs.quickActions
 class _StringsDialogsQuickActionsSrCyrl extends _StringsDialogsQuickActionsEn {
 	_StringsDialogsQuickActionsSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
@@ -923,7 +913,7 @@ class _StringsDialogsQuickSaveNoticeSrCyrl extends _StringsDialogsQuickSaveNotic
 	@override final _StringsSrCyrl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл.';
 }
 
@@ -938,6 +928,16 @@ class _StringsDialogsSendModeHelpSrCyrl extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Пошаљи фајлове једном примаоцу. Селекција ће бити ресетована након завршеног слања.';
 	@override String get multiple => 'Пошаљи фајлове за више прималаца. Селекција неће бити ресетована након завршеног слања.';
 	@override String get link => 'Примаоци који немају LocalSend инсталиран, могу да преузму селектоване фајлове преко Линка у browseru.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomSrCyrl extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
+
+	@override final _StringsSrCyrl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

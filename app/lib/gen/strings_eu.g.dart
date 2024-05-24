@@ -218,9 +218,9 @@ class _StringsReceiveOptionsPageEu extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Ezarpenak';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(directorio ${_root.appName})';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Direktorioak daudelako desaktibatua.';
 }
 
@@ -266,7 +266,7 @@ class _StringsWebSharePageEu extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Eskerak';
 	@override String get noRequests => 'Oraindik ez dago eskaerarik.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend-ek autosinatutako zertifikatuak erabiltzen ditu. Nabigatzailean onartu behar duzu';
 	@override String pendingRequests({required Object n}) => 'Eskerak: ${n}';
 }
@@ -336,7 +336,7 @@ class _StringsTrayEu extends _StringsTrayEn {
 	@override final _StringsEu _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Itxi LocalSend';
 }
 
@@ -347,7 +347,7 @@ class _StringsWebEu extends _StringsWebEn {
 	@override final _StringsEu _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Bertan behera utzita';
 	@override String get files => 'Fitxategiak';
 	@override String get fileName => 'Fitxateig izena';
@@ -471,7 +471,7 @@ class _StringsSettingsTabReceiveEu extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Eskuratu';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get destination => 'Hartzailea';
 	@override String get downloads => '(Deskargak)';
 	@override String get saveToGallery => 'Gorde galerian';
@@ -610,7 +610,7 @@ class _StringsDialogsErrorDialogEu extends _StringsDialogsErrorDialogEn {
 	@override final _StringsEu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -684,7 +684,7 @@ class _StringsDialogsLocalNetworkUnauthorizedEu extends _StringsDialogsLocalNetw
 	@override final _StringsEu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'Sare lokala eskaneatzeko baimenik gabe, LocalSend-ek ezin ditu inguruko gailuak aurkitu. Mesedez, onartu baimen hau ezarpenetan.';
 	@override String get gotoSettings => 'Ezarpenak';
 }
@@ -765,7 +765,7 @@ class _StringsDialogsQuickSaveNoticeEu extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsEu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Fitxategi eskaerak automatikoki onartzen dira. Kontutan izan sare lokaleko edonork bidali ahal izango dizkizula fitxategiak.';
 }
 

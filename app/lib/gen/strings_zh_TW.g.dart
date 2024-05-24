@@ -221,9 +221,9 @@ class _StringsReceiveOptionsPageZhTw extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => '選項';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend 資料夾)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => '因存在目錄而自動關閉。';
 }
 
@@ -269,7 +269,7 @@ class _StringsWebSharePageZhTw extends _StringsWebSharePageEn {
 	);
 	@override String get requests => '要求';
 	@override String get noRequests => '目前沒有任何要求。';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '自動接受請求';
 	@override String get encryptionHint => 'LocalSend 使用自簽名憑證。您需要在瀏覽器中接受它。';
 	@override String pendingRequests({required Object n}) => '待處理的要求：${n}';
@@ -362,7 +362,7 @@ class _StringsTrayZhTw extends _StringsTrayEn {
 	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => '離開 LocalSend';
 }
 
@@ -373,7 +373,7 @@ class _StringsWebZhTw extends _StringsWebEn {
 	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => '遭到拒絕';
 	@override String get files => '檔案';
 	@override String get fileName => '檔案名稱';
@@ -497,7 +497,7 @@ class _StringsSettingsTabReceiveZhTw extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => '接收';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => '自動完成';
 	@override String get destination => '儲存目錄';
 	@override String get downloads => '(下載)';
@@ -662,7 +662,7 @@ class _StringsDialogsErrorDialogZhTw extends _StringsDialogsErrorDialogEn {
 	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -747,7 +747,7 @@ class _StringsDialogsLocalNetworkUnauthorizedZhTw extends _StringsDialogsLocalNe
 	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => '在未取得掃描區域網路權限的狀況下 LocalSend 無法找到其他裝置，請在設定中授予此權限。';
 	@override String get gotoSettings => '設定';
 }
@@ -828,7 +828,7 @@ class _StringsDialogsQuickSaveNoticeZhTw extends _StringsDialogsQuickSaveNoticeE
 	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => '自動接受所有檔案要求。請注意，區域網路中的所有人都可以傳送檔案給您。';
 }
 
