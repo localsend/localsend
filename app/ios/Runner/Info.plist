@@ -121,5 +121,11 @@
             </array>
         </dict>
     </array>
+
+    <!-- Make documents files visible to the Finder/AppleDevices app -->
+    <key>UIFileSharingEnabled</key>
+    <true/>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
 </dict>
 </plist>
