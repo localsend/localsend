@@ -5,6 +5,7 @@
 - feat(desktop): show progress in the taskbar (@NightFeather0615)
 - feat: add discovery timeout setting for advanced users (@o2e)
 - fix: sanitize file names with invalid characters (@Caesarovich)
+- fix(ios): make documents files visible to the Finder / AppleDevices app (@twinkles-twinstar)
 - fix(windows): correctly remove tray icon when closing the app (@zpp0196)
 - fix(windows): don't keep file open (@NightFeather0615)
 - fix(linux): compatibility with newer libayatana versions (@ix5)
