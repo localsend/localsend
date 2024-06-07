@@ -247,7 +247,7 @@
     "title": "更新日志"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "由于英文中一些近义词无法被翻译为不同的中文，这里与英文会有所差异"
+    "@info": "由于英文中一些近义词无法被翻译为不同的中文，这里与英文会有所差异",
     "adjectives": [
       "迷人",
       "美丽",
