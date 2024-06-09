@@ -46,11 +46,12 @@ It is recommended to download the app either from an app store or from a package
 | Windows                  | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |--------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
-| [Scoop][]                | [Homebrew][]            | [AUR][]            | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [Nixpkgs][]        | [APK][latest]  |               |            |
-| [MSIX Installer][latest] |                         | [TAR][latest]      |                |               |            |
-| [EXE Installer][latest]  |                         | [DEB][latest]      |                |               |            |
-| [Portable ZIP][latest]   |                         | [AppImage][latest] |                |               |            |
+| [Scoop][]                | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
+| [Chocolatey][]           | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
+| [MSIX Installer][latest] |                         | [AUR][]            |                |               |            |
+| [EXE Installer][latest]  |                         | [TAR][latest]      |                |               |            |
+| [Portable ZIP][latest]   |                         | [DEB][latest]      |                |               |            |
+|                          |                         | [AppImage][latest] |                |               |            |
 
 Read more about [distribution channels][].
 
@@ -64,8 +65,9 @@ Read more about [distribution channels][].
 [chocolatey]: https://community.chocolatey.org/packages/localsend
 [homebrew]: https://github.com/localsend/homebrew-localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
-[aur]: https://aur.archlinux.org/packages/localsend-bin
 [nixpkgs]: https://search.nixos.org/packages?show=localsend
+[snap]: https://snapcraft.io/localsend
+[aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 

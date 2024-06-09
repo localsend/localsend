@@ -66,6 +66,7 @@ Git based distribution:
 | [AUR][]        | [AUR Repo][]        | [@Nixuge][]                                        |
 | [Nixpkgs][]    | [Nixpkgs Repo][]    | [@sikmir][], [@linsui][]                           |
 | [F-Droid][]    | [F-Droid Repo][]    | [@linsui][], [@Tienisto][], [F-Droid CI][]         |
+| [Snap][]       | [Snap Repo][]       | [@thatLeaflet][]                                   |
 
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
 [winget repo]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
@@ -83,6 +84,8 @@ Git based distribution:
 [nixpkgs repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [f-droid repo]: https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.localsend.localsend_app.yml
+[snap]: https://snapcraft.io/localsend
+[snap repo]: https://github.com/localsend/snap
 
 Manual distribution:
 
@@ -117,6 +120,7 @@ Binary distribution:
 [@brogers5]: https://github.com/brogers5
 [@sikmir]: https://github.com/sikmir
 [@linsui]: https://github.com/linsui
+[@thatLeaflet]: https://github.com/thatLeaflet
 [F-Droid CI]: https://gitlab.com/fdroidci
 
 TODO:
