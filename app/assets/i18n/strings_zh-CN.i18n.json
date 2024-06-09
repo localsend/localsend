@@ -43,7 +43,7 @@
   "receiveTab": {
     "title": "接收",
     "infoBox": {
-      "ip": "IP:",
+      "ip": "IP：",
       "port": "端口：",
       "alias": "别名："
     }
@@ -63,7 +63,7 @@
       "app": "应用",
       "clipboard": "剪贴板"
     },
-    "shareIntentInfo": "你也可以使用你的移动设备中的“分享”功能来更简单的选择文件",
+    "shareIntentInfo": "你也可以通过移动设备中的“分享”功能更简单地选择文件。",
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
@@ -81,7 +81,7 @@
     "title": "设置",
     "general": {
       "title": "通用",
-      "brightness": "亮度",
+      "brightness": "主题",
       "brightnessOptions": {
         "system": "跟随系统",
         "dark": "暗色",
@@ -113,7 +113,7 @@
     },
     "send": {
       "title": "发送",
-      "shareViaLinkAutoAccept": "通过链接分享: 自动接受"
+      "shareViaLinkAutoAccept": "通过链接分享：自动接受"
     },
     "network": {
       "title": "网络",
@@ -123,7 +123,7 @@
       "deviceType": "设备类型",
       "deviceModel": "设备型号",
       "port": "端口",
-      "discoveryTimeout": "发现超时",
+      "discoveryTimeout": "搜索设备超时",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多播",
@@ -190,9 +190,9 @@
     "saveToGalleryOff": "由于存在目录，已自动关闭。"
   },
   "sendPage": {
-    "waiting": "等待响应中...",
-    "rejected": "对方拒绝了请求",
-    "busy": "对方正在处理另一个请求"
+    "waiting": "等待响应中……",
+    "rejected": "对方拒绝了请求。",
+    "busy": "对方正在处理另一个请求。"
   },
   "progressPage": {
     "titleSending": "正在发送文件",
@@ -212,18 +212,18 @@
   },
   "webSharePage": {
     "title": "分享为链接",
-    "loading": "正在启动服务器...",
-    "stopping": "正在停止服务器...",
+    "loading": "正在启动服务器……",
+    "stopping": "正在停止服务器……",
     "error": "在启动服务器过程中发生了错误",
     "openLink": {
-      "one": "在浏览器中打开本链接:",
-      "other": "在浏览器中打开其中的一个链接:"
+      "one": "在浏览器中打开链接：",
+      "other": "在浏览器中打开其中一个链接："
     },
     "requests": "请求",
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自动接受请求",
-    "encryptionHint": "LocalSend 使用自签名证书，您需要在浏览器中接受它。",
+    "encryptionHint": "LocalSend 使用自签名证书，您需要在浏览器中允许它。",
     "pendingRequests": "待处理请求: {n}"
   },
   "aboutPage": {
@@ -247,7 +247,76 @@
     "title": "更新日志"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version. Different locales may have different words, it may not match 1:1"
+    "@info": "由于英文中一些近义词无法被翻译为不同的中文，这里与英文会有所差异",
+    "adjectives": [
+      "迷人",
+      "美丽",
+      "巨大",
+      "明亮",
+      "干净",
+      "聪明",
+      "帅气",
+      "可爱",
+      "狡猾",
+      "坚定",
+      "有活力",
+      "高效",
+      "极好",
+      "快速",
+      "不错",
+      "新鲜",
+      "好",
+      "华丽",
+      "伟大",
+      "英俊",
+      "炽热",
+      "善良",
+      "诚实",
+      "神秘",
+      "整洁",
+      "开心",
+      "耐心",
+      "漂亮",
+      "强大",
+      "富有",
+      "秘密",
+      "聪明",
+      "稳固",
+      "特别",
+      "战略性",
+      "强大",
+      "整洁",
+      "智慧"
+    ],
+    "fruits": [
+      "苹果",
+      "鳄梨",
+      "香蕉",
+      "黑莓",
+      "蓝莓",
+      "西兰花",
+      "胡萝卜",
+      "樱桃",
+      "椰子",
+      "葡萄",
+      "柠檬",
+      "莴苣",
+      "芒果",
+      "甜瓜",
+      "蘑菇",
+      "洋葱",
+      "橙子",
+      "木瓜",
+      "桃子",
+      "梨",
+      "菠萝",
+      "土豆",
+      "南瓜",
+      "覆盆子",
+      "草莓",
+      "番茄"
+    ],
+    "combination": "{adjective}的{fruit}",
   },
   "dialogs": {
     "addFile": {
@@ -256,7 +325,7 @@
     },
     "addressInput": {
       "title": "输入地址",
-      "hashtag": "Hashtag",
+      "hashtag": "标签",
       "ip": "IP 地址",
       "recentlyUsed": "最近使用："
     },
@@ -277,18 +346,18 @@
     },
     "favoriteDialog": {
       "title": "收藏夹",
-      "noFavorites": "尚未配置收藏夹",
+      "noFavorites": "还没有收藏的设备。",
       "addFavorite": "新建"
     },
     "favoriteDeleteDialog": {
-      "title": "删除收藏夹",
-      "content": "确定要删除收藏夹 \"{name}\" 吗?"
+      "title": "删除收藏",
+      "content": "确定要取消收藏 \"{name}\" 吗?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "添加收藏夹",
-      "titleEdit": "编辑收藏夹",
+      "titleAdd": "添加到收藏夹",
+      "titleEdit": "设置",
       "name": "名称",
-      "auto": "(auto)",
+      "auto": "(自动)",
       "ip": "IP 地址",
       "port": "端口"
     },
@@ -306,7 +375,7 @@
     },
     "historyClearDialog": {
       "title": "清空历史记录",
-      "content": "您确定要清空全部历史记录吗？"
+      "content": "要清空全部历史记录吗？"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -377,15 +446,15 @@
     "edit": "编辑",
     "gifIndicator": "GIF",
     "loadFailed": "加载失败",
-    "original": "源文件",
+    "original": "原文件",
     "preview": "预览",
     "select": "选择",
     "emptyList": "清空列表",
-    "unSupportedAssetType": "不支持的文件格式",
+    "unSupportedAssetType": "不支持该文件格式",
     "unableToAccessAll": "无法访问设备上的所有文件",
     "viewingLimitedAssetsTip": "应用程序仅能查看可访问的文件和相册。",
     "changeAccessibleLimitedAssets": "单击以更新可访问文件",
-    "accessAllTip": "应用程序只能访问设备上的部分文件，转到系统设置并允许该应用访问设备上的所有媒体文件。",
+    "accessAllTip": "应用程序只能访问设备上的部分文件，请转到系统设置并允许该应用访问设备上的所有媒体文件。",
     "goToSystemSettings": "转到系统设置",
     "accessLimitedAssets": "继续受限访问",
     "accessiblePathName": "可访问的文件",
