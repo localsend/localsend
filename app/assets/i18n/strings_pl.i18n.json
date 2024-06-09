@@ -354,6 +354,10 @@
       "title": "Adres URL"
     }
   },
+  "sanitization": {
+    "empty": "Nazwa pliku nie może być pusta",
+    "invalid": "Nazwa pliku zawiera nieprawidłowe znaki"
+  },
   "tray": {
     "@info": "Wytyczne Apple są bardzo surowe, jeśli chodzi o „zamknięte” sformułowanie.",
     "open": "@:general.open",
