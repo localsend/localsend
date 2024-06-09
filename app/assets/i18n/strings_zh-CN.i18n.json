@@ -316,7 +316,7 @@
       "草莓",
       "番茄"
     ],
-    "combination": "{adjective}的{fruit}",
+    "combination": "{adjective}的{fruit}"
   },
   "dialogs": {
     "addFile": {

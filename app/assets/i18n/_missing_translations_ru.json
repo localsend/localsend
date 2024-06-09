@@ -2,9 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ru>.",
     "After editing this file, you can run 'dart run slang apply --locale=ru' to quickly apply the newly added translations."
-  ],
-  "sanitization": {
-    "empty": "Имя файла не может быть пустым",
-    "invalid": "Имя файла содержит недопустимые символы"
-  }
+  ]
 }

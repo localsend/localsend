@@ -46,6 +46,7 @@ class _StringsUk extends Translations {
 	@override late final _StringsChangelogPageUk changelogPage = _StringsChangelogPageUk._(_root);
 	@override late final _StringsAliasGeneratorUk aliasGenerator = _StringsAliasGeneratorUk._(_root);
 	@override late final _StringsDialogsUk dialogs = _StringsDialogsUk._(_root);
+	@override late final _StringsSanitizationUk sanitization = _StringsSanitizationUk._(_root);
 	@override late final _StringsTrayUk tray = _StringsTrayUk._(_root);
 	@override late final _StringsWebUk web = _StringsWebUk._(_root);
 	@override late final _StringsAssetPickerUk assetPicker = _StringsAssetPickerUk._(_root);
@@ -354,6 +355,17 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice = _StringsDialogsQuickSaveNoticeUk._(_root);
 	@override late final _StringsDialogsSendModeHelpUk sendModeHelp = _StringsDialogsSendModeHelpUk._(_root);
 	@override late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationUk extends _StringsSanitizationEn {
+	_StringsSanitizationUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ім\'я файлу не може бути порожнім';
+	@override String get invalid => 'Ім\'я файлу містить недопустимі символи';
 }
 
 // Path: tray

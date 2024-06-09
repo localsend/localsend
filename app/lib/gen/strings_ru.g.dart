@@ -46,6 +46,7 @@ class _StringsRu extends Translations {
 	@override late final _StringsChangelogPageRu changelogPage = _StringsChangelogPageRu._(_root);
 	@override late final _StringsAliasGeneratorRu aliasGenerator = _StringsAliasGeneratorRu._(_root);
 	@override late final _StringsDialogsRu dialogs = _StringsDialogsRu._(_root);
+	@override late final _StringsSanitizationRu sanitization = _StringsSanitizationRu._(_root);
 	@override late final _StringsTrayRu tray = _StringsTrayRu._(_root);
 	@override late final _StringsWebRu web = _StringsWebRu._(_root);
 	@override late final _StringsAssetPickerRu assetPicker = _StringsAssetPickerRu._(_root);
@@ -354,6 +355,17 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickSaveNoticeRu quickSaveNotice = _StringsDialogsQuickSaveNoticeRu._(_root);
 	@override late final _StringsDialogsSendModeHelpRu sendModeHelp = _StringsDialogsSendModeHelpRu._(_root);
 	@override late final _StringsDialogsZoomRu zoom = _StringsDialogsZoomRu._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationRu extends _StringsSanitizationEn {
+	_StringsSanitizationRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Имя файла не может быть пустым';
+	@override String get invalid => 'Имя файла содержит недопустимые символы';
 }
 
 // Path: tray

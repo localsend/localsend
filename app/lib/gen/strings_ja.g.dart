@@ -46,6 +46,7 @@ class _StringsJa extends Translations {
 	@override late final _StringsChangelogPageJa changelogPage = _StringsChangelogPageJa._(_root);
 	@override late final _StringsAliasGeneratorJa aliasGenerator = _StringsAliasGeneratorJa._(_root);
 	@override late final _StringsDialogsJa dialogs = _StringsDialogsJa._(_root);
+	@override late final _StringsSanitizationJa sanitization = _StringsSanitizationJa._(_root);
 	@override late final _StringsTrayJa tray = _StringsTrayJa._(_root);
 	@override late final _StringsWebJa web = _StringsWebJa._(_root);
 	@override late final _StringsAssetPickerJa assetPicker = _StringsAssetPickerJa._(_root);
@@ -353,6 +354,18 @@ class _StringsDialogsJa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsJa quickActions = _StringsDialogsQuickActionsJa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeJa quickSaveNotice = _StringsDialogsQuickSaveNoticeJa._(_root);
 	@override late final _StringsDialogsSendModeHelpJa sendModeHelp = _StringsDialogsSendModeHelpJa._(_root);
+	@override late final _StringsDialogsZoomJa zoom = _StringsDialogsZoomJa._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationJa extends _StringsSanitizationEn {
+	_StringsSanitizationJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'ファイル名は空にできません';
+	@override String get invalid => 'ファイル名に無効な文字が含まれています';
 }
 
 // Path: tray
@@ -530,6 +543,7 @@ class _StringsSettingsTabNetworkJa extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'デバイスタイプ';
 	@override String get deviceModel => 'デバイスモデル';
 	@override String get port => 'ポート';
+	@override String get discoveryTimeout => '探索がタイムアウトしました';
 	@override String portWarning({required Object defaultPort}) => 'ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: ${defaultPort})';
 	@override String get encryption => '暗号化';
 	@override String get multicastGroup => 'マルチキャスト';
@@ -843,6 +857,16 @@ class _StringsDialogsSendModeHelpJa extends _StringsDialogsSendModeHelpEn {
 	@override String get single => '単一の受信者にファイルを送信します。ファイルの転送完了後、選択は解除されます。';
 	@override String get multiple => '複数の受信者にファイルを送信します。ファイルの選択は解除されません。';
 	@override String get link => 'LocalSendをインストールしていない受信者でも、ブラウザでリンクを開くことで選択したファイルをダウンロードできます。';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomJa extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
