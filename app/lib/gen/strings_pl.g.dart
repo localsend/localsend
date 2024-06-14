@@ -46,6 +46,7 @@ class _StringsPl extends Translations {
 	@override late final _StringsChangelogPagePl changelogPage = _StringsChangelogPagePl._(_root);
 	@override late final _StringsAliasGeneratorPl aliasGenerator = _StringsAliasGeneratorPl._(_root);
 	@override late final _StringsDialogsPl dialogs = _StringsDialogsPl._(_root);
+	@override late final _StringsSanitizationPl sanitization = _StringsSanitizationPl._(_root);
 	@override late final _StringsTrayPl tray = _StringsTrayPl._(_root);
 	@override late final _StringsWebPl web = _StringsWebPl._(_root);
 	@override late final _StringsAssetPickerPl assetPicker = _StringsAssetPickerPl._(_root);
@@ -354,6 +355,17 @@ class _StringsDialogsPl extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickSaveNoticePl quickSaveNotice = _StringsDialogsQuickSaveNoticePl._(_root);
 	@override late final _StringsDialogsSendModeHelpPl sendModeHelp = _StringsDialogsSendModeHelpPl._(_root);
 	@override late final _StringsDialogsZoomPl zoom = _StringsDialogsZoomPl._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationPl extends _StringsSanitizationEn {
+	_StringsSanitizationPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Nazwa pliku nie może być pusta';
+	@override String get invalid => 'Nazwa pliku zawiera nieprawidłowe znaki';
 }
 
 // Path: tray
