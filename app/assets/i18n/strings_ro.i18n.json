@@ -11,14 +11,14 @@
     "confirm": "Confirmă",
     "continueStr": "Continuă",
     "copy": "Copiază",
-    "copiedToClipboard": "Copiat la Clipboard",
+    "copiedToClipboard": "Copiat pe Clipboard",
     "decline": "Declină",
     "done": "Gata",
     "delete": "Șterge",
     "edit": "Editează",
-    "error": "Erroare",
-    "example": "Examplu",
-    "files": "Fișierele",
+    "error": "Eroare",
+    "example": "Exemplu",
+    "files": "Fișiere",
     "finished": "Finalizat",
     "hide": "Ascunde",
     "off": "Oprit",
@@ -64,24 +64,24 @@
       "clipboard": "Lipește"
     },
     "shareIntentInfo": "Pentru a selecta mai ușor fișierele, puteți utiliza funcția \"Partajare\" a dispozitivului telefonului.",
-    "nearbyDevices": "Dispozitivele din apropiere",
+    "nearbyDevices": "Dispozitive din apropiere",
     "thisDevice": "Acest dispozitiv",
     "scan": "Caută dispozitive",
     "sendMode": "Mod de trimitere",
     "sendModes": {
       "single": "Recipient unic",
       "multiple": "Recipienți multipli",
-      "link": "Partajați prin link"
+      "link": "Partajează prin link"
     },
     "sendModeHelp": "Explicație",
     "help": "Verificați dacă destinația dorită se află în aceeași rețea Wi-Fi.",
-    "placeItems": "Place items to share."
+    "placeItems": "Adaugă lucruri de partajare."
   },
   "settingsTab": {
     "title": "Setări",
     "general": {
       "title": "General",
-      "brightness": "Teme",
+      "brightness": "Tema",
       "brightnessOptions": {
         "system": "Sistem",
         "dark": "Întuneric",
@@ -108,12 +108,12 @@
       "autoFinish": "Finisare automată",
       "destination": "Destinație",
       "downloads": "(Descărcări)",
-      "saveToGallery": "Salvare media la galerie",
-      "saveToHistory": "Salvare la istoric"
+      "saveToGallery": "Salvează media în galerie",
+      "saveToHistory": "Salvează în istoric"
     },
     "send": {
       "title": "Trimitere",
-      "shareViaLinkAutoAccept": "Partajați prin link: Acceptare automată"
+      "shareViaLinkAutoAccept": "Partajează prin link: Acceptare automată"
     },
     "network": {
       "title": "Rețeaua",
@@ -145,7 +145,7 @@
     "fixButton": "Rezolvă automat",
     "firewall": {
       "symptom": "Această aplicație poate trimite fișiere la alte dispozitive, dar alte dispozitive nu pot trimite fișiere de pe acest dispozitiv.",
-      "solution": "Cel mai probabil problema este legată la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul {port}.",
+      "solution": "Cel mai probabil problema este le la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul {port}.",
       "openFirewall": "Deschide Firewall"
     },
     "noConnection": {
@@ -212,8 +212,8 @@
   },
   "webSharePage": {
     "title": "Partajează prin link",
-    "loading": "Pornesc serverul...",
-    "stopping": "Oprește serverul...",
+    "loading": "Pornim serverul...",
+    "stopping": "Oprim serverul...",
     "error": "A apărut o eroare la pornirea serverului.",
     "openLink": {
       "one": "Deschide acest link în browserul tău:",
@@ -401,72 +401,72 @@
       "title": "Cod QR"
     },
     "quickActions": {
-      "title": "Quick Actions",
-      "counter": "Counter",
+      "title": "Acțiuni rapide",
+      "counter": "Contor",
       "prefix": "Prefix",
-      "padZero": "Pad with zeros",
-      "sortBeforeCount": "Sort alphabetically beforehand",
-      "random": "Random"
+      "padZero": "Completează cu zerouri",
+      "sortBeforeCount": "Sortează alfabetic înainte",
+      "random": "Aleatoriu"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
+      "content": "Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere."
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Moduri de trimitere",
+      "single": "Trimite fișiere unui singur recipient. Selecția va fi golită după ce transferul este finalizat.",
+      "multiple": "Trimite fișiere la mai mulți recipienți. Selecția nu va fi golită.",
+      "link": "Recipienții care nu au LocalSend instalat pot descărca fișierele selectate accesând linkul în browser."
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Numele fișierului nu poate fi gol",
+    "invalid": "Numele fișierului conține caractere invalide"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Închide LocalSend"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "rejected": "Respins",
+    "files": "Fișiere",
+    "fileName": "Numele fișierului",
+    "size": "Mărime"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and iPhone",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "edit": "Edit",
+    "confirm": "Confirmă",
+    "cancel": "Anulează",
+    "edit": "Editează",
     "gifIndicator": "GIF",
-    "loadFailed": "Load failed",
-    "original": "Origin",
-    "preview": "Preview",
-    "select": "Select",
-    "emptyList": "Empty list",
-    "unSupportedAssetType": "Unsupported file type.",
-    "unableToAccessAll": "Unable to access all files on the device",
-    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
-    "changeAccessibleLimitedAssets": "Click to update accessible files",
-    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
-    "goToSystemSettings": "Go to system settings",
-    "accessLimitedAssets": "Continue with limited access",
-    "accessiblePathName": "Accessible files",
+    "loadFailed": "Eroare la încărcare",
+    "original": "Original",
+    "preview": "Vezi",
+    "select": "Selectează",
+    "emptyList": "Listă goală",
+    "unSupportedAssetType": "Tip de fișier neacceptat.",
+    "unableToAccessAll": "Nu se pot accesa toate fișierele de pe dispozitiv",
+    "viewingLimitedAssetsTip": "Vezi doar fișierele și albumele accesibile aplicației.",
+    "changeAccessibleLimitedAssets": "Apasă pentru a actualiza fișierele accesibile",
+    "accessAllTip": "Aplicația poate accesa doar unele fișiere de pe dispozitiv. Mergi la setările sistemului și permite aplicația să acceseze toate mediile de pe dispozitiv.",
+    "goToSystemSettings": "Mergi la setările sistemului",
+    "accessLimitedAssets": "Continuă cu acces limitat",
+    "accessiblePathName": "Fișiere accesibile",
     "sTypeAudioLabel": "Audio",
-    "sTypeImageLabel": "Image",
+    "sTypeImageLabel": "Imagini",
     "sTypeVideoLabel": "Video",
-    "sTypeOtherLabel": "Other media",
-    "sActionPlayHint": "play",
-    "sActionPreviewHint": "preview",
-    "sActionSelectHint": "select",
-    "sActionSwitchPathLabel": "change path",
-    "sActionUseCameraHint": "use camera",
-    "sNameDurationLabel": "duration",
-    "sUnitAssetCountLabel": "count"
+    "sTypeOtherLabel": "Alte media",
+    "sActionPlayHint": "redare",
+    "sActionPreviewHint": "vezi",
+    "sActionSelectHint": "selectare",
+    "sActionSwitchPathLabel": "schimbă calea",
+    "sActionUseCameraHint": "folosește camera",
+    "sNameDurationLabel": "durată",
+    "sUnitAssetCountLabel": "număr"
   }
 }
