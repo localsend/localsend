@@ -284,7 +284,7 @@ class _StringsAboutPageZhTw extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => '關於 LocalSend';
 	@override List<String> get description => [
-		'LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的共享檔案和訊息，無需網際網路連線。',
+		'LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的分享檔案和訊息，無需網際網路連線。',
 		'此應用程式可在 Android、iOS、macOS、Windows 和 Linux 上使用。 您可以在官網首頁上找到所有下載選項。',
 	];
 	@override String get author => '作者';
