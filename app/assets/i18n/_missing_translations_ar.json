@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "مهلة الاكتشاف"
     }
   },
   "dialogs": {
@@ -14,7 +14,7 @@
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "لا يمكن أن يكون اسم الملف فارغًا",
+    "invalid": "يحتوي اسم الملف على أحرف غير صالحة"
   }
 }
