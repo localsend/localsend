@@ -52,8 +52,8 @@
     "title": "Lähetä",
     "selection": {
       "title": "Valinta",
-      "files": "Tiedostot: {tiedostot}",
-      "size": "Koko: {koko}"
+      "files": "Tiedostot: {files}",
+      "size": "Koko: {size}"
     },
     "picker": {
       "file": "Tiedosto",
@@ -184,9 +184,9 @@
   },
   "receiveOptionsPage": {
     "title": "Asetukset",
-    "destination": "@:settingsTab.receive.kohde",
+    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend-kansio)",
-    "saveToGallery": "@:settingsTab.receive.tallennaGalleriaan",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Poistettu käytöstä automaattisesti, koska hakemistoja on olemassa."
   },
   "sendPage": {

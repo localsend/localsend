@@ -354,6 +354,7 @@ class _StringsDialogsFr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsFr quickActions = _StringsDialogsQuickActionsFr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFr quickSaveNotice = _StringsDialogsQuickSaveNoticeFr._(_root);
 	@override late final _StringsDialogsSendModeHelpFr sendModeHelp = _StringsDialogsSendModeHelpFr._(_root);
+	@override late final _StringsDialogsZoomFr zoom = _StringsDialogsZoomFr._(_root);
 }
 
 // Path: sanitization
@@ -542,6 +543,7 @@ class _StringsSettingsTabNetworkFr extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Type d\'appareil';
 	@override String get deviceModel => 'Modèle d\'appareil';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Temps maximal de recherche';
 	@override String portWarning({required Object defaultPort}) => 'Il se peut que vous ne soyez pas détecté par d\'autres appareils car vous utilisez un port personnalisé. (par défaut : ${defaultPort})';
 	@override String get encryption => 'Chiffrement';
 	@override String get multicastGroup => 'Multicast';
@@ -855,6 +857,16 @@ class _StringsDialogsSendModeHelpFr extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Envoyer des fichiers à un récipient. La sélection sera effacée une fois l\'envoi du fichier terminé.';
 	@override String get multiple => 'Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.';
 	@override String get link => 'Les récipients n\'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomFr extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

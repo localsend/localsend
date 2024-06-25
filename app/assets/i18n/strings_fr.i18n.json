@@ -123,6 +123,7 @@
       "deviceType": "Type d'appareil",
       "deviceModel": "Modèle d'appareil",
       "port": "Port",
+      "discoveryTimeout": "Temps maximal de recherche",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
@@ -348,6 +349,9 @@
       "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
       "multiple": "Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.",
       "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
+    },
+    "zoom": {
+      "title": "URL"
     }
   },
   "sanitization": {

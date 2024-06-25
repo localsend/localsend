@@ -46,6 +46,7 @@ class _StringsAr extends Translations {
 	@override late final _StringsChangelogPageAr changelogPage = _StringsChangelogPageAr._(_root);
 	@override late final _StringsAliasGeneratorAr aliasGenerator = _StringsAliasGeneratorAr._(_root);
 	@override late final _StringsDialogsAr dialogs = _StringsDialogsAr._(_root);
+	@override late final _StringsSanitizationAr sanitization = _StringsSanitizationAr._(_root);
 	@override late final _StringsTrayAr tray = _StringsTrayAr._(_root);
 	@override late final _StringsWebAr web = _StringsWebAr._(_root);
 	@override late final _StringsAssetPickerAr assetPicker = _StringsAssetPickerAr._(_root);
@@ -424,6 +425,18 @@ class _StringsDialogsAr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsAr quickActions = _StringsDialogsQuickActionsAr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeAr quickSaveNotice = _StringsDialogsQuickSaveNoticeAr._(_root);
 	@override late final _StringsDialogsSendModeHelpAr sendModeHelp = _StringsDialogsSendModeHelpAr._(_root);
+	@override late final _StringsDialogsZoomAr zoom = _StringsDialogsZoomAr._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationAr extends _StringsSanitizationEn {
+	_StringsSanitizationAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'لا يمكن أن يكون اسم الملف فارغًا';
+	@override String get invalid => 'يحتوي اسم الملف على أحرف غير صالحة';
 }
 
 // Path: tray
@@ -601,6 +614,7 @@ class _StringsSettingsTabNetworkAr extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'نوع الجهاز';
 	@override String get deviceModel => 'نموذج الجهاز';
 	@override String get port => 'منفذ';
+	@override String get discoveryTimeout => 'مهلة الاكتشاف';
 	@override String portWarning({required Object defaultPort}) => 'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: ${defaultPort})';
 	@override String get encryption => 'التشفير';
 	@override String get multicastGroup => 'فرق البث المتعدد';
@@ -914,6 +928,16 @@ class _StringsDialogsSendModeHelpAr extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'يقوم بإرسال الملفات إلى مستلم واحد. ستتم مسح الاختيار بعد انتهاء نقل الملف.';
 	@override String get multiple => 'يقوم بإرسال الملفات إلى مستلمين متعددين. لن يتم مسح الاختيار.';
 	@override String get link => 'يمكن للمستلمين الذين لا يحتوون على LocalSend تنزيل الملفات المحددة عن طريق فتح الرابط في متصفحهم.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomAr extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

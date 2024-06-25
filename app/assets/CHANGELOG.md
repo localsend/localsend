@@ -9,7 +9,7 @@
 - fix(windows): correctly remove tray icon when closing the app (@zpp0196)
 - fix(windows): don't keep file open (@NightFeather0615)
 - fix(linux): compatibility with newer libayatana versions (@ix5)
-- i18n: add Serbian (@nebojsatomic)
+- i18n: add Serbian (@nebojsatomic), Finnish (@jooapa), Romanian (@UnifeGi)
 
 ## 1.14.0 (2024-02-26)
 

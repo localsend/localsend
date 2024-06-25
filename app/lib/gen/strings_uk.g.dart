@@ -365,7 +365,7 @@ class _StringsSanitizationUk extends _StringsSanitizationEn {
 
 	// Translations
 	@override String get empty => 'Ім\'я файлу не може бути порожнім';
-	@override String get invalid => 'Ім\'я файлу містить недопустимі символи';
+	@override String get invalid => 'Ім\'я файлу містить неприпустимі символи';
 }
 
 // Path: tray
