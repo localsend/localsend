@@ -27,7 +27,7 @@
     "online": "Online",
     "open": "Deschide",
     "queue": "Coadă",
-    "quickSave": "Salvare Repede",
+    "quickSave": "Salvare Rapidă",
     "renamed": "Redenumit",
     "reset": "Resetare",
     "restart": "Repornire",
@@ -74,7 +74,7 @@
       "link": "Partajează prin link"
     },
     "sendModeHelp": "Explicație",
-    "help": "Verificați dacă destinația dorită se află în aceeași rețea Wi-Fi.",
+    "help": "Verificați dacă destinația se află în aceeași rețea Wi-Fi.",
     "placeItems": "Adaugă lucruri de partajare."
   },
   "settingsTab": {
@@ -97,7 +97,7 @@
         "system": "Sistem"
       },
       "saveWindowPlacement": "Închidere: Salvează plasarea ferestrei",
-      "minimizeToTray": "Închidere: Minimizează în bara de Meniuri/Tray",
+      "minimizeToTray": "Închidere: Minimizează în Bara de Meniuri/Tray",
       "launchAtStartup": "Autopornire după logare",
       "launchMinimized": "Autopornire: Pornire ascunsă",
       "animations": "Animații"
@@ -109,7 +109,7 @@
       "destination": "Destinație",
       "downloads": "(Descărcări)",
       "saveToGallery": "Salvează media în galerie",
-      "saveToHistory": "Salvează în istoric"
+      "saveToHistory": "Salvează în istorie"
     },
     "send": {
       "title": "Trimitere",
@@ -141,11 +141,11 @@
   "troubleshootPage": {
     "title": "Depanare",
     "subTitle": "Aplicația nu funcționează așa cum trebuie? Aici poți găsi câteva soluții comune.",
-    "solution": "Soluție:",
-    "fixButton": "Rezolvă automat",
+    "solution": "Soluția:",
+    "fixButton": "Rezolvă automată",
     "firewall": {
       "symptom": "Această aplicație poate trimite fișiere la alte dispozitive, dar alte dispozitive nu pot trimite fișiere de pe acest dispozitiv.",
-      "solution": "Cel mai probabil problema este le la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul {port}.",
+      "solution": "Cel mai probabil problema este de la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul {port}.",
       "openFirewall": "Deschide Firewall"
     },
     "noConnection": {
@@ -187,7 +187,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(Dosarul LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Dezactivat automat deoarece există directoare."
+    "saveToGalleryOff": "Dezactivat automat deoarece există foldere."
   },
   "sendPage": {
     "waiting": "Aștept răspuns...",
@@ -212,8 +212,8 @@
   },
   "webSharePage": {
     "title": "Partajează prin link",
-    "loading": "Pornim serverul...",
-    "stopping": "Oprim serverul...",
+    "loading": "Să pornim serverul...",
+    "stopping": "Să oprim serverul...",
     "error": "A apărut o eroare la pornirea serverului.",
     "openLink": {
       "one": "Deschide acest link în browserul tău:",
@@ -249,67 +249,67 @@
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
     "adjectives": [
-      "Adorabil",
-      "Frumos",
+      "Adorabilă",
+      "Frumoasă",
       "Mare",
-      "Strălucitor",
-      "Curat",
-      "Deștept",
+      "Strălucitoare",
+      "Curată",
+      "Deșteaptă",
       "Cool",
-      "Drăguț",
-      "Viclean",
-      "Determinant",
-      "Energic",
-      "Eficient",
-      "Fantastic",
+      "Drăguță",
+      "Vicleană",
+      "Determinantă",
+      "Energică",
+      "Eficientă",
+      "Fantastică",
       "Repede",
       "Bine",
-      "Proaspăt",
-      "Bun",
-      "Superb",
-      "Grozav",
-      "Chipeș",
+      "Sănătoasă",
+      "Proaspătă",
+      "Bună",
+      "Superbă",
+      "Grozavă",
+      "Coaptă",
       "Fierbinte",
-      "Amabil",
-      "Iubitor",
-      "Mistic",
-      "Ordine",
-      "Plăcut",
-      "Răbdător",
-      "Frumușel",
-      "Puternic",
-      "Bogăție",
-      "Secret",
-      "Inteligent",
-      "Solid",
-      "Special",
-      "Strategic",
-      "Puternic",
-      "Înțelept"
+      "Amabilă",
+      "Iubitoare",
+      "Mistică",
+      "îngrijită",
+      "Plăcută",
+      "Răbdătoare",
+      "Frumușică",
+      "Puternică",
+      "Delicioasă",
+      "Secretă",
+      "Inteligentă",
+      "Solidă",
+      "Specială",
+      "Strategică",
+      "Aromată",
+      "Înțeleaptă"
     ],
     "fruits": [
-      "Măr",
-      "Avocado",
-      "Banana",
-      "Mure",
-      "Afine",
-      "Broccoli",
-      "Morcov",
+      "Caisă",
+      "Gutuie",
+      "Banană",
+      "Mură",
+      "Nucă",
+      "Afină",
+      "Vișină",
       "Cireașă",
-      "Cocos",
-      "Strugure",
       "Lămâie",
       "Salată",
-      "Mango",
-      "Pepene",
+      "Fasole",
+      "Conopidă",
       "Ciupercă",
       "Ceapă",
       "Portocală",
       "Piersică",
       "Pară",
-      "Ananas",
-      "Cartof",
-      "Dovleac",
+      "Varză",
+      "Mazăre",
+      "Prună",
+      "Rodie",
       "Zmeură",
       "Căpșună",
       "Roșie"
@@ -329,12 +329,12 @@
       "recentlyUsed": "Folosit recent: "
     },
     "cancelSession": {
-      "title": "Anulează transferul de fișiere",
-      "content": "Chiar vrei să anulezi transferul de fișiere?"
+      "title": "Anularea transferului",
+      "content": "Chiar vrei să anulezi transferul cu fișiere?"
     },
     "cannotOpenFile": {
       "title": "Nu se poate deschide fișierul",
-      "content": "Nu s-a putut deschide \\\"{file}\\\". A fost mutat, redenumit sau șters acest fișier?"
+      "content": "Nu s-a putut deschide \\\"{file}\\\". A fost mutat, redenumit sau șters?"
     },
     "encryptionDisabledNotice": {
       "title": "Criptare dezactivată",
@@ -382,7 +382,7 @@
       "gotoSettings": "Setări"
     },
     "messageInput": {
-      "title": "Scrie mesaj",
+      "title": "Scrie un mesaj",
       "multiline": "Multilinie"
     },
     "noFiles": {
