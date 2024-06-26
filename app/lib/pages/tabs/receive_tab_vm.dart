@@ -8,13 +8,11 @@ import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 /// Whether the advanced network info is shown
-final _showAdvancedProvider =
-    StateProvider<bool>((ref) => false, debugLabel: '_showAdvancedProvider');
+final _showAdvancedProvider = StateProvider<bool>((ref) => false, debugLabel: '_showAdvancedProvider');
 
 /// Whether the history button is shown
 /// This extra boolean is needed to delay the animation
-final _showHistoryButtonProvider = StateProvider<bool>((ref) => true,
-    debugLabel: '_showHistoryButtonProvider');
+final _showHistoryButtonProvider = StateProvider<bool>((ref) => true, debugLabel: '_showHistoryButtonProvider');
 
 class ReceiveTabVm {
   final String aliasSettings;
@@ -39,8 +37,7 @@ class ReceiveTabVm {
 }
 
 final receiveTabVmProvider = ViewProvider((ref) {
-  final (alias, quickSave) =
-      ref.watch(settingsProvider.select((s) => (s.alias, s.quickSave)));
+  final (alias, quickSave) = ref.watch(settingsProvider.select((s) => (s.alias, s.quickSave)));
   final networkInfo = ref.watch(localIpProvider).localIps;
   final serverState = ref.watch(serverProvider);
   final showAdvanced = ref.watch(_showAdvancedProvider);

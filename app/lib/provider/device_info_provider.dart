@@ -12,8 +12,7 @@ final deviceRawInfoProvider = Provider<DeviceInfoResult>((ref) {
 });
 
 final deviceInfoProvider = ViewProvider<DeviceInfoResult>((ref) {
-  final (deviceType, deviceModel) = ref.watch(settingsProvider
-      .select((state) => (state.deviceType, state.deviceModel)));
+  final (deviceType, deviceModel) = ref.watch(settingsProvider.select((state) => (state.deviceType, state.deviceModel)));
   final rawInfo = ref.watch(deviceRawInfoProvider);
 
   return DeviceInfoResult(

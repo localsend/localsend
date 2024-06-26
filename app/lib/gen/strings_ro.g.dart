@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsRo extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsRo.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsRo.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.ro,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ro>.
   @override
@@ -47,46 +41,35 @@ class _StringsRo extends Translations {
   @override
   late final _StringsSettingsTabRo settingsTab = _StringsSettingsTabRo._(_root);
   @override
-  late final _StringsTroubleshootPageRo troubleshootPage =
-      _StringsTroubleshootPageRo._(_root);
+  late final _StringsTroubleshootPageRo troubleshootPage = _StringsTroubleshootPageRo._(_root);
   @override
-  late final _StringsReceiveHistoryPageRo receiveHistoryPage =
-      _StringsReceiveHistoryPageRo._(_root);
+  late final _StringsReceiveHistoryPageRo receiveHistoryPage = _StringsReceiveHistoryPageRo._(_root);
   @override
-  late final _StringsApkPickerPageRo apkPickerPage =
-      _StringsApkPickerPageRo._(_root);
+  late final _StringsApkPickerPageRo apkPickerPage = _StringsApkPickerPageRo._(_root);
   @override
-  late final _StringsSelectedFilesPageRo selectedFilesPage =
-      _StringsSelectedFilesPageRo._(_root);
+  late final _StringsSelectedFilesPageRo selectedFilesPage = _StringsSelectedFilesPageRo._(_root);
   @override
   late final _StringsReceivePageRo receivePage = _StringsReceivePageRo._(_root);
   @override
-  late final _StringsReceiveOptionsPageRo receiveOptionsPage =
-      _StringsReceiveOptionsPageRo._(_root);
+  late final _StringsReceiveOptionsPageRo receiveOptionsPage = _StringsReceiveOptionsPageRo._(_root);
   @override
   late final _StringsSendPageRo sendPage = _StringsSendPageRo._(_root);
   @override
-  late final _StringsProgressPageRo progressPage =
-      _StringsProgressPageRo._(_root);
+  late final _StringsProgressPageRo progressPage = _StringsProgressPageRo._(_root);
   @override
-  late final _StringsWebSharePageRo webSharePage =
-      _StringsWebSharePageRo._(_root);
+  late final _StringsWebSharePageRo webSharePage = _StringsWebSharePageRo._(_root);
   @override
   late final _StringsAboutPageRo aboutPage = _StringsAboutPageRo._(_root);
   @override
-  late final _StringsDonationPageRo donationPage =
-      _StringsDonationPageRo._(_root);
+  late final _StringsDonationPageRo donationPage = _StringsDonationPageRo._(_root);
   @override
-  late final _StringsChangelogPageRo changelogPage =
-      _StringsChangelogPageRo._(_root);
+  late final _StringsChangelogPageRo changelogPage = _StringsChangelogPageRo._(_root);
   @override
-  late final _StringsAliasGeneratorRo aliasGenerator =
-      _StringsAliasGeneratorRo._(_root);
+  late final _StringsAliasGeneratorRo aliasGenerator = _StringsAliasGeneratorRo._(_root);
   @override
   late final _StringsDialogsRo dialogs = _StringsDialogsRo._(_root);
   @override
-  late final _StringsSanitizationRo sanitization =
-      _StringsSanitizationRo._(_root);
+  late final _StringsSanitizationRo sanitization = _StringsSanitizationRo._(_root);
   @override
   late final _StringsTrayRo tray = _StringsTrayRo._(_root);
   @override
@@ -194,8 +177,7 @@ class _StringsReceiveTabRo extends _StringsReceiveTabEn {
   @override
   String get title => 'Primire';
   @override
-  late final _StringsReceiveTabInfoBoxRo infoBox =
-      _StringsReceiveTabInfoBoxRo._(_root);
+  late final _StringsReceiveTabInfoBoxRo infoBox = _StringsReceiveTabInfoBoxRo._(_root);
 }
 
 // Path: sendTab
@@ -211,13 +193,11 @@ class _StringsSendTabRo extends _StringsSendTabEn {
   @override
   String get title => 'Trimitere';
   @override
-  late final _StringsSendTabSelectionRo selection =
-      _StringsSendTabSelectionRo._(_root);
+  late final _StringsSendTabSelectionRo selection = _StringsSendTabSelectionRo._(_root);
   @override
   late final _StringsSendTabPickerRo picker = _StringsSendTabPickerRo._(_root);
   @override
-  String get shareIntentInfo =>
-      'Pentru a selecta mai ușor fișierele, puteți utiliza funcția "Partajare" a dispozitivului telefonului.';
+  String get shareIntentInfo => 'Pentru a selecta mai ușor fișierele, puteți utiliza funcția "Partajare" a dispozitivului telefonului.';
   @override
   String get nearbyDevices => 'Dispozitive din apropiere';
   @override
@@ -227,13 +207,11 @@ class _StringsSendTabRo extends _StringsSendTabEn {
   @override
   String get sendMode => 'Mod de trimitere';
   @override
-  late final _StringsSendTabSendModesRo sendModes =
-      _StringsSendTabSendModesRo._(_root);
+  late final _StringsSendTabSendModesRo sendModes = _StringsSendTabSendModesRo._(_root);
   @override
   String get sendModeHelp => 'Explicație';
   @override
-  String get help =>
-      'Verificați dacă destinația se află în aceeași rețea Wi-Fi.';
+  String get help => 'Verificați dacă destinația se află în aceeași rețea Wi-Fi.';
   @override
   String get placeItems => 'Adaugă lucruri de partajare.';
 }
@@ -251,20 +229,15 @@ class _StringsSettingsTabRo extends _StringsSettingsTabEn {
   @override
   String get title => 'Setări';
   @override
-  late final _StringsSettingsTabGeneralRo general =
-      _StringsSettingsTabGeneralRo._(_root);
+  late final _StringsSettingsTabGeneralRo general = _StringsSettingsTabGeneralRo._(_root);
   @override
-  late final _StringsSettingsTabReceiveRo receive =
-      _StringsSettingsTabReceiveRo._(_root);
+  late final _StringsSettingsTabReceiveRo receive = _StringsSettingsTabReceiveRo._(_root);
   @override
-  late final _StringsSettingsTabSendRo send =
-      _StringsSettingsTabSendRo._(_root);
+  late final _StringsSettingsTabSendRo send = _StringsSettingsTabSendRo._(_root);
   @override
-  late final _StringsSettingsTabNetworkRo network =
-      _StringsSettingsTabNetworkRo._(_root);
+  late final _StringsSettingsTabNetworkRo network = _StringsSettingsTabNetworkRo._(_root);
   @override
-  late final _StringsSettingsTabOtherRo other =
-      _StringsSettingsTabOtherRo._(_root);
+  late final _StringsSettingsTabOtherRo other = _StringsSettingsTabOtherRo._(_root);
   @override
   String get advancedSettings => 'Setări avansate';
 }
@@ -282,18 +255,15 @@ class _StringsTroubleshootPageRo extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Depanare';
   @override
-  String get subTitle =>
-      'Aplicația nu funcționează așa cum trebuie? Aici poți găsi câteva soluții comune.';
+  String get subTitle => 'Aplicația nu funcționează așa cum trebuie? Aici poți găsi câteva soluții comune.';
   @override
   String get solution => 'Soluția:';
   @override
   String get fixButton => 'Rezolvă automată';
   @override
-  late final _StringsTroubleshootPageFirewallRo firewall =
-      _StringsTroubleshootPageFirewallRo._(_root);
+  late final _StringsTroubleshootPageFirewallRo firewall = _StringsTroubleshootPageFirewallRo._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionRo noConnection =
-      _StringsTroubleshootPageNoConnectionRo._(_root);
+  late final _StringsTroubleshootPageNoConnectionRo noConnection = _StringsTroubleshootPageNoConnectionRo._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -315,8 +285,7 @@ class _StringsReceiveHistoryPageRo extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Istoricul este gol.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsRo entryActions =
-      _StringsReceiveHistoryPageEntryActionsRo._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsRo entryActions = _StringsReceiveHistoryPageEntryActionsRo._(_root);
 }
 
 // Path: apkPickerPage
@@ -334,8 +303,7 @@ class _StringsApkPickerPageRo extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Exclude aplicațiile de sistem';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Exclude aplicațiile nelansabile';
+  String get excludeAppsWithoutLaunchIntent => 'Exclude aplicațiile nelansabile';
   @override
   String apps({required Object n}) => '${n} Aplicații';
 }
@@ -365,8 +333,7 @@ class _StringsReceivePageRo extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(
         n,
         one: 'vrea să îți trimită un fișier',
         other: 'vrea să îți trimită ${n} fișiere',
@@ -436,8 +403,7 @@ class _StringsProgressPageRo extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Salvat în Galerie';
   @override
-  late final _StringsProgressPageTotalRo total =
-      _StringsProgressPageTotalRo._(_root);
+  late final _StringsProgressPageTotalRo total = _StringsProgressPageTotalRo._(_root);
 }
 
 // Path: webSharePage
@@ -459,8 +425,7 @@ class _StringsWebSharePageRo extends _StringsWebSharePageEn {
   @override
   String get error => 'A apărut o eroare la pornirea serverului.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(
         n,
         one: 'Deschide acest link în browserul tău:',
         other: 'Deschide unul dintre aceste linkuri în browserul tău:',
@@ -474,8 +439,7 @@ class _StringsWebSharePageRo extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Acceptă automat cererile';
   @override
-  String get encryptionHint =>
-      'LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.';
+  String get encryptionHint => 'LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.';
   @override
   String pendingRequests({required Object n}) => 'Cererile în așteptare: ${n}';
 }
@@ -518,8 +482,7 @@ class _StringsDonationPageRo extends _StringsDonationPageEn {
   @override
   String get title => 'Donează';
   @override
-  String get info =>
-      'LocalSend este gratuit, open-source și fără reclame. Dacă îți place aplicația, poți susține dezvoltarea cu o donație.';
+  String get info => 'LocalSend este gratuit, open-source și fără reclame. Dacă îți place aplicația, poți susține dezvoltarea cu o donație.';
   @override
   String donate({required Object amount}) => 'Donează ${amount}';
   @override
@@ -623,8 +586,7 @@ class _StringsAliasGeneratorRo extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last.
   @override
-  String combination({required Object fruit, required Object adjective}) =>
-      '${fruit} ${adjective}';
+  String combination({required Object fruit, required Object adjective}) => '${fruit} ${adjective}';
 }
 
 // Path: dialogs
@@ -638,69 +600,47 @@ class _StringsDialogsRo extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileRo addFile =
-      _StringsDialogsAddFileRo._(_root);
+  late final _StringsDialogsAddFileRo addFile = _StringsDialogsAddFileRo._(_root);
   @override
-  late final _StringsDialogsAddressInputRo addressInput =
-      _StringsDialogsAddressInputRo._(_root);
+  late final _StringsDialogsAddressInputRo addressInput = _StringsDialogsAddressInputRo._(_root);
   @override
-  late final _StringsDialogsCancelSessionRo cancelSession =
-      _StringsDialogsCancelSessionRo._(_root);
+  late final _StringsDialogsCancelSessionRo cancelSession = _StringsDialogsCancelSessionRo._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileRo cannotOpenFile =
-      _StringsDialogsCannotOpenFileRo._(_root);
+  late final _StringsDialogsCannotOpenFileRo cannotOpenFile = _StringsDialogsCannotOpenFileRo._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeRo
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeRo._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeRo encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeRo._(_root);
   @override
-  late final _StringsDialogsErrorDialogRo errorDialog =
-      _StringsDialogsErrorDialogRo._(_root);
+  late final _StringsDialogsErrorDialogRo errorDialog = _StringsDialogsErrorDialogRo._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogRo favoriteDialog =
-      _StringsDialogsFavoriteDialogRo._(_root);
+  late final _StringsDialogsFavoriteDialogRo favoriteDialog = _StringsDialogsFavoriteDialogRo._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogRo favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogRo._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogRo favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogRo._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogRo favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogRo._(_root);
+  late final _StringsDialogsFavoriteEditDialogRo favoriteEditDialog = _StringsDialogsFavoriteEditDialogRo._(_root);
   @override
-  late final _StringsDialogsFileInfoRo fileInfo =
-      _StringsDialogsFileInfoRo._(_root);
+  late final _StringsDialogsFileInfoRo fileInfo = _StringsDialogsFileInfoRo._(_root);
   @override
-  late final _StringsDialogsFileNameInputRo fileNameInput =
-      _StringsDialogsFileNameInputRo._(_root);
+  late final _StringsDialogsFileNameInputRo fileNameInput = _StringsDialogsFileNameInputRo._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogRo historyClearDialog =
-      _StringsDialogsHistoryClearDialogRo._(_root);
+  late final _StringsDialogsHistoryClearDialogRo historyClearDialog = _StringsDialogsHistoryClearDialogRo._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedRo
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedRo._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedRo localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedRo._(_root);
   @override
-  late final _StringsDialogsMessageInputRo messageInput =
-      _StringsDialogsMessageInputRo._(_root);
+  late final _StringsDialogsMessageInputRo messageInput = _StringsDialogsMessageInputRo._(_root);
   @override
-  late final _StringsDialogsNoFilesRo noFiles =
-      _StringsDialogsNoFilesRo._(_root);
+  late final _StringsDialogsNoFilesRo noFiles = _StringsDialogsNoFilesRo._(_root);
   @override
-  late final _StringsDialogsNoPermissionRo noPermission =
-      _StringsDialogsNoPermissionRo._(_root);
+  late final _StringsDialogsNoPermissionRo noPermission = _StringsDialogsNoPermissionRo._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformRo notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformRo._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformRo notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformRo._(_root);
   @override
   late final _StringsDialogsQrRo qr = _StringsDialogsQrRo._(_root);
   @override
-  late final _StringsDialogsQuickActionsRo quickActions =
-      _StringsDialogsQuickActionsRo._(_root);
+  late final _StringsDialogsQuickActionsRo quickActions = _StringsDialogsQuickActionsRo._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeRo quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeRo._(_root);
+  late final _StringsDialogsQuickSaveNoticeRo quickSaveNotice = _StringsDialogsQuickSaveNoticeRo._(_root);
   @override
-  late final _StringsDialogsSendModeHelpRo sendModeHelp =
-      _StringsDialogsSendModeHelpRo._(_root);
+  late final _StringsDialogsSendModeHelpRo sendModeHelp = _StringsDialogsSendModeHelpRo._(_root);
   @override
   late final _StringsDialogsZoomRo zoom = _StringsDialogsZoomRo._(_root);
 }
@@ -790,14 +730,11 @@ class _StringsAssetPickerRo extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tip de fișier neacceptat.';
   @override
-  String get unableToAccessAll =>
-      'Nu se pot accesa toate fișierele de pe dispozitiv';
+  String get unableToAccessAll => 'Nu se pot accesa toate fișierele de pe dispozitiv';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Vezi doar fișierele și albumele accesibile aplicației.';
+  String get viewingLimitedAssetsTip => 'Vezi doar fișierele și albumele accesibile aplicației.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Apasă pentru a actualiza fișierele accesibile';
+  String get changeAccessibleLimitedAssets => 'Apasă pentru a actualiza fișierele accesibile';
   @override
   String get accessAllTip =>
       'Aplicația poate accesa doar unele fișiere de pe dispozitiv. Mergi la setările sistemului și permite aplicația să acceseze toate mediile de pe dispozitiv.';
@@ -924,18 +861,15 @@ class _StringsSettingsTabGeneralRo extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Tema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsRo brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsRo._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsRo brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsRo._(_root);
   @override
   String get color => 'Culoare';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsRo colorOptions =
-      _StringsSettingsTabGeneralColorOptionsRo._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsRo colorOptions = _StringsSettingsTabGeneralColorOptionsRo._(_root);
   @override
   String get language => 'Limba';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsRo languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsRo._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsRo languageOptions = _StringsSettingsTabGeneralLanguageOptionsRo._(_root);
   @override
   String get saveWindowPlacement => 'Închidere: Salvează plasarea ferestrei';
   @override
@@ -987,8 +921,7 @@ class _StringsSettingsTabSendRo extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Trimitere';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Partajează prin link: Acceptare automată';
+  String get shareViaLinkAutoAccept => 'Partajează prin link: Acceptare automată';
 }
 
 // Path: settingsTab.network
@@ -1052,8 +985,7 @@ class _StringsSettingsTabOtherRo extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallRo
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallRo extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1073,8 +1005,7 @@ class _StringsTroubleshootPageFirewallRo
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionRo
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionRo extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1084,16 +1015,14 @@ class _StringsTroubleshootPageNoConnectionRo
 
   // Translations
   @override
-  String get symptom =>
-      'Ambele dispozitive nu se pot descoperi și nu pot partaja fișiere.';
+  String get symptom => 'Ambele dispozitive nu se pot descoperi și nu pot partaja fișiere.';
   @override
   String get solution =>
       'Problema există de ambele părți? Dacă da, trebuie să te asiguri că ambele dispozitive se află în aceeași rețea Wi-Fi și au aceeași configurație (port, adresă multicast, criptare). Este posibil ca rețeaua să nu permită comunicarea între participanți. În acest caz, această opțiune trebuie să fie activată pe router.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsRo
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsRo extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1121,14 +1050,11 @@ class _StringsProgressPageTotalRo extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleRo title =
-      _StringsProgressPageTotalTitleRo._(_root);
+  late final _StringsProgressPageTotalTitleRo title = _StringsProgressPageTotalTitleRo._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Fișiere: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Fișiere: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Mărime: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Mărime: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Viteză: ${speed}/s';
 }
@@ -1198,13 +1124,11 @@ class _StringsDialogsCannotOpenFileRo extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Nu se poate deschide fișierul';
   @override
-  String content({required Object file}) =>
-      'Nu s-a putut deschide \"${file}\". A fost mutat, redenumit sau șters?';
+  String content({required Object file}) => 'Nu s-a putut deschide \"${file}\". A fost mutat, redenumit sau șters?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeRo
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeRo extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1216,8 +1140,7 @@ class _StringsDialogsEncryptionDisabledNoticeRo
   @override
   String get title => 'Criptare dezactivată';
   @override
-  String get content =>
-      'Comunicarea are loc acum prin protocolul HTTP necriptat. Pentru a folosi HTTPS, activează din nou criptarea.';
+  String get content => 'Comunicarea are loc acum prin protocolul HTTP necriptat. Pentru a folosi HTTPS, activează din nou criptarea.';
 }
 
 // Path: dialogs.errorDialog
@@ -1253,8 +1176,7 @@ class _StringsDialogsFavoriteDialogRo extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogRo
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogRo extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1266,13 +1188,11 @@ class _StringsDialogsFavoriteDeleteDialogRo
   @override
   String get title => 'Șterge din favorite';
   @override
-  String content({required Object name}) =>
-      'Sigur vrei să ștergi din favorite "${name}"?';
+  String content({required Object name}) => 'Sigur vrei să ștergi din favorite "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogRo
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogRo extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1336,8 +1256,7 @@ class _StringsDialogsFileNameInputRo extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogRo
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogRo extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1353,8 +1272,7 @@ class _StringsDialogsHistoryClearDialogRo
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedRo
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedRo extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1417,13 +1335,11 @@ class _StringsDialogsNoPermissionRo extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Fără permisiune';
   @override
-  String get content =>
-      'Nu ai acordat permisiunile necesare. Acordă-le în setări.';
+  String get content => 'Nu ai acordat permisiunile necesare. Acordă-le în setări.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformRo
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformRo extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1477,8 +1393,7 @@ class _StringsDialogsQuickActionsRo extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeRo
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeRo extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1490,8 +1405,7 @@ class _StringsDialogsQuickSaveNoticeRo
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere.';
+  String get content => 'Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1507,14 +1421,11 @@ class _StringsDialogsSendModeHelpRo extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Moduri de trimitere';
   @override
-  String get single =>
-      'Trimite fișiere unui singur recipient. Selecția va fi golită după ce transferul este finalizat.';
+  String get single => 'Trimite fișiere unui singur recipient. Selecția va fi golită după ce transferul este finalizat.';
   @override
-  String get multiple =>
-      'Trimite fișiere la mai mulți recipienți. Selecția nu va fi golită.';
+  String get multiple => 'Trimite fișiere la mai mulți recipienți. Selecția nu va fi golită.';
   @override
-  String get link =>
-      'Recipienții care nu au LocalSend instalat pot descărca fișierele selectate accesând linkul în browser.';
+  String get link => 'Recipienții care nu au LocalSend instalat pot descărca fișierele selectate accesând linkul în browser.';
 }
 
 // Path: dialogs.zoom
@@ -1532,8 +1443,7 @@ class _StringsDialogsZoomRo extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsRo
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsRo extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1551,8 +1461,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsRo
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsRo
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsRo extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1568,8 +1477,7 @@ class _StringsSettingsTabGeneralColorOptionsRo
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsRo
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsRo extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsRo._(_StringsRo root)
       : this._root = root,
         super._(root);
@@ -1583,8 +1491,7 @@ class _StringsSettingsTabGeneralLanguageOptionsRo
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleRo
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleRo extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleRo._(_StringsRo root)
       : this._root = root,
         super._(root);

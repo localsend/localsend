@@ -4,8 +4,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider stores the list of favorite devices.
 /// It automatically saves the list to the device's storage.
-final favoritesProvider =
-    ReduxProvider<FavoritesService, List<FavoriteDevice>>((ref) {
+final favoritesProvider = ReduxProvider<FavoritesService, List<FavoriteDevice>>((ref) {
   return FavoritesService(ref.read(persistenceProvider));
 });
 
@@ -19,8 +18,7 @@ class FavoritesService extends ReduxNotifier<List<FavoriteDevice>> {
 }
 
 /// Adds a favorite device.
-class AddFavoriteAction
-    extends AsyncReduxAction<FavoritesService, List<FavoriteDevice>> {
+class AddFavoriteAction extends AsyncReduxAction<FavoritesService, List<FavoriteDevice>> {
   final FavoriteDevice device;
 
   AddFavoriteAction(this.device);
@@ -37,8 +35,7 @@ class AddFavoriteAction
 }
 
 /// Updates a favorite device.
-class UpdateFavoriteAction
-    extends AsyncReduxAction<FavoritesService, List<FavoriteDevice>> {
+class UpdateFavoriteAction extends AsyncReduxAction<FavoritesService, List<FavoriteDevice>> {
   final FavoriteDevice device;
 
   UpdateFavoriteAction(this.device);
@@ -59,8 +56,7 @@ class UpdateFavoriteAction
 }
 
 /// Removes a favorite device.
-class RemoveFavoriteAction
-    extends AsyncReduxAction<FavoritesService, List<FavoriteDevice>> {
+class RemoveFavoriteAction extends AsyncReduxAction<FavoritesService, List<FavoriteDevice>> {
   final String deviceFingerprint;
 
   RemoveFavoriteAction({

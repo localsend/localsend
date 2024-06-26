@@ -9,8 +9,7 @@ part 'settings_state.mapper.dart';
 
 @MappableClass()
 class SettingsState with SettingsStateMappable {
-  final String
-      showToken; // the token to show / maximize the window because only one instance is allowed
+  final String showToken; // the token to show / maximize the window because only one instance is allowed
   final String alias;
   final ThemeMode theme;
   final ColorMode colorMode;
@@ -24,8 +23,7 @@ class SettingsState with SettingsStateMappable {
   final bool autoFinish; // automatically finish sessions
   final bool minimizeToTray; // minimize to tray instead of exiting the app
   final bool launchAtStartup; // Tracks if the option is enabled on Linux
-  final bool
-      autoStartLaunchMinimized; // start hidden in tray (only available when launchAtStartup is true)
+  final bool autoStartLaunchMinimized; // start hidden in tray (only available when launchAtStartup is true)
   final bool https;
   final SendMode sendMode;
   final bool saveWindowPlacement;

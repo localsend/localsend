@@ -64,8 +64,7 @@ void main() {
   test('Should remove the 200th entry when adding another', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
-      initialState:
-          List.generate(200, (index) => _createEntry(index.toString())),
+      initialState: List.generate(200, (index) => _createEntry(index.toString())),
     );
 
     expect(service.state.length, 200);

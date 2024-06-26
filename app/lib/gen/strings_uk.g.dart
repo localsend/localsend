@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsUk extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsUk.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsUk.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.uk,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <uk>.
   @override
@@ -47,46 +41,35 @@ class _StringsUk extends Translations {
   @override
   late final _StringsSettingsTabUk settingsTab = _StringsSettingsTabUk._(_root);
   @override
-  late final _StringsTroubleshootPageUk troubleshootPage =
-      _StringsTroubleshootPageUk._(_root);
+  late final _StringsTroubleshootPageUk troubleshootPage = _StringsTroubleshootPageUk._(_root);
   @override
-  late final _StringsReceiveHistoryPageUk receiveHistoryPage =
-      _StringsReceiveHistoryPageUk._(_root);
+  late final _StringsReceiveHistoryPageUk receiveHistoryPage = _StringsReceiveHistoryPageUk._(_root);
   @override
-  late final _StringsApkPickerPageUk apkPickerPage =
-      _StringsApkPickerPageUk._(_root);
+  late final _StringsApkPickerPageUk apkPickerPage = _StringsApkPickerPageUk._(_root);
   @override
-  late final _StringsSelectedFilesPageUk selectedFilesPage =
-      _StringsSelectedFilesPageUk._(_root);
+  late final _StringsSelectedFilesPageUk selectedFilesPage = _StringsSelectedFilesPageUk._(_root);
   @override
   late final _StringsReceivePageUk receivePage = _StringsReceivePageUk._(_root);
   @override
-  late final _StringsReceiveOptionsPageUk receiveOptionsPage =
-      _StringsReceiveOptionsPageUk._(_root);
+  late final _StringsReceiveOptionsPageUk receiveOptionsPage = _StringsReceiveOptionsPageUk._(_root);
   @override
   late final _StringsSendPageUk sendPage = _StringsSendPageUk._(_root);
   @override
-  late final _StringsProgressPageUk progressPage =
-      _StringsProgressPageUk._(_root);
+  late final _StringsProgressPageUk progressPage = _StringsProgressPageUk._(_root);
   @override
-  late final _StringsWebSharePageUk webSharePage =
-      _StringsWebSharePageUk._(_root);
+  late final _StringsWebSharePageUk webSharePage = _StringsWebSharePageUk._(_root);
   @override
   late final _StringsAboutPageUk aboutPage = _StringsAboutPageUk._(_root);
   @override
-  late final _StringsDonationPageUk donationPage =
-      _StringsDonationPageUk._(_root);
+  late final _StringsDonationPageUk donationPage = _StringsDonationPageUk._(_root);
   @override
-  late final _StringsChangelogPageUk changelogPage =
-      _StringsChangelogPageUk._(_root);
+  late final _StringsChangelogPageUk changelogPage = _StringsChangelogPageUk._(_root);
   @override
-  late final _StringsAliasGeneratorUk aliasGenerator =
-      _StringsAliasGeneratorUk._(_root);
+  late final _StringsAliasGeneratorUk aliasGenerator = _StringsAliasGeneratorUk._(_root);
   @override
   late final _StringsDialogsUk dialogs = _StringsDialogsUk._(_root);
   @override
-  late final _StringsSanitizationUk sanitization =
-      _StringsSanitizationUk._(_root);
+  late final _StringsSanitizationUk sanitization = _StringsSanitizationUk._(_root);
   @override
   late final _StringsTrayUk tray = _StringsTrayUk._(_root);
   @override
@@ -194,8 +177,7 @@ class _StringsReceiveTabUk extends _StringsReceiveTabEn {
   @override
   String get title => 'Отримати';
   @override
-  late final _StringsReceiveTabInfoBoxUk infoBox =
-      _StringsReceiveTabInfoBoxUk._(_root);
+  late final _StringsReceiveTabInfoBoxUk infoBox = _StringsReceiveTabInfoBoxUk._(_root);
 }
 
 // Path: sendTab
@@ -211,13 +193,11 @@ class _StringsSendTabUk extends _StringsSendTabEn {
   @override
   String get title => 'Надіслати';
   @override
-  late final _StringsSendTabSelectionUk selection =
-      _StringsSendTabSelectionUk._(_root);
+  late final _StringsSendTabSelectionUk selection = _StringsSendTabSelectionUk._(_root);
   @override
   late final _StringsSendTabPickerUk picker = _StringsSendTabPickerUk._(_root);
   @override
-  String get shareIntentInfo =>
-      'Ви також можете використовувати кнопку "Поділитися" на своєму мобільному пристрої для швидкого вибору файлів.';
+  String get shareIntentInfo => 'Ви також можете використовувати кнопку "Поділитися" на своєму мобільному пристрої для швидкого вибору файлів.';
   @override
   String get nearbyDevices => 'Пристрої поблизу';
   @override
@@ -227,13 +207,11 @@ class _StringsSendTabUk extends _StringsSendTabEn {
   @override
   String get sendMode => 'Режим надсилання';
   @override
-  late final _StringsSendTabSendModesUk sendModes =
-      _StringsSendTabSendModesUk._(_root);
+  late final _StringsSendTabSendModesUk sendModes = _StringsSendTabSendModesUk._(_root);
   @override
   String get sendModeHelp => 'Довідка';
   @override
-  String get help =>
-      'Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.';
+  String get help => 'Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.';
   @override
   String get placeItems => 'Додайте сюди файли, щоб поділитися.';
 }
@@ -251,20 +229,15 @@ class _StringsSettingsTabUk extends _StringsSettingsTabEn {
   @override
   String get title => 'Налаштування';
   @override
-  late final _StringsSettingsTabGeneralUk general =
-      _StringsSettingsTabGeneralUk._(_root);
+  late final _StringsSettingsTabGeneralUk general = _StringsSettingsTabGeneralUk._(_root);
   @override
-  late final _StringsSettingsTabReceiveUk receive =
-      _StringsSettingsTabReceiveUk._(_root);
+  late final _StringsSettingsTabReceiveUk receive = _StringsSettingsTabReceiveUk._(_root);
   @override
-  late final _StringsSettingsTabSendUk send =
-      _StringsSettingsTabSendUk._(_root);
+  late final _StringsSettingsTabSendUk send = _StringsSettingsTabSendUk._(_root);
   @override
-  late final _StringsSettingsTabNetworkUk network =
-      _StringsSettingsTabNetworkUk._(_root);
+  late final _StringsSettingsTabNetworkUk network = _StringsSettingsTabNetworkUk._(_root);
   @override
-  late final _StringsSettingsTabOtherUk other =
-      _StringsSettingsTabOtherUk._(_root);
+  late final _StringsSettingsTabOtherUk other = _StringsSettingsTabOtherUk._(_root);
   @override
   String get advancedSettings => 'Розширені налаштування';
 }
@@ -282,18 +255,15 @@ class _StringsTroubleshootPageUk extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Усунення несправностей';
   @override
-  String get subTitle =>
-      'Цей додаток не працює належним чином? Тут можна знайти загальні рішення проблем.';
+  String get subTitle => 'Цей додаток не працює належним чином? Тут можна знайти загальні рішення проблем.';
   @override
   String get solution => 'Рішення:';
   @override
   String get fixButton => 'Виправити автоматично';
   @override
-  late final _StringsTroubleshootPageFirewallUk firewall =
-      _StringsTroubleshootPageFirewallUk._(_root);
+  late final _StringsTroubleshootPageFirewallUk firewall = _StringsTroubleshootPageFirewallUk._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionUk noConnection =
-      _StringsTroubleshootPageNoConnectionUk._(_root);
+  late final _StringsTroubleshootPageNoConnectionUk noConnection = _StringsTroubleshootPageNoConnectionUk._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -315,8 +285,7 @@ class _StringsReceiveHistoryPageUk extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Історія порожня.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsUk entryActions =
-      _StringsReceiveHistoryPageEntryActionsUk._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsUk entryActions = _StringsReceiveHistoryPageEntryActionsUk._(_root);
 }
 
 // Path: apkPickerPage
@@ -334,8 +303,7 @@ class _StringsApkPickerPageUk extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Виключити системні додатки';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Виключити додатки, які не запускаються';
+  String get excludeAppsWithoutLaunchIntent => 'Виключити додатки, які не запускаються';
   @override
   String apps({required Object n}) => '${n} додатків';
 }
@@ -365,8 +333,7 @@ class _StringsReceivePageUk extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(
         n,
         one: 'хоче надіслати вам файл',
         other: 'хоче надіслати вам ${n} файли (-ів)',
@@ -436,8 +403,7 @@ class _StringsProgressPageUk extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Збережено у галереї';
   @override
-  late final _StringsProgressPageTotalUk total =
-      _StringsProgressPageTotalUk._(_root);
+  late final _StringsProgressPageTotalUk total = _StringsProgressPageTotalUk._(_root);
 }
 
 // Path: webSharePage
@@ -459,8 +425,7 @@ class _StringsWebSharePageUk extends _StringsWebSharePageEn {
   @override
   String get error => 'Під час запуску сервера сталася помилка.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(
         n,
         one: 'Відкрийте це посилання в браузері:',
         other: 'Відкрийте одне з цих посилань в браузері:',
@@ -474,11 +439,9 @@ class _StringsWebSharePageUk extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Автоматично приймати запити';
   @override
-  String get encryptionHint =>
-      'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
+  String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
   @override
-  String pendingRequests({required Object n}) =>
-      'Запити, що очікують на розгляд: ${n}';
+  String pendingRequests({required Object n}) => 'Запити, що очікують на розгляд: ${n}';
 }
 
 // Path: aboutPage
@@ -566,69 +529,47 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileUk addFile =
-      _StringsDialogsAddFileUk._(_root);
+  late final _StringsDialogsAddFileUk addFile = _StringsDialogsAddFileUk._(_root);
   @override
-  late final _StringsDialogsAddressInputUk addressInput =
-      _StringsDialogsAddressInputUk._(_root);
+  late final _StringsDialogsAddressInputUk addressInput = _StringsDialogsAddressInputUk._(_root);
   @override
-  late final _StringsDialogsCancelSessionUk cancelSession =
-      _StringsDialogsCancelSessionUk._(_root);
+  late final _StringsDialogsCancelSessionUk cancelSession = _StringsDialogsCancelSessionUk._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileUk cannotOpenFile =
-      _StringsDialogsCannotOpenFileUk._(_root);
+  late final _StringsDialogsCannotOpenFileUk cannotOpenFile = _StringsDialogsCannotOpenFileUk._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeUk
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeUk._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeUk encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeUk._(_root);
   @override
-  late final _StringsDialogsErrorDialogUk errorDialog =
-      _StringsDialogsErrorDialogUk._(_root);
+  late final _StringsDialogsErrorDialogUk errorDialog = _StringsDialogsErrorDialogUk._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogUk favoriteDialog =
-      _StringsDialogsFavoriteDialogUk._(_root);
+  late final _StringsDialogsFavoriteDialogUk favoriteDialog = _StringsDialogsFavoriteDialogUk._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogUk favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogUk._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogUk favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogUk._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogUk favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogUk._(_root);
+  late final _StringsDialogsFavoriteEditDialogUk favoriteEditDialog = _StringsDialogsFavoriteEditDialogUk._(_root);
   @override
-  late final _StringsDialogsFileInfoUk fileInfo =
-      _StringsDialogsFileInfoUk._(_root);
+  late final _StringsDialogsFileInfoUk fileInfo = _StringsDialogsFileInfoUk._(_root);
   @override
-  late final _StringsDialogsFileNameInputUk fileNameInput =
-      _StringsDialogsFileNameInputUk._(_root);
+  late final _StringsDialogsFileNameInputUk fileNameInput = _StringsDialogsFileNameInputUk._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogUk historyClearDialog =
-      _StringsDialogsHistoryClearDialogUk._(_root);
+  late final _StringsDialogsHistoryClearDialogUk historyClearDialog = _StringsDialogsHistoryClearDialogUk._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedUk
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedUk._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedUk localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedUk._(_root);
   @override
-  late final _StringsDialogsMessageInputUk messageInput =
-      _StringsDialogsMessageInputUk._(_root);
+  late final _StringsDialogsMessageInputUk messageInput = _StringsDialogsMessageInputUk._(_root);
   @override
-  late final _StringsDialogsNoFilesUk noFiles =
-      _StringsDialogsNoFilesUk._(_root);
+  late final _StringsDialogsNoFilesUk noFiles = _StringsDialogsNoFilesUk._(_root);
   @override
-  late final _StringsDialogsNoPermissionUk noPermission =
-      _StringsDialogsNoPermissionUk._(_root);
+  late final _StringsDialogsNoPermissionUk noPermission = _StringsDialogsNoPermissionUk._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformUk notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformUk._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformUk notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformUk._(_root);
   @override
   late final _StringsDialogsQrUk qr = _StringsDialogsQrUk._(_root);
   @override
-  late final _StringsDialogsQuickActionsUk quickActions =
-      _StringsDialogsQuickActionsUk._(_root);
+  late final _StringsDialogsQuickActionsUk quickActions = _StringsDialogsQuickActionsUk._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeUk._(_root);
+  late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice = _StringsDialogsQuickSaveNoticeUk._(_root);
   @override
-  late final _StringsDialogsSendModeHelpUk sendModeHelp =
-      _StringsDialogsSendModeHelpUk._(_root);
+  late final _StringsDialogsSendModeHelpUk sendModeHelp = _StringsDialogsSendModeHelpUk._(_root);
   @override
   late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
 }
@@ -718,14 +659,11 @@ class _StringsAssetPickerUk extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Непідтримуваний тип файлу.';
   @override
-  String get unableToAccessAll =>
-      'Неможливо отримати доступ до всіх файлів на пристрої';
+  String get unableToAccessAll => 'Неможливо отримати доступ до всіх файлів на пристрої';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Додаток може переглядати тільки файли та альбоми, до яких він має доступ.';
+  String get viewingLimitedAssetsTip => 'Додаток може переглядати тільки файли та альбоми, до яких він має доступ.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Дозволити доступ до додаткових файлів';
+  String get changeAccessibleLimitedAssets => 'Дозволити доступ до додаткових файлів';
   @override
   String get accessAllTip =>
       'Додаток може отримати доступ тільки до деяких файлів на пристрої. Перейдіть до системних налаштувань та дозвольте додатку отримати доступ до всіх медіафайлів на пристрої.';
@@ -852,21 +790,17 @@ class _StringsSettingsTabGeneralUk extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Тема';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsUk brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsUk._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsUk brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsUk._(_root);
   @override
   String get color => 'Колір';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsUk colorOptions =
-      _StringsSettingsTabGeneralColorOptionsUk._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsUk colorOptions = _StringsSettingsTabGeneralColorOptionsUk._(_root);
   @override
   String get language => 'Мова';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsUk languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsUk._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsUk languageOptions = _StringsSettingsTabGeneralLanguageOptionsUk._(_root);
   @override
-  String get saveWindowPlacement =>
-      'Зберегти розташування вікна після закриття';
+  String get saveWindowPlacement => 'Зберегти розташування вікна після закриття';
   @override
   String get minimizeToTray => 'Закрити: згорнути в системний трей/смугу меню';
   @override
@@ -916,8 +850,7 @@ class _StringsSettingsTabSendUk extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Надсилання';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Поділитися через посилання: Приймати автоматично';
+  String get shareViaLinkAutoAccept => 'Поділитися через посилання: Приймати автоматично';
 }
 
 // Path: settingsTab.network
@@ -933,8 +866,7 @@ class _StringsSettingsTabNetworkUk extends _StringsSettingsTabNetworkEn {
   @override
   String get title => 'Мережа';
   @override
-  String get needRestart =>
-      'Для застосування змін необхідно перезапустити сервер!';
+  String get needRestart => 'Для застосування змін необхідно перезапустити сервер!';
   @override
   String get server => 'Сервер';
   @override
@@ -982,8 +914,7 @@ class _StringsSettingsTabOtherUk extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallUk
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallUk extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -993,8 +924,7 @@ class _StringsTroubleshootPageFirewallUk
 
   // Translations
   @override
-  String get symptom =>
-      'Цей додаток може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.';
+  String get symptom => 'Цей додаток може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.';
   @override
   String solution({required Object port}) =>
       'Швидше за все, це проблема брандмауера. Ви можете вирішити цю проблему, дозволивши вхідні з’єднання (UDP та TCP) для порта: ${port}.';
@@ -1003,8 +933,7 @@ class _StringsTroubleshootPageFirewallUk
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionUk
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionUk extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1014,16 +943,14 @@ class _StringsTroubleshootPageNoConnectionUk
 
   // Translations
   @override
-  String get symptom =>
-      'Обидва пристрої не можуть виявити один одного і не можуть обмінюватися файлами.';
+  String get symptom => 'Обидва пристрої не можуть виявити один одного і не можуть обмінюватися файлами.';
   @override
   String get solution =>
       'Проблема існує з обох сторін? Отже вам потрібно переконатися, що обидва пристрої знаходяться в одній мережі Wi-Fi і мають однакову конфігурацію (порт, групову адресу, шифрування). Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку вам необхідно увімкнути дану опцію на своєму маршрутизаторі.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsUk
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsUk extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1051,14 +978,11 @@ class _StringsProgressPageTotalUk extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleUk title =
-      _StringsProgressPageTotalTitleUk._(_root);
+  late final _StringsProgressPageTotalTitleUk title = _StringsProgressPageTotalTitleUk._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Файлів: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Файлів: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Розмір: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Розмір: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Швидкість: ${speed}/s';
 }
@@ -1128,13 +1052,11 @@ class _StringsDialogsCannotOpenFileUk extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Не вдалося відкрити файл';
   @override
-  String content({required Object file}) =>
-      'Не вдалося відкрити "${file}". Можливо цей файл було переміщено, перейменовано чи видалено?';
+  String content({required Object file}) => 'Не вдалося відкрити "${file}". Можливо цей файл було переміщено, перейменовано чи видалено?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeUk
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeUk extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1146,8 +1068,7 @@ class _StringsDialogsEncryptionDisabledNoticeUk
   @override
   String get title => 'Шифрування вимкнено';
   @override
-  String get content =>
-      'Зв\'язок тепер відбувається через незашифрований HTTP протокол. Щоб використовувати HTTPS, знову увімкніть шифрування.';
+  String get content => 'Зв\'язок тепер відбувається через незашифрований HTTP протокол. Щоб використовувати HTTPS, знову увімкніть шифрування.';
 }
 
 // Path: dialogs.errorDialog
@@ -1183,8 +1104,7 @@ class _StringsDialogsFavoriteDialogUk extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogUk
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogUk extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1196,13 +1116,11 @@ class _StringsDialogsFavoriteDeleteDialogUk
   @override
   String get title => 'Видалити з вибраних';
   @override
-  String content({required Object name}) =>
-      'Ви справді хочете видалити з вибраних "${name}"?';
+  String content({required Object name}) => 'Ви справді хочете видалити з вибраних "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogUk
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogUk extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1262,13 +1180,11 @@ class _StringsDialogsFileNameInputUk extends _StringsDialogsFileNameInputEn {
   @override
   String get title => 'Введіть ім\'я файлу';
   @override
-  String original({required Object original}) =>
-      'Оригінальне ім\'я файлу: ${original}';
+  String original({required Object original}) => 'Оригінальне ім\'я файлу: ${original}';
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogUk
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogUk extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1284,8 +1200,7 @@ class _StringsDialogsHistoryClearDialogUk
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedUk
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedUk extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1348,13 +1263,11 @@ class _StringsDialogsNoPermissionUk extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Немає дозволу';
   @override
-  String get content =>
-      'Ви не надали необхідні дозволи. Будь ласка, надайте їх у налаштуваннях.';
+  String get content => 'Ви не надали необхідні дозволи. Будь ласка, надайте їх у налаштуваннях.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformUk
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformUk extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1408,8 +1321,7 @@ class _StringsDialogsQuickActionsUk extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeUk
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeUk extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1438,14 +1350,11 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Режими надсилання';
   @override
-  String get single =>
-      'Надсилає файли одному одержувачу. Вибірку буде очищено після завершення передачі файлів.';
+  String get single => 'Надсилає файли одному одержувачу. Вибірку буде очищено після завершення передачі файлів.';
   @override
-  String get multiple =>
-      'Надсилає файли кільком одержувачам. Вибірку не буде очищено.';
+  String get multiple => 'Надсилає файли кільком одержувачам. Вибірку не буде очищено.';
   @override
-  String get link =>
-      'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
+  String get link => 'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
 }
 
 // Path: dialogs.zoom
@@ -1463,8 +1372,7 @@ class _StringsDialogsZoomUk extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsUk
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsUk extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1482,8 +1390,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsUk
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsUk
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsUk extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1499,8 +1406,7 @@ class _StringsSettingsTabGeneralColorOptionsUk
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsUk
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsUk extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsUk._(_StringsUk root)
       : this._root = root,
         super._(root);
@@ -1514,8 +1420,7 @@ class _StringsSettingsTabGeneralLanguageOptionsUk
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleUk
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleUk extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleUk._(_StringsUk root)
       : this._root = root,
         super._(root);

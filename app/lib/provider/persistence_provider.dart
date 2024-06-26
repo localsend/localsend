@@ -78,12 +78,10 @@ class PersistenceService {
 
   PersistenceService._(this._prefs);
 
-  static Future<PersistenceService> initialize(
-      DynamicColors? dynamicColors) async {
+  static Future<PersistenceService> initialize(DynamicColors? dynamicColors) async {
     SharedPreferences prefs;
 
-    if (checkPlatform([TargetPlatform.windows]) &&
-        SharedPreferencesPortable.exists()) {
+    if (checkPlatform([TargetPlatform.windows]) && SharedPreferencesPortable.exists()) {
       _logger.info('Using portable settings.');
       SharedPreferencesStorePlatform.instance = SharedPreferencesPortable();
     }
@@ -92,8 +90,7 @@ class PersistenceService {
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
       if (checkPlatform([TargetPlatform.windows])) {
-        _logger.info(
-            'Could not initialize SharedPreferences, trying to delete corrupted settings file');
+        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file');
         final settingsDir = await path.getApplicationSupportDirectory();
         final prefsFile = p.join(settingsDir.path, 'shared_preferences.json');
         File(prefsFile).deleteSync();
@@ -124,8 +121,7 @@ class PersistenceService {
     }
 
     if (prefs.getString(_securityContext) == null) {
-      await prefs.setString(
-          _securityContext, jsonEncode(generateSecurityContext()));
+      await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
     }
 
     final supportsDynamicColors = dynamicColors != null;
@@ -133,11 +129,8 @@ class PersistenceService {
       await _initColorSetting(prefs, supportsDynamicColors);
     } else {
       // fix when device does not support dynamic colors
-      final supported = supportsDynamicColors
-          ? ColorMode.values
-          : ColorMode.values.where((e) => e != ColorMode.system);
-      final colorMode = supported.firstWhereOrNull(
-          (color) => color.name == prefs.getString(_colorKey));
+      final supported = supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system);
+      final colorMode = supported.firstWhereOrNull((color) => color.name == prefs.getString(_colorKey));
       if (colorMode == null) {
         await _initColorSetting(prefs, supportsDynamicColors);
       }
@@ -146,13 +139,9 @@ class PersistenceService {
     return PersistenceService._(prefs);
   }
 
-  static Future<void> _initColorSetting(
-      SharedPreferences prefs, bool supportsDynamicColors) async {
+  static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
     await prefs.setString(
-        _colorKey,
-        checkPlatform([TargetPlatform.android]) && supportsDynamicColors
-            ? ColorMode.system.name
-            : ColorMode.localsend.name);
+        _colorKey, checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name);
   }
 
   StoredSecurityContext getSecurityContext() {
@@ -166,27 +155,21 @@ class PersistenceService {
 
   List<ReceiveHistoryEntry> getReceiveHistory() {
     final historyRaw = _prefs.getStringList(_receiveHistory) ?? [];
-    return historyRaw
-        .map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry)))
-        .toList();
+    return historyRaw.map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry))).toList();
   }
 
   Future<void> setReceiveHistory(List<ReceiveHistoryEntry> entries) async {
-    final historyRaw =
-        entries.map((entry) => jsonEncode(entry.toJson())).toList();
+    final historyRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
     await _prefs.setStringList(_receiveHistory, historyRaw);
   }
 
   List<FavoriteDevice> getFavorites() {
     final favoritesRaw = _prefs.getStringList(_favorites) ?? [];
-    return favoritesRaw
-        .map((entry) => FavoriteDevice.fromJson(jsonDecode(entry)))
-        .toList();
+    return favoritesRaw.map((entry) => FavoriteDevice.fromJson(jsonDecode(entry))).toList();
   }
 
   Future<void> setFavorites(List<FavoriteDevice> entries) async {
-    final favoritesRaw =
-        entries.map((entry) => jsonEncode(entry.toJson())).toList();
+    final favoritesRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
     await _prefs.setStringList(_favorites, favoritesRaw);
   }
 
@@ -207,8 +190,7 @@ class PersistenceService {
     if (value == null) {
       return ThemeMode.system;
     }
-    return ThemeMode.values.firstWhereOrNull((theme) => theme.name == value) ??
-        ThemeMode.system;
+    return ThemeMode.values.firstWhereOrNull((theme) => theme.name == value) ?? ThemeMode.system;
   }
 
   Future<void> setTheme(ThemeMode theme) async {
@@ -220,8 +202,7 @@ class PersistenceService {
     if (value == null) {
       return ColorMode.system;
     }
-    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ??
-        ColorMode.system;
+    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ?? ColorMode.system;
   }
 
   Future<void> setColorMode(ColorMode color) async {
@@ -233,8 +214,7 @@ class PersistenceService {
     if (value == null) {
       return null;
     }
-    return AppLocale.values
-        .firstWhereOrNull((locale) => locale.languageTag == value);
+    return AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == value);
   }
 
   Future<void> setLocale(AppLocale? locale) async {
@@ -354,9 +334,7 @@ class PersistenceService {
   }
 
   SendMode getSendMode() {
-    return SendMode.values
-            .firstWhereOrNull((m) => m.name == _prefs.getString(_sendMode)) ??
-        SendMode.single;
+    return SendMode.values.firstWhereOrNull((m) => m.name == _prefs.getString(_sendMode)) ?? SendMode.single;
   }
 
   Future<void> setSendMode(SendMode mode) async {
@@ -411,8 +389,7 @@ class PersistenceService {
   }
 
   DeviceType? getDeviceType() {
-    return DeviceType.values
-        .firstWhereOrNull((m) => m.name == _prefs.getString(_deviceType));
+    return DeviceType.values.firstWhereOrNull((m) => m.name == _prefs.getString(_deviceType));
   }
 
   Future<void> setDeviceType(DeviceType deviceType) async {

@@ -90,8 +90,7 @@ class FilePathThumbnail extends StatelessWidget {
     if (path != null && fileType == FileType.image) {
       thumbnail = Image.file(
         File(path!),
-        cacheWidth:
-            64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
+        cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
         errorBuilder: (_, __, ___) => Padding(
           padding: const EdgeInsets.all(10),
           child: Icon(fileType.icon, size: 32),
@@ -124,9 +123,7 @@ class MemoryThumbnail extends StatelessWidget {
     final Widget? thumbnail;
     if (bytes != null) {
       thumbnail = Padding(
-        padding: fileType == FileType.apk
-            ? const EdgeInsets.all(50)
-            : EdgeInsets.zero,
+        padding: fileType == FileType.apk ? const EdgeInsets.all(50) : EdgeInsets.zero,
         child: Image.memory(
           bytes!,
           errorBuilder: (_, __, ___) => Padding(

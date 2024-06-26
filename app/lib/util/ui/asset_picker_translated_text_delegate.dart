@@ -44,8 +44,7 @@ class TranslatedAssetPickerTextDelegate extends AssetPickerTextDelegate {
   String get viewingLimitedAssetsTip => t.assetPicker.viewingLimitedAssetsTip;
 
   @override
-  String get changeAccessibleLimitedAssets =>
-      t.assetPicker.changeAccessibleLimitedAssets;
+  String get changeAccessibleLimitedAssets => t.assetPicker.changeAccessibleLimitedAssets;
 
   @override
   String get accessAllTip => t.assetPicker.accessAllTip;

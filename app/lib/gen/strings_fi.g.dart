@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsFi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsFi.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsFi.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.fi,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <fi>.
   @override
@@ -47,46 +41,35 @@ class _StringsFi extends Translations {
   @override
   late final _StringsSettingsTabFi settingsTab = _StringsSettingsTabFi._(_root);
   @override
-  late final _StringsTroubleshootPageFi troubleshootPage =
-      _StringsTroubleshootPageFi._(_root);
+  late final _StringsTroubleshootPageFi troubleshootPage = _StringsTroubleshootPageFi._(_root);
   @override
-  late final _StringsReceiveHistoryPageFi receiveHistoryPage =
-      _StringsReceiveHistoryPageFi._(_root);
+  late final _StringsReceiveHistoryPageFi receiveHistoryPage = _StringsReceiveHistoryPageFi._(_root);
   @override
-  late final _StringsApkPickerPageFi apkPickerPage =
-      _StringsApkPickerPageFi._(_root);
+  late final _StringsApkPickerPageFi apkPickerPage = _StringsApkPickerPageFi._(_root);
   @override
-  late final _StringsSelectedFilesPageFi selectedFilesPage =
-      _StringsSelectedFilesPageFi._(_root);
+  late final _StringsSelectedFilesPageFi selectedFilesPage = _StringsSelectedFilesPageFi._(_root);
   @override
   late final _StringsReceivePageFi receivePage = _StringsReceivePageFi._(_root);
   @override
-  late final _StringsReceiveOptionsPageFi receiveOptionsPage =
-      _StringsReceiveOptionsPageFi._(_root);
+  late final _StringsReceiveOptionsPageFi receiveOptionsPage = _StringsReceiveOptionsPageFi._(_root);
   @override
   late final _StringsSendPageFi sendPage = _StringsSendPageFi._(_root);
   @override
-  late final _StringsProgressPageFi progressPage =
-      _StringsProgressPageFi._(_root);
+  late final _StringsProgressPageFi progressPage = _StringsProgressPageFi._(_root);
   @override
-  late final _StringsWebSharePageFi webSharePage =
-      _StringsWebSharePageFi._(_root);
+  late final _StringsWebSharePageFi webSharePage = _StringsWebSharePageFi._(_root);
   @override
   late final _StringsAboutPageFi aboutPage = _StringsAboutPageFi._(_root);
   @override
-  late final _StringsDonationPageFi donationPage =
-      _StringsDonationPageFi._(_root);
+  late final _StringsDonationPageFi donationPage = _StringsDonationPageFi._(_root);
   @override
-  late final _StringsChangelogPageFi changelogPage =
-      _StringsChangelogPageFi._(_root);
+  late final _StringsChangelogPageFi changelogPage = _StringsChangelogPageFi._(_root);
   @override
-  late final _StringsAliasGeneratorFi aliasGenerator =
-      _StringsAliasGeneratorFi._(_root);
+  late final _StringsAliasGeneratorFi aliasGenerator = _StringsAliasGeneratorFi._(_root);
   @override
   late final _StringsDialogsFi dialogs = _StringsDialogsFi._(_root);
   @override
-  late final _StringsSanitizationFi sanitization =
-      _StringsSanitizationFi._(_root);
+  late final _StringsSanitizationFi sanitization = _StringsSanitizationFi._(_root);
   @override
   late final _StringsTrayFi tray = _StringsTrayFi._(_root);
   @override
@@ -194,8 +177,7 @@ class _StringsReceiveTabFi extends _StringsReceiveTabEn {
   @override
   String get title => 'Ota Vastaan';
   @override
-  late final _StringsReceiveTabInfoBoxFi infoBox =
-      _StringsReceiveTabInfoBoxFi._(_root);
+  late final _StringsReceiveTabInfoBoxFi infoBox = _StringsReceiveTabInfoBoxFi._(_root);
 }
 
 // Path: sendTab
@@ -211,13 +193,11 @@ class _StringsSendTabFi extends _StringsSendTabEn {
   @override
   String get title => 'Lähetä';
   @override
-  late final _StringsSendTabSelectionFi selection =
-      _StringsSendTabSelectionFi._(_root);
+  late final _StringsSendTabSelectionFi selection = _StringsSendTabSelectionFi._(_root);
   @override
   late final _StringsSendTabPickerFi picker = _StringsSendTabPickerFi._(_root);
   @override
-  String get shareIntentInfo =>
-      'Sinä voit myös käyttää laitteesi "Jaa"-toimintoa valitaksesi tiedostoja helpommin.';
+  String get shareIntentInfo => 'Sinä voit myös käyttää laitteesi "Jaa"-toimintoa valitaksesi tiedostoja helpommin.';
   @override
   String get nearbyDevices => 'Lähellä olevat laitteet';
   @override
@@ -227,13 +207,11 @@ class _StringsSendTabFi extends _StringsSendTabEn {
   @override
   String get sendMode => 'Lähetystapa';
   @override
-  late final _StringsSendTabSendModesFi sendModes =
-      _StringsSendTabSendModesFi._(_root);
+  late final _StringsSendTabSendModesFi sendModes = _StringsSendTabSendModesFi._(_root);
   @override
   String get sendModeHelp => 'Selitys';
   @override
-  String get help =>
-      'Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.';
+  String get help => 'Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.';
   @override
   String get placeItems => 'Lissä tiedostot tähän, jakaaksesi ne.';
 }
@@ -251,20 +229,15 @@ class _StringsSettingsTabFi extends _StringsSettingsTabEn {
   @override
   String get title => 'Asetukset';
   @override
-  late final _StringsSettingsTabGeneralFi general =
-      _StringsSettingsTabGeneralFi._(_root);
+  late final _StringsSettingsTabGeneralFi general = _StringsSettingsTabGeneralFi._(_root);
   @override
-  late final _StringsSettingsTabReceiveFi receive =
-      _StringsSettingsTabReceiveFi._(_root);
+  late final _StringsSettingsTabReceiveFi receive = _StringsSettingsTabReceiveFi._(_root);
   @override
-  late final _StringsSettingsTabSendFi send =
-      _StringsSettingsTabSendFi._(_root);
+  late final _StringsSettingsTabSendFi send = _StringsSettingsTabSendFi._(_root);
   @override
-  late final _StringsSettingsTabNetworkFi network =
-      _StringsSettingsTabNetworkFi._(_root);
+  late final _StringsSettingsTabNetworkFi network = _StringsSettingsTabNetworkFi._(_root);
   @override
-  late final _StringsSettingsTabOtherFi other =
-      _StringsSettingsTabOtherFi._(_root);
+  late final _StringsSettingsTabOtherFi other = _StringsSettingsTabOtherFi._(_root);
   @override
   String get advancedSettings => 'Edistyneet asetukset';
 }
@@ -282,18 +255,15 @@ class _StringsTroubleshootPageFi extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Ongelmanratkaisu';
   @override
-  String get subTitle =>
-      'Eikö sovellus toimi odotetusti? Täältä löydät joitain yleisiä ratkaisuja.';
+  String get subTitle => 'Eikö sovellus toimi odotetusti? Täältä löydät joitain yleisiä ratkaisuja.';
   @override
   String get solution => 'Ratkaisu';
   @override
   String get fixButton => 'Automaattinen korjaus';
   @override
-  late final _StringsTroubleshootPageFirewallFi firewall =
-      _StringsTroubleshootPageFirewallFi._(_root);
+  late final _StringsTroubleshootPageFirewallFi firewall = _StringsTroubleshootPageFirewallFi._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionFi noConnection =
-      _StringsTroubleshootPageNoConnectionFi._(_root);
+  late final _StringsTroubleshootPageNoConnectionFi noConnection = _StringsTroubleshootPageNoConnectionFi._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -315,8 +285,7 @@ class _StringsReceiveHistoryPageFi extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Historia on tyhjä.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsFi entryActions =
-      _StringsReceiveHistoryPageEntryActionsFi._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsFi entryActions = _StringsReceiveHistoryPageEntryActionsFi._(_root);
 }
 
 // Path: apkPickerPage
@@ -334,8 +303,7 @@ class _StringsApkPickerPageFi extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'lukuun ottamatta järjestelmäsovelluksia';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'lukuun ottamatta sovelluksia, joilla ei ole käynnistysintentiota';
+  String get excludeAppsWithoutLaunchIntent => 'lukuun ottamatta sovelluksia, joilla ei ole käynnistysintentiota';
   @override
   String apps({required Object n}) => '${n} sovellusta';
 }
@@ -365,8 +333,7 @@ class _StringsReceivePageFi extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
         n,
         one: 'haluaa lähettää sinulle tiedoston',
         other: 'haluaa lähettää sinulle ${n} tiedostoa',
@@ -398,8 +365,7 @@ class _StringsReceiveOptionsPageFi extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Poistettu käytöstä automaattisesti, koska hakemistoja on olemassa.';
+  String get saveToGalleryOff => 'Poistettu käytöstä automaattisesti, koska hakemistoja on olemassa.';
 }
 
 // Path: sendPage
@@ -437,8 +403,7 @@ class _StringsProgressPageFi extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Tallennettu Kuvat-kansioon';
   @override
-  late final _StringsProgressPageTotalFi total =
-      _StringsProgressPageTotalFi._(_root);
+  late final _StringsProgressPageTotalFi total = _StringsProgressPageTotalFi._(_root);
 }
 
 // Path: webSharePage
@@ -460,8 +425,7 @@ class _StringsWebSharePageFi extends _StringsWebSharePageEn {
   @override
   String get error => 'Palvelimen käynnistyksessä tapahtui virhe.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
         n,
         one: 'Avaa tämä linkki selaimessasi:',
         other: 'Avaa jokin näistä linkeistä selaimessasi:',
@@ -475,8 +439,7 @@ class _StringsWebSharePageFi extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Hyväksy pyynnöt automaattisesti';
   @override
-  String get encryptionHint =>
-      'LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.';
+  String get encryptionHint => 'LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.';
   @override
   String pendingRequests({required Object n}) => 'Odottavat pyynnöt: ${n}';
 }
@@ -633,8 +596,7 @@ class _StringsAliasGeneratorFi extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last.
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -648,69 +610,47 @@ class _StringsDialogsFi extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileFi addFile =
-      _StringsDialogsAddFileFi._(_root);
+  late final _StringsDialogsAddFileFi addFile = _StringsDialogsAddFileFi._(_root);
   @override
-  late final _StringsDialogsAddressInputFi addressInput =
-      _StringsDialogsAddressInputFi._(_root);
+  late final _StringsDialogsAddressInputFi addressInput = _StringsDialogsAddressInputFi._(_root);
   @override
-  late final _StringsDialogsCancelSessionFi cancelSession =
-      _StringsDialogsCancelSessionFi._(_root);
+  late final _StringsDialogsCancelSessionFi cancelSession = _StringsDialogsCancelSessionFi._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileFi cannotOpenFile =
-      _StringsDialogsCannotOpenFileFi._(_root);
+  late final _StringsDialogsCannotOpenFileFi cannotOpenFile = _StringsDialogsCannotOpenFileFi._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeFi
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeFi._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeFi encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeFi._(_root);
   @override
-  late final _StringsDialogsErrorDialogFi errorDialog =
-      _StringsDialogsErrorDialogFi._(_root);
+  late final _StringsDialogsErrorDialogFi errorDialog = _StringsDialogsErrorDialogFi._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogFi favoriteDialog =
-      _StringsDialogsFavoriteDialogFi._(_root);
+  late final _StringsDialogsFavoriteDialogFi favoriteDialog = _StringsDialogsFavoriteDialogFi._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogFi favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogFi._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogFi favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogFi._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogFi favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogFi._(_root);
+  late final _StringsDialogsFavoriteEditDialogFi favoriteEditDialog = _StringsDialogsFavoriteEditDialogFi._(_root);
   @override
-  late final _StringsDialogsFileInfoFi fileInfo =
-      _StringsDialogsFileInfoFi._(_root);
+  late final _StringsDialogsFileInfoFi fileInfo = _StringsDialogsFileInfoFi._(_root);
   @override
-  late final _StringsDialogsFileNameInputFi fileNameInput =
-      _StringsDialogsFileNameInputFi._(_root);
+  late final _StringsDialogsFileNameInputFi fileNameInput = _StringsDialogsFileNameInputFi._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogFi historyClearDialog =
-      _StringsDialogsHistoryClearDialogFi._(_root);
+  late final _StringsDialogsHistoryClearDialogFi historyClearDialog = _StringsDialogsHistoryClearDialogFi._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedFi
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedFi._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedFi localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedFi._(_root);
   @override
-  late final _StringsDialogsMessageInputFi messageInput =
-      _StringsDialogsMessageInputFi._(_root);
+  late final _StringsDialogsMessageInputFi messageInput = _StringsDialogsMessageInputFi._(_root);
   @override
-  late final _StringsDialogsNoFilesFi noFiles =
-      _StringsDialogsNoFilesFi._(_root);
+  late final _StringsDialogsNoFilesFi noFiles = _StringsDialogsNoFilesFi._(_root);
   @override
-  late final _StringsDialogsNoPermissionFi noPermission =
-      _StringsDialogsNoPermissionFi._(_root);
+  late final _StringsDialogsNoPermissionFi noPermission = _StringsDialogsNoPermissionFi._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformFi notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformFi._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformFi notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformFi._(_root);
   @override
   late final _StringsDialogsQrFi qr = _StringsDialogsQrFi._(_root);
   @override
-  late final _StringsDialogsQuickActionsFi quickActions =
-      _StringsDialogsQuickActionsFi._(_root);
+  late final _StringsDialogsQuickActionsFi quickActions = _StringsDialogsQuickActionsFi._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeFi quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeFi._(_root);
+  late final _StringsDialogsQuickSaveNoticeFi quickSaveNotice = _StringsDialogsQuickSaveNoticeFi._(_root);
   @override
-  late final _StringsDialogsSendModeHelpFi sendModeHelp =
-      _StringsDialogsSendModeHelpFi._(_root);
+  late final _StringsDialogsSendModeHelpFi sendModeHelp = _StringsDialogsSendModeHelpFi._(_root);
   @override
   late final _StringsDialogsZoomFi zoom = _StringsDialogsZoomFi._(_root);
 }
@@ -800,14 +740,11 @@ class _StringsAssetPickerFi extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tiedostotyyppiä ei tueta.';
   @override
-  String get unableToAccessAll =>
-      'Kaikkien tiedostojen käyttö laitteella ei onnistu';
+  String get unableToAccessAll => 'Kaikkien tiedostojen käyttö laitteella ei onnistu';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Näytä vain sovelluksen käyttöön saatavilla olevat tiedostot ja albumit.';
+  String get viewingLimitedAssetsTip => 'Näytä vain sovelluksen käyttöön saatavilla olevat tiedostot ja albumit.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Päivitä käytettävissä olevat tiedostot napsauttamalla';
+  String get changeAccessibleLimitedAssets => 'Päivitä käytettävissä olevat tiedostot napsauttamalla';
   @override
   String get accessAllTip =>
       'Sovellus pääsee käsiksi vain osaan laitteen tiedostoista. Siirry järjestelmäasetuksiin ja salli sovelluksen pääsy kaikkiin laitteen mediaan.';
@@ -934,18 +871,15 @@ class _StringsSettingsTabGeneralFi extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Teema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsFi brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsFi._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsFi brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsFi._(_root);
   @override
   String get color => 'Väri';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsFi colorOptions =
-      _StringsSettingsTabGeneralColorOptionsFi._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsFi colorOptions = _StringsSettingsTabGeneralColorOptionsFi._(_root);
   @override
   String get language => 'Kieli';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsFi languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsFi._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsFi languageOptions = _StringsSettingsTabGeneralLanguageOptionsFi._(_root);
   @override
   String get saveWindowPlacement => 'Poistu: Tallenna ikkunan sijainti';
   @override
@@ -953,8 +887,7 @@ class _StringsSettingsTabGeneralFi extends _StringsSettingsTabGeneralEn {
   @override
   String get launchAtStartup => 'Automaattinen käynnistys';
   @override
-  String get launchMinimized =>
-      'Automaattinen käynnistys: Käynnistä piiilotettuna';
+  String get launchMinimized => 'Automaattinen käynnistys: Käynnistä piiilotettuna';
   @override
   String get animations => 'Animaatiot';
 }
@@ -1014,8 +947,7 @@ class _StringsSettingsTabNetworkFi extends _StringsSettingsTabNetworkEn {
   @override
   String get title => 'Verkko';
   @override
-  String get needRestart =>
-      'UUdelleenkäynistä sovellus, jotta muutokset tallennetaan.';
+  String get needRestart => 'UUdelleenkäynistä sovellus, jotta muutokset tallennetaan.';
   @override
   String get server => 'Palvelin';
   @override
@@ -1063,8 +995,7 @@ class _StringsSettingsTabOtherFi extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallFi
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallFi extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1084,8 +1015,7 @@ class _StringsTroubleshootPageFirewallFi
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionFi
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionFi extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1095,16 +1025,14 @@ class _StringsTroubleshootPageNoConnectionFi
 
   // Translations
   @override
-  String get symptom =>
-      'Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.';
+  String get symptom => 'Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.';
   @override
   String get solution =>
       'Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsFi
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsFi extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1132,14 +1060,11 @@ class _StringsProgressPageTotalFi extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleFi title =
-      _StringsProgressPageTotalTitleFi._(_root);
+  late final _StringsProgressPageTotalTitleFi title = _StringsProgressPageTotalTitleFi._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Tiedostoja: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Tiedostoja: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Koko: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Koko: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Nopeus: ${speed}/s';
 }
@@ -1209,13 +1134,11 @@ class _StringsDialogsCannotOpenFileFi extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Tiedostoa ei voi avata';
   @override
-  String content({required Object file}) =>
-      'Tiedostoa "${file}" ei voitu avata. Onko tämä tiedosto siirretty, nimetty uudelleen tai poistettu?';
+  String content({required Object file}) => 'Tiedostoa "${file}" ei voitu avata. Onko tämä tiedosto siirretty, nimetty uudelleen tai poistettu?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeFi
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeFi extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1227,8 +1150,7 @@ class _StringsDialogsEncryptionDisabledNoticeFi
   @override
   String get title => 'Salaus poistettu käytöstä';
   @override
-  String get content =>
-      'Viestintä tapahtuu nyt salaamattoman HTTP-protokollan kautta. Jos haluat käyttää HTTPS:ää, ota salaus uudelleen käyttöön.';
+  String get content => 'Viestintä tapahtuu nyt salaamattoman HTTP-protokollan kautta. Jos haluat käyttää HTTPS:ää, ota salaus uudelleen käyttöön.';
 }
 
 // Path: dialogs.errorDialog
@@ -1264,8 +1186,7 @@ class _StringsDialogsFavoriteDialogFi extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogFi
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogFi extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1277,13 +1198,11 @@ class _StringsDialogsFavoriteDeleteDialogFi
   @override
   String get title => 'Poista suosikeista';
   @override
-  String content({required Object name}) =>
-      'Haluatko varmasti poistaa suosikeista "${name}"?';
+  String content({required Object name}) => 'Haluatko varmasti poistaa suosikeista "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogFi
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogFi extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1347,8 +1266,7 @@ class _StringsDialogsFileNameInputFi extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogFi
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogFi extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1364,8 +1282,7 @@ class _StringsDialogsHistoryClearDialogFi
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedFi
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedFi extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1377,8 +1294,7 @@ class _StringsDialogsLocalNetworkUnauthorizedFi
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description =>
-      'LocalSend ei löydä muita laitteita ilman lupaa skannata paikallisverkkoa. Anna tämä lupa asetuksissa.';
+  String get description => 'LocalSend ei löydä muita laitteita ilman lupaa skannata paikallisverkkoa. Anna tämä lupa asetuksissa.';
   @override
   String get gotoSettings => 'Asetukset';
 }
@@ -1428,13 +1344,11 @@ class _StringsDialogsNoPermissionFi extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Ei oikeuksia';
   @override
-  String get content =>
-      'Et ole myöntänyt tarvittavia oikeuksia. Myönnä ne asetuksissa.';
+  String get content => 'Et ole myöntänyt tarvittavia oikeuksia. Myönnä ne asetuksissa.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformFi
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformFi extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1488,8 +1402,7 @@ class _StringsDialogsQuickActionsFi extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeFi
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeFi extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1501,8 +1414,7 @@ class _StringsDialogsQuickSaveNoticeFi
   @override
   String get title => 'Pikatallennus';
   @override
-  String get content =>
-      'Tiedostopyynnöt hyväksytään automaattisesti. Huomaa, että kuka tahansa paikallisverkossa voi lähettää sinulle tiedostoja.';
+  String get content => 'Tiedostopyynnöt hyväksytään automaattisesti. Huomaa, että kuka tahansa paikallisverkossa voi lähettää sinulle tiedostoja.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1518,14 +1430,11 @@ class _StringsDialogsSendModeHelpFi extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Lähetystilat';
   @override
-  String get single =>
-      'Lähettää tiedostoja yhdelle vastaanottajalle. Valinta tyhjennetään tiedostonsiirron päätyttyä.';
+  String get single => 'Lähettää tiedostoja yhdelle vastaanottajalle. Valinta tyhjennetään tiedostonsiirron päätyttyä.';
   @override
-  String get multiple =>
-      'Lähettää tiedostoja useille vastaanottajille. Valinta ei tyhjene.';
+  String get multiple => 'Lähettää tiedostoja useille vastaanottajille. Valinta ei tyhjene.';
   @override
-  String get link =>
-      'Vastaanottajat, joilla ei ole LocalSendia asennettuna, voivat ladata valitut tiedostot avaamalla linkin selaimessaan.';
+  String get link => 'Vastaanottajat, joilla ei ole LocalSendia asennettuna, voivat ladata valitut tiedostot avaamalla linkin selaimessaan.';
 }
 
 // Path: dialogs.zoom
@@ -1543,8 +1452,7 @@ class _StringsDialogsZoomFi extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsFi
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsFi extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1562,8 +1470,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsFi
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsFi
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsFi extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1579,8 +1486,7 @@ class _StringsSettingsTabGeneralColorOptionsFi
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsFi
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsFi extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsFi._(_StringsFi root)
       : this._root = root,
         super._(root);
@@ -1594,8 +1500,7 @@ class _StringsSettingsTabGeneralLanguageOptionsFi
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleFi
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleFi extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleFi._(_StringsFi root)
       : this._root = root,
         super._(root);

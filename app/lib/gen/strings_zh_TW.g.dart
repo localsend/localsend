@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsZhTw extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsZhTw.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsZhTw.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.zhTw,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <zh-TW>.
   @override
@@ -41,50 +35,37 @@ class _StringsZhTw extends Translations {
   @override
   late final _StringsGeneralZhTw general = _StringsGeneralZhTw._(_root);
   @override
-  late final _StringsReceiveTabZhTw receiveTab =
-      _StringsReceiveTabZhTw._(_root);
+  late final _StringsReceiveTabZhTw receiveTab = _StringsReceiveTabZhTw._(_root);
   @override
   late final _StringsSendTabZhTw sendTab = _StringsSendTabZhTw._(_root);
   @override
-  late final _StringsSettingsTabZhTw settingsTab =
-      _StringsSettingsTabZhTw._(_root);
+  late final _StringsSettingsTabZhTw settingsTab = _StringsSettingsTabZhTw._(_root);
   @override
-  late final _StringsTroubleshootPageZhTw troubleshootPage =
-      _StringsTroubleshootPageZhTw._(_root);
+  late final _StringsTroubleshootPageZhTw troubleshootPage = _StringsTroubleshootPageZhTw._(_root);
   @override
-  late final _StringsReceiveHistoryPageZhTw receiveHistoryPage =
-      _StringsReceiveHistoryPageZhTw._(_root);
+  late final _StringsReceiveHistoryPageZhTw receiveHistoryPage = _StringsReceiveHistoryPageZhTw._(_root);
   @override
-  late final _StringsApkPickerPageZhTw apkPickerPage =
-      _StringsApkPickerPageZhTw._(_root);
+  late final _StringsApkPickerPageZhTw apkPickerPage = _StringsApkPickerPageZhTw._(_root);
   @override
-  late final _StringsSelectedFilesPageZhTw selectedFilesPage =
-      _StringsSelectedFilesPageZhTw._(_root);
+  late final _StringsSelectedFilesPageZhTw selectedFilesPage = _StringsSelectedFilesPageZhTw._(_root);
   @override
-  late final _StringsReceivePageZhTw receivePage =
-      _StringsReceivePageZhTw._(_root);
+  late final _StringsReceivePageZhTw receivePage = _StringsReceivePageZhTw._(_root);
   @override
-  late final _StringsReceiveOptionsPageZhTw receiveOptionsPage =
-      _StringsReceiveOptionsPageZhTw._(_root);
+  late final _StringsReceiveOptionsPageZhTw receiveOptionsPage = _StringsReceiveOptionsPageZhTw._(_root);
   @override
   late final _StringsSendPageZhTw sendPage = _StringsSendPageZhTw._(_root);
   @override
-  late final _StringsProgressPageZhTw progressPage =
-      _StringsProgressPageZhTw._(_root);
+  late final _StringsProgressPageZhTw progressPage = _StringsProgressPageZhTw._(_root);
   @override
-  late final _StringsWebSharePageZhTw webSharePage =
-      _StringsWebSharePageZhTw._(_root);
+  late final _StringsWebSharePageZhTw webSharePage = _StringsWebSharePageZhTw._(_root);
   @override
   late final _StringsAboutPageZhTw aboutPage = _StringsAboutPageZhTw._(_root);
   @override
-  late final _StringsDonationPageZhTw donationPage =
-      _StringsDonationPageZhTw._(_root);
+  late final _StringsDonationPageZhTw donationPage = _StringsDonationPageZhTw._(_root);
   @override
-  late final _StringsChangelogPageZhTw changelogPage =
-      _StringsChangelogPageZhTw._(_root);
+  late final _StringsChangelogPageZhTw changelogPage = _StringsChangelogPageZhTw._(_root);
   @override
-  late final _StringsAliasGeneratorZhTw aliasGenerator =
-      _StringsAliasGeneratorZhTw._(_root);
+  late final _StringsAliasGeneratorZhTw aliasGenerator = _StringsAliasGeneratorZhTw._(_root);
   @override
   late final _StringsDialogsZhTw dialogs = _StringsDialogsZhTw._(_root);
   @override
@@ -92,8 +73,7 @@ class _StringsZhTw extends Translations {
   @override
   late final _StringsWebZhTw web = _StringsWebZhTw._(_root);
   @override
-  late final _StringsAssetPickerZhTw assetPicker =
-      _StringsAssetPickerZhTw._(_root);
+  late final _StringsAssetPickerZhTw assetPicker = _StringsAssetPickerZhTw._(_root);
 }
 
 // Path: general
@@ -195,8 +175,7 @@ class _StringsReceiveTabZhTw extends _StringsReceiveTabEn {
   @override
   String get title => '接收';
   @override
-  late final _StringsReceiveTabInfoBoxZhTw infoBox =
-      _StringsReceiveTabInfoBoxZhTw._(_root);
+  late final _StringsReceiveTabInfoBoxZhTw infoBox = _StringsReceiveTabInfoBoxZhTw._(_root);
 }
 
 // Path: sendTab
@@ -212,11 +191,9 @@ class _StringsSendTabZhTw extends _StringsSendTabEn {
   @override
   String get title => '傳送';
   @override
-  late final _StringsSendTabSelectionZhTw selection =
-      _StringsSendTabSelectionZhTw._(_root);
+  late final _StringsSendTabSelectionZhTw selection = _StringsSendTabSelectionZhTw._(_root);
   @override
-  late final _StringsSendTabPickerZhTw picker =
-      _StringsSendTabPickerZhTw._(_root);
+  late final _StringsSendTabPickerZhTw picker = _StringsSendTabPickerZhTw._(_root);
   @override
   String get shareIntentInfo => '您也可以使用您的行動裝置中的「分享」功能更簡單地選取檔案。';
   @override
@@ -228,8 +205,7 @@ class _StringsSendTabZhTw extends _StringsSendTabEn {
   @override
   String get sendMode => '傳送模式';
   @override
-  late final _StringsSendTabSendModesZhTw sendModes =
-      _StringsSendTabSendModesZhTw._(_root);
+  late final _StringsSendTabSendModesZhTw sendModes = _StringsSendTabSendModesZhTw._(_root);
   @override
   String get sendModeHelp => '說明';
   @override
@@ -251,20 +227,15 @@ class _StringsSettingsTabZhTw extends _StringsSettingsTabEn {
   @override
   String get title => '設定';
   @override
-  late final _StringsSettingsTabGeneralZhTw general =
-      _StringsSettingsTabGeneralZhTw._(_root);
+  late final _StringsSettingsTabGeneralZhTw general = _StringsSettingsTabGeneralZhTw._(_root);
   @override
-  late final _StringsSettingsTabReceiveZhTw receive =
-      _StringsSettingsTabReceiveZhTw._(_root);
+  late final _StringsSettingsTabReceiveZhTw receive = _StringsSettingsTabReceiveZhTw._(_root);
   @override
-  late final _StringsSettingsTabSendZhTw send =
-      _StringsSettingsTabSendZhTw._(_root);
+  late final _StringsSettingsTabSendZhTw send = _StringsSettingsTabSendZhTw._(_root);
   @override
-  late final _StringsSettingsTabNetworkZhTw network =
-      _StringsSettingsTabNetworkZhTw._(_root);
+  late final _StringsSettingsTabNetworkZhTw network = _StringsSettingsTabNetworkZhTw._(_root);
   @override
-  late final _StringsSettingsTabOtherZhTw other =
-      _StringsSettingsTabOtherZhTw._(_root);
+  late final _StringsSettingsTabOtherZhTw other = _StringsSettingsTabOtherZhTw._(_root);
   @override
   String get advancedSettings => '進階設定';
 }
@@ -288,11 +259,9 @@ class _StringsTroubleshootPageZhTw extends _StringsTroubleshootPageEn {
   @override
   String get fixButton => '自動修正';
   @override
-  late final _StringsTroubleshootPageFirewallZhTw firewall =
-      _StringsTroubleshootPageFirewallZhTw._(_root);
+  late final _StringsTroubleshootPageFirewallZhTw firewall = _StringsTroubleshootPageFirewallZhTw._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionZhTw noConnection =
-      _StringsTroubleshootPageNoConnectionZhTw._(_root);
+  late final _StringsTroubleshootPageNoConnectionZhTw noConnection = _StringsTroubleshootPageNoConnectionZhTw._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -314,8 +283,7 @@ class _StringsReceiveHistoryPageZhTw extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => '沒有歷史記錄.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsZhTw entryActions =
-      _StringsReceiveHistoryPageEntryActionsZhTw._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsZhTw entryActions = _StringsReceiveHistoryPageEntryActionsZhTw._(_root);
 }
 
 // Path: apkPickerPage
@@ -363,8 +331,7 @@ class _StringsReceivePageZhTw extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
         n,
         one: '要傳送一個檔案給您。',
         other: '要傳送 ${n} 個檔案給您。',
@@ -434,8 +401,7 @@ class _StringsProgressPageZhTw extends _StringsProgressPageEn {
   @override
   String get savedToGallery => '已儲存至相簿';
   @override
-  late final _StringsProgressPageTotalZhTw total =
-      _StringsProgressPageTotalZhTw._(_root);
+  late final _StringsProgressPageTotalZhTw total = _StringsProgressPageTotalZhTw._(_root);
 }
 
 // Path: webSharePage
@@ -457,8 +423,7 @@ class _StringsWebSharePageZhTw extends _StringsWebSharePageEn {
   @override
   String get error => '啟動伺服器時發生錯誤。';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
         n,
         one: '在瀏覽器開啟此連結：',
         other: '在瀏覽器中開啟其中一個連結：',
@@ -561,69 +526,47 @@ class _StringsDialogsZhTw extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileZhTw addFile =
-      _StringsDialogsAddFileZhTw._(_root);
+  late final _StringsDialogsAddFileZhTw addFile = _StringsDialogsAddFileZhTw._(_root);
   @override
-  late final _StringsDialogsAddressInputZhTw addressInput =
-      _StringsDialogsAddressInputZhTw._(_root);
+  late final _StringsDialogsAddressInputZhTw addressInput = _StringsDialogsAddressInputZhTw._(_root);
   @override
-  late final _StringsDialogsCancelSessionZhTw cancelSession =
-      _StringsDialogsCancelSessionZhTw._(_root);
+  late final _StringsDialogsCancelSessionZhTw cancelSession = _StringsDialogsCancelSessionZhTw._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileZhTw cannotOpenFile =
-      _StringsDialogsCannotOpenFileZhTw._(_root);
+  late final _StringsDialogsCannotOpenFileZhTw cannotOpenFile = _StringsDialogsCannotOpenFileZhTw._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeZhTw
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeZhTw._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeZhTw encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeZhTw._(_root);
   @override
-  late final _StringsDialogsErrorDialogZhTw errorDialog =
-      _StringsDialogsErrorDialogZhTw._(_root);
+  late final _StringsDialogsErrorDialogZhTw errorDialog = _StringsDialogsErrorDialogZhTw._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogZhTw favoriteDialog =
-      _StringsDialogsFavoriteDialogZhTw._(_root);
+  late final _StringsDialogsFavoriteDialogZhTw favoriteDialog = _StringsDialogsFavoriteDialogZhTw._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogZhTw favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogZhTw._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogZhTw favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogZhTw._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogZhTw favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogZhTw._(_root);
+  late final _StringsDialogsFavoriteEditDialogZhTw favoriteEditDialog = _StringsDialogsFavoriteEditDialogZhTw._(_root);
   @override
-  late final _StringsDialogsFileInfoZhTw fileInfo =
-      _StringsDialogsFileInfoZhTw._(_root);
+  late final _StringsDialogsFileInfoZhTw fileInfo = _StringsDialogsFileInfoZhTw._(_root);
   @override
-  late final _StringsDialogsFileNameInputZhTw fileNameInput =
-      _StringsDialogsFileNameInputZhTw._(_root);
+  late final _StringsDialogsFileNameInputZhTw fileNameInput = _StringsDialogsFileNameInputZhTw._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogZhTw historyClearDialog =
-      _StringsDialogsHistoryClearDialogZhTw._(_root);
+  late final _StringsDialogsHistoryClearDialogZhTw historyClearDialog = _StringsDialogsHistoryClearDialogZhTw._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedZhTw
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedZhTw._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedZhTw localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedZhTw._(_root);
   @override
-  late final _StringsDialogsMessageInputZhTw messageInput =
-      _StringsDialogsMessageInputZhTw._(_root);
+  late final _StringsDialogsMessageInputZhTw messageInput = _StringsDialogsMessageInputZhTw._(_root);
   @override
-  late final _StringsDialogsNoFilesZhTw noFiles =
-      _StringsDialogsNoFilesZhTw._(_root);
+  late final _StringsDialogsNoFilesZhTw noFiles = _StringsDialogsNoFilesZhTw._(_root);
   @override
-  late final _StringsDialogsNoPermissionZhTw noPermission =
-      _StringsDialogsNoPermissionZhTw._(_root);
+  late final _StringsDialogsNoPermissionZhTw noPermission = _StringsDialogsNoPermissionZhTw._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformZhTw notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformZhTw._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformZhTw notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformZhTw._(_root);
   @override
   late final _StringsDialogsQrZhTw qr = _StringsDialogsQrZhTw._(_root);
   @override
-  late final _StringsDialogsQuickActionsZhTw quickActions =
-      _StringsDialogsQuickActionsZhTw._(_root);
+  late final _StringsDialogsQuickActionsZhTw quickActions = _StringsDialogsQuickActionsZhTw._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeZhTw quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeZhTw._(_root);
+  late final _StringsDialogsQuickSaveNoticeZhTw quickSaveNotice = _StringsDialogsQuickSaveNoticeZhTw._(_root);
   @override
-  late final _StringsDialogsSendModeHelpZhTw sendModeHelp =
-      _StringsDialogsSendModeHelpZhTw._(_root);
+  late final _StringsDialogsSendModeHelpZhTw sendModeHelp = _StringsDialogsSendModeHelpZhTw._(_root);
 }
 
 // Path: tray
@@ -825,18 +768,15 @@ class _StringsSettingsTabGeneralZhTw extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => '亮度';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsZhTw brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsZhTw._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsZhTw brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsZhTw._(_root);
   @override
   String get color => '顏色';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsZhTw colorOptions =
-      _StringsSettingsTabGeneralColorOptionsZhTw._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsZhTw colorOptions = _StringsSettingsTabGeneralColorOptionsZhTw._(_root);
   @override
   String get language => '語言';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsZhTw languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsZhTw._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsZhTw languageOptions = _StringsSettingsTabGeneralLanguageOptionsZhTw._(_root);
   @override
   String get saveWindowPlacement => '離開：儲存視窗位置';
   @override
@@ -916,15 +856,13 @@ class _StringsSettingsTabNetworkZhTw extends _StringsSettingsTabNetworkEn {
   @override
   String get port => '通訊埠';
   @override
-  String portWarning({required Object defaultPort}) =>
-      '您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：${defaultPort})';
+  String portWarning({required Object defaultPort}) => '您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：${defaultPort})';
   @override
   String get encryption => '加密';
   @override
   String get multicastGroup => '多點傳送';
   @override
-  String multicastGroupWarning({required Object defaultMulticast}) =>
-      '您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：${defaultMulticast})';
+  String multicastGroupWarning({required Object defaultMulticast}) => '您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -950,8 +888,7 @@ class _StringsSettingsTabOtherZhTw extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallZhTw
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallZhTw extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -963,15 +900,13 @@ class _StringsTroubleshootPageFirewallZhTw
   @override
   String get symptom => '此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。';
   @override
-  String solution({required Object port}) =>
-      '這很可能是防火牆問題。您可以透過允許通訊埠 ${port} 上的連入連線 (UDP 和 TCP) 以解決此問題。';
+  String solution({required Object port}) => '這很可能是防火牆問題。您可以透過允許通訊埠 ${port} 上的連入連線 (UDP 和 TCP) 以解決此問題。';
   @override
   String get openFirewall => '開啟防火牆';
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionZhTw
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionZhTw extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -983,13 +918,11 @@ class _StringsTroubleshootPageNoConnectionZhTw
   @override
   String get symptom => '兩部裝置無法探索彼此，也無法分享檔案。';
   @override
-  String get solution =>
-      '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上啟用此選項。';
+  String get solution => '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上啟用此選項。';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsZhTw
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsZhTw extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1017,11 +950,9 @@ class _StringsProgressPageTotalZhTw extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleZhTw title =
-      _StringsProgressPageTotalTitleZhTw._(_root);
+  late final _StringsProgressPageTotalTitleZhTw title = _StringsProgressPageTotalTitleZhTw._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      '檔案：${curr} / ${n}';
+  String count({required Object curr, required Object n}) => '檔案：${curr} / ${n}';
   @override
   String size({required Object curr, required Object n}) => '大小：${curr} / ${n}';
   @override
@@ -1081,8 +1012,7 @@ class _StringsDialogsCancelSessionZhTw extends _StringsDialogsCancelSessionEn {
 }
 
 // Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileZhTw
-    extends _StringsDialogsCannotOpenFileEn {
+class _StringsDialogsCannotOpenFileZhTw extends _StringsDialogsCannotOpenFileEn {
   _StringsDialogsCannotOpenFileZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1098,8 +1028,7 @@ class _StringsDialogsCannotOpenFileZhTw
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeZhTw
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeZhTw extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1129,8 +1058,7 @@ class _StringsDialogsErrorDialogZhTw extends _StringsDialogsErrorDialogEn {
 }
 
 // Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogZhTw
-    extends _StringsDialogsFavoriteDialogEn {
+class _StringsDialogsFavoriteDialogZhTw extends _StringsDialogsFavoriteDialogEn {
   _StringsDialogsFavoriteDialogZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1148,8 +1076,7 @@ class _StringsDialogsFavoriteDialogZhTw
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogZhTw
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogZhTw extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1165,8 +1092,7 @@ class _StringsDialogsFavoriteDeleteDialogZhTw
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogZhTw
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogZhTw extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1230,8 +1156,7 @@ class _StringsDialogsFileNameInputZhTw extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogZhTw
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogZhTw extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1247,8 +1172,7 @@ class _StringsDialogsHistoryClearDialogZhTw
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedZhTw
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedZhTw extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1314,8 +1238,7 @@ class _StringsDialogsNoPermissionZhTw extends _StringsDialogsNoPermissionEn {
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformZhTw
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformZhTw extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1369,8 +1292,7 @@ class _StringsDialogsQuickActionsZhTw extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeZhTw
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeZhTw extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1406,8 +1328,7 @@ class _StringsDialogsSendModeHelpZhTw extends _StringsDialogsSendModeHelpEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsZhTw
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsZhTw extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1425,8 +1346,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsZhTw
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsZhTw
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsZhTw extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1442,8 +1362,7 @@ class _StringsSettingsTabGeneralColorOptionsZhTw
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsZhTw
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsZhTw extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);
@@ -1457,8 +1376,7 @@ class _StringsSettingsTabGeneralLanguageOptionsZhTw
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleZhTw
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleZhTw extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleZhTw._(_StringsZhTw root)
       : this._root = root,
         super._(root);

@@ -43,8 +43,7 @@ class InitLocalIpAction extends ReduxAction<LocalIpService, NetworkState> {
 
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
-        _subscription = Stream.periodic(const Duration(seconds: 5), (_) {})
-            .listen((_) async {
+        _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
           await dispatchAsync(_FetchLocalIpAction());
         });
       } else {
@@ -64,8 +63,7 @@ class InitLocalIpAction extends ReduxAction<LocalIpService, NetworkState> {
   }
 }
 
-class _FetchLocalIpAction
-    extends AsyncReduxAction<LocalIpService, NetworkState> {
+class _FetchLocalIpAction extends AsyncReduxAction<LocalIpService, NetworkState> {
   @override
   Future<NetworkState> reduce() async {
     return NetworkState(
@@ -88,13 +86,8 @@ Future<List<String>> _getIp() async {
   if (!kIsWeb) {
     try {
       // fallback with dart:io NetworkInterface
-      final result = (await NetworkInterface.list())
-          .map((networkInterface) => networkInterface.addresses)
-          .expand((ip) => ip);
-      nativeResult = result
-          .where((ip) => ip.type == InternetAddressType.IPv4)
-          .map((address) => address.address)
-          .toList();
+      final result = (await NetworkInterface.list()).map((networkInterface) => networkInterface.addresses).expand((ip) => ip);
+      nativeResult = result.where((ip) => ip.type == InternetAddressType.IPv4).map((address) => address.address).toList();
     } catch (e, st) {
       _logger.info('Failed to get IP from dart:io', e, st);
     }
@@ -105,8 +98,7 @@ Future<List<String>> _getIp() async {
   return addresses;
 }
 
-List<String> rankIpAddresses(
-    List<String> nativeResult, String? thirdPartyResult) {
+List<String> rankIpAddresses(List<String> nativeResult, String? thirdPartyResult) {
   if (thirdPartyResult == null) {
     // only take the list
     return nativeResult._rankIpAddresses(null);
@@ -118,9 +110,7 @@ List<String> rankIpAddresses(
     return {thirdPartyResult, ...nativeResult}.toList()._rankIpAddresses(null);
   } else {
     // merge but prefer result from third party library
-    return {thirdPartyResult, ...nativeResult}
-        .toList()
-        ._rankIpAddresses(thirdPartyResult);
+    return {thirdPartyResult, ...nativeResult}.toList()._rankIpAddresses(thirdPartyResult);
   }
 }
 

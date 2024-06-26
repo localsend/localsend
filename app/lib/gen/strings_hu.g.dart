@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsHu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsHu.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsHu.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.hu,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <hu>.
   @override
@@ -47,46 +41,35 @@ class _StringsHu extends Translations {
   @override
   late final _StringsSettingsTabHu settingsTab = _StringsSettingsTabHu._(_root);
   @override
-  late final _StringsTroubleshootPageHu troubleshootPage =
-      _StringsTroubleshootPageHu._(_root);
+  late final _StringsTroubleshootPageHu troubleshootPage = _StringsTroubleshootPageHu._(_root);
   @override
-  late final _StringsReceiveHistoryPageHu receiveHistoryPage =
-      _StringsReceiveHistoryPageHu._(_root);
+  late final _StringsReceiveHistoryPageHu receiveHistoryPage = _StringsReceiveHistoryPageHu._(_root);
   @override
-  late final _StringsApkPickerPageHu apkPickerPage =
-      _StringsApkPickerPageHu._(_root);
+  late final _StringsApkPickerPageHu apkPickerPage = _StringsApkPickerPageHu._(_root);
   @override
-  late final _StringsSelectedFilesPageHu selectedFilesPage =
-      _StringsSelectedFilesPageHu._(_root);
+  late final _StringsSelectedFilesPageHu selectedFilesPage = _StringsSelectedFilesPageHu._(_root);
   @override
   late final _StringsReceivePageHu receivePage = _StringsReceivePageHu._(_root);
   @override
-  late final _StringsReceiveOptionsPageHu receiveOptionsPage =
-      _StringsReceiveOptionsPageHu._(_root);
+  late final _StringsReceiveOptionsPageHu receiveOptionsPage = _StringsReceiveOptionsPageHu._(_root);
   @override
   late final _StringsSendPageHu sendPage = _StringsSendPageHu._(_root);
   @override
-  late final _StringsProgressPageHu progressPage =
-      _StringsProgressPageHu._(_root);
+  late final _StringsProgressPageHu progressPage = _StringsProgressPageHu._(_root);
   @override
-  late final _StringsWebSharePageHu webSharePage =
-      _StringsWebSharePageHu._(_root);
+  late final _StringsWebSharePageHu webSharePage = _StringsWebSharePageHu._(_root);
   @override
   late final _StringsAboutPageHu aboutPage = _StringsAboutPageHu._(_root);
   @override
-  late final _StringsDonationPageHu donationPage =
-      _StringsDonationPageHu._(_root);
+  late final _StringsDonationPageHu donationPage = _StringsDonationPageHu._(_root);
   @override
-  late final _StringsChangelogPageHu changelogPage =
-      _StringsChangelogPageHu._(_root);
+  late final _StringsChangelogPageHu changelogPage = _StringsChangelogPageHu._(_root);
   @override
-  late final _StringsAliasGeneratorHu aliasGenerator =
-      _StringsAliasGeneratorHu._(_root);
+  late final _StringsAliasGeneratorHu aliasGenerator = _StringsAliasGeneratorHu._(_root);
   @override
   late final _StringsDialogsHu dialogs = _StringsDialogsHu._(_root);
   @override
-  late final _StringsSanitizationHu sanitization =
-      _StringsSanitizationHu._(_root);
+  late final _StringsSanitizationHu sanitization = _StringsSanitizationHu._(_root);
   @override
   late final _StringsTrayHu tray = _StringsTrayHu._(_root);
   @override
@@ -194,8 +177,7 @@ class _StringsReceiveTabHu extends _StringsReceiveTabEn {
   @override
   String get title => 'Fogadás';
   @override
-  late final _StringsReceiveTabInfoBoxHu infoBox =
-      _StringsReceiveTabInfoBoxHu._(_root);
+  late final _StringsReceiveTabInfoBoxHu infoBox = _StringsReceiveTabInfoBoxHu._(_root);
 }
 
 // Path: sendTab
@@ -211,13 +193,11 @@ class _StringsSendTabHu extends _StringsSendTabEn {
   @override
   String get title => 'Küldés';
   @override
-  late final _StringsSendTabSelectionHu selection =
-      _StringsSendTabSelectionHu._(_root);
+  late final _StringsSendTabSelectionHu selection = _StringsSendTabSelectionHu._(_root);
   @override
   late final _StringsSendTabPickerHu picker = _StringsSendTabPickerHu._(_root);
   @override
-  String get shareIntentInfo =>
-      'A fájlok könnyebb kiválasztásához használhatja mobileszköze "Megosztás" funkcióját is.';
+  String get shareIntentInfo => 'A fájlok könnyebb kiválasztásához használhatja mobileszköze "Megosztás" funkcióját is.';
   @override
   String get nearbyDevices => 'Közeli eszközök';
   @override
@@ -227,13 +207,11 @@ class _StringsSendTabHu extends _StringsSendTabEn {
   @override
   String get sendMode => 'Küldési mód';
   @override
-  late final _StringsSendTabSendModesHu sendModes =
-      _StringsSendTabSendModesHu._(_root);
+  late final _StringsSendTabSendModesHu sendModes = _StringsSendTabSendModesHu._(_root);
   @override
   String get sendModeHelp => 'Magyarázat';
   @override
-  String get help =>
-      'Győződjön meg arról, hogy a kívánt eszköz is ugyanazon a wifi hálózaton van.';
+  String get help => 'Győződjön meg arról, hogy a kívánt eszköz is ugyanazon a wifi hálózaton van.';
   @override
   String get placeItems => 'Helyezze el a megosztandó elemeket.';
 }
@@ -251,20 +229,15 @@ class _StringsSettingsTabHu extends _StringsSettingsTabEn {
   @override
   String get title => 'Beállítások';
   @override
-  late final _StringsSettingsTabGeneralHu general =
-      _StringsSettingsTabGeneralHu._(_root);
+  late final _StringsSettingsTabGeneralHu general = _StringsSettingsTabGeneralHu._(_root);
   @override
-  late final _StringsSettingsTabReceiveHu receive =
-      _StringsSettingsTabReceiveHu._(_root);
+  late final _StringsSettingsTabReceiveHu receive = _StringsSettingsTabReceiveHu._(_root);
   @override
-  late final _StringsSettingsTabSendHu send =
-      _StringsSettingsTabSendHu._(_root);
+  late final _StringsSettingsTabSendHu send = _StringsSettingsTabSendHu._(_root);
   @override
-  late final _StringsSettingsTabNetworkHu network =
-      _StringsSettingsTabNetworkHu._(_root);
+  late final _StringsSettingsTabNetworkHu network = _StringsSettingsTabNetworkHu._(_root);
   @override
-  late final _StringsSettingsTabOtherHu other =
-      _StringsSettingsTabOtherHu._(_root);
+  late final _StringsSettingsTabOtherHu other = _StringsSettingsTabOtherHu._(_root);
   @override
   String get advancedSettings => 'Haladó beállítások';
 }
@@ -282,18 +255,15 @@ class _StringsTroubleshootPageHu extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Hibaelhárítás';
   @override
-  String get subTitle =>
-      'Az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.';
+  String get subTitle => 'Az alkalmazás nem a várt módon működik? Itt találhat általános megoldásokat.';
   @override
   String get solution => 'Megoldás:';
   @override
   String get fixButton => 'Autom. javítás';
   @override
-  late final _StringsTroubleshootPageFirewallHu firewall =
-      _StringsTroubleshootPageFirewallHu._(_root);
+  late final _StringsTroubleshootPageFirewallHu firewall = _StringsTroubleshootPageFirewallHu._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionHu noConnection =
-      _StringsTroubleshootPageNoConnectionHu._(_root);
+  late final _StringsTroubleshootPageNoConnectionHu noConnection = _StringsTroubleshootPageNoConnectionHu._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -315,8 +285,7 @@ class _StringsReceiveHistoryPageHu extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Még nincs előzmény.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsHu entryActions =
-      _StringsReceiveHistoryPageEntryActionsHu._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsHu entryActions = _StringsReceiveHistoryPageEntryActionsHu._(_root);
 }
 
 // Path: apkPickerPage
@@ -334,8 +303,7 @@ class _StringsApkPickerPageHu extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Rendszeralkalmazások kizárása';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'A nem indítható alkalmazások kizárása';
+  String get excludeAppsWithoutLaunchIntent => 'A nem indítható alkalmazások kizárása';
   @override
   String apps({required Object n}) => '${n} app';
 }
@@ -365,8 +333,7 @@ class _StringsReceivePageHu extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(
         n,
         one: 'fájlt szeretne küldeni',
         other: '${n} fájlt szeretne küldeni',
@@ -398,8 +365,7 @@ class _StringsReceiveOptionsPageHu extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Automatikusan kikapcsol, mert vannak könyvtárak.';
+  String get saveToGalleryOff => 'Automatikusan kikapcsol, mert vannak könyvtárak.';
 }
 
 // Path: sendPage
@@ -437,8 +403,7 @@ class _StringsProgressPageHu extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Mentve a Galériába';
   @override
-  late final _StringsProgressPageTotalHu total =
-      _StringsProgressPageTotalHu._(_root);
+  late final _StringsProgressPageTotalHu total = _StringsProgressPageTotalHu._(_root);
 }
 
 // Path: webSharePage
@@ -460,8 +425,7 @@ class _StringsWebSharePageHu extends _StringsWebSharePageEn {
   @override
   String get error => 'Hiba történt a szerver indításakor.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(
         n,
         one: 'Nyissa meg ezt a hivatkozást böngészőben:',
         other: 'Nyissa meg a linkek egyikét a böngészőben:',
@@ -475,8 +439,7 @@ class _StringsWebSharePageHu extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Kérések automatikus elfogadása';
   @override
-  String get encryptionHint =>
-      'A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
+  String get encryptionHint => 'A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
   @override
   String pendingRequests({required Object n}) => 'Függőben lévő kérések: ${n}';
 }
@@ -566,69 +529,47 @@ class _StringsDialogsHu extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileHu addFile =
-      _StringsDialogsAddFileHu._(_root);
+  late final _StringsDialogsAddFileHu addFile = _StringsDialogsAddFileHu._(_root);
   @override
-  late final _StringsDialogsAddressInputHu addressInput =
-      _StringsDialogsAddressInputHu._(_root);
+  late final _StringsDialogsAddressInputHu addressInput = _StringsDialogsAddressInputHu._(_root);
   @override
-  late final _StringsDialogsCancelSessionHu cancelSession =
-      _StringsDialogsCancelSessionHu._(_root);
+  late final _StringsDialogsCancelSessionHu cancelSession = _StringsDialogsCancelSessionHu._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileHu cannotOpenFile =
-      _StringsDialogsCannotOpenFileHu._(_root);
+  late final _StringsDialogsCannotOpenFileHu cannotOpenFile = _StringsDialogsCannotOpenFileHu._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeHu
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeHu._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeHu encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeHu._(_root);
   @override
-  late final _StringsDialogsErrorDialogHu errorDialog =
-      _StringsDialogsErrorDialogHu._(_root);
+  late final _StringsDialogsErrorDialogHu errorDialog = _StringsDialogsErrorDialogHu._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogHu favoriteDialog =
-      _StringsDialogsFavoriteDialogHu._(_root);
+  late final _StringsDialogsFavoriteDialogHu favoriteDialog = _StringsDialogsFavoriteDialogHu._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogHu favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogHu._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogHu favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogHu._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogHu favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogHu._(_root);
+  late final _StringsDialogsFavoriteEditDialogHu favoriteEditDialog = _StringsDialogsFavoriteEditDialogHu._(_root);
   @override
-  late final _StringsDialogsFileInfoHu fileInfo =
-      _StringsDialogsFileInfoHu._(_root);
+  late final _StringsDialogsFileInfoHu fileInfo = _StringsDialogsFileInfoHu._(_root);
   @override
-  late final _StringsDialogsFileNameInputHu fileNameInput =
-      _StringsDialogsFileNameInputHu._(_root);
+  late final _StringsDialogsFileNameInputHu fileNameInput = _StringsDialogsFileNameInputHu._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogHu historyClearDialog =
-      _StringsDialogsHistoryClearDialogHu._(_root);
+  late final _StringsDialogsHistoryClearDialogHu historyClearDialog = _StringsDialogsHistoryClearDialogHu._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedHu
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedHu._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedHu localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedHu._(_root);
   @override
-  late final _StringsDialogsMessageInputHu messageInput =
-      _StringsDialogsMessageInputHu._(_root);
+  late final _StringsDialogsMessageInputHu messageInput = _StringsDialogsMessageInputHu._(_root);
   @override
-  late final _StringsDialogsNoFilesHu noFiles =
-      _StringsDialogsNoFilesHu._(_root);
+  late final _StringsDialogsNoFilesHu noFiles = _StringsDialogsNoFilesHu._(_root);
   @override
-  late final _StringsDialogsNoPermissionHu noPermission =
-      _StringsDialogsNoPermissionHu._(_root);
+  late final _StringsDialogsNoPermissionHu noPermission = _StringsDialogsNoPermissionHu._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformHu notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformHu._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformHu notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformHu._(_root);
   @override
   late final _StringsDialogsQrHu qr = _StringsDialogsQrHu._(_root);
   @override
-  late final _StringsDialogsQuickActionsHu quickActions =
-      _StringsDialogsQuickActionsHu._(_root);
+  late final _StringsDialogsQuickActionsHu quickActions = _StringsDialogsQuickActionsHu._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeHu quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeHu._(_root);
+  late final _StringsDialogsQuickSaveNoticeHu quickSaveNotice = _StringsDialogsQuickSaveNoticeHu._(_root);
   @override
-  late final _StringsDialogsSendModeHelpHu sendModeHelp =
-      _StringsDialogsSendModeHelpHu._(_root);
+  late final _StringsDialogsSendModeHelpHu sendModeHelp = _StringsDialogsSendModeHelpHu._(_root);
   @override
   late final _StringsDialogsZoomHu zoom = _StringsDialogsZoomHu._(_root);
 }
@@ -718,14 +659,11 @@ class _StringsAssetPickerHu extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Nem támogatott fájl típus.';
   @override
-  String get unableToAccessAll =>
-      'Nem lehet hozzáférni az eszközön lévő összes fájlhoz';
+  String get unableToAccessAll => 'Nem lehet hozzáférni az eszközön lévő összes fájlhoz';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Csak az app által elérhető fájlok és albumok megtekintése.';
+  String get viewingLimitedAssetsTip => 'Csak az app által elérhető fájlok és albumok megtekintése.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Koppintson az elérhető fájlok frissítéséhez';
+  String get changeAccessibleLimitedAssets => 'Koppintson az elérhető fájlok frissítéséhez';
   @override
   String get accessAllTip =>
       'Az alkalmazás csak néhány fájlhoz férhet hozzá az eszközön. Nyissa meg a rendszerbeállításokat és engedélyezze az alkalmazás számára, hogy hozzáférjen az eszközön lévő összes médiafájlhoz.';
@@ -852,18 +790,15 @@ class _StringsSettingsTabGeneralHu extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Fényerő';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsHu brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsHu._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsHu brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsHu._(_root);
   @override
   String get color => 'Színek';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsHu colorOptions =
-      _StringsSettingsTabGeneralColorOptionsHu._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsHu colorOptions = _StringsSettingsTabGeneralColorOptionsHu._(_root);
   @override
   String get language => 'Nyelv';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsHu languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsHu._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsHu languageOptions = _StringsSettingsTabGeneralLanguageOptionsHu._(_root);
   @override
   String get saveWindowPlacement => 'Kilépés: Ablak pozíció mentése';
   @override
@@ -915,8 +850,7 @@ class _StringsSettingsTabSendHu extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Küld';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Megosztás linken keresztül: Auto. elfogadás';
+  String get shareViaLinkAutoAccept => 'Megosztás linken keresztül: Auto. elfogadás';
 }
 
 // Path: settingsTab.network
@@ -932,8 +866,7 @@ class _StringsSettingsTabNetworkHu extends _StringsSettingsTabNetworkEn {
   @override
   String get title => 'Hálózat';
   @override
-  String get needRestart =>
-      'A beállítások alkalmazásához indítsa újra a szervert!';
+  String get needRestart => 'A beállítások alkalmazásához indítsa újra a szervert!';
   @override
   String get server => 'Szerver';
   @override
@@ -981,8 +914,7 @@ class _StringsSettingsTabOtherHu extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallHu
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallHu extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -992,8 +924,7 @@ class _StringsTroubleshootPageFirewallHu
 
   // Translations
   @override
-  String get symptom =>
-      'Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.';
+  String get symptom => 'Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.';
   @override
   String solution({required Object port}) =>
       'Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a ${port} porton.';
@@ -1002,8 +933,7 @@ class _StringsTroubleshootPageFirewallHu
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionHu
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionHu extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1013,16 +943,14 @@ class _StringsTroubleshootPageNoConnectionHu
 
   // Translations
   @override
-  String get symptom =>
-      'A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.';
+  String get symptom => 'A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.';
   @override
   String get solution =>
       'A probléma mindkét oldalon létezik? Akkor meg kell győződnie arról, hogy mindkét eszköz ugyanabban a wifi hálózatban van, és ugyanazt a konfigurációt használja (port, multicast cím, titkosítás). Előfordulhat, hogy a Wifi nem teszi lehetővé a résztvevők közötti kommunikációt. Ebben az esetben ezt az opciót engedélyezni kell a routeren..';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsHu
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsHu extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1050,14 +978,11 @@ class _StringsProgressPageTotalHu extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleHu title =
-      _StringsProgressPageTotalTitleHu._(_root);
+  late final _StringsProgressPageTotalTitleHu title = _StringsProgressPageTotalTitleHu._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Fájl: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Fájl: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Méret: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Méret: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Sebesség: ${speed}/s';
 }
@@ -1127,13 +1052,11 @@ class _StringsDialogsCannotOpenFileHu extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'A fájl nem nyitható meg';
   @override
-  String content({required Object file}) =>
-      'Nem sikerült megnyitni a(z) "${file}" fájlt. A fájlt áthelyezték, átnevezték vagy törölték?';
+  String content({required Object file}) => 'Nem sikerült megnyitni a(z) "${file}" fájlt. A fájlt áthelyezték, átnevezték vagy törölték?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeHu
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeHu extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1182,8 +1105,7 @@ class _StringsDialogsFavoriteDialogHu extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogHu
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogHu extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1195,13 +1117,11 @@ class _StringsDialogsFavoriteDeleteDialogHu
   @override
   String get title => 'Törlés a kedvencek közül';
   @override
-  String content({required Object name}) =>
-      'Tényleg törölni szeretnéd a "${name}" a kedvencek közül?';
+  String content({required Object name}) => 'Tényleg törölni szeretnéd a "${name}" a kedvencek közül?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogHu
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogHu extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1265,8 +1185,7 @@ class _StringsDialogsFileNameInputHu extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogHu
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogHu extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1282,8 +1201,7 @@ class _StringsDialogsHistoryClearDialogHu
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedHu
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedHu extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1346,13 +1264,11 @@ class _StringsDialogsNoPermissionHu extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Nem engedélyezett';
   @override
-  String get content =>
-      'Nem adtál megfelelő engedélyeket. Kérlek engedélyezd őket a beállításokban.';
+  String get content => 'Nem adtál megfelelő engedélyeket. Kérlek engedélyezd őket a beállításokban.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformHu
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformHu extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1406,8 +1322,7 @@ class _StringsDialogsQuickActionsHu extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeHu
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeHu extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1419,8 +1334,7 @@ class _StringsDialogsQuickSaveNoticeHu
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat.';
+  String get content => 'A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1436,11 +1350,9 @@ class _StringsDialogsSendModeHelpHu extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Küldési módok';
   @override
-  String get single =>
-      'Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.';
+  String get single => 'Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.';
   @override
-  String get multiple =>
-      'Fájlokat küld több címzettnek. A kijelölés nem törlődik.';
+  String get multiple => 'Fájlokat küld több címzettnek. A kijelölés nem törlődik.';
   @override
   String get link =>
       'Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben.';
@@ -1461,8 +1373,7 @@ class _StringsDialogsZoomHu extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsHu
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsHu extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1480,8 +1391,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsHu
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsHu
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsHu extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1497,8 +1407,7 @@ class _StringsSettingsTabGeneralColorOptionsHu
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsHu
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsHu extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsHu._(_StringsHu root)
       : this._root = root,
         super._(root);
@@ -1512,8 +1421,7 @@ class _StringsSettingsTabGeneralLanguageOptionsHu
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleHu
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleHu extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleHu._(_StringsHu root)
       : this._root = root,
         super._(root);

@@ -108,8 +108,7 @@ class ServerService extends Notifier<ServerState?> {
         session: null,
         webSendState: null,
       );
-      _logger
-          .info('Server started. (Port: ${newServerState.port}, HTTPS only)');
+      _logger.info('Server started. (Port: ${newServerState.port}, HTTPS only)');
     } else {
       newServerState = ServerState(
         httpServer: await _startServer(
@@ -142,8 +141,7 @@ class ServerService extends Notifier<ServerState?> {
     return await startServerFromSettings();
   }
 
-  Future<ServerState?> restartServer(
-      {required String alias, required int port, required bool https}) async {
+  Future<ServerState?> restartServer({required String alias, required int port, required bool https}) async {
     await stopServer();
     return await startServer(alias: alias, port: port, https: https);
   }

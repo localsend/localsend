@@ -147,12 +147,9 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
   try {
     if (checkPlatform([TargetPlatform.android])) {
       // We also need to use the file_picker package because file_selector does not expose the raw path.
-      final result =
-          await file_picker.FilePicker.platform.pickFiles(allowMultiple: true);
+      final result = await file_picker.FilePicker.platform.pickFiles(allowMultiple: true);
       if (result != null) {
-        await ref
-            .redux(selectedSendingFilesProvider)
-            .dispatchAsync(AddFilesAction(
+        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
               files: result.files,
               converter: CrossFileConverters.convertPlatformFile,
             ));
@@ -160,9 +157,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     } else {
       final result = await file_selector.openFiles();
       if (result.isNotEmpty) {
-        await ref
-            .redux(selectedSendingFilesProvider)
-            .dispatchAsync(AddFilesAction(
+        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
               files: result,
               converter: CrossFileConverters.convertXFile,
             ));
@@ -170,8 +165,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     }
   } catch (e) {
     // ignore: use_build_context_synchronously
-    await showDialog(
-        context: context, builder: (_) => const NoPermissionDialog());
+    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     _logger.warning('Failed to pick files', e);
   } finally {
     // ignore: use_build_context_synchronously
@@ -202,15 +196,12 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
   try {
     final directoryPath = await pickDirectoryPath();
     if (directoryPath != null) {
-      await ref
-          .redux(selectedSendingFilesProvider)
-          .dispatchAsync(AddDirectoryAction(directoryPath));
+      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(directoryPath));
     }
   } catch (e) {
     _logger.warning('Failed to pick directory', e);
     // ignore: use_build_context_synchronously
-    await showDialog(
-        context: context, builder: (_) => const NoPermissionDialog());
+    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
@@ -222,8 +213,7 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
   // ignore: use_build_context_synchronously
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
     context,
-    pickerConfig: const AssetPickerConfig(
-        maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
+    pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
   );
 
   WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -243,12 +233,9 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickText(BuildContext context, Ref ref) async {
-  final result = await showDialog<String>(
-      context: context, builder: (_) => const MessageInputDialog());
+  final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
   if (result != null) {
-    ref
-        .redux(selectedSendingFilesProvider)
-        .dispatch(AddMessageAction(message: result));
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: result));
   }
 }
 
@@ -267,9 +254,7 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
 
   final data = await Clipboard.getData(Clipboard.kTextPlain);
   if (data?.text != null) {
-    ref
-        .redux(selectedSendingFilesProvider)
-        .dispatch(AddMessageAction(message: data!.text!));
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: data!.text!));
     return;
   }
 

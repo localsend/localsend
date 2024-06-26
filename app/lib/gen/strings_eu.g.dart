@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsEu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsEu.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsEu.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.eu,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <eu>.
   @override
@@ -47,38 +41,29 @@ class _StringsEu extends Translations {
   @override
   late final _StringsSettingsTabEu settingsTab = _StringsSettingsTabEu._(_root);
   @override
-  late final _StringsTroubleshootPageEu troubleshootPage =
-      _StringsTroubleshootPageEu._(_root);
+  late final _StringsTroubleshootPageEu troubleshootPage = _StringsTroubleshootPageEu._(_root);
   @override
-  late final _StringsReceiveHistoryPageEu receiveHistoryPage =
-      _StringsReceiveHistoryPageEu._(_root);
+  late final _StringsReceiveHistoryPageEu receiveHistoryPage = _StringsReceiveHistoryPageEu._(_root);
   @override
-  late final _StringsApkPickerPageEu apkPickerPage =
-      _StringsApkPickerPageEu._(_root);
+  late final _StringsApkPickerPageEu apkPickerPage = _StringsApkPickerPageEu._(_root);
   @override
-  late final _StringsSelectedFilesPageEu selectedFilesPage =
-      _StringsSelectedFilesPageEu._(_root);
+  late final _StringsSelectedFilesPageEu selectedFilesPage = _StringsSelectedFilesPageEu._(_root);
   @override
   late final _StringsReceivePageEu receivePage = _StringsReceivePageEu._(_root);
   @override
-  late final _StringsReceiveOptionsPageEu receiveOptionsPage =
-      _StringsReceiveOptionsPageEu._(_root);
+  late final _StringsReceiveOptionsPageEu receiveOptionsPage = _StringsReceiveOptionsPageEu._(_root);
   @override
   late final _StringsSendPageEu sendPage = _StringsSendPageEu._(_root);
   @override
-  late final _StringsProgressPageEu progressPage =
-      _StringsProgressPageEu._(_root);
+  late final _StringsProgressPageEu progressPage = _StringsProgressPageEu._(_root);
   @override
-  late final _StringsWebSharePageEu webSharePage =
-      _StringsWebSharePageEu._(_root);
+  late final _StringsWebSharePageEu webSharePage = _StringsWebSharePageEu._(_root);
   @override
   late final _StringsAboutPageEu aboutPage = _StringsAboutPageEu._(_root);
   @override
-  late final _StringsChangelogPageEu changelogPage =
-      _StringsChangelogPageEu._(_root);
+  late final _StringsChangelogPageEu changelogPage = _StringsChangelogPageEu._(_root);
   @override
-  late final _StringsAliasGeneratorEu aliasGenerator =
-      _StringsAliasGeneratorEu._(_root);
+  late final _StringsAliasGeneratorEu aliasGenerator = _StringsAliasGeneratorEu._(_root);
   @override
   late final _StringsDialogsEu dialogs = _StringsDialogsEu._(_root);
   @override
@@ -188,8 +173,7 @@ class _StringsReceiveTabEu extends _StringsReceiveTabEn {
   @override
   String get title => 'Eskuratu';
   @override
-  late final _StringsReceiveTabInfoBoxEu infoBox =
-      _StringsReceiveTabInfoBoxEu._(_root);
+  late final _StringsReceiveTabInfoBoxEu infoBox = _StringsReceiveTabInfoBoxEu._(_root);
 }
 
 // Path: sendTab
@@ -205,13 +189,11 @@ class _StringsSendTabEu extends _StringsSendTabEn {
   @override
   String get title => 'Bidali';
   @override
-  late final _StringsSendTabSelectionEu selection =
-      _StringsSendTabSelectionEu._(_root);
+  late final _StringsSendTabSelectionEu selection = _StringsSendTabSelectionEu._(_root);
   @override
   late final _StringsSendTabPickerEu picker = _StringsSendTabPickerEu._(_root);
   @override
-  String get shareIntentInfo =>
-      'Zure gailuko "Elkarbanatu" aukera ere erabil dezakezu fitxategi gehiago errezago aukeratzeko.';
+  String get shareIntentInfo => 'Zure gailuko "Elkarbanatu" aukera ere erabil dezakezu fitxategi gehiago errezago aukeratzeko.';
   @override
   String get nearbyDevices => 'Inguruko Gailuak';
   @override
@@ -221,13 +203,11 @@ class _StringsSendTabEu extends _StringsSendTabEn {
   @override
   String get sendMode => 'Bidalketa modua';
   @override
-  late final _StringsSendTabSendModesEu sendModes =
-      _StringsSendTabSendModesEu._(_root);
+  late final _StringsSendTabSendModesEu sendModes = _StringsSendTabSendModesEu._(_root);
   @override
   String get sendModeHelp => 'Azalpena';
   @override
-  String get help =>
-      'Ziurtatu zaitez aukeratutako hartzailea zure Wi-Fi sare berean dagoela.';
+  String get help => 'Ziurtatu zaitez aukeratutako hartzailea zure Wi-Fi sare berean dagoela.';
   @override
   String get placeItems => 'Aukeratu elkarbanatzeko elementuak.';
 }
@@ -245,14 +225,11 @@ class _StringsSettingsTabEu extends _StringsSettingsTabEn {
   @override
   String get title => 'Ezarpenak';
   @override
-  late final _StringsSettingsTabGeneralEu general =
-      _StringsSettingsTabGeneralEu._(_root);
+  late final _StringsSettingsTabGeneralEu general = _StringsSettingsTabGeneralEu._(_root);
   @override
-  late final _StringsSettingsTabReceiveEu receive =
-      _StringsSettingsTabReceiveEu._(_root);
+  late final _StringsSettingsTabReceiveEu receive = _StringsSettingsTabReceiveEu._(_root);
   @override
-  late final _StringsSettingsTabNetworkEu network =
-      _StringsSettingsTabNetworkEu._(_root);
+  late final _StringsSettingsTabNetworkEu network = _StringsSettingsTabNetworkEu._(_root);
   @override
   String get advancedSettings => 'Ezarpen aurreratuak';
 }
@@ -270,18 +247,15 @@ class _StringsTroubleshootPageEu extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Konpondu arazoak';
   @override
-  String get subTitle =>
-      'Aplikazioa ez dabil espero bezala? Hemen arazo arrunten konponbidea aurki dezakezu.';
+  String get subTitle => 'Aplikazioa ez dabil espero bezala? Hemen arazo arrunten konponbidea aurki dezakezu.';
   @override
   String get solution => 'Konponbidea:';
   @override
   String get fixButton => 'Konpondu automatikoki';
   @override
-  late final _StringsTroubleshootPageFirewallEu firewall =
-      _StringsTroubleshootPageFirewallEu._(_root);
+  late final _StringsTroubleshootPageFirewallEu firewall = _StringsTroubleshootPageFirewallEu._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionEu noConnection =
-      _StringsTroubleshootPageNoConnectionEu._(_root);
+  late final _StringsTroubleshootPageNoConnectionEu noConnection = _StringsTroubleshootPageNoConnectionEu._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -303,8 +277,7 @@ class _StringsReceiveHistoryPageEu extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Historia hutsik dago.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsEu entryActions =
-      _StringsReceiveHistoryPageEntryActionsEu._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsEu entryActions = _StringsReceiveHistoryPageEntryActionsEu._(_root);
 }
 
 // Path: apkPickerPage
@@ -322,8 +295,7 @@ class _StringsApkPickerPageEu extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Baztertu sistemako app-ak';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Baztertu exekutatu ezin diren app-ak';
+  String get excludeAppsWithoutLaunchIntent => 'Baztertu exekutatu ezin diren app-ak';
   @override
   String apps({required Object n}) => '${n} App-ak';
 }
@@ -353,8 +325,7 @@ class _StringsReceivePageEu extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(
         n,
         one: '-(e)k fitxategi bat bidali nahi dizu',
         other: '-(e)k ${n} fitxategi bidali nahi dizkizu',
@@ -424,8 +395,7 @@ class _StringsProgressPageEu extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Galerian gordeta';
   @override
-  late final _StringsProgressPageTotalEu total =
-      _StringsProgressPageTotalEu._(_root);
+  late final _StringsProgressPageTotalEu total = _StringsProgressPageTotalEu._(_root);
 }
 
 // Path: webSharePage
@@ -447,8 +417,7 @@ class _StringsWebSharePageEu extends _StringsWebSharePageEn {
   @override
   String get error => 'Zerbitzaria hasieratzean arazo bat gertatu da.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(
         n,
         one: 'Ireki lotura nabigatzailean:',
         other: 'Ireki hauetako lotura bat nabigatzailean:',
@@ -460,8 +429,7 @@ class _StringsWebSharePageEu extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'LocalSend-ek autosinatutako zertifikatuak erabiltzen ditu. Nabigatzailean onartu behar duzu';
+  String get encryptionHint => 'LocalSend-ek autosinatutako zertifikatuak erabiltzen ditu. Nabigatzailean onartu behar duzu';
   @override
   String pendingRequests({required Object n}) => 'Eskerak: ${n}';
 }
@@ -517,66 +485,45 @@ class _StringsDialogsEu extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileEu addFile =
-      _StringsDialogsAddFileEu._(_root);
+  late final _StringsDialogsAddFileEu addFile = _StringsDialogsAddFileEu._(_root);
   @override
-  late final _StringsDialogsAddressInputEu addressInput =
-      _StringsDialogsAddressInputEu._(_root);
+  late final _StringsDialogsAddressInputEu addressInput = _StringsDialogsAddressInputEu._(_root);
   @override
-  late final _StringsDialogsCancelSessionEu cancelSession =
-      _StringsDialogsCancelSessionEu._(_root);
+  late final _StringsDialogsCancelSessionEu cancelSession = _StringsDialogsCancelSessionEu._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileEu cannotOpenFile =
-      _StringsDialogsCannotOpenFileEu._(_root);
+  late final _StringsDialogsCannotOpenFileEu cannotOpenFile = _StringsDialogsCannotOpenFileEu._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeEu
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeEu._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeEu encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeEu._(_root);
   @override
-  late final _StringsDialogsErrorDialogEu errorDialog =
-      _StringsDialogsErrorDialogEu._(_root);
+  late final _StringsDialogsErrorDialogEu errorDialog = _StringsDialogsErrorDialogEu._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogEu favoriteDialog =
-      _StringsDialogsFavoriteDialogEu._(_root);
+  late final _StringsDialogsFavoriteDialogEu favoriteDialog = _StringsDialogsFavoriteDialogEu._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogEu favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogEu._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogEu favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogEu._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogEu favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogEu._(_root);
+  late final _StringsDialogsFavoriteEditDialogEu favoriteEditDialog = _StringsDialogsFavoriteEditDialogEu._(_root);
   @override
-  late final _StringsDialogsFileInfoEu fileInfo =
-      _StringsDialogsFileInfoEu._(_root);
+  late final _StringsDialogsFileInfoEu fileInfo = _StringsDialogsFileInfoEu._(_root);
   @override
-  late final _StringsDialogsFileNameInputEu fileNameInput =
-      _StringsDialogsFileNameInputEu._(_root);
+  late final _StringsDialogsFileNameInputEu fileNameInput = _StringsDialogsFileNameInputEu._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedEu
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedEu._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedEu localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEu._(_root);
   @override
-  late final _StringsDialogsMessageInputEu messageInput =
-      _StringsDialogsMessageInputEu._(_root);
+  late final _StringsDialogsMessageInputEu messageInput = _StringsDialogsMessageInputEu._(_root);
   @override
-  late final _StringsDialogsNoFilesEu noFiles =
-      _StringsDialogsNoFilesEu._(_root);
+  late final _StringsDialogsNoFilesEu noFiles = _StringsDialogsNoFilesEu._(_root);
   @override
-  late final _StringsDialogsNoPermissionEu noPermission =
-      _StringsDialogsNoPermissionEu._(_root);
+  late final _StringsDialogsNoPermissionEu noPermission = _StringsDialogsNoPermissionEu._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformEu notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformEu._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformEu notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEu._(_root);
   @override
   late final _StringsDialogsQrEu qr = _StringsDialogsQrEu._(_root);
   @override
-  late final _StringsDialogsQuickActionsEu quickActions =
-      _StringsDialogsQuickActionsEu._(_root);
+  late final _StringsDialogsQuickActionsEu quickActions = _StringsDialogsQuickActionsEu._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeEu quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeEu._(_root);
+  late final _StringsDialogsQuickSaveNoticeEu quickSaveNotice = _StringsDialogsQuickSaveNoticeEu._(_root);
   @override
-  late final _StringsDialogsSendModeHelpEu sendModeHelp =
-      _StringsDialogsSendModeHelpEu._(_root);
+  late final _StringsDialogsSendModeHelpEu sendModeHelp = _StringsDialogsSendModeHelpEu._(_root);
 }
 
 // Path: tray
@@ -650,11 +597,9 @@ class _StringsAssetPickerEu extends _StringsAssetPickerEn {
   @override
   String get unableToAccessAll => 'Ezin da gailuko fitxategietara atzitu.';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Ikusi bakarrik aplikazioarentzat eskuragarri dauden fitxategi eta albumak.';
+  String get viewingLimitedAssetsTip => 'Ikusi bakarrik aplikazioarentzat eskuragarri dauden fitxategi eta albumak.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Egin klik eskuragarri dauden fitxategiak eguneratzeko';
+  String get changeAccessibleLimitedAssets => 'Egin klik eskuragarri dauden fitxategiak eguneratzeko';
   @override
   String get accessAllTip =>
       'Aplikazioak gailu fitxategi batzuk bakarrik atzitu ditzake. Joan sistemako ezarpenetara eta eman aplikazioari media fitxategi guztiak atzitzeko baimena';
@@ -781,18 +726,15 @@ class _StringsSettingsTabGeneralEu extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Argitasuna';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsEu brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsEu._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsEu brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsEu._(_root);
   @override
   String get color => 'Kolorea';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsEu colorOptions =
-      _StringsSettingsTabGeneralColorOptionsEu._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsEu colorOptions = _StringsSettingsTabGeneralColorOptionsEu._(_root);
   @override
   String get language => 'Hizkuntza';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsEu languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsEu._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsEu languageOptions = _StringsSettingsTabGeneralLanguageOptionsEu._(_root);
   @override
   String get saveWindowPlacement => 'Ateratzean gorde lehioaren kokapena';
   @override
@@ -866,8 +808,7 @@ class _StringsSettingsTabNetworkEu extends _StringsSettingsTabNetworkEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallEu
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallEu extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -887,8 +828,7 @@ class _StringsTroubleshootPageFirewallEu
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionEu
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionEu extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -898,16 +838,14 @@ class _StringsTroubleshootPageNoConnectionEu
 
   // Translations
   @override
-  String get symptom =>
-      'Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali';
+  String get symptom => 'Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali';
   @override
   String get solution =>
       'Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsEu
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsEu extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -935,14 +873,11 @@ class _StringsProgressPageTotalEu extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleEu title =
-      _StringsProgressPageTotalTitleEu._(_root);
+  late final _StringsProgressPageTotalTitleEu title = _StringsProgressPageTotalTitleEu._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Fitxategiak: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Fitxategiak: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Tamaina: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Tamaina: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Abiadura: ${speed}/s';
 }
@@ -996,8 +931,7 @@ class _StringsDialogsCancelSessionEu extends _StringsDialogsCancelSessionEn {
   @override
   String get title => 'Bertan behera utzi fitxategi bidalketa';
   @override
-  String get content =>
-      '¿Benetan nahi duzu bertan behera utzi fitxategi bidalketa?';
+  String get content => '¿Benetan nahi duzu bertan behera utzi fitxategi bidalketa?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1013,13 +947,11 @@ class _StringsDialogsCannotOpenFileEu extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Ezin da fitxategia ireki';
   @override
-  String content({required Object file}) =>
-      'Ezin izan da "${file}" fitxategia ireki. Agian mugitu, berizendatu edo ezabatu egin da?';
+  String content({required Object file}) => 'Ezin izan da "${file}" fitxategia ireki. Agian mugitu, berizendatu edo ezabatu egin da?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeEu
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeEu extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1031,8 +963,7 @@ class _StringsDialogsEncryptionDisabledNoticeEu
   @override
   String get title => 'Zifratua ezgaituta';
   @override
-  String get content =>
-      'Orain komunikazioa zifratu gabeko HTTP konexioaren bidez egiten ari da. HTTPS erailtzeko, gaitu berriro zifratua';
+  String get content => 'Orain komunikazioa zifratu gabeko HTTP konexioaren bidez egiten ari da. HTTPS erailtzeko, gaitu berriro zifratua';
 }
 
 // Path: dialogs.errorDialog
@@ -1068,8 +999,7 @@ class _StringsDialogsFavoriteDialogEu extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogEu
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogEu extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1081,13 +1011,11 @@ class _StringsDialogsFavoriteDeleteDialogEu
   @override
   String get title => 'Ezabatu gogokoetatik';
   @override
-  String content({required Object name}) =>
-      'Benetan nahi duzu "${name}" gogokoetatik ezabatu?';
+  String content({required Object name}) => 'Benetan nahi duzu "${name}" gogokoetatik ezabatu?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogEu
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogEu extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1151,8 +1079,7 @@ class _StringsDialogsFileNameInputEu extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedEu
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedEu extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1215,13 +1142,11 @@ class _StringsDialogsNoPermissionEu extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Baimenik gabe';
   @override
-  String get content =>
-      'Ez dituzu beharrezko baimenak onartu. Mesedez, onartu itzazu ezarpenetan.';
+  String get content => 'Ez dituzu beharrezko baimenak onartu. Mesedez, onartu itzazu ezarpenetan.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformEu
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformEu extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1233,8 +1158,7 @@ class _StringsDialogsNotAvailableOnPlatformEu
   @override
   String get title => 'Ez dago eskuragarri';
   @override
-  String get content =>
-      'Ezaugarri hau hurrengo plataforman bakarrik dago eskuragarri:';
+  String get content => 'Ezaugarri hau hurrengo plataforman bakarrik dago eskuragarri:';
 }
 
 // Path: dialogs.qr
@@ -1276,8 +1200,7 @@ class _StringsDialogsQuickActionsEu extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeEu
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeEu extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1306,19 +1229,15 @@ class _StringsDialogsSendModeHelpEu extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Bidalketa moduak';
   @override
-  String get single =>
-      'Bidali fitxategiak hartzaile bakar bati. Bidalketa bukatutakoan aukeraketa garbituko da.';
+  String get single => 'Bidali fitxategiak hartzaile bakar bati. Bidalketa bukatutakoan aukeraketa garbituko da.';
   @override
-  String get multiple =>
-      'Bidali fitxategiak hartzaile anitzeri. Aukeraketa ez da garbituko.';
+  String get multiple => 'Bidali fitxategiak hartzaile anitzeri. Aukeraketa ez da garbituko.';
   @override
-  String get link =>
-      'LocalSend instalatuta ez duten hartzaileak fitxategiak eskuratu ahali zango dituzte lotura nabigatzailean zabalduz.';
+  String get link => 'LocalSend instalatuta ez duten hartzaileak fitxategiak eskuratu ahali zango dituzte lotura nabigatzailean zabalduz.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsEu
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsEu extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1336,8 +1255,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsEu
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsEu
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsEu extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1353,8 +1271,7 @@ class _StringsSettingsTabGeneralColorOptionsEu
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsEu
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsEu extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsEu._(_StringsEu root)
       : this._root = root,
         super._(root);
@@ -1368,8 +1285,7 @@ class _StringsSettingsTabGeneralLanguageOptionsEu
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleEu
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleEu extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleEu._(_StringsEu root)
       : this._root = root,
         super._(root);

@@ -29,9 +29,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
 
     final https = ref.read(settingsProvider).https;
 
-    final result = await ref
-        .read(targetedDiscoveryProvider)
-        .discover(ip: favorite.ip, port: favorite.port, https: https);
+    final result = await ref.read(targetedDiscoveryProvider).discover(ip: favorite.ip, port: favorite.port, https: https);
     if (result == null) {
       setState(() {
         _fetching = false;
@@ -48,9 +46,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
   }
 
   Future<void> _showDeviceDialog([FavoriteDevice? favorite]) async {
-    await showDialog(
-        context: context,
-        builder: (_) => FavoriteEditDialog(favorite: favorite));
+    await showDialog(context: context, builder: (_) => FavoriteEditDialog(favorite: favorite));
   }
 
   @override
@@ -73,12 +69,8 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
               children: [
                 Expanded(
                   child: TextButton(
-                    style: TextButton.styleFrom(
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onSurface),
-                    onPressed: _fetching
-                        ? null
-                        : () async => await _checkConnectionToDevice(favorite),
+                    style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                    onPressed: _fetching ? null : () async => await _checkConnectionToDevice(favorite),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text('${favorite.alias}\n(${favorite.ip})'),
@@ -86,11 +78,8 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                   ),
                 ),
                 TextButton(
-                  style: TextButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.onSurface),
-                  onPressed: _fetching
-                      ? null
-                      : () async => await _showDeviceDialog(favorite),
+                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                  onPressed: _fetching ? null : () async => await _showDeviceDialog(favorite),
                   child: const Icon(Icons.edit),
                 ),
               ],
@@ -98,9 +87,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.warning)),
+              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
             ),
         ],
       ),

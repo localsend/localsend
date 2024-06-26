@@ -31,10 +31,8 @@ final donationPageVmProvider = ViewProvider<DonationPageVm>((ref) {
     prices: state.prices,
     purchased: state.purchases,
     pending: state.pending,
-    purchase: (item) =>
-        ref.redux(purchaseProvider).dispatchAsync(PurchaseAction(item)),
-    restore: () =>
-        ref.redux(purchaseProvider).dispatchAsync(PurchaseRestoreAction()),
+    purchase: (item) => ref.redux(purchaseProvider).dispatchAsync(PurchaseAction(item)),
+    restore: () => ref.redux(purchaseProvider).dispatchAsync(PurchaseRestoreAction()),
   );
 });
 // [FOSS_REMOVE_END]

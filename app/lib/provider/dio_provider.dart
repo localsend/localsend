@@ -21,11 +21,9 @@ class DioCollection {
 /// Provides a dio having a specific timeout.
 final dioProvider = ViewProvider((ref) {
   final securityContext = ref.watch(securityProvider);
-  final discoveryTimeout =
-      ref.watch(settingsProvider.select((state) => state.discoveryTimeout));
+  final discoveryTimeout = ref.watch(settingsProvider.select((state) => state.discoveryTimeout));
   return DioCollection(
-    discovery: createDio(
-        Duration(milliseconds: discoveryTimeout), securityContext, null),
+    discovery: createDio(Duration(milliseconds: discoveryTimeout), securityContext, null),
     longLiving: createDio(const Duration(days: 30), securityContext, ref),
   );
 });
@@ -33,8 +31,7 @@ final dioProvider = ViewProvider((ref) {
 /// It always trust the self signed certificate as all requests happen in a local network.
 /// The user only needs to trust the local IP address.
 /// Thanks to TCP (HTTP uses TCP), IP spoofing is nearly impossible.
-Dio createDio(Duration timeout, StoredSecurityContext securityContext,
-    [Ref? ref]) {
+Dio createDio(Duration timeout, StoredSecurityContext securityContext, [Ref? ref]) {
   final dio = Dio(
     BaseOptions(
       connectTimeout: timeout,

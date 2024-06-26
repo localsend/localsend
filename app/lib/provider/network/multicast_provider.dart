@@ -52,8 +52,7 @@ class MulticastService {
         }
 
         try {
-          final dto =
-              MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
+          final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
           if (dto.fingerprint == fingerprint) {
             return;
           }
@@ -61,8 +60,7 @@ class MulticastService {
           final ip = datagram.address.address;
           final peer = dto.toDevice(ip, settings.port, settings.https);
           streamController.add(peer);
-          if ((dto.announcement == true || dto.announce == true) &&
-              _ref.read(serverProvider) != null) {
+          if ((dto.announcement == true || dto.announce == true) && _ref.read(serverProvider) != null) {
             // only respond when server is running
             _answerAnnouncement(peer);
           }
@@ -94,8 +92,7 @@ class MulticastService {
       _ref.notifier(discoveryLoggerProvider).addLog('[ANNOUNCE/UDP]');
       for (final socket in sockets) {
         try {
-          socket.socket.send(
-              dto, InternetAddress(settings.multicastGroup), settings.port);
+          socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
           _ref.notifier(discoveryLoggerProvider).addLog(e.toString());
@@ -114,23 +111,22 @@ class MulticastService {
             ApiRoute.register.target(peer),
             data: _getRegisterDto().toJson(),
           );
-      _ref.notifier(discoveryLoggerProvider).addLog(
-          '[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
+      _ref.notifier(discoveryLoggerProvider).addLog('[RESPONSE/TCP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
       // Fallback: Answer with UDP
       final sockets = await _getSockets(settings.multicastGroup);
       final dto = _getMulticastDto(announcement: false);
       for (final socket in sockets) {
         try {
-          socket.socket.send(
-              dto, InternetAddress(settings.multicastGroup), settings.port);
+          socket.socket.send(dto, InternetAddress(settings.multicastGroup), settings.port);
           socket.socket.close();
         } catch (e) {
           _ref.notifier(discoveryLoggerProvider).addLog(e.toString());
         }
       }
-      _ref.notifier(discoveryLoggerProvider).addLog(
-          '[RESPONSE/UDP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
+      _ref
+          .notifier(discoveryLoggerProvider)
+          .addLog('[RESPONSE/UDP] Announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
     }
   }
 
@@ -146,9 +142,7 @@ class MulticastService {
       deviceType: _deviceInfo.deviceType,
       fingerprint: fingerprint,
       port: serverState?.port ?? settings.port,
-      protocol: (serverState?.https ?? settings.https)
-          ? ProtocolType.https
-          : ProtocolType.http,
+      protocol: (serverState?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
       download: serverState?.webSendState != null,
       announcement: announcement,
       announce: announcement,
@@ -167,9 +161,7 @@ class MulticastService {
       deviceType: _deviceInfo.deviceType,
       fingerprint: fingerprint,
       port: serverState?.port ?? settings.port,
-      protocol: (serverState?.https ?? settings.https)
-          ? ProtocolType.https
-          : ProtocolType.http,
+      protocol: (serverState?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
       download: serverState?.webSendState != null,
     );
   }
@@ -182,14 +174,12 @@ class _SocketResult {
   _SocketResult(this.interface, this.socket);
 }
 
-Future<List<_SocketResult>> _getSockets(String multicastGroup,
-    [int? port]) async {
+Future<List<_SocketResult>> _getSockets(String multicastGroup, [int? port]) async {
   final interfaces = await NetworkInterface.list();
   final sockets = <_SocketResult>[];
   for (final interface in interfaces) {
     try {
-      final socket =
-          await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
+      final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
       socket.joinMulticast(InternetAddress(multicastGroup), interface);
       sockets.add(_SocketResult(interface, socket));
     } catch (e) {

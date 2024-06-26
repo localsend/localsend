@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsSv extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsSv.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsSv.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.sv,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sv>.
   @override
@@ -47,38 +41,29 @@ class _StringsSv extends Translations {
   @override
   late final _StringsSettingsTabSv settingsTab = _StringsSettingsTabSv._(_root);
   @override
-  late final _StringsTroubleshootPageSv troubleshootPage =
-      _StringsTroubleshootPageSv._(_root);
+  late final _StringsTroubleshootPageSv troubleshootPage = _StringsTroubleshootPageSv._(_root);
   @override
-  late final _StringsReceiveHistoryPageSv receiveHistoryPage =
-      _StringsReceiveHistoryPageSv._(_root);
+  late final _StringsReceiveHistoryPageSv receiveHistoryPage = _StringsReceiveHistoryPageSv._(_root);
   @override
-  late final _StringsApkPickerPageSv apkPickerPage =
-      _StringsApkPickerPageSv._(_root);
+  late final _StringsApkPickerPageSv apkPickerPage = _StringsApkPickerPageSv._(_root);
   @override
-  late final _StringsSelectedFilesPageSv selectedFilesPage =
-      _StringsSelectedFilesPageSv._(_root);
+  late final _StringsSelectedFilesPageSv selectedFilesPage = _StringsSelectedFilesPageSv._(_root);
   @override
   late final _StringsReceivePageSv receivePage = _StringsReceivePageSv._(_root);
   @override
-  late final _StringsReceiveOptionsPageSv receiveOptionsPage =
-      _StringsReceiveOptionsPageSv._(_root);
+  late final _StringsReceiveOptionsPageSv receiveOptionsPage = _StringsReceiveOptionsPageSv._(_root);
   @override
   late final _StringsSendPageSv sendPage = _StringsSendPageSv._(_root);
   @override
-  late final _StringsProgressPageSv progressPage =
-      _StringsProgressPageSv._(_root);
+  late final _StringsProgressPageSv progressPage = _StringsProgressPageSv._(_root);
   @override
-  late final _StringsWebSharePageSv webSharePage =
-      _StringsWebSharePageSv._(_root);
+  late final _StringsWebSharePageSv webSharePage = _StringsWebSharePageSv._(_root);
   @override
   late final _StringsAboutPageSv aboutPage = _StringsAboutPageSv._(_root);
   @override
-  late final _StringsChangelogPageSv changelogPage =
-      _StringsChangelogPageSv._(_root);
+  late final _StringsChangelogPageSv changelogPage = _StringsChangelogPageSv._(_root);
   @override
-  late final _StringsAliasGeneratorSv aliasGenerator =
-      _StringsAliasGeneratorSv._(_root);
+  late final _StringsAliasGeneratorSv aliasGenerator = _StringsAliasGeneratorSv._(_root);
   @override
   late final _StringsDialogsSv dialogs = _StringsDialogsSv._(_root);
   @override
@@ -184,8 +169,7 @@ class _StringsReceiveTabSv extends _StringsReceiveTabEn {
   @override
   String get title => 'Ta emot';
   @override
-  late final _StringsReceiveTabInfoBoxSv infoBox =
-      _StringsReceiveTabInfoBoxSv._(_root);
+  late final _StringsReceiveTabInfoBoxSv infoBox = _StringsReceiveTabInfoBoxSv._(_root);
 }
 
 // Path: sendTab
@@ -201,13 +185,11 @@ class _StringsSendTabSv extends _StringsSendTabEn {
   @override
   String get title => 'Skicka';
   @override
-  late final _StringsSendTabSelectionSv selection =
-      _StringsSendTabSelectionSv._(_root);
+  late final _StringsSendTabSelectionSv selection = _StringsSendTabSelectionSv._(_root);
   @override
   late final _StringsSendTabPickerSv picker = _StringsSendTabPickerSv._(_root);
   @override
-  String get shareIntentInfo =>
-      'Du kan också använda "Dela"-funtionen i din mobiltelefon för att lättare välja filer.';
+  String get shareIntentInfo => 'Du kan också använda "Dela"-funtionen i din mobiltelefon för att lättare välja filer.';
   @override
   String get nearbyDevices => 'Närbelägna enhter';
   @override
@@ -217,13 +199,11 @@ class _StringsSendTabSv extends _StringsSendTabEn {
   @override
   String get sendMode => 'Sändningsläge';
   @override
-  late final _StringsSendTabSendModesSv sendModes =
-      _StringsSendTabSendModesSv._(_root);
+  late final _StringsSendTabSendModesSv sendModes = _StringsSendTabSendModesSv._(_root);
   @override
   String get sendModeHelp => 'Förklaring';
   @override
-  String get help =>
-      'Kontrollera att den sökta enheten är uppkopplad till samma wifi nätverk som din enhet.';
+  String get help => 'Kontrollera att den sökta enheten är uppkopplad till samma wifi nätverk som din enhet.';
   @override
   String get placeItems => 'Placera objekt att dela';
 }
@@ -241,14 +221,11 @@ class _StringsSettingsTabSv extends _StringsSettingsTabEn {
   @override
   String get title => 'Inställningar';
   @override
-  late final _StringsSettingsTabGeneralSv general =
-      _StringsSettingsTabGeneralSv._(_root);
+  late final _StringsSettingsTabGeneralSv general = _StringsSettingsTabGeneralSv._(_root);
   @override
-  late final _StringsSettingsTabReceiveSv receive =
-      _StringsSettingsTabReceiveSv._(_root);
+  late final _StringsSettingsTabReceiveSv receive = _StringsSettingsTabReceiveSv._(_root);
   @override
-  late final _StringsSettingsTabNetworkSv network =
-      _StringsSettingsTabNetworkSv._(_root);
+  late final _StringsSettingsTabNetworkSv network = _StringsSettingsTabNetworkSv._(_root);
   @override
   String get advancedSettings => 'Avancerade inställningar';
 }
@@ -266,18 +243,15 @@ class _StringsTroubleshootPageSv extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Felsökning';
   @override
-  String get subTitle =>
-      'Gör appen inte som förväntat? Här hittar du vanliga lösningar.';
+  String get subTitle => 'Gör appen inte som förväntat? Här hittar du vanliga lösningar.';
   @override
   String get solution => 'Lösning:';
   @override
   String get fixButton => 'Fixa automatiskt';
   @override
-  late final _StringsTroubleshootPageFirewallSv firewall =
-      _StringsTroubleshootPageFirewallSv._(_root);
+  late final _StringsTroubleshootPageFirewallSv firewall = _StringsTroubleshootPageFirewallSv._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionSv noConnection =
-      _StringsTroubleshootPageNoConnectionSv._(_root);
+  late final _StringsTroubleshootPageNoConnectionSv noConnection = _StringsTroubleshootPageNoConnectionSv._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -299,8 +273,7 @@ class _StringsReceiveHistoryPageSv extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Historiken är tom.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsSv entryActions =
-      _StringsReceiveHistoryPageEntryActionsSv._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsSv entryActions = _StringsReceiveHistoryPageEntryActionsSv._(_root);
 }
 
 // Path: apkPickerPage
@@ -318,8 +291,7 @@ class _StringsApkPickerPageSv extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Exkludera systemappar';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Exkludera appar som inte kan startas';
+  String get excludeAppsWithoutLaunchIntent => 'Exkludera appar som inte kan startas';
   @override
   String apps({required Object n}) => '${n} Appar';
 }
@@ -349,8 +321,7 @@ class _StringsReceivePageSv extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
         n,
         one: 'vill skicka en fil till dig',
         other: 'Vill skick ${n} filer till dig',
@@ -382,8 +353,7 @@ class _StringsReceiveOptionsPageSv extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Avstängd automatiskt eftersom det finns kataloger.';
+  String get saveToGalleryOff => 'Avstängd automatiskt eftersom det finns kataloger.';
 }
 
 // Path: sendPage
@@ -421,8 +391,7 @@ class _StringsProgressPageSv extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Sparat i Foton';
   @override
-  late final _StringsProgressPageTotalSv total =
-      _StringsProgressPageTotalSv._(_root);
+  late final _StringsProgressPageTotalSv total = _StringsProgressPageTotalSv._(_root);
 }
 
 // Path: webSharePage
@@ -444,8 +413,7 @@ class _StringsWebSharePageSv extends _StringsWebSharePageEn {
   @override
   String get error => 'Ett fel inträffade vid start av servern.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
         n,
         one: 'Öppna denna länk i webbläsaren:',
         other: 'Öppna en av dessa länkar i webbläsaren:',
@@ -457,8 +425,7 @@ class _StringsWebSharePageSv extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'LocalSend använder ett självsignerat certifikat. Du behöver acceptera det i webbläsaren.';
+  String get encryptionHint => 'LocalSend använder ett självsignerat certifikat. Du behöver acceptera det i webbläsaren.';
   @override
   String pendingRequests({required Object n}) => 'Väntande förfrågningar: ${n}';
 }
@@ -574,8 +541,7 @@ class _StringsAliasGeneratorSv extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last.
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -589,57 +555,39 @@ class _StringsDialogsSv extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileSv addFile =
-      _StringsDialogsAddFileSv._(_root);
+  late final _StringsDialogsAddFileSv addFile = _StringsDialogsAddFileSv._(_root);
   @override
-  late final _StringsDialogsAddressInputSv addressInput =
-      _StringsDialogsAddressInputSv._(_root);
+  late final _StringsDialogsAddressInputSv addressInput = _StringsDialogsAddressInputSv._(_root);
   @override
-  late final _StringsDialogsCancelSessionSv cancelSession =
-      _StringsDialogsCancelSessionSv._(_root);
+  late final _StringsDialogsCancelSessionSv cancelSession = _StringsDialogsCancelSessionSv._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileSv cannotOpenFile =
-      _StringsDialogsCannotOpenFileSv._(_root);
+  late final _StringsDialogsCannotOpenFileSv cannotOpenFile = _StringsDialogsCannotOpenFileSv._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeSv
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeSv._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeSv encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeSv._(_root);
   @override
-  late final _StringsDialogsErrorDialogSv errorDialog =
-      _StringsDialogsErrorDialogSv._(_root);
+  late final _StringsDialogsErrorDialogSv errorDialog = _StringsDialogsErrorDialogSv._(_root);
   @override
-  late final _StringsDialogsFileInfoSv fileInfo =
-      _StringsDialogsFileInfoSv._(_root);
+  late final _StringsDialogsFileInfoSv fileInfo = _StringsDialogsFileInfoSv._(_root);
   @override
-  late final _StringsDialogsFileNameInputSv fileNameInput =
-      _StringsDialogsFileNameInputSv._(_root);
+  late final _StringsDialogsFileNameInputSv fileNameInput = _StringsDialogsFileNameInputSv._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedSv
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedSv._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedSv localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedSv._(_root);
   @override
-  late final _StringsDialogsMessageInputSv messageInput =
-      _StringsDialogsMessageInputSv._(_root);
+  late final _StringsDialogsMessageInputSv messageInput = _StringsDialogsMessageInputSv._(_root);
   @override
-  late final _StringsDialogsNoFilesSv noFiles =
-      _StringsDialogsNoFilesSv._(_root);
+  late final _StringsDialogsNoFilesSv noFiles = _StringsDialogsNoFilesSv._(_root);
   @override
-  late final _StringsDialogsNoPermissionSv noPermission =
-      _StringsDialogsNoPermissionSv._(_root);
+  late final _StringsDialogsNoPermissionSv noPermission = _StringsDialogsNoPermissionSv._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformSv notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformSv._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformSv notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformSv._(_root);
   @override
   late final _StringsDialogsQrSv qr = _StringsDialogsQrSv._(_root);
   @override
-  late final _StringsDialogsQuickActionsSv quickActions =
-      _StringsDialogsQuickActionsSv._(_root);
+  late final _StringsDialogsQuickActionsSv quickActions = _StringsDialogsQuickActionsSv._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeSv quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeSv._(_root);
+  late final _StringsDialogsQuickSaveNoticeSv quickSaveNotice = _StringsDialogsQuickSaveNoticeSv._(_root);
   @override
-  late final _StringsDialogsSendModeHelpSv sendModeHelp =
-      _StringsDialogsSendModeHelpSv._(_root);
+  late final _StringsDialogsSendModeHelpSv sendModeHelp = _StringsDialogsSendModeHelpSv._(_root);
 }
 
 // Path: tray
@@ -711,14 +659,11 @@ class _StringsAssetPickerSv extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Ogiltig filtyp.';
   @override
-  String get unableToAccessAll =>
-      'Kan inte få åtkomst till alla filer på enheten';
+  String get unableToAccessAll => 'Kan inte få åtkomst till alla filer på enheten';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Endast visa filer och album som kan nås av appen.';
+  String get viewingLimitedAssetsTip => 'Endast visa filer och album som kan nås av appen.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Klicka för att uppdatera åtkomliga filer';
+  String get changeAccessibleLimitedAssets => 'Klicka för att uppdatera åtkomliga filer';
   @override
   String get accessAllTip =>
       'Appen kan endast få åtkomst till vissa filer på enheten. Gå till systeminställningar och tillåt appen att få åtkomst till allt media på enheten.';
@@ -843,18 +788,15 @@ class _StringsSettingsTabGeneralSv extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Tema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsSv brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsSv._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsSv brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsSv._(_root);
   @override
   String get color => 'Färg';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsSv colorOptions =
-      _StringsSettingsTabGeneralColorOptionsSv._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsSv colorOptions = _StringsSettingsTabGeneralColorOptionsSv._(_root);
   @override
   String get language => 'Språk';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsSv languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsSv._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsSv languageOptions = _StringsSettingsTabGeneralLanguageOptionsSv._(_root);
   @override
   String get saveWindowPlacement => 'Avsluta: Spara fönsterplacering';
   @override
@@ -904,8 +846,7 @@ class _StringsSettingsTabNetworkSv extends _StringsSettingsTabNetworkEn {
   @override
   String get title => 'Nätverk';
   @override
-  String get needRestart =>
-      'Starta om servern för att tillämpa inställningarna!';
+  String get needRestart => 'Starta om servern för att tillämpa inställningarna!';
   @override
   String get server => 'Server';
   @override
@@ -929,8 +870,7 @@ class _StringsSettingsTabNetworkSv extends _StringsSettingsTabNetworkEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallSv
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallSv extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -940,8 +880,7 @@ class _StringsTroubleshootPageFirewallSv
 
   // Translations
   @override
-  String get symptom =>
-      'Denna app kan skicka filer till andra enheter men andra enheter kan inte skicka filer till denna enhet.';
+  String get symptom => 'Denna app kan skicka filer till andra enheter men andra enheter kan inte skicka filer till denna enhet.';
   @override
   String solution({required Object port}) =>
       'Detta är troligtvis ett brandväggsproblem. Du kan lösa det genom att tillåta inkommande anslutningar (UDP och TCP) på port ${port}.';
@@ -950,8 +889,7 @@ class _StringsTroubleshootPageFirewallSv
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionSv
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionSv extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -961,16 +899,14 @@ class _StringsTroubleshootPageNoConnectionSv
 
   // Translations
   @override
-  String get symptom =>
-      'Båda enheterna kan inte upptäcka varandra eller dela filer.';
+  String get symptom => 'Båda enheterna kan inte upptäcka varandra eller dela filer.';
   @override
   String get solution =>
       'Problemet finns på båda sidor? Då måste du se till att båda enheterna är anslutna till samma wifi-nätverk och delar samma konfiguration (port, multicast-adress, kryptering). Wi-Fi kanske inte tillåter kommunikation mellan deltagare. I så fall måste alternativet vara aktiverat på routern.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsSv
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsSv extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -998,14 +934,11 @@ class _StringsProgressPageTotalSv extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleSv title =
-      _StringsProgressPageTotalTitleSv._(_root);
+  late final _StringsProgressPageTotalTitleSv title = _StringsProgressPageTotalTitleSv._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Filer: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Filer: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Storlek: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Storlek: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Hastighet: ${speed}/s';
 }
@@ -1075,13 +1008,11 @@ class _StringsDialogsCannotOpenFileSv extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Kan inte öppna fil';
   @override
-  String content({required Object file}) =>
-      'Kunde inte öppna "${file}". Har denna fil flyttats, bytt namn eller raderats?';
+  String content({required Object file}) => 'Kunde inte öppna "${file}". Har denna fil flyttats, bytt namn eller raderats?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeSv
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeSv extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1093,8 +1024,7 @@ class _StringsDialogsEncryptionDisabledNoticeSv
   @override
   String get title => 'Kryptering inaktiverad';
   @override
-  String get content =>
-      'Kommunikationen sker nu via det oenkrypterade HTTP-protokollet. För att använda HTTPS, aktivera kryptering igen.';
+  String get content => 'Kommunikationen sker nu via det oenkrypterade HTTP-protokollet. För att använda HTTPS, aktivera kryptering igen.';
 }
 
 // Path: dialogs.errorDialog
@@ -1152,8 +1082,7 @@ class _StringsDialogsFileNameInputSv extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedSv
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedSv extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1216,13 +1145,11 @@ class _StringsDialogsNoPermissionSv extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Ingen behörighet';
   @override
-  String get content =>
-      'Du har inte beviljat nödvändiga behörigheter. Var vänlig bevilja dem i inställningarna.';
+  String get content => 'Du har inte beviljat nödvändiga behörigheter. Var vänlig bevilja dem i inställningarna.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformSv
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformSv extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1276,8 +1203,7 @@ class _StringsDialogsQuickActionsSv extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeSv
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeSv extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1289,8 +1215,7 @@ class _StringsDialogsQuickSaveNoticeSv
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Filförfrågningar accepteras automatiskt. Observera att alla i lokala nätverket kan skicka filer till dig.';
+  String get content => 'Filförfrågningar accepteras automatiskt. Observera att alla i lokala nätverket kan skicka filer till dig.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1306,19 +1231,15 @@ class _StringsDialogsSendModeHelpSv extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Sändningslägen';
   @override
-  String get single =>
-      'Skickar filer till en mottagare. Valet rensas efter avslutad filöverföring.';
+  String get single => 'Skickar filer till en mottagare. Valet rensas efter avslutad filöverföring.';
   @override
-  String get multiple =>
-      'Skickar filer till flera mottagare. Valet rensas inte.';
+  String get multiple => 'Skickar filer till flera mottagare. Valet rensas inte.';
   @override
-  String get link =>
-      'Mottagare som inte har LocalSend installerat kan ladda ner de valda filerna genom att öppna länken i deras webbläsare.';
+  String get link => 'Mottagare som inte har LocalSend installerat kan ladda ner de valda filerna genom att öppna länken i deras webbläsare.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsSv
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsSv extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1336,8 +1257,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsSv
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsSv
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsSv extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1351,8 +1271,7 @@ class _StringsSettingsTabGeneralColorOptionsSv
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsSv
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsSv extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsSv._(_StringsSv root)
       : this._root = root,
         super._(root);
@@ -1366,8 +1285,7 @@ class _StringsSettingsTabGeneralLanguageOptionsSv
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleSv
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleSv extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleSv._(_StringsSv root)
       : this._root = root,
         super._(root);

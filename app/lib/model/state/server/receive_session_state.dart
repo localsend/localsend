@@ -41,9 +41,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
   /// Message requests must contain a single text file with preview included.
   String? get message {
     final firstFile = files.values.first.file;
-    return files.length == 1 && firstFile.fileType == FileType.text
-        ? firstFile.preview
-        : null;
+    return files.length == 1 && firstFile.fileType == FileType.text ? firstFile.preview : null;
   }
 
   /// Returns true if this request contains files having a directory path.

@@ -18,8 +18,7 @@ class PurchaseService extends ReduxNotifier<PurchaseState> {
       );
 }
 
-class InitPurchaseStream
-    extends AsyncReduxAction<PurchaseService, PurchaseState> {
+class InitPurchaseStream extends AsyncReduxAction<PurchaseService, PurchaseState> {
   final listening = Completer<void>();
 
   @override
@@ -34,8 +33,7 @@ class InitPurchaseStream
   }
 }
 
-class FetchPricesAndPurchasesAction
-    extends AsyncReduxAction<PurchaseService, PurchaseState> {
+class FetchPricesAndPurchasesAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
   @override
   Future<PurchaseState> reduce() async {
     if (state.prices.isNotEmpty) {
@@ -56,16 +54,13 @@ class FetchPricesAndPurchasesAction
 
 /// Fetches prices for all products.
 /// They come from the platform's store and vary by country.
-class FetchPricesAction
-    extends AsyncReduxAction<PurchaseService, PurchaseState> {
+class FetchPricesAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
   @override
   Future<PurchaseState> reduce() async {
-    final response = await InAppPurchase.instance.queryProductDetails(
-        PurchaseItem.values.map((e) => e.platformProductId).toSet());
+    final response = await InAppPurchase.instance.queryProductDetails(PurchaseItem.values.map((e) => e.platformProductId).toSet());
     final priceMap = <PurchaseItem, String>{};
     for (final product in response.productDetails) {
-      final item = PurchaseItem.values
-          .firstWhereOrNull((e) => e.platformProductId == product.id);
+      final item = PurchaseItem.values.firstWhereOrNull((e) => e.platformProductId == product.id);
       if (item == null) {
         continue;
       }
@@ -78,8 +73,7 @@ class FetchPricesAction
 }
 
 /// Handles the update information triggered by the purchase flow of the platform.
-class _HandlePurchaseUpdate
-    extends AsyncReduxAction<PurchaseService, PurchaseState> {
+class _HandlePurchaseUpdate extends AsyncReduxAction<PurchaseService, PurchaseState> {
   final PurchaseDetails purchase;
 
   _HandlePurchaseUpdate(this.purchase);
@@ -98,10 +92,8 @@ class _HandlePurchaseUpdate
     if (purchase.status == PurchaseStatus.error) {
       // ignore: avoid_print
       throw 'Error purchasing: ${purchase.error?.message}';
-    } else if (purchase.status == PurchaseStatus.purchased ||
-        purchase.status == PurchaseStatus.restored) {
-      final purchaseEnum = PurchaseItem.values.firstWhereOrNull(
-          (element) => element.platformProductId == purchase.productID);
+    } else if (purchase.status == PurchaseStatus.purchased || purchase.status == PurchaseStatus.restored) {
+      final purchaseEnum = PurchaseItem.values.firstWhereOrNull((element) => element.platformProductId == purchase.productID);
       if (purchaseEnum == null) {
         throw 'Unknown product ID: ${purchase.productID}';
       }
@@ -117,8 +109,7 @@ class _HandlePurchaseUpdate
   }
 
   @override
-  String get debugLabel =>
-      'HandlePurchaseUpdate(${purchase.status}, ${purchase.productID})';
+  String get debugLabel => 'HandlePurchaseUpdate(${purchase.status}, ${purchase.productID})';
 }
 
 class AddPurchaseAction extends ReduxAction<PurchaseService, PurchaseState> {
@@ -149,8 +140,7 @@ class _SetPendingAction extends ReduxAction<PurchaseService, PurchaseState> {
 
 /// Action to restore purchases.
 /// Dispatched on first app start or manually by the user.
-class PurchaseRestoreAction
-    extends AsyncReduxAction<PurchaseService, PurchaseState> {
+class PurchaseRestoreAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
   @override
   Future<PurchaseState> reduce() async {
     try {
@@ -179,8 +169,7 @@ class PurchaseAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
 
   @override
   Future<PurchaseState> reduce() async {
-    final response = await InAppPurchase.instance
-        .queryProductDetails(<String>{item.platformProductId});
+    final response = await InAppPurchase.instance.queryProductDetails(<String>{item.platformProductId});
     final productDetails = response.productDetails.firstOrNull;
     if (productDetails == null) {
       throw Exception('Product not found: ${item.platformProductId}');

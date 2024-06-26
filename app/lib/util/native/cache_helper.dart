@@ -46,17 +46,14 @@ Future<void> _clear(RootIsolateToken token) async {
           })
         : Future.value(),
     checkPlatform([TargetPlatform.iOS])
-        ? AppGroupDirectory.getAppGroupDirectory(
-                'group.org.localsend.localsendApp')
-            .then((directory) async {
+        ? AppGroupDirectory.getAppGroupDirectory('group.org.localsend.localsendApp').then((directory) async {
             if (directory == null) {
               _logger.warning('Failed to get app group directory');
               return;
             }
 
             // delete contents of the directory (only files, not directories)
-            await for (final entry
-                in directory.list(recursive: false, followLinks: false)) {
+            await for (final entry in directory.list(recursive: false, followLinks: false)) {
               if (entry is File && !entry.path.fileName.startsWith('.')) {
                 _logger.info('Deleting ${entry.path}');
                 entry.deleteSync();

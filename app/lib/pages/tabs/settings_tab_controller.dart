@@ -13,8 +13,7 @@ import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-final settingsTabControllerProvider =
-    ReduxProvider<SettingsTabController, SettingsTabVm>((ref) {
+final settingsTabControllerProvider = ReduxProvider<SettingsTabController, SettingsTabVm>((ref) {
   final settings = ref.notifier(settingsProvider);
   final server = ref.notifier(serverProvider);
   final initialDeviceInfo = ref.read(deviceInfoProvider);
@@ -48,26 +47,18 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   SettingsTabVm init() {
     return SettingsTabVm(
       advanced: false,
-      aliasController:
-          TextEditingController(text: _settingsService.state.alias),
-      deviceModelController:
-          TextEditingController(text: _initialDeviceInfo.deviceModel),
-      portController:
-          TextEditingController(text: _settingsService.state.port.toString()),
-      timeoutController: TextEditingController(
-          text: _settingsService.state.discoveryTimeout.toString()),
-      multicastController:
-          TextEditingController(text: _settingsService.state.multicastGroup),
+      aliasController: TextEditingController(text: _settingsService.state.alias),
+      deviceModelController: TextEditingController(text: _initialDeviceInfo.deviceModel),
+      portController: TextEditingController(text: _settingsService.state.port.toString()),
+      timeoutController: TextEditingController(text: _settingsService.state.discoveryTimeout.toString()),
+      multicastController: TextEditingController(text: _settingsService.state.multicastGroup),
       settings: _settingsService.state,
       serverState: _serverService.state,
       deviceInfo: _initialDeviceInfo,
-      colorModes: _supportsDynamicColors
-          ? ColorMode.values
-          : ColorMode.values.where((e) => e != ColorMode.system).toList(),
+      colorModes: _supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system).toList(),
       onChangeTheme: (context, theme) async {
         await _settingsService.setTheme(theme);
-        await sleepAsync(
-            500); // workaround: brightness takes some time to be updated
+        await sleepAsync(500); // workaround: brightness takes some time to be updated
         if (context.mounted) {
           await updateSystemOverlayStyle(context);
         }
@@ -129,8 +120,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   }
 }
 
-class _SettingsTabWatchAction
-    extends WatchAction<SettingsTabController, SettingsTabVm> {
+class _SettingsTabWatchAction extends WatchAction<SettingsTabController, SettingsTabVm> {
   @override
   SettingsTabVm reduce() {
     return state.copyWith(
@@ -141,8 +131,7 @@ class _SettingsTabWatchAction
   }
 }
 
-class SetAdvancedAction
-    extends ReduxAction<SettingsTabController, SettingsTabVm> {
+class SetAdvancedAction extends ReduxAction<SettingsTabController, SettingsTabVm> {
   final bool advanced;
 
   SetAdvancedAction(this.advanced);

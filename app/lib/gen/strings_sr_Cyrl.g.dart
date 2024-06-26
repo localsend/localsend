@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsSrCyrl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsSrCyrl.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsSrCyrl.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.srCyrl,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sr-Cyrl>.
   @override
@@ -41,63 +35,47 @@ class _StringsSrCyrl extends Translations {
   @override
   late final _StringsGeneralSrCyrl general = _StringsGeneralSrCyrl._(_root);
   @override
-  late final _StringsReceiveTabSrCyrl receiveTab =
-      _StringsReceiveTabSrCyrl._(_root);
+  late final _StringsReceiveTabSrCyrl receiveTab = _StringsReceiveTabSrCyrl._(_root);
   @override
   late final _StringsSendTabSrCyrl sendTab = _StringsSendTabSrCyrl._(_root);
   @override
-  late final _StringsSettingsTabSrCyrl settingsTab =
-      _StringsSettingsTabSrCyrl._(_root);
+  late final _StringsSettingsTabSrCyrl settingsTab = _StringsSettingsTabSrCyrl._(_root);
   @override
-  late final _StringsTroubleshootPageSrCyrl troubleshootPage =
-      _StringsTroubleshootPageSrCyrl._(_root);
+  late final _StringsTroubleshootPageSrCyrl troubleshootPage = _StringsTroubleshootPageSrCyrl._(_root);
   @override
-  late final _StringsReceiveHistoryPageSrCyrl receiveHistoryPage =
-      _StringsReceiveHistoryPageSrCyrl._(_root);
+  late final _StringsReceiveHistoryPageSrCyrl receiveHistoryPage = _StringsReceiveHistoryPageSrCyrl._(_root);
   @override
-  late final _StringsApkPickerPageSrCyrl apkPickerPage =
-      _StringsApkPickerPageSrCyrl._(_root);
+  late final _StringsApkPickerPageSrCyrl apkPickerPage = _StringsApkPickerPageSrCyrl._(_root);
   @override
-  late final _StringsSelectedFilesPageSrCyrl selectedFilesPage =
-      _StringsSelectedFilesPageSrCyrl._(_root);
+  late final _StringsSelectedFilesPageSrCyrl selectedFilesPage = _StringsSelectedFilesPageSrCyrl._(_root);
   @override
-  late final _StringsReceivePageSrCyrl receivePage =
-      _StringsReceivePageSrCyrl._(_root);
+  late final _StringsReceivePageSrCyrl receivePage = _StringsReceivePageSrCyrl._(_root);
   @override
-  late final _StringsReceiveOptionsPageSrCyrl receiveOptionsPage =
-      _StringsReceiveOptionsPageSrCyrl._(_root);
+  late final _StringsReceiveOptionsPageSrCyrl receiveOptionsPage = _StringsReceiveOptionsPageSrCyrl._(_root);
   @override
   late final _StringsSendPageSrCyrl sendPage = _StringsSendPageSrCyrl._(_root);
   @override
-  late final _StringsProgressPageSrCyrl progressPage =
-      _StringsProgressPageSrCyrl._(_root);
+  late final _StringsProgressPageSrCyrl progressPage = _StringsProgressPageSrCyrl._(_root);
   @override
-  late final _StringsWebSharePageSrCyrl webSharePage =
-      _StringsWebSharePageSrCyrl._(_root);
+  late final _StringsWebSharePageSrCyrl webSharePage = _StringsWebSharePageSrCyrl._(_root);
   @override
-  late final _StringsAboutPageSrCyrl aboutPage =
-      _StringsAboutPageSrCyrl._(_root);
+  late final _StringsAboutPageSrCyrl aboutPage = _StringsAboutPageSrCyrl._(_root);
   @override
-  late final _StringsDonationPageSrCyrl donationPage =
-      _StringsDonationPageSrCyrl._(_root);
+  late final _StringsDonationPageSrCyrl donationPage = _StringsDonationPageSrCyrl._(_root);
   @override
-  late final _StringsChangelogPageSrCyrl changelogPage =
-      _StringsChangelogPageSrCyrl._(_root);
+  late final _StringsChangelogPageSrCyrl changelogPage = _StringsChangelogPageSrCyrl._(_root);
   @override
-  late final _StringsAliasGeneratorSrCyrl aliasGenerator =
-      _StringsAliasGeneratorSrCyrl._(_root);
+  late final _StringsAliasGeneratorSrCyrl aliasGenerator = _StringsAliasGeneratorSrCyrl._(_root);
   @override
   late final _StringsDialogsSrCyrl dialogs = _StringsDialogsSrCyrl._(_root);
   @override
-  late final _StringsSanitizationSrCyrl sanitization =
-      _StringsSanitizationSrCyrl._(_root);
+  late final _StringsSanitizationSrCyrl sanitization = _StringsSanitizationSrCyrl._(_root);
   @override
   late final _StringsTraySrCyrl tray = _StringsTraySrCyrl._(_root);
   @override
   late final _StringsWebSrCyrl web = _StringsWebSrCyrl._(_root);
   @override
-  late final _StringsAssetPickerSrCyrl assetPicker =
-      _StringsAssetPickerSrCyrl._(_root);
+  late final _StringsAssetPickerSrCyrl assetPicker = _StringsAssetPickerSrCyrl._(_root);
 }
 
 // Path: general
@@ -199,8 +177,7 @@ class _StringsReceiveTabSrCyrl extends _StringsReceiveTabEn {
   @override
   String get title => 'Примање';
   @override
-  late final _StringsReceiveTabInfoBoxSrCyrl infoBox =
-      _StringsReceiveTabInfoBoxSrCyrl._(_root);
+  late final _StringsReceiveTabInfoBoxSrCyrl infoBox = _StringsReceiveTabInfoBoxSrCyrl._(_root);
 }
 
 // Path: sendTab
@@ -216,14 +193,11 @@ class _StringsSendTabSrCyrl extends _StringsSendTabEn {
   @override
   String get title => 'Слање';
   @override
-  late final _StringsSendTabSelectionSrCyrl selection =
-      _StringsSendTabSelectionSrCyrl._(_root);
+  late final _StringsSendTabSelectionSrCyrl selection = _StringsSendTabSelectionSrCyrl._(_root);
   @override
-  late final _StringsSendTabPickerSrCyrl picker =
-      _StringsSendTabPickerSrCyrl._(_root);
+  late final _StringsSendTabPickerSrCyrl picker = _StringsSendTabPickerSrCyrl._(_root);
   @override
-  String get shareIntentInfo =>
-      'Можеш такође да користиш и "Share" опцију твог мобилног уређаја да би лакше селектовао фајлове.';
+  String get shareIntentInfo => 'Можеш такође да користиш и "Share" опцију твог мобилног уређаја да би лакше селектовао фајлове.';
   @override
   String get nearbyDevices => 'Уређаји у близини';
   @override
@@ -233,13 +207,11 @@ class _StringsSendTabSrCyrl extends _StringsSendTabEn {
   @override
   String get sendMode => 'Мод за слање';
   @override
-  late final _StringsSendTabSendModesSrCyrl sendModes =
-      _StringsSendTabSendModesSrCyrl._(_root);
+  late final _StringsSendTabSendModesSrCyrl sendModes = _StringsSendTabSendModesSrCyrl._(_root);
   @override
   String get sendModeHelp => 'Објашњење';
   @override
-  String get help =>
-      'Молим уверите се да је жељена дестинација такође на истој WiFi мрежи.';
+  String get help => 'Молим уверите се да је жељена дестинација такође на истој WiFi мрежи.';
   @override
   String get placeItems => 'Постави шта желиш да share-ујеш.';
 }
@@ -257,20 +229,15 @@ class _StringsSettingsTabSrCyrl extends _StringsSettingsTabEn {
   @override
   String get title => 'Подешавање';
   @override
-  late final _StringsSettingsTabGeneralSrCyrl general =
-      _StringsSettingsTabGeneralSrCyrl._(_root);
+  late final _StringsSettingsTabGeneralSrCyrl general = _StringsSettingsTabGeneralSrCyrl._(_root);
   @override
-  late final _StringsSettingsTabReceiveSrCyrl receive =
-      _StringsSettingsTabReceiveSrCyrl._(_root);
+  late final _StringsSettingsTabReceiveSrCyrl receive = _StringsSettingsTabReceiveSrCyrl._(_root);
   @override
-  late final _StringsSettingsTabSendSrCyrl send =
-      _StringsSettingsTabSendSrCyrl._(_root);
+  late final _StringsSettingsTabSendSrCyrl send = _StringsSettingsTabSendSrCyrl._(_root);
   @override
-  late final _StringsSettingsTabNetworkSrCyrl network =
-      _StringsSettingsTabNetworkSrCyrl._(_root);
+  late final _StringsSettingsTabNetworkSrCyrl network = _StringsSettingsTabNetworkSrCyrl._(_root);
   @override
-  late final _StringsSettingsTabOtherSrCyrl other =
-      _StringsSettingsTabOtherSrCyrl._(_root);
+  late final _StringsSettingsTabOtherSrCyrl other = _StringsSettingsTabOtherSrCyrl._(_root);
   @override
   String get advancedSettings => 'Напредна подешавања';
 }
@@ -288,18 +255,15 @@ class _StringsTroubleshootPageSrCyrl extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Troubleshoot';
   @override
-  String get subTitle =>
-      'Да ли апликација ради како треба? Овде можете пронаћи нека уобичајена решења.';
+  String get subTitle => 'Да ли апликација ради како треба? Овде можете пронаћи нека уобичајена решења.';
   @override
   String get solution => 'Решење:';
   @override
   String get fixButton => 'Поправи аутоматски';
   @override
-  late final _StringsTroubleshootPageFirewallSrCyrl firewall =
-      _StringsTroubleshootPageFirewallSrCyrl._(_root);
+  late final _StringsTroubleshootPageFirewallSrCyrl firewall = _StringsTroubleshootPageFirewallSrCyrl._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionSrCyrl noConnection =
-      _StringsTroubleshootPageNoConnectionSrCyrl._(_root);
+  late final _StringsTroubleshootPageNoConnectionSrCyrl noConnection = _StringsTroubleshootPageNoConnectionSrCyrl._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -321,8 +285,7 @@ class _StringsReceiveHistoryPageSrCyrl extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Историја је празна.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsSrCyrl entryActions =
-      _StringsReceiveHistoryPageEntryActionsSrCyrl._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsSrCyrl entryActions = _StringsReceiveHistoryPageEntryActionsSrCyrl._(_root);
 }
 
 // Path: apkPickerPage
@@ -340,8 +303,7 @@ class _StringsApkPickerPageSrCyrl extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Изостави системске апликације';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Изостави апликације које се не покрећу';
+  String get excludeAppsWithoutLaunchIntent => 'Изостави апликације које се не покрећу';
   @override
   String apps({required Object n}) => '${n} Апликације';
 }
@@ -371,8 +333,7 @@ class _StringsReceivePageSrCyrl extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
         n,
         one: 'жели да пошаље фајл',
         other: 'жели да пошаље ${n} фајлова',
@@ -404,8 +365,7 @@ class _StringsReceiveOptionsPageSrCyrl extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Искључено аутоматски зато што постоје фолдери.';
+  String get saveToGalleryOff => 'Искључено аутоматски зато што постоје фолдери.';
 }
 
 // Path: sendPage
@@ -443,8 +403,7 @@ class _StringsProgressPageSrCyrl extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Снимљено у Галерију';
   @override
-  late final _StringsProgressPageTotalSrCyrl total =
-      _StringsProgressPageTotalSrCyrl._(_root);
+  late final _StringsProgressPageTotalSrCyrl total = _StringsProgressPageTotalSrCyrl._(_root);
 }
 
 // Path: webSharePage
@@ -466,8 +425,7 @@ class _StringsWebSharePageSrCyrl extends _StringsWebSharePageEn {
   @override
   String get error => 'Приликом покретања сервера догодила се грешка.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
         n,
         one: 'Отвори овај линк у browseru:',
         other: 'Отвори један од ових линкова у browseru:',
@@ -481,8 +439,7 @@ class _StringsWebSharePageSrCyrl extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Аутоматски прихвати захтеве';
   @override
-  String get encryptionHint =>
-      'LocalSend користи сертификате који су self-signed. Морате да прихватите то у browseru.';
+  String get encryptionHint => 'LocalSend користи сертификате који су self-signed. Морате да прихватите то у browseru.';
   @override
   String pendingRequests({required Object n}) => 'Захтеви на чекању: ${n}';
 }
@@ -525,8 +482,7 @@ class _StringsDonationPageSrCyrl extends _StringsDonationPageEn {
   @override
   String get title => 'Донирај';
   @override
-  String get info =>
-      'LocalSend је слободна, апликација отвореног кода без реклама. Ако Вам се допада, можете подржати развој путем донације.';
+  String get info => 'LocalSend је слободна, апликација отвореног кода без реклама. Ако Вам се допада, можете подржати развој путем донације.';
   @override
   String donate({required Object amount}) => 'Донирај ${amount}';
   @override
@@ -632,8 +588,7 @@ class _StringsAliasGeneratorSrCyrl extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last. Not the case in Serbian, but serbian adjectives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation.
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -647,73 +602,49 @@ class _StringsDialogsSrCyrl extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileSrCyrl addFile =
-      _StringsDialogsAddFileSrCyrl._(_root);
+  late final _StringsDialogsAddFileSrCyrl addFile = _StringsDialogsAddFileSrCyrl._(_root);
   @override
-  late final _StringsDialogsAddressInputSrCyrl addressInput =
-      _StringsDialogsAddressInputSrCyrl._(_root);
+  late final _StringsDialogsAddressInputSrCyrl addressInput = _StringsDialogsAddressInputSrCyrl._(_root);
   @override
-  late final _StringsDialogsCancelSessionSrCyrl cancelSession =
-      _StringsDialogsCancelSessionSrCyrl._(_root);
+  late final _StringsDialogsCancelSessionSrCyrl cancelSession = _StringsDialogsCancelSessionSrCyrl._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileSrCyrl cannotOpenFile =
-      _StringsDialogsCannotOpenFileSrCyrl._(_root);
+  late final _StringsDialogsCannotOpenFileSrCyrl cannotOpenFile = _StringsDialogsCannotOpenFileSrCyrl._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeSrCyrl
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeSrCyrl._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeSrCyrl encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeSrCyrl._(_root);
   @override
-  late final _StringsDialogsErrorDialogSrCyrl errorDialog =
-      _StringsDialogsErrorDialogSrCyrl._(_root);
+  late final _StringsDialogsErrorDialogSrCyrl errorDialog = _StringsDialogsErrorDialogSrCyrl._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogSrCyrl favoriteDialog =
-      _StringsDialogsFavoriteDialogSrCyrl._(_root);
+  late final _StringsDialogsFavoriteDialogSrCyrl favoriteDialog = _StringsDialogsFavoriteDialogSrCyrl._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogSrCyrl favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogSrCyrl._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogSrCyrl favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogSrCyrl._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogSrCyrl favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogSrCyrl._(_root);
+  late final _StringsDialogsFavoriteEditDialogSrCyrl favoriteEditDialog = _StringsDialogsFavoriteEditDialogSrCyrl._(_root);
   @override
-  late final _StringsDialogsFileInfoSrCyrl fileInfo =
-      _StringsDialogsFileInfoSrCyrl._(_root);
+  late final _StringsDialogsFileInfoSrCyrl fileInfo = _StringsDialogsFileInfoSrCyrl._(_root);
   @override
-  late final _StringsDialogsFileNameInputSrCyrl fileNameInput =
-      _StringsDialogsFileNameInputSrCyrl._(_root);
+  late final _StringsDialogsFileNameInputSrCyrl fileNameInput = _StringsDialogsFileNameInputSrCyrl._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogSrCyrl historyClearDialog =
-      _StringsDialogsHistoryClearDialogSrCyrl._(_root);
+  late final _StringsDialogsHistoryClearDialogSrCyrl historyClearDialog = _StringsDialogsHistoryClearDialogSrCyrl._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedSrCyrl
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedSrCyrl._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedSrCyrl localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedSrCyrl._(_root);
   @override
-  late final _StringsDialogsMessageInputSrCyrl messageInput =
-      _StringsDialogsMessageInputSrCyrl._(_root);
+  late final _StringsDialogsMessageInputSrCyrl messageInput = _StringsDialogsMessageInputSrCyrl._(_root);
   @override
-  late final _StringsDialogsNoFilesSrCyrl noFiles =
-      _StringsDialogsNoFilesSrCyrl._(_root);
+  late final _StringsDialogsNoFilesSrCyrl noFiles = _StringsDialogsNoFilesSrCyrl._(_root);
   @override
-  late final _StringsDialogsNoPermissionSrCyrl noPermission =
-      _StringsDialogsNoPermissionSrCyrl._(_root);
+  late final _StringsDialogsNoPermissionSrCyrl noPermission = _StringsDialogsNoPermissionSrCyrl._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformSrCyrl
-      notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformSrCyrl._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformSrCyrl notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformSrCyrl._(_root);
   @override
   late final _StringsDialogsQrSrCyrl qr = _StringsDialogsQrSrCyrl._(_root);
   @override
-  late final _StringsDialogsQuickActionsSrCyrl quickActions =
-      _StringsDialogsQuickActionsSrCyrl._(_root);
+  late final _StringsDialogsQuickActionsSrCyrl quickActions = _StringsDialogsQuickActionsSrCyrl._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeSrCyrl quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeSrCyrl._(_root);
+  late final _StringsDialogsQuickSaveNoticeSrCyrl quickSaveNotice = _StringsDialogsQuickSaveNoticeSrCyrl._(_root);
   @override
-  late final _StringsDialogsSendModeHelpSrCyrl sendModeHelp =
-      _StringsDialogsSendModeHelpSrCyrl._(_root);
+  late final _StringsDialogsSendModeHelpSrCyrl sendModeHelp = _StringsDialogsSendModeHelpSrCyrl._(_root);
   @override
-  late final _StringsDialogsZoomSrCyrl zoom =
-      _StringsDialogsZoomSrCyrl._(_root);
+  late final _StringsDialogsZoomSrCyrl zoom = _StringsDialogsZoomSrCyrl._(_root);
 }
 
 // Path: sanitization
@@ -801,14 +732,11 @@ class _StringsAssetPickerSrCyrl extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Тип фајла није подржан.';
   @override
-  String get unableToAccessAll =>
-      'Немогуће приступити свим фајловима на овом уређају';
+  String get unableToAccessAll => 'Немогуће приступити свим фајловима на овом уређају';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Само view фајлови и албуми доступни апликацији.';
+  String get viewingLimitedAssetsTip => 'Само view фајлови и албуми доступни апликацији.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Кликни да упдејтујеш доступне фајлове';
+  String get changeAccessibleLimitedAssets => 'Кликни да упдејтујеш доступне фајлове';
   @override
   String get accessAllTip =>
       'Апликација може да приступи само неким фајловима на уређају. Иди у Системска Подешавања и дозволи апликацији приступ свим медијским фајловима на уређају.';
@@ -935,19 +863,15 @@ class _StringsSettingsTabGeneralSrCyrl extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Тема';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsSrCyrl
-      brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsSrCyrl._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsSrCyrl brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsSrCyrl._(_root);
   @override
   String get color => 'Боја';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsSrCyrl colorOptions =
-      _StringsSettingsTabGeneralColorOptionsSrCyrl._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsSrCyrl colorOptions = _StringsSettingsTabGeneralColorOptionsSrCyrl._(_root);
   @override
   String get language => 'Језик';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsSrCyrl languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsSrCyrl._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsSrCyrl languageOptions = _StringsSettingsTabGeneralLanguageOptionsSrCyrl._(_root);
   @override
   String get saveWindowPlacement => 'Изађи: Сними положај прозора';
   @override
@@ -999,8 +923,7 @@ class _StringsSettingsTabSendSrCyrl extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Слање';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Подели преко Линка: Аутоматски прихвати';
+  String get shareViaLinkAutoAccept => 'Подели преко Линка: Аутоматски прихвати';
 }
 
 // Path: settingsTab.network
@@ -1064,8 +987,7 @@ class _StringsSettingsTabOtherSrCyrl extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallSrCyrl
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallSrCyrl extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1075,8 +997,7 @@ class _StringsTroubleshootPageFirewallSrCyrl
 
   // Translations
   @override
-  String get symptom =>
-      'Ова апликација може послати фајлове другим уређајима; али други уређаји не могу послати фајлове овом уређају.';
+  String get symptom => 'Ова апликација може послати фајлове другим уређајима; али други уређаји не могу послати фајлове овом уређају.';
   @override
   String solution({required Object port}) =>
       'Ово је највероватније Firewall проблем. Možete решити ово омогућавањем долазних конекција (UDP and TCP) на Порту ${port}.';
@@ -1085,8 +1006,7 @@ class _StringsTroubleshootPageFirewallSrCyrl
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionSrCyrl
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionSrCyrl extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1096,16 +1016,14 @@ class _StringsTroubleshootPageNoConnectionSrCyrl
 
   // Translations
   @override
-  String get symptom =>
-      'Уређаји не могу ни да пронађу један другог ни да поделе фајлове.';
+  String get symptom => 'Уређаји не могу ни да пронађу један другог ни да поделе фајлове.';
   @override
   String get solution =>
       'Да ли проблем постоји на обе стране? Ако је тако, морате да се уверите да се оба уређаја налазе на истој Wi-Fi мрежи и да деле исту конфигурацију (порт, мултикаст адреса, енкрипција). Мрежа можда не дозвољава комуникацију међу уређајима. У овом случају, ова опција мора бити омогућена на рутеру.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsSrCyrl
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsSrCyrl extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1133,14 +1051,11 @@ class _StringsProgressPageTotalSrCyrl extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleSrCyrl title =
-      _StringsProgressPageTotalTitleSrCyrl._(_root);
+  late final _StringsProgressPageTotalTitleSrCyrl title = _StringsProgressPageTotalTitleSrCyrl._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Фајлова: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Фајлова: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Величина: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Величина: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Брзина: ${speed}/s';
 }
@@ -1182,8 +1097,7 @@ class _StringsDialogsAddressInputSrCyrl extends _StringsDialogsAddressInputEn {
 }
 
 // Path: dialogs.cancelSession
-class _StringsDialogsCancelSessionSrCyrl
-    extends _StringsDialogsCancelSessionEn {
+class _StringsDialogsCancelSessionSrCyrl extends _StringsDialogsCancelSessionEn {
   _StringsDialogsCancelSessionSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1199,8 +1113,7 @@ class _StringsDialogsCancelSessionSrCyrl
 }
 
 // Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileSrCyrl
-    extends _StringsDialogsCannotOpenFileEn {
+class _StringsDialogsCannotOpenFileSrCyrl extends _StringsDialogsCannotOpenFileEn {
   _StringsDialogsCannotOpenFileSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1212,13 +1125,11 @@ class _StringsDialogsCannotOpenFileSrCyrl
   @override
   String get title => 'Не могу да отворим фајл';
   @override
-  String content({required Object file}) =>
-      'Не могу да отворим "${file}". Да ли је овај фајл негде померен, преименован, или обрисан?';
+  String content({required Object file}) => 'Не могу да отворим "${file}". Да ли је овај фајл негде померен, преименован, или обрисан?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeSrCyrl
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeSrCyrl extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1230,8 +1141,7 @@ class _StringsDialogsEncryptionDisabledNoticeSrCyrl
   @override
   String get title => 'Енкрипција онемогућена';
   @override
-  String get content =>
-      'Комуникација се сада врши преко не-енкриптованог HTTP протокола. Да би користио HTTPS, омогући Енкрипцију опет.';
+  String get content => 'Комуникација се сада врши преко не-енкриптованог HTTP протокола. Да би користио HTTPS, омогући Енкрипцију опет.';
 }
 
 // Path: dialogs.errorDialog
@@ -1249,8 +1159,7 @@ class _StringsDialogsErrorDialogSrCyrl extends _StringsDialogsErrorDialogEn {
 }
 
 // Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogSrCyrl
-    extends _StringsDialogsFavoriteDialogEn {
+class _StringsDialogsFavoriteDialogSrCyrl extends _StringsDialogsFavoriteDialogEn {
   _StringsDialogsFavoriteDialogSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1268,8 +1177,7 @@ class _StringsDialogsFavoriteDialogSrCyrl
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogSrCyrl
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogSrCyrl extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1281,13 +1189,11 @@ class _StringsDialogsFavoriteDeleteDialogSrCyrl
   @override
   String get title => 'Избриши из Омиљених';
   @override
-  String content({required Object name}) =>
-      'Да ли стварно желиш да избришеш из Омиљених "${name}"?';
+  String content({required Object name}) => 'Да ли стварно желиш да избришеш из Омиљених "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogSrCyrl
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogSrCyrl extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1335,8 +1241,7 @@ class _StringsDialogsFileInfoSrCyrl extends _StringsDialogsFileInfoEn {
 }
 
 // Path: dialogs.fileNameInput
-class _StringsDialogsFileNameInputSrCyrl
-    extends _StringsDialogsFileNameInputEn {
+class _StringsDialogsFileNameInputSrCyrl extends _StringsDialogsFileNameInputEn {
   _StringsDialogsFileNameInputSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1352,8 +1257,7 @@ class _StringsDialogsFileNameInputSrCyrl
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogSrCyrl
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogSrCyrl extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1369,8 +1273,7 @@ class _StringsDialogsHistoryClearDialogSrCyrl
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedSrCyrl
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedSrCyrl extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1382,8 +1285,7 @@ class _StringsDialogsLocalNetworkUnauthorizedSrCyrl
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description =>
-      'LocalSend не може да нађе друге уређаје без дозволе да скенира локалну мрежу. Молим додајте ову дозволу у Подешавања.';
+  String get description => 'LocalSend не може да нађе друге уређаје без дозволе да скенира локалну мрежу. Молим додајте ову дозволу у Подешавања.';
   @override
   String get gotoSettings => 'Подешавања';
 }
@@ -1433,13 +1335,11 @@ class _StringsDialogsNoPermissionSrCyrl extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Нема дозволе';
   @override
-  String get content =>
-      'Нисте додали неопходне дозволе. Молим додајте их у Подешавања.';
+  String get content => 'Нисте додали неопходне дозволе. Молим додајте их у Подешавања.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformSrCyrl
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformSrCyrl extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1493,8 +1393,7 @@ class _StringsDialogsQuickActionsSrCyrl extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeSrCyrl
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeSrCyrl extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1506,8 +1405,7 @@ class _StringsDialogsQuickSaveNoticeSrCyrl
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл.';
+  String get content => 'Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1523,14 +1421,11 @@ class _StringsDialogsSendModeHelpSrCyrl extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Метод за слање';
   @override
-  String get single =>
-      'Пошаљи фајлове једном примаоцу. Селекција ће бити ресетована након завршеног слања.';
+  String get single => 'Пошаљи фајлове једном примаоцу. Селекција ће бити ресетована након завршеног слања.';
   @override
-  String get multiple =>
-      'Пошаљи фајлове за више прималаца. Селекција неће бити ресетована након завршеног слања.';
+  String get multiple => 'Пошаљи фајлове за више прималаца. Селекција неће бити ресетована након завршеног слања.';
   @override
-  String get link =>
-      'Примаоци који немају LocalSend инсталиран, могу да преузму селектоване фајлове преко Линка у browseru.';
+  String get link => 'Примаоци који немају LocalSend инсталиран, могу да преузму селектоване фајлове преко Линка у browseru.';
 }
 
 // Path: dialogs.zoom
@@ -1548,8 +1443,7 @@ class _StringsDialogsZoomSrCyrl extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsSrCyrl
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsSrCyrl extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1567,8 +1461,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsSrCyrl
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsSrCyrl
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsSrCyrl extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1584,8 +1477,7 @@ class _StringsSettingsTabGeneralColorOptionsSrCyrl
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsSrCyrl
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsSrCyrl extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);
@@ -1599,8 +1491,7 @@ class _StringsSettingsTabGeneralLanguageOptionsSrCyrl
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleSrCyrl
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleSrCyrl extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleSrCyrl._(_StringsSrCyrl root)
       : this._root = root,
         super._(root);

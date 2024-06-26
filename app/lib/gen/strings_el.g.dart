@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsEl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsEl.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsEl.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.el,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <el>.
   @override
@@ -47,41 +41,31 @@ class _StringsEl extends Translations {
   @override
   late final _StringsSettingsTabEl settingsTab = _StringsSettingsTabEl._(_root);
   @override
-  late final _StringsTroubleshootPageEl troubleshootPage =
-      _StringsTroubleshootPageEl._(_root);
+  late final _StringsTroubleshootPageEl troubleshootPage = _StringsTroubleshootPageEl._(_root);
   @override
-  late final _StringsReceiveHistoryPageEl receiveHistoryPage =
-      _StringsReceiveHistoryPageEl._(_root);
+  late final _StringsReceiveHistoryPageEl receiveHistoryPage = _StringsReceiveHistoryPageEl._(_root);
   @override
-  late final _StringsApkPickerPageEl apkPickerPage =
-      _StringsApkPickerPageEl._(_root);
+  late final _StringsApkPickerPageEl apkPickerPage = _StringsApkPickerPageEl._(_root);
   @override
-  late final _StringsSelectedFilesPageEl selectedFilesPage =
-      _StringsSelectedFilesPageEl._(_root);
+  late final _StringsSelectedFilesPageEl selectedFilesPage = _StringsSelectedFilesPageEl._(_root);
   @override
   late final _StringsReceivePageEl receivePage = _StringsReceivePageEl._(_root);
   @override
-  late final _StringsReceiveOptionsPageEl receiveOptionsPage =
-      _StringsReceiveOptionsPageEl._(_root);
+  late final _StringsReceiveOptionsPageEl receiveOptionsPage = _StringsReceiveOptionsPageEl._(_root);
   @override
   late final _StringsSendPageEl sendPage = _StringsSendPageEl._(_root);
   @override
-  late final _StringsProgressPageEl progressPage =
-      _StringsProgressPageEl._(_root);
+  late final _StringsProgressPageEl progressPage = _StringsProgressPageEl._(_root);
   @override
-  late final _StringsWebSharePageEl webSharePage =
-      _StringsWebSharePageEl._(_root);
+  late final _StringsWebSharePageEl webSharePage = _StringsWebSharePageEl._(_root);
   @override
   late final _StringsAboutPageEl aboutPage = _StringsAboutPageEl._(_root);
   @override
-  late final _StringsDonationPageEl donationPage =
-      _StringsDonationPageEl._(_root);
+  late final _StringsDonationPageEl donationPage = _StringsDonationPageEl._(_root);
   @override
-  late final _StringsChangelogPageEl changelogPage =
-      _StringsChangelogPageEl._(_root);
+  late final _StringsChangelogPageEl changelogPage = _StringsChangelogPageEl._(_root);
   @override
-  late final _StringsAliasGeneratorEl aliasGenerator =
-      _StringsAliasGeneratorEl._(_root);
+  late final _StringsAliasGeneratorEl aliasGenerator = _StringsAliasGeneratorEl._(_root);
   @override
   late final _StringsDialogsEl dialogs = _StringsDialogsEl._(_root);
   @override
@@ -191,8 +175,7 @@ class _StringsReceiveTabEl extends _StringsReceiveTabEn {
   @override
   String get title => 'Λήψη';
   @override
-  late final _StringsReceiveTabInfoBoxEl infoBox =
-      _StringsReceiveTabInfoBoxEl._(_root);
+  late final _StringsReceiveTabInfoBoxEl infoBox = _StringsReceiveTabInfoBoxEl._(_root);
 }
 
 // Path: sendTab
@@ -208,8 +191,7 @@ class _StringsSendTabEl extends _StringsSendTabEn {
   @override
   String get title => 'Αποστολή';
   @override
-  late final _StringsSendTabSelectionEl selection =
-      _StringsSendTabSelectionEl._(_root);
+  late final _StringsSendTabSelectionEl selection = _StringsSendTabSelectionEl._(_root);
   @override
   late final _StringsSendTabPickerEl picker = _StringsSendTabPickerEl._(_root);
   @override
@@ -224,13 +206,11 @@ class _StringsSendTabEl extends _StringsSendTabEn {
   @override
   String get sendMode => 'Λειτουργία αποστολής';
   @override
-  late final _StringsSendTabSendModesEl sendModes =
-      _StringsSendTabSendModesEl._(_root);
+  late final _StringsSendTabSendModesEl sendModes = _StringsSendTabSendModesEl._(_root);
   @override
   String get sendModeHelp => 'Επεξήγηση';
   @override
-  String get help =>
-      'Βεβαιωθείτε ότι ο επιθυμητός παραλήπτης βρίσκεται επίσης στο ίδιο δίκτυο Wi-Fi.';
+  String get help => 'Βεβαιωθείτε ότι ο επιθυμητός παραλήπτης βρίσκεται επίσης στο ίδιο δίκτυο Wi-Fi.';
   @override
   String get placeItems => 'Τοποθετήστε στοιχεία για διαμοιρασμό.';
 }
@@ -248,20 +228,15 @@ class _StringsSettingsTabEl extends _StringsSettingsTabEn {
   @override
   String get title => 'Ρυθμίσεις';
   @override
-  late final _StringsSettingsTabGeneralEl general =
-      _StringsSettingsTabGeneralEl._(_root);
+  late final _StringsSettingsTabGeneralEl general = _StringsSettingsTabGeneralEl._(_root);
   @override
-  late final _StringsSettingsTabReceiveEl receive =
-      _StringsSettingsTabReceiveEl._(_root);
+  late final _StringsSettingsTabReceiveEl receive = _StringsSettingsTabReceiveEl._(_root);
   @override
-  late final _StringsSettingsTabSendEl send =
-      _StringsSettingsTabSendEl._(_root);
+  late final _StringsSettingsTabSendEl send = _StringsSettingsTabSendEl._(_root);
   @override
-  late final _StringsSettingsTabNetworkEl network =
-      _StringsSettingsTabNetworkEl._(_root);
+  late final _StringsSettingsTabNetworkEl network = _StringsSettingsTabNetworkEl._(_root);
   @override
-  late final _StringsSettingsTabOtherEl other =
-      _StringsSettingsTabOtherEl._(_root);
+  late final _StringsSettingsTabOtherEl other = _StringsSettingsTabOtherEl._(_root);
   @override
   String get advancedSettings => 'Προχωρημένες ρυθμίσεις';
 }
@@ -279,18 +254,15 @@ class _StringsTroubleshootPageEl extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Αντιμετώπιση προβλημάτων';
   @override
-  String get subTitle =>
-      'Αυτή η εφαρμογή δεν λειτουργεί όπως αναμένεται; Εδώ μπορείτε να βρείτε κοινές λύσεις.';
+  String get subTitle => 'Αυτή η εφαρμογή δεν λειτουργεί όπως αναμένεται; Εδώ μπορείτε να βρείτε κοινές λύσεις.';
   @override
   String get solution => 'Λύση:';
   @override
   String get fixButton => 'Αυτόματη διόρθωση';
   @override
-  late final _StringsTroubleshootPageFirewallEl firewall =
-      _StringsTroubleshootPageFirewallEl._(_root);
+  late final _StringsTroubleshootPageFirewallEl firewall = _StringsTroubleshootPageFirewallEl._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionEl noConnection =
-      _StringsTroubleshootPageNoConnectionEl._(_root);
+  late final _StringsTroubleshootPageNoConnectionEl noConnection = _StringsTroubleshootPageNoConnectionEl._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -312,8 +284,7 @@ class _StringsReceiveHistoryPageEl extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Το ιστορικό είναι κενό.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsEl entryActions =
-      _StringsReceiveHistoryPageEntryActionsEl._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsEl entryActions = _StringsReceiveHistoryPageEntryActionsEl._(_root);
 }
 
 // Path: apkPickerPage
@@ -331,8 +302,7 @@ class _StringsApkPickerPageEl extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Εξαίρεση εφαρμογών συστήματος';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Εξαίρεση μη εκκινήσιμων εφαρμογών';
+  String get excludeAppsWithoutLaunchIntent => 'Εξαίρεση μη εκκινήσιμων εφαρμογών';
   @override
   String apps({required Object n}) => '${n} Εφαρμογές';
 }
@@ -362,8 +332,7 @@ class _StringsReceivePageEl extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
         n,
         one: 'θέλει να σου στείλει ένα αρχείο',
         other: 'θέλει να σου στείλει ${n} αρχεία',
@@ -395,8 +364,7 @@ class _StringsReceiveOptionsPageEl extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι.';
+  String get saveToGalleryOff => 'Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι.';
 }
 
 // Path: sendPage
@@ -434,8 +402,7 @@ class _StringsProgressPageEl extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Αποθηκεύτηκε στις Φωτογραφίες';
   @override
-  late final _StringsProgressPageTotalEl total =
-      _StringsProgressPageTotalEl._(_root);
+  late final _StringsProgressPageTotalEl total = _StringsProgressPageTotalEl._(_root);
 }
 
 // Path: webSharePage
@@ -457,8 +424,7 @@ class _StringsWebSharePageEl extends _StringsWebSharePageEn {
   @override
   String get error => 'Ένα σφάλμα προέκυψε κατά την εκκίνηση του διακομιστή.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
         n,
         one: 'Άνοιγμα αυτού του συνδέσμου στον φυλλομετρητή:',
         other: 'Άνοιγμα ενός από αυτούς τους συνδέσμους στον φυλλομετρητή:',
@@ -472,8 +438,7 @@ class _StringsWebSharePageEl extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Αυτόματη αποδοχή αιτημάτων';
   @override
-  String get encryptionHint =>
-      'Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.';
+  String get encryptionHint => 'Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.';
   @override
   String pendingRequests({required Object n}) => 'Αναμονή αιτημάτων: ${n}';
 }
@@ -623,8 +588,7 @@ class _StringsAliasGeneratorEl extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last.
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -638,69 +602,47 @@ class _StringsDialogsEl extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileEl addFile =
-      _StringsDialogsAddFileEl._(_root);
+  late final _StringsDialogsAddFileEl addFile = _StringsDialogsAddFileEl._(_root);
   @override
-  late final _StringsDialogsAddressInputEl addressInput =
-      _StringsDialogsAddressInputEl._(_root);
+  late final _StringsDialogsAddressInputEl addressInput = _StringsDialogsAddressInputEl._(_root);
   @override
-  late final _StringsDialogsCancelSessionEl cancelSession =
-      _StringsDialogsCancelSessionEl._(_root);
+  late final _StringsDialogsCancelSessionEl cancelSession = _StringsDialogsCancelSessionEl._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileEl cannotOpenFile =
-      _StringsDialogsCannotOpenFileEl._(_root);
+  late final _StringsDialogsCannotOpenFileEl cannotOpenFile = _StringsDialogsCannotOpenFileEl._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeEl
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeEl._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeEl encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeEl._(_root);
   @override
-  late final _StringsDialogsErrorDialogEl errorDialog =
-      _StringsDialogsErrorDialogEl._(_root);
+  late final _StringsDialogsErrorDialogEl errorDialog = _StringsDialogsErrorDialogEl._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogEl favoriteDialog =
-      _StringsDialogsFavoriteDialogEl._(_root);
+  late final _StringsDialogsFavoriteDialogEl favoriteDialog = _StringsDialogsFavoriteDialogEl._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogEl favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogEl._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogEl favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogEl._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogEl favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogEl._(_root);
+  late final _StringsDialogsFavoriteEditDialogEl favoriteEditDialog = _StringsDialogsFavoriteEditDialogEl._(_root);
   @override
-  late final _StringsDialogsFileInfoEl fileInfo =
-      _StringsDialogsFileInfoEl._(_root);
+  late final _StringsDialogsFileInfoEl fileInfo = _StringsDialogsFileInfoEl._(_root);
   @override
-  late final _StringsDialogsFileNameInputEl fileNameInput =
-      _StringsDialogsFileNameInputEl._(_root);
+  late final _StringsDialogsFileNameInputEl fileNameInput = _StringsDialogsFileNameInputEl._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogEl historyClearDialog =
-      _StringsDialogsHistoryClearDialogEl._(_root);
+  late final _StringsDialogsHistoryClearDialogEl historyClearDialog = _StringsDialogsHistoryClearDialogEl._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedEl
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedEl._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedEl localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEl._(_root);
   @override
-  late final _StringsDialogsMessageInputEl messageInput =
-      _StringsDialogsMessageInputEl._(_root);
+  late final _StringsDialogsMessageInputEl messageInput = _StringsDialogsMessageInputEl._(_root);
   @override
-  late final _StringsDialogsNoFilesEl noFiles =
-      _StringsDialogsNoFilesEl._(_root);
+  late final _StringsDialogsNoFilesEl noFiles = _StringsDialogsNoFilesEl._(_root);
   @override
-  late final _StringsDialogsNoPermissionEl noPermission =
-      _StringsDialogsNoPermissionEl._(_root);
+  late final _StringsDialogsNoPermissionEl noPermission = _StringsDialogsNoPermissionEl._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformEl notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformEl._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformEl notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEl._(_root);
   @override
   late final _StringsDialogsQrEl qr = _StringsDialogsQrEl._(_root);
   @override
-  late final _StringsDialogsQuickActionsEl quickActions =
-      _StringsDialogsQuickActionsEl._(_root);
+  late final _StringsDialogsQuickActionsEl quickActions = _StringsDialogsQuickActionsEl._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeEl quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeEl._(_root);
+  late final _StringsDialogsQuickSaveNoticeEl quickSaveNotice = _StringsDialogsQuickSaveNoticeEl._(_root);
   @override
-  late final _StringsDialogsSendModeHelpEl sendModeHelp =
-      _StringsDialogsSendModeHelpEl._(_root);
+  late final _StringsDialogsSendModeHelpEl sendModeHelp = _StringsDialogsSendModeHelpEl._(_root);
 }
 
 // Path: tray
@@ -772,14 +714,11 @@ class _StringsAssetPickerEl extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Μη υποστηριζόμενος τύπος αρχείου.';
   @override
-  String get unableToAccessAll =>
-      'Δεν είναι δυνατή η πρόσβαση σε όλα τα αρχεία της συσκευής';
+  String get unableToAccessAll => 'Δεν είναι δυνατή η πρόσβαση σε όλα τα αρχεία της συσκευής';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Προβολή μόνο των αρχείων και άλμπουμ που είναι προσβάσιμα από την εφαρμογή.';
+  String get viewingLimitedAssetsTip => 'Προβολή μόνο των αρχείων και άλμπουμ που είναι προσβάσιμα από την εφαρμογή.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Κάντε κλικ για ενημέρωση των προσβάσιμων αρχείων';
+  String get changeAccessibleLimitedAssets => 'Κάντε κλικ για ενημέρωση των προσβάσιμων αρχείων';
   @override
   String get accessAllTip =>
       'Η εφαρμογή μπορεί να έχει πρόσβαση μόνο σε ορισμένα αρχεία στη συσκευή. Μεταβείτε στις ρυθμίσεις συστήματος και επιτρέψτε στην εφαρμογή να έχει πρόσβαση σε όλα τα μέσα της συσκευής.';
@@ -906,23 +845,19 @@ class _StringsSettingsTabGeneralEl extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Θέμα';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsEl brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsEl._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsEl brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsEl._(_root);
   @override
   String get color => 'Χρώμα';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsEl colorOptions =
-      _StringsSettingsTabGeneralColorOptionsEl._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsEl colorOptions = _StringsSettingsTabGeneralColorOptionsEl._(_root);
   @override
   String get language => 'Γλώσσα';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsEl languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsEl._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsEl languageOptions = _StringsSettingsTabGeneralLanguageOptionsEl._(_root);
   @override
   String get saveWindowPlacement => 'Έξοδος: Αποθήκευση θέσης παραθύρου';
   @override
-  String get minimizeToTray =>
-      'Έξοδος: Ελαχιστοποίηση στη γραμμή εργασιών/μενού';
+  String get minimizeToTray => 'Έξοδος: Ελαχιστοποίηση στη γραμμή εργασιών/μενού';
   @override
   String get launchAtStartup => 'Αυτόματη εκκίνηση μετά τη σύνδεση';
   @override
@@ -970,8 +905,7 @@ class _StringsSettingsTabSendEl extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Αποστολή';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή';
+  String get shareViaLinkAutoAccept => 'Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή';
 }
 
 // Path: settingsTab.network
@@ -987,8 +921,7 @@ class _StringsSettingsTabNetworkEl extends _StringsSettingsTabNetworkEn {
   @override
   String get title => 'Δίκτυο';
   @override
-  String get needRestart =>
-      'Κάντε επανεκκίνηση του διακομιστή για να εφαρμοστούν οι ρυθμίσεις!';
+  String get needRestart => 'Κάντε επανεκκίνηση του διακομιστή για να εφαρμοστούν οι ρυθμίσεις!';
   @override
   String get server => 'Διακομιστής';
   @override
@@ -1034,8 +967,7 @@ class _StringsSettingsTabOtherEl extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallEl
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallEl extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1055,8 +987,7 @@ class _StringsTroubleshootPageFirewallEl
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionEl
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionEl extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1066,16 +997,14 @@ class _StringsTroubleshootPageNoConnectionEl
 
   // Translations
   @override
-  String get symptom =>
-      'Και οι δύο συσκευές δεν μπορούν να ανακαλύψουν η μία την άλλη ούτε μπορούν να μοιραστούν αρχεία.';
+  String get symptom => 'Και οι δύο συσκευές δεν μπορούν να ανακαλύψουν η μία την άλλη ούτε μπορούν να μοιραστούν αρχεία.';
   @override
   String get solution =>
       'Υπάρχει το πρόβλημα και από τις δύο πλευρές; Πρέπει να βεβαιωθείτε ότι και οι δύο συσκευές βρίσκονται στο ίδιο δίκτυο Wi-Fi και μοιράζονται την ίδια διαμόρφωση (θύρα, διεύθυνση αναμετάδοσης, κρυπτογράφηση). Το wifi ενδέχεται να μην επιτρέπει την επικοινωνία μεταξύ των συμμετεχόντων. Σε αυτήν την περίπτωση, αυτή η επιλογή πρέπει να είναι ενεργοποιημένη στο δρομολογητή.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsEl
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsEl extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1103,14 +1032,11 @@ class _StringsProgressPageTotalEl extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleEl title =
-      _StringsProgressPageTotalTitleEl._(_root);
+  late final _StringsProgressPageTotalTitleEl title = _StringsProgressPageTotalTitleEl._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Αρχεία: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Αρχεία: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Μέγεθος: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Μέγεθος: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Ταχύτητα: ${speed}/s';
 }
@@ -1180,13 +1106,11 @@ class _StringsDialogsCannotOpenFileEl extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Δεν μπορεί να ανοιχτεί το αρχείο';
   @override
-  String content({required Object file}) =>
-      'Δεν μπορεί να ανοιχτεί το "${file}". Έχετε μήπως μετακινήσει, μενονομάσει ή διαγράψει το αρχείο;';
+  String content({required Object file}) => 'Δεν μπορεί να ανοιχτεί το "${file}". Έχετε μήπως μετακινήσει, μενονομάσει ή διαγράψει το αρχείο;';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeEl
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeEl extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1235,8 +1159,7 @@ class _StringsDialogsFavoriteDialogEl extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogEl
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogEl extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1248,13 +1171,11 @@ class _StringsDialogsFavoriteDeleteDialogEl
   @override
   String get title => 'Διαγραφή από τα αγαπημένα';
   @override
-  String content({required Object name}) =>
-      'Θέλετε σίγουρα να διαγραφεί από τα αγαπημένα το "${name}"?';
+  String content({required Object name}) => 'Θέλετε σίγουρα να διαγραφεί από τα αγαπημένα το "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogEl
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogEl extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1318,8 +1239,7 @@ class _StringsDialogsFileNameInputEl extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogEl
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogEl extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1335,8 +1255,7 @@ class _StringsDialogsHistoryClearDialogEl
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedEl
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedEl extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1399,13 +1318,11 @@ class _StringsDialogsNoPermissionEl extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Χωρίς άδεια';
   @override
-  String get content =>
-      'Δεν έχετε παραχωρήσει τις απαραίτητες άδειες. Παρακαλώ παραχωρήστε τα στις ρυθμίσεις.';
+  String get content => 'Δεν έχετε παραχωρήσει τις απαραίτητες άδειες. Παρακαλώ παραχωρήστε τα στις ρυθμίσεις.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformEl
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformEl extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1459,8 +1376,7 @@ class _StringsDialogsQuickActionsEl extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeEl
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeEl extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1472,8 +1388,7 @@ class _StringsDialogsQuickSaveNoticeEl
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Τα αιτήματα αρχείων γίνονται αυτόματα δεκτά. Έχετε υπόψη σας ότι όλοι στο τοπικό δίκτυο μπορούν να σας στείλουν αρχεία.';
+  String get content => 'Τα αιτήματα αρχείων γίνονται αυτόματα δεκτά. Έχετε υπόψη σας ότι όλοι στο τοπικό δίκτυο μπορούν να σας στείλουν αρχεία.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1489,19 +1404,16 @@ class _StringsDialogsSendModeHelpEl extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Λειτουργίες αποστολής';
   @override
-  String get single =>
-      'Στέλνει αρχεία σε έναν παραλήπτη. Η επιλογή θα διαγραφεί μετά την ολοκλήρωση της μεταφοράς του αρχείου.';
+  String get single => 'Στέλνει αρχεία σε έναν παραλήπτη. Η επιλογή θα διαγραφεί μετά την ολοκλήρωση της μεταφοράς του αρχείου.';
   @override
-  String get multiple =>
-      'Στέλνει αρχεία σε πολλούς παραλήπτες. Η επιλογή δεν θα διαγραφεί.';
+  String get multiple => 'Στέλνει αρχεία σε πολλούς παραλήπτες. Η επιλογή δεν θα διαγραφεί.';
   @override
   String get link =>
       'Οι παραλήπτες που δεν έχουν εγκαταστήσει το LocalSend μπορούν να πραγματοποιήσουν λήψη των επιλεγμένων αρχείων ανοίγοντας τον σύνδεσμο στον φυλλομετρητή τους.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsEl
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsEl extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1519,8 +1431,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsEl
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsEl
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsEl extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1536,8 +1447,7 @@ class _StringsSettingsTabGeneralColorOptionsEl
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsEl
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsEl extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsEl._(_StringsEl root)
       : this._root = root,
         super._(root);
@@ -1551,8 +1461,7 @@ class _StringsSettingsTabGeneralLanguageOptionsEl
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleEl
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleEl extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleEl._(_StringsEl root)
       : this._root = root,
         super._(root);

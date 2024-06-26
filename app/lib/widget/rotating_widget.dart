@@ -36,8 +36,7 @@ class RotatingWidgetState extends State<RotatingWidget> {
   }
 
   void _updateAnglePerTick() {
-    _anglePerTick =
-        _maxRadians / (widget.duration.inMilliseconds / _tickDuration);
+    _anglePerTick = _maxRadians / (widget.duration.inMilliseconds / _tickDuration);
     if (widget.reverse) {
       _anglePerTick = -_anglePerTick;
     }

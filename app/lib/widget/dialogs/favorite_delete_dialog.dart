@@ -12,8 +12,7 @@ class FavoriteDeleteDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(t.dialogs.favoriteDeleteDialog.title),
-      content:
-          Text(t.dialogs.favoriteDeleteDialog.content(name: favorite.alias)),
+      content: Text(t.dialogs.favoriteDeleteDialog.content(name: favorite.alias)),
       actions: [
         TextButton(
           onPressed: () => context.pop(),

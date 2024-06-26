@@ -31,9 +31,7 @@ class _TextFieldTvState extends State<TextFieldTv> with Refena {
       return TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-          shape: RoundedRectangleBorder(
-              borderRadius:
-                  Theme.of(context).inputDecorationTheme.borderRadius),
+          shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
           foregroundColor: Theme.of(context).colorScheme.onSurface,
         ),
         onPressed: () async {
@@ -65,8 +63,7 @@ class _TextFieldTvState extends State<TextFieldTv> with Refena {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(widget.controller.text,
-              style: Theme.of(context).textTheme.titleMedium),
+          child: Text(widget.controller.text, style: Theme.of(context).textTheme.titleMedium),
         ),
       );
     } else {

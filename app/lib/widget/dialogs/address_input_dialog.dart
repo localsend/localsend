@@ -34,15 +34,13 @@ class AddressInputDialog extends StatefulWidget {
 }
 
 class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
-  final _selected =
-      List.generate(_InputMode.values.length, (index) => index == 0);
+  final _selected = List.generate(_InputMode.values.length, (index) => index == 0);
   _InputMode _mode = _InputMode.hashtag;
   String _input = '';
   bool _fetching = false;
   bool _failed = false;
 
-  Future<void> _submit(List<String> localIps, int port,
-      [String? candidate]) async {
+  Future<void> _submit(List<String> localIps, int port, [String? candidate]) async {
     final List<String> candidates;
     final String input = _input.trim();
     if (candidate != null) {
@@ -61,10 +59,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
-        for (final ip in candidates)
-          () => ref
-              .read(targetedDiscoveryProvider)
-              .discover(ip: ip, port: port, https: https),
+        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https),
       ],
     ).stream;
 
@@ -91,8 +86,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final localIps = (ref
-        .watch(localIpProvider.select((info) => info.localIps))).uniqueIpPrefix;
+    final localIps = (ref.watch(localIpProvider.select((info) => info.localIps))).uniqueIpPrefix;
     final settings = ref.watch(settingsProvider);
     final lastDevices = ref.watch(lastDevicesProvider);
 
@@ -117,8 +111,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
             constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
             children: _InputMode.values.map((mode) {
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Text(mode.label),
               );
             }).toList(),
@@ -128,9 +121,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
             key: ValueKey('input-$_mode'),
             autofocus: true,
             enabled: !_fetching,
-            keyboardType: _mode == _InputMode.hashtag
-                ? TextInputType.number
-                : TextInputType.text,
+            keyboardType: _mode == _InputMode.hashtag ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               prefixText: _mode == _InputMode.hashtag ? '# ' : 'IP: ',
             ),
@@ -177,11 +168,8 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                         if (index != 0) const TextSpan(text: ', '),
                         TextSpan(
                           text: device.ip,
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async =>
-                                _submit(localIps, settings.port, device.ip),
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                          recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
                         )
                       ];
                     }).expand((e) => e),
@@ -192,9 +180,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.warning)),
+              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
             ),
         ],
       ),
@@ -204,8 +190,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           child: Text(t.general.cancel),
         ),
         FilledButton(
-          onPressed:
-              _fetching ? null : () async => _submit(localIps, settings.port),
+          onPressed: _fetching ? null : () async => _submit(localIps, settings.port),
           child: Text(t.general.confirm),
         ),
       ],

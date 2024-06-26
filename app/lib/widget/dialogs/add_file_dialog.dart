@@ -12,9 +12,7 @@ class AddFileDialog extends StatelessWidget {
 
   const AddFileDialog({required this.options});
 
-  static Future<void> open(
-      {required BuildContext context,
-      required List<FilePickerOption> options}) async {
+  static Future<void> open({required BuildContext context, required List<FilePickerOption> options}) async {
     if (checkPlatformIsDesktop()) {
       await showDialog(
         context: context,
@@ -64,8 +62,7 @@ class AddFileDialog extends StatelessWidget {
             filled: true,
             onTap: () async {
               context.popUntilRoot();
-              await context.global.dispatchAsync(
-                  PickFileAction(option: option, context: context));
+              await context.global.dispatchAsync(PickFileAction(option: option, context: context));
             },
           );
         }),

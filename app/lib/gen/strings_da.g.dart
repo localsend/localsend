@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsDa extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsDa.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsDa.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.da,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <da>.
   @override
@@ -47,41 +41,31 @@ class _StringsDa extends Translations {
   @override
   late final _StringsSettingsTabDa settingsTab = _StringsSettingsTabDa._(_root);
   @override
-  late final _StringsTroubleshootPageDa troubleshootPage =
-      _StringsTroubleshootPageDa._(_root);
+  late final _StringsTroubleshootPageDa troubleshootPage = _StringsTroubleshootPageDa._(_root);
   @override
-  late final _StringsReceiveHistoryPageDa receiveHistoryPage =
-      _StringsReceiveHistoryPageDa._(_root);
+  late final _StringsReceiveHistoryPageDa receiveHistoryPage = _StringsReceiveHistoryPageDa._(_root);
   @override
-  late final _StringsApkPickerPageDa apkPickerPage =
-      _StringsApkPickerPageDa._(_root);
+  late final _StringsApkPickerPageDa apkPickerPage = _StringsApkPickerPageDa._(_root);
   @override
-  late final _StringsSelectedFilesPageDa selectedFilesPage =
-      _StringsSelectedFilesPageDa._(_root);
+  late final _StringsSelectedFilesPageDa selectedFilesPage = _StringsSelectedFilesPageDa._(_root);
   @override
   late final _StringsReceivePageDa receivePage = _StringsReceivePageDa._(_root);
   @override
-  late final _StringsReceiveOptionsPageDa receiveOptionsPage =
-      _StringsReceiveOptionsPageDa._(_root);
+  late final _StringsReceiveOptionsPageDa receiveOptionsPage = _StringsReceiveOptionsPageDa._(_root);
   @override
   late final _StringsSendPageDa sendPage = _StringsSendPageDa._(_root);
   @override
-  late final _StringsProgressPageDa progressPage =
-      _StringsProgressPageDa._(_root);
+  late final _StringsProgressPageDa progressPage = _StringsProgressPageDa._(_root);
   @override
-  late final _StringsWebSharePageDa webSharePage =
-      _StringsWebSharePageDa._(_root);
+  late final _StringsWebSharePageDa webSharePage = _StringsWebSharePageDa._(_root);
   @override
   late final _StringsAboutPageDa aboutPage = _StringsAboutPageDa._(_root);
   @override
-  late final _StringsDonationPageDa donationPage =
-      _StringsDonationPageDa._(_root);
+  late final _StringsDonationPageDa donationPage = _StringsDonationPageDa._(_root);
   @override
-  late final _StringsChangelogPageDa changelogPage =
-      _StringsChangelogPageDa._(_root);
+  late final _StringsChangelogPageDa changelogPage = _StringsChangelogPageDa._(_root);
   @override
-  late final _StringsAliasGeneratorDa aliasGenerator =
-      _StringsAliasGeneratorDa._(_root);
+  late final _StringsAliasGeneratorDa aliasGenerator = _StringsAliasGeneratorDa._(_root);
   @override
   late final _StringsDialogsDa dialogs = _StringsDialogsDa._(_root);
   @override
@@ -191,8 +175,7 @@ class _StringsReceiveTabDa extends _StringsReceiveTabEn {
   @override
   String get title => 'Modtag';
   @override
-  late final _StringsReceiveTabInfoBoxDa infoBox =
-      _StringsReceiveTabInfoBoxDa._(_root);
+  late final _StringsReceiveTabInfoBoxDa infoBox = _StringsReceiveTabInfoBoxDa._(_root);
 }
 
 // Path: sendTab
@@ -208,13 +191,11 @@ class _StringsSendTabDa extends _StringsSendTabEn {
   @override
   String get title => 'Send';
   @override
-  late final _StringsSendTabSelectionDa selection =
-      _StringsSendTabSelectionDa._(_root);
+  late final _StringsSendTabSelectionDa selection = _StringsSendTabSelectionDa._(_root);
   @override
   late final _StringsSendTabPickerDa picker = _StringsSendTabPickerDa._(_root);
   @override
-  String get shareIntentInfo =>
-      'Du kan også benytte "Dele"-funktionen på din mobilentelefon, for lettere at kunne vælge filer.';
+  String get shareIntentInfo => 'Du kan også benytte "Dele"-funktionen på din mobilentelefon, for lettere at kunne vælge filer.';
   @override
   String get nearbyDevices => 'Enheder tæt på';
   @override
@@ -224,13 +205,11 @@ class _StringsSendTabDa extends _StringsSendTabEn {
   @override
   String get sendMode => 'Sendemåde';
   @override
-  late final _StringsSendTabSendModesDa sendModes =
-      _StringsSendTabSendModesDa._(_root);
+  late final _StringsSendTabSendModesDa sendModes = _StringsSendTabSendModesDa._(_root);
   @override
   String get sendModeHelp => 'Forklaring';
   @override
-  String get help =>
-      'Vær venligst sikker på, at den ønskede enhed også befinder sig på samme Wi-Fi-netværk.';
+  String get help => 'Vær venligst sikker på, at den ønskede enhed også befinder sig på samme Wi-Fi-netværk.';
   @override
   String get placeItems => 'Placer filer for at dele.';
 }
@@ -248,17 +227,13 @@ class _StringsSettingsTabDa extends _StringsSettingsTabEn {
   @override
   String get title => 'Indstillinger';
   @override
-  late final _StringsSettingsTabGeneralDa general =
-      _StringsSettingsTabGeneralDa._(_root);
+  late final _StringsSettingsTabGeneralDa general = _StringsSettingsTabGeneralDa._(_root);
   @override
-  late final _StringsSettingsTabReceiveDa receive =
-      _StringsSettingsTabReceiveDa._(_root);
+  late final _StringsSettingsTabReceiveDa receive = _StringsSettingsTabReceiveDa._(_root);
   @override
-  late final _StringsSettingsTabNetworkDa network =
-      _StringsSettingsTabNetworkDa._(_root);
+  late final _StringsSettingsTabNetworkDa network = _StringsSettingsTabNetworkDa._(_root);
   @override
-  late final _StringsSettingsTabOtherDa other =
-      _StringsSettingsTabOtherDa._(_root);
+  late final _StringsSettingsTabOtherDa other = _StringsSettingsTabOtherDa._(_root);
   @override
   String get advancedSettings => 'Avancerede indstillinger';
 }
@@ -276,18 +251,15 @@ class _StringsTroubleshootPageDa extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Fejlmelding';
   @override
-  String get subTitle =>
-      'Virker appen ikke som forventet? Her finder du hyppigt brugte løsninger.';
+  String get subTitle => 'Virker appen ikke som forventet? Her finder du hyppigt brugte løsninger.';
   @override
   String get solution => 'Løsning:';
   @override
   String get fixButton => 'Løs automatisk';
   @override
-  late final _StringsTroubleshootPageFirewallDa firewall =
-      _StringsTroubleshootPageFirewallDa._(_root);
+  late final _StringsTroubleshootPageFirewallDa firewall = _StringsTroubleshootPageFirewallDa._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionDa noConnection =
-      _StringsTroubleshootPageNoConnectionDa._(_root);
+  late final _StringsTroubleshootPageNoConnectionDa noConnection = _StringsTroubleshootPageNoConnectionDa._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -309,8 +281,7 @@ class _StringsReceiveHistoryPageDa extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Historikken er tom.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsDa entryActions =
-      _StringsReceiveHistoryPageEntryActionsDa._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsDa entryActions = _StringsReceiveHistoryPageEntryActionsDa._(_root);
 }
 
 // Path: apkPickerPage
@@ -358,8 +329,7 @@ class _StringsReceivePageDa extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
         n,
         one: 'vil sende dig en fil',
         other: 'vil sende dig ${n} filer',
@@ -391,8 +361,7 @@ class _StringsReceiveOptionsPageDa extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Aufgrund von Ordnern automatisch ausgeschaltet.';
+  String get saveToGalleryOff => 'Aufgrund von Ordnern automatisch ausgeschaltet.';
 }
 
 // Path: sendPage
@@ -430,8 +399,7 @@ class _StringsProgressPageDa extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Gemt i fotos';
   @override
-  late final _StringsProgressPageTotalDa total =
-      _StringsProgressPageTotalDa._(_root);
+  late final _StringsProgressPageTotalDa total = _StringsProgressPageTotalDa._(_root);
 }
 
 // Path: webSharePage
@@ -453,8 +421,7 @@ class _StringsWebSharePageDa extends _StringsWebSharePageEn {
   @override
   String get error => 'En fejl opstod mens serveren blev startet.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
         n,
         one: 'Åben dette link i browseren:',
         other: 'Åben et af disse link i browseren:',
@@ -466,8 +433,7 @@ class _StringsWebSharePageDa extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.';
+  String get encryptionHint => 'LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.';
   @override
   String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
 }
@@ -510,8 +476,7 @@ class _StringsDonationPageDa extends _StringsDonationPageEn {
   @override
   String get title => 'Doner';
   @override
-  String get info =>
-      'LocalSend er gratis, open-source og reklamefri. Hvis du kan lide denne app, kan du støtte dens udvikling med en donation.';
+  String get info => 'LocalSend er gratis, open-source og reklamefri. Hvis du kan lide denne app, kan du støtte dens udvikling med en donation.';
   @override
   String donate({required Object amount}) => 'Donation ${amount}';
   @override
@@ -557,69 +522,47 @@ class _StringsDialogsDa extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileDa addFile =
-      _StringsDialogsAddFileDa._(_root);
+  late final _StringsDialogsAddFileDa addFile = _StringsDialogsAddFileDa._(_root);
   @override
-  late final _StringsDialogsAddressInputDa addressInput =
-      _StringsDialogsAddressInputDa._(_root);
+  late final _StringsDialogsAddressInputDa addressInput = _StringsDialogsAddressInputDa._(_root);
   @override
-  late final _StringsDialogsCancelSessionDa cancelSession =
-      _StringsDialogsCancelSessionDa._(_root);
+  late final _StringsDialogsCancelSessionDa cancelSession = _StringsDialogsCancelSessionDa._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileDa cannotOpenFile =
-      _StringsDialogsCannotOpenFileDa._(_root);
+  late final _StringsDialogsCannotOpenFileDa cannotOpenFile = _StringsDialogsCannotOpenFileDa._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeDa
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeDa._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeDa encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeDa._(_root);
   @override
-  late final _StringsDialogsErrorDialogDa errorDialog =
-      _StringsDialogsErrorDialogDa._(_root);
+  late final _StringsDialogsErrorDialogDa errorDialog = _StringsDialogsErrorDialogDa._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogDa favoriteDialog =
-      _StringsDialogsFavoriteDialogDa._(_root);
+  late final _StringsDialogsFavoriteDialogDa favoriteDialog = _StringsDialogsFavoriteDialogDa._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogDa favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogDa._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogDa favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogDa._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogDa favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogDa._(_root);
+  late final _StringsDialogsFavoriteEditDialogDa favoriteEditDialog = _StringsDialogsFavoriteEditDialogDa._(_root);
   @override
-  late final _StringsDialogsFileInfoDa fileInfo =
-      _StringsDialogsFileInfoDa._(_root);
+  late final _StringsDialogsFileInfoDa fileInfo = _StringsDialogsFileInfoDa._(_root);
   @override
-  late final _StringsDialogsFileNameInputDa fileNameInput =
-      _StringsDialogsFileNameInputDa._(_root);
+  late final _StringsDialogsFileNameInputDa fileNameInput = _StringsDialogsFileNameInputDa._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogDa historyClearDialog =
-      _StringsDialogsHistoryClearDialogDa._(_root);
+  late final _StringsDialogsHistoryClearDialogDa historyClearDialog = _StringsDialogsHistoryClearDialogDa._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedDa
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedDa._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedDa localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedDa._(_root);
   @override
-  late final _StringsDialogsMessageInputDa messageInput =
-      _StringsDialogsMessageInputDa._(_root);
+  late final _StringsDialogsMessageInputDa messageInput = _StringsDialogsMessageInputDa._(_root);
   @override
-  late final _StringsDialogsNoFilesDa noFiles =
-      _StringsDialogsNoFilesDa._(_root);
+  late final _StringsDialogsNoFilesDa noFiles = _StringsDialogsNoFilesDa._(_root);
   @override
-  late final _StringsDialogsNoPermissionDa noPermission =
-      _StringsDialogsNoPermissionDa._(_root);
+  late final _StringsDialogsNoPermissionDa noPermission = _StringsDialogsNoPermissionDa._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformDa notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformDa._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformDa notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformDa._(_root);
   @override
   late final _StringsDialogsQrDa qr = _StringsDialogsQrDa._(_root);
   @override
-  late final _StringsDialogsQuickActionsDa quickActions =
-      _StringsDialogsQuickActionsDa._(_root);
+  late final _StringsDialogsQuickActionsDa quickActions = _StringsDialogsQuickActionsDa._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeDa quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeDa._(_root);
+  late final _StringsDialogsQuickSaveNoticeDa quickSaveNotice = _StringsDialogsQuickSaveNoticeDa._(_root);
   @override
-  late final _StringsDialogsSendModeHelpDa sendModeHelp =
-      _StringsDialogsSendModeHelpDa._(_root);
+  late final _StringsDialogsSendModeHelpDa sendModeHelp = _StringsDialogsSendModeHelpDa._(_root);
 }
 
 // Path: tray
@@ -693,11 +636,9 @@ class _StringsAssetPickerDa extends _StringsAssetPickerEn {
   @override
   String get unableToAccessAll => 'Kan ikke tilgå alle filer på enheden.';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Vis kun filer og mapper tilgængelig for appen.';
+  String get viewingLimitedAssetsTip => 'Vis kun filer og mapper tilgængelig for appen.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Click for at opdatere tilgængelige filer';
+  String get changeAccessibleLimitedAssets => 'Click for at opdatere tilgængelige filer';
   @override
   String get accessAllTip =>
       'Appen kan kun tilgå nogle filer på enheden. Åben venligst systemindstillingerne og giv appen adgang til alle medier på enheden.';
@@ -824,18 +765,15 @@ class _StringsSettingsTabGeneralDa extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Tema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsDa brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsDa._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsDa brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsDa._(_root);
   @override
   String get color => 'Farve';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsDa colorOptions =
-      _StringsSettingsTabGeneralColorOptionsDa._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsDa colorOptions = _StringsSettingsTabGeneralColorOptionsDa._(_root);
   @override
   String get language => 'Sprog';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsDa languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsDa._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsDa languageOptions = _StringsSettingsTabGeneralLanguageOptionsDa._(_root);
   @override
   String get saveWindowPlacement => 'Afslut: Gem vindueposition.';
   @override
@@ -933,8 +871,7 @@ class _StringsSettingsTabOtherDa extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallDa
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallDa extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -944,8 +881,7 @@ class _StringsTroubleshootPageFirewallDa
 
   // Translations
   @override
-  String get symptom =>
-      'Denne app kan sende filer til andre endheder, men ikke omvendt.';
+  String get symptom => 'Denne app kan sende filer til andre endheder, men ikke omvendt.';
   @override
   String solution({required Object port}) =>
       'Dette er højsy sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port ${port} zulässt.';
@@ -954,8 +890,7 @@ class _StringsTroubleshootPageFirewallDa
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionDa
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionDa extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -965,16 +900,14 @@ class _StringsTroubleshootPageNoConnectionDa
 
   // Translations
   @override
-  String get symptom =>
-      'Begge enheder kan hverken se hinanden eller dele data.';
+  String get symptom => 'Begge enheder kan hverken se hinanden eller dele data.';
   @override
   String get solution =>
       'Findes problemet på begge sider? I så fald skal du sikrer, at begge enheder er tilsluttet samme Wi-Fi-netværk og deler den samme konfiguration (Port, Multicast-adresse, kryptering). Det er muligt, at Wi-Fi-netværket ikke tillader forbindelser mellem enheder. I så fald skal denne indstilling slås til på routeren.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsDa
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsDa extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1002,14 +935,11 @@ class _StringsProgressPageTotalDa extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleDa title =
-      _StringsProgressPageTotalTitleDa._(_root);
+  late final _StringsProgressPageTotalTitleDa title = _StringsProgressPageTotalTitleDa._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Filer: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Filer: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Størrelse: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Størrelse: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Hastighed: ${speed}/s';
 }
@@ -1079,13 +1009,11 @@ class _StringsDialogsCannotOpenFileDa extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Kan ikke åbne fil';
   @override
-  String content({required Object file}) =>
-      'Filen "${file}" kunne ikke åbnes. Er denne fil blevet flyttet, omdøbt eller slettet?';
+  String content({required Object file}) => 'Filen "${file}" kunne ikke åbnes. Er denne fil blevet flyttet, omdøbt eller slettet?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeDa
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeDa extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1097,8 +1025,7 @@ class _StringsDialogsEncryptionDisabledNoticeDa
   @override
   String get title => 'Kryptering slået fra';
   @override
-  String get content =>
-      'Kommunikationen forløber nu over den ukrypterede HTTP-protokol. Aktiver krypteringe for igen at benytte HTTPS.';
+  String get content => 'Kommunikationen forløber nu over den ukrypterede HTTP-protokol. Aktiver krypteringe for igen at benytte HTTPS.';
 }
 
 // Path: dialogs.errorDialog
@@ -1134,8 +1061,7 @@ class _StringsDialogsFavoriteDialogDa extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogDa
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogDa extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1151,8 +1077,7 @@ class _StringsDialogsFavoriteDeleteDialogDa
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogDa
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogDa extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1216,8 +1141,7 @@ class _StringsDialogsFileNameInputDa extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogDa
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogDa extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1233,8 +1157,7 @@ class _StringsDialogsHistoryClearDialogDa
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedDa
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedDa extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1297,13 +1220,11 @@ class _StringsDialogsNoPermissionDa extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Ingen tilladelse';
   @override
-  String get content =>
-      'Du har ikke givet de tilstrækkelige tilladelser. Giv venligst tilladelse i systemindstillingerne.';
+  String get content => 'Du har ikke givet de tilstrækkelige tilladelser. Giv venligst tilladelse i systemindstillingerne.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformDa
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformDa extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1357,8 +1278,7 @@ class _StringsDialogsQuickActionsDa extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeDa
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeDa extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1370,8 +1290,7 @@ class _StringsDialogsQuickSaveNoticeDa
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer.';
+  String get content => 'Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1387,19 +1306,15 @@ class _StringsDialogsSendModeHelpDa extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Sendemåde';
   @override
-  String get single =>
-      'Send filer til en modtager. Filvalget vil blive ryddet når filoverførslen er slut.';
+  String get single => 'Send filer til en modtager. Filvalget vil blive ryddet når filoverførslen er slut.';
   @override
-  String get multiple =>
-      'Send filer til flere modtagere. Filvalget vil ikke blive ryddet.';
+  String get multiple => 'Send filer til flere modtagere. Filvalget vil ikke blive ryddet.';
   @override
-  String get link =>
-      'Modtagere, der ikke har LocalSend installeret, kan downloade de valgte filer i en browser.';
+  String get link => 'Modtagere, der ikke har LocalSend installeret, kan downloade de valgte filer i en browser.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsDa
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsDa extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1417,8 +1332,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsDa
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsDa
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsDa extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1434,8 +1348,7 @@ class _StringsSettingsTabGeneralColorOptionsDa
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsDa
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsDa extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsDa._(_StringsDa root)
       : this._root = root,
         super._(root);
@@ -1449,8 +1362,7 @@ class _StringsSettingsTabGeneralLanguageOptionsDa
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleDa
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleDa extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleDa._(_StringsDa root)
       : this._root = root,
         super._(root);

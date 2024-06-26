@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsKo extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsKo.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsKo.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.ko,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ko>.
   @override
@@ -47,41 +41,31 @@ class _StringsKo extends Translations {
   @override
   late final _StringsSettingsTabKo settingsTab = _StringsSettingsTabKo._(_root);
   @override
-  late final _StringsTroubleshootPageKo troubleshootPage =
-      _StringsTroubleshootPageKo._(_root);
+  late final _StringsTroubleshootPageKo troubleshootPage = _StringsTroubleshootPageKo._(_root);
   @override
-  late final _StringsReceiveHistoryPageKo receiveHistoryPage =
-      _StringsReceiveHistoryPageKo._(_root);
+  late final _StringsReceiveHistoryPageKo receiveHistoryPage = _StringsReceiveHistoryPageKo._(_root);
   @override
-  late final _StringsApkPickerPageKo apkPickerPage =
-      _StringsApkPickerPageKo._(_root);
+  late final _StringsApkPickerPageKo apkPickerPage = _StringsApkPickerPageKo._(_root);
   @override
-  late final _StringsSelectedFilesPageKo selectedFilesPage =
-      _StringsSelectedFilesPageKo._(_root);
+  late final _StringsSelectedFilesPageKo selectedFilesPage = _StringsSelectedFilesPageKo._(_root);
   @override
   late final _StringsReceivePageKo receivePage = _StringsReceivePageKo._(_root);
   @override
-  late final _StringsReceiveOptionsPageKo receiveOptionsPage =
-      _StringsReceiveOptionsPageKo._(_root);
+  late final _StringsReceiveOptionsPageKo receiveOptionsPage = _StringsReceiveOptionsPageKo._(_root);
   @override
   late final _StringsSendPageKo sendPage = _StringsSendPageKo._(_root);
   @override
-  late final _StringsProgressPageKo progressPage =
-      _StringsProgressPageKo._(_root);
+  late final _StringsProgressPageKo progressPage = _StringsProgressPageKo._(_root);
   @override
-  late final _StringsWebSharePageKo webSharePage =
-      _StringsWebSharePageKo._(_root);
+  late final _StringsWebSharePageKo webSharePage = _StringsWebSharePageKo._(_root);
   @override
   late final _StringsAboutPageKo aboutPage = _StringsAboutPageKo._(_root);
   @override
-  late final _StringsDonationPageKo donationPage =
-      _StringsDonationPageKo._(_root);
+  late final _StringsDonationPageKo donationPage = _StringsDonationPageKo._(_root);
   @override
-  late final _StringsChangelogPageKo changelogPage =
-      _StringsChangelogPageKo._(_root);
+  late final _StringsChangelogPageKo changelogPage = _StringsChangelogPageKo._(_root);
   @override
-  late final _StringsAliasGeneratorKo aliasGenerator =
-      _StringsAliasGeneratorKo._(_root);
+  late final _StringsAliasGeneratorKo aliasGenerator = _StringsAliasGeneratorKo._(_root);
   @override
   late final _StringsDialogsKo dialogs = _StringsDialogsKo._(_root);
   @override
@@ -191,8 +175,7 @@ class _StringsReceiveTabKo extends _StringsReceiveTabEn {
   @override
   String get title => '수신';
   @override
-  late final _StringsReceiveTabInfoBoxKo infoBox =
-      _StringsReceiveTabInfoBoxKo._(_root);
+  late final _StringsReceiveTabInfoBoxKo infoBox = _StringsReceiveTabInfoBoxKo._(_root);
 }
 
 // Path: sendTab
@@ -208,8 +191,7 @@ class _StringsSendTabKo extends _StringsSendTabEn {
   @override
   String get title => '송신';
   @override
-  late final _StringsSendTabSelectionKo selection =
-      _StringsSendTabSelectionKo._(_root);
+  late final _StringsSendTabSelectionKo selection = _StringsSendTabSelectionKo._(_root);
   @override
   late final _StringsSendTabPickerKo picker = _StringsSendTabPickerKo._(_root);
   @override
@@ -223,8 +205,7 @@ class _StringsSendTabKo extends _StringsSendTabEn {
   @override
   String get sendMode => '전송 모드';
   @override
-  late final _StringsSendTabSendModesKo sendModes =
-      _StringsSendTabSendModesKo._(_root);
+  late final _StringsSendTabSendModesKo sendModes = _StringsSendTabSendModesKo._(_root);
   @override
   String get sendModeHelp => '설명';
   @override
@@ -246,20 +227,15 @@ class _StringsSettingsTabKo extends _StringsSettingsTabEn {
   @override
   String get title => '설정';
   @override
-  late final _StringsSettingsTabGeneralKo general =
-      _StringsSettingsTabGeneralKo._(_root);
+  late final _StringsSettingsTabGeneralKo general = _StringsSettingsTabGeneralKo._(_root);
   @override
-  late final _StringsSettingsTabReceiveKo receive =
-      _StringsSettingsTabReceiveKo._(_root);
+  late final _StringsSettingsTabReceiveKo receive = _StringsSettingsTabReceiveKo._(_root);
   @override
-  late final _StringsSettingsTabSendKo send =
-      _StringsSettingsTabSendKo._(_root);
+  late final _StringsSettingsTabSendKo send = _StringsSettingsTabSendKo._(_root);
   @override
-  late final _StringsSettingsTabNetworkKo network =
-      _StringsSettingsTabNetworkKo._(_root);
+  late final _StringsSettingsTabNetworkKo network = _StringsSettingsTabNetworkKo._(_root);
   @override
-  late final _StringsSettingsTabOtherKo other =
-      _StringsSettingsTabOtherKo._(_root);
+  late final _StringsSettingsTabOtherKo other = _StringsSettingsTabOtherKo._(_root);
   @override
   String get advancedSettings => '고급 설정';
 }
@@ -283,11 +259,9 @@ class _StringsTroubleshootPageKo extends _StringsTroubleshootPageEn {
   @override
   String get fixButton => '자동으로 수정하기';
   @override
-  late final _StringsTroubleshootPageFirewallKo firewall =
-      _StringsTroubleshootPageFirewallKo._(_root);
+  late final _StringsTroubleshootPageFirewallKo firewall = _StringsTroubleshootPageFirewallKo._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionKo noConnection =
-      _StringsTroubleshootPageNoConnectionKo._(_root);
+  late final _StringsTroubleshootPageNoConnectionKo noConnection = _StringsTroubleshootPageNoConnectionKo._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -309,8 +283,7 @@ class _StringsReceiveHistoryPageKo extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => '전송 기록이 비어 있습니다.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsKo entryActions =
-      _StringsReceiveHistoryPageEntryActionsKo._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsKo entryActions = _StringsReceiveHistoryPageEntryActionsKo._(_root);
 }
 
 // Path: apkPickerPage
@@ -358,8 +331,7 @@ class _StringsReceivePageKo extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
         n,
         one: '에서 파일을 보내려고 합니다',
         other: '에서 ${n}개의 파일을 보내려고 합니다',
@@ -429,8 +401,7 @@ class _StringsProgressPageKo extends _StringsProgressPageEn {
   @override
   String get savedToGallery => '갤러리에 저장했습니다.';
   @override
-  late final _StringsProgressPageTotalKo total =
-      _StringsProgressPageTotalKo._(_root);
+  late final _StringsProgressPageTotalKo total = _StringsProgressPageTotalKo._(_root);
 }
 
 // Path: webSharePage
@@ -452,8 +423,7 @@ class _StringsWebSharePageKo extends _StringsWebSharePageEn {
   @override
   String get error => '서버 시작 중 오류가 발생했습니다.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
         n,
         one: '이 링크를 브라우저에서 열기:',
         other: '이 중 하나의 링크를 브라우저에서 열기:',
@@ -510,8 +480,7 @@ class _StringsDonationPageKo extends _StringsDonationPageEn {
   @override
   String get title => '기부';
   @override
-  String get info =>
-      'LocalSend는 광고 없이 무료이며 오픈소스입니다. 앱을 좋아하신다면 개발을 후원하는 기부를 해주세요.';
+  String get info => 'LocalSend는 광고 없이 무료이며 오픈소스입니다. 앱을 좋아하신다면 개발을 후원하는 기부를 해주세요.';
   @override
   String donate({required Object amount}) => '${amount} 기부하기';
   @override
@@ -557,69 +526,47 @@ class _StringsDialogsKo extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileKo addFile =
-      _StringsDialogsAddFileKo._(_root);
+  late final _StringsDialogsAddFileKo addFile = _StringsDialogsAddFileKo._(_root);
   @override
-  late final _StringsDialogsAddressInputKo addressInput =
-      _StringsDialogsAddressInputKo._(_root);
+  late final _StringsDialogsAddressInputKo addressInput = _StringsDialogsAddressInputKo._(_root);
   @override
-  late final _StringsDialogsCancelSessionKo cancelSession =
-      _StringsDialogsCancelSessionKo._(_root);
+  late final _StringsDialogsCancelSessionKo cancelSession = _StringsDialogsCancelSessionKo._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileKo cannotOpenFile =
-      _StringsDialogsCannotOpenFileKo._(_root);
+  late final _StringsDialogsCannotOpenFileKo cannotOpenFile = _StringsDialogsCannotOpenFileKo._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeKo
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeKo._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeKo encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeKo._(_root);
   @override
-  late final _StringsDialogsErrorDialogKo errorDialog =
-      _StringsDialogsErrorDialogKo._(_root);
+  late final _StringsDialogsErrorDialogKo errorDialog = _StringsDialogsErrorDialogKo._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogKo favoriteDialog =
-      _StringsDialogsFavoriteDialogKo._(_root);
+  late final _StringsDialogsFavoriteDialogKo favoriteDialog = _StringsDialogsFavoriteDialogKo._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogKo favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogKo._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogKo favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogKo._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogKo favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogKo._(_root);
+  late final _StringsDialogsFavoriteEditDialogKo favoriteEditDialog = _StringsDialogsFavoriteEditDialogKo._(_root);
   @override
-  late final _StringsDialogsFileInfoKo fileInfo =
-      _StringsDialogsFileInfoKo._(_root);
+  late final _StringsDialogsFileInfoKo fileInfo = _StringsDialogsFileInfoKo._(_root);
   @override
-  late final _StringsDialogsFileNameInputKo fileNameInput =
-      _StringsDialogsFileNameInputKo._(_root);
+  late final _StringsDialogsFileNameInputKo fileNameInput = _StringsDialogsFileNameInputKo._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogKo historyClearDialog =
-      _StringsDialogsHistoryClearDialogKo._(_root);
+  late final _StringsDialogsHistoryClearDialogKo historyClearDialog = _StringsDialogsHistoryClearDialogKo._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedKo
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedKo._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedKo localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedKo._(_root);
   @override
-  late final _StringsDialogsMessageInputKo messageInput =
-      _StringsDialogsMessageInputKo._(_root);
+  late final _StringsDialogsMessageInputKo messageInput = _StringsDialogsMessageInputKo._(_root);
   @override
-  late final _StringsDialogsNoFilesKo noFiles =
-      _StringsDialogsNoFilesKo._(_root);
+  late final _StringsDialogsNoFilesKo noFiles = _StringsDialogsNoFilesKo._(_root);
   @override
-  late final _StringsDialogsNoPermissionKo noPermission =
-      _StringsDialogsNoPermissionKo._(_root);
+  late final _StringsDialogsNoPermissionKo noPermission = _StringsDialogsNoPermissionKo._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformKo notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformKo._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformKo notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformKo._(_root);
   @override
   late final _StringsDialogsQrKo qr = _StringsDialogsQrKo._(_root);
   @override
-  late final _StringsDialogsQuickActionsKo quickActions =
-      _StringsDialogsQuickActionsKo._(_root);
+  late final _StringsDialogsQuickActionsKo quickActions = _StringsDialogsQuickActionsKo._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeKo quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeKo._(_root);
+  late final _StringsDialogsQuickSaveNoticeKo quickSaveNotice = _StringsDialogsQuickSaveNoticeKo._(_root);
   @override
-  late final _StringsDialogsSendModeHelpKo sendModeHelp =
-      _StringsDialogsSendModeHelpKo._(_root);
+  late final _StringsDialogsSendModeHelpKo sendModeHelp = _StringsDialogsSendModeHelpKo._(_root);
 }
 
 // Path: tray
@@ -697,8 +644,7 @@ class _StringsAssetPickerKo extends _StringsAssetPickerEn {
   @override
   String get changeAccessibleLimitedAssets => '접근 가능한 파일을 업데이트하려면 클릭하세요.';
   @override
-  String get accessAllTip =>
-      '앱은 기기의 일부 파일에만 접근할 수 있습니다. 시스템 설정으로 이동하여 앱이 기기의 모든 미디어에 액세스할 수 있도록 허용하세요.';
+  String get accessAllTip => '앱은 기기의 일부 파일에만 접근할 수 있습니다. 시스템 설정으로 이동하여 앱이 기기의 모든 미디어에 액세스할 수 있도록 허용하세요.';
   @override
   String get goToSystemSettings => '시스템 설정으로 이동';
   @override
@@ -822,18 +768,15 @@ class _StringsSettingsTabGeneralKo extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => '밝기';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsKo brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsKo._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsKo brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsKo._(_root);
   @override
   String get color => '색상';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsKo colorOptions =
-      _StringsSettingsTabGeneralColorOptionsKo._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsKo colorOptions = _StringsSettingsTabGeneralColorOptionsKo._(_root);
   @override
   String get language => '언어';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsKo languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsKo._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsKo languageOptions = _StringsSettingsTabGeneralLanguageOptionsKo._(_root);
   @override
   String get saveWindowPlacement => '종료: 화면 위치 저장하기';
   @override
@@ -913,8 +856,7 @@ class _StringsSettingsTabNetworkKo extends _StringsSettingsTabNetworkEn {
   @override
   String get port => '포트';
   @override
-  String portWarning({required Object defaultPort}) =>
-      '커스텀 포트를 사용하면 이 디바이스가 다른 장치에서 감지되지 않을 수 있습니다. (기본값: ${defaultPort})';
+  String portWarning({required Object defaultPort}) => '커스텀 포트를 사용하면 이 디바이스가 다른 장치에서 감지되지 않을 수 있습니다. (기본값: ${defaultPort})';
   @override
   String get encryption => '암호화';
   @override
@@ -947,8 +889,7 @@ class _StringsSettingsTabOtherKo extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallKo
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallKo extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -958,18 +899,15 @@ class _StringsTroubleshootPageFirewallKo
 
   // Translations
   @override
-  String get symptom =>
-      '이 앱은 다른 기기로 파일을 보낼 수 있지만, 다른 기기에서 이 기기로 파일을 보낼 수 없습니다.';
+  String get symptom => '이 앱은 다른 기기로 파일을 보낼 수 있지만, 다른 기기에서 이 기기로 파일을 보낼 수 없습니다.';
   @override
-  String solution({required Object port}) =>
-      '방화벽 설정 때문일 가능성이 높습니다. ${port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.';
+  String solution({required Object port}) => '방화벽 설정 때문일 가능성이 높습니다. ${port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.';
   @override
   String get openFirewall => '방화벽 열기';
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionKo
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionKo extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -986,8 +924,7 @@ class _StringsTroubleshootPageNoConnectionKo
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsKo
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsKo extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1015,14 +952,11 @@ class _StringsProgressPageTotalKo extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleKo title =
-      _StringsProgressPageTotalTitleKo._(_root);
+  late final _StringsProgressPageTotalTitleKo title = _StringsProgressPageTotalTitleKo._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      '파일: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => '파일: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      '크기: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => '크기: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => '속도: ${speed}/s';
 }
@@ -1092,13 +1026,11 @@ class _StringsDialogsCannotOpenFileKo extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => '파일을 열 수 없음';
   @override
-  String content({required Object file}) =>
-      '"${file}"을 열 수 없습니다. 파일이 이동, 이름 변경 또는 삭제 되었는지 확인해주세요.';
+  String content({required Object file}) => '"${file}"을 열 수 없습니다. 파일이 이동, 이름 변경 또는 삭제 되었는지 확인해주세요.';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeKo
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeKo extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1110,8 +1042,7 @@ class _StringsDialogsEncryptionDisabledNoticeKo
   @override
   String get title => '암호화가 비활성화되었습니다';
   @override
-  String get content =>
-      '이제부터 암호화되지 않은 HTTP 프로토콜로 통신이 이루어집니다. HTTPS를 사용하려면 암호화를 다시 활성화해주세요.';
+  String get content => '이제부터 암호화되지 않은 HTTP 프로토콜로 통신이 이루어집니다. HTTPS를 사용하려면 암호화를 다시 활성화해주세요.';
 }
 
 // Path: dialogs.errorDialog
@@ -1147,8 +1078,7 @@ class _StringsDialogsFavoriteDialogKo extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogKo
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogKo extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1164,8 +1094,7 @@ class _StringsDialogsFavoriteDeleteDialogKo
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogKo
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogKo extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1229,8 +1158,7 @@ class _StringsDialogsFileNameInputKo extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogKo
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogKo extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1246,8 +1174,7 @@ class _StringsDialogsHistoryClearDialogKo
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedKo
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedKo extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1259,8 +1186,7 @@ class _StringsDialogsLocalNetworkUnauthorizedKo
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description =>
-      '로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.';
+  String get description => '로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.';
   @override
   String get gotoSettings => '설정';
 }
@@ -1314,8 +1240,7 @@ class _StringsDialogsNoPermissionKo extends _StringsDialogsNoPermissionEn {
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformKo
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformKo extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1369,8 +1294,7 @@ class _StringsDialogsQuickActionsKo extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeKo
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeKo extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1382,8 +1306,7 @@ class _StringsDialogsQuickSaveNoticeKo
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      '파일 요청이 자동으로 수락됩니다. 로컬 네트워크의 누구나 파일을 보낼 수 있게되므로 주의해 주세요.';
+  String get content => '파일 요청이 자동으로 수락됩니다. 로컬 네트워크의 누구나 파일을 보낼 수 있게되므로 주의해 주세요.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1403,13 +1326,11 @@ class _StringsDialogsSendModeHelpKo extends _StringsDialogsSendModeHelpEn {
   @override
   String get multiple => '파일을 여러 명의 수신자에게 보냅니다. 선택이 지워지지 않습니다.';
   @override
-  String get link =>
-      'LocalSend를 설치하지 않은 수신자는 브라우저에서 링크를 열어 선택한 파일을 다운로드할 수 있습니다.';
+  String get link => 'LocalSend를 설치하지 않은 수신자는 브라우저에서 링크를 열어 선택한 파일을 다운로드할 수 있습니다.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsKo
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsKo extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1427,8 +1348,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsKo
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsKo
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsKo extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1444,8 +1364,7 @@ class _StringsSettingsTabGeneralColorOptionsKo
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsKo
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsKo extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsKo._(_StringsKo root)
       : this._root = root,
         super._(root);
@@ -1459,8 +1378,7 @@ class _StringsSettingsTabGeneralLanguageOptionsKo
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleKo
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleKo extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleKo._(_StringsKo root)
       : this._root = root,
         super._(root);

@@ -12,17 +12,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   ///
   /// Usage:
   /// final t = Translations.of(context);
-  static Translations of(BuildContext context) =>
-      InheritedLocaleData.of<AppLocale, Translations>(context).translations;
+  static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  Translations.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  Translations.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.en,
           overrides: overrides ?? {},
@@ -43,32 +38,21 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   late final _StringsReceiveTabEn receiveTab = _StringsReceiveTabEn._(_root);
   late final _StringsSendTabEn sendTab = _StringsSendTabEn._(_root);
   late final _StringsSettingsTabEn settingsTab = _StringsSettingsTabEn._(_root);
-  late final _StringsTroubleshootPageEn troubleshootPage =
-      _StringsTroubleshootPageEn._(_root);
-  late final _StringsReceiveHistoryPageEn receiveHistoryPage =
-      _StringsReceiveHistoryPageEn._(_root);
-  late final _StringsApkPickerPageEn apkPickerPage =
-      _StringsApkPickerPageEn._(_root);
-  late final _StringsSelectedFilesPageEn selectedFilesPage =
-      _StringsSelectedFilesPageEn._(_root);
+  late final _StringsTroubleshootPageEn troubleshootPage = _StringsTroubleshootPageEn._(_root);
+  late final _StringsReceiveHistoryPageEn receiveHistoryPage = _StringsReceiveHistoryPageEn._(_root);
+  late final _StringsApkPickerPageEn apkPickerPage = _StringsApkPickerPageEn._(_root);
+  late final _StringsSelectedFilesPageEn selectedFilesPage = _StringsSelectedFilesPageEn._(_root);
   late final _StringsReceivePageEn receivePage = _StringsReceivePageEn._(_root);
-  late final _StringsReceiveOptionsPageEn receiveOptionsPage =
-      _StringsReceiveOptionsPageEn._(_root);
+  late final _StringsReceiveOptionsPageEn receiveOptionsPage = _StringsReceiveOptionsPageEn._(_root);
   late final _StringsSendPageEn sendPage = _StringsSendPageEn._(_root);
-  late final _StringsProgressPageEn progressPage =
-      _StringsProgressPageEn._(_root);
-  late final _StringsWebSharePageEn webSharePage =
-      _StringsWebSharePageEn._(_root);
+  late final _StringsProgressPageEn progressPage = _StringsProgressPageEn._(_root);
+  late final _StringsWebSharePageEn webSharePage = _StringsWebSharePageEn._(_root);
   late final _StringsAboutPageEn aboutPage = _StringsAboutPageEn._(_root);
-  late final _StringsDonationPageEn donationPage =
-      _StringsDonationPageEn._(_root);
-  late final _StringsChangelogPageEn changelogPage =
-      _StringsChangelogPageEn._(_root);
-  late final _StringsAliasGeneratorEn aliasGenerator =
-      _StringsAliasGeneratorEn._(_root);
+  late final _StringsDonationPageEn donationPage = _StringsDonationPageEn._(_root);
+  late final _StringsChangelogPageEn changelogPage = _StringsChangelogPageEn._(_root);
+  late final _StringsAliasGeneratorEn aliasGenerator = _StringsAliasGeneratorEn._(_root);
   late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
-  late final _StringsSanitizationEn sanitization =
-      _StringsSanitizationEn._(_root);
+  late final _StringsSanitizationEn sanitization = _StringsSanitizationEn._(_root);
   late final _StringsTrayEn tray = _StringsTrayEn._(_root);
   late final _StringsWebEn web = _StringsWebEn._(_root);
   late final _StringsAssetPickerEn assetPicker = _StringsAssetPickerEn._(_root);
@@ -128,8 +112,7 @@ class _StringsReceiveTabEn {
 
   // Translations
   String get title => 'Receive';
-  late final _StringsReceiveTabInfoBoxEn infoBox =
-      _StringsReceiveTabInfoBoxEn._(_root);
+  late final _StringsReceiveTabInfoBoxEn infoBox = _StringsReceiveTabInfoBoxEn._(_root);
 }
 
 // Path: sendTab
@@ -140,20 +123,16 @@ class _StringsSendTabEn {
 
   // Translations
   String get title => 'Send';
-  late final _StringsSendTabSelectionEn selection =
-      _StringsSendTabSelectionEn._(_root);
+  late final _StringsSendTabSelectionEn selection = _StringsSendTabSelectionEn._(_root);
   late final _StringsSendTabPickerEn picker = _StringsSendTabPickerEn._(_root);
-  String get shareIntentInfo =>
-      'You can also use the "Share" feature of your mobile device to select files more easily.';
+  String get shareIntentInfo => 'You can also use the "Share" feature of your mobile device to select files more easily.';
   String get nearbyDevices => 'Nearby devices';
   String get thisDevice => 'This Device';
   String get scan => 'Look for devices';
   String get sendMode => 'Send mode';
-  late final _StringsSendTabSendModesEn sendModes =
-      _StringsSendTabSendModesEn._(_root);
+  late final _StringsSendTabSendModesEn sendModes = _StringsSendTabSendModesEn._(_root);
   String get sendModeHelp => 'Explanation';
-  String get help =>
-      'Please ensure that the desired target is also on the same Wi-Fi network.';
+  String get help => 'Please ensure that the desired target is also on the same Wi-Fi network.';
   String get placeItems => 'Place items to share.';
 }
 
@@ -165,16 +144,11 @@ class _StringsSettingsTabEn {
 
   // Translations
   String get title => 'Settings';
-  late final _StringsSettingsTabGeneralEn general =
-      _StringsSettingsTabGeneralEn._(_root);
-  late final _StringsSettingsTabReceiveEn receive =
-      _StringsSettingsTabReceiveEn._(_root);
-  late final _StringsSettingsTabSendEn send =
-      _StringsSettingsTabSendEn._(_root);
-  late final _StringsSettingsTabNetworkEn network =
-      _StringsSettingsTabNetworkEn._(_root);
-  late final _StringsSettingsTabOtherEn other =
-      _StringsSettingsTabOtherEn._(_root);
+  late final _StringsSettingsTabGeneralEn general = _StringsSettingsTabGeneralEn._(_root);
+  late final _StringsSettingsTabReceiveEn receive = _StringsSettingsTabReceiveEn._(_root);
+  late final _StringsSettingsTabSendEn send = _StringsSettingsTabSendEn._(_root);
+  late final _StringsSettingsTabNetworkEn network = _StringsSettingsTabNetworkEn._(_root);
+  late final _StringsSettingsTabOtherEn other = _StringsSettingsTabOtherEn._(_root);
   String get advancedSettings => 'Advanced settings';
 }
 
@@ -186,14 +160,11 @@ class _StringsTroubleshootPageEn {
 
   // Translations
   String get title => 'Troubleshoot';
-  String get subTitle =>
-      'Does the app not work as expected? Here you can find some common solutions.';
+  String get subTitle => 'Does the app not work as expected? Here you can find some common solutions.';
   String get solution => 'Solution:';
   String get fixButton => 'Fix automatically';
-  late final _StringsTroubleshootPageFirewallEn firewall =
-      _StringsTroubleshootPageFirewallEn._(_root);
-  late final _StringsTroubleshootPageNoConnectionEn noConnection =
-      _StringsTroubleshootPageNoConnectionEn._(_root);
+  late final _StringsTroubleshootPageFirewallEn firewall = _StringsTroubleshootPageFirewallEn._(_root);
+  late final _StringsTroubleshootPageNoConnectionEn noConnection = _StringsTroubleshootPageNoConnectionEn._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -207,8 +178,7 @@ class _StringsReceiveHistoryPageEn {
   String get openFolder => 'Open folder';
   String get deleteHistory => 'Delete history';
   String get empty => 'The history is empty.';
-  late final _StringsReceiveHistoryPageEntryActionsEn entryActions =
-      _StringsReceiveHistoryPageEntryActionsEn._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsEn entryActions = _StringsReceiveHistoryPageEntryActionsEn._(_root);
 }
 
 // Path: apkPickerPage
@@ -241,8 +211,7 @@ class _StringsReceivePageEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
         n,
         one: 'wants to send you a file',
         other: 'wants to send you ${n} files',
@@ -263,8 +232,7 @@ class _StringsReceiveOptionsPageEn {
   String get destination => _root.settingsTab.receive.destination;
   String get appDirectory => '(LocalSend folder)';
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-  String get saveToGalleryOff =>
-      'Turned off automatically because there are directories.';
+  String get saveToGalleryOff => 'Turned off automatically because there are directories.';
 }
 
 // Path: sendPage
@@ -289,8 +257,7 @@ class _StringsProgressPageEn {
   String get titleSending => 'Sending files';
   String get titleReceiving => 'Receiving files';
   String get savedToGallery => 'Saved in Photos';
-  late final _StringsProgressPageTotalEn total =
-      _StringsProgressPageTotalEn._(_root);
+  late final _StringsProgressPageTotalEn total = _StringsProgressPageTotalEn._(_root);
 }
 
 // Path: webSharePage
@@ -304,8 +271,7 @@ class _StringsWebSharePageEn {
   String get loading => 'Starting server...';
   String get stopping => 'Stopping server...';
   String get error => 'An error occurred while starting the server.';
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
         n,
         one: 'Open this link in your browser:',
         other: 'Open one of these links in your browser:',
@@ -314,8 +280,7 @@ class _StringsWebSharePageEn {
   String get noRequests => 'No requests yet.';
   String get encryption => _root.settingsTab.network.encryption;
   String get autoAccept => 'Automatically accept requests';
-  String get encryptionHint =>
-      'LocalSend uses a self-signed certificate. You need to accept it in your browser.';
+  String get encryptionHint => 'LocalSend uses a self-signed certificate. You need to accept it in your browser.';
   String pendingRequests({required Object n}) => 'Pending requests: ${n}';
 }
 
@@ -344,8 +309,7 @@ class _StringsDonationPageEn {
 
   // Translations
   String get title => 'Donate';
-  String get info =>
-      'LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.';
+  String get info => 'LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.';
   String donate({required Object amount}) => 'Donate ${amount}';
   String get thanks => 'Thank you very much!';
   String get restore => 'Restore purchase';
@@ -438,8 +402,7 @@ class _StringsAliasGeneratorEn {
       ];
 
   /// In some languages, the adjective must be last.
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -449,49 +412,27 @@ class _StringsDialogsEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final _StringsDialogsAddFileEn addFile =
-      _StringsDialogsAddFileEn._(_root);
-  late final _StringsDialogsAddressInputEn addressInput =
-      _StringsDialogsAddressInputEn._(_root);
-  late final _StringsDialogsCancelSessionEn cancelSession =
-      _StringsDialogsCancelSessionEn._(_root);
-  late final _StringsDialogsCannotOpenFileEn cannotOpenFile =
-      _StringsDialogsCannotOpenFileEn._(_root);
-  late final _StringsDialogsEncryptionDisabledNoticeEn
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeEn._(_root);
-  late final _StringsDialogsErrorDialogEn errorDialog =
-      _StringsDialogsErrorDialogEn._(_root);
-  late final _StringsDialogsFavoriteDialogEn favoriteDialog =
-      _StringsDialogsFavoriteDialogEn._(_root);
-  late final _StringsDialogsFavoriteDeleteDialogEn favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogEn._(_root);
-  late final _StringsDialogsFavoriteEditDialogEn favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogEn._(_root);
-  late final _StringsDialogsFileInfoEn fileInfo =
-      _StringsDialogsFileInfoEn._(_root);
-  late final _StringsDialogsFileNameInputEn fileNameInput =
-      _StringsDialogsFileNameInputEn._(_root);
-  late final _StringsDialogsHistoryClearDialogEn historyClearDialog =
-      _StringsDialogsHistoryClearDialogEn._(_root);
-  late final _StringsDialogsLocalNetworkUnauthorizedEn
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedEn._(_root);
-  late final _StringsDialogsMessageInputEn messageInput =
-      _StringsDialogsMessageInputEn._(_root);
-  late final _StringsDialogsNoFilesEn noFiles =
-      _StringsDialogsNoFilesEn._(_root);
-  late final _StringsDialogsNoPermissionEn noPermission =
-      _StringsDialogsNoPermissionEn._(_root);
-  late final _StringsDialogsNotAvailableOnPlatformEn notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformEn._(_root);
+  late final _StringsDialogsAddFileEn addFile = _StringsDialogsAddFileEn._(_root);
+  late final _StringsDialogsAddressInputEn addressInput = _StringsDialogsAddressInputEn._(_root);
+  late final _StringsDialogsCancelSessionEn cancelSession = _StringsDialogsCancelSessionEn._(_root);
+  late final _StringsDialogsCannotOpenFileEn cannotOpenFile = _StringsDialogsCannotOpenFileEn._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeEn encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeEn._(_root);
+  late final _StringsDialogsErrorDialogEn errorDialog = _StringsDialogsErrorDialogEn._(_root);
+  late final _StringsDialogsFavoriteDialogEn favoriteDialog = _StringsDialogsFavoriteDialogEn._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogEn favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogEn._(_root);
+  late final _StringsDialogsFavoriteEditDialogEn favoriteEditDialog = _StringsDialogsFavoriteEditDialogEn._(_root);
+  late final _StringsDialogsFileInfoEn fileInfo = _StringsDialogsFileInfoEn._(_root);
+  late final _StringsDialogsFileNameInputEn fileNameInput = _StringsDialogsFileNameInputEn._(_root);
+  late final _StringsDialogsHistoryClearDialogEn historyClearDialog = _StringsDialogsHistoryClearDialogEn._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedEn localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEn._(_root);
+  late final _StringsDialogsMessageInputEn messageInput = _StringsDialogsMessageInputEn._(_root);
+  late final _StringsDialogsNoFilesEn noFiles = _StringsDialogsNoFilesEn._(_root);
+  late final _StringsDialogsNoPermissionEn noPermission = _StringsDialogsNoPermissionEn._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformEn notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEn._(_root);
   late final _StringsDialogsQrEn qr = _StringsDialogsQrEn._(_root);
-  late final _StringsDialogsQuickActionsEn quickActions =
-      _StringsDialogsQuickActionsEn._(_root);
-  late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeEn._(_root);
-  late final _StringsDialogsSendModeHelpEn sendModeHelp =
-      _StringsDialogsSendModeHelpEn._(_root);
+  late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
+  late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
+  late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
   late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
 }
 
@@ -549,10 +490,8 @@ class _StringsAssetPickerEn {
   String get emptyList => 'Empty list';
   String get unSupportedAssetType => 'Unsupported file type.';
   String get unableToAccessAll => 'Unable to access all files on the device';
-  String get viewingLimitedAssetsTip =>
-      'Only view files and albums accessible to the app.';
-  String get changeAccessibleLimitedAssets =>
-      'Click to update accessible files';
+  String get viewingLimitedAssetsTip => 'Only view files and albums accessible to the app.';
+  String get changeAccessibleLimitedAssets => 'Click to update accessible files';
   String get accessAllTip =>
       'App can only access some files on the device. Go to system settings and allow the app to access all media on the device.';
   String get goToSystemSettings => 'Go to system settings';
@@ -631,14 +570,11 @@ class _StringsSettingsTabGeneralEn {
   // Translations
   String get title => 'General';
   String get brightness => 'Theme';
-  late final _StringsSettingsTabGeneralBrightnessOptionsEn brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsEn._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsEn brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsEn._(_root);
   String get color => 'Color';
-  late final _StringsSettingsTabGeneralColorOptionsEn colorOptions =
-      _StringsSettingsTabGeneralColorOptionsEn._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsEn colorOptions = _StringsSettingsTabGeneralColorOptionsEn._(_root);
   String get language => 'Language';
-  late final _StringsSettingsTabGeneralLanguageOptionsEn languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsEn._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsEn languageOptions = _StringsSettingsTabGeneralLanguageOptionsEn._(_root);
   String get saveWindowPlacement => 'Quit: Save window placement';
   String get minimizeToTray => 'Quit: Minimize to Tray/Menu Bar';
   String get launchAtStartup => 'Autostart after login';
@@ -717,8 +653,7 @@ class _StringsTroubleshootPageFirewallEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String get symptom =>
-      'This app can send files to other devices; but other devices cannot send files to this device.';
+  String get symptom => 'This app can send files to other devices; but other devices cannot send files to this device.';
   String solution({required Object port}) =>
       'This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port ${port}.';
   String get openFirewall => 'Open Firewall';
@@ -731,8 +666,7 @@ class _StringsTroubleshootPageNoConnectionEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String get symptom =>
-      'Both devices cannot discover each other nor can they share files.';
+  String get symptom => 'Both devices cannot discover each other nor can they share files.';
   String get solution =>
       'Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router.';
 }
@@ -756,12 +690,9 @@ class _StringsProgressPageTotalEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final _StringsProgressPageTotalTitleEn title =
-      _StringsProgressPageTotalTitleEn._(_root);
-  String count({required Object curr, required Object n}) =>
-      'Files: ${curr} / ${n}';
-  String size({required Object curr, required Object n}) =>
-      'Size: ${curr} / ${n}';
+  late final _StringsProgressPageTotalTitleEn title = _StringsProgressPageTotalTitleEn._(_root);
+  String count({required Object curr, required Object n}) => 'Files: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   String speed({required Object speed}) => 'Speed: ${speed}/s';
 }
 
@@ -808,8 +739,7 @@ class _StringsDialogsCannotOpenFileEn {
 
   // Translations
   String get title => 'Cannot open file';
-  String content({required Object file}) =>
-      'Could not open "${file}". Has this file been moved, renamed or deleted?';
+  String content({required Object file}) => 'Could not open "${file}". Has this file been moved, renamed or deleted?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -820,8 +750,7 @@ class _StringsDialogsEncryptionDisabledNoticeEn {
 
   // Translations
   String get title => 'Encryption disabled';
-  String get content =>
-      'Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again.';
+  String get content => 'Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again.';
 }
 
 // Path: dialogs.errorDialog
@@ -854,8 +783,7 @@ class _StringsDialogsFavoriteDeleteDialogEn {
 
   // Translations
   String get title => 'Delete from favorites';
-  String content({required Object name}) =>
-      'Do you really want to delete from favorites "${name}"?';
+  String content({required Object name}) => 'Do you really want to delete from favorites "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -953,8 +881,7 @@ class _StringsDialogsNoPermissionEn {
 
   // Translations
   String get title => 'No permission';
-  String get content =>
-      'You have not granted the necessary permissions. Please grant them in the settings.';
+  String get content => 'You have not granted the necessary permissions. Please grant them in the settings.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1001,8 +928,7 @@ class _StringsDialogsQuickSaveNoticeEn {
 
   // Translations
   String get title => _root.general.quickSave;
-  String get content =>
-      'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
+  String get content => 'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1013,12 +939,9 @@ class _StringsDialogsSendModeHelpEn {
 
   // Translations
   String get title => 'Send modes';
-  String get single =>
-      'Sends files to one recipient. Selection will be cleared after finished file transfer.';
-  String get multiple =>
-      'Sends files to multiple recipients. Selection will not be cleared.';
-  String get link =>
-      'Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser.';
+  String get single => 'Sends files to one recipient. Selection will be cleared after finished file transfer.';
+  String get multiple => 'Sends files to multiple recipients. Selection will not be cleared.';
+  String get link => 'Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser.';
 }
 
 // Path: dialogs.zoom

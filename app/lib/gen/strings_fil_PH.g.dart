@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsFilPh extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsFilPh.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsFilPh.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.filPh,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <fil-PH>.
   @override
@@ -41,50 +35,37 @@ class _StringsFilPh extends Translations {
   @override
   late final _StringsGeneralFilPh general = _StringsGeneralFilPh._(_root);
   @override
-  late final _StringsReceiveTabFilPh receiveTab =
-      _StringsReceiveTabFilPh._(_root);
+  late final _StringsReceiveTabFilPh receiveTab = _StringsReceiveTabFilPh._(_root);
   @override
   late final _StringsSendTabFilPh sendTab = _StringsSendTabFilPh._(_root);
   @override
-  late final _StringsSettingsTabFilPh settingsTab =
-      _StringsSettingsTabFilPh._(_root);
+  late final _StringsSettingsTabFilPh settingsTab = _StringsSettingsTabFilPh._(_root);
   @override
-  late final _StringsTroubleshootPageFilPh troubleshootPage =
-      _StringsTroubleshootPageFilPh._(_root);
+  late final _StringsTroubleshootPageFilPh troubleshootPage = _StringsTroubleshootPageFilPh._(_root);
   @override
-  late final _StringsReceiveHistoryPageFilPh receiveHistoryPage =
-      _StringsReceiveHistoryPageFilPh._(_root);
+  late final _StringsReceiveHistoryPageFilPh receiveHistoryPage = _StringsReceiveHistoryPageFilPh._(_root);
   @override
-  late final _StringsApkPickerPageFilPh apkPickerPage =
-      _StringsApkPickerPageFilPh._(_root);
+  late final _StringsApkPickerPageFilPh apkPickerPage = _StringsApkPickerPageFilPh._(_root);
   @override
-  late final _StringsSelectedFilesPageFilPh selectedFilesPage =
-      _StringsSelectedFilesPageFilPh._(_root);
+  late final _StringsSelectedFilesPageFilPh selectedFilesPage = _StringsSelectedFilesPageFilPh._(_root);
   @override
-  late final _StringsReceivePageFilPh receivePage =
-      _StringsReceivePageFilPh._(_root);
+  late final _StringsReceivePageFilPh receivePage = _StringsReceivePageFilPh._(_root);
   @override
-  late final _StringsReceiveOptionsPageFilPh receiveOptionsPage =
-      _StringsReceiveOptionsPageFilPh._(_root);
+  late final _StringsReceiveOptionsPageFilPh receiveOptionsPage = _StringsReceiveOptionsPageFilPh._(_root);
   @override
   late final _StringsSendPageFilPh sendPage = _StringsSendPageFilPh._(_root);
   @override
-  late final _StringsProgressPageFilPh progressPage =
-      _StringsProgressPageFilPh._(_root);
+  late final _StringsProgressPageFilPh progressPage = _StringsProgressPageFilPh._(_root);
   @override
-  late final _StringsWebSharePageFilPh webSharePage =
-      _StringsWebSharePageFilPh._(_root);
+  late final _StringsWebSharePageFilPh webSharePage = _StringsWebSharePageFilPh._(_root);
   @override
   late final _StringsAboutPageFilPh aboutPage = _StringsAboutPageFilPh._(_root);
   @override
-  late final _StringsDonationPageFilPh donationPage =
-      _StringsDonationPageFilPh._(_root);
+  late final _StringsDonationPageFilPh donationPage = _StringsDonationPageFilPh._(_root);
   @override
-  late final _StringsChangelogPageFilPh changelogPage =
-      _StringsChangelogPageFilPh._(_root);
+  late final _StringsChangelogPageFilPh changelogPage = _StringsChangelogPageFilPh._(_root);
   @override
-  late final _StringsAliasGeneratorFilPh aliasGenerator =
-      _StringsAliasGeneratorFilPh._(_root);
+  late final _StringsAliasGeneratorFilPh aliasGenerator = _StringsAliasGeneratorFilPh._(_root);
   @override
   late final _StringsDialogsFilPh dialogs = _StringsDialogsFilPh._(_root);
   @override
@@ -92,8 +73,7 @@ class _StringsFilPh extends Translations {
   @override
   late final _StringsWebFilPh web = _StringsWebFilPh._(_root);
   @override
-  late final _StringsAssetPickerFilPh assetPicker =
-      _StringsAssetPickerFilPh._(_root);
+  late final _StringsAssetPickerFilPh assetPicker = _StringsAssetPickerFilPh._(_root);
 }
 
 // Path: general
@@ -195,8 +175,7 @@ class _StringsReceiveTabFilPh extends _StringsReceiveTabEn {
   @override
   String get title => 'Tumanggap';
   @override
-  late final _StringsReceiveTabInfoBoxFilPh infoBox =
-      _StringsReceiveTabInfoBoxFilPh._(_root);
+  late final _StringsReceiveTabInfoBoxFilPh infoBox = _StringsReceiveTabInfoBoxFilPh._(_root);
 }
 
 // Path: sendTab
@@ -212,14 +191,11 @@ class _StringsSendTabFilPh extends _StringsSendTabEn {
   @override
   String get title => 'Magpadala';
   @override
-  late final _StringsSendTabSelectionFilPh selection =
-      _StringsSendTabSelectionFilPh._(_root);
+  late final _StringsSendTabSelectionFilPh selection = _StringsSendTabSelectionFilPh._(_root);
   @override
-  late final _StringsSendTabPickerFilPh picker =
-      _StringsSendTabPickerFilPh._(_root);
+  late final _StringsSendTabPickerFilPh picker = _StringsSendTabPickerFilPh._(_root);
   @override
-  String get shareIntentInfo =>
-      'Maaaring gamitin ang "Share" feature sa iyong mobile device para sa mas madaling pagpili ng mga file.';
+  String get shareIntentInfo => 'Maaaring gamitin ang "Share" feature sa iyong mobile device para sa mas madaling pagpili ng mga file.';
   @override
   String get nearbyDevices => 'Malalapit na mga device';
   @override
@@ -229,13 +205,11 @@ class _StringsSendTabFilPh extends _StringsSendTabEn {
   @override
   String get sendMode => 'Send mode';
   @override
-  late final _StringsSendTabSendModesFilPh sendModes =
-      _StringsSendTabSendModesFilPh._(_root);
+  late final _StringsSendTabSendModesFilPh sendModes = _StringsSendTabSendModesFilPh._(_root);
   @override
   String get sendModeHelp => 'Paliwanag';
   @override
-  String get help =>
-      'Mangyaring siguraduhin na ang target ay nasa parehas na wifi network.';
+  String get help => 'Mangyaring siguraduhin na ang target ay nasa parehas na wifi network.';
   @override
   String get placeItems => 'Maglagay ng mga bagay na i-share.';
 }
@@ -253,17 +227,13 @@ class _StringsSettingsTabFilPh extends _StringsSettingsTabEn {
   @override
   String get title => 'Settings';
   @override
-  late final _StringsSettingsTabGeneralFilPh general =
-      _StringsSettingsTabGeneralFilPh._(_root);
+  late final _StringsSettingsTabGeneralFilPh general = _StringsSettingsTabGeneralFilPh._(_root);
   @override
-  late final _StringsSettingsTabReceiveFilPh receive =
-      _StringsSettingsTabReceiveFilPh._(_root);
+  late final _StringsSettingsTabReceiveFilPh receive = _StringsSettingsTabReceiveFilPh._(_root);
   @override
-  late final _StringsSettingsTabNetworkFilPh network =
-      _StringsSettingsTabNetworkFilPh._(_root);
+  late final _StringsSettingsTabNetworkFilPh network = _StringsSettingsTabNetworkFilPh._(_root);
   @override
-  late final _StringsSettingsTabOtherFilPh other =
-      _StringsSettingsTabOtherFilPh._(_root);
+  late final _StringsSettingsTabOtherFilPh other = _StringsSettingsTabOtherFilPh._(_root);
   @override
   String get advancedSettings => 'Advanced settings';
 }
@@ -281,18 +251,15 @@ class _StringsTroubleshootPageFilPh extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Troubleshoot';
   @override
-  String get subTitle =>
-      'Hindi gumagana ang app na ito gaya nang inaasahan? Narito ang mga madalas na solusyon.';
+  String get subTitle => 'Hindi gumagana ang app na ito gaya nang inaasahan? Narito ang mga madalas na solusyon.';
   @override
   String get solution => 'Solusyon:';
   @override
   String get fixButton => 'Awtomatikong ayusin';
   @override
-  late final _StringsTroubleshootPageFirewallFilPh firewall =
-      _StringsTroubleshootPageFirewallFilPh._(_root);
+  late final _StringsTroubleshootPageFirewallFilPh firewall = _StringsTroubleshootPageFirewallFilPh._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionFilPh noConnection =
-      _StringsTroubleshootPageNoConnectionFilPh._(_root);
+  late final _StringsTroubleshootPageNoConnectionFilPh noConnection = _StringsTroubleshootPageNoConnectionFilPh._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -314,8 +281,7 @@ class _StringsReceiveHistoryPageFilPh extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Walang laman ang history.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsFilPh entryActions =
-      _StringsReceiveHistoryPageEntryActionsFilPh._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsFilPh entryActions = _StringsReceiveHistoryPageEntryActionsFilPh._(_root);
 }
 
 // Path: apkPickerPage
@@ -333,8 +299,7 @@ class _StringsApkPickerPageFilPh extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Ibukod ang mga system app';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Ibukod and mga non-launchable app';
+  String get excludeAppsWithoutLaunchIntent => 'Ibukod and mga non-launchable app';
   @override
   String apps({required Object n}) => '${n} Apps';
 }
@@ -364,8 +329,7 @@ class _StringsReceivePageFilPh extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(
         n,
         one: 'ay gustong magpadala sa iyo ng file',
         other: 'ay gustong magpadala sa iyo ng ${n} na mga file',
@@ -397,8 +361,7 @@ class _StringsReceiveOptionsPageFilPh extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Awtomatikong pinatay dahil mayroong mga directories.';
+  String get saveToGalleryOff => 'Awtomatikong pinatay dahil mayroong mga directories.';
 }
 
 // Path: sendPage
@@ -436,8 +399,7 @@ class _StringsProgressPageFilPh extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Naka-save sa Photos';
   @override
-  late final _StringsProgressPageTotalFilPh total =
-      _StringsProgressPageTotalFilPh._(_root);
+  late final _StringsProgressPageTotalFilPh total = _StringsProgressPageTotalFilPh._(_root);
 }
 
 // Path: webSharePage
@@ -459,8 +421,7 @@ class _StringsWebSharePageFilPh extends _StringsWebSharePageEn {
   @override
   String get error => 'May nangyaring error habang binubuksan ang server.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(
         n,
         one: 'Buksan ang link na ito sa browser:',
         other: 'Buksan ang isa sa mga link na ito sa browser:',
@@ -472,11 +433,9 @@ class _StringsWebSharePageFilPh extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'Ang LocalSend ay gumagamit ng self-signed certificate. Kailangan mo itong i-accept sa browser.';
+  String get encryptionHint => 'Ang LocalSend ay gumagamit ng self-signed certificate. Kailangan mo itong i-accept sa browser.';
   @override
-  String pendingRequests({required Object n}) =>
-      'Mga naka-pending na request: ${n}';
+  String pendingRequests({required Object n}) => 'Mga naka-pending na request: ${n}';
 }
 
 // Path: aboutPage
@@ -624,8 +583,7 @@ class _StringsAliasGeneratorFilPh extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last.
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -639,69 +597,47 @@ class _StringsDialogsFilPh extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileFilPh addFile =
-      _StringsDialogsAddFileFilPh._(_root);
+  late final _StringsDialogsAddFileFilPh addFile = _StringsDialogsAddFileFilPh._(_root);
   @override
-  late final _StringsDialogsAddressInputFilPh addressInput =
-      _StringsDialogsAddressInputFilPh._(_root);
+  late final _StringsDialogsAddressInputFilPh addressInput = _StringsDialogsAddressInputFilPh._(_root);
   @override
-  late final _StringsDialogsCancelSessionFilPh cancelSession =
-      _StringsDialogsCancelSessionFilPh._(_root);
+  late final _StringsDialogsCancelSessionFilPh cancelSession = _StringsDialogsCancelSessionFilPh._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileFilPh cannotOpenFile =
-      _StringsDialogsCannotOpenFileFilPh._(_root);
+  late final _StringsDialogsCannotOpenFileFilPh cannotOpenFile = _StringsDialogsCannotOpenFileFilPh._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeFilPh
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeFilPh._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeFilPh encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeFilPh._(_root);
   @override
-  late final _StringsDialogsErrorDialogFilPh errorDialog =
-      _StringsDialogsErrorDialogFilPh._(_root);
+  late final _StringsDialogsErrorDialogFilPh errorDialog = _StringsDialogsErrorDialogFilPh._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogFilPh favoriteDialog =
-      _StringsDialogsFavoriteDialogFilPh._(_root);
+  late final _StringsDialogsFavoriteDialogFilPh favoriteDialog = _StringsDialogsFavoriteDialogFilPh._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogFilPh favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogFilPh._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogFilPh favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogFilPh._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogFilPh favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogFilPh._(_root);
+  late final _StringsDialogsFavoriteEditDialogFilPh favoriteEditDialog = _StringsDialogsFavoriteEditDialogFilPh._(_root);
   @override
-  late final _StringsDialogsFileInfoFilPh fileInfo =
-      _StringsDialogsFileInfoFilPh._(_root);
+  late final _StringsDialogsFileInfoFilPh fileInfo = _StringsDialogsFileInfoFilPh._(_root);
   @override
-  late final _StringsDialogsFileNameInputFilPh fileNameInput =
-      _StringsDialogsFileNameInputFilPh._(_root);
+  late final _StringsDialogsFileNameInputFilPh fileNameInput = _StringsDialogsFileNameInputFilPh._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogFilPh historyClearDialog =
-      _StringsDialogsHistoryClearDialogFilPh._(_root);
+  late final _StringsDialogsHistoryClearDialogFilPh historyClearDialog = _StringsDialogsHistoryClearDialogFilPh._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedFilPh
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedFilPh._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedFilPh localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedFilPh._(_root);
   @override
-  late final _StringsDialogsMessageInputFilPh messageInput =
-      _StringsDialogsMessageInputFilPh._(_root);
+  late final _StringsDialogsMessageInputFilPh messageInput = _StringsDialogsMessageInputFilPh._(_root);
   @override
-  late final _StringsDialogsNoFilesFilPh noFiles =
-      _StringsDialogsNoFilesFilPh._(_root);
+  late final _StringsDialogsNoFilesFilPh noFiles = _StringsDialogsNoFilesFilPh._(_root);
   @override
-  late final _StringsDialogsNoPermissionFilPh noPermission =
-      _StringsDialogsNoPermissionFilPh._(_root);
+  late final _StringsDialogsNoPermissionFilPh noPermission = _StringsDialogsNoPermissionFilPh._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformFilPh notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformFilPh._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformFilPh notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformFilPh._(_root);
   @override
   late final _StringsDialogsQrFilPh qr = _StringsDialogsQrFilPh._(_root);
   @override
-  late final _StringsDialogsQuickActionsFilPh quickActions =
-      _StringsDialogsQuickActionsFilPh._(_root);
+  late final _StringsDialogsQuickActionsFilPh quickActions = _StringsDialogsQuickActionsFilPh._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeFilPh quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeFilPh._(_root);
+  late final _StringsDialogsQuickSaveNoticeFilPh quickSaveNotice = _StringsDialogsQuickSaveNoticeFilPh._(_root);
   @override
-  late final _StringsDialogsSendModeHelpFilPh sendModeHelp =
-      _StringsDialogsSendModeHelpFilPh._(_root);
+  late final _StringsDialogsSendModeHelpFilPh sendModeHelp = _StringsDialogsSendModeHelpFilPh._(_root);
 }
 
 // Path: tray
@@ -773,14 +709,11 @@ class _StringsAssetPickerFilPh extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Hindi suportadong file type.';
   @override
-  String get unableToAccessAll =>
-      'Hindi ma-access ang lahat ng mga file sa device';
+  String get unableToAccessAll => 'Hindi ma-access ang lahat ng mga file sa device';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Makikita lamang ang mga file at mga album na accessible sa app';
+  String get viewingLimitedAssetsTip => 'Makikita lamang ang mga file at mga album na accessible sa app';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'I-click para i-update ang accessible na mga file';
+  String get changeAccessibleLimitedAssets => 'I-click para i-update ang accessible na mga file';
   @override
   String get accessAllTip =>
       'Ang app na ito ay kaya lamang mag-access ng iilang mga file sa device. Magtungo sa system settings at i-allow ang app para ma-access ang lahat ng media sa device.';
@@ -907,19 +840,15 @@ class _StringsSettingsTabGeneralFilPh extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Tema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsFilPh
-      brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsFilPh._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsFilPh brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsFilPh._(_root);
   @override
   String get color => 'Kulay';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsFilPh colorOptions =
-      _StringsSettingsTabGeneralColorOptionsFilPh._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsFilPh colorOptions = _StringsSettingsTabGeneralColorOptionsFilPh._(_root);
   @override
   String get language => 'Wika';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsFilPh languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsFilPh._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsFilPh languageOptions = _StringsSettingsTabGeneralLanguageOptionsFilPh._(_root);
   @override
   String get saveWindowPlacement => 'Quit: I-save ang window placement';
   @override
@@ -1017,8 +946,7 @@ class _StringsSettingsTabOtherFilPh extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallFilPh
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallFilPh extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1038,8 +966,7 @@ class _StringsTroubleshootPageFirewallFilPh
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionFilPh
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionFilPh extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1049,16 +976,14 @@ class _StringsTroubleshootPageNoConnectionFilPh
 
   // Translations
   @override
-  String get symptom =>
-      'Ang dalawa o higit pang device ay hindi ma-discover ang isa\'t isa o hindi makapag-share ng mga file.';
+  String get symptom => 'Ang dalawa o higit pang device ay hindi ma-discover ang isa\'t isa o hindi makapag-share ng mga file.';
   @override
   String get solution =>
       'Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsFilPh
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsFilPh extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1086,14 +1011,11 @@ class _StringsProgressPageTotalFilPh extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleFilPh title =
-      _StringsProgressPageTotalTitleFilPh._(_root);
+  late final _StringsProgressPageTotalTitleFilPh title = _StringsProgressPageTotalTitleFilPh._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Files: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Files: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Size: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Speed: ${speed}/s';
 }
@@ -1147,13 +1069,11 @@ class _StringsDialogsCancelSessionFilPh extends _StringsDialogsCancelSessionEn {
   @override
   String get title => 'Kanselahin ang pagpapadala ng file';
   @override
-  String get content =>
-      'Gusto mo ba talagang kanselahin ang pagpapadala ng file?';
+  String get content => 'Gusto mo ba talagang kanselahin ang pagpapadala ng file?';
 }
 
 // Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileFilPh
-    extends _StringsDialogsCannotOpenFileEn {
+class _StringsDialogsCannotOpenFileFilPh extends _StringsDialogsCannotOpenFileEn {
   _StringsDialogsCannotOpenFileFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1165,13 +1085,11 @@ class _StringsDialogsCannotOpenFileFilPh
   @override
   String get title => 'Hindi mabuksan ang file';
   @override
-  String content({required Object file}) =>
-      'Hindi mabuksan ang "${file}". Ito ba ay nalipat, pinangalanan, o nabura?';
+  String content({required Object file}) => 'Hindi mabuksan ang "${file}". Ito ba ay nalipat, pinangalanan, o nabura?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeFilPh
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeFilPh extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1202,8 +1120,7 @@ class _StringsDialogsErrorDialogFilPh extends _StringsDialogsErrorDialogEn {
 }
 
 // Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogFilPh
-    extends _StringsDialogsFavoriteDialogEn {
+class _StringsDialogsFavoriteDialogFilPh extends _StringsDialogsFavoriteDialogEn {
   _StringsDialogsFavoriteDialogFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1221,8 +1138,7 @@ class _StringsDialogsFavoriteDialogFilPh
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogFilPh
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogFilPh extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1234,13 +1150,11 @@ class _StringsDialogsFavoriteDeleteDialogFilPh
   @override
   String get title => 'Burahin sa favorites';
   @override
-  String content({required Object name}) =>
-      'Gusto mo ba talagang burahin ang favorites "${name}"?';
+  String content({required Object name}) => 'Gusto mo ba talagang burahin ang favorites "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogFilPh
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogFilPh extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1304,8 +1218,7 @@ class _StringsDialogsFileNameInputFilPh extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogFilPh
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogFilPh extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1321,8 +1234,7 @@ class _StringsDialogsHistoryClearDialogFilPh
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedFilPh
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedFilPh extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1385,13 +1297,11 @@ class _StringsDialogsNoPermissionFilPh extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Walang permission';
   @override
-  String get content =>
-      'Hindi nabigyan ng mga kinakailangang permissions. Mangyaring bigyan ito ng permission sa settings.';
+  String get content => 'Hindi nabigyan ng mga kinakailangang permissions. Mangyaring bigyan ito ng permission sa settings.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformFilPh
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformFilPh extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1445,8 +1355,7 @@ class _StringsDialogsQuickActionsFilPh extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeFilPh
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeFilPh extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1475,19 +1384,16 @@ class _StringsDialogsSendModeHelpFilPh extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Send modes';
   @override
-  String get single =>
-      'Magpadala ng mga file sa iisang recipient o tatanggap. Ang mga pagpipilian ay maaalis pagkatapos ipadala ang file.';
+  String get single => 'Magpadala ng mga file sa iisang recipient o tatanggap. Ang mga pagpipilian ay maaalis pagkatapos ipadala ang file.';
   @override
-  String get multiple =>
-      'Magpadala ng mga file sa maraming recipient o tatanggap. Ang mga pagpipilian ay hindi maaalis.';
+  String get multiple => 'Magpadala ng mga file sa maraming recipient o tatanggap. Ang mga pagpipilian ay hindi maaalis.';
   @override
   String get link =>
       'Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaaring mag download nang mga napiling file sa pamamagitan ng pagbukas ng link sa kanilang browser.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsFilPh
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsFilPh extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1505,8 +1411,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsFilPh
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsFilPh
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsFilPh extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1522,8 +1427,7 @@ class _StringsSettingsTabGeneralColorOptionsFilPh
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsFilPh
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsFilPh extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);
@@ -1537,8 +1441,7 @@ class _StringsSettingsTabGeneralLanguageOptionsFilPh
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleFilPh
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleFilPh extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleFilPh._(_StringsFilPh root)
       : this._root = root,
         super._(root);

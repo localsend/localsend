@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsSr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsSr.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsSr.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.sr,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sr>.
   @override
@@ -47,46 +41,35 @@ class _StringsSr extends Translations {
   @override
   late final _StringsSettingsTabSr settingsTab = _StringsSettingsTabSr._(_root);
   @override
-  late final _StringsTroubleshootPageSr troubleshootPage =
-      _StringsTroubleshootPageSr._(_root);
+  late final _StringsTroubleshootPageSr troubleshootPage = _StringsTroubleshootPageSr._(_root);
   @override
-  late final _StringsReceiveHistoryPageSr receiveHistoryPage =
-      _StringsReceiveHistoryPageSr._(_root);
+  late final _StringsReceiveHistoryPageSr receiveHistoryPage = _StringsReceiveHistoryPageSr._(_root);
   @override
-  late final _StringsApkPickerPageSr apkPickerPage =
-      _StringsApkPickerPageSr._(_root);
+  late final _StringsApkPickerPageSr apkPickerPage = _StringsApkPickerPageSr._(_root);
   @override
-  late final _StringsSelectedFilesPageSr selectedFilesPage =
-      _StringsSelectedFilesPageSr._(_root);
+  late final _StringsSelectedFilesPageSr selectedFilesPage = _StringsSelectedFilesPageSr._(_root);
   @override
   late final _StringsReceivePageSr receivePage = _StringsReceivePageSr._(_root);
   @override
-  late final _StringsReceiveOptionsPageSr receiveOptionsPage =
-      _StringsReceiveOptionsPageSr._(_root);
+  late final _StringsReceiveOptionsPageSr receiveOptionsPage = _StringsReceiveOptionsPageSr._(_root);
   @override
   late final _StringsSendPageSr sendPage = _StringsSendPageSr._(_root);
   @override
-  late final _StringsProgressPageSr progressPage =
-      _StringsProgressPageSr._(_root);
+  late final _StringsProgressPageSr progressPage = _StringsProgressPageSr._(_root);
   @override
-  late final _StringsWebSharePageSr webSharePage =
-      _StringsWebSharePageSr._(_root);
+  late final _StringsWebSharePageSr webSharePage = _StringsWebSharePageSr._(_root);
   @override
   late final _StringsAboutPageSr aboutPage = _StringsAboutPageSr._(_root);
   @override
-  late final _StringsDonationPageSr donationPage =
-      _StringsDonationPageSr._(_root);
+  late final _StringsDonationPageSr donationPage = _StringsDonationPageSr._(_root);
   @override
-  late final _StringsChangelogPageSr changelogPage =
-      _StringsChangelogPageSr._(_root);
+  late final _StringsChangelogPageSr changelogPage = _StringsChangelogPageSr._(_root);
   @override
-  late final _StringsAliasGeneratorSr aliasGenerator =
-      _StringsAliasGeneratorSr._(_root);
+  late final _StringsAliasGeneratorSr aliasGenerator = _StringsAliasGeneratorSr._(_root);
   @override
   late final _StringsDialogsSr dialogs = _StringsDialogsSr._(_root);
   @override
-  late final _StringsSanitizationSr sanitization =
-      _StringsSanitizationSr._(_root);
+  late final _StringsSanitizationSr sanitization = _StringsSanitizationSr._(_root);
   @override
   late final _StringsTraySr tray = _StringsTraySr._(_root);
   @override
@@ -194,8 +177,7 @@ class _StringsReceiveTabSr extends _StringsReceiveTabEn {
   @override
   String get title => 'Primanje';
   @override
-  late final _StringsReceiveTabInfoBoxSr infoBox =
-      _StringsReceiveTabInfoBoxSr._(_root);
+  late final _StringsReceiveTabInfoBoxSr infoBox = _StringsReceiveTabInfoBoxSr._(_root);
 }
 
 // Path: sendTab
@@ -211,13 +193,11 @@ class _StringsSendTabSr extends _StringsSendTabEn {
   @override
   String get title => 'Slanje';
   @override
-  late final _StringsSendTabSelectionSr selection =
-      _StringsSendTabSelectionSr._(_root);
+  late final _StringsSendTabSelectionSr selection = _StringsSendTabSelectionSr._(_root);
   @override
   late final _StringsSendTabPickerSr picker = _StringsSendTabPickerSr._(_root);
   @override
-  String get shareIntentInfo =>
-      'Možeš takodje da koristiš i "Share" opciju tvog mobilnog uredjaja da bi lakše selektovao fajlove.';
+  String get shareIntentInfo => 'Možeš takodje da koristiš i "Share" opciju tvog mobilnog uredjaja da bi lakše selektovao fajlove.';
   @override
   String get nearbyDevices => 'Uredjaji u blizini';
   @override
@@ -227,13 +207,11 @@ class _StringsSendTabSr extends _StringsSendTabEn {
   @override
   String get sendMode => 'Mod za slanje';
   @override
-  late final _StringsSendTabSendModesSr sendModes =
-      _StringsSendTabSendModesSr._(_root);
+  late final _StringsSendTabSendModesSr sendModes = _StringsSendTabSendModesSr._(_root);
   @override
   String get sendModeHelp => 'Objašnjenje';
   @override
-  String get help =>
-      'Molim uveri se da je željena destinacija takodje na istoj WiFi mreži.';
+  String get help => 'Molim uveri se da je željena destinacija takodje na istoj WiFi mreži.';
   @override
   String get placeItems => 'Postavi šta želiš da share-uješ.';
 }
@@ -251,20 +229,15 @@ class _StringsSettingsTabSr extends _StringsSettingsTabEn {
   @override
   String get title => 'Podešavanje';
   @override
-  late final _StringsSettingsTabGeneralSr general =
-      _StringsSettingsTabGeneralSr._(_root);
+  late final _StringsSettingsTabGeneralSr general = _StringsSettingsTabGeneralSr._(_root);
   @override
-  late final _StringsSettingsTabReceiveSr receive =
-      _StringsSettingsTabReceiveSr._(_root);
+  late final _StringsSettingsTabReceiveSr receive = _StringsSettingsTabReceiveSr._(_root);
   @override
-  late final _StringsSettingsTabSendSr send =
-      _StringsSettingsTabSendSr._(_root);
+  late final _StringsSettingsTabSendSr send = _StringsSettingsTabSendSr._(_root);
   @override
-  late final _StringsSettingsTabNetworkSr network =
-      _StringsSettingsTabNetworkSr._(_root);
+  late final _StringsSettingsTabNetworkSr network = _StringsSettingsTabNetworkSr._(_root);
   @override
-  late final _StringsSettingsTabOtherSr other =
-      _StringsSettingsTabOtherSr._(_root);
+  late final _StringsSettingsTabOtherSr other = _StringsSettingsTabOtherSr._(_root);
   @override
   String get advancedSettings => 'Napredna podešavanja';
 }
@@ -282,18 +255,15 @@ class _StringsTroubleshootPageSr extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Troubleshoot';
   @override
-  String get subTitle =>
-      'Da li aplikacija radi kako treba? Ovde možete naći neka uobičajena rešenja.';
+  String get subTitle => 'Da li aplikacija radi kako treba? Ovde možete naći neka uobičajena rešenja.';
   @override
   String get solution => 'Rešenje:';
   @override
   String get fixButton => 'Popravi automatski';
   @override
-  late final _StringsTroubleshootPageFirewallSr firewall =
-      _StringsTroubleshootPageFirewallSr._(_root);
+  late final _StringsTroubleshootPageFirewallSr firewall = _StringsTroubleshootPageFirewallSr._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionSr noConnection =
-      _StringsTroubleshootPageNoConnectionSr._(_root);
+  late final _StringsTroubleshootPageNoConnectionSr noConnection = _StringsTroubleshootPageNoConnectionSr._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -315,8 +285,7 @@ class _StringsReceiveHistoryPageSr extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Istorija je prazna.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsSr entryActions =
-      _StringsReceiveHistoryPageEntryActionsSr._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsSr entryActions = _StringsReceiveHistoryPageEntryActionsSr._(_root);
 }
 
 // Path: apkPickerPage
@@ -334,8 +303,7 @@ class _StringsApkPickerPageSr extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Izostavi sistemske aplikacije';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Izostavi aplikacije koje se ne pokreću';
+  String get excludeAppsWithoutLaunchIntent => 'Izostavi aplikacije koje se ne pokreću';
   @override
   String apps({required Object n}) => '${n} Apps';
 }
@@ -365,8 +333,7 @@ class _StringsReceivePageSr extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
         n,
         one: 'želi da pošalje fajl',
         other: 'želi da pošalje ${n} fajlova',
@@ -398,8 +365,7 @@ class _StringsReceiveOptionsPageSr extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Isključeno automatski zato što postoje folderi.';
+  String get saveToGalleryOff => 'Isključeno automatski zato što postoje folderi.';
 }
 
 // Path: sendPage
@@ -437,8 +403,7 @@ class _StringsProgressPageSr extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Snimljeno u Slike';
   @override
-  late final _StringsProgressPageTotalSr total =
-      _StringsProgressPageTotalSr._(_root);
+  late final _StringsProgressPageTotalSr total = _StringsProgressPageTotalSr._(_root);
 }
 
 // Path: webSharePage
@@ -460,8 +425,7 @@ class _StringsWebSharePageSr extends _StringsWebSharePageEn {
   @override
   String get error => 'Prilikom pokretanja servera dogodila se greška.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
         n,
         one: 'Otvori ovaj link u browseru:',
         other: 'Otvori jedan od ovih linkova u browseru:',
@@ -475,8 +439,7 @@ class _StringsWebSharePageSr extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Automatski prihvati zahteve';
   @override
-  String get encryptionHint =>
-      'LocalSend koristi sertifikate koji su self-signed. Morate da prihvatite to u browseru.';
+  String get encryptionHint => 'LocalSend koristi sertifikate koji su self-signed. Morate da prihvatite to u browseru.';
   @override
   String pendingRequests({required Object n}) => 'Zahtevi na čekanju: ${n}';
 }
@@ -626,8 +589,7 @@ class _StringsAliasGeneratorSr extends _StringsAliasGeneratorEn {
 
   /// In some languages, the adjective must be last. Not the case in Serbian, but serbian adjectives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation.
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -641,69 +603,47 @@ class _StringsDialogsSr extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileSr addFile =
-      _StringsDialogsAddFileSr._(_root);
+  late final _StringsDialogsAddFileSr addFile = _StringsDialogsAddFileSr._(_root);
   @override
-  late final _StringsDialogsAddressInputSr addressInput =
-      _StringsDialogsAddressInputSr._(_root);
+  late final _StringsDialogsAddressInputSr addressInput = _StringsDialogsAddressInputSr._(_root);
   @override
-  late final _StringsDialogsCancelSessionSr cancelSession =
-      _StringsDialogsCancelSessionSr._(_root);
+  late final _StringsDialogsCancelSessionSr cancelSession = _StringsDialogsCancelSessionSr._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileSr cannotOpenFile =
-      _StringsDialogsCannotOpenFileSr._(_root);
+  late final _StringsDialogsCannotOpenFileSr cannotOpenFile = _StringsDialogsCannotOpenFileSr._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeSr
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeSr._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeSr encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeSr._(_root);
   @override
-  late final _StringsDialogsErrorDialogSr errorDialog =
-      _StringsDialogsErrorDialogSr._(_root);
+  late final _StringsDialogsErrorDialogSr errorDialog = _StringsDialogsErrorDialogSr._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogSr favoriteDialog =
-      _StringsDialogsFavoriteDialogSr._(_root);
+  late final _StringsDialogsFavoriteDialogSr favoriteDialog = _StringsDialogsFavoriteDialogSr._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogSr favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogSr._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogSr favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogSr._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogSr favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogSr._(_root);
+  late final _StringsDialogsFavoriteEditDialogSr favoriteEditDialog = _StringsDialogsFavoriteEditDialogSr._(_root);
   @override
-  late final _StringsDialogsFileInfoSr fileInfo =
-      _StringsDialogsFileInfoSr._(_root);
+  late final _StringsDialogsFileInfoSr fileInfo = _StringsDialogsFileInfoSr._(_root);
   @override
-  late final _StringsDialogsFileNameInputSr fileNameInput =
-      _StringsDialogsFileNameInputSr._(_root);
+  late final _StringsDialogsFileNameInputSr fileNameInput = _StringsDialogsFileNameInputSr._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogSr historyClearDialog =
-      _StringsDialogsHistoryClearDialogSr._(_root);
+  late final _StringsDialogsHistoryClearDialogSr historyClearDialog = _StringsDialogsHistoryClearDialogSr._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedSr
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedSr._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedSr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedSr._(_root);
   @override
-  late final _StringsDialogsMessageInputSr messageInput =
-      _StringsDialogsMessageInputSr._(_root);
+  late final _StringsDialogsMessageInputSr messageInput = _StringsDialogsMessageInputSr._(_root);
   @override
-  late final _StringsDialogsNoFilesSr noFiles =
-      _StringsDialogsNoFilesSr._(_root);
+  late final _StringsDialogsNoFilesSr noFiles = _StringsDialogsNoFilesSr._(_root);
   @override
-  late final _StringsDialogsNoPermissionSr noPermission =
-      _StringsDialogsNoPermissionSr._(_root);
+  late final _StringsDialogsNoPermissionSr noPermission = _StringsDialogsNoPermissionSr._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformSr notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformSr._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformSr notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformSr._(_root);
   @override
   late final _StringsDialogsQrSr qr = _StringsDialogsQrSr._(_root);
   @override
-  late final _StringsDialogsQuickActionsSr quickActions =
-      _StringsDialogsQuickActionsSr._(_root);
+  late final _StringsDialogsQuickActionsSr quickActions = _StringsDialogsQuickActionsSr._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeSr quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeSr._(_root);
+  late final _StringsDialogsQuickSaveNoticeSr quickSaveNotice = _StringsDialogsQuickSaveNoticeSr._(_root);
   @override
-  late final _StringsDialogsSendModeHelpSr sendModeHelp =
-      _StringsDialogsSendModeHelpSr._(_root);
+  late final _StringsDialogsSendModeHelpSr sendModeHelp = _StringsDialogsSendModeHelpSr._(_root);
   @override
   late final _StringsDialogsZoomSr zoom = _StringsDialogsZoomSr._(_root);
 }
@@ -793,14 +733,11 @@ class _StringsAssetPickerSr extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tip fajla nije podržan.';
   @override
-  String get unableToAccessAll =>
-      'Nemoguće pristupiti svim fajlovima na ovom uredjaju';
+  String get unableToAccessAll => 'Nemoguće pristupiti svim fajlovima na ovom uredjaju';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Samo view fajlovi i albumi dostupni aplikaciji.';
+  String get viewingLimitedAssetsTip => 'Samo view fajlovi i albumi dostupni aplikaciji.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Klikni da updatuješ dostupne fajlove';
+  String get changeAccessibleLimitedAssets => 'Klikni da updatuješ dostupne fajlove';
   @override
   String get accessAllTip =>
       'Aplikacija može da pristupi samo nekim fajlovima na uredjaju.Idi u Sistemska podešavanja i dozvoli aplikaciji pristup svim medijskim fajlovima na uredjaju.';
@@ -927,18 +864,15 @@ class _StringsSettingsTabGeneralSr extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Tema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsSr brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsSr._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsSr brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsSr._(_root);
   @override
   String get color => 'Boja';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsSr colorOptions =
-      _StringsSettingsTabGeneralColorOptionsSr._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsSr colorOptions = _StringsSettingsTabGeneralColorOptionsSr._(_root);
   @override
   String get language => 'Jezik';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsSr languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsSr._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsSr languageOptions = _StringsSettingsTabGeneralLanguageOptionsSr._(_root);
   @override
   String get saveWindowPlacement => 'Izadji: Snimi položaj prozora';
   @override
@@ -990,8 +924,7 @@ class _StringsSettingsTabSendSr extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Slanje';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Podeli preko Link-a: Automatski prihvati';
+  String get shareViaLinkAutoAccept => 'Podeli preko Link-a: Automatski prihvati';
 }
 
 // Path: settingsTab.network
@@ -1007,8 +940,7 @@ class _StringsSettingsTabNetworkSr extends _StringsSettingsTabNetworkEn {
   @override
   String get title => 'Mreža';
   @override
-  String get needRestart =>
-      'Restartuj server da bi Podešavanja bila primenjena!';
+  String get needRestart => 'Restartuj server da bi Podešavanja bila primenjena!';
   @override
   String get server => 'Server';
   @override
@@ -1056,8 +988,7 @@ class _StringsSettingsTabOtherSr extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallSr
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallSr extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1067,8 +998,7 @@ class _StringsTroubleshootPageFirewallSr
 
   // Translations
   @override
-  String get symptom =>
-      'Ova aplikacija može poslati fajlove drugim uredjajima; ali drugi uredjaji ne mogu poslati fajlove ovom uredjaju.';
+  String get symptom => 'Ova aplikacija može poslati fajlove drugim uredjajima; ali drugi uredjaji ne mogu poslati fajlove ovom uredjaju.';
   @override
   String solution({required Object port}) =>
       'Ovo je najverovatnije Firewall problem. Možete rešiti ovo omogućavanjem dolaznih konekcija (UDP and TCP) na portu ${port}.';
@@ -1077,8 +1007,7 @@ class _StringsTroubleshootPageFirewallSr
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionSr
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionSr extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1088,16 +1017,14 @@ class _StringsTroubleshootPageNoConnectionSr
 
   // Translations
   @override
-  String get symptom =>
-      'Uredjaji ne mogu ni da pronadju jedan drugog, ni da podele fajlove.';
+  String get symptom => 'Uredjaji ne mogu ni da pronadju jedan drugog, ni da podele fajlove.';
   @override
   String get solution =>
       'Da li problem postoji na obe strane? Ako je tako, morate da se uverite da se oba uredjaja nalaze na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multicast adresa, enkripcija). Mreža možda ne dozvoljava komunikaciju medju uredjajima. U ovom slučaju, ova opcija mora biti omogućena na ruteru.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsSr
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsSr extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1125,14 +1052,11 @@ class _StringsProgressPageTotalSr extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleSr title =
-      _StringsProgressPageTotalTitleSr._(_root);
+  late final _StringsProgressPageTotalTitleSr title = _StringsProgressPageTotalTitleSr._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Fajlova: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Fajlova: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Veličina: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Veličina: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Brzina: ${speed}/s';
 }
@@ -1202,13 +1126,11 @@ class _StringsDialogsCannotOpenFileSr extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Ne mogu da otvorim fajl';
   @override
-  String content({required Object file}) =>
-      'Ne mogu da otvorim "${file}". Da li je ovaj fajl negde pomeren, preimenovan, ili obrisan?';
+  String content({required Object file}) => 'Ne mogu da otvorim "${file}". Da li je ovaj fajl negde pomeren, preimenovan, ili obrisan?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeSr
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeSr extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1220,8 +1142,7 @@ class _StringsDialogsEncryptionDisabledNoticeSr
   @override
   String get title => 'Enkripcija onemogućena';
   @override
-  String get content =>
-      'Komunikacija se sada vrši preko ne-enkriptovanog HTTP protokola. Da bi koristio HTTPS, omogući Enkripciju opet.';
+  String get content => 'Komunikacija se sada vrši preko ne-enkriptovanog HTTP protokola. Da bi koristio HTTPS, omogući Enkripciju opet.';
 }
 
 // Path: dialogs.errorDialog
@@ -1257,8 +1178,7 @@ class _StringsDialogsFavoriteDialogSr extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogSr
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogSr extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1270,13 +1190,11 @@ class _StringsDialogsFavoriteDeleteDialogSr
   @override
   String get title => 'Izbriši iz Omiljenih';
   @override
-  String content({required Object name}) =>
-      'Da li stvarno želiš da izbrišeš iz Omiljenih "${name}"?';
+  String content({required Object name}) => 'Da li stvarno želiš da izbrišeš iz Omiljenih "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogSr
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogSr extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1340,8 +1258,7 @@ class _StringsDialogsFileNameInputSr extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogSr
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogSr extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1357,8 +1274,7 @@ class _StringsDialogsHistoryClearDialogSr
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedSr
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedSr extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1421,13 +1337,11 @@ class _StringsDialogsNoPermissionSr extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Nema dozvole';
   @override
-  String get content =>
-      'Niste dodali neophodne dozvole. Molim dodajte ih u Podešavanja.';
+  String get content => 'Niste dodali neophodne dozvole. Molim dodajte ih u Podešavanja.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformSr
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformSr extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1481,8 +1395,7 @@ class _StringsDialogsQuickActionsSr extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeSr
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeSr extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1494,8 +1407,7 @@ class _StringsDialogsQuickSaveNoticeSr
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl.';
+  String get content => 'Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1511,14 +1423,11 @@ class _StringsDialogsSendModeHelpSr extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Mod za slanje';
   @override
-  String get single =>
-      'Pošalji fajlove jednom primaocu. Selekcija će biti resetovana nakon završenog slanja.';
+  String get single => 'Pošalji fajlove jednom primaocu. Selekcija će biti resetovana nakon završenog slanja.';
   @override
-  String get multiple =>
-      'Pošalji fajlove za više primalaca. Selekcija neće biti resetovana nakon završenog slanja.';
+  String get multiple => 'Pošalji fajlove za više primalaca. Selekcija neće biti resetovana nakon završenog slanja.';
   @override
-  String get link =>
-      'Primaoci koji nemaju LocalSend instaliran, mogu da download-uju selektovane fajlove preko Linka u browseru.';
+  String get link => 'Primaoci koji nemaju LocalSend instaliran, mogu da download-uju selektovane fajlove preko Linka u browseru.';
 }
 
 // Path: dialogs.zoom
@@ -1536,8 +1445,7 @@ class _StringsDialogsZoomSr extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsSr
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsSr extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1555,8 +1463,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsSr
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsSr
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsSr extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1572,8 +1479,7 @@ class _StringsSettingsTabGeneralColorOptionsSr
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsSr
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsSr extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsSr._(_StringsSr root)
       : this._root = root,
         super._(root);
@@ -1587,8 +1493,7 @@ class _StringsSettingsTabGeneralLanguageOptionsSr
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleSr
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleSr extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleSr._(_StringsSr root)
       : this._root = root,
         super._(root);

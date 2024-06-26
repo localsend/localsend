@@ -7,8 +7,7 @@ part 'web_send_session.mapper.dart';
 @MappableClass()
 class WebSendSession with WebSendSessionMappable {
   final String sessionId;
-  final StreamController<bool>?
-      responseHandler; // used to accept or reject incoming requests
+  final StreamController<bool>? responseHandler; // used to accept or reject incoming requests
   final String ip;
   final String deviceInfo; // parsed from userAgent
 

@@ -9,8 +9,7 @@ class CannotOpenFileDialog extends StatelessWidget {
 
   const CannotOpenFileDialog({required this.path, super.key});
 
-  static Future<void> open(
-      BuildContext context, String path, void Function()? onDeleteTap) async {
+  static Future<void> open(BuildContext context, String path, void Function()? onDeleteTap) async {
     if (checkPlatformIsDesktop()) {
       await showDialog(
         context: context,
@@ -24,8 +23,7 @@ class CannotOpenFileDialog extends StatelessWidget {
                   onDeleteTap();
                   context.pop();
                 },
-                child:
-                    Text(t.receiveHistoryPage.entryActions.deleteFromHistory),
+                child: Text(t.receiveHistoryPage.entryActions.deleteFromHistory),
               ),
             TextButton(
               onPressed: () => context.pop(),

@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsTh extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsTh.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsTh.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.th,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <th>.
   @override
@@ -47,41 +41,31 @@ class _StringsTh extends Translations {
   @override
   late final _StringsSettingsTabTh settingsTab = _StringsSettingsTabTh._(_root);
   @override
-  late final _StringsTroubleshootPageTh troubleshootPage =
-      _StringsTroubleshootPageTh._(_root);
+  late final _StringsTroubleshootPageTh troubleshootPage = _StringsTroubleshootPageTh._(_root);
   @override
-  late final _StringsReceiveHistoryPageTh receiveHistoryPage =
-      _StringsReceiveHistoryPageTh._(_root);
+  late final _StringsReceiveHistoryPageTh receiveHistoryPage = _StringsReceiveHistoryPageTh._(_root);
   @override
-  late final _StringsApkPickerPageTh apkPickerPage =
-      _StringsApkPickerPageTh._(_root);
+  late final _StringsApkPickerPageTh apkPickerPage = _StringsApkPickerPageTh._(_root);
   @override
-  late final _StringsSelectedFilesPageTh selectedFilesPage =
-      _StringsSelectedFilesPageTh._(_root);
+  late final _StringsSelectedFilesPageTh selectedFilesPage = _StringsSelectedFilesPageTh._(_root);
   @override
   late final _StringsReceivePageTh receivePage = _StringsReceivePageTh._(_root);
   @override
-  late final _StringsReceiveOptionsPageTh receiveOptionsPage =
-      _StringsReceiveOptionsPageTh._(_root);
+  late final _StringsReceiveOptionsPageTh receiveOptionsPage = _StringsReceiveOptionsPageTh._(_root);
   @override
   late final _StringsSendPageTh sendPage = _StringsSendPageTh._(_root);
   @override
-  late final _StringsProgressPageTh progressPage =
-      _StringsProgressPageTh._(_root);
+  late final _StringsProgressPageTh progressPage = _StringsProgressPageTh._(_root);
   @override
-  late final _StringsWebSharePageTh webSharePage =
-      _StringsWebSharePageTh._(_root);
+  late final _StringsWebSharePageTh webSharePage = _StringsWebSharePageTh._(_root);
   @override
   late final _StringsAboutPageTh aboutPage = _StringsAboutPageTh._(_root);
   @override
-  late final _StringsDonationPageTh donationPage =
-      _StringsDonationPageTh._(_root);
+  late final _StringsDonationPageTh donationPage = _StringsDonationPageTh._(_root);
   @override
-  late final _StringsChangelogPageTh changelogPage =
-      _StringsChangelogPageTh._(_root);
+  late final _StringsChangelogPageTh changelogPage = _StringsChangelogPageTh._(_root);
   @override
-  late final _StringsAliasGeneratorTh aliasGenerator =
-      _StringsAliasGeneratorTh._(_root);
+  late final _StringsAliasGeneratorTh aliasGenerator = _StringsAliasGeneratorTh._(_root);
   @override
   late final _StringsDialogsTh dialogs = _StringsDialogsTh._(_root);
   @override
@@ -191,8 +175,7 @@ class _StringsReceiveTabTh extends _StringsReceiveTabEn {
   @override
   String get title => 'รับ';
   @override
-  late final _StringsReceiveTabInfoBoxTh infoBox =
-      _StringsReceiveTabInfoBoxTh._(_root);
+  late final _StringsReceiveTabInfoBoxTh infoBox = _StringsReceiveTabInfoBoxTh._(_root);
 }
 
 // Path: sendTab
@@ -208,13 +191,11 @@ class _StringsSendTabTh extends _StringsSendTabEn {
   @override
   String get title => 'ส่ง';
   @override
-  late final _StringsSendTabSelectionTh selection =
-      _StringsSendTabSelectionTh._(_root);
+  late final _StringsSendTabSelectionTh selection = _StringsSendTabSelectionTh._(_root);
   @override
   late final _StringsSendTabPickerTh picker = _StringsSendTabPickerTh._(_root);
   @override
-  String get shareIntentInfo =>
-      'คุณยังสามารถใช้ฟีเจอร์ "แชร์" บนอุปกรณ์เคลื่อนที่ของคุณเพื่อเลือกไฟล์ให้ง่ายขึ้น';
+  String get shareIntentInfo => 'คุณยังสามารถใช้ฟีเจอร์ "แชร์" บนอุปกรณ์เคลื่อนที่ของคุณเพื่อเลือกไฟล์ให้ง่ายขึ้น';
   @override
   String get nearbyDevices => 'อุปกรณ์ใกล้เคียง';
   @override
@@ -224,13 +205,11 @@ class _StringsSendTabTh extends _StringsSendTabEn {
   @override
   String get sendMode => 'โหลดส่ง';
   @override
-  late final _StringsSendTabSendModesTh sendModes =
-      _StringsSendTabSendModesTh._(_root);
+  late final _StringsSendTabSendModesTh sendModes = _StringsSendTabSendModesTh._(_root);
   @override
   String get sendModeHelp => 'คำอธิบาย';
   @override
-  String get help =>
-      'โปรดตรวจสอบให้แน่ใจว่าเป้าหมายที่ต้องการนั้นอยู่ในเครือข่าย wifi เดียวกันหรือเปล่า';
+  String get help => 'โปรดตรวจสอบให้แน่ใจว่าเป้าหมายที่ต้องการนั้นอยู่ในเครือข่าย wifi เดียวกันหรือเปล่า';
   @override
   String get placeItems => 'วางรายการที่จะแชร์';
 }
@@ -248,17 +227,13 @@ class _StringsSettingsTabTh extends _StringsSettingsTabEn {
   @override
   String get title => 'การตั้งค่า';
   @override
-  late final _StringsSettingsTabGeneralTh general =
-      _StringsSettingsTabGeneralTh._(_root);
+  late final _StringsSettingsTabGeneralTh general = _StringsSettingsTabGeneralTh._(_root);
   @override
-  late final _StringsSettingsTabReceiveTh receive =
-      _StringsSettingsTabReceiveTh._(_root);
+  late final _StringsSettingsTabReceiveTh receive = _StringsSettingsTabReceiveTh._(_root);
   @override
-  late final _StringsSettingsTabNetworkTh network =
-      _StringsSettingsTabNetworkTh._(_root);
+  late final _StringsSettingsTabNetworkTh network = _StringsSettingsTabNetworkTh._(_root);
   @override
-  late final _StringsSettingsTabOtherTh other =
-      _StringsSettingsTabOtherTh._(_root);
+  late final _StringsSettingsTabOtherTh other = _StringsSettingsTabOtherTh._(_root);
   @override
   String get advancedSettings => 'ตั้งค่าขั้นสูง';
 }
@@ -276,18 +251,15 @@ class _StringsTroubleshootPageTh extends _StringsTroubleshootPageEn {
   @override
   String get title => 'แก้ไขปัญหา';
   @override
-  String get subTitle =>
-      'แอพนี้ไม่ทำงานอย่างที่คาดไว้ใช่ไหม? คุณสามารถพบวิธีแก้ปัญหาทั่วไปได้ที่นี่';
+  String get subTitle => 'แอพนี้ไม่ทำงานอย่างที่คาดไว้ใช่ไหม? คุณสามารถพบวิธีแก้ปัญหาทั่วไปได้ที่นี่';
   @override
   String get solution => 'วิธีทำ:';
   @override
   String get fixButton => 'แก้ไขโดยอัตโนมัติ';
   @override
-  late final _StringsTroubleshootPageFirewallTh firewall =
-      _StringsTroubleshootPageFirewallTh._(_root);
+  late final _StringsTroubleshootPageFirewallTh firewall = _StringsTroubleshootPageFirewallTh._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionTh noConnection =
-      _StringsTroubleshootPageNoConnectionTh._(_root);
+  late final _StringsTroubleshootPageNoConnectionTh noConnection = _StringsTroubleshootPageNoConnectionTh._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -309,8 +281,7 @@ class _StringsReceiveHistoryPageTh extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'ประวัติว่างเปล่า';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsTh entryActions =
-      _StringsReceiveHistoryPageEntryActionsTh._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsTh entryActions = _StringsReceiveHistoryPageEntryActionsTh._(_root);
 }
 
 // Path: apkPickerPage
@@ -328,8 +299,7 @@ class _StringsApkPickerPageTh extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'ยกเว้นแอประบบ';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'ยกเว้นแอปที่ไม่สามารถเปิดใช้งานได้';
+  String get excludeAppsWithoutLaunchIntent => 'ยกเว้นแอปที่ไม่สามารถเปิดใช้งานได้';
   @override
   String apps({required Object n}) => '${n} แอป';
 }
@@ -359,8 +329,7 @@ class _StringsReceivePageTh extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(
         n,
         one: 'ต้องการส่งไฟล์ให้คุณ',
         other: 'ต้องการส่งไฟล์ ${n} ให้คุณ',
@@ -430,8 +399,7 @@ class _StringsProgressPageTh extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'บันทึกไว้ในรูปถ่าย';
   @override
-  late final _StringsProgressPageTotalTh total =
-      _StringsProgressPageTotalTh._(_root);
+  late final _StringsProgressPageTotalTh total = _StringsProgressPageTotalTh._(_root);
 }
 
 // Path: webSharePage
@@ -453,8 +421,7 @@ class _StringsWebSharePageTh extends _StringsWebSharePageEn {
   @override
   String get error => 'เกิดข้อผิดพลาดขณะเริ่มเซิร์ฟเวอร์';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(
         n,
         one: 'เปิดลิงค์นี้ในเบราว์เซอร์:',
         other: 'เปิดลิงก์ใดลิงก์หนึ่งพวกนี้ในเบราว์เซอร์:',
@@ -466,8 +433,7 @@ class _StringsWebSharePageTh extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'LocalSend ใช้ใบรับรองที่ลงนามด้วยตัวเอง คุณต้องยอมรับในเบราว์เซอร์';
+  String get encryptionHint => 'LocalSend ใช้ใบรับรองที่ลงนามด้วยตัวเอง คุณต้องยอมรับในเบราว์เซอร์';
   @override
   String pendingRequests({required Object n}) => 'คำขอที่รอดำเนินการ: ${n}';
 }
@@ -510,8 +476,7 @@ class _StringsDonationPageTh extends _StringsDonationPageEn {
   @override
   String get title => 'บริจาค';
   @override
-  String get info =>
-      'LocalSend เป็นบริการโอเพ่นซอร์สฟรีและไม่มีโฆษณา หากคุณชอบแอพนี้ คุณสามารถสนับสนุนการพัฒนาด้วยการบริจาค';
+  String get info => 'LocalSend เป็นบริการโอเพ่นซอร์สฟรีและไม่มีโฆษณา หากคุณชอบแอพนี้ คุณสามารถสนับสนุนการพัฒนาด้วยการบริจาค';
   @override
   String donate({required Object amount}) => 'บริจาค ${amount}';
   @override
@@ -617,8 +582,7 @@ class _StringsAliasGeneratorTh extends _StringsAliasGeneratorEn {
 
   /// ในบางภาษา คำคุณศัพท์จะต้องอยู่ท้ายสุด
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -632,69 +596,47 @@ class _StringsDialogsTh extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileTh addFile =
-      _StringsDialogsAddFileTh._(_root);
+  late final _StringsDialogsAddFileTh addFile = _StringsDialogsAddFileTh._(_root);
   @override
-  late final _StringsDialogsAddressInputTh addressInput =
-      _StringsDialogsAddressInputTh._(_root);
+  late final _StringsDialogsAddressInputTh addressInput = _StringsDialogsAddressInputTh._(_root);
   @override
-  late final _StringsDialogsCancelSessionTh cancelSession =
-      _StringsDialogsCancelSessionTh._(_root);
+  late final _StringsDialogsCancelSessionTh cancelSession = _StringsDialogsCancelSessionTh._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileTh cannotOpenFile =
-      _StringsDialogsCannotOpenFileTh._(_root);
+  late final _StringsDialogsCannotOpenFileTh cannotOpenFile = _StringsDialogsCannotOpenFileTh._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeTh
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeTh._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeTh encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeTh._(_root);
   @override
-  late final _StringsDialogsErrorDialogTh errorDialog =
-      _StringsDialogsErrorDialogTh._(_root);
+  late final _StringsDialogsErrorDialogTh errorDialog = _StringsDialogsErrorDialogTh._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogTh favoriteDialog =
-      _StringsDialogsFavoriteDialogTh._(_root);
+  late final _StringsDialogsFavoriteDialogTh favoriteDialog = _StringsDialogsFavoriteDialogTh._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogTh favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogTh._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogTh favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogTh._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogTh favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogTh._(_root);
+  late final _StringsDialogsFavoriteEditDialogTh favoriteEditDialog = _StringsDialogsFavoriteEditDialogTh._(_root);
   @override
-  late final _StringsDialogsFileInfoTh fileInfo =
-      _StringsDialogsFileInfoTh._(_root);
+  late final _StringsDialogsFileInfoTh fileInfo = _StringsDialogsFileInfoTh._(_root);
   @override
-  late final _StringsDialogsFileNameInputTh fileNameInput =
-      _StringsDialogsFileNameInputTh._(_root);
+  late final _StringsDialogsFileNameInputTh fileNameInput = _StringsDialogsFileNameInputTh._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogTh historyClearDialog =
-      _StringsDialogsHistoryClearDialogTh._(_root);
+  late final _StringsDialogsHistoryClearDialogTh historyClearDialog = _StringsDialogsHistoryClearDialogTh._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedTh
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedTh._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedTh localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedTh._(_root);
   @override
-  late final _StringsDialogsMessageInputTh messageInput =
-      _StringsDialogsMessageInputTh._(_root);
+  late final _StringsDialogsMessageInputTh messageInput = _StringsDialogsMessageInputTh._(_root);
   @override
-  late final _StringsDialogsNoFilesTh noFiles =
-      _StringsDialogsNoFilesTh._(_root);
+  late final _StringsDialogsNoFilesTh noFiles = _StringsDialogsNoFilesTh._(_root);
   @override
-  late final _StringsDialogsNoPermissionTh noPermission =
-      _StringsDialogsNoPermissionTh._(_root);
+  late final _StringsDialogsNoPermissionTh noPermission = _StringsDialogsNoPermissionTh._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformTh notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformTh._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformTh notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformTh._(_root);
   @override
   late final _StringsDialogsQrTh qr = _StringsDialogsQrTh._(_root);
   @override
-  late final _StringsDialogsQuickActionsTh quickActions =
-      _StringsDialogsQuickActionsTh._(_root);
+  late final _StringsDialogsQuickActionsTh quickActions = _StringsDialogsQuickActionsTh._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeTh quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeTh._(_root);
+  late final _StringsDialogsQuickSaveNoticeTh quickSaveNotice = _StringsDialogsQuickSaveNoticeTh._(_root);
   @override
-  late final _StringsDialogsSendModeHelpTh sendModeHelp =
-      _StringsDialogsSendModeHelpTh._(_root);
+  late final _StringsDialogsSendModeHelpTh sendModeHelp = _StringsDialogsSendModeHelpTh._(_root);
 }
 
 // Path: tray
@@ -768,14 +710,11 @@ class _StringsAssetPickerTh extends _StringsAssetPickerEn {
   @override
   String get unableToAccessAll => 'ไม่สามารถเข้าถึงไฟล์ทั้งหมดบนอุปกรณ์';
   @override
-  String get viewingLimitedAssetsTip =>
-      'ดูเฉพาะไฟล์และอัลบั้มที่เข้าถึงได้โดยแอป';
+  String get viewingLimitedAssetsTip => 'ดูเฉพาะไฟล์และอัลบั้มที่เข้าถึงได้โดยแอป';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'คลิกเพื่ออัปเดตไฟล์ที่เข้าถึงได้';
+  String get changeAccessibleLimitedAssets => 'คลิกเพื่ออัปเดตไฟล์ที่เข้าถึงได้';
   @override
-  String get accessAllTip =>
-      'แอปสามารถเข้าถึงไฟล์บางไฟล์บนอุปกรณ์เท่านั้น ไปที่การตั้งค่าระบบและอนุญาตให้แอปเข้าถึงสื่อทั้งหมดบนอุปกรณ์';
+  String get accessAllTip => 'แอปสามารถเข้าถึงไฟล์บางไฟล์บนอุปกรณ์เท่านั้น ไปที่การตั้งค่าระบบและอนุญาตให้แอปเข้าถึงสื่อทั้งหมดบนอุปกรณ์';
   @override
   String get goToSystemSettings => 'ไปที่การตั้งค่าระบบ';
   @override
@@ -899,18 +838,15 @@ class _StringsSettingsTabGeneralTh extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'ธีม';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsTh brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsTh._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsTh brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsTh._(_root);
   @override
   String get color => 'สี';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsTh colorOptions =
-      _StringsSettingsTabGeneralColorOptionsTh._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsTh colorOptions = _StringsSettingsTabGeneralColorOptionsTh._(_root);
   @override
   String get language => 'ภาษา';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsTh languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsTh._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsTh languageOptions = _StringsSettingsTabGeneralLanguageOptionsTh._(_root);
   @override
   String get saveWindowPlacement => 'ออก: บันทึกตำแหน่งหน้าต่าง';
   @override
@@ -974,8 +910,7 @@ class _StringsSettingsTabNetworkTh extends _StringsSettingsTabNetworkEn {
   @override
   String get port => 'พอร์ต';
   @override
-  String portWarning({required Object defaultPort}) =>
-      'อุปกรณ์อื่นอาจตรวจไม่พบเนื่องจากคุณใช้พอร์ตที่คุณกำหนดเอง (default: ${defaultPort})';
+  String portWarning({required Object defaultPort}) => 'อุปกรณ์อื่นอาจตรวจไม่พบเนื่องจากคุณใช้พอร์ตที่คุณกำหนดเอง (default: ${defaultPort})';
   @override
   String get encryption => 'การเข้ารหัส';
   @override
@@ -1008,8 +943,7 @@ class _StringsSettingsTabOtherTh extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallTh
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallTh extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1019,8 +953,7 @@ class _StringsTroubleshootPageFirewallTh
 
   // Translations
   @override
-  String get symptom =>
-      'แอปนี้สามารถส่งไฟล์ไปยังอุปกรณ์อื่นได้ แต่อุปกรณ์อื่นไม่สามารถส่งไฟล์ไปยังอุปกรณ์นี้ได้';
+  String get symptom => 'แอปนี้สามารถส่งไฟล์ไปยังอุปกรณ์อื่นได้ แต่อุปกรณ์อื่นไม่สามารถส่งไฟล์ไปยังอุปกรณ์นี้ได้';
   @override
   String solution({required Object port}) =>
       'นี่น่าจะเป็นปัญหาจากไฟร์วอลล์ คุณสามารถแก้ไขได้ด้วยการอนุญาตการเชื่อมต่อขาเข้า (UDP และ TCP) บนพอร์ต ${port}';
@@ -1029,8 +962,7 @@ class _StringsTroubleshootPageFirewallTh
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionTh
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionTh extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1047,8 +979,7 @@ class _StringsTroubleshootPageNoConnectionTh
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsTh
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsTh extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1076,14 +1007,11 @@ class _StringsProgressPageTotalTh extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleTh title =
-      _StringsProgressPageTotalTitleTh._(_root);
+  late final _StringsProgressPageTotalTitleTh title = _StringsProgressPageTotalTitleTh._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'ไฟล์: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'ไฟล์: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'ขนาด: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'ขนาด: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'ความเร็ว: ${speed}/วิ';
 }
@@ -1153,13 +1081,11 @@ class _StringsDialogsCannotOpenFileTh extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'ไม่สามารถเปิดไฟล์ได้';
   @override
-  String content({required Object file}) =>
-      'ไม่สามารถเปิดไฟล์ "${file}" ได้ ไฟล์นี้ถูกย้าย เปลี่ยนชื่อ หรือลบไปหรือเปล่า';
+  String content({required Object file}) => 'ไม่สามารถเปิดไฟล์ "${file}" ได้ ไฟล์นี้ถูกย้าย เปลี่ยนชื่อ หรือลบไปหรือเปล่า';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeTh
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeTh extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1171,8 +1097,7 @@ class _StringsDialogsEncryptionDisabledNoticeTh
   @override
   String get title => 'ปิดใช้งานการเข้ารหัส';
   @override
-  String get content =>
-      'การสื่อสารขณะนี้เกิดขึ้นผ่านโปรโตคอล HTTP ที่ไม่ได้เข้ารหัส เพื่อที่จะใช้งาน HTTPS ให้เปิดใช้งานการเข้ารหัสอีกครั้ง';
+  String get content => 'การสื่อสารขณะนี้เกิดขึ้นผ่านโปรโตคอล HTTP ที่ไม่ได้เข้ารหัส เพื่อที่จะใช้งาน HTTPS ให้เปิดใช้งานการเข้ารหัสอีกครั้ง';
 }
 
 // Path: dialogs.errorDialog
@@ -1208,8 +1133,7 @@ class _StringsDialogsFavoriteDialogTh extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogTh
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogTh extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1221,13 +1145,11 @@ class _StringsDialogsFavoriteDeleteDialogTh
   @override
   String get title => 'ลบจากรายการโปรด';
   @override
-  String content({required Object name}) =>
-      'คุณต้องการลบ "${name}" ออกจากรายการโปรดหรือไม่?';
+  String content({required Object name}) => 'คุณต้องการลบ "${name}" ออกจากรายการโปรดหรือไม่?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogTh
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogTh extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1291,8 +1213,7 @@ class _StringsDialogsFileNameInputTh extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogTh
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogTh extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1308,8 +1229,7 @@ class _StringsDialogsHistoryClearDialogTh
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedTh
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedTh extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1321,8 +1241,7 @@ class _StringsDialogsLocalNetworkUnauthorizedTh
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description =>
-      'LocalSend ไม่สามารถค้นหาอุปกรณ์อื่นได้หากไม่มีสิทธิ์ในการสแกนเครือข่ายท้องถิ่น โปรดอนุญาตสิทธิ์นี้ในการตั้งค่า';
+  String get description => 'LocalSend ไม่สามารถค้นหาอุปกรณ์อื่นได้หากไม่มีสิทธิ์ในการสแกนเครือข่ายท้องถิ่น โปรดอนุญาตสิทธิ์นี้ในการตั้งค่า';
   @override
   String get gotoSettings => 'การตั้งค่า';
 }
@@ -1372,13 +1291,11 @@ class _StringsDialogsNoPermissionTh extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'ไม่มีสิทธิ์';
   @override
-  String get content =>
-      'คุณยังไม่ได้ให้สิทธิ์ที่จำเป็น โปรดให้สิทธิ์เหล่านั้นในการตั้งค่า';
+  String get content => 'คุณยังไม่ได้ให้สิทธิ์ที่จำเป็น โปรดให้สิทธิ์เหล่านั้นในการตั้งค่า';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformTh
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformTh extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1432,8 +1349,7 @@ class _StringsDialogsQuickActionsTh extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeTh
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeTh extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1445,8 +1361,7 @@ class _StringsDialogsQuickSaveNoticeTh
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายท้องถิ่นสามารถส่งไฟล์ถึงคุณได้';
+  String get content => 'คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายท้องถิ่นสามารถส่งไฟล์ถึงคุณได้';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1462,18 +1377,15 @@ class _StringsDialogsSendModeHelpTh extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'โหมดส่ง';
   @override
-  String get single =>
-      'ส่งไฟล์ไปยังผู้รับคนเดียว การเลือกจะถูกล้างออกออกหลังจากเสร็จสิ้นการโอนไฟล์';
+  String get single => 'ส่งไฟล์ไปยังผู้รับคนเดียว การเลือกจะถูกล้างออกออกหลังจากเสร็จสิ้นการโอนไฟล์';
   @override
   String get multiple => 'ส่งไฟล์ไปยังผู้รับหลายคน การเลือกจะไม่ถูกล้างออก';
   @override
-  String get link =>
-      'ผู้รับที่ไม่ได้ติดตั้ง LocalSend สามารถดาวน์โหลดไฟล์ที่เลือกได้โดยเปิดลิงก์ในเบราว์เซอร์';
+  String get link => 'ผู้รับที่ไม่ได้ติดตั้ง LocalSend สามารถดาวน์โหลดไฟล์ที่เลือกได้โดยเปิดลิงก์ในเบราว์เซอร์';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsTh
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsTh extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1491,8 +1403,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsTh
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsTh
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsTh extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1508,8 +1419,7 @@ class _StringsSettingsTabGeneralColorOptionsTh
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsTh
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsTh extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsTh._(_StringsTh root)
       : this._root = root,
         super._(root);
@@ -1523,8 +1433,7 @@ class _StringsSettingsTabGeneralLanguageOptionsTh
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleTh
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleTh extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleTh._(_StringsTh root)
       : this._root = root,
         super._(root);

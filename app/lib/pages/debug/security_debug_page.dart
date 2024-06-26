@@ -21,9 +21,7 @@ class SecurityDebugPage extends StatelessWidget {
           Row(
             children: [
               FilledButton(
-                onPressed: () async => await context.ref
-                    .redux(securityProvider)
-                    .dispatchAsync(ResetSecurityContextAction()),
+                onPressed: () async => await context.ref.redux(securityProvider).dispatchAsync(ResetSecurityContextAction()),
                 child: const Text('Reset'),
               ),
             ],

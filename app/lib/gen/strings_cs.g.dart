@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsCs extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsCs.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsCs.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.cs,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <cs>.
   @override
@@ -47,41 +41,31 @@ class _StringsCs extends Translations {
   @override
   late final _StringsSettingsTabCs settingsTab = _StringsSettingsTabCs._(_root);
   @override
-  late final _StringsTroubleshootPageCs troubleshootPage =
-      _StringsTroubleshootPageCs._(_root);
+  late final _StringsTroubleshootPageCs troubleshootPage = _StringsTroubleshootPageCs._(_root);
   @override
-  late final _StringsReceiveHistoryPageCs receiveHistoryPage =
-      _StringsReceiveHistoryPageCs._(_root);
+  late final _StringsReceiveHistoryPageCs receiveHistoryPage = _StringsReceiveHistoryPageCs._(_root);
   @override
-  late final _StringsApkPickerPageCs apkPickerPage =
-      _StringsApkPickerPageCs._(_root);
+  late final _StringsApkPickerPageCs apkPickerPage = _StringsApkPickerPageCs._(_root);
   @override
-  late final _StringsSelectedFilesPageCs selectedFilesPage =
-      _StringsSelectedFilesPageCs._(_root);
+  late final _StringsSelectedFilesPageCs selectedFilesPage = _StringsSelectedFilesPageCs._(_root);
   @override
   late final _StringsReceivePageCs receivePage = _StringsReceivePageCs._(_root);
   @override
-  late final _StringsReceiveOptionsPageCs receiveOptionsPage =
-      _StringsReceiveOptionsPageCs._(_root);
+  late final _StringsReceiveOptionsPageCs receiveOptionsPage = _StringsReceiveOptionsPageCs._(_root);
   @override
   late final _StringsSendPageCs sendPage = _StringsSendPageCs._(_root);
   @override
-  late final _StringsProgressPageCs progressPage =
-      _StringsProgressPageCs._(_root);
+  late final _StringsProgressPageCs progressPage = _StringsProgressPageCs._(_root);
   @override
-  late final _StringsWebSharePageCs webSharePage =
-      _StringsWebSharePageCs._(_root);
+  late final _StringsWebSharePageCs webSharePage = _StringsWebSharePageCs._(_root);
   @override
   late final _StringsAboutPageCs aboutPage = _StringsAboutPageCs._(_root);
   @override
-  late final _StringsDonationPageCs donationPage =
-      _StringsDonationPageCs._(_root);
+  late final _StringsDonationPageCs donationPage = _StringsDonationPageCs._(_root);
   @override
-  late final _StringsChangelogPageCs changelogPage =
-      _StringsChangelogPageCs._(_root);
+  late final _StringsChangelogPageCs changelogPage = _StringsChangelogPageCs._(_root);
   @override
-  late final _StringsAliasGeneratorCs aliasGenerator =
-      _StringsAliasGeneratorCs._(_root);
+  late final _StringsAliasGeneratorCs aliasGenerator = _StringsAliasGeneratorCs._(_root);
   @override
   late final _StringsDialogsCs dialogs = _StringsDialogsCs._(_root);
   @override
@@ -191,8 +175,7 @@ class _StringsReceiveTabCs extends _StringsReceiveTabEn {
   @override
   String get title => 'Příjmout';
   @override
-  late final _StringsReceiveTabInfoBoxCs infoBox =
-      _StringsReceiveTabInfoBoxCs._(_root);
+  late final _StringsReceiveTabInfoBoxCs infoBox = _StringsReceiveTabInfoBoxCs._(_root);
 }
 
 // Path: sendTab
@@ -208,13 +191,11 @@ class _StringsSendTabCs extends _StringsSendTabEn {
   @override
   String get title => 'Odeslat';
   @override
-  late final _StringsSendTabSelectionCs selection =
-      _StringsSendTabSelectionCs._(_root);
+  late final _StringsSendTabSelectionCs selection = _StringsSendTabSelectionCs._(_root);
   @override
   late final _StringsSendTabPickerCs picker = _StringsSendTabPickerCs._(_root);
   @override
-  String get shareIntentInfo =>
-      'Pro snazší výběr souborů můžete také použít funkci "Sdílet" svého mobilního zařízení.';
+  String get shareIntentInfo => 'Pro snazší výběr souborů můžete také použít funkci "Sdílet" svého mobilního zařízení.';
   @override
   String get nearbyDevices => 'Zařízení v okolí';
   @override
@@ -224,13 +205,11 @@ class _StringsSendTabCs extends _StringsSendTabEn {
   @override
   String get sendMode => 'Režim odesílání';
   @override
-  late final _StringsSendTabSendModesCs sendModes =
-      _StringsSendTabSendModesCs._(_root);
+  late final _StringsSendTabSendModesCs sendModes = _StringsSendTabSendModesCs._(_root);
   @override
   String get sendModeHelp => 'Vysvětlení';
   @override
-  String get help =>
-      'Ujistěte se, že se požadovaný cíl nachází ve stejné síti Wi-Fi.';
+  String get help => 'Ujistěte se, že se požadovaný cíl nachází ve stejné síti Wi-Fi.';
   @override
   String get placeItems => 'Vložte položky, které chcete sdílet.';
 }
@@ -248,17 +227,13 @@ class _StringsSettingsTabCs extends _StringsSettingsTabEn {
   @override
   String get title => 'Nastavení';
   @override
-  late final _StringsSettingsTabGeneralCs general =
-      _StringsSettingsTabGeneralCs._(_root);
+  late final _StringsSettingsTabGeneralCs general = _StringsSettingsTabGeneralCs._(_root);
   @override
-  late final _StringsSettingsTabReceiveCs receive =
-      _StringsSettingsTabReceiveCs._(_root);
+  late final _StringsSettingsTabReceiveCs receive = _StringsSettingsTabReceiveCs._(_root);
   @override
-  late final _StringsSettingsTabNetworkCs network =
-      _StringsSettingsTabNetworkCs._(_root);
+  late final _StringsSettingsTabNetworkCs network = _StringsSettingsTabNetworkCs._(_root);
   @override
-  late final _StringsSettingsTabOtherCs other =
-      _StringsSettingsTabOtherCs._(_root);
+  late final _StringsSettingsTabOtherCs other = _StringsSettingsTabOtherCs._(_root);
   @override
   String get advancedSettings => 'Pokročilá nastavení';
 }
@@ -276,18 +251,15 @@ class _StringsTroubleshootPageCs extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Odstraňování problémů';
   @override
-  String get subTitle =>
-      'Tato aplikace nefunguje podle očekávání? Zde najdete častá řešení.';
+  String get subTitle => 'Tato aplikace nefunguje podle očekávání? Zde najdete častá řešení.';
   @override
   String get solution => 'Řešení:';
   @override
   String get fixButton => 'Opravit automaticky';
   @override
-  late final _StringsTroubleshootPageFirewallCs firewall =
-      _StringsTroubleshootPageFirewallCs._(_root);
+  late final _StringsTroubleshootPageFirewallCs firewall = _StringsTroubleshootPageFirewallCs._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionCs noConnection =
-      _StringsTroubleshootPageNoConnectionCs._(_root);
+  late final _StringsTroubleshootPageNoConnectionCs noConnection = _StringsTroubleshootPageNoConnectionCs._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -309,8 +281,7 @@ class _StringsReceiveHistoryPageCs extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'Historie je prázdná.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsCs entryActions =
-      _StringsReceiveHistoryPageEntryActionsCs._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsCs entryActions = _StringsReceiveHistoryPageEntryActionsCs._(_root);
 }
 
 // Path: apkPickerPage
@@ -328,8 +299,7 @@ class _StringsApkPickerPageCs extends _StringsApkPickerPageEn {
   @override
   String get excludeSystemApps => 'Vyloučit systémové aplikace';
   @override
-  String get excludeAppsWithoutLaunchIntent =>
-      'Vyloučit aplikace, které nelze spustit';
+  String get excludeAppsWithoutLaunchIntent => 'Vyloučit aplikace, které nelze spustit';
   @override
   String apps({required Object n}) => '${n} Aplikace';
 }
@@ -359,8 +329,7 @@ class _StringsReceivePageCs extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(
         n,
         one: 'vám chce poslat soubor',
         other: 'vám chce poslat několik souborů: ${n}',
@@ -392,8 +361,7 @@ class _StringsReceiveOptionsPageCs extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Automaticky vypnuto, protože existují adresáře.';
+  String get saveToGalleryOff => 'Automaticky vypnuto, protože existují adresáře.';
 }
 
 // Path: sendPage
@@ -431,8 +399,7 @@ class _StringsProgressPageCs extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Uloženo ve Fotkách';
   @override
-  late final _StringsProgressPageTotalCs total =
-      _StringsProgressPageTotalCs._(_root);
+  late final _StringsProgressPageTotalCs total = _StringsProgressPageTotalCs._(_root);
 }
 
 // Path: webSharePage
@@ -454,8 +421,7 @@ class _StringsWebSharePageCs extends _StringsWebSharePageEn {
   @override
   String get error => 'Při spouštění serveru došlo k chybě.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(
         n,
         one: 'Otevřete tento odkaz v prohlížeči:',
         other: 'Otevřete v prohlížeči jeden z těchto odkazů:',
@@ -467,8 +433,7 @@ class _StringsWebSharePageCs extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.';
+  String get encryptionHint => 'LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.';
   @override
   String pendingRequests({required Object n}) => 'Čekající žádosti: ${n}';
 }
@@ -511,8 +476,7 @@ class _StringsDonationPageCs extends _StringsDonationPageEn {
   @override
   String get title => 'Darovat';
   @override
-  String get info =>
-      'LocalSend je zdarma, open source a bez reklam. Pokud se vám aplikace líbí, můžete její vývoj podpořit darem.';
+  String get info => 'LocalSend je zdarma, open source a bez reklam. Pokud se vám aplikace líbí, můžete její vývoj podpořit darem.';
   @override
   String donate({required Object amount}) => 'Darovat ${amount}';
   @override
@@ -558,69 +522,47 @@ class _StringsDialogsCs extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileCs addFile =
-      _StringsDialogsAddFileCs._(_root);
+  late final _StringsDialogsAddFileCs addFile = _StringsDialogsAddFileCs._(_root);
   @override
-  late final _StringsDialogsAddressInputCs addressInput =
-      _StringsDialogsAddressInputCs._(_root);
+  late final _StringsDialogsAddressInputCs addressInput = _StringsDialogsAddressInputCs._(_root);
   @override
-  late final _StringsDialogsCancelSessionCs cancelSession =
-      _StringsDialogsCancelSessionCs._(_root);
+  late final _StringsDialogsCancelSessionCs cancelSession = _StringsDialogsCancelSessionCs._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileCs cannotOpenFile =
-      _StringsDialogsCannotOpenFileCs._(_root);
+  late final _StringsDialogsCannotOpenFileCs cannotOpenFile = _StringsDialogsCannotOpenFileCs._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeCs
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeCs._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeCs encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeCs._(_root);
   @override
-  late final _StringsDialogsErrorDialogCs errorDialog =
-      _StringsDialogsErrorDialogCs._(_root);
+  late final _StringsDialogsErrorDialogCs errorDialog = _StringsDialogsErrorDialogCs._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogCs favoriteDialog =
-      _StringsDialogsFavoriteDialogCs._(_root);
+  late final _StringsDialogsFavoriteDialogCs favoriteDialog = _StringsDialogsFavoriteDialogCs._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogCs favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogCs._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogCs favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogCs._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogCs favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogCs._(_root);
+  late final _StringsDialogsFavoriteEditDialogCs favoriteEditDialog = _StringsDialogsFavoriteEditDialogCs._(_root);
   @override
-  late final _StringsDialogsFileInfoCs fileInfo =
-      _StringsDialogsFileInfoCs._(_root);
+  late final _StringsDialogsFileInfoCs fileInfo = _StringsDialogsFileInfoCs._(_root);
   @override
-  late final _StringsDialogsFileNameInputCs fileNameInput =
-      _StringsDialogsFileNameInputCs._(_root);
+  late final _StringsDialogsFileNameInputCs fileNameInput = _StringsDialogsFileNameInputCs._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogCs historyClearDialog =
-      _StringsDialogsHistoryClearDialogCs._(_root);
+  late final _StringsDialogsHistoryClearDialogCs historyClearDialog = _StringsDialogsHistoryClearDialogCs._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedCs
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedCs._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedCs localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedCs._(_root);
   @override
-  late final _StringsDialogsMessageInputCs messageInput =
-      _StringsDialogsMessageInputCs._(_root);
+  late final _StringsDialogsMessageInputCs messageInput = _StringsDialogsMessageInputCs._(_root);
   @override
-  late final _StringsDialogsNoFilesCs noFiles =
-      _StringsDialogsNoFilesCs._(_root);
+  late final _StringsDialogsNoFilesCs noFiles = _StringsDialogsNoFilesCs._(_root);
   @override
-  late final _StringsDialogsNoPermissionCs noPermission =
-      _StringsDialogsNoPermissionCs._(_root);
+  late final _StringsDialogsNoPermissionCs noPermission = _StringsDialogsNoPermissionCs._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformCs notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformCs._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformCs notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformCs._(_root);
   @override
   late final _StringsDialogsQrCs qr = _StringsDialogsQrCs._(_root);
   @override
-  late final _StringsDialogsQuickActionsCs quickActions =
-      _StringsDialogsQuickActionsCs._(_root);
+  late final _StringsDialogsQuickActionsCs quickActions = _StringsDialogsQuickActionsCs._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeCs quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeCs._(_root);
+  late final _StringsDialogsQuickSaveNoticeCs quickSaveNotice = _StringsDialogsQuickSaveNoticeCs._(_root);
   @override
-  late final _StringsDialogsSendModeHelpCs sendModeHelp =
-      _StringsDialogsSendModeHelpCs._(_root);
+  late final _StringsDialogsSendModeHelpCs sendModeHelp = _StringsDialogsSendModeHelpCs._(_root);
 }
 
 // Path: tray
@@ -692,14 +634,11 @@ class _StringsAssetPickerCs extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Nepodporovaný typ souboru.';
   @override
-  String get unableToAccessAll =>
-      'Nelze získat přístup ke všem souborům v zařízení';
+  String get unableToAccessAll => 'Nelze získat přístup ke všem souborům v zařízení';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Zobrazit pouze soubory a alba, ke kterým má aplikace přístup.';
+  String get viewingLimitedAssetsTip => 'Zobrazit pouze soubory a alba, ke kterým má aplikace přístup.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Kliknutím aktualizujete přístupné soubory';
+  String get changeAccessibleLimitedAssets => 'Kliknutím aktualizujete přístupné soubory';
   @override
   String get accessAllTip =>
       'Aplikace má přístup pouze k některým souborům v zařízení. Přejděte do nastavení systému a povolte aplikaci přístup ke všem médiím v zařízení.';
@@ -826,18 +765,15 @@ class _StringsSettingsTabGeneralCs extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Motiv';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsCs brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsCs._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsCs brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsCs._(_root);
   @override
   String get color => 'Barva';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsCs colorOptions =
-      _StringsSettingsTabGeneralColorOptionsCs._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsCs colorOptions = _StringsSettingsTabGeneralColorOptionsCs._(_root);
   @override
   String get language => 'Jazyk';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsCs languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsCs._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsCs languageOptions = _StringsSettingsTabGeneralLanguageOptionsCs._(_root);
   @override
   String get saveWindowPlacement => 'Při ukončení uložit umístění okna';
   @override
@@ -935,8 +871,7 @@ class _StringsSettingsTabOtherCs extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallCs
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallCs extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -946,8 +881,7 @@ class _StringsTroubleshootPageFirewallCs
 
   // Translations
   @override
-  String get symptom =>
-      'Tato aplikace může odesílat soubory do jiných zařízení, ale jiná zařízení nemohou odesílat soubory do tohoto zařízení.';
+  String get symptom => 'Tato aplikace může odesílat soubory do jiných zařízení, ale jiná zařízení nemohou odesílat soubory do tohoto zařízení.';
   @override
   String solution({required Object port}) =>
       'S největší pravděpodobností se jedná o problém s firewallem. Můžete to vyřešit povolením příchozích připojení (UDP a TCP) na portu ${port}.';
@@ -956,8 +890,7 @@ class _StringsTroubleshootPageFirewallCs
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionCs
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionCs extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -967,16 +900,14 @@ class _StringsTroubleshootPageNoConnectionCs
 
   // Translations
   @override
-  String get symptom =>
-      'Obě zařízení se nemohou navzájem objevit ani nemohou sdílet soubory.';
+  String get symptom => 'Obě zařízení se nemohou navzájem objevit ani nemohou sdílet soubory.';
   @override
   String get solution =>
       'Problém je na obou stranách? Pak se musíte ujistit, že jsou obě zařízení ve stejné wifi síti a sdílejí stejnou konfiguraci (port, multicastová adresa, šifrování). Wifi nemusí umožňovat komunikaci mezi účastníky. V takovém případě musí být tato možnost povolena na routeru.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsCs
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsCs extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1004,14 +935,11 @@ class _StringsProgressPageTotalCs extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleCs title =
-      _StringsProgressPageTotalTitleCs._(_root);
+  late final _StringsProgressPageTotalTitleCs title = _StringsProgressPageTotalTitleCs._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Soubory: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Soubory: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Velikost: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Velikost: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Rychlost: ${speed}/s';
 }
@@ -1081,13 +1009,11 @@ class _StringsDialogsCannotOpenFileCs extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Nelze otevřít soubor';
   @override
-  String content({required Object file}) =>
-      'Nelze otevřít "${file}". Byl tento soubor přesunut, přejmenován nebo smazán?';
+  String content({required Object file}) => 'Nelze otevřít "${file}". Byl tento soubor přesunut, přejmenován nebo smazán?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeCs
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeCs extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1099,8 +1025,7 @@ class _StringsDialogsEncryptionDisabledNoticeCs
   @override
   String get title => 'Šifrování zakázáno';
   @override
-  String get content =>
-      'Komunikace nyní probíhá prostřednictvím nešifrovaného protokolu HTTP. Chcete-li použít HTTPS, znovu povolte šifrování.';
+  String get content => 'Komunikace nyní probíhá prostřednictvím nešifrovaného protokolu HTTP. Chcete-li použít HTTPS, znovu povolte šifrování.';
 }
 
 // Path: dialogs.errorDialog
@@ -1136,8 +1061,7 @@ class _StringsDialogsFavoriteDialogCs extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogCs
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogCs extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1149,13 +1073,11 @@ class _StringsDialogsFavoriteDeleteDialogCs
   @override
   String get title => 'Smazat z oblíbených';
   @override
-  String content({required Object name}) =>
-      'Opravdu chcete smazat "${name}" z oblíbených?';
+  String content({required Object name}) => 'Opravdu chcete smazat "${name}" z oblíbených?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogCs
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogCs extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1219,8 +1141,7 @@ class _StringsDialogsFileNameInputCs extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogCs
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogCs extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1236,8 +1157,7 @@ class _StringsDialogsHistoryClearDialogCs
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedCs
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedCs extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1300,13 +1220,11 @@ class _StringsDialogsNoPermissionCs extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Žádné oprávnění';
   @override
-  String get content =>
-      'Neposkytli jste potřebná oprávnění. Prosím, udělte je v nastavení.';
+  String get content => 'Neposkytli jste potřebná oprávnění. Prosím, udělte je v nastavení.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformCs
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformCs extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1360,8 +1278,7 @@ class _StringsDialogsQuickActionsCs extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeCs
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeCs extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1373,8 +1290,7 @@ class _StringsDialogsQuickSaveNoticeCs
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory.';
+  String get content => 'Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory.';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1390,18 +1306,15 @@ class _StringsDialogsSendModeHelpCs extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Režimy odesílání';
   @override
-  String get single =>
-      'Odešle soubory jednomu příjemci. Po dokončení přenosu souboru bude výběr vymazán.';
+  String get single => 'Odešle soubory jednomu příjemci. Po dokončení přenosu souboru bude výběr vymazán.';
   @override
   String get multiple => 'Odešle soubory více příjemcům. Výběr nebude vymazán.';
   @override
-  String get link =>
-      'Příjemci, kteří nemají nainstalovaný LocalSend, si mohou vybrané soubory stáhnout otevřením odkazu ve svém prohlížeči.';
+  String get link => 'Příjemci, kteří nemají nainstalovaný LocalSend, si mohou vybrané soubory stáhnout otevřením odkazu ve svém prohlížeči.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsCs
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsCs extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1419,8 +1332,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsCs
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsCs
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsCs extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1436,8 +1348,7 @@ class _StringsSettingsTabGeneralColorOptionsCs
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsCs
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsCs extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsCs._(_StringsCs root)
       : this._root = root,
         super._(root);
@@ -1451,8 +1362,7 @@ class _StringsSettingsTabGeneralLanguageOptionsCs
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleCs
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleCs extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleCs._(_StringsCs root)
       : this._root = root,
         super._(root);

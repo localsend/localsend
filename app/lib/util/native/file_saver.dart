@@ -28,8 +28,7 @@ Future<void> saveFile({
     if (sdCardPath != null) {
       // Use Android SAF to save the file to the SD card
       final info = await _saf.startWriteStream(
-        Uri.parse(
-            'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+        Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
         name,
         isImage ? 'image/*' : '*/*',
       );
@@ -95,9 +94,7 @@ Future<void> _saveFile({
     await close();
 
     if (saveToGallery) {
-      isImage
-          ? await Gal.putImage(destinationPath)
-          : await Gal.putVideo(destinationPath);
+      isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
       await File(destinationPath).delete();
     }
 
@@ -114,29 +111,23 @@ Future<void> _saveFile({
 }
 
 /// If there is a file with the same name, then it appends a number to its file name
-Future<String> digestFilePathAndPrepareDirectory(
-    {required String parentDirectory, required String fileName}) async {
-  final actualFileName =
-      legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
+Future<String> digestFilePathAndPrepareDirectory({required String parentDirectory, required String fileName}) async {
+  final actualFileName = legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
   final fileNameParts = p.split(fileName);
-  final dir = p.joinAll(
-      [parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
+  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
   Directory(dir).createSync(recursive: true);
 
   String destinationPath;
   int counter = 1;
   do {
-    destinationPath = counter == 1
-        ? p.join(dir, actualFileName)
-        : p.join(dir, actualFileName.withCount(counter));
+    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
     counter++;
   } while (await File(destinationPath).exists());
   return destinationPath;
 }
 
-final _sdCardPathRegex =
-    RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
+final _sdCardPathRegex = RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
 
 class SdCardPath {
   final String sdCardId;

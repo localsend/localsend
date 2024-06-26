@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsIt extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsIt.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsIt.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.it,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <it>.
   @override
@@ -47,46 +41,35 @@ class _StringsIt extends Translations {
   @override
   late final _StringsSettingsTabIt settingsTab = _StringsSettingsTabIt._(_root);
   @override
-  late final _StringsTroubleshootPageIt troubleshootPage =
-      _StringsTroubleshootPageIt._(_root);
+  late final _StringsTroubleshootPageIt troubleshootPage = _StringsTroubleshootPageIt._(_root);
   @override
-  late final _StringsReceiveHistoryPageIt receiveHistoryPage =
-      _StringsReceiveHistoryPageIt._(_root);
+  late final _StringsReceiveHistoryPageIt receiveHistoryPage = _StringsReceiveHistoryPageIt._(_root);
   @override
-  late final _StringsApkPickerPageIt apkPickerPage =
-      _StringsApkPickerPageIt._(_root);
+  late final _StringsApkPickerPageIt apkPickerPage = _StringsApkPickerPageIt._(_root);
   @override
-  late final _StringsSelectedFilesPageIt selectedFilesPage =
-      _StringsSelectedFilesPageIt._(_root);
+  late final _StringsSelectedFilesPageIt selectedFilesPage = _StringsSelectedFilesPageIt._(_root);
   @override
   late final _StringsReceivePageIt receivePage = _StringsReceivePageIt._(_root);
   @override
-  late final _StringsReceiveOptionsPageIt receiveOptionsPage =
-      _StringsReceiveOptionsPageIt._(_root);
+  late final _StringsReceiveOptionsPageIt receiveOptionsPage = _StringsReceiveOptionsPageIt._(_root);
   @override
   late final _StringsSendPageIt sendPage = _StringsSendPageIt._(_root);
   @override
-  late final _StringsProgressPageIt progressPage =
-      _StringsProgressPageIt._(_root);
+  late final _StringsProgressPageIt progressPage = _StringsProgressPageIt._(_root);
   @override
-  late final _StringsWebSharePageIt webSharePage =
-      _StringsWebSharePageIt._(_root);
+  late final _StringsWebSharePageIt webSharePage = _StringsWebSharePageIt._(_root);
   @override
   late final _StringsAboutPageIt aboutPage = _StringsAboutPageIt._(_root);
   @override
-  late final _StringsDonationPageIt donationPage =
-      _StringsDonationPageIt._(_root);
+  late final _StringsDonationPageIt donationPage = _StringsDonationPageIt._(_root);
   @override
-  late final _StringsChangelogPageIt changelogPage =
-      _StringsChangelogPageIt._(_root);
+  late final _StringsChangelogPageIt changelogPage = _StringsChangelogPageIt._(_root);
   @override
-  late final _StringsAliasGeneratorIt aliasGenerator =
-      _StringsAliasGeneratorIt._(_root);
+  late final _StringsAliasGeneratorIt aliasGenerator = _StringsAliasGeneratorIt._(_root);
   @override
   late final _StringsDialogsIt dialogs = _StringsDialogsIt._(_root);
   @override
-  late final _StringsSanitizationIt sanitization =
-      _StringsSanitizationIt._(_root);
+  late final _StringsSanitizationIt sanitization = _StringsSanitizationIt._(_root);
   @override
   late final _StringsTrayIt tray = _StringsTrayIt._(_root);
   @override
@@ -194,8 +177,7 @@ class _StringsReceiveTabIt extends _StringsReceiveTabEn {
   @override
   String get title => 'Ricevi';
   @override
-  late final _StringsReceiveTabInfoBoxIt infoBox =
-      _StringsReceiveTabInfoBoxIt._(_root);
+  late final _StringsReceiveTabInfoBoxIt infoBox = _StringsReceiveTabInfoBoxIt._(_root);
 }
 
 // Path: sendTab
@@ -211,13 +193,11 @@ class _StringsSendTabIt extends _StringsSendTabEn {
   @override
   String get title => 'Invia';
   @override
-  late final _StringsSendTabSelectionIt selection =
-      _StringsSendTabSelectionIt._(_root);
+  late final _StringsSendTabSelectionIt selection = _StringsSendTabSelectionIt._(_root);
   @override
   late final _StringsSendTabPickerIt picker = _StringsSendTabPickerIt._(_root);
   @override
-  String get shareIntentInfo =>
-      'Puoi anche usare la funzionalità "Condividi" sul tuo dispositivo mobile per selezionare file in modo più semplice.';
+  String get shareIntentInfo => 'Puoi anche usare la funzionalità "Condividi" sul tuo dispositivo mobile per selezionare file in modo più semplice.';
   @override
   String get nearbyDevices => 'Dispositivi vicini';
   @override
@@ -227,13 +207,11 @@ class _StringsSendTabIt extends _StringsSendTabEn {
   @override
   String get sendMode => 'Modalità di invio';
   @override
-  late final _StringsSendTabSendModesIt sendModes =
-      _StringsSendTabSendModesIt._(_root);
+  late final _StringsSendTabSendModesIt sendModes = _StringsSendTabSendModesIt._(_root);
   @override
   String get sendModeHelp => 'Spiegazione';
   @override
-  String get help =>
-      'Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.';
+  String get help => 'Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.';
   @override
   String get placeItems => 'Inserire gli oggetti da condividere.';
 }
@@ -251,20 +229,15 @@ class _StringsSettingsTabIt extends _StringsSettingsTabEn {
   @override
   String get title => 'Impostazioni';
   @override
-  late final _StringsSettingsTabGeneralIt general =
-      _StringsSettingsTabGeneralIt._(_root);
+  late final _StringsSettingsTabGeneralIt general = _StringsSettingsTabGeneralIt._(_root);
   @override
-  late final _StringsSettingsTabReceiveIt receive =
-      _StringsSettingsTabReceiveIt._(_root);
+  late final _StringsSettingsTabReceiveIt receive = _StringsSettingsTabReceiveIt._(_root);
   @override
-  late final _StringsSettingsTabSendIt send =
-      _StringsSettingsTabSendIt._(_root);
+  late final _StringsSettingsTabSendIt send = _StringsSettingsTabSendIt._(_root);
   @override
-  late final _StringsSettingsTabNetworkIt network =
-      _StringsSettingsTabNetworkIt._(_root);
+  late final _StringsSettingsTabNetworkIt network = _StringsSettingsTabNetworkIt._(_root);
   @override
-  late final _StringsSettingsTabOtherIt other =
-      _StringsSettingsTabOtherIt._(_root);
+  late final _StringsSettingsTabOtherIt other = _StringsSettingsTabOtherIt._(_root);
   @override
   String get advancedSettings => 'Impostazioni avanzate';
 }
@@ -282,18 +255,15 @@ class _StringsTroubleshootPageIt extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Risoluzione dei problemi';
   @override
-  String get subTitle =>
-      'Questa app non funziona come previsto? Qui puoi trovare soluzioni comuni.';
+  String get subTitle => 'Questa app non funziona come previsto? Qui puoi trovare soluzioni comuni.';
   @override
   String get solution => 'Soluzione:';
   @override
   String get fixButton => 'Risolvi automaticamente';
   @override
-  late final _StringsTroubleshootPageFirewallIt firewall =
-      _StringsTroubleshootPageFirewallIt._(_root);
+  late final _StringsTroubleshootPageFirewallIt firewall = _StringsTroubleshootPageFirewallIt._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionIt noConnection =
-      _StringsTroubleshootPageNoConnectionIt._(_root);
+  late final _StringsTroubleshootPageNoConnectionIt noConnection = _StringsTroubleshootPageNoConnectionIt._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -315,8 +285,7 @@ class _StringsReceiveHistoryPageIt extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'La cronologia è vuota.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsIt entryActions =
-      _StringsReceiveHistoryPageEntryActionsIt._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsIt entryActions = _StringsReceiveHistoryPageEntryActionsIt._(_root);
 }
 
 // Path: apkPickerPage
@@ -364,8 +333,7 @@ class _StringsReceivePageIt extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(
         n,
         one: 'vuole inviarti un file',
         other: 'vuole inviarti ${n} files',
@@ -397,8 +365,7 @@ class _StringsReceiveOptionsPageIt extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Disattivato automaticamente perché ci sono delle cartelle.';
+  String get saveToGalleryOff => 'Disattivato automaticamente perché ci sono delle cartelle.';
 }
 
 // Path: sendPage
@@ -436,8 +403,7 @@ class _StringsProgressPageIt extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Salvato in Galleria';
   @override
-  late final _StringsProgressPageTotalIt total =
-      _StringsProgressPageTotalIt._(_root);
+  late final _StringsProgressPageTotalIt total = _StringsProgressPageTotalIt._(_root);
 }
 
 // Path: webSharePage
@@ -459,8 +425,7 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
   @override
   String get error => 'Si è verificato un errore durante l\'avvio del server.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(
         n,
         one: 'Apri questo link nel browser:',
         other: 'Apri uno di questi link nel browser:',
@@ -474,8 +439,7 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Accetta automaticamente le richieste';
   @override
-  String get encryptionHint =>
-      'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
+  String get encryptionHint => 'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
   @override
   String pendingRequests({required Object n}) => 'Richieste in sospeso: ${n}';
 }
@@ -565,69 +529,47 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileIt addFile =
-      _StringsDialogsAddFileIt._(_root);
+  late final _StringsDialogsAddFileIt addFile = _StringsDialogsAddFileIt._(_root);
   @override
-  late final _StringsDialogsAddressInputIt addressInput =
-      _StringsDialogsAddressInputIt._(_root);
+  late final _StringsDialogsAddressInputIt addressInput = _StringsDialogsAddressInputIt._(_root);
   @override
-  late final _StringsDialogsCancelSessionIt cancelSession =
-      _StringsDialogsCancelSessionIt._(_root);
+  late final _StringsDialogsCancelSessionIt cancelSession = _StringsDialogsCancelSessionIt._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileIt cannotOpenFile =
-      _StringsDialogsCannotOpenFileIt._(_root);
+  late final _StringsDialogsCannotOpenFileIt cannotOpenFile = _StringsDialogsCannotOpenFileIt._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeIt
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeIt._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeIt encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeIt._(_root);
   @override
-  late final _StringsDialogsErrorDialogIt errorDialog =
-      _StringsDialogsErrorDialogIt._(_root);
+  late final _StringsDialogsErrorDialogIt errorDialog = _StringsDialogsErrorDialogIt._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogIt favoriteDialog =
-      _StringsDialogsFavoriteDialogIt._(_root);
+  late final _StringsDialogsFavoriteDialogIt favoriteDialog = _StringsDialogsFavoriteDialogIt._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogIt favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogIt._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogIt favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogIt._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogIt favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogIt._(_root);
+  late final _StringsDialogsFavoriteEditDialogIt favoriteEditDialog = _StringsDialogsFavoriteEditDialogIt._(_root);
   @override
-  late final _StringsDialogsFileInfoIt fileInfo =
-      _StringsDialogsFileInfoIt._(_root);
+  late final _StringsDialogsFileInfoIt fileInfo = _StringsDialogsFileInfoIt._(_root);
   @override
-  late final _StringsDialogsFileNameInputIt fileNameInput =
-      _StringsDialogsFileNameInputIt._(_root);
+  late final _StringsDialogsFileNameInputIt fileNameInput = _StringsDialogsFileNameInputIt._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogIt historyClearDialog =
-      _StringsDialogsHistoryClearDialogIt._(_root);
+  late final _StringsDialogsHistoryClearDialogIt historyClearDialog = _StringsDialogsHistoryClearDialogIt._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedIt
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedIt._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedIt localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedIt._(_root);
   @override
-  late final _StringsDialogsMessageInputIt messageInput =
-      _StringsDialogsMessageInputIt._(_root);
+  late final _StringsDialogsMessageInputIt messageInput = _StringsDialogsMessageInputIt._(_root);
   @override
-  late final _StringsDialogsNoFilesIt noFiles =
-      _StringsDialogsNoFilesIt._(_root);
+  late final _StringsDialogsNoFilesIt noFiles = _StringsDialogsNoFilesIt._(_root);
   @override
-  late final _StringsDialogsNoPermissionIt noPermission =
-      _StringsDialogsNoPermissionIt._(_root);
+  late final _StringsDialogsNoPermissionIt noPermission = _StringsDialogsNoPermissionIt._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformIt notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformIt._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformIt notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformIt._(_root);
   @override
   late final _StringsDialogsQrIt qr = _StringsDialogsQrIt._(_root);
   @override
-  late final _StringsDialogsQuickActionsIt quickActions =
-      _StringsDialogsQuickActionsIt._(_root);
+  late final _StringsDialogsQuickActionsIt quickActions = _StringsDialogsQuickActionsIt._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeIt._(_root);
+  late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice = _StringsDialogsQuickSaveNoticeIt._(_root);
   @override
-  late final _StringsDialogsSendModeHelpIt sendModeHelp =
-      _StringsDialogsSendModeHelpIt._(_root);
+  late final _StringsDialogsSendModeHelpIt sendModeHelp = _StringsDialogsSendModeHelpIt._(_root);
   @override
   late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
 }
@@ -717,14 +659,11 @@ class _StringsAssetPickerIt extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tipo di file non supportato.';
   @override
-  String get unableToAccessAll =>
-      'Impossibile accedere a tutti i file sul dispositivo';
+  String get unableToAccessAll => 'Impossibile accedere a tutti i file sul dispositivo';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Visualizza solo file e album accessibili all\'app.';
+  String get viewingLimitedAssetsTip => 'Visualizza solo file e album accessibili all\'app.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Fai clic per aggiornare i file accessibili';
+  String get changeAccessibleLimitedAssets => 'Fai clic per aggiornare i file accessibili';
   @override
   String get accessAllTip =>
       'L\'app può accedere solo ad alcuni file sul dispositivo. Vai alle impostazioni di sistema e consenti all\'app di accedere a tutti i file multimediali sul dispositivo.';
@@ -851,18 +790,15 @@ class _StringsSettingsTabGeneralIt extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Tema';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsIt brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsIt._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsIt brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsIt._(_root);
   @override
   String get color => 'Colore';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsIt colorOptions =
-      _StringsSettingsTabGeneralColorOptionsIt._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsIt colorOptions = _StringsSettingsTabGeneralColorOptionsIt._(_root);
   @override
   String get language => 'Lingua';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsIt languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsIt._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsIt languageOptions = _StringsSettingsTabGeneralLanguageOptionsIt._(_root);
   @override
   String get saveWindowPlacement => 'Esci: Salva posizione della finestra';
   @override
@@ -914,8 +850,7 @@ class _StringsSettingsTabSendIt extends _StringsSettingsTabSendEn {
   @override
   String get title => 'Invia';
   @override
-  String get shareViaLinkAutoAccept =>
-      'Condividi via link: Accetta automaticamente';
+  String get shareViaLinkAutoAccept => 'Condividi via link: Accetta automaticamente';
 }
 
 // Path: settingsTab.network
@@ -979,8 +914,7 @@ class _StringsSettingsTabOtherIt extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallIt
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallIt extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -990,8 +924,7 @@ class _StringsTroubleshootPageFirewallIt
 
   // Translations
   @override
-  String get symptom =>
-      'Questa app può inviare file ad altri dispositivi, ma altri dispositivi non possono inviare file a questo dispositivo.';
+  String get symptom => 'Questa app può inviare file ad altri dispositivi, ma altri dispositivi non possono inviare file a questo dispositivo.';
   @override
   String solution({required Object port}) =>
       'È molto probabile che si tratti di un problema di firewall. Puoi risolverlo consentendo connessioni in entrata (UDP e TCP) sulla porta ${port}.';
@@ -1000,8 +933,7 @@ class _StringsTroubleshootPageFirewallIt
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionIt
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionIt extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1011,16 +943,14 @@ class _StringsTroubleshootPageNoConnectionIt
 
   // Translations
   @override
-  String get symptom =>
-      'Entrambi i dispositivi non riescono a scoprirsi a vicenda né a condividere file.';
+  String get symptom => 'Entrambi i dispositivi non riescono a scoprirsi a vicenda né a condividere file.';
   @override
   String get solution =>
       'Il problema esiste su entrambi i lati? Allora devi assicurarti che entrambi i dispositivi siano nella stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Il Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti. In questo caso, questa opzione deve essere abilitata sul router.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsIt
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsIt extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1048,14 +978,11 @@ class _StringsProgressPageTotalIt extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleIt title =
-      _StringsProgressPageTotalTitleIt._(_root);
+  late final _StringsProgressPageTotalTitleIt title = _StringsProgressPageTotalTitleIt._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'File: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'File: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Dimensione: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Dimensione: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Velocità: ${speed}/s';
 }
@@ -1125,13 +1052,11 @@ class _StringsDialogsCannotOpenFileIt extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'Impossibile aprire il file';
   @override
-  String content({required Object file}) =>
-      'Impossibile aprire "${file}". Questo file è stato spostato, rinominato o eliminato?';
+  String content({required Object file}) => 'Impossibile aprire "${file}". Questo file è stato spostato, rinominato o eliminato?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeIt
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeIt extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1180,8 +1105,7 @@ class _StringsDialogsFavoriteDialogIt extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogIt
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogIt extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1193,13 +1117,11 @@ class _StringsDialogsFavoriteDeleteDialogIt
   @override
   String get title => 'Elimina dai preferiti';
   @override
-  String content({required Object name}) =>
-      'Sei davvero sicuro di voler eliminare dai preferiti "${name}"?';
+  String content({required Object name}) => 'Sei davvero sicuro di voler eliminare dai preferiti "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogIt
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogIt extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1263,8 +1185,7 @@ class _StringsDialogsFileNameInputIt extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogIt
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogIt extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1280,8 +1201,7 @@ class _StringsDialogsHistoryClearDialogIt
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedIt
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedIt extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1344,13 +1264,11 @@ class _StringsDialogsNoPermissionIt extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Nessun permesso';
   @override
-  String get content =>
-      'Non hai concesso le autorizzazioni necessarie. Per favore, concedile nelle impostazioni.';
+  String get content => 'Non hai concesso le autorizzazioni necessarie. Per favore, concedile nelle impostazioni.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformIt
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformIt extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1404,8 +1322,7 @@ class _StringsDialogsQuickActionsIt extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeIt
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeIt extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1434,14 +1351,11 @@ class _StringsDialogsSendModeHelpIt extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Modalità di invio';
   @override
-  String get single =>
-      'Invia file a un destinatario. La selezione verrà cancellata dopo il trasferimento del file.';
+  String get single => 'Invia file a un destinatario. La selezione verrà cancellata dopo il trasferimento del file.';
   @override
-  String get multiple =>
-      'Invia file a più destinatari. La selezione non verrà cancellata.';
+  String get multiple => 'Invia file a più destinatari. La selezione non verrà cancellata.';
   @override
-  String get link =>
-      'I destinatari che non hanno installato LocalSend possono scaricare i file selezionati aprendo il link nel loro browser.';
+  String get link => 'I destinatari che non hanno installato LocalSend possono scaricare i file selezionati aprendo il link nel loro browser.';
 }
 
 // Path: dialogs.zoom
@@ -1459,8 +1373,7 @@ class _StringsDialogsZoomIt extends _StringsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsIt
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsIt extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1478,8 +1391,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsIt
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsIt
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsIt extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1495,8 +1407,7 @@ class _StringsSettingsTabGeneralColorOptionsIt
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsIt
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsIt extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsIt._(_StringsIt root)
       : this._root = root,
         super._(root);
@@ -1510,8 +1421,7 @@ class _StringsSettingsTabGeneralLanguageOptionsIt
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleIt
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleIt extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleIt._(_StringsIt root)
       : this._root = root,
         super._(root);

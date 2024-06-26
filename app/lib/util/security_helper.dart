@@ -18,8 +18,7 @@ StoredSecurityContext generateSecurityContext([AsymmetricKeyPair? keyPair]) {
     'C': '',
   };
   final csr = X509Utils.generateRsaCsrPem(dn, privateKey, publicKey);
-  final certificate = X509Utils.generateSelfSignedCertificate(
-      keyPair.privateKey, csr, 365 * 10);
+  final certificate = X509Utils.generateSelfSignedCertificate(keyPair.privateKey, csr, 365 * 10);
   final hash = calculateHashOfCertificate(certificate);
 
   return StoredSecurityContext(
@@ -33,11 +32,7 @@ StoredSecurityContext generateSecurityContext([AsymmetricKeyPair? keyPair]) {
 /// Calculates the hash of a certificate.
 String calculateHashOfCertificate(String certificate) {
   // Convert PEM to DER
-  final pemContent = certificate
-      .replaceAll('\r\n', '\n')
-      .split('\n')
-      .where((line) => line.isNotEmpty && !line.startsWith('---'))
-      .join();
+  final pemContent = certificate.replaceAll('\r\n', '\n').split('\n').where((line) => line.isNotEmpty && !line.startsWith('---')).join();
   final der = base64Decode(pemContent);
 
   // Calculate hash

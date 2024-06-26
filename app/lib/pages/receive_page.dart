@@ -55,14 +55,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
       return;
     }
 
-    ref
-        .notifier(selectedReceivingFilesProvider)
-        .setFiles(receiveSession.files.values.map((f) => f.file).toList());
+    ref.notifier(selectedReceivingFilesProvider).setFiles(receiveSession.files.values.map((f) => f.file).toList());
     setState(() {
       // show message if there is only one text file
       _message = receiveSession.message;
-      _isLink = _message != null &&
-          (_message!.startsWith('http://') || _message!.startsWith('https'));
+      _isLink = _message != null && (_message!.startsWith('http://') || _message!.startsWith('https'));
     });
   }
 
@@ -89,17 +86,14 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
       );
     }
     final selectedFiles = ref.watch(selectedReceivingFilesProvider);
-    final colorMode =
-        ref.watch(settingsProvider.select((state) => state.colorMode));
+    final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
-    final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull(
-        (e) => e.fingerprint == receiveSession.sender.fingerprint);
+    final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
 
     if (receiveSession.status == SessionStatus.canceledBySender) {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
     } else {
-      unawaited(
-          TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
+      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
     }
 
     return WillPopScope(
@@ -111,15 +105,13 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
         body: SafeArea(
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                  maxWidth: ResponsiveListView.defaultMaxWidth),
+              constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
               child: Builder(
                 builder: (context) {
                   final height = MediaQuery.of(context).size.height;
                   final smallUi = _message != null && height < 600;
                   return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20, vertical: smallUi ? 20 : 30),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
                     child: Column(
                       children: [
                         Expanded(
@@ -129,14 +121,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                               if (!smallUi)
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
-                                  child: Icon(
-                                      receiveSession.sender.deviceType.icon,
-                                      size: 64),
+                                  child: Icon(receiveSession.sender.deviceType.icon, size: 64),
                                 ),
                               FittedBox(
                                 child: Text(
-                                  senderFavoriteEntry?.alias ??
-                                      receiveSession.sender.alias,
+                                  senderFavoriteEntry?.alias ?? receiveSession.sender.alias,
                                   style: TextStyle(fontSize: smallUi ? 32 : 48),
                                   textAlign: TextAlign.center,
                                 ),
@@ -147,31 +136,19 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      setState(
-                                          () => _showFullIp = !_showFullIp);
+                                      setState(() => _showFullIp = !_showFullIp);
                                     },
                                     child: DeviceBadge(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondaryContainer,
-                                      foregroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onInverseSurface,
-                                      label: _showFullIp
-                                          ? receiveSession.sender.ip
-                                          : '#${receiveSession.sender.ip.visualId}',
+                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                                      label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
                                     ),
                                   ),
-                                  if (receiveSession.sender.deviceModel !=
-                                      null) ...[
+                                  if (receiveSession.sender.deviceModel != null) ...[
                                     const SizedBox(width: 10),
                                     DeviceBadge(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondaryContainer,
-                                      foregroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onInverseSurface,
+                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
                                       label: receiveSession.sender.deviceModel!,
                                     ),
                                   ],
@@ -180,20 +157,14 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                               const SizedBox(height: 40),
                               Text(
                                 _message != null
-                                    ? (_isLink
-                                        ? t.receivePage.subTitleLink
-                                        : t.receivePage.subTitleMessage)
-                                    : t.receivePage.subTitle(
-                                        n: receiveSession.files.length),
-                                style: smallUi
-                                    ? null
-                                    : Theme.of(context).textTheme.titleLarge,
+                                    ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
+                                    : t.receivePage.subTitle(n: receiveSession.files.length),
+                                style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
                                 textAlign: TextAlign.center,
                               ),
                               if (_message != null)
                                 Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 20),
@@ -213,18 +184,15 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                     ),
                                     const SizedBox(height: 10),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
                                             unawaited(
-                                              Clipboard.setData(ClipboardData(
-                                                  text: _message!)),
+                                              Clipboard.setData(ClipboardData(text: _message!)),
                                             );
                                             if (checkPlatformIsDesktop()) {
-                                              context.showSnackBar(
-                                                  t.general.copiedToClipboard);
+                                              context.showSnackBar(t.general.copiedToClipboard);
                                             }
                                             _acceptNothing();
                                             context.pop();
@@ -233,24 +201,15 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         ),
                                         if (_isLink)
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
+                                            padding: const EdgeInsets.only(left: 20),
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                foregroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .onPrimary,
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                               ),
                                               onPressed: () {
                                                 // ignore: discarded_futures
-                                                launchUrl(Uri.parse(_message!),
-                                                    mode: LaunchMode
-                                                        .externalApplication);
+                                                launchUrl(Uri.parse(_message!), mode: LaunchMode.externalApplication);
                                                 _acceptNothing();
                                                 context.pop();
                                               },
@@ -264,31 +223,26 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                             ],
                           ),
                         ),
-                        if (receiveSession.status == SessionStatus.waiting &&
-                            _message == null)
+                        if (receiveSession.status == SessionStatus.waiting && _message == null)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: TextButton.icon(
                               style: TextButton.styleFrom(
-                                foregroundColor:
-                                    Theme.of(context).colorScheme.onSurface,
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
                               onPressed: () async {
-                                await context
-                                    .push(() => const ReceiveOptionsPage());
+                                await context.push(() => const ReceiveOptionsPage());
                               },
                               icon: const Icon(Icons.settings),
                               label: Text(t.receiveOptionsPage.title),
                             ),
                           ),
-                        if (receiveSession.status ==
-                            SessionStatus.canceledBySender) ...[
+                        if (receiveSession.status == SessionStatus.canceledBySender) ...[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Text(
                               t.receivePage.canceled,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.warning),
+                              style: TextStyle(color: Theme.of(context).colorScheme.warning),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -306,8 +260,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                           Center(
                             child: TextButton.icon(
                               style: TextButton.styleFrom(
-                                foregroundColor:
-                                    Theme.of(context).colorScheme.onSurface,
+                                foregroundColor: Theme.of(context).colorScheme.onSurface,
                               ),
                               onPressed: () {
                                 _acceptNothing();
@@ -323,15 +276,11 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                             children: [
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  elevation:
-                                      colorMode == ColorMode.yaru ? 0 : null,
-                                  backgroundColor: colorMode == ColorMode.yaru
-                                      ? Theme.of(context).colorScheme.background
-                                      : Theme.of(context).colorScheme.error,
+                                  elevation: colorMode == ColorMode.yaru ? 0 : null,
+                                  backgroundColor:
+                                      colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
                                   foregroundColor: colorMode == ColorMode.yaru
-                                      ? Theme.of(context)
-                                          .colorScheme
-                                          .onBackground
+                                      ? Theme.of(context).colorScheme.onBackground
                                       : Theme.of(context).colorScheme.onError,
                                 ),
                                 onPressed: () {
@@ -344,24 +293,18 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                               const SizedBox(width: 20),
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.onPrimary,
+                                  backgroundColor: Theme.of(context).colorScheme.primary,
+                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                 ),
                                 onPressed: selectedFiles.isEmpty
                                     ? null
                                     : () async {
-                                        final sessionId = ref
-                                            .read(serverProvider)
-                                            ?.session
-                                            ?.sessionId;
+                                        final sessionId = ref.read(serverProvider)?.session?.sessionId;
                                         if (sessionId == null) {
                                           return;
                                         }
                                         _accept();
-                                        await context
-                                            .pushAndRemoveUntilImmediately(
+                                        await context.pushAndRemoveUntilImmediately(
                                           removeUntil: ReceivePage,
                                           builder: () => ProgressPage(
                                             showAppBar: false,

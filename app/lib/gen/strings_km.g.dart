@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsKm extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsKm.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsKm.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.km,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <km>.
   @override
@@ -47,41 +41,31 @@ class _StringsKm extends Translations {
   @override
   late final _StringsSettingsTabKm settingsTab = _StringsSettingsTabKm._(_root);
   @override
-  late final _StringsTroubleshootPageKm troubleshootPage =
-      _StringsTroubleshootPageKm._(_root);
+  late final _StringsTroubleshootPageKm troubleshootPage = _StringsTroubleshootPageKm._(_root);
   @override
-  late final _StringsReceiveHistoryPageKm receiveHistoryPage =
-      _StringsReceiveHistoryPageKm._(_root);
+  late final _StringsReceiveHistoryPageKm receiveHistoryPage = _StringsReceiveHistoryPageKm._(_root);
   @override
-  late final _StringsApkPickerPageKm apkPickerPage =
-      _StringsApkPickerPageKm._(_root);
+  late final _StringsApkPickerPageKm apkPickerPage = _StringsApkPickerPageKm._(_root);
   @override
-  late final _StringsSelectedFilesPageKm selectedFilesPage =
-      _StringsSelectedFilesPageKm._(_root);
+  late final _StringsSelectedFilesPageKm selectedFilesPage = _StringsSelectedFilesPageKm._(_root);
   @override
   late final _StringsReceivePageKm receivePage = _StringsReceivePageKm._(_root);
   @override
-  late final _StringsReceiveOptionsPageKm receiveOptionsPage =
-      _StringsReceiveOptionsPageKm._(_root);
+  late final _StringsReceiveOptionsPageKm receiveOptionsPage = _StringsReceiveOptionsPageKm._(_root);
   @override
   late final _StringsSendPageKm sendPage = _StringsSendPageKm._(_root);
   @override
-  late final _StringsProgressPageKm progressPage =
-      _StringsProgressPageKm._(_root);
+  late final _StringsProgressPageKm progressPage = _StringsProgressPageKm._(_root);
   @override
-  late final _StringsWebSharePageKm webSharePage =
-      _StringsWebSharePageKm._(_root);
+  late final _StringsWebSharePageKm webSharePage = _StringsWebSharePageKm._(_root);
   @override
   late final _StringsAboutPageKm aboutPage = _StringsAboutPageKm._(_root);
   @override
-  late final _StringsDonationPageKm donationPage =
-      _StringsDonationPageKm._(_root);
+  late final _StringsDonationPageKm donationPage = _StringsDonationPageKm._(_root);
   @override
-  late final _StringsChangelogPageKm changelogPage =
-      _StringsChangelogPageKm._(_root);
+  late final _StringsChangelogPageKm changelogPage = _StringsChangelogPageKm._(_root);
   @override
-  late final _StringsAliasGeneratorKm aliasGenerator =
-      _StringsAliasGeneratorKm._(_root);
+  late final _StringsAliasGeneratorKm aliasGenerator = _StringsAliasGeneratorKm._(_root);
   @override
   late final _StringsDialogsKm dialogs = _StringsDialogsKm._(_root);
   @override
@@ -191,8 +175,7 @@ class _StringsReceiveTabKm extends _StringsReceiveTabEn {
   @override
   String get title => 'ការទទួល';
   @override
-  late final _StringsReceiveTabInfoBoxKm infoBox =
-      _StringsReceiveTabInfoBoxKm._(_root);
+  late final _StringsReceiveTabInfoBoxKm infoBox = _StringsReceiveTabInfoBoxKm._(_root);
 }
 
 // Path: sendTab
@@ -208,13 +191,11 @@ class _StringsSendTabKm extends _StringsSendTabEn {
   @override
   String get title => 'ការផ្ញើ';
   @override
-  late final _StringsSendTabSelectionKm selection =
-      _StringsSendTabSelectionKm._(_root);
+  late final _StringsSendTabSelectionKm selection = _StringsSendTabSelectionKm._(_root);
   @override
   late final _StringsSendTabPickerKm picker = _StringsSendTabPickerKm._(_root);
   @override
-  String get shareIntentInfo =>
-      'អ្នកក៏អាចប្រើប្រាស់មុខងារ "ចែករំលេក" ក្នុងទូរស័ព្ទដៃរបស់អ្នកដើម្បីរើសឯកសារបានកាន់តែងាយស្រួល។';
+  String get shareIntentInfo => 'អ្នកក៏អាចប្រើប្រាស់មុខងារ "ចែករំលេក" ក្នុងទូរស័ព្ទដៃរបស់អ្នកដើម្បីរើសឯកសារបានកាន់តែងាយស្រួល។';
   @override
   String get nearbyDevices => 'ឧបករណ៍ដែលនៅជិតនេះ';
   @override
@@ -224,13 +205,11 @@ class _StringsSendTabKm extends _StringsSendTabEn {
   @override
   String get sendMode => 'ប្រភេទនៃការផ្ញើ';
   @override
-  late final _StringsSendTabSendModesKm sendModes =
-      _StringsSendTabSendModesKm._(_root);
+  late final _StringsSendTabSendModesKm sendModes = _StringsSendTabSendModesKm._(_root);
   @override
   String get sendModeHelp => 'ការពន្យល់';
   @override
-  String get help =>
-      'សូមប្រាកដថាទីតាំងដែលអ្នកចង់ផ្ញើគឺត្រូវតែភ្ជាប់បណ្តាញ Wi-Fi តែមួយដូចគ្នា។';
+  String get help => 'សូមប្រាកដថាទីតាំងដែលអ្នកចង់ផ្ញើគឺត្រូវតែភ្ជាប់បណ្តាញ Wi-Fi តែមួយដូចគ្នា។';
   @override
   String get placeItems => 'ដាក់របស់ដែលត្រូវចែករំលែក';
 }
@@ -248,17 +227,13 @@ class _StringsSettingsTabKm extends _StringsSettingsTabEn {
   @override
   String get title => 'ការកំណត់';
   @override
-  late final _StringsSettingsTabGeneralKm general =
-      _StringsSettingsTabGeneralKm._(_root);
+  late final _StringsSettingsTabGeneralKm general = _StringsSettingsTabGeneralKm._(_root);
   @override
-  late final _StringsSettingsTabReceiveKm receive =
-      _StringsSettingsTabReceiveKm._(_root);
+  late final _StringsSettingsTabReceiveKm receive = _StringsSettingsTabReceiveKm._(_root);
   @override
-  late final _StringsSettingsTabNetworkKm network =
-      _StringsSettingsTabNetworkKm._(_root);
+  late final _StringsSettingsTabNetworkKm network = _StringsSettingsTabNetworkKm._(_root);
   @override
-  late final _StringsSettingsTabOtherKm other =
-      _StringsSettingsTabOtherKm._(_root);
+  late final _StringsSettingsTabOtherKm other = _StringsSettingsTabOtherKm._(_root);
   @override
   String get advancedSettings => 'ការកំណត់កម្រិតខ្ពស់';
 }
@@ -276,18 +251,15 @@ class _StringsTroubleshootPageKm extends _StringsTroubleshootPageEn {
   @override
   String get title => 'ដោះស្រាយបញ្ហា';
   @override
-  String get subTitle =>
-      'កម្មវិធីនេះមិនដំណើរការដូចការរំពឹងទុកមែនទេ? សូមមើលដំណោះស្រាយមួយចំនួននេះ។';
+  String get subTitle => 'កម្មវិធីនេះមិនដំណើរការដូចការរំពឹងទុកមែនទេ? សូមមើលដំណោះស្រាយមួយចំនួននេះ។';
   @override
   String get solution => 'ដំណោះស្រាយ:';
   @override
   String get fixButton => 'ជួសជុលដោយស្វ័យប្រវត្តិ';
   @override
-  late final _StringsTroubleshootPageFirewallKm firewall =
-      _StringsTroubleshootPageFirewallKm._(_root);
+  late final _StringsTroubleshootPageFirewallKm firewall = _StringsTroubleshootPageFirewallKm._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionKm noConnection =
-      _StringsTroubleshootPageNoConnectionKm._(_root);
+  late final _StringsTroubleshootPageNoConnectionKm noConnection = _StringsTroubleshootPageNoConnectionKm._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -309,8 +281,7 @@ class _StringsReceiveHistoryPageKm extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'មិនមានប្រវត្តិទេ';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsKm entryActions =
-      _StringsReceiveHistoryPageEntryActionsKm._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsKm entryActions = _StringsReceiveHistoryPageEntryActionsKm._(_root);
 }
 
 // Path: apkPickerPage
@@ -358,8 +329,7 @@ class _StringsReceivePageKm extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
         n,
         one: 'ចង់ផ្ញើឯកសារមួយឲ្យមកអ្នក។',
         other: 'ចង់ផ្ញើឯកសារ ${n} ឲ្យមកអ្នក។',
@@ -429,8 +399,7 @@ class _StringsProgressPageKm extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'បានរក្សាទុកក្នុងកម្មវិធីរូបថត';
   @override
-  late final _StringsProgressPageTotalKm total =
-      _StringsProgressPageTotalKm._(_root);
+  late final _StringsProgressPageTotalKm total = _StringsProgressPageTotalKm._(_root);
 }
 
 // Path: webSharePage
@@ -452,8 +421,7 @@ class _StringsWebSharePageKm extends _StringsWebSharePageEn {
   @override
   String get error => 'មានកំហុសមួយបានកើតឡើងអំឡុងពេលចាប់ផ្តើម server ។';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
         n,
         one: 'បើកតំណនេះនៅក្នុងកម្មវិធី browser:',
         other: 'បើកតំណមួយក្នុងចំណោមតំណភ្ជាប់ទាំងនេះក្នុងកម្មវិធី browser:',
@@ -465,8 +433,7 @@ class _StringsWebSharePageKm extends _StringsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get encryptionHint =>
-      'LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
+  String get encryptionHint => 'LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
   @override
   String pendingRequests({required Object n}) => 'សំណើដែលកំពុងរង់ចាំ: ${n}';
 }
@@ -616,8 +583,7 @@ class _StringsAliasGeneratorKm extends _StringsAliasGeneratorEn {
 
   /// នៅក្នុងភាសាខ្លះ គុណនាមអាចនឹងនៅខាងក្រោយនាមវិញ។
   @override
-  String combination({required Object adjective, required Object fruit}) =>
-      '${adjective} ${fruit}';
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -631,69 +597,47 @@ class _StringsDialogsKm extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileKm addFile =
-      _StringsDialogsAddFileKm._(_root);
+  late final _StringsDialogsAddFileKm addFile = _StringsDialogsAddFileKm._(_root);
   @override
-  late final _StringsDialogsAddressInputKm addressInput =
-      _StringsDialogsAddressInputKm._(_root);
+  late final _StringsDialogsAddressInputKm addressInput = _StringsDialogsAddressInputKm._(_root);
   @override
-  late final _StringsDialogsCancelSessionKm cancelSession =
-      _StringsDialogsCancelSessionKm._(_root);
+  late final _StringsDialogsCancelSessionKm cancelSession = _StringsDialogsCancelSessionKm._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileKm cannotOpenFile =
-      _StringsDialogsCannotOpenFileKm._(_root);
+  late final _StringsDialogsCannotOpenFileKm cannotOpenFile = _StringsDialogsCannotOpenFileKm._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeKm
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeKm._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeKm encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeKm._(_root);
   @override
-  late final _StringsDialogsErrorDialogKm errorDialog =
-      _StringsDialogsErrorDialogKm._(_root);
+  late final _StringsDialogsErrorDialogKm errorDialog = _StringsDialogsErrorDialogKm._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogKm favoriteDialog =
-      _StringsDialogsFavoriteDialogKm._(_root);
+  late final _StringsDialogsFavoriteDialogKm favoriteDialog = _StringsDialogsFavoriteDialogKm._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogKm favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogKm._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogKm favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogKm._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogKm favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogKm._(_root);
+  late final _StringsDialogsFavoriteEditDialogKm favoriteEditDialog = _StringsDialogsFavoriteEditDialogKm._(_root);
   @override
-  late final _StringsDialogsFileInfoKm fileInfo =
-      _StringsDialogsFileInfoKm._(_root);
+  late final _StringsDialogsFileInfoKm fileInfo = _StringsDialogsFileInfoKm._(_root);
   @override
-  late final _StringsDialogsFileNameInputKm fileNameInput =
-      _StringsDialogsFileNameInputKm._(_root);
+  late final _StringsDialogsFileNameInputKm fileNameInput = _StringsDialogsFileNameInputKm._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogKm historyClearDialog =
-      _StringsDialogsHistoryClearDialogKm._(_root);
+  late final _StringsDialogsHistoryClearDialogKm historyClearDialog = _StringsDialogsHistoryClearDialogKm._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedKm
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedKm._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedKm localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedKm._(_root);
   @override
-  late final _StringsDialogsMessageInputKm messageInput =
-      _StringsDialogsMessageInputKm._(_root);
+  late final _StringsDialogsMessageInputKm messageInput = _StringsDialogsMessageInputKm._(_root);
   @override
-  late final _StringsDialogsNoFilesKm noFiles =
-      _StringsDialogsNoFilesKm._(_root);
+  late final _StringsDialogsNoFilesKm noFiles = _StringsDialogsNoFilesKm._(_root);
   @override
-  late final _StringsDialogsNoPermissionKm noPermission =
-      _StringsDialogsNoPermissionKm._(_root);
+  late final _StringsDialogsNoPermissionKm noPermission = _StringsDialogsNoPermissionKm._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformKm notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformKm._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformKm notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformKm._(_root);
   @override
   late final _StringsDialogsQrKm qr = _StringsDialogsQrKm._(_root);
   @override
-  late final _StringsDialogsQuickActionsKm quickActions =
-      _StringsDialogsQuickActionsKm._(_root);
+  late final _StringsDialogsQuickActionsKm quickActions = _StringsDialogsQuickActionsKm._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeKm quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeKm._(_root);
+  late final _StringsDialogsQuickSaveNoticeKm quickSaveNotice = _StringsDialogsQuickSaveNoticeKm._(_root);
   @override
-  late final _StringsDialogsSendModeHelpKm sendModeHelp =
-      _StringsDialogsSendModeHelpKm._(_root);
+  late final _StringsDialogsSendModeHelpKm sendModeHelp = _StringsDialogsSendModeHelpKm._(_root);
 }
 
 // Path: tray
@@ -767,11 +711,9 @@ class _StringsAssetPickerKm extends _StringsAssetPickerEn {
   @override
   String get unableToAccessAll => 'មិនអាចចូលប្រើឯកសារទាំងអស់នៅលើឧបករណ៍បានទេ';
   @override
-  String get viewingLimitedAssetsTip =>
-      'បានតែមើលឯកសារ និងអាល់ប៊ុមប៉ុណ្ណោះដែលអាចចូលដំណើរការបានក្នុងកម្មវិធី។';
+  String get viewingLimitedAssetsTip => 'បានតែមើលឯកសារ និងអាល់ប៊ុមប៉ុណ្ណោះដែលអាចចូលដំណើរការបានក្នុងកម្មវិធី។';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'ចុចដើម្បីធ្វើបច្ចុប្បន្នភាពឯកសារដែលអាចចូលប្រើបាន។';
+  String get changeAccessibleLimitedAssets => 'ចុចដើម្បីធ្វើបច្ចុប្បន្នភាពឯកសារដែលអាចចូលប្រើបាន។';
   @override
   String get accessAllTip =>
       'កម្មវិធីអាចចូលប្រើបានតែឯកសារមួយចំនួននៅលើឧបករណ៍ប៉ុណ្ណោះ។ ចូលទៅកាន់ការកំណត់ប្រព័ន្ធ ហើយអនុញ្ញាតឱ្យកម្មវិធីចូលប្រើមេឌៀទាំងអស់នៅលើឧបករណ៍។';
@@ -898,18 +840,15 @@ class _StringsSettingsTabGeneralKm extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'ស្បែកកម្មវិធី';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsKm brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsKm._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsKm brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsKm._(_root);
   @override
   String get color => 'ពណ៌';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsKm colorOptions =
-      _StringsSettingsTabGeneralColorOptionsKm._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsKm colorOptions = _StringsSettingsTabGeneralColorOptionsKm._(_root);
   @override
   String get language => 'ភាសា';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsKm languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsKm._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsKm languageOptions = _StringsSettingsTabGeneralLanguageOptionsKm._(_root);
   @override
   String get saveWindowPlacement => 'ចាកចេញ: រក្សាទុកផ្ទាំង Window';
   @override
@@ -917,8 +856,7 @@ class _StringsSettingsTabGeneralKm extends _StringsSettingsTabGeneralEn {
   @override
   String get launchAtStartup => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិបន្ទាប់ពីចូលគណនី';
   @override
-  String get launchMinimized =>
-      'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ: ការចាប់ផ្តើមត្រូវបានលាក់';
+  String get launchMinimized => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ: ការចាប់ផ្តើមត្រូវបានលាក់';
   @override
   String get animations => 'ចលនារស់រវើក';
 }
@@ -1008,8 +946,7 @@ class _StringsSettingsTabOtherKm extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallKm
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallKm extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1019,8 +956,7 @@ class _StringsTroubleshootPageFirewallKm
 
   // Translations
   @override
-  String get symptom =>
-      '​កម្មវិធីនេះអាចផ្ញើឯកសារទៅឧបករណ៍ផ្សេងទៀត ប៉ុន្តែឧបករណ៍ផ្សេងទៀតមិនអាចផ្ញើឯកសារមកឧបករណ៍នេះបានទេ។';
+  String get symptom => '​កម្មវិធីនេះអាចផ្ញើឯកសារទៅឧបករណ៍ផ្សេងទៀត ប៉ុន្តែឧបករណ៍ផ្សេងទៀតមិនអាចផ្ញើឯកសារមកឧបករណ៍នេះបានទេ។';
   @override
   String solution({required Object port}) =>
       'នេះទំនងជាបញ្ហារបស់ Firewall ។ អ្នកអាចដោះស្រាយវាបានដោយអនុញ្ញាតឱ្យមានការតភ្ជាប់ចូល (UDP និង TCP) តាមរយៈច្រក ${port}។';
@@ -1029,8 +965,7 @@ class _StringsTroubleshootPageFirewallKm
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionKm
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionKm extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1040,16 +975,14 @@ class _StringsTroubleshootPageNoConnectionKm
 
   // Translations
   @override
-  String get symptom =>
-      'ឧបករណ៍ទាំងពីរមិនអាចរកឃើញគ្នាទៅវិញទៅមក ហើយក៏មិនអាចចែករំលែកឯកសារបានដែរ។';
+  String get symptom => 'ឧបករណ៍ទាំងពីរមិនអាចរកឃើញគ្នាទៅវិញទៅមក ហើយក៏មិនអាចចែករំលែកឯកសារបានដែរ។';
   @override
   String get solution =>
       'បញ្ហា​កើត​មាន​ទាំង​សង​ខាង? បន្ទាប់មកអ្នកត្រូវប្រាកដថាឧបករណ៍ទាំងពីរស្ថិតនៅក្នុងបណ្តាញ wifi ដូចគ្នា និងចែករំលែកការកំណត់ដូចគ្នា (ច្រក អាសយដ្ឋានពហុផ្សាយ ការអ៊ិនគ្រីបទិន្នន័យ)។ Wi-Fi ប្រហែលជាមិនអនុញ្ញាតឱ្យទំនាក់ទំនងរវាងអ្នកចូលរួមទេ។ ក្នុងករណីនេះជម្រើសត្រូវតែបើកនៅលើរ៉ោតទ័រ។';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsKm
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsKm extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1077,14 +1010,11 @@ class _StringsProgressPageTotalKm extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleKm title =
-      _StringsProgressPageTotalTitleKm._(_root);
+  late final _StringsProgressPageTotalTitleKm title = _StringsProgressPageTotalTitleKm._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'ឯកសារ: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'ឯកសារ: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'ទំហំ: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'ទំហំ: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'ល្បឿន: ${speed}/s';
 }
@@ -1154,13 +1084,11 @@ class _StringsDialogsCannotOpenFileKm extends _StringsDialogsCannotOpenFileEn {
   @override
   String get title => 'មិនអាចបើកឯកសារបានទេ';
   @override
-  String content({required Object file}) =>
-      'មិនអាចបើកបានទេ "${file}"។ តើឯកសារនេះត្រូវបានផ្លាស់ទី ប្តូរឈ្មោះ ឬលុបមែនទេ?';
+  String content({required Object file}) => 'មិនអាចបើកបានទេ "${file}"។ តើឯកសារនេះត្រូវបានផ្លាស់ទី ប្តូរឈ្មោះ ឬលុបមែនទេ?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeKm
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeKm extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1209,8 +1137,7 @@ class _StringsDialogsFavoriteDialogKm extends _StringsDialogsFavoriteDialogEn {
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogKm
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogKm extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1222,13 +1149,11 @@ class _StringsDialogsFavoriteDeleteDialogKm
   @override
   String get title => 'លុបចេញពីឧបករណ៍សំណព្វ';
   @override
-  String content({required Object name}) =>
-      'តើអ្នកប្រាកដដែរឬទេថាចង់ដក "${name}" ចេញពីឧបករណ៍សំណព្វ?';
+  String content({required Object name}) => 'តើអ្នកប្រាកដដែរឬទេថាចង់ដក "${name}" ចេញពីឧបករណ៍សំណព្វ?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogKm
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogKm extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1292,8 +1217,7 @@ class _StringsDialogsFileNameInputKm extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogKm
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogKm extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1305,13 +1229,11 @@ class _StringsDialogsHistoryClearDialogKm
   @override
   String get title => 'លុបជម្រះប្រវត្តិ';
   @override
-  String get content =>
-      'តើអ្នកប្រាកដទេថាចង់លុបនូវរាល់ប្រវត្តិនៃការប្រើប្រាស់ទាំងអស់នេះ?';
+  String get content => 'តើអ្នកប្រាកដទេថាចង់លុបនូវរាល់ប្រវត្តិនៃការប្រើប្រាស់ទាំងអស់នេះ?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedKm
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedKm extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1374,13 +1296,11 @@ class _StringsDialogsNoPermissionKm extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'គ្មានការអនុញ្ញាត';
   @override
-  String get content =>
-      'អ្នកមិន​ទាន់ត្រូវបានផ្តល់ការអនុញ្ញាតទេ។ សូមផ្តល់ឱ្យពួកគេនៅក្នុងការកំណត់។';
+  String get content => 'អ្នកមិន​ទាន់ត្រូវបានផ្តល់ការអនុញ្ញាតទេ។ សូមផ្តល់ឱ្យពួកគេនៅក្នុងការកំណត់។';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformKm
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformKm extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1434,8 +1354,7 @@ class _StringsDialogsQuickActionsKm extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeKm
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeKm extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1464,19 +1383,15 @@ class _StringsDialogsSendModeHelpKm extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'របៀបនៃការផ្ញើ';
   @override
-  String get single =>
-      'ផ្ញើឯកសារទៅអ្នកទទួលម្នាក់។ ការជ្រើសរើសនឹងត្រូវបានសម្អាតបន្ទាប់ពីការផ្ទេរឯកសារបានបញ្ចប់។';
+  String get single => 'ផ្ញើឯកសារទៅអ្នកទទួលម្នាក់។ ការជ្រើសរើសនឹងត្រូវបានសម្អាតបន្ទាប់ពីការផ្ទេរឯកសារបានបញ្ចប់។';
   @override
-  String get multiple =>
-      'ផ្ញើឯកសារទៅអ្នកទទួលច្រើននាក់។ ការជ្រើសរើសនឹងមិនត្រូវបានសម្អាតទេ។';
+  String get multiple => 'ផ្ញើឯកសារទៅអ្នកទទួលច្រើននាក់។ ការជ្រើសរើសនឹងមិនត្រូវបានសម្អាតទេ។';
   @override
-  String get link =>
-      'អ្នកទទួលដែលមិនបានដំឡើង LocalSend អាចទាញយកឯកសារដែលបានជ្រើសរើសដោយបើកតំណនៅក្នុងកម្មវិធី browser របស់ពួកគេ។';
+  String get link => 'អ្នកទទួលដែលមិនបានដំឡើង LocalSend អាចទាញយកឯកសារដែលបានជ្រើសរើសដោយបើកតំណនៅក្នុងកម្មវិធី browser របស់ពួកគេ។';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsKm
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsKm extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1494,8 +1409,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsKm
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsKm
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsKm extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1511,8 +1425,7 @@ class _StringsSettingsTabGeneralColorOptionsKm
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsKm
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsKm extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsKm._(_StringsKm root)
       : this._root = root,
         super._(root);
@@ -1526,8 +1439,7 @@ class _StringsSettingsTabGeneralLanguageOptionsKm
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleKm
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleKm extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleKm._(_StringsKm root)
       : this._root = root,
         super._(root);

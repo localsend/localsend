@@ -10,21 +10,15 @@ part of 'strings.g.dart';
 class _StringsEsEs extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsEsEs.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsEsEs.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.esEs,
           overrides: overrides ?? {},
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         ),
-        super.build(
-            cardinalResolver: cardinalResolver,
-            ordinalResolver: ordinalResolver);
+        super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <es-ES>.
   @override
@@ -41,50 +35,37 @@ class _StringsEsEs extends Translations {
   @override
   late final _StringsGeneralEsEs general = _StringsGeneralEsEs._(_root);
   @override
-  late final _StringsReceiveTabEsEs receiveTab =
-      _StringsReceiveTabEsEs._(_root);
+  late final _StringsReceiveTabEsEs receiveTab = _StringsReceiveTabEsEs._(_root);
   @override
   late final _StringsSendTabEsEs sendTab = _StringsSendTabEsEs._(_root);
   @override
-  late final _StringsSettingsTabEsEs settingsTab =
-      _StringsSettingsTabEsEs._(_root);
+  late final _StringsSettingsTabEsEs settingsTab = _StringsSettingsTabEsEs._(_root);
   @override
-  late final _StringsTroubleshootPageEsEs troubleshootPage =
-      _StringsTroubleshootPageEsEs._(_root);
+  late final _StringsTroubleshootPageEsEs troubleshootPage = _StringsTroubleshootPageEsEs._(_root);
   @override
-  late final _StringsReceiveHistoryPageEsEs receiveHistoryPage =
-      _StringsReceiveHistoryPageEsEs._(_root);
+  late final _StringsReceiveHistoryPageEsEs receiveHistoryPage = _StringsReceiveHistoryPageEsEs._(_root);
   @override
-  late final _StringsApkPickerPageEsEs apkPickerPage =
-      _StringsApkPickerPageEsEs._(_root);
+  late final _StringsApkPickerPageEsEs apkPickerPage = _StringsApkPickerPageEsEs._(_root);
   @override
-  late final _StringsSelectedFilesPageEsEs selectedFilesPage =
-      _StringsSelectedFilesPageEsEs._(_root);
+  late final _StringsSelectedFilesPageEsEs selectedFilesPage = _StringsSelectedFilesPageEsEs._(_root);
   @override
-  late final _StringsReceivePageEsEs receivePage =
-      _StringsReceivePageEsEs._(_root);
+  late final _StringsReceivePageEsEs receivePage = _StringsReceivePageEsEs._(_root);
   @override
-  late final _StringsReceiveOptionsPageEsEs receiveOptionsPage =
-      _StringsReceiveOptionsPageEsEs._(_root);
+  late final _StringsReceiveOptionsPageEsEs receiveOptionsPage = _StringsReceiveOptionsPageEsEs._(_root);
   @override
   late final _StringsSendPageEsEs sendPage = _StringsSendPageEsEs._(_root);
   @override
-  late final _StringsProgressPageEsEs progressPage =
-      _StringsProgressPageEsEs._(_root);
+  late final _StringsProgressPageEsEs progressPage = _StringsProgressPageEsEs._(_root);
   @override
-  late final _StringsWebSharePageEsEs webSharePage =
-      _StringsWebSharePageEsEs._(_root);
+  late final _StringsWebSharePageEsEs webSharePage = _StringsWebSharePageEsEs._(_root);
   @override
   late final _StringsAboutPageEsEs aboutPage = _StringsAboutPageEsEs._(_root);
   @override
-  late final _StringsDonationPageEsEs donationPage =
-      _StringsDonationPageEsEs._(_root);
+  late final _StringsDonationPageEsEs donationPage = _StringsDonationPageEsEs._(_root);
   @override
-  late final _StringsChangelogPageEsEs changelogPage =
-      _StringsChangelogPageEsEs._(_root);
+  late final _StringsChangelogPageEsEs changelogPage = _StringsChangelogPageEsEs._(_root);
   @override
-  late final _StringsAliasGeneratorEsEs aliasGenerator =
-      _StringsAliasGeneratorEsEs._(_root);
+  late final _StringsAliasGeneratorEsEs aliasGenerator = _StringsAliasGeneratorEsEs._(_root);
   @override
   late final _StringsDialogsEsEs dialogs = _StringsDialogsEsEs._(_root);
   @override
@@ -92,8 +73,7 @@ class _StringsEsEs extends Translations {
   @override
   late final _StringsWebEsEs web = _StringsWebEsEs._(_root);
   @override
-  late final _StringsAssetPickerEsEs assetPicker =
-      _StringsAssetPickerEsEs._(_root);
+  late final _StringsAssetPickerEsEs assetPicker = _StringsAssetPickerEsEs._(_root);
 }
 
 // Path: general
@@ -195,8 +175,7 @@ class _StringsReceiveTabEsEs extends _StringsReceiveTabEn {
   @override
   String get title => 'Recibir';
   @override
-  late final _StringsReceiveTabInfoBoxEsEs infoBox =
-      _StringsReceiveTabInfoBoxEsEs._(_root);
+  late final _StringsReceiveTabInfoBoxEsEs infoBox = _StringsReceiveTabInfoBoxEsEs._(_root);
 }
 
 // Path: sendTab
@@ -212,14 +191,11 @@ class _StringsSendTabEsEs extends _StringsSendTabEn {
   @override
   String get title => 'Enviar';
   @override
-  late final _StringsSendTabSelectionEsEs selection =
-      _StringsSendTabSelectionEsEs._(_root);
+  late final _StringsSendTabSelectionEsEs selection = _StringsSendTabSelectionEsEs._(_root);
   @override
-  late final _StringsSendTabPickerEsEs picker =
-      _StringsSendTabPickerEsEs._(_root);
+  late final _StringsSendTabPickerEsEs picker = _StringsSendTabPickerEsEs._(_root);
   @override
-  String get shareIntentInfo =>
-      'También puedes usar la opción "Compartir" de tu dispositivo para seleccionar archivos más fácilmente.';
+  String get shareIntentInfo => 'También puedes usar la opción "Compartir" de tu dispositivo para seleccionar archivos más fácilmente.';
   @override
   String get nearbyDevices => 'Dispositivos Cercanos';
   @override
@@ -229,13 +205,11 @@ class _StringsSendTabEsEs extends _StringsSendTabEn {
   @override
   String get sendMode => 'Modo de envío';
   @override
-  late final _StringsSendTabSendModesEsEs sendModes =
-      _StringsSendTabSendModesEsEs._(_root);
+  late final _StringsSendTabSendModesEsEs sendModes = _StringsSendTabSendModesEsEs._(_root);
   @override
   String get sendModeHelp => 'Explicación';
   @override
-  String get help =>
-      'Asegúrate de que el destino elegido esté en la misma red Wi-Fi.';
+  String get help => 'Asegúrate de que el destino elegido esté en la misma red Wi-Fi.';
   @override
   String get placeItems => 'Selecciona items para compartir.';
 }
@@ -253,20 +227,15 @@ class _StringsSettingsTabEsEs extends _StringsSettingsTabEn {
   @override
   String get title => 'Ajustes';
   @override
-  late final _StringsSettingsTabGeneralEsEs general =
-      _StringsSettingsTabGeneralEsEs._(_root);
+  late final _StringsSettingsTabGeneralEsEs general = _StringsSettingsTabGeneralEsEs._(_root);
   @override
-  late final _StringsSettingsTabReceiveEsEs receive =
-      _StringsSettingsTabReceiveEsEs._(_root);
+  late final _StringsSettingsTabReceiveEsEs receive = _StringsSettingsTabReceiveEsEs._(_root);
   @override
-  late final _StringsSettingsTabSendEsEs send =
-      _StringsSettingsTabSendEsEs._(_root);
+  late final _StringsSettingsTabSendEsEs send = _StringsSettingsTabSendEsEs._(_root);
   @override
-  late final _StringsSettingsTabNetworkEsEs network =
-      _StringsSettingsTabNetworkEsEs._(_root);
+  late final _StringsSettingsTabNetworkEsEs network = _StringsSettingsTabNetworkEsEs._(_root);
   @override
-  late final _StringsSettingsTabOtherEsEs other =
-      _StringsSettingsTabOtherEsEs._(_root);
+  late final _StringsSettingsTabOtherEsEs other = _StringsSettingsTabOtherEsEs._(_root);
   @override
   String get advancedSettings => 'Configuración avanzada';
 }
@@ -284,18 +253,15 @@ class _StringsTroubleshootPageEsEs extends _StringsTroubleshootPageEn {
   @override
   String get title => 'Solucionar problemas';
   @override
-  String get subTitle =>
-      '¿La aplicación no funciona como debería? Aquí puedes encontrar soluciones a problemas comunes.';
+  String get subTitle => '¿La aplicación no funciona como debería? Aquí puedes encontrar soluciones a problemas comunes.';
   @override
   String get solution => 'Solución:';
   @override
   String get fixButton => 'Corregir automáticamente';
   @override
-  late final _StringsTroubleshootPageFirewallEsEs firewall =
-      _StringsTroubleshootPageFirewallEsEs._(_root);
+  late final _StringsTroubleshootPageFirewallEsEs firewall = _StringsTroubleshootPageFirewallEsEs._(_root);
   @override
-  late final _StringsTroubleshootPageNoConnectionEsEs noConnection =
-      _StringsTroubleshootPageNoConnectionEsEs._(_root);
+  late final _StringsTroubleshootPageNoConnectionEsEs noConnection = _StringsTroubleshootPageNoConnectionEsEs._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -317,8 +283,7 @@ class _StringsReceiveHistoryPageEsEs extends _StringsReceiveHistoryPageEn {
   @override
   String get empty => 'El historial está vacío.';
   @override
-  late final _StringsReceiveHistoryPageEntryActionsEsEs entryActions =
-      _StringsReceiveHistoryPageEntryActionsEsEs._(_root);
+  late final _StringsReceiveHistoryPageEntryActionsEsEs entryActions = _StringsReceiveHistoryPageEntryActionsEsEs._(_root);
 }
 
 // Path: apkPickerPage
@@ -366,8 +331,7 @@ class _StringsReceivePageEsEs extends _StringsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(
         n,
         one: 'quiere enviarte un archivo',
         other: 'quiere enviarte ${n} archivos',
@@ -399,8 +363,7 @@ class _StringsReceiveOptionsPageEsEs extends _StringsReceiveOptionsPageEn {
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff =>
-      'Desactivado automáticamente porque hay carpetas.';
+  String get saveToGalleryOff => 'Desactivado automáticamente porque hay carpetas.';
 }
 
 // Path: sendPage
@@ -438,8 +401,7 @@ class _StringsProgressPageEsEs extends _StringsProgressPageEn {
   @override
   String get savedToGallery => 'Guardado en fotos';
   @override
-  late final _StringsProgressPageTotalEsEs total =
-      _StringsProgressPageTotalEsEs._(_root);
+  late final _StringsProgressPageTotalEsEs total = _StringsProgressPageTotalEsEs._(_root);
 }
 
 // Path: webSharePage
@@ -461,8 +423,7 @@ class _StringsWebSharePageEsEs extends _StringsWebSharePageEn {
   @override
   String get error => 'Se ha producido un error al iniciar el servidor.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(
         n,
         one: 'Abre este enlace en el navegador:',
         other: 'Abre uno de estos enlaces en el navegador:',
@@ -476,8 +437,7 @@ class _StringsWebSharePageEsEs extends _StringsWebSharePageEn {
   @override
   String get autoAccept => 'Aceptar solicitudes automáticamente';
   @override
-  String get encryptionHint =>
-      'LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.';
+  String get encryptionHint => 'LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.';
   @override
   String pendingRequests({required Object n}) => 'Solicitudes pendientes: ${n}';
 }
@@ -567,69 +527,47 @@ class _StringsDialogsEsEs extends _StringsDialogsEn {
 
   // Translations
   @override
-  late final _StringsDialogsAddFileEsEs addFile =
-      _StringsDialogsAddFileEsEs._(_root);
+  late final _StringsDialogsAddFileEsEs addFile = _StringsDialogsAddFileEsEs._(_root);
   @override
-  late final _StringsDialogsAddressInputEsEs addressInput =
-      _StringsDialogsAddressInputEsEs._(_root);
+  late final _StringsDialogsAddressInputEsEs addressInput = _StringsDialogsAddressInputEsEs._(_root);
   @override
-  late final _StringsDialogsCancelSessionEsEs cancelSession =
-      _StringsDialogsCancelSessionEsEs._(_root);
+  late final _StringsDialogsCancelSessionEsEs cancelSession = _StringsDialogsCancelSessionEsEs._(_root);
   @override
-  late final _StringsDialogsCannotOpenFileEsEs cannotOpenFile =
-      _StringsDialogsCannotOpenFileEsEs._(_root);
+  late final _StringsDialogsCannotOpenFileEsEs cannotOpenFile = _StringsDialogsCannotOpenFileEsEs._(_root);
   @override
-  late final _StringsDialogsEncryptionDisabledNoticeEsEs
-      encryptionDisabledNotice =
-      _StringsDialogsEncryptionDisabledNoticeEsEs._(_root);
+  late final _StringsDialogsEncryptionDisabledNoticeEsEs encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeEsEs._(_root);
   @override
-  late final _StringsDialogsErrorDialogEsEs errorDialog =
-      _StringsDialogsErrorDialogEsEs._(_root);
+  late final _StringsDialogsErrorDialogEsEs errorDialog = _StringsDialogsErrorDialogEsEs._(_root);
   @override
-  late final _StringsDialogsFavoriteDialogEsEs favoriteDialog =
-      _StringsDialogsFavoriteDialogEsEs._(_root);
+  late final _StringsDialogsFavoriteDialogEsEs favoriteDialog = _StringsDialogsFavoriteDialogEsEs._(_root);
   @override
-  late final _StringsDialogsFavoriteDeleteDialogEsEs favoriteDeleteDialog =
-      _StringsDialogsFavoriteDeleteDialogEsEs._(_root);
+  late final _StringsDialogsFavoriteDeleteDialogEsEs favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogEsEs._(_root);
   @override
-  late final _StringsDialogsFavoriteEditDialogEsEs favoriteEditDialog =
-      _StringsDialogsFavoriteEditDialogEsEs._(_root);
+  late final _StringsDialogsFavoriteEditDialogEsEs favoriteEditDialog = _StringsDialogsFavoriteEditDialogEsEs._(_root);
   @override
-  late final _StringsDialogsFileInfoEsEs fileInfo =
-      _StringsDialogsFileInfoEsEs._(_root);
+  late final _StringsDialogsFileInfoEsEs fileInfo = _StringsDialogsFileInfoEsEs._(_root);
   @override
-  late final _StringsDialogsFileNameInputEsEs fileNameInput =
-      _StringsDialogsFileNameInputEsEs._(_root);
+  late final _StringsDialogsFileNameInputEsEs fileNameInput = _StringsDialogsFileNameInputEsEs._(_root);
   @override
-  late final _StringsDialogsHistoryClearDialogEsEs historyClearDialog =
-      _StringsDialogsHistoryClearDialogEsEs._(_root);
+  late final _StringsDialogsHistoryClearDialogEsEs historyClearDialog = _StringsDialogsHistoryClearDialogEsEs._(_root);
   @override
-  late final _StringsDialogsLocalNetworkUnauthorizedEsEs
-      localNetworkUnauthorized =
-      _StringsDialogsLocalNetworkUnauthorizedEsEs._(_root);
+  late final _StringsDialogsLocalNetworkUnauthorizedEsEs localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedEsEs._(_root);
   @override
-  late final _StringsDialogsMessageInputEsEs messageInput =
-      _StringsDialogsMessageInputEsEs._(_root);
+  late final _StringsDialogsMessageInputEsEs messageInput = _StringsDialogsMessageInputEsEs._(_root);
   @override
-  late final _StringsDialogsNoFilesEsEs noFiles =
-      _StringsDialogsNoFilesEsEs._(_root);
+  late final _StringsDialogsNoFilesEsEs noFiles = _StringsDialogsNoFilesEsEs._(_root);
   @override
-  late final _StringsDialogsNoPermissionEsEs noPermission =
-      _StringsDialogsNoPermissionEsEs._(_root);
+  late final _StringsDialogsNoPermissionEsEs noPermission = _StringsDialogsNoPermissionEsEs._(_root);
   @override
-  late final _StringsDialogsNotAvailableOnPlatformEsEs notAvailableOnPlatform =
-      _StringsDialogsNotAvailableOnPlatformEsEs._(_root);
+  late final _StringsDialogsNotAvailableOnPlatformEsEs notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformEsEs._(_root);
   @override
   late final _StringsDialogsQrEsEs qr = _StringsDialogsQrEsEs._(_root);
   @override
-  late final _StringsDialogsQuickActionsEsEs quickActions =
-      _StringsDialogsQuickActionsEsEs._(_root);
+  late final _StringsDialogsQuickActionsEsEs quickActions = _StringsDialogsQuickActionsEsEs._(_root);
   @override
-  late final _StringsDialogsQuickSaveNoticeEsEs quickSaveNotice =
-      _StringsDialogsQuickSaveNoticeEsEs._(_root);
+  late final _StringsDialogsQuickSaveNoticeEsEs quickSaveNotice = _StringsDialogsQuickSaveNoticeEsEs._(_root);
   @override
-  late final _StringsDialogsSendModeHelpEsEs sendModeHelp =
-      _StringsDialogsSendModeHelpEsEs._(_root);
+  late final _StringsDialogsSendModeHelpEsEs sendModeHelp = _StringsDialogsSendModeHelpEsEs._(_root);
 }
 
 // Path: tray
@@ -701,14 +639,11 @@ class _StringsAssetPickerEsEs extends _StringsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tipo de archivo no soportado.';
   @override
-  String get unableToAccessAll =>
-      'No se puede acceder a los archivos del dispositivo.';
+  String get unableToAccessAll => 'No se puede acceder a los archivos del dispositivo.';
   @override
-  String get viewingLimitedAssetsTip =>
-      'Ver sólo los archivos y álbumes accesibles para la aplicación.';
+  String get viewingLimitedAssetsTip => 'Ver sólo los archivos y álbumes accesibles para la aplicación.';
   @override
-  String get changeAccessibleLimitedAssets =>
-      'Haga clic para actualizar los archivos accesibles';
+  String get changeAccessibleLimitedAssets => 'Haga clic para actualizar los archivos accesibles';
   @override
   String get accessAllTip =>
       'La aplicación sólo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.';
@@ -835,21 +770,17 @@ class _StringsSettingsTabGeneralEsEs extends _StringsSettingsTabGeneralEn {
   @override
   String get brightness => 'Luminosidad';
   @override
-  late final _StringsSettingsTabGeneralBrightnessOptionsEsEs brightnessOptions =
-      _StringsSettingsTabGeneralBrightnessOptionsEsEs._(_root);
+  late final _StringsSettingsTabGeneralBrightnessOptionsEsEs brightnessOptions = _StringsSettingsTabGeneralBrightnessOptionsEsEs._(_root);
   @override
   String get color => 'Color';
   @override
-  late final _StringsSettingsTabGeneralColorOptionsEsEs colorOptions =
-      _StringsSettingsTabGeneralColorOptionsEsEs._(_root);
+  late final _StringsSettingsTabGeneralColorOptionsEsEs colorOptions = _StringsSettingsTabGeneralColorOptionsEsEs._(_root);
   @override
   String get language => 'Idioma';
   @override
-  late final _StringsSettingsTabGeneralLanguageOptionsEsEs languageOptions =
-      _StringsSettingsTabGeneralLanguageOptionsEsEs._(_root);
+  late final _StringsSettingsTabGeneralLanguageOptionsEsEs languageOptions = _StringsSettingsTabGeneralLanguageOptionsEsEs._(_root);
   @override
-  String get saveWindowPlacement =>
-      'Al salir guardar la ubicación de la ventana';
+  String get saveWindowPlacement => 'Al salir guardar la ubicación de la ventana';
   @override
   String get minimizeToTray => 'Cerrar: Minimizar ventana';
   @override
@@ -961,8 +892,7 @@ class _StringsSettingsTabOtherEsEs extends _StringsSettingsTabOtherEn {
 }
 
 // Path: troubleshootPage.firewall
-class _StringsTroubleshootPageFirewallEsEs
-    extends _StringsTroubleshootPageFirewallEn {
+class _StringsTroubleshootPageFirewallEsEs extends _StringsTroubleshootPageFirewallEn {
   _StringsTroubleshootPageFirewallEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -972,8 +902,7 @@ class _StringsTroubleshootPageFirewallEsEs
 
   // Translations
   @override
-  String get symptom =>
-      'Esta aplicación puede enviar archivos a otros dispositivos pero otros dispositivos no pueden enviar archivos a este.';
+  String get symptom => 'Esta aplicación puede enviar archivos a otros dispositivos pero otros dispositivos no pueden enviar archivos a este.';
   @override
   String solution({required Object port}) =>
       'Lo más probable es que se trate de un problema con el firewall, puedes solucionarlo permitiendo las conexiones entrantes (UDP y TCP) en el puerto ${port}.';
@@ -982,8 +911,7 @@ class _StringsTroubleshootPageFirewallEsEs
 }
 
 // Path: troubleshootPage.noConnection
-class _StringsTroubleshootPageNoConnectionEsEs
-    extends _StringsTroubleshootPageNoConnectionEn {
+class _StringsTroubleshootPageNoConnectionEsEs extends _StringsTroubleshootPageNoConnectionEn {
   _StringsTroubleshootPageNoConnectionEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -993,16 +921,14 @@ class _StringsTroubleshootPageNoConnectionEsEs
 
   // Translations
   @override
-  String get symptom =>
-      'Ambos dispositivos no pueden descubrirse ni compartir archivos.';
+  String get symptom => 'Ambos dispositivos no pueden descubrirse ni compartir archivos.';
   @override
   String get solution =>
       '¿El problema existe en ambos lados? Tienes que asegurarte que los dispositivos están en la misma red wifi y comparten la misma configuración (puerto, dirección multicast, encriptación). Es posible que el wifi no permita la comunicación entre los dispositivos. En este caso, hay que activar esta opción en el router.';
 }
 
 // Path: receiveHistoryPage.entryActions
-class _StringsReceiveHistoryPageEntryActionsEsEs
-    extends _StringsReceiveHistoryPageEntryActionsEn {
+class _StringsReceiveHistoryPageEntryActionsEsEs extends _StringsReceiveHistoryPageEntryActionsEn {
   _StringsReceiveHistoryPageEntryActionsEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1030,14 +956,11 @@ class _StringsProgressPageTotalEsEs extends _StringsProgressPageTotalEn {
 
   // Translations
   @override
-  late final _StringsProgressPageTotalTitleEsEs title =
-      _StringsProgressPageTotalTitleEsEs._(_root);
+  late final _StringsProgressPageTotalTitleEsEs title = _StringsProgressPageTotalTitleEsEs._(_root);
   @override
-  String count({required Object curr, required Object n}) =>
-      'Archivos: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Archivos: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) =>
-      'Tamaño: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Tamaño: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Velocidad: ${speed}/s';
 }
@@ -1091,13 +1014,11 @@ class _StringsDialogsCancelSessionEsEs extends _StringsDialogsCancelSessionEn {
   @override
   String get title => 'Cancelar transferencia de archivos';
   @override
-  String get content =>
-      '¿Realmente quieres cancelar la transferencia de archivos?';
+  String get content => '¿Realmente quieres cancelar la transferencia de archivos?';
 }
 
 // Path: dialogs.cannotOpenFile
-class _StringsDialogsCannotOpenFileEsEs
-    extends _StringsDialogsCannotOpenFileEn {
+class _StringsDialogsCannotOpenFileEsEs extends _StringsDialogsCannotOpenFileEn {
   _StringsDialogsCannotOpenFileEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1109,13 +1030,11 @@ class _StringsDialogsCannotOpenFileEsEs
   @override
   String get title => 'No se puede abrir el archivo';
   @override
-  String content({required Object file}) =>
-      'No se ha podido abrir "${file}". ¿Es posible que el archivo se haya movido, renombrado o eliminado?';
+  String content({required Object file}) => 'No se ha podido abrir "${file}". ¿Es posible que el archivo se haya movido, renombrado o eliminado?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _StringsDialogsEncryptionDisabledNoticeEsEs
-    extends _StringsDialogsEncryptionDisabledNoticeEn {
+class _StringsDialogsEncryptionDisabledNoticeEsEs extends _StringsDialogsEncryptionDisabledNoticeEn {
   _StringsDialogsEncryptionDisabledNoticeEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1146,8 +1065,7 @@ class _StringsDialogsErrorDialogEsEs extends _StringsDialogsErrorDialogEn {
 }
 
 // Path: dialogs.favoriteDialog
-class _StringsDialogsFavoriteDialogEsEs
-    extends _StringsDialogsFavoriteDialogEn {
+class _StringsDialogsFavoriteDialogEsEs extends _StringsDialogsFavoriteDialogEn {
   _StringsDialogsFavoriteDialogEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1165,8 +1083,7 @@ class _StringsDialogsFavoriteDialogEsEs
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _StringsDialogsFavoriteDeleteDialogEsEs
-    extends _StringsDialogsFavoriteDeleteDialogEn {
+class _StringsDialogsFavoriteDeleteDialogEsEs extends _StringsDialogsFavoriteDeleteDialogEn {
   _StringsDialogsFavoriteDeleteDialogEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1178,13 +1095,11 @@ class _StringsDialogsFavoriteDeleteDialogEsEs
   @override
   String get title => 'Eliminar de favoritos';
   @override
-  String content({required Object name}) =>
-      '¿Realmente quieres borrar de favoritos "${name}"?';
+  String content({required Object name}) => '¿Realmente quieres borrar de favoritos "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
-class _StringsDialogsFavoriteEditDialogEsEs
-    extends _StringsDialogsFavoriteEditDialogEn {
+class _StringsDialogsFavoriteEditDialogEsEs extends _StringsDialogsFavoriteEditDialogEn {
   _StringsDialogsFavoriteEditDialogEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1248,8 +1163,7 @@ class _StringsDialogsFileNameInputEsEs extends _StringsDialogsFileNameInputEn {
 }
 
 // Path: dialogs.historyClearDialog
-class _StringsDialogsHistoryClearDialogEsEs
-    extends _StringsDialogsHistoryClearDialogEn {
+class _StringsDialogsHistoryClearDialogEsEs extends _StringsDialogsHistoryClearDialogEn {
   _StringsDialogsHistoryClearDialogEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1265,8 +1179,7 @@ class _StringsDialogsHistoryClearDialogEsEs
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _StringsDialogsLocalNetworkUnauthorizedEsEs
-    extends _StringsDialogsLocalNetworkUnauthorizedEn {
+class _StringsDialogsLocalNetworkUnauthorizedEsEs extends _StringsDialogsLocalNetworkUnauthorizedEn {
   _StringsDialogsLocalNetworkUnauthorizedEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1329,13 +1242,11 @@ class _StringsDialogsNoPermissionEsEs extends _StringsDialogsNoPermissionEn {
   @override
   String get title => 'Sin autorización';
   @override
-  String get content =>
-      'No has otorgado los permisos necesarios. Por favor, otórgalos en la configuración.';
+  String get content => 'No has otorgado los permisos necesarios. Por favor, otórgalos en la configuración.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _StringsDialogsNotAvailableOnPlatformEsEs
-    extends _StringsDialogsNotAvailableOnPlatformEn {
+class _StringsDialogsNotAvailableOnPlatformEsEs extends _StringsDialogsNotAvailableOnPlatformEn {
   _StringsDialogsNotAvailableOnPlatformEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1389,8 +1300,7 @@ class _StringsDialogsQuickActionsEsEs extends _StringsDialogsQuickActionsEn {
 }
 
 // Path: dialogs.quickSaveNotice
-class _StringsDialogsQuickSaveNoticeEsEs
-    extends _StringsDialogsQuickSaveNoticeEn {
+class _StringsDialogsQuickSaveNoticeEsEs extends _StringsDialogsQuickSaveNoticeEn {
   _StringsDialogsQuickSaveNoticeEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1419,19 +1329,16 @@ class _StringsDialogsSendModeHelpEsEs extends _StringsDialogsSendModeHelpEn {
   @override
   String get title => 'Modos de envío';
   @override
-  String get single =>
-      'Enviar archivos a un solo destino. La selección se borrará una vez finalizada la transferencia.';
+  String get single => 'Enviar archivos a un solo destino. La selección se borrará una vez finalizada la transferencia.';
   @override
-  String get multiple =>
-      'Enviar archivos a múltiples destinos. La selección no se borrará.';
+  String get multiple => 'Enviar archivos a múltiples destinos. La selección no se borrará.';
   @override
   String get link =>
       'Los destinatarios que no tengan LocalSend instalado pueden descargar los archivos seleccionados abriendo el enlace en su navegador.';
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _StringsSettingsTabGeneralBrightnessOptionsEsEs
-    extends _StringsSettingsTabGeneralBrightnessOptionsEn {
+class _StringsSettingsTabGeneralBrightnessOptionsEsEs extends _StringsSettingsTabGeneralBrightnessOptionsEn {
   _StringsSettingsTabGeneralBrightnessOptionsEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1449,8 +1356,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsEsEs
 }
 
 // Path: settingsTab.general.colorOptions
-class _StringsSettingsTabGeneralColorOptionsEsEs
-    extends _StringsSettingsTabGeneralColorOptionsEn {
+class _StringsSettingsTabGeneralColorOptionsEsEs extends _StringsSettingsTabGeneralColorOptionsEn {
   _StringsSettingsTabGeneralColorOptionsEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1466,8 +1372,7 @@ class _StringsSettingsTabGeneralColorOptionsEsEs
 }
 
 // Path: settingsTab.general.languageOptions
-class _StringsSettingsTabGeneralLanguageOptionsEsEs
-    extends _StringsSettingsTabGeneralLanguageOptionsEn {
+class _StringsSettingsTabGeneralLanguageOptionsEsEs extends _StringsSettingsTabGeneralLanguageOptionsEn {
   _StringsSettingsTabGeneralLanguageOptionsEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);
@@ -1481,8 +1386,7 @@ class _StringsSettingsTabGeneralLanguageOptionsEsEs
 }
 
 // Path: progressPage.total.title
-class _StringsProgressPageTotalTitleEsEs
-    extends _StringsProgressPageTotalTitleEn {
+class _StringsProgressPageTotalTitleEsEs extends _StringsProgressPageTotalTitleEn {
   _StringsProgressPageTotalTitleEsEs._(_StringsEsEs root)
       : this._root = root,
         super._(root);

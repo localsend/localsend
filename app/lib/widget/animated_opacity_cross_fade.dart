@@ -16,8 +16,7 @@ class AnimatedOpacityCrossFade extends StatefulWidget {
   });
 
   @override
-  State<AnimatedOpacityCrossFade> createState() =>
-      _AnimatedOpacityCrossFadeState();
+  State<AnimatedOpacityCrossFade> createState() => _AnimatedOpacityCrossFadeState();
 }
 
 class _AnimatedOpacityCrossFadeState extends State<AnimatedOpacityCrossFade> {
@@ -54,9 +53,7 @@ class _AnimatedOpacityCrossFadeState extends State<AnimatedOpacityCrossFade> {
     return AnimatedOpacity(
       opacity: _opacity,
       duration: Duration(milliseconds: widget.durationMillis ~/ 2),
-      child: _internalState == CrossFadeState.showFirst
-          ? widget.firstChild
-          : widget.secondChild,
+      child: _internalState == CrossFadeState.showFirst ? widget.firstChild : widget.secondChild,
     );
   }
 }
