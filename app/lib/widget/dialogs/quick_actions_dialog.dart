@@ -46,7 +46,8 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
   bool _isValid = true;
 
   bool _validate(String input) {
-    if (!isValidFilename(input, os: Platform.operatingSystem) && input.isNotEmpty) {
+    if (!isValidFilename(input, os: Platform.operatingSystem) &&
+        input.isNotEmpty) {
       setState(() {
         _isValid = false;
       });
@@ -71,7 +72,10 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ToggleButtons(
-            isSelected: [_action == _QuickAction.counter, _action == _QuickAction.random],
+            isSelected: [
+              _action == _QuickAction.counter,
+              _action == _QuickAction.random
+            ],
             onPressed: (int index) {
               setState(() {
                 if (index == 0) {
@@ -86,7 +90,8 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
             constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
             children: _QuickAction.values.map((mode) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Text(mode.label),
               );
             }).toList(),
@@ -109,7 +114,8 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
                 visible: !_isValid,
                 child: Text(
                   t.sanitization.invalid,
-                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.warning),
                 )),
             const SizedBox(height: 10),
             LabeledCheckbox(
@@ -132,9 +138,13 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
               },
             ),
             const SizedBox(height: 10),
-            if (_padZero) Text('${t.general.example}: ${_prefix}04.jpg') else Text('${t.general.example}: ${_prefix}4.jpg'),
+            if (_padZero)
+              Text('${t.general.example}: ${_prefix}04.jpg')
+            else
+              Text('${t.general.example}: ${_prefix}4.jpg'),
           ],
-          if (_action == _QuickAction.random) Text('${t.general.example}: $_randomUuid.jpg'),
+          if (_action == _QuickAction.random)
+            Text('${t.general.example}: $_randomUuid.jpg'),
         ],
       ),
       actions: [

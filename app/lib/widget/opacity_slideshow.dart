@@ -54,7 +54,8 @@ class _OpacitySlideshowState extends State<OpacitySlideshow> {
       return;
     }
 
-    _timer = Timer.periodic(Duration(milliseconds: widget.durationMillis), (_) async {
+    _timer = Timer.periodic(Duration(milliseconds: widget.durationMillis),
+        (_) async {
       if (!mounted) return;
       setState(() {
         _opacity = 0;

@@ -29,11 +29,13 @@ class WindowWatcher extends StatefulWidget {
   }
 }
 
-class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refena {
+class _WindowWatcherState extends State<WindowWatcher>
+    with WindowListener, Refena {
   static WindowDimensionsController? _dimensionsController;
   static Stopwatch s = Stopwatch();
 
-  WindowDimensionsController _ensureDimensionsProvider() => ref.watch(windowDimensionProvider);
+  WindowDimensionsController _ensureDimensionsProvider() =>
+      ref.watch(windowDimensionProvider);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,8 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
       s.reset();
       final windowOffset = await windowManager.getPosition();
       final windowSize = await windowManager.getSize();
-      await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+      await _dimensionsController?.storeDimensions(
+          windowOffset: windowOffset, windowSize: windowSize);
     }
   }
 
@@ -91,7 +94,8 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
   Future<void> onWindowClose() async {
     final windowOffset = await windowManager.getPosition();
     final windowSize = await windowManager.getSize();
-    await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+    await _dimensionsController?.storeDimensions(
+        windowOffset: windowOffset, windowSize: windowSize);
 
     if (!checkPlatformIsDesktop()) {
       return;

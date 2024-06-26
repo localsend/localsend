@@ -25,7 +25,11 @@ final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
         data: (apps) {
           final query = param.query.trim().toLowerCase();
           if (query.isNotEmpty) {
-            apps = apps.where((a) => a.appName.toLowerCase().contains(query) || a.packageName.contains(query)).toList();
+            apps = apps
+                .where((a) =>
+                    a.appName.toLowerCase().contains(query) ||
+                    a.packageName.contains(query))
+                .toList();
           }
 
           apps.sort((a, b) => a.appName.compareTo(b.appName));
@@ -40,7 +44,8 @@ final apkSizeProvider = FutureFamilyProvider<int, String>((_, path) {
 });
 
 /// Provides a list of APKs which is cached
-final _apkProvider = FutureFamilyProvider<List<Application>, CachedApkProviderParam>((_, param) {
+final _apkProvider =
+    FutureFamilyProvider<List<Application>, CachedApkProviderParam>((_, param) {
   return DeviceApps.getInstalledApplications(
     includeSystemApps: param.includeSystemApps,
     onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,

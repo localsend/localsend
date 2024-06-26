@@ -13,7 +13,8 @@ final sleepProvider = StateProvider<bool>((ref) {
 /// If false, then animations are disabled.
 final animationProvider = ViewProvider<bool>((ref) {
   final sleeping = ref.watch(sleepProvider);
-  final enableAnimations = ref.watch(settingsProvider.select((s) => s.enableAnimations));
+  final enableAnimations =
+      ref.watch(settingsProvider.select((s) => s.enableAnimations));
   final animations = enableAnimations && !sleeping;
 
   timeDilation = animations ? 1.0 : 0.00001;

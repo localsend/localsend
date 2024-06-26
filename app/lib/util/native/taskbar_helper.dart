@@ -16,11 +16,13 @@ class TaskbarHelper {
   }
 
   static Future<void> setProgressBar(int progress, int total) async {
-    if (total != double.minPositive.toInt() && total != double.maxFinite.toInt()) {
+    if (total != double.minPositive.toInt() &&
+        total != double.maxFinite.toInt()) {
       if (_isWindows) {
         await WindowsTaskbar.setProgress(progress, total);
       } else if (_isMacos) {
-        await DockProgress.setProgress(double.parse((progress / total).toStringAsFixed(3)));
+        await DockProgress.setProgress(
+            double.parse((progress / total).toStringAsFixed(3)));
       }
     } else {
       if (_isWindows) {

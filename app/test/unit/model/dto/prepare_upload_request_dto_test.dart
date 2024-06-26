@@ -204,7 +204,8 @@ void main() {
       expect(serialized['info']['deviceType'], 'mobile');
       expect(serialized['files'].length, 2);
       expect(serialized['files']['some id']['fileType'], 'image/jpeg');
-      expect(serialized['files']['some id 2']['fileType'], 'application/vnd.android.package-archive');
+      expect(serialized['files']['some id 2']['fileType'],
+          'application/vnd.android.package-archive');
     });
   });
 

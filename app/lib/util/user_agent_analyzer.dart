@@ -26,7 +26,9 @@ class UserAgentAnalyzer {
       return 'Android';
     } else if (userAgent.contains('Macintosh')) {
       return 'macOS';
-    } else if (userAgent.contains('iPhone') || userAgent.contains('iPad') || userAgent.contains('iPod')) {
+    } else if (userAgent.contains('iPhone') ||
+        userAgent.contains('iPad') ||
+        userAgent.contains('iPod')) {
       return 'iOS';
     } else if (userAgent.contains('X11')) {
       return 'Linux';

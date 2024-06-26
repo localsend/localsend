@@ -25,7 +25,8 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
 
   void _pickApp(Application app) {
     // ignore: discarded_futures
-    ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: [app], converter: CrossFileConverters.convertApplication));
+    ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+        files: [app], converter: CrossFileConverters.convertApplication));
     context.pop();
   }
 
@@ -61,10 +62,14 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
           }, onSelected: (value) {
             switch (value) {
               case 0:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
+                ref.notifier(apkSearchParamProvider).setState((old) =>
+                    old.copyWith(includeSystemApps: !old.includeSystemApps));
                 break;
               case 1:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
+                ref.notifier(apkSearchParamProvider).setState((old) =>
+                    old.copyWith(
+                        onlyAppsWithLaunchIntent:
+                            !old.onlyAppsWithLaunchIntent));
                 break;
             }
           }),
@@ -86,7 +91,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                   controller: _textController,
                   autofocus: true,
                   onChanged: (s) {
-                    ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(query: s));
+                    ref
+                        .notifier(apkSearchParamProvider)
+                        .setState((old) => old.copyWith(query: s));
                     setState(() {});
                   },
                   decoration: InputDecoration(
@@ -99,7 +106,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                     suffixIcon: apkParams.query.isNotEmpty
                         ? IconButton(
                             onPressed: () {
-                              ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(query: ''));
+                              ref
+                                  .notifier(apkSearchParamProvider)
+                                  .setState((old) => old.copyWith(query: ''));
                               _textController.clear();
                             },
                             icon: const Icon(Icons.clear),
@@ -151,21 +160,28 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                     ),
                                     Consumer(
                                       builder: (context, ref) {
-                                        final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
+                                        final appSize = ref.watch(
+                                            apkSizeProvider(app.apkFilePath));
                                         final appSizeString = appSize.maybeWhen(
-                                          data: (size) => '${size.asReadableFileSize} • ',
+                                          data: (size) =>
+                                              '${size.asReadableFileSize} • ',
                                           orElse: () => '',
                                         );
                                         return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               '$appSizeString${app.versionName != null ? 'v${app.versionName}' : ''}',
-                                              style: Theme.of(context).textTheme.bodySmall,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
                                             ),
                                             Text(
                                               app.packageName,
-                                              style: Theme.of(context).textTheme.bodySmall,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
                                             ),
                                           ],
                                         );
@@ -194,7 +210,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
               },
             ),
             SliverToBoxAdapter(
-              child: SizedBox(height: getNavBarPadding(context) + 30), // handle navigation bar + some additional padding
+              child: SizedBox(
+                  height: getNavBarPadding(context) +
+                      30), // handle navigation bar + some additional padding
             ),
           ],
         ),

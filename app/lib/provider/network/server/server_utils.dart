@@ -28,7 +28,8 @@ class ServerUtils {
   ///
   /// Usage:
   /// responseApi(200, message: 'Hello World')
-  Response responseJson(int code, {String? message, Map<String, dynamic>? body}) {
+  Response responseJson(int code,
+      {String? message, Map<String, dynamic>? body}) {
     return Response(
       code,
       body: jsonEncode(message != null ? {'message': message} : (body ?? {})),
@@ -40,7 +41,8 @@ class ServerUtils {
   ///
   /// Usage:
   /// responseHtml(200, 'assets/web/index.html')
-  Future<Response> responseAsset(int code, String asset, [String type = 'text/html; charset=utf-8']) async {
+  Future<Response> responseAsset(int code, String asset,
+      [String type = 'text/html; charset=utf-8']) async {
     return Response(
       code,
       body: await rootBundle.loadString(asset),
@@ -59,7 +61,9 @@ class ServerUtils {
 extension RequestExt on Request {
   /// The IP address of the client.
   String get ip {
-    return (context['shelf.io.connection_info'] as HttpConnectionInfo).remoteAddress.address;
+    return (context['shelf.io.connection_info'] as HttpConnectionInfo)
+        .remoteAddress
+        .address;
   }
 
   /// Client's device info parsed from the user agent.

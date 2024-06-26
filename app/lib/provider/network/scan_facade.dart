@@ -28,7 +28,9 @@ class StartSmartScan extends AsyncGlobalAction {
     // At the same time, try to discover favorites
     final favorites = ref.read(favoritesProvider);
     final https = ref.read(settingsProvider).https;
-    await ref.redux(nearbyDevicesProvider).dispatchAsync(StartFavoriteScan(devices: favorites, https: https));
+    await ref
+        .redux(nearbyDevicesProvider)
+        .dispatchAsync(StartFavoriteScan(devices: favorites, https: https));
 
     if (!forceLegacy) {
       // Wait a bit before trying the legacy method.
@@ -39,7 +41,8 @@ class StartSmartScan extends AsyncGlobalAction {
     // If no devices has been found, then switch to legacy discovery mode
     // which is purely HTTP/TCP based.
     if (forceLegacy || ref.read(nearbyDevicesProvider).devices.isEmpty) {
-      final networkInterfaces = ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
+      final networkInterfaces =
+          ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
       if (networkInterfaces.isNotEmpty) {
         await dispatchAsync(StartLegacySubnetScan(subnets: networkInterfaces));
       }
@@ -65,7 +68,9 @@ class StartLegacySubnetScan extends AsyncGlobalAction {
     ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan());
 
     await Future.wait<void>([
-      for (final subnet in subnets) ref.redux(nearbyDevicesProvider).dispatchAsync(StartLegacyScan(port: port, localIp: subnet, https: https)),
+      for (final subnet in subnets)
+        ref.redux(nearbyDevicesProvider).dispatchAsync(
+            StartLegacyScan(port: port, localIp: subnet, https: https)),
     ]);
   }
 }

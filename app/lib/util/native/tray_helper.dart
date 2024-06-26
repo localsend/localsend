@@ -23,7 +23,8 @@ Future<void> initTray() async {
     if (checkPlatform([TargetPlatform.windows])) {
       await tm.trayManager.setIcon(Assets.img.logo);
     } else if (checkPlatform([TargetPlatform.macOS])) {
-      await tm.trayManager.setIcon(Assets.img.logo32Black.path, isTemplate: true);
+      await tm.trayManager
+          .setIcon(Assets.img.logo32Black.path, isTemplate: true);
     } else if (checkPlatform([TargetPlatform.linux])) {
       await tm.trayManager.setIcon(Assets.img.logo32White.path);
     } else {

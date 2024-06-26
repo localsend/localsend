@@ -34,7 +34,8 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
     _aliasController.text = widget.favorite?.alias ?? '';
 
     ensureRef((ref) {
-      _portController.text = widget.favorite?.port.toString() ?? ref.read(settingsProvider).port.toString();
+      _portController.text = widget.favorite?.port.toString() ??
+          ref.read(settingsProvider).port.toString();
     });
   }
 
@@ -49,7 +50,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.favorite != null ? t.dialogs.favoriteEditDialog.titleEdit : t.dialogs.favoriteEditDialog.titleAdd),
+      title: Text(widget.favorite != null
+          ? t.dialogs.favoriteEditDialog.titleEdit
+          : t.dialogs.favoriteEditDialog.titleAdd),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +95,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                 );
 
                 if (mounted && result == true) {
-                  await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
+                  await context.ref.redux(favoritesProvider).dispatchAsync(
+                      RemoveFavoriteAction(
+                          deviceFingerprint: widget.favorite!.fingerprint));
                   if (mounted) {
                     context.pop();
                   }
@@ -105,7 +110,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
           if (_failed)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+              child: Text(t.general.error,
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.warning)),
             ),
         ],
       ),
@@ -134,11 +141,13 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                       return;
                     }
 
-                    await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(existingFavorite.copyWith(
+                    await ref.redux(favoritesProvider).dispatchAsync(
+                            UpdateFavoriteAction(existingFavorite.copyWith(
                           ip: _ipController.text,
                           port: int.parse(_portController.text),
                           alias: trimmedNewAlias,
-                          customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
+                          customAlias: existingFavorite.customAlias ||
+                              trimmedNewAlias != existingFavorite.alias,
                         )));
                   } else {
                     // Add new favorite
@@ -148,7 +157,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     setState(() {
                       _fetching = true;
                     });
-                    final result = await ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https);
+                    final result = await ref
+                        .read(targetedDiscoveryProvider)
+                        .discover(ip: ip, port: port, https: https);
                     if (result == null) {
                       setState(() {
                         _fetching = false;
@@ -159,7 +170,8 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
 
                     final name = _aliasController.text.trim();
 
-                    await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
+                    await ref.redux(favoritesProvider).dispatchAsync(
+                            AddFavoriteAction(FavoriteDevice.fromValues(
                           fingerprint: result.fingerprint,
                           ip: _ipController.text,
                           port: int.parse(_portController.text),

@@ -23,24 +23,29 @@ class WindowDimensionsController {
   Future<void> initDimensionsConfiguration() async {
     await WindowManager.instance.setMinimumSize(_minimalSize);
     final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-    final hasEnoughWidth = (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200;
+    final hasEnoughWidth =
+        (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200;
 
     // load saved Window placement and preferences
     final useSavedPlacement = _service.getSaveWindowPlacement();
     final persistedDimensions = _service.getWindowLastDimensions();
 
     // if [savePlacement is false], both values will be [set to null]
-    final Size? persistedSize = useSavedPlacement ? persistedDimensions['size'] as Size? : null;
-    final Offset? persistedOffset = useSavedPlacement ? persistedDimensions['position'] as Offset? : null;
+    final Size? persistedSize =
+        useSavedPlacement ? persistedDimensions['size'] as Size? : null;
+    final Offset? persistedOffset =
+        useSavedPlacement ? persistedDimensions['position'] as Offset? : null;
 
     // Checks if the last known position is valid
     bool foundInScreen = await isInScreenBounds(persistedOffset);
 
     // settings applied accordingly if [save option is enabled] and if [persisted values are valid]
     if (foundInScreen) {
-      await WindowManager.instance.setSize(persistedSize ?? (hasEnoughWidth ? _defaultSize : _minimalSize));
+      await WindowManager.instance.setSize(
+          persistedSize ?? (hasEnoughWidth ? _defaultSize : _minimalSize));
     } else {
-      await WindowManager.instance.setSize(hasEnoughWidth ? _defaultSize : _minimalSize);
+      await WindowManager.instance
+          .setSize(hasEnoughWidth ? _defaultSize : _minimalSize);
     }
 
     if (persistedOffset == null || !foundInScreen) {

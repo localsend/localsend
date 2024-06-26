@@ -10,7 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 final _logger = Logger('AutoStartHelper');
 
 /// Currently, only works for windows
-Future<bool> initEnableAutoStartAndOpenSettings(SettingsState settings, [bool? isWindows]) async {
+Future<bool> initEnableAutoStartAndOpenSettings(SettingsState settings,
+    [bool? isWindows]) async {
   try {
     // In case somebody don't use msix
     final packageInfo = await PackageInfo.fromPlatform();
@@ -68,6 +69,7 @@ Future<bool> initDisableAutoStart(SettingsState settings) async {
 
 Future<bool> isLinuxLaunchAtStartEnabled() async {
   final packageInfo = await PackageInfo.fromPlatform();
-  File desktopFile = File('${Platform.environment['HOME']}/.config/autostart/${packageInfo.appName}.desktop');
+  File desktopFile = File(
+      '${Platform.environment['HOME']}/.config/autostart/${packageInfo.appName}.desktop');
   return desktopFile.existsSync();
 }

@@ -17,7 +17,8 @@ const _uuid = Uuid();
 
 /// Manages files selected for sending.
 /// Will stay alive even after a session has been completed to send the same files to another device.
-final selectedSendingFilesProvider = ReduxProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
+final selectedSendingFilesProvider =
+    ReduxProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
   return SelectedSendingFilesNotifier();
 });
 
@@ -27,7 +28,8 @@ class SelectedSendingFilesNotifier extends ReduxNotifier<List<CrossFile>> {
 }
 
 /// Adds a message.
-class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+class AddMessageAction
+    extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final String message;
   final int? index;
 
@@ -56,7 +58,8 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
 }
 
 /// Updates a message.
-class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+class UpdateMessageAction
+    extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final String message;
   final int index;
 
@@ -75,7 +78,8 @@ class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List
 
 /// Adds a binary file to the list.
 /// During the sending process, the file will be read from the memory.
-class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+class AddBinaryAction
+    extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final Uint8List bytes;
   final FileType fileType;
   final String fileName;
@@ -106,7 +110,8 @@ class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cro
 }
 
 /// Adds one or more files to the list.
-class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+class AddFilesAction<T>
+    extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final Iterable<T> files;
   final Future<CrossFile> Function(T) converter;
 
@@ -123,7 +128,8 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
       //  https://github.com/fluttercandies/flutter_photo_manager/issues/589
 
       final crossFile = await converter(file);
-      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: crossFile));
+      final isAlreadySelect =
+          state.any((element) => element.isSameFile(otherFile: crossFile));
       if (!isAlreadySelect) {
         newFiles.add(crossFile);
       }
@@ -136,7 +142,8 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
 }
 
 /// Adds files inside the directory recursively.
-class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+class AddDirectoryAction
+    extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
   final String directoryPath;
 
   AddDirectoryAction(this.directoryPath);
@@ -148,7 +155,8 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final directoryName = p.basename(directoryPath);
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
-        final relative = '$directoryName/${p.relative(entity.path, from: directoryPath).replaceAll('\\', '/')}';
+        final relative =
+            '$directoryName/${p.relative(entity.path, from: directoryPath).replaceAll('\\', '/')}';
         _logger.info('Add file $relative');
         final file = CrossFile(
           name: relative,
@@ -160,7 +168,8 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           bytes: null,
         );
 
-        final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
+        final isAlreadySelect =
+            state.any((element) => element.isSameFile(otherFile: file));
         if (!isAlreadySelect) {
           newFiles.add(file);
         }
@@ -175,7 +184,9 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
 }
 
 /// Removes a file at the given [index].
-class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
+class RemoveSelectedFileAction
+    extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>>
+    with GlobalActions {
   final int index;
 
   RemoveSelectedFileAction(this.index);
@@ -194,7 +205,9 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
 }
 
 /// Removes all files from the list.
-class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
+class ClearSelectionAction
+    extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>>
+    with GlobalActions {
   @override
   List<CrossFile> reduce() {
     return const [];

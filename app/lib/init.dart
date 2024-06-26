@@ -45,7 +45,9 @@ final _logger = Logger('Init');
 Future<RefenaContainer> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
+  initLogger(args.contains('-v') || args.contains('--verbose')
+      ? Level.ALL
+      : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
   final dynamicColors = await getDynamicColors();
@@ -59,7 +61,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final dio = createDio(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
+    final dio = createDio(const Duration(milliseconds: 100),
+        persistenceService.getSecurityContext());
 
     try {
       await dio.post(
@@ -85,8 +88,10 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
-    await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
-    if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
+    await WindowDimensionsController(persistenceService)
+        .initDimensionsConfiguration();
+    if (!args.contains(launchAtStartupArg) ||
+        !persistenceService.isAutoStartLaunchMinimized()) {
       // We show this app, when (1) app started manually, (2) app should not start minimized
       // In other words: only start minimized when launched on startup and "launchMinimized" is configured
       await WindowManager.instance.show();
@@ -119,7 +124,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
 StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
-Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Function(int) goToPage) async {
+Future<void> postInit(BuildContext context, Ref ref, bool appStart,
+    void Function(int) goToPage) async {
   await updateSystemOverlayStyle(context);
 
   if (checkPlatform([TargetPlatform.android])) {
@@ -139,7 +145,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   }
 
   try {
-    ref.redux(nearbyDevicesProvider).dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
+    ref
+        .redux(nearbyDevicesProvider)
+        .dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
   } catch (e) {
     _logger.warning('Starting multicast listener failed', e);
   }
@@ -162,7 +170,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
     }
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
-    _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
+    _sharedMediaSubscription =
+        shareHandler.sharedMediaStream.listen((SharedMedia payload) {
       ref.global.dispatchAsync(_HandleShareIntentAction(
         payload: payload,
         goToPage: goToPage,
@@ -170,7 +179,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
     });
   }
 
-  if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
+  if (appStart &&
+      !hasInitialShare &&
+      (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
     ref.global.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
@@ -197,10 +208,15 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
   Future<void> reduce() async {
     final message = payload.content;
     if (message != null && message.trim().isNotEmpty) {
-      ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
+      ref
+          .redux(selectedSendingFilesProvider)
+          .dispatch(AddMessageAction(message: message));
     }
     await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+          files: payload.attachments
+                  ?.where((a) => a != null)
+                  .cast<SharedAttachment>() ??
+              <SharedAttachment>[],
           converter: CrossFileConverters.convertSharedAttachment,
         ));
 

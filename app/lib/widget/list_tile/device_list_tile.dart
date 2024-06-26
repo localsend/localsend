@@ -31,10 +31,12 @@ class DeviceListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final badgeColor = Color.lerp(Theme.of(context).colorScheme.secondaryContainer, Colors.white, 0.3)!;
+    final badgeColor = Color.lerp(
+        Theme.of(context).colorScheme.secondaryContainer, Colors.white, 0.3)!;
     return CustomListTile(
       icon: Icon(device.deviceType.icon, size: 46),
-      title: Text(nameOverride ?? device.alias, style: const TextStyle(fontSize: 20)),
+      title: Text(nameOverride ?? device.alias,
+          style: const TextStyle(fontSize: 20)),
       trailing: onFavoriteTap != null
           ? IconButton(
               icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
@@ -55,13 +57,15 @@ class DeviceListTile extends StatelessWidget {
           else ...[
             DeviceBadge(
               backgroundColor: badgeColor,
-              foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+              foregroundColor:
+                  Theme.of(context).colorScheme.onSecondaryContainer,
               label: '#${device.ip.visualId}',
             ),
             if (device.deviceModel != null)
               DeviceBadge(
                 backgroundColor: badgeColor,
-                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                foregroundColor:
+                    Theme.of(context).colorScheme.onSecondaryContainer,
                 label: device.deviceModel!,
               ),
           ],

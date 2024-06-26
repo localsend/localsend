@@ -49,7 +49,8 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
-    final entry = TrayEntry.values.firstWhereOrNull((e) => e.name == menuItem.key);
+    final entry =
+        TrayEntry.values.firstWhereOrNull((e) => e.name == menuItem.key);
     switch (entry) {
       case TrayEntry.open:
         await showFromTray();

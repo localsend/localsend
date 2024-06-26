@@ -8,7 +8,8 @@ Future<String> getDefaultDestinationDirectory() async {
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
       // ignore: deprecated_member_use
-      final dir = await shared_storage.getExternalStoragePublicDirectory(shared_storage.EnvironmentDirectory.downloads);
+      final dir = await shared_storage.getExternalStoragePublicDirectory(
+          shared_storage.EnvironmentDirectory.downloads);
       return dir?.path ?? '/storage/emulated/0/Download';
     case TargetPlatform.iOS:
       return (await path.getApplicationDocumentsDirectory()).path;
@@ -19,7 +20,8 @@ Future<String> getDefaultDestinationDirectory() async {
       var downloadDir = await path.getDownloadsDirectory();
       if (downloadDir == null) {
         if (defaultTargetPlatform == TargetPlatform.windows) {
-          downloadDir = Directory('${Platform.environment['HOMEPATH']}/Downloads');
+          downloadDir =
+              Directory('${Platform.environment['HOMEPATH']}/Downloads');
           if (!downloadDir.existsSync()) {
             downloadDir = Directory(Platform.environment['HOMEPATH']!);
           }

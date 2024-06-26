@@ -12,7 +12,8 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// Utility functions to convert third party models to common [CrossFile] model.
 class CrossFileConverters {
-  static Future<CrossFile> convertPlatformFile(file_picker.PlatformFile file) async {
+  static Future<CrossFile> convertPlatformFile(
+      file_picker.PlatformFile file) async {
     return CrossFile(
       name: file.name,
       fileType: file.name.guessFileType(),
@@ -45,11 +46,14 @@ class CrossFileConverters {
       thumbnail: null,
       asset: null,
       path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
+      bytes: kIsWeb
+          ? await file.readAsBytes()
+          : null, // we can fetch it now because in Web it is already there
     );
   }
 
-  static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
+  static Future<CrossFile> convertSharedAttachment(
+      SharedAttachment attachment) async {
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
     return CrossFile(
