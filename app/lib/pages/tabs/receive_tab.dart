@@ -28,71 +28,69 @@ class ReceiveTab extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
             child: Padding(
               padding: const EdgeInsets.all(30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Column(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Column(
                       children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InitialFadeTransition(
-                                duration: const Duration(milliseconds: 300),
-                                delay: const Duration(milliseconds: 200),
-                                child: Consumer(builder: (context, ref) {
-                                  final animations = ref.watch(animationProvider);
-                                  final activeTab = ref.watch(homeTabProvider);
-                                  return RotatingWidget(
-                                    duration: const Duration(seconds: 15),
-                                    spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
-                                    child: const LocalSendLogo(withText: false),
-                                  );
-                                }),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InitialFadeTransition(
+                              duration: const Duration(milliseconds: 300),
+                              delay: const Duration(milliseconds: 200),
+                              child: Consumer(builder: (context, ref) {
+                                final animations = ref.watch(animationProvider);
+                                final activeTab = ref.watch(homeTabProvider);
+                                return RotatingWidget(
+                                  duration: const Duration(seconds: 15),
+                                  spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
+                                  child: const LocalSendLogo(withText: false),
+                                );
+                              }),
+                            ),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
+                            ),
+                            InitialFadeTransition(
+                              duration: const Duration(milliseconds: 300),
+                              delay: const Duration(milliseconds: 500),
+                              child: Text(
+                                vm.serverState == null ? t.general.offline : vm.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                                style: const TextStyle(fontSize: 24),
+                                textAlign: TextAlign.center,
                               ),
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
-                              ),
-                              InitialFadeTransition(
-                                duration: const Duration(milliseconds: 300),
-                                delay: const Duration(milliseconds: 500),
-                                child: Text(
-                                  vm.serverState == null ? t.general.offline : vm.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
-                                  style: const TextStyle(fontSize: 24),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: vm.quickSaveSettings
-                          ? ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).colorScheme.primary,
-                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: vm.quickSaveSettings
+                            ? ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).colorScheme.primary,
+                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                                ),
+                                onPressed: () async => vm.onSetQuickSave(context, false),
+                                child: Text('${t.general.quickSave}: ${t.general.on}'),
+                              )
+                            : TextButton(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Colors.grey,
+                                ),
+                                onPressed: () async => vm.onSetQuickSave(context, true),
+                                child: Text('${t.general.quickSave}: ${t.general.off}'),
                               ),
-                              onPressed: () async => vm.onSetQuickSave(context, false),
-                              child: Text('${t.general.quickSave}: ${t.general.on}'),
-                            )
-                          : TextButton(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Colors.grey,
-                              ),
-                              onPressed: () async => vm.onSetQuickSave(context, true),
-                              child: Text('${t.general.quickSave}: ${t.general.off}'),
-                            ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                ],
+                    const SizedBox(height: 15),
+                  ],
+                ),
               ),
             ),
           ),
