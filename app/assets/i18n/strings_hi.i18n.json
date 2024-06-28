@@ -1,0 +1,326 @@
+{
+  "locale": "Hindi",
+  "appName": "लोकलसेंड",
+  "general": {
+    "accept": "स्वीकार करें",
+    "accepted": "स्वीकृत",
+    "add": "जोड़ें",
+    "advanced": "एडवांस",
+    "cancel": "रद्द करें",
+    "close": "बंद करें",
+    "confirm": "पुष्टि करें",
+    "continueStr": "जारी रखें",
+    "copy": "कॉपी करें",
+    "copiedToClipboard": "क्लिपबोर्ड पर कॉपी किया गया",
+    "decline": "अस्वीकार करें",
+    "done": "हो गया",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "error": "त्रुटि",
+    "example": "उदाहरण",
+    "files": "फाइलें",
+    "finished": "समाप्त",
+    "hide": "छिपाएं",
+    "off": "बंद",
+    "offline": "ऑफ़लाइन",
+    "on": "चालू",
+    "online": "ऑनलाइन",
+    "open": "खोलें",
+    "queue": "कतार",
+    "quickSave": "तुरंत सेव करें",
+    "renamed": "नाम बदला गया",
+    "reset": "रीसेट",
+    "restart": "पुनः आरंभ",
+    "settings": "सेटिंग्स",
+    "skipped": "छोड़ा गया",
+    "start": "प्रारंभ करें",
+    "stop": "रोकें",
+    "save": "सेव",
+    "unchanged": "अपरिवर्तित",
+    "unknown": "अज्ञात",
+    "noItemInClipboard": "क्लिपबोर्ड में कोई आइटम नहीं"
+  },
+  "receiveTab": {
+    "title": "प्राप्त करें",
+    "infoBox": {
+      "ip": "आईपी:",
+      "port": "पोर्ट:",
+      "alias": "डिवाइस नाम:"
+    }
+  },
+  "sendTab": {
+    "title": "भेजें",
+    "selection": {
+      "title": "चयन",
+      "files": "फाइलें: {files}",
+      "size": "आकार: {size}"
+    },
+    "picker": {
+      "file": "फाइल",
+      "folder": "फ़ोल्डर",
+      "media": "मीडिया",
+      "text": "अक्षर",
+      "app": "ऐप",
+      "clipboard": "पेस्ट करें"
+    },
+    "shareIntentInfo": "आप अपने मोबाइल डिवाइस की \"शेयर\" सुविधा का उपयोग करके फाइलें आसानी से चुन सकते हैं।",
+    "nearbyDevices": "आसपास के उपकरण",
+    "thisDevice": "यह उपकरण",
+    "scan": "डिवाइस खोजें",
+    "sendMode": "भेजने का तरीका",
+    "sendModes": {
+      "single": "एक",
+      "multiple": "अनेक",
+      "link": "लिंक के माध्यम से साझा करें"
+    },
+    "sendModeHelp": "व्याख्या",
+    "help": "कृपया सुनिश्चित करें कि इच्छित लक्ष्य भी उसी वाई-फाई नेटवर्क पर है।",
+    "placeItems": "साझा करने के लिए आइटम रखें।"
+  },
+  "settingsTab": {
+    "title": "सेटिंग्स",
+    "general": {
+      "title": "सामान्य",
+      "brightness": "थीम",
+      "brightnessOptions": {
+        "system": "सिस्टम",
+        "dark": "डार्क",
+        "light": "लाइट"
+      },
+      "color": "रंग",
+      "colorOptions": {
+        "system": "सिस्टम",
+        "oled": "OLED"
+      },
+      "language": "भाषा",
+      "languageOptions": {
+        "system": "सिस्टम"
+      },
+      "saveWindowPlacement": "बंद करें: विंडो प्लेसमेंट सहेजें",
+      "minimizeToTray": "बंद करें: ट्रे/मेनू बार में न्यूनतम करें",
+      "launchAtStartup": "लॉगिन के बाद स्वतः आरंभ",
+      "launchMinimized": "स्वतः आरंभ: छिपाकर प्रारंभ करें",
+      "animations": "एनीमेशन"
+    },
+    "receive": {
+      "title": "प्राप्त करें",
+      "quickSave": "@:general.quickSave",
+      "autoFinish": "स्वतः समाप्त",
+      "destination": "गंतव्य",
+      "downloads": "(डाउनलोड)",
+      "saveToGallery": "मीडिया को गैलरी में सेव करें",
+      "saveToHistory": "इतिहास में सेव करें"
+    },
+    "send": {
+      "title": "भेजें",
+      "shareViaLinkAutoAccept": "लिंक के माध्यम से साझा करें: स्वतः स्वीकार करें"
+    },
+    "network": {
+      "title": "नेटवर्क",
+      "needRestart": "सेटिंग्स लागू करने के लिए सर्वर को पुनः आरंभ करें!",
+      "server": "सर्वर",
+      "alias": "डिवाइस नाम",
+      "deviceType": "डिवाइस प्रकार",
+      "deviceModel": "डिवाइस मॉडल",
+      "port": "पोर्ट",
+      "discoveryTimeout": "खोजने का समय समाप्त",
+      "portWarning": "आप एक कस्टम पोर्ट का उपयोग कर रहे हैं, इसलिए अन्य उपकरणों द्वारा आपको पता नहीं चल सकता है। (डिफ़ॉल्ट: {defaultPort})",
+      "encryption": "एन्क्रिप्शन",
+      "multicastGroup": "मल्टीकास्ट",
+      "multicastGroupWarning": "आप एक कस्टम मल्टीकास्ट पता का उपयोग कर रहे हैं, इसलिए अन्य उपकरणों द्वारा आपको पता नहीं चल सकता है। (डिफ़ॉल्ट: {defaultMulticast})"
+    },
+    "other": {
+      "title": "अन्य",
+      "support": "लोकलसेंड का समर्थन करें",
+      "donate": "दान करें",
+      "privacyPolicy": "गोपनीयता नीति",
+      "termsOfUse": "उपयोग की शर्तें"
+    },
+    "advancedSettings": "उन्नत सेटिंग्स"
+  },
+  "troubleshootPage": {
+    "title": "समस्या निवारण",
+    "subTitle": "क्या ऐप अपेक्षित रूप से काम नहीं कर रहा है? यहां आपको कुछ सामान्य समाधान मिल सकते हैं।",
+    "solution": "समाधान:",
+    "fixButton": "स्वतः ठीक करें",
+    "firewall": {
+      "symptom": "यह ऐप अन्य उपकरणों को फाइलें भेज सकता है; लेकिन अन्य उपकरण इस उपकरण को फाइलें नहीं भेज सकते।",
+      "solution": "यह सबसे अधिक संभावना एक फ़ायरवॉल समस्या है। आप पोर्ट {port} पर आने वाले कनेक्शन (UDP और TCP) की अनुमति देकर इसे हल कर सकते हैं।",
+      "openFirewall": "फ़ायरवॉल खोलें"
+    },
+    "noConnection": {
+      "symptom": "दोनों उपकरण एक-दूसरे को खोज नहीं सकते और न ही फाइलें साझा कर सकते हैं।",
+      "solution": "क्या समस्या दोनों तरफ मौजूद है? यदि हां, तो आपको यह सुनिश्चित करना चाहिए कि दोनों उपकरण एक ही वाई-फाई नेटवर्क पर हों और समान कॉन्फ़िगरेशन (पोर्ट, मल्टीकास्ट पता, एन्क्रिप्शन) साझा करें। नेटवर्क प्रतिभागियों के बीच संचार की अनुमति नहीं दे सकता है। इस मामले में, यह विकल्प राउटर पर सक्षम होना चाहिए।"
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "इतिहास",
+    "openFolder": "फ़ोल्डर खोलें",
+    "deleteHistory": "इतिहास हटाएं",
+    "empty": "इतिहास खाली है।",
+    "entryActions": {
+      "open": "फाइल खोलें",
+      "info": "जानकारी",
+      "deleteFromHistory": "इतिहास से हटाएं"
+    }
+  },
+  "apkPickerPage": {
+    "title": "ऐप्स (APK)",
+    "excludeSystemApps": "सिस्टम ऐप्स को छोड़ें",
+    "excludeAppsWithoutLaunchIntent": "गैर-लॉन्च करने योग्य ऐप्स को छोड़ें",
+    "apps": "{n} ऐप्स"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "सभी हटाएं"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "आपको एक फाइल भेजना चाहता है",
+      "other": "आपको {n} फाइलें भेजना चाहता है"
+    },
+    "subTitleMessage": "ने आपको एक संदेश भेजा है:",
+    "subTitleLink": "ने आपको एक लिंक भेजा है:",
+    "canceled": "प्रेषक ने अनुरोध रद्द कर दिया है।"
+  },
+  "receiveOptionsPage": {
+    "title": "विकल्प",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(लोकलसेंड फ़ोल्डर)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToHistory": "@:settingsTab.receive.saveToHistory"
+  },
+  "sendPage": {
+    "waiting": "प्रतिक्रिया की प्रतीक्षा कर रहे हैं...",
+    "rejected": "प्राप्तकर्ता ने अनुरोध अस्वीकार कर दिया है।"
+  },
+  "progressPage": {
+    "titleSending": "फाइलें भेजना",
+    "titleReceiving": "फाइलें प्राप्त करना",
+    "savedToGallery": "मीडिया गैलरी में सहेजा गया",
+    "total": {
+      "title": {
+        "sending": "कुल प्रगति (भेजना)",
+        "receiving": "कुल प्रगति (प्राप्त करना)"
+      },
+      "count": "फाइलें: {curr}/{n}",
+      "size": "आकार: {curr} / {n}",
+      "speed": "गति: {speed}/s"
+    }
+  },
+  "aboutPage": {
+    "title": "लोकलसेंड के बारे में"
+  },
+  "changelogPage": {
+    "title": "परिवर्तन लॉग"
+  },
+  "apkPickerPage": {
+    "title": "ऐप्स (APK)"
+  },
+  "dialogs": {
+    "addFile": "फाइल जोड़ें",
+    "addFolder": "फ़ोल्डर जोड़ें",
+    "addText": "पाठ जोड़ें",
+    "addUrl": "URL जोड़ें",
+    "allFiles": "सभी फाइलें",
+    "allFolders": "सभी फ़ोल्डर्स",
+    "browseFile": "फ़ाइल ब्राउज़ करें",
+    "browseFolder": "फ़ोल्डर ब्राउज़ करें",
+    "cancel": "रद्द करें",
+    "choose": "चुनें",
+    "chooseDestinationFolder": "गंतव्य फ़ोल्डर चुनें",
+    "confirm": "पुष्टि करें",
+    "copy": "कॉपी करें",
+    "createFolder": "फ़ोल्डर बनाएँ",
+    "delete": "हटाएं",
+    "deleteAll": "सभी हटाएं",
+    "enterFileName": "फाइल का नाम दर्ज करें",
+    "enterFolderName": "फ़ोल्डर का नाम दर्ज करें",
+    "export": "निर्यात करें",
+    "hide": "छिपाएं",
+    "move": "स्थानांतरित करें",
+    "newFile": "नई फ़ाइल",
+    "newFolder": "नया फ़ोल्डर",
+    "open": "खोलें",
+    "overwrite": "अधिलेखित करें",
+    "rename": "नाम बदलें",
+    "replace": "बदलें",
+    "retry": "पुनः प्रयास करें",
+    "save": "सेव",
+    "saveTo": "यहां सेव करें",
+    "selectAll": "सभी चुनें",
+    "selectNone": "कोई नहीं चुनें",
+    "send": "भेजें",
+    "show": "दिखाएं",
+    "skip": "छोड़ें",
+    "start": "शुरू करें",
+    "stop": "रोकें",
+    "yes": "हां",
+    "no": "नहीं",
+    "fileExists": "फाइल मौजूद है"
+  },
+  "fileExistsPage": {
+    "title": "फाइल मौजूद है",
+    "subTitle": "फाइल \"{file}\" पहले से मौजूद है।",
+    "options": {
+      "overwrite": "अधिलेखित करें",
+      "rename": "नाम बदलें",
+      "skip": "छोड़ें"
+    }
+  },
+  "filesPage": {
+    "title": "फाइलें",
+    "subTitle": "फाइलों का प्रबंधन करें।",
+    "sortBy": "इसके द्वारा क्रमबद्ध करें:",
+    "actions": {
+      "addFile": "फाइल जोड़ें",
+      "addFolder": "फ़ोल्डर जोड़ें",
+      "rename": "नाम बदलें",
+      "delete": "हटाएं",
+      "copy": "कॉपी करें",
+      "move": "स्थानांतरित करें"
+    },
+    "fileActions": {
+      "open": "खोलें",
+      "info": "जानकारी",
+      "copy": "कॉपी करें",
+      "move": "स्थानांतरित करें",
+      "delete": "हटाएं",
+      "rename": "नाम बदलें",
+      "share": "साझा करें"
+    }
+  },
+  "server": {
+    "address": "पता",
+    "port": "पोर्ट",
+    "connections": "कनेक्शन",
+    "connectionStatus": "कनेक्शन स्थिति",
+    "connectionType": "कनेक्शन प्रकार",
+    "encryption": "एन्क्रिप्शन",
+    "ssl": "SSL",
+    "plaintext": "सादा पाठ",
+    "connected": "कनेक्टेड",
+    "disconnected": "डिस्कनेक्टेड",
+    "disconnect": "डिस्कनेक्ट",
+    "start": "प्रारंभ करें",
+    "stop": "रोकें",
+    "idle": "निष्क्रिय",
+    "active": "सक्रिय",
+    "error": "त्रुटि",
+    "notFound": "नहीं मिला",
+    "addressAlreadyInUse": "पता पहले से ही उपयोग में है",
+    "bindError": "बाइंड त्रुटि",
+    "unknown": "अज्ञात",
+    "connectionFailed": "कनेक्शन विफल",
+    "certificate": "प्रमाणपत्र",
+    "generate": "उत्पन्न करें",
+    "certificateExpired": "प्रमाणपत्र की समय सीमा समाप्त",
+    "invalidCertificate": "अवैध प्रमाणपत्र",
+    "revoke": "रद्द करें",
+    "generateNewCertificate": "नया प्रमाणपत्र उत्पन्न करें",
+    "accept": "स्वीकार करें",
+    "refuse": "अस्वीकार करें",
+    "addressUnavailable": "पता अनुपलब्ध",
+    "notSupported": "समर्थित नहीं",
+    "unknownError": "अज्ञात त्रुटि"
+  }
+}
