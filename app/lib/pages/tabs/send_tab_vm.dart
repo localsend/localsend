@@ -14,6 +14,7 @@ import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
@@ -115,7 +116,7 @@ final sendTabVmProvider = ViewProvider((ref) {
       }
     },
     onToggleFavorite: (device) async {
-      final isFavorite = favoriteDevices.any((e) => e.fingerprint == device.fingerprint);
+      final isFavorite = favoriteDevices.containsDevice(device);
       if (isFavorite) {
         await ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: device.fingerprint));
       } else {

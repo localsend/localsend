@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +13,7 @@ import 'package:localsend_app/provider/selection/selected_receiving_files_provid
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
+import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
@@ -88,7 +88,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     final selectedFiles = ref.watch(selectedReceivingFilesProvider);
     final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
 
-    final senderFavoriteEntry = ref.watch(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == receiveSession.sender.fingerprint);
+    final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(receiveSession.sender)));
 
     if (receiveSession.status == SessionStatus.canceledBySender) {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
