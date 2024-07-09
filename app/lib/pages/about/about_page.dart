@@ -109,6 +109,12 @@ class AboutPage extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () async {
+                  await launchUrl(Uri.parse('https://codeberg.org/localsend/localsend'), mode: LaunchMode.externalApplication);
+                },
+                child: const Text('Source Code (Codeberg)'),
+              ),
+              TextButton(
+                onPressed: () async {
                   await launchUrl(Uri.parse('https://opensource.org/licenses/MIT'));
                 },
                 child: const Text('MIT License'),

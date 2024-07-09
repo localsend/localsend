@@ -5,6 +5,7 @@ part of 'about_page.dart';
 /// Translators should not be listed here.
 const _contributors = <String>[
   'Gabriel Lima (@TheGB0077)',
+  '@Caesarovich',
   '@gitstart',
   ..._packageMaintainers,
 ];
