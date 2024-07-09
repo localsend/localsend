@@ -83,7 +83,7 @@ Future<bool> disableAutoStart() async {
         File(_getMacOSFilePath(packageInfo.packageName)).deleteSync();
         break;
       case TargetPlatform.windows:
-        _getWindowsRegistryKey().deleteValue(packageInfo.appName);
+        _getWindowsRegistryKey().deleteValue(_windowsRegistryKeyValue);
         break;
       default:
         break;
