@@ -61,13 +61,20 @@ class Assets {
   static const $AssetsWebGen web = $AssetsWebGen();
 
   /// List of all assets
-  List<String> get values => [changelog];
+  static List<String> get values => [changelog];
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

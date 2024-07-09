@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'apk_provider_param.dart';
@@ -71,8 +71,7 @@ mixin ApkProviderParamMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType && ApkProviderParamMapper.ensureInitialized().isValueEqual(this as ApkProviderParam, other));
+    return ApkProviderParamMapper.ensureInitialized().equalsValue(this as ApkProviderParam, other);
   }
 
   @override
