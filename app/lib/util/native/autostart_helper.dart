@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:launch_at_startup/launch_at_startup.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:win32_registry/win32_registry.dart';
@@ -13,26 +11,62 @@ final _logger = Logger('AutoStartHelper');
 
 Future<bool> enableAutoStart({required bool startHidden}) async {
   try {
-    if (checkPlatform(const [TargetPlatform.linux, TargetPlatform.macOS])) {
-      final packageInfo = await PackageInfo.fromPlatform();
-      launchAtStartup.setup(
-        appName: packageInfo.appName,
-        appPath: Platform.resolvedExecutable,
-        args: [
-          if (startHidden) startHiddenFlag,
-        ],
-      );
-      await launchAtStartup.enable();
-    } else {
-      // launch_at_startup does not add quotes around the executable path
-      final packageInfo = await PackageInfo.fromPlatform();
-      _getWindowsRegistryKey().createValue(RegistryValue(
-        packageInfo.appName,
-        RegistryValueType.string,
-        '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
-      ));
+    final packageInfo = await PackageInfo.fromPlatform();
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.linux:
+        String contents = '''
+[Desktop Entry]
+Type=Application
+Name=${packageInfo.appName}
+Comment=${packageInfo.appName} startup script
+Exec=${Platform.resolvedExecutable}${startHidden ? ' $startHiddenFlag' : ''}
+StartupNotify=false
+Terminal=false
+''';
+        final file = File(_getLinuxFilePath(packageInfo.packageName));
+        if (!file.parent.existsSync()) {
+          file.parent.createSync(recursive: true);
+        }
+        file.writeAsStringSync(contents);
+        return true;
+      case TargetPlatform.macOS:
+        final file = File(_getMacOSFilePath(packageInfo.packageName));
+        file.writeAsStringSync('''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>${packageInfo.packageName}</string>
+  <key>AssociatedBundleIdentifiers</key>
+  <string>${packageInfo.packageName}</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>${Platform.executable}</string>
+    ${startHidden ? '<string>$startHiddenFlag</string>' : ''}
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Interactive</string>
+  <key>StandardErrorPath</key>
+  <string>/dev/null</string>
+  <key>StandardOutPath</key>
+  <string>/dev/null</string>
+</dict>
+</plist>
+        ''');
+        return true;
+      case TargetPlatform.windows:
+        // launch_at_startup does not add quotes around the executable path
+        _getWindowsRegistryKey().createValue(RegistryValue(
+          _windowsRegistryKeyValue,
+          RegistryValueType.string,
+          '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
+        ));
+        return true;
+      default:
+        return false;
     }
-    return true;
   } catch (e) {
     _logger.warning('Could enable auto start', e);
     return false;
@@ -44,10 +78,10 @@ Future<bool> disableAutoStart() async {
     final packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
-        File(_getLinuxFilePath(packageInfo.appName)).deleteSync();
+        File(_getLinuxFilePath(packageInfo.packageName)).deleteSync();
         break;
       case TargetPlatform.macOS:
-        File(_getMacOSFilePath(packageInfo.appName)).deleteSync();
+        File(_getMacOSFilePath(packageInfo.packageName)).deleteSync();
         break;
       case TargetPlatform.windows:
         _getWindowsRegistryKey().deleteValue(packageInfo.appName);
@@ -66,11 +100,11 @@ Future<bool> isAutoStartEnabled() async {
   final packageInfo = await PackageInfo.fromPlatform();
   switch (defaultTargetPlatform) {
     case TargetPlatform.linux:
-      return File(_getLinuxFilePath(packageInfo.appName)).existsSync();
+      return File(_getLinuxFilePath(packageInfo.packageName)).existsSync();
     case TargetPlatform.macOS:
-      return File(_getMacOSFilePath(packageInfo.appName)).existsSync();
+      return File(_getMacOSFilePath(packageInfo.packageName)).existsSync();
     case TargetPlatform.windows:
-      return _getWindowsRegistryKey().getValueAsString(packageInfo.appName)?.contains(Platform.resolvedExecutable) ?? false;
+      return _getWindowsRegistryKey().getValueAsString(_windowsRegistryKeyValue)?.contains(Platform.resolvedExecutable) ?? false;
     default:
       return false;
   }
@@ -80,23 +114,25 @@ Future<bool> isAutoStartHidden() async {
   final packageInfo = await PackageInfo.fromPlatform();
   switch (defaultTargetPlatform) {
     case TargetPlatform.linux:
-      final file = File(_getLinuxFilePath(packageInfo.appName));
+      final file = File(_getLinuxFilePath(packageInfo.packageName));
       if (!file.existsSync()) {
         return false;
       }
       return file.readAsStringSync().contains(startHiddenFlag);
     case TargetPlatform.macOS:
-      final file = File(_getMacOSFilePath(packageInfo.appName));
+      final file = File(_getMacOSFilePath(packageInfo.packageName));
       if (!file.existsSync()) {
         return false;
       }
       return file.readAsStringSync().contains(startHiddenFlag);
     case TargetPlatform.windows:
-      return _getWindowsRegistryKey().getValueAsString(packageInfo.appName)?.contains(startHiddenFlag) ?? false;
+      return _getWindowsRegistryKey().getValueAsString(_windowsRegistryKeyValue)?.contains(startHiddenFlag) ?? false;
     default:
       return false;
   }
 }
+
+const _windowsRegistryKeyValue = 'LocalSend';
 
 RegistryKey _getWindowsRegistryKey() {
   return Registry.openPath(

@@ -772,14 +772,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
-  launch_at_startup:
-    dependency: "direct main"
-    description:
-      name: launch_at_startup
-      sha256: "93fc5638e088290004fae358bae691486673d469957d461d9dae5b12248593eb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2"
   legalize:
     dependency: "direct main"
     description:

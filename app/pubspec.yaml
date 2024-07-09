@@ -34,7 +34,6 @@ dependencies:
   image_picker: 1.0.8
   in_app_purchase: 3.1.13 # [FOSS_REMOVE]
   intl: ^0.18.0 # allow newer versions, so it can compile with newer Flutter versions
-  launch_at_startup: 0.2.2
   legalize: ^1.2.2
   logging: 1.2.0
   # https://github.com/NightFeather0615/macos_dock_progress/issues/1
