@@ -37,7 +37,8 @@ dependencies:
   launch_at_startup: 0.2.2
   legalize: ^1.2.2
   logging: 1.2.0
-  macos_dock_progress: 1.1.0
+  # https://github.com/NightFeather0615/macos_dock_progress/issues/1
+  # macos_dock_progress: 1.1.0
   mime: 1.0.4
   network_info_plus: 5.0.3
   open_filex: 4.4.0

@@ -844,14 +844,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  macos_dock_progress:
-    dependency: "direct main"
-    description:
-      name: macos_dock_progress
-      sha256: f5cf45647b0e8db3cfa80f514881c13cf1036f09312c3a46bc53dbe3cdee9723
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   markdown:
     dependency: transitive
     description:
