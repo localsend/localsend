@@ -7,9 +7,11 @@ import 'package:localsend_app/pages/debug/http_logs_page.dart';
 import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/util/shared_preferences_portable.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
 class DebugPage extends StatelessWidget {
   const DebugPage({super.key});
@@ -27,6 +29,14 @@ class DebugPage extends StatelessWidget {
           DebugEntry(
             name: 'Debug Mode',
             value: kDebugMode.toString(),
+          ),
+          DebugEntry(
+            name: 'Portable Mode',
+            value: SharedPreferencesStorePlatform.instance is SharedPreferencesPortable ? 'true' : 'false',
+          ),
+          DebugEntry(
+            name: 'Executable Path',
+            value: Platform.resolvedExecutable,
           ),
           DebugEntry(
             name: 'App Arguments',
