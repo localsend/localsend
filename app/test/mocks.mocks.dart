@@ -444,26 +444,6 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
-  bool isAutoStartLaunchMinimized() => (super.noSuchMethod(
-        Invocation.method(
-          #isAutoStartLaunchMinimized,
-          [],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  _i4.Future<void> setAutoStartLaunchMinimized(bool? launchMinimized) => (super.noSuchMethod(
-        Invocation.method(
-          #setAutoStartLaunchMinimized,
-          [launchMinimized],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
   bool isHttps() => (super.noSuchMethod(
         Invocation.method(
           #isHttps,

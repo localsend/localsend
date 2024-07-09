@@ -2,6 +2,8 @@
 
 - feat: add clear button in the send tab (@Caesarovich)
 - feat: add URL view when sharing via link that shows the URL in bigger font (@harriseldon)
+- feat(windows): toggle "start hidden" in-app instead of referring to the system settings (@Tienisto)
+- feat(desktop): make auto start + start hidden more stable, now listens to `--hidden` parameter instead of `autostart` (@Tienisto)
 - feat(desktop): show progress in the taskbar (@NightFeather0615)
 - feat: add discovery timeout setting for advanced users (@o2e)
 - fix: sanitize file names with invalid characters (@Caesarovich)

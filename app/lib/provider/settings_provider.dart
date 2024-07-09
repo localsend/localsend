@@ -31,8 +31,6 @@ class SettingsService extends PureNotifier<SettingsState> {
         quickSave: _persistence.isQuickSave(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
-        launchAtStartup: _persistence.isLaunchAtStartup(),
-        autoStartLaunchMinimized: _persistence.isAutoStartLaunchMinimized(),
         https: _persistence.isHttps(),
         sendMode: _persistence.getSendMode(),
         saveWindowPlacement: _persistence.getSaveWindowPlacement(),
@@ -131,20 +129,6 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setMinimizeToTray(minimizeToTray);
     state = state.copyWith(
       minimizeToTray: minimizeToTray,
-    );
-  }
-
-  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
-    await _persistence.setLaunchAtStartup(launchAtStartup);
-    state = state.copyWith(
-      launchAtStartup: launchAtStartup,
-    );
-  }
-
-  Future<void> setAutoStartLaunchMinimized(bool launchMinimized) async {
-    await _persistence.setAutoStartLaunchMinimized(launchMinimized);
-    state = state.copyWith(
-      autoStartLaunchMinimized: launchMinimized,
     );
   }
 

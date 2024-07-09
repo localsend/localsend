@@ -25,6 +25,7 @@ import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/logger.dart';
+import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -36,8 +37,6 @@ import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
-
-const launchAtStartupArg = 'autostart';
 
 final _logger = Logger('Init');
 
@@ -86,13 +85,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
     await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
-    if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
-      // We show this app, when (1) app started manually, (2) app should not start minimized
-      // In other words: only start minimized when launched on startup and "launchMinimized" is configured
-      await WindowManager.instance.show();
-    } else {
+    if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
+    } else {
+      await WindowManager.instance.show();
     }
   }
 

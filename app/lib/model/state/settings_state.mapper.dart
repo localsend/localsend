@@ -47,10 +47,6 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, bool> _f$autoFinish = Field('autoFinish', _$autoFinish);
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
   static const Field<SettingsState, bool> _f$minimizeToTray = Field('minimizeToTray', _$minimizeToTray);
-  static bool _$launchAtStartup(SettingsState v) => v.launchAtStartup;
-  static const Field<SettingsState, bool> _f$launchAtStartup = Field('launchAtStartup', _$launchAtStartup);
-  static bool _$autoStartLaunchMinimized(SettingsState v) => v.autoStartLaunchMinimized;
-  static const Field<SettingsState, bool> _f$autoStartLaunchMinimized = Field('autoStartLaunchMinimized', _$autoStartLaunchMinimized);
   static bool _$https(SettingsState v) => v.https;
   static const Field<SettingsState, bool> _f$https = Field('https', _$https);
   static SendMode _$sendMode(SettingsState v) => v.sendMode;
@@ -83,8 +79,6 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #quickSave: _f$quickSave,
     #autoFinish: _f$autoFinish,
     #minimizeToTray: _f$minimizeToTray,
-    #launchAtStartup: _f$launchAtStartup,
-    #autoStartLaunchMinimized: _f$autoStartLaunchMinimized,
     #https: _f$https,
     #sendMode: _f$sendMode,
     #saveWindowPlacement: _f$saveWindowPlacement,
@@ -110,8 +104,6 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         quickSave: data.dec(_f$quickSave),
         autoFinish: data.dec(_f$autoFinish),
         minimizeToTray: data.dec(_f$minimizeToTray),
-        launchAtStartup: data.dec(_f$launchAtStartup),
-        autoStartLaunchMinimized: data.dec(_f$autoStartLaunchMinimized),
         https: data.dec(_f$https),
         sendMode: data.dec(_f$sendMode),
         saveWindowPlacement: data.dec(_f$saveWindowPlacement),
@@ -180,8 +172,6 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       bool? quickSave,
       bool? autoFinish,
       bool? minimizeToTray,
-      bool? launchAtStartup,
-      bool? autoStartLaunchMinimized,
       bool? https,
       SendMode? sendMode,
       bool? saveWindowPlacement,
@@ -214,8 +204,6 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           bool? quickSave,
           bool? autoFinish,
           bool? minimizeToTray,
-          bool? launchAtStartup,
-          bool? autoStartLaunchMinimized,
           bool? https,
           SendMode? sendMode,
           bool? saveWindowPlacement,
@@ -238,8 +226,6 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (quickSave != null) #quickSave: quickSave,
         if (autoFinish != null) #autoFinish: autoFinish,
         if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
-        if (launchAtStartup != null) #launchAtStartup: launchAtStartup,
-        if (autoStartLaunchMinimized != null) #autoStartLaunchMinimized: autoStartLaunchMinimized,
         if (https != null) #https: https,
         if (sendMode != null) #sendMode: sendMode,
         if (saveWindowPlacement != null) #saveWindowPlacement: saveWindowPlacement,
@@ -264,8 +250,6 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       quickSave: data.get(#quickSave, or: $value.quickSave),
       autoFinish: data.get(#autoFinish, or: $value.autoFinish),
       minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
-      launchAtStartup: data.get(#launchAtStartup, or: $value.launchAtStartup),
-      autoStartLaunchMinimized: data.get(#autoStartLaunchMinimized, or: $value.autoStartLaunchMinimized),
       https: data.get(#https, or: $value.https),
       sendMode: data.get(#sendMode, or: $value.sendMode),
       saveWindowPlacement: data.get(#saveWindowPlacement, or: $value.saveWindowPlacement),

@@ -22,8 +22,6 @@ class SettingsState with SettingsStateMappable {
   final bool quickSave; // automatically accept file requests
   final bool autoFinish; // automatically finish sessions
   final bool minimizeToTray; // minimize to tray instead of exiting the app
-  final bool launchAtStartup; // Tracks if the option is enabled on Linux
-  final bool autoStartLaunchMinimized; // start hidden in tray (only available when launchAtStartup is true)
   final bool https;
   final SendMode sendMode;
   final bool saveWindowPlacement;
@@ -47,8 +45,6 @@ class SettingsState with SettingsStateMappable {
     required this.quickSave,
     required this.autoFinish,
     required this.minimizeToTray,
-    required this.launchAtStartup,
-    required this.autoStartLaunchMinimized,
     required this.https,
     required this.sendMode,
     required this.saveWindowPlacement,

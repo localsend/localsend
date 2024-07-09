@@ -1,73 +1,115 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
-import 'package:localsend_app/init.dart';
-import 'package:localsend_app/model/state/settings_state.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:win32_registry/win32_registry.dart';
+
+const startHiddenFlag = '--hidden';
 
 final _logger = Logger('AutoStartHelper');
 
-/// Currently, only works for windows
-Future<bool> initEnableAutoStartAndOpenSettings(SettingsState settings, [bool? isWindows]) async {
+Future<bool> enableAutoStart({required bool startHidden}) async {
   try {
-    // In case somebody don't use msix
-    final packageInfo = await PackageInfo.fromPlatform();
-    launchAtStartup.setup(
-      appName: packageInfo.appName,
-      appPath: Platform.resolvedExecutable,
-      args: [if (!settings.autoStartLaunchMinimized) launchAtStartupArg],
-    );
-
-    // We just add this entry so we have the same behaviour like in msix
-    if (!(await launchAtStartup.isEnabled())) {
-      final result = await launchAtStartup.enable();
-      return result;
+    if (checkPlatform(const [TargetPlatform.linux, TargetPlatform.macOS])) {
+      final packageInfo = await PackageInfo.fromPlatform();
+      launchAtStartup.setup(
+        appName: packageInfo.appName,
+        appPath: Platform.resolvedExecutable,
+        args: [
+          if (startHidden) startHiddenFlag,
+        ],
+      );
+      await launchAtStartup.enable();
+    } else {
+      // launch_at_startup does not add quotes around the executable path
+      final packageInfo = await PackageInfo.fromPlatform();
+      _getWindowsRegistryKey().createValue(RegistryValue(
+        packageInfo.appName,
+        RegistryValueType.string,
+        '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
+      ));
     }
+    return true;
   } catch (e) {
-    _logger.warning('Could not init auto start', e);
+    _logger.warning('Could enable auto start', e);
     return false;
   }
-
-  // Can be linux on startup flag change
-  if (isWindows ?? false) {
-    try {
-      // Ideally, we should configure it programmatically
-      // The launch_at_startup package does not support this currently
-      // See: https://learn.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.StartupTask?view=winrt-22621
-      await launchUrl(Uri.parse('ms-settings:startupapps'));
-    } catch (e) {
-      _logger.warning('Could not open startup settings', e);
-    }
-  }
-  return false;
 }
 
-Future<bool> initDisableAutoStart(SettingsState settings) async {
+Future<bool> disableAutoStart() async {
   try {
-    // In case somebody don't use msix
     final packageInfo = await PackageInfo.fromPlatform();
-    launchAtStartup.setup(
-      appName: packageInfo.appName,
-      appPath: Platform.resolvedExecutable,
-      args: [if (settings.autoStartLaunchMinimized) launchAtStartupArg],
-    );
-
-    // We just add this entry so we have the same behaviour like in msix
-    if (await launchAtStartup.isEnabled()) {
-      final result = await launchAtStartup.disable();
-      return result;
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.linux:
+        File(_getLinuxFilePath(packageInfo.appName)).deleteSync();
+        break;
+      case TargetPlatform.macOS:
+        File(_getMacOSFilePath(packageInfo.appName)).deleteSync();
+        break;
+      case TargetPlatform.windows:
+        _getWindowsRegistryKey().deleteValue(packageInfo.appName);
+        break;
+      default:
+        break;
     }
+    return true;
   } catch (e) {
-    _logger.warning('Could not init auto start', e);
+    _logger.warning('Could disable auto start', e);
     return false;
   }
-  return false;
 }
 
-Future<bool> isLinuxLaunchAtStartEnabled() async {
+Future<bool> isAutoStartEnabled() async {
   final packageInfo = await PackageInfo.fromPlatform();
-  File desktopFile = File('${Platform.environment['HOME']}/.config/autostart/${packageInfo.appName}.desktop');
-  return desktopFile.existsSync();
+  switch (defaultTargetPlatform) {
+    case TargetPlatform.linux:
+      return File(_getLinuxFilePath(packageInfo.appName)).existsSync();
+    case TargetPlatform.macOS:
+      return File(_getMacOSFilePath(packageInfo.appName)).existsSync();
+    case TargetPlatform.windows:
+      return _getWindowsRegistryKey().getValueAsString(packageInfo.appName)?.contains(Platform.resolvedExecutable) ?? false;
+    default:
+      return false;
+  }
+}
+
+Future<bool> isAutoStartHidden() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  switch (defaultTargetPlatform) {
+    case TargetPlatform.linux:
+      final file = File(_getLinuxFilePath(packageInfo.appName));
+      if (!file.existsSync()) {
+        return false;
+      }
+      return file.readAsStringSync().contains(startHiddenFlag);
+    case TargetPlatform.macOS:
+      final file = File(_getMacOSFilePath(packageInfo.appName));
+      if (!file.existsSync()) {
+        return false;
+      }
+      return file.readAsStringSync().contains(startHiddenFlag);
+    case TargetPlatform.windows:
+      return _getWindowsRegistryKey().getValueAsString(packageInfo.appName)?.contains(startHiddenFlag) ?? false;
+    default:
+      return false;
+  }
+}
+
+RegistryKey _getWindowsRegistryKey() {
+  return Registry.openPath(
+    RegistryHive.currentUser,
+    path: r'Software\Microsoft\Windows\CurrentVersion\Run',
+    desiredAccessRights: AccessRights.allAccess,
+  );
+}
+
+String _getLinuxFilePath(String appName) {
+  return '${Platform.environment['HOME']}/.config/autostart/$appName.desktop';
+}
+
+String _getMacOSFilePath(String appName) {
+  return '${Platform.environment['HOME']}/Library/LaunchAgents/$appName.plist';
 }
