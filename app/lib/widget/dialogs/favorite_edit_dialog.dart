@@ -1,3 +1,4 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
@@ -12,8 +13,12 @@ import 'package:routerino/routerino.dart';
 /// A dialog to add or edit a favorite device.
 class FavoriteEditDialog extends StatefulWidget {
   final FavoriteDevice? favorite;
+  final Device? prefilledDevice;
 
-  const FavoriteEditDialog({this.favorite});
+  const FavoriteEditDialog({
+    this.favorite,
+    this.prefilledDevice,
+  });
 
   @override
   State<FavoriteEditDialog> createState() => _FavoriteEditDialogState();
@@ -30,11 +35,12 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   void initState() {
     super.initState();
 
-    _ipController.text = widget.favorite?.ip ?? '';
-    _aliasController.text = widget.favorite?.alias ?? '';
+    _ipController.text = widget.prefilledDevice?.ip ?? widget.favorite?.ip ?? '';
+    _aliasController.text = widget.prefilledDevice?.alias ?? widget.favorite?.alias ?? '';
 
     ensureRef((ref) {
-      _portController.text = widget.favorite?.port.toString() ?? ref.read(settingsProvider).port.toString();
+      _portController.text =
+          widget.prefilledDevice?.port.toString() ?? widget.favorite?.port.toString() ?? ref.read(settingsProvider).port.toString();
     });
   }
 
@@ -68,7 +74,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
           const SizedBox(height: 5),
           TextFormField(
             controller: _ipController,
-            autofocus: widget.favorite == null,
+            autofocus: widget.favorite == null && widget.prefilledDevice == null,
             enabled: !_fetching,
           ),
           const SizedBox(height: 16),

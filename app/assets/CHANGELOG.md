@@ -1,6 +1,7 @@
 ## 1.15.0 (unreleased)
 
 - feat: add clear button in the send tab (@Caesarovich)
+- feat: confirm before adding or removing favorites in the nearby devices list (@Tienisto)
 - feat: add URL view when sharing via link that shows the URL in bigger font (@harriseldon)
 - feat(windows): toggle "start hidden" in-app instead of referring to the system settings (@Tienisto)
 - feat(desktop): make auto start + start hidden more stable, now listens to `--hidden` parameter instead of `autostart` (@Tienisto)
