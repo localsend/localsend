@@ -424,26 +424,6 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
-  bool isLaunchAtStartup() => (super.noSuchMethod(
-        Invocation.method(
-          #isLaunchAtStartup,
-          [],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  _i4.Future<void> setLaunchAtStartup(bool? launchAtStartup) => (super.noSuchMethod(
-        Invocation.method(
-          #setLaunchAtStartup,
-          [launchAtStartup],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
   bool isHttps() => (super.noSuchMethod(
         Invocation.method(
           #isHttps,

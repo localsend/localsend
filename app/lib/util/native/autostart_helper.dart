@@ -57,7 +57,6 @@ Terminal=false
         ''');
         return true;
       case TargetPlatform.windows:
-        // launch_at_startup does not add quotes around the executable path
         _getWindowsRegistryKey().createValue(RegistryValue(
           _windowsRegistryKeyValue,
           RegistryValueType.string,

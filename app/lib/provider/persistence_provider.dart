@@ -11,6 +11,7 @@ import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/shared_preferences_portable.dart';
@@ -59,7 +60,6 @@ const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
-const _launchAtStartup = 'ls_launch_at_startup';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
@@ -133,6 +133,15 @@ class PersistenceService {
       if (colorMode == null) {
         await _initColorSetting(prefs, supportsDynamicColors);
       }
+    }
+
+    // migrate legacy auto start settings (current implementation is stateless and relies on the Windows registry / file system)
+    const launchAtStartupLegacyKey = 'ls_launch_at_startup';
+    const launchMinimizedLegacyKey = 'ls_auto_start_launch_minimized';
+    if (prefs.getBool(launchAtStartupLegacyKey) == true) {
+      await prefs.remove(launchAtStartupLegacyKey);
+      await enableAutoStart(startHidden: prefs.getBool(launchMinimizedLegacyKey) == true);
+      await prefs.remove(launchMinimizedLegacyKey);
     }
 
     return PersistenceService._(prefs);
@@ -306,14 +315,6 @@ class PersistenceService {
 
   Future<void> setMinimizeToTray(bool minimizeToTray) async {
     await _prefs.setBool(_minimizeToTray, minimizeToTray);
-  }
-
-  bool isLaunchAtStartup() {
-    return _prefs.getBool(_launchAtStartup) ?? false;
-  }
-
-  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
-    await _prefs.setBool(_launchAtStartup, launchAtStartup);
   }
 
   bool isHttps() {
