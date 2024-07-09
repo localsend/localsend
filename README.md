@@ -90,6 +90,14 @@ Create a file named `settings.json` located in the same directory as the executa
 This file can be empty.
 The app will use this file to store settings instead of the default location.
 
+**Start hidden**
+
+(Updated in v1.15.0)
+
+To start the app hidden (only in tray), use the `--hidden` flag (example: `localsend_app.exe --hidden`).
+
+On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and the hidden setting is enabled.
+
 ## How It Works
 
 LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.

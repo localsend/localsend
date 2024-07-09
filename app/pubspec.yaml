@@ -68,6 +68,7 @@ dependencies:
   uuid: 3.0.7
   wakelock_plus: 1.1.4
   wechat_assets_picker: 8.8.1+1
+  win32_registry: 1.1.2
   window_manager: 0.3.9
   windows_taskbar: 1.1.2
   yaru: 1.2.2
@@ -78,7 +79,6 @@ dev_dependencies:
   flutter_gen_runner: 5.6.0
   flutter_lints: 3.0.1
   mockito: 5.4.4
-  msix: 3.16.7
   refena_inspector: 2.0.0
   slang_build_runner: 3.31.0
   slang_gpt: 0.10.2
@@ -102,21 +102,3 @@ flutter:
 
 flutter_gen:
   line_length: 150
-
-msix_config:
-  display_name: LocalSend
-  publisher_display_name: Tien Do Nam
-  # Using third-party CA for now (see: https://github.com/localsend/localsend/issues/220)
-  # publisher: CN=0A8E9755-183F-4F0B-823F-1B8C991D7B97
-  identity_name: 11157TienDoNam.LocalSend
-  logo_path: assets\img\logo-512.png
-  architecture: x64
-  languages: en, ar, bn, cs, da, de, el, es-ES, eu, fa, fr, he, hu, in, it, ja, ko, ne, nl, pl, pt-BR, ru, sv, th, tr, uk, vi, zh-CN, zh-HK, zh-TW
-
-  # https://github.com/localsend/localsend/issues/398
-  os_min_version: 10.0.19041.0
-
-  startup_task:
-    task_id: localsend
-    enabled: false
-    parameters: autostart

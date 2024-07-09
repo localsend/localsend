@@ -60,7 +60,6 @@ const _quickSave = 'ls_quick_save';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _launchAtStartup = 'ls_launch_at_startup';
-const _autoStartLaunchMinimized = 'ls_auto_start_launch_minimized';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
@@ -315,14 +314,6 @@ class PersistenceService {
 
   Future<void> setLaunchAtStartup(bool launchAtStartup) async {
     await _prefs.setBool(_launchAtStartup, launchAtStartup);
-  }
-
-  bool isAutoStartLaunchMinimized() {
-    return _prefs.getBool(_autoStartLaunchMinimized) ?? true;
-  }
-
-  Future<void> setAutoStartLaunchMinimized(bool launchMinimized) async {
-    await _prefs.setBool(_autoStartLaunchMinimized, launchMinimized);
   }
 
   bool isHttps() {
