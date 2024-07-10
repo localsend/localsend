@@ -33,6 +33,7 @@ import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
+import 'package:localsend_app/util/native/open_file_receiver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
@@ -154,10 +155,21 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
 
   if (appStart) {
     final args = ref.read(appArgumentsProvider);
-    await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
-      args: args,
-      goToPage: goToPage,
-    ));
+
+    if (defaultTargetPlatform == TargetPlatform.macOS) {
+      final files = await getOpenedFiles();
+      if (files.isNotEmpty) {
+        await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+          args: files,
+          goToPage: goToPage,
+        ));
+      }
+    } else {
+      await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+        args: args,
+        goToPage: goToPage,
+      ));
+    }
   }
 
   bool hasInitialShare = false;

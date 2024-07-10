@@ -7,6 +7,7 @@ import 'package:localsend_app/pages/debug/http_logs_page.dart';
 import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/util/native/open_file_receiver.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -41,6 +42,19 @@ class DebugPage extends StatelessWidget {
             name: 'App Arguments',
             value: appArguments.isEmpty ? null : appArguments.map((e) => '"$e"').join(' '),
           ),
+          if (defaultTargetPlatform == TargetPlatform.macOS)
+            FutureBuilder(
+              // ignore: discarded_futures
+              future: getOpenedFiles().onError((error, stackTrace) async {
+                return <String>[error.toString()];
+              }),
+              builder: (context, snapshot) {
+                return DebugEntry(
+                  name: 'Opened Files',
+                  value: snapshot.hasData ? snapshot.data.toString() : 'Loading...',
+                );
+              },
+            ),
           DebugEntry(
             name: 'Dart SDK',
             value: Platform.version,
