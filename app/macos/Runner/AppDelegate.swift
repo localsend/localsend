@@ -10,7 +10,7 @@ class AppDelegate: FlutterAppDelegate {
 
   // START: method channel logic
   private var channel: FlutterMethodChannel?
-  private var cachedFiles: [String] = []
+  private var cachedFiles: [String]? = []
 
   override func applicationDidFinishLaunching(_ notification: Notification) {
     let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
@@ -21,7 +21,8 @@ class AppDelegate: FlutterAppDelegate {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
       switch call.method {
       case "getFiles":
-        result(cachedFiles)
+        result(cachedFiles ?? [])
+        cachedFiles = nil // files has been fetched, no need to cache anymore
       default:
         result(FlutterMethodNotImplemented)
       }
@@ -32,12 +33,14 @@ class AppDelegate: FlutterAppDelegate {
   // START: handle opened files
 
   override func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-    cachedFiles.append(filename)
+    cachedFiles?.append(filename)
+    channel?.invokeMethod("onFiles", arguments: [filename])
     return true
   }
 
   override func application(_ sender: NSApplication, openFiles filenames: [String]) {
-    cachedFiles.append(contentsOf: filenames)
+    cachedFiles?.append(contentsOf: filenames)
+    channel?.invokeMethod("onFiles", arguments: filenames)
   }
   // END: handle opened files
 }

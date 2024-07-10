@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -21,4 +23,19 @@ Future<List<String>> getOpenedFiles() async {
   }
 
   return files.cast<String>();
+}
+
+Stream<List<String>> getOpenedFilesStream() {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return Stream.value(<String>[]).asBroadcastStream();
+  }
+
+  final controller = StreamController<List<String>>();
+  _methodChannel.setMethodCallHandler((call) async {
+    if (call.method == 'onFiles') {
+      controller.add((call.arguments as List).cast<String>());
+    }
+  });
+
+  return controller.stream.asBroadcastStream();
 }

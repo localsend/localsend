@@ -8,6 +8,7 @@ import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -588,16 +589,17 @@ class ReceiveController {
       });
 
       // ignore: discarded_futures
-      request.readAsString().then((body) {
+      request.readAsString().then((body) async {
         if (body.isEmpty) {
           return;
         }
 
         final Map<String, dynamic> jsonBody = jsonDecode(body);
         final List<String> args = (jsonBody['args'] as List?)?.cast<String>() ?? <String>[];
-
-        // ignore: discarded_futures
-        server.ref.redux(selectedSendingFilesProvider).dispatchAsync(LoadSelectionFromArgsAction(args));
+        final filesAdded = await server.ref.redux(selectedSendingFilesProvider).dispatchAsyncTakeResult(LoadSelectionFromArgsAction(args));
+        if (filesAdded) {
+          server.ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+        }
       });
 
       return server.responseJson(200);
