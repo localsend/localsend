@@ -38,7 +38,9 @@
     "save": "Kaydet",
     "unchanged": "Değiştirilmemiş",
     "unknown": "Bilinmiyor",
-    "noItemInClipboard": "Panoda öğe yok"
+    "noItemInClipboard": "Panoda öğe yok",
+    "showInContextMenu": "LocalSend'i bağlam menüsünde göster"
+
   },
   "receiveTab": {
     "title": "Alım",
