@@ -100,6 +100,7 @@
       "minimizeToTray": "Wyjdź: zminimalizuj do menu ukrytych ikon",
       "launchAtStartup": "Autostart po zalogowaniu",
       "launchMinimized": "Autostart: start ukryty",
+      "showInContextMenu": "Pokaż LocalSend w menu kontekstowym",
       "animations": "Animacje"
     },
     "receive": {
