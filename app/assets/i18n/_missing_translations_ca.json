@@ -16,7 +16,8 @@
     "general": {
       "colorOptions": {
         "oled": "OLED"
-      }
+      },
+      "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
       "autoFinish": "Auto Finish"

@@ -2,19 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <de>.",
     "After editing this file, you can run 'dart run slang apply --locale=de' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "network": {
-      "discoveryTimeout": "Discovery Timeout"
-    }
-  },
-  "dialogs": {
-    "zoom": {
-      "title": "URL"
-    }
-  },
-  "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
-  }
+  ]
 }

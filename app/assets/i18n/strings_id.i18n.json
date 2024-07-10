@@ -111,6 +111,10 @@
       "saveToGallery": "Simpan media ke galeri",
       "saveToHistory": "Simpan ke riwayat"
     },
+    "send": {
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+    },
     "network": {
       "title": "Jaringan",
       "needRestart": "Mulai ulang untuk menerapkan!",
@@ -119,6 +123,7 @@
       "deviceType": "Tipe Perangkat",
       "deviceModel": "Model Perangkat",
       "port": "Port",
+      "discoveryTimeout": "Waktu penemuan habis",
       "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain dikarenakan anda menggunakan port kustom. (bawaan: {defaultPort})",
       "encryption": "Enkripsi",
       "multicastGroup": "Multicast",
@@ -217,6 +222,7 @@
     "requests": "Permintaan",
     "noRequests": "Belum ada permintaan.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Terima permintaan secara otomatis",
     "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Permintaan tertunda: {n}"
   },
@@ -413,7 +419,14 @@
       "single": "Mengirim berkas ke satu penerima. Pilihan akan dihapus setelah selesai membagikan berkas.",
       "multiple": "Mengirim berkas ke beberapa penerima. Pilihan tidak akan dihapus.",
       "link": "Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di browser mereka."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Nama berkas tidak boleh kosong",
+    "invalid": "Nama berkas mengandung karakter yang tidak valid"
   },
   "tray": {
     "@info": "Pedoman Apple sangat ketat tentang kata-kata 'tutup'.",

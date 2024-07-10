@@ -46,6 +46,7 @@ class _StringsDe extends Translations {
 	@override late final _StringsChangelogPageDe changelogPage = _StringsChangelogPageDe._(_root);
 	@override late final _StringsAliasGeneratorDe aliasGenerator = _StringsAliasGeneratorDe._(_root);
 	@override late final _StringsDialogsDe dialogs = _StringsDialogsDe._(_root);
+	@override late final _StringsSanitizationDe sanitization = _StringsSanitizationDe._(_root);
 	@override late final _StringsTrayDe tray = _StringsTrayDe._(_root);
 	@override late final _StringsWebDe web = _StringsWebDe._(_root);
 	@override late final _StringsAssetPickerDe assetPicker = _StringsAssetPickerDe._(_root);
@@ -353,6 +354,18 @@ class _StringsDialogsDe extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsDe quickActions = _StringsDialogsQuickActionsDe._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeDe quickSaveNotice = _StringsDialogsQuickSaveNoticeDe._(_root);
 	@override late final _StringsDialogsSendModeHelpDe sendModeHelp = _StringsDialogsSendModeHelpDe._(_root);
+	@override late final _StringsDialogsZoomDe zoom = _StringsDialogsZoomDe._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationDe extends _StringsSanitizationEn {
+	_StringsSanitizationDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Dateiname darf nicht leer sein';
+	@override String get invalid => 'Dateiname enthält ungültige Zeichen';
 }
 
 // Path: tray
@@ -486,6 +499,7 @@ class _StringsSettingsTabGeneralDe extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Schließen: in Symbolleiste minimieren';
 	@override String get launchAtStartup => 'Autostart nach Login';
 	@override String get launchMinimized => 'Autostart: versteckt starten';
+	@override String get showInContextMenu => 'LocalSend im Kontextmenü anzeigen';
 	@override String get animations => 'Animationen';
 }
 
@@ -530,6 +544,7 @@ class _StringsSettingsTabNetworkDe extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Gerätetyp';
 	@override String get deviceModel => 'Gerätemodell';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Erkennungs-Timeout';
 	@override String portWarning({required Object defaultPort}) => 'Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: ${defaultPort})';
 	@override String get encryption => 'Verschlüsselung';
 	@override String get multicastGroup => 'Multicast';
@@ -843,6 +858,16 @@ class _StringsDialogsSendModeHelpDe extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Sende Dateien an einen Empfänger. Die Auswahl wird nach Abschluss der Dateiübertragung gelöscht.';
 	@override String get multiple => 'Sende Dateien an mehrere Empfänger. Die Auswahl bleibt erhalten.';
 	@override String get link => 'Empfänger, die LocalSend nicht installiert haben, können die ausgewählten Dateien herunterladen, in dem sie den Link im Browser öffnen.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomDe extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

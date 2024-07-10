@@ -100,6 +100,7 @@
       "minimizeToTray": "Schließen: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
       "launchMinimized": "Autostart: versteckt starten",
+      "showInContextMenu": "LocalSend im Kontextmenü anzeigen",
       "animations": "Animationen"
     },
     "receive": {
@@ -123,6 +124,7 @@
       "deviceType": "Gerätetyp",
       "deviceModel": "Gerätemodell",
       "port": "Port",
+      "discoveryTimeout": "Erkennungs-Timeout",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
@@ -348,7 +350,14 @@
       "single": "Sende Dateien an einen Empfänger. Die Auswahl wird nach Abschluss der Dateiübertragung gelöscht.",
       "multiple": "Sende Dateien an mehrere Empfänger. Die Auswahl bleibt erhalten.",
       "link": "Empfänger, die LocalSend nicht installiert haben, können die ausgewählten Dateien herunterladen, in dem sie den Link im Browser öffnen."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Dateiname darf nicht leer sein",
+    "invalid": "Dateiname enthält ungültige Zeichen"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
