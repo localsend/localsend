@@ -7,6 +7,7 @@ import 'package:localsend_app/pages/tabs/receive_tab_vm.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
+import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -19,7 +20,7 @@ class ReceiveTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.ref.watch(receiveTabVmProvider);
+    final vm = context.watch(receiveTabVmProvider);
 
     return Stack(
       children: [
@@ -28,69 +29,65 @@ class ReceiveTab extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
             child: Padding(
               padding: const EdgeInsets.all(30),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Column(
+              child: ColumnListView(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InitialFadeTransition(
-                              duration: const Duration(milliseconds: 300),
-                              delay: const Duration(milliseconds: 200),
-                              child: Consumer(builder: (context, ref) {
-                                final animations = ref.watch(animationProvider);
-                                final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
-                                return RotatingWidget(
-                                  duration: const Duration(seconds: 15),
-                                  spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
-                                  child: const LocalSendLogo(withText: false),
-                                );
-                              }),
-                            ),
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
-                            ),
-                            InitialFadeTransition(
-                              duration: const Duration(milliseconds: 300),
-                              delay: const Duration(milliseconds: 500),
-                              child: Text(
-                                vm.serverState == null ? t.general.offline : vm.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
-                                style: const TextStyle(fontSize: 24),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
+                        InitialFadeTransition(
+                          duration: const Duration(milliseconds: 300),
+                          delay: const Duration(milliseconds: 200),
+                          child: Consumer(builder: (context, ref) {
+                            final animations = ref.watch(animationProvider);
+                            final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
+                            return RotatingWidget(
+                              duration: const Duration(seconds: 15),
+                              spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
+                              child: const LocalSendLogo(withText: false),
+                            );
+                          }),
+                        ),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
+                        ),
+                        InitialFadeTransition(
+                          duration: const Duration(milliseconds: 300),
+                          delay: const Duration(milliseconds: 500),
+                          child: Text(
+                            vm.serverState == null ? t.general.offline : vm.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                            style: const TextStyle(fontSize: 24),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Center(
-                        child: vm.quickSaveSettings
-                            ? ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.primary,
-                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                ),
-                                onPressed: () async => vm.onSetQuickSave(context, false),
-                                child: Text('${t.general.quickSave}: ${t.general.on}'),
-                              )
-                            : TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.grey,
-                                ),
-                                onPressed: () async => vm.onSetQuickSave(context, true),
-                                child: Text('${t.general.quickSave}: ${t.general.off}'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Center(
+                      child: vm.quickSaveSettings
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                               ),
-                      ),
+                              onPressed: () async => vm.onSetQuickSave(context, false),
+                              child: Text('${t.general.quickSave}: ${t.general.on}'),
+                            )
+                          : TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.grey,
+                              ),
+                              onPressed: () async => vm.onSetQuickSave(context, true),
+                              child: Text('${t.general.quickSave}: ${t.general.off}'),
+                            ),
                     ),
-                    const SizedBox(height: 15),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 15),
+                ],
               ),
             ),
           ),
