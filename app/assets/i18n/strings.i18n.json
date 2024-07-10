@@ -100,6 +100,7 @@
       "minimizeToTray": "Quit: Minimize to Tray/Menu Bar",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
+      "showInContextMenu": "Show LocalSend in context menu",
       "animations": "Animations"
     },
     "receive": {

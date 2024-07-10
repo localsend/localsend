@@ -193,6 +193,40 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
   }
 }
 
+/// Loads the selection from the arguments of the app start.
+/// Returns `true` if files were added.
+class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSendingFilesNotifier, List<CrossFile>, bool> {
+  final List<String> args;
+
+  LoadSelectionFromArgsAction(this.args);
+
+  @override
+  Future<(List<CrossFile>, bool)> reduce() async {
+    bool filesAdded = false;
+    for (final arg in args) {
+      if (arg.startsWith('-')) {
+        continue;
+      }
+
+      final file = File(arg);
+      final directory = Directory(arg);
+
+      if (file.existsSync()) {
+        await dispatchAsync(AddFilesAction(
+          files: [file],
+          converter: CrossFileConverters.convertFile,
+        ));
+        filesAdded = true;
+      } else if (directory.existsSync()) {
+        await dispatchAsync(AddDirectoryAction(arg));
+        filesAdded = true;
+      }
+    }
+
+    return (state, filesAdded);
+  }
+}
+
 /// Removes all files from the list.
 class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
   @override

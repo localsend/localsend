@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
@@ -12,19 +13,31 @@ import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
+import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
-import 'package:localsend_app/util/shared_preferences_portable.dart';
+import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
+import 'package:localsend_app/util/shared_preferences/shared_preferences_portable.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:logging/logging.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart' as path;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:uuid/uuid.dart';
 
+part 'persistence_provider_migrations.dart';
+
 final _logger = Logger('PersistenceService');
+
+String get _windowsFile {
+  final appData = Platform.environment['APPDATA'];
+  return '$appData/LocalSend/settings.json';
+}
+
+String get _windowsLegacyFile {
+  final appData = Platform.environment['APPDATA'];
+  return '$appData/org.localsend/localsend_app/shared_preferences.json';
+}
 
 // Version of the storage
 const _version = 'ls_version';
@@ -74,25 +87,46 @@ final persistenceProvider = Provider<PersistenceService>((ref) {
 /// This service abstracts the persistence layer.
 class PersistenceService {
   final SharedPreferences _prefs;
+  final bool isFirstAppStart;
 
-  PersistenceService._(this._prefs);
+  PersistenceService._(this._prefs, this.isFirstAppStart);
 
   static Future<PersistenceService> initialize(DynamicColors? dynamicColors) async {
     SharedPreferences prefs;
 
-    if (checkPlatform([TargetPlatform.windows]) && SharedPreferencesPortable.exists()) {
+    final portableStore = SharedPreferencesPortable();
+    if (checkPlatform(const [TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]) && portableStore.exists()) {
       _logger.info('Using portable settings.');
-      SharedPreferencesStorePlatform.instance = SharedPreferencesPortable();
+      SharedPreferencesStorePlatform.instance = portableStore;
+    } else if (defaultTargetPlatform == TargetPlatform.windows) {
+      final legacyStore = SharedPreferencesFile(filePath: _windowsLegacyFile);
+      if (legacyStore.exists()) {
+        _logger.info('Using legacy settings. Will migrate in the next step.');
+        SharedPreferencesStorePlatform.instance = legacyStore;
+      } else {
+        SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
+      }
+    }
+
+    final bool isFirstAppStart;
+    final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
+    _logger.info('Existing version: $existingVersion');
+    if (existingVersion == null) {
+      isFirstAppStart = true;
+      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
+    } else {
+      isFirstAppStart = false;
+      if (existingVersion < _latestVersion) {
+        await _runMigrations(existingVersion);
+      }
     }
 
     try {
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
       if (checkPlatform([TargetPlatform.windows])) {
-        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file');
-        final settingsDir = await path.getApplicationSupportDirectory();
-        final prefsFile = p.join(settingsDir.path, 'shared_preferences.json');
-        File(prefsFile).deleteSync();
+        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file', e);
+        File(_windowsFile).deleteSync();
         prefs = await SharedPreferences.getInstance();
       } else {
         throw Exception('Could not initialize SharedPreferences');
@@ -105,10 +139,6 @@ class PersistenceService {
       LocaleSettings.useDeviceLocale();
     } else {
       LocaleSettings.setLocaleRaw(persistedLocale);
-    }
-
-    if (prefs.getInt(_version) == null) {
-      await prefs.setInt(_version, 1);
     }
 
     if (prefs.getString(_showToken) == null) {
@@ -144,12 +174,16 @@ class PersistenceService {
       await prefs.remove(launchMinimizedLegacyKey);
     }
 
-    return PersistenceService._(prefs);
+    return PersistenceService._(prefs, isFirstAppStart);
   }
 
   static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
     await prefs.setString(
         _colorKey, checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name);
+  }
+
+  bool isPortableMode() {
+    return SharedPreferencesStorePlatform.instance is SharedPreferencesPortable;
   }
 
   StoredSecurityContext getSecurityContext() {

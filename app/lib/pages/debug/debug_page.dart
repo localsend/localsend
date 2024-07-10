@@ -7,18 +7,17 @@ import 'package:localsend_app/pages/debug/http_logs_page.dart';
 import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
-import 'package:localsend_app/util/shared_preferences_portable.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
 class DebugPage extends StatelessWidget {
   const DebugPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final appArguments = context.ref.watch(appArgumentsProvider);
+    final appArguments = context.watch(appArgumentsProvider);
+    final portableMode = context.watch(persistenceProvider.select((state) => state.isPortableMode()));
     return Scaffold(
       appBar: AppBar(
         title: const Text('Debugging'),
@@ -32,7 +31,7 @@ class DebugPage extends StatelessWidget {
           ),
           DebugEntry(
             name: 'Portable Mode',
-            value: SharedPreferencesStorePlatform.instance is SharedPreferencesPortable ? 'true' : 'false',
+            value: portableMode ? 'true' : 'false',
           ),
           DebugEntry(
             name: 'Executable Path',
@@ -40,7 +39,7 @@ class DebugPage extends StatelessWidget {
           ),
           DebugEntry(
             name: 'App Arguments',
-            value: appArguments.isEmpty ? null : appArguments.join(' '),
+            value: appArguments.isEmpty ? null : appArguments.map((e) => '"$e"').join(' '),
           ),
           DebugEntry(
             name: 'Dart SDK',

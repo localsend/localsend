@@ -46,6 +46,23 @@ class _FakeStoredSecurityContext_0 extends _i1.SmartFake implements _i2.StoredSe
 /// See the documentation for Mockito's code generation for more information.
 class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService {
   @override
+  bool get isFirstAppStart => (super.noSuchMethod(
+        Invocation.getter(#isFirstAppStart),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool isPortableMode() => (super.noSuchMethod(
+        Invocation.method(
+          #isPortableMode,
+          [],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   _i2.StoredSecurityContext getSecurityContext() => (super.noSuchMethod(
         Invocation.method(
           #getSecurityContext,

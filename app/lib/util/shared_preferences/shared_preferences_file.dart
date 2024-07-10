@@ -3,17 +3,23 @@ import 'dart:io';
 
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
-const _encoder = JsonEncoder.withIndent('  ');
+const _beautyEncoder = JsonEncoder.withIndent('  ');
+const _encoder = JsonEncoder();
 
 /// Custom implementation of SharedPreferencesStorePlatform
-/// that uses a file named settings.json located next to the executable.
-/// This is used to for portable mode.
-class SharedPreferencesPortable extends SharedPreferencesStorePlatform {
-  static final _file = File('settings.json');
+/// that uses a custom file.
+class SharedPreferencesFile extends SharedPreferencesStorePlatform {
+  final File _file;
+  final bool beautify;
+
+  SharedPreferencesFile({
+    required String filePath,
+    this.beautify = false,
+  }) : _file = File(filePath);
 
   late final Map<String, Object> _cache = _getAll();
 
-  static bool exists() {
+  bool exists() {
     return _file.existsSync();
   }
 
@@ -30,6 +36,9 @@ class SharedPreferencesPortable extends SharedPreferencesStorePlatform {
 
   Map<String, Object> _getAll() {
     if (!_file.existsSync()) {
+      if (!_file.parent.existsSync()) {
+        _file.parent.createSync(recursive: true);
+      }
       _file.createSync();
     }
 
@@ -59,6 +68,6 @@ class SharedPreferencesPortable extends SharedPreferencesStorePlatform {
       _file.createSync(recursive: true);
     }
 
-    _file.writeAsStringSync(_encoder.convert(data));
+    _file.writeAsStringSync((beautify ? _beautyEncoder : _encoder).convert(data));
   }
 }

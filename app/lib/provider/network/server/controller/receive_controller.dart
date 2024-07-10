@@ -19,6 +19,7 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/directories.dart';
@@ -585,6 +586,20 @@ class ReceiveController {
         // don't wait for it
         _logger.severe('Failed to show from tray', e);
       });
+
+      // ignore: discarded_futures
+      request.readAsString().then((body) {
+        if (body.isEmpty) {
+          return;
+        }
+
+        final Map<String, dynamic> jsonBody = jsonDecode(body);
+        final List<String> args = (jsonBody['args'] as List?)?.cast<String>() ?? <String>[];
+
+        // ignore: discarded_futures
+        server.ref.redux(selectedSendingFilesProvider).dispatchAsync(LoadSelectionFromArgsAction(args));
+      });
+
       return server.responseJson(200);
     }
 

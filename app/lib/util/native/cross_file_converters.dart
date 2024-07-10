@@ -49,6 +49,18 @@ class CrossFileConverters {
     );
   }
 
+  static Future<CrossFile> convertFile(File file) async {
+    return CrossFile(
+      name: file.path.fileName,
+      fileType: file.path.fileName.guessFileType(),
+      size: await file.length(),
+      thumbnail: null,
+      asset: null,
+      path: file.path,
+      bytes: null,
+    );
+  }
+
   static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/common.dart';
@@ -14,8 +15,10 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
+
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
@@ -27,6 +30,7 @@ import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/logger.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -51,6 +55,10 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   final persistenceService = await PersistenceService.initialize(dynamicColors);
 
+  if (persistenceService.isFirstAppStart && !persistenceService.isPortableMode()) {
+    await enableContextMenu();
+  }
+
   initI18n();
 
   bool startHidden = false;
@@ -71,6 +79,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
         queryParameters: {
           'token': persistenceService.getShowToken(),
         },
+        data: jsonEncode({
+          'args': args,
+        }),
       );
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
@@ -141,6 +152,14 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
     _logger.warning('Starting multicast listener failed', e);
   }
 
+  if (appStart) {
+    final args = ref.read(appArgumentsProvider);
+    await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+      args: args,
+      goToPage: goToPage,
+    ));
+  }
+
   bool hasInitialShare = false;
 
   if (checkPlatformCanReceiveShareIntent()) {
@@ -202,5 +221,23 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
         ));
 
     goToPage(HomeTab.send.index);
+  }
+}
+
+class _HandleAppStartArgumentsAction extends AsyncGlobalAction {
+  final List<String> args;
+  final void Function(int) goToPage;
+
+  _HandleAppStartArgumentsAction({
+    required this.args,
+    required this.goToPage,
+  });
+
+  @override
+  Future<void> reduce() async {
+    final filesAdded = await ref.redux(selectedSendingFilesProvider).dispatchAsyncTakeResult(LoadSelectionFromArgsAction(args));
+    if (filesAdded) {
+      goToPage(HomeTab.send.index);
+    }
   }
 }
