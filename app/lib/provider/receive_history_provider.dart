@@ -25,6 +25,7 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
   final FileType fileType;
   final String? path;
   final bool savedToGallery;
+  final bool isMessage;
   final int fileSize;
   final String senderAlias;
   final DateTime timestamp;
@@ -35,6 +36,7 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
     required this.fileType,
     required this.path,
     required this.savedToGallery,
+    required this.isMessage,
     required this.fileSize,
     required this.senderAlias,
     required this.timestamp,
@@ -53,6 +55,7 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
         fileType: fileType,
         path: path,
         savedToGallery: savedToGallery,
+        isMessage: isMessage,
         fileSize: fileSize,
         senderAlias: senderAlias,
         timestamp: timestamp,

@@ -1,6 +1,7 @@
 ## 1.15.0 (unreleased)
 
 - feat: add clear button in the send tab (@Caesarovich)
+- feat: save text messages to history (@Tienisto)
 - feat: confirm before adding or removing favorites in the nearby devices list (@Tienisto)
 - feat: add URL view when sharing via link that shows the URL in bigger font (@harriseldon)
 - feat(windows): add context menu integration ("Send to") (@Tienisto)

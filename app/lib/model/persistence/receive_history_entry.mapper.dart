@@ -31,6 +31,8 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
   static const Field<ReceiveHistoryEntry, String> _f$path = Field('path', _$path);
   static bool _$savedToGallery(ReceiveHistoryEntry v) => v.savedToGallery;
   static const Field<ReceiveHistoryEntry, bool> _f$savedToGallery = Field('savedToGallery', _$savedToGallery);
+  static bool _$isMessage(ReceiveHistoryEntry v) => v.isMessage;
+  static const Field<ReceiveHistoryEntry, bool> _f$isMessage = Field('isMessage', _$isMessage, hook: IsMessageHook());
   static int _$fileSize(ReceiveHistoryEntry v) => v.fileSize;
   static const Field<ReceiveHistoryEntry, int> _f$fileSize = Field('fileSize', _$fileSize);
   static String _$senderAlias(ReceiveHistoryEntry v) => v.senderAlias;
@@ -45,6 +47,7 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
     #fileType: _f$fileType,
     #path: _f$path,
     #savedToGallery: _f$savedToGallery,
+    #isMessage: _f$isMessage,
     #fileSize: _f$fileSize,
     #senderAlias: _f$senderAlias,
     #timestamp: _f$timestamp,
@@ -57,6 +60,7 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
         fileType: data.dec(_f$fileType),
         path: data.dec(_f$path),
         savedToGallery: data.dec(_f$savedToGallery),
+        isMessage: data.dec(_f$isMessage),
         fileSize: data.dec(_f$fileSize),
         senderAlias: data.dec(_f$senderAlias),
         timestamp: data.dec(_f$timestamp));
@@ -113,6 +117,7 @@ abstract class ReceiveHistoryEntryCopyWith<$R, $In extends ReceiveHistoryEntry, 
       FileType? fileType,
       String? path,
       bool? savedToGallery,
+      bool? isMessage,
       int? fileSize,
       String? senderAlias,
       DateTime? timestamp});
@@ -132,6 +137,7 @@ class _ReceiveHistoryEntryCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
           FileType? fileType,
           Object? path = $none,
           bool? savedToGallery,
+          bool? isMessage,
           int? fileSize,
           String? senderAlias,
           DateTime? timestamp}) =>
@@ -141,6 +147,7 @@ class _ReceiveHistoryEntryCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
         if (fileType != null) #fileType: fileType,
         if (path != $none) #path: path,
         if (savedToGallery != null) #savedToGallery: savedToGallery,
+        if (isMessage != null) #isMessage: isMessage,
         if (fileSize != null) #fileSize: fileSize,
         if (senderAlias != null) #senderAlias: senderAlias,
         if (timestamp != null) #timestamp: timestamp
@@ -152,6 +159,7 @@ class _ReceiveHistoryEntryCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
       fileType: data.get(#fileType, or: $value.fileType),
       path: data.get(#path, or: $value.path),
       savedToGallery: data.get(#savedToGallery, or: $value.savedToGallery),
+      isMessage: data.get(#isMessage, or: $value.isMessage),
       fileSize: data.get(#fileSize, or: $value.fileSize),
       senderAlias: data.get(#senderAlias, or: $value.senderAlias),
       timestamp: data.get(#timestamp, or: $value.timestamp));

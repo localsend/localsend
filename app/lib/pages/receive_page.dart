@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
-import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
+import 'package:localsend_app/pages/receive_page_controller.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
-import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
@@ -33,64 +32,17 @@ class ReceivePage extends StatefulWidget {
 }
 
 class _ReceivePageState extends State<ReceivePage> with Refena {
-  String? _message;
-  bool _isLink = false;
-  bool _showFullIp = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async => _init());
-  }
-
   @override
   void dispose() {
     super.dispose();
     unawaited(TaskbarHelper.clearProgressBar());
   }
 
-  Future<void> _init() async {
-    final receiveSession = ref.read(serverProvider)?.session;
-    if (receiveSession == null) {
-      return;
-    }
-
-    ref.notifier(selectedReceivingFilesProvider).setFiles(receiveSession.files.values.map((f) => f.file).toList());
-    setState(() {
-      // show message if there is only one text file
-      _message = receiveSession.message;
-      _isLink = _message != null && (_message!.startsWith('http://') || _message!.startsWith('https'));
-    });
-  }
-
-  void _acceptNothing() {
-    ref.notifier(serverProvider).acceptFileRequest({});
-  }
-
-  void _accept() {
-    final selectedFiles = ref.read(selectedReceivingFilesProvider);
-    ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
-  }
-
-  void _decline() {
-    ref.notifier(serverProvider).declineFileRequest();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final receiveSession = ref.watch(serverProvider)?.session;
-    if (receiveSession == null) {
-      // when declining/accepting the request, there is a short frame where tempRequest is null
-      return Scaffold(
-        body: Container(),
-      );
-    }
-    final selectedFiles = ref.watch(selectedReceivingFilesProvider);
-    final colorMode = ref.watch(settingsProvider.select((state) => state.colorMode));
-
-    final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(receiveSession.sender)));
-
-    if (receiveSession.status == SessionStatus.canceledBySender) {
+    final vm = context.watch(receivePageControllerProvider);
+    final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(vm.sender)));
+    if (vm.status == SessionStatus.canceledBySender) {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
     } else {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
@@ -98,7 +50,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
 
     return WillPopScope(
       onWillPop: () async {
-        _decline();
+        vm.onDecline();
         return true;
       },
       child: Scaffold(
@@ -109,7 +61,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
               child: Builder(
                 builder: (context) {
                   final height = MediaQuery.of(context).size.height;
-                  final smallUi = _message != null && height < 600;
+                  final smallUi = vm.message != null && height < 600;
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
                     child: Column(
@@ -118,51 +70,53 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (!smallUi)
+                              if (vm.showSenderInfo && !smallUi)
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
-                                  child: Icon(receiveSession.sender.deviceType.icon, size: 64),
+                                  child: Icon(vm.sender.deviceType.icon, size: 64),
                                 ),
                               FittedBox(
                                 child: Text(
-                                  senderFavoriteEntry?.alias ?? receiveSession.sender.alias,
+                                  senderFavoriteEntry?.alias ?? vm.sender.alias,
                                   style: TextStyle(fontSize: smallUi ? 32 : 48),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() => _showFullIp = !_showFullIp);
-                                    },
-                                    child: DeviceBadge(
-                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
-                                      label: _showFullIp ? receiveSession.sender.ip : '#${receiveSession.sender.ip.visualId}',
+                              if (vm.showSenderInfo) ...[
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        context.redux(receivePageControllerProvider).dispatch(SetShowFullIpAction(!vm.showFullIp));
+                                      },
+                                      child: DeviceBadge(
+                                        backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                        foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                                        label: vm.showFullIp ? vm.sender.ip : '#${vm.sender.ip.visualId}',
+                                      ),
                                     ),
-                                  ),
-                                  if (receiveSession.sender.deviceModel != null) ...[
-                                    const SizedBox(width: 10),
-                                    DeviceBadge(
-                                      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                                      foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
-                                      label: receiveSession.sender.deviceModel!,
-                                    ),
+                                    if (vm.sender.deviceModel != null) ...[
+                                      const SizedBox(width: 10),
+                                      DeviceBadge(
+                                        backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                        foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                                        label: vm.sender.deviceModel!,
+                                      ),
+                                    ],
                                   ],
-                                ],
-                              ),
+                                ),
+                              ],
                               const SizedBox(height: 40),
                               Text(
-                                _message != null
-                                    ? (_isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
-                                    : t.receivePage.subTitle(n: receiveSession.files.length),
+                                vm.message != null
+                                    ? (vm.isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
+                                    : t.receivePage.subTitle(n: vm.fileCount),
                                 style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
                                 textAlign: TextAlign.center,
                               ),
-                              if (_message != null)
+                              if (vm.message != null)
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
@@ -175,7 +129,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: SelectableText(
-                                                _message!,
+                                                vm.message!,
                                               ),
                                             ),
                                           ),
@@ -189,17 +143,17 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         ElevatedButton(
                                           onPressed: () {
                                             unawaited(
-                                              Clipboard.setData(ClipboardData(text: _message!)),
+                                              Clipboard.setData(ClipboardData(text: vm.message!)),
                                             );
                                             if (checkPlatformIsDesktop()) {
                                               context.showSnackBar(t.general.copiedToClipboard);
                                             }
-                                            _acceptNothing();
+                                            vm.onAccept();
                                             context.pop();
                                           },
                                           child: Text(t.general.copy),
                                         ),
-                                        if (_isLink)
+                                        if (vm.isLink)
                                           Padding(
                                             padding: const EdgeInsets.only(left: 20),
                                             child: ElevatedButton(
@@ -209,8 +163,8 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                               ),
                                               onPressed: () {
                                                 // ignore: discarded_futures
-                                                launchUrl(Uri.parse(_message!), mode: LaunchMode.externalApplication);
-                                                _acceptNothing();
+                                                launchUrl(Uri.parse(vm.message!), mode: LaunchMode.externalApplication);
+                                                vm.onAccept();
                                                 context.pop();
                                               },
                                               child: Text(t.general.open),
@@ -223,101 +177,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                             ],
                           ),
                         ),
-                        if (receiveSession.status == SessionStatus.waiting && _message == null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: TextButton.icon(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              onPressed: () async {
-                                await context.push(() => const ReceiveOptionsPage());
-                              },
-                              icon: const Icon(Icons.settings),
-                              label: Text(t.receiveOptionsPage.title),
-                            ),
-                          ),
-                        if (receiveSession.status == SessionStatus.canceledBySender) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(
-                              t.receivePage.canceled,
-                              style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Center(
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                ref.notifier(serverProvider).closeSession();
-                                context.pop();
-                              },
-                              icon: const Icon(Icons.check_circle),
-                              label: Text(t.general.close),
-                            ),
-                          ),
-                        ] else if (_message != null)
-                          Center(
-                            child: TextButton.icon(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              onPressed: () {
-                                _acceptNothing();
-                                context.pop();
-                              },
-                              icon: const Icon(Icons.close),
-                              label: Text(t.general.close),
-                            ),
-                          )
-                        else
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  elevation: colorMode == ColorMode.yaru ? 0 : null,
-                                  backgroundColor:
-                                      colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
-                                  foregroundColor: colorMode == ColorMode.yaru
-                                      ? Theme.of(context).colorScheme.onBackground
-                                      : Theme.of(context).colorScheme.onError,
-                                ),
-                                onPressed: () {
-                                  _decline();
-                                  context.pop();
-                                },
-                                icon: const Icon(Icons.close),
-                                label: Text(t.general.decline),
-                              ),
-                              const SizedBox(width: 20),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.primary,
-                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                ),
-                                onPressed: selectedFiles.isEmpty
-                                    ? null
-                                    : () async {
-                                        final sessionId = ref.read(serverProvider)?.session?.sessionId;
-                                        if (sessionId == null) {
-                                          return;
-                                        }
-                                        _accept();
-                                        await context.pushAndRemoveUntilImmediately(
-                                          removeUntil: ReceivePage,
-                                          builder: () => ProgressPage(
-                                            showAppBar: false,
-                                            closeSessionOnClose: true,
-                                            sessionId: sessionId,
-                                          ),
-                                        );
-                                      },
-                                icon: const Icon(Icons.check_circle),
-                                label: Text(t.general.accept),
-                              ),
-                            ],
-                          ),
+                        _Actions(vm),
                       ],
                     ),
                   );
@@ -327,6 +187,105 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Actions extends StatelessWidget {
+  final ReceivePageVm vm;
+
+  const _Actions(this.vm);
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedFiles = context.watch(selectedReceivingFilesProvider);
+    final colorMode = context.watch(settingsProvider.select((state) => state.colorMode));
+
+    if (vm.message != null) {
+      return Center(
+        child: TextButton.icon(
+          style: TextButton.styleFrom(
+            foregroundColor: Theme.of(context).colorScheme.onSurface,
+          ),
+          onPressed: () {
+            vm.onAccept();
+            context.pop();
+          },
+          icon: const Icon(Icons.close),
+          label: Text(t.general.close),
+        ),
+      );
+    }
+
+    if (vm.status == SessionStatus.canceledBySender) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Text(
+              t.receivePage.canceled,
+              style: TextStyle(color: Theme.of(context).colorScheme.warning),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: () {
+                vm.onClose();
+                context.pop();
+              },
+              icon: const Icon(Icons.check_circle),
+              label: Text(t.general.close),
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+            ),
+            onPressed: () async {
+              await context.push(() => const ReceiveOptionsPage());
+            },
+            icon: const Icon(Icons.settings),
+            label: Text(t.receiveOptionsPage.title),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                elevation: colorMode == ColorMode.yaru ? 0 : null,
+                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
+                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.onError,
+              ),
+              onPressed: () {
+                vm.onDecline();
+                context.pop();
+              },
+              icon: const Icon(Icons.close),
+              label: Text(t.general.decline),
+            ),
+            const SizedBox(width: 20),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              ),
+              onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
+              icon: const Icon(Icons.check_circle),
+              label: Text(t.general.accept),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
