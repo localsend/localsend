@@ -1,19 +1,19 @@
 {
   "@@info": [
-    "Here are translations that exist in <en> but not in <id>.",
-    "After editing this file, you can run 'dart run slang apply --locale=id' to quickly apply the newly added translations."
+    "Berikut merupakan terjemahan yang tersedia pada <en> namun tidak pada <id>.",
+    "Setelah mengubah berkas ini, anda dapat menjalankan 'dart run slang apply --locale=id' untuk menerapkan terjemahan yang baru ditambahkan secara cepat."
   ],
   "settingsTab": {
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "title": "Kirim",
+      "shareViaLinkAutoAccept": "Bagikan via tautan: Terima otomatis"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Waktu penemuan habis"
     }
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "Terima permintaan secara otomatis"
   },
   "dialogs": {
     "zoom": {
@@ -21,7 +21,7 @@
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Nama berkas tidak boleh kosong",
+    "invalid": "Nama berkas mengandung karakter yang tidak valid"
   }
 }
