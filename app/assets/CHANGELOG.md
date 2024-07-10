@@ -8,6 +8,7 @@
 - feat(desktop): make auto start + start hidden more stable, now listens to `--hidden` parameter instead of `autostart` (@Tienisto)
 - feat(desktop): load initial files from command line arguments (@Tienisto)
 - feat(desktop): show progress in the taskbar (@NightFeather0615)
+- feat(macos): handle files that were dropped into the app icon (@Tienisto)
 - feat: add discovery timeout setting for advanced users (@o2e)
 - fix: sanitize file names with invalid characters (@Caesarovich)
 - fix: UI overflow when window height is too small (@CHUNG-HAO)
