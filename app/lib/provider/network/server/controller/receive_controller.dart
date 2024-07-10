@@ -11,6 +11,7 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
+import 'package:localsend_app/pages/receive_page_controller.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
@@ -20,6 +21,7 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
@@ -242,6 +244,26 @@ class ReceiveController {
         await showFromTray();
       }
 
+      final message = server.getState().session?.message;
+      if (message != null) {
+        // Message already received
+        await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
+              entryId: const Uuid().v4(),
+              fileName: message,
+              fileType: FileType.text,
+              path: null,
+              savedToGallery: false,
+              isMessage: true,
+              fileSize: message.length,
+              senderAlias: server.getState().session!.senderAlias,
+              timestamp: DateTime.now().toUtc(),
+            ));
+      } else {
+        server.ref.notifier(selectedReceivingFilesProvider).setFiles(server.getState().session!.files.values.map((f) => f.file).toList());
+      }
+
+      server.ref.redux(receivePageControllerProvider).dispatch(InitReceivePageAction());
+
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.push(() => const ReceivePage());
 
@@ -444,6 +466,7 @@ class ReceiveController {
             fileType: receivingFile.file.fileType,
             path: saveToGallery ? null : destinationPath,
             savedToGallery: saveToGallery,
+            isMessage: false,
             fileSize: receivingFile.file.size,
             senderAlias: receiveState.senderAlias,
             timestamp: DateTime.now().toUtc(),
