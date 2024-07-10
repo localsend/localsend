@@ -575,6 +575,7 @@ class _StringsSettingsTabGeneralEn {
 	String get minimizeToTray => 'Quit: Minimize to Tray/Menu Bar';
 	String get launchAtStartup => 'Autostart after login';
 	String get launchMinimized => 'Autostart: Start hidden';
+	String get showInContextMenu => 'Show LocalSend in context menu';
 	String get animations => 'Animations';
 }
 

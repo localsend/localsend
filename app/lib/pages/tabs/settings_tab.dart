@@ -117,6 +117,13 @@ class SettingsTab extends StatelessWidget {
                       ),
                     ),
                   ],
+                  if (vm.advanced && checkPlatform([TargetPlatform.windows])) ...[
+                    _BooleanEntry(
+                      label: t.settingsTab.general.showInContextMenu,
+                      value: vm.showInContextMenu,
+                      onChanged: (_) => vm.onToggleShowInContextMenu(context),
+                    ),
+                  ],
                 ],
                 _BooleanEntry(
                   label: t.settingsTab.general.animations,
