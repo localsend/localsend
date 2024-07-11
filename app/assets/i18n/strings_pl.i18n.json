@@ -161,6 +161,7 @@
     "empty": "Historia jest pusta.",
     "entryActions": {
       "open": "Otwórz plik",
+      "showInFolder": "Pokaż w folderze",
       "info": "Informacje",
       "deleteFromHistory": "Usuń z historii"
     }
@@ -224,6 +225,8 @@
     "noRequests": "Brak żądań.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Automatycznie akceptuj żądania",
+    "requirePin": "Wymagaj kodu PIN",
+    "pinHint": "Kod PIN to \"{pin}\"",
     "encryptionHint": "LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.",
     "pendingRequests": "Oczekujące żądania: {n}"
   },
@@ -345,6 +348,9 @@
       "title": "@:general.quickSave",
       "content": "Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki."
     },
+    "pin": {
+      "title": "Wpisz kod PIN"
+    },
     "sendModeHelp": {
       "title": "Tryby wysyłania",
       "single": "Wysyła pliki do jednego odbiorcy. Wybór zostanie wyczyszczony po zakończonym transferze pliku.",
@@ -366,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Wpisz kod PIN",
+    "invalidPin": "Nieprawidłowy kod PIN",
+    "tooManyAttempts": "Zbyt wiele prób",
     "rejected": "Odrzucone",
     "files": "Pliki",
     "fileName": "Nazwa pliku",
