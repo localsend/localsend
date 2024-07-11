@@ -38,9 +38,7 @@
     "save": "Kaydet",
     "unchanged": "Değiştirilmemiş",
     "unknown": "Bilinmiyor",
-    "noItemInClipboard": "Panoda öğe yok",
-    "showInContextMenu": "LocalSend'i bağlam menüsünde göster"
-
+    "noItemInClipboard": "Panoda öğe yok"
   },
   "receiveTab": {
     "title": "Alım",
@@ -102,6 +100,7 @@
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
+      "showInContextMenu": "LocalSend'i bağlam menüsünde göster",
       "animations": "Animasyonlar"
     },
     "receive": {

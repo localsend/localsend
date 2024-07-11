@@ -100,6 +100,7 @@
       "minimizeToTray": "Закрити: згорнути в системний трей/смугу меню",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
+      "showInContextMenu": "Показати LocalSend в контекстному меню",
       "animations": "Анімації"
     },
     "receive": {

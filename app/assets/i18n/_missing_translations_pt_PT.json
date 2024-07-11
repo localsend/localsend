@@ -7,5 +7,24 @@
     "general": {
       "showInContextMenu": "Show LocalSend in context menu"
     }
+  },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Show in folder"
+    }
+  },
+  "webSharePage": {
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\""
+  },
+  "dialogs": {
+    "pin": {
+      "title": "Enter PIN"
+    }
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
   }
 }

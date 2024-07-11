@@ -499,6 +499,7 @@ class _StringsSettingsTabGeneralUk extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Закрити: згорнути в системний трей/смугу меню';
 	@override String get launchAtStartup => 'Автозапуск';
 	@override String get launchMinimized => 'Прихований автозапуск';
+	@override String get showInContextMenu => 'Показати LocalSend в контекстному меню';
 	@override String get animations => 'Анімації';
 }
 

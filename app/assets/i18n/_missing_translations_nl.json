@@ -25,8 +25,15 @@
       "termsOfUse": "Terms of Use"
     }
   },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Show in folder"
+    }
+  },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "Automatically accept requests",
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\""
   },
   "aboutPage": {
     "description": [
@@ -45,6 +52,9 @@
     "restore": "Restore purchase"
   },
   "dialogs": {
+    "pin": {
+      "title": "Enter PIN"
+    },
     "zoom": {
       "title": "URL"
     }
@@ -52,5 +62,10 @@
   "sanitization": {
     "empty": "Filename cannot be empty",
     "invalid": "Filename contains invalid characters"
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
   }
 }

@@ -272,6 +272,8 @@ class _StringsWebSharePageDe extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Bisher keine Anfragen erhalten.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Anfragen automatisch aktzeptieren';
+	@override String get requirePin => 'PIN erforderlich';
+	@override String pinHint({required Object pin}) => 'Der PIN lautet "${pin}"';
 	@override String get encryptionHint => 'LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.';
 	@override String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
 }
@@ -353,6 +355,7 @@ class _StringsDialogsDe extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrDe qr = _StringsDialogsQrDe._(_root);
 	@override late final _StringsDialogsQuickActionsDe quickActions = _StringsDialogsQuickActionsDe._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeDe quickSaveNotice = _StringsDialogsQuickSaveNoticeDe._(_root);
+	@override late final _StringsDialogsPinDe pin = _StringsDialogsPinDe._(_root);
 	@override late final _StringsDialogsSendModeHelpDe sendModeHelp = _StringsDialogsSendModeHelpDe._(_root);
 	@override late final _StringsDialogsZoomDe zoom = _StringsDialogsZoomDe._(_root);
 }
@@ -387,6 +390,9 @@ class _StringsWebDe extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'PIN eingeben';
+	@override String get invalidPin => 'Ungültige PIN';
+	@override String get tooManyAttempts => 'Zu viele Versuche';
 	@override String get rejected => 'Abgelehnt';
 	@override String get files => 'Dateien';
 	@override String get fileName => 'Dateiname';
@@ -846,6 +852,16 @@ class _StringsDialogsQuickSaveNoticeDe extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinDe extends _StringsDialogsPinEn {
+	_StringsDialogsPinDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PIN eingeben';
 }
 
 // Path: dialogs.sendModeHelp

@@ -11,7 +11,19 @@
       "discoveryTimeout": "Discovery Timeout"
     }
   },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Show in folder"
+    }
+  },
+  "webSharePage": {
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\""
+  },
   "dialogs": {
+    "pin": {
+      "title": "Enter PIN"
+    },
     "zoom": {
       "title": "URL"
     }
@@ -19,5 +31,10 @@
   "sanitization": {
     "empty": "Filename cannot be empty",
     "invalid": "Filename contains invalid characters"
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
   }
 }

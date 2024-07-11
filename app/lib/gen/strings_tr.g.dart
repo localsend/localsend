@@ -96,7 +96,6 @@ class _StringsGeneralTr extends _StringsGeneralEn {
 	@override String get unchanged => 'Değiştirilmemiş';
 	@override String get unknown => 'Bilinmiyor';
 	@override String get noItemInClipboard => 'Panoda öğe yok';
-	@override String get showInContextMenu => 'LocalSend\'i bağlam menüsünde göster';
 }
 
 // Path: receiveTab
@@ -500,6 +499,7 @@ class _StringsSettingsTabGeneralTr extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Çıkış: Simge durumuna küçült';
 	@override String get launchAtStartup => 'Giriş yapıldıktan sonra otomatik başlat';
 	@override String get launchMinimized => 'Otomatik başlatma: Gizli Başlatma';
+	@override String get showInContextMenu => 'LocalSend\'i bağlam menüsünde göster';
 	@override String get animations => 'Animasyonlar';
 }
 

@@ -225,6 +225,8 @@
     "noRequests": "Bisher keine Anfragen erhalten.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Anfragen automatisch aktzeptieren",
+    "requirePin": "PIN erforderlich",
+    "pinHint": "Der PIN lautet \"{pin}\"",
     "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
@@ -346,6 +348,9 @@
       "title": "@:general.quickSave",
       "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
     },
+    "pin": {
+      "title": "PIN eingeben"
+    },
     "sendModeHelp": {
       "title": "Sendemodus",
       "single": "Sende Dateien an einen Empfänger. Die Auswahl wird nach Abschluss der Dateiübertragung gelöscht.",
@@ -367,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN eingeben",
+    "invalidPin": "Ungültige PIN",
+    "tooManyAttempts": "Zu viele Versuche",
     "rejected": "Abgelehnt",
     "files": "Dateien",
     "fileName": "Dateiname",
