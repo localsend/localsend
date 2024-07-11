@@ -2,29 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "コンテキストメニューにLocalSendを表示"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "フォルダーに表示"
-    }
-  },
-  "webSharePage": {
-    "requirePin": "PINコードを要求",
-    "pinHint": "PINコードは \"{pin}\" です"
-  },
-  "dialogs": {
-    "pin": {
-      "title": "PINコードを入力"
-    }
-  },
-  "web": {
-    "enterPin": "PINコードを入力",
-    "invalidPin": "PINコードが無効です",
-    "tooManyAttempts": "試行回数が多すぎます"
-  }
+  ]
 }

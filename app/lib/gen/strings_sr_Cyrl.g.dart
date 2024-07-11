@@ -272,6 +272,8 @@ class _StringsWebSharePageSrCyrl extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Нема захтева још увек.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Аутоматски прихвати захтеве';
+	@override String get requirePin => 'Потребан PIN';
+	@override String pinHint({required Object pin}) => 'PIN је "${pin}"';
 	@override String get encryptionHint => 'LocalSend користи сертификате који су self-signed. Морате да прихватите то у browseru.';
 	@override String pendingRequests({required Object n}) => 'Захтеви на чекању: ${n}';
 }
@@ -424,6 +426,7 @@ class _StringsDialogsSrCyrl extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrSrCyrl qr = _StringsDialogsQrSrCyrl._(_root);
 	@override late final _StringsDialogsQuickActionsSrCyrl quickActions = _StringsDialogsQuickActionsSrCyrl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeSrCyrl quickSaveNotice = _StringsDialogsQuickSaveNoticeSrCyrl._(_root);
+	@override late final _StringsDialogsPinSrCyrl pin = _StringsDialogsPinSrCyrl._(_root);
 	@override late final _StringsDialogsSendModeHelpSrCyrl sendModeHelp = _StringsDialogsSendModeHelpSrCyrl._(_root);
 	@override late final _StringsDialogsZoomSrCyrl zoom = _StringsDialogsZoomSrCyrl._(_root);
 }
@@ -458,6 +461,9 @@ class _StringsWebSrCyrl extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Унеси PIN';
+	@override String get invalidPin => 'Неисправан PIN';
+	@override String get tooManyAttempts => 'Превише покушаја';
 	@override String get rejected => 'Одбијено';
 	@override String get files => 'Фајлови';
 	@override String get fileName => 'Име фајла';
@@ -570,6 +576,7 @@ class _StringsSettingsTabGeneralSrCyrl extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Изађи: Минимизуј у Tray/MenuBar';
 	@override String get launchAtStartup => 'Аутостартуј после login-а';
 	@override String get launchMinimized => 'Аутостартуј: Старт сакривен';
+	@override String get showInContextMenu => 'Прикажи LocalSend у контекст менију';
 	@override String get animations => 'Анимације';
 }
 
@@ -666,6 +673,7 @@ class _StringsReceiveHistoryPageEntryActionsSrCyrl extends _StringsReceiveHistor
 
 	// Translations
 	@override String get open => 'Отвори фајл';
+	@override String get showInFolder => 'Прикажи у фолдеру';
 	@override String get info => 'Информације';
 	@override String get deleteFromHistory => 'Обриши из Историје.';
 }
@@ -915,6 +923,16 @@ class _StringsDialogsQuickSaveNoticeSrCyrl extends _StringsDialogsQuickSaveNotic
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinSrCyrl extends _StringsDialogsPinEn {
+	_StringsDialogsPinSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
+
+	@override final _StringsSrCyrl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Унеси PIN';
 }
 
 // Path: dialogs.sendModeHelp

@@ -2,39 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <he>.",
     "After editing this file, you can run 'dart run slang apply --locale=he' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "הצג את LocalSend בתפריט ההקשר"
-    },
-    "network": {
-      "discoveryTimeout": "זמן קצוב לגילוי"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "הצג בתיקייה"
-    }
-  },
-  "webSharePage": {
-    "requirePin": "דרוש סיסמה",
-    "pinHint": "הסיסמה היא \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "הזן סיסמה"
-    },
-    "zoom": {
-      "title": "URL"
-    }
-  },
-  "sanitization": {
-    "empty": "שם הקובץ לא יכול להיות ריק",
-    "invalid": "שם הקובץ מכיל תווים לא חוקיים"
-  },
-  "web": {
-    "enterPin": "הזן סיסמה",
-    "invalidPin": "סיסמה לא חוקית",
-    "tooManyAttempts": "בוצעו יותר מידי ניסיונות כושלים"
-  }
+  ]
 }

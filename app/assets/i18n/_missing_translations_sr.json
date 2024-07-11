@@ -2,29 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <sr>.",
     "After editing this file, you can run 'dart run slang apply --locale=sr' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "Prikaži LocalSend u kontekst meniju"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Prikaži u folderu"
-    }
-  },
-  "webSharePage": {
-    "requirePin": "Potreban PIN",
-    "pinHint": "PIN je \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Unesi PIN"
-    }
-  },
-  "web": {
-    "enterPin": "Unesi PIN",
-    "invalidPin": "Neispravan PIN",
-    "tooManyAttempts": "Previše pokušaja"
-  }
+  ]
 }

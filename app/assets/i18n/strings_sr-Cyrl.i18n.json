@@ -100,6 +100,7 @@
       "minimizeToTray": "Изађи: Минимизуј у Tray/MenuBar",
       "launchAtStartup": "Аутостартуј после login-а",
       "launchMinimized": "Аутостартуј: Старт сакривен",
+      "showInContextMenu": "Прикажи LocalSend у контекст менију",
       "animations": "Анимације"
     },
     "receive": {
@@ -160,6 +161,7 @@
     "empty": "Историја је празна.",
     "entryActions": {
       "open": "Отвори фајл",
+      "showInFolder": "Прикажи у фолдеру",
       "info": "Информације",
       "deleteFromHistory": "Обриши из Историје."
     }
@@ -223,6 +225,8 @@
     "noRequests": "Нема захтева још увек.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Аутоматски прихвати захтеве",
+    "requirePin": "Потребан PIN",
+    "pinHint": "PIN је \"{pin}\"",
     "encryptionHint": "LocalSend користи сертификате који су self-signed. Морате да прихватите то у browseru.",
     "pendingRequests": "Захтеви на чекању: {n}"
   },
@@ -414,6 +418,9 @@
       "title": "@:general.quickSave",
       "content": "Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл."
     },
+    "pin": {
+      "title": "Унеси PIN"
+    },
     "sendModeHelp": {
       "title": "Метод за слање",
       "single": "Пошаљи фајлове једном примаоцу. Селекција ће бити ресетована након завршеног слања.",
@@ -435,6 +442,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Унеси PIN",
+    "invalidPin": "Неисправан PIN",
+    "tooManyAttempts": "Превише покушаја",
     "rejected": "Одбијено",
     "files": "Фајлови",
     "fileName": "Име фајла",

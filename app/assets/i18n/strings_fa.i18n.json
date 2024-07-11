@@ -100,6 +100,7 @@
       "minimizeToTray": "خروج: ارسال برنامه به سیستم تری",
       "launchAtStartup": "شروع خودکار پس از ورود به سیستم",
       "launchMinimized": "شروع خودکار: شروع به صورت پنجره پنهان",
+      "showInContextMenu": "نمایش لوکال‌سند در منوی زمینه",
       "animations": "انیمیشن‌ها"
     },
     "receive": {
@@ -160,6 +161,7 @@
     "empty": "تاریخچه خالی است",
     "entryActions": {
       "open": "باز کردن فایل",
+      "showInFolder": "نمایش پوشه",
       "info": "اطلاعات",
       "deleteFromHistory": "حذف از تاریخچه"
     }
@@ -223,6 +225,8 @@
     "noRequests": "هنوز درخواستی وجود ندارد",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "درخواست ها به طور خودکار پذیرفته میشوند",
+    "requirePin": "نیاز به پین",
+    "pinHint": "پین \"{pin}\" می‌باشد",
     "encryptionHint": "LocalSend از یک گواهی خودامضا استفاده می‌کند. شما باید آن را در مرورگر قبول کنید.",
     "pendingRequests": "درخواست های در حال انتظار: {n}"
   },
@@ -414,6 +418,9 @@
       "title": "@:general.quickSave",
       "content": "درخواست ها به صورت خودکار پذیرفته می شوند. توجه داشته باشید که همه افراد در شبکه محلی می توانند برای شما فایل ارسال کنند"
     },
+    "pin": {
+      "title": "پین را وارد کنید"
+    },
     "sendModeHelp": {
       "title": "حالت های ارسال",
       "single": "فایل ها را به یک گیرنده ارسال می کند. لیست انتخاب شده ها پس از اتمام انتقال فایل پاک می شود",
@@ -435,6 +442,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "پین را وارد کنید",
+    "invalidPin": "پین نامعتبر",
+    "tooManyAttempts": "تلاش‌های بیش از حد",
     "rejected": "پذیرفته نشد",
     "files": "فایل ها",
     "fileName": "نام فایل",

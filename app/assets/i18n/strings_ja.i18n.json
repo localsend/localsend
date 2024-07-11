@@ -100,6 +100,7 @@
       "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動で起動",
       "launchMinimized": "自動起動時: 隠れた状態で開始",
+      "showInContextMenu": "コンテキストメニューにLocalSendを表示",
       "animations": "アニメーション"
     },
     "receive": {
@@ -160,6 +161,7 @@
     "empty": "履歴には何もありません。",
     "entryActions": {
       "open": "ファイルを開く",
+      "showInFolder": "フォルダーに表示",
       "info": "情報",
       "deleteFromHistory": "履歴から削除"
     }
@@ -223,6 +225,8 @@
     "noRequests": "リクエストはまだありません。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自動でリクエストを承諾する",
+    "requirePin": "PINコードを要求",
+    "pinHint": "PINコードは \"{pin}\" です",
     "encryptionHint": "LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。",
     "pendingRequests": "保留中のリクエスト数: {n}"
   },
@@ -344,6 +348,9 @@
       "title": "@:general.quickSave",
       "content": "ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。"
     },
+    "pin": {
+      "title": "PINコードを入力"
+    },
     "sendModeHelp": {
       "title": "送信モード",
       "single": "単一の受信者にファイルを送信します。ファイルの転送完了後、選択は解除されます。",
@@ -365,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PINコードを入力",
+    "invalidPin": "PINコードが無効です",
+    "tooManyAttempts": "試行回数が多すぎます",
     "rejected": "拒否済み",
     "files": "ファイル",
     "fileName": "ファイル名",

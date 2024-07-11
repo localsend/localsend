@@ -100,6 +100,7 @@
       "minimizeToTray": "Izadji: Minimizuj u Tray/MenuBar",
       "launchAtStartup": "Autostartuj posle login-a",
       "launchMinimized": "Autostartuj: Start sakriven",
+      "showInContextMenu": "Prikaži LocalSend u kontekst meniju",
       "animations": "Animacije"
     },
     "receive": {
@@ -160,6 +161,7 @@
     "empty": "Istorija je prazna.",
     "entryActions": {
       "open": "Otvori fajl",
+      "showInFolder": "Prikaži u folderu",
       "info": "Informacije",
       "deleteFromHistory": "Obriši iz Istorije."
     }
@@ -223,6 +225,8 @@
     "noRequests": "Nema zahteva još uvek.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Automatski prihvati zahteve",
+    "requirePin": "Potreban PIN",
+    "pinHint": "PIN je \"{pin}\"",
     "encryptionHint": "LocalSend koristi sertifikate koji su self-signed. Morate da prihvatite to u browseru.",
     "pendingRequests": "Zahtevi na čekanju: {n}"
   },
@@ -414,6 +418,9 @@
       "title": "@:general.quickSave",
       "content": "Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl."
     },
+    "pin": {
+      "title": "Unesi PIN"
+    },
     "sendModeHelp": {
       "title": "Mod za slanje",
       "single": "Pošalji fajlove jednom primaocu. Selekcija će biti resetovana nakon završenog slanja.",
@@ -435,6 +442,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Unesi PIN",
+    "invalidPin": "Neispravan PIN",
+    "tooManyAttempts": "Previše pokušaja",
     "rejected": "Odbijeno",
     "files": "Fajlovi",
     "fileName": "Ime fajla",

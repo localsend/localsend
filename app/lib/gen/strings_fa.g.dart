@@ -272,6 +272,8 @@ class _StringsWebSharePageFa extends _StringsWebSharePageEn {
 	@override String get noRequests => 'هنوز درخواستی وجود ندارد';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'درخواست ها به طور خودکار پذیرفته میشوند';
+	@override String get requirePin => 'نیاز به پین';
+	@override String pinHint({required Object pin}) => 'پین "${pin}" می‌باشد';
 	@override String get encryptionHint => 'LocalSend از یک گواهی خودامضا استفاده می‌کند. شما باید آن را در مرورگر قبول کنید.';
 	@override String pendingRequests({required Object n}) => 'درخواست های در حال انتظار: ${n}';
 }
@@ -424,6 +426,7 @@ class _StringsDialogsFa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrFa qr = _StringsDialogsQrFa._(_root);
 	@override late final _StringsDialogsQuickActionsFa quickActions = _StringsDialogsQuickActionsFa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFa quickSaveNotice = _StringsDialogsQuickSaveNoticeFa._(_root);
+	@override late final _StringsDialogsPinFa pin = _StringsDialogsPinFa._(_root);
 	@override late final _StringsDialogsSendModeHelpFa sendModeHelp = _StringsDialogsSendModeHelpFa._(_root);
 	@override late final _StringsDialogsZoomFa zoom = _StringsDialogsZoomFa._(_root);
 }
@@ -458,6 +461,9 @@ class _StringsWebFa extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'پین را وارد کنید';
+	@override String get invalidPin => 'پین نامعتبر';
+	@override String get tooManyAttempts => 'تلاش‌های بیش از حد';
 	@override String get rejected => 'پذیرفته نشد';
 	@override String get files => 'فایل ها';
 	@override String get fileName => 'نام فایل';
@@ -570,6 +576,7 @@ class _StringsSettingsTabGeneralFa extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'خروج: ارسال برنامه به سیستم تری';
 	@override String get launchAtStartup => 'شروع خودکار پس از ورود به سیستم';
 	@override String get launchMinimized => 'شروع خودکار: شروع به صورت پنجره پنهان';
+	@override String get showInContextMenu => 'نمایش لوکال‌سند در منوی زمینه';
 	@override String get animations => 'انیمیشن‌ها';
 }
 
@@ -666,6 +673,7 @@ class _StringsReceiveHistoryPageEntryActionsFa extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'باز کردن فایل';
+	@override String get showInFolder => 'نمایش پوشه';
 	@override String get info => 'اطلاعات';
 	@override String get deleteFromHistory => 'حذف از تاریخچه';
 }
@@ -915,6 +923,16 @@ class _StringsDialogsQuickSaveNoticeFa extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'درخواست ها به صورت خودکار پذیرفته می شوند. توجه داشته باشید که همه افراد در شبکه محلی می توانند برای شما فایل ارسال کنند';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinFa extends _StringsDialogsPinEn {
+	_StringsDialogsPinFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پین را وارد کنید';
 }
 
 // Path: dialogs.sendModeHelp

@@ -272,6 +272,8 @@ class _StringsWebSharePageJa extends _StringsWebSharePageEn {
 	@override String get noRequests => 'リクエストはまだありません。';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '自動でリクエストを承諾する';
+	@override String get requirePin => 'PINコードを要求';
+	@override String pinHint({required Object pin}) => 'PINコードは "${pin}" です';
 	@override String get encryptionHint => 'LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。';
 	@override String pendingRequests({required Object n}) => '保留中のリクエスト数: ${n}';
 }
@@ -353,6 +355,7 @@ class _StringsDialogsJa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrJa qr = _StringsDialogsQrJa._(_root);
 	@override late final _StringsDialogsQuickActionsJa quickActions = _StringsDialogsQuickActionsJa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeJa quickSaveNotice = _StringsDialogsQuickSaveNoticeJa._(_root);
+	@override late final _StringsDialogsPinJa pin = _StringsDialogsPinJa._(_root);
 	@override late final _StringsDialogsSendModeHelpJa sendModeHelp = _StringsDialogsSendModeHelpJa._(_root);
 	@override late final _StringsDialogsZoomJa zoom = _StringsDialogsZoomJa._(_root);
 }
@@ -387,6 +390,9 @@ class _StringsWebJa extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'PINコードを入力';
+	@override String get invalidPin => 'PINコードが無効です';
+	@override String get tooManyAttempts => '試行回数が多すぎます';
 	@override String get rejected => '拒否済み';
 	@override String get files => 'ファイル';
 	@override String get fileName => 'ファイル名';
@@ -499,6 +505,7 @@ class _StringsSettingsTabGeneralJa extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => '終了時: トレイに最小化';
 	@override String get launchAtStartup => 'ログイン時に自動で起動';
 	@override String get launchMinimized => '自動起動時: 隠れた状態で開始';
+	@override String get showInContextMenu => 'コンテキストメニューにLocalSendを表示';
 	@override String get animations => 'アニメーション';
 }
 
@@ -595,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsJa extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'ファイルを開く';
+	@override String get showInFolder => 'フォルダーに表示';
 	@override String get info => '情報';
 	@override String get deleteFromHistory => '履歴から削除';
 }
@@ -844,6 +852,16 @@ class _StringsDialogsQuickSaveNoticeJa extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinJa extends _StringsDialogsPinEn {
+	_StringsDialogsPinJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PINコードを入力';
 }
 
 // Path: dialogs.sendModeHelp

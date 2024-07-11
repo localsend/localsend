@@ -272,7 +272,9 @@ class _StringsWebSharePageZhCn extends _StringsWebSharePageEn {
 	@override String get noRequests => '尚无请求。';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '自动接受请求';
-	@override String get encryptionHint => 'LocalSend 使用自签名证书，您需要在浏览器中允许它。';
+	@override String get requirePin => '需要一个 PIN';
+	@override String pinHint({required Object pin}) => 'PIN 为 "${pin}"';
+	@override String get encryptionHint => 'LocalSend 使用自签名证书。您需要在浏览器中允许它。';
 	@override String pendingRequests({required Object n}) => '待处理请求: ${n}';
 }
 
@@ -422,6 +424,7 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrZhCn qr = _StringsDialogsQrZhCn._(_root);
 	@override late final _StringsDialogsQuickActionsZhCn quickActions = _StringsDialogsQuickActionsZhCn._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
+	@override late final _StringsDialogsPinZhCn pin = _StringsDialogsPinZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
 	@override late final _StringsDialogsZoomZhCn zoom = _StringsDialogsZoomZhCn._(_root);
 }
@@ -456,6 +459,9 @@ class _StringsWebZhCn extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => '输入 PIN';
+	@override String get invalidPin => 'PIN 无效';
+	@override String get tooManyAttempts => '尝试次数过多';
 	@override String get rejected => '已拒绝';
 	@override String get files => '文件';
 	@override String get fileName => '文件名';
@@ -568,6 +574,7 @@ class _StringsSettingsTabGeneralZhCn extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => '关闭时：最小化到系统托盘';
 	@override String get launchAtStartup => '登录系统后自动启动程序';
 	@override String get launchMinimized => '静默自启：只启动托盘服务';
+	@override String get showInContextMenu => '在上下文菜单中显示 LocalSend';
 	@override String get animations => '动画效果';
 }
 
@@ -664,6 +671,7 @@ class _StringsReceiveHistoryPageEntryActionsZhCn extends _StringsReceiveHistoryP
 
 	// Translations
 	@override String get open => '打开文件';
+	@override String get showInFolder => '在目录中显示';
 	@override String get info => '信息';
 	@override String get deleteFromHistory => '从历史记录中删除';
 }
@@ -913,6 +921,16 @@ class _StringsDialogsQuickSaveNoticeZhCn extends _StringsDialogsQuickSaveNoticeE
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => '自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinZhCn extends _StringsDialogsPinEn {
+	_StringsDialogsPinZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '输入 PIN';
 }
 
 // Path: dialogs.sendModeHelp

@@ -100,6 +100,7 @@
       "minimizeToTray": "יציאה: מזעור למגש",
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
       "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
+      "showInContextMenu": "הצג את LocalSend בתפריט ההקשר",
       "animations": "אנימציות"
     },
     "receive": {
@@ -123,6 +124,7 @@
       "deviceType": "סוג המכשיר",
       "deviceModel": "דגם המכשיר",
       "port": "יציאה",
+      "discoveryTimeout": "זמן קצוב לגילוי",
       "portWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: {defaultPort})",
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",
@@ -159,6 +161,7 @@
     "empty": "ההיסטוריה ריקה.",
     "entryActions": {
       "open": "פתח קובץ",
+      "showInFolder": "הצג בתיקייה",
       "info": "מידע",
       "deleteFromHistory": "מחק מההיסטוריה"
     }
@@ -222,6 +225,8 @@
     "noRequests": "אין כרגע בקשות.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "אישור בקשות באופן אוטומטי",
+    "requirePin": "דרוש סיסמה",
+    "pinHint": "הסיסמה היא \"{pin}\"",
     "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
     "pendingRequests": "בקשות בהמתנה: {n}"
   },
@@ -343,12 +348,22 @@
       "title": "@:general.quickSave",
       "content": "בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים."
     },
+    "pin": {
+      "title": "הזן סיסמה"
+    },
     "sendModeHelp": {
       "title": "מצבי שליחה",
       "single": "שליחת קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.",
       "multiple": "שליחת קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.",
       "link": "מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן שלהם."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "שם הקובץ לא יכול להיות ריק",
+    "invalid": "שם הקובץ מכיל תווים לא חוקיים"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -357,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "הזן סיסמה",
+    "invalidPin": "סיסמה לא חוקית",
+    "tooManyAttempts": "בוצעו יותר מידי ניסיונות כושלים",
     "rejected": "נדחה",
     "files": "קבצים",
     "fileName": "שם קובץ",
