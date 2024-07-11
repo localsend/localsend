@@ -5,36 +5,36 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "在檔案功能表「傳送到」項目中顯示 LocalSend"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "搜索裝置逾時"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "在檔案瀏覽器中顯示"
     }
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "需要 PIN 碼",
+    "pinHint": "PIN 碼是「{pin}」"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "@:web.enterPin"
     },
     "zoom": {
-      "title": "URL"
+      "title": "網址"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "檔案名稱不能為空。",
+    "invalid": "檔案名稱包含無效字元。"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "輸入 PIN 碼",
+    "invalidPin": "PIN 碼無效。",
+    "tooManyAttempts": "嘗試次數過多，請稍後再試。"
   }
 }

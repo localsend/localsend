@@ -100,7 +100,7 @@
       "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
       "launchMinimized": "静默自启：只启动托盘服务",
-      "showInContextMenu": "在上下文菜单中显示 LocalSend",
+      "showInContextMenu": "在“发送到”文件菜单中显示 LocalSend",
       "animations": "动画效果"
     },
     "receive": {
@@ -161,7 +161,7 @@
     "empty": "无历史记录。",
     "entryActions": {
       "open": "打开文件",
-      "showInFolder": "在目录中显示",
+      "showInFolder": "在文件管理器中显示",
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
     }
@@ -226,9 +226,9 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自动接受请求",
     "requirePin": "需要一个 PIN",
-    "pinHint": "PIN 为 \"{pin}\"",
+    "pinHint": "PIN 为 “{pin}”",
     "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中允许它。",
-    "pendingRequests": "待处理请求: {n}"
+    "pendingRequests": "待处理请求：{n}"
   },
   "aboutPage": {
     "title": "关于 LocalSend",
@@ -339,7 +339,7 @@
     },
     "cannotOpenFile": {
       "title": "无法打开文件",
-      "content": "无法打开 \"{file}\"。这个文件是否已被移动、重命名或删除？"
+      "content": "无法打开 “{file}”。这个文件是否已被移动、重命名或删除？"
     },
     "encryptionDisabledNotice": {
       "title": "加密已关闭",
@@ -355,7 +355,7 @@
     },
     "favoriteDeleteDialog": {
       "title": "删除收藏",
-      "content": "确定要取消收藏 \"{name}\" 吗?"
+      "content": "确定要取消收藏 “{name}” 吗?"
     },
     "favoriteEditDialog": {
       "titleAdd": "添加到收藏夹",
@@ -431,8 +431,8 @@
     }
   },
   "sanitization": {
-    "empty": "文件名不能为空",
-    "invalid": "文件名包含无效字符"
+    "empty": "文件名不能为空。",
+    "invalid": "文件名包含无效字符。"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -443,7 +443,7 @@
     "waiting": "@:sendPage.waiting",
     "enterPin": "输入 PIN",
     "invalidPin": "PIN 无效",
-    "tooManyAttempts": "尝试次数过多",
+    "tooManyAttempts": "尝试次数过多，请稍后再试。",
     "rejected": "已拒绝",
     "files": "文件",
     "fileName": "文件名",
