@@ -21,7 +21,7 @@ class ReceivePageVmMapper extends ClassMapperBase<ReceivePageVm> {
   @override
   final String id = 'ReceivePageVm';
 
-  static SessionStatus _$status(ReceivePageVm v) => v.status;
+  static SessionStatus? _$status(ReceivePageVm v) => v.status;
   static const Field<ReceivePageVm, SessionStatus> _f$status = Field('status', _$status);
   static Device _$sender(ReceivePageVm v) => v.sender;
   static const Field<ReceivePageVm, Device> _f$sender = Field('sender', _$sender);
@@ -139,7 +139,7 @@ class _ReceivePageVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Receive
   DeviceCopyWith<$R, Device, Device> get sender => $value.sender.copyWith.$chain((v) => call(sender: v));
   @override
   $R call(
-          {SessionStatus? status,
+          {Object? status = $none,
           Device? sender,
           bool? showSenderInfo,
           int? fileCount,
@@ -150,7 +150,7 @@ class _ReceivePageVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Receive
           void Function()? onDecline,
           void Function()? onClose}) =>
       $apply(FieldCopyWithData({
-        if (status != null) #status: status,
+        if (status != $none) #status: status,
         if (sender != null) #sender: sender,
         if (showSenderInfo != null) #showSenderInfo: showSenderInfo,
         if (fileCount != null) #fileCount: fileCount,

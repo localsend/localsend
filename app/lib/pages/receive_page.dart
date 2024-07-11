@@ -41,6 +41,12 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch(receivePageControllerProvider);
+    if (vm.status == null && vm.message == null) {
+      return const Scaffold(
+        body: SizedBox(),
+      );
+    }
+
     final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(vm.sender)));
     if (vm.status == SessionStatus.canceledBySender) {
       unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));

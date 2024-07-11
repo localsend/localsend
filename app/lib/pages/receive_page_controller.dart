@@ -12,7 +12,7 @@ part 'receive_page_controller.mapper.dart';
 
 @MappableClass()
 class ReceivePageVm with ReceivePageVmMappable {
-  final SessionStatus status;
+  final SessionStatus? status;
   final Device sender;
 
   /// Show hashtag and device model.
@@ -90,7 +90,7 @@ class _WatchStatusAction extends WatchAction<ReceivePageController, ReceivePageV
   @override
   ReceivePageVm reduce() {
     return state.copyWith(
-      status: ref.watch(serverProvider.select((state) => state?.session?.status ?? SessionStatus.waiting)),
+      status: ref.watch(serverProvider.select((state) => state?.session?.status)),
     );
   }
 }
