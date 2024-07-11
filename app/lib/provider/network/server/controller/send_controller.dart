@@ -102,12 +102,13 @@ class SendController {
       }
 
       if (state.webSendState!.pin != null) {
+        final attempts = state.webSendState!.pinAttempts[request.ip] ?? 0;
+        if (attempts >= 2) {
+          return server.responseJson(429, message: 'Too many attempts.');
+        }
+
         final pin = request.url.queryParameters['pin'];
         if (pin != state.webSendState!.pin) {
-          final attempts = state.webSendState!.pinAttempts[request.ip] ?? 0;
-          if (attempts >= 2) {
-            return server.responseJson(429, message: 'Too many attempts.');
-          }
           if (pin?.isNotEmpty ?? false) {
             state.webSendState!.pinAttempts[request.ip] = attempts + 1;
           }

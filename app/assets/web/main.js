@@ -2,11 +2,23 @@ const BASE_URL = '/api/localsend/v2';
 
 let i18n = {};
 let sessionId = sessionStorage.getItem('sessionId');
+let queryPin = new URLSearchParams(window.location.search).get('pin');
 
 async function requestFiles() {
   document.getElementById('status-text').innerText = i18n.waiting;
+
+  let initialUrl = new URL(`${BASE_URL}/prepare-download`, document.location);
+  if (sessionId) {
+    initialUrl.searchParams.append('sessionId', sessionId);
+  }
+  if (queryPin) {
+    initialUrl.searchParams.append('pin', queryPin);
+  }
+
+  console.log(initialUrl);
+
   let response = await fetch(
-    `${BASE_URL}/prepare-download?sessionId=${sessionId}`,
+    initialUrl,
     {
       method: 'POST',
     },

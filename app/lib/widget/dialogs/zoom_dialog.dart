@@ -8,12 +8,14 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 class ZoomDialog extends StatelessWidget {
-  final String data;
+  final String label;
   final bool listenIncomingWebSendRequests;
+  final String? pin;
 
   const ZoomDialog({
-    required this.data,
+    required this.label,
     this.listenIncomingWebSendRequests = false,
+    this.pin,
   });
 
   @override
@@ -38,10 +40,19 @@ class ZoomDialog extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               clipBehavior: Clip.antiAlias,
-              child: Text(data, textAlign: TextAlign.center, style: TextStyle(fontSize: fontSize)),
+              child: Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: fontSize)),
             ),
           ),
           const SizedBox(height: 10),
+          if (pin != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FittedBox(
+                fit: BoxFit.fill,
+                clipBehavior: Clip.antiAlias,
+                child: Text('🔑 $pin', textAlign: TextAlign.center, style: const TextStyle(fontSize: 100)),
+              ),
+            ),
           if (listenIncomingWebSendRequests && webSendState != null)
             Builder(
               builder: (context) {

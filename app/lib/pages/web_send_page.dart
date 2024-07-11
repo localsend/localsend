@@ -140,6 +140,10 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                       children: [
                         ...networkState.localIps.map((ip) {
                           final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
+                          final urlWithPin = switch (webSendState.pin) {
+                            String() => '$url/?pin=${Uri.encodeQueryComponent(webSendState.pin!)}',
+                            null => url,
+                          };
                           return Padding(
                             padding: const EdgeInsets.all(5),
                             child: Row(
@@ -166,8 +170,10 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                     await showDialog(
                                       context: context,
                                       builder: (_) => QrDialog(
-                                        data: url,
+                                        data: urlWithPin,
+                                        label: url,
                                         listenIncomingWebSendRequests: true,
+                                        pin: webSendState.pin,
                                       ),
                                     );
                                   },
@@ -181,14 +187,15 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                     await showDialog(
                                       context: context,
                                       builder: (_) => ZoomDialog(
-                                        data: url,
+                                        label: url,
+                                        pin: webSendState.pin,
                                         listenIncomingWebSendRequests: true,
                                       ),
                                     );
                                   },
                                   child: const Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                    child: Icon(Icons.zoom_in_map, size: 16),
+                                    child: Icon(Icons.tv, size: 16),
                                   ),
                                 ),
                               ],
