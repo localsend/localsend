@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'prepare_upload_request_dto.dart';
@@ -31,7 +31,7 @@ class PrepareUploadRequestDtoMapper
       Field('files', _$files);
 
   @override
-  final Map<Symbol, Field<PrepareUploadRequestDto, dynamic>> fields = const {
+  final MappableFields<PrepareUploadRequestDto> fields = const {
     #info: _f$info,
     #files: _f$files,
   };
@@ -76,10 +76,8 @@ mixin PrepareUploadRequestDtoMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            PrepareUploadRequestDtoMapper.ensureInitialized()
-                .isValueEqual(this as PrepareUploadRequestDto, other));
+    return PrepareUploadRequestDtoMapper.ensureInitialized()
+        .equalsValue(this as PrepareUploadRequestDto, other);
   }
 
   @override

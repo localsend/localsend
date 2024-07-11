@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'multicast_dto.dart';
@@ -98,7 +98,7 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
       Field('announce', _$announce);
 
   @override
-  final Map<Symbol, Field<MulticastDto, dynamic>> fields = const {
+  final MappableFields<MulticastDto> fields = const {
     #alias: _f$alias,
     #version: _f$version,
     #deviceModel: _f$deviceModel,
@@ -158,10 +158,8 @@ mixin MulticastDtoMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            MulticastDtoMapper.ensureInitialized()
-                .isValueEqual(this as MulticastDto, other));
+    return MulticastDtoMapper.ensureInitialized()
+        .equalsValue(this as MulticastDto, other);
   }
 
   @override

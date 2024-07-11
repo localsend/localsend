@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'isolate_ref_state.dart';
@@ -31,7 +31,7 @@ class IsolateRefStateMapper extends ClassMapperBase<IsolateRefState> {
       Field('isolateState', _$isolateState);
 
   @override
-  final Map<Symbol, Field<IsolateRefState, dynamic>> fields = const {
+  final MappableFields<IsolateRefState> fields = const {
     #communication: _f$communication,
     #isolateState: _f$isolateState,
   };
@@ -76,10 +76,8 @@ mixin IsolateRefStateMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            IsolateRefStateMapper.ensureInitialized()
-                .isValueEqual(this as IsolateRefState, other));
+    return IsolateRefStateMapper.ensureInitialized()
+        .equalsValue(this as IsolateRefState, other);
   }
 
   @override

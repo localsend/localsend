@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'isolate_common_state.dart';
@@ -27,7 +27,7 @@ class IsolateCommonStateMapper extends ClassMapperBase<IsolateCommonState> {
       _f$securityContext = Field('securityContext', _$securityContext);
 
   @override
-  final Map<Symbol, Field<IsolateCommonState, dynamic>> fields = const {
+  final MappableFields<IsolateCommonState> fields = const {
     #securityContext: _f$securityContext,
   };
 
@@ -70,10 +70,8 @@ mixin IsolateCommonStateMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            IsolateCommonStateMapper.ensureInitialized()
-                .isValueEqual(this as IsolateCommonState, other));
+    return IsolateCommonStateMapper.ensureInitialized()
+        .equalsValue(this as IsolateCommonState, other);
   }
 
   @override
