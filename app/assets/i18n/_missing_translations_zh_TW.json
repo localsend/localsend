@@ -2,39 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-TW>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-TW' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "在檔案功能表「傳送到」項目中顯示 LocalSend"
-    },
-    "network": {
-      "discoveryTimeout": "搜索裝置逾時"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "在檔案瀏覽器中顯示"
-    }
-  },
-  "webSharePage": {
-    "requirePin": "需要 PIN 碼",
-    "pinHint": "PIN 碼是「{pin}」"
-  },
-  "dialogs": {
-    "pin": {
-      "title": "@:web.enterPin"
-    },
-    "zoom": {
-      "title": "網址"
-    }
-  },
-  "sanitization": {
-    "empty": "檔案名稱不能為空。",
-    "invalid": "檔案名稱包含無效字元。"
-  },
-  "web": {
-    "enterPin": "輸入 PIN 碼",
-    "invalidPin": "PIN 碼無效。",
-    "tooManyAttempts": "嘗試次數過多，請稍後再試。"
-  }
+  ]
 }

@@ -100,6 +100,7 @@
       "minimizeToTray": "退出嗰陣縮細做通知圖示",
       "launchAtStartup": "開機自動啟動",
       "launchMinimized": "自動啟動成通知圖示",
+      "showInContextMenu": "喺檔案功能表嘅「傳送到」項目顯示 LocalSend",
       "animations": "動畫"
     },
     "receive": {
@@ -124,6 +125,7 @@
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "Port",
+      "discoveryTimeout": "裝置搜尋逾時",
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",
       "multicastGroup": "多播 IP 地址",
@@ -160,6 +162,7 @@
     "empty": "得個吉噃 :(",
     "entryActions": {
       "open": "開啟檔案",
+      "showInFolder": "喺檔案瀏覽器顯示",
       "info": "資訊",
       "deleteFromHistory": "刪走呢筆記錄"
     }
@@ -223,6 +226,8 @@
     "noRequests": "未有",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自動接受請求",
+    "requirePin": "需要密碼",
+    "pinHint": "密碼為「{pin}」",
     "encryptionHint": "LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。",
     "pendingRequests": "仲有 {n} 個請求未處理"
   },
@@ -344,12 +349,22 @@
       "title": "@:general.quickSave",
       "content": "自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。"
     },
+    "pin": {
+      "title": "@:web.enterPin"
+    },
     "sendModeHelp": {
       "title": "@:sendTab.sendMode",
       "single": "淨係 send 畀一部裝置，傳輸完成後會清除揀選項目。",
       "multiple": "一次過 send 畀多部裝置，揀選項目會一路保留。",
       "link": "冇裝 LocalSend 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。"
+    },
+    "zoom": {
+      "title": "網址"
     }
+  },
+  "sanitization": {
+    "empty": "檔案名稱唔可以係吉嘅。",
+    "invalid": "檔案名稱唔可以包括唔用得嘅字元。"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -358,6 +373,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "輸入密碼",
+    "invalidPin": "密碼無效。",
+    "tooManyAttempts": "嘗試次數過多，請稍後再試。",
     "rejected": "已遭對方拒絕",
     "files": "@:general.files",
     "fileName": "檔案名稱",

@@ -100,6 +100,7 @@
       "minimizeToTray": "離開：最小化至系統匣",
       "launchAtStartup": "登入後自動啟動",
       "launchMinimized": "自動啟動至系統匣",
+      "showInContextMenu": "在檔案功能表「傳送到」項目中顯示 LocalSend",
       "animations": "動畫效果"
     },
     "receive": {
@@ -123,6 +124,7 @@
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "通訊埠",
+      "discoveryTimeout": "搜索裝置逾時",
       "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
       "encryption": "加密",
       "multicastGroup": "多點傳送",
@@ -159,6 +161,7 @@
     "empty": "沒有歷史記錄.",
     "entryActions": {
       "open": "開啟檔案",
+      "showInFolder": "在檔案瀏覽器中顯示",
       "info": "資訊",
       "deleteFromHistory": "從歷史記錄刪除"
     }
@@ -222,6 +225,8 @@
     "noRequests": "目前沒有任何要求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自動接受請求",
+    "requirePin": "需要 PIN 碼",
+    "pinHint": "PIN 碼是「{pin}」",
     "encryptionHint": "LocalSend 使用自簽名憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
   },
@@ -343,12 +348,22 @@
       "title": "@:general.quickSave",
       "content": "自動接受所有檔案要求。請注意，區域網路中的所有人都可以傳送檔案給您。"
     },
+    "pin": {
+      "title": "@:web.enterPin"
+    },
     "sendModeHelp": {
       "title": "傳送模式",
       "single": "傳送檔案至單個接收者，選取項目將在檔案傳輸完成後被清除。",
       "multiple": "傳送檔案至多重接收者，選取項目將不會被清除。",
       "link": "未安裝 LocalSend 的接收者可以透過在瀏覽器開啟連結以下載選取的檔案."
+    },
+    "zoom": {
+      "title": "網址"
     }
+  },
+  "sanitization": {
+    "empty": "檔案名稱不能為空。",
+    "invalid": "檔案名稱包含無效字元。"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -357,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "輸入 PIN 碼",
+    "invalidPin": "PIN 碼無效。",
+    "tooManyAttempts": "嘗試次數過多，請稍後再試。",
     "rejected": "遭到拒絕",
     "files": "檔案",
     "fileName": "檔案名稱",

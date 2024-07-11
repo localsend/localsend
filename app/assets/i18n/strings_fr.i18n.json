@@ -100,6 +100,7 @@
       "minimizeToTray": "Quitter : Réduire à la barre des tâches",
       "launchAtStartup": "Démarrage automatique : Après la connexion",
       "launchMinimized": "Démarrage automatique : Minimiser",
+      "showInContextMenu": "Montrer LocalSend dans le menu contextuel",
       "animations": "Animations"
     },
     "receive": {
@@ -160,6 +161,7 @@
     "empty": "L'historique est vide.",
     "entryActions": {
       "open": "Ouvrir le fichier",
+      "showInFolder": "Ouvrir le dossier",
       "info": "Information",
       "deleteFromHistory": "Supprimer de l'historique"
     }
@@ -223,6 +225,8 @@
     "noRequests": "Aucune requête en attente.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Accepter automatiquement les requêtes",
+    "requirePin": "Code PIN nécessaire",
+    "pinHint": "Le code PIN est \"{pin}\"",
     "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente: {n}"
   },
@@ -344,6 +348,9 @@
       "title": "@:general.quickSave",
       "content": "Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers."
     },
+    "pin": {
+      "title": "Entrez le code PIN"
+    },
     "sendModeHelp": {
       "title": "Modes d'envoi",
       "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
@@ -365,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Entrez le code PIN",
+    "invalidPin": "Code PIN Invalide",
+    "tooManyAttempts": "Trop d'essais infructueux",
     "rejected": "Rejeté",
     "files": "Fichiers",
     "fileName": "Nom du fichier",

@@ -46,6 +46,7 @@ class _StringsZhTw extends Translations {
 	@override late final _StringsChangelogPageZhTw changelogPage = _StringsChangelogPageZhTw._(_root);
 	@override late final _StringsAliasGeneratorZhTw aliasGenerator = _StringsAliasGeneratorZhTw._(_root);
 	@override late final _StringsDialogsZhTw dialogs = _StringsDialogsZhTw._(_root);
+	@override late final _StringsSanitizationZhTw sanitization = _StringsSanitizationZhTw._(_root);
 	@override late final _StringsTrayZhTw tray = _StringsTrayZhTw._(_root);
 	@override late final _StringsWebZhTw web = _StringsWebZhTw._(_root);
 	@override late final _StringsAssetPickerZhTw assetPicker = _StringsAssetPickerZhTw._(_root);
@@ -271,6 +272,8 @@ class _StringsWebSharePageZhTw extends _StringsWebSharePageEn {
 	@override String get noRequests => '目前沒有任何要求。';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => '自動接受請求';
+	@override String get requirePin => '需要 PIN 碼';
+	@override String pinHint({required Object pin}) => 'PIN 碼是「${pin}」';
 	@override String get encryptionHint => 'LocalSend 使用自簽名憑證。您需要在瀏覽器中接受它。';
 	@override String pendingRequests({required Object n}) => '待處理的要求：${n}';
 }
@@ -352,7 +355,20 @@ class _StringsDialogsZhTw extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrZhTw qr = _StringsDialogsQrZhTw._(_root);
 	@override late final _StringsDialogsQuickActionsZhTw quickActions = _StringsDialogsQuickActionsZhTw._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhTw quickSaveNotice = _StringsDialogsQuickSaveNoticeZhTw._(_root);
+	@override late final _StringsDialogsPinZhTw pin = _StringsDialogsPinZhTw._(_root);
 	@override late final _StringsDialogsSendModeHelpZhTw sendModeHelp = _StringsDialogsSendModeHelpZhTw._(_root);
+	@override late final _StringsDialogsZoomZhTw zoom = _StringsDialogsZoomZhTw._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationZhTw extends _StringsSanitizationEn {
+	_StringsSanitizationZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '檔案名稱不能為空。';
+	@override String get invalid => '檔案名稱包含無效字元。';
 }
 
 // Path: tray
@@ -374,6 +390,9 @@ class _StringsWebZhTw extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => '輸入 PIN 碼';
+	@override String get invalidPin => 'PIN 碼無效。';
+	@override String get tooManyAttempts => '嘗試次數過多，請稍後再試。';
 	@override String get rejected => '遭到拒絕';
 	@override String get files => '檔案';
 	@override String get fileName => '檔案名稱';
@@ -486,6 +505,7 @@ class _StringsSettingsTabGeneralZhTw extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => '離開：最小化至系統匣';
 	@override String get launchAtStartup => '登入後自動啟動';
 	@override String get launchMinimized => '自動啟動至系統匣';
+	@override String get showInContextMenu => '在檔案功能表「傳送到」項目中顯示 LocalSend';
 	@override String get animations => '動畫效果';
 }
 
@@ -530,6 +550,7 @@ class _StringsSettingsTabNetworkZhTw extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => '裝置類型';
 	@override String get deviceModel => '裝置型號';
 	@override String get port => '通訊埠';
+	@override String get discoveryTimeout => '搜索裝置逾時';
 	@override String portWarning({required Object defaultPort}) => '您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：${defaultPort})';
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多點傳送';
@@ -581,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsZhTw extends _StringsReceiveHistoryP
 
 	// Translations
 	@override String get open => '開啟檔案';
+	@override String get showInFolder => '在檔案瀏覽器中顯示';
 	@override String get info => '資訊';
 	@override String get deleteFromHistory => '從歷史記錄刪除';
 }
@@ -832,6 +854,16 @@ class _StringsDialogsQuickSaveNoticeZhTw extends _StringsDialogsQuickSaveNoticeE
 	@override String get content => '自動接受所有檔案要求。請注意，區域網路中的所有人都可以傳送檔案給您。';
 }
 
+// Path: dialogs.pin
+class _StringsDialogsPinZhTw extends _StringsDialogsPinEn {
+	_StringsDialogsPinZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.web.enterPin;
+}
+
 // Path: dialogs.sendModeHelp
 class _StringsDialogsSendModeHelpZhTw extends _StringsDialogsSendModeHelpEn {
 	_StringsDialogsSendModeHelpZhTw._(_StringsZhTw root) : this._root = root, super._(root);
@@ -843,6 +875,16 @@ class _StringsDialogsSendModeHelpZhTw extends _StringsDialogsSendModeHelpEn {
 	@override String get single => '傳送檔案至單個接收者，選取項目將在檔案傳輸完成後被清除。';
 	@override String get multiple => '傳送檔案至多重接收者，選取項目將不會被清除。';
 	@override String get link => '未安裝 LocalSend 的接收者可以透過在瀏覽器開啟連結以下載選取的檔案.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomZhTw extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '網址';
 }
 
 // Path: settingsTab.general.brightnessOptions

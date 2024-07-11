@@ -272,6 +272,8 @@ class _StringsWebSharePagePl extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Brak żądań.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Automatycznie akceptuj żądania';
+	@override String get requirePin => 'Wymagaj kodu PIN';
+	@override String pinHint({required Object pin}) => 'Kod PIN to "${pin}"';
 	@override String get encryptionHint => 'LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.';
 	@override String pendingRequests({required Object n}) => 'Oczekujące żądania: ${n}';
 }
@@ -353,6 +355,7 @@ class _StringsDialogsPl extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrPl qr = _StringsDialogsQrPl._(_root);
 	@override late final _StringsDialogsQuickActionsPl quickActions = _StringsDialogsQuickActionsPl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticePl quickSaveNotice = _StringsDialogsQuickSaveNoticePl._(_root);
+	@override late final _StringsDialogsPinPl pin = _StringsDialogsPinPl._(_root);
 	@override late final _StringsDialogsSendModeHelpPl sendModeHelp = _StringsDialogsSendModeHelpPl._(_root);
 	@override late final _StringsDialogsZoomPl zoom = _StringsDialogsZoomPl._(_root);
 }
@@ -387,6 +390,9 @@ class _StringsWebPl extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Wpisz kod PIN';
+	@override String get invalidPin => 'Nieprawidłowy kod PIN';
+	@override String get tooManyAttempts => 'Zbyt wiele prób';
 	@override String get rejected => 'Odrzucone';
 	@override String get files => 'Pliki';
 	@override String get fileName => 'Nazwa pliku';
@@ -596,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsPl extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Otwórz plik';
+	@override String get showInFolder => 'Pokaż w folderze';
 	@override String get info => 'Informacje';
 	@override String get deleteFromHistory => 'Usuń z historii';
 }
@@ -845,6 +852,16 @@ class _StringsDialogsQuickSaveNoticePl extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinPl extends _StringsDialogsPinEn {
+	_StringsDialogsPinPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wpisz kod PIN';
 }
 
 // Path: dialogs.sendModeHelp

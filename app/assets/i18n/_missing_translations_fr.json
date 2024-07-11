@@ -2,29 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fr>.",
     "After editing this file, you can run 'dart run slang apply --locale=fr' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "Montrer LocalSend dans le menu contextuel"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Ouvrir le dossier"
-    }
-  },
-  "webSharePage": {
-    "requirePin": "Code PIN nécessaire",
-    "pinHint": "Le code PIN est \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Entrez le code PIN"
-    }
-  },
-  "web": {
-    "enterPin": "Entrez le code PIN",
-    "invalidPin": "Code PIN Invalide",
-    "tooManyAttempts": "Trop d'essais infructueux"
-  }
+  ]
 }

@@ -272,6 +272,8 @@ class _StringsWebSharePageFr extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Aucune requête en attente.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Accepter automatiquement les requêtes';
+	@override String get requirePin => 'Code PIN nécessaire';
+	@override String pinHint({required Object pin}) => 'Le code PIN est "${pin}"';
 	@override String get encryptionHint => 'LocalSend utilise un certificat auto-signé. Vous devez l\'accepter dans le navigateur.';
 	@override String pendingRequests({required Object n}) => 'Requêtes en attente: ${n}';
 }
@@ -353,6 +355,7 @@ class _StringsDialogsFr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrFr qr = _StringsDialogsQrFr._(_root);
 	@override late final _StringsDialogsQuickActionsFr quickActions = _StringsDialogsQuickActionsFr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFr quickSaveNotice = _StringsDialogsQuickSaveNoticeFr._(_root);
+	@override late final _StringsDialogsPinFr pin = _StringsDialogsPinFr._(_root);
 	@override late final _StringsDialogsSendModeHelpFr sendModeHelp = _StringsDialogsSendModeHelpFr._(_root);
 	@override late final _StringsDialogsZoomFr zoom = _StringsDialogsZoomFr._(_root);
 }
@@ -387,6 +390,9 @@ class _StringsWebFr extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Entrez le code PIN';
+	@override String get invalidPin => 'Code PIN Invalide';
+	@override String get tooManyAttempts => 'Trop d\'essais infructueux';
 	@override String get rejected => 'Rejeté';
 	@override String get files => 'Fichiers';
 	@override String get fileName => 'Nom du fichier';
@@ -499,6 +505,7 @@ class _StringsSettingsTabGeneralFr extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Quitter : Réduire à la barre des tâches';
 	@override String get launchAtStartup => 'Démarrage automatique : Après la connexion';
 	@override String get launchMinimized => 'Démarrage automatique : Minimiser';
+	@override String get showInContextMenu => 'Montrer LocalSend dans le menu contextuel';
 	@override String get animations => 'Animations';
 }
 
@@ -595,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsFr extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Ouvrir le fichier';
+	@override String get showInFolder => 'Ouvrir le dossier';
 	@override String get info => 'Information';
 	@override String get deleteFromHistory => 'Supprimer de l\'historique';
 }
@@ -844,6 +852,16 @@ class _StringsDialogsQuickSaveNoticeFr extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinFr extends _StringsDialogsPinEn {
+	_StringsDialogsPinFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Entrez le code PIN';
 }
 
 // Path: dialogs.sendModeHelp
