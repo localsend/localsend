@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "Показать LocalSend в контекстном меню"
     }
   }
 }
