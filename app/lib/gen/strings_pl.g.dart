@@ -499,6 +499,7 @@ class _StringsSettingsTabGeneralPl extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Wyjdź: zminimalizuj do menu ukrytych ikon';
 	@override String get launchAtStartup => 'Autostart po zalogowaniu';
 	@override String get launchMinimized => 'Autostart: start ukryty';
+	@override String get showInContextMenu => 'Pokaż LocalSend w menu kontekstowym';
 	@override String get animations => 'Animacje';
 }
 

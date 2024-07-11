@@ -96,6 +96,7 @@ class _StringsGeneralTr extends _StringsGeneralEn {
 	@override String get unchanged => 'Değiştirilmemiş';
 	@override String get unknown => 'Bilinmiyor';
 	@override String get noItemInClipboard => 'Panoda öğe yok';
+	@override String get showInContextMenu => 'LocalSend\'i bağlam menüsünde göster';
 }
 
 // Path: receiveTab
