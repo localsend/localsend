@@ -15,8 +15,6 @@ async function requestFiles() {
     initialUrl.searchParams.append('pin', queryPin);
   }
 
-  console.log(initialUrl);
-
   let response = await fetch(
     initialUrl,
     {
