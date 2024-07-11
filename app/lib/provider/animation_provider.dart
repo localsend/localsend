@@ -24,7 +24,7 @@ final animationProvider = ViewProvider<bool>((ref) {
   }
 
   return animations;
-});
+}, debugLabel: 'animationProvider');
 
 void setDefaultRouteTransition() {
   // use the "slide" transition for desktop
