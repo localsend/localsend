@@ -226,7 +226,7 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Anfragen automatisch aktzeptieren",
     "requirePin": "PIN erforderlich",
-    "pinHint": "Der PIN lautet \"{pin}\"",
+    "pinHint": "Die PIN lautet \"{pin}\"",
     "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
