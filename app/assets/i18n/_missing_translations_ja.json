@@ -5,26 +5,26 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "コンテキストメニューにLocalSendを表示"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "フォルダーに表示"
     }
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "PINコードを要求",
+    "pinHint": "PINコードは \"{pin}\" です"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "PINコードを入力"
     }
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "PINコードを入力",
+    "invalidPin": "PINコードが無効です",
+    "tooManyAttempts": "試行回数が多すぎます"
   }
 }
