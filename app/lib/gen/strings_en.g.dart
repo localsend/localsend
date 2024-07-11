@@ -277,6 +277,8 @@ class _StringsWebSharePageEn {
 	String get noRequests => 'No requests yet.';
 	String get encryption => _root.settingsTab.network.encryption;
 	String get autoAccept => 'Automatically accept requests';
+	String get requirePin => 'Require PIN';
+	String pinHint({required Object pin}) => 'The PIN is "${pin}"';
 	String get encryptionHint => 'LocalSend uses a self-signed certificate. You need to accept it in your browser.';
 	String pendingRequests({required Object n}) => 'Pending requests: ${n}';
 }
@@ -429,6 +431,7 @@ class _StringsDialogsEn {
 	late final _StringsDialogsQrEn qr = _StringsDialogsQrEn._(_root);
 	late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
 	late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
+	late final _StringsDialogsPinEn pin = _StringsDialogsPinEn._(_root);
 	late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
 	late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
 }
@@ -463,6 +466,9 @@ class _StringsWebEn {
 
 	// Translations
 	String get waiting => _root.sendPage.waiting;
+	String get enterPin => 'Enter PIN';
+	String get invalidPin => 'Invalid PIN';
+	String get tooManyAttempts => 'Too many attempts';
 	String get rejected => 'Rejected';
 	String get files => 'Files';
 	String get fileName => 'File name';
@@ -922,6 +928,16 @@ class _StringsDialogsQuickSaveNoticeEn {
 	// Translations
 	String get title => _root.general.quickSave;
 	String get content => 'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinEn {
+	_StringsDialogsPinEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Enter PIN';
 }
 
 // Path: dialogs.sendModeHelp

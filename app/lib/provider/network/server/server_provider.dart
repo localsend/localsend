@@ -179,6 +179,15 @@ class ServerService extends Notifier<ServerState?> {
     await _sendController.initializeWebSend(files: files);
   }
 
+  /// Updates the web send pin.
+  void setWebSendPin(String? pin) {
+    state = state?.copyWith(
+      webSendState: state?.webSendState?.copyWith(
+        pin: pin,
+      ),
+    );
+  }
+
   /// Updates the auto accept setting for web send.
   void setWebSendAutoAccept(bool autoAccept) {
     state = state?.copyWith(

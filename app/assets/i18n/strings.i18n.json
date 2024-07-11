@@ -225,6 +225,8 @@
     "noRequests": "No requests yet.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Automatically accept requests",
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\"",
     "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
     "pendingRequests": "Pending requests: {n}"
   },
@@ -416,6 +418,9 @@
       "title": "@:general.quickSave",
       "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
     },
+    "pin": {
+      "title": "Enter PIN"
+    },
     "sendModeHelp": {
       "title": "Send modes",
       "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
@@ -437,6 +442,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts",
     "rejected": "Rejected",
     "files": "Files",
     "fileName": "File name",

@@ -39,6 +39,7 @@ dependencies:
   # https://github.com/NightFeather0615/macos_dock_progress/issues/1
   # macos_dock_progress: 1.1.0
   mime: 1.0.4
+  nanoid2: 2.0.1
   network_info_plus: 5.0.3
   open_filex: 4.4.0
   package_info_plus: 4.2.0
