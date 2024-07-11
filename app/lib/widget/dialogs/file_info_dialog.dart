@@ -14,50 +14,66 @@ class FileInfoDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(t.dialogs.fileInfo.title),
       content: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Table(
-          columnWidths: const {
-            0: IntrinsicColumnWidth(),
-            1: IntrinsicColumnWidth(),
-            2: IntrinsicColumnWidth(),
-          },
-          children: [
-            TableRow(
-              children: [
-                Text(t.dialogs.fileInfo.fileName, maxLines: 1),
-                const SizedBox(width: 10),
-                SelectableText(entry.fileName),
-              ],
-            ),
-            TableRow(
-              children: [
-                Text(t.dialogs.fileInfo.path),
-                const SizedBox(width: 10),
-                SelectableText(entry.savedToGallery ? t.progressPage.savedToGallery : (entry.path ?? '')),
-              ],
-            ),
-            TableRow(
-              children: [
-                Text(t.dialogs.fileInfo.size),
-                const SizedBox(width: 10),
-                SelectableText(entry.fileSize.asReadableFileSize),
-              ],
-            ),
-            TableRow(
-              children: [
-                Text(t.dialogs.fileInfo.sender),
-                const SizedBox(width: 10),
-                SelectableText(entry.senderAlias),
-              ],
-            ),
-            TableRow(
-              children: [
-                Text(t.dialogs.fileInfo.time),
-                const SizedBox(width: 10),
-                SelectableText(entry.timestampString),
-              ],
-            ),
-          ],
+        scrollDirection: Axis.vertical,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Table(
+                columnWidths: const {
+                  0: IntrinsicColumnWidth(),
+                  1: IntrinsicColumnWidth(),
+                  2: IntrinsicColumnWidth(),
+                },
+                children: [
+                  if (!entry.isMessage) ...[
+                    TableRow(
+                      children: [
+                        Text(t.dialogs.fileInfo.fileName, maxLines: 1),
+                        const SizedBox(width: 10),
+                        SelectableText(entry.fileName),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(t.dialogs.fileInfo.path),
+                        const SizedBox(width: 10),
+                        SelectableText(entry.savedToGallery ? t.progressPage.savedToGallery : (entry.path ?? '')),
+                      ],
+                    ),
+                  ],
+                  TableRow(
+                    children: [
+                      Text(t.dialogs.fileInfo.size),
+                      const SizedBox(width: 10),
+                      SelectableText(entry.fileSize.asReadableFileSize),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Text(t.dialogs.fileInfo.sender),
+                      const SizedBox(width: 10),
+                      SelectableText(entry.senderAlias),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Text(t.dialogs.fileInfo.time),
+                      const SizedBox(width: 10),
+                      SelectableText(entry.timestampString),
+                    ],
+                  ),
+                ],
+              ),
+              if (entry.isMessage)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SelectableText(entry.fileName + entry.fileName + entry.fileName),
+                ),
+            ],
+          ),
         ),
       ),
       actions: [
