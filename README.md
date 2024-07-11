@@ -43,15 +43,15 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 It is recommended to download the app either from an app store or from a package manager because the app does not have an auto-update.
 
-| Windows                  | macOS                   | Linux              | Android        | iOS           | Fire OS    |
-|--------------------------|-------------------------|--------------------|----------------|---------------|------------|
-| [Winget][]               | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
-| [Scoop][]                | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
-| [Chocolatey][]           | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
-| [MSIX Installer][latest] |                         | [AUR][]            |                |               |            |
-| [EXE Installer][latest]  |                         | [TAR][latest]      |                |               |            |
-| [Portable ZIP][latest]   |                         | [DEB][latest]      |                |               |            |
-|                          |                         | [AppImage][latest] |                |               |            |
+| Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
+|-------------------------|-------------------------|--------------------|----------------|---------------|------------|
+| [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
+| [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
+| [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
+| [EXE Installer][latest] |                         | [AUR][]            |                |               |            |
+| [Portable ZIP][latest]  |                         | [TAR][latest]      |                |               |            |
+|                         |                         | [DEB][latest]      |                |               |            |
+|                         |                         | [AppImage][latest] |                |               |            |
 
 Read more about [distribution channels][].
 
