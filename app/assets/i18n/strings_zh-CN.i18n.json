@@ -100,6 +100,7 @@
       "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
       "launchMinimized": "静默自启：只启动托盘服务",
+      "showInContextMenu": "在上下文菜单中显示 LocalSend",
       "animations": "动画效果"
     },
     "receive": {
@@ -160,6 +161,7 @@
     "empty": "无历史记录。",
     "entryActions": {
       "open": "打开文件",
+      "showInFolder": "在目录中显示",
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
     }
@@ -223,7 +225,9 @@
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自动接受请求",
-    "encryptionHint": "LocalSend 使用自签名证书，您需要在浏览器中允许它。",
+    "requirePin": "需要一个 PIN",
+    "pinHint": "PIN 为 \"{pin}\"",
+    "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中允许它。",
     "pendingRequests": "待处理请求: {n}"
   },
   "aboutPage": {
@@ -413,6 +417,9 @@
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
     },
+    "pin": {
+      "title": "输入 PIN"
+    },
     "sendModeHelp": {
       "title": "发送模式",
       "single": "发送文件给一个接收者。已选择的文件在发送后会取消选择。",
@@ -434,6 +441,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "输入 PIN",
+    "invalidPin": "PIN 无效",
+    "tooManyAttempts": "尝试次数过多",
     "rejected": "已拒绝",
     "files": "文件",
     "fileName": "文件名",
