@@ -5,26 +5,26 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "Montrer LocalSend dans le menu contextuel"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Ouvrir le dossier"
     }
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "Code PIN nécessaire",
+    "pinHint": "Le code PIN est \"{pin}\""
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Entrez le code PIN"
     }
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Entrez le code PIN",
+    "invalidPin": "Code PIN Invalide",
+    "tooManyAttempts": "Trop d'essais infructueux"
   }
 }
