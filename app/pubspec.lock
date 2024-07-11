@@ -852,6 +852,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.4"
+  nanoid2:
+    dependency: "direct main"
+    description:
+      name: nanoid2
+      sha256: "35b5048f836652a1d711db0d716bdee59fcaaa4c37792db8b3568da4f7feb2f9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   nested:
     dependency: transitive
     description:
