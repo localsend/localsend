@@ -5,36 +5,36 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "הצג את LocalSend בתפריט ההקשר"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "זמן קצוב לגילוי"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "הצג בתיקייה"
     }
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "דרוש סיסמה",
+    "pinHint": "הסיסמה היא \"{pin}\""
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "הזן סיסמה"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "שם הקובץ לא יכול להיות ריק",
+    "invalid": "שם הקובץ מכיל תווים לא חוקיים"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "הזן סיסמה",
+    "invalidPin": "סיסמה לא חוקית",
+    "tooManyAttempts": "בוצעו יותר מידי ניסיונות כושלים"
   }
 }
