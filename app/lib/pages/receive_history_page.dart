@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
@@ -20,18 +22,17 @@ import 'package:routerino/routerino.dart';
 
 enum _EntryOption {
   open,
+  showInFolder,
   info,
   delete;
 
   String get label {
-    switch (this) {
-      case _EntryOption.open:
-        return t.receiveHistoryPage.entryActions.open;
-      case _EntryOption.info:
-        return t.receiveHistoryPage.entryActions.info;
-      case _EntryOption.delete:
-        return t.receiveHistoryPage.entryActions.deleteFromHistory;
-    }
+    return switch (this) {
+      _EntryOption.open => t.receiveHistoryPage.entryActions.open,
+      _EntryOption.showInFolder => t.receiveHistoryPage.entryActions.showInFolder,
+      _EntryOption.info => t.receiveHistoryPage.entryActions.info,
+      _EntryOption.delete => t.receiveHistoryPage.entryActions.deleteFromHistory,
+    };
   }
 }
 
@@ -174,6 +175,11 @@ class ReceiveHistoryPage extends StatelessWidget {
                           switch (item) {
                             case _EntryOption.open:
                               await _openFile(context, entry, context.redux(receiveHistoryProvider));
+                              break;
+                            case _EntryOption.showInFolder:
+                              if (entry.path != null) {
+                                await openFolder(File(entry.path!).parent.path);
+                              }
                               break;
                             case _EntryOption.info:
                               // ignore: use_build_context_synchronously

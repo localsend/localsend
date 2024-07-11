@@ -161,6 +161,7 @@
     "empty": "The history is empty.",
     "entryActions": {
       "open": "Open file",
+      "showInFolder": "Show in folder",
       "info": "Information",
       "deleteFromHistory": "Delete from history"
     }
