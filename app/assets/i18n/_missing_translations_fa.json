@@ -5,26 +5,26 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "نمایش لوکال‌سند در منوی زمینه"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "نمایش پوشه"
     }
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "نیاز به پین",
+    "pinHint": "پین \"{pin}\" می‌باشد"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "پین را وارد کنید"
     }
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "پین را وارد کنید",
+    "invalidPin": "پین نامعتبر",
+    "tooManyAttempts": "تلاش‌های بیش از حد"
   }
 }
