@@ -672,6 +672,7 @@ class _StringsReceiveHistoryPageEntryActionsEn {
 
 	// Translations
 	String get open => 'Open file';
+	String get showInFolder => 'Show in folder';
 	String get info => 'Information';
 	String get deleteFromHistory => 'Delete from history';
 }

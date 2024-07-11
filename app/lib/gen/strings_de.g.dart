@@ -596,6 +596,7 @@ class _StringsReceiveHistoryPageEntryActionsDe extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Datei öffnen';
+	@override String get showInFolder => 'Im Ordner anzeigen';
 	@override String get info => 'Information';
 	@override String get deleteFromHistory => 'Vom Verlauf entfernen';
 }

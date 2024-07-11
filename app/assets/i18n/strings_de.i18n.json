@@ -161,6 +161,7 @@
     "empty": "Der Verlauf ist leer.",
     "entryActions": {
       "open": "Datei öffnen",
+      "showInFolder": "Im Ordner anzeigen",
       "info": "Information",
       "deleteFromHistory": "Vom Verlauf entfernen"
     }
