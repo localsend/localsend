@@ -252,7 +252,7 @@
   },
   "dialogs": {
     "addFile": {
-      "title": "Додати до обраних",
+      "title": "Додати до вибірки",
       "content": "Що ви бажаєте додати?"
     },
     "addressInput": {
