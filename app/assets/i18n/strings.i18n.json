@@ -107,7 +107,7 @@
       "title": "Receive",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Auto Finish",
-      "destination": "Destination",
+      "destination": "Save to folder",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
       "saveToHistory": "Save to history"
