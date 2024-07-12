@@ -383,18 +383,30 @@ class PersistenceService {
     await _prefs.setDouble(_windowWidth, width);
   }
 
-  WindowDimensions getWindowLastDimensions() {
+  WindowDimensions? getWindowLastDimensions() {
     Size? size;
     Offset? position;
     final offsetX = _prefs.getDouble(_windowOffsetX);
     final offsetY = _prefs.getDouble(_windowOffsetY);
     final width = _prefs.getDouble(_windowWidth);
     final height = _prefs.getDouble(_windowHeight);
-    if (width != null && height != null) size = Size(width, height);
-    if (offsetX != null && offsetY != null) position = Offset(offsetX, offsetY);
 
-    final dimensions = {'size': size, 'position': position};
-    return dimensions;
+    if (width != null && height != null) {
+      size = Size(width, height);
+    }
+
+    if (offsetX != null && offsetY != null) {
+      position = Offset(offsetX, offsetY);
+    }
+
+    if (size == null || position == null) {
+      return null;
+    }
+
+    return WindowDimensions(
+      position: position,
+      size: size,
+    );
   }
 
   Future<void> setSaveWindowPlacement(bool savePlacement) async {

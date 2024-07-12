@@ -4,7 +4,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:ui' as _i12;
 
 import 'package:common/common.dart' as _i2;
 import 'package:flutter/material.dart' as _i8;
@@ -16,7 +15,7 @@ import 'package:localsend_app/model/send_mode.dart' as _i11;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
-import 'package:shared_preferences/shared_preferences.dart' as _i13;
+import 'package:shared_preferences/shared_preferences.dart' as _i12;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -401,6 +400,16 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  _i4.Future<void> setReceivePin(String? pin) => (super.noSuchMethod(
+        Invocation.method(
+          #setReceivePin,
+          [pin],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   bool isAutoFinish() => (super.noSuchMethod(
         Invocation.method(
           #isAutoFinish,
@@ -521,16 +530,6 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
-  Map<String, _i12.OffsetBase?> getWindowLastDimensions() => (super.noSuchMethod(
-        Invocation.method(
-          #getWindowLastDimensions,
-          [],
-        ),
-        returnValue: <String, _i12.OffsetBase?>{},
-        returnValueForMissingStub: <String, _i12.OffsetBase?>{},
-      ) as Map<String, _i12.OffsetBase?>);
-
-  @override
   _i4.Future<void> setSaveWindowPlacement(bool? savePlacement) => (super.noSuchMethod(
         Invocation.method(
           #setSaveWindowPlacement,
@@ -604,7 +603,7 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i13.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i12.SharedPreferences {
   @override
   Set<String> getKeys() => (super.noSuchMethod(
         Invocation.method(
