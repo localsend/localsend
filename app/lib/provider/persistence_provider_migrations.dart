@@ -6,6 +6,7 @@ Future<void> _runMigrations(int from) async {
   switch (from) {
     case 1:
       await _migrate2();
+      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 2);
       break;
   }
 }
@@ -25,7 +26,6 @@ Future<void> _migrate2() async {
       legacyFile.copySync(_windowsFile);
       legacyFile.parent.parent.deleteSync(recursive: true);
       SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
-      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 2);
     }
   }
 }
