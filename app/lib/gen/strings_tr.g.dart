@@ -272,6 +272,8 @@ class _StringsWebSharePageTr extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Henüz istek yok.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'İstekleri otomatik olarak kabul et';
+	@override String get requirePin => 'PIN gerektir';
+	@override String get pinHint => 'PIN "{pin}"';
 	@override String get encryptionHint => 'LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.';
 	@override String pendingRequests({required Object n}) => 'Bekleyen istekler: ${n}';
 }
@@ -354,6 +356,7 @@ class _StringsDialogsTr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsTr quickActions = _StringsDialogsQuickActionsTr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeTr quickSaveNotice = _StringsDialogsQuickSaveNoticeTr._(_root);
 	@override late final _StringsDialogsSendModeHelpTr sendModeHelp = _StringsDialogsSendModeHelpTr._(_root);
+	@override late final _StringsDialogsPinTr pin = _StringsDialogsPinTr._(_root);
 	@override late final _StringsDialogsZoomTr zoom = _StringsDialogsZoomTr._(_root);
 }
 
@@ -387,6 +390,9 @@ class _StringsWebTr extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'PIN girin';
+	@override String get invalidPin => 'Geçersiz PIN';
+	@override String get tooManyAttempts => 'Çok fazla deneme';
 	@override String get rejected => 'Reddedildi';
 	@override String get files => 'Dosyalar';
 	@override String get fileName => 'Dosya adı';
@@ -596,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsTr extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Dosya aç';
+	@override String get showInFolder => 'Klasörde göster';
 	@override String get info => 'Bilgi';
 	@override String get deleteFromHistory => 'Geçmişten sil';
 }
@@ -858,6 +865,16 @@ class _StringsDialogsSendModeHelpTr extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.';
 	@override String get multiple => 'Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.';
 	@override String get link => 'LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinTr extends _StringsDialogsPinEn {
+	_StringsDialogsPinTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PIN girin';
 }
 
 // Path: dialogs.zoom
