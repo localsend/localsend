@@ -57,7 +57,7 @@
     },
     "picker": {
       "file": "Файл",
-      "folder": "Тека",
+      "folder": "Папка",
       "media": "Медіа",
       "text": "Текст",
       "app": "Додаток",
@@ -107,7 +107,7 @@
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Автозавершення",
-      "destination": "Зберігати в теку",
+      "destination": "Зберігати в папку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї",
       "saveToHistory": "Зберігати історію"
@@ -156,7 +156,7 @@
   },
   "receiveHistoryPage": {
     "title": "Історія",
-    "openFolder": "Відкрити теку",
+    "openFolder": "Відкрити папку",
     "deleteHistory": "Очистити історію",
     "empty": "Історія порожня.",
     "entryActions": {
@@ -186,7 +186,7 @@
   "receiveOptionsPage": {
     "title": "Параметри отримання",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Тека LocalSend)",
+    "appDirectory": "(Папка LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Вимкнено автоматично, оскільки є каталоги."
   },
