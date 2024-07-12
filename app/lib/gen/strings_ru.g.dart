@@ -272,6 +272,8 @@ class _StringsWebSharePageRu extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Запросов пока нет.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Автоматически принимать запросы';
+	@override String get requirePin => 'Требовать PIN-код';
+	@override String pinHint({required Object pin}) => 'PIN-код: "${pin}"';
 	@override String get encryptionHint => 'LocalSend использует самоподписанный сертификат. Вам необходимо принять его в браузере.';
 	@override String pendingRequests({required Object n}) => 'Ожидающие запросы: ${n}';
 }
@@ -353,6 +355,7 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrRu qr = _StringsDialogsQrRu._(_root);
 	@override late final _StringsDialogsQuickActionsRu quickActions = _StringsDialogsQuickActionsRu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeRu quickSaveNotice = _StringsDialogsQuickSaveNoticeRu._(_root);
+	@override late final _StringsDialogsPinRu pin = _StringsDialogsPinRu._(_root);
 	@override late final _StringsDialogsSendModeHelpRu sendModeHelp = _StringsDialogsSendModeHelpRu._(_root);
 	@override late final _StringsDialogsZoomRu zoom = _StringsDialogsZoomRu._(_root);
 }
@@ -387,6 +390,9 @@ class _StringsWebRu extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Введите PIN-код';
+	@override String get invalidPin => 'Неверный PIN-код';
+	@override String get tooManyAttempts => 'Слишком много попыток';
 	@override String get rejected => 'Отклонено';
 	@override String get files => 'Файлов';
 	@override String get fileName => 'Имя файла';
@@ -495,11 +501,11 @@ class _StringsSettingsTabGeneralRu extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsRu colorOptions = _StringsSettingsTabGeneralColorOptionsRu._(_root);
 	@override String get language => 'Язык';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsRu languageOptions = _StringsSettingsTabGeneralLanguageOptionsRu._(_root);
-	@override String get saveWindowPlacement => 'Сохранить расположение окна после закрытия';
-	@override String get minimizeToTray => 'Закрыть: свернуть в системный трей/строку меню';
+	@override String get saveWindowPlacement => 'Сохранять расположение окна после закрытия';
+	@override String get minimizeToTray => 'Сворачивать в системный трей/строку меню при закрытии';
 	@override String get launchAtStartup => 'Автозагрузка';
 	@override String get launchMinimized => 'Скрытая автозагрузка';
-	@override String get showInContextMenu => 'Показать LocalSend в контекстном меню';
+	@override String get showInContextMenu => 'Отображать LocalSend в контекстном меню';
 	@override String get animations => 'Анимации';
 }
 
@@ -513,7 +519,7 @@ class _StringsSettingsTabReceiveRu extends _StringsSettingsTabReceiveEn {
 	@override String get title => 'Получение';
 	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Автозавершение';
-	@override String get destination => 'Сохранять в';
+	@override String get destination => 'Сохранять в папку';
 	@override String get downloads => '(Загрузки)';
 	@override String get saveToGallery => 'Сохранять медиафайлы в галерею';
 	@override String get saveToHistory => 'Сохранять историю';
@@ -596,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsRu extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Открыть файл';
+	@override String get showInFolder => 'Показать в папке';
 	@override String get info => 'Информация';
 	@override String get deleteFromHistory => 'Удалить из истории';
 }
@@ -785,7 +792,7 @@ class _StringsDialogsNoFilesRu extends _StringsDialogsNoFilesEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Файлы не выбраны';
+	@override String get title => 'Не выбрано ни одного файла';
 	@override String get content => 'Пожалуйста, добавьте, как минимум, один файл.';
 }
 
@@ -845,6 +852,16 @@ class _StringsDialogsQuickSaveNoticeRu extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Запросы на получение файлов теперь принимаются автоматически. Будьте осторожны, все пользователи этой локальной сети могут отправлять вам файлы.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinRu extends _StringsDialogsPinEn {
+	_StringsDialogsPinRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Введите PIN-код';
 }
 
 // Path: dialogs.sendModeHelp

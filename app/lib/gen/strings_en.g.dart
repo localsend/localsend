@@ -230,7 +230,7 @@ class _StringsReceiveOptionsPageEn {
 	String get destination => _root.settingsTab.receive.destination;
 	String get appDirectory => '(LocalSend folder)';
 	String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-	String get saveToGalleryOff => 'Turned off automatically because there are directories.';
+	String get saveToGalleryOff => 'Turned off automatically because there are folders.';
 }
 
 // Path: sendPage
@@ -578,7 +578,7 @@ class _StringsSettingsTabGeneralEn {
 	String get language => 'Language';
 	late final _StringsSettingsTabGeneralLanguageOptionsEn languageOptions = _StringsSettingsTabGeneralLanguageOptionsEn._(_root);
 	String get saveWindowPlacement => 'Quit: Save window placement';
-	String get minimizeToTray => 'Quit: Minimize to Tray/Menu Bar';
+	String get minimizeToTray => 'Minimize to the System Tray/Menu Bar when closing';
 	String get launchAtStartup => 'Autostart after login';
 	String get launchMinimized => 'Autostart: Start hidden';
 	String get showInContextMenu => 'Show LocalSend in context menu';
@@ -595,7 +595,7 @@ class _StringsSettingsTabReceiveEn {
 	String get title => 'Receive';
 	String get quickSave => _root.general.quickSave;
 	String get autoFinish => 'Auto Finish';
-	String get destination => 'Destination';
+	String get destination => 'Save to folder';
 	String get downloads => '(Downloads)';
 	String get saveToGallery => 'Save media to gallery';
 	String get saveToHistory => 'Save to history';
@@ -868,7 +868,7 @@ class _StringsDialogsNoFilesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'No file selected';
+	String get title => 'No files selected';
 	String get content => 'Please select at least one file.';
 }
 

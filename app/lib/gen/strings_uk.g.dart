@@ -127,7 +127,7 @@ class _StringsSendTabUk extends _StringsSendTabEn {
 	@override late final _StringsSendTabSendModesUk sendModes = _StringsSendTabSendModesUk._(_root);
 	@override String get sendModeHelp => 'Довідка';
 	@override String get help => 'Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.';
-	@override String get placeItems => 'Додайте сюди файли, щоб поділитися.';
+	@override String get placeItems => 'Додайте файли, щоб поділитися.';
 }
 
 // Path: settingsTab
@@ -169,7 +169,7 @@ class _StringsReceiveHistoryPageUk extends _StringsReceiveHistoryPageEn {
 
 	// Translations
 	@override String get title => 'Історія';
-	@override String get openFolder => 'Відкрити теку';
+	@override String get openFolder => 'Відкрити папку';
 	@override String get deleteHistory => 'Очистити історію';
 	@override String get empty => 'Історія порожня.';
 	@override late final _StringsReceiveHistoryPageEntryActionsUk entryActions = _StringsReceiveHistoryPageEntryActionsUk._(_root);
@@ -223,9 +223,9 @@ class _StringsReceiveOptionsPageUk extends _StringsReceiveOptionsPageEn {
 	// Translations
 	@override String get title => 'Параметри отримання';
 	@override String get destination => _root.settingsTab.receive.destination;
-	@override String get appDirectory => '(Тека LocalSend)';
+	@override String get appDirectory => '(Папка LocalSend)';
 	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-	@override String get saveToGalleryOff => 'Вимкнено автоматично, оскільки є каталоги.';
+	@override String get saveToGalleryOff => 'Вимкнено автоматично, оскільки є папки.';
 }
 
 // Path: sendPage
@@ -272,6 +272,8 @@ class _StringsWebSharePageUk extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Запитів поки що немає.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Автоматично приймати запити';
+	@override String get requirePin => 'Вимагати PIN-код';
+	@override String pinHint({required Object pin}) => 'PIN-код: "${pin}"';
 	@override String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
 	@override String pendingRequests({required Object n}) => 'Запити, що очікують на розгляд: ${n}';
 }
@@ -353,6 +355,7 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrUk qr = _StringsDialogsQrUk._(_root);
 	@override late final _StringsDialogsQuickActionsUk quickActions = _StringsDialogsQuickActionsUk._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice = _StringsDialogsQuickSaveNoticeUk._(_root);
+	@override late final _StringsDialogsPinUk pin = _StringsDialogsPinUk._(_root);
 	@override late final _StringsDialogsSendModeHelpUk sendModeHelp = _StringsDialogsSendModeHelpUk._(_root);
 	@override late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
 }
@@ -387,6 +390,9 @@ class _StringsWebUk extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Введіть PIN-код';
+	@override String get invalidPin => 'Неправильний PIN-код';
+	@override String get tooManyAttempts => 'Занадто багато спроб';
 	@override String get rejected => 'Відхилено';
 	@override String get files => 'Файлів';
 	@override String get fileName => 'Ім\'я файлу';
@@ -462,7 +468,7 @@ class _StringsSendTabPickerUk extends _StringsSendTabPickerEn {
 
 	// Translations
 	@override String get file => 'Файл';
-	@override String get folder => 'Тека';
+	@override String get folder => 'Папка';
 	@override String get media => 'Медіа';
 	@override String get text => 'Текст';
 	@override String get app => 'Додаток';
@@ -495,11 +501,11 @@ class _StringsSettingsTabGeneralUk extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsUk colorOptions = _StringsSettingsTabGeneralColorOptionsUk._(_root);
 	@override String get language => 'Мова';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsUk languageOptions = _StringsSettingsTabGeneralLanguageOptionsUk._(_root);
-	@override String get saveWindowPlacement => 'Зберегти розташування вікна після закриття';
-	@override String get minimizeToTray => 'Закрити: згорнути в системний трей/смугу меню';
+	@override String get saveWindowPlacement => 'Зберігати розташування вікна після закриття';
+	@override String get minimizeToTray => 'Згортати в системний трей/смугу меню при закритті';
 	@override String get launchAtStartup => 'Автозапуск';
 	@override String get launchMinimized => 'Прихований автозапуск';
-	@override String get showInContextMenu => 'Показати LocalSend в контекстному меню';
+	@override String get showInContextMenu => 'Відображати LocalSend в контекстному меню';
 	@override String get animations => 'Анімації';
 }
 
@@ -513,7 +519,7 @@ class _StringsSettingsTabReceiveUk extends _StringsSettingsTabReceiveEn {
 	@override String get title => 'Отримання';
 	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Автозавершення';
-	@override String get destination => 'Зберігати в теку';
+	@override String get destination => 'Зберігати в папку';
 	@override String get downloads => '(Завантаження)';
 	@override String get saveToGallery => 'Зберігати медіафайли до галереї';
 	@override String get saveToHistory => 'Зберігати історію';
@@ -596,6 +602,7 @@ class _StringsReceiveHistoryPageEntryActionsUk extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Відкрити файл';
+	@override String get showInFolder => 'Показати в папці';
 	@override String get info => 'Інформація';
 	@override String get deleteFromHistory => 'Видалити з історії';
 }
@@ -620,7 +627,7 @@ class _StringsDialogsAddFileUk extends _StringsDialogsAddFileEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Додати до обраних';
+	@override String get title => 'Додати до вибірки';
 	@override String get content => 'Що ви бажаєте додати?';
 }
 
@@ -785,7 +792,7 @@ class _StringsDialogsNoFilesUk extends _StringsDialogsNoFilesEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Файли не обрано';
+	@override String get title => 'Не вибрано жодного файлу';
 	@override String get content => 'Будь ласка, додайте як мінімум один файл.';
 }
 
@@ -845,6 +852,16 @@ class _StringsDialogsQuickSaveNoticeUk extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Запити на отримання файлів відтепер приймаються автоматично. Будьте обережні, всі користувачі цієї локальної мережі можуть надсилати вам файли.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinUk extends _StringsDialogsPinEn {
+	_StringsDialogsPinUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Введіть PIN-код';
 }
 
 // Path: dialogs.sendModeHelp

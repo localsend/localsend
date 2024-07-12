@@ -2,24 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
-  ],
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Показати в папці"
-    }
-  },
-  "webSharePage": {
-    "requirePin": "Вимагати PIN-код",
-    "pinHint": "PIN-код: \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Введіть PIN-код"
-    }
-  },
-  "web": {
-    "enterPin": "Введіть PIN-код",
-    "invalidPin": "Неправильний PIN-код",
-    "tooManyAttempts": "Занадто багато спроб"
-  }
+  ]
 }
