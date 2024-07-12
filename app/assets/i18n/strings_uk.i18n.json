@@ -97,7 +97,7 @@
         "system": "Системна"
       },
       "saveWindowPlacement": "Зберігати розташування вікна після закриття",
-      "minimizeToTray": "Закрити: згорнути в системний трей/смугу меню",
+      "minimizeToTray": "Згортати в системний трей/смугу меню при закритті",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
       "showInContextMenu": "Показати LocalSend в контекстному меню",
