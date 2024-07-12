@@ -392,7 +392,7 @@
       "multiline": "Multiline"
     },
     "noFiles": {
-      "title": "No file selected",
+      "title": "No files selected",
       "content": "Please select at least one file."
     },
     "noPermission": {
