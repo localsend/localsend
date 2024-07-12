@@ -248,7 +248,7 @@
     "title": "Історія змін"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Наслідує англійську версію"
   },
   "dialogs": {
     "addFile": {
