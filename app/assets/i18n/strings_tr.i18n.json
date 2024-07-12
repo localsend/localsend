@@ -161,6 +161,7 @@
     "empty": "Geçmiş yok.",
     "entryActions": {
       "open": "Dosya aç",
+      "showInFolder": "Klasörde göster",
       "info": "Bilgi",
       "deleteFromHistory": "Geçmişten sil"
     }
@@ -224,6 +225,8 @@
     "noRequests": "Henüz istek yok.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "İstekleri otomatik olarak kabul et",
+    "requirePin": "PIN gerektir",
+    "pinHint": "PIN \"{pin}\"",
     "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
@@ -351,6 +354,9 @@
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
     },
+    "pin": {
+      "title": "PIN girin"
+    },
     "zoom": {
       "title": "URL"
     }
@@ -366,6 +372,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN girin",
+    "invalidPin": "Geçersiz PIN",
+    "tooManyAttempts": "Çok fazla deneme",
     "rejected": "Reddedildi",
     "files": "Dosyalar",
     "fileName": "Dosya adı",
