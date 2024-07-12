@@ -189,7 +189,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "Turned off automatically because there are folders."
   },
   "sendPage": {
     "waiting": "Waiting for response...",
