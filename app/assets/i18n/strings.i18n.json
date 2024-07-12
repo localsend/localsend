@@ -97,7 +97,7 @@
         "system": "System"
       },
       "saveWindowPlacement": "Quit: Save window placement",
-      "minimizeToTray": "Quit: Minimize to Tray/Menu Bar",
+      "minimizeToTray": "Minimize to the System Tray/Menu Bar when closing",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
       "showInContextMenu": "Show LocalSend in context menu",
@@ -107,7 +107,7 @@
       "title": "Receive",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Auto Finish",
-      "destination": "Destination",
+      "destination": "Save to folder",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
       "saveToHistory": "Save to history"
@@ -189,7 +189,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "Turned off automatically because there are folders."
   },
   "sendPage": {
     "waiting": "Waiting for response...",
@@ -392,7 +392,7 @@
       "multiline": "Multiline"
     },
     "noFiles": {
-      "title": "No file selected",
+      "title": "No files selected",
       "content": "Please select at least one file."
     },
     "noPermission": {

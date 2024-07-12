@@ -57,7 +57,7 @@
     },
     "picker": {
       "file": "Файл",
-      "folder": "Тека",
+      "folder": "Папка",
       "media": "Медіа",
       "text": "Текст",
       "app": "Додаток",
@@ -75,7 +75,7 @@
     },
     "sendModeHelp": "Довідка",
     "help": "Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.",
-    "placeItems": "Додайте сюди файли, щоб поділитися."
+    "placeItems": "Додайте файли, щоб поділитися."
   },
   "settingsTab": {
     "title": "Налаштування",
@@ -96,18 +96,18 @@
       "languageOptions": {
         "system": "Системна"
       },
-      "saveWindowPlacement": "Зберегти розташування вікна після закриття",
-      "minimizeToTray": "Закрити: згорнути в системний трей/смугу меню",
+      "saveWindowPlacement": "Зберігати розташування вікна після закриття",
+      "minimizeToTray": "Згортати в системний трей/смугу меню при закритті",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
-      "showInContextMenu": "Показати LocalSend в контекстному меню",
+      "showInContextMenu": "Відображати LocalSend в контекстному меню",
       "animations": "Анімації"
     },
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Автозавершення",
-      "destination": "Зберігати в теку",
+      "destination": "Зберігати в папку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї",
       "saveToHistory": "Зберігати історію"
@@ -156,7 +156,7 @@
   },
   "receiveHistoryPage": {
     "title": "Історія",
-    "openFolder": "Відкрити теку",
+    "openFolder": "Відкрити папку",
     "deleteHistory": "Очистити історію",
     "empty": "Історія порожня.",
     "entryActions": {
@@ -186,9 +186,9 @@
   "receiveOptionsPage": {
     "title": "Параметри отримання",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Тека LocalSend)",
+    "appDirectory": "(Папка LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Вимкнено автоматично, оскільки є каталоги."
+    "saveToGalleryOff": "Вимкнено автоматично, оскільки є папки."
   },
   "sendPage": {
     "waiting": "Очікування відповіді...",
@@ -248,11 +248,11 @@
     "title": "Історія змін"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Наслідує англійську версію"
   },
   "dialogs": {
     "addFile": {
-      "title": "Додати до обраних",
+      "title": "Додати до вибірки",
       "content": "Що ви бажаєте додати?"
     },
     "addressInput": {
@@ -319,7 +319,7 @@
       "multiline": "Багаторядкове"
     },
     "noFiles": {
-      "title": "Файли не обрано",
+      "title": "Не вибрано жодного файлу",
       "content": "Будь ласка, додайте як мінімум один файл."
     },
     "noPermission": {
@@ -372,7 +372,7 @@
     "size": "Розмір"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Переклад інструменту вибору медіа для Android та iPhone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",

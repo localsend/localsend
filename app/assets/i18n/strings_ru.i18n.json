@@ -96,18 +96,18 @@
       "languageOptions": {
         "system": "Системный"
       },
-      "saveWindowPlacement": "Сохранить расположение окна после закрытия",
-      "minimizeToTray": "Закрыть: свернуть в системный трей/строку меню",
+      "saveWindowPlacement": "Сохранять расположение окна после закрытия",
+      "minimizeToTray": "Сворачивать в системный трей/строку меню при закрытии",
       "launchAtStartup": "Автозагрузка",
       "launchMinimized": "Скрытая автозагрузка",
-      "showInContextMenu": "Показать LocalSend в контекстном меню",
+      "showInContextMenu": "Отображать LocalSend в контекстном меню",
       "animations": "Анимации"
     },
     "receive": {
       "title": "Получение",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Автозавершение",
-      "destination": "Сохранять в",
+      "destination": "Сохранять в папку",
       "downloads": "(Загрузки)",
       "saveToGallery": "Сохранять медиафайлы в галерею",
       "saveToHistory": "Сохранять историю"
@@ -248,7 +248,7 @@
     "title": "История изменений"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Наследует английскую версию"
   },
   "dialogs": {
     "addFile": {
@@ -319,7 +319,7 @@
       "multiline": "Многострочное"
     },
     "noFiles": {
-      "title": "Файлы не выбраны",
+      "title": "Не выбрано ни одного файла",
       "content": "Пожалуйста, добавьте, как минимум, один файл."
     },
     "noPermission": {
@@ -372,7 +372,7 @@
     "size": "Размер"
   },
   "assetPicker": {
-    "@info": "Перевод инструмента выбора медиа для Android и Iphone",
+    "@info": "Перевод инструмента выбора медиа для Android и iPhone",
     "confirm": "Подтвердить",
     "cancel": "Отмена",
     "edit": "Изменить",
