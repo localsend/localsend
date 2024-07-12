@@ -97,7 +97,7 @@
         "system": "System"
       },
       "saveWindowPlacement": "Quit: Save window placement",
-      "minimizeToTray": "Quit: Minimize to Tray/Menu Bar",
+      "minimizeToTray": "Minimize to the system tray/menu bar when closing",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
       "showInContextMenu": "Show LocalSend in context menu",
