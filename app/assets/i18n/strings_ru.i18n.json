@@ -107,7 +107,7 @@
       "title": "Получение",
       "quickSave": "@:general.quickSave",
       "autoFinish": "Автозавершение",
-      "destination": "Сохранять в",
+      "destination": "Сохранять в папку",
       "downloads": "(Загрузки)",
       "saveToGallery": "Сохранять медиафайлы в галерею",
       "saveToHistory": "Сохранять историю"
