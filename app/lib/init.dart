@@ -155,8 +155,6 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   }
 
   if (appStart) {
-    final args = ref.read(appArgumentsProvider);
-
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       final files = await getOpenedFiles();
       if (files.isNotEmpty) {
@@ -172,6 +170,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         ));
       });
     } else {
+      final args = ref.read(appArgumentsProvider);
       await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
         args: args,
       ));
