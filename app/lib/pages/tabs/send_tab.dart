@@ -544,6 +544,8 @@ extension on SessionStatus {
         return t.sendPage.busy;
       case SessionStatus.declined:
         return t.sendPage.rejected;
+      case SessionStatus.tooManyAttempts:
+        return t.sendPage.tooManyAttempts;
       case SessionStatus.sending:
         return null;
       case SessionStatus.finished:

@@ -20,7 +20,7 @@ dependencies:
   desktop_drop: 0.4.4
   device_apps: 2.2.0
   device_info_plus: 9.1.2
-  dio: 5.5.0+1
+  dio: 5.4.3+1
   dynamic_color: 1.7.0
   file_picker: 8.0.0+1
   file_selector: 1.0.3

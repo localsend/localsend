@@ -127,50 +127,57 @@ class _SendPageState extends State<SendPage> with Refena {
                         delay: const Duration(milliseconds: 400),
                         child: Column(
                           children: [
-                            if (sendState.status == SessionStatus.waiting)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
-                              )
-                            else if (sendState.status == SessionStatus.declined)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(
-                                  t.sendPage.rejected,
-                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                                  textAlign: TextAlign.center,
+                            switch (sendState.status) {
+                              SessionStatus.waiting => Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
                                 ),
-                              )
-                            else if (sendState.status == SessionStatus.recipientBusy)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(
-                                  t.sendPage.busy,
-                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                                  textAlign: TextAlign.center,
+                              SessionStatus.declined => Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Text(
+                                    t.sendPage.rejected,
+                                    style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              )
-                            else if (sendState.status == SessionStatus.finishedWithErrors)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
-                                    if (sendState.errorMessage != null)
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Theme.of(context).colorScheme.warning,
+                              SessionStatus.tooManyAttempts => Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Text(
+                                    t.sendPage.tooManyAttempts,
+                                    style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              SessionStatus.recipientBusy => Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Text(
+                                    t.sendPage.busy,
+                                    style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              SessionStatus.finishedWithErrors => Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                                      if (sendState.errorMessage != null)
+                                        TextButton(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: Theme.of(context).colorScheme.warning,
+                                          ),
+                                          onPressed: () async => showDialog(
+                                            context: context,
+                                            builder: (_) => ErrorDialog(error: sendState.errorMessage!),
+                                          ),
+                                          child: const Icon(Icons.info),
                                         ),
-                                        onPressed: () async => showDialog(
-                                          context: context,
-                                          builder: (_) => ErrorDialog(error: sendState.errorMessage!),
-                                        ),
-                                        child: const Icon(Icons.info),
-                                      ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              _ => const SizedBox(),
+                            },
                             Center(
                               child: FilledButton.icon(
                                 onPressed: () {

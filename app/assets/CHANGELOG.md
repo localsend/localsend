@@ -3,6 +3,7 @@
 - feat: add clear button in the send tab (@Caesarovich)
 - feat: save text messages to history (@Tienisto)
 - feat: add option to require PIN when sharing via link (@Tienisto)
+- feat: add option to require PIN when receiving files (@Tienisto)
 - feat: add option to open parent folder of received files in history (@Tienisto)
 - feat: confirm before adding or removing favorites in the nearby devices list (@Tienisto)
 - feat: add URL view when sharing via link that shows the URL in bigger font (@harriseldon)

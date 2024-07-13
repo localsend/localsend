@@ -15,6 +15,7 @@ import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
+import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
@@ -145,6 +146,28 @@ class SettingsTab extends StatelessWidget {
                     await ref.notifier(settingsProvider).setQuickSave(b);
                     if (!old && b && context.mounted) {
                       await QuickSaveNotice.open(context);
+                    }
+                  },
+                ),
+                _BooleanEntry(
+                  label: t.settingsTab.receive.requirePin,
+                  value: vm.settings.receivePin != null,
+                  onChanged: (b) async {
+                    final currentPIN = vm.settings.receivePin;
+                    if (currentPIN != null) {
+                      await ref.notifier(settingsProvider).setReceivePin(null);
+                    } else {
+                      final String? newPin = await showDialog<String>(
+                        context: context,
+                        builder: (_) => const PinDialog(
+                          obscureText: false,
+                          generateRandom: true,
+                        ),
+                      );
+
+                      if (newPin != null && newPin.isNotEmpty) {
+                        await ref.notifier(settingsProvider).setReceivePin(newPin);
+                      }
                     }
                   },
                 ),

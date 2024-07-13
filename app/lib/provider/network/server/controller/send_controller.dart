@@ -10,6 +10,7 @@ import 'package:localsend_app/model/state/send/web/web_send_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_session.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/network/server/controller/common.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
@@ -101,19 +102,14 @@ class SendController {
         }
       }
 
-      if (state.webSendState!.pin != null) {
-        final attempts = state.webSendState!.pinAttempts[request.ip] ?? 0;
-        if (attempts >= 2) {
-          return server.responseJson(429, message: 'Too many attempts.');
-        }
-
-        final pin = request.url.queryParameters['pin'];
-        if (pin != state.webSendState!.pin) {
-          if (pin?.isNotEmpty ?? false) {
-            state.webSendState!.pinAttempts[request.ip] = attempts + 1;
-          }
-          return server.responseJson(401, message: 'Invalid pin.');
-        }
+      final pinResponse = handlePin(
+        server: server,
+        pin: state.webSendState!.pin,
+        pinAttempts: state.webSendState!.pinAttempts,
+        request: request,
+      );
+      if (pinResponse != null) {
+        return pinResponse;
       }
 
       final streamController = StreamController<bool>();

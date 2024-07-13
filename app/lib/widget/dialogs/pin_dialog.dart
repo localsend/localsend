@@ -5,8 +5,15 @@ import 'package:routerino/routerino.dart';
 
 class PinDialog extends StatefulWidget {
   final String? pin;
+  final bool obscureText;
+  final bool generateRandom;
 
-  const PinDialog({this.pin, super.key});
+  const PinDialog({
+    this.pin,
+    required this.obscureText,
+    this.generateRandom = false,
+    super.key,
+  });
 
   @override
   State<PinDialog> createState() => _PinDialogState();
@@ -18,7 +25,7 @@ class _PinDialogState extends State<PinDialog> {
   @override
   void initState() {
     super.initState();
-    _textController.text = widget.pin ?? nanoid(alphabet: Alphabet.noDoppelganger, length: 6);
+    _textController.text = widget.pin ?? (widget.generateRandom ? nanoid(alphabet: Alphabet.noDoppelganger, length: 6) : '');
   }
 
   @override
@@ -28,6 +35,7 @@ class _PinDialogState extends State<PinDialog> {
       content: TextFormField(
         controller: _textController,
         autofocus: true,
+        obscureText: widget.obscureText,
         onFieldSubmitted: (value) => context.pop(value),
       ),
       actions: [

@@ -318,7 +318,10 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                         } else {
                           final String? newPin = await showDialog<String>(
                             context: context,
-                            builder: (_) => const PinDialog(),
+                            builder: (_) => const PinDialog(
+                              obscureText: false,
+                              generateRandom: true,
+                            ),
                           );
 
                           if (newPin != null && newPin.isNotEmpty) {

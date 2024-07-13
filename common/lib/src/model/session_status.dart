@@ -4,6 +4,7 @@ enum SessionStatus {
   waiting, // wait for receiver response (wait for decline / accept)
   recipientBusy, // recipient is busy with another request (end of session)
   declined, // receiver declined the request (end of session)
+  tooManyAttempts, // receiver declined the request (end of session)
   sending, // files are being sent
   finished, // all files sent (end of session)
   finishedWithErrors, // finished but some files could not be sent (end of session)

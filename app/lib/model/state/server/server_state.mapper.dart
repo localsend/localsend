@@ -34,6 +34,8 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   static const Field<ServerState, ReceiveSessionState> _f$session = Field('session', _$session);
   static WebSendState? _$webSendState(ServerState v) => v.webSendState;
   static const Field<ServerState, WebSendState> _f$webSendState = Field('webSendState', _$webSendState);
+  static Map<String, int> _$pinAttempts(ServerState v) => v.pinAttempts;
+  static const Field<ServerState, Map<String, int>> _f$pinAttempts = Field('pinAttempts', _$pinAttempts);
 
   @override
   final MappableFields<ServerState> fields = const {
@@ -43,6 +45,7 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
     #https: _f$https,
     #session: _f$session,
     #webSendState: _f$webSendState,
+    #pinAttempts: _f$pinAttempts,
   };
 
   static ServerState _instantiate(DecodingData data) {
@@ -52,7 +55,8 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
         port: data.dec(_f$port),
         https: data.dec(_f$https),
         session: data.dec(_f$session),
-        webSendState: data.dec(_f$webSendState));
+        webSendState: data.dec(_f$webSendState),
+        pinAttempts: data.dec(_f$pinAttempts));
   }
 
   @override
@@ -100,7 +104,15 @@ extension ServerStateValueCopy<$R, $Out> on ObjectCopyWith<$R, ServerState, $Out
 abstract class ServerStateCopyWith<$R, $In extends ServerState, $Out> implements ClassCopyWith<$R, $In, $Out> {
   ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>? get session;
   WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState;
-  $R call({HttpServer? httpServer, String? alias, int? port, bool? https, ReceiveSessionState? session, WebSendState? webSendState});
+  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts;
+  $R call(
+      {HttpServer? httpServer,
+      String? alias,
+      int? port,
+      bool? https,
+      ReceiveSessionState? session,
+      WebSendState? webSendState,
+      Map<String, int>? pinAttempts});
   ServerStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -114,14 +126,25 @@ class _ServerStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ServerSta
   @override
   WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState => $value.webSendState?.copyWith.$chain((v) => call(webSendState: v));
   @override
-  $R call({HttpServer? httpServer, String? alias, int? port, bool? https, Object? session = $none, Object? webSendState = $none}) =>
+  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts =>
+      MapCopyWith($value.pinAttempts, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(pinAttempts: v));
+  @override
+  $R call(
+          {HttpServer? httpServer,
+          String? alias,
+          int? port,
+          bool? https,
+          Object? session = $none,
+          Object? webSendState = $none,
+          Map<String, int>? pinAttempts}) =>
       $apply(FieldCopyWithData({
         if (httpServer != null) #httpServer: httpServer,
         if (alias != null) #alias: alias,
         if (port != null) #port: port,
         if (https != null) #https: https,
         if (session != $none) #session: session,
-        if (webSendState != $none) #webSendState: webSendState
+        if (webSendState != $none) #webSendState: webSendState,
+        if (pinAttempts != null) #pinAttempts: pinAttempts
       }));
   @override
   ServerState $make(CopyWithData data) => ServerState(
@@ -130,7 +153,8 @@ class _ServerStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ServerSta
       port: data.get(#port, or: $value.port),
       https: data.get(#https, or: $value.https),
       session: data.get(#session, or: $value.session),
-      webSendState: data.get(#webSendState, or: $value.webSendState));
+      webSendState: data.get(#webSendState, or: $value.webSendState),
+      pinAttempts: data.get(#pinAttempts, or: $value.pinAttempts));
 
   @override
   ServerStateCopyWith<$R2, ServerState, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _ServerStateCopyWithImpl($value, $cast, t);
