@@ -611,7 +611,7 @@ class _StringsSettingsTabSendEn {
 
 	// Translations
 	String get title => 'Send';
-	String get shareViaLinkAutoAccept => 'Share via link: Auto accept';
+	String get shareViaLinkAutoAccept => 'Automatically accept requests in \'Share via link\' mode';
 }
 
 // Path: settingsTab.network

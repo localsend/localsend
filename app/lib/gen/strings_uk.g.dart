@@ -535,7 +535,7 @@ class _StringsSettingsTabSendUk extends _StringsSettingsTabSendEn {
 
 	// Translations
 	@override String get title => 'Надсилання';
-	@override String get shareViaLinkAutoAccept => 'Поділитися через посилання: Приймати автоматично';
+	@override String get shareViaLinkAutoAccept => 'Автоматично приймати запити в режимі \'Поділитися через посилання\'';
 }
 
 // Path: settingsTab.network

@@ -13,7 +13,7 @@
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "shareViaLinkAutoAccept": "Automatically accept requests in 'Share via link' mode"
     },
     "network": {
       "discoveryTimeout": "Discovery Timeout"
