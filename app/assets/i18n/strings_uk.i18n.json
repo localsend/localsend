@@ -376,7 +376,7 @@
     "waiting": "@:sendPage.waiting",
     "enterPin": "Введіть PIN-код",
     "invalidPin": "Неправильний PIN-код",
-    "tooManyAttempts": "Занадто багато спроб",
+    "tooManyAttempts": "Забагато спроб",
     "rejected": "Відхилено",
     "files": "Файлів",
     "fileName": "Ім'я файлу",
