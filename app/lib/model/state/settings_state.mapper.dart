@@ -43,6 +43,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, bool> _f$saveToHistory = Field('saveToHistory', _$saveToHistory);
   static bool _$quickSave(SettingsState v) => v.quickSave;
   static const Field<SettingsState, bool> _f$quickSave = Field('quickSave', _$quickSave);
+  static String? _$receivePin(SettingsState v) => v.receivePin;
+  static const Field<SettingsState, String> _f$receivePin = Field('receivePin', _$receivePin);
   static bool _$autoFinish(SettingsState v) => v.autoFinish;
   static const Field<SettingsState, bool> _f$autoFinish = Field('autoFinish', _$autoFinish);
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
@@ -77,6 +79,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #saveToGallery: _f$saveToGallery,
     #saveToHistory: _f$saveToHistory,
     #quickSave: _f$quickSave,
+    #receivePin: _f$receivePin,
     #autoFinish: _f$autoFinish,
     #minimizeToTray: _f$minimizeToTray,
     #https: _f$https,
@@ -102,6 +105,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         saveToGallery: data.dec(_f$saveToGallery),
         saveToHistory: data.dec(_f$saveToHistory),
         quickSave: data.dec(_f$quickSave),
+        receivePin: data.dec(_f$receivePin),
         autoFinish: data.dec(_f$autoFinish),
         minimizeToTray: data.dec(_f$minimizeToTray),
         https: data.dec(_f$https),
@@ -170,6 +174,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       bool? saveToGallery,
       bool? saveToHistory,
       bool? quickSave,
+      String? receivePin,
       bool? autoFinish,
       bool? minimizeToTray,
       bool? https,
@@ -202,6 +207,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           bool? saveToGallery,
           bool? saveToHistory,
           bool? quickSave,
+          Object? receivePin = $none,
           bool? autoFinish,
           bool? minimizeToTray,
           bool? https,
@@ -224,6 +230,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (saveToGallery != null) #saveToGallery: saveToGallery,
         if (saveToHistory != null) #saveToHistory: saveToHistory,
         if (quickSave != null) #quickSave: quickSave,
+        if (receivePin != $none) #receivePin: receivePin,
         if (autoFinish != null) #autoFinish: autoFinish,
         if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
         if (https != null) #https: https,
@@ -248,6 +255,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
       saveToHistory: data.get(#saveToHistory, or: $value.saveToHistory),
       quickSave: data.get(#quickSave, or: $value.quickSave),
+      receivePin: data.get(#receivePin, or: $value.receivePin),
       autoFinish: data.get(#autoFinish, or: $value.autoFinish),
       minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
       https: data.get(#https, or: $value.https),

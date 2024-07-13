@@ -29,6 +29,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         saveToGallery: _persistence.isSaveToGallery(),
         saveToHistory: _persistence.isSaveToHistory(),
         quickSave: _persistence.isQuickSave(),
+        receivePin: _persistence.getReceivePin(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
         https: _persistence.isHttps(),
@@ -115,6 +116,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setQuickSave(quickSave);
     state = state.copyWith(
       quickSave: quickSave,
+    );
+  }
+
+  Future<void> setReceivePin(String? receivePin) async {
+    await _persistence.setReceivePin(receivePin);
+    state = state.copyWith(
+      receivePin: receivePin,
     );
   }
 

@@ -18,6 +18,7 @@ import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/provider/network/server/controller/common.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
@@ -181,9 +182,19 @@ class ReceiveController {
       return server.responseJson(409, message: 'Blocked by another session');
     }
 
-    final payload = await request.readAsString();
+    final pinResponse = handlePin(
+      server: server,
+      pin: server.ref.read(settingsProvider).receivePin,
+      pinAttempts: server.getState().pinAttempts,
+      request: request,
+    );
+    if (pinResponse != null) {
+      return pinResponse;
+    }
+
     final PrepareUploadRequestDto dto;
     try {
+      final payload = await request.readAsString();
       dto = PrepareUploadRequestDto.fromJson(jsonDecode(payload));
     } catch (e) {
       return server.responseJson(400, message: 'Request body malformed');

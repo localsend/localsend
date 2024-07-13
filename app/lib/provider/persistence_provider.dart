@@ -71,6 +71,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
+const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _https = 'ls_https';
@@ -169,6 +170,7 @@ class PersistenceService {
     const launchAtStartupLegacyKey = 'ls_launch_at_startup';
     const launchMinimizedLegacyKey = 'ls_auto_start_launch_minimized';
     if (prefs.getBool(launchAtStartupLegacyKey) == true) {
+      _logger.info('Enable auto start on legacy settings');
       await prefs.remove(launchAtStartupLegacyKey);
       await enableAutoStart(startHidden: prefs.getBool(launchMinimizedLegacyKey) == true);
       await prefs.remove(launchMinimizedLegacyKey);
@@ -333,6 +335,18 @@ class PersistenceService {
 
   Future<void> setQuickSave(bool quickSave) async {
     await _prefs.setBool(_quickSave, quickSave);
+  }
+
+  String? getReceivePin() {
+    return _prefs.getString(_receivePin);
+  }
+
+  Future<void> setReceivePin(String? pin) async {
+    if (pin == null) {
+      await _prefs.remove(_receivePin);
+    } else {
+      await _prefs.setString(_receivePin, pin);
+    }
   }
 
   bool isAutoFinish() {

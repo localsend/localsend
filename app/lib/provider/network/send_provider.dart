@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:common/common.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
@@ -17,6 +18,8 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
+import 'package:localsend_app/util/sleep.dart';
+import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -122,29 +125,79 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       );
     }
 
-    final Response response;
-    try {
-      response = await requestDio.post(
-        ApiRoute.prepareUpload.target(target),
-        data: jsonEncode(requestDto), // jsonEncode for better logging
-        cancelToken: cancelToken,
-      );
-    } catch (e) {
-      if (e is DioException && e.response?.statusCode == 403) {
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(
-            status: SessionStatus.declined,
-          ),
+    Response? response;
+    bool invalidPin;
+    String? pin;
+    do {
+      invalidPin = false;
+      try {
+        response = await requestDio.post(
+          ApiRoute.prepareUpload.target(target, query: {
+            if (pin != null) 'pin': pin,
+          }),
+          data: jsonEncode(requestDto), // jsonEncode for better logging
+          cancelToken: cancelToken,
         );
-      } else if (e is DioException && e.response?.statusCode == 409) {
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(
-            status: SessionStatus.recipientBusy,
-          ),
-        );
-      } else {
+      } on DioException catch (e) {
+        switch (e.response?.statusCode) {
+          case 401:
+            invalidPin = true;
+
+            // wait until animation is finished
+            await sleepAsync(500);
+
+            // ignore: use_build_context_synchronously
+            pin = await showDialog<String>(
+              context: Routerino.context,
+              builder: (_) => const PinDialog(
+                obscureText: true,
+              ),
+            );
+            if (pin == null) {
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.canceledBySender,
+                ),
+              );
+              return;
+            }
+            break;
+          case 403:
+            state = state.updateSession(
+              sessionId: sessionId,
+              state: (s) => s?.copyWith(
+                status: SessionStatus.declined,
+              ),
+            );
+            return;
+          case 409:
+            state = state.updateSession(
+              sessionId: sessionId,
+              state: (s) => s?.copyWith(
+                status: SessionStatus.recipientBusy,
+              ),
+            );
+            return;
+          case 429:
+            state = state.updateSession(
+              sessionId: sessionId,
+              state: (s) => s?.copyWith(
+                status: SessionStatus.tooManyAttempts,
+              ),
+            );
+            return;
+          default:
+            state = state.updateSession(
+              sessionId: sessionId,
+              state: (s) => s?.copyWith(
+                status: SessionStatus.finishedWithErrors,
+                errorMessage: e.humanErrorMessage,
+              ),
+            );
+            return;
+        }
+      } catch (e) {
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(
@@ -152,7 +205,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             errorMessage: e.humanErrorMessage,
           ),
         );
+        return;
       }
+    } while (invalidPin);
+
+    if (response == null) {
       return;
     }
 

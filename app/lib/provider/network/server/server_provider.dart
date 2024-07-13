@@ -107,6 +107,7 @@ class ServerService extends Notifier<ServerState?> {
         https: true,
         session: null,
         webSendState: null,
+        pinAttempts: {},
       );
       _logger.info('Server started. (Port: ${newServerState.port}, HTTPS only)');
     } else {
@@ -121,6 +122,7 @@ class ServerService extends Notifier<ServerState?> {
         https: false,
         session: null,
         webSendState: null,
+        pinAttempts: {},
       );
       _logger.info('Server started. (Port: ${newServerState.port}, HTTP only)');
     }
