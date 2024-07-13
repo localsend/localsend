@@ -4,7 +4,8 @@
 /// Protocols | App (Official implementation)
 /// ----------|------------------------------
 /// 1.0       | 1.0.0 - 1.8.0
-/// 1.0, 2.0  | 1.9.0
+/// 1.0, 2.0  | 1.9.0 - 1.14.0
+/// 1.0, 2.1  | 1.15.0
 const protocolVersion = '2.0';
 
 /// Assumed protocol version of peers for first handshake.
