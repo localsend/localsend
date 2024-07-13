@@ -237,6 +237,7 @@ class _StringsSendPageSr extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Čekam odgovor...';
 	@override String get rejected => 'Primalac je odbio zahtev.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Primalac je zauzet nekim drugim zahtevom za slanje.';
 }
 
@@ -589,6 +590,7 @@ class _StringsSettingsTabReceiveSr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Primanje';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Automatski završi';
 	@override String get destination => 'Destinacija';
 	@override String get downloads => '(Downloads)';

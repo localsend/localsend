@@ -106,6 +106,7 @@
     "receive": {
       "title": "受信",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "自動で完了",
       "destination": "保存先",
       "downloads": "(ダウンロード)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "返答を待っています...",
     "rejected": "受信者がリクエストを拒否しました。",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "受信者は他のリクエストの処理中です。"
   },
   "progressPage": {

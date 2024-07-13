@@ -237,6 +237,7 @@ class _StringsSendPagePl extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Czekanie na odpowiedź...';
 	@override String get rejected => 'Odbiorca odrzucił żądanie.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Odbiorca jest zajęty innym żądaniem.';
 }
 
@@ -518,6 +519,7 @@ class _StringsSettingsTabReceivePl extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Odbierz';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Zakończ automatycznie';
 	@override String get destination => 'Miejsce docelowe';
 	@override String get downloads => '(Pobrane)';

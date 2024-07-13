@@ -106,6 +106,7 @@
     "receive": {
       "title": "קבלה",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "סיום אוטומטי",
       "destination": "יעד",
       "downloads": "(הורדות)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "ממתין לתגובה...",
     "rejected": "הנמען דחה את הבקשה.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "הנמען תפוס בבקשה אחרת."
   },
   "progressPage": {

@@ -237,6 +237,7 @@ class _StringsSendPageSrCyrl extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Чекам одговор...';
 	@override String get rejected => 'Прималац је одбио захтев.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Прималац је заузет неким другим захтевом за слање.';
 }
 
@@ -589,6 +590,7 @@ class _StringsSettingsTabReceiveSrCyrl extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Примање';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Аутоматски заврши';
 	@override String get destination => 'Дестинација';
 	@override String get downloads => '(Downloads)';

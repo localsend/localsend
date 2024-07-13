@@ -106,6 +106,7 @@
     "receive": {
       "title": "دریافت",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "پایان خودکار",
       "destination": "مقصد",
       "downloads": "(دانلودها)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "در انتظار پاسخ...",
     "rejected": "گیرنده درخواست را رد کرد",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "گیرنده با درخواست دیگری مشغول است"
   },
   "progressPage": {

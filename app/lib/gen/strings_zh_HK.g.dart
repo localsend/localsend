@@ -237,6 +237,7 @@ class _StringsSendPageZhHk extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => '等緊回應……';
 	@override String get rejected => '對方拒絕咗個請求。';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => '對方忙緊另一個請求。';
 }
 
@@ -518,6 +519,7 @@ class _StringsSettingsTabReceiveZhHk extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '接收';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => '完成後自動關閉傳輸畫面';
 	@override String get destination => '儲存位置';
 	@override String get downloads => '（下載資料夾）';

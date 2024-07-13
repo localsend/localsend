@@ -7,6 +7,9 @@
     "general": {
       "showInContextMenu": "Show LocalSend in context menu"
     },
+    "receive": {
+      "requirePin": "@:webSharePage.requirePin"
+    },
     "network": {
       "discoveryTimeout": "Discovery Timeout"
     }
@@ -15,6 +18,9 @@
     "entryActions": {
       "showInFolder": "Show in folder"
     }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
     "requirePin": "Require PIN",

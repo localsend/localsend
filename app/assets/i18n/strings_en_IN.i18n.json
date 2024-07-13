@@ -106,6 +106,7 @@
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish",
       "destination": "Destination",
       "downloads": "(Downloads)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "Waiting for response...",
     "rejected": "The recipient has rejected the request.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "The recipient is busy with another request."
   },
   "progressPage": {

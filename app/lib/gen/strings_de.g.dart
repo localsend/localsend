@@ -237,6 +237,7 @@ class _StringsSendPageDe extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Warte auf Antwort...';
 	@override String get rejected => 'Der Empfänger hat die Anfrage abgelehnt.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Der Empfänger ist mit einer anderen Anfrage beschäftigt.';
 }
 
@@ -518,6 +519,7 @@ class _StringsSettingsTabReceiveDe extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Empfangen';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Autom. beenden';
 	@override String get destination => 'Ziel-Ordner';
 	@override String get downloads => '(Downloads)';

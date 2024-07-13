@@ -106,6 +106,7 @@
     "receive": {
       "title": "Alım",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Otomatik bitir",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "Alıcıdan cevap bekleniyor...",
     "rejected": "Alıcı isteği reddetti.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Alıcı başka bir istekle meşgul."
   },
   "progressPage": {
@@ -348,14 +350,14 @@
       "title": "@:general.quickSave",
       "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
     },
+    "pin": {
+      "title": "PIN girin"
+    },
     "sendModeHelp": {
       "title": "Gönderme Modu",
       "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
-    },
-    "pin": {
-      "title": "PIN girin"
     },
     "zoom": {
       "title": "URL"

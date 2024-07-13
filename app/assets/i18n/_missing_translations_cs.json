@@ -7,6 +7,9 @@
     "general": {
       "showInContextMenu": "Show LocalSend in context menu"
     },
+    "receive": {
+      "requirePin": "@:webSharePage.requirePin"
+    },
     "send": {
       "title": "Send",
       "shareViaLinkAutoAccept": "Share via link: Auto accept"
@@ -19,6 +22,9 @@
     "entryActions": {
       "showInFolder": "Show in folder"
     }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
     "autoAccept": "Automatically accept requests",

@@ -237,6 +237,7 @@ class _StringsSendPageFa extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'در انتظار پاسخ...';
 	@override String get rejected => 'گیرنده درخواست را رد کرد';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'گیرنده با درخواست دیگری مشغول است';
 }
 
@@ -589,6 +590,7 @@ class _StringsSettingsTabReceiveFa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'دریافت';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'پایان خودکار';
 	@override String get destination => 'مقصد';
 	@override String get downloads => '(دانلودها)';

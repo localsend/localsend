@@ -237,6 +237,7 @@ class _StringsSendPageRu extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Ожидание ответа...';
 	@override String get rejected => 'Получатель отклонил запрос.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Получатель занят другим запросом.';
 }
 
@@ -518,6 +519,7 @@ class _StringsSettingsTabReceiveRu extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Получение';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Автозавершение';
 	@override String get destination => 'Сохранять в папку';
 	@override String get downloads => '(Загрузки)';

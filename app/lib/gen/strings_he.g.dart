@@ -237,6 +237,7 @@ class _StringsSendPageHe extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'ממתין לתגובה...';
 	@override String get rejected => 'הנמען דחה את הבקשה.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'הנמען תפוס בבקשה אחרת.';
 }
 
@@ -518,6 +519,7 @@ class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'קבלה';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'סיום אוטומטי';
 	@override String get destination => 'יעד';
 	@override String get downloads => '(הורדות)';

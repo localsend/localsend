@@ -106,6 +106,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "完成後自動關閉傳輸畫面",
       "destination": "儲存位置",
       "downloads": "（下載資料夾）",
@@ -195,6 +196,7 @@
   "sendPage": {
     "waiting": "等緊回應……",
     "rejected": "對方拒絕咗個請求。",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "對方忙緊另一個請求。"
   },
   "progressPage": {

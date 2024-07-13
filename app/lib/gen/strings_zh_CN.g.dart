@@ -237,6 +237,7 @@ class _StringsSendPageZhCn extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => '等待响应中……';
 	@override String get rejected => '对方拒绝了请求。';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => '对方正在处理另一个请求。';
 }
 
@@ -587,6 +588,7 @@ class _StringsSettingsTabReceiveZhCn extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '接收';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => '自动完成';
 	@override String get destination => '保存目录';
 	@override String get downloads => '(下载)';

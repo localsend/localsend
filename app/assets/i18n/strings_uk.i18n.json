@@ -106,6 +106,7 @@
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Автозавершення",
       "destination": "Зберігати в папку",
       "downloads": "(Завантаження)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "Очікування відповіді...",
     "rejected": "Отримувач відхилив запит.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Одержувач зайнятий іншим запитом."
   },
   "progressPage": {

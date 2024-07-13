@@ -106,6 +106,7 @@
     "receive": {
       "title": "Примање",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Аутоматски заврши",
       "destination": "Дестинација",
       "downloads": "(Downloads)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "Чекам одговор...",
     "rejected": "Прималац је одбио захтев.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Прималац је заузет неким другим захтевом за слање."
   },
   "progressPage": {

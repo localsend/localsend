@@ -106,6 +106,7 @@
     "receive": {
       "title": "Odbierz",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Zakończ automatycznie",
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
@@ -194,6 +195,7 @@
   "sendPage": {
     "waiting": "Czekanie na odpowiedź...",
     "rejected": "Odbiorca odrzucił żądanie.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Odbiorca jest zajęty innym żądaniem."
   },
   "progressPage": {
