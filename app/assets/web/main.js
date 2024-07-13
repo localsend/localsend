@@ -2,15 +2,50 @@ const BASE_URL = '/api/localsend/v2';
 
 let i18n = {};
 let sessionId = sessionStorage.getItem('sessionId');
+let queryPin = new URLSearchParams(window.location.search).get('pin');
 
 async function requestFiles() {
   document.getElementById('status-text').innerText = i18n.waiting;
-  const response = await fetch(
-    `${BASE_URL}/prepare-download?sessionId=${sessionId}`,
+
+  let initialUrl = new URL(`${BASE_URL}/prepare-download`, document.location);
+  if (sessionId) {
+    initialUrl.searchParams.append('sessionId', sessionId);
+  }
+  if (queryPin) {
+    initialUrl.searchParams.append('pin', queryPin);
+  }
+
+  let response = await fetch(
+    initialUrl,
     {
       method: 'POST',
     },
   );
+
+  if (response.status === 429) {
+    document.getElementById('status-text').innerText = i18n.tooManyAttempts;
+    return;
+  }
+
+  while (response.status === 401) {
+    const pin = prompt(i18n.enterPin);
+    if (!pin) {
+      document.getElementById('status-text').innerText = i18n.invalidPin;
+      return;
+    }
+
+    response = await fetch(
+      `${BASE_URL}/prepare-download?pin=${pin}`,
+      {
+      method: 'POST',
+      },
+    );
+
+    if (response.status === 429) {
+      document.getElementById('status-text').innerText = i18n.tooManyAttempts;
+      return;
+    }
+  }
 
   if (response.status === 403) {
     document.getElementById('status-text').innerText = i18n.rejected;

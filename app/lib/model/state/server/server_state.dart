@@ -14,6 +14,7 @@ class ServerState with ServerStateMappable {
   final bool https;
   final ReceiveSessionState? session;
   final WebSendState? webSendState;
+  final Map<String, int> pinAttempts; // IP address -> attempts (won't be reset on session end)
 
   const ServerState({
     required this.httpServer,
@@ -22,5 +23,6 @@ class ServerState with ServerStateMappable {
     required this.https,
     required this.session,
     required this.webSendState,
+    required this.pinAttempts,
   });
 }

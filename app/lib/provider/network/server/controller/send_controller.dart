@@ -10,6 +10,7 @@ import 'package:localsend_app/model/state/send/web/web_send_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_session.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/network/server/controller/common.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
@@ -60,6 +61,9 @@ class SendController {
 
       return server.responseJson(200, body: {
         'waiting': t.web.waiting,
+        'enterPin': t.web.enterPin,
+        'invalidPin': t.web.invalidPin,
+        'tooManyAttempts': t.web.tooManyAttempts,
         'rejected': t.web.rejected,
         'files': t.web.files,
         'fileName': t.web.fileName,
@@ -96,6 +100,16 @@ class SendController {
                 },
               ).toJson());
         }
+      }
+
+      final pinResponse = handlePin(
+        server: server,
+        pin: state.webSendState!.pin,
+        pinAttempts: state.webSendState!.pinAttempts,
+        request: request,
+      );
+      if (pinResponse != null) {
+        return pinResponse;
       }
 
       final streamController = StreamController<bool>();
@@ -199,7 +213,7 @@ class SendController {
       } else {
         return Response(
           200,
-          body: File(file.path!).openRead(),
+          body: File(file.path!).openRead().asBroadcastStream(),
           headers: headers,
         );
       }
@@ -232,6 +246,8 @@ class SendController {
         );
       }))),
       autoAccept: server.ref.read(settingsProvider).shareViaLinkAutoAccept,
+      pin: null,
+      pinAttempts: {},
     );
 
     server.setState(

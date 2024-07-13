@@ -5,13 +5,13 @@
     "accept": "Terima",
     "accepted": "Diterima",
     "add": "Tambah",
-    "advanced": "Advanced",
+    "advanced": "Lanjutan",
     "cancel": "Batal",
     "close": "Tutup",
     "confirm": "Konfirmasi",
     "continueStr": "Lanjut",
     "copy": "Salin",
-    "copiedToClipboard": "Disalin ke Papanklip",
+    "copiedToClipboard": "Disalin ke Papan klip",
     "decline": "Tolak",
     "done": "Selesai",
     "delete": "Hapus",
@@ -22,11 +22,11 @@
     "finished": "Selesai",
     "hide": "sembunyi",
     "off": "Mati",
-    "offline": "Offline",
+    "offline": "Luring",
     "on": "Hidup",
-    "online": "Online",
+    "online": "Daring",
     "open": "Buka",
-    "queue": "Antrian",
+    "queue": "Antrean",
     "quickSave": "Penyimpanan Cepat",
     "renamed": "Berganti nama",
     "reset": "Atur Ulang",
@@ -38,10 +38,10 @@
     "save": "Simpan",
     "unchanged": "Tidak berubah",
     "unknown": "Tidak dikenal",
-    "noItemInClipboard": "Tidak ada item di Clipboard"
+    "noItemInClipboard": "Tidak ada item di Papan klip"
   },
   "receiveTab": {
-    "title": "Menerima",
+    "title": "Terima",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
@@ -52,18 +52,18 @@
     "title": "Kirim",
     "selection": {
       "title": "Pilihan",
-      "files": "File: {files}",
+      "files": "Berkas: {files}",
       "size": "Ukuran: {size}"
     },
     "picker": {
-      "file": "File",
+      "file": "Berkas",
       "folder": "Folder",
       "media": "Media",
       "text": "Teks",
       "app": "Aplikasi",
       "clipboard": "Tempel"
     },
-    "shareIntentInfo": "Anda juga dapat menggunakan fitur \"Berbagi\" untuk memilih file dengan lebih mudah.",
+    "shareIntentInfo": "Anda juga dapat menggunakan fitur \"Berbagi\" untuk memilih berkas dengan lebih mudah.",
     "nearbyDevices": "Perangkat terdekat",
     "thisDevice": "Perangkat ini",
     "scan": "Cari perangkat",
@@ -75,7 +75,7 @@
     },
     "sendModeHelp": "Penjelasan",
     "help": "Pastikan perangkat terkoneksi pada jaringan yang sama.",
-    "placeItems": "Tempatkan item untuk dibagikan."
+    "placeItems": "Letakkan item untuk dibagikan."
   },
   "settingsTab": {
     "title": "Pengaturan",
@@ -111,6 +111,10 @@
       "saveToGallery": "Simpan media ke galeri",
       "saveToHistory": "Simpan ke riwayat"
     },
+    "send": {
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+    },
     "network": {
       "title": "Jaringan",
       "needRestart": "Mulai ulang untuk menerapkan!",
@@ -119,10 +123,11 @@
       "deviceType": "Tipe Perangkat",
       "deviceModel": "Model Perangkat",
       "port": "Port",
-      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
-      "encryption": "Encryption",
+      "discoveryTimeout": "Waktu penemuan habis",
+      "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain dikarenakan anda menggunakan port kustom. (bawaan: {defaultPort})",
+      "encryption": "Enkripsi",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena Anda menggunakan alamat multicast khusus. (default: {defaultMulticast})"
+      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena Anda menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})"
     },
     "other": {
       "title": "Lainnya",
@@ -139,12 +144,12 @@
     "solution": "Solusi:",
     "fixButton": "Perbaiki secara otomatis",
     "firewall": {
-      "symptom": "Aplikasi ini dapat mengirim file ke perangkat lain tetapi perangkat lain tidak dapat mengirim file ke perangkat ini.",
+      "symptom": "Aplikasi ini dapat mengirim berkas ke perangkat lain tetapi perangkat lain tidak dapat mengirim berkas ke perangkat ini.",
       "solution": "Ini kemungkinan masalah firewall. Anda dapat memperbaikinya dengan memperbolehkan koneksi masuk (UDP dan TCP) pada port {port}.",
       "openFirewall": "Buka Firewall"
     },
     "noConnection": {
-      "symptom": "Kedua perangkat tidak dapat saling menemukan atau berbagi file.",
+      "symptom": "Kedua perangkat tidak dapat saling menemukan atau berbagi berkas.",
       "solution": "Masalah ada di kedua sisi? Maka Anda perlu memastikan bahwa kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Wifi mungkin tidak memperbolehkan komunikasi antara peserta. Dalam hal ini, opsi ini harus diaktifkan pada router."
     }
   },
@@ -154,7 +159,7 @@
     "deleteHistory": "Hapus riwayat",
     "empty": "Riwayat kosong.",
     "entryActions": {
-      "open": "Buka file",
+      "open": "Buka berkas",
       "info": "Informasi",
       "deleteFromHistory": "Hapus dari riwayat"
     }
@@ -170,17 +175,17 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "ingin mengirim file",
-      "other": "ingin mengirim {n} file"
+      "one": "ingin mengirim berkas",
+      "other": "ingin mengirim {n} berkas"
     },
     "subTitleMessage": "mengirim pesan:",
-    "subTitleLink": "mengirim link:",
+    "subTitleLink": "mengirim tautan:",
     "canceled": "Pengirim membatalkan permintaan."
   },
   "receiveOptionsPage": {
     "title": "Opsi",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(folder LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
@@ -190,8 +195,8 @@
     "busy": "Penerima sedang sibuk dengan permintaan lain."
   },
   "progressPage": {
-    "titleSending": "Mengirim file",
-    "titleReceiving": "Menerima file",
+    "titleSending": "Mengirim berkas",
+    "titleReceiving": "Menerima berkas",
     "savedToGallery": "Simpan ke galeri",
     "total": {
       "title": {
@@ -200,7 +205,7 @@
         "canceledSender": "Dibatalkan oleh pengirim",
         "canceledReceiver": "Dibatalkan oleh penerima"
       },
-      "count": "File: {curr} / {n}",
+      "count": "Berkas: {curr} / {n}",
       "size": "Ukuran: {curr} / {n}",
       "speed": "Kecepatan: {speed}/s"
     }
@@ -217,14 +222,15 @@
     "requests": "Permintaan",
     "noRequests": "Belum ada permintaan.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Terima permintaan secara otomatis",
     "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Permintaan tertunda: {n}"
   },
   "aboutPage": {
     "title": "Tentang LocalSend",
     "description": [
-      "LocalSend merupakan aplikasi gratis, open-source (terbuka) yang dapat membantu anda untuk transfer file dan pesan secara aman dengan perangkat terdekat lain melalui jaringan lokal tanpa perlu koneksi internet atau paket data.",
-      "Aplikasi ini tersedia untuk Android, iOS, macOS, Windows dan Linux. Anda dapat menemukan semua pilihan download pada halaman resmi kami."
+      "LocalSend merupakan aplikasi gratis, open-source (terbuka) yang dapat membantu anda untuk membagikan berkas dan pesan secara aman dengan perangkat terdekat lain melalui jaringan lokal tanpa perlu koneksi internet atau paket data.",
+      "Aplikasi ini tersedia untuk Android, iOS, macOS, Windows dan Linux. Anda dapat menemukan semua pilihan unduhan pada halaman resmi kami."
     ],
     "author": "Pencipta",
     "contributors": "Daftar Kontributor",
@@ -311,26 +317,26 @@
       "Tomat"
     ],
     "combination": "{fruit} {adjective}",
-    "@combination": "In some languages, the adjective must be last."
+    "@combination": "Pada beberapa bahasa, kata sifat harus diletakkan terakhir."
   },
   "dialogs": {
     "addFile": {
       "title": "Tambah dalam pilihan",
-      "content": "Apa yang akan ditambahkan?"
+      "content": "Apa yang ingin ditambahkan?"
     },
     "addressInput": {
       "title": "Masukan Alamat",
-      "hashtag": "Hashtag",
+      "hashtag": "Tagar",
       "ip": "Alamat IP",
       "recentlyUsed": "Baru saja digunakan: "
     },
     "cancelSession": {
-      "title": "Batalkan transfer file",
-      "content": "Apakah Anda yakin untuk membatalkan pengiriman file?"
+      "title": "Batalkan transfer berkas",
+      "content": "Apakah Anda yakin untuk membatalkan pengiriman berkas?"
     },
     "cannotOpenFile": {
-      "title": "Tidak dapat membuka file",
-      "content": "Tidak dapat membuka \"{file}\". Apakah file ini telah dipindahkan, diganti nama, atau dihapus?"
+      "title": "Tidak dapat membuka berkas",
+      "content": "Tidak dapat membuka \"{file}\". Apakah berkas ini telah dipindahkan, berganti nama, atau dihapus?"
     },
     "encryptionDisabledNotice": {
       "title": "Enkripsi dinonaktifkan",
@@ -352,20 +358,20 @@
       "titleAdd": "Tambah ke daftar favorit",
       "titleEdit": "Pengaturan",
       "name": "Nama perangkat",
-      "auto": "(auto)",
+      "auto": "(otomatis)",
       "ip": "Alamat IP",
       "port": "Port"
     },
     "fileInfo": {
-      "title": "Informasi file",
-      "fileName": "Nama file:",
-      "path": "Path:",
+      "title": "Informasi berkas",
+      "fileName": "Nama berkas:",
+      "path": "Jalur:",
       "size": "Ukuran:",
       "sender": "Pengirim:",
       "time": "Waktu:"
     },
     "fileNameInput": {
-      "title": "Masukan nama file",
+      "title": "Masukan nama berkas",
       "original": "Asli: {original}"
     },
     "historyClearDialog": {
@@ -379,11 +385,11 @@
     },
     "messageInput": {
       "title": "Ketik pesan",
-      "multiline": "Multiline"
+      "multiline": "Baris ganda"
     },
     "noFiles": {
-      "title": "Tidak ada file yang dipilih",
-      "content": "Pilih setidaknya satu file."
+      "title": "Tidak ada berkas yang dipilih",
+      "content": "Pilih setidaknya satu berkas."
     },
     "noPermission": {
       "title": "Tidak ada izin",
@@ -398,7 +404,7 @@
     },
     "quickActions": {
       "title": "Tindakan Cepat",
-      "counter": "Counter",
+      "counter": "Penghitung",
       "prefix": "Awalan",
       "padZero": "Pad dengan nol",
       "sortBeforeCount": "Urutkan berdasarkan abjad sebelumnya",
@@ -406,14 +412,21 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim file."
+      "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim berkas."
     },
     "sendModeHelp": {
       "title": "Mode pengiriman",
-      "single": "Mengirim file ke satu penerima. Pilihan akan dihapus setelah selesai mentransfer file.",
-      "multiple": "Mengirim file ke beberapa penerima. Pilihan tidak akan dihapus.",
-      "link": "Penerima yang tidak memiliki LocalSend dapat mengunduh file yang dipilih dengan membuka tautan di browser mereka."
+      "single": "Mengirim berkas ke satu penerima. Pilihan akan dihapus setelah selesai membagikan berkas.",
+      "multiple": "Mengirim berkas ke beberapa penerima. Pilihan tidak akan dihapus.",
+      "link": "Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di browser mereka."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Nama berkas tidak boleh kosong",
+    "invalid": "Nama berkas mengandung karakter yang tidak valid"
   },
   "tray": {
     "@info": "Pedoman Apple sangat ketat tentang kata-kata 'tutup'.",
@@ -424,11 +437,11 @@
     "waiting": "@:sendPage.waiting",
     "rejected": "Ditolak",
     "files": "Berkas",
-    "fileName": "Nama file",
+    "fileName": "Nama Berkas",
     "size": "Ukuran"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Terjemahan untuk Alat pemilihan media untuk Android dan Iphone",
     "confirm": "Konfirmasi",
     "cancel": "Batal",
     "edit": "Edit",
@@ -438,14 +451,14 @@
     "preview": "Pratinjau",
     "select": "Pilih",
     "emptyList": "Daftar kosong",
-    "unSupportedAssetType": "Jenis file tidak didukung.",
-    "unableToAccessAll": "Tidak dapat mengakses semua file di perangkat",
-    "viewingLimitedAssetsTip": "Hanya melihat file dan album yang dapat diakses oleh aplikasi.",
-    "changeAccessibleLimitedAssets": "Klik untuk memperbarui file yang dapat diakses",
-    "accessAllTip": "Aplikasi hanya dapat mengakses beberapa file di perangkat. Pergi ke pengaturan sistem dan izinkan aplikasi untuk mengakses semua media di perangkat.",
+    "unSupportedAssetType": "Jenis berkas tidak didukung.",
+    "unableToAccessAll": "Tidak dapat mengakses semua berkas di perangkat",
+    "viewingLimitedAssetsTip": "Hanya melihat berkas dan album yang dapat diakses oleh aplikasi.",
+    "changeAccessibleLimitedAssets": "Klik untuk memperbarui berkas yang dapat diakses",
+    "accessAllTip": "Aplikasi hanya dapat mengakses beberapa berkas di perangkat. Pergi ke pengaturan sistem dan izinkan aplikasi untuk mengakses semua media di perangkat.",
     "goToSystemSettings": "Ke pengaturan sistem",
     "accessLimitedAssets": "Lanjutkan dengan akses terbatas",
-    "accessiblePathName": "File yang dapat diakses",
+    "accessiblePathName": "berkas yang dapat diakses",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Gambar",
     "sTypeVideoLabel": "Video",
@@ -453,7 +466,7 @@
     "sActionPlayHint": "mainkan",
     "sActionPreviewHint": "pratinjau",
     "sActionSelectHint": "pilih",
-    "sActionSwitchPathLabel": "ubah path",
+    "sActionSwitchPathLabel": "ubah jalur",
     "sActionUseCameraHint": "gunakan kamera",
     "sNameDurationLabel": "durasi",
     "sUnitAssetCountLabel": "jumlah"

@@ -57,7 +57,7 @@
     },
     "picker": {
       "file": "Файл",
-      "folder": "Тека",
+      "folder": "Папка",
       "media": "Медіа",
       "text": "Текст",
       "app": "Додаток",
@@ -74,8 +74,8 @@
       "link": "Поділитися через посилання"
     },
     "sendModeHelp": "Довідка",
-    "help": "Будь ласка, переконайтесь, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.",
-    "placeItems": "Додайте сюди файли, щоб поділитися."
+    "help": "Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.",
+    "placeItems": "Додайте файли, щоб поділитися."
   },
   "settingsTab": {
     "title": "Налаштування",
@@ -96,24 +96,26 @@
       "languageOptions": {
         "system": "Системна"
       },
-      "saveWindowPlacement": "Зберегти розташування вікна після закриття",
-      "minimizeToTray": "Закрити: згорнути в системний трей/смугу меню",
+      "saveWindowPlacement": "Зберігати розташування вікна після закриття",
+      "minimizeToTray": "Згортати в системний трей/смугу меню при закритті",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
+      "showInContextMenu": "Відображати LocalSend в контекстному меню",
       "animations": "Анімації"
     },
     "receive": {
       "title": "Отримання",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Автозавершення",
-      "destination": "Зберігати в теку",
+      "destination": "Зберігати в папку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли до галереї",
       "saveToHistory": "Зберігати історію"
     },
     "send": {
-      "title": "Надіслати",
-      "shareViaLinkAutoAccept": "Поділитися через посилання: Приймати автоматично"
+      "title": "Надсилання",
+      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі 'Поділитися через посилання'"
     },
     "network": {
       "title": "Мережа",
@@ -123,6 +125,7 @@
       "deviceType": "Тип пристрою",
       "deviceModel": "Модель пристрою",
       "port": "Порт",
+      "discoveryTimeout": "Тайм-аут виявлення",
       "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
       "multicastGroup": "Групова передача",
@@ -154,11 +157,12 @@
   },
   "receiveHistoryPage": {
     "title": "Історія",
-    "openFolder": "Відкрити теку",
+    "openFolder": "Відкрити папку",
     "deleteHistory": "Очистити історію",
     "empty": "Історія порожня.",
     "entryActions": {
       "open": "Відкрити файл",
+      "showInFolder": "Показати в папці",
       "info": "Інформація",
       "deleteFromHistory": "Видалити з історії"
     }
@@ -184,13 +188,14 @@
   "receiveOptionsPage": {
     "title": "Параметри отримання",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Тека LocalSend)",
+    "appDirectory": "(Папка LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Вимкнено автоматично, оскільки є каталоги."
+    "saveToGalleryOff": "Вимкнено автоматично, оскільки є папки."
   },
   "sendPage": {
     "waiting": "Очікування відповіді...",
     "rejected": "Отримувач відхилив запит.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Одержувач зайнятий іншим запитом."
   },
   "progressPage": {
@@ -222,6 +227,8 @@
     "noRequests": "Запитів поки що немає.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Автоматично приймати запити",
+    "requirePin": "Вимагати PIN-код",
+    "pinHint": "PIN-код: \"{pin}\"",
     "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
@@ -229,7 +236,7 @@
     "title": "Про LocalSend",
     "description": [
       "LocalSend — це безкоштовний додаток з відкритим вихідним кодом, який дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.",
-      "Цей додаток доступний для Android, iOS, macOS, Windows і Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці."
+      "Цей додаток доступний для Android, iOS, macOS, Windows та Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці."
     ],
     "author": "Автор",
     "contributors": "Учасники",
@@ -246,11 +253,11 @@
     "title": "Історія змін"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Наслідує англійську версію"
   },
   "dialogs": {
     "addFile": {
-      "title": "Додати до обраних",
+      "title": "Додати до вибірки",
       "content": "Що ви бажаєте додати?"
     },
     "addressInput": {
@@ -317,7 +324,7 @@
       "multiline": "Багаторядкове"
     },
     "noFiles": {
-      "title": "Файли не обрано",
+      "title": "Не вибрано жодного файлу",
       "content": "Будь ласка, додайте як мінімум один файл."
     },
     "noPermission": {
@@ -343,12 +350,22 @@
       "title": "@:general.quickSave",
       "content": "Запити на отримання файлів відтепер приймаються автоматично. Будьте обережні, всі користувачі цієї локальної мережі можуть надсилати вам файли."
     },
+    "pin": {
+      "title": "Введіть PIN-код"
+    },
     "sendModeHelp": {
       "title": "Режими надсилання",
       "single": "Надсилає файли одному одержувачу. Вибірку буде очищено після завершення передачі файлів.",
       "multiple": "Надсилає файли кільком одержувачам. Вибірку не буде очищено.",
       "link": "Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері."
+    },
+    "zoom": {
+      "title": "URL-адреса"
     }
+  },
+  "sanitization": {
+    "empty": "Ім'я файлу не може бути порожнім",
+    "invalid": "Ім'я файлу містить неприпустимі символи"
   },
   "tray": {
     "@info": "Посібник з розробки від Apple (Apple Guidelines) дуже суворо ставиться до формулювання 'закрити'.",
@@ -357,18 +374,21 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Введіть PIN-код",
+    "invalidPin": "Неправильний PIN-код",
+    "tooManyAttempts": "Забагато спроб",
     "rejected": "Відхилено",
     "files": "Файлів",
     "fileName": "Ім'я файлу",
     "size": "Розмір"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Переклад інструменту вибору медіа для Android та iPhone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",
     "gifIndicator": "GIF",
-    "loadFailed": "Помилка завантаження",
+    "loadFailed": "Не вдалося завантажити",
     "original": "Оригінал",
     "preview": "Попередній перегляд",
     "select": "Вибрати",

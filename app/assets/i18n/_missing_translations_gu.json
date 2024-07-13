@@ -1,0 +1,36 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <gu>.",
+    "After editing this file, you can run 'dart run slang apply --locale=gu' to quickly apply the newly added translations."
+  ],
+  "settingsTab": {
+    "general": {
+      "showInContextMenu": "Show LocalSend in context menu"
+    },
+    "receive": {
+      "requirePin": "@:webSharePage.requirePin"
+    }
+  },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Show in folder"
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "webSharePage": {
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\""
+  },
+  "dialogs": {
+    "pin": {
+      "title": "Enter PIN"
+    }
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
+  }
+}

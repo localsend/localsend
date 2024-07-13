@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/common.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -14,8 +16,10 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
+
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
@@ -25,9 +29,12 @@ import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/logger.dart';
+import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
+import 'package:localsend_app/util/native/open_file_receiver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
@@ -36,8 +43,6 @@ import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
-
-const launchAtStartupArg = 'autostart';
 
 final _logger = Logger('Init');
 
@@ -51,6 +56,10 @@ Future<RefenaContainer> preInit(List<String> args) async {
   final dynamicColors = await getDynamicColors();
 
   final persistenceService = await PersistenceService.initialize(dynamicColors);
+
+  if (persistenceService.isFirstAppStart && !persistenceService.isPortableMode()) {
+    await enableContextMenu();
+  }
 
   initI18n();
 
@@ -72,6 +81,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
         queryParameters: {
           'token': persistenceService.getShowToken(),
         },
+        data: jsonEncode({
+          'args': args,
+        }),
       );
       exit(0); // Another instance does exist because no error is thrown
     } catch (_) {}
@@ -86,13 +98,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
     await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
-    if (!args.contains(launchAtStartupArg) || !persistenceService.isAutoStartLaunchMinimized()) {
-      // We show this app, when (1) app started manually, (2) app should not start minimized
-      // In other words: only start minimized when launched on startup and "launchMinimized" is configured
-      await WindowManager.instance.show();
-    } else {
+    if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
+    } else {
+      await WindowManager.instance.show();
     }
   }
 
@@ -119,7 +129,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
 StreamSubscription? _sharedMediaSubscription;
 
 /// Will be called when home page has been initialized
-Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Function(int) goToPage) async {
+Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   await updateSystemOverlayStyle(context);
 
   if (checkPlatform([TargetPlatform.android])) {
@@ -144,6 +154,29 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
     _logger.warning('Starting multicast listener failed', e);
   }
 
+  if (appStart) {
+    if (defaultTargetPlatform == TargetPlatform.macOS) {
+      final files = await getOpenedFiles();
+      if (files.isNotEmpty) {
+        await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+          args: files,
+        ));
+      }
+
+      // handle future dropped files
+      getOpenedFilesStream().listen((files) {
+        ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+          args: files,
+        ));
+      });
+    } else {
+      final args = ref.read(appArgumentsProvider);
+      await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+        args: args,
+      ));
+    }
+  }
+
   bool hasInitialShare = false;
 
   if (checkPlatformCanReceiveShareIntent()) {
@@ -154,18 +187,16 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
       if (initialSharedPayload != null) {
         hasInitialShare = true;
         // ignore: unawaited_futures
-        ref.dispatchAsync(_HandleShareIntentAction(
+        ref.global.dispatchAsync(_HandleShareIntentAction(
           payload: initialSharedPayload,
-          goToPage: goToPage,
         ));
       }
     }
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
-      ref.dispatchAsync(_HandleShareIntentAction(
+      ref.global.dispatchAsync(_HandleShareIntentAction(
         payload: payload,
-        goToPage: goToPage,
       ));
     });
   }
@@ -173,7 +204,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
-    ref.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
+    ref.global.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
   }
 
   // [FOSS_REMOVE_START]
@@ -186,11 +217,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart, void Functio
 
 class _HandleShareIntentAction extends AsyncGlobalAction {
   final SharedMedia payload;
-  final void Function(int) goToPage;
 
   _HandleShareIntentAction({
     required this.payload,
-    required this.goToPage,
   });
 
   @override
@@ -204,6 +233,22 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
           converter: CrossFileConverters.convertSharedAttachment,
         ));
 
-    goToPage(HomeTab.send.index);
+    ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+  }
+}
+
+class _HandleAppStartArgumentsAction extends AsyncGlobalAction {
+  final List<String> args;
+
+  _HandleAppStartArgumentsAction({
+    required this.args,
+  });
+
+  @override
+  Future<void> reduce() async {
+    final filesAdded = await ref.redux(selectedSendingFilesProvider).dispatchAsyncTakeResult(LoadSelectionFromArgsAction(args));
+    if (filesAdded) {
+      ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+    }
   }
 }

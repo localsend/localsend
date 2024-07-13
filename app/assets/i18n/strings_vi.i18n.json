@@ -111,6 +111,10 @@
       "saveToGallery": "Lưu media vào thư viện",
       "saveToHistory": "Lưu vào lịch sử"
     },
+    "send": {
+      "title": "Gửi",
+      "shareViaLinkAutoAccept": "Chia sẻ qua liên kết: Tự động chấp nhận"
+    },
     "network": {
       "title": "Mạng",
       "needRestart": "Khởi động lại server để cài đặt có hiệu lực!",
@@ -217,6 +221,7 @@
     "requests": "Yêu cầu",
     "noRequests": "Hiện không có yêu cầu nào.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Tự động chấp nhận yêu cầu",
     "encryptionHint": "LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.",
     "pendingRequests": "Yêu cầu chờ: {n}"
   },

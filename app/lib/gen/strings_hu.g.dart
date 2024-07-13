@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -40,6 +46,7 @@ class _StringsHu extends Translations {
 	@override late final _StringsChangelogPageHu changelogPage = _StringsChangelogPageHu._(_root);
 	@override late final _StringsAliasGeneratorHu aliasGenerator = _StringsAliasGeneratorHu._(_root);
 	@override late final _StringsDialogsHu dialogs = _StringsDialogsHu._(_root);
+	@override late final _StringsSanitizationHu sanitization = _StringsSanitizationHu._(_root);
 	@override late final _StringsTrayHu tray = _StringsTrayHu._(_root);
 	@override late final _StringsWebHu web = _StringsWebHu._(_root);
 	@override late final _StringsAssetPickerHu assetPicker = _StringsAssetPickerHu._(_root);
@@ -133,6 +140,7 @@ class _StringsSettingsTabHu extends _StringsSettingsTabEn {
 	@override String get title => 'Beállítások';
 	@override late final _StringsSettingsTabGeneralHu general = _StringsSettingsTabGeneralHu._(_root);
 	@override late final _StringsSettingsTabReceiveHu receive = _StringsSettingsTabReceiveHu._(_root);
+	@override late final _StringsSettingsTabSendHu send = _StringsSettingsTabSendHu._(_root);
 	@override late final _StringsSettingsTabNetworkHu network = _StringsSettingsTabNetworkHu._(_root);
 	@override late final _StringsSettingsTabOtherHu other = _StringsSettingsTabOtherHu._(_root);
 	@override String get advancedSettings => 'Haladó beállítások';
@@ -214,9 +222,9 @@ class _StringsReceiveOptionsPageHu extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Opciók';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend mappa)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Automatikusan kikapcsol, mert vannak könyvtárak.';
 }
 
@@ -262,7 +270,8 @@ class _StringsWebSharePageHu extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Kérések';
 	@override String get noRequests => 'Még nincsenek kérések.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
+	@override String get autoAccept => 'Kérések automatikus elfogadása';
 	@override String get encryptionHint => 'A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
 	@override String pendingRequests({required Object n}) => 'Függőben lévő kérések: ${n}';
 }
@@ -345,6 +354,18 @@ class _StringsDialogsHu extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsHu quickActions = _StringsDialogsQuickActionsHu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeHu quickSaveNotice = _StringsDialogsQuickSaveNoticeHu._(_root);
 	@override late final _StringsDialogsSendModeHelpHu sendModeHelp = _StringsDialogsSendModeHelpHu._(_root);
+	@override late final _StringsDialogsZoomHu zoom = _StringsDialogsZoomHu._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationHu extends _StringsSanitizationEn {
+	_StringsSanitizationHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'A fájlnév nem lehet üres';
+	@override String get invalid => 'A fájlnév érvénytelen karaktereket tartalmaz';
 }
 
 // Path: tray
@@ -354,7 +375,7 @@ class _StringsTrayHu extends _StringsTrayEn {
 	@override final _StringsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Kilépés';
 }
 
@@ -365,7 +386,7 @@ class _StringsWebHu extends _StringsWebEn {
 	@override final _StringsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'Elutasítva';
 	@override String get files => 'Fájl';
 	@override String get fileName => 'Fájlnév';
@@ -489,12 +510,23 @@ class _StringsSettingsTabReceiveHu extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Fogadás';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'Autom. befejezés';
 	@override String get destination => 'Mentés helye';
 	@override String get downloads => '(Letöltések)';
 	@override String get saveToGallery => 'Média mentése a galériába';
 	@override String get saveToHistory => 'Mentés az előzmények közé';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendHu extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Küld';
+	@override String get shareViaLinkAutoAccept => 'Megosztás linken keresztül: Auto. elfogadás';
 }
 
 // Path: settingsTab.network
@@ -511,6 +543,7 @@ class _StringsSettingsTabNetworkHu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Eszköz típusa';
 	@override String get deviceModel => 'Eszköz modell';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Felfedezési időtúllépés';
 	@override String portWarning({required Object defaultPort}) => 'Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: ${defaultPort})';
 	@override String get encryption => 'Titkosítás';
 	@override String get multicastGroup => 'Multicast';
@@ -643,7 +676,7 @@ class _StringsDialogsErrorDialogHu extends _StringsDialogsErrorDialogEn {
 	@override final _StringsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -728,7 +761,7 @@ class _StringsDialogsLocalNetworkUnauthorizedHu extends _StringsDialogsLocalNetw
 	@override final _StringsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'A LocalSend nem találhat más eszközöket a helyi hálózat vizsgálatára vonatkozó engedély nélkül. Adja meg ezt az engedélyt a beállításokban.';
 	@override String get gotoSettings => 'Beállítások';
 }
@@ -809,7 +842,7 @@ class _StringsDialogsQuickSaveNoticeHu extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat.';
 }
 
@@ -824,6 +857,16 @@ class _StringsDialogsSendModeHelpHu extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.';
 	@override String get multiple => 'Fájlokat küld több címzettnek. A kijelölés nem törlődik.';
 	@override String get link => 'Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomHu extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

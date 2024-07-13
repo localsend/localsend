@@ -19,12 +19,10 @@ class $AssetsImgGen {
   AssetGenImage get logo256 => const AssetGenImage('assets/img/logo-256.png');
 
   /// File path: assets/img/logo-32-black.png
-  AssetGenImage get logo32Black =>
-      const AssetGenImage('assets/img/logo-32-black.png');
+  AssetGenImage get logo32Black => const AssetGenImage('assets/img/logo-32-black.png');
 
   /// File path: assets/img/logo-32-white.png
-  AssetGenImage get logo32White =>
-      const AssetGenImage('assets/img/logo-32-white.png');
+  AssetGenImage get logo32White => const AssetGenImage('assets/img/logo-32-white.png');
 
   /// File path: assets/img/logo-32.png
   AssetGenImage get logo32 => const AssetGenImage('assets/img/logo-32.png');
@@ -36,8 +34,7 @@ class $AssetsImgGen {
   String get logo => 'assets/img/logo.ico';
 
   /// List of all assets
-  List<dynamic> get values =>
-      [logo128, logo256, logo32Black, logo32White, logo32, logo512, logo];
+  List<dynamic> get values => [logo128, logo256, logo32Black, logo32White, logo32, logo512, logo];
 }
 
 class $AssetsWebGen {
@@ -64,13 +61,20 @@ class Assets {
   static const $AssetsWebGen web = $AssetsWebGen();
 
   /// List of all assets
-  List<String> get values => [changelog];
+  static List<String> get values => [changelog];
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

@@ -19,6 +19,7 @@ codesign --deep --force --verbose --options runtime --sign "$SIGN_ID" build/maco
 echo
 echo "Creating dmg..."
 echo
+rm -f LocalSend.dmg
 create-dmg \
   --volname "LocalSend" \
   --window-size 500 300 \

@@ -29,10 +29,9 @@ class SettingsService extends PureNotifier<SettingsState> {
         saveToGallery: _persistence.isSaveToGallery(),
         saveToHistory: _persistence.isSaveToHistory(),
         quickSave: _persistence.isQuickSave(),
+        receivePin: _persistence.getReceivePin(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
-        launchAtStartup: _persistence.isLaunchAtStartup(),
-        autoStartLaunchMinimized: _persistence.isAutoStartLaunchMinimized(),
         https: _persistence.isHttps(),
         sendMode: _persistence.getSendMode(),
         saveWindowPlacement: _persistence.getSaveWindowPlacement(),
@@ -40,6 +39,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         deviceType: _persistence.getDeviceType(),
         deviceModel: _persistence.getDeviceModel(),
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
+        discoveryTimeout: _persistence.getDiscoveryTimeout(),
       );
 
   Future<void> setAlias(String alias) async {
@@ -74,6 +74,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setPort(port);
     state = state.copyWith(
       port: port,
+    );
+  }
+
+  Future<void> setDiscoveryTimeout(int timeout) async {
+    await _persistence.setDiscoveryTimeout(timeout);
+    state = state.copyWith(
+      discoveryTimeout: timeout,
     );
   }
 
@@ -112,6 +119,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     );
   }
 
+  Future<void> setReceivePin(String? receivePin) async {
+    await _persistence.setReceivePin(receivePin);
+    state = state.copyWith(
+      receivePin: receivePin,
+    );
+  }
+
   Future<void> setAutoFinish(bool autoFinish) async {
     await _persistence.setAutoFinish(autoFinish);
     state = state.copyWith(
@@ -123,20 +137,6 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setMinimizeToTray(minimizeToTray);
     state = state.copyWith(
       minimizeToTray: minimizeToTray,
-    );
-  }
-
-  Future<void> setLaunchAtStartup(bool launchAtStartup) async {
-    await _persistence.setLaunchAtStartup(launchAtStartup);
-    state = state.copyWith(
-      launchAtStartup: launchAtStartup,
-    );
-  }
-
-  Future<void> setAutoStartLaunchMinimized(bool launchMinimized) async {
-    await _persistence.setAutoStartLaunchMinimized(launchMinimized);
-    state = state.copyWith(
-      autoStartLaunchMinimized: launchMinimized,
     );
   }
 

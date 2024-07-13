@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'favorite_device.dart';
@@ -23,8 +23,7 @@ class FavoriteDeviceMapper extends ClassMapperBase<FavoriteDevice> {
   static String _$id(FavoriteDevice v) => v.id;
   static const Field<FavoriteDevice, String> _f$id = Field('id', _$id);
   static String _$fingerprint(FavoriteDevice v) => v.fingerprint;
-  static const Field<FavoriteDevice, String> _f$fingerprint =
-      Field('fingerprint', _$fingerprint);
+  static const Field<FavoriteDevice, String> _f$fingerprint = Field('fingerprint', _$fingerprint);
   static String _$ip(FavoriteDevice v) => v.ip;
   static const Field<FavoriteDevice, String> _f$ip = Field('ip', _$ip);
   static int _$port(FavoriteDevice v) => v.port;
@@ -32,11 +31,10 @@ class FavoriteDeviceMapper extends ClassMapperBase<FavoriteDevice> {
   static String _$alias(FavoriteDevice v) => v.alias;
   static const Field<FavoriteDevice, String> _f$alias = Field('alias', _$alias);
   static bool _$customAlias(FavoriteDevice v) => v.customAlias;
-  static const Field<FavoriteDevice, bool> _f$customAlias =
-      Field('customAlias', _$customAlias, opt: true, def: false);
+  static const Field<FavoriteDevice, bool> _f$customAlias = Field('customAlias', _$customAlias, opt: true, def: false);
 
   @override
-  final Map<Symbol, Field<FavoriteDevice, dynamic>> fields = const {
+  final MappableFields<FavoriteDevice> fields = const {
     #id: _f$id,
     #fingerprint: _f$fingerprint,
     #ip: _f$ip,
@@ -69,75 +67,48 @@ class FavoriteDeviceMapper extends ClassMapperBase<FavoriteDevice> {
 
 mixin FavoriteDeviceMappable {
   String serialize() {
-    return FavoriteDeviceMapper.ensureInitialized()
-        .encodeJson<FavoriteDevice>(this as FavoriteDevice);
+    return FavoriteDeviceMapper.ensureInitialized().encodeJson<FavoriteDevice>(this as FavoriteDevice);
   }
 
   Map<String, dynamic> toJson() {
-    return FavoriteDeviceMapper.ensureInitialized()
-        .encodeMap<FavoriteDevice>(this as FavoriteDevice);
+    return FavoriteDeviceMapper.ensureInitialized().encodeMap<FavoriteDevice>(this as FavoriteDevice);
   }
 
-  FavoriteDeviceCopyWith<FavoriteDevice, FavoriteDevice, FavoriteDevice>
-      get copyWith => _FavoriteDeviceCopyWithImpl(
-          this as FavoriteDevice, $identity, $identity);
+  FavoriteDeviceCopyWith<FavoriteDevice, FavoriteDevice, FavoriteDevice> get copyWith =>
+      _FavoriteDeviceCopyWithImpl(this as FavoriteDevice, $identity, $identity);
   @override
   String toString() {
-    return FavoriteDeviceMapper.ensureInitialized()
-        .stringifyValue(this as FavoriteDevice);
+    return FavoriteDeviceMapper.ensureInitialized().stringifyValue(this as FavoriteDevice);
   }
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            FavoriteDeviceMapper.ensureInitialized()
-                .isValueEqual(this as FavoriteDevice, other));
+    return FavoriteDeviceMapper.ensureInitialized().equalsValue(this as FavoriteDevice, other);
   }
 
   @override
   int get hashCode {
-    return FavoriteDeviceMapper.ensureInitialized()
-        .hashValue(this as FavoriteDevice);
+    return FavoriteDeviceMapper.ensureInitialized().hashValue(this as FavoriteDevice);
   }
 }
 
-extension FavoriteDeviceValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, FavoriteDevice, $Out> {
-  FavoriteDeviceCopyWith<$R, FavoriteDevice, $Out> get $asFavoriteDevice =>
-      $base.as((v, t, t2) => _FavoriteDeviceCopyWithImpl(v, t, t2));
+extension FavoriteDeviceValueCopy<$R, $Out> on ObjectCopyWith<$R, FavoriteDevice, $Out> {
+  FavoriteDeviceCopyWith<$R, FavoriteDevice, $Out> get $asFavoriteDevice => $base.as((v, t, t2) => _FavoriteDeviceCopyWithImpl(v, t, t2));
 }
 
-abstract class FavoriteDeviceCopyWith<$R, $In extends FavoriteDevice, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
-  $R call(
-      {String? id,
-      String? fingerprint,
-      String? ip,
-      int? port,
-      String? alias,
-      bool? customAlias});
-  FavoriteDeviceCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+abstract class FavoriteDeviceCopyWith<$R, $In extends FavoriteDevice, $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? id, String? fingerprint, String? ip, int? port, String? alias, bool? customAlias});
+  FavoriteDeviceCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _FavoriteDeviceCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, FavoriteDevice, $Out>
+class _FavoriteDeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, FavoriteDevice, $Out>
     implements FavoriteDeviceCopyWith<$R, FavoriteDevice, $Out> {
   _FavoriteDeviceCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<FavoriteDevice> $mapper =
-      FavoriteDeviceMapper.ensureInitialized();
+  late final ClassMapperBase<FavoriteDevice> $mapper = FavoriteDeviceMapper.ensureInitialized();
   @override
-  $R call(
-          {String? id,
-          String? fingerprint,
-          String? ip,
-          int? port,
-          String? alias,
-          bool? customAlias}) =>
-      $apply(FieldCopyWithData({
+  $R call({String? id, String? fingerprint, String? ip, int? port, String? alias, bool? customAlias}) => $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (fingerprint != null) #fingerprint: fingerprint,
         if (ip != null) #ip: ip,
@@ -155,7 +126,5 @@ class _FavoriteDeviceCopyWithImpl<$R, $Out>
       customAlias: data.get(#customAlias, or: $value.customAlias));
 
   @override
-  FavoriteDeviceCopyWith<$R2, FavoriteDevice, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _FavoriteDeviceCopyWithImpl($value, $cast, t);
+  FavoriteDeviceCopyWith<$R2, FavoriteDevice, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _FavoriteDeviceCopyWithImpl($value, $cast, t);
 }

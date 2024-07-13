@@ -11,11 +11,11 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
-import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
+import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
@@ -24,9 +24,6 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-final _isLinux = checkPlatform([TargetPlatform.linux]);
-final _isWindows = checkPlatform([TargetPlatform.windows]);
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab();
@@ -100,62 +97,34 @@ class SettingsTab extends StatelessWidget {
                       },
                     ),
                   ],
-                  // Linux autostart is simpler, so a boolean entry is used
-                  if (_isLinux)
+                  if (checkPlatformIsDesktop()) ...[
                     _BooleanEntry(
                       label: t.settingsTab.general.launchAtStartup,
-                      value: vm.settings.launchAtStartup,
-                      onChanged: (b) async {
-                        late bool result;
-                        if (await isLinuxLaunchAtStartEnabled()) {
-                          result = await initDisableAutoStart(vm.settings);
-                        } else {
-                          result = await initEnableAutoStartAndOpenSettings(vm.settings);
-                        }
-                        if (result) {
-                          await ref.notifier(settingsProvider).setLaunchAtStartup(b);
-                        }
-                      },
+                      value: vm.autoStart,
+                      onChanged: (_) => vm.onToggleAutoStart(context),
                     ),
-                  // Windows requires a manual action, so this settings entry is required
-                  if (_isWindows)
-                    _SettingsEntry(
-                      label: t.settingsTab.general.launchAtStartup,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-                          shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
-                          foregroundColor: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        onPressed: () async {
-                          await initDisableAutoStart(vm.settings);
-                          await initEnableAutoStartAndOpenSettings(vm.settings, _isWindows);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: Text(t.general.settings, style: Theme.of(context).textTheme.titleMedium),
-                        ),
-                      ),
-                    ),
-                  if (_isWindows || _isLinux)
                     Visibility(
-                      visible: vm.settings.launchAtStartup || _isWindows,
+                      visible: vm.autoStart,
                       maintainAnimation: true,
                       maintainState: true,
                       child: AnimatedOpacity(
-                        opacity: vm.settings.launchAtStartup || _isWindows ? 1.0 : 0.0,
+                        opacity: vm.autoStart ? 1.0 : 0.0,
                         duration: const Duration(milliseconds: 500),
                         child: _BooleanEntry(
                           label: t.settingsTab.general.launchMinimized,
-                          value: vm.settings.autoStartLaunchMinimized,
-                          onChanged: (b) async {
-                            await initDisableAutoStart(vm.settings);
-                            await ref.notifier(settingsProvider).setAutoStartLaunchMinimized(b);
-                            await initEnableAutoStartAndOpenSettings(vm.settings, _isWindows);
-                          },
+                          value: vm.autoStartLaunchHidden,
+                          onChanged: (_) => vm.onToggleAutoStartLaunchHidden(context),
                         ),
                       ),
                     ),
+                  ],
+                  if (vm.advanced && checkPlatform([TargetPlatform.windows])) ...[
+                    _BooleanEntry(
+                      label: t.settingsTab.general.showInContextMenu,
+                      value: vm.showInContextMenu,
+                      onChanged: (_) => vm.onToggleShowInContextMenu(context),
+                    ),
+                  ],
                 ],
                 _BooleanEntry(
                   label: t.settingsTab.general.animations,
@@ -177,6 +146,28 @@ class SettingsTab extends StatelessWidget {
                     await ref.notifier(settingsProvider).setQuickSave(b);
                     if (!old && b && context.mounted) {
                       await QuickSaveNotice.open(context);
+                    }
+                  },
+                ),
+                _BooleanEntry(
+                  label: t.settingsTab.receive.requirePin,
+                  value: vm.settings.receivePin != null,
+                  onChanged: (b) async {
+                    final currentPIN = vm.settings.receivePin;
+                    if (currentPIN != null) {
+                      await ref.notifier(settingsProvider).setReceivePin(null);
+                    } else {
+                      final String? newPin = await showDialog<String>(
+                        context: context,
+                        builder: (_) => const PinDialog(
+                          obscureText: false,
+                          generateRandom: true,
+                        ),
+                      );
+
+                      if (newPin != null && newPin.isNotEmpty) {
+                        await ref.notifier(settingsProvider).setReceivePin(newPin);
+                      }
                     }
                   },
                 ),
@@ -354,6 +345,20 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ),
                 if (vm.advanced)
+                  _SettingsEntry(
+                    label: t.settingsTab.network.discoveryTimeout,
+                    child: TextFieldTv(
+                      name: t.settingsTab.network.discoveryTimeout,
+                      controller: vm.timeoutController,
+                      onChanged: (s) async {
+                        final timeout = int.tryParse(s);
+                        if (timeout != null) {
+                          await ref.notifier(settingsProvider).setDiscoveryTimeout(timeout);
+                        }
+                      },
+                    ),
+                  ),
+                if (vm.advanced)
                   _BooleanEntry(
                     label: t.settingsTab.network.encryption,
                     value: vm.settings.https,
@@ -427,7 +432,7 @@ class SettingsTab extends StatelessWidget {
                   buttonLabel: t.general.open,
                   onTap: () async {
                     await launchUrl(
-                      Uri.parse('https://localsend.org/#/privacy'),
+                      Uri.parse('https://localsend.org/privacy'),
                       mode: LaunchMode.externalApplication,
                     );
                   },

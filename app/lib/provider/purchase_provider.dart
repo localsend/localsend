@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:localsend_app/model/state/purchase_state.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 final purchaseProvider = ReduxProvider<PurchaseService, PurchaseState>((ref) {
@@ -36,6 +37,11 @@ class InitPurchaseStream extends AsyncReduxAction<PurchaseService, PurchaseState
 class FetchPricesAndPurchasesAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
   @override
   Future<PurchaseState> reduce() async {
+    if (!checkPlatformSupportPayment()) {
+      emitMessage('Platform does not support payments');
+      return state;
+    }
+
     if (state.prices.isNotEmpty) {
       emitMessage('Already fetched');
       return state;

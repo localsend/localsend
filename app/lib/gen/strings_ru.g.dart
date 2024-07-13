@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -40,6 +46,7 @@ class _StringsRu extends Translations {
 	@override late final _StringsChangelogPageRu changelogPage = _StringsChangelogPageRu._(_root);
 	@override late final _StringsAliasGeneratorRu aliasGenerator = _StringsAliasGeneratorRu._(_root);
 	@override late final _StringsDialogsRu dialogs = _StringsDialogsRu._(_root);
+	@override late final _StringsSanitizationRu sanitization = _StringsSanitizationRu._(_root);
 	@override late final _StringsTrayRu tray = _StringsTrayRu._(_root);
 	@override late final _StringsWebRu web = _StringsWebRu._(_root);
 	@override late final _StringsAssetPickerRu assetPicker = _StringsAssetPickerRu._(_root);
@@ -215,9 +222,9 @@ class _StringsReceiveOptionsPageRu extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'Параметры получения';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(Папка LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'Отключено автоматически, поскольку есть папки.';
 }
 
@@ -230,6 +237,7 @@ class _StringsSendPageRu extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Ожидание ответа...';
 	@override String get rejected => 'Получатель отклонил запрос.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Получатель занят другим запросом.';
 }
 
@@ -263,8 +271,10 @@ class _StringsWebSharePageRu extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'Запросы';
 	@override String get noRequests => 'Запросов пока нет.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Автоматически принимать запросы';
+	@override String get requirePin => 'Требовать PIN-код';
+	@override String pinHint({required Object pin}) => 'PIN-код: "${pin}"';
 	@override String get encryptionHint => 'LocalSend использует самоподписанный сертификат. Вам необходимо принять его в браузере.';
 	@override String pendingRequests({required Object n}) => 'Ожидающие запросы: ${n}';
 }
@@ -346,7 +356,20 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrRu qr = _StringsDialogsQrRu._(_root);
 	@override late final _StringsDialogsQuickActionsRu quickActions = _StringsDialogsQuickActionsRu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeRu quickSaveNotice = _StringsDialogsQuickSaveNoticeRu._(_root);
+	@override late final _StringsDialogsPinRu pin = _StringsDialogsPinRu._(_root);
 	@override late final _StringsDialogsSendModeHelpRu sendModeHelp = _StringsDialogsSendModeHelpRu._(_root);
+	@override late final _StringsDialogsZoomRu zoom = _StringsDialogsZoomRu._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationRu extends _StringsSanitizationEn {
+	_StringsSanitizationRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Имя файла не может быть пустым';
+	@override String get invalid => 'Имя файла содержит недопустимые символы';
 }
 
 // Path: tray
@@ -356,7 +379,7 @@ class _StringsTrayRu extends _StringsTrayEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'Выйти из LocalSend';
 }
 
@@ -367,7 +390,10 @@ class _StringsWebRu extends _StringsWebEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Введите PIN-код';
+	@override String get invalidPin => 'Неверный PIN-код';
+	@override String get tooManyAttempts => 'Слишком много попыток';
 	@override String get rejected => 'Отклонено';
 	@override String get files => 'Файлов';
 	@override String get fileName => 'Имя файла';
@@ -476,10 +502,11 @@ class _StringsSettingsTabGeneralRu extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsRu colorOptions = _StringsSettingsTabGeneralColorOptionsRu._(_root);
 	@override String get language => 'Язык';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsRu languageOptions = _StringsSettingsTabGeneralLanguageOptionsRu._(_root);
-	@override String get saveWindowPlacement => 'Сохранить расположение окна после закрытия';
-	@override String get minimizeToTray => 'Закрыть: свернуть в системный трей/строку меню';
+	@override String get saveWindowPlacement => 'Сохранять расположение окна после закрытия';
+	@override String get minimizeToTray => 'Сворачивать в системный трей/строку меню при закрытии';
 	@override String get launchAtStartup => 'Автозагрузка';
 	@override String get launchMinimized => 'Скрытая автозагрузка';
+	@override String get showInContextMenu => 'Отображать LocalSend в контекстном меню';
 	@override String get animations => 'Анимации';
 }
 
@@ -491,9 +518,10 @@ class _StringsSettingsTabReceiveRu extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'Получение';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Автозавершение';
-	@override String get destination => 'Сохранять в';
+	@override String get destination => 'Сохранять в папку';
 	@override String get downloads => '(Загрузки)';
 	@override String get saveToGallery => 'Сохранять медиафайлы в галерею';
 	@override String get saveToHistory => 'Сохранять историю';
@@ -506,8 +534,8 @@ class _StringsSettingsTabSendRu extends _StringsSettingsTabSendEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Отправить';
-	@override String get shareViaLinkAutoAccept => 'Поделиться по ссылке: Принимать автоматически';
+	@override String get title => 'Отправка';
+	@override String get shareViaLinkAutoAccept => 'Автоматически принимать запросы в режиме \'Поделиться по ссылке\'';
 }
 
 // Path: settingsTab.network
@@ -524,6 +552,7 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Тип устройства';
 	@override String get deviceModel => 'Модель устройства';
 	@override String get port => 'Порт';
+	@override String get discoveryTimeout => 'Тайм-аут обнаружения';
 	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрование';
 	@override String get multicastGroup => 'Мультивещание';
@@ -575,6 +604,7 @@ class _StringsReceiveHistoryPageEntryActionsRu extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Открыть файл';
+	@override String get showInFolder => 'Показать в папке';
 	@override String get info => 'Информация';
 	@override String get deleteFromHistory => 'Удалить из истории';
 }
@@ -656,7 +686,7 @@ class _StringsDialogsErrorDialogRu extends _StringsDialogsErrorDialogEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -741,7 +771,7 @@ class _StringsDialogsLocalNetworkUnauthorizedRu extends _StringsDialogsLocalNetw
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend не может найти другие устройства без разрешения на сканирование локальной сети. Пожалуйста, предоставьте это разрешение в настройках.';
 	@override String get gotoSettings => 'Настройки';
 }
@@ -764,7 +794,7 @@ class _StringsDialogsNoFilesRu extends _StringsDialogsNoFilesEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Файлы не выбраны';
+	@override String get title => 'Не выбрано ни одного файла';
 	@override String get content => 'Пожалуйста, добавьте, как минимум, один файл.';
 }
 
@@ -822,8 +852,18 @@ class _StringsDialogsQuickSaveNoticeRu extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'Запросы на получение файлов теперь принимаются автоматически. Будьте осторожны, все пользователи этой локальной сети могут отправлять вам файлы.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinRu extends _StringsDialogsPinEn {
+	_StringsDialogsPinRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Введите PIN-код';
 }
 
 // Path: dialogs.sendModeHelp
@@ -834,9 +874,19 @@ class _StringsDialogsSendModeHelpRu extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Режимы отправки';
-	@override String get single => 'Отправляет файлы одному получателю. После завершения передачи, выбор будет очищен.';
-	@override String get multiple => 'Отправляет файлы нескольким получателям. Выбор не будет очищен.';
-	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы, открыв ссылку в своем браузере.';
+	@override String get single => 'Отправляет файлы одному получателю. Выборка будет очищена после завершения передачи файлов.';
+	@override String get multiple => 'Отправляет файлы нескольким получателям. Выборка не будет очищена.';
+	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы открыв ссылку в своем браузере.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomRu extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL-адрес';
 }
 
 // Path: settingsTab.general.brightnessOptions

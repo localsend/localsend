@@ -11,8 +11,10 @@ import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
+import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -39,10 +41,7 @@ class SendTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder(
       provider: sendTabVmProvider,
-      init: (context, ref) {
-        // ignore: discarded_futures
-        ref.dispatchAsync(SendTabInitAction(context));
-      },
+      init: (context) => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
         final ref = context.ref;
         return ResponsiveListView(
@@ -69,7 +68,7 @@ class SendTab extends StatelessWidget {
                           icon: option.icon,
                           label: option.label,
                           filled: false,
-                          onTap: () async => ref.dispatchAsync(PickFileAction(
+                          onTap: () async => ref.global.dispatchAsync(PickFileAction(
                             option: option,
                             context: context,
                           )),
@@ -84,13 +83,23 @@ class SendTab extends StatelessWidget {
               Card(
                 margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.only(left: 15, top: 5, bottom: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        t.sendTab.selection.title,
-                        style: Theme.of(context).textTheme.titleMedium,
+                      Row(
+                        children: [
+                          Text(
+                            t.sendTab.selection.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Spacer(),
+                          CustomIconButton(
+                            onPressed: () => ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction()),
+                            child: Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
+                          ),
+                          const SizedBox(width: 5),
+                        ],
                       ),
                       const SizedBox(height: 5),
                       Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
@@ -132,7 +141,7 @@ class SendTab extends StatelessWidget {
                             onPressed: () async {
                               if (_options.length == 1) {
                                 // open directly
-                                await ref.dispatchAsync(PickFileAction(
+                                await ref.global.dispatchAsync(PickFileAction(
                                   option: _options.first,
                                   context: context,
                                 ));
@@ -146,6 +155,7 @@ class SendTab extends StatelessWidget {
                             icon: const Icon(Icons.add),
                             label: Text(t.general.add),
                           ),
+                          const SizedBox(width: 15),
                         ],
                       ),
                     ],
@@ -194,7 +204,7 @@ class SendTab extends StatelessWidget {
                 ),
               ),
             ...vm.nearbyDevices.map((device) {
-              final favoriteEntry = vm.favoriteDevices.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
+              final favoriteEntry = vm.favoriteDevices.findDevice(device);
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
                 child: Hero(
@@ -210,7 +220,7 @@ class SendTab extends StatelessWidget {
                           device: device,
                           isFavorite: favoriteEntry != null,
                           nameOverride: favoriteEntry?.alias,
-                          onFavoriteTap: () async => await vm.onToggleFavorite(device),
+                          onFavoriteTap: () async => await vm.onToggleFavorite(context, device),
                           onTap: () async => await vm.onTapDevice(context, device),
                         ),
                 ),
@@ -314,7 +324,7 @@ class _ScanButton extends StatelessWidget {
         child: CustomIconButton(
           onPressed: () async {
             context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
-            await context.ref.dispatchAsync(StartSmartScan(forceLegacy: true));
+            await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
           },
           child: Icon(Icons.sync, color: iconColor),
         ),
@@ -325,7 +335,7 @@ class _ScanButton extends StatelessWidget {
       tooltip: t.sendTab.scan,
       onSelected: (ip) async {
         context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
-        await context.ref.dispatchAsync(StartLegacySubnetScan(subnets: [ip]));
+        await context.global.dispatchAsync(StartLegacySubnetScan(subnets: [ip]));
       },
       itemBuilder: (_) {
         return [
@@ -519,7 +529,7 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       progress: progress,
       isFavorite: isFavorite,
       nameOverride: nameOverride,
-      onFavoriteTap: () async => await vm.onToggleFavorite(device),
+      onFavoriteTap: () async => await vm.onToggleFavorite(context, device),
       onTap: () async => await vm.onTapDeviceMultiSend(context, device),
     );
   }
@@ -534,6 +544,8 @@ extension on SessionStatus {
         return t.sendPage.busy;
       case SessionStatus.declined:
         return t.sendPage.rejected;
+      case SessionStatus.tooManyAttempts:
+        return t.sendPage.tooManyAttempts;
       case SessionStatus.sending:
         return null;
       case SessionStatus.finished:

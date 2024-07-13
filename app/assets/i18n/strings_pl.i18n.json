@@ -100,11 +100,13 @@
       "minimizeToTray": "Wyjdź: zminimalizuj do menu ukrytych ikon",
       "launchAtStartup": "Autostart po zalogowaniu",
       "launchMinimized": "Autostart: start ukryty",
+      "showInContextMenu": "Pokaż LocalSend w menu kontekstowym",
       "animations": "Animacje"
     },
     "receive": {
       "title": "Odbierz",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Zakończ automatycznie",
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
@@ -123,6 +125,7 @@
       "deviceType": "Typ urządzenia",
       "deviceModel": "Model urządzenia",
       "port": "Port",
+      "discoveryTimeout": "Limit czasu wykrywania",
       "portWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: {defaultPort})",
       "encryption": "Szyfrowanie",
       "multicastGroup": "Multicast",
@@ -159,6 +162,7 @@
     "empty": "Historia jest pusta.",
     "entryActions": {
       "open": "Otwórz plik",
+      "showInFolder": "Pokaż w folderze",
       "info": "Informacje",
       "deleteFromHistory": "Usuń z historii"
     }
@@ -191,6 +195,7 @@
   "sendPage": {
     "waiting": "Czekanie na odpowiedź...",
     "rejected": "Odbiorca odrzucił żądanie.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Odbiorca jest zajęty innym żądaniem."
   },
   "progressPage": {
@@ -222,6 +227,8 @@
     "noRequests": "Brak żądań.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Automatycznie akceptuj żądania",
+    "requirePin": "Wymagaj kodu PIN",
+    "pinHint": "Kod PIN to \"{pin}\"",
     "encryptionHint": "LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.",
     "pendingRequests": "Oczekujące żądania: {n}"
   },
@@ -343,12 +350,22 @@
       "title": "@:general.quickSave",
       "content": "Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki."
     },
+    "pin": {
+      "title": "Wpisz kod PIN"
+    },
     "sendModeHelp": {
       "title": "Tryby wysyłania",
       "single": "Wysyła pliki do jednego odbiorcy. Wybór zostanie wyczyszczony po zakończonym transferze pliku.",
       "multiple": "Wysyła pliki do wielu odbiorców. Wybór nie zostanie wyczyszczony.",
       "link": "Odbiorcy, którzy nie mają zainstalowanego LocalSend, mogą pobrać wybrane pliki, otwierając link w swojej przeglądarce."
+    },
+    "zoom": {
+      "title": "Adres URL"
     }
+  },
+  "sanitization": {
+    "empty": "Nazwa pliku nie może być pusta",
+    "invalid": "Nazwa pliku zawiera nieprawidłowe znaki"
   },
   "tray": {
     "@info": "Wytyczne Apple są bardzo surowe, jeśli chodzi o „zamknięte” sformułowanie.",
@@ -357,6 +374,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Wpisz kod PIN",
+    "invalidPin": "Nieprawidłowy kod PIN",
+    "tooManyAttempts": "Zbyt wiele prób",
     "rejected": "Odrzucone",
     "files": "Pliki",
     "fileName": "Nazwa pliku",

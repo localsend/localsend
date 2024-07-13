@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -40,6 +46,7 @@ class _StringsAr extends Translations {
 	@override late final _StringsChangelogPageAr changelogPage = _StringsChangelogPageAr._(_root);
 	@override late final _StringsAliasGeneratorAr aliasGenerator = _StringsAliasGeneratorAr._(_root);
 	@override late final _StringsDialogsAr dialogs = _StringsDialogsAr._(_root);
+	@override late final _StringsSanitizationAr sanitization = _StringsSanitizationAr._(_root);
 	@override late final _StringsTrayAr tray = _StringsTrayAr._(_root);
 	@override late final _StringsWebAr web = _StringsWebAr._(_root);
 	@override late final _StringsAssetPickerAr assetPicker = _StringsAssetPickerAr._(_root);
@@ -133,6 +140,7 @@ class _StringsSettingsTabAr extends _StringsSettingsTabEn {
 	@override String get title => 'إعدادات';
 	@override late final _StringsSettingsTabGeneralAr general = _StringsSettingsTabGeneralAr._(_root);
 	@override late final _StringsSettingsTabReceiveAr receive = _StringsSettingsTabReceiveAr._(_root);
+	@override late final _StringsSettingsTabSendAr send = _StringsSettingsTabSendAr._(_root);
 	@override late final _StringsSettingsTabNetworkAr network = _StringsSettingsTabNetworkAr._(_root);
 	@override late final _StringsSettingsTabOtherAr other = _StringsSettingsTabOtherAr._(_root);
 	@override String get advancedSettings => 'الإعدادات المتقدمة';
@@ -214,9 +222,9 @@ class _StringsReceiveOptionsPageAr extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'خيارات';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend folder)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'تم إيقافه تلقائيًا لوجود دلائل.';
 }
 
@@ -262,7 +270,8 @@ class _StringsWebSharePageAr extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'الطلبات';
 	@override String get noRequests => 'لا يوجد طلبات حتى الآن.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
+	@override String get autoAccept => 'قبول الطلبات تلقائيا';
 	@override String get encryptionHint => 'يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.';
 	@override String pendingRequests({required Object n}) => 'الطلبات المعلقة: ${n}';
 }
@@ -416,6 +425,18 @@ class _StringsDialogsAr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQuickActionsAr quickActions = _StringsDialogsQuickActionsAr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeAr quickSaveNotice = _StringsDialogsQuickSaveNoticeAr._(_root);
 	@override late final _StringsDialogsSendModeHelpAr sendModeHelp = _StringsDialogsSendModeHelpAr._(_root);
+	@override late final _StringsDialogsZoomAr zoom = _StringsDialogsZoomAr._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationAr extends _StringsSanitizationEn {
+	_StringsSanitizationAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'لا يمكن أن يكون اسم الملف فارغًا';
+	@override String get invalid => 'يحتوي اسم الملف على أحرف غير صالحة';
 }
 
 // Path: tray
@@ -425,7 +446,7 @@ class _StringsTrayAr extends _StringsTrayEn {
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'أغلق LocalSend';
 }
 
@@ -436,7 +457,7 @@ class _StringsWebAr extends _StringsWebEn {
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'مرفوضة';
 	@override String get files => 'الملفات';
 	@override String get fileName => 'اسم الملف';
@@ -560,12 +581,23 @@ class _StringsSettingsTabReceiveAr extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'استلم';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'إنهاء تلقائي';
 	@override String get destination => 'حفظ في';
 	@override String get downloads => '(التنزيلات)';
 	@override String get saveToGallery => 'حفظ الوسائط في المعرض';
 	@override String get saveToHistory => 'حفظ في التاريخ';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendAr extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'أرسِل';
+	@override String get shareViaLinkAutoAccept => 'المشاركة عبر الرابط: قبول تلقائي';
 }
 
 // Path: settingsTab.network
@@ -582,6 +614,7 @@ class _StringsSettingsTabNetworkAr extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'نوع الجهاز';
 	@override String get deviceModel => 'نموذج الجهاز';
 	@override String get port => 'منفذ';
+	@override String get discoveryTimeout => 'مهلة الاكتشاف';
 	@override String portWarning({required Object defaultPort}) => 'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: ${defaultPort})';
 	@override String get encryption => 'التشفير';
 	@override String get multicastGroup => 'فرق البث المتعدد';
@@ -714,7 +747,7 @@ class _StringsDialogsErrorDialogAr extends _StringsDialogsErrorDialogEn {
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -799,7 +832,7 @@ class _StringsDialogsLocalNetworkUnauthorizedAr extends _StringsDialogsLocalNetw
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يرجى منح هذا الإذن في الإعدادات.';
 	@override String get gotoSettings => 'الإعدادات';
 }
@@ -880,7 +913,7 @@ class _StringsDialogsQuickSaveNoticeAr extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك.';
 }
 
@@ -895,6 +928,16 @@ class _StringsDialogsSendModeHelpAr extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'يقوم بإرسال الملفات إلى مستلم واحد. ستتم مسح الاختيار بعد انتهاء نقل الملف.';
 	@override String get multiple => 'يقوم بإرسال الملفات إلى مستلمين متعددين. لن يتم مسح الاختيار.';
 	@override String get link => 'يمكن للمستلمين الذين لا يحتوون على LocalSend تنزيل الملفات المحددة عن طريق فتح الرابط في متصفحهم.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomAr extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

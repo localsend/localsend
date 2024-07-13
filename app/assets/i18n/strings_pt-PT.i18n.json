@@ -1,0 +1,477 @@
+{
+  "locale": "Português (Portugal)",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Aceitar",
+    "accepted": "Aceito",
+    "add": "Adicionar",
+    "advanced": "Avançado",
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "continueStr": "Continuar",
+    "copy": "Copiar",
+    "copiedToClipboard": "Copiado para a Área de transferência",
+    "decline": "Rejeitar",
+    "done": "Concluído",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "error": "Erro",
+    "example": "Exemplo",
+    "files": "Ficheiros",
+    "finished": "Terminado",
+    "hide": "Ocultar",
+    "off": "Desativado",
+    "offline": "Offline",
+    "on": "Ativado",
+    "online": "Online",
+    "open": "Abrir",
+    "queue": "Fila",
+    "quickSave": "Guardar rápido",
+    "renamed": "Renomeado",
+    "reset": "Repor",
+    "restart": "Reiniciar",
+    "settings": "Definições",
+    "skipped": "Ignorado",
+    "start": "Iniciar",
+    "stop": "Parar",
+    "save": "Guardar",
+    "unchanged": "Inalterado",
+    "unknown": "Desconhecido",
+    "noItemInClipboard": "Nenhum item na área de transferência."
+  },
+  "receiveTab": {
+    "title": "Receber",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Porta:",
+      "alias": "Nome do dispositivo:"
+    }
+  },
+  "sendTab": {
+    "title": "Enviar",
+    "selection": {
+      "title": "Seleção",
+      "files": "Ficheiros: {files}",
+      "size": "Tamanho: {size}"
+    },
+    "picker": {
+      "file": "Ficheiro",
+      "folder": "Pasta",
+      "media": "Media",
+      "text": "Texto",
+      "app": "Aplicação",
+      "clipboard": "Colar"
+    },
+    "shareIntentInfo": "Também pode usar o recurso \"Partilhar\" do seu dispositivo móvel para selecionar ficheiros com mais facilidade.",
+    "nearbyDevices": "Dispositivos próximos",
+    "thisDevice": "Este dispositivo",
+    "scan": "Procurar dispositivos",
+    "sendMode": "Modo de envio",
+    "sendModes": {
+      "single": "Único destinatário",
+      "multiple": "Vários destinatários",
+      "link": "Partilhar via link"
+    },
+    "sendModeHelp": "Explicação",
+    "help": "Certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.",
+    "placeItems": "Coloque os itens para partilhar."
+  },
+  "settingsTab": {
+    "title": "Definições",
+    "general": {
+      "title": "Geral",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistema",
+        "dark": "Escuro",
+        "light": "Claro"
+      },
+      "color": "Cores",
+      "colorOptions": {
+        "system": "Sistema",
+        "oled": "OLED"
+      },
+      "language": "Idioma",
+      "languageOptions": {
+        "system": "Sistema"
+      },
+      "saveWindowPlacement": "Guardar a posição da janela ao fechar",
+      "minimizeToTray": "Minimizar para a área de notificação ao fechar",
+      "launchAtStartup": "Abrir automaticamente após iniciar sessão",
+      "launchMinimized": "Início automático: Abrir minimizado",
+      "animations": "Animações"
+    },
+    "receive": {
+      "title": "Recepção",
+      "quickSave": "@:general.quickSave",
+      "autoFinish": "Concluir automaticamente",
+      "destination": "Destino",
+      "downloads": "(Descargas)",
+      "saveToGallery": "Guardar na galeria",
+      "saveToHistory": "Guardar no histórico"
+    },
+    "send": {
+      "title": "Enviar",
+      "shareViaLinkAutoAccept": "Partilhar via link: Aceitar automaticamente"
+    },
+    "network": {
+      "title": "Rede",
+      "needRestart": "Reinicie o servidor para aplicar as definições!",
+      "server": "Servidor",
+      "alias": "Nome",
+      "deviceType": "Tipo de dispositivo",
+      "deviceModel": "Modelo do dispositivo",
+      "port": "Porta",
+      "discoveryTimeout": "Tempo limite de deteção",
+      "portWarning": "Pode estar indetectável para outros dispositivos por estar a usar uma porta personalizada. (Padrão: {defaultPort})",
+      "encryption": "Encriptação",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Pode estar indetectável para outros dispositivos por estar a usar um endereço multicast personalizado. (Padrão: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Outros",
+      "support": "Suporte o LocalSend",
+      "donate": "Doar",
+      "privacyPolicy": "Política de Privacidade",
+      "termsOfUse": "Termos de Utilização"
+    },
+    "advancedSettings": "Definições avançadas"
+  },
+  "troubleshootPage": {
+    "title": "Diagnosticar problemas",
+    "subTitle": "Esta aplicação não está a funcionar como esperado? Aqui pode encontrar soluções comuns.",
+    "solution": "Solução:",
+    "fixButton": "Corrigir automaticamente",
+    "firewall": {
+      "symptom": "Esta aplicação pode enviar ficheiros para outros dispositivos, mas outros dispositivos não podem enviar ficheiros para este dispositivo.",
+      "solution": "Provavelmente isto trata-se de um problema da firewall. Pode resolver este problema ao permitir ligações recebidas (UDP e TCP) na porta {port}.",
+      "openFirewall": "Abrir a Firewall"
+    },
+    "noConnection": {
+      "symptom": "Ambos os dispositivos não se detectam nem podem partilhar ficheiros entre si.",
+      "solution": "O problema existe em ambos os lados? Então precisa de ter a certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, encriptação). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser ativada no router."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Histórico",
+    "openFolder": "Abrir pasta",
+    "deleteHistory": "Eliminar histórico",
+    "empty": "O histórico está vazio.",
+    "entryActions": {
+      "open": "Abrir ficheiro",
+      "info": "Informação",
+      "deleteFromHistory": "Remover do histórico"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aplicações (APK)",
+    "excludeSystemApps": "Ocultar aplicações do sistema",
+    "excludeAppsWithoutLaunchIntent": "Ocultar aplicações não executáveis",
+    "apps": "{n} Aplicações"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Remover tudo"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "quer enviar um ficheiro",
+      "other": "quer enviar {n} ficheiros"
+    },
+    "subTitleMessage": "enviou-lhe uma mensagem:",
+    "subTitleLink": "enviou-lhe um link:",
+    "canceled": "O remetente cancelou o pedido."
+  },
+  "receiveOptionsPage": {
+    "title": "Opções",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(pasta LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Opção desligada automaticamente pois uma pasta está a ser transferida."
+  },
+  "sendPage": {
+    "waiting": "Aguardar resposta...",
+    "rejected": "O destinatário rejeitou o pedido.",
+    "busy": "O destinatário está ocupado com outro pedido de transferência."
+  },
+  "progressPage": {
+    "titleSending": "A enviar ficheiros",
+    "titleReceiving": "A receber ficheiros",
+    "savedToGallery": "Guardado na Galeria",
+    "total": {
+      "title": {
+        "sending": "Progresso total ({time})",
+        "finishedError": "Terminado com erro",
+        "canceledSender": "Cancelado pelo remetente",
+        "canceledReceiver": "Cancelado pelo destinatário"
+      },
+      "count": "Ficheiros: {curr} / {n}",
+      "size": "Tamanho: {curr} / {n}",
+      "speed": "Velocidade: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Partilhe via link",
+    "loading": "A iniciar o servidor...",
+    "stopping": "A parar o servidor...",
+    "error": "Ocorreu um erro enquanto o servidor tentava iniciar.",
+    "openLink": {
+      "one": "Abrir este link no navegador:",
+      "other": "Abrir um destes links no navegador:"
+    },
+    "requests": "Pedidos",
+    "noRequests": "Nenhum pedido ainda.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Aceitar pedidos automaticamente",
+    "encryptionHint": "O LocalSend utiliza um certificado assinado automaticamente. Precisa de aceitá-lo no navegador.",
+    "pendingRequests": "Pedidos pendentes: {n}"
+  },
+  "aboutPage": {
+    "title": "Acerca do LocalSend",
+    "description": [
+      "O LocalSend é uma aplicação gratuita e de código aberto que permite partilhar ficheiros e mensagens de forma segura com dispositivos próximos através da sua rede local, sem a necessidade de uma ligação à Internet.",
+      "Esta aplicação está disponível para Android, iOS, macOS, Windows e Linux. Pode encontrar todas as opções para descarregar na página oficial."
+    ],
+    "author": "Autor",
+    "contributors": "Contribuidores",
+    "translators": "Tradutores"
+  },
+  "donationPage": {
+    "title": "Doar",
+    "info": "O LocalSend é um software gratuito, de código aberto e sem qualquer anúncio. Se gosta da aplicação, então considere apoiar o desenvolvimento com um donativo!",
+    "donate": "Doar {amount}",
+    "thanks": "Muito obrigado!",
+    "restore": "Restaurar compra"
+  },
+  "changelogPage": {
+    "title": "Histórico de alterações"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Adorável",
+      "Lindo",
+      "Grande",
+      "Brilhante",
+      "Limpo",
+      "Inteligente",
+      "Fixe",
+      "Giro",
+      "Astuto",
+      "Determinado",
+      "Enérgico",
+      "Eficiente",
+      "Fantástico",
+      "Rápido",
+      "Ótimo",
+      "Fresco",
+      "Bom",
+      "Deslumbrante",
+      "Bonito",
+      "Gentil",
+      "Adorável",
+      "Místico",
+      "Simpático",
+      "Paciente",
+      "Poderoso",
+      "Rico",
+      "Secreto",
+      "Inteligente",
+      "Sólido",
+      "Especial",
+      "Estratégico",
+      "Forte",
+      "Interessante",
+      "Perspicaz",
+      "Reluzente",
+      "Vigilante",
+      "Arrumado",
+      "Sábio"
+    ],
+    "fruits": [
+      "Maçã",
+      "Abacate",
+      "Banana",
+      "Mirtilo",
+      "Maracujá",
+      "Ameixa",
+      "Amora",
+      "Brócolos",
+      "Cenoura",
+      "Cereja",
+      "Côco",
+      "Uva",
+      "Limão",
+      "Alface",
+      "Manga",
+      "Melão",
+      "Cogumelo",
+      "Cebola",
+      "Laranja",
+      "Papaia",
+      "Mamão",
+      "Pêssego",
+      "Pêra",
+      "Ananás",
+      "Abacaxi",
+      "Batata",
+      "Abóbora",
+      "Morango",
+      "Tomate"
+    ],
+    "combination": "{fruit} {adjective}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Adicionar à seleção",
+      "content": "O que quer adicionar?"
+    },
+    "addressInput": {
+      "title": "Digite o endereço",
+      "hashtag": "Hashtag",
+      "ip": "Endereço IP",
+      "recentlyUsed": "Recém ligado: "
+    },
+    "cancelSession": {
+      "title": "Cancelar transferência de ficheiros",
+      "content": "Cancelar a transferência de ficheiros?"
+    },
+    "cannotOpenFile": {
+      "title": "Não foi possível abrir o ficheiro",
+      "content": "Não foi possível abrir \"{file}\". O ficheiro foi movido, renomeado ou eliminado?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encriptação desativada",
+      "content": "A comunicação agora ocorre via protocolo HTTP não encriptado. Para usar HTTPS, ative a encriptação novamente."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoritos",
+      "noFavorites": "Ainda sem favoritos :(",
+      "addFavorite": "Adicionar"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Eliminar favorito",
+      "content": "Eliminar \"{name}\" dos favoritos?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Adicionar aos favoritos",
+      "titleEdit": "Editar",
+      "name": "Apelido",
+      "auto": "(auto)",
+      "ip": "Endereço IP",
+      "port": "Porta"
+    },
+    "fileInfo": {
+      "title": "Informação do ficheiro",
+      "fileName": "Nome do ficheiro:",
+      "path": "Localização:",
+      "size": "Tamanho:",
+      "sender": "Remetente:",
+      "time": "Data:"
+    },
+    "fileNameInput": {
+      "title": "Digite o nome do ficheiro",
+      "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Limpar histórico",
+      "content": "Eliminar todo o histórico?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "O LocalSend não consegue encontrar outros dispositivos sem ter a permissão para analisar a rede local. Conceda esta permissão nas definições.",
+      "gotoSettings": "Definições"
+    },
+    "messageInput": {
+      "title": "Digite a mensagem",
+      "multiline": "Várias linhas"
+    },
+    "noFiles": {
+      "title": "Nenhum ficheiro selecionado",
+      "content": "Selecione pelo menos um ficheiro."
+    },
+    "noPermission": {
+      "title": "Sem permissão",
+      "content": "Não concedeu as permissões necessárias. Conceda-as nas definições."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Indisponível",
+      "content": "Esta função está disponível apenas no: "
+    },
+    "qr": {
+      "title": "QR Code"
+    },
+    "quickActions": {
+      "title": "Ações rápidas",
+      "counter": "Contador",
+      "prefix": "Prefixo",
+      "padZero": "Preencher com zeros",
+      "sortBeforeCount": "Ordenar previamente por ordem alfabética",
+      "random": "Aleatório"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Pedidos de ficheiros são aceites automaticamente. Tenha em atenção que todas as pessoas na rede local podem enviar-lhe ficheiros."
+    },
+    "sendModeHelp": {
+      "title": "Modos de envio",
+      "single": "Envia ficheiros para um destinatário. A seleção será apagada após a conclusão da transferência dos ficheiros.",
+      "multiple": "Envia ficheiros para vários destinatários. A seleção não será apagada.",
+      "link": "Os destinatários que não têm o LocalSend instalado podem descarregar os ficheiros selecionados abrindo o link fornecido no navegador."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "O nome do ficheiro não pode estar em branco",
+    "invalid": "O nome do ficheiro contém caracteres inválidos"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Fechar o LocalSend"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Ligação rejeitada",
+    "files": "Ficheiros",
+    "fileName": "Nome do ficheiro",
+    "size": "Tamanho"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "gifIndicator": "GIF",
+    "loadFailed": "Falha ao carregar",
+    "original": "Original",
+    "preview": "Pré-visualização",
+    "select": "Selecionar",
+    "emptyList": "Lista vazia",
+    "unSupportedAssetType": "Este tipo de ficheiro não é suportado.",
+    "unableToAccessAll": "Incapaz de aceder todos os ficheiros do dispositivo",
+    "viewingLimitedAssetsTip": "Apenas visualizar ficheiros e álbuns acessíveis à aplicação.",
+    "changeAccessibleLimitedAssets": "Clique para atualizar os ficheiros acessíveis",
+    "accessAllTip": "A aplicação só pode aceder a alguns ficheiros no dispositivo. Aceda às definições do sistema e permita que a aplicação aceda a todos os ficheiros no dispositivo.",
+    "goToSystemSettings": "Ir para definições do sistema",
+    "accessLimitedAssets": "Continuar com acesso limitado",
+    "accessiblePathName": "Ficheiros acessíveis",
+    "sTypeAudioLabel": "Áudio",
+    "sTypeImageLabel": "Imagem",
+    "sTypeVideoLabel": "Vídeo",
+    "sTypeOtherLabel": "Outros ficheiros",
+    "sActionPlayHint": "reproduzir",
+    "sActionPreviewHint": "pré-visualizar",
+    "sActionSelectHint": "selecionar",
+    "sActionSwitchPathLabel": "mudar a localização",
+    "sActionUseCameraHint": "use a câmara",
+    "sNameDurationLabel": "duração",
+    "sUnitAssetCountLabel": "total"
+  }
+}

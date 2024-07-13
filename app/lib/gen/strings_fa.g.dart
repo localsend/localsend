@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -40,6 +46,7 @@ class _StringsFa extends Translations {
 	@override late final _StringsChangelogPageFa changelogPage = _StringsChangelogPageFa._(_root);
 	@override late final _StringsAliasGeneratorFa aliasGenerator = _StringsAliasGeneratorFa._(_root);
 	@override late final _StringsDialogsFa dialogs = _StringsDialogsFa._(_root);
+	@override late final _StringsSanitizationFa sanitization = _StringsSanitizationFa._(_root);
 	@override late final _StringsTrayFa tray = _StringsTrayFa._(_root);
 	@override late final _StringsWebFa web = _StringsWebFa._(_root);
 	@override late final _StringsAssetPickerFa assetPicker = _StringsAssetPickerFa._(_root);
@@ -215,9 +222,9 @@ class _StringsReceiveOptionsPageFa extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'گزینه ها';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(پوشه لوکال سند)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'به دلیل وجود مسیر ها به طور خودکار خاموش می شود';
 }
 
@@ -230,6 +237,7 @@ class _StringsSendPageFa extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'در انتظار پاسخ...';
 	@override String get rejected => 'گیرنده درخواست را رد کرد';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'گیرنده با درخواست دیگری مشغول است';
 }
 
@@ -263,8 +271,10 @@ class _StringsWebSharePageFa extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'درخواست ها';
 	@override String get noRequests => 'هنوز درخواستی وجود ندارد';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'درخواست ها به طور خودکار پذیرفته میشوند';
+	@override String get requirePin => 'نیاز به پین';
+	@override String pinHint({required Object pin}) => 'پین "${pin}" می‌باشد';
 	@override String get encryptionHint => 'LocalSend از یک گواهی خودامضا استفاده می‌کند. شما باید آن را در مرورگر قبول کنید.';
 	@override String pendingRequests({required Object n}) => 'درخواست های در حال انتظار: ${n}';
 }
@@ -417,7 +427,20 @@ class _StringsDialogsFa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrFa qr = _StringsDialogsQrFa._(_root);
 	@override late final _StringsDialogsQuickActionsFa quickActions = _StringsDialogsQuickActionsFa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFa quickSaveNotice = _StringsDialogsQuickSaveNoticeFa._(_root);
+	@override late final _StringsDialogsPinFa pin = _StringsDialogsPinFa._(_root);
 	@override late final _StringsDialogsSendModeHelpFa sendModeHelp = _StringsDialogsSendModeHelpFa._(_root);
+	@override late final _StringsDialogsZoomFa zoom = _StringsDialogsZoomFa._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationFa extends _StringsSanitizationEn {
+	_StringsSanitizationFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'نام فایل نمی تواند خالی باشد';
+	@override String get invalid => 'نام فایل حاوی کاراکترهای نامعتبر است';
 }
 
 // Path: tray
@@ -427,7 +450,7 @@ class _StringsTrayFa extends _StringsTrayEn {
 	@override final _StringsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'خروج از لوکال سند';
 }
 
@@ -438,7 +461,10 @@ class _StringsWebFa extends _StringsWebEn {
 	@override final _StringsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'پین را وارد کنید';
+	@override String get invalidPin => 'پین نامعتبر';
+	@override String get tooManyAttempts => 'تلاش‌های بیش از حد';
 	@override String get rejected => 'پذیرفته نشد';
 	@override String get files => 'فایل ها';
 	@override String get fileName => 'نام فایل';
@@ -551,6 +577,7 @@ class _StringsSettingsTabGeneralFa extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'خروج: ارسال برنامه به سیستم تری';
 	@override String get launchAtStartup => 'شروع خودکار پس از ورود به سیستم';
 	@override String get launchMinimized => 'شروع خودکار: شروع به صورت پنجره پنهان';
+	@override String get showInContextMenu => 'نمایش لوکال‌سند در منوی زمینه';
 	@override String get animations => 'انیمیشن‌ها';
 }
 
@@ -562,7 +589,8 @@ class _StringsSettingsTabReceiveFa extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'دریافت';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'پایان خودکار';
 	@override String get destination => 'مقصد';
 	@override String get downloads => '(دانلودها)';
@@ -595,6 +623,7 @@ class _StringsSettingsTabNetworkFa extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'نوع دستگاه';
 	@override String get deviceModel => 'مدل دستگاه';
 	@override String get port => 'پورت';
+	@override String get discoveryTimeout => 'مدت یابش';
 	@override String portWarning({required Object defaultPort}) => 'ممکن است به دلیل استفاده از یک پورت سفارشی، دستگاه های دیگر شما را شناسایی نکنند (پیشفرض : ${defaultPort})';
 	@override String get encryption => 'رمزنگاری';
 	@override String get multicastGroup => 'چندپخشی';
@@ -646,6 +675,7 @@ class _StringsReceiveHistoryPageEntryActionsFa extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'باز کردن فایل';
+	@override String get showInFolder => 'نمایش پوشه';
 	@override String get info => 'اطلاعات';
 	@override String get deleteFromHistory => 'حذف از تاریخچه';
 }
@@ -727,7 +757,7 @@ class _StringsDialogsErrorDialogFa extends _StringsDialogsErrorDialogEn {
 	@override final _StringsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -812,7 +842,7 @@ class _StringsDialogsLocalNetworkUnauthorizedFa extends _StringsDialogsLocalNetw
 	@override final _StringsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'لوکال سند نمی تواند دستگاه های دیگر را بدون داشتن مجوز اسکن شبکه محلی پیدا کند. لطفاً این مجوز را در تنظیمات به برنامه بدهید';
 	@override String get gotoSettings => 'تنظیمات';
 }
@@ -893,8 +923,18 @@ class _StringsDialogsQuickSaveNoticeFa extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'درخواست ها به صورت خودکار پذیرفته می شوند. توجه داشته باشید که همه افراد در شبکه محلی می توانند برای شما فایل ارسال کنند';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinFa extends _StringsDialogsPinEn {
+	_StringsDialogsPinFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پین را وارد کنید';
 }
 
 // Path: dialogs.sendModeHelp
@@ -908,6 +948,16 @@ class _StringsDialogsSendModeHelpFa extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'فایل ها را به یک گیرنده ارسال می کند. لیست انتخاب شده ها پس از اتمام انتقال فایل پاک می شود';
 	@override String get multiple => 'فایل ها را برای چندین گیرنده ارسال می کند. لیست انتخاب شده ها پاک نخواهد شد';
 	@override String get link => 'گیرندگانی که لوکال سند را نصب نکرده اند، می توانند فایل ها را با باز کردن لینک در مرورگر خود دانلود کنند';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomFa extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'آدرس اینترنتی';
 }
 
 // Path: settingsTab.general.brightnessOptions

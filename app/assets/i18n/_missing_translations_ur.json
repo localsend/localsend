@@ -16,14 +16,19 @@
     "general": {
       "colorOptions": {
         "oled": "OLED"
-      }
+      },
+      "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish"
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "shareViaLinkAutoAccept": "Automatically accept requests in 'Share via link' mode"
+    },
+    "network": {
+      "discoveryTimeout": "Discovery Timeout"
     },
     "other": {
       "title": "Other",
@@ -33,8 +38,18 @@
       "termsOfUse": "Terms of Use"
     }
   },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Show in folder"
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "Automatically accept requests",
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\""
   },
   "aboutPage": {
     "description": [
@@ -73,6 +88,21 @@
     "historyClearDialog": {
       "title": "Clear history",
       "content": "Do you really want to delete the entire history?"
+    },
+    "pin": {
+      "title": "Enter PIN"
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Filename cannot be empty",
+    "invalid": "Filename contains invalid characters"
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
   }
 }

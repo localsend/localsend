@@ -13,6 +13,7 @@ class SettingsTabVm with SettingsTabVmMappable {
   final TextEditingController aliasController;
   final TextEditingController deviceModelController;
   final TextEditingController portController;
+  final TextEditingController timeoutController;
   final TextEditingController multicastController;
 
   final SettingsState settings;
@@ -20,9 +21,15 @@ class SettingsTabVm with SettingsTabVmMappable {
   final DeviceInfoResult deviceInfo;
   final List<ThemeMode> themeModes = ThemeMode.values;
   final List<ColorMode> colorModes;
+  final bool autoStart;
+  final bool autoStartLaunchHidden;
+  final bool showInContextMenu;
   final void Function(BuildContext context, ThemeMode mode) onChangeTheme;
   final void Function(ColorMode mode) onChangeColorMode;
   final void Function(BuildContext context) onTapLanguage;
+  final void Function(BuildContext context) onToggleAutoStart;
+  final void Function(BuildContext context) onToggleAutoStartLaunchHidden;
+  final void Function(BuildContext context) onToggleShowInContextMenu;
   final void Function(BuildContext context) onTapRestartServer;
   final void Function(BuildContext context) onTapStartServer;
   final void Function() onTapStopServer;
@@ -33,14 +40,21 @@ class SettingsTabVm with SettingsTabVmMappable {
     required this.aliasController,
     required this.deviceModelController,
     required this.portController,
+    required this.timeoutController,
     required this.multicastController,
     required this.settings,
     required this.serverState,
     required this.deviceInfo,
     required this.colorModes,
+    required this.autoStart,
+    required this.autoStartLaunchHidden,
+    required this.showInContextMenu,
     required this.onChangeTheme,
     required this.onChangeColorMode,
     required this.onTapLanguage,
+    required this.onToggleAutoStart,
+    required this.onToggleAutoStartLaunchHidden,
+    required this.onToggleShowInContextMenu,
     required this.onTapRestartServer,
     required this.onTapStartServer,
     required this.onTapStopServer,

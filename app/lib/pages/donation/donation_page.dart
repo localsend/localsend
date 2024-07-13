@@ -17,7 +17,7 @@ class DonationPage extends StatelessWidget {
     return ViewModelBuilder(
       provider: donationPageVmProvider,
       // [FOSS_REMOVE_START]
-      init: (context, ref) => ref.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction()), // ignore: discarded_futures
+      init: (context) => context.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction()), // ignore: discarded_futures
       // [FOSS_REMOVE_END]
       builder: (context, vm) {
         return Scaffold(

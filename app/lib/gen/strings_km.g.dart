@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -214,9 +220,9 @@ class _StringsReceiveOptionsPageKm extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'ជម្រើស';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(ថតឯកសារ LocalSend)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'បានបិទដោយស្វ័យប្រវត្តិ ដោយសារមានថតស្រាប់ហើយ។';
 }
 
@@ -262,7 +268,7 @@ class _StringsWebSharePageKm extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'ការស្នើសុំ';
 	@override String get noRequests => 'មិនទាន់មានសំណើនៅឡើយ។';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
 	@override String pendingRequests({required Object n}) => 'សំណើដែលកំពុងរង់ចាំ: ${n}';
 }
@@ -425,7 +431,7 @@ class _StringsTrayKm extends _StringsTrayEn {
 	@override final _StringsKm _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'ចាកចេញពីកម្មវិធី LocalSend';
 }
 
@@ -436,7 +442,7 @@ class _StringsWebKm extends _StringsWebEn {
 	@override final _StringsKm _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'បានបដិសេធ';
 	@override String get files => 'ឯកសារ';
 	@override String get fileName => 'ឈ្មោះឯកសារ';
@@ -560,7 +566,7 @@ class _StringsSettingsTabReceiveKm extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'ការទទួល';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'បញ្ចប់ដោយស្វ័យប្រវត្តិ';
 	@override String get destination => 'ទិសដៅ';
 	@override String get downloads => '(ទាញយក)';
@@ -714,7 +720,7 @@ class _StringsDialogsErrorDialogKm extends _StringsDialogsErrorDialogEn {
 	@override final _StringsKm _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -799,7 +805,7 @@ class _StringsDialogsLocalNetworkUnauthorizedKm extends _StringsDialogsLocalNetw
 	@override final _StringsKm _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend មិន​អាច​រក​ឃើញ​ឧបករណ៍​ផ្សេង​ទៀត​ដោយ​មិន​មាន​ការ​អនុញ្ញាត​ក្នុង​ការ​ស្កែន​បណ្តាញរួមគ្នា​ទេ។ សូមផ្តល់ការអនុញ្ញាតនេះនៅក្នុងការកំណត់។';
 	@override String get gotoSettings => 'ការកំណត់';
 }
@@ -880,7 +886,7 @@ class _StringsDialogsQuickSaveNoticeKm extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsKm _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'សំណើឯកសារត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិ។ ត្រូវ​ចំណាំ​ថា​អ្នក​រាល់​គ្នា​នៅ​ក្នុង​បណ្ដាញ​មូលដ្ឋាន​រួមគ្នាអាច​ផ្ញើ​ឯកសារ​មក​អ្នកបាន។';
 }
 

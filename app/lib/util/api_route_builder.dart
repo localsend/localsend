@@ -26,13 +26,13 @@ enum ApiRoute {
 
   /// The client url
   String target(Device target, {Map<String, String>? query}) {
-    final protocol = target.https ? 'https' : 'http';
-    final route = target.version == '1.0' ? v1 : v2;
-    if (query != null) {
-      return '$protocol://${target.ip}:${target.port}$route?${query.entries.map((e) => '${e.key}=${e.value}').join('&')}';
-    } else {
-      return '$protocol://${target.ip}:${target.port}$route';
-    }
+    return Uri(
+      scheme: target.https ? 'https' : 'http',
+      host: target.ip,
+      port: target.port,
+      path: target.version == '1.0' ? v1 : v2,
+      queryParameters: query,
+    ).toString();
   }
 
   /// The client url for polling

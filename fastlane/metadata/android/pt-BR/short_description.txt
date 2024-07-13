@@ -1,0 +1,1 @@
+Solução de compartilhamento de arquivos por WiFi multi-plataforma.

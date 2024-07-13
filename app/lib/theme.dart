@@ -10,6 +10,9 @@ import 'package:yaru/yaru.dart' as yaru;
 
 final _borderRadius = BorderRadius.circular(5);
 
+/// On desktop, we need to add additional padding to achieve the same visual appearance as on mobile
+double get desktopPaddingFix => checkPlatformIsDesktop() ? 8 : 0;
+
 ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dynamicColors) {
   if (colorMode == ColorMode.yaru) {
     return _getYaruTheme(brightness);
@@ -60,12 +63,12 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: colorScheme.brightness == Brightness.dark ? Colors.white : null,
-        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + desktopPaddingFix),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + desktopPaddingFix),
       ),
     ),
     fontFamily: fontFamily,

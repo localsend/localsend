@@ -111,6 +111,10 @@
       "saveToGallery": "Média mentése a galériába",
       "saveToHistory": "Mentés az előzmények közé"
     },
+    "send": {
+      "title": "Küld",
+      "shareViaLinkAutoAccept": "Megosztás linken keresztül: Auto. elfogadás"
+    },
     "network": {
       "title": "Hálózat",
       "needRestart": "A beállítások alkalmazásához indítsa újra a szervert!",
@@ -119,6 +123,7 @@
       "deviceType": "Eszköz típusa",
       "deviceModel": "Eszköz modell",
       "port": "Port",
+      "discoveryTimeout": "Felfedezési időtúllépés",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
@@ -217,6 +222,7 @@
     "requests": "Kérések",
     "noRequests": "Még nincsenek kérések.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Kérések automatikus elfogadása",
     "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.",
     "pendingRequests": "Függőben lévő kérések: {n}"
   },
@@ -343,7 +349,14 @@
       "single": "Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.",
       "multiple": "Fájlokat küld több címzettnek. A kijelölés nem törlődik.",
       "link": "Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "A fájlnév nem lehet üres",
+    "invalid": "A fájlnév érvénytelen karaktereket tartalmaz"
   },
   "tray": {
     "@info": "Az Apple irányelvei nagyon szigorúak a 'közeli' megfogalmazással kapcsolatban.",

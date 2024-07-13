@@ -4,12 +4,48 @@
     "After editing this file, you can run 'dart run slang apply --locale=pt-BR' to quickly apply the newly added translations."
   ],
   "settingsTab": {
+    "general": {
+      "showInContextMenu": "Show LocalSend in context menu"
+    },
+    "receive": {
+      "requirePin": "@:webSharePage.requirePin"
+    },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Share via link: Auto accept"
+      "shareViaLinkAutoAccept": "Automatically accept requests in 'Share via link' mode"
+    },
+    "network": {
+      "discoveryTimeout": "Discovery Timeout"
     }
   },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Show in folder"
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests"
+    "autoAccept": "Automatically accept requests",
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\""
+  },
+  "dialogs": {
+    "pin": {
+      "title": "Enter PIN"
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Filename cannot be empty",
+    "invalid": "Filename contains invalid characters"
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
   }
 }

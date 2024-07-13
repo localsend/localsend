@@ -9,11 +9,15 @@ import 'package:routerino/routerino.dart';
 
 class QrDialog extends StatelessWidget {
   final String data;
+  final String? label;
   final bool listenIncomingWebSendRequests;
+  final String? pin;
 
   const QrDialog({
     required this.data,
+    this.label,
     this.listenIncomingWebSendRequests = false,
+    this.pin,
   });
 
   @override
@@ -48,7 +52,7 @@ class QrDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          Text(data, textAlign: TextAlign.center),
+          Text(label ?? data, textAlign: TextAlign.center),
           if (listenIncomingWebSendRequests && webSendState != null)
             Builder(
               builder: (context) {
@@ -66,6 +70,18 @@ class QrDialog extends StatelessWidget {
                   return Container();
                 }
               },
+            ),
+          if (pin != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.vpn_key),
+                  const SizedBox(width: 5),
+                  Text(pin!),
+                ],
+              ),
             ),
         ],
       ),

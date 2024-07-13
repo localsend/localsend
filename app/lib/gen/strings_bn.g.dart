@@ -1,3 +1,9 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'strings.g.dart';
 
 // Path: <root>
@@ -214,9 +220,9 @@ class _StringsReceiveOptionsPageBn extends _StringsReceiveOptionsPageEn {
 
 	// Translations
 	@override String get title => 'অপশনসমূহ';
-	@override String get destination => '${_root.settingsTab.receive.destination}';
+	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(${_root.appName} folder)';
-	@override String get saveToGallery => '${_root.settingsTab.receive.saveToGallery}';
+	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 	@override String get saveToGalleryOff => 'স্বয়ংক্রিয়ভাবে বন্ধ কারণ ডিরেক্টরি আছে.';
 }
 
@@ -262,7 +268,7 @@ class _StringsWebSharePageBn extends _StringsWebSharePageEn {
 	);
 	@override String get requests => 'অনুরোধ';
 	@override String get noRequests => 'এখনো কোনো অনুরোধ নেই.';
-	@override String get encryption => '${_root.settingsTab.network.encryption}';
+	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get encryptionHint => 'LocalSend একটি স্ব-স্বাক্ষরিত শংসাপত্র ব্যবহার করে। আপনাকে ব্রাউজারে এটি গ্রহণ করতে হবে।';
 	@override String pendingRequests({required Object n}) => 'অনুরোধ অপেক্ষারত: ${n}';
 }
@@ -425,7 +431,7 @@ class _StringsTrayBn extends _StringsTrayEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get open => '${_root.general.open}';
+	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend থেকে প্রস্থান করুন';
 }
 
@@ -436,7 +442,7 @@ class _StringsWebBn extends _StringsWebEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => '${_root.sendPage.waiting}';
+	@override String get waiting => _root.sendPage.waiting;
 	@override String get rejected => 'প্রত্যাখ্যাত';
 	@override String get files => 'নথি পত্র';
 	@override String get fileName => 'ফাইলের নাম';
@@ -560,7 +566,7 @@ class _StringsSettingsTabReceiveBn extends _StringsSettingsTabReceiveEn {
 
 	// Translations
 	@override String get title => 'গ্রহণ করুন';
-	@override String get quickSave => '${_root.general.quickSave}';
+	@override String get quickSave => _root.general.quickSave;
 	@override String get autoFinish => 'অটো ফিনিশ';
 	@override String get destination => 'গন্তব্য';
 	@override String get downloads => '(Downloads)';
@@ -714,7 +720,7 @@ class _StringsDialogsErrorDialogBn extends _StringsDialogsErrorDialogEn {
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.error}';
+	@override String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -799,7 +805,7 @@ class _StringsDialogsLocalNetworkUnauthorizedBn extends _StringsDialogsLocalNetw
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.dialogs.noPermission.title}';
+	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'স্থানীয় নেটওয়ার্ক স্ক্যান করার অনুমতি ছাড়া LocalSend অন্য ডিভাইস খুঁজে পায় না। অনুগ্রহ করে সেটিংসে এই অনুমতি দিন.';
 	@override String get gotoSettings => 'সেটিংস';
 }
@@ -880,7 +886,7 @@ class _StringsDialogsQuickSaveNoticeBn extends _StringsDialogsQuickSaveNoticeEn 
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '${_root.general.quickSave}';
+	@override String get title => _root.general.quickSave;
 	@override String get content => 'ফাইল অনুরোধ স্বয়ংক্রিয়ভাবে এক্সেপ্ট করা হয়। সচেতন থাকুন যেনা লোকাল নেটওয়ার্কের সবাই আপনাকে ফাইল পাঠাতে পারে।';
 }
 

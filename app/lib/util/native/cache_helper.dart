@@ -22,7 +22,7 @@ class ClearCacheAction extends AsyncGlobalAction {
   @override
   Future<void> reduce() async {
     // The token statement must be outside the lambda because it must be executed on the root isolate.
-    final token = RootIsolateToken.instance!;
+    final token = ServicesBinding.rootIsolateToken!;
     await Isolate.run(() => _clear(token));
   }
 }

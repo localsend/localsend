@@ -41,6 +41,7 @@
     <array>
         <string>ar</string>
         <string>bn</string>
+        <string>ca</string>
         <string>cs</string>
         <string>da</string>
         <string>de</string>
@@ -49,22 +50,30 @@
         <string>es-ES</string>
         <string>eu</string>
         <string>fa</string>
+        <string>fi</string>
+        <string>fil-PH</string>
         <string>fr</string>
         <string>he</string>
         <string>hu</string>
         <string>id</string>
         <string>it</string>
         <string>ja</string>
+        <string>km</string>
         <string>ko</string>
         <string>ne</string>
         <string>nl</string>
         <string>pl</string>
         <string>pt-BR</string>
+        <string>pt-PT</string>
+        <string>ro</string>
         <string>ru</string>
+        <string>sr</string>
+        <string>sr-Cyrl</string>
         <string>sv</string>
         <string>th</string>
         <string>tr</string>
         <string>uk</string>
+        <string>ur</string>
         <string>vi</string>
         <string>zh-CN</string>
         <string>zh-HK</string>
@@ -86,6 +95,25 @@
         <string>_http._tcp</string>
         <string>_bonjour._tcp</string>
         <string>_lnp._tcp.</string>
+    </array>
+
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>*</string>
+            </array>
+            <key>CFBundleTypeName</key>
+            <string>Any File</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.data</string>
+                <string>public.content</string>
+            </array>
+        </dict>
     </array>
 </dict>
 </plist>

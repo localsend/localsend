@@ -1,0 +1,474 @@
+{
+  "locale": "Gujarati",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "સ્વીકારો",
+    "accepted": "સ્વીકાર્યો",
+    "add": "ઉમેરો",
+    "advanced": "અદ્યતન",
+    "cancel": "રદ કરો",
+    "close": "બંધ કરો",
+    "confirm": "પુષ્ટિ કરો",
+    "continueStr": "ચાલુ રાખો",
+    "copy": "કૉપિ કરો",
+    "copiedToClipboard": "ક્લિપબોર્ડ પર કૉપિ થયું",
+    "decline": "અસ્વીકારો",
+    "done": "પૂર્ણ",
+    "delete": "કાઢી નાખો",
+    "edit": "ફેરફાર કરો",
+    "error": "ભૂલ",
+    "example": "ઉદાહરણ",
+    "files": "ફાઇલો",
+    "finished": "સમાપ્ત",
+    "hide": "છૂપાવો",
+    "off": "બંધ",
+    "offline": "ઓફલાઇન",
+    "on": "ચાલુ",
+    "online": "ઓનલાઇન",
+    "open": "ખોલો",
+    "queue": "કતાર",
+    "quickSave": "ઝડપથી સેવ કરો",
+    "renamed": "નામ બદલ્યું",
+    "reset": "રીસેટ કરો",
+    "restart": "ફરીથી શરૂ કરો",
+    "settings": "સેટિંગ્સ",
+    "skipped": "છોડી દીધું",
+    "start": "શરૂ કરો",
+    "stop": "બંધ કરો",
+    "save": "સેવ કરો",
+    "unchanged": "બદલાયું નથી",
+    "unknown": "અજ્ઞાત",
+    "noItemInClipboard": "ક્લિપબોર્ડમાં કોઈ વસ્તુ નથી"
+  },
+  "receiveTab": {
+    "title": "પ્રાપ્ત કરો",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "પોર્ટ:",
+      "alias": "ડિવાઇસનું નામ:"
+    }
+  },
+  "sendTab": {
+    "title": "મોકલો",
+    "selection": {
+      "title": "પસંદગી",
+      "files": "ફાઇલો: {files}",
+      "size": "કદ: {size}"
+    },
+    "picker": {
+      "file": "ફાઇલ",
+      "folder": "ફોલ્ડર",
+      "media": "મીડિયા",
+      "text": "ટેક્સ્ટ",
+      "app": "એપ",
+      "clipboard": "પેસ્ટ કરો"
+    },
+    "shareIntentInfo": "તમારા મોબાઇલ ડિવાઇસના \"શેર\" ફીચરને પણ વાપરીને ફાઇલોને વધુ સરળતાથી પસંદ કરી શકો છો.",
+    "nearbyDevices": "નજીકના ઉપકરણો",
+    "thisDevice": "આ ઉપકરણ",
+    "scan": "ઉપકરણો શોધો",
+    "sendMode": "મોડ મોકલો",
+    "sendModes": {
+      "single": "એકમાત્ર પ્રાપ્તકર્તા",
+      "multiple": "એકથી વધારે પ્રાપ્તકર્તાઓ",
+      "link": "લિંક દ્વારા શેર કરો"
+    },
+    "sendModeHelp": "સમજાણ",
+    "help": "મહેરબાની કરીને ખાતરી કરો કે ઇચ્છિત લક્ષ્ય પણ તે જ Wi-Fi નેટવર્ક પર છે.",
+    "placeItems": "શેર કરવા માટે વસ્તુઓ મૂકો."
+  },
+  "settingsTab": {
+    "title": "સેટિંગ્સ",
+    "general": {
+      "title": "સામાન્ય",
+      "brightness": "વિષય",
+      "brightnessOptions": {
+        "system": "સિસ્ટમ",
+        "dark": "ડાર્ક",
+        "light": "લાઇટ"
+      },
+      "color": "રંગ",
+      "colorOptions": {
+        "system": "સિસ્ટમ",
+        "oled": "OLED"
+      },
+      "language": "ભાષા",
+      "languageOptions": {
+        "system": "સિસ્ટમ"
+      },
+      "saveWindowPlacement": "બંધ કરો: વિન્ડો પ્લેસમેન્ટ સેવ કરો",
+      "minimizeToTray": "બંધ કરો: ટ્રે/મેનુ બારમાં મિનિમાઇઝ",
+      "launchAtStartup": "લૉગિન પછી સ્વયંચાલિત શરૂઆત",
+      "launchMinimized": "સ્વયંચાલિત શરૂઆત: છુપાવેલી સ્થિતિમાં શરૂ કરો",
+      "animations": "એનિમેશન"
+    },
+    "receive": {
+      "title": "સ્વીકારો",
+      "quickSave": "@:general.quickSave",
+      "autoFinish": "સ્વયંચાલિત પૂરણ",
+      "destination": "સ્થળ",
+      "downloads": "(ડાઉનલોડ્સ)",
+      "saveToGallery": "મીડિયા ગેલેરીમાં સેવ કરો",
+      "saveToHistory": "ઇતિહાસમાં સેવ કરો"
+    },
+    "send": {
+      "title": "મોકલો",
+      "shareViaLinkAutoAccept": "લિંક દ્વારા શેર કરો: સ્વયંચાલિત સ્વીકારો"
+    },
+    "network": {
+      "title": "નેટવર્ક",
+      "needRestart": "સેટિંગ્સ લાગુ કરવા સર્વરને પુનઃપ્રારંભ કરો!",
+      "server": "સર્વર",
+      "alias": "ડિવાઇસ નામ",
+      "deviceType": "ડિવાઇસ પ્રકાર",
+      "deviceModel": "ડિવાઇસ મોડલ",
+      "port": "પોર્ટ",
+      "discoveryTimeout": "ડિસ્કવરી ટાઈમઆઉટ",
+      "portWarning": "તમે કસ્ટમ પોર્ટનો ઉપયોગ કરી રહ્યા છો તેથી તમે અન્ય ડિવાઇસ દ્વારા શોધી શકાય નહીં. (મૂળભૂત: {defaultPort})",
+      "encryption": "એન્ક્રિપ્શન",
+      "multicastGroup": "મલ્ટીકાસ્ટ",
+      "multicastGroupWarning": "તમે કસ્ટમ મલ્ટીકાસ્ટ સરનામાનો ઉપયોગ કરી રહ્યા છો તેથી તમે અન્ય ડિવાઇસ દ્વારા શોધી શકાય નહીં. (મૂળભૂત: {defaultMulticast})"
+    },
+    "other": {
+      "title": "અન્ય",
+      "support": "લોકલસેન્ડને સપોર્ટ કરો",
+      "donate": "દાન આપો",
+      "privacyPolicy": "ગોપનીયતા નીતિ",
+      "termsOfUse": "વાપરવા માટેની શરતો"
+    },
+    "advancedSettings": "અદ્યતન સેટિંગ્સ"
+  },
+  "troubleshootPage": {
+    "title": "ટ્રબલશૂટ",
+    "subTitle": "એપ્લિકેશન અપેક્ષિત રીતે કાર્ય કરતી નથી? અહીં તમે કેટલાક સામાન્ય ઉકેલો મેળવી શકો છો.",
+    "solution": "ઉકેલ:",
+    "fixButton": "સ્વયંચાલિત રીતે ઉકેલો",
+    "firewall": {
+      "symptom": "આ એપ્લિકેશન અન્ય ડિવાઇસને ફાઈલો મોકલી શકે છે; પરંતુ અન્ય ડિવાઇસ આ ડિવાઇસને ફાઈલો મોકલી શકતા નથી.",
+      "solution": "આ મોટાભાગે ફાયરવોલનો પ્રશ્ન છે. તમે {port} પોર્ટ પર આવનારી કનેક્શન્સ (UDP અને TCP) ને મંજૂરી આપીને આ ઉકેલી શકો છો.",
+      "openFirewall": "ફાયરવોલ ખોલો"
+    },
+    "noConnection": {
+      "symptom": "બંને ડિવાઇસ એકબીજાને શોધી શકતા નથી કે ફાઈલો શેર કરી શકતા નથી.",
+      "solution": "શું સમસ્યા બંને બાજુ છે? જો આવું હોય, તો તમને ખાતરી કરવી જોઈએ કે બંને ડિવાઇસ એ જ Wi-Fi નેટવર્ક પર છે અને એ જ રૂપરેખા (પોર્ટ, મલ્ટીકાસ્ટ સરનામું, એન્ક્રિપ્શન) શેર કરે છે. નેટવર્ક ભાગ લેનારા વચ્ચે સંવાદિતા મંજૂરી ન આપી શકે. આ કિસ્સામાં, આ વિકલ્પને રાઉટરમાં સક્રિય કરવો પડશે."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "ઇતિહાસ",
+    "openFolder": "ફોલ્ડર ખોલો",
+    "deleteHistory": "ઇતિહાસ ડિલીટ કરો",
+    "empty": "ઇતિહાસ ખાલી છે.",
+    "entryActions": {
+      "open": "ફાઇલ ખોલો",
+      "info": "માહિતી",
+      "deleteFromHistory": "ઇતિહાસમાંથી ડિલીટ કરો"
+    }
+  },
+  "apkPickerPage": {
+    "title": "એપ્સ (APK)",
+    "excludeSystemApps": "સિસ્ટમ એપ્સનો સમાવેશ ન કરો",
+    "excludeAppsWithoutLaunchIntent": "લૉન્ચ નહીં કરી શકાય તેવા એપ્સનો સમાવેશ ન કરો",
+    "apps": "{n} એપ્સ"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "બધા ડિલીટ કરો"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "તમે ફાઇલ મોકલવા માંગે છે",
+      "other": "તમે {n} ફાઇલો મોકલવા માંગે છે"
+    },
+    "subTitleMessage": "તમે સંદેશો મોકલ્યો:",
+    "subTitleLink": "તમે લિંક મોકલી:",
+    "canceled": "પ્રેષક એ વિનંતી રદ કરી છે."
+  },
+  "receiveOptionsPage": {
+    "title": "વિકલ્પો",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(લોકલસેન્ડ ફોલ્ડર)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "સ્વયંચાલિત રીતે બંધ કરી દેવામાં આવ્યું છે કારણ કે ડિરેક્ટરીઓ છે."
+  },
+  "sendPage": {
+    "waiting": "પ્રતિસાદની રાહ જોવામાં આવી રહી છે...",
+    "rejected": "પ્રાપ્તકર્તાએ વિનંતી અસ્વીકાર કરી છે.",
+    "busy": "પ્રાપ્તકર્તા બીજી વિનંતી સાથે વ્યસ્ત છે."
+  },
+  "progressPage": {
+    "titleSending": "ફાઈલો મોકલી રહ્યા છે",
+    "titleReceiving": "ફાઈલો મેળવી રહ્યા છે",
+    "savedToGallery": "ફોટોઝ માં સાચવ્યું",
+    "total": {
+      "title": {
+        "sending": "કુલ પ્રગતિ ({time})",
+        "finishedError": "ભૂલ સાથે પૂર્ણ થયું",
+        "canceledSender": "મોકલનાર દ્વારા રદ કરવામાં આવ્યું",
+        "canceledReceiver": "પ્રાપ્તકર્તા દ્વારા રદ કરવામાં આવ્યું"
+      },
+      "count": "ફાઈલો: {curr} / {n}",
+      "size": "કદ: {curr} / {n}",
+      "speed": "ગતિ: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "લિંક દ્વારા શેર કરો",
+    "loading": "સર્વર શરૂ કરી રહ્યો છે...",
+    "stopping": "સર્વર બંધ કરી રહ્યો છે...",
+    "error": "સર્વર શરૂ કરતી વખતે એક ભૂલ થઈ.",
+    "openLink": {
+      "one": "તમારા બ્રાઉઝરમાં આ લિંક ખોલો:",
+      "other": "તમારા બ્રાઉઝરમાં આમાંથી કોઈ એક લિંક ખોલો:"
+    },
+    "requests": "વિનંતિઓ",
+    "noRequests": "હજી સુધી કોઈ વિનંતિ નથી.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "સ્વયંસંચાલિત રીતે વિનંતિઓ સ્વીકારો",
+    "encryptionHint": "લોકલસેન્ડ એ સ્વ-સાઇન્ડ સર્ટિફિકેટનો ઉપયોગ કરે છે. તમારે તેને તમારા બ્રાઉઝરમાં સ્વીકારવું પડશે.",
+    "pendingRequests": "બાકી વિનંતિઓ: {n}"
+  },
+  "aboutPage": {
+    "title": "લોકલસેન્ડ વિશે",
+    "description": [
+      "લોકલસેન્ડ એક મફત, ઓપન-સોર્સ એપ છે જે તમને તમારા સ્થાનિક નેટવર્ક પર નજીકના ઉપકરણો સાથે સુરક્ષિત રીતે ફાઈલો અને સંદેશાઓ શેર કરવાની મંજૂરી આપે છે અને તે માટે ઈન્ટરનેટ કનેક્શનની જરૂર નથી.",
+      "આ એપ એન્ડ્રોઇડ, ios, મેકઓએસ, વિન્ડોઝ અને લિનક્સ પર ઉપલબ્ધ છે. તમે તમામ ડાઉનલોડ વિકલ્પો આધિકારીક હોમપેજ પર શોધી શકો છો."
+    ],
+    "author": "લેખક",
+    "contributors": "યોગદાનકર્તાઓ",
+    "translators": "અનુવાદકો"
+  },
+  "donationPage": {
+    "title": "દાન આપો",
+    "info": "લોકલસેન્ડ મફત, ઓપન-સોર્સ છે અને તેમાં કોઈ જ જાહેરાતો નથી. જો તમને એપ ગમે, તો તમે દાન દ્વારા વિકાસને સપોર્ટ કરી શકો છો.",
+    "donate": "દાન આપો {amount}",
+    "thanks": "તમારો ખુબ ખુબ આભાર!",
+    "restore": "ખરીદી પુનઃસ્થાપિત કરો"
+  },
+  "changelogPage": {
+    "title": "ચેન્જલોગ"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Adorable",
+      "Beautiful",
+      "Big",
+      "Bright",
+      "Clean",
+      "Clever",
+      "Cool",
+      "Cute",
+      "Cunning",
+      "Determined",
+      "Energetic",
+      "Efficient",
+      "Fantastic",
+      "Fast",
+      "Fine",
+      "Fresh",
+      "Good",
+      "Gorgeous",
+      "Great",
+      "Handsome",
+      "Hot",
+      "Kind",
+      "Lovely",
+      "Mystic",
+      "Neat",
+      "Nice",
+      "Patient",
+      "Pretty",
+      "Powerful",
+      "Rich",
+      "Secret",
+      "Smart",
+      "Solid",
+      "Special",
+      "Strategic",
+      "Strong",
+      "Tidy",
+      "Wise"
+    ],
+    "fruits": [
+      "Apple",
+      "Avocado",
+      "Banana",
+      "Blackberry",
+      "Blueberry",
+      "Broccoli",
+      "Carrot",
+      "Cherry",
+      "Coconut",
+      "Grape",
+      "Lemon",
+      "Lettuce",
+      "Mango",
+      "Melon",
+      "Mushroom",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Peach",
+      "Pear",
+      "Pineapple",
+      "Potato",
+      "Pumpkin",
+      "Raspberry",
+      "Strawberry",
+      "Tomato"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+  "addFile": {
+    "title": "પસંદગીમાં ઉમેરો",
+    "content": "તમે શું ઉમેરવા માંગો છો?"
+  },
+  "addressInput": {
+    "title": "સરનામું દાખલ કરો",
+    "hashtag": "હૅશટૅગ",
+    "ip": "IP સરનામું",
+    "recentlyUsed": "હાલમાં ઉપયોગમાં લીધેલું: "
+  },
+  "cancelSession": {
+    "title": "ફાઇલ ટ્રાન્સફર રદ કરો",
+    "content": "શું તમે ખરેખર ફાઇલ ટ્રાન્સફર રદ કરવા માંગો છો?"
+  },
+  "cannotOpenFile": {
+    "title": "ફાઇલ ખોલી શકતા નથી",
+    "content": "\"{file}\" ખોલી શક્યા નહીં. શું આ ફાઇલ ખસેડવામાં આવી છે, નામ બદલવામાં આવ્યું છે કે દૂર કરવામાં આવી છે?"
+  },
+  "encryptionDisabledNotice": {
+    "title": "એન્ક્રિપ્શન નિષ્ક્રિય",
+    "content": "આંકડાશાસ્ત્ર હવે કોડ ન કરાયેલા HTTP પ્રોટોકોલ દ્વારા થાય છે. HTTPS નો ઉપયોગ કરવા માટે, ફરીથી એન્ક્રિપ્શન સક્રિય કરો."
+  },
+  "errorDialog": {
+    "title": "@:general.error"
+  },
+  "favoriteDialog": {
+    "title": "મનપસંદ",
+    "noFavorites": "હજી સુધી કોઈ મનપસંદ ઉપકરણ નથી.",
+    "addFavorite": "ઉમેરો"
+  },
+  "favoriteDeleteDialog": {
+    "title": "મનપસંદમાંથી કાઢો",
+    "content": "શું તમે ખરેખર \"{name}\" ને મનપસંદમાંથી કાઢવા માંગો છો?"
+  },
+  "favoriteEditDialog": {
+    "titleAdd": "મનપસંદમાં ઉમેરો",
+    "titleEdit": "સેટિંગ્સ",
+    "name": "ઉપકરણનું નામ",
+    "auto": "(આપમેળે)",
+    "ip": "IP સરનામું",
+    "port": "પોર્ટ"
+  },
+  "fileInfo": {
+    "title": "ફાઇલ માહિતી",
+    "fileName": "ફાઇલનું નામ:",
+    "path": "માર્ગ:",
+    "size": "કદ:",
+    "sender": "મોકલનાર:",
+    "time": "સમય:"
+  },
+  "fileNameInput": {
+    "title": "ફાઇલનું નામ દાખલ કરો",
+    "original": "મૂળ: {original}"
+  },
+  "historyClearDialog": {
+    "title": "ઈતિહાસ સાફ કરો",
+    "content": "શું તમે ખરેખર સંપૂર્ણ ઈતિહાસ કાઢવા માંગો છો?"
+  },
+  "localNetworkUnauthorized": {
+    "title": "@:dialogs.noPermission.title",
+    "description": "લોકલસેન્ડને સ્થાનિક નેટવર્ક સ્કેન કરવાની પરવાનગી વિના અન્ય ઉપકરણો શોધી શકતા નથી. કૃપા કરીને સેટિંગ્સમાં આ પરવાનગી આપો.",
+    "gotoSettings": "સેટિંગ્સ"
+  },
+  "messageInput": {
+    "title": "સંદેશ લખો",
+    "multiline": "મલ્ટિલાઇન"
+  },
+  "noFiles": {
+    "title": "કોઈ ફાઇલ પસંદ કરેલી નથી",
+    "content": "કૃપા કરીને ઓછામાં ઓછી એક ફાઇલ પસંદ કરો."
+  },
+  "noPermission": {
+    "title": "પરવાનગી નથી",
+    "content": "તમે જરૂરી પરવાનગીઓ આપી નથી. કૃપા કરીને સેટિંગ્સમાં તે આપો."
+  },
+  "notAvailableOnPlatform": {
+    "title": "ઉપલબ્ધ નથી",
+    "content": "આ સુવિધા ફક્ત આ પર ઉપલબ્ધ છે:"
+  },
+  "qr": {
+    "title": "QR કોડ"
+  },
+  "quickActions": {
+    "title": "ઝડપી કાર્યવાહી",
+    "counter": "કાઉન્ટર",
+    "prefix": "પ્રેફિક્સ",
+    "padZero": "શૂન્ય સાથે ભરવો",
+    "sortBeforeCount": "ગણતરી પહેલાં આલ્ફાબેટિક ક્રમમાં ગોઠવો",
+    "random": "રેન્ડમ"
+  },
+  "quickSaveNotice": {
+    "title": "@:general.quickSave",
+    "content": "ફાઈલ વિનંતીઓ આપમેળે સ્વીકારવામાં આવે છે. ધ્યાન રાખો કે સ્થાનિક નેટવર્ક પરના દરેક વ્યક્તિ તમને ફાઈલો મોકલી શકે છે."
+  },
+  "sendModeHelp": {
+    "title": "મોડ મોકલો",
+    "single": "ફાઈલોને એક પ્રાપ્તકર્તાને મોકલવામાં આવે છે. ફાઈલ ટ્રાન્સફર પૂરી થયા પછી પસંદગી સાફ કરવામાં આવશે.",
+    "multiple": "ફાઈલોને ઘણા પ્રાપ્તકર્તાઓને મોકલવામાં આવે છે. પસંદગી સાફ કરવામાં આવશે નહીં.",
+    "link": "જે પ્રાપ્તકર્તાઓ પાસે LocalSend સ્થાપિત નથી તેઓ તેમના બ્રાઉઝરમાં લિંક ખોલીને પસંદ કરેલી ફાઈલો ડાઉનલોડ કરી શકે છે."
+  },
+  "zoom": {
+    "title": "URL"
+  }
+ },
+  "sanitization": {
+    "empty": "ફાઈલનામ ખાલી ન હોઈ શકે",
+    "invalid": "ફાઈલનામમાં અમાન્ય અક્ષરો છે"
+  },
+  "tray": {
+    "@info": "Apple માર્ગદર્શિકાઓ 'બંધ' શબ્દના વપરાશ વિશે ખૂબ કડક છે.",
+    "open": "@:general.open",
+    "close": "LocalSend બંધ કરો"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "નકારી કાઢ્યું",
+    "files": "ફાઈલો",
+    "fileName": "ફાઈલનું નામ",
+    "size": "માપ"
+  },
+  "assetPicker": {
+    "@info": "Android અને iPhone માટે મીડિયા પસંદગી સાધન માટેના અનુવાદો",
+    "confirm": "ખાતરી કરો",
+    "cancel": "રદ કરો",
+    "edit": "સંપાદિત કરો",
+    "gifIndicator": "GIF",
+    "loadFailed": "લોડ નિષ્ફળ",
+    "original": "મૂળ",
+    "preview": "પૂર્વદર્શન",
+    "select": "પસંદ કરો",
+    "emptyList": "ખાલી યાદી",
+    "unSupportedAssetType": "અમાન્ય ફાઈલ પ્રકાર.",
+    "unableToAccessAll": "ડિવાઇસ પરની તમામ ફાઇલોનેઍક્સેસ કરી શકાતી નથી",
+    "viewingLimitedAssetsTip": "એપને ઉપલબ્ધ ફાઈલો અને આલ્બમ્સ જુઓ.",
+    "changeAccessibleLimitedAssets": "પ્રાપ્ય ફાઈલો અપડેટ કરવા માટે ક્લિક કરો",
+    "accessAllTip": "અમુક ફાઇલો જોવા એપને પરવાનગી નથી. સેટિંગ્સમાં જઈને બધી મીડિયા ફાઇલોની પરવાનગી આપો.",
+    "goToSystemSettings": "સિસ્ટમ સેટિંગ્સ પર જાઓ",
+    "accessLimitedAssets": "મર્યાદિત ઍક્સેસ સાથે ચાલુ રાખો",
+    "accessiblePathName": "પ્રાપ્ય ફાઈલો",
+    "sTypeAudioLabel": "ઑડિઓ",
+    "sTypeImageLabel": "છબી",
+    "sTypeVideoLabel": "વિડિયો",
+    "sTypeOtherLabel": "અન્ય મીડિયા",
+    "sActionPlayHint": "વગાડો",
+    "sActionPreviewHint": "પૂર્વદર્શન",
+    "sActionSelectHint": "પસંદ કરો",
+    "sActionSwitchPathLabel": "માર્ગ બદલો",
+    "sActionUseCameraHint": "કૅમેરા વાપરો",
+    "sNameDurationLabel": "અવધિ",
+    "sUnitAssetCountLabel": "ગણતરી"
+  }
+}

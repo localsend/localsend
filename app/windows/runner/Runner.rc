@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "org.localsend" "\0"
-            VALUE "FileDescription", "localsend_app" "\0"
+            VALUE "CompanyName", "Tien Do Nam" "\0"
+            VALUE "FileDescription", "LocalSend" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "localsend_app" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 org.localsend. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022-2024 Tien Do Nam. All rights reserved." "\0"
             VALUE "OriginalFilename", "localsend_app.exe" "\0"
-            VALUE "ProductName", "localsend_app" "\0"
+            VALUE "ProductName", "LocalSend" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

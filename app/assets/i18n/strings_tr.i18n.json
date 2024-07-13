@@ -100,16 +100,22 @@
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
+      "showInContextMenu": "LocalSend'i bağlam menüsünde göster",
       "animations": "Animasyonlar"
     },
     "receive": {
       "title": "Alım",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Otomatik bitir",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet",
-      "autoFinish": "Otomatik bitir"
+      "saveToHistory": "Geçmişe kaydet"
+    },
+    "send": {
+      "title": "Gönder",
+      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et"
     },
     "network": {
       "title": "Ağ",
@@ -119,19 +125,20 @@
       "deviceType": "Cihaz tipi",
       "deviceModel": "Cihaz modeli",
       "port": "Port",
+      "discoveryTimeout": "Arama zaman aşımına uğradı",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
     },
-    "advancedSettings": "Gelişmiş ayarlar",
     "other": {
       "title": "Diğer",
       "support": "LocalSend'i destekle",
       "donate": "Bağış yap",
       "privacyPolicy": "Gizlilik politikası",
       "termsOfUse": "Kullanım koşulları"
-    }
+    },
+    "advancedSettings": "Gelişmiş ayarlar"
   },
   "troubleshootPage": {
     "title": "Sorun Giderme",
@@ -155,6 +162,7 @@
     "empty": "Geçmiş yok.",
     "entryActions": {
       "open": "Dosya aç",
+      "showInFolder": "Klasörde göster",
       "info": "Bilgi",
       "deleteFromHistory": "Geçmişten sil"
     }
@@ -187,6 +195,7 @@
   "sendPage": {
     "waiting": "Alıcıdan cevap bekleniyor...",
     "rejected": "Alıcı isteği reddetti.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Alıcı başka bir istekle meşgul."
   },
   "progressPage": {
@@ -217,6 +226,9 @@
     "requests": "İstekler",
     "noRequests": "Henüz istek yok.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "İstekleri otomatik olarak kabul et",
+    "requirePin": "PIN gerektir",
+    "pinHint": "PIN \"{pin}\"",
     "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
@@ -298,6 +310,10 @@
       "title": "Dosya adını giriniz",
       "original": "Orijinal: {original}"
     },
+    "historyClearDialog": {
+      "title": "Geçmişi temizle",
+      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
@@ -334,16 +350,22 @@
       "title": "@:general.quickSave",
       "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
     },
+    "pin": {
+      "title": "PIN girin"
+    },
     "sendModeHelp": {
       "title": "Gönderme Modu",
       "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
     },
-    "historyClearDialog": {
-      "title": "Geçmişi temizle",
-      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Dosya ismi boş olamaz",
+    "invalid": "Dosya ismi geçersiz karakter bulunduruyor"
   },
   "tray": {
     "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
@@ -352,6 +374,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN girin",
+    "invalidPin": "Geçersiz PIN",
+    "tooManyAttempts": "Çok fazla deneme",
     "rejected": "Reddedildi",
     "files": "Dosyalar",
     "fileName": "Dosya adı",

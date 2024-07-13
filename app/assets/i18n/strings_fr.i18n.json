@@ -100,16 +100,22 @@
       "minimizeToTray": "Quitter : Réduire à la barre des tâches",
       "launchAtStartup": "Démarrage automatique : Après la connexion",
       "launchMinimized": "Démarrage automatique : Minimiser",
+      "showInContextMenu": "Montrer LocalSend dans le menu contextuel",
       "animations": "Animations"
     },
     "receive": {
       "title": "Reçu",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Finir automatiquement",
       "destination": "Destination",
       "downloads": "(Téléchargements)",
       "saveToGallery": "Sauvegarder les médias dans la galerie",
       "saveToHistory": "Enregistrer dans l'historique"
+    },
+    "send": {
+      "title": "Envoyer",
+      "shareViaLinkAutoAccept": "Envoyer via un lien: Accepter automatiquement"
     },
     "network": {
       "title": "Réseau",
@@ -119,6 +125,7 @@
       "deviceType": "Type d'appareil",
       "deviceModel": "Modèle d'appareil",
       "port": "Port",
+      "discoveryTimeout": "Temps maximal de recherche",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
@@ -155,6 +162,7 @@
     "empty": "L'historique est vide.",
     "entryActions": {
       "open": "Ouvrir le fichier",
+      "showInFolder": "Ouvrir le dossier",
       "info": "Information",
       "deleteFromHistory": "Supprimer de l'historique"
     }
@@ -187,6 +195,7 @@
   "sendPage": {
     "waiting": "En attente d'une réponse...",
     "rejected": "Le destinataire a rejeté la demande.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Le destinataire est occupé avec une autre requête."
   },
   "progressPage": {
@@ -217,6 +226,9 @@
     "requests": "Requêtes",
     "noRequests": "Aucune requête en attente.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Accepter automatiquement les requêtes",
+    "requirePin": "Code PIN nécessaire",
+    "pinHint": "Le code PIN est \"{pin}\"",
     "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente: {n}"
   },
@@ -338,12 +350,22 @@
       "title": "@:general.quickSave",
       "content": "Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers."
     },
+    "pin": {
+      "title": "Entrez le code PIN"
+    },
     "sendModeHelp": {
       "title": "Modes d'envoi",
       "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
       "multiple": "Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.",
       "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Le nom du fichier ne peut pas être vide",
+    "invalid": "Le nom du fichier contient des caractères non valides"
   },
   "tray": {
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
@@ -352,6 +374,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Entrez le code PIN",
+    "invalidPin": "Code PIN Invalide",
+    "tooManyAttempts": "Trop d'essais infructueux",
     "rejected": "Rejeté",
     "files": "Fichiers",
     "fileName": "Nom du fichier",

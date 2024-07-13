@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:common/common.dart';
@@ -9,22 +8,26 @@ import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
+import 'package:localsend_app/pages/receive_page_controller.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/provider/network/server/controller/common.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
-import 'package:localsend_app/util/native/get_destination_directory.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
@@ -179,9 +182,19 @@ class ReceiveController {
       return server.responseJson(409, message: 'Blocked by another session');
     }
 
-    final payload = await request.readAsString();
+    final pinResponse = handlePin(
+      server: server,
+      pin: server.ref.read(settingsProvider).receivePin,
+      pinAttempts: server.getState().pinAttempts,
+      request: request,
+    );
+    if (pinResponse != null) {
+      return pinResponse;
+    }
+
     final PrepareUploadRequestDto dto;
     try {
+      final payload = await request.readAsString();
       dto = PrepareUploadRequestDto.fromJson(jsonDecode(payload));
     } catch (e) {
       return server.responseJson(400, message: 'Request body malformed');
@@ -194,6 +207,7 @@ class ReceiveController {
 
     final settings = server.ref.read(settingsProvider);
     final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+    final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 
     _logger.info('Session Id: $sessionId');
@@ -222,6 +236,7 @@ class ReceiveController {
           startTime: null,
           endTime: null,
           destinationDirectory: destinationDir,
+          cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
           responseHandler: streamController,
         ),
@@ -239,6 +254,26 @@ class ReceiveController {
       if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
         await showFromTray();
       }
+
+      final message = server.getState().session?.message;
+      if (message != null) {
+        // Message already received
+        await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
+              entryId: const Uuid().v4(),
+              fileName: message,
+              fileType: FileType.text,
+              path: null,
+              savedToGallery: false,
+              isMessage: true,
+              fileSize: message.length,
+              senderAlias: server.getState().session!.senderAlias,
+              timestamp: DateTime.now().toUtc(),
+            ));
+      } else {
+        server.ref.notifier(selectedReceivingFilesProvider).setFiles(server.getState().session!.files.values.map((f) => f.file).toList());
+      }
+
+      server.ref.redux(receivePageControllerProvider).dispatch(InitReceivePageAction());
 
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.push(() => const ReceivePage());
@@ -391,21 +426,25 @@ class ReceiveController {
     );
 
     try {
-      final destinationPath = await _digestFilePathAndPrepareDirectory(
-        parentDirectory: receiveState.destinationDirectory,
+      final fileType = receivingFile.file.fileType;
+      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+
+      final destinationPath = await digestFilePathAndPrepareDirectory(
+        parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
       );
 
+      final finalName = p.basename(destinationPath);
+
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
-      final fileType = receivingFile.file.fileType;
-      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
       await saveFile(
         destinationPath: destinationPath,
-        name: receivingFile.desiredName!,
+        name: finalName,
         saveToGallery: saveToGallery,
         isImage: fileType == FileType.image,
         stream: request.read(),
+        androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
             server.ref.notifier(progressProvider).setProgress(
@@ -438,6 +477,7 @@ class ReceiveController {
             fileType: receivingFile.file.fileType,
             path: saveToGallery ? null : destinationPath,
             savedToGallery: saveToGallery,
+            isMessage: false,
             fileSize: receivingFile.file.size,
             senderAlias: receiveState.senderAlias,
             timestamp: DateTime.now().toUtc(),
@@ -581,6 +621,21 @@ class ReceiveController {
         // don't wait for it
         _logger.severe('Failed to show from tray', e);
       });
+
+      // ignore: discarded_futures
+      request.readAsString().then((body) async {
+        if (body.isEmpty) {
+          return;
+        }
+
+        final Map<String, dynamic> jsonBody = jsonDecode(body);
+        final List<String> args = (jsonBody['args'] as List?)?.cast<String>() ?? <String>[];
+        final filesAdded = await server.ref.redux(selectedSendingFilesProvider).dispatchAsyncTakeResult(LoadSelectionFromArgsAction(args));
+        if (filesAdded) {
+          server.ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+        }
+      });
+
       return server.responseJson(200);
     }
 
@@ -686,23 +741,6 @@ void _cancelBySender(ServerUtils server) {
           endTime: DateTime.now().millisecondsSinceEpoch,
         ),
       ));
-}
-
-/// If there is a file with the same name, then it appends a number to its file name
-Future<String> _digestFilePathAndPrepareDirectory({required String parentDirectory, required String fileName}) async {
-  final actualFileName = p.basename(fileName);
-  final fileNameParts = p.split(fileName);
-  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
-
-  Directory(dir).createSync(recursive: true);
-
-  String destinationPath;
-  int counter = 1;
-  do {
-    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
-    counter++;
-  } while (await File(destinationPath).exists());
-  return destinationPath;
 }
 
 extension on ReceiveSessionState {
