@@ -56,64 +56,67 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.favorite != null ? t.dialogs.favoriteEditDialog.titleEdit : t.dialogs.favoriteEditDialog.titleAdd),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(t.dialogs.favoriteEditDialog.name),
-          const SizedBox(height: 5),
-          TextFormField(
-            controller: _aliasController,
-            decoration: InputDecoration(
-              hintText: t.dialogs.favoriteEditDialog.auto,
-            ),
-            enabled: !_fetching,
-          ),
-          const SizedBox(height: 16),
-          Text(t.dialogs.favoriteEditDialog.ip),
-          const SizedBox(height: 5),
-          TextFormField(
-            controller: _ipController,
-            autofocus: widget.favorite == null && widget.prefilledDevice == null,
-            enabled: !_fetching,
-          ),
-          const SizedBox(height: 16),
-          Text(t.dialogs.favoriteEditDialog.port),
-          const SizedBox(height: 5),
-          TextFormField(
-            controller: _portController,
-            enabled: !_fetching,
-            keyboardType: TextInputType.number,
-          ),
-          if (widget.favorite != null) ...[
-            const SizedBox(height: 16),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.warning,
+      content: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(t.dialogs.favoriteEditDialog.name),
+            const SizedBox(height: 5),
+            TextFormField(
+              controller: _aliasController,
+              decoration: InputDecoration(
+                hintText: t.dialogs.favoriteEditDialog.auto,
               ),
-              onPressed: () async {
-                final result = await showDialog<bool>(
-                  context: context,
-                  builder: (_) => FavoriteDeleteDialog(widget.favorite!),
-                );
+              enabled: !_fetching,
+            ),
+            const SizedBox(height: 16),
+            Text(t.dialogs.favoriteEditDialog.ip),
+            const SizedBox(height: 5),
+            TextFormField(
+              controller: _ipController,
+              autofocus: widget.favorite == null && widget.prefilledDevice == null,
+              enabled: !_fetching,
+            ),
+            const SizedBox(height: 16),
+            Text(t.dialogs.favoriteEditDialog.port),
+            const SizedBox(height: 5),
+            TextFormField(
+              controller: _portController,
+              enabled: !_fetching,
+              keyboardType: TextInputType.number,
+            ),
+            if (widget.favorite != null) ...[
+              const SizedBox(height: 16),
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.warning,
+                ),
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (_) => FavoriteDeleteDialog(widget.favorite!),
+                  );
 
-                if (mounted && result == true) {
-                  await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
-                  if (mounted) {
-                    context.pop();
+                  if (mounted && result == true) {
+                    await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
+                    if (mounted) {
+                      context.pop();
+                    }
                   }
-                }
-              },
-              icon: const Icon(Icons.delete),
-              label: Text(t.general.delete),
-            ),
+                },
+                icon: const Icon(Icons.delete),
+                label: Text(t.general.delete),
+              ),
+            ],
+            if (_failed)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+              ),
           ],
-          if (_failed)
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
-            ),
-        ],
+        ),
       ),
       actions: [
         TextButton(
