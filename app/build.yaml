@@ -6,7 +6,7 @@ targets:
           base_locale: en
           fallback_strategy: base_locale
           input_directory: assets/i18n
-          input_file_pattern: .i18n.json
+          input_file_pattern: .json
           output_format: multiple_files
           string_interpolation: braces
           timestamp: false # for F-Droid Reproducible Builds
