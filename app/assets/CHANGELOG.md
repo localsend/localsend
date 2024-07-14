@@ -1,4 +1,4 @@
-## 1.15.0 (unreleased)
+## 1.15.0 (2024-07-15)
 
 - feat: add clear button in the send tab (@Caesarovich)
 - feat: save text messages to history (@Tienisto)
