@@ -85,5 +85,17 @@ void main() {
         'Documents/Test.pdf',
       );
     });
+
+    test('should return the relative path from the picked file content uri in SD card root', () {
+      expect(
+        ContentUriHelper.guessRelativePathFromPickedFileContentUri(
+          folderContentUri: 'content://com.android.externalstorage.documents/tree/1234-5678%3A',
+          basePath: '1234-5678:',
+          folderName: '1234-5678',
+          uri: 'content://com.android.externalstorage.documents/tree/1234-5678%3A/document/1234-5678%3ATest.pdf',
+        ),
+        '1234-5678/Test.pdf',
+      );
+    });
   });
 }

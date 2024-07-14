@@ -43,6 +43,10 @@ class ContentUriHelper {
 
     final decoded = Uri.decodeComponent(fileUri);
     final withoutBasePath = decoded.replaceFirst(basePath, '');
-    return '$folderName$withoutBasePath';
+    if (withoutBasePath.startsWith('/')) {
+      return '$folderName$withoutBasePath';
+    } else {
+      return '$folderName/$withoutBasePath';
+    }
   }
 }
