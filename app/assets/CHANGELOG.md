@@ -2,6 +2,7 @@
 
 - feat: add clear button in the send tab (@Caesarovich)
 - feat: save text messages to history (@Tienisto)
+- feat: keep timestamps of transferred files (@Tienisto)
 - feat: add option to require PIN when sharing via link (@Tienisto)
 - feat: add option to require PIN when receiving files (@Tienisto)
 - feat: add option to open parent folder of received files in history (@Tienisto)

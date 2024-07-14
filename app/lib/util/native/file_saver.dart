@@ -21,6 +21,8 @@ Future<void> saveFile({
   required bool isImage,
   required Stream<List<int>> stream,
   required int? androidSdkInt,
+  required DateTime? lastModified,
+  required DateTime? lastAccessed,
   required void Function(int savedBytes) onProgress,
 }) async {
   if (!saveToGallery && androidSdkInt != null && androidSdkInt <= 29) {
@@ -51,7 +53,8 @@ Future<void> saveFile({
     }
   }
 
-  final sink = File(destinationPath).openWrite();
+  final file = File(destinationPath);
+  final sink = file.openWrite();
   await _saveFile(
     destinationPath: destinationPath,
     saveToGallery: saveToGallery,
@@ -60,7 +63,19 @@ Future<void> saveFile({
     onProgress: onProgress,
     write: sink.add,
     writeAsync: null,
-    close: sink.close,
+    close: () async {
+      await sink.close();
+      if (lastModified != null) {
+        try {
+          await file.setLastModified(lastModified);
+        } catch (_) {}
+      }
+      if (lastAccessed != null) {
+        try {
+          await file.setLastAccessed(lastAccessed);
+        } catch (_) {}
+      }
+    },
   );
 }
 
