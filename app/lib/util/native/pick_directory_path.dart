@@ -1,7 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart' as file_selector;
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+
+const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
 
 /// Opens a file picker to select a directory.
 /// Returns null if the user cancels the selection.
@@ -15,4 +17,8 @@ Future<String?> pickDirectoryPath() async {
   } else {
     return await file_selector.getDirectoryPath();
   }
+}
+
+Future<void> pickDirectoryNew() async {
+  await _methodChannel.invokeMethod<void>('pickDirectory');
 }

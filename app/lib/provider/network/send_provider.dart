@@ -23,6 +23,7 @@ import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -303,6 +304,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
     );
 
+    final uriContent = UriContent();
     for (final file in files.values) {
       final token = file.token;
       if (token == null) {
@@ -339,7 +341,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               'Content-Type': file.file.lookupMime(),
             },
           ),
-          data: file.path != null ? File(file.path!).openRead().asBroadcastStream() : file.bytes!,
+          data: file.path != null
+              ? file.path!.startsWith('content://')
+                  ? uriContent.getContentStream(Uri.parse(file.path!))
+                  : File(file.path!).openRead().asBroadcastStream()
+              : file.bytes!,
           onSendProgress: (curr, total) {
             if (stopwatch.elapsedMilliseconds >= 100) {
               stopwatch.reset();

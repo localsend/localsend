@@ -12,6 +12,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   permission_handler_windows
   screen_retriever
   tray_manager
+  uri_content
   url_launcher_windows
   window_manager
   windows_taskbar

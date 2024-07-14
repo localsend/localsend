@@ -16,6 +16,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
+import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -211,11 +212,20 @@ class SendController {
           headers: headers,
         );
       } else {
-        return Response(
-          200,
-          body: File(file.path!).openRead().asBroadcastStream(),
-          headers: headers,
-        );
+        final path = file.path!;
+        if (path.startsWith('content://')) {
+          return Response(
+            200,
+            body: UriContent().getContentStream(Uri.parse(file.path!)),
+            headers: headers,
+          );
+        } else {
+          return Response(
+            200,
+            body: File(file.path!).openRead().asBroadcastStream(),
+            headers: headers,
+          );
+        }
       }
     });
   }
