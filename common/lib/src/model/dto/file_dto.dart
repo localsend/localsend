@@ -3,6 +3,22 @@ import 'package:common/src/model/file_type.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:mime/mime.dart';
 
+part 'file_dto.mapper.dart';
+
+@MappableClass(ignoreNull: true)
+class FileMetadata with FileMetadataMappable {
+  @MappableField(key: 'modified')
+  final DateTime? lastModified;
+
+  @MappableField(key: 'accessed')
+  final DateTime? lastAccessed;
+
+  const FileMetadata({
+    required this.lastModified,
+    required this.lastAccessed,
+  });
+}
+
 /// The file DTO that is sent between server and client.
 class FileDto {
   final String id; // unique inside session
@@ -11,6 +27,7 @@ class FileDto {
   final FileType fileType;
   final String? hash;
   final String? preview;
+  final FileMetadata? metadata;
 
   /// This is only used internally to determine if fileType is a mime type or a legacy enum.
   /// It is not serialized.
@@ -24,6 +41,7 @@ class FileDto {
     required this.hash,
     required this.preview,
     required this.legacy,
+    required this.metadata,
   });
 
   String lookupMime() => lookupMimeType(fileName) ?? 'application/octet-stream';
@@ -81,6 +99,10 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
       hash: map['hash'] as String?,
       preview: map['preview'] as String?,
       legacy: false,
+      metadata: switch (map['metadata']) {
+        Map<String, dynamic> metadata => FileMetadataMapper.fromJson(metadata),
+        _ => null,
+      },
     );
   }
 
@@ -93,6 +115,7 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
       'fileType': self.legacy ? self.fileType.name : self.lookupMime(),
       if (self.hash != null) 'hash': self.hash,
       if (self.preview != null) 'preview': self.preview,
+      if (self.metadata != null) 'metadata': self.metadata!.toJson(),
     };
   }
 }

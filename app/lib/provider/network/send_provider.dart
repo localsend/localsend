@@ -78,6 +78,12 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
                   ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
                   : null,
+              metadata: file.lastModified != null || file.lastAccessed != null
+                  ? FileMetadata(
+                      lastModified: file.lastModified,
+                      lastAccessed: file.lastAccessed,
+                    )
+                  : null,
               legacy: target.version == '1.0',
             ),
             status: FileStatus.queue,

@@ -49,6 +49,8 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
       asset: null,
       path: null,
       bytes: bytes,
+      lastModified: null,
+      lastAccessed: null,
     );
 
     return List.unmodifiable([
@@ -98,6 +100,8 @@ class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cro
       asset: null,
       path: null,
       bytes: bytes,
+      lastModified: null,
+      lastAccessed: null,
     );
 
     return List.unmodifiable([
@@ -160,6 +164,8 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           asset: null,
           path: entity.path,
           bytes: null,
+          lastModified: entity.lastModifiedSync().toUtc(),
+          lastAccessed: entity.lastAccessedSync().toUtc(),
         );
 
         final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
@@ -219,6 +225,8 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         asset: null,
         path: file.uri,
         bytes: null,
+        lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true),
+        lastAccessed: null,
       );
 
       final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: crossFile));

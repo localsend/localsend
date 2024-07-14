@@ -445,6 +445,8 @@ class ReceiveController {
         isImage: fileType == FileType.image,
         stream: request.read(),
         androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
+        lastModified: receivingFile.file.metadata?.lastModified,
+        lastAccessed: receivingFile.file.metadata?.lastAccessed,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
             server.ref.notifier(progressProvider).setProgress(

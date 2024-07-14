@@ -23,12 +23,9 @@ class IsolateSyncDtoMapper extends ClassMapperBase<IsolateSyncDto> {
   final String id = 'IsolateSyncDto';
 
   static IsolateState _$isolateState(IsolateSyncDto v) => v.isolateState;
-  static const Field<IsolateSyncDto, IsolateState> _f$isolateState =
-      Field('isolateState', _$isolateState);
-  static IsolateCommonState _$isolateCommonState(IsolateSyncDto v) =>
-      v.isolateCommonState;
-  static const Field<IsolateSyncDto, IsolateCommonState> _f$isolateCommonState =
-      Field('isolateCommonState', _$isolateCommonState);
+  static const Field<IsolateSyncDto, IsolateState> _f$isolateState = Field('isolateState', _$isolateState);
+  static IsolateCommonState _$isolateCommonState(IsolateSyncDto v) => v.isolateCommonState;
+  static const Field<IsolateSyncDto, IsolateCommonState> _f$isolateCommonState = Field('isolateCommonState', _$isolateCommonState);
 
   @override
   final MappableFields<IsolateSyncDto> fields = const {
@@ -37,9 +34,7 @@ class IsolateSyncDtoMapper extends ClassMapperBase<IsolateSyncDto> {
   };
 
   static IsolateSyncDto _instantiate(DecodingData data) {
-    return IsolateSyncDto(
-        isolateState: data.dec(_f$isolateState),
-        isolateCommonState: data.dec(_f$isolateCommonState));
+    return IsolateSyncDto(isolateState: data.dec(_f$isolateState), isolateCommonState: data.dec(_f$isolateCommonState));
   }
 
   @override
@@ -56,84 +51,61 @@ class IsolateSyncDtoMapper extends ClassMapperBase<IsolateSyncDto> {
 
 mixin IsolateSyncDtoMappable {
   String serialize() {
-    return IsolateSyncDtoMapper.ensureInitialized()
-        .encodeJson<IsolateSyncDto>(this as IsolateSyncDto);
+    return IsolateSyncDtoMapper.ensureInitialized().encodeJson<IsolateSyncDto>(this as IsolateSyncDto);
   }
 
   Map<String, dynamic> toJson() {
-    return IsolateSyncDtoMapper.ensureInitialized()
-        .encodeMap<IsolateSyncDto>(this as IsolateSyncDto);
+    return IsolateSyncDtoMapper.ensureInitialized().encodeMap<IsolateSyncDto>(this as IsolateSyncDto);
   }
 
-  IsolateSyncDtoCopyWith<IsolateSyncDto, IsolateSyncDto, IsolateSyncDto>
-      get copyWith => _IsolateSyncDtoCopyWithImpl(
-          this as IsolateSyncDto, $identity, $identity);
+  IsolateSyncDtoCopyWith<IsolateSyncDto, IsolateSyncDto, IsolateSyncDto> get copyWith =>
+      _IsolateSyncDtoCopyWithImpl(this as IsolateSyncDto, $identity, $identity);
   @override
   String toString() {
-    return IsolateSyncDtoMapper.ensureInitialized()
-        .stringifyValue(this as IsolateSyncDto);
+    return IsolateSyncDtoMapper.ensureInitialized().stringifyValue(this as IsolateSyncDto);
   }
 
   @override
   bool operator ==(Object other) {
-    return IsolateSyncDtoMapper.ensureInitialized()
-        .equalsValue(this as IsolateSyncDto, other);
+    return IsolateSyncDtoMapper.ensureInitialized().equalsValue(this as IsolateSyncDto, other);
   }
 
   @override
   int get hashCode {
-    return IsolateSyncDtoMapper.ensureInitialized()
-        .hashValue(this as IsolateSyncDto);
+    return IsolateSyncDtoMapper.ensureInitialized().hashValue(this as IsolateSyncDto);
   }
 }
 
-extension IsolateSyncDtoValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, IsolateSyncDto, $Out> {
-  IsolateSyncDtoCopyWith<$R, IsolateSyncDto, $Out> get $asIsolateSyncDto =>
-      $base.as((v, t, t2) => _IsolateSyncDtoCopyWithImpl(v, t, t2));
+extension IsolateSyncDtoValueCopy<$R, $Out> on ObjectCopyWith<$R, IsolateSyncDto, $Out> {
+  IsolateSyncDtoCopyWith<$R, IsolateSyncDto, $Out> get $asIsolateSyncDto => $base.as((v, t, t2) => _IsolateSyncDtoCopyWithImpl(v, t, t2));
 }
 
-abstract class IsolateSyncDtoCopyWith<$R, $In extends IsolateSyncDto, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
+abstract class IsolateSyncDtoCopyWith<$R, $In extends IsolateSyncDto, $Out> implements ClassCopyWith<$R, $In, $Out> {
   IsolateStateCopyWith<$R, IsolateState, IsolateState> get isolateState;
-  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState>
-      get isolateCommonState;
+  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState> get isolateCommonState;
   $R call({IsolateState? isolateState, IsolateCommonState? isolateCommonState});
-  IsolateSyncDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+  IsolateSyncDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _IsolateSyncDtoCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, IsolateSyncDto, $Out>
+class _IsolateSyncDtoCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, IsolateSyncDto, $Out>
     implements IsolateSyncDtoCopyWith<$R, IsolateSyncDto, $Out> {
   _IsolateSyncDtoCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<IsolateSyncDto> $mapper =
-      IsolateSyncDtoMapper.ensureInitialized();
+  late final ClassMapperBase<IsolateSyncDto> $mapper = IsolateSyncDtoMapper.ensureInitialized();
   @override
-  IsolateStateCopyWith<$R, IsolateState, IsolateState> get isolateState =>
-      $value.isolateState.copyWith.$chain((v) => call(isolateState: v));
+  IsolateStateCopyWith<$R, IsolateState, IsolateState> get isolateState => $value.isolateState.copyWith.$chain((v) => call(isolateState: v));
   @override
-  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState>
-      get isolateCommonState => $value.isolateCommonState.copyWith
-          .$chain((v) => call(isolateCommonState: v));
+  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState> get isolateCommonState =>
+      $value.isolateCommonState.copyWith.$chain((v) => call(isolateCommonState: v));
   @override
-  $R call(
-          {IsolateState? isolateState,
-          IsolateCommonState? isolateCommonState}) =>
-      $apply(FieldCopyWithData({
-        if (isolateState != null) #isolateState: isolateState,
-        if (isolateCommonState != null) #isolateCommonState: isolateCommonState
-      }));
+  $R call({IsolateState? isolateState, IsolateCommonState? isolateCommonState}) => $apply(FieldCopyWithData(
+      {if (isolateState != null) #isolateState: isolateState, if (isolateCommonState != null) #isolateCommonState: isolateCommonState}));
   @override
   IsolateSyncDto $make(CopyWithData data) => IsolateSyncDto(
       isolateState: data.get(#isolateState, or: $value.isolateState),
-      isolateCommonState:
-          data.get(#isolateCommonState, or: $value.isolateCommonState));
+      isolateCommonState: data.get(#isolateCommonState, or: $value.isolateCommonState));
 
   @override
-  IsolateSyncDtoCopyWith<$R2, IsolateSyncDto, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _IsolateSyncDtoCopyWithImpl($value, $cast, t);
+  IsolateSyncDtoCopyWith<$R2, IsolateSyncDto, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _IsolateSyncDtoCopyWithImpl($value, $cast, t);
 }
