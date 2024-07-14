@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:common/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
@@ -76,7 +77,7 @@ class AssetThumbnail extends StatelessWidget {
   }
 }
 
-class FilePathThumbnail extends StatefulWidget {
+class FilePathThumbnail extends StatelessWidget {
   final String? path;
   final FileType fileType;
 
@@ -86,53 +87,28 @@ class FilePathThumbnail extends StatefulWidget {
   });
 
   @override
-  State<FilePathThumbnail> createState() => _FilePathThumbnailState();
-}
-
-class _FilePathThumbnailState extends State<FilePathThumbnail> {
-  Future<Uint8List>? _future;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.fileType == FileType.image && widget.path != null && widget.path!.startsWith('content://')) {
-      // ignore: discarded_futures
-      _future = UriContent().from(Uri.parse(widget.path!));
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final Widget? thumbnail;
-    if (widget.path != null && widget.fileType == FileType.image) {
-      if (widget.path!.startsWith('content://')) {
-        thumbnail = FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Icon(widget.fileType.icon, size: 32),
-                );
-              }
-
-              return Image.memory(
-                snapshot.data!,
-                cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
-                errorBuilder: (_, __, ___) => Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Icon(widget.fileType.icon, size: 32),
-                ),
-              );
-            });
+    if (path != null && fileType == FileType.image) {
+      if (path!.startsWith('content://')) {
+        thumbnail = Image(
+          image: ResizeImage.resizeIfNeeded(
+            64,
+            null,
+            _ContentUriImage(Uri.parse(path!)),
+          ),
+          errorBuilder: (_, __, ___) => Padding(
+            padding: const EdgeInsets.all(10),
+            child: Icon(fileType.icon, size: 32),
+          ),
+        );
       } else {
         thumbnail = Image.file(
-          File(widget.path!),
+          File(path!),
           cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
           errorBuilder: (_, __, ___) => Padding(
             padding: const EdgeInsets.all(10),
-            child: Icon(widget.fileType.icon, size: 32),
+            child: Icon(fileType.icon, size: 32),
           ),
         );
       }
@@ -142,7 +118,7 @@ class _FilePathThumbnailState extends State<FilePathThumbnail> {
 
     return _Thumbnail(
       thumbnail: thumbnail,
-      icon: widget.fileType.icon,
+      icon: fileType.icon,
     );
   }
 }
@@ -214,5 +190,33 @@ class _Thumbnail extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ContentUriImage extends ImageProvider<Uri> {
+  final Uri uri;
+
+  _ContentUriImage(this.uri);
+
+  @override
+  Future<Uri> obtainKey(ImageConfiguration configuration) {
+    return SynchronousFuture<Uri>(uri);
+  }
+
+  @override
+  ImageStreamCompleter loadImage(Uri key, ImageDecoderCallback decode) {
+    return MultiFrameImageStreamCompleter(
+      // ignore: discarded_futures
+      codec: _loadAsync(key, decode),
+      scale: 1,
+      informationCollector: () sync* {
+        yield ErrorDescription('ContentUriImage: $uri');
+      },
+    );
+  }
+
+  Future<Codec> _loadAsync(Uri key, ImageDecoderCallback decode) async {
+    final bytes = await UriContent().from(key);
+    return decode(await ImmutableBuffer.fromUint8List(bytes));
   }
 }
