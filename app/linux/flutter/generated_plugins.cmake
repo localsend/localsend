@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   pasteboard
   screen_retriever
   tray_manager
+  uri_content
   url_launcher_linux
   window_manager
 )
