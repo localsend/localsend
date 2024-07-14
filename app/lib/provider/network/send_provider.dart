@@ -128,6 +128,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     Response? response;
     bool invalidPin;
+    bool pinFirstAttempt = true;
     String? pin;
     do {
       invalidPin = false;
@@ -150,10 +151,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             // ignore: use_build_context_synchronously
             pin = await showDialog<String>(
               context: Routerino.context,
-              builder: (_) => const PinDialog(
+              builder: (_) => PinDialog(
                 obscureText: true,
+                showInvalidPin: !pinFirstAttempt,
               ),
             );
+
+            pinFirstAttempt = false;
+
             if (pin == null) {
               state = state.updateSession(
                 sessionId: sessionId,

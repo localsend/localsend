@@ -11,13 +11,17 @@ Response? handlePin({
 }) {
   if (pin != null) {
     final attempts = pinAttempts[request.ip] ?? 0;
-    if (attempts >= 2) {
+    if (attempts >= 3) {
       return server.responseJson(429, message: 'Too many attempts.');
     }
 
     final requestPin = request.url.queryParameters['pin'];
     if (requestPin != pin) {
       if (requestPin?.isNotEmpty ?? false) {
+        if (attempts == 2) {
+          return server.responseJson(429, message: 'Too many attempts.');
+        }
+
         pinAttempts[request.ip] = attempts + 1;
       }
       return server.responseJson(401, message: 'Invalid pin.');

@@ -27,8 +27,9 @@ async function requestFiles() {
     return;
   }
 
+  let firstAttempt = true;
   while (response.status === 401) {
-    const pin = prompt(i18n.enterPin);
+    const pin = prompt(i18n.enterPin + (firstAttempt ? '' : `\n${i18n.invalidPin}`));
     if (!pin) {
       document.getElementById('status-text').innerText = i18n.invalidPin;
       return;
@@ -45,6 +46,8 @@ async function requestFiles() {
       document.getElementById('status-text').innerText = i18n.tooManyAttempts;
       return;
     }
+
+    firstAttempt = false;
   }
 
   if (response.status === 403) {
