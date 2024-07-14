@@ -393,7 +393,7 @@ class _StringsWebUk extends _StringsWebEn {
 	@override String get waiting => _root.sendPage.waiting;
 	@override String get enterPin => 'Введіть PIN-код';
 	@override String get invalidPin => 'Неправильний PIN-код';
-	@override String get tooManyAttempts => 'Занадто багато спроб';
+	@override String get tooManyAttempts => 'Забагато спроб';
 	@override String get rejected => 'Відхилено';
 	@override String get files => 'Файлів';
 	@override String get fileName => 'Ім\'я файлу';
