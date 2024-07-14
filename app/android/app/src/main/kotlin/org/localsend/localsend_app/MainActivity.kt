@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
-import androidx.documentfile.provider.DocumentFile
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -62,28 +60,21 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun listFiles(uri: Uri, files: MutableList<FileInfo>) {
-        val pickedDir: DocumentFile? = DocumentFile.fromTreeUri(this, uri)
-        if (pickedDir == null) {
-            Log.d("Error", "Failed to access directory")
-            return
-        }
+        val pickedDir: FastDocumentFile = FastDocumentFile.fromTreeUri(this, uri)
 
         for (file in pickedDir.listFiles()) {
             if (file.isDirectory) {
                 // Recursive call
                 listFiles(file.uri, files)
             } else if (file.isFile) {
-                if (file.name != null) {
-                    files.add(
-                        FileInfo(
-                            name = file.name!!,
-                            size = file.length(),
-                            uri = file.uri.toString(),
-                            lastModified = file.lastModified(),
-                        ),
-                    )
-                }
-
+                files.add(
+                    FileInfo(
+                        name = file.name,
+                        size = file.size,
+                        uri = file.uri.toString(),
+                        lastModified = file.lastModified,
+                    ),
+                )
             }
         }
     }
