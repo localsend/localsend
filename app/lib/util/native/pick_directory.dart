@@ -17,6 +17,15 @@ Future<PickDirectoryResult?> pickDirectoryAndroid() async {
   });
 }
 
+Future<List<FileInfo>?> pickFilesAndroid() async {
+  final result = await _methodChannel.invokeMethod<List>('pickFiles');
+  if (result == null) {
+    return null;
+  }
+
+  return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
+}
+
 @MappableClass()
 class PickDirectoryResult with PickDirectoryResultMappable {
   final String directoryUri;

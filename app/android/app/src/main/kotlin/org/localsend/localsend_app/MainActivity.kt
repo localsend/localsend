@@ -8,9 +8,11 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
+private const val CHANNEL = "org.localsend.localsend_app/localsend"
+private const val REQUEST_CODE_PICK_DIRECTORY = 1
+private const val REQUEST_CODE_PICK_FILE = 2
+
 class MainActivity : FlutterActivity() {
-    private val CHANNEL = "org.localsend.localsend_app/localsend"
-    private val REQUEST_CODE = 1
     private var pendingResult: MethodChannel.Result? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -19,11 +21,16 @@ class MainActivity : FlutterActivity() {
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
         ).setMethodCallHandler { call, result ->
-            if (call.method == "pickDirectory") {
-                pendingResult = result
-                openDirectoryPicker()
-            } else {
-                result.notImplemented()
+            when (call.method) {
+                "pickDirectory" -> {
+                    pendingResult = result
+                    openDirectoryPicker()
+                }
+                "pickFiles" -> {
+                    pendingResult = result
+                    openFilePicker()
+                }
+                else -> result.notImplemented()
             }
         }
     }
@@ -31,15 +38,31 @@ class MainActivity : FlutterActivity() {
     private fun openDirectoryPicker() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-        startActivityForResult(intent, REQUEST_CODE)
+        startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY)
+    }
+
+    private fun openFilePicker() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            type = "*/*"
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        }
+        startActivityForResult(intent, REQUEST_CODE_PICK_FILE)
     }
 
     @SuppressLint("WrongConstant")
     @Override
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK) {
+            pendingResult?.error("Error", "Failed to access directory", null)
+            pendingResult = null
+            return
+        }
+
+        when (requestCode) {
+            REQUEST_CODE_PICK_DIRECTORY -> {
                 val uri: Uri? = data.data
                 val takeFlags: Int =
                     data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
@@ -55,6 +78,47 @@ class MainActivity : FlutterActivity() {
                     pendingResult?.error("Error", "Failed to access directory", null)
                     pendingResult = null
                 }
+            }
+            REQUEST_CODE_PICK_FILE -> {
+                val uriList: List<Uri> = when {
+                    data.clipData != null -> {
+                        val clipData = data.clipData
+                        val uris = mutableListOf<Uri>()
+                        for (i in 0 until clipData!!.itemCount) {
+                            uris.add(clipData.getItemAt(i).uri)
+                        }
+                        uris
+                    }
+                    data.data != null -> listOf(data.data!!)
+                    else -> {
+                        pendingResult?.error("Error", "Failed to access file", null)
+                        return
+                    }
+                }
+
+                val takeFlags: Int =
+                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+                val resultList = mutableListOf<FileInfo>()
+                for (uri in uriList) {
+                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
+                    if (documentFile == null) {
+                        pendingResult?.error("Error", "Failed to access file", null)
+                        return
+                    }
+                    resultList.add(
+                        FileInfo(
+                            name = documentFile.name,
+                            size = documentFile.size,
+                            uri = uri.toString(),
+                            lastModified = documentFile.lastModified,
+                        )
+                    )
+                }
+
+                pendingResult?.success(resultList.map { it.toMap() })
+                pendingResult = null
             }
         }
     }

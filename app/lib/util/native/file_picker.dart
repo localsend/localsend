@@ -146,8 +146,16 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     );
   }
   try {
-    final result = await file_selector.openFiles();
-    if (result.isNotEmpty) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final result = await pickFilesAndroid();
+      if (result != null) {
+        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+              files: result,
+              converter: CrossFileConverters.convertFileInfo,
+            ));
+      }
+    } else {
+      final result = await file_selector.openFiles();
       await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
             files: result,
             converter: CrossFileConverters.convertXFile,
