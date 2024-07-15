@@ -368,7 +368,7 @@
     "invalid": "Dateiname enthält ungültige Zeichen"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "LocalSend beenden"
   },
