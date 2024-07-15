@@ -115,7 +115,7 @@
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in 'Share via link' mode"
+      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
     },
     "network": {
       "title": "Network",
@@ -438,7 +438,7 @@
     "invalid": "Filename contains invalid characters"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "Quit LocalSend"
   },
