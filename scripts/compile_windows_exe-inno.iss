@@ -77,9 +77,10 @@ Source: "D:\inno\gal_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\pasteboard_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\permission_handler_windows_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\screen_retriever_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\inno\system_tray_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\tray_manager_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\inno\uri_content_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\url_launcher_windows_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\inno\windows_taskbar_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\window_manager_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
