@@ -611,7 +611,7 @@ class _StringsSettingsTabSendEn {
 
 	// Translations
 	String get title => 'Send';
-	String get shareViaLinkAutoAccept => 'Automatically accept requests in \'Share via link\' mode';
+	String get shareViaLinkAutoAccept => 'Automatically accept requests in "Share via link" mode';
 }
 
 // Path: settingsTab.network
@@ -656,7 +656,7 @@ class _StringsTroubleshootPageFirewallEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get symptom => 'This app can send files to other devices; but other devices cannot send files to this device.';
+	String get symptom => 'This device can send files to other devices but other devices cannot send files to this device.';
 	String solution({required Object port}) => 'This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port ${port}.';
 	String get openFirewall => 'Open Firewall';
 }
@@ -669,7 +669,7 @@ class _StringsTroubleshootPageNoConnectionEn {
 
 	// Translations
 	String get symptom => 'Both devices cannot discover each other nor can they share files.';
-	String get solution => 'Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router.';
+	String get solution => 'Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The Wi-Fi network may not allow communication between participants. In this case, this option must be enabled on the router.';
 }
 
 // Path: receiveHistoryPage.entryActions

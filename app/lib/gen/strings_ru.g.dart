@@ -535,7 +535,7 @@ class _StringsSettingsTabSendRu extends _StringsSettingsTabSendEn {
 
 	// Translations
 	@override String get title => 'Отправка';
-	@override String get shareViaLinkAutoAccept => 'Автоматически принимать запросы в режиме \'Поделиться по ссылке\'';
+	@override String get shareViaLinkAutoAccept => 'Автоматически принимать запросы в режиме "Поделиться по ссылке"';
 }
 
 // Path: settingsTab.network
@@ -580,8 +580,8 @@ class _StringsTroubleshootPageFirewallRu extends _StringsTroubleshootPageFirewal
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Это приложение может отправлять файлы на другие устройства, но другие устройства не могут отправлять файлы на это устройство.';
-	@override String solution({required Object port}) => 'Скорее всего, проблема с брандмауэром. Вы можете решить эту проблему, разрешив входящие соединения (UDP и TCP) для порта ${port}.';
+	@override String get symptom => 'Это устройство может отправлять файлы на другие устройства, но другие устройства не могут отправлять файлы на это устройство.';
+	@override String solution({required Object port}) => 'Скорее всего, это проблема брандмауэра. Вы можете решить эту проблему, разрешив входящие соединения (UDP и TCP) для порта ${port}.';
 	@override String get openFirewall => 'Открыть брандмауэр';
 }
 
@@ -593,7 +593,7 @@ class _StringsTroubleshootPageNoConnectionRu extends _StringsTroubleshootPageNoC
 
 	// Translations
 	@override String get symptom => 'Оба устройства не могут обнаружить друг друга и не могут обмениваться файлами.';
-	@override String get solution => 'Проблема с обеих сторон? Вам нужно убедиться, что оба устройства находятся в одной сети Wi-Fi и используют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Wi-Fi может не разрешать обмен (передачу) между участниками. В этом случае Вам необходимо включить данную опцию на своём маршрутизаторе.';
+	@override String get solution => 'Проблема существует с обеих сторон? Итак, вам нужно убедиться, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Сеть Wi-Fi может не разрешать обмен (передачу) между участниками. В этом случае вам необходимо включить данную опцию на своём маршрутизаторе.';
 }
 
 // Path: receiveHistoryPage.entryActions
