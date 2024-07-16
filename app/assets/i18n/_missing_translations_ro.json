@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "Afișează LocalSend în meniul contextual"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
@@ -13,24 +13,24 @@
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Afișează în dosar"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "Solicită PIN",
+    "pinHint": "PIN-ul este \"{pin}\""
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Introdu PIN-ul"
     }
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Introdu PIN-ul",
+    "invalidPin": "PIN-ul introdus este greșit",
+    "tooManyAttempts": "Prea multe încercări"
   }
 }
