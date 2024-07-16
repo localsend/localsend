@@ -128,7 +128,7 @@
       "discoveryTimeout": "Тайм-аут виявлення",
       "portWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
-      "multicastGroup": "Групова передача",
+      "multicastGroup": "Адреса групової передачі",
       "multicastGroupWarning": "Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: {defaultMulticast})"
     },
     "other": {
