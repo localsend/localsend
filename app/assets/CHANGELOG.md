@@ -1,6 +1,7 @@
 ## 1.15.1 (unreleased)
 
 - fix(windows): crash when sum of file sizes greater than 2 GB (@Tienisto)
+- fix(windows): bundle required DLLs files to avoid crash on app start (@Tienisto)
 
 ## 1.15.0 (2024-07-15)
 
