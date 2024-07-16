@@ -1,3 +1,7 @@
+## 1.15.1 (unreleased)
+
+- fix(windows): crash when sum of file sizes greater than 2 GB (@Tienisto)
+
 ## 1.15.0 (2024-07-15)
 
 - feat: add clear button in the send tab (@Caesarovich)
