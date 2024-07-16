@@ -194,7 +194,7 @@
   },
   "sendPage": {
     "waiting": "Очікування відповіді...",
-    "rejected": "Отримувач відхилив запит.",
+    "rejected": "Одержувач відхилив запит.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Одержувач зайнятий іншим запитом."
   },
