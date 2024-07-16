@@ -128,7 +128,7 @@
       "discoveryTimeout": "Тайм-аут обнаружения",
       "portWarning": "Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский порт. (default: {defaultPort})",
       "encryption": "Шифрование",
-      "multicastGroup": "Мультивещание",
+      "multicastGroup": "Адрес мультивещание",
       "multicastGroupWarning": "Другие устройства могут вас не обнаружить, поскольку вы используете другой, собственный адрес мультивещания. (default: {defaultMulticast})"
     },
     "other": {
