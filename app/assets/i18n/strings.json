@@ -146,7 +146,7 @@
     "solution": "Solution:",
     "fixButton": "Fix automatically",
     "firewall": {
-      "symptom": "This app can send files to other devices; but other devices cannot send files to this device.",
+      "symptom": "This device can send files to other devices but other devices cannot send files to this device.",
       "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
       "openFirewall": "Open Firewall"
     },
