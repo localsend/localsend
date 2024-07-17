@@ -1,5 +1,6 @@
 ## 1.15.1 (unreleased)
 
+- feat: support Internet Explorer 8 (IE8) in web share (@Tienisto)
 - fix(windows): crash when sum of file sizes greater than 2 GB (@Tienisto)
 - fix(windows): bundle required DLLs files to avoid crash on app start (@Tienisto)
 
