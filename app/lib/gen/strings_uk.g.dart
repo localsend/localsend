@@ -126,7 +126,7 @@ class _StringsSendTabUk extends _StringsSendTabEn {
 	@override String get sendMode => 'Режим надсилання';
 	@override late final _StringsSendTabSendModesUk sendModes = _StringsSendTabSendModesUk._(_root);
 	@override String get sendModeHelp => 'Довідка';
-	@override String get help => 'Будь ласка, переконайтеся, що одержувач перебуває в тій же ж Wi-Fi мережі, що і відправник.';
+	@override String get help => 'Будь ласка, переконайтеся, що отримувач перебуває в тій же ж Wi-Fi мережі, що й відправник.';
 	@override String get placeItems => 'Додайте файли, щоб поділитися.';
 }
 
@@ -238,7 +238,7 @@ class _StringsSendPageUk extends _StringsSendPageEn {
 	@override String get waiting => 'Очікування відповіді...';
 	@override String get rejected => 'Отримувач відхилив запит.';
 	@override String get tooManyAttempts => _root.web.tooManyAttempts;
-	@override String get busy => 'Одержувач зайнятий іншим запитом.';
+	@override String get busy => 'Отримувач зайнятий іншим запитом.';
 }
 
 // Path: progressPage
@@ -288,7 +288,7 @@ class _StringsAboutPageUk extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Про LocalSend';
 	@override List<String> get description => [
-		'LocalSend — це безкоштовний додаток з відкритим вихідним кодом, який дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.',
+		'LocalSend — це безплатний додаток з відкритим вихідним кодом, який дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.',
 		'Цей додаток доступний для Android, iOS, macOS, Windows та Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці.',
 	];
 	@override String get author => 'Автор';
@@ -304,7 +304,7 @@ class _StringsDonationPageUk extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Пожертвувати';
-	@override String get info => 'LocalSend є безкоштовним, із відкритим вихідним кодом і без реклами. Якщо вам подобається додаток, ви можете підтримати його розробку пожертвою.';
+	@override String get info => 'LocalSend є безплатним, із відкритим вихідним кодом та без реклами. Якщо вам подобається додаток, ви можете підтримати його розробку пожертвою.';
 	@override String donate({required Object amount}) => 'Пожертвувати ${amount}';
 	@override String get thanks => 'Велике спасибі!';
 	@override String get restore => 'Відновити покупку';
@@ -483,8 +483,8 @@ class _StringsSendTabSendModesUk extends _StringsSendTabSendModesEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get single => 'Один одержувач';
-	@override String get multiple => 'Кілька одержувачів';
+	@override String get single => 'Один отримувач';
+	@override String get multiple => 'Декілька отримувачів';
 	@override String get link => 'Поділитися через посилання';
 }
 
@@ -535,7 +535,7 @@ class _StringsSettingsTabSendUk extends _StringsSettingsTabSendEn {
 
 	// Translations
 	@override String get title => 'Надсилання';
-	@override String get shareViaLinkAutoAccept => 'Автоматично приймати запити в режимі \'Поділитися через посилання\'';
+	@override String get shareViaLinkAutoAccept => 'Автоматично приймати запити в режимі "Поділитися через посилання"';
 }
 
 // Path: settingsTab.network
@@ -580,8 +580,8 @@ class _StringsTroubleshootPageFirewallUk extends _StringsTroubleshootPageFirewal
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Цей додаток може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.';
-	@override String solution({required Object port}) => 'Швидше за все, це проблема брандмауера. Ви можете вирішити цю проблему, дозволивши вхідні з’єднання (UDP та TCP) для порта: ${port}.';
+	@override String get symptom => 'Цей пристрій може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.';
+	@override String solution({required Object port}) => 'Швидше за все, це проблема брандмауера. Ви можете вирішити цю проблему, дозволивши вхідні з\'єднання (UDP та TCP) для порта: ${port}.';
 	@override String get openFirewall => 'Відкрити брандмауер';
 }
 
@@ -592,8 +592,8 @@ class _StringsTroubleshootPageNoConnectionUk extends _StringsTroubleshootPageNoC
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Обидва пристрої не можуть виявити один одного і не можуть обмінюватися файлами.';
-	@override String get solution => 'Проблема існує з обох сторін? Отже вам потрібно переконатися, що обидва пристрої знаходяться в одній мережі Wi-Fi і мають однакову конфігурацію (порт, групову адресу, шифрування). Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку вам необхідно увімкнути дану опцію на своєму маршрутизаторі.';
+	@override String get symptom => 'Обидва пристрої не можуть виявити один одного та не можуть обмінюватися файлами.';
+	@override String get solution => 'Проблема існує з обох сторін? Отже, вам потрібно переконатися, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, групову адресу, шифрування). Мережа Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку вам необхідно увімкнути дану опцію на своєму маршрутизаторі.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -874,9 +874,9 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Режими надсилання';
-	@override String get single => 'Надсилає файли одному одержувачу. Вибірку буде очищено після завершення передачі файлів.';
-	@override String get multiple => 'Надсилає файли кільком одержувачам. Вибірку не буде очищено.';
-	@override String get link => 'Одержувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
+	@override String get single => 'Надсилає файли одному отримувачу. Вибірку буде очищено після завершення передачі файлів.';
+	@override String get multiple => 'Надсилає файли декільком отримувачам. Вибірку не буде очищено.';
+	@override String get link => 'Отримувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
 }
 
 // Path: dialogs.zoom
@@ -932,5 +932,5 @@ class _StringsProgressPageTotalTitleUk extends _StringsProgressPageTotalTitleEn 
 	@override String sending({required Object time}) => 'Загальний час передачі (${time})';
 	@override String get finishedError => 'Завершено з помилкою';
 	@override String get canceledSender => 'Скасовано відправником';
-	@override String get canceledReceiver => 'Скасовано одержувачем';
+	@override String get canceledReceiver => 'Скасовано отримувачем';
 }

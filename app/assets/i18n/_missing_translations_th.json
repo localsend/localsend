@@ -5,47 +5,47 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "แสดง LocalSend ในเมนูคลิกขวา"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
     },
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in 'Share via link' mode"
+      "title": "ส่ง",
+      "shareViaLinkAutoAccept": "ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด \"แชร์ผ่านลิงก์\" โดยอัตโนมัติ"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "สิ้นสุดเวลาสำหรับการค้นหาอุปกรณ์ในเครือข่าย"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "แสดงในโฟลเดอร์"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "autoAccept": "ตอบรับคำขอโดยอัตโนมัติ",
+    "requirePin": "กรอกรหัส PIN",
+    "pinHint": "รหัส PIN คือ \"{pin}\""
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "กรอกรหัส PIN"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "ชื่อไฟล์ไม่สามารถปล่อยเว้นว่างไว้ได้",
+    "invalid": "ชื่อไฟล์ประกอบไปด้วยอักขระที่ไม่รองรับ"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "กรอกรหัส PIN",
+    "invalidPin": "รหัส PIN ไม่ถูกต้อง",
+    "tooManyAttempts": "ป้อนรหัสผิดหลายครั้ง"
   }
 }

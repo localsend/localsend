@@ -1,122 +1,164 @@
-const BASE_URL = '/api/localsend/v2';
+// IMPORTANT: This script works in Internet Explorer 8!
 
-let i18n = {};
-let sessionId = sessionStorage.getItem('sessionId');
-let queryPin = new URLSearchParams(window.location.search).get('pin');
+var BASE_URL = '/api/localsend/v2';
 
-async function requestFiles() {
+var i18n = {};
+var sessionId = sessionStorage.getItem('sessionId');
+var queryParams = location.search.slice(1).split('&');
+var queryPin = null;
+
+// Parse query parameters manually for IE
+for (var i = 0; i < queryParams.length; i++) {
+  var pair = queryParams[i].split('=');
+  if (pair[0] === 'pin') {
+    queryPin = decodeURIComponent(pair[1]);
+    break;
+  }
+}
+
+function firstRequestFiles() {
   document.getElementById('status-text').innerText = i18n.waiting;
+  var initialUrl = BASE_URL + '/prepare-download';
 
-  let initialUrl = new URL(`${BASE_URL}/prepare-download`, document.location);
   if (sessionId) {
-    initialUrl.searchParams.append('sessionId', sessionId);
-  }
-  if (queryPin) {
-    initialUrl.searchParams.append('pin', queryPin);
-  }
-
-  let response = await fetch(
-    initialUrl,
-    {
-      method: 'POST',
-    },
-  );
-
-  if (response.status === 429) {
-    document.getElementById('status-text').innerText = i18n.tooManyAttempts;
-    return;
+    initialUrl += '?sessionId=' + encodeURIComponent(sessionId);
+    if (queryPin) {
+      initialUrl += '&pin=' + encodeURIComponent(queryPin);
+    }
+  } else if (queryPin) {
+    initialUrl += '?pin=' + encodeURIComponent(queryPin);
   }
 
-  let firstAttempt = true;
-  while (response.status === 401) {
-    const pin = prompt(i18n.enterPin + (firstAttempt ? '' : `\n${i18n.invalidPin}`));
-    if (!pin) {
-      document.getElementById('status-text').innerText = i18n.invalidPin;
+  makeRequest(initialUrl, 'POST', function (response) {
+    if (response.status === 401) {
+      pinRequestFiles(true);
       return;
     }
 
-    response = await fetch(
-      `${BASE_URL}/prepare-download?pin=${pin}`,
-      {
-      method: 'POST',
-      },
-    );
+    if (response.status === 403) {
+      document.getElementById('status-text').innerText = i18n.rejected;
+      return;
+    }
 
     if (response.status === 429) {
       document.getElementById('status-text').innerText = i18n.tooManyAttempts;
       return;
     }
 
-    firstAttempt = false;
+    if (response.status !== 200) {
+      document.getElementById('status-text').innerText = 'Error: ' + response.status;
+      return;
+    }
+
+    handleSuccess(response);
+  });
+}
+
+function pinRequestFiles(firstAttempt) {
+  var pin = prompt(i18n.enterPin + (firstAttempt ? '' : '\n' + i18n.invalidPin));
+  if (!pin) {
+    document.getElementById('status-text').innerText = i18n.invalidPin;
+    return;
   }
 
-  if (response.status === 403) {
-    document.getElementById('status-text').innerText = i18n.rejected;
-    return;
-  } else if (response.status !== 200) {
-    document.getElementById('status-text').innerText = `Error: ${response.status}`;
-    return;
-  }
+  makeRequest(BASE_URL + '/prepare-download?pin=' + encodeURIComponent(pin), 'POST', function (response) {
+    if (response.status === 401) {
+      pinRequestFiles(false);
+      return;
+    }
 
-  const data = await response.json();
-  const files = data.files;
+    if (response.status === 403) {
+      document.getElementById('status-text').innerText = i18n.rejected;
+      return;
+    }
+
+    if (response.status === 429) {
+      document.getElementById('status-text').innerText = i18n.tooManyAttempts;
+      return;
+    }
+
+    if (response.status !== 200) {
+      document.getElementById('status-text').innerText = 'Error: ' + response.status;
+      return;
+    }
+
+    handleSuccess(response);
+  });
+}
+
+function makeRequest(url, method, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      callback(xhr);
+    }
+  };
+  xhr.send();
+}
+
+function fetchI18n(then) {
+  makeRequest('/i18n.json', 'GET', function (response) {
+    if (response.status === 200) {
+      i18n = JSON.parse(response.responseText);
+      then();
+    }
+  });
+}
+
+function init() {
+  fetchI18n(firstRequestFiles);
+}
+
+function handleSuccess(response) {
+  var data = JSON.parse(response.responseText);
+  var files = data.files;
   sessionId = data.sessionId;
   sessionStorage.setItem('sessionId', sessionId);
 
-  document.getElementById('status-text').innerText = `${i18n.files} (${Object.keys(data.files).length})`;
+  document.getElementById('status-text').innerText = i18n.files + ' (' + getKeys(data.files).length + ')';
 
-  if (Object.keys(files).length === 1) {
-    // single file
-    const file = files[Object.keys(files)[0]];
-    document.getElementById('single-file').innerHTML = `
-    <a class="file-item" href="${BASE_URL}/download?sessionId=${sessionId}&fileId=${file.id}">
-      <div class="file-name-cell">
-        ${file.fileName}
-      </div>
-      <div class="file-size-cell">
-        ${formatBytes(file.size)}
-      </div>
-    </a>
-    `;
-    return;
+  // Handling file display
+  handleFilesDisplay(files, sessionId);
+}
+
+function handleFilesDisplay(files, sessionId) {
+  var html= '';
+  var fileKeys = getKeys(files);
+  for (var i = 0; i < fileKeys.length; i++) {
+    var file = files[fileKeys[i]];
+    html += '<a class="file-item" href="' + BASE_URL + '/download?sessionId=' + encodeURIComponent(sessionId) + '&fileId=' + encodeURIComponent(fileKeys[i]) + '">' +
+        '<div class="file-index-cell">' + (i + 1) + '</div>' +
+        '<div class="file-name-cell">' + file.fileName + '</div>' +
+        '<div class="file-size-cell">' + formatBytes(file.size) + '</div>' +
+        '</a>';
   }
-  document.getElementById('file-list').innerHTML = `
-    ${Object.keys(files).map((key, index) => `
-      <a class="file-item" href="${BASE_URL}/download?sessionId=${sessionId}&fileId=${key}">
-        <div class="file-index-cell">
-          ${index + 1}
-        </div>
-        <div class="file-name-cell">
-          ${files[key].fileName}
-        </div>
-        <div class="file-size-cell">
-          ${formatBytes(files[key].size)}
-        </div>
-      </a>
-  `).join('')}
-  `;
-}
 
-async function fetchI18n() {
-  const response = await fetch('/i18n.json');
-  i18n = await response.json();
-}
-
-async function init() {
-  await fetchI18n();
-  await requestFiles();
+  if (fileKeys.length === 1) {
+    document.getElementById('single-file').innerHTML = html;
+  } else {
+    document.getElementById('file-list').innerHTML = html;
+  }
 }
 
 function formatBytes(bytes) {
-    if (bytes < 1024) {
-      return `${bytes} B`;
-    } else if (bytes < 1024 * 1024) {
-      return `${(bytes / 1024).toFixed(1)} KB`;
-    } else if (bytes < 1024 * 1024 * 1024) {
-      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-    } else {
-      return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-    }
+  if (bytes < 1024) {
+    return bytes + ' B';
+  } else if (bytes < 1024 * 1024) {
+    return (bytes / 1024).toFixed(1) + ' KB';
+  } else if (bytes < 1024 * 1024 * 1024) {
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  } else {
+    return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+  }
+}
+
+function getKeys(obj) {
+  var keys = [];
+  for (var key in obj) {
+      keys.push(key);
+  }
+  return keys;
 }
 
 init();

@@ -237,6 +237,7 @@ class _StringsSendPageRo extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Aștept răspuns...';
 	@override String get rejected => 'Recipientul a respins cererea.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Recipientul este ocupat cu o altă cerere.';
 }
 
@@ -272,6 +273,8 @@ class _StringsWebSharePageRo extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Nicio cerere încă.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Acceptă automat cererile';
+	@override String get requirePin => 'Solicită PIN';
+	@override String pinHint({required Object pin}) => 'PIN-ul este "${pin}"';
 	@override String get encryptionHint => 'LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.';
 	@override String pendingRequests({required Object n}) => 'Cererile în așteptare: ${n}';
 }
@@ -422,6 +425,7 @@ class _StringsDialogsRo extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrRo qr = _StringsDialogsQrRo._(_root);
 	@override late final _StringsDialogsQuickActionsRo quickActions = _StringsDialogsQuickActionsRo._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeRo quickSaveNotice = _StringsDialogsQuickSaveNoticeRo._(_root);
+	@override late final _StringsDialogsPinRo pin = _StringsDialogsPinRo._(_root);
 	@override late final _StringsDialogsSendModeHelpRo sendModeHelp = _StringsDialogsSendModeHelpRo._(_root);
 	@override late final _StringsDialogsZoomRo zoom = _StringsDialogsZoomRo._(_root);
 }
@@ -456,6 +460,9 @@ class _StringsWebRo extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Introdu PIN-ul';
+	@override String get invalidPin => 'PIN-ul introdus este greșit';
+	@override String get tooManyAttempts => 'Prea multe încercări';
 	@override String get rejected => 'Respins';
 	@override String get files => 'Fișiere';
 	@override String get fileName => 'Numele fișierului';
@@ -568,6 +575,7 @@ class _StringsSettingsTabGeneralRo extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Închidere: Minimizează în Bara de Meniuri/Tray';
 	@override String get launchAtStartup => 'Autopornire după logare';
 	@override String get launchMinimized => 'Autopornire: Pornire ascunsă';
+	@override String get showInContextMenu => 'Afișează LocalSend în meniul contextual';
 	@override String get animations => 'Animații';
 }
 
@@ -580,6 +588,7 @@ class _StringsSettingsTabReceiveRo extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Primire';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Finisare automată';
 	@override String get destination => 'Destinație';
 	@override String get downloads => '(Descărcări)';
@@ -664,6 +673,7 @@ class _StringsReceiveHistoryPageEntryActionsRo extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Deschide fișierul';
+	@override String get showInFolder => 'Afișează în dosar';
 	@override String get info => 'Informații';
 	@override String get deleteFromHistory => 'Șterge din istoric';
 }
@@ -913,6 +923,16 @@ class _StringsDialogsQuickSaveNoticeRo extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinRo extends _StringsDialogsPinEn {
+	_StringsDialogsPinRo._(_StringsRo root) : this._root = root, super._(root);
+
+	@override final _StringsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Introdu PIN-ul';
 }
 
 // Path: dialogs.sendModeHelp

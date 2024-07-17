@@ -46,6 +46,7 @@ class _StringsTh extends Translations {
 	@override late final _StringsChangelogPageTh changelogPage = _StringsChangelogPageTh._(_root);
 	@override late final _StringsAliasGeneratorTh aliasGenerator = _StringsAliasGeneratorTh._(_root);
 	@override late final _StringsDialogsTh dialogs = _StringsDialogsTh._(_root);
+	@override late final _StringsSanitizationTh sanitization = _StringsSanitizationTh._(_root);
 	@override late final _StringsTrayTh tray = _StringsTrayTh._(_root);
 	@override late final _StringsWebTh web = _StringsWebTh._(_root);
 	@override late final _StringsAssetPickerTh assetPicker = _StringsAssetPickerTh._(_root);
@@ -67,7 +68,7 @@ class _StringsGeneralTh extends _StringsGeneralEn {
 	@override String get confirm => 'ยืนยัน';
 	@override String get continueStr => 'ดำเนินการต่อ';
 	@override String get copy => 'คัดลอก';
-	@override String get copiedToClipboard => 'คัดลอกไปยังคลิปบอร์ด';
+	@override String get copiedToClipboard => 'คัดลอกไปยังคลิปบอร์ดแล้ว้';
 	@override String get decline => 'ปฏิเสธ';
 	@override String get done => 'เสร็จแล้ว';
 	@override String get delete => 'ลบ';
@@ -82,13 +83,13 @@ class _StringsGeneralTh extends _StringsGeneralEn {
 	@override String get on => 'เปิด';
 	@override String get online => 'ออนไลน์';
 	@override String get open => 'เปิด';
-	@override String get queue => 'คิว';
+	@override String get queue => 'ลำดับคิว';
 	@override String get quickSave => 'บันทึกด่วน';
 	@override String get renamed => 'เปลี่ยนชื่อแล้ว';
-	@override String get reset => 'ตั้งใหม่';
+	@override String get reset => 'รีเซ็ต';
 	@override String get restart => 'เริ่มต้นใหม่';
 	@override String get settings => 'การตั้งค่า';
-	@override String get skipped => 'ข้ามไป';
+	@override String get skipped => 'ข้ามไฟล์';
 	@override String get start => 'เริ่ม';
 	@override String get stop => 'หยุด';
 	@override String get save => 'บันทึก';
@@ -118,15 +119,15 @@ class _StringsSendTabTh extends _StringsSendTabEn {
 	@override String get title => 'ส่ง';
 	@override late final _StringsSendTabSelectionTh selection = _StringsSendTabSelectionTh._(_root);
 	@override late final _StringsSendTabPickerTh picker = _StringsSendTabPickerTh._(_root);
-	@override String get shareIntentInfo => 'คุณยังสามารถใช้ฟีเจอร์ "แชร์" บนอุปกรณ์เคลื่อนที่ของคุณเพื่อเลือกไฟล์ให้ง่ายขึ้น';
-	@override String get nearbyDevices => 'อุปกรณ์ใกล้เคียง';
+	@override String get shareIntentInfo => 'คุณยังสามารถใช้ฟีเจอร์ "แชร์" บนอุปกรณ์ของคุณเพื่อเลือกไฟล์ที่ต้องการได้อย่างง่ายดาย';
+	@override String get nearbyDevices => 'อุปกรณ์ที่อยู่ใกล้เคียง';
 	@override String get thisDevice => 'อุปกรณ์นี้';
-	@override String get scan => 'มองหาอุปกรณ์';
-	@override String get sendMode => 'โหลดส่ง';
+	@override String get scan => 'กำลังค้นหาอุปกรณ์ภายในเครือข่าย';
+	@override String get sendMode => 'โหมดการส่ง';
 	@override late final _StringsSendTabSendModesTh sendModes = _StringsSendTabSendModesTh._(_root);
 	@override String get sendModeHelp => 'คำอธิบาย';
-	@override String get help => 'โปรดตรวจสอบให้แน่ใจว่าเป้าหมายที่ต้องการนั้นอยู่ในเครือข่าย wifi เดียวกันหรือเปล่า';
-	@override String get placeItems => 'วางรายการที่จะแชร์';
+	@override String get help => 'โปรดตรวจสอบให้แน่ใจว่าอุปกรณ์เป้าหมายเชื่อมต่ออยู่ภายในเครือข่าย WiFi เดียวกันแล้ว';
+	@override String get placeItems => 'วางไฟล์ที่ต้องการแชร์';
 }
 
 // Path: settingsTab
@@ -139,6 +140,7 @@ class _StringsSettingsTabTh extends _StringsSettingsTabEn {
 	@override String get title => 'การตั้งค่า';
 	@override late final _StringsSettingsTabGeneralTh general = _StringsSettingsTabGeneralTh._(_root);
 	@override late final _StringsSettingsTabReceiveTh receive = _StringsSettingsTabReceiveTh._(_root);
+	@override late final _StringsSettingsTabSendTh send = _StringsSettingsTabSendTh._(_root);
 	@override late final _StringsSettingsTabNetworkTh network = _StringsSettingsTabNetworkTh._(_root);
 	@override late final _StringsSettingsTabOtherTh other = _StringsSettingsTabOtherTh._(_root);
 	@override String get advancedSettings => 'ตั้งค่าขั้นสูง';
@@ -151,10 +153,10 @@ class _StringsTroubleshootPageTh extends _StringsTroubleshootPageEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'แก้ไขปัญหา';
-	@override String get subTitle => 'แอพนี้ไม่ทำงานอย่างที่คาดไว้ใช่ไหม? คุณสามารถพบวิธีแก้ปัญหาทั่วไปได้ที่นี่';
+	@override String get title => 'แก้ไขปัญหาเบื้องต้น';
+	@override String get subTitle => 'มีปัญหาเกี่ยวกับการใช้งานแอปอยู่หรือเปล่า? คุณสามารถค้นหาวิธีการแก้ปัญหาเบื้องต้นได้จากที่นี้';
 	@override String get solution => 'วิธีทำ:';
-	@override String get fixButton => 'แก้ไขโดยอัตโนมัติ';
+	@override String get fixButton => 'แก้ไขให้โดยอัตโนมัติ';
 	@override late final _StringsTroubleshootPageFirewallTh firewall = _StringsTroubleshootPageFirewallTh._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionTh noConnection = _StringsTroubleshootPageNoConnectionTh._(_root);
 }
@@ -181,8 +183,8 @@ class _StringsApkPickerPageTh extends _StringsApkPickerPageEn {
 
 	// Translations
 	@override String get title => 'แอป (APK)';
-	@override String get excludeSystemApps => 'ยกเว้นแอประบบ';
-	@override String get excludeAppsWithoutLaunchIntent => 'ยกเว้นแอปที่ไม่สามารถเปิดใช้งานได้';
+	@override String get excludeSystemApps => 'ไม่แสดงแอปของระบบ';
+	@override String get excludeAppsWithoutLaunchIntent => 'ไม่แสดงแอปที่ไม่สามารถเปิดใช้งานได้';
 	@override String apps({required Object n}) => '${n} แอป';
 }
 
@@ -205,11 +207,11 @@ class _StringsReceivePageTh extends _StringsReceivePageEn {
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(n,
 		one: 'ต้องการส่งไฟล์ให้คุณ',
-		other: 'ต้องการส่งไฟล์ ${n} ให้คุณ',
+		other: 'ต้องการส่งไฟล์จำนวน ${n} ไฟล์ให้คุณ',
 	);
 	@override String get subTitleMessage => 'ส่งข้อความถึงคุณ:';
 	@override String get subTitleLink => 'ส่งลิงค์ให้คุณ:';
-	@override String get canceled => 'ผู้ส่งได้ยกเลิกคำขอแล้ว';
+	@override String get canceled => 'ผู้ส่งได้ยกเลิกคำขอส่งไฟล์แล้ว';
 }
 
 // Path: receiveOptionsPage
@@ -223,7 +225,7 @@ class _StringsReceiveOptionsPageTh extends _StringsReceiveOptionsPageEn {
 	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(โฟลเดอร์ของ LocalSend)';
 	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-	@override String get saveToGalleryOff => 'ปิดโดยอัตโนมัติเนื่องจากมีไดเร็กทอรี';
+	@override String get saveToGalleryOff => 'ถูกปิดโดยอัตโนมัติเนื่องจากมีโฟลเดอร์';
 }
 
 // Path: sendPage
@@ -233,9 +235,10 @@ class _StringsSendPageTh extends _StringsSendPageEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => 'รอการตอบกลับ...';
-	@override String get rejected => 'ผู้รับได้ปฏิเสธคำขอ';
-	@override String get busy => 'ผู้รับกำลังยุ่งอยู่กับคำขออื่น';
+	@override String get waiting => 'กำลังรอการตอบกลับ...';
+	@override String get rejected => 'ผู้รับได้ปฏิเสธคำขอส่งไฟล์';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
+	@override String get busy => 'อุปกรณ์ของผู้รับกำลังประมวลผลคำขอรับ-ส่งไฟล์อื่นอยู่';
 }
 
 // Path: progressPage
@@ -247,7 +250,7 @@ class _StringsProgressPageTh extends _StringsProgressPageEn {
 	// Translations
 	@override String get titleSending => 'กำลังส่งไฟล์';
 	@override String get titleReceiving => 'กำลังรับไฟล์';
-	@override String get savedToGallery => 'บันทึกไว้ในรูปถ่าย';
+	@override String get savedToGallery => 'บันทึกไว้ในแอปรูปถ่ายแล้ว';
 	@override late final _StringsProgressPageTotalTh total = _StringsProgressPageTotalTh._(_root);
 }
 
@@ -261,15 +264,18 @@ class _StringsWebSharePageTh extends _StringsWebSharePageEn {
 	@override String get title => 'แชร์ผ่านลิงก์';
 	@override String get loading => 'กำลังเริ่มเซิร์ฟเวอร์...';
 	@override String get stopping => 'กำลังหยุดเซิร์ฟเวอร์...';
-	@override String get error => 'เกิดข้อผิดพลาดขณะเริ่มเซิร์ฟเวอร์';
+	@override String get error => 'เกิดข้อผิดพลาดขณะกำลังเริ่มเซิร์ฟเวอร์';
 	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(n,
 		one: 'เปิดลิงค์นี้ในเบราว์เซอร์:',
-		other: 'เปิดลิงก์ใดลิงก์หนึ่งพวกนี้ในเบราว์เซอร์:',
+		other: 'เปิดลิงก์ใดลิงก์หนึ่งในเบราว์เซอร์:',
 	);
 	@override String get requests => 'คำขอ';
 	@override String get noRequests => 'ยังไม่มีคำขอ';
 	@override String get encryption => _root.settingsTab.network.encryption;
-	@override String get encryptionHint => 'LocalSend ใช้ใบรับรองที่ลงนามด้วยตัวเอง คุณต้องยอมรับในเบราว์เซอร์';
+	@override String get autoAccept => 'ตอบรับคำขอโดยอัตโนมัติ';
+	@override String get requirePin => 'กรอกรหัส PIN';
+	@override String pinHint({required Object pin}) => 'รหัส PIN คือ "${pin}"';
+	@override String get encryptionHint => 'LocalSend ใช้ใบรับรองอุปกรณ์จากเว็บเบราเซอร์ (self-signed certificate) คุณต้องกดยอมรับใบรับรองนี้ในเบราว์เซอร์บนอุปกรณ์ของคุณ';
 	@override String pendingRequests({required Object n}) => 'คำขอที่รอดำเนินการ: ${n}';
 }
 
@@ -282,12 +288,12 @@ class _StringsAboutPageTh extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'เกี่ยวกับ LocalSend';
 	@override List<String> get description => [
-		'LocalSend เป็นแอปโอเพ่นซอร์สฟรีที่ช่วยให้คุณแบ่งปันไฟล์และข้อความอย่างปลอดภัยกับอุปกรณ์ใกล้เคียงผ่านเครือข่ายท้องถิ่นของคุณโดยไม่จำเป็นต้องเชื่อมต่ออินเทอร์เน็ต',
-		'แอปนี้พร้อมใช้งานบน Android, iOS, macOS, Windows และ Linux คุณสามารถค้นหาตัวเลือกการดาวน์โหลดทั้งหมดได้จากหน้าแรกของเว็บไซต์ที่ทางการ',
+		'LocalSend เป็นแอปโอเพ่นซอร์สที่คุณสามารถดาวน์โหลดมาใช้ได้ฟรีโดยไม่เสียค่าใช้จ่าย ซึ่งตัวแอปจะช่วยให้คุณสามารถแบ่งปันไฟล์และข้อความกับอุปกรณ์ใกล้เคียงได้อย่างปลอดภัยผ่านเครือข่ายท้องถิ่นที่เชื่อมต่อร่วมกันโดยไม่จำเป็นต้องเชื่อมต่ออินเทอร์เน็ต',
+		'แอปนี้พร้อมใช้งานบน Android, iOS, macOS, Windows และ Linux โดยคุณสามารถดาวน์โหลดแอปนี้เพื่อใช้กับระบบปฏิบัติการต่างๆ ได้ผ่านทางหน้าแรกของเว็บไซต์ทางการของเรา',
 	];
-	@override String get author => 'ผู้เขียน';
-	@override String get contributors => 'ผู้มีส่วนร่วม';
-	@override String get translators => 'ผู้แปล';
+	@override String get author => 'ผู้เขียนโปรแกรม';
+	@override String get contributors => 'รายชื่อผู้มีส่วนร่วมพัฒนา';
+	@override String get translators => 'รายชื่อนักแปล';
 }
 
 // Path: donationPage
@@ -298,10 +304,10 @@ class _StringsDonationPageTh extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'บริจาค';
-	@override String get info => 'LocalSend เป็นบริการโอเพ่นซอร์สฟรีและไม่มีโฆษณา หากคุณชอบแอพนี้ คุณสามารถสนับสนุนการพัฒนาด้วยการบริจาค';
-	@override String donate({required Object amount}) => 'บริจาค ${amount}';
+	@override String get info => 'LocalSend เป็นแอปโอเพ่นซอร์สที่คุณสามารถดาวน์โหลดมาใช้ได้ฟรีโดยไม่เสียค่าใช้จ่ายหรือโฆษณาแฝง หากคุณชื่นชอบแอปนี้ คุณสามารถสนับสนุนการพัฒนาแอปได้ด้วยการบริจาคเงิน';
+	@override String donate({required Object amount}) => 'บริจาคเงิน จำนวน ${amount}';
 	@override String get thanks => 'ขอบคุณมาก!';
-	@override String get restore => 'คืนค่าการซื้อ';
+	@override String get restore => 'เรียกคืนข้อมูลการซื้อ';
 }
 
 // Path: changelogPage
@@ -311,7 +317,7 @@ class _StringsChangelogPageTh extends _StringsChangelogPageEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'บันทึกการเปลี่ยนแปลง';
+	@override String get title => 'บันทึกรายการเปลี่ยนแปลง';
 }
 
 // Path: aliasGenerator
@@ -391,7 +397,7 @@ class _StringsAliasGeneratorTh extends _StringsAliasGeneratorEn {
 	];
 
 	/// ในบางภาษา คำคุณศัพท์จะต้องอยู่ท้ายสุด
-	@override String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
+	@override String combination({required Object fruit, required Object adjective}) => '${fruit} ${adjective}';
 }
 
 // Path: dialogs
@@ -421,7 +427,20 @@ class _StringsDialogsTh extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrTh qr = _StringsDialogsQrTh._(_root);
 	@override late final _StringsDialogsQuickActionsTh quickActions = _StringsDialogsQuickActionsTh._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeTh quickSaveNotice = _StringsDialogsQuickSaveNoticeTh._(_root);
+	@override late final _StringsDialogsPinTh pin = _StringsDialogsPinTh._(_root);
 	@override late final _StringsDialogsSendModeHelpTh sendModeHelp = _StringsDialogsSendModeHelpTh._(_root);
+	@override late final _StringsDialogsZoomTh zoom = _StringsDialogsZoomTh._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationTh extends _StringsSanitizationEn {
+	_StringsSanitizationTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'ชื่อไฟล์ไม่สามารถปล่อยเว้นว่างไว้ได้';
+	@override String get invalid => 'ชื่อไฟล์ประกอบไปด้วยอักขระที่ไม่รองรับ';
 }
 
 // Path: tray
@@ -432,7 +451,7 @@ class _StringsTrayTh extends _StringsTrayEn {
 
 	// Translations
 	@override String get open => _root.general.open;
-	@override String get close => 'ออกจาก LocalSend';
+	@override String get close => 'ออกจากแอป LocalSend';
 }
 
 // Path: web
@@ -443,6 +462,9 @@ class _StringsWebTh extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'กรอกรหัส PIN';
+	@override String get invalidPin => 'รหัส PIN ไม่ถูกต้อง';
+	@override String get tooManyAttempts => 'ป้อนรหัสผิดหลายครั้ง';
 	@override String get rejected => 'ถูกปฏิเสธ';
 	@override String get files => 'ไฟล์';
 	@override String get fileName => 'ชื่อไฟล์';
@@ -466,10 +488,10 @@ class _StringsAssetPickerTh extends _StringsAssetPickerEn {
 	@override String get select => 'เลือก';
 	@override String get emptyList => 'รายการว่างเปล่า';
 	@override String get unSupportedAssetType => 'ประเภทไฟล์ที่ไม่รองรับ';
-	@override String get unableToAccessAll => 'ไม่สามารถเข้าถึงไฟล์ทั้งหมดบนอุปกรณ์';
-	@override String get viewingLimitedAssetsTip => 'ดูเฉพาะไฟล์และอัลบั้มที่เข้าถึงได้โดยแอป';
-	@override String get changeAccessibleLimitedAssets => 'คลิกเพื่ออัปเดตไฟล์ที่เข้าถึงได้';
-	@override String get accessAllTip => 'แอปสามารถเข้าถึงไฟล์บางไฟล์บนอุปกรณ์เท่านั้น ไปที่การตั้งค่าระบบและอนุญาตให้แอปเข้าถึงสื่อทั้งหมดบนอุปกรณ์';
+	@override String get unableToAccessAll => 'ไม่สามารถเข้าถึงไฟล์ทั้งหมดบนอุปกรณ์ได้';
+	@override String get viewingLimitedAssetsTip => 'เลือกดูเฉพาะไฟล์และอัลบั้มที่แอปสามารถเข้าถึงได้';
+	@override String get changeAccessibleLimitedAssets => 'คลิกเพื่ออัปเดตไฟล์ที่แอปจะเข้าถึงได้';
+	@override String get accessAllTip => 'แอปสามารถเข้าถึงไฟล์ที่อยู่ในอุปกรณ์ของคุณได้เพียงบางไฟล์เท่านั้น คุณต้องไปที่การตั้งค่าระบบและอนุญาตให้แอปสามารถเข้าถึงสื่อมีเดียทั้งหมดที่อยู่ในอุปกรณ์ก่อน';
 	@override String get goToSystemSettings => 'ไปที่การตั้งค่าระบบ';
 	@override String get accessLimitedAssets => 'ดำเนินการต่อด้วยการเข้าถึงแบบจำกัด';
 	@override String get accessiblePathName => 'ไฟล์ที่เข้าถึงได้';
@@ -480,7 +502,7 @@ class _StringsAssetPickerTh extends _StringsAssetPickerEn {
 	@override String get sActionPlayHint => 'เล่น';
 	@override String get sActionPreviewHint => 'ตัวอย่าง';
 	@override String get sActionSelectHint => 'เลือก';
-	@override String get sActionSwitchPathLabel => 'เปลี่ยนเส้นทาง';
+	@override String get sActionSwitchPathLabel => 'เปลี่ยนเส้นทางที่อยู่ไฟล์';
 	@override String get sActionUseCameraHint => 'ใช้กล้อง';
 	@override String get sNameDurationLabel => 'ความยาว';
 	@override String get sUnitAssetCountLabel => 'จำนวน';
@@ -495,7 +517,7 @@ class _StringsReceiveTabInfoBoxTh extends _StringsReceiveTabInfoBoxEn {
 	// Translations
 	@override String get ip => 'ไอพี:';
 	@override String get port => 'พอร์ต:';
-	@override String get alias => 'นามแฝง:';
+	@override String get alias => 'ชื่ออุปกรณ์:';
 }
 
 // Path: sendTab.selection
@@ -551,10 +573,11 @@ class _StringsSettingsTabGeneralTh extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsTh colorOptions = _StringsSettingsTabGeneralColorOptionsTh._(_root);
 	@override String get language => 'ภาษา';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsTh languageOptions = _StringsSettingsTabGeneralLanguageOptionsTh._(_root);
-	@override String get saveWindowPlacement => 'ออก: บันทึกตำแหน่งหน้าต่าง';
-	@override String get minimizeToTray => 'ออก: ย่อให้เล็กสุดไปยังแถบเทรย์/แถบเมนู';
+	@override String get saveWindowPlacement => 'ออก: บันทึกตำแหน่งหน้าต่างของโปรแกรม';
+	@override String get minimizeToTray => 'ย่อแอปไปยัง System Tray/แถบเมนูเมื่อปิดโปรแกรม';
 	@override String get launchAtStartup => 'เริ่มอัตโนมัติหลังจากเข้าสู่ระบบ';
-	@override String get launchMinimized => 'เริ่มอัตโนมัติ: เริ่มซ่อน';
+	@override String get launchMinimized => 'เริ่มอัตโนมัติ: ซ่อนโปรแกรมหลังจากเริ่ม';
+	@override String get showInContextMenu => 'แสดง LocalSend ในเมนูคลิกขวา';
 	@override String get animations => 'ภาพเคลื่อนไหว';
 }
 
@@ -567,11 +590,23 @@ class _StringsSettingsTabReceiveTh extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'รับ';
 	@override String get quickSave => _root.general.quickSave;
-	@override String get autoFinish => 'เสร็จสิ้นอัตโนมัติ';
+	@override String get requirePin => _root.webSharePage.requirePin;
+	@override String get autoFinish => 'ดำเนินการให้เสร็จสิ้นโดยอัตโนมัติ';
 	@override String get destination => 'ปลายทาง';
 	@override String get downloads => '(ดาวน์โหลด)';
-	@override String get saveToGallery => 'บันทึกมีเดียลงแกลอรี่';
-	@override String get saveToHistory => 'บันทึกลงในประวัติ';
+	@override String get saveToGallery => 'บันทึกมีเดียลงในแกลอรี่';
+	@override String get saveToHistory => 'บันทึกลงในประวัติย้อนหลัง';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendTh extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ส่ง';
+	@override String get shareViaLinkAutoAccept => 'ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด "แชร์ผ่านลิงก์" โดยอัตโนมัติ';
 }
 
 // Path: settingsTab.network
@@ -582,16 +617,17 @@ class _StringsSettingsTabNetworkTh extends _StringsSettingsTabNetworkEn {
 
 	// Translations
 	@override String get title => 'เครือข่าย';
-	@override String get needRestart => 'เริ่มต้นเซิร์ฟเวอร์ใหม่เพื่อปรับการตั้งค่า!';
+	@override String get needRestart => 'เริ่มต้นเซิร์ฟเวอร์ใหม่อีกครั้งเพื่อปรับเปลี่ยนค่าให้เป็นไปตามที่ตั้งไว้ก่อนหน้า!';
 	@override String get server => 'เซิร์ฟเวอร์';
-	@override String get alias => 'นามแฝง';
+	@override String get alias => 'ชื่ออุปกรณ์';
 	@override String get deviceType => 'ประเภทอุปกรณ์';
 	@override String get deviceModel => 'รุ่นอุปกรณ์';
 	@override String get port => 'พอร์ต';
-	@override String portWarning({required Object defaultPort}) => 'อุปกรณ์อื่นอาจตรวจไม่พบเนื่องจากคุณใช้พอร์ตที่คุณกำหนดเอง (default: ${defaultPort})';
+	@override String get discoveryTimeout => 'สิ้นสุดเวลาสำหรับการค้นหาอุปกรณ์ในเครือข่าย';
+	@override String portWarning({required Object defaultPort}) => 'อุปกรณ์เครื่องอื่นอาจจะไม่สามารถค้นหาอุปกรณ์เครื่องนี้เจอในเครื่อข่ายได้เนื่องจากคุณแก้ไขพอร์ตเป็นหมายเลขอื่น (default: ${defaultPort})';
 	@override String get encryption => 'การเข้ารหัส';
 	@override String get multicastGroup => 'มัลติคาสต์';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'อุปกรณ์อื่นอาจตรวจไม่พบเนื่องจากคุณใช้ที่อยู่มัลติคาสต์แบบกำหนดเอง (default: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'อุปกรณ์เครื่องอื่นอาจจะไม่สามารถค้นหาอุปกรณ์เครื่องนี้เจอในเครื่อข่ายได้เนื่องจากคุณกำหนดที่อยู่มัลติคาสต์ใหม่ด้วยตนเอง (default: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -615,8 +651,8 @@ class _StringsTroubleshootPageFirewallTh extends _StringsTroubleshootPageFirewal
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'แอปนี้สามารถส่งไฟล์ไปยังอุปกรณ์อื่นได้ แต่อุปกรณ์อื่นไม่สามารถส่งไฟล์ไปยังอุปกรณ์นี้ได้';
-	@override String solution({required Object port}) => 'นี่น่าจะเป็นปัญหาจากไฟร์วอลล์ คุณสามารถแก้ไขได้ด้วยการอนุญาตการเชื่อมต่อขาเข้า (UDP และ TCP) บนพอร์ต ${port}';
+	@override String get symptom => 'แอปนี้สามารถส่งไฟล์ข้อมูลไปยังอุปกรณ์อื่นได้ แต่อุปกรณ์อื่นไม่สามารถส่งไฟล์ข้อมูลมายังอุปกรณ์นี้ได้';
+	@override String solution({required Object port}) => 'ปัญหานี้อาจมีสาเหตุมาจากการตั้งค่าไฟร์วอลล์ คุณสามารถแก้ไขปัญหานี้ได้ด้วยการอนุญาตการเชื่อมต่อขาเข้า (UDP และ TCP) ผ่านพอร์ตหมายเลข ${port}';
 	@override String get openFirewall => 'เปิดไฟร์วอลล์';
 }
 
@@ -627,8 +663,8 @@ class _StringsTroubleshootPageNoConnectionTh extends _StringsTroubleshootPageNoC
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'อุปกรณ์ทั้งสองไม่เจอกันและไม่สามารถแชร์ไฟล์ได้';
-	@override String get solution => 'ปัญหามีอยู่ทั้งสองฝ่าย? จากนั้น คุณต้องตรวจสอบให้แน่ใจว่าอุปกรณ์ทั้งสองอยู่ในเครือข่าย wifi เดียวกันและใช้การกำหนดค่าเดียวกัน (พอร์ต ที่อยู่มัลติคาสต์ การเข้ารหัส) wifi อาจไม่อนุญาตให้มีการสื่อสารระหว่างผู้เข้าร่วม ในกรณีนี้ ต้องเปิดใช้งานตัวเลือกนี้บนเราเตอร์';
+	@override String get symptom => 'อุปกรณ์สำหรับรับ-ส่งข้อมูลค้นหากันไม่เจอและไม่สามารถแชร์ไฟล์ได้';
+	@override String get solution => 'ปัญหานี้เกิดกับอุปกรณ์ที่จะรับและส่งข้อมูลใช่หรือไม่ ถ้าใช่ คุณจำเป็นต้องตรวจสอบให้แน่ใจว่าอุปกรณ์ทั้งสองได้เชื่อมต่อบนเครือข่ายเดียวกันและได้มีการตั้งค่าการเชื่อมต่อภายในแอปที่เหมือนกัน (ใช้หมายเลขพอร์ต, ที่อยู่มัลติคาสต์, วิธีการเข้ารหัสเดียวกัน) ทั้งนี้เครือข่ายที่คุณเชื่อมต่ออยู่อาจมีการตั้งค่าเพื่อป้องกันไม่ให้อุปกรณ์ภายในเครือข่ายสื่อสารกันได้ หากเป็นเช่นนั้น คุณจำเป็นต้องปรับการตั้งค่าของเราเตอร์ก่อนเป็นอันดับแรกเพื่อให้อุปกรณ์ในเครือข่ายสามารถสื่อสารเพื่อส่งข้อมูลได้';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -639,6 +675,7 @@ class _StringsReceiveHistoryPageEntryActionsTh extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'เปิดไฟล์';
+	@override String get showInFolder => 'แสดงในโฟลเดอร์';
 	@override String get info => 'ข้อมูล';
 	@override String get deleteFromHistory => 'ลบออกจากประวัติ';
 }
@@ -663,8 +700,8 @@ class _StringsDialogsAddFileTh extends _StringsDialogsAddFileEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'เพิ่มไปยังส่วนที่เลือก';
-	@override String get content => 'คุณต้องการจะเพิ่มอะไร?';
+	@override String get title => 'เพิ่มไปยังส่วนที่เลือกไว้';
+	@override String get content => 'คุณต้องการจะเพิ่มไฟล์ใด?';
 }
 
 // Path: dialogs.addressInput
@@ -677,7 +714,7 @@ class _StringsDialogsAddressInputTh extends _StringsDialogsAddressInputEn {
 	@override String get title => 'กรอกที่อยู่';
 	@override String get hashtag => 'แฮชแท็ก';
 	@override String get ip => 'ที่อยู่ไอพี';
-	@override String get recentlyUsed => 'ใช้งานล่าสุด: ';
+	@override String get recentlyUsed => 'ใช้งานล่าสุดเมื่อ: ';
 }
 
 // Path: dialogs.cancelSession
@@ -699,7 +736,7 @@ class _StringsDialogsCannotOpenFileTh extends _StringsDialogsCannotOpenFileEn {
 
 	// Translations
 	@override String get title => 'ไม่สามารถเปิดไฟล์ได้';
-	@override String content({required Object file}) => 'ไม่สามารถเปิดไฟล์ "${file}" ได้ ไฟล์นี้ถูกย้าย เปลี่ยนชื่อ หรือลบไปหรือเปล่า';
+	@override String content({required Object file}) => 'ไม่สามารถเปิดไฟล์ "${file}" ได้ โปรดตรวจสอบว่าไฟล์นี้ได้ถูกย้าย เปลี่ยนชื่อ หรือถูกลบไปแล้วหรือไม่';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -709,8 +746,8 @@ class _StringsDialogsEncryptionDisabledNoticeTh extends _StringsDialogsEncryptio
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ปิดใช้งานการเข้ารหัส';
-	@override String get content => 'การสื่อสารขณะนี้เกิดขึ้นผ่านโปรโตคอล HTTP ที่ไม่ได้เข้ารหัส เพื่อที่จะใช้งาน HTTPS ให้เปิดใช้งานการเข้ารหัสอีกครั้ง';
+	@override String get title => 'ปิดใช้งานการเข้ารหัสอยู่';
+	@override String get content => 'การส่งข้อมูลที่เกิดขึ้นต่อจากนี้จะเป็นการส่งข้อมูลผ่านโปรโตคอล HTTP ที่ไม่ได้รับการเข้ารหัส หากต้องการส่งข้อมูลผ่านโปรโตคอล HTTPS คุณจำเป็นต้องเปิดใช้งานการเข้ารหัสอีกครั้ง';
 }
 
 // Path: dialogs.errorDialog
@@ -732,7 +769,7 @@ class _StringsDialogsFavoriteDialogTh extends _StringsDialogsFavoriteDialogEn {
 	// Translations
 	@override String get title => 'รายการโปรด';
 	@override String get noFavorites => 'ยังไม่มีอุปกรณ์ในรายการโปรด';
-	@override String get addFavorite => 'เพิ่ม';
+	@override String get addFavorite => 'เพิ่มอุปกรณ์';
 }
 
 // Path: dialogs.favoriteDeleteDialog
@@ -743,7 +780,7 @@ class _StringsDialogsFavoriteDeleteDialogTh extends _StringsDialogsFavoriteDelet
 
 	// Translations
 	@override String get title => 'ลบจากรายการโปรด';
-	@override String content({required Object name}) => 'คุณต้องการลบ "${name}" ออกจากรายการโปรดหรือไม่?';
+	@override String content({required Object name}) => 'คุณต้องการลบอุปกรณ์ "${name}" ออกจากรายการโปรดหรือไม่?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -755,8 +792,8 @@ class _StringsDialogsFavoriteEditDialogTh extends _StringsDialogsFavoriteEditDia
 	// Translations
 	@override String get titleAdd => 'เพิ่มในรายการโปรด';
 	@override String get titleEdit => 'ปรับแต่ง';
-	@override String get name => 'ชื่อเล่น';
-	@override String get auto => '(อัตโนมัติ)';
+	@override String get name => 'ชื่ออุปกรณ์';
+	@override String get auto => '(ตั้งให้อัตโนมัติ)';
 	@override String get ip => 'ที่อยู่ IP';
 	@override String get port => 'พอร์ต';
 }
@@ -770,7 +807,7 @@ class _StringsDialogsFileInfoTh extends _StringsDialogsFileInfoEn {
 	// Translations
 	@override String get title => 'ข้อมูลไฟล์';
 	@override String get fileName => 'ชื่อไฟล์:';
-	@override String get path => 'เส้นทาง:';
+	@override String get path => 'ที่อยู่ไฟล์บนเครื่อง:';
 	@override String get size => 'ขนาด:';
 	@override String get sender => 'ผู้ส่ง:';
 	@override String get time => 'เวลา:';
@@ -784,7 +821,7 @@ class _StringsDialogsFileNameInputTh extends _StringsDialogsFileNameInputEn {
 
 	// Translations
 	@override String get title => 'กรอกชื่อไฟล์';
-	@override String original({required Object original}) => 'ต้นฉบับ: ${original}';
+	@override String original({required Object original}) => 'ชื่อไฟล์เดิม: ${original}';
 }
 
 // Path: dialogs.historyClearDialog
@@ -795,7 +832,7 @@ class _StringsDialogsHistoryClearDialogTh extends _StringsDialogsHistoryClearDia
 
 	// Translations
 	@override String get title => 'ล้างประวัติ';
-	@override String get content => 'คุณต้องการลบประวัติทั้งหมดจริงๆหรือไม่?';
+	@override String get content => 'คุณต้องการลบประวัติทั้งหมดหรือไม่?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -806,7 +843,7 @@ class _StringsDialogsLocalNetworkUnauthorizedTh extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => _root.dialogs.noPermission.title;
-	@override String get description => 'LocalSend ไม่สามารถค้นหาอุปกรณ์อื่นได้หากไม่มีสิทธิ์ในการสแกนเครือข่ายท้องถิ่น โปรดอนุญาตสิทธิ์นี้ในการตั้งค่า';
+	@override String get description => 'LocalSend ไม่สามารถค้นหาอุปกรณ์อื่นได้หากคุณไม่ให้สิทธิ์การสแกนเครือข่ายที่อุปกรณ์นี้กำลังเชื่อมต่ออยู่ โปรดอนุญาตให้สิทธิ์ในการสแกนนี้ในหน้าการตั้งค่า';
 	@override String get gotoSettings => 'การตั้งค่า';
 }
 
@@ -829,7 +866,7 @@ class _StringsDialogsNoFilesTh extends _StringsDialogsNoFilesEn {
 
 	// Translations
 	@override String get title => 'ไม่ได้เลือกไฟล์';
-	@override String get content => 'โปรดเลือกไฟล์อย่างน้อยหนึ่งไฟล์';
+	@override String get content => 'กรุณาเลือกไฟล์อย่างน้อยหนึ่งไฟล์';
 }
 
 // Path: dialogs.noPermission
@@ -851,7 +888,7 @@ class _StringsDialogsNotAvailableOnPlatformTh extends _StringsDialogsNotAvailabl
 
 	// Translations
 	@override String get title => 'ไม่พร้อมใช้งาน';
-	@override String get content => 'ฟีเจอร์นี้ใช้งานเฉพาะบน:';
+	@override String get content => 'ฟีเจอร์นี้ใช้งานได้เฉพาะบน:';
 }
 
 // Path: dialogs.qr
@@ -875,7 +912,7 @@ class _StringsDialogsQuickActionsTh extends _StringsDialogsQuickActionsEn {
 	@override String get counter => 'ตัวนับ';
 	@override String get prefix => 'คำนำหน้า';
 	@override String get padZero => 'เติมศูนย์ด้านหน้า';
-	@override String get sortBeforeCount => 'เรียงตามตัวอักษรไว้ก่อน';
+	@override String get sortBeforeCount => 'เรียงตามตัวอักษรไว้ก่อนหน้า';
 	@override String get random => 'สุ่ม';
 }
 
@@ -887,7 +924,17 @@ class _StringsDialogsQuickSaveNoticeTh extends _StringsDialogsQuickSaveNoticeEn 
 
 	// Translations
 	@override String get title => _root.general.quickSave;
-	@override String get content => 'คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายท้องถิ่นสามารถส่งไฟล์ถึงคุณได้';
+	@override String get content => 'การตอบรับคำขอรับไฟล์จากอุปกรณ์อื่นจะเป็นไปโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายที่อุปกรณ์นี้เชื่อมต่ออยู่จะสามารถส่งไฟล์ถึงคุณได้';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinTh extends _StringsDialogsPinEn {
+	_StringsDialogsPinTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'กรอกรหัส PIN';
 }
 
 // Path: dialogs.sendModeHelp
@@ -897,10 +944,20 @@ class _StringsDialogsSendModeHelpTh extends _StringsDialogsSendModeHelpEn {
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'โหมดส่ง';
-	@override String get single => 'ส่งไฟล์ไปยังผู้รับคนเดียว การเลือกจะถูกล้างออกออกหลังจากเสร็จสิ้นการโอนไฟล์';
-	@override String get multiple => 'ส่งไฟล์ไปยังผู้รับหลายคน การเลือกจะไม่ถูกล้างออก';
-	@override String get link => 'ผู้รับที่ไม่ได้ติดตั้ง LocalSend สามารถดาวน์โหลดไฟล์ที่เลือกได้โดยเปิดลิงก์ในเบราว์เซอร์';
+	@override String get title => 'โหมดส่งไฟล์';
+	@override String get single => 'ส่งไฟล์ไปยังผู้รับเพียงอุปกรณ์เดียว ไฟล์ที่เลือกไว้จะถูกล้างออกจากรายการทันทีที่โอนไฟล์สำเร็จ';
+	@override String get multiple => 'ส่งไฟล์ไปยังผู้รับหลายอุปกรณ์ ไฟล์ที่เลือกไว้จะไม่ถูกล้างออกจากรายการ';
+	@override String get link => 'ผู้รับที่ไม่ได้ติดตั้งแอป LocalSend สามารถดาวน์โหลดไฟล์ที่เลือกไว้ในรายการได้โดยการเปิดลิงก์ในเบราว์เซอร์';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomTh extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -910,7 +967,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsTh extends _StringsSettingsTabG
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => 'ระบบ';
+	@override String get system => 'ตามระบบ';
 	@override String get dark => 'มืด';
 	@override String get light => 'สว่าง';
 }
@@ -922,7 +979,7 @@ class _StringsSettingsTabGeneralColorOptionsTh extends _StringsSettingsTabGenera
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => 'ระบบ';
+	@override String get system => 'ตามระบบ';
 	@override String get oled => 'โอเล็ด';
 }
 
@@ -933,7 +990,7 @@ class _StringsSettingsTabGeneralLanguageOptionsTh extends _StringsSettingsTabGen
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => 'ระบบ';
+	@override String get system => 'ตามระบบ';
 }
 
 // Path: progressPage.total.title
@@ -943,8 +1000,8 @@ class _StringsProgressPageTotalTitleTh extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'ความก้าวคลืบหน้าทั้งหมด (${time})';
-	@override String get finishedError => 'เสร็จสิ้นมีข้อผิดพลาด';
-	@override String get canceledSender => 'ยกเลิกโดยผู้ส่ง';
-	@override String get canceledReceiver => 'ยกเลิกโดยผู้รับ';
+	@override String sending({required Object time}) => 'ความคืบหน้าทั้งหมด (${time})';
+	@override String get finishedError => 'ดำเนินการเสร็จสิ้นโดยมีข้อผิดพลาดเกิดขึ้น';
+	@override String get canceledSender => 'ถูกยกเลิกโดยผู้ส่ง';
+	@override String get canceledReceiver => 'ถูกยกเลิกโดยผู้รับ';
 }
