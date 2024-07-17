@@ -128,7 +128,7 @@
       "discoveryTimeout": "Discovery Timeout",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
-      "multicastGroup": "Multicast",
+      "multicastGroup": "Multicast address",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },
     "other": {
