@@ -142,7 +142,7 @@
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
-    "subTitle": "Does the app not work as expected? Here you can find some common solutions.",
+    "subTitle": "Does the app not work as expected? Here you can find some common solutions to problems.",
     "solution": "Solution:",
     "fixButton": "Fix automatically",
     "firewall": {
