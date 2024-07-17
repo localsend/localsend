@@ -20,7 +20,8 @@ Response? handlePin({
       if (requestPin?.isNotEmpty ?? false) {
         pinAttempts[request.ip] = attempts + 1;
 
-        if (attempts == 2) { // it was 2 before incrementing
+        if (attempts == 2) {
+          // it was 2 before incrementing
           return server.responseJson(429, message: 'Too many attempts.');
         }
       }
