@@ -1,4 +1,4 @@
-## 1.15.1 (unreleased)
+## 1.15.1 (2024-07-18)
 
 - feat: support Internet Explorer 8 (IE8) in web share (@Tienisto)
 - feat: save auto accept state when switching encryption mode in web share (@Tienisto)
