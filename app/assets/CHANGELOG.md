@@ -7,6 +7,7 @@
 - fix(android): crash when picking files or folders on Android TV (@Tienisto)
 - fix(windows): crash when sum of file sizes is greater than 2 GB (@Tienisto)
 - fix(windows): bundle required DLL files to avoid crash on app start (@Tienisto)
+- fix(macos): hide autostart option when installed via App Store because this switch is not working (@Tienisto)
 
 ## 1.15.0 (2024-07-15)
 
