@@ -400,5 +400,35 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
+  },
+  "settingsTab": {
+    "general": {
+      "showInContextMenu": "A LocalSend megjelenítése a helyi menüben"
+    },
+    "receive": {
+      "requirePin": "@:webSharePage.requirePin"
+    }
+  },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Megjelenítés a mappában"
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "webSharePage": {
+    "requirePin": "PIN kód megkövetelése",
+    "pinHint": "A PIN kód \"{pin}\""
+  },
+  "dialogs": {
+    "pin": {
+      "title": "PIN kód megadása"
+    }
+  },
+  "web": {
+    "enterPin": "PIN kód megadása",
+    "invalidPin": "Érvénytelen a PIN",
+    "tooManyAttempts": "Túl sok kísérlet"
   }
 }
