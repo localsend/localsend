@@ -161,7 +161,7 @@ class SettingsTab extends StatelessWidget {
                         context: context,
                         builder: (_) => const PinDialog(
                           obscureText: false,
-                          generateRandom: true,
+                          generateRandom: false,
                         ),
                       );
 
