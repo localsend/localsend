@@ -170,7 +170,7 @@
   "apkPickerPage": {
     "title": "Програми (APK)",
     "excludeSystemApps": "Виключити системні програми",
-    "excludeAppsWithoutLaunchIntent": "Виключити програми, які не запускаються",
+    "excludeAppsWithoutLaunchIntent": "Виключити програми, що не запускаються",
     "apps": "{n} програм"
   },
   "selectedFilesPage": {
