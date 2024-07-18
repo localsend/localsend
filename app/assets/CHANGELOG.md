@@ -3,6 +3,7 @@
 - feat: support Internet Explorer 8 (IE8) in web share (@Tienisto)
 - feat: save auto accept state when switching encryption mode in web share (@Tienisto)
 - fix: count PIN tries correctly in web share (@Tienisto)
+- fix(android): crash when picking files or folders on Android TV (@Tienisto)
 - fix(windows): crash when sum of file sizes greater than 2 GB (@Tienisto)
 - fix(windows): bundle required DLLs files to avoid crash on app start (@Tienisto)
 

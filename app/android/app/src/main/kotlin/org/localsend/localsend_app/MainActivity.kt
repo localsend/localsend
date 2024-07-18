@@ -45,6 +45,7 @@ class MainActivity : FlutterActivity() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            putExtra("multi-pick", true)
             type = "*/*"
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         }
@@ -53,10 +54,16 @@ class MainActivity : FlutterActivity() {
 
     @SuppressLint("WrongConstant")
     @Override
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode != Activity.RESULT_OK) {
-            pendingResult?.error("Error", "Failed to access directory", null)
+        if (resultCode == Activity.RESULT_CANCELED) {
+            pendingResult?.error("CANCELED", "Canceled", null)
+            pendingResult = null
+            return
+        }
+
+        if (resultCode != Activity.RESULT_OK || data == null) {
+            pendingResult?.error("Error $resultCode", "Failed to access directory or file", null)
             pendingResult = null
             return
         }
