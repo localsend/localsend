@@ -142,7 +142,7 @@
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
-    "subTitle": "Does the app not work as expected? Here you can find some common solutions.",
+    "subTitle": "Does the app not work as expected? Here you can find some common solutions to problems.",
     "solution": "Solution:",
     "fixButton": "Fix automatically",
     "firewall": {
@@ -425,8 +425,8 @@
     },
     "sendModeHelp": {
       "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
+      "single": "Sends files to one recipient. Selection will be cleared after finished files transfer.",
+      "multiple": "Sends files to multiple recipients. Selection will not be cleared after finished files transfer.",
       "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
     },
     "zoom": {
