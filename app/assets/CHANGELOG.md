@@ -4,7 +4,7 @@
 - feat: save auto accept state when switching encryption mode in web share (@Tienisto)
 - fix: count PIN tries correctly in web share (@Tienisto)
 - fix(android): crash when picking files or folders on Android TV (@Tienisto)
-- fix(windows): crash when sum of file sizes greater than 2 GB (@Tienisto)
+- fix(windows): crash when sum of file sizes is greater than 2 GB (@Tienisto)
 - fix(windows): bundle required DLLs files to avoid crash on app start (@Tienisto)
 
 ## 1.15.0 (2024-07-15)
