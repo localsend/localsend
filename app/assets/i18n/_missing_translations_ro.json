@@ -2,35 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ro>.",
     "After editing this file, you can run 'dart run slang apply --locale=ro' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "Afișează LocalSend în meniul contextual"
-    },
-    "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Afișează în dosar"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "Solicită PIN",
-    "pinHint": "PIN-ul este \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Introdu PIN-ul"
-    }
-  },
-  "web": {
-    "enterPin": "Introdu PIN-ul",
-    "invalidPin": "PIN-ul introdus este greșit",
-    "tooManyAttempts": "Prea multe încercări"
-  }
+  ]
 }

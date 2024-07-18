@@ -5,7 +5,7 @@
   ],
   "general": {
     "delete": "Delete",
-    "noItemInClipboard": "No items in Clipboard"
+    "noItemInClipboard": "No items in Clipboard."
   },
   "sendTab": {
     "picker": {

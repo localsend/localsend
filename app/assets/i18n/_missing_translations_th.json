@@ -2,50 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <th>.",
     "After editing this file, you can run 'dart run slang apply --locale=th' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "แสดง LocalSend ในเมนูคลิกขวา"
-    },
-    "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    },
-    "send": {
-      "title": "ส่ง",
-      "shareViaLinkAutoAccept": "ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด \"แชร์ผ่านลิงก์\" โดยอัตโนมัติ"
-    },
-    "network": {
-      "discoveryTimeout": "สิ้นสุดเวลาสำหรับการค้นหาอุปกรณ์ในเครือข่าย"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "แสดงในโฟลเดอร์"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "autoAccept": "ตอบรับคำขอโดยอัตโนมัติ",
-    "requirePin": "กรอกรหัส PIN",
-    "pinHint": "รหัส PIN คือ \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "กรอกรหัส PIN"
-    },
-    "zoom": {
-      "title": "URL"
-    }
-  },
-  "sanitization": {
-    "empty": "ชื่อไฟล์ไม่สามารถปล่อยเว้นว่างไว้ได้",
-    "invalid": "ชื่อไฟล์ประกอบไปด้วยอักขระที่ไม่รองรับ"
-  },
-  "web": {
-    "enterPin": "กรอกรหัส PIN",
-    "invalidPin": "รหัส PIN ไม่ถูกต้อง",
-    "tooManyAttempts": "ป้อนรหัสผิดหลายครั้ง"
-  }
+  ]
 }
