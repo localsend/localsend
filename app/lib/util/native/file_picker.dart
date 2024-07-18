@@ -163,6 +163,12 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
           ));
     }
   } catch (e) {
+    if (e is PlatformException && e.code == 'CANCELED') {
+      // User canceled the file picker
+      _logger.info('User canceled file picker');
+      return;
+    }
+
     // ignore: use_build_context_synchronously
     await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     _logger.warning('Failed to pick files', e);
@@ -206,6 +212,12 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
       }
     }
   } catch (e) {
+    if (e is PlatformException && e.code == 'CANCELED') {
+      // User canceled the file picker
+      _logger.info('User canceled file picker');
+      return;
+    }
+
     _logger.warning('Failed to pick directory', e);
     // ignore: use_build_context_synchronously
     await showDialog(context: context, builder: (_) => const NoPermissionDialog());

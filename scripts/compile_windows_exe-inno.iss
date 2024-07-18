@@ -74,12 +74,15 @@ Source: "D:\inno\dynamic_color_plugin.dll"; DestDir: "{app}"; Flags: ignoreversi
 Source: "D:\inno\file_selector_windows_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\flutter_windows.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\gal_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\inno\msvcp140.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\pasteboard_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\permission_handler_windows_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\screen_retriever_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\tray_manager_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\uri_content_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\url_launcher_windows_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\inno\vcruntime140.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\inno\vcruntime140_1.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\windows_taskbar_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\window_manager_plugin.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\inno\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
