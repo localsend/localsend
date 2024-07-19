@@ -5,42 +5,42 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "Hiển thị LocalSend ở danh mục"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Hết thời gian tìm kiếm"
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Hiển thị trong thư mục"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "Cần cung cấp mã PIN",
+    "pinHint": "Mã PIN là \"{pin}\""
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Nhập mã PIN"
     },
     "zoom": {
-      "title": "URL"
+      "title": "Đường dẫn"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Tên tập tin không được để trống",
+    "invalid": "Tên tập tin chứa ký tự không hợp lệ"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Nhập mã PIN",
+    "invalidPin": "Sai mã PIN",
+    "tooManyAttempts": "Sai quá nhiều"
   }
 }
