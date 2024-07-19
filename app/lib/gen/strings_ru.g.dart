@@ -67,7 +67,7 @@ class _StringsGeneralRu extends _StringsGeneralEn {
 	@override String get close => 'Закрыть';
 	@override String get confirm => 'Подтвердить';
 	@override String get continueStr => 'Продолжить';
-	@override String get copy => 'Скопировать';
+	@override String get copy => 'Копировать';
 	@override String get copiedToClipboard => 'Скопировано в буфер обмена';
 	@override String get decline => 'Отклонить';
 	@override String get done => 'Готово';
@@ -95,7 +95,7 @@ class _StringsGeneralRu extends _StringsGeneralEn {
 	@override String get save => 'Сохранить';
 	@override String get unchanged => 'Без изменений';
 	@override String get unknown => 'Неизвестно';
-	@override String get noItemInClipboard => 'Буфер обмена пуст';
+	@override String get noItemInClipboard => 'Буфер обмена пуст.';
 }
 
 // Path: receiveTab
@@ -119,13 +119,13 @@ class _StringsSendTabRu extends _StringsSendTabEn {
 	@override String get title => 'Отправить';
 	@override late final _StringsSendTabSelectionRu selection = _StringsSendTabSelectionRu._(_root);
 	@override late final _StringsSendTabPickerRu picker = _StringsSendTabPickerRu._(_root);
-	@override String get shareIntentInfo => 'Также вы можете использовать функцию "Поделиться" вашего мобильного устройства для более быстрого выбора файлов.';
+	@override String get shareIntentInfo => 'Вы также можете воспользоваться функцией "Поделиться" на своём мобильном устройстве, чтобы быстрее выбирать файлы.';
 	@override String get nearbyDevices => 'Устройства поблизости';
 	@override String get thisDevice => 'Это устройство';
 	@override String get scan => 'Поиск устройств';
 	@override String get sendMode => 'Режим отправки';
 	@override late final _StringsSendTabSendModesRu sendModes = _StringsSendTabSendModesRu._(_root);
-	@override String get sendModeHelp => 'Примечание';
+	@override String get sendModeHelp => 'Справка';
 	@override String get help => 'Пожалуйста, убедитесь, что получатель находится в той же Wi-Fi сети, что и отправитель.';
 	@override String get placeItems => 'Добавьте файлы, чтобы поделиться.';
 }
@@ -153,8 +153,8 @@ class _StringsTroubleshootPageRu extends _StringsTroubleshootPageEn {
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Устранение неполадок';
-	@override String get subTitle => 'Это приложение не работает должным образом? Здесь вы найдёте общие решения проблем.';
+	@override String get title => 'Устранение неисправностей';
+	@override String get subTitle => 'Приложение не работает должным образом? Здесь вы можете найти некоторые распространенные решения проблем.';
 	@override String get solution => 'Решение:';
 	@override String get fixButton => 'Исправить автоматически';
 	@override late final _StringsTroubleshootPageFirewallRu firewall = _StringsTroubleshootPageFirewallRu._(_root);
@@ -304,7 +304,7 @@ class _StringsDonationPageRu extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Пожертвовать';
-	@override String get info => 'LocalSend бесплатен, имеет открытый исходный код и не содержит рекламы. Если вам нравится приложение, вы можете поддержать его разработку пожертвованием.';
+	@override String get info => 'LocalSend — это бесплатное приложение с открытым исходным кодом и без рекламы. Если оно вам нравится, вы можете поддержать его разработку пожертвованием.';
 	@override String donate({required Object amount}) => 'Пожертвовать ${amount}';
 	@override String get thanks => 'Большое спасибо!';
 	@override String get restore => 'Восстановить покупку';
@@ -555,8 +555,8 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get discoveryTimeout => 'Тайм-аут обнаружения';
 	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрование';
-	@override String get multicastGroup => 'Мультивещание';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский адрес мультивещания. (default: ${defaultMulticast})';
+	@override String get multicastGroup => 'Адрес мультивещание';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете другой, собственный адрес мультивещания. (default: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -875,7 +875,7 @@ class _StringsDialogsSendModeHelpRu extends _StringsDialogsSendModeHelpEn {
 	// Translations
 	@override String get title => 'Режимы отправки';
 	@override String get single => 'Отправляет файлы одному получателю. Выборка будет очищена после завершения передачи файлов.';
-	@override String get multiple => 'Отправляет файлы нескольким получателям. Выборка не будет очищена.';
+	@override String get multiple => 'Отправляет файлы нескольким получателям. Выборка не будет очищена после завершения передачи файлов.';
 	@override String get link => 'Получатели, у которых не установлен LocalSend, могут загрузить выбранные файлы открыв ссылку в своем браузере.';
 }
 

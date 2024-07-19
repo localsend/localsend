@@ -95,7 +95,7 @@ class _StringsGeneralUk extends _StringsGeneralEn {
 	@override String get save => 'Зберегти';
 	@override String get unchanged => 'Без змін';
 	@override String get unknown => 'Невідомо';
-	@override String get noItemInClipboard => 'Буфер обміну порожній';
+	@override String get noItemInClipboard => 'Буфер обміну порожній.';
 }
 
 // Path: receiveTab
@@ -119,7 +119,7 @@ class _StringsSendTabUk extends _StringsSendTabEn {
 	@override String get title => 'Надіслати';
 	@override late final _StringsSendTabSelectionUk selection = _StringsSendTabSelectionUk._(_root);
 	@override late final _StringsSendTabPickerUk picker = _StringsSendTabPickerUk._(_root);
-	@override String get shareIntentInfo => 'Ви також можете використовувати кнопку "Поділитися" на своєму мобільному пристрої для швидкого вибору файлів.';
+	@override String get shareIntentInfo => 'Ви також можете скористатися функцією "Поділитися" на своєму мобільному пристрої, щоб швидше вибирати файли.';
 	@override String get nearbyDevices => 'Пристрої поблизу';
 	@override String get thisDevice => 'Цей пристрій';
 	@override String get scan => 'Пошук пристроїв';
@@ -154,7 +154,7 @@ class _StringsTroubleshootPageUk extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'Усунення несправностей';
-	@override String get subTitle => 'Цей додаток не працює належним чином? Тут можна знайти загальні рішення проблем.';
+	@override String get subTitle => 'Програма не працює належним чином? Тут ви можете знайти деякі поширені рішення проблем.';
 	@override String get solution => 'Рішення:';
 	@override String get fixButton => 'Виправити автоматично';
 	@override late final _StringsTroubleshootPageFirewallUk firewall = _StringsTroubleshootPageFirewallUk._(_root);
@@ -182,10 +182,10 @@ class _StringsApkPickerPageUk extends _StringsApkPickerPageEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Додатки (APK)';
-	@override String get excludeSystemApps => 'Виключити системні додатки';
-	@override String get excludeAppsWithoutLaunchIntent => 'Виключити додатки, які не запускаються';
-	@override String apps({required Object n}) => '${n} додатків';
+	@override String get title => 'Програми (APK)';
+	@override String get excludeSystemApps => 'Виключити системні програми';
+	@override String get excludeAppsWithoutLaunchIntent => 'Виключити програми, що не запускаються';
+	@override String apps({required Object n}) => '${n} програм';
 }
 
 // Path: selectedFilesPage
@@ -288,8 +288,8 @@ class _StringsAboutPageUk extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Про LocalSend';
 	@override List<String> get description => [
-		'LocalSend — це безплатний додаток з відкритим вихідним кодом, який дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.',
-		'Цей додаток доступний для Android, iOS, macOS, Windows та Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці.',
+		'LocalSend — це безплатна програма з відкритим вихідним кодом, яка дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.',
+		'Ця програма доступна для Android, iOS, macOS, Windows та Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці.',
 	];
 	@override String get author => 'Автор';
 	@override String get contributors => 'Учасники';
@@ -304,7 +304,7 @@ class _StringsDonationPageUk extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Пожертвувати';
-	@override String get info => 'LocalSend є безплатним, із відкритим вихідним кодом та без реклами. Якщо вам подобається додаток, ви можете підтримати його розробку пожертвою.';
+	@override String get info => 'LocalSend — це безплатна програма з відкритим вихідним кодом та без реклами. Якщо вона вам подобається, ви можете підтримати її розробку пожертвою.';
 	@override String donate({required Object amount}) => 'Пожертвувати ${amount}';
 	@override String get thanks => 'Велике спасибі!';
 	@override String get restore => 'Відновити покупку';
@@ -380,7 +380,7 @@ class _StringsTrayUk extends _StringsTrayEn {
 
 	// Translations
 	@override String get open => _root.general.open;
-	@override String get close => 'Вихід із LocalSend';
+	@override String get close => 'Вийти з LocalSend';
 }
 
 // Path: web
@@ -418,9 +418,9 @@ class _StringsAssetPickerUk extends _StringsAssetPickerEn {
 	@override String get emptyList => 'Список порожній';
 	@override String get unSupportedAssetType => 'Непідтримуваний тип файлу.';
 	@override String get unableToAccessAll => 'Неможливо отримати доступ до всіх файлів на пристрої';
-	@override String get viewingLimitedAssetsTip => 'Додаток може переглядати тільки файли та альбоми, до яких він має доступ.';
+	@override String get viewingLimitedAssetsTip => 'Програма може переглядати тільки файли та альбоми, до яких вона має доступ.';
 	@override String get changeAccessibleLimitedAssets => 'Дозволити доступ до додаткових файлів';
-	@override String get accessAllTip => 'Додаток може отримати доступ тільки до деяких файлів на пристрої. Перейдіть до системних налаштувань та дозвольте додатку отримати доступ до всіх медіафайлів на пристрої.';
+	@override String get accessAllTip => 'Програма може отримати доступ тільки до деяких файлів на пристрої. Перейдіть до системних налаштувань та дозвольте програмі отримати доступ до всіх медіафайлів на пристрої.';
 	@override String get goToSystemSettings => 'Перейти до системних налаштувань';
 	@override String get accessLimitedAssets => 'Продовжити з обмеженим доступом';
 	@override String get accessiblePathName => 'Доступні файли';
@@ -472,7 +472,7 @@ class _StringsSendTabPickerUk extends _StringsSendTabPickerEn {
 	@override String get folder => 'Папка';
 	@override String get media => 'Медіа';
 	@override String get text => 'Текст';
-	@override String get app => 'Додаток';
+	@override String get app => 'Програма';
 	@override String get clipboard => 'Вставити';
 }
 
@@ -555,8 +555,8 @@ class _StringsSettingsTabNetworkUk extends _StringsSettingsTabNetworkEn {
 	@override String get discoveryTimeout => 'Тайм-аут виявлення';
 	@override String portWarning({required Object defaultPort}) => 'Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрування';
-	@override String get multicastGroup => 'Групова передача';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну групову адресу. (default: ${defaultMulticast})';
+	@override String get multicastGroup => 'Адреса групової передачі';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -593,7 +593,7 @@ class _StringsTroubleshootPageNoConnectionUk extends _StringsTroubleshootPageNoC
 
 	// Translations
 	@override String get symptom => 'Обидва пристрої не можуть виявити один одного та не можуть обмінюватися файлами.';
-	@override String get solution => 'Проблема існує з обох сторін? Отже, вам потрібно переконатися, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, групову адресу, шифрування). Мережа Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку вам необхідно увімкнути дану опцію на своєму маршрутизаторі.';
+	@override String get solution => 'Проблема існує з обох сторін? Отже, вам потрібно переконатися, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, адресу групової передачі, шифрування). Мережа Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку вам необхідно увімкнути дану опцію на своєму маршрутизаторі.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -875,7 +875,7 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
 	// Translations
 	@override String get title => 'Режими надсилання';
 	@override String get single => 'Надсилає файли одному отримувачу. Вибірку буде очищено після завершення передачі файлів.';
-	@override String get multiple => 'Надсилає файли декільком отримувачам. Вибірку не буде очищено.';
+	@override String get multiple => 'Надсилає файли декільком отримувачам. Вибірку не буде очищено після завершення передачі файлів.';
 	@override String get link => 'Отримувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли відкривши посилання у своєму браузері.';
 }
 
