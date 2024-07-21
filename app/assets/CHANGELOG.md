@@ -1,3 +1,7 @@
+## 1.15.2 (unreleased)
+
+- fix(windows): make installer work on arm64 (@Tienisto)
+
 ## 1.15.1 (2024-07-18)
 
 - feat: support Internet Explorer 8 (IE8) in web share (@Tienisto)
