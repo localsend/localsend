@@ -25,7 +25,7 @@ Future<void> saveFile({
   required DateTime? lastAccessed,
   required void Function(int savedBytes) onProgress,
 }) async {
-  if (!saveToGallery && androidSdkInt != null && androidSdkInt <= 29) {
+  if (androidSdkInt != null && androidSdkInt <= 29) {
     final sdCardPath = getSdCardPath(destinationPath);
     if (sdCardPath != null) {
       // Use Android SAF to save the file to the SD card
@@ -116,6 +116,7 @@ Future<void> _saveFile({
       }
     }
 
+    await flush?.call();
     await close();
 
     if (saveToGallery) {
