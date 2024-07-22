@@ -7,6 +7,7 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
+import 'package:saf_stream/saf_stream_method_channel.dart';
 
 final _logger = Logger('FileSaver');
 
@@ -25,16 +26,29 @@ Future<void> saveFile({
   required DateTime? lastAccessed,
   required void Function(int savedBytes) onProgress,
 }) async {
-  if (androidSdkInt != null && androidSdkInt <= 29) {
-    final sdCardPath = getSdCardPath(destinationPath);
-    if (sdCardPath != null) {
-      // Use Android SAF to save the file to the SD card
-      final info = await _saf.startWriteStream(
-        Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+  if (androidSdkInt != null) {
+    SafWriteStreamInfo? safInfo;
+
+    if (destinationPath.startsWith('content://')) {
+      safInfo = await _saf.startWriteStream(
+        Uri.parse(destinationPath),
         name,
         isImage ? 'image/*' : '*/*',
       );
-      final sessionID = info.session;
+    } else if (androidSdkInt <= 29) {
+      final sdCardPath = getSdCardPath(destinationPath);
+      if (sdCardPath != null) {
+        // Use Android SAF to save the file to the SD card
+        safInfo = await _saf.startWriteStream(
+          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+          name,
+          isImage ? 'image/*' : '*/*',
+        );
+      }
+    }
+
+    if (safInfo != null) {
+      final sessionID = safInfo.session;
       await _saveFile(
         destinationPath: destinationPath,
         saveToGallery: saveToGallery,
@@ -142,7 +156,13 @@ Future<String> digestFilePathAndPrepareDirectory({required String parentDirector
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
-  Directory(dir).createSync(recursive: true);
+  if (!dir.startsWith('content://')) {
+    try {
+      Directory(dir).createSync(recursive: true);
+    } catch (e) {
+      _logger.warning('Could not create directory', e);
+    }
+  }
 
   String destinationPath;
   int counter = 1;

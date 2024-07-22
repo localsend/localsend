@@ -10,7 +10,8 @@ import io.flutter.plugin.common.MethodChannel
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
-private const val REQUEST_CODE_PICK_FILE = 2
+private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
+private const val REQUEST_CODE_PICK_FILE = 3
 
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
@@ -24,21 +25,25 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 "pickDirectory" -> {
                     pendingResult = result
-                    openDirectoryPicker()
+                    openDirectoryPicker(onlyPath = false)
                 }
                 "pickFiles" -> {
                     pendingResult = result
                     openFilePicker()
+                }
+                "pickDirectoryPath" -> {
+                    pendingResult = result
+                    openDirectoryPicker(onlyPath = true)
                 }
                 else -> result.notImplemented()
             }
         }
     }
 
-    private fun openDirectoryPicker() {
+    private fun openDirectoryPicker(onlyPath: Boolean) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-        startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY)
+        startActivityForResult(intent, if (onlyPath) REQUEST_CODE_PICK_DIRECTORY_PATH else REQUEST_CODE_PICK_DIRECTORY)
     }
 
     private fun openFilePicker() {
@@ -80,6 +85,19 @@ class MainActivity : FlutterActivity() {
                     listFiles(uri, files)
                     val resultData = PickDirectoryResult(uri.toString(), files)
                     pendingResult?.success(resultData.toMap())
+                    pendingResult = null
+                } else {
+                    pendingResult?.error("Error", "Failed to access directory", null)
+                    pendingResult = null
+                }
+            }
+            REQUEST_CODE_PICK_DIRECTORY_PATH -> {
+                val uri: Uri? = data.data
+                val takeFlags: Int =
+                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                if (uri != null) {
+                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    pendingResult?.success(uri.toString())
                     pendingResult = null
                 } else {
                     pendingResult?.error("Error", "Failed to access directory", null)
