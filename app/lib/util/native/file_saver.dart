@@ -25,7 +25,7 @@ Future<void> saveFile({
   required DateTime? lastAccessed,
   required void Function(int savedBytes) onProgress,
 }) async {
-  if (!saveToGallery && androidSdkInt != null && androidSdkInt <= 29) {
+  if (androidSdkInt != null && androidSdkInt <= 29) {
     final sdCardPath = getSdCardPath(destinationPath);
     if (sdCardPath != null) {
       // Use Android SAF to save the file to the SD card
@@ -45,6 +45,7 @@ Future<void> saveFile({
         writeAsync: (data) async {
           await _saf.writeChunk(sessionID, Uint8List.fromList(data));
         },
+        flush: null,
         close: () async {
           await _saf.endWriteStream(sessionID);
         },
@@ -63,6 +64,7 @@ Future<void> saveFile({
     onProgress: onProgress,
     write: sink.add,
     writeAsync: null,
+    flush: sink.flush,
     close: () async {
       await sink.close();
       if (lastModified != null) {
@@ -87,10 +89,12 @@ Future<void> _saveFile({
   required void Function(int savedBytes) onProgress,
   required void Function(List<int> data)? write,
   required Future<void> Function(List<int> data)? writeAsync,
+  required Future<void> Function()? flush,
   required Future<void> Function() close,
 }) async {
   try {
     int savedBytes = 0;
+    int lastFlushedBytes = 0;
     final stopwatch = Stopwatch()..start();
     await for (final event in stream) {
       if (writeAsync != null) {
@@ -104,8 +108,15 @@ Future<void> _saveFile({
         stopwatch.reset();
         onProgress(savedBytes);
       }
+
+      const tenMB = 10 * 1024 * 1024;
+      if (flush != null && savedBytes >= lastFlushedBytes + tenMB) {
+        await flush();
+        lastFlushedBytes = savedBytes;
+      }
     }
 
+    await flush?.call();
     await close();
 
     if (saveToGallery) {
