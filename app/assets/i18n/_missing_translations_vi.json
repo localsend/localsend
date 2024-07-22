@@ -2,45 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <vi>.",
     "After editing this file, you can run 'dart run slang apply --locale=vi' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "Hiển thị LocalSend ở danh mục"
-    },
-    "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    },
-    "network": {
-      "discoveryTimeout": "Hết thời gian tìm kiếm"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Hiển thị trong thư mục"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "Cần cung cấp mã PIN",
-    "pinHint": "Mã PIN là \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Nhập mã PIN"
-    },
-    "zoom": {
-      "title": "Đường dẫn"
-    }
-  },
-  "sanitization": {
-    "empty": "Tên tập tin không được để trống",
-    "invalid": "Tên tập tin chứa ký tự không hợp lệ"
-  },
-  "web": {
-    "enterPin": "Nhập mã PIN",
-    "invalidPin": "Sai mã PIN",
-    "tooManyAttempts": "Sai quá nhiều"
-  }
+  ]
 }
