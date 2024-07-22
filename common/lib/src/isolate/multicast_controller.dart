@@ -24,15 +24,15 @@ class IsolateChildController extends ReduxNotifier<IsolateChildState> {
 
 @internal
 Future<void> setupChildIsolate(
-  Stream<IsolateSyncDto> receiveFromMain,
-  void Function(Object) sendToMain,
-  IsolateSyncDto? initialData,
-) async {
+    Stream<IsolateSyncDto> receiveFromMain,
+    void Function(Object) sendToMain,
+    IsolateSyncDto? initialData,
+    ) async {
   final commonState = initialData!.isolateCommonState;
   final isolateState = initialData.isolateState;
   isolateContainer.set(
     isolateChildProvider.overrideWithNotifier(
-      (ref) => IsolateChildController(
+          (ref) => IsolateChildController(
         initialState: IsolateChildState(
           commonState: commonState,
           isolateState: isolateState,

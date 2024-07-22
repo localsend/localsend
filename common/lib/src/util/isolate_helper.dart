@@ -36,12 +36,15 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
   final receiveFromIsolateController = StreamController<R>();
   final sendToIsolateCompleter = Completer<SendPort>();
   receivePort.listen((message) {
-    if (message is R) {
-      receiveFromIsolateController.add(message);
-    } else if (message is SendPort) {
-      sendToIsolateCompleter.complete(message);
-    } else {
-      print('Unexpected type when receiving message from isolate: "$message" that has type <${message.runtimeType}> but only <$R> is expected.');
+    switch (message) {
+      case R():
+        receiveFromIsolateController.add(message);
+        break;
+      case SendPort():
+        sendToIsolateCompleter.complete(message);
+        break;
+      default:
+        print('Unexpected type when receiving message from isolate: "$message" that has type <${message.runtimeType}> but only <$R> is expected.');
     }
   });
   final sendToIsolate = await sendToIsolateCompleter.future;
@@ -57,8 +60,13 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
 }
 
 class _IsolateParam<R, S, P> {
+  /// The [SendPort] to send messages to the main isolate.
   final SendPort _sendToMain;
-  final Future<void> Function(Stream<S>, void Function(R) sendToMain, P? param) task;
+
+  /// The task that the isolate will run.
+  final Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P? param) task;
+
+  /// The parameter that is passed to the task.
   final P? param;
 
   _IsolateParam(this._sendToMain, this.task, this.param);
@@ -69,17 +77,23 @@ class _SendToIsolateReceived {}
 
 Future<void> _isolateRunner<R, S, P>(_IsolateParam<R, S, P> params) async {
   final receivePort = ReceivePort();
+
+  // Send to the main isolate the [SendPort].
+  // This will complete the [sendToIsolateCompleter].
   params._sendToMain.send(receivePort.sendPort);
 
   final receiveFromMainController = StreamController<S>();
   final setupFinished = Completer<void>();
   receivePort.listen((message) {
-    if (message is S) {
-      receiveFromMainController.add(message);
-    } else if (message is _SendToIsolateReceived) {
-      setupFinished.complete();
-    } else {
-      print('Unexpected type when receiving message from main isolate: "$message" that has type <${message.runtimeType}> but only <$S> is expected.');
+    switch (message) {
+      case S():
+        receiveFromMainController.add(message);
+        break;
+      case _SendToIsolateReceived():
+        setupFinished.complete();
+        break;
+      default:
+        print('Unexpected type when receiving message from main isolate: "$message" that has type <${message.runtimeType}> but only <$S> is expected.');
     }
   });
 
