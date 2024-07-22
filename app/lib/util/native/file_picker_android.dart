@@ -1,9 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/services.dart';
 
-part 'pick_directory.mapper.dart';
+part 'file_picker_android.mapper.dart';
 
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
+
+/// From Android 9 (Pie) and above, we need to use the Storage Access Framework (SAF) to access files.
+/// Older versions might also work but the encoded content URI is not guaranteed to work with our algorithm.
+const contentUriMinSdk = 28;
 
 Future<PickDirectoryResult?> pickDirectoryAndroid() async {
   final result = await _methodChannel.invokeMethod<Map>('pickDirectory');
@@ -15,6 +19,11 @@ Future<PickDirectoryResult?> pickDirectoryAndroid() async {
     'directoryUri': result['directoryUri'],
     'files': (result['files'] as List).map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList(),
   });
+}
+
+Future<String?> pickDirectoryPathAndroid() async {
+  final result = await _methodChannel.invokeMethod<String>('pickDirectoryPath');
+  return result;
 }
 
 Future<List<FileInfo>?> pickFilesAndroid() async {

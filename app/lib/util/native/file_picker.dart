@@ -13,7 +13,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/determine_image_type.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
-import 'package:localsend_app/util/native/pick_directory.dart';
+import 'package:localsend_app/util/native/file_picker_android.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
@@ -199,7 +199,7 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
   );
   await sleepAsync(200); // Wait for the dialog to be shown
   try {
-    if (defaultTargetPlatform == TargetPlatform.android && (ref.read(deviceRawInfoProvider).androidSdkInt ?? 0) >= 28) {
+    if (defaultTargetPlatform == TargetPlatform.android && (ref.read(deviceRawInfoProvider).androidSdkInt ?? 0) >= contentUriMinSdk) {
       // Android 8 and above have more predictable content URIs that we can parse.
       final result = await pickDirectoryAndroid();
       if (result != null) {
