@@ -1,4 +1,4 @@
-import 'package:common/src/isolate_child_controller.dart';
+import 'package:common/isolate/isolate_child_controller.dart';
 import 'package:common/src/model/state/isolate_common_state.dart';
 import 'package:common/src/model/state/isolate_parent_state.dart';
 import 'package:common/src/model/state/isolate_ref_state.dart';

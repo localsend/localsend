@@ -1,4 +1,4 @@
-import 'package:common/src/model/state/isolate_child_state.dart';
+import 'package:common/src/model/state/child/isolate_child_state.dart';
 import 'package:common/src/model/state/isolate_sync_dto.dart';
 import 'package:meta/meta.dart';
 import 'package:refena/refena.dart';

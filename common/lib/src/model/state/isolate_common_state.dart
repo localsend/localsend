@@ -6,7 +6,7 @@ part 'isolate_common_state.mapper.dart';
 /// The state that is synced across all isolates.
 @MappableClass()
 class IsolateCommonState with IsolateCommonStateMappable {
-  final StoredSecurityContext? securityContext;
+  final StoredSecurityContext securityContext;
 
   const IsolateCommonState({
     required this.securityContext,

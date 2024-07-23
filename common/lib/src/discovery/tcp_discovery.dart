@@ -1,15 +1,37 @@
+import 'dart:io';
+
 import 'package:common/api_route_builder.dart';
 import 'package:common/common.dart';
+import 'package:common/isolate/isolate_child_controller.dart';
 import 'package:dio/dio.dart';
-import 'package:localsend_app/provider/dio_provider.dart';
-import 'package:localsend_app/provider/security_provider.dart';
+import 'package:dio/io.dart';
 import 'package:logging/logging.dart';
-import 'package:refena_flutter/refena_flutter.dart';
+import 'package:refena/refena.dart';
 
-final _logger = Logger('TargetedDiscovery');
+final _logger = Logger('TcpDiscovery');
 
 final targetedDiscoveryProvider = ViewProvider((ref) {
-  final dio = ref.watch(dioProvider).discovery;
+  final commonState = ref.watch(isolateChildProvider.select((state) => state.commonState));
+
+  final dio = Dio(
+    BaseOptions(
+      connectTimeout: Duration(milliseconds: defaultDiscoveryTimeout),
+      sendTimeout: Duration(milliseconds: defaultDiscoveryTimeout),
+    ),
+  );
+
+  // Allow any self signed certificate
+  dio.httpClientAdapter = IOHttpClientAdapter(
+    createHttpClient: () {
+      final client = HttpClient(
+        context: SecurityContext()
+          ..usePrivateKeyBytes(commonState.securityContext.privateKey.codeUnits)
+          ..useCertificateChainBytes(securityContext.certificate.codeUnits),
+      );
+      client.badCertificateCallback = (cert, host, port) => true;
+      return client;
+    },
+  );
   final fingerprint = ref.watch(securityProvider).certificateHash;
   return TargetedDiscoveryService(dio, fingerprint);
 });
