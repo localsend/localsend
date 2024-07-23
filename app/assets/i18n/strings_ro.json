@@ -100,11 +100,13 @@
       "minimizeToTray": "Închidere: Minimizează în Bara de Meniuri/Tray",
       "launchAtStartup": "Autopornire după logare",
       "launchMinimized": "Autopornire: Pornire ascunsă",
+      "showInContextMenu": "Afișează LocalSend în meniul contextual",
       "animations": "Animații"
     },
     "receive": {
       "title": "Primire",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Finisare automată",
       "destination": "Destinație",
       "downloads": "(Descărcări)",
@@ -160,6 +162,7 @@
     "empty": "Istoricul este gol.",
     "entryActions": {
       "open": "Deschide fișierul",
+      "showInFolder": "Afișează în dosar",
       "info": "Informații",
       "deleteFromHistory": "Șterge din istoric"
     }
@@ -192,6 +195,7 @@
   "sendPage": {
     "waiting": "Aștept răspuns...",
     "rejected": "Recipientul a respins cererea.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Recipientul este ocupat cu o altă cerere."
   },
   "progressPage": {
@@ -223,6 +227,8 @@
     "noRequests": "Nicio cerere încă.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Acceptă automat cererile",
+    "requirePin": "Solicită PIN",
+    "pinHint": "PIN-ul este \"{pin}\"",
     "encryptionHint": "LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.",
     "pendingRequests": "Cererile în așteptare: {n}"
   },
@@ -412,6 +418,9 @@
       "title": "@:general.quickSave",
       "content": "Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere."
     },
+    "pin": {
+      "title": "Introdu PIN-ul"
+    },
     "sendModeHelp": {
       "title": "Moduri de trimitere",
       "single": "Trimite fișiere unui singur recipient. Selecția va fi golită după ce transferul este finalizat.",
@@ -433,6 +442,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Introdu PIN-ul",
+    "invalidPin": "PIN-ul introdus este greșit",
+    "tooManyAttempts": "Prea multe încercări",
     "rejected": "Respins",
     "files": "Fișiere",
     "fileName": "Numele fișierului",

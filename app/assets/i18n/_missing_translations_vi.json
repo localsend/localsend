@@ -2,45 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <vi>.",
     "After editing this file, you can run 'dart run slang apply --locale=vi' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
-    },
-    "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    },
-    "network": {
-      "discoveryTimeout": "Discovery Timeout"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Show in folder"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Enter PIN"
-    },
-    "zoom": {
-      "title": "URL"
-    }
-  },
-  "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
-  },
-  "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
-  }
+  ]
 }

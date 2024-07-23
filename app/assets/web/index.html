@@ -5,76 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocalSend</title>
     <style>
-        :root {
-            --grey: #E0E0E0;
-            --teal: #00796B;
-            --teal-light: #009688;
-            --white: #FFFFFF;
-            --p-1: 0.5rem;
-            --p-2: 1rem;
-        }
-
         body {
             font-family: sans-serif, system-ui;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin: 0;
             line-height: 1.5;
+            text-align: center;
         }
 
         a {
             text-decoration: none;
-            color: var(--white);
+            color: #FFFFFF;
         }
 
         #file-list {
             box-sizing: border-box;
             width: 100%;
             max-width: 1000px;
-            padding: 0 var(--p-2);
-
-            display: flex;
-            flex-wrap: wrap;
-            column-gap: var(--p-2);
-            row-gap: var(--p-2);
+            padding: 0 1em;
+            margin: 0 auto;
+            text-align: left;
         }
 
         .file-item {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            flex-basis: 100%;
-            padding: var(--p-1) var(--p-2);
-            background-color: var(--teal);
-            border-radius: 0.5rem;
+            display: table;
+            width: 100%;
+            padding: 0.5em 1em;
+            background-color: #00796B;
+            border-radius: 0.5em;
+            margin-bottom: 1em;
+            float: left;
+            box-sizing: border-box;
         }
 
         .file-item:hover {
-            background-color: var(--teal-light);
+            background-color: #009688;
+        }
+
+        .file-name-cell, .file-size-cell, .file-index-cell {
+            display: table-cell;
+            vertical-align: middle;
         }
 
         .file-name-cell {
-            flex: 1;
-            word-break: break-word;
+            width: 100%;
+            padding: 0 0.5em;
         }
 
         .file-size-cell, .file-index-cell {
-            display: flex;
-            align-items: center;
+            font-size: 0.8em;
             white-space: nowrap;
-            color: var(--grey);
-            font-size: 0.8rem;
+            color: #E0E0E0;
         }
 
-        .file-index-cell {
-            margin-right: var(--p-1);
+        /* Two columns layout */
+        .file-item {
+            width: 100%;
         }
 
-        /* Show 2 columns on tablet and up */
-        @media (min-width: 768px) {
-            .file-item {
-                flex-basis: calc(50% - (var(--p-2) * 2.5));
+        @media screen and (min-width: 768px) {
+            #file-list.file-item {
+                width: 48%;
+                margin-right: 2%;
+            }
+            #file-list.file-item:nth-child(2n) {
+                margin-right: 0;
             }
         }
 
@@ -83,13 +77,10 @@
         #single-file {
             box-sizing: border-box;
             width: 100%;
+            text-align: left;
             max-width: 400px;
-            padding: var(--p-2);
-        }
-
-        #single-file .file-item {
-            box-sizing: border-box;
-            width: 100%;
+            padding: 0 1em;
+            margin: 0 auto;
         }
     </style>
     <script src="main.js" defer></script>
@@ -99,7 +90,7 @@
     LocalSend requires JavaScript, which is currently disabled. Please enable it and try again.
 </noscript>
 
-<h1 style="padding: var(--p-1)">LocalSend</h1>
+<h1 style="padding: 0.5em">LocalSend</h1>
 <p id="status-text"></p>
 <div id="file-list"></div>
 <div id="single-file"></div>

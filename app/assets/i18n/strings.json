@@ -38,7 +38,7 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No items in Clipboard"
+    "noItemInClipboard": "No items in Clipboard."
   },
   "receiveTab": {
     "title": "Receive",
@@ -115,7 +115,7 @@
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in 'Share via link' mode"
+      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
     },
     "network": {
       "title": "Network",
@@ -128,7 +128,7 @@
       "discoveryTimeout": "Discovery Timeout",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
-      "multicastGroup": "Multicast",
+      "multicastGroup": "Multicast address",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },
     "other": {
@@ -142,17 +142,17 @@
   },
   "troubleshootPage": {
     "title": "Troubleshoot",
-    "subTitle": "Does the app not work as expected? Here you can find some common solutions.",
+    "subTitle": "Does the app not work as expected? Here you can find some common solutions to problems.",
     "solution": "Solution:",
     "fixButton": "Fix automatically",
     "firewall": {
-      "symptom": "This app can send files to other devices; but other devices cannot send files to this device.",
+      "symptom": "This device can send files to other devices but other devices cannot send files to this device.",
       "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
       "openFirewall": "Open Firewall"
     },
     "noConnection": {
       "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
+      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The Wi-Fi network may not allow communication between participants. In this case, this option must be enabled on the router."
     }
   },
   "receiveHistoryPage": {
@@ -425,8 +425,8 @@
     },
     "sendModeHelp": {
       "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished file transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared.",
+      "single": "Sends files to one recipient. Selection will be cleared after finished files transfer.",
+      "multiple": "Sends files to multiple recipients. Selection will not be cleared after finished files transfer.",
       "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
     },
     "zoom": {
@@ -438,7 +438,7 @@
     "invalid": "Filename contains invalid characters"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "Quit LocalSend"
   },

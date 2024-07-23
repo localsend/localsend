@@ -17,6 +17,8 @@ class CrossFile with CrossFileMappable {
   final AssetEntity? asset; // for thumbnails
   final String? path;
   final List<int>? bytes; // if type message, then UTF-8 encoded
+  final DateTime? lastModified;
+  final DateTime? lastAccessed;
 
   const CrossFile({
     required this.name,
@@ -26,6 +28,8 @@ class CrossFile with CrossFileMappable {
     required this.asset,
     required this.path,
     required this.bytes,
+    required this.lastModified,
+    required this.lastAccessed,
   });
 
   /// Custom toString() to avoid printing the bytes.

@@ -6,15 +6,13 @@
 
 part of 'receive_request_response_dto.dart';
 
-class ReceiveRequestResponseDtoMapper
-    extends ClassMapperBase<ReceiveRequestResponseDto> {
+class ReceiveRequestResponseDtoMapper extends ClassMapperBase<ReceiveRequestResponseDto> {
   ReceiveRequestResponseDtoMapper._();
 
   static ReceiveRequestResponseDtoMapper? _instance;
   static ReceiveRequestResponseDtoMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals
-          .use(_instance = ReceiveRequestResponseDtoMapper._());
+      MapperContainer.globals.use(_instance = ReceiveRequestResponseDtoMapper._());
       InfoDtoMapper.ensureInitialized();
     }
     return _instance!;
@@ -24,14 +22,11 @@ class ReceiveRequestResponseDtoMapper
   final String id = 'ReceiveRequestResponseDto';
 
   static InfoDto _$info(ReceiveRequestResponseDto v) => v.info;
-  static const Field<ReceiveRequestResponseDto, InfoDto> _f$info =
-      Field('info', _$info);
+  static const Field<ReceiveRequestResponseDto, InfoDto> _f$info = Field('info', _$info);
   static String _$sessionId(ReceiveRequestResponseDto v) => v.sessionId;
-  static const Field<ReceiveRequestResponseDto, String> _f$sessionId =
-      Field('sessionId', _$sessionId);
+  static const Field<ReceiveRequestResponseDto, String> _f$sessionId = Field('sessionId', _$sessionId);
   static Map<String, FileDto> _$files(ReceiveRequestResponseDto v) => v.files;
-  static const Field<ReceiveRequestResponseDto, Map<String, FileDto>> _f$files =
-      Field('files', _$files);
+  static const Field<ReceiveRequestResponseDto, Map<String, FileDto>> _f$files = Field('files', _$files);
 
   @override
   final MappableFields<ReceiveRequestResponseDto> fields = const {
@@ -41,10 +36,7 @@ class ReceiveRequestResponseDtoMapper
   };
 
   static ReceiveRequestResponseDto _instantiate(DecodingData data) {
-    return ReceiveRequestResponseDto(
-        info: data.dec(_f$info),
-        sessionId: data.dec(_f$sessionId),
-        files: data.dec(_f$files));
+    return ReceiveRequestResponseDto(info: data.dec(_f$info), sessionId: data.dec(_f$sessionId), files: data.dec(_f$files));
   }
 
   @override
@@ -61,91 +53,62 @@ class ReceiveRequestResponseDtoMapper
 
 mixin ReceiveRequestResponseDtoMappable {
   String serialize() {
-    return ReceiveRequestResponseDtoMapper.ensureInitialized()
-        .encodeJson<ReceiveRequestResponseDto>(
-            this as ReceiveRequestResponseDto);
+    return ReceiveRequestResponseDtoMapper.ensureInitialized().encodeJson<ReceiveRequestResponseDto>(this as ReceiveRequestResponseDto);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceiveRequestResponseDtoMapper.ensureInitialized()
-        .encodeMap<ReceiveRequestResponseDto>(
-            this as ReceiveRequestResponseDto);
+    return ReceiveRequestResponseDtoMapper.ensureInitialized().encodeMap<ReceiveRequestResponseDto>(this as ReceiveRequestResponseDto);
   }
 
-  ReceiveRequestResponseDtoCopyWith<ReceiveRequestResponseDto,
-          ReceiveRequestResponseDto, ReceiveRequestResponseDto>
-      get copyWith => _ReceiveRequestResponseDtoCopyWithImpl(
-          this as ReceiveRequestResponseDto, $identity, $identity);
+  ReceiveRequestResponseDtoCopyWith<ReceiveRequestResponseDto, ReceiveRequestResponseDto, ReceiveRequestResponseDto> get copyWith =>
+      _ReceiveRequestResponseDtoCopyWithImpl(this as ReceiveRequestResponseDto, $identity, $identity);
   @override
   String toString() {
-    return ReceiveRequestResponseDtoMapper.ensureInitialized()
-        .stringifyValue(this as ReceiveRequestResponseDto);
+    return ReceiveRequestResponseDtoMapper.ensureInitialized().stringifyValue(this as ReceiveRequestResponseDto);
   }
 
   @override
   bool operator ==(Object other) {
-    return ReceiveRequestResponseDtoMapper.ensureInitialized()
-        .equalsValue(this as ReceiveRequestResponseDto, other);
+    return ReceiveRequestResponseDtoMapper.ensureInitialized().equalsValue(this as ReceiveRequestResponseDto, other);
   }
 
   @override
   int get hashCode {
-    return ReceiveRequestResponseDtoMapper.ensureInitialized()
-        .hashValue(this as ReceiveRequestResponseDto);
+    return ReceiveRequestResponseDtoMapper.ensureInitialized().hashValue(this as ReceiveRequestResponseDto);
   }
 }
 
-extension ReceiveRequestResponseDtoValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, ReceiveRequestResponseDto, $Out> {
-  ReceiveRequestResponseDtoCopyWith<$R, ReceiveRequestResponseDto, $Out>
-      get $asReceiveRequestResponseDto => $base
-          .as((v, t, t2) => _ReceiveRequestResponseDtoCopyWithImpl(v, t, t2));
+extension ReceiveRequestResponseDtoValueCopy<$R, $Out> on ObjectCopyWith<$R, ReceiveRequestResponseDto, $Out> {
+  ReceiveRequestResponseDtoCopyWith<$R, ReceiveRequestResponseDto, $Out> get $asReceiveRequestResponseDto =>
+      $base.as((v, t, t2) => _ReceiveRequestResponseDtoCopyWithImpl(v, t, t2));
 }
 
-abstract class ReceiveRequestResponseDtoCopyWith<
-    $R,
-    $In extends ReceiveRequestResponseDto,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class ReceiveRequestResponseDtoCopyWith<$R, $In extends ReceiveRequestResponseDto, $Out> implements ClassCopyWith<$R, $In, $Out> {
   InfoDtoCopyWith<$R, InfoDto, InfoDto> get info;
-  MapCopyWith<$R, String, FileDto, ObjectCopyWith<$R, FileDto, FileDto>>
-      get files;
+  MapCopyWith<$R, String, FileDto, ObjectCopyWith<$R, FileDto, FileDto>> get files;
   $R call({InfoDto? info, String? sessionId, Map<String, FileDto>? files});
-  ReceiveRequestResponseDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+  ReceiveRequestResponseDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _ReceiveRequestResponseDtoCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, ReceiveRequestResponseDto, $Out>
-    implements
-        ReceiveRequestResponseDtoCopyWith<$R, ReceiveRequestResponseDto, $Out> {
+class _ReceiveRequestResponseDtoCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ReceiveRequestResponseDto, $Out>
+    implements ReceiveRequestResponseDtoCopyWith<$R, ReceiveRequestResponseDto, $Out> {
   _ReceiveRequestResponseDtoCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ReceiveRequestResponseDto> $mapper =
-      ReceiveRequestResponseDtoMapper.ensureInitialized();
+  late final ClassMapperBase<ReceiveRequestResponseDto> $mapper = ReceiveRequestResponseDtoMapper.ensureInitialized();
   @override
-  InfoDtoCopyWith<$R, InfoDto, InfoDto> get info =>
-      $value.info.copyWith.$chain((v) => call(info: v));
+  InfoDtoCopyWith<$R, InfoDto, InfoDto> get info => $value.info.copyWith.$chain((v) => call(info: v));
   @override
-  MapCopyWith<$R, String, FileDto, ObjectCopyWith<$R, FileDto, FileDto>>
-      get files => MapCopyWith($value.files,
-          (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(files: v));
+  MapCopyWith<$R, String, FileDto, ObjectCopyWith<$R, FileDto, FileDto>> get files =>
+      MapCopyWith($value.files, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(files: v));
   @override
   $R call({InfoDto? info, String? sessionId, Map<String, FileDto>? files}) =>
-      $apply(FieldCopyWithData({
-        if (info != null) #info: info,
-        if (sessionId != null) #sessionId: sessionId,
-        if (files != null) #files: files
-      }));
+      $apply(FieldCopyWithData({if (info != null) #info: info, if (sessionId != null) #sessionId: sessionId, if (files != null) #files: files}));
   @override
-  ReceiveRequestResponseDto $make(CopyWithData data) =>
-      ReceiveRequestResponseDto(
-          info: data.get(#info, or: $value.info),
-          sessionId: data.get(#sessionId, or: $value.sessionId),
-          files: data.get(#files, or: $value.files));
+  ReceiveRequestResponseDto $make(CopyWithData data) => ReceiveRequestResponseDto(
+      info: data.get(#info, or: $value.info), sessionId: data.get(#sessionId, or: $value.sessionId), files: data.get(#files, or: $value.files));
 
   @override
-  ReceiveRequestResponseDtoCopyWith<$R2, ReceiveRequestResponseDto, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ReceiveRequestResponseDtoCopyWithImpl($value, $cast, t);
+  ReceiveRequestResponseDtoCopyWith<$R2, ReceiveRequestResponseDto, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _ReceiveRequestResponseDtoCopyWithImpl($value, $cast, t);
 }

@@ -25,25 +25,19 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
   static String _$alias(RegisterDto v) => v.alias;
   static const Field<RegisterDto, String> _f$alias = Field('alias', _$alias);
   static String? _$version(RegisterDto v) => v.version;
-  static const Field<RegisterDto, String> _f$version =
-      Field('version', _$version);
+  static const Field<RegisterDto, String> _f$version = Field('version', _$version);
   static String? _$deviceModel(RegisterDto v) => v.deviceModel;
-  static const Field<RegisterDto, String> _f$deviceModel =
-      Field('deviceModel', _$deviceModel);
+  static const Field<RegisterDto, String> _f$deviceModel = Field('deviceModel', _$deviceModel);
   static DeviceType? _$deviceType(RegisterDto v) => v.deviceType;
-  static const Field<RegisterDto, DeviceType> _f$deviceType =
-      Field('deviceType', _$deviceType);
+  static const Field<RegisterDto, DeviceType> _f$deviceType = Field('deviceType', _$deviceType);
   static String _$fingerprint(RegisterDto v) => v.fingerprint;
-  static const Field<RegisterDto, String> _f$fingerprint =
-      Field('fingerprint', _$fingerprint);
+  static const Field<RegisterDto, String> _f$fingerprint = Field('fingerprint', _$fingerprint);
   static int? _$port(RegisterDto v) => v.port;
   static const Field<RegisterDto, int> _f$port = Field('port', _$port);
   static ProtocolType? _$protocol(RegisterDto v) => v.protocol;
-  static const Field<RegisterDto, ProtocolType> _f$protocol =
-      Field('protocol', _$protocol);
+  static const Field<RegisterDto, ProtocolType> _f$protocol = Field('protocol', _$protocol);
   static bool? _$download(RegisterDto v) => v.download;
-  static const Field<RegisterDto, bool> _f$download =
-      Field('download', _$download);
+  static const Field<RegisterDto, bool> _f$download = Field('download', _$download);
 
   @override
   final MappableFields<RegisterDto> fields = const {
@@ -83,27 +77,22 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
 
 mixin RegisterDtoMappable {
   String serialize() {
-    return RegisterDtoMapper.ensureInitialized()
-        .encodeJson<RegisterDto>(this as RegisterDto);
+    return RegisterDtoMapper.ensureInitialized().encodeJson<RegisterDto>(this as RegisterDto);
   }
 
   Map<String, dynamic> toJson() {
-    return RegisterDtoMapper.ensureInitialized()
-        .encodeMap<RegisterDto>(this as RegisterDto);
+    return RegisterDtoMapper.ensureInitialized().encodeMap<RegisterDto>(this as RegisterDto);
   }
 
-  RegisterDtoCopyWith<RegisterDto, RegisterDto, RegisterDto> get copyWith =>
-      _RegisterDtoCopyWithImpl(this as RegisterDto, $identity, $identity);
+  RegisterDtoCopyWith<RegisterDto, RegisterDto, RegisterDto> get copyWith => _RegisterDtoCopyWithImpl(this as RegisterDto, $identity, $identity);
   @override
   String toString() {
-    return RegisterDtoMapper.ensureInitialized()
-        .stringifyValue(this as RegisterDto);
+    return RegisterDtoMapper.ensureInitialized().stringifyValue(this as RegisterDto);
   }
 
   @override
   bool operator ==(Object other) {
-    return RegisterDtoMapper.ensureInitialized()
-        .equalsValue(this as RegisterDto, other);
+    return RegisterDtoMapper.ensureInitialized().equalsValue(this as RegisterDto, other);
   }
 
   @override
@@ -112,14 +101,11 @@ mixin RegisterDtoMappable {
   }
 }
 
-extension RegisterDtoValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, RegisterDto, $Out> {
-  RegisterDtoCopyWith<$R, RegisterDto, $Out> get $asRegisterDto =>
-      $base.as((v, t, t2) => _RegisterDtoCopyWithImpl(v, t, t2));
+extension RegisterDtoValueCopy<$R, $Out> on ObjectCopyWith<$R, RegisterDto, $Out> {
+  RegisterDtoCopyWith<$R, RegisterDto, $Out> get $asRegisterDto => $base.as((v, t, t2) => _RegisterDtoCopyWithImpl(v, t, t2));
 }
 
-abstract class RegisterDtoCopyWith<$R, $In extends RegisterDto, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
+abstract class RegisterDtoCopyWith<$R, $In extends RegisterDto, $Out> implements ClassCopyWith<$R, $In, $Out> {
   $R call(
       {String? alias,
       String? version,
@@ -132,14 +118,11 @@ abstract class RegisterDtoCopyWith<$R, $In extends RegisterDto, $Out>
   RegisterDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _RegisterDtoCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, RegisterDto, $Out>
-    implements RegisterDtoCopyWith<$R, RegisterDto, $Out> {
+class _RegisterDtoCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, RegisterDto, $Out> implements RegisterDtoCopyWith<$R, RegisterDto, $Out> {
   _RegisterDtoCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<RegisterDto> $mapper =
-      RegisterDtoMapper.ensureInitialized();
+  late final ClassMapperBase<RegisterDto> $mapper = RegisterDtoMapper.ensureInitialized();
   @override
   $R call(
           {String? alias,
@@ -172,7 +155,5 @@ class _RegisterDtoCopyWithImpl<$R, $Out>
       download: data.get(#download, or: $value.download));
 
   @override
-  RegisterDtoCopyWith<$R2, RegisterDto, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _RegisterDtoCopyWithImpl($value, $cast, t);
+  RegisterDtoCopyWith<$R2, RegisterDto, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _RegisterDtoCopyWithImpl($value, $cast, t);
 }

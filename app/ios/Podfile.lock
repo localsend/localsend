@@ -85,6 +85,8 @@ PODS:
   - SwiftyGif (5.4.5)
   - system_settings (0.0.1):
     - Flutter
+  - uri_content (0.0.1):
+    - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
   - video_player_avfoundation (0.0.1):
@@ -114,6 +116,7 @@ DEPENDENCIES:
   - share_handler_ios_models (from `.symlinks/plugins/share_handler_ios/ios/Models`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - system_settings (from `.symlinks/plugins/system_settings/ios`)
+  - uri_content (from `.symlinks/plugins/uri_content/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
   - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
@@ -167,6 +170,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   system_settings:
     :path: ".symlinks/plugins/system_settings/ios"
+  uri_content:
+    :path: ".symlinks/plugins/uri_content/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   video_player_avfoundation:
@@ -200,6 +205,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   system_settings: 8f5cdbfa72c677fc8d665b863bcc20d393d87e9d
+  uri_content: cfb4388dc7ba5fd8face872f4a953db1ccdf88e9
   url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
   video_player_avfoundation: e9e6f9cae7d7a6d9b43519b0aab382bca60fcfd1
   wakelock_plus: 8b09852c8876491e4b6d179e17dfe2a0b5f60d47

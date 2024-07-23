@@ -343,12 +343,12 @@ class ReceiveController {
 
     if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
       if (checkPlatform([TargetPlatform.android]) && !server.getState().session!.destinationDirectory.startsWith('/storage/emulated/0/Download')) {
-        // Android requires manageExternalStorage permission to save files outside of the Download directory
+        // Android requires more permission to save files outside of the Download directory
         try {
-          final result = await Permission.manageExternalStorage.request();
-          _logger.info('manageExternalStorage permission: $result');
+          final result = await Permission.storage.request();
+          _logger.info('storage permission: $result');
         } catch (e) {
-          _logger.warning('Could not request manageExternalStorage permission', e);
+          _logger.warning('Could not request storage permission', e);
         }
       }
       try {
@@ -445,6 +445,8 @@ class ReceiveController {
         isImage: fileType == FileType.image,
         stream: request.read(),
         androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
+        lastModified: receivingFile.file.metadata?.lastModified,
+        lastAccessed: receivingFile.file.metadata?.lastAccessed,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
             server.ref.notifier(progressProvider).setProgress(

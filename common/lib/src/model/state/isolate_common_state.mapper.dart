@@ -21,10 +21,8 @@ class IsolateCommonStateMapper extends ClassMapperBase<IsolateCommonState> {
   @override
   final String id = 'IsolateCommonState';
 
-  static StoredSecurityContext? _$securityContext(IsolateCommonState v) =>
-      v.securityContext;
-  static const Field<IsolateCommonState, StoredSecurityContext>
-      _f$securityContext = Field('securityContext', _$securityContext);
+  static StoredSecurityContext? _$securityContext(IsolateCommonState v) => v.securityContext;
+  static const Field<IsolateCommonState, StoredSecurityContext> _f$securityContext = Field('securityContext', _$securityContext);
 
   @override
   final MappableFields<IsolateCommonState> fields = const {
@@ -49,76 +47,57 @@ class IsolateCommonStateMapper extends ClassMapperBase<IsolateCommonState> {
 
 mixin IsolateCommonStateMappable {
   String serialize() {
-    return IsolateCommonStateMapper.ensureInitialized()
-        .encodeJson<IsolateCommonState>(this as IsolateCommonState);
+    return IsolateCommonStateMapper.ensureInitialized().encodeJson<IsolateCommonState>(this as IsolateCommonState);
   }
 
   Map<String, dynamic> toJson() {
-    return IsolateCommonStateMapper.ensureInitialized()
-        .encodeMap<IsolateCommonState>(this as IsolateCommonState);
+    return IsolateCommonStateMapper.ensureInitialized().encodeMap<IsolateCommonState>(this as IsolateCommonState);
   }
 
-  IsolateCommonStateCopyWith<IsolateCommonState, IsolateCommonState,
-          IsolateCommonState>
-      get copyWith => _IsolateCommonStateCopyWithImpl(
-          this as IsolateCommonState, $identity, $identity);
+  IsolateCommonStateCopyWith<IsolateCommonState, IsolateCommonState, IsolateCommonState> get copyWith =>
+      _IsolateCommonStateCopyWithImpl(this as IsolateCommonState, $identity, $identity);
   @override
   String toString() {
-    return IsolateCommonStateMapper.ensureInitialized()
-        .stringifyValue(this as IsolateCommonState);
+    return IsolateCommonStateMapper.ensureInitialized().stringifyValue(this as IsolateCommonState);
   }
 
   @override
   bool operator ==(Object other) {
-    return IsolateCommonStateMapper.ensureInitialized()
-        .equalsValue(this as IsolateCommonState, other);
+    return IsolateCommonStateMapper.ensureInitialized().equalsValue(this as IsolateCommonState, other);
   }
 
   @override
   int get hashCode {
-    return IsolateCommonStateMapper.ensureInitialized()
-        .hashValue(this as IsolateCommonState);
+    return IsolateCommonStateMapper.ensureInitialized().hashValue(this as IsolateCommonState);
   }
 }
 
-extension IsolateCommonStateValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, IsolateCommonState, $Out> {
-  IsolateCommonStateCopyWith<$R, IsolateCommonState, $Out>
-      get $asIsolateCommonState =>
-          $base.as((v, t, t2) => _IsolateCommonStateCopyWithImpl(v, t, t2));
+extension IsolateCommonStateValueCopy<$R, $Out> on ObjectCopyWith<$R, IsolateCommonState, $Out> {
+  IsolateCommonStateCopyWith<$R, IsolateCommonState, $Out> get $asIsolateCommonState =>
+      $base.as((v, t, t2) => _IsolateCommonStateCopyWithImpl(v, t, t2));
 }
 
-abstract class IsolateCommonStateCopyWith<$R, $In extends IsolateCommonState,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
-  StoredSecurityContextCopyWith<$R, StoredSecurityContext,
-      StoredSecurityContext>? get securityContext;
+abstract class IsolateCommonStateCopyWith<$R, $In extends IsolateCommonState, $Out> implements ClassCopyWith<$R, $In, $Out> {
+  StoredSecurityContextCopyWith<$R, StoredSecurityContext, StoredSecurityContext>? get securityContext;
   $R call({StoredSecurityContext? securityContext});
-  IsolateCommonStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+  IsolateCommonStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _IsolateCommonStateCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, IsolateCommonState, $Out>
+class _IsolateCommonStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, IsolateCommonState, $Out>
     implements IsolateCommonStateCopyWith<$R, IsolateCommonState, $Out> {
   _IsolateCommonStateCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<IsolateCommonState> $mapper =
-      IsolateCommonStateMapper.ensureInitialized();
+  late final ClassMapperBase<IsolateCommonState> $mapper = IsolateCommonStateMapper.ensureInitialized();
   @override
-  StoredSecurityContextCopyWith<$R, StoredSecurityContext,
-          StoredSecurityContext>?
-      get securityContext => $value.securityContext?.copyWith
-          .$chain((v) => call(securityContext: v));
+  StoredSecurityContextCopyWith<$R, StoredSecurityContext, StoredSecurityContext>? get securityContext =>
+      $value.securityContext?.copyWith.$chain((v) => call(securityContext: v));
   @override
-  $R call({Object? securityContext = $none}) => $apply(FieldCopyWithData(
-      {if (securityContext != $none) #securityContext: securityContext}));
+  $R call({Object? securityContext = $none}) => $apply(FieldCopyWithData({if (securityContext != $none) #securityContext: securityContext}));
   @override
-  IsolateCommonState $make(CopyWithData data) => IsolateCommonState(
-      securityContext: data.get(#securityContext, or: $value.securityContext));
+  IsolateCommonState $make(CopyWithData data) => IsolateCommonState(securityContext: data.get(#securityContext, or: $value.securityContext));
 
   @override
-  IsolateCommonStateCopyWith<$R2, IsolateCommonState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
+  IsolateCommonStateCopyWith<$R2, IsolateCommonState, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _IsolateCommonStateCopyWithImpl($value, $cast, t);
 }

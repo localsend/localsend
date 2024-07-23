@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:common/common.dart';
-import 'package:file_picker/file_picker.dart' as file_picker;
 import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/determine_image_type.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/file_picker_android.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/sleep.dart';
@@ -145,25 +147,28 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     );
   }
   try {
-    if (checkPlatform([TargetPlatform.android])) {
-      // We also need to use the file_picker package because file_selector does not expose the raw path.
-      final result = await file_picker.FilePicker.platform.pickFiles(allowMultiple: true);
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final result = await pickFilesAndroid();
       if (result != null) {
         await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-              files: result.files,
-              converter: CrossFileConverters.convertPlatformFile,
+              files: result,
+              converter: CrossFileConverters.convertFileInfo,
             ));
       }
     } else {
       final result = await file_selector.openFiles();
-      if (result.isNotEmpty) {
-        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-              files: result,
-              converter: CrossFileConverters.convertXFile,
-            ));
-      }
+      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+            files: result,
+            converter: CrossFileConverters.convertXFile,
+          ));
     }
   } catch (e) {
+    if (e is PlatformException && e.code == 'CANCELED') {
+      // User canceled the file picker
+      _logger.info('User canceled file picker');
+      return;
+    }
+
     // ignore: use_build_context_synchronously
     await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     _logger.warning('Failed to pick files', e);
@@ -176,9 +181,9 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
 Future<void> _pickFolder(BuildContext context, Ref ref) async {
   if (checkPlatform([TargetPlatform.android])) {
     try {
-      await Permission.manageExternalStorage.request();
+      await Permission.storage.request();
     } catch (e) {
-      _logger.warning('Failed to request manageExternalStorage permission', e);
+      _logger.warning('Failed to request storage permission', e);
     }
   }
 
@@ -194,11 +199,25 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
   );
   await sleepAsync(200); // Wait for the dialog to be shown
   try {
-    final directoryPath = await pickDirectoryPath();
-    if (directoryPath != null) {
-      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(directoryPath));
+    if (defaultTargetPlatform == TargetPlatform.android && (ref.read(deviceRawInfoProvider).androidSdkInt ?? 0) >= contentUriMinSdk) {
+      // Android 8 and above have more predictable content URIs that we can parse.
+      final result = await pickDirectoryAndroid();
+      if (result != null) {
+        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddAndroidDirectoryAction(result));
+      }
+    } else {
+      final directoryPath = await pickDirectoryPath();
+      if (directoryPath != null) {
+        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(directoryPath));
+      }
     }
   } catch (e) {
+    if (e is PlatformException && e.code == 'CANCELED') {
+      // User canceled the file picker
+      _logger.info('User canceled file picker');
+      return;
+    }
+
     _logger.warning('Failed to pick directory', e);
     // ignore: use_build_context_synchronously
     await showDialog(context: context, builder: (_) => const NoPermissionDialog());

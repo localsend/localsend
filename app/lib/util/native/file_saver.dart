@@ -7,6 +7,7 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
+import 'package:saf_stream/saf_stream_method_channel.dart';
 
 final _logger = Logger('FileSaver');
 
@@ -21,18 +22,33 @@ Future<void> saveFile({
   required bool isImage,
   required Stream<List<int>> stream,
   required int? androidSdkInt,
+  required DateTime? lastModified,
+  required DateTime? lastAccessed,
   required void Function(int savedBytes) onProgress,
 }) async {
-  if (!saveToGallery && androidSdkInt != null && androidSdkInt <= 29) {
-    final sdCardPath = getSdCardPath(destinationPath);
-    if (sdCardPath != null) {
-      // Use Android SAF to save the file to the SD card
-      final info = await _saf.startWriteStream(
-        Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+  if (androidSdkInt != null) {
+    SafWriteStreamInfo? safInfo;
+
+    if (destinationPath.startsWith('content://')) {
+      safInfo = await _saf.startWriteStream(
+        Uri.parse(destinationPath),
         name,
         isImage ? 'image/*' : '*/*',
       );
-      final sessionID = info.session;
+    } else if (androidSdkInt <= 29) {
+      final sdCardPath = getSdCardPath(destinationPath);
+      if (sdCardPath != null) {
+        // Use Android SAF to save the file to the SD card
+        safInfo = await _saf.startWriteStream(
+          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+          name,
+          isImage ? 'image/*' : '*/*',
+        );
+      }
+    }
+
+    if (safInfo != null) {
+      final sessionID = safInfo.session;
       await _saveFile(
         destinationPath: destinationPath,
         saveToGallery: saveToGallery,
@@ -43,6 +59,7 @@ Future<void> saveFile({
         writeAsync: (data) async {
           await _saf.writeChunk(sessionID, Uint8List.fromList(data));
         },
+        flush: null,
         close: () async {
           await _saf.endWriteStream(sessionID);
         },
@@ -51,7 +68,8 @@ Future<void> saveFile({
     }
   }
 
-  final sink = File(destinationPath).openWrite();
+  final file = File(destinationPath);
+  final sink = file.openWrite();
   await _saveFile(
     destinationPath: destinationPath,
     saveToGallery: saveToGallery,
@@ -60,7 +78,20 @@ Future<void> saveFile({
     onProgress: onProgress,
     write: sink.add,
     writeAsync: null,
-    close: sink.close,
+    flush: sink.flush,
+    close: () async {
+      await sink.close();
+      if (lastModified != null) {
+        try {
+          await file.setLastModified(lastModified);
+        } catch (_) {}
+      }
+      if (lastAccessed != null) {
+        try {
+          await file.setLastAccessed(lastAccessed);
+        } catch (_) {}
+      }
+    },
   );
 }
 
@@ -72,10 +103,12 @@ Future<void> _saveFile({
   required void Function(int savedBytes) onProgress,
   required void Function(List<int> data)? write,
   required Future<void> Function(List<int> data)? writeAsync,
+  required Future<void> Function()? flush,
   required Future<void> Function() close,
 }) async {
   try {
     int savedBytes = 0;
+    int lastFlushedBytes = 0;
     final stopwatch = Stopwatch()..start();
     await for (final event in stream) {
       if (writeAsync != null) {
@@ -89,8 +122,15 @@ Future<void> _saveFile({
         stopwatch.reset();
         onProgress(savedBytes);
       }
+
+      const tenMB = 10 * 1024 * 1024;
+      if (flush != null && savedBytes >= lastFlushedBytes + tenMB) {
+        await flush();
+        lastFlushedBytes = savedBytes;
+      }
     }
 
+    await flush?.call();
     await close();
 
     if (saveToGallery) {
@@ -116,7 +156,13 @@ Future<String> digestFilePathAndPrepareDirectory({required String parentDirector
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
-  Directory(dir).createSync(recursive: true);
+  if (!dir.startsWith('content://')) {
+    try {
+      Directory(dir).createSync(recursive: true);
+    } catch (e) {
+      _logger.warning('Could not create directory', e);
+    }
+  }
 
   String destinationPath;
   int counter = 1;

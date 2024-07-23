@@ -237,6 +237,7 @@ class _StringsSendPageHu extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Válaszra várva...';
 	@override String get rejected => 'A fogadó elutasította a kérelmet.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'A fogadó más kéréssel van elfoglalva.';
 }
 
@@ -272,6 +273,8 @@ class _StringsWebSharePageHu extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Még nincsenek kérések.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Kérések automatikus elfogadása';
+	@override String get requirePin => 'PIN kód megkövetelése';
+	@override String pinHint({required Object pin}) => 'A PIN kód "${pin}"';
 	@override String get encryptionHint => 'A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
 	@override String pendingRequests({required Object n}) => 'Függőben lévő kérések: ${n}';
 }
@@ -353,6 +356,7 @@ class _StringsDialogsHu extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrHu qr = _StringsDialogsQrHu._(_root);
 	@override late final _StringsDialogsQuickActionsHu quickActions = _StringsDialogsQuickActionsHu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeHu quickSaveNotice = _StringsDialogsQuickSaveNoticeHu._(_root);
+	@override late final _StringsDialogsPinHu pin = _StringsDialogsPinHu._(_root);
 	@override late final _StringsDialogsSendModeHelpHu sendModeHelp = _StringsDialogsSendModeHelpHu._(_root);
 	@override late final _StringsDialogsZoomHu zoom = _StringsDialogsZoomHu._(_root);
 }
@@ -387,6 +391,9 @@ class _StringsWebHu extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'PIN kód megadása';
+	@override String get invalidPin => 'Érvénytelen a PIN';
+	@override String get tooManyAttempts => 'Túl sok kísérlet';
 	@override String get rejected => 'Elutasítva';
 	@override String get files => 'Fájl';
 	@override String get fileName => 'Fájlnév';
@@ -499,6 +506,7 @@ class _StringsSettingsTabGeneralHu extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Kilépés: Minimalizálja a tálcára';
 	@override String get launchAtStartup => 'Auto. indítás bejelentkezés után';
 	@override String get launchMinimized => 'Auto. indítás: Kis méretben';
+	@override String get showInContextMenu => 'A LocalSend megjelenítése a helyi menüben';
 	@override String get animations => 'Animációk';
 }
 
@@ -511,6 +519,7 @@ class _StringsSettingsTabReceiveHu extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Fogadás';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Autom. befejezés';
 	@override String get destination => 'Mentés helye';
 	@override String get downloads => '(Letöltések)';
@@ -595,6 +604,7 @@ class _StringsReceiveHistoryPageEntryActionsHu extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Fájl megnyitás';
+	@override String get showInFolder => 'Megjelenítés a mappában';
 	@override String get info => 'Információ';
 	@override String get deleteFromHistory => 'Törlés az előzményből';
 }
@@ -844,6 +854,16 @@ class _StringsDialogsQuickSaveNoticeHu extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinHu extends _StringsDialogsPinEn {
+	_StringsDialogsPinHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PIN kód megadása';
 }
 
 // Path: dialogs.sendModeHelp

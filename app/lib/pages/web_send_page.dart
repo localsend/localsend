@@ -41,7 +41,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
 
   void _init({required bool encrypted}) async {
     final settings = ref.read(settingsProvider);
-    final beforePin = ref.read(serverProvider)?.webSendState?.pin;
+    final (beforeAutoAccept, beforePin) = ref.read(serverProvider.select((state) => (state?.webSendState?.autoAccept, state?.webSendState?.pin)));
     setState(() {
       _stateEnum = _ServerState.initializing;
       _encrypted = encrypted;
@@ -55,6 +55,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
             https: _encrypted,
           );
       await ref.notifier(serverProvider).initializeWebSend(widget.files);
+      if (beforeAutoAccept != null) {
+        ref.notifier(serverProvider).setWebSendAutoAccept(beforeAutoAccept);
+      }
       ref.notifier(serverProvider).setWebSendPin(beforePin);
       setState(() {
         _stateEnum = _ServerState.running;

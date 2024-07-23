@@ -23,11 +23,9 @@ class IsolateChildStateMapper extends ClassMapperBase<IsolateChildState> {
   final String id = 'IsolateChildState';
 
   static IsolateCommonState _$commonState(IsolateChildState v) => v.commonState;
-  static const Field<IsolateChildState, IsolateCommonState> _f$commonState =
-      Field('commonState', _$commonState);
+  static const Field<IsolateChildState, IsolateCommonState> _f$commonState = Field('commonState', _$commonState);
   static IsolateState _$isolateState(IsolateChildState v) => v.isolateState;
-  static const Field<IsolateChildState, IsolateState> _f$isolateState =
-      Field('isolateState', _$isolateState);
+  static const Field<IsolateChildState, IsolateState> _f$isolateState = Field('isolateState', _$isolateState);
 
   @override
   final MappableFields<IsolateChildState> fields = const {
@@ -36,9 +34,7 @@ class IsolateChildStateMapper extends ClassMapperBase<IsolateChildState> {
   };
 
   static IsolateChildState _instantiate(DecodingData data) {
-    return IsolateChildState(
-        commonState: data.dec(_f$commonState),
-        isolateState: data.dec(_f$isolateState));
+    return IsolateChildState(commonState: data.dec(_f$commonState), isolateState: data.dec(_f$isolateState));
   }
 
   @override
@@ -55,83 +51,60 @@ class IsolateChildStateMapper extends ClassMapperBase<IsolateChildState> {
 
 mixin IsolateChildStateMappable {
   String serialize() {
-    return IsolateChildStateMapper.ensureInitialized()
-        .encodeJson<IsolateChildState>(this as IsolateChildState);
+    return IsolateChildStateMapper.ensureInitialized().encodeJson<IsolateChildState>(this as IsolateChildState);
   }
 
   Map<String, dynamic> toJson() {
-    return IsolateChildStateMapper.ensureInitialized()
-        .encodeMap<IsolateChildState>(this as IsolateChildState);
+    return IsolateChildStateMapper.ensureInitialized().encodeMap<IsolateChildState>(this as IsolateChildState);
   }
 
-  IsolateChildStateCopyWith<IsolateChildState, IsolateChildState,
-          IsolateChildState>
-      get copyWith => _IsolateChildStateCopyWithImpl(
-          this as IsolateChildState, $identity, $identity);
+  IsolateChildStateCopyWith<IsolateChildState, IsolateChildState, IsolateChildState> get copyWith =>
+      _IsolateChildStateCopyWithImpl(this as IsolateChildState, $identity, $identity);
   @override
   String toString() {
-    return IsolateChildStateMapper.ensureInitialized()
-        .stringifyValue(this as IsolateChildState);
+    return IsolateChildStateMapper.ensureInitialized().stringifyValue(this as IsolateChildState);
   }
 
   @override
   bool operator ==(Object other) {
-    return IsolateChildStateMapper.ensureInitialized()
-        .equalsValue(this as IsolateChildState, other);
+    return IsolateChildStateMapper.ensureInitialized().equalsValue(this as IsolateChildState, other);
   }
 
   @override
   int get hashCode {
-    return IsolateChildStateMapper.ensureInitialized()
-        .hashValue(this as IsolateChildState);
+    return IsolateChildStateMapper.ensureInitialized().hashValue(this as IsolateChildState);
   }
 }
 
-extension IsolateChildStateValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, IsolateChildState, $Out> {
-  IsolateChildStateCopyWith<$R, IsolateChildState, $Out>
-      get $asIsolateChildState =>
-          $base.as((v, t, t2) => _IsolateChildStateCopyWithImpl(v, t, t2));
+extension IsolateChildStateValueCopy<$R, $Out> on ObjectCopyWith<$R, IsolateChildState, $Out> {
+  IsolateChildStateCopyWith<$R, IsolateChildState, $Out> get $asIsolateChildState => $base.as((v, t, t2) => _IsolateChildStateCopyWithImpl(v, t, t2));
 }
 
-abstract class IsolateChildStateCopyWith<$R, $In extends IsolateChildState,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
-  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState>
-      get commonState;
+abstract class IsolateChildStateCopyWith<$R, $In extends IsolateChildState, $Out> implements ClassCopyWith<$R, $In, $Out> {
+  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState> get commonState;
   IsolateStateCopyWith<$R, IsolateState, IsolateState> get isolateState;
   $R call({IsolateCommonState? commonState, IsolateState? isolateState});
-  IsolateChildStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+  IsolateChildStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _IsolateChildStateCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, IsolateChildState, $Out>
+class _IsolateChildStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, IsolateChildState, $Out>
     implements IsolateChildStateCopyWith<$R, IsolateChildState, $Out> {
   _IsolateChildStateCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<IsolateChildState> $mapper =
-      IsolateChildStateMapper.ensureInitialized();
+  late final ClassMapperBase<IsolateChildState> $mapper = IsolateChildStateMapper.ensureInitialized();
   @override
-  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState>
-      get commonState =>
-          $value.commonState.copyWith.$chain((v) => call(commonState: v));
+  IsolateCommonStateCopyWith<$R, IsolateCommonState, IsolateCommonState> get commonState =>
+      $value.commonState.copyWith.$chain((v) => call(commonState: v));
   @override
-  IsolateStateCopyWith<$R, IsolateState, IsolateState> get isolateState =>
-      $value.isolateState.copyWith.$chain((v) => call(isolateState: v));
+  IsolateStateCopyWith<$R, IsolateState, IsolateState> get isolateState => $value.isolateState.copyWith.$chain((v) => call(isolateState: v));
   @override
   $R call({IsolateCommonState? commonState, IsolateState? isolateState}) =>
-      $apply(FieldCopyWithData({
-        if (commonState != null) #commonState: commonState,
-        if (isolateState != null) #isolateState: isolateState
-      }));
+      $apply(FieldCopyWithData({if (commonState != null) #commonState: commonState, if (isolateState != null) #isolateState: isolateState}));
   @override
-  IsolateChildState $make(CopyWithData data) => IsolateChildState(
-      commonState: data.get(#commonState, or: $value.commonState),
-      isolateState: data.get(#isolateState, or: $value.isolateState));
+  IsolateChildState $make(CopyWithData data) =>
+      IsolateChildState(commonState: data.get(#commonState, or: $value.commonState), isolateState: data.get(#isolateState, or: $value.isolateState));
 
   @override
-  IsolateChildStateCopyWith<$R2, IsolateChildState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _IsolateChildStateCopyWithImpl($value, $cast, t);
+  IsolateChildStateCopyWith<$R2, IsolateChildState, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _IsolateChildStateCopyWithImpl($value, $cast, t);
 }

@@ -71,31 +71,23 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
   static String _$alias(MulticastDto v) => v.alias;
   static const Field<MulticastDto, String> _f$alias = Field('alias', _$alias);
   static String? _$version(MulticastDto v) => v.version;
-  static const Field<MulticastDto, String> _f$version =
-      Field('version', _$version);
+  static const Field<MulticastDto, String> _f$version = Field('version', _$version);
   static String? _$deviceModel(MulticastDto v) => v.deviceModel;
-  static const Field<MulticastDto, String> _f$deviceModel =
-      Field('deviceModel', _$deviceModel);
+  static const Field<MulticastDto, String> _f$deviceModel = Field('deviceModel', _$deviceModel);
   static DeviceType? _$deviceType(MulticastDto v) => v.deviceType;
-  static const Field<MulticastDto, DeviceType> _f$deviceType =
-      Field('deviceType', _$deviceType);
+  static const Field<MulticastDto, DeviceType> _f$deviceType = Field('deviceType', _$deviceType);
   static String _$fingerprint(MulticastDto v) => v.fingerprint;
-  static const Field<MulticastDto, String> _f$fingerprint =
-      Field('fingerprint', _$fingerprint);
+  static const Field<MulticastDto, String> _f$fingerprint = Field('fingerprint', _$fingerprint);
   static int? _$port(MulticastDto v) => v.port;
   static const Field<MulticastDto, int> _f$port = Field('port', _$port);
   static ProtocolType? _$protocol(MulticastDto v) => v.protocol;
-  static const Field<MulticastDto, ProtocolType> _f$protocol =
-      Field('protocol', _$protocol);
+  static const Field<MulticastDto, ProtocolType> _f$protocol = Field('protocol', _$protocol);
   static bool? _$download(MulticastDto v) => v.download;
-  static const Field<MulticastDto, bool> _f$download =
-      Field('download', _$download);
+  static const Field<MulticastDto, bool> _f$download = Field('download', _$download);
   static bool? _$announcement(MulticastDto v) => v.announcement;
-  static const Field<MulticastDto, bool> _f$announcement =
-      Field('announcement', _$announcement);
+  static const Field<MulticastDto, bool> _f$announcement = Field('announcement', _$announcement);
   static bool? _$announce(MulticastDto v) => v.announce;
-  static const Field<MulticastDto, bool> _f$announce =
-      Field('announce', _$announce);
+  static const Field<MulticastDto, bool> _f$announce = Field('announce', _$announce);
 
   @override
   final MappableFields<MulticastDto> fields = const {
@@ -139,44 +131,36 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
 
 mixin MulticastDtoMappable {
   String serialize() {
-    return MulticastDtoMapper.ensureInitialized()
-        .encodeJson<MulticastDto>(this as MulticastDto);
+    return MulticastDtoMapper.ensureInitialized().encodeJson<MulticastDto>(this as MulticastDto);
   }
 
   Map<String, dynamic> toJson() {
-    return MulticastDtoMapper.ensureInitialized()
-        .encodeMap<MulticastDto>(this as MulticastDto);
+    return MulticastDtoMapper.ensureInitialized().encodeMap<MulticastDto>(this as MulticastDto);
   }
 
   MulticastDtoCopyWith<MulticastDto, MulticastDto, MulticastDto> get copyWith =>
       _MulticastDtoCopyWithImpl(this as MulticastDto, $identity, $identity);
   @override
   String toString() {
-    return MulticastDtoMapper.ensureInitialized()
-        .stringifyValue(this as MulticastDto);
+    return MulticastDtoMapper.ensureInitialized().stringifyValue(this as MulticastDto);
   }
 
   @override
   bool operator ==(Object other) {
-    return MulticastDtoMapper.ensureInitialized()
-        .equalsValue(this as MulticastDto, other);
+    return MulticastDtoMapper.ensureInitialized().equalsValue(this as MulticastDto, other);
   }
 
   @override
   int get hashCode {
-    return MulticastDtoMapper.ensureInitialized()
-        .hashValue(this as MulticastDto);
+    return MulticastDtoMapper.ensureInitialized().hashValue(this as MulticastDto);
   }
 }
 
-extension MulticastDtoValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, MulticastDto, $Out> {
-  MulticastDtoCopyWith<$R, MulticastDto, $Out> get $asMulticastDto =>
-      $base.as((v, t, t2) => _MulticastDtoCopyWithImpl(v, t, t2));
+extension MulticastDtoValueCopy<$R, $Out> on ObjectCopyWith<$R, MulticastDto, $Out> {
+  MulticastDtoCopyWith<$R, MulticastDto, $Out> get $asMulticastDto => $base.as((v, t, t2) => _MulticastDtoCopyWithImpl(v, t, t2));
 }
 
-abstract class MulticastDtoCopyWith<$R, $In extends MulticastDto, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
+abstract class MulticastDtoCopyWith<$R, $In extends MulticastDto, $Out> implements ClassCopyWith<$R, $In, $Out> {
   $R call(
       {String? alias,
       String? version,
@@ -191,14 +175,11 @@ abstract class MulticastDtoCopyWith<$R, $In extends MulticastDto, $Out>
   MulticastDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _MulticastDtoCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, MulticastDto, $Out>
-    implements MulticastDtoCopyWith<$R, MulticastDto, $Out> {
+class _MulticastDtoCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, MulticastDto, $Out> implements MulticastDtoCopyWith<$R, MulticastDto, $Out> {
   _MulticastDtoCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<MulticastDto> $mapper =
-      MulticastDtoMapper.ensureInitialized();
+  late final ClassMapperBase<MulticastDto> $mapper = MulticastDtoMapper.ensureInitialized();
   @override
   $R call(
           {String? alias,
@@ -237,7 +218,5 @@ class _MulticastDtoCopyWithImpl<$R, $Out>
       announce: data.get(#announce, or: $value.announce));
 
   @override
-  MulticastDtoCopyWith<$R2, MulticastDto, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _MulticastDtoCopyWithImpl($value, $cast, t);
+  MulticastDtoCopyWith<$R2, MulticastDto, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _MulticastDtoCopyWithImpl($value, $cast, t);
 }

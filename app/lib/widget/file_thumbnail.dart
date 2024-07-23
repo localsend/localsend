@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:common/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
+import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 const double defaultThumbnailSize = 50;
@@ -88,14 +90,28 @@ class FilePathThumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget? thumbnail;
     if (path != null && fileType == FileType.image) {
-      thumbnail = Image.file(
-        File(path!),
-        cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
-        errorBuilder: (_, __, ___) => Padding(
-          padding: const EdgeInsets.all(10),
-          child: Icon(fileType.icon, size: 32),
-        ),
-      );
+      if (path!.startsWith('content://')) {
+        thumbnail = Image(
+          image: ResizeImage.resizeIfNeeded(
+            64,
+            null,
+            _ContentUriImage(Uri.parse(path!)),
+          ),
+          errorBuilder: (_, __, ___) => Padding(
+            padding: const EdgeInsets.all(10),
+            child: Icon(fileType.icon, size: 32),
+          ),
+        );
+      } else {
+        thumbnail = Image.file(
+          File(path!),
+          cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
+          errorBuilder: (_, __, ___) => Padding(
+            padding: const EdgeInsets.all(10),
+            child: Icon(fileType.icon, size: 32),
+          ),
+        );
+      }
     } else {
       thumbnail = null;
     }
@@ -174,5 +190,33 @@ class _Thumbnail extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ContentUriImage extends ImageProvider<Uri> {
+  final Uri uri;
+
+  _ContentUriImage(this.uri);
+
+  @override
+  Future<Uri> obtainKey(ImageConfiguration configuration) {
+    return SynchronousFuture<Uri>(uri);
+  }
+
+  @override
+  ImageStreamCompleter loadImage(Uri key, ImageDecoderCallback decode) {
+    return MultiFrameImageStreamCompleter(
+      // ignore: discarded_futures
+      codec: _loadAsync(key, decode),
+      scale: 1,
+      informationCollector: () sync* {
+        yield ErrorDescription('ContentUriImage: $uri');
+      },
+    );
+  }
+
+  Future<Codec> _loadAsync(Uri key, ImageDecoderCallback decode) async {
+    final bytes = await UriContent().from(key);
+    return decode(await ImmutableBuffer.fromUint8List(bytes));
   }
 }

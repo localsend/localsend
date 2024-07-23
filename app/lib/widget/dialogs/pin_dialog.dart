@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/theme.dart';
 import 'package:nanoid2/nanoid2.dart';
 import 'package:routerino/routerino.dart';
 
 class PinDialog extends StatefulWidget {
   final String? pin;
+  final bool showInvalidPin;
   final bool obscureText;
   final bool generateRandom;
 
   const PinDialog({
     this.pin,
     required this.obscureText,
+    this.showInvalidPin = false,
     this.generateRandom = false,
     super.key,
   });
@@ -32,11 +35,24 @@ class _PinDialogState extends State<PinDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(t.dialogs.pin.title),
-      content: TextFormField(
-        controller: _textController,
-        autofocus: true,
-        obscureText: widget.obscureText,
-        onFieldSubmitted: (value) => context.pop(value),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextFormField(
+            controller: _textController,
+            autofocus: true,
+            obscureText: widget.obscureText,
+            onFieldSubmitted: (value) => context.pop(value),
+          ),
+          if (widget.showInvalidPin)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                t.web.invalidPin,
+                style: TextStyle(color: Theme.of(context).colorScheme.warning),
+              ),
+            ),
+        ],
       ),
       actions: [
         TextButton(

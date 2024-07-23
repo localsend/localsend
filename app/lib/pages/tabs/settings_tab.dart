@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:common/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
@@ -7,10 +10,12 @@ import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
+import 'package:localsend_app/util/native/file_picker_android.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
@@ -24,6 +29,8 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+final _isMacOSSandboxed = defaultTargetPlatform == TargetPlatform.macOS && Platform.environment['APP_SANDBOX_CONTAINER_ID'] != null;
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab();
@@ -97,7 +104,7 @@ class SettingsTab extends StatelessWidget {
                       },
                     ),
                   ],
-                  if (checkPlatformIsDesktop()) ...[
+                  if (checkPlatformIsDesktop() && !_isMacOSSandboxed) ...[
                     _BooleanEntry(
                       label: t.settingsTab.general.launchAtStartup,
                       value: vm.autoStart,
@@ -161,7 +168,7 @@ class SettingsTab extends StatelessWidget {
                         context: context,
                         builder: (_) => const PinDialog(
                           obscureText: false,
-                          generateRandom: true,
+                          generateRandom: false,
                         ),
                       );
 
@@ -186,7 +193,13 @@ class SettingsTab extends StatelessWidget {
                           return;
                         }
 
-                        final directory = await pickDirectoryPath();
+                        final String? directory;
+                        if (defaultTargetPlatform == TargetPlatform.android &&
+                            (ref.read(deviceRawInfoProvider).androidSdkInt ?? 0) >= contentUriMinSdk) {
+                          directory = await pickDirectoryPathAndroid();
+                        } else {
+                          directory = await pickDirectoryPath();
+                        }
                         if (directory != null) {
                           await ref.notifier(settingsProvider).setDestination(directory);
                         }
