@@ -1,8 +1,9 @@
 ## 1.15.2 (unreleased)
 
 - feat: extract network scanning to separate threads, scanning should not cause UI lags anymore (@Tienisto)
+- feat(windows): use bigger icon for the installer (@Tienisto)
 - fix: memory leak when receiving files, properly receive files that exceed available RAM (@Tienisto)
-- fix(android): save files outside Download folder (@Tienisto)
+- fix(android): save files outside of Download folder (@Tienisto)
 - fix(windows): make installer work on arm64 (@Tienisto)
 
 ## 1.15.1 (2024-07-18)
