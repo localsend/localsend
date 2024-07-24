@@ -1,3 +1,4 @@
+import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -9,6 +10,16 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 final settingsProvider = NotifierProvider<SettingsService, SettingsState>((ref) {
   return SettingsService(ref.read(persistenceProvider));
+}, onChanged: (_, next, ref) {
+  final syncState = ref.read(parentIsolateProvider).syncState;
+  if (syncState.multicastGroup == next.multicastGroup && syncState.discoveryTimeout == next.discoveryTimeout) {
+    return;
+  }
+
+  ref.redux(parentIsolateProvider).dispatch(IsolateSyncSettingsAction(
+        multicastGroup: next.multicastGroup,
+        discoveryTimeout: next.discoveryTimeout,
+      ));
 });
 
 class SettingsService extends PureNotifier<SettingsState> {

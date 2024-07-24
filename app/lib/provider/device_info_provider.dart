@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:common/constants.dart';
+import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:common/model/device_info_result.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
@@ -21,6 +22,8 @@ final deviceInfoProvider = ViewProvider<DeviceInfoResult>((ref) {
     deviceModel: deviceModel ?? rawInfo.deviceModel,
     androidSdkInt: rawInfo.androidSdkInt,
   );
+}, onChanged: (_, next, ref) {
+  ref.redux(parentIsolateProvider).dispatch(IsolateSyncDeviceInfoAction(deviceInfo: next));
 });
 
 final deviceFullInfoProvider = ViewProvider((ref) {

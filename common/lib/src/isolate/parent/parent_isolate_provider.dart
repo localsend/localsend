@@ -1,5 +1,4 @@
 import 'package:common/model/device.dart';
-import 'package:common/model/stored_security_context.dart';
 import 'package:common/src/isolate/child/http_scan_discovery_isolate.dart';
 import 'package:common/src/isolate/child/http_target_discovery_isolate.dart';
 import 'package:common/src/isolate/child/main.dart';
@@ -94,50 +93,6 @@ class IsolateSetupAction extends AsyncReduxAction<ParentIsolateController, Paren
       httpScanDiscovery: httpScanDiscovery,
       httpTargetDiscovery: httpTargetDiscovery,
       multicastDiscovery: multicastDiscovery,
-    );
-  }
-}
-
-/// Publishes the new security context to all child isolates.
-class IsolateSyncSecurityContextAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
-  final StoredSecurityContext securityContext;
-
-  IsolateSyncSecurityContextAction({
-    required this.securityContext,
-  });
-
-  @override
-  ParentIsolateState reduce() {
-    dispatch(_PublishSyncStateAction(
-      syncState: state.syncState.copyWith(
-        securityContext: securityContext,
-      ),
-    ));
-    return state;
-  }
-}
-
-/// Publishes the new [SyncState] to all child isolates.
-class _PublishSyncStateAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
-  final SyncState syncState;
-
-  _PublishSyncStateAction({
-    required this.syncState,
-  });
-
-  @override
-  ParentIsolateState reduce() {
-    state.httpScanDiscovery?.sendToIsolate(SendToIsolateData(
-      syncState: syncState,
-      data: null,
-    ));
-    state.httpTargetDiscovery?.sendToIsolate(SendToIsolateData(
-      syncState: syncState,
-      data: null,
-    ));
-
-    return state.copyWith(
-      syncState: syncState,
     );
   }
 }
