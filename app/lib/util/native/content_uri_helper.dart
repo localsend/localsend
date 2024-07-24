@@ -49,4 +49,18 @@ class ContentUriHelper {
       return '$folderName/$withoutBasePath';
     }
   }
+
+  /// Converts
+  /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend/subFolder
+  /// to
+  /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend%2FsubFolder
+  static String encodeTreeUri(String uri) {
+    final treeIndex = uri.indexOf('/tree/');
+    if (treeIndex == -1) {
+      return uri;
+    }
+
+    final encodedPath = Uri.encodeComponent(Uri.decodeComponent(uri.substring(treeIndex + 6)));
+    return uri.substring(0, treeIndex + 6) + encodedPath;
+  }
 }

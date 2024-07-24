@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
@@ -30,8 +31,10 @@ Future<void> saveFile({
     SafWriteStreamInfo? safInfo;
 
     if (destinationPath.startsWith('content://')) {
+      final uriString = ContentUriHelper.encodeTreeUri(destinationPath.withoutFileName());
+      _logger.info('Using SAF to save file to $uriString');
       safInfo = await _saf.startWriteStream(
-        Uri.parse(destinationPath),
+        Uri.parse(uriString),
         name,
         isImage ? 'image/*' : '*/*',
       );
@@ -39,8 +42,10 @@ Future<void> saveFile({
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {
         // Use Android SAF to save the file to the SD card
+        final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.withoutFileName());
+        _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
-          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
           name,
           isImage ? 'image/*' : '*/*',
         );

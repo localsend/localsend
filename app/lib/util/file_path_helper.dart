@@ -49,6 +49,11 @@ extension FilePathStringExt on String {
     }
   }
 
+  String withoutFileName() {
+    final parts = replaceAll('\\', '/').split('/');
+    return parts.take(parts.length - 1).join('/');
+  }
+
   FileType guessFileType() {
     switch (extension) {
       case 'bmp':

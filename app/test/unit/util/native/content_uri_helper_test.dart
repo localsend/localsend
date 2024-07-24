@@ -98,4 +98,21 @@ void main() {
       );
     });
   });
+
+  group('encodeTreeUri', () {
+    test('should return the encoded tree uri', () {
+      expect(
+        ContentUriHelper.encodeTreeUri(
+        'content://com.android.externalstorage.documents/tree/primary%3ALocalSend/subFolder'),
+        'content://com.android.externalstorage.documents/tree/primary%3ALocalSend%2FsubFolder',
+      );
+    });
+
+    test('should return the encoded tree uri with a folder in SD card', () {
+      expect(
+        ContentUriHelper.encodeTreeUri('content://com.android.externalstorage.documents/tree/1234-5678:LocalSend/subFolder'),
+        'content://com.android.externalstorage.documents/tree/1234-5678%3ALocalSend%2FsubFolder',
+      );
+    });
+  });
 }
