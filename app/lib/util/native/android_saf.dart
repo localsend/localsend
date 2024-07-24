@@ -8,9 +8,11 @@ part 'android_saf.mapper.dart';
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
 final _logger = Logger('AndroidSaf');
 
-/// From Android 9 (Pie) and above, we need to use the Storage Access Framework (SAF) to access files.
+/// From Android 10 and above, we need to use the Storage Access Framework (SAF) to access files due to the scoped storage.
+/// SAF itself is available from Android 4.4 (API level 19).
+/// We implemented our own algorithm to build encode and decode content URIs.
 /// Older versions might also work but the encoded content URI is not guaranteed to work with our algorithm.
-const contentUriMinSdk = 28;
+const contentUriMinSdk = 27;
 
 Future<PickDirectoryResult?> pickDirectoryAndroid() async {
   final result = await _methodChannel.invokeMethod<Map>('pickDirectory');
