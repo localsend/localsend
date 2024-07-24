@@ -16,7 +16,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
-import 'package:localsend_app/util/native/file_picker_android.dart';
+import 'package:localsend_app/util/native/android_saf.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';

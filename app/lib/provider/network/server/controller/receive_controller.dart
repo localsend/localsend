@@ -39,7 +39,6 @@ import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
-import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -246,6 +245,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          createdDirectories: {},
           responseHandler: streamController,
         ),
       ),
@@ -437,12 +437,11 @@ class ReceiveController {
       final fileType = receivingFile.file.fileType;
       final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
-      final destinationPath = await digestFilePathAndPrepareDirectory(
+      final (destinationPath, finalName) = await digestFilePathAndPrepareDirectory(
         parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
+        createdDirectories: receiveState.createdDirectories,
       );
-
-      final finalName = p.basename(destinationPath);
 
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
