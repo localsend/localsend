@@ -22,7 +22,7 @@ dependencies:
   device_info_plus: 9.1.2
   dio: 5.4.3+1
   dynamic_color: 1.7.0
-  file_picker: 8.0.0+1
+  file_picker: 8.0.2
   file_selector: 1.0.3
   flutter:
     sdk: flutter
@@ -92,6 +92,10 @@ dependency_overrides:
     git:
       url: https://github.com/localsend/permission_handler_windows_noop.git
       ref: 2dadd8afbf81e0e3e4791d7144e689555e58f649
+  # Force newer version than Flutter 3.13 allows so that file_picker >= 8.0.1 can be used.
+  # There is a critical bug in file_picker that needs to be fixed: https://github.com/miguelpruivo/flutter_file_picker/issues/1412
+  # Since LocalSend doesn't support web anyway, we can ignore compilation errors for web.
+  web: 0.5.1
 
 flutter:
   uses-material-design: true
