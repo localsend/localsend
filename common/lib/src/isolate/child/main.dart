@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/isolate/child/sync_provider.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/util/logger.dart';
@@ -47,18 +49,23 @@ Future<void> setupChildIsolateHelper<S, R>({
   _logger.info('Child isolate is ready: $debugLabel (logLevel: ${initialData.logLevel})');
 
   await for (final message in receiveFromMain) {
-    final syncState = message.syncState;
-    if (syncState != null) {
-      isolateContainer.redux(syncProvider).dispatch(UpdateSyncStateAction(syncState));
-    }
+    _handleMessage(debugLabel, message, handler);
+  }
+}
 
-    final data = message.data;
-    if (data != null) {
-      try {
-        await handler(data);
-      } catch (e) {
-        _logger.severe('Error in $debugLabel: $e', e);
-      }
+// separate function to avoid blocking the for loop
+void _handleMessage<S>(String debugLabel, SendToIsolateData<S> message, Future<void> Function(S data) handler) async {
+  final syncState = message.syncState;
+  if (syncState != null) {
+    isolateContainer.redux(syncProvider).dispatch(UpdateSyncStateAction(syncState));
+  }
+
+  final data = message.data;
+  if (data != null) {
+    try {
+      await handler(data);
+    } catch (e) {
+      _logger.severe('Error in $debugLabel: $e', e);
     }
   }
 }
