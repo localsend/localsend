@@ -11,7 +11,7 @@ Future<void> setupMulticastDiscoveryIsolate(
   InitialData initialData,
 ) async {
   await setupChildIsolateHelper(
-    debugLabel: 'HttpScanDiscoveryIsolate',
+    debugLabel: 'MulticastDiscoveryIsolate',
     receiveFromMain: receiveFromMain,
     sendToMain: sendToMain,
     initialData: initialData,
