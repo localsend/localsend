@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/api_route_builder.dart';
-import 'package:common/common.dart';
+import 'package:common/constants.dart';
+import 'package:common/model/dto/file_dto.dart';
+import 'package:common/model/dto/info_dto.dart';
+import 'package:common/model/dto/receive_request_response_dto.dart';
+import 'package:common/model/file_type.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';

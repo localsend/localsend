@@ -1,4 +1,5 @@
-import 'package:common/common.dart';
+import 'package:common/model/device.dart';
+import 'package:common/model/session_status.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:dio/dio.dart';
 import 'package:localsend_app/model/state/send/sending_file.dart';

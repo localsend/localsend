@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 
 /// Matches myFile-123 -> 123
 final _fileNumberRegex = RegExp(r'^(.*)(?:-(\d+))$');

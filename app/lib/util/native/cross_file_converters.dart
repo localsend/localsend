@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';

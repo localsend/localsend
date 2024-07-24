@@ -2,7 +2,7 @@ import 'dart:convert' show utf8;
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';

@@ -24,8 +24,8 @@ class IsolateCommunication<R, S> {
 /// [S] is the type of the messages that the main isolate will **send** to the spawned isolate.
 /// [P] is the type of the parameter that is passed to the spawned isolate.
 Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
-  required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P? param) task,
-  P? param,
+  required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P param) task,
+  required P param,
 }) async {
   final receivePort = ReceivePort();
   final isolate = await Isolate.spawn(
@@ -53,7 +53,7 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
   sendToIsolate.send(_SendToIsolateReceived());
 
   return IsolateCommunication._(
-    receiveFromIsolateController.stream,
+    receiveFromIsolateController.stream.asBroadcastStream(),
     sendToIsolate,
     isolate,
   );
@@ -64,10 +64,10 @@ class _IsolateParam<R, S, P> {
   final SendPort _sendToMain;
 
   /// The task that the isolate will run.
-  final Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P? param) task;
+  final Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P param) task;
 
   /// The parameter that is passed to the task.
-  final P? param;
+  final P param;
 
   _IsolateParam(this._sendToMain, this.task, this.param);
 }
@@ -93,7 +93,9 @@ Future<void> _isolateRunner<R, S, P>(_IsolateParam<R, S, P> params) async {
         setupFinished.complete();
         break;
       default:
-        print('Unexpected type when receiving message from main isolate: "$message" that has type <${message.runtimeType}> but only <$S> is expected.');
+        print(
+          'Unexpected type when receiving message from main isolate: "$message" that has type <${message.runtimeType}> but only <$S> is expected.',
+        );
     }
   });
 

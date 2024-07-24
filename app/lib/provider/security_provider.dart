@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/stored_security_context.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';

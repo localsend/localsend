@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider stores the last devices that the user sent a file to.
