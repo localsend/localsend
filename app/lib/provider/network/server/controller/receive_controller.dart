@@ -437,7 +437,7 @@ class ReceiveController {
       final fileType = receivingFile.file.fileType;
       final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
-      final (destinationPath, finalName) = await digestFilePathAndPrepareDirectory(
+      final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
         parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
         createdDirectories: receiveState.createdDirectories,
@@ -447,6 +447,7 @@ class ReceiveController {
 
       await saveFile(
         destinationPath: destinationPath,
+        documentUri: documentUri,
         name: finalName,
         saveToGallery: saveToGallery,
         isImage: fileType == FileType.image,

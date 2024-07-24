@@ -44,6 +44,11 @@ class MainActivity : FlutterActivity() {
 
                 "createDirectory" -> handleCreateDirectory(call, result)
 
+                "openContentUri" -> {
+                    openUri(context, call.argument<String>("uri")!!)
+                    result.success(null)
+                }
+
                 else -> result.notImplemented()
             }
         }

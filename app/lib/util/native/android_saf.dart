@@ -74,6 +74,15 @@ Future<void> createMissingDirectoriesAndroid({
   }
 }
 
+Future<void> openContentUri({
+  required String uri,
+}) async {
+  _logger.info('Opening content URI: $uri');
+  await _methodChannel.invokeMethod('openContentUri', {
+    'uri': uri,
+  });
+}
+
 @MappableClass()
 class PickDirectoryResult with PickDirectoryResultMappable {
   final String directoryUri;

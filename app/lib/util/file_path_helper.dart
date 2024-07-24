@@ -49,7 +49,7 @@ extension FilePathStringExt on String {
     }
   }
 
-  String withoutFileName() {
+  String parentPath() {
     final parts = replaceAll('\\', '/').split('/');
     return parts.take(parts.length - 1).join('/');
   }
