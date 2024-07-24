@@ -23,6 +23,12 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
   final String destinationDirectory;
   final String cacheDirectory;
   final bool saveToGallery;
+
+  /// On Android, we need to manually create missing directories.
+  /// To improve performance, we cache the created directories so we don't need to check them again.
+  /// WARNING: This list is modified in-place!
+  final Set<String> createdDirectories;
+
   final StreamController<Map<String, String>?>? responseHandler;
 
   const ReceiveSessionState({
@@ -36,6 +42,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
     required this.destinationDirectory,
     required this.cacheDirectory,
     required this.saveToGallery,
+    required this.createdDirectories,
     required this.responseHandler,
   });
 

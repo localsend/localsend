@@ -2,7 +2,7 @@ class ContentUriHelper {
   /// Converts
   /// content://com.android.externalstorage.documents/tree/primary%3ADocuments
   /// to primary:Documents
-  static String? getFolderPathFromContentUri(String uri) {
+  static String? getPathFromTreeUri(String uri) {
     final index = uri.indexOf('/tree/');
     if (index == -1) {
       return null;
@@ -47,6 +47,26 @@ class ContentUriHelper {
       return '$folderName$withoutBasePath';
     } else {
       return '$folderName/$withoutBasePath';
+    }
+  }
+
+  /// Converts
+  /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend
+  /// to
+  /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend/document/primary%3ALocalSend
+  /// or
+  /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend/document/primary%3ALocalSend%2FsubFolder
+  static String convertTreeUriToDocumentUri({
+    required String treeUri,
+    String? suffix,
+  }) {
+    final index = treeUri.indexOf('/tree/');
+    final treePath = treeUri.substring(index + 6);
+
+    if (suffix == null) {
+      return '$treeUri/document/$treePath';
+    } else {
+      return '$treeUri/document/$treePath%2F${Uri.encodeComponent(suffix)}';
     }
   }
 

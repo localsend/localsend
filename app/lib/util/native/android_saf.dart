@@ -1,9 +1,12 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/util/native/content_uri_helper.dart';
+import 'package:logging/logging.dart';
 
-part 'file_picker_android.mapper.dart';
+part 'android_saf.mapper.dart';
 
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
+final _logger = Logger('AndroidSaf');
 
 /// From Android 9 (Pie) and above, we need to use the Storage Access Framework (SAF) to access files.
 /// Older versions might also work but the encoded content URI is not guaranteed to work with our algorithm.
@@ -33,6 +36,40 @@ Future<List<FileInfo>?> pickFilesAndroid() async {
   }
 
   return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
+}
+
+Future<void> createDirectory({
+  required String documentUri,
+  required String directoryName,
+}) async {
+  _logger.info('Creating directory "$directoryName" in $documentUri');
+  await _methodChannel.invokeMethod('createDirectory', {
+    'documentUri': documentUri,
+    'directoryName': directoryName,
+  });
+}
+
+Future<void> createMissingDirectoriesAndroid({
+  required String parentUri,
+  required String fileName,
+  required Set<String> createdDirectories,
+}) async {
+  final parts = fileName.split('/');
+  for (int i = 0; i < parts.length - 1; i++) {
+    final subDirPath = parts.sublist(0, i + 1).join('/');
+    if (createdDirectories.contains(subDirPath)) {
+      continue;
+    }
+
+    await createDirectory(
+      documentUri: ContentUriHelper.convertTreeUriToDocumentUri(
+        treeUri: parentUri,
+        suffix: i == 0 ? null : parts.sublist(0, i).join('/'),
+      ),
+      directoryName: parts[i],
+    );
+    createdDirectories.add(subDirPath);
+  }
 }
 
 @MappableClass()
