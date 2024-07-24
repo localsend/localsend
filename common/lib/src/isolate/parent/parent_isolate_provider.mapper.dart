@@ -24,18 +24,16 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
 
   static SyncState _$syncState(ParentIsolateState v) => v.syncState;
   static const Field<ParentIsolateState, SyncState> _f$syncState = Field('syncState', _$syncState);
-  static IsolateCommunication<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? _$httpScanDiscovery(
-          ParentIsolateState v) =>
+  static IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? _$httpScanDiscovery(ParentIsolateState v) =>
       v.httpScanDiscovery;
-  static const Field<ParentIsolateState, IsolateCommunication<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>>
+  static const Field<ParentIsolateState, IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>>
       _f$httpScanDiscovery = Field('httpScanDiscovery', _$httpScanDiscovery);
-  static IsolateCommunication<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? _$httpTargetDiscovery(
-          ParentIsolateState v) =>
+  static IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? _$httpTargetDiscovery(ParentIsolateState v) =>
       v.httpTargetDiscovery;
-  static const Field<ParentIsolateState, IsolateCommunication<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>>
+  static const Field<ParentIsolateState, IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>>
       _f$httpTargetDiscovery = Field('httpTargetDiscovery', _$httpTargetDiscovery);
-  static IsolateCommunication<Device, SendToIsolateData<Object>>? _$multicastDiscovery(ParentIsolateState v) => v.multicastDiscovery;
-  static const Field<ParentIsolateState, IsolateCommunication<Device, SendToIsolateData<Object>>> _f$multicastDiscovery =
+  static IsolateConnector<Device, SendToIsolateData<Object>>? _$multicastDiscovery(ParentIsolateState v) => v.multicastDiscovery;
+  static const Field<ParentIsolateState, IsolateConnector<Device, SendToIsolateData<Object>>> _f$multicastDiscovery =
       Field('multicastDiscovery', _$multicastDiscovery);
 
   @override
@@ -102,9 +100,9 @@ abstract class ParentIsolateStateCopyWith<$R, $In extends ParentIsolateState, $O
   SyncStateCopyWith<$R, SyncState, SyncState> get syncState;
   $R call(
       {SyncState? syncState,
-      IsolateCommunication<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery,
-      IsolateCommunication<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery,
-      IsolateCommunication<Device, SendToIsolateData<Object>>? multicastDiscovery});
+      IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery,
+      IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery,
+      IsolateConnector<Device, SendToIsolateData<Object>>? multicastDiscovery});
   ParentIsolateStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

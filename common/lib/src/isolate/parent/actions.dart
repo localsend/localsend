@@ -150,7 +150,7 @@ class IsolateSendMulticastAnnouncementAction extends ReduxAction<ParentIsolateCo
 
 Stream<R> _sendTaskAndListenStream<R, T>({
   required IsolateTask<T> task,
-  required IsolateCommunication<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
+  required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
 }) {
   // ignore: unawaited_futures
   Future.microtask(() {

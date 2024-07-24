@@ -1,17 +1,25 @@
 import 'dart:async';
 import 'dart:isolate';
 
-class IsolateCommunication<R, S> {
+/// This instance lives in the main isolate and is used to communicate with the child isolate.
+class IsolateConnector<R, S> {
+  /// A broadcast stream that receives messages from the isolate.
   final Stream<R> receiveFromIsolate;
+
+  /// The [SendPort] to send messages to the isolate.
+  /// Since this is not type-safe, use [sendToIsolate] instead.
   final SendPort _sendToIsolate;
+
+  /// The isolate that this connector is connected to.
   final Isolate isolate;
 
-  IsolateCommunication._(
+  IsolateConnector._(
     this.receiveFromIsolate,
     this._sendToIsolate,
     this.isolate,
   );
 
+  /// Sends a message to the isolate.
   void sendToIsolate(S message) {
     _sendToIsolate.send(message);
   }
@@ -23,7 +31,7 @@ class IsolateCommunication<R, S> {
 /// [R] is the type of the messages that the main isolate will **receive** from the spawned isolate.
 /// [S] is the type of the messages that the main isolate will **send** to the spawned isolate.
 /// [P] is the type of the parameter that is passed to the spawned isolate.
-Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
+Future<IsolateConnector<R, S>> startIsolate<R, S, P>({
   required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P param) task,
   required P param,
 }) async {
@@ -52,7 +60,7 @@ Future<IsolateCommunication<R, S>> startIsolate<R, S, P>({
   // Callback to signal that the [SendPort] is ready
   sendToIsolate.send(_SendToIsolateReceived());
 
-  return IsolateCommunication._(
+  return IsolateConnector._(
     receiveFromIsolateController.stream.asBroadcastStream(),
     sendToIsolate,
     isolate,

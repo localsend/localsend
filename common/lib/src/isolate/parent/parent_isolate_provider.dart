@@ -22,9 +22,9 @@ part 'parent_isolate_provider.mapper.dart';
 @MappableClass()
 class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
-  final IsolateCommunication<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
-  final IsolateCommunication<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery;
-  final IsolateCommunication<Device, SendToIsolateData<Object>>? multicastDiscovery;
+  final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
+  final IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery;
+  final IsolateConnector<Device, SendToIsolateData<Object>>? multicastDiscovery;
 
   ParentIsolateState({
     required this.syncState,
