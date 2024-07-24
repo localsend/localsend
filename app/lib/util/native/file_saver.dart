@@ -38,7 +38,7 @@ Future<void> saveFile({
         name,
         isImage ? 'image/*' : '*/*',
       );
-    } else if (androidSdkInt <= 29) {
+    } else {
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {
         // Use Android SAF to save the file to the SD card
