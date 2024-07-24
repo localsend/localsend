@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:common/common.dart';
+import 'package:common/model/dto/file_dto.dart';
+import 'package:common/model/file_status.dart';
+import 'package:common/model/session_status.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';

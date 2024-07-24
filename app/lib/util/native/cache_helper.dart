@@ -4,10 +4,10 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:app_group_directory/app_group_directory.dart';
+import 'package:common/util/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/logger.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';

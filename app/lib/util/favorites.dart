@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:common/common.dart';
+import 'package:common/model/device.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 
 extension FavoriteDevicesExt on Iterable<FavoriteDevice> {

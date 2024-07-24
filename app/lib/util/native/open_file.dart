@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/dialogs/cannot_open_file_dialog.dart';

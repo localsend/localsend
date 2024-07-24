@@ -1,5 +1,6 @@
 ## 1.15.2 (unreleased)
 
+- feat: extract network scanning to separate threads, scanning should not cause UI lags anymore (@Tienisto)
 - fix: memory leak when receiving files, properly receive files that exceed available RAM (@Tienisto)
 - fix(android): save files outside Download folder (@Tienisto)
 - fix(windows): make installer work on arm64 (@Tienisto)

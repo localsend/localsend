@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
 
 extension FileTypeExt on FileType {

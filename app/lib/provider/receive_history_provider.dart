@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
