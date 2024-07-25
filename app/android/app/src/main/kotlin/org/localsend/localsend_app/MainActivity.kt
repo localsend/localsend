@@ -209,8 +209,9 @@ class MainActivity : FlutterActivity() {
     private fun folderExists(documentUri: Uri, folderName: String): Boolean {
         var cursor: Cursor? = null
         try {
+            val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(documentUri, DocumentsContract.getDocumentId(documentUri))
             cursor = contentResolver.query(
-                documentUri,
+                childrenUri,
                 arrayOf(
                     DocumentsContract.Document.COLUMN_DISPLAY_NAME,
                     DocumentsContract.Document.COLUMN_MIME_TYPE
