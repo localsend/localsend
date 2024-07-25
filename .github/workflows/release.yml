@@ -396,7 +396,7 @@ jobs:
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
           asset_path: app-x86_64-release.apk
-          asset_name: LocalSend${{ needs.build.outputs.version }}-android-x64.apk
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-android-x64.apk
           asset_content_type: application/vnd.android.package-archive
 
       # TAR.GZ (x86_64)
