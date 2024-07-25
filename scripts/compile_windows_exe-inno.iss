@@ -4,7 +4,7 @@
 ; Copy app/assets/packaging/logo-256.ico to D:\inno\logo-256.ico
 
 #define MyAppName "LocalSend"
-#define MyAppVersion "1.15.1"
+#define MyAppVersion "1.15.2"
 #define MyAppPublisher "Tien Do Nam"
 #define MyAppURL "https://localsend.org"
 #define MyAppExeName "localsend_app.exe"
@@ -27,13 +27,13 @@ DisableProgramGroupPage=yes
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=D:\inno-result
 OutputBaseFilename=localsend
-SetupIconFile=D:\inno\logo-256.ico
+SetupIconFile=D:\inno\logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 SignTool=MySignTool
-ArchitecturesInstallIn64BitMode=x64
-ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64compatible
+ArchitecturesAllowed=x64compatible
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

@@ -42,6 +42,8 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
   static const Field<ReceiveSessionState, String> _f$cacheDirectory = Field('cacheDirectory', _$cacheDirectory);
   static bool _$saveToGallery(ReceiveSessionState v) => v.saveToGallery;
   static const Field<ReceiveSessionState, bool> _f$saveToGallery = Field('saveToGallery', _$saveToGallery);
+  static Set<String> _$createdDirectories(ReceiveSessionState v) => v.createdDirectories;
+  static const Field<ReceiveSessionState, Set<String>> _f$createdDirectories = Field('createdDirectories', _$createdDirectories);
   static StreamController<Map<String, String>?>? _$responseHandler(ReceiveSessionState v) => v.responseHandler;
   static const Field<ReceiveSessionState, StreamController<Map<String, String>?>> _f$responseHandler = Field('responseHandler', _$responseHandler);
 
@@ -57,6 +59,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #destinationDirectory: _f$destinationDirectory,
     #cacheDirectory: _f$cacheDirectory,
     #saveToGallery: _f$saveToGallery,
+    #createdDirectories: _f$createdDirectories,
     #responseHandler: _f$responseHandler,
   };
 
@@ -72,6 +75,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
         destinationDirectory: data.dec(_f$destinationDirectory),
         cacheDirectory: data.dec(_f$cacheDirectory),
         saveToGallery: data.dec(_f$saveToGallery),
+        createdDirectories: data.dec(_f$createdDirectories),
         responseHandler: data.dec(_f$responseHandler));
   }
 
@@ -133,6 +137,7 @@ abstract class ReceiveSessionStateCopyWith<$R, $In extends ReceiveSessionState, 
       String? destinationDirectory,
       String? cacheDirectory,
       bool? saveToGallery,
+      Set<String>? createdDirectories,
       StreamController<Map<String, String>?>? responseHandler});
   ReceiveSessionStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -160,6 +165,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
           String? destinationDirectory,
           String? cacheDirectory,
           bool? saveToGallery,
+          Set<String>? createdDirectories,
           Object? responseHandler = $none}) =>
       $apply(FieldCopyWithData({
         if (sessionId != null) #sessionId: sessionId,
@@ -172,6 +178,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
         if (destinationDirectory != null) #destinationDirectory: destinationDirectory,
         if (cacheDirectory != null) #cacheDirectory: cacheDirectory,
         if (saveToGallery != null) #saveToGallery: saveToGallery,
+        if (createdDirectories != null) #createdDirectories: createdDirectories,
         if (responseHandler != $none) #responseHandler: responseHandler
       }));
   @override
@@ -186,6 +193,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
       destinationDirectory: data.get(#destinationDirectory, or: $value.destinationDirectory),
       cacheDirectory: data.get(#cacheDirectory, or: $value.cacheDirectory),
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
+      createdDirectories: data.get(#createdDirectories, or: $value.createdDirectories),
       responseHandler: data.get(#responseHandler, or: $value.responseHandler));
 
   @override

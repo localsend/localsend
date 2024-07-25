@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:common/common.dart';
+import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';

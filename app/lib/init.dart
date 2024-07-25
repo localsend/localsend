@@ -2,7 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:common/common.dart';
+import 'package:common/api_route_builder.dart';
+import 'package:common/constants.dart';
+import 'package:common/isolate.dart';
+import 'package:common/model/dto/file_dto.dart';
+import 'package:common/model/dto/multicast_dto.dart';
+import 'package:common/util/dio.dart';
+import 'package:common/util/logger.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -12,7 +18,6 @@ import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -22,13 +27,12 @@ import 'package:localsend_app/provider/purchase_provider.dart';
 
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/refena.dart';
 import 'package:localsend_app/theme.dart';
-import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/i18n.dart';
-import 'package:localsend_app/util/logger.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
@@ -120,8 +124,27 @@ Future<RefenaContainer> preInit(List<String> args) async {
     ],
   );
 
-  // wait until all overrides are set
-  await container.ensureOverrides();
+  // initialize multi-threading
+  container.set(parentIsolateProvider.overrideWithNotifier((ref) {
+    final settings = ref.read(settingsProvider);
+    return ParentIsolateController(
+      initialState: ParentIsolateState.initial(
+        SyncState(
+          securityContext: persistenceService.getSecurityContext(),
+          deviceInfo: ref.read(deviceInfoProvider),
+          alias: settings.alias,
+          port: settings.port,
+          protocol: settings.https ? ProtocolType.https : ProtocolType.http,
+          multicastGroup: settings.multicastGroup,
+          discoveryTimeout: settings.discoveryTimeout,
+          serverRunning: true,
+          download: false,
+        ),
+      ),
+    );
+  }));
+
+  await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
   return container;
 }

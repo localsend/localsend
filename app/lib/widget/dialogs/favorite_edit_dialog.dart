@@ -1,9 +1,9 @@
-import 'package:common/common.dart';
+import 'package:common/isolate.dart';
+import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
-import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
@@ -157,7 +157,11 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     setState(() {
                       _fetching = true;
                     });
-                    final result = await ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https);
+                    final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+                          ip: ip,
+                          port: port,
+                          https: https,
+                        ));
                     if (result == null) {
                       setState(() {
                         _fetching = false;

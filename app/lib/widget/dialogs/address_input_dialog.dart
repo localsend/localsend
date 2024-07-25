@@ -1,14 +1,14 @@
 import 'package:collection/collection.dart';
-import 'package:common/common.dart';
+import 'package:common/isolate.dart';
+import 'package:common/model/device.dart';
+import 'package:common/util/task_runner.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
-import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/theme.dart';
-import 'package:localsend_app/util/task_runner.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -59,7 +59,12 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     final results = TaskRunner<Device?>(
       concurrency: 10,
       initialTasks: [
-        for (final ip in candidates) () => ref.read(targetedDiscoveryProvider).discover(ip: ip, port: port, https: https),
+        for (final ip in candidates)
+          () => ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+                ip: ip,
+                port: port,
+                https: https,
+              )),
       ],
     ).stream;
 

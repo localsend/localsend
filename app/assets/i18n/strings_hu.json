@@ -100,11 +100,13 @@
       "minimizeToTray": "Kilépés: Minimalizálja a tálcára",
       "launchAtStartup": "Auto. indítás bejelentkezés után",
       "launchMinimized": "Auto. indítás: Kis méretben",
+      "showInContextMenu": "A LocalSend megjelenítése a helyi menüben",
       "animations": "Animációk"
     },
     "receive": {
       "title": "Fogadás",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Autom. befejezés",
       "destination": "Mentés helye",
       "downloads": "(Letöltések)",
@@ -160,6 +162,7 @@
     "empty": "Még nincs előzmény.",
     "entryActions": {
       "open": "Fájl megnyitás",
+      "showInFolder": "Megjelenítés a mappában",
       "info": "Információ",
       "deleteFromHistory": "Törlés az előzményből"
     }
@@ -192,6 +195,7 @@
   "sendPage": {
     "waiting": "Válaszra várva...",
     "rejected": "A fogadó elutasította a kérelmet.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "A fogadó más kéréssel van elfoglalva."
   },
   "progressPage": {
@@ -223,6 +227,8 @@
     "noRequests": "Még nincsenek kérések.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Kérések automatikus elfogadása",
+    "requirePin": "PIN kód megkövetelése",
+    "pinHint": "A PIN kód \"{pin}\"",
     "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.",
     "pendingRequests": "Függőben lévő kérések: {n}"
   },
@@ -344,6 +350,9 @@
       "title": "@:general.quickSave",
       "content": "A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
     },
+    "pin": {
+      "title": "PIN kód megadása"
+    },
     "sendModeHelp": {
       "title": "Küldési módok",
       "single": "Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.",
@@ -365,6 +374,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN kód megadása",
+    "invalidPin": "Érvénytelen a PIN",
+    "tooManyAttempts": "Túl sok kísérlet",
     "rejected": "Elutasítva",
     "files": "Fájl",
     "fileName": "Fájlnév",
@@ -400,35 +412,5 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
-  },
-  "settingsTab": {
-    "general": {
-      "showInContextMenu": "A LocalSend megjelenítése a helyi menüben"
-    },
-    "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Megjelenítés a mappában"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "PIN kód megkövetelése",
-    "pinHint": "A PIN kód \"{pin}\""
-  },
-  "dialogs": {
-    "pin": {
-      "title": "PIN kód megadása"
-    }
-  },
-  "web": {
-    "enterPin": "PIN kód megadása",
-    "invalidPin": "Érvénytelen a PIN",
-    "tooManyAttempts": "Túl sok kísérlet"
   }
 }

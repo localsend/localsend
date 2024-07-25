@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:common/common.dart';
+import 'package:common/constants.dart';
+import 'package:common/model/device.dart';
+import 'package:common/model/stored_security_context.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -31,12 +33,12 @@ final _logger = Logger('PersistenceService');
 
 String get _windowsFile {
   final appData = Platform.environment['APPDATA'];
-  return '$appData/LocalSend/settings.json';
+  return '$appData\\LocalSend\\settings.json';
 }
 
 String get _windowsLegacyFile {
   final appData = Platform.environment['APPDATA'];
-  return '$appData/org.localsend/localsend_app/shared_preferences.json';
+  return '$appData\\org.localsend\\localsend_app\\shared_preferences.json';
 }
 
 // Version of the storage

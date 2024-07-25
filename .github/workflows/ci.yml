@@ -19,14 +19,22 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
-      - name: Dependencies
+
+      - name: Dependencies (app)
         working-directory: app
         run: flutter pub get
-      - name: Remove gen directory
+      - name: Remove gen directory (app)
         working-directory: app
         run: rm -rf lib/gen
-      - name: Check format
+      - name: Check format (app)
         working-directory: app
+        run: dart format --line-length 150 --set-exit-if-changed lib test
+
+      - name: Dependencies (common)
+        working-directory: common
+        run: dart pub get
+      - name: Check format (common)
+        working-directory: common
         run: dart format --line-length 150 --set-exit-if-changed lib test
 
   test:
@@ -38,15 +46,26 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
-      - name: Dependencies
+
+      - name: Dependencies (app)
         working-directory: app
         run: flutter pub get
-      - name: Analyze
+      - name: Analyze (app)
         working-directory: app
         run: flutter analyze
-      - name: Test
+      - name: Test (app)
         working-directory: app
         run: flutter test
+
+      - name: Dependencies (common)
+        working-directory: common
+        run: dart pub get
+      - name: Analyze (common)
+        working-directory: common
+        run: dart analyze
+      - name: Test (common)
+        working-directory: common
+        run: dart test
 
   packaging:
     runs-on: ubuntu-latest
