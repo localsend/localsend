@@ -1,4 +1,4 @@
-## 1.15.2 (unreleased)
+## 1.15.2 (2024-07-25)
 
 - feat: extract network scanning to separate threads, scanning should not cause UI lags anymore (@Tienisto)
 - feat(windows): use bigger icon for the installer (@Tienisto)
