@@ -23,6 +23,10 @@ class SharedPreferencesFile extends SharedPreferencesStorePlatform {
     return _file.existsSync();
   }
 
+  String getPath() {
+    return _file.path;
+  }
+
   @override
   Future<bool> clear() {
     _write({});
