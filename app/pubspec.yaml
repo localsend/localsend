@@ -51,7 +51,7 @@ dependencies:
   refena_flutter: 2.1.1
   refena_inspector_client: 2.0.0
   routerino: 0.8.0
-  saf_stream: 0.4.0 # Saving files to SD card for Android <11
+  saf_stream: 0.4.0
   screen_retriever: 0.1.9
   share_handler: 0.0.19
   share_handler_ios: 0.0.12 # Keep iOS <14 support

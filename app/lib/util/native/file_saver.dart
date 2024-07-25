@@ -7,6 +7,7 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/android_saf.dart';
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
+import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
 import 'package:saf_stream/saf_stream_method_channel.dart';
@@ -39,7 +40,7 @@ Future<void> saveFile({
       safInfo = await _saf.startWriteStream(
         Uri.parse(documentUri ?? destinationPath),
         name,
-        isImage ? 'image/*' : '*/*',
+        lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
       );
     } else {
       final sdCardPath = getSdCardPath(destinationPath);
@@ -50,7 +51,7 @@ Future<void> saveFile({
         safInfo = await _saf.startWriteStream(
           Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
           name,
-          isImage ? 'image/*' : '*/*',
+          lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
         );
       }
     }
