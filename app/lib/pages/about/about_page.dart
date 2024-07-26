@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 part 'contributors.dart';
 
+part 'packagers.dart';
+
 part 'translators.dart';
 
 final _translatorWithGithubRegex = RegExp(r'(.+) \(@([\w\-_]+)\)');
@@ -58,6 +60,39 @@ class AboutPage extends StatelessWidget {
               primaryColor: primaryColor,
             ));
           }),
+          const SizedBox(height: 20),
+          Text(t.aboutPage.packagers, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Table(
+            columnWidths: const {
+              0: IntrinsicColumnWidth(),
+              1: FlexColumnWidth(),
+            },
+            children: [
+              ..._packagers.entries.map(
+                (e) => TableRow(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(e.key),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: e.value.mapIndexed(
+                          (index, translator) {
+                            return _buildContributor(
+                              label: translator,
+                              primaryColor: primaryColor,
+                              newLine: index != 0,
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 20),
           Text(t.aboutPage.translators, style: const TextStyle(fontWeight: FontWeight.bold)),
           Table(

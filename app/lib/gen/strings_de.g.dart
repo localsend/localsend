@@ -158,6 +158,7 @@ class _StringsTroubleshootPageDe extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Lösung:';
 	@override String get fixButton => 'Automatisch beheben';
 	@override late final _StringsTroubleshootPageFirewallDe firewall = _StringsTroubleshootPageFirewallDe._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryDe noDiscovery = _StringsTroubleshootPageNoDiscoveryDe._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionDe noConnection = _StringsTroubleshootPageNoConnectionDe._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPageDe extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Mitwirkende';
+	@override String get packagers => 'Packagers';
 	@override String get translators => 'Übersetzer:innen';
 }
 
@@ -585,6 +587,17 @@ class _StringsTroubleshootPageFirewallDe extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'Firewall öffnen';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryDe extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Dieses Gerät kann keine anderen Geräte entdecken.';
+	@override String get solution => 'Stelle sicher, dass alle Geräte im selben Wi-Fi-Netzwerk sind und die gleiche Konfiguration teilen (Port, Multicast-Adresse, Verschlüsselung). Du kannst versuchen, die IP-Adresse des Zielgeräts manuell einzugeben. Wenn dies funktioniert, füge dieses Gerät zu den Favoriten hinzu, damit es in Zukunft automatisch entdeckt werden kann.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionDe extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionDe._(_StringsDe root) : this._root = root, super._(root);
@@ -593,7 +606,7 @@ class _StringsTroubleshootPageNoConnectionDe extends _StringsTroubleshootPageNoC
 
 	// Translations
 	@override String get symptom => 'Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.';
-	@override String get solution => 'Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt. In diesem Fall muss am Router diese Option aktiviert werden.';
+	@override String get solution => 'Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden.';
 }
 
 // Path: receiveHistoryPage.entryActions
