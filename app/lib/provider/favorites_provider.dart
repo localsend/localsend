@@ -45,6 +45,7 @@ class UpdateFavoriteAction extends AsyncReduxAction<FavoritesService, List<Favor
     final index = state.indexWhere((e) => e.id == device.id);
     if (index == -1) {
       // Unknown device
+      await Future.microtask(() {});
       return state;
     }
     final updated = List<FavoriteDevice>.unmodifiable(<FavoriteDevice>[

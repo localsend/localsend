@@ -16,22 +16,22 @@ import 'package:refena_flutter/refena_flutter.dart';
 /// Use [scanProvider] to have a high-level API to perform discovery operations.
 final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesState>((ref) {
   return NearbyDevicesService(
-    discoveryLogs: ref.notifier(discoveryLoggerProvider),
     isolateController: ref.notifier(parentIsolateProvider),
     favoriteService: ref.notifier(favoritesProvider),
+    discoveryLogs: ref.notifier(discoveryLoggerProvider),
   );
 });
 
 class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
-  final DiscoveryLogger _discoveryLogs;
-  final ParentIsolateController _isolateController;
+  final IsolateController _isolateController;
   final FavoritesService _favoriteService;
+  final DiscoveryLogger _discoveryLogger;
 
   NearbyDevicesService({
-    required DiscoveryLogger discoveryLogs,
-    required ParentIsolateController isolateController,
+    required IsolateController isolateController,
     required FavoritesService favoriteService,
-  })  : _discoveryLogs = discoveryLogs,
+    required DiscoveryLogger discoveryLogs,
+  })  : _discoveryLogger = discoveryLogs,
         _isolateController = isolateController,
         _favoriteService = favoriteService;
 
@@ -50,7 +50,7 @@ class StartMulticastListener extends AsyncReduxAction<NearbyDevicesService, Near
   Future<NearbyDevicesState> reduce() async {
     await for (final device in notifier._isolateController.state.multicastDiscovery!.receiveFromIsolate) {
       await dispatchAsync(RegisterDeviceAction(device));
-      notifier._discoveryLogs.addLog('[DISCOVER/UDP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      notifier._discoveryLogger.addLog('[DISCOVER/UDP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
     }
     return state;
   }
@@ -82,6 +82,8 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     if (favoriteDevice != null && !favoriteDevice.customAlias) {
       // Update existing favorite with new alias
       await external(notifier._favoriteService).dispatchAsync(UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)));
+    } else {
+      await Future.microtask(() {});
     }
     return state.copyWith(
       devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
@@ -116,6 +118,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
   Future<NearbyDevicesState> reduce() async {
     if (state.runningIps.contains(localIp)) {
       // already running for the same localIp
+      await Future.microtask(() {});
       return state;
     }
 
@@ -128,7 +131,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
     ));
 
     await for (final device in stream) {
-      notifier._discoveryLogs.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
       await dispatchAsync(RegisterDeviceAction(device));
     }
 
@@ -160,7 +163,7 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
     ));
 
     await for (final device in stream) {
-      notifier._discoveryLogs.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
       await dispatchAsync(RegisterDeviceAction(device));
     }
 
