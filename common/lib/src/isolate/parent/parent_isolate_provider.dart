@@ -96,3 +96,13 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
     );
   }
 }
+
+class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  @override
+  ParentIsolateState reduce() {
+    state.httpScanDiscovery?.isolate.kill();
+    state.httpTargetDiscovery?.isolate.kill();
+    state.multicastDiscovery?.isolate.kill();
+    return state;
+  }
+}

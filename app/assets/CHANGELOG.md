@@ -1,3 +1,7 @@
+## 1.16.0 (unreleased)
+
+- fix(android): properly close app on back gesture (@Tienisto)
+
 ## 1.15.2 (2024-07-25)
 
 - feat: extract network scanning to separate threads, scanning should not cause UI lags anymore (@Tienisto)
