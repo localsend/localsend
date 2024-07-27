@@ -1,3 +1,4 @@
+import 'package:common/isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -38,8 +39,17 @@ class LocalSendApp extends StatelessWidget {
       child: WindowWatcher(
         child: LifeCycleWatcher(
           onChangedState: (AppLifecycleState state) {
-            if (state == AppLifecycleState.resumed) {
-              ref.redux(localIpProvider).dispatch(InitLocalIpAction());
+            switch (state) {
+              case AppLifecycleState.resumed:
+                ref.redux(localIpProvider).dispatch(InitLocalIpAction());
+                break;
+              case AppLifecycleState.detached:
+                // The main isolate is only exited when all child isolates are exited.
+                // https://github.com/localsend/localsend/issues/1568
+                ref.redux(parentIsolateProvider).dispatch(IsolateDisposeAction());
+                break;
+              default:
+                break;
             }
           },
           child: ShortcutWatcher(
