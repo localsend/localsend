@@ -253,7 +253,7 @@
     "title": "История изменений"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Наследует английскую версию"
+    "@info": "Different locales may have different words, it may not match 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -368,7 +368,7 @@
     "invalid": "Имя файла содержит недопустимые символы"
   },
   "tray": {
-    "@info": "Руководство по разработке от Apple (Apple Guidelines) очень строго относится к формулировке \"закрыть\".",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "Выйти из LocalSend"
   },
@@ -383,7 +383,7 @@
     "size": "Размер"
   },
   "assetPicker": {
-    "@info": "Перевод инструмента выбора медиа для Android и iPhone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Подтвердить",
     "cancel": "Отменить",
     "edit": "Редактировать",
