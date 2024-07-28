@@ -150,9 +150,13 @@
       "solution": "Dies ist höchstwahrscheinlich ein Firewall-Problem. Du kannst es lösen, indem du eingehende Verbindungen (UDP und TCP) auf Port {port} zulässt.",
       "openFirewall": "Firewall öffnen"
     },
+    "noDiscovery": {
+      "symptom": "Dieses Gerät kann keine anderen Geräte entdecken.",
+      "solution": "Stelle sicher, dass alle Geräte im selben Wi-Fi-Netzwerk sind und die gleiche Konfiguration teilen (Port, Multicast-Adresse, Verschlüsselung). Du kannst versuchen, die IP-Adresse des Zielgeräts manuell einzugeben. Wenn dies funktioniert, füge dieses Gerät zu den Favoriten hinzu, damit es in Zukunft automatisch entdeckt werden kann."
+    },
     "noConnection": {
       "symptom": "Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.",
-      "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt. In diesem Fall muss am Router diese Option aktiviert werden."
+      "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden."
     }
   },
   "receiveHistoryPage": {
@@ -240,6 +244,7 @@
     ],
     "author": "Autor",
     "contributors": "Mitwirkende",
+    "packagers": "Packagers",
     "translators": "Übersetzer:innen"
   },
   "donationPage": {

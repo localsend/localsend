@@ -7,7 +7,7 @@ import 'package:common/src/isolate/parent/parent_isolate_provider.dart';
 import 'package:refena/refena.dart';
 
 /// Publishes the new security context to all child isolates.
-class IsolateSyncSecurityContextAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
+class IsolateSyncSecurityContextAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final StoredSecurityContext securityContext;
 
   IsolateSyncSecurityContextAction({
@@ -26,7 +26,7 @@ class IsolateSyncSecurityContextAction extends ReduxAction<ParentIsolateControll
 }
 
 /// Publishes the new device info to all child isolates.
-class IsolateSyncDeviceInfoAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
+class IsolateSyncDeviceInfoAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final DeviceInfoResult deviceInfo;
 
   IsolateSyncDeviceInfoAction({
@@ -44,7 +44,7 @@ class IsolateSyncDeviceInfoAction extends ReduxAction<ParentIsolateController, P
   }
 }
 
-class IsolateSyncSettingsAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
+class IsolateSyncSettingsAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final String multicastGroup;
   final int discoveryTimeout;
 
@@ -65,7 +65,7 @@ class IsolateSyncSettingsAction extends ReduxAction<ParentIsolateController, Par
   }
 }
 
-class IsolateSyncServerStateAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
+class IsolateSyncServerStateAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final String alias;
   final int port;
   final ProtocolType protocol;
@@ -96,7 +96,7 @@ class IsolateSyncServerStateAction extends ReduxAction<ParentIsolateController, 
 }
 
 /// Publishes the new [SyncState] to all child isolates.
-class _PublishSyncStateAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
+class _PublishSyncStateAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final SyncState syncState;
 
   _PublishSyncStateAction({

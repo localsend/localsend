@@ -127,7 +127,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
   // initialize multi-threading
   container.set(parentIsolateProvider.overrideWithNotifier((ref) {
     final settings = ref.read(settingsProvider);
-    return ParentIsolateController(
+    return IsolateController(
       initialState: ParentIsolateState.initial(
         SyncState(
           securityContext: persistenceService.getSecurityContext(),

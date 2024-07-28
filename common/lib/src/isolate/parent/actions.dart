@@ -13,7 +13,7 @@ import 'package:refena/refena.dart';
 
 final _idProvider = IdProvider();
 
-class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<ParentIsolateController, ParentIsolateState, Device?> {
+class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<IsolateController, ParentIsolateState, Device?> {
   final String ip;
   final int port;
   final bool https;
@@ -58,7 +58,7 @@ class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<Parent
   }
 }
 
-class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<ParentIsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
   final String networkInterface;
   final int port;
   final bool https;
@@ -95,7 +95,7 @@ class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<ParentIs
   }
 }
 
-class IsolateFavoriteHttpDiscoveryAction extends ReduxActionWithResult<ParentIsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateFavoriteHttpDiscoveryAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
   final List<(String, int)> favorites;
   final bool https;
 
@@ -129,7 +129,7 @@ class IsolateFavoriteHttpDiscoveryAction extends ReduxActionWithResult<ParentIso
   }
 }
 
-class IsolateSendMulticastAnnouncementAction extends ReduxAction<ParentIsolateController, ParentIsolateState> {
+class IsolateSendMulticastAnnouncementAction extends ReduxAction<IsolateController, ParentIsolateState> {
   IsolateSendMulticastAnnouncementAction();
 
   @override

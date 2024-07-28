@@ -45,14 +45,14 @@ class ParentIsolateState with ParentIsolateStateMappable {
   }
 }
 
-final parentIsolateProvider = ReduxProvider<ParentIsolateController, ParentIsolateState>((ref) {
+final parentIsolateProvider = ReduxProvider<IsolateController, ParentIsolateState>((ref) {
   throw 'Not initialized';
 });
 
-class ParentIsolateController extends ReduxNotifier<ParentIsolateState> {
+class IsolateController extends ReduxNotifier<ParentIsolateState> {
   final ParentIsolateState initialState;
 
-  ParentIsolateController({
+  IsolateController({
     required this.initialState,
   });
 
@@ -62,7 +62,7 @@ class ParentIsolateController extends ReduxNotifier<ParentIsolateState> {
 
 /// Starts the required isolates.
 /// Should be called by the main isolate.
-class IsolateSetupAction extends AsyncReduxAction<ParentIsolateController, ParentIsolateState> {
+class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
   @override
   Future<ParentIsolateState> reduce() async {
     final httpScanDiscovery = await startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>, InitialData>(
@@ -94,5 +94,15 @@ class IsolateSetupAction extends AsyncReduxAction<ParentIsolateController, Paren
       httpTargetDiscovery: httpTargetDiscovery,
       multicastDiscovery: multicastDiscovery,
     );
+  }
+}
+
+class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  @override
+  ParentIsolateState reduce() {
+    state.httpScanDiscovery?.isolate.kill();
+    state.httpTargetDiscovery?.isolate.kill();
+    state.multicastDiscovery?.isolate.kill();
+    return state;
   }
 }

@@ -630,7 +630,7 @@ class _StringsDialogsAddFileUk extends _StringsDialogsAddFileEn {
 
 	// Translations
 	@override String get title => 'Додати до вибірки';
-	@override String get content => 'Що ви бажаєте додати?';
+	@override String get content => 'Що ви хочете додати?';
 }
 
 // Path: dialogs.addressInput
