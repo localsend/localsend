@@ -5,11 +5,11 @@
   ],
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Это устройство не может найти другие устройства.",
+      "solution": "Пожалуйста, убедитесь, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Вы можете попробовать ввести IP-адрес целевого устройства вручную. Если это сработает, подумайте о том, чтобы добавить это устройство в избранное, чтобы его можно было автоматически находить в будущем."
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Сборщики"
   }
 }
