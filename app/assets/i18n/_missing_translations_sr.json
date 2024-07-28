@@ -6,7 +6,7 @@
   "troubleshootPage": {
     "noDiscovery": {
       "symptom": "Ovaj uredjaj ne može da pronadje druge uredjaje.",
-      "solution": "Uverite se da su svi uredjaji na istoj WiFi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodeljivanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti."
+      "solution": "Uverite se da su svi uredjaji na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodavanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti."
     }
   },
   "aboutPage": {
