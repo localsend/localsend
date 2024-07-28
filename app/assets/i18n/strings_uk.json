@@ -253,7 +253,7 @@
     "title": "Історія змін"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Наслідує англійську версію"
+    "@info": "Different locales may have different words, it may not match 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -368,7 +368,7 @@
     "invalid": "Ім'я файлу містить недопустимі символи"
   },
   "tray": {
-    "@info": "Посібник з розробки від Apple (Apple Guidelines) дуже суворо ставиться до формулювання \"закрити\".",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "Вийти з LocalSend"
   },
@@ -383,7 +383,7 @@
     "size": "Розмір"
   },
   "assetPicker": {
-    "@info": "Переклад інструменту вибору медіа для Android та iPhone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",
