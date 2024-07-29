@@ -150,6 +150,10 @@
       "solution": "Prawdopodobnie jest to problem z zaporą. Możesz go rozwiązać, zezwalając na przychodzące połączenia (UDP i TCP) na porcie {port}.",
       "openFirewall": "Otwórz zaporę"
     },
+    "noDiscovery": {
+      "symptom": "To urządzenie nie może wykryć innych urządzeń.",
+      "solution": "Upewnij się, że wszystkie urządzenia są w tej samej sieci Wi-Fi i mają tę samą konfigurację (port, adres multiemisji, szyfrowanie). Możesz spróbować wpisać adres IP urządzenia docelowego ręcznie. Jeśli to zadziała, rozważ dodanie tego urządzenia do ulubionych, aby mogło zostać automatycznie wykryte w przyszłości."
+    },
     "noConnection": {
       "symptom": "Oba urządzenia nie mogą się nawzajem wykryć ani dzielić się plikami.",
       "solution": "Problem istnieje po obu stronach? Upewnij się, że oba urządzenia są w tej samej sieci Wi-Fi i mają takie same ustawienia (port, adres multicast, szyfrowanie). Wi-Fi może nie zezwalać na komunikację między uczestnikami. W takim przypadku opcję tę należy włączyć w routerze."
@@ -240,6 +244,7 @@
     ],
     "author": "Autor",
     "contributors": "Współautorzy",
+    "packagers": "Pakujący",
     "translators": "Tłumacze"
   },
   "donationPage": {
