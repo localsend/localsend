@@ -40,10 +40,7 @@ class SharedPreferencesFile extends SharedPreferencesStorePlatform {
 
   Map<String, Object> _getAll() {
     if (!_file.existsSync()) {
-      if (!_file.parent.existsSync()) {
-        _file.parent.createSync(recursive: true);
-      }
-      _file.createSync();
+      _file.createSync(recursive: true);
     }
 
     try {
