@@ -11,8 +11,8 @@ REGEX_B="s/\/\/ \[FOSS_REMOVE_END\]/\*\//"
 sed -i '/# \[FOSS_REMOVE\]/d' pubspec.yaml
 
 # Comment out parts in Dart files
-sed -i "$REGEX_A" lib/init.dart
-sed -i "$REGEX_B" lib/init.dart
+sed -i "$REGEX_A" lib/config/init.dart
+sed -i "$REGEX_B" lib/config/init.dart
 
 sed -i "$REGEX_A" lib/pages/donation/donation_page.dart
 sed -i "$REGEX_B" lib/pages/donation/donation_page.dart

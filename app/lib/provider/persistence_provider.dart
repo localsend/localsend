@@ -20,7 +20,6 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_portable.dart';
-import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,10 +93,13 @@ class PersistenceService {
 
   PersistenceService._(this._prefs, this.isFirstAppStart);
 
-  static Future<PersistenceService> initialize(DynamicColors? dynamicColors) async {
+  static Future<PersistenceService> initialize({
+    required bool supportsDynamicColors,
+  }) async {
     SharedPreferences prefs;
 
     final portableStore = SharedPreferencesPortable();
+    bool usingLegacyStore = false;
     if (checkPlatform(const [TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]) && portableStore.exists()) {
       _logger.info('Using portable settings.');
       SharedPreferencesStorePlatform.instance = portableStore;
@@ -106,6 +108,7 @@ class PersistenceService {
       if (legacyStore.exists()) {
         _logger.info('Using legacy settings. Will migrate in the next step.');
         SharedPreferencesStorePlatform.instance = legacyStore;
+        usingLegacyStore = true;
       } else {
         SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
       }
@@ -114,13 +117,14 @@ class PersistenceService {
     final bool isFirstAppStart;
     final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
     _logger.info('Existing version: $existingVersion');
-    if (existingVersion == null) {
+    if (existingVersion == null && !usingLegacyStore) {
       isFirstAppStart = true;
       await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
     } else {
       isFirstAppStart = false;
-      if (existingVersion < _latestVersion) {
-        await _runMigrations(existingVersion);
+      final fromVersion = existingVersion ?? 1;
+      if (fromVersion < _latestVersion) {
+        await _runMigrations(fromVersion);
       }
     }
 
@@ -156,7 +160,6 @@ class PersistenceService {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
     }
 
-    final supportsDynamicColors = dynamicColors != null;
     if (prefs.getString(_colorKey) == null) {
       await _initColorSetting(prefs, supportsDynamicColors);
     } else {
@@ -183,7 +186,9 @@ class PersistenceService {
 
   static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
     await prefs.setString(
-        _colorKey, checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name);
+      _colorKey,
+      checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name,
+    );
   }
 
   bool isPortableMode() {
