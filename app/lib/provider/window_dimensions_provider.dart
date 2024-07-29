@@ -29,8 +29,6 @@ class WindowDimensionsController {
   /// Sets window position & size according to saved settings.
   Future<void> initDimensionsConfiguration() async {
     await WindowManager.instance.setMinimumSize(_minimalSize);
-    final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-    final hasEnoughWidth = (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200;
 
     // load saved Window placement and preferences
     final useSavedPlacement = _service.getSaveWindowPlacement();
@@ -40,15 +38,20 @@ class WindowDimensionsController {
       await WindowManager.instance.setSize(persistedDimensions.size);
       await WindowManager.instance.setPosition(persistedDimensions.position);
     } else {
-      await WindowManager.instance.setSize(hasEnoughWidth ? _defaultSize : _minimalSize);
+      final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
+      final hasEnoughWidthForDefaultSize = primaryDisplay.digestedSize.width >= 1200;
+      await WindowManager.instance.setSize(hasEnoughWidthForDefaultSize ? _defaultSize : _minimalSize);
       await WindowManager.instance.center();
     }
   }
 
   Future<bool> isInScreenBounds(Offset windowPosition, [Size? windowSize]) async {
     final displays = await ScreenRetriever.instance.getAllDisplays();
-    final sumWidth = displays.fold(0.0, (previousValue, element) => previousValue + element.size.width);
-    final maxHeight = displays.fold(0.0, (previousValue, element) => previousValue > element.size.height ? previousValue : element.size.height);
+    final sumWidth = displays.fold(0.0, (previousValue, element) => previousValue + element.digestedSize.width);
+    final maxHeight = displays.fold(
+      0.0,
+      (previousValue, element) => previousValue > element.digestedSize.height ? previousValue : element.digestedSize.height,
+    );
     return windowPosition.dx + (windowSize?.width ?? 0) < sumWidth && windowPosition.dy + (windowSize?.height ?? 0) < maxHeight;
   }
 
@@ -75,4 +78,8 @@ class WindowDimensionsController {
     await _service.setWindowHeight(windowSize.height);
     await _service.setWindowWidth(windowSize.width);
   }
+}
+
+extension on Display {
+  Size get digestedSize => visibleSize ?? size;
 }
