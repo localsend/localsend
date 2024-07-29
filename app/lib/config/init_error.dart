@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('Init');
@@ -23,7 +24,7 @@ void showInitErrorApp({
   ));
 }
 
-class _ErrorApp extends StatelessWidget {
+class _ErrorApp extends StatefulWidget {
   final Object error;
   final StackTrace stackTrace;
 
@@ -33,13 +34,32 @@ class _ErrorApp extends StatelessWidget {
   });
 
   @override
+  State<_ErrorApp> createState() => _ErrorAppState();
+}
+
+class _ErrorAppState extends State<_ErrorApp> {
+  final _controller = TextEditingController();
+  String? version;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller.text = 'Error: ${widget.error}\n\n${widget.stackTrace}';
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final info = await PackageInfo.fromPlatform();
+      _controller.text = 'LocalSend ${info.version} (${info.buildNumber})\n\nError: ${widget.error}\n\n${widget.stackTrace}';
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LocalSend: Error',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: TextFormField(
-          initialValue: 'Error: $error\n\n$stackTrace',
+          controller: _controller,
           maxLines: null,
           readOnly: true,
           decoration: const InputDecoration(
