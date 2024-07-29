@@ -3,6 +3,8 @@ import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
+const _maxHistoryEntries = 30;
+
 /// This provider stores the history of received files.
 /// It automatically saves the history to the device's storage.
 final receiveHistoryProvider = ReduxProvider<ReceiveHistoryService, List<ReceiveHistoryEntry>>((ref) {
@@ -61,7 +63,7 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
         timestamp: timestamp,
       ),
       ...state,
-    ].take(200).toList();
+    ].take(_maxHistoryEntries).toList();
     await notifier._persistence.setReceiveHistory(updated);
     return updated;
   }

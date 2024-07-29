@@ -1,5 +1,6 @@
 ## 1.16.0 (unreleased)
 
+- feat: reduce receive history size to 30 items to increase performance (@Tienisto)
 - fix(android): properly close app on back gesture (@Tienisto)
 
 ## 1.15.2 (2024-07-25)
