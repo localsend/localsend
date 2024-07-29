@@ -8,7 +8,7 @@ final _logger = Logger('Init');
 /// Shows an alternative app if the initialization failed.
 void showInitErrorApp({
   required Object error,
-  required StackTrace stackTrace
+  required StackTrace stackTrace,
 }) async {
   _logger.severe('Error during init', error, stackTrace);
 
