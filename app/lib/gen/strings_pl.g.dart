@@ -158,6 +158,7 @@ class _StringsTroubleshootPagePl extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Rozwiązanie:';
 	@override String get fixButton => 'Napraw automatycznie';
 	@override late final _StringsTroubleshootPageFirewallPl firewall = _StringsTroubleshootPageFirewallPl._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryPl noDiscovery = _StringsTroubleshootPageNoDiscoveryPl._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionPl noConnection = _StringsTroubleshootPageNoConnectionPl._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPagePl extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Współautorzy';
+	@override String get packagers => 'Pakujący';
 	@override String get translators => 'Tłumacze';
 }
 
@@ -583,6 +585,17 @@ class _StringsTroubleshootPageFirewallPl extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'Aplikacja może wysyłać pliki do innych urządzeń, ale inne urządzenia nie mogą wysyłać plików do tego urządzenia.';
 	@override String solution({required Object port}) => 'Prawdopodobnie jest to problem z zaporą. Możesz go rozwiązać, zezwalając na przychodzące połączenia (UDP i TCP) na porcie ${port}.';
 	@override String get openFirewall => 'Otwórz zaporę';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryPl extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'To urządzenie nie może wykryć innych urządzeń.';
+	@override String get solution => 'Upewnij się, że wszystkie urządzenia są w tej samej sieci Wi-Fi i mają tę samą konfigurację (port, adres multiemisji, szyfrowanie). Możesz spróbować wpisać adres IP urządzenia docelowego ręcznie. Jeśli to zadziała, rozważ dodanie tego urządzenia do ulubionych, aby mogło zostać automatycznie wykryte w przyszłości.';
 }
 
 // Path: troubleshootPage.noConnection
