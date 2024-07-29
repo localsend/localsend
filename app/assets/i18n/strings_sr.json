@@ -150,6 +150,10 @@
       "solution": "Ovo je najverovatnije Firewall problem. Možete rešiti ovo omogućavanjem dolaznih konekcija (UDP and TCP) na portu {port}.",
       "openFirewall": "Otvori Firewall"
     },
+    "noDiscovery": {
+      "symptom": "Ovaj uredjaj ne može da pronadje druge uredjaje.",
+      "solution": "Uverite se da su svi uredjaji na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodavanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti."
+    },
     "noConnection": {
       "symptom": "Uredjaji ne mogu ni da pronadju jedan drugog, ni da podele fajlove.",
       "solution": "Da li problem postoji na obe strane? Ako je tako, morate da se uverite da se oba uredjaja nalaze na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multicast adresa, enkripcija). Mreža možda ne dozvoljava komunikaciju medju uredjajima. U ovom slučaju, ova opcija mora biti omogućena na ruteru."
@@ -240,6 +244,7 @@
     ],
     "author": "Autor",
     "contributors": "Saradnici",
+    "packagers": "Paketi",
     "translators": "Prevodioci"
   },
   "donationPage": {

@@ -91,7 +91,7 @@ class _StringsGeneralEn {
 	String get queue => 'Queue';
 	String get quickSave => 'Quick Save';
 	String get renamed => 'Renamed';
-	String get reset => 'Reset';
+	String get reset => 'Undo changes';
 	String get restart => 'Restart';
 	String get settings => 'Settings';
 	String get skipped => 'Skipped';
@@ -671,7 +671,7 @@ class _StringsTroubleshootPageNoDiscoveryEn {
 
 	// Translations
 	String get symptom => 'This device cannot discover other devices.';
-	String get solution => 'Make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future.';
+	String get solution => 'Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -765,7 +765,7 @@ class _StringsDialogsEncryptionDisabledNoticeEn {
 
 	// Translations
 	String get title => 'Encryption disabled';
-	String get content => 'Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again.';
+	String get content => 'Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again.';
 }
 
 // Path: dialogs.errorDialog
@@ -930,7 +930,7 @@ class _StringsDialogsQuickActionsEn {
 	String get counter => 'Counter';
 	String get prefix => 'Prefix';
 	String get padZero => 'Pad with zeros';
-	String get sortBeforeCount => 'Sort alphabetically beforehand';
+	String get sortBeforeCount => 'Sort alphabetically beforehand (A-Z)';
 	String get random => 'Random';
 }
 

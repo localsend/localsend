@@ -2,14 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <sr-Cyrl>.",
     "After editing this file, you can run 'dart run slang apply --locale=sr-Cyrl' to quickly apply the newly added translations."
-  ],
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Овај уређај не може да пронађе друге уређаје.",
-      "solution": "Уверите се да су сви уређаји на истој Wi-Fi мрежи и да деле исту конфигурацију (порт, мултикаст адресу, енкрипцију). Можете да покушате да упишете IP адресу уређаја мануелно. Ако то ради, размислите о додавању те адресе у Омиљене, тако да уређај може да буде аутоматски пронађен у будућности."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Пакети"
-  }
+  ]
 }

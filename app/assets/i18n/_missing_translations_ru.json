@@ -2,14 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ru>.",
     "After editing this file, you can run 'dart run slang apply --locale=ru' to quickly apply the newly added translations."
-  ],
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Это устройство не может найти другие устройства.",
-      "solution": "Пожалуйста, убедитесь, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Вы можете попробовать ввести IP-адрес целевого устройства вручную. Если это сработает, подумайте о том, чтобы добавить это устройство в избранное, чтобы его можно было автоматически находить в будущем."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Сборщики"
-  }
+  ]
 }

@@ -2,14 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
-  ],
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Цей пристрій не може знайти інші пристрої.",
-      "solution": "Будь ласка, переконайтеся, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, адресу групової передачі, шифрування). Ви можете спробувати ввести IP-адресу цільового пристрою вручну. Якщо це спрацює, подумайте про те, щоб додати цей пристрій до улюблених, щоб його можна було автоматично знаходити в майбутньому."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Пакувальники"
-  }
+  ]
 }

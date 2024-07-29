@@ -158,6 +158,7 @@ class _StringsTroubleshootPageSr extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Rešenje:';
 	@override String get fixButton => 'Popravi automatski';
 	@override late final _StringsTroubleshootPageFirewallSr firewall = _StringsTroubleshootPageFirewallSr._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoverySr noDiscovery = _StringsTroubleshootPageNoDiscoverySr._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionSr noConnection = _StringsTroubleshootPageNoConnectionSr._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPageSr extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Saradnici';
+	@override String get packagers => 'Paketi';
 	@override String get translators => 'Prevodioci';
 }
 
@@ -654,6 +656,17 @@ class _StringsTroubleshootPageFirewallSr extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'Ova aplikacija može poslati fajlove drugim uredjajima; ali drugi uredjaji ne mogu poslati fajlove ovom uredjaju.';
 	@override String solution({required Object port}) => 'Ovo je najverovatnije Firewall problem. Možete rešiti ovo omogućavanjem dolaznih konekcija (UDP and TCP) na portu ${port}.';
 	@override String get openFirewall => 'Otvori Firewall';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoverySr extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoverySr._(_StringsSr root) : this._root = root, super._(root);
+
+	@override final _StringsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Ovaj uredjaj ne može da pronadje druge uredjaje.';
+	@override String get solution => 'Uverite se da su svi uredjaji na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodavanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti.';
 }
 
 // Path: troubleshootPage.noConnection

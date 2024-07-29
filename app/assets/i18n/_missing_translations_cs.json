@@ -21,7 +21,7 @@
   "troubleshootPage": {
     "noDiscovery": {
       "symptom": "This device cannot discover other devices.",
-      "solution": "Make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
     }
   },
   "receiveHistoryPage": {

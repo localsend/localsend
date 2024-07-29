@@ -2,14 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <sr>.",
     "After editing this file, you can run 'dart run slang apply --locale=sr' to quickly apply the newly added translations."
-  ],
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Ovaj uredjaj ne može da pronadje druge uredjaje.",
-      "solution": "Uverite se da su svi uredjaji na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodavanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Paketi"
-  }
+  ]
 }

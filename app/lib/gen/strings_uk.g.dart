@@ -81,16 +81,16 @@ class _StringsGeneralUk extends _StringsGeneralEn {
 	@override String get off => 'Вимкнено';
 	@override String get offline => 'Не в мережі';
 	@override String get on => 'Увімкнено';
-	@override String get online => 'В мережі';
+	@override String get online => 'У мережі';
 	@override String get open => 'Відкрити';
 	@override String get queue => 'Черга';
 	@override String get quickSave => 'Швидке збереження';
 	@override String get renamed => 'Перейменовано';
-	@override String get reset => 'Скидання налаштувань';
-	@override String get restart => 'Перезавантаження';
+	@override String get reset => 'Скасувати зміни';
+	@override String get restart => 'Перезапустити';
 	@override String get settings => 'Налаштування';
 	@override String get skipped => 'Відхилено';
-	@override String get start => 'Запуск';
+	@override String get start => 'Запустити';
 	@override String get stop => 'Зупинити';
 	@override String get save => 'Зберегти';
 	@override String get unchanged => 'Без змін';
@@ -158,6 +158,7 @@ class _StringsTroubleshootPageUk extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Рішення:';
 	@override String get fixButton => 'Виправити автоматично';
 	@override late final _StringsTroubleshootPageFirewallUk firewall = _StringsTroubleshootPageFirewallUk._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryUk noDiscovery = _StringsTroubleshootPageNoDiscoveryUk._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionUk noConnection = _StringsTroubleshootPageNoConnectionUk._(_root);
 }
 
@@ -250,7 +251,7 @@ class _StringsProgressPageUk extends _StringsProgressPageEn {
 	// Translations
 	@override String get titleSending => 'Надсилання файлів';
 	@override String get titleReceiving => 'Отримання файлів';
-	@override String get savedToGallery => 'Збережено у галереї';
+	@override String get savedToGallery => 'Збережено в галереї';
 	@override late final _StringsProgressPageTotalUk total = _StringsProgressPageTotalUk._(_root);
 }
 
@@ -288,11 +289,12 @@ class _StringsAboutPageUk extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Про LocalSend';
 	@override List<String> get description => [
-		'LocalSend — це безплатна програма з відкритим вихідним кодом, яка дозволяє безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу без підключення до Інтернету.',
+		'LocalSend — це безплатна програма з відкритим вихідним кодом, яка дозволяє вам безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу, без необхідності підключення до Інтернету.',
 		'Ця програма доступна для Android, iOS, macOS, Windows та Linux. Ви можете знайти всі варіанти завантаження на офіційній домашній сторінці.',
 	];
 	@override String get author => 'Автор';
 	@override String get contributors => 'Учасники';
+	@override String get packagers => 'Пакувальники';
 	@override String get translators => 'Перекладачі';
 }
 
@@ -369,7 +371,7 @@ class _StringsSanitizationUk extends _StringsSanitizationEn {
 
 	// Translations
 	@override String get empty => 'Ім\'я файлу не може бути порожнім';
-	@override String get invalid => 'Ім\'я файлу містить неприпустимі символи';
+	@override String get invalid => 'Ім\'я файлу містить недопустимі символи';
 }
 
 // Path: tray
@@ -417,10 +419,10 @@ class _StringsAssetPickerUk extends _StringsAssetPickerEn {
 	@override String get select => 'Вибрати';
 	@override String get emptyList => 'Список порожній';
 	@override String get unSupportedAssetType => 'Непідтримуваний тип файлу.';
-	@override String get unableToAccessAll => 'Неможливо отримати доступ до всіх файлів на пристрої';
+	@override String get unableToAccessAll => 'Не вдалося отримати доступ до всіх файлів на пристрої';
 	@override String get viewingLimitedAssetsTip => 'Програма може переглядати тільки файли та альбоми, до яких вона має доступ.';
 	@override String get changeAccessibleLimitedAssets => 'Дозволити доступ до додаткових файлів';
-	@override String get accessAllTip => 'Програма може отримати доступ тільки до деяких файлів на пристрої. Перейдіть до системних налаштувань та дозвольте програмі отримати доступ до всіх медіафайлів на пристрої.';
+	@override String get accessAllTip => 'Програма має доступ тільки до деяких файлів на пристрої. Перейдіть до системних налаштувань та дозвольте програмі отримати доступ до всіх медіафайлів на пристрої.';
 	@override String get goToSystemSettings => 'Перейти до системних налаштувань';
 	@override String get accessLimitedAssets => 'Продовжити з обмеженим доступом';
 	@override String get accessiblePathName => 'Доступні файли';
@@ -523,7 +525,7 @@ class _StringsSettingsTabReceiveUk extends _StringsSettingsTabReceiveEn {
 	@override String get autoFinish => 'Автозавершення';
 	@override String get destination => 'Зберігати в папку';
 	@override String get downloads => '(Завантаження)';
-	@override String get saveToGallery => 'Зберігати медіафайли до галереї';
+	@override String get saveToGallery => 'Зберігати медіафайли в галерею';
 	@override String get saveToHistory => 'Зберігати історію';
 }
 
@@ -552,11 +554,11 @@ class _StringsSettingsTabNetworkUk extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Тип пристрою';
 	@override String get deviceModel => 'Модель пристрою';
 	@override String get port => 'Порт';
-	@override String get discoveryTimeout => 'Тайм-аут виявлення';
-	@override String portWarning({required Object defaultPort}) => 'Інші пристрої можуть вас не виявити, оскільки ви використовуєте інший, власний порт. (default: ${defaultPort})';
+	@override String get discoveryTimeout => 'Тайм-аут пошуку';
+	@override String portWarning({required Object defaultPort}) => 'Інші пристрої можуть вас не знайти, оскільки ви використовуєте інший, власний порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрування';
 	@override String get multicastGroup => 'Адреса групової передачі';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Інші пристрої можуть вас не виявити, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Інші пристрої можуть вас не знайти, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -581,8 +583,19 @@ class _StringsTroubleshootPageFirewallUk extends _StringsTroubleshootPageFirewal
 
 	// Translations
 	@override String get symptom => 'Цей пристрій може надсилати файли на інші пристрої, але інші пристрої не можуть надсилати файли на цей пристрій.';
-	@override String solution({required Object port}) => 'Швидше за все, це проблема брандмауера. Ви можете вирішити цю проблему, дозволивши вхідні з\'єднання (UDP та TCP) для порта: ${port}.';
+	@override String solution({required Object port}) => 'Швидше за все, це проблема брандмауера. Ви можете вирішити дану проблему, дозволивши вхідні з\'єднання (UDP та TCP) для порта: ${port}.';
 	@override String get openFirewall => 'Відкрити брандмауер';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryUk extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Цей пристрій не може знайти інші пристрої.';
+	@override String get solution => 'Будь ласка, переконайтеся, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, адресу групової передачі, шифрування). Ви можете спробувати ввести IP-адресу цільового пристрою вручну. Якщо це спрацює, подумайте про те, щоб додати цей пристрій до улюблених, щоб його можна було автоматично знаходити в майбутньому.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -592,8 +605,8 @@ class _StringsTroubleshootPageNoConnectionUk extends _StringsTroubleshootPageNoC
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Обидва пристрої не можуть виявити один одного та не можуть обмінюватися файлами.';
-	@override String get solution => 'Проблема існує з обох сторін? Отже, вам потрібно переконатися, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, адресу групової передачі, шифрування). Мережа Wi-Fi може не дозволяти обмін (передачу) між учасниками. У цьому випадку, вам потрібно увімкнути дану опцію на своєму маршрутизаторі.';
+	@override String get symptom => 'Обидва пристрої не можуть знайти один одного та не можуть обмінюватися файлами.';
+	@override String get solution => 'Проблема існує з обох сторін? Отже, вам потрібно переконатися, що обидва пристрої знаходяться в одній Wi-Fi мережі та мають однакову конфігурацію (порт, адресу групової передачі, шифрування). Мережа Wi-Fi може не дозволяти обмін (передачу) між учасниками. У такому разі, вам потрібно увімкнути дану опцію на своєму маршрутизаторі.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -629,7 +642,7 @@ class _StringsDialogsAddFileUk extends _StringsDialogsAddFileEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Додати до вибірки';
+	@override String get title => 'Додати у вибірку';
 	@override String get content => 'Що ви хочете додати?';
 }
 
@@ -665,7 +678,7 @@ class _StringsDialogsCannotOpenFileUk extends _StringsDialogsCannotOpenFileEn {
 
 	// Translations
 	@override String get title => 'Не вдалося відкрити файл';
-	@override String content({required Object file}) => 'Не вдалося відкрити "${file}". Можливо цей файл було переміщено, перейменовано чи видалено?';
+	@override String content({required Object file}) => 'Не вдалося відкрити "${file}". Можливо, цей файл було переміщено, перейменовано або видалено?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -676,7 +689,7 @@ class _StringsDialogsEncryptionDisabledNoticeUk extends _StringsDialogsEncryptio
 
 	// Translations
 	@override String get title => 'Шифрування вимкнено';
-	@override String get content => 'Зв\'язок тепер відбувається через незашифрований HTTP протокол. Щоб використовувати HTTPS, знову увімкніть шифрування.';
+	@override String get content => 'Зв\'язок тепер відбувається через незашифрований HTTP протокол. Щоб використовувати протокол HTTPS, знову увімкніть шифрування.';
 }
 
 // Path: dialogs.errorDialog
@@ -696,8 +709,8 @@ class _StringsDialogsFavoriteDialogUk extends _StringsDialogsFavoriteDialogEn {
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Вибране';
-	@override String get noFavorites => 'Вибраних пристроїв ще немає.';
+	@override String get title => 'Улюблені';
+	@override String get noFavorites => 'Улюблених пристроїв поки що немає.';
 	@override String get addFavorite => 'Додати';
 }
 
@@ -708,8 +721,8 @@ class _StringsDialogsFavoriteDeleteDialogUk extends _StringsDialogsFavoriteDelet
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Видалити з вибраних';
-	@override String content({required Object name}) => 'Ви справді хочете видалити з вибраних "${name}"?';
+	@override String get title => 'Видалити з улюблених';
+	@override String content({required Object name}) => 'Ви справді хочете видалити з улюблених "${name}"?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -719,7 +732,7 @@ class _StringsDialogsFavoriteEditDialogUk extends _StringsDialogsFavoriteEditDia
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get titleAdd => 'Додати до вибраних';
+	@override String get titleAdd => 'Додати до улюблених';
 	@override String get titleEdit => 'Налаштування';
 	@override String get name => 'Ім\'я пристрою';
 	@override String get auto => '(автоматично)';
@@ -772,7 +785,7 @@ class _StringsDialogsLocalNetworkUnauthorizedUk extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => _root.dialogs.noPermission.title;
-	@override String get description => 'LocalSend не може знайти інші пристрої, не маючи дозволу на сканування в локальній мережі. Надайте цей дозвіл у налаштуваннях.';
+	@override String get description => 'LocalSend не може знайти інші пристрої без дозволу на сканування локальної мережі. Будь ласка, надайте цей дозвіл у налаштуваннях.';
 	@override String get gotoSettings => 'Налаштування';
 }
 
@@ -817,7 +830,7 @@ class _StringsDialogsNotAvailableOnPlatformUk extends _StringsDialogsNotAvailabl
 
 	// Translations
 	@override String get title => 'Недоступно';
-	@override String get content => 'Ця функція доступна лише на:';
+	@override String get content => 'Ця функція доступна тільки на:';
 }
 
 // Path: dialogs.qr
@@ -876,7 +889,7 @@ class _StringsDialogsSendModeHelpUk extends _StringsDialogsSendModeHelpEn {
 	@override String get title => 'Режими надсилання';
 	@override String get single => 'Надсилає файли одному отримувачу. Вибірку буде очищено після завершення передачі файлів.';
 	@override String get multiple => 'Надсилає файли декільком отримувачам. Вибірку не буде очищено після завершення передачі файлів.';
-	@override String get link => 'Отримувачі, у яких не встановлений LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері.';
+	@override String get link => 'Отримувачі, у яких не встановлено LocalSend, можуть завантажити вибрані файли, відкривши посилання у своєму браузері.';
 }
 
 // Path: dialogs.zoom
