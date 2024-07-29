@@ -29,7 +29,7 @@
     "queue": "Queue",
     "quickSave": "Quick Save",
     "renamed": "Renamed",
-    "reset": "Reset",
+    "reset": "Undo changes",
     "restart": "Restart",
     "settings": "Settings",
     "skipped": "Skipped",
@@ -152,7 +152,7 @@
     },
     "noDiscovery": {
       "symptom": "This device cannot discover other devices.",
-      "solution": "Make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
     },
     "noConnection": {
       "symptom": "Both devices cannot discover each other nor can they share files.",
@@ -351,7 +351,7 @@
     },
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again."
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again."
     },
     "errorDialog": {
       "title": "@:general.error"
@@ -418,7 +418,7 @@
       "counter": "Counter",
       "prefix": "Prefix",
       "padZero": "Pad with zeros",
-      "sortBeforeCount": "Sort alphabetically beforehand",
+      "sortBeforeCount": "Sort alphabetically beforehand (A-Z)",
       "random": "Random"
     },
     "quickSaveNotice": {
