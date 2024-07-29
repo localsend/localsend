@@ -63,15 +63,15 @@ void main() {
     verifyNever(persistenceService.setReceiveHistory(any));
   });
 
-  test('Should remove the 200th entry when adding another', () async {
+  test('Should remove the 30th entry when adding another', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
-      initialState: List.generate(200, (index) => _createEntry(index.toString())),
+      initialState: List.generate(30, (index) => _createEntry(index.toString())),
     );
 
-    expect(service.state.length, 200);
+    expect(service.state.length, 30);
     expect(service.state.first, _createEntry('0'));
-    expect(service.state.last, _createEntry('199'));
+    expect(service.state.last, _createEntry('29'));
 
     final entry = _createEntry('AAA');
 
@@ -87,10 +87,11 @@ void main() {
       timestamp: entry.timestamp,
     ));
 
-    expect(service.state.length, 200);
+    expect(service.state.length, 30);
     expect(service.state.first, entry);
+    expect(service.state.first, _createEntry('AAA'));
     expect(service.state[1], _createEntry('0'));
-    expect(service.state.last, _createEntry('198'));
+    expect(service.state.last, _createEntry('28'));
   });
 
   test('Should remove an entry', () async {
