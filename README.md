@@ -48,10 +48,11 @@ It is recommended to download the app either from an app store or from a package
 | [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
 | [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
-| [EXE Installer][latest] |                         | [AUR][]            |                |               |            |
+| [EXE Installer][latest] | [Flox][]                | [AUR][]            |                |               |            |
 | [Portable ZIP][latest]  |                         | [TAR][latest]      |                |               |            |
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
+|                         |                         | [Flox][]           |                |               |            |
 
 Read more about [distribution channels][].
 
@@ -70,6 +71,7 @@ Read more about [distribution channels][].
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[flox]: https://flox.dev
 
 ## Setup
 
