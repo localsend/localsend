@@ -5,11 +5,11 @@
   ],
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "อุปกรณ์นี้ไม่สามารถค้นหาอุปกรณ์อื่นได้",
+      "solution": "โปรดตรวจสอบให้แน่ใจว่าอุปกรณ์ทั้งหมดเชื่อมต่อกับเครือข่าย Wi-Fi เดียวกันและมีการตั้งค่าที่เหมือนกัน (พอร์ต, ที่อยู่ไอพีของมัลติแคสต์, การเข้ารหัส) คุณสามารถลองป้อนที่อยู่ IP ในอุปกรณ์ของคุณด้วยตนเองได้ หากได้ผล สามารถเพิ่มอุปกรณ์ดังกล่าวไปยังรายการโปรดเพื่อให้สามารถค้นพบได้โดยอัตโนมัติในครั้งถัดไป"
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "ไลบรารี"
   }
 }
