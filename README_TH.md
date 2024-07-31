@@ -24,7 +24,7 @@ LocalSend เป็นแอปที่ช่วยให้การส่ง�
 - [การมีส่วนร่วมพัฒนา](#การมีส่วนร่วมพัฒนา)
   - [การแปล](#การแปล)
   - [การแก้บัคและพัฒนา](#การแก้บัคและพัฒนา)
-- [Building](#building)
+- [การสร้างและคอมไพล์แอป](#การสร้างและคอมไพล์แอป)
   - [Android](#android)
   - [iOS](#ios)
   - [macOS](#macos)
@@ -122,39 +122,39 @@ LocalSend ใช้โปรโตคอลการสื่อสารที�
 
 ## การมีส่วนร่วมพัฒนา
 
-We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+เรายินดีต้อนรับการมีส่วนร่วมจากทุกคนที่สนใจช่วยปรับปรุง LocalSend หากคุณต้องการมีส่วนร่วม มีหลายวิธีที่คุณสามารถทำได้:
 
 ### การแปล
 
-You can help translate this app to other languages!
+คุณสามารถช่วยแปลแอปนี้เป็นภาษาอื่นได้! โดยการ:
 
-1. Fork this repository
-2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [app/assets/i18n][i18n]
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [app/assets/i18n][i18n]
-   - Add new languages: Create a new file; see also: [locale codes][].
-3. Optional: Re-run this app
-   1. Run `cd app` to enter the app directory.
-   2. Make sure you have [run](#getting-started) this app once.
-   3. Update translations via `flutter pub run slang`
-   4. Run the app via `flutter run`
-   5. Open a pull request
+1. Fork repository นี้
+2. เลือกภาษาที่ต้องการแปล มีหลักการแปลดังนี้
+   - เพิ่มการแปลที่ขาดหายในภาษาที่มีอยู่: อัปเดตเฉพาะ `_missing_translations_<locale>.json` ใน [app/assets/i18n][i18n]
+   - แก้ไขการแปลที่มีอยู่: อัปเดต `strings_<locale>.i18n.json` ใน [app/assets/i18n][i18n]
+   - เพิ่มภาษาใหม่: สร้างไฟล์ใหม่; see also: [locale codes][].
+3. รันแอปใหม่ (ไม่จำเป็น)
+   1. รัน `cd app` เพื่อเข้าโฟล์เดอร์ของแอป
+   2. ตรวจสอบให้แน่ใจว่าคุณเคย [รัน](#การเริ่มต้น) แอปนี้แล้วมาครั้งนึง
+   3. อัปเดตการแปลภาษาโดยใช้คำสั่ง `flutter pub run slang`
+   4. รันแอปผ่านคำสั่ง `flutter run`
+   5. เปิด pull request
 
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
-**_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
+**_หมายเหตุ:_ ไม่ต้องแปลช่องหรือบรรทัดที่ขึ้นต้นด้วยตัวอักษร `@` เพราะจะไม่ถูกแสดงในแอป ข้อความเหล่านั้นมีไว้เพื่อให้นักพัฒนาเข้าใจโค้ดเท่านั้น.**
 
 ### การแก้บัคและพัฒนา
 
-- **การแก้บัค:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
-- **การพัฒนา:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
+- **การแก้บัค:** หากคุณพบข้อบกพร่อง กรุณาสร้าง pull request พร้อมคำอธิบายชัดเจนเกี่ยวกับปัญหาและวิธีการแก้ไข
+- **การพัฒนา:** มีไอเดียในการปรับปรุง LocalSend ไหม? กรุณาสร้าง "issue" ก่อนเพื่อพูดคุยว่าทำไมการปรับปรุงนั้นจึงจำเป็น
 
-For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
+สำหรับข้อมูลเพิ่มเติม ดูได้ที่ [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Building
+## การสร้างและคอมไพล์แอป
 
-These commands are intended for maintainers only.
+สำหรับนักพัฒนาเท่านั้น
 
 ### Android
 
@@ -220,7 +220,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 Feel free to open a pull request. There is a `snap` branch to play with.
 
-## Contributors
+## รายชื่อผู้มีส่วนร่วมพัฒนา
 
 <a href="https://github.com/localsend/localsend/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
