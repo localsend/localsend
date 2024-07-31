@@ -5,7 +5,7 @@
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-[Homepage][] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
+[Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
 [English](README.md) • [中文](README_ZH.md) • [日本語](README_JA.md) • [ภาษาไทย](README_TH.md)
 
@@ -16,14 +16,14 @@
 
 LocalSend เป็นแอปที่ช่วยให้การส่งไฟล์ระหว่างอุปกรณ์เป็นไปอย่างปลอดภัยโดยไม่จำเป็นต้องใช้อินเทอร์เน็ต
 
-- [เกี่ยวกับ](#about)
-- [ภาพหน้าจอ](#screenshots)
-- [ดาวน์โหลด](#download)
-- [หลักการทำงาน](#how-it-works)
-- [การเริ่มต้น](#getting-started)
-- [Contributing](#contributing)
-  - [การแปล](#translation)
-  - [การพัฒนาและการแก้บัค](#bug-fixes-and-improvements)
+- [เกี่ยวกับ](#เกี่ยวกับ)
+- [ภาพหน้าจอ](#ภาพหน้าจอ)
+- [ดาวน์โหลด](#ดาวน์โหลด)
+- [หลักการทำงาน](#หลักการทำงาน)
+- [การเริ่มต้น](#การเริ่มต้น)
+- [การมีส่วนร่วมพัฒนา](#การมีส่วนร่วมพัฒนา)
+  - [การแปล](#การแปล)
+  - [การแก้บัคและพัฒนา](#การแก้บัคและพัฒนา)
 - [Building](#building)
   - [Android](#android)
   - [iOS](#ios)
@@ -120,11 +120,11 @@ LocalSend ใช้โปรโตคอลการสื่อสารที�
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
 > After installing `fvm`, run `fvm flutter` instead of `flutter`.
 
-## Contributing
+## การมีส่วนร่วมพัฒนา
 
 We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
 
-### Translation
+### การแปล
 
 You can help translate this app to other languages!
 
@@ -145,10 +145,10 @@ You can help translate this app to other languages!
 
 **_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
-### Bug Fixes and Improvements
+### การแก้บัคและพัฒนา
 
-- **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
-- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
+- **การแก้บัค:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
+- **การพัฒนา:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
 
 For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
