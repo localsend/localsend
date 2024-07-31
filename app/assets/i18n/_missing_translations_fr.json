@@ -5,11 +5,11 @@
   ],
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Cet appareil ne peut pas trouver d'autres appareils.",
+      "solution": "Assurez-vous que tous les appareils sont sur le même réseau Wifi et qu'ils partagent la même configuration (port, addresse multicast, chiffrement). Vous pouvez également essayer d'utiliser l'addresse IP de votre appareil cible directement. Si cela fonctionne, assurez-vous d'ajouter le dit appareil à vos favoris pour qu'il soit détecté automatiquement lors des prochaines recherches."
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Empaqueteurs"
   }
 }
