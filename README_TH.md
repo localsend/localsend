@@ -5,25 +5,25 @@
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-[Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
+[Homepage][] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English](README.md) • [中文](README_ZH.md) • [日本語](README_JA.md)
+[English](README.md) • [中文](README_ZH.md) • [日本語](README_JA.md) • [ภาษาไทย](README_TH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
+LocalSend เป็นแอปที่ช่วยให้การส่งไฟล์ระหว่างอุปกรณ์เป็นไปอย่างปลอดภัยโดยไม่จำเป็นต้องใช้อินเทอร์เน็ต
 
-- [About](#about)
-- [Screenshots](#screenshots)
-- [Download](#download)
-- [How It Works](#how-it-works)
-- [Getting Started](#getting-started)
+- [เกี่ยวกับ](#about)
+- [ภาพหน้าจอ](#screenshots)
+- [ดาวน์โหลด](#download)
+- [หลักการทำงาน](#how-it-works)
+- [การเริ่มต้น](#getting-started)
 - [Contributing](#contributing)
-  - [Translation](#translation)
-  - [Bug Fixes and Improvements](#bug-fixes-and-improvements)
+  - [การแปล](#translation)
+  - [การพัฒนาและการแก้บัค](#bug-fixes-and-improvements)
 - [Building](#building)
   - [Android](#android)
   - [iOS](#ios)
@@ -31,17 +31,17 @@ LocalSend is a free, open-source app that allows you to securely share files and
   - [Windows](#windows)
   - [Linux](#linux)
 
-## About
+## เกี่ยวกับ
 
-LocalSend is a cross-platform app that enables secure communication between devices using a REST API and HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
+LocalSend เป็นแอปข้ามแพลตฟอร์มที่ช่วยให้การสื่อสารระหว่างอุปกรณ์เป็นไปอย่างปลอดภัยโดยใช้ REST API และการเข้ารหัส HTTPS ต่างจากแอปส่งข้อความอื่นๆ ที่ต้องพึ่งพาเซิร์ฟเวอร์ภายนอก LocalSend ไม่ต้องการการเชื่อมต่ออินเทอร์เน็ตหรือเซิร์ฟเวอร์บุคคลที่สาม ทำให้เป็นโซลูชั่นการสื่อสารภายในท้องถิ่นที่รวดเร็วและเชื่อถือได้
 
-## Screenshots
+## ภาพหน้าจอ
 
 <img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
-## Download
+## ดาวน์โหลด
 
-It is recommended to download the app either from an app store or from a package manager because the app does not have an auto-update.
+ทางเราแนะนำให้ดาวน์โหลดแอปนี้จาก App Store หรือ Package Manager เพราะในตัวแอปไม่มีฟังชั่นอัปเดตอัตโนมัติ
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |-------------------------|-------------------------|--------------------|----------------|---------------|------------|
@@ -53,7 +53,7 @@ It is recommended to download the app either from an app store or from a package
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Read more about [distribution channels][].
+อ่านเพิ่มเติมเกี่ยวกับ [distribution channels][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -71,50 +71,50 @@ Read more about [distribution channels][].
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
-## Setup
+## การตั่งค่า
 
-In most cases, LocalSend should work out of the box. However, if you are having trouble sending or receiving files, you may need to configure your firewall to allow LocalSend to communicate over your local network.
+ในกรณีส่วนใหญ่ LocalSend ควรทำงานได้ทันที อย่างไรก็ตาม หากคุณประสบปัญหาในการส่งหรือรับไฟล์ คุณอาจต้องกำหนดค่าไฟร์วอลล์ของคุณเพื่อให้ LocalSend สามารถสื่อสารผ่านเครือข่ายแลนได้
 
 | Traffic Type | Protocol | Port  | Action |
 |--------------|----------|-------|--------|
 | Incoming     | TCP, UDP | 53317 | Allow  |
 | Outgoing     | TCP, UDP | Any   | Allow  |
 
-Also make sure to disable AP isolation on your router. It should be usually disabled by default but some routers may have it enabled (especially guest networks).
+แนะนำให้ตรวจสอบให้แน่ใจว่าคุณได้ปิด AP isolation บนเราเตอร์ของคุณแล้ว โดยปกติการตั้งค่าดังกล่าวจะถูกปิดเป็นค่าเริ่มต้นอยู่แล้ว แต่บางเราเตอร์บางตัวอาจเปิดใช้งานไว้
 
-**Portable Mode**
+**โหมดเคลื่อนที่**
 
-(Introduced in v1.13.0)
+(เพิ่มเข้ามาในเวอร์ชัน v1.13.0)
 
-Create a file named `settings.json` located in the same directory as the executable.
-This file can be empty.
-The app will use this file to store settings instead of the default location.
+สร้างไฟล์ชื่อ `settings.json` ไว้ในโฟล์เดอร์เดียวกับตัวแอป (.exe) 
+ไฟล์นี้สามารถเป็นไฟล์ว่างเปล่าได้
+ตัวแอปจะทำการเก็บข้อมูลการตั้งค่าไว้ในนี้แทนที่จะไปเก็บยังที่เริ่มต้น
 
-**Start hidden**
+**เริ่มแอปเป็นไอคอนถาดกราฟิก**
 
-(Updated in v1.15.0)
+(อัปเดตในเวอร์ชัน v1.15.0)
 
-To start the app hidden (only in tray), use the `--hidden` flag (example: `localsend_app.exe --hidden`).
+เพื่อเริ่มแอปเป็นไอคอนถาดกราฟิก (เฉพาะไอคอนถาดกราฟิกอย่างเดียว) ใช้คำสั่ง --hidden (ตัวอย่าง: localsend_app.exe --hidden)
 
-On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and the hidden setting is enabled.
+ในเวอร์ชัน v1.14.0 หรือก่อนหน้า ตัวแอปจะเริ่มเป็นไอคอนถาดกราฟิกถ้าใส่ flag `autostart` และเปิดโหมดซ่อน
 
-## How It Works
+## หลักการทำงาน
 
-LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
+LocalSend ใช้โปรโตคอลการสื่อสารที่ปลอดภัยที่ช่วยให้อุปกรณ์สามารถสื่อสารกันโดยใช้ REST API ข้อมูลทั้งหมดจะถูกส่งอย่างปลอดภัยผ่าน HTTPS และใบรับรอง TLS/SSL จะถูกสร้างขึ้นในทันทีบนแต่ละอุปกรณ์เพื่อให้แน่ใจว่ามีความปลอดภัยสูงสุด
 
-For more information on the LocalSend Protocol, see the [documentation](https://github.com/localsend/protocol).
+สำหรับข้อมูลเพิ่มเติมเกี่ยวกับโปรโตคอล LocalSend ดูที่ [documentation](https://github.com/localsend/protocol).
 
-## Getting Started
+## การเริ่มต้น
 
-To compile LocalSend from the source code, follow these steps:
+ในการคอมไพล์ LocalSend จากซอร์สโค้ด ให้ทำตามขั้นตอนเหล่านี้:
 
-1. Install Flutter [directly](https://flutter.dev) or using [fvm](https://fvm.app) (see [version required](.fvmrc))
-2. Clone the `LocalSend` repository
-3. Run `cd app` to enter the app directory
-4. Run `flutter pub get` to download dependencies
-5. Run `flutter run` to start the app
+1. ติดตั้ง Flutter [โดยตรง](https://flutter.dev) หรือใช้ [fvm](https://fvm.app) (ดู [เวอร์ชันที่ต้องการ](.fvmrc))
+2. โคลน repository ของ `LocalSend` 
+3. รัน `cd app` เพื่อเข้าไปยังโฟล์เดอร์ของแอป
+4. รัน `flutter pub get` เพื่อดาวโหลด dependencies
+5. รัน `flutter run` เพื่อเริ่มแอป
 
-> [!NOTE]
+> [!หมายเหตุ]
 > LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
 > and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
