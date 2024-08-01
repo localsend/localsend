@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common/common.dart';
+import 'package:common/constants.dart';
+import 'package:common/isolate.dart';
+import 'package:common/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
@@ -23,6 +25,29 @@ final _logger = Logger('Server');
 /// The server can receive files (since v1) and send files (since v2).
 final serverProvider = NotifierProvider<ServerService, ServerState?>((ref) {
   return ServerService();
+}, onChanged: (_, next, ref) {
+  final settings = ref.read(settingsProvider);
+  final syncState = ref.read(parentIsolateProvider).syncState;
+  final syncStatePrev = (syncState.alias, syncState.port, syncState.protocol, syncState.serverRunning, syncState.download);
+  final syncStateNext = (
+    next?.alias ?? settings.alias,
+    next?.port ?? settings.port,
+    (next?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
+    next != null,
+    next?.webSendState != null,
+  );
+
+  if (syncStatePrev == syncStateNext) {
+    return;
+  }
+
+  ref.redux(parentIsolateProvider).dispatch(IsolateSyncServerStateAction(
+        alias: syncStateNext.$1,
+        port: syncStateNext.$2,
+        protocol: syncStateNext.$3,
+        serverRunning: syncStateNext.$4,
+        download: syncStateNext.$5,
+      ));
 });
 
 class ServerService extends Notifier<ServerState?> {

@@ -2,7 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:common/common.dart';
+import 'package:common/api_route_builder.dart';
+import 'package:common/constants.dart';
+import 'package:common/model/dto/info_dto.dart';
+import 'package:common/model/dto/info_register_dto.dart';
+import 'package:common/model/dto/prepare_upload_request_dto.dart';
+import 'package:common/model/dto/prepare_upload_response_dto.dart';
+import 'package:common/model/dto/register_dto.dart';
+import 'package:common/model/file_status.dart';
+import 'package:common/model/file_type.dart';
+import 'package:common/model/session_status.dart';
 import 'package:flutter/foundation.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
@@ -25,13 +34,11 @@ import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/api_route_builder.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
-import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:shelf/shelf.dart';
@@ -238,6 +245,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          createdDirectories: {},
           responseHandler: streamController,
         ),
       ),
@@ -429,17 +437,17 @@ class ReceiveController {
       final fileType = receivingFile.file.fileType;
       final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
-      final destinationPath = await digestFilePathAndPrepareDirectory(
+      final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
         parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
+        createdDirectories: receiveState.createdDirectories,
       );
-
-      final finalName = p.basename(destinationPath);
 
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       await saveFile(
         destinationPath: destinationPath,
+        documentUri: documentUri,
         name: finalName,
         saveToGallery: saveToGallery,
         isImage: fileType == FileType.image,

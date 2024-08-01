@@ -1,8 +1,10 @@
 import 'dart:io';
 
-import 'package:common/common.dart';
+import 'package:common/constants.dart';
+import 'package:common/model/device.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
@@ -10,12 +12,9 @@ import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
-import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
-import 'package:localsend_app/util/native/file_picker_android.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
@@ -193,13 +192,7 @@ class SettingsTab extends StatelessWidget {
                           return;
                         }
 
-                        final String? directory;
-                        if (defaultTargetPlatform == TargetPlatform.android &&
-                            (ref.read(deviceRawInfoProvider).androidSdkInt ?? 0) >= contentUriMinSdk) {
-                          directory = await pickDirectoryPathAndroid();
-                        } else {
-                          directory = await pickDirectoryPath();
-                        }
+                        final directory = await pickDirectoryPath();
                         if (directory != null) {
                           await ref.notifier(settingsProvider).setDestination(directory);
                         }

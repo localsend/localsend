@@ -158,6 +158,7 @@ class _StringsTroubleshootPageSrCyrl extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Решење:';
 	@override String get fixButton => 'Поправи аутоматски';
 	@override late final _StringsTroubleshootPageFirewallSrCyrl firewall = _StringsTroubleshootPageFirewallSrCyrl._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoverySrCyrl noDiscovery = _StringsTroubleshootPageNoDiscoverySrCyrl._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionSrCyrl noConnection = _StringsTroubleshootPageNoConnectionSrCyrl._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPageSrCyrl extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Аутор';
 	@override String get contributors => 'Сарадници';
+	@override String get packagers => 'Пакети';
 	@override String get translators => 'Преводиоци';
 }
 
@@ -654,6 +656,17 @@ class _StringsTroubleshootPageFirewallSrCyrl extends _StringsTroubleshootPageFir
 	@override String get symptom => 'Ова апликација може послати фајлове другим уређајима; али други уређаји не могу послати фајлове овом уређају.';
 	@override String solution({required Object port}) => 'Ово је највероватније Firewall проблем. Možete решити ово омогућавањем долазних конекција (UDP and TCP) на Порту ${port}.';
 	@override String get openFirewall => 'Отвори Firewall';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoverySrCyrl extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoverySrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
+
+	@override final _StringsSrCyrl _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Овај уређај не може да пронађе друге уређаје.';
+	@override String get solution => 'Уверите се да су сви уређаји на истој Wi-Fi мрежи и да деле исту конфигурацију (порт, мултикаст адресу, енкрипцију). Можете да покушате да упишете IP адресу уређаја мануелно. Ако то ради, размислите о додавању те адресе у Омиљене, тако да уређај може да буде аутоматски пронађен у будућности.';
 }
 
 // Path: troubleshootPage.noConnection

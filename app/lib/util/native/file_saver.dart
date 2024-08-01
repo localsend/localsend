@@ -4,7 +4,10 @@ import 'dart:typed_data';
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_app/util/native/android_saf.dart';
+import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
+import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
 import 'package:saf_stream/saf_stream_method_channel.dart';
@@ -17,6 +20,7 @@ final _saf = SafStream();
 /// [onProgress] will be called on every 100 ms.
 Future<void> saveFile({
   required String destinationPath,
+  required String? documentUri,
   required String name,
   required bool saveToGallery,
   required bool isImage,
@@ -26,23 +30,28 @@ Future<void> saveFile({
   required DateTime? lastAccessed,
   required void Function(int savedBytes) onProgress,
 }) async {
-  if (androidSdkInt != null) {
+  if (!saveToGallery && androidSdkInt != null) {
+    // Use SAF to save the file
+    // When saveToGallery is enabled, the destination is always the app's cache directory so we don't need to use SAF
     SafWriteStreamInfo? safInfo;
 
-    if (destinationPath.startsWith('content://')) {
+    if (documentUri != null || destinationPath.startsWith('content://')) {
+      _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
       safInfo = await _saf.startWriteStream(
-        Uri.parse(destinationPath),
+        Uri.parse(documentUri ?? destinationPath),
         name,
-        isImage ? 'image/*' : '*/*',
+        lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
       );
-    } else if (androidSdkInt <= 29) {
+    } else {
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {
         // Use Android SAF to save the file to the SD card
+        final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
+        _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
-          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:${sdCardPath.path}'),
+          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
           name,
-          isImage ? 'image/*' : '*/*',
+          lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
         );
       }
     }
@@ -151,17 +160,39 @@ Future<void> _saveFile({
 }
 
 /// If there is a file with the same name, then it appends a number to its file name
-Future<String> digestFilePathAndPrepareDirectory({required String parentDirectory, required String fileName}) async {
+Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
+  required String parentDirectory,
+  required String fileName,
+  required Set<String> createdDirectories,
+}) async {
+  if (parentDirectory.startsWith('content://')) {
+    final String documentUri;
+    if (fileName.contains('/')) {
+      try {
+        await createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
+      } catch (e) {
+        _logger.warning('Could not create missing directories', e);
+      }
+      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: fileName.parentPath());
+    } else {
+      // root directory
+      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: null);
+    }
+
+    // destinationUri is for the history
+    // documentUri is for SAF to save the file, it should point to the parent directory
+    final destinationUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: fileName);
+    return (destinationUri, documentUri, p.basename(fileName));
+  }
+
   final actualFileName = legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
-  if (!dir.startsWith('content://')) {
-    try {
-      Directory(dir).createSync(recursive: true);
-    } catch (e) {
-      _logger.warning('Could not create directory', e);
-    }
+  try {
+    Directory(dir).createSync(recursive: true);
+  } catch (e) {
+    _logger.warning('Could not create directory', e);
   }
 
   String destinationPath;
@@ -170,7 +201,7 @@ Future<String> digestFilePathAndPrepareDirectory({required String parentDirector
     destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
     counter++;
   } while (await File(destinationPath).exists());
-  return destinationPath;
+  return (destinationPath, null, p.basename(destinationPath));
 }
 
 final _sdCardPathRegex = RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');

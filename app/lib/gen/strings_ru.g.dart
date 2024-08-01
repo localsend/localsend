@@ -86,11 +86,11 @@ class _StringsGeneralRu extends _StringsGeneralEn {
 	@override String get queue => 'Очередь';
 	@override String get quickSave => 'Быстрое сохранение';
 	@override String get renamed => 'Переименовано';
-	@override String get reset => 'Сброс настроек';
-	@override String get restart => 'Перезагрузка';
+	@override String get reset => 'Отменить изменения';
+	@override String get restart => 'Перезапустить';
 	@override String get settings => 'Настройки';
 	@override String get skipped => 'Отклонено';
-	@override String get start => 'Запуск';
+	@override String get start => 'Запустить';
 	@override String get stop => 'Остановить';
 	@override String get save => 'Сохранить';
 	@override String get unchanged => 'Без изменений';
@@ -119,7 +119,7 @@ class _StringsSendTabRu extends _StringsSendTabEn {
 	@override String get title => 'Отправить';
 	@override late final _StringsSendTabSelectionRu selection = _StringsSendTabSelectionRu._(_root);
 	@override late final _StringsSendTabPickerRu picker = _StringsSendTabPickerRu._(_root);
-	@override String get shareIntentInfo => 'Вы также можете воспользоваться функцией "Поделиться" на своём мобильном устройстве, чтобы быстрее выбирать файлы.';
+	@override String get shareIntentInfo => 'Вы также можете воспользоваться функцией "Поделиться" на своем мобильном устройстве, чтобы быстрее выбирать файлы.';
 	@override String get nearbyDevices => 'Устройства поблизости';
 	@override String get thisDevice => 'Это устройство';
 	@override String get scan => 'Поиск устройств';
@@ -143,7 +143,7 @@ class _StringsSettingsTabRu extends _StringsSettingsTabEn {
 	@override late final _StringsSettingsTabSendRu send = _StringsSettingsTabSendRu._(_root);
 	@override late final _StringsSettingsTabNetworkRu network = _StringsSettingsTabNetworkRu._(_root);
 	@override late final _StringsSettingsTabOtherRu other = _StringsSettingsTabOtherRu._(_root);
-	@override String get advancedSettings => 'Дополнительные настройки';
+	@override String get advancedSettings => 'Расширенные настройки';
 }
 
 // Path: troubleshootPage
@@ -158,6 +158,7 @@ class _StringsTroubleshootPageRu extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Решение:';
 	@override String get fixButton => 'Исправить автоматически';
 	@override late final _StringsTroubleshootPageFirewallRu firewall = _StringsTroubleshootPageFirewallRu._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryRu noDiscovery = _StringsTroubleshootPageNoDiscoveryRu._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionRu noConnection = _StringsTroubleshootPageNoConnectionRu._(_root);
 }
 
@@ -288,11 +289,12 @@ class _StringsAboutPageRu extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'О LocalSend';
 	@override List<String> get description => [
-		'LocalSend — это бесплатное приложение с открытым исходным кодом, которое позволяет вам безопасно обмениваться файлами и сообщениями с находящимися поблизости устройствами через локальную сеть без необходимости подключения к Интернету.',
-		'Это приложение доступно на Android, iOS, macOS, Windows и Linux. Вы можете найти все варианты загрузки на официальной домашней странице.',
+		'LocalSend — это бесплатное приложение с открытым исходным кодом, которое позволяет вам безопасно обмениваться файлами и сообщениями с находящимися поблизости устройствами через локальную сеть, без необходимости подключения к Интернету.',
+		'Это приложение доступно для Android, iOS, macOS, Windows и Linux. Вы можете найти все варианты загрузки на официальной домашней странице.',
 	];
 	@override String get author => 'Автор';
 	@override String get contributors => 'Участники';
+	@override String get packagers => 'Сборщики';
 	@override String get translators => 'Переводчики';
 }
 
@@ -408,20 +410,20 @@ class _StringsAssetPickerRu extends _StringsAssetPickerEn {
 
 	// Translations
 	@override String get confirm => 'Подтвердить';
-	@override String get cancel => 'Отмена';
-	@override String get edit => 'Изменить';
+	@override String get cancel => 'Отменить';
+	@override String get edit => 'Редактировать';
 	@override String get gifIndicator => 'GIF';
-	@override String get loadFailed => 'Загрузка не удалась';
+	@override String get loadFailed => 'Не удалось загрузить';
 	@override String get original => 'Оригинал';
 	@override String get preview => 'Предпросмотр';
 	@override String get select => 'Выбрать';
 	@override String get emptyList => 'Список пуст';
 	@override String get unSupportedAssetType => 'Неподдерживаемый тип файла.';
-	@override String get unableToAccessAll => 'Не удаётся получить доступ ко всем файлам на устройстве';
-	@override String get viewingLimitedAssetsTip => 'Показывать файлы, к которым у приложения есть доступ.';
+	@override String get unableToAccessAll => 'Не удалось получить доступ ко всем файлам на устройстве';
+	@override String get viewingLimitedAssetsTip => 'Приложение может просматривать только файлы и альбомы, к которым у него есть доступ.';
 	@override String get changeAccessibleLimitedAssets => 'Разрешить доступ к дополнительным файлам';
-	@override String get accessAllTip => 'У приложения есть доступ только к некоторым файлам на устройстве. Откройте настройки системы и разрешите приложению доступ ко всем файлам на устройстве.';
-	@override String get goToSystemSettings => 'Открыть настройки системы';
+	@override String get accessAllTip => 'Приложение имеет доступ только к некоторым файлам на устройстве. Перейдите к системным настройкам и разрешите приложению получить доступ ко всем медиафайлам на устройстве.';
+	@override String get goToSystemSettings => 'Перейти к системным настройкам';
 	@override String get accessLimitedAssets => 'Продолжить с ограниченным доступом';
 	@override String get accessiblePathName => 'Доступные файлы';
 	@override String get sTypeAudioLabel => 'Аудио';
@@ -552,11 +554,11 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Тип устройства';
 	@override String get deviceModel => 'Модель устройства';
 	@override String get port => 'Порт';
-	@override String get discoveryTimeout => 'Тайм-аут обнаружения';
-	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете пользовательский порт. (default: ${defaultPort})';
+	@override String get discoveryTimeout => 'Тайм-аут поиска';
+	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не найти, поскольку вы используете другой, собственный порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрование';
 	@override String get multicastGroup => 'Адрес мультивещание';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Другие устройства могут вас не обнаружить, поскольку вы используете другой, собственный адрес мультивещания. (default: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Другие устройства могут вас не найти, поскольку вы используете другой, собственный адрес мультивещания. (default: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -585,6 +587,17 @@ class _StringsTroubleshootPageFirewallRu extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'Открыть брандмауэр';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryRu extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Это устройство не может найти другие устройства.';
+	@override String get solution => 'Пожалуйста, убедитесь, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Вы можете попробовать ввести IP-адрес целевого устройства вручную. Если это сработает, подумайте о том, чтобы добавить это устройство в избранное, чтобы его можно было автоматически находить в будущем.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionRu extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionRu._(_StringsRu root) : this._root = root, super._(root);
@@ -592,8 +605,8 @@ class _StringsTroubleshootPageNoConnectionRu extends _StringsTroubleshootPageNoC
 	@override final _StringsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Оба устройства не могут обнаружить друг друга и не могут обмениваться файлами.';
-	@override String get solution => 'Проблема существует с обеих сторон? Итак, вам нужно убедиться, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Сеть Wi-Fi может не разрешать обмен (передачу) между участниками. В этом случае, вам необходимо включить данную опцию на своём маршрутизаторе.';
+	@override String get symptom => 'Оба устройства не могут найти друг друга и не могут обмениваться файлами.';
+	@override String get solution => 'Проблема существует с обеих сторон? Итак, вам нужно убедиться, что оба устройства находятся в одной Wi-Fi сети и имеют одинаковую конфигурацию (порт, адрес мультивещания, шифрование). Сеть Wi-Fi может не разрешать обмен (передачу) между участниками. В этом случае, вам необходимо включить эту опцию на своем маршрутизаторе.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -665,7 +678,7 @@ class _StringsDialogsCannotOpenFileRu extends _StringsDialogsCannotOpenFileEn {
 
 	// Translations
 	@override String get title => 'Не удалось открыть файл';
-	@override String content({required Object file}) => 'Не удалось открыть "${file}". Возможно, файл перемещён, переименован или удалён?';
+	@override String content({required Object file}) => 'Не удалось открыть "${file}". Возможно, этот файл был перемещен, переименован или удален?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -676,7 +689,7 @@ class _StringsDialogsEncryptionDisabledNoticeRu extends _StringsDialogsEncryptio
 
 	// Translations
 	@override String get title => 'Шифрование отключено';
-	@override String get content => 'Связь теперь происходит по незашифрованному HTTP протоколу. Чтобы использовать HTTPS, снова включите шифрование.';
+	@override String get content => 'Связь теперь происходит по незашифрованному HTTP протоколу. Чтобы использовать протокол HTTPS, снова включите шифрование.';
 }
 
 // Path: dialogs.errorDialog
@@ -795,7 +808,7 @@ class _StringsDialogsNoFilesRu extends _StringsDialogsNoFilesEn {
 
 	// Translations
 	@override String get title => 'Не выбрано ни одного файла';
-	@override String get content => 'Пожалуйста, добавьте, как минимум, один файл.';
+	@override String get content => 'Пожалуйста, добавьте как минимум один файл.';
 }
 
 // Path: dialogs.noPermission
@@ -838,7 +851,7 @@ class _StringsDialogsQuickActionsRu extends _StringsDialogsQuickActionsEn {
 
 	// Translations
 	@override String get title => 'Быстрые действия';
-	@override String get counter => 'Счётчик';
+	@override String get counter => 'Счетчик';
 	@override String get prefix => 'Префикс';
 	@override String get padZero => 'Добавить нули в начале';
 	@override String get sortBeforeCount => 'Отсортировать по алфавиту (А-Я)';
@@ -897,7 +910,7 @@ class _StringsSettingsTabGeneralBrightnessOptionsRu extends _StringsSettingsTabG
 
 	// Translations
 	@override String get system => 'Системная';
-	@override String get dark => 'Тёмная';
+	@override String get dark => 'Темная';
 	@override String get light => 'Светлая';
 }
 

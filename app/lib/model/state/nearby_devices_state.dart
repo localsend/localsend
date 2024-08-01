@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'nearby_devices_state.mapper.dart';

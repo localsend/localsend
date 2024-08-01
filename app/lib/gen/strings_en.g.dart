@@ -91,7 +91,7 @@ class _StringsGeneralEn {
 	String get queue => 'Queue';
 	String get quickSave => 'Quick Save';
 	String get renamed => 'Renamed';
-	String get reset => 'Reset';
+	String get reset => 'Undo changes';
 	String get restart => 'Restart';
 	String get settings => 'Settings';
 	String get skipped => 'Skipped';
@@ -163,6 +163,7 @@ class _StringsTroubleshootPageEn {
 	String get solution => 'Solution:';
 	String get fixButton => 'Fix automatically';
 	late final _StringsTroubleshootPageFirewallEn firewall = _StringsTroubleshootPageFirewallEn._(_root);
+	late final _StringsTroubleshootPageNoDiscoveryEn noDiscovery = _StringsTroubleshootPageNoDiscoveryEn._(_root);
 	late final _StringsTroubleshootPageNoConnectionEn noConnection = _StringsTroubleshootPageNoConnectionEn._(_root);
 }
 
@@ -298,6 +299,7 @@ class _StringsAboutPageEn {
 	];
 	String get author => 'Author';
 	String get contributors => 'Contributors';
+	String get packagers => 'Packagers';
 	String get translators => 'Translators';
 }
 
@@ -661,6 +663,17 @@ class _StringsTroubleshootPageFirewallEn {
 	String get openFirewall => 'Open Firewall';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get symptom => 'This device cannot discover other devices.';
+	String get solution => 'Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionEn._(this._root);
@@ -669,7 +682,7 @@ class _StringsTroubleshootPageNoConnectionEn {
 
 	// Translations
 	String get symptom => 'Both devices cannot discover each other nor can they share files.';
-	String get solution => 'Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The Wi-Fi network may not allow communication between participants. In this case, this option must be enabled on the router.';
+	String get solution => 'Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The Wi-Fi network may not allow communication between participants (AP isolation). In this case, this option must be enabled on the router.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -752,7 +765,7 @@ class _StringsDialogsEncryptionDisabledNoticeEn {
 
 	// Translations
 	String get title => 'Encryption disabled';
-	String get content => 'Communication now takes place via the unencrypted HTTP protocol. To use HTTPS, enable encryption again.';
+	String get content => 'Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again.';
 }
 
 // Path: dialogs.errorDialog
@@ -917,7 +930,7 @@ class _StringsDialogsQuickActionsEn {
 	String get counter => 'Counter';
 	String get prefix => 'Prefix';
 	String get padZero => 'Pad with zeros';
-	String get sortBeforeCount => 'Sort alphabetically beforehand';
+	String get sortBeforeCount => 'Sort alphabetically beforehand (A-Z)';
 	String get random => 'Random';
 }
 

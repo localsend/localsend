@@ -1,10 +1,10 @@
+import 'package:common/isolate.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
-import 'package:localsend_app/provider/network/targeted_discovery_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -29,7 +29,11 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
 
     final https = ref.read(settingsProvider).https;
 
-    final result = await ref.read(targetedDiscoveryProvider).discover(ip: favorite.ip, port: favorite.port, https: https);
+    final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+          ip: favorite.ip,
+          port: favorite.port,
+          https: https,
+        ));
     if (result == null) {
       setState(() {
         _fetching = false;

@@ -3,10 +3,14 @@ package org.localsend.localsend_app
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
+import android.provider.DocumentsContract
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
@@ -27,14 +31,24 @@ class MainActivity : FlutterActivity() {
                     pendingResult = result
                     openDirectoryPicker(onlyPath = false)
                 }
+
                 "pickFiles" -> {
                     pendingResult = result
                     openFilePicker()
                 }
+
                 "pickDirectoryPath" -> {
                     pendingResult = result
                     openDirectoryPicker(onlyPath = true)
                 }
+
+                "createDirectory" -> handleCreateDirectory(call, result)
+
+                "openContentUri" -> {
+                    openUri(context, call.argument<String>("uri")!!)
+                    result.success(null)
+                }
+
                 else -> result.notImplemented()
             }
         }
@@ -43,7 +57,10 @@ class MainActivity : FlutterActivity() {
     private fun openDirectoryPicker(onlyPath: Boolean) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-        startActivityForResult(intent, if (onlyPath) REQUEST_CODE_PICK_DIRECTORY_PATH else REQUEST_CODE_PICK_DIRECTORY)
+        startActivityForResult(
+            intent,
+            if (onlyPath) REQUEST_CODE_PICK_DIRECTORY_PATH else REQUEST_CODE_PICK_DIRECTORY
+        )
     }
 
     private fun openFilePicker() {
@@ -91,6 +108,7 @@ class MainActivity : FlutterActivity() {
                     pendingResult = null
                 }
             }
+
             REQUEST_CODE_PICK_DIRECTORY_PATH -> {
                 val uri: Uri? = data.data
                 val takeFlags: Int =
@@ -104,6 +122,7 @@ class MainActivity : FlutterActivity() {
                     pendingResult = null
                 }
             }
+
             REQUEST_CODE_PICK_FILE -> {
                 val uriList: List<Uri> = when {
                     data.clipData != null -> {
@@ -114,6 +133,7 @@ class MainActivity : FlutterActivity() {
                         }
                         uris
                     }
+
                     data.data != null -> listOf(data.data!!)
                     else -> {
                         pendingResult?.error("Error", "Failed to access file", null)
@@ -166,6 +186,55 @@ class MainActivity : FlutterActivity() {
                 )
             }
         }
+    }
+
+    @SuppressLint("WrongConstant")
+    private fun handleCreateDirectory(call: MethodCall, result: MethodChannel.Result) {
+        val documentUri = Uri.parse(call.argument<String>("documentUri")!!)
+        val directoryName = call.argument<String>("directoryName")!!
+
+        if (folderExists(documentUri, directoryName)) {
+            result.success(null)
+            return
+        }
+
+        DocumentsContract.createDocument(
+            context.contentResolver, documentUri, DocumentsContract.Document.MIME_TYPE_DIR,
+            directoryName
+        )
+
+        result.success(null)
+    }
+
+    private fun folderExists(documentUri: Uri, folderName: String): Boolean {
+        var cursor: Cursor? = null
+        try {
+            val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(documentUri, DocumentsContract.getDocumentId(documentUri))
+            cursor = contentResolver.query(
+                childrenUri,
+                arrayOf(
+                    DocumentsContract.Document.COLUMN_DISPLAY_NAME,
+                    DocumentsContract.Document.COLUMN_MIME_TYPE
+                ),
+                null,
+                null,
+                null,
+            )
+
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    val displayName = cursor.getString(0)
+                    val mimeType = cursor.getString(1)
+
+                    if (folderName == displayName && DocumentsContract.Document.MIME_TYPE_DIR == mimeType) {
+                        return true
+                    }
+                }
+            }
+        } finally {
+            cursor?.close()
+        }
+        return false
     }
 }
 

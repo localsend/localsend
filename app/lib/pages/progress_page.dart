@@ -1,15 +1,17 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:common/common.dart';
+import 'package:common/model/dto/file_dto.dart';
+import 'package:common/model/file_status.dart';
+import 'package:common/model/session_status.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';

@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:common/common.dart';
+import 'package:common/model/dto/file_dto.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:uuid/uuid.dart';

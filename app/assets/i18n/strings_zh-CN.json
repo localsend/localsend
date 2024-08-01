@@ -153,6 +153,10 @@
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
       "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
+    },
+    "noDiscovery": {
+      "symptom": "此设备未能发现其他设备。",
+      "solution": "确保所有设备都在同一个Wi-Fi网络上，并共享相同的配置（端口、多播地址、加密）。您可以尝试手动键入目标设备的IP地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
     }
   },
   "receiveHistoryPage": {
@@ -240,7 +244,8 @@
     ],
     "author": "作者",
     "contributors": "贡献者",
-    "translators": "翻译者"
+    "translators": "翻译者",
+    "packagers": "包"
   },
   "donationPage": {
     "title": "捐赠",
