@@ -5,56 +5,56 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "Zobrazit LocalSend v kontextové nabídce"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
     },
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "title": "Poslat",
+      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\"."
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Časový limit zjišťování"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Toto zařízení nemůže zjistit jiná zařízení.",
+      "solution": "Ujistěte se, že jsou všechna zařízení ve stejné síti Wi-Fi a sdílejí stejnou konfiguraci (port, adresa vícesměrového vysílání, šifrování). Můžete zkusit zadat IP adresu cílového zařízení ručně. Pokud to funguje, zvažte přidání tohoto zařízení do oblíbených, aby mohlo být v budoucnu automaticky objeveno."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Zobrazit ve složce"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "autoAccept": "Automaticky přijímat žádosti",
+    "requirePin": "Vyžadovat PIN",
+    "pinHint": "PIN je \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Baliči"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Vložit PIN"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Název souboru nemůže být prázdný",
+    "invalid": "Název souboru obsahuje neplatné znaky"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Vložit PIN",
+    "invalidPin": "Neplatný PIN",
+    "tooManyAttempts": "Příliš mnoho pokusů"
   }
 }
