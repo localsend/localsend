@@ -5,51 +5,51 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "컨텍스트 메뉴에 LocalSend 표시"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "탐색 제한시간"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "현재 기기에서 다른 기기를 찾을 수 없습니다.",
+      "solution": "모든 장치가 동일한 Wi-Fi 네트워크에 연결되어 있고 동일한 설정(포트, 멀티캐스트 주소, 암호화)을 공유하는지 확인하세요. 기기의 IP 주소를 수동으로 입력해 볼 수도 있습니다. 이 방법이 작동하면, 해당 기기를 즐겨찾기에 추가하여 앞으로 자동으로 검색될 수 있도록 해 보세요."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "폴더에서 보기"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "PIN 번호 사용",
+    "pinHint": "PIN 번호는 \"{pin}\" 입니다"
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "패키지 관리자"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "PIN 번호 입력"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "파일 이름은 비워 둘 수 없습니다",
+    "invalid": "파일 이름에 잘못된 문자가 포함되어 있습니다"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "PIN 번호 입력",
+    "invalidPin": "PIN 번호가 올바르지 않습니다",
+    "tooManyAttempts": "시도 횟수를 초과했습니다"
   }
 }

@@ -74,7 +74,7 @@
       "link": "링크로 공유하기"
     },
     "sendModeHelp": "설명",
-    "help": "보낼 기기가 같은 Wi-Fi 네트워크에 연결되었는지 확인해주세요",
+    "help": "보내려는 기기가 동일한 Wi-Fi 네트워크에 연결되어 있는지 확인해 주세요",
     "placeItems": "드롭해서 공유"
   },
   "settingsTab": {
@@ -138,9 +138,9 @@
     "advancedSettings": "고급 설정"
   },
   "troubleshootPage": {
-    "title": "문제해결",
+    "title": "문제 해결",
     "subTitle": "이 앱이 예상대로 작동하지 않나요? 여기에서 일반적인 해결 방법을 찾을 수 있습니다.",
-    "solution": "해결방법:",
+    "solution": "해결 방법:",
     "fixButton": "자동으로 수정하기",
     "firewall": {
       "symptom": "이 앱은 다른 기기로 파일을 보낼 수 있지만, 다른 기기에서 이 기기로 파일을 보낼 수 없습니다.",
