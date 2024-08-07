@@ -5,11 +5,11 @@
   ],
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "این دستگاه نمی‌تواند دستگاه‌های دیگر را پیدا کند",
+      "solution": "مطمئن شوید که هر دو دستگاه به یک شبکه وای فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد دلخواه اضافه کنید تا در آینده به طور خودکار کشف شود"
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "بسته بندی‌ها"
   }
 }
