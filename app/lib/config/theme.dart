@@ -49,7 +49,7 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
     useMaterial3: true,
     navigationBarTheme: colorScheme.brightness == Brightness.dark
         ? NavigationBarThemeData(
-            iconTheme: MaterialStateProperty.all(const IconThemeData(color: Colors.white)),
+            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
           )
         : null,
     inputDecorationTheme: InputDecorationTheme(
@@ -165,7 +165,7 @@ ThemeData _getYaruTheme(Brightness brightness) {
   return baseTheme.copyWith(
     navigationBarTheme: colorScheme.brightness == Brightness.dark
         ? NavigationBarThemeData(
-            iconTheme: MaterialStateProperty.all(const IconThemeData(color: Colors.white)),
+            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
           )
         : null,
     inputDecorationTheme: InputDecorationTheme(
