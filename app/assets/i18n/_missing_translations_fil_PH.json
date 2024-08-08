@@ -5,56 +5,56 @@
   ],
   "settingsTab": {
     "general": {
-      "showInContextMenu": "Show LocalSend in context menu"
+      "showInContextMenu": "Ipakita ang LocalSend sa context menu"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
     },
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "title": "Ipasa",
+      "shareViaLinkAutoAccept": "Kusang tanggapin ang request sa \"Share via link\" mode"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Nag Timeout ang Discovery"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Ang device na'to ay hindi maka-discover ng ibang devices.",
+      "solution": "Siguraduhing lahat ng device ay nasa same WI-FI network at i-share ang parehong configuration (port, multicast address, encryption). Pwedeng i-type manually ang IP address ng target device. Kung gumana, i-consider na i-dagdag ang device sa favorites upang automatic na ma discover sa susunod na paggamit."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Buksan sa folder"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "autoAccept": "Kusang I-accept ang request",
+    "requirePin": "I-require ang Pin",
+    "pinHint": "Ang Pin ay \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Mga Packagers"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Ilagay ang PIN"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Ang Filename ay hindi maaaring walang laman",
+    "invalid": "Ang Filename ay naglalaman ng hindi suportado na characters"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Ilagay ang PIN",
+    "invalidPin": "Ang PIN ay invalid",
+    "tooManyAttempts": "Marami nang pagsubok"
   }
 }
