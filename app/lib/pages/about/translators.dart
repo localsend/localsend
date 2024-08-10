@@ -34,6 +34,7 @@ const _translators = <AppLocale, List<String>>{
   ],
   AppLocale.filPh: [
     'Bryan James Ilaga (@BryanJames16)',
+    'Linwel Colmo (@leanwell)',
   ],
   AppLocale.fr: [
     '@Nixuge',
