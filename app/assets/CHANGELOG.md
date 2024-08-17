@@ -1,3 +1,8 @@
+## 1.15.4 (unreleased)
+
+- feat(windows): title bar color should match the system theme (@FutoTan)
+- fix(desktop): window is invisible in multiple monitors due to wrong initial position (@Tienisto)
+
 ## 1.15.3 (2024-07-29)
 
 - feat: reduce receive history length to 30 items to increase performance (@Tienisto)
