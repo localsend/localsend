@@ -52,7 +52,18 @@ class WindowDimensionsController {
       0.0,
       (previousValue, element) => previousValue > element.digestedSize.height ? previousValue : element.digestedSize.height,
     );
-    return windowPosition.dx + (windowSize?.width ?? 0) < sumWidth && windowPosition.dy + (windowSize?.height ?? 0) < maxHeight;
+    final minX = displays.fold(0.0, (previousValue, element) {
+      final currX = element.visiblePosition?.dx ?? 0;
+      return currX < previousValue ? currX : previousValue;
+    });
+    final minY = displays.fold(0.0, (previousValue, element) {
+      final currY = element.visiblePosition?.dy ?? 0;
+      return currY < previousValue ? currY : previousValue;
+    });
+    final checkX = windowPosition.dx >= minX && windowPosition.dx + (windowSize?.width ?? 0) <= sumWidth;
+    final checkY = windowPosition.dy >= minY && windowPosition.dy + (windowSize?.height ?? 0) <= maxHeight;
+
+    return checkX && checkY;
   }
 
   Future<void> storeDimensions({
