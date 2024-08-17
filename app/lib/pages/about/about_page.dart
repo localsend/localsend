@@ -150,9 +150,9 @@ class AboutPage extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () async {
-                  await launchUrl(Uri.parse('https://opensource.org/licenses/MIT'));
+                  await launchUrl(Uri.parse('https://www.apache.org/licenses/LICENSE-2.0'));
                 },
-                child: const Text('MIT License'),
+                child: const Text('Apache License 2.0'),
               ),
               TextButton(
                 onPressed: () async {
