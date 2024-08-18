@@ -88,7 +88,9 @@ class SettingsTab extends StatelessWidget {
                   /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
                   if (vm.advanced && checkPlatformIsNotWaylandDesktop())
                     _BooleanEntry(
-                      label: t.settingsTab.general.saveWindowPlacement,
+                      label: defaultTargetPlatform == TargetPlatform.windows
+                          ? t.settingsTab.general.saveWindowPlacementWindows
+                          : t.settingsTab.general.saveWindowPlacement,
                       value: vm.settings.saveWindowPlacement,
                       onChanged: (b) async {
                         await ref.notifier(settingsProvider).setSaveWindowPlacement(b);
