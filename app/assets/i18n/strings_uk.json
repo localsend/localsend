@@ -96,7 +96,7 @@
       "languageOptions": {
         "system": "Системна"
       },
-      "saveWindowPlacement": "Зберігати розташування вікна після закриття",
+      "saveWindowPlacement": "Зберігати розташування вікна після виходу",
       "minimizeToTray": "Згортати в системний трей/смугу меню при закритті",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",

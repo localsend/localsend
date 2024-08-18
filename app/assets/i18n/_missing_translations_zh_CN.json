@@ -9,6 +9,6 @@
     }
   },
   "tray": {
-    "closeWindows": "Exit LocalSend"
+    "closeWindows": "Exit"
   }
 }

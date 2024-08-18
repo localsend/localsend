@@ -39,7 +39,7 @@
     }
   },
   "tray": {
-    "closeWindows": "Exit LocalSend"
+    "closeWindows": "Exit"
   },
   "web": {
     "enterPin": "Enter PIN",
