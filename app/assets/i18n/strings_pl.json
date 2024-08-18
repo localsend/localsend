@@ -67,6 +67,7 @@
     "nearbyDevices": "Urządzenia w pobliżu",
     "thisDevice": "To urządzenie",
     "scan": "Szukaj urządzeń",
+    "manualSending": "Wysyłanie ręczne",
     "sendMode": "Tryb wysyłania",
     "sendModes": {
       "single": "Pojedynczy odbiorca",
