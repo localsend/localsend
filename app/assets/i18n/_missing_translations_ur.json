@@ -10,7 +10,8 @@
   "sendTab": {
     "picker": {
       "clipboard": "Paste"
-    }
+    },
+    "manualSending": "Manual sending"
   },
   "settingsTab": {
     "general": {

@@ -178,7 +178,7 @@ class SendTab extends StatelessWidget {
                   ips: vm.localIps,
                 ),
                 Tooltip(
-                  message: t.dialogs.addressInput.title,
+                  message: t.sendTab.manualSending,
                   child: CustomIconButton(
                     onPressed: () async => vm.onTapAddress(context),
                     child: const Icon(Icons.ads_click),

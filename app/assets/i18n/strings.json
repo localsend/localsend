@@ -67,6 +67,7 @@
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device",
     "scan": "Search devices",
+    "manualSending": "Manual sending",
     "sendMode": "Send mode",
     "sendModes": {
       "single": "Single recipient",

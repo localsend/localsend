@@ -127,7 +127,8 @@ class _StringsSendTabEn {
 	String get shareIntentInfo => 'You can also use the "Share" feature of your mobile device to select files more easily.';
 	String get nearbyDevices => 'Nearby devices';
 	String get thisDevice => 'This Device';
-	String get scan => 'Look for devices';
+	String get scan => 'Search devices';
+	String get manualSending => 'Manual sending';
 	String get sendMode => 'Send mode';
 	late final _StringsSendTabSendModesEn sendModes = _StringsSendTabSendModesEn._(_root);
 	String get sendModeHelp => 'Explanation';
