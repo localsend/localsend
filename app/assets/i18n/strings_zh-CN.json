@@ -244,9 +244,9 @@
       "本程序可在 Android、iOS、macOS、Windows 和 Linux 上使用。您可以在官方主页找到所有下载选项。"
     ],
     "author": "作者",
-    "contributors": "贡献者"
+    "contributors": "贡献者",
     "packagers": "包",
-    "translators": "翻译者",
+    "translators": "翻译者"
   },
   "donationPage": {
     "title": "捐赠",
@@ -445,7 +445,7 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
-    "close": "退出 LocalSend"
+    "close": "退出 LocalSend",
     "closeWindows": "退出"
   },
   "web": {

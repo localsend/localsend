@@ -294,8 +294,8 @@ class _StringsAboutPageZhCn extends _StringsAboutPageEn {
 	];
 	@override String get author => '作者';
 	@override String get contributors => '贡献者';
-	@override String get translators => '翻译者';
 	@override String get packagers => '包';
+	@override String get translators => '翻译者';
 }
 
 // Path: donationPage
@@ -452,6 +452,7 @@ class _StringsTrayZhCn extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => '退出 LocalSend';
+	@override String get closeWindows => '退出';
 }
 
 // Path: web
@@ -573,7 +574,8 @@ class _StringsSettingsTabGeneralZhCn extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsZhCn colorOptions = _StringsSettingsTabGeneralColorOptionsZhCn._(_root);
 	@override String get language => '语言';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsZhCn languageOptions = _StringsSettingsTabGeneralLanguageOptionsZhCn._(_root);
-	@override String get saveWindowPlacement => '关闭时：保存窗口位置';
+	@override String get saveWindowPlacement => '关闭时保存窗口位置';
+	@override String get saveWindowPlacementWindows => '退出时保存窗口位置';
 	@override String get minimizeToTray => '关闭时：最小化到系统托盘';
 	@override String get launchAtStartup => '登录系统后自动启动程序';
 	@override String get launchMinimized => '静默自启：只启动托盘服务';

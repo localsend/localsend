@@ -383,6 +383,7 @@ class _StringsTrayDe extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend beenden';
+	@override String get closeWindows => 'Beenden';
 }
 
 // Path: web
@@ -504,8 +505,9 @@ class _StringsSettingsTabGeneralDe extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsDe colorOptions = _StringsSettingsTabGeneralColorOptionsDe._(_root);
 	@override String get language => 'Sprache';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsDe languageOptions = _StringsSettingsTabGeneralLanguageOptionsDe._(_root);
-	@override String get saveWindowPlacement => 'Schließen: Fensterposition speichern';
-	@override String get minimizeToTray => 'Schließen: in Symbolleiste minimieren';
+	@override String get saveWindowPlacement => 'Beenden: Fensterposition speichern';
+	@override String get saveWindowPlacementWindows => 'Beenden: Fensterposition speichern';
+	@override String get minimizeToTray => 'Beenden: in Symbolleiste minimieren';
 	@override String get launchAtStartup => 'Autostart nach Login';
 	@override String get launchMinimized => 'Autostart: versteckt starten';
 	@override String get showInContextMenu => 'LocalSend im Kontextmenü anzeigen';

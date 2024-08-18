@@ -383,6 +383,7 @@ class _StringsTrayRu extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Выйти из LocalSend';
+	@override String get closeWindows => 'Выйти';
 }
 
 // Path: web
@@ -504,7 +505,8 @@ class _StringsSettingsTabGeneralRu extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsRu colorOptions = _StringsSettingsTabGeneralColorOptionsRu._(_root);
 	@override String get language => 'Язык';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsRu languageOptions = _StringsSettingsTabGeneralLanguageOptionsRu._(_root);
-	@override String get saveWindowPlacement => 'Сохранять расположение окна после закрытия';
+	@override String get saveWindowPlacement => 'Сохранять расположение окна после выхода';
+	@override String get saveWindowPlacementWindows => 'Сохранять расположение окна после выхода';
 	@override String get minimizeToTray => 'Сворачивать в системный трей/строку меню при закрытии';
 	@override String get launchAtStartup => 'Автозагрузка';
 	@override String get launchMinimized => 'Скрытая автозагрузка';

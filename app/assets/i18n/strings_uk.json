@@ -97,6 +97,7 @@
         "system": "Системна"
       },
       "saveWindowPlacement": "Зберігати розташування вікна після виходу",
+      "saveWindowPlacementWindows": "Зберігати розташування вікна після виходу",
       "minimizeToTray": "Згортати в системний трей/смугу меню при закритті",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
@@ -375,7 +376,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
-    "close": "Вийти з LocalSend"
+    "close": "Вийти з LocalSend",
+    "closeWindows": "Вийти"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

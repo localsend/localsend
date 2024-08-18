@@ -12,18 +12,10 @@
     "sendTab": {
       "thisDevice": "This Device"
     },
-    "settingsTab": {
-      "general": {
-        "saveWindowPlacementWindows": "Save window position after exit"
-      }
-    },
     "dialogs": {
       "messageInput": {
         "multiline": "Multiline"
       }
-    },
-    "tray": {
-      "closeWindows": "Exit"
     }
   },
   "ar": {},

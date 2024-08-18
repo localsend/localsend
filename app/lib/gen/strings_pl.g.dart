@@ -382,7 +382,8 @@ class _StringsTrayPl extends _StringsTrayEn {
 
 	// Translations
 	@override String get open => _root.general.open;
-	@override String get close => 'Zamknij LocalSend';
+	@override String get close => 'Zakończ LocalSend';
+	@override String get closeWindows => 'Zamknij';
 }
 
 // Path: web
@@ -504,8 +505,9 @@ class _StringsSettingsTabGeneralPl extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsPl colorOptions = _StringsSettingsTabGeneralColorOptionsPl._(_root);
 	@override String get language => 'Język';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsPl languageOptions = _StringsSettingsTabGeneralLanguageOptionsPl._(_root);
-	@override String get saveWindowPlacement => 'Zamknij: zapisz położenie okna';
-	@override String get minimizeToTray => 'Wyjdź: zminimalizuj do menu ukrytych ikon';
+	@override String get saveWindowPlacement => 'Zapisz pozycję okna po zakończeniu';
+	@override String get saveWindowPlacementWindows => 'Zapisz pozycję okna po zamknięciu';
+	@override String get minimizeToTray => 'Zminimalizuj do menu ukrytych ikon przy zamykaniu';
 	@override String get launchAtStartup => 'Autostart po zalogowaniu';
 	@override String get launchMinimized => 'Autostart: start ukryty';
 	@override String get showInContextMenu => 'Pokaż LocalSend w menu kontekstowym';

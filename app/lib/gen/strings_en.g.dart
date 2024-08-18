@@ -459,7 +459,7 @@ class _StringsTrayEn {
 	// Translations
 	String get open => _root.general.open;
 	String get close => 'Quit LocalSend';
-	String get closeWindows => 'Exit LocalSend';
+	String get closeWindows => 'Exit';
 }
 
 // Path: web
