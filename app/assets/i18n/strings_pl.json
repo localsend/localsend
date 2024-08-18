@@ -377,7 +377,7 @@
     "@info": "Wytyczne Apple są bardzo surowe, jeśli chodzi o „zamknięte” sformułowanie.",
     "open": "@:general.open",
     "close": "Zakończ LocalSend",
-    "closeWindows": "Zamknij LocalSend"
+    "closeWindows": "Zamknij"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
