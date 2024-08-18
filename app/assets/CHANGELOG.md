@@ -1,7 +1,10 @@
 ## 1.15.4 (unreleased)
 
+- feat: show tooltip on the "Scan" button (@Tienisto)
 - feat(windows): title bar color should match the system theme (@FutoTan)
-- fix(desktop): window is invisible in multiple monitors due to wrong initial position (@Tienisto)
+- fix(desktop): window is invisible in multiple monitor setup due to wrong initial position (@Tienisto)
+- i18n: distinguish between "Exit" and "Quit" depending on the platform (@sergd88)
+- i18n: add Hindi (@rishi-singh26)
 
 ## 1.15.3 (2024-07-29)
 
