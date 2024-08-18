@@ -446,7 +446,7 @@
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "退出 LocalSend"
-    "closeWindows": "退出 LocalSend"
+    "closeWindows": "退出"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
