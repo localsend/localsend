@@ -97,6 +97,7 @@
         "system": "System"
       },
       "saveWindowPlacement": "Save window position after quit",
+      "saveWindowPlacementWindows": "Save window position after exit",
       "minimizeToTray": "Minimize to the System Tray/Menu Bar when closing",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
@@ -445,7 +446,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Quit LocalSend",
+    "closeWindows": "Exit LocalSend"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

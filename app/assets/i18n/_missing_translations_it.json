@@ -5,6 +5,7 @@
   ],
   "settingsTab": {
     "general": {
+      "saveWindowPlacementWindows": "Save window position after exit",
       "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
@@ -36,6 +37,9 @@
     "pin": {
       "title": "Enter PIN"
     }
+  },
+  "tray": {
+    "closeWindows": "Exit LocalSend"
   },
   "web": {
     "enterPin": "Enter PIN",

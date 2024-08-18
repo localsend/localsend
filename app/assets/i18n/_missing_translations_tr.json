@@ -3,6 +3,11 @@
     "Here are translations that exist in <en> but not in <tr>.",
     "After editing this file, you can run 'dart run slang apply --locale=tr' to quickly apply the newly added translations."
   ],
+  "settingsTab": {
+    "general": {
+      "saveWindowPlacementWindows": "Save window position after exit"
+    }
+  },
   "troubleshootPage": {
     "noDiscovery": {
       "symptom": "This device cannot discover other devices.",
@@ -11,5 +16,8 @@
   },
   "aboutPage": {
     "packagers": "Packagers"
+  },
+  "tray": {
+    "closeWindows": "Exit LocalSend"
   }
 }

@@ -17,6 +17,7 @@
       "colorOptions": {
         "oled": "OLED"
       },
+      "saveWindowPlacementWindows": "Save window position after exit",
       "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
@@ -106,6 +107,9 @@
   "sanitization": {
     "empty": "Filename cannot be empty",
     "invalid": "Filename contains invalid characters"
+  },
+  "tray": {
+    "closeWindows": "Exit LocalSend"
   },
   "web": {
     "enterPin": "Enter PIN",
