@@ -96,8 +96,9 @@
       "languageOptions": {
         "system": "Systemowy"
       },
-      "saveWindowPlacement": "Zamknij: zapisz położenie okna",
-      "minimizeToTray": "Wyjdź: zminimalizuj do menu ukrytych ikon",
+      "saveWindowPlacement": "Zapisz pozycję okna po zakończeniu",
+      "saveWindowPlacementWindows": "Zapisz pozycję okna po zamknięciu",
+      "minimizeToTray": "Zminimalizuj do menu ukrytych ikon przy zamykaniu",
       "launchAtStartup": "Autostart po zalogowaniu",
       "launchMinimized": "Autostart: start ukryty",
       "showInContextMenu": "Pokaż LocalSend w menu kontekstowym",
@@ -375,7 +376,8 @@
   "tray": {
     "@info": "Wytyczne Apple są bardzo surowe, jeśli chodzi o „zamknięte” sformułowanie.",
     "open": "@:general.open",
-    "close": "Zamknij LocalSend"
+    "close": "Zakończ LocalSend",
+    "closeWindows": "Zamknij"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
