@@ -5,10 +5,10 @@
   ],
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "Сохранять расположение окна после выхода"
     }
   },
   "tray": {
-    "closeWindows": "Exit LocalSend"
+    "closeWindows": "Выйти"
   }
 }
