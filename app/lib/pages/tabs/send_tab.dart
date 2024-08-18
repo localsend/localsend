@@ -318,16 +318,19 @@ class _ScanButton extends StatelessWidget {
     final iconColor = !animations && scanningIps.isNotEmpty ? Theme.of(context).colorScheme.warning : null;
 
     if (ips.length <= StartSmartScan.maxInterfaces) {
-      return RotatingWidget(
-        duration: const Duration(seconds: 2),
-        spinning: spinning,
-        reverse: true,
-        child: CustomIconButton(
-          onPressed: () async {
-            context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
-            await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
-          },
-          child: Icon(Icons.sync, color: iconColor),
+      return Tooltip(
+        message: t.sendTab.scan,
+        child: RotatingWidget(
+          duration: const Duration(seconds: 2),
+          spinning: spinning,
+          reverse: true,
+          child: CustomIconButton(
+            onPressed: () async {
+              context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
+              await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
+            },
+            child: Icon(Icons.sync, color: iconColor),
+          ),
         ),
       );
     }
