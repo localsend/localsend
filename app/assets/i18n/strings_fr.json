@@ -150,6 +150,10 @@
       "solution": "Le problème est probablement dû à votre pare-feu. Vous pouvez le régler en autorisant les connections entrantes (UDP et TCP) sur le port {port}.",
       "openFirewall": "Ouvrir le pare-feu"
     },
+    "noDiscovery": {
+      "symptom": "Cet appareil ne peut pas trouver d'autres appareils.",
+      "solution": "Assurez-vous que tous les appareils sont sur le même réseau Wifi et qu'ils partagent la même configuration (port, addresse multicast, chiffrement). Vous pouvez également essayer d'utiliser l'addresse IP de votre appareil cible directement. Si cela fonctionne, assurez-vous d'ajouter le dit appareil à vos favoris pour qu'il soit détecté automatiquement lors des prochaines recherches."
+    },
     "noConnection": {
       "symptom": "Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.",
       "solution": "Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils sont connectés au même réseau wifi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Le wifi peut ne pas autoriser les communications entre appareils. Dans ce cas, l'option doit être activée dans les paramètres du routeur."
@@ -240,6 +244,7 @@
     ],
     "author": "Auteur",
     "contributors": "Contributeurs",
+    "packagers": "Empaqueteurs",
     "translators": "Traducteurs"
   },
   "donationPage": {

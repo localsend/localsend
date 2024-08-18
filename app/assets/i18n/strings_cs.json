@@ -100,16 +100,22 @@
       "minimizeToTray": "Při ukončení minimalizovat do lišty",
       "launchAtStartup": "Automatické spuštění po přihlášení",
       "launchMinimized": "Automatické spuštění: skrytý start",
+      "showInContextMenu": "Zobrazit LocalSend v kontextové nabídce",
       "animations": "Animace"
     },
     "receive": {
       "title": "Soubory",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Automatické dokončování",
       "destination": "Uložit do",
       "downloads": "(Downloads)",
       "saveToGallery": "Uložit média do galerie",
       "saveToHistory": "Uložit do historie"
+    },
+    "send": {
+      "title": "Poslat",
+      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\"."
     },
     "network": {
       "title": "Síť",
@@ -119,6 +125,7 @@
       "deviceType": "Typ zařízení",
       "deviceModel": "Model zařízení",
       "port": "Port",
+      "discoveryTimeout": "Časový limit zjišťování",
       "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
       "encryption": "Šifrování",
       "multicastGroup": "Multicast",
@@ -143,6 +150,10 @@
       "solution": "S největší pravděpodobností se jedná o problém s firewallem. Můžete to vyřešit povolením příchozích připojení (UDP a TCP) na portu {port}.",
       "openFirewall": "Otevřít bránu firewall"
     },
+    "noDiscovery": {
+      "symptom": "Toto zařízení nemůže zjistit jiná zařízení.",
+      "solution": "Ujistěte se, že jsou všechna zařízení ve stejné síti Wi-Fi a sdílejí stejnou konfiguraci (port, adresa vícesměrového vysílání, šifrování). Můžete zkusit zadat IP adresu cílového zařízení ručně. Pokud to funguje, zvažte přidání tohoto zařízení do oblíbených, aby mohlo být v budoucnu automaticky objeveno."
+    },
     "noConnection": {
       "symptom": "Obě zařízení se nemohou navzájem objevit ani nemohou sdílet soubory.",
       "solution": "Problém je na obou stranách? Pak se musíte ujistit, že jsou obě zařízení ve stejné wifi síti a sdílejí stejnou konfiguraci (port, multicastová adresa, šifrování). Wifi nemusí umožňovat komunikaci mezi účastníky. V takovém případě musí být tato možnost povolena na routeru."
@@ -155,6 +166,7 @@
     "empty": "Historie je prázdná.",
     "entryActions": {
       "open": "Otevřít soubor",
+      "showInFolder": "Zobrazit ve složce",
       "info": "Informace",
       "deleteFromHistory": "Smazat z historie"
     }
@@ -187,6 +199,7 @@
   "sendPage": {
     "waiting": "Čekání na odpověď...",
     "rejected": "Příjemce žádost odmítl.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Příjemce je zaneprázdněn dalším požadavkem."
   },
   "progressPage": {
@@ -217,6 +230,9 @@
     "requests": "Žádosti",
     "noRequests": "Zatím žádné žádosti.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automaticky přijímat žádosti",
+    "requirePin": "Vyžadovat PIN",
+    "pinHint": "PIN je \"{pin}\"",
     "encryptionHint": "LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.",
     "pendingRequests": "Čekající žádosti: {n}"
   },
@@ -228,6 +244,7 @@
     ],
     "author": "Autor",
     "contributors": "Přispěvatelé",
+    "packagers": "Baliči",
     "translators": "Překladatelé"
   },
   "donationPage": {
@@ -338,12 +355,22 @@
       "title": "@:general.quickSave",
       "content": "Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory."
     },
+    "pin": {
+      "title": "Vložit PIN"
+    },
     "sendModeHelp": {
       "title": "Režimy odesílání",
       "single": "Odešle soubory jednomu příjemci. Po dokončení přenosu souboru bude výběr vymazán.",
       "multiple": "Odešle soubory více příjemcům. Výběr nebude vymazán.",
       "link": "Příjemci, kteří nemají nainstalovaný LocalSend, si mohou vybrané soubory stáhnout otevřením odkazu ve svém prohlížeči."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Název souboru nemůže být prázdný",
+    "invalid": "Název souboru obsahuje neplatné znaky"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -352,6 +379,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Vložit PIN",
+    "invalidPin": "Neplatný PIN",
+    "tooManyAttempts": "Příliš mnoho pokusů",
     "rejected": "Odmítnuto",
     "files": "Soubory",
     "fileName": "Název souboru",

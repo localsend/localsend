@@ -68,7 +68,7 @@ class _StringsGeneralTh extends _StringsGeneralEn {
 	@override String get confirm => 'ยืนยัน';
 	@override String get continueStr => 'ดำเนินการต่อ';
 	@override String get copy => 'คัดลอก';
-	@override String get copiedToClipboard => 'คัดลอกไปยังคลิปบอร์ดแล้ว้';
+	@override String get copiedToClipboard => 'คัดลอกไปยังคลิปบอร์ดแล้ว';
 	@override String get decline => 'ปฏิเสธ';
 	@override String get done => 'เสร็จแล้ว';
 	@override String get delete => 'ลบ';
@@ -158,6 +158,7 @@ class _StringsTroubleshootPageTh extends _StringsTroubleshootPageEn {
 	@override String get solution => 'วิธีทำ:';
 	@override String get fixButton => 'แก้ไขให้โดยอัตโนมัติ';
 	@override late final _StringsTroubleshootPageFirewallTh firewall = _StringsTroubleshootPageFirewallTh._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryTh noDiscovery = _StringsTroubleshootPageNoDiscoveryTh._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionTh noConnection = _StringsTroubleshootPageNoConnectionTh._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPageTh extends _StringsAboutPageEn {
 	];
 	@override String get author => 'ผู้เขียนโปรแกรม';
 	@override String get contributors => 'รายชื่อผู้มีส่วนร่วมพัฒนา';
+	@override String get packagers => 'ไลบรารี';
 	@override String get translators => 'รายชื่อนักแปล';
 }
 
@@ -654,6 +656,17 @@ class _StringsTroubleshootPageFirewallTh extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'แอปนี้สามารถส่งไฟล์ข้อมูลไปยังอุปกรณ์อื่นได้ แต่อุปกรณ์อื่นไม่สามารถส่งไฟล์ข้อมูลมายังอุปกรณ์นี้ได้';
 	@override String solution({required Object port}) => 'ปัญหานี้อาจมีสาเหตุมาจากการตั้งค่าไฟร์วอลล์ คุณสามารถแก้ไขปัญหานี้ได้ด้วยการอนุญาตการเชื่อมต่อขาเข้า (UDP และ TCP) ผ่านพอร์ตหมายเลข ${port}';
 	@override String get openFirewall => 'เปิดไฟร์วอลล์';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryTh extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryTh._(_StringsTh root) : this._root = root, super._(root);
+
+	@override final _StringsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'อุปกรณ์นี้ไม่สามารถค้นหาอุปกรณ์อื่นได้';
+	@override String get solution => 'โปรดตรวจสอบให้แน่ใจว่าอุปกรณ์ทั้งหมดเชื่อมต่อกับเครือข่าย Wi-Fi เดียวกันและมีการตั้งค่าที่เหมือนกัน (พอร์ต, ที่อยู่ไอพีของมัลติแคสต์, การเข้ารหัส) คุณสามารถลองป้อนที่อยู่ IP ในอุปกรณ์ของคุณด้วยตนเองได้ หากได้ผล สามารถเพิ่มอุปกรณ์ดังกล่าวไปยังรายการโปรดเพื่อให้สามารถค้นพบได้โดยอัตโนมัติในครั้งถัดไป';
 }
 
 // Path: troubleshootPage.noConnection

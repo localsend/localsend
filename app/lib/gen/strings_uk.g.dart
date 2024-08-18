@@ -415,7 +415,7 @@ class _StringsAssetPickerUk extends _StringsAssetPickerEn {
 	@override String get gifIndicator => 'GIF';
 	@override String get loadFailed => 'Не вдалося завантажити';
 	@override String get original => 'Оригінал';
-	@override String get preview => 'Попередній перегляд';
+	@override String get preview => 'Передперегляд';
 	@override String get select => 'Вибрати';
 	@override String get emptyList => 'Список порожній';
 	@override String get unSupportedAssetType => 'Непідтримуваний тип файлу.';
@@ -431,7 +431,7 @@ class _StringsAssetPickerUk extends _StringsAssetPickerEn {
 	@override String get sTypeVideoLabel => 'Відео';
 	@override String get sTypeOtherLabel => 'Інші медіафайли';
 	@override String get sActionPlayHint => 'відтворити';
-	@override String get sActionPreviewHint => 'попередній перегляд';
+	@override String get sActionPreviewHint => 'передперегляд';
 	@override String get sActionSelectHint => 'вибрати';
 	@override String get sActionSwitchPathLabel => 'змінити шлях';
 	@override String get sActionUseCameraHint => 'використати камеру';

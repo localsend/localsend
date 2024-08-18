@@ -580,7 +580,7 @@ class _StringsSettingsTabGeneralEn {
 	late final _StringsSettingsTabGeneralColorOptionsEn colorOptions = _StringsSettingsTabGeneralColorOptionsEn._(_root);
 	String get language => 'Language';
 	late final _StringsSettingsTabGeneralLanguageOptionsEn languageOptions = _StringsSettingsTabGeneralLanguageOptionsEn._(_root);
-	String get saveWindowPlacement => 'Quit: Save window placement';
+	String get saveWindowPlacement => 'Save window position after quit';
 	String get minimizeToTray => 'Minimize to the System Tray/Menu Bar when closing';
 	String get launchAtStartup => 'Autostart after login';
 	String get launchMinimized => 'Autostart: Start hidden';

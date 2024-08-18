@@ -2,14 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fa>.",
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
-  ],
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "این دستگاه نمی‌تواند دستگاه‌های دیگر را پیدا کند",
-      "solution": "مطمئن شوید که هر دو دستگاه به یک شبکه وای فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد دلخواه اضافه کنید تا در آینده به طور خودکار کشف شود"
-    }
-  },
-  "aboutPage": {
-    "packagers": "بسته بندی‌ها"
-  }
+  ]
 }

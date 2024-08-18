@@ -158,6 +158,7 @@ class _StringsTroubleshootPageFr extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Solution:';
 	@override String get fixButton => 'Régler automatiquement';
 	@override late final _StringsTroubleshootPageFirewallFr firewall = _StringsTroubleshootPageFirewallFr._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryFr noDiscovery = _StringsTroubleshootPageNoDiscoveryFr._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionFr noConnection = _StringsTroubleshootPageNoConnectionFr._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPageFr extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Auteur';
 	@override String get contributors => 'Contributeurs';
+	@override String get packagers => 'Empaqueteurs';
 	@override String get translators => 'Traducteurs';
 }
 
@@ -583,6 +585,17 @@ class _StringsTroubleshootPageFirewallFr extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'Cet appareil peut envoyer des fichiers à d\'autres appareils, mais d\'autres appareils ne peuvent pas en envoyer à cet appareil.';
 	@override String solution({required Object port}) => 'Le problème est probablement dû à votre pare-feu. Vous pouvez le régler en autorisant les connections entrantes (UDP et TCP) sur le port ${port}.';
 	@override String get openFirewall => 'Ouvrir le pare-feu';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryFr extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Cet appareil ne peut pas trouver d\'autres appareils.';
+	@override String get solution => 'Assurez-vous que tous les appareils sont sur le même réseau Wifi et qu\'ils partagent la même configuration (port, addresse multicast, chiffrement). Vous pouvez également essayer d\'utiliser l\'addresse IP de votre appareil cible directement. Si cela fonctionne, assurez-vous d\'ajouter le dit appareil à vos favoris pour qu\'il soit détecté automatiquement lors des prochaines recherches.';
 }
 
 // Path: troubleshootPage.noConnection

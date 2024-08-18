@@ -46,6 +46,7 @@ class _StringsCs extends Translations {
 	@override late final _StringsChangelogPageCs changelogPage = _StringsChangelogPageCs._(_root);
 	@override late final _StringsAliasGeneratorCs aliasGenerator = _StringsAliasGeneratorCs._(_root);
 	@override late final _StringsDialogsCs dialogs = _StringsDialogsCs._(_root);
+	@override late final _StringsSanitizationCs sanitization = _StringsSanitizationCs._(_root);
 	@override late final _StringsTrayCs tray = _StringsTrayCs._(_root);
 	@override late final _StringsWebCs web = _StringsWebCs._(_root);
 	@override late final _StringsAssetPickerCs assetPicker = _StringsAssetPickerCs._(_root);
@@ -139,6 +140,7 @@ class _StringsSettingsTabCs extends _StringsSettingsTabEn {
 	@override String get title => 'Nastavení';
 	@override late final _StringsSettingsTabGeneralCs general = _StringsSettingsTabGeneralCs._(_root);
 	@override late final _StringsSettingsTabReceiveCs receive = _StringsSettingsTabReceiveCs._(_root);
+	@override late final _StringsSettingsTabSendCs send = _StringsSettingsTabSendCs._(_root);
 	@override late final _StringsSettingsTabNetworkCs network = _StringsSettingsTabNetworkCs._(_root);
 	@override late final _StringsSettingsTabOtherCs other = _StringsSettingsTabOtherCs._(_root);
 	@override String get advancedSettings => 'Pokročilá nastavení';
@@ -156,6 +158,7 @@ class _StringsTroubleshootPageCs extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Řešení:';
 	@override String get fixButton => 'Opravit automaticky';
 	@override late final _StringsTroubleshootPageFirewallCs firewall = _StringsTroubleshootPageFirewallCs._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryCs noDiscovery = _StringsTroubleshootPageNoDiscoveryCs._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionCs noConnection = _StringsTroubleshootPageNoConnectionCs._(_root);
 }
 
@@ -235,6 +238,7 @@ class _StringsSendPageCs extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Čekání na odpověď...';
 	@override String get rejected => 'Příjemce žádost odmítl.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Příjemce je zaneprázdněn dalším požadavkem.';
 }
 
@@ -269,6 +273,9 @@ class _StringsWebSharePageCs extends _StringsWebSharePageEn {
 	@override String get requests => 'Žádosti';
 	@override String get noRequests => 'Zatím žádné žádosti.';
 	@override String get encryption => _root.settingsTab.network.encryption;
+	@override String get autoAccept => 'Automaticky přijímat žádosti';
+	@override String get requirePin => 'Vyžadovat PIN';
+	@override String pinHint({required Object pin}) => 'PIN je "${pin}"';
 	@override String get encryptionHint => 'LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.';
 	@override String pendingRequests({required Object n}) => 'Čekající žádosti: ${n}';
 }
@@ -287,6 +294,7 @@ class _StringsAboutPageCs extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Přispěvatelé';
+	@override String get packagers => 'Baliči';
 	@override String get translators => 'Překladatelé';
 }
 
@@ -350,7 +358,20 @@ class _StringsDialogsCs extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrCs qr = _StringsDialogsQrCs._(_root);
 	@override late final _StringsDialogsQuickActionsCs quickActions = _StringsDialogsQuickActionsCs._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeCs quickSaveNotice = _StringsDialogsQuickSaveNoticeCs._(_root);
+	@override late final _StringsDialogsPinCs pin = _StringsDialogsPinCs._(_root);
 	@override late final _StringsDialogsSendModeHelpCs sendModeHelp = _StringsDialogsSendModeHelpCs._(_root);
+	@override late final _StringsDialogsZoomCs zoom = _StringsDialogsZoomCs._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationCs extends _StringsSanitizationEn {
+	_StringsSanitizationCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Název souboru nemůže být prázdný';
+	@override String get invalid => 'Název souboru obsahuje neplatné znaky';
 }
 
 // Path: tray
@@ -372,6 +393,9 @@ class _StringsWebCs extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Vložit PIN';
+	@override String get invalidPin => 'Neplatný PIN';
+	@override String get tooManyAttempts => 'Příliš mnoho pokusů';
 	@override String get rejected => 'Odmítnuto';
 	@override String get files => 'Soubory';
 	@override String get fileName => 'Název souboru';
@@ -484,6 +508,7 @@ class _StringsSettingsTabGeneralCs extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Při ukončení minimalizovat do lišty';
 	@override String get launchAtStartup => 'Automatické spuštění po přihlášení';
 	@override String get launchMinimized => 'Automatické spuštění: skrytý start';
+	@override String get showInContextMenu => 'Zobrazit LocalSend v kontextové nabídce';
 	@override String get animations => 'Animace';
 }
 
@@ -496,11 +521,23 @@ class _StringsSettingsTabReceiveCs extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Soubory';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Automatické dokončování';
 	@override String get destination => 'Uložit do';
 	@override String get downloads => '(Downloads)';
 	@override String get saveToGallery => 'Uložit média do galerie';
 	@override String get saveToHistory => 'Uložit do historie';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendCs extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Poslat';
+	@override String get shareViaLinkAutoAccept => 'Automaticky přijímat požadavky v režimu "Sdílet přes odkaz".';
 }
 
 // Path: settingsTab.network
@@ -517,6 +554,7 @@ class _StringsSettingsTabNetworkCs extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Typ zařízení';
 	@override String get deviceModel => 'Model zařízení';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Časový limit zjišťování';
 	@override String portWarning({required Object defaultPort}) => 'Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: ${defaultPort})';
 	@override String get encryption => 'Šifrování';
 	@override String get multicastGroup => 'Multicast';
@@ -549,6 +587,17 @@ class _StringsTroubleshootPageFirewallCs extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'Otevřít bránu firewall';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryCs extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Toto zařízení nemůže zjistit jiná zařízení.';
+	@override String get solution => 'Ujistěte se, že jsou všechna zařízení ve stejné síti Wi-Fi a sdílejí stejnou konfiguraci (port, adresa vícesměrového vysílání, šifrování). Můžete zkusit zadat IP adresu cílového zařízení ručně. Pokud to funguje, zvažte přidání tohoto zařízení do oblíbených, aby mohlo být v budoucnu automaticky objeveno.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionCs extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionCs._(_StringsCs root) : this._root = root, super._(root);
@@ -568,6 +617,7 @@ class _StringsReceiveHistoryPageEntryActionsCs extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Otevřít soubor';
+	@override String get showInFolder => 'Zobrazit ve složce';
 	@override String get info => 'Informace';
 	@override String get deleteFromHistory => 'Smazat z historie';
 }
@@ -819,6 +869,16 @@ class _StringsDialogsQuickSaveNoticeCs extends _StringsDialogsQuickSaveNoticeEn 
 	@override String get content => 'Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory.';
 }
 
+// Path: dialogs.pin
+class _StringsDialogsPinCs extends _StringsDialogsPinEn {
+	_StringsDialogsPinCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vložit PIN';
+}
+
 // Path: dialogs.sendModeHelp
 class _StringsDialogsSendModeHelpCs extends _StringsDialogsSendModeHelpEn {
 	_StringsDialogsSendModeHelpCs._(_StringsCs root) : this._root = root, super._(root);
@@ -830,6 +890,16 @@ class _StringsDialogsSendModeHelpCs extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Odešle soubory jednomu příjemci. Po dokončení přenosu souboru bude výběr vymazán.';
 	@override String get multiple => 'Odešle soubory více příjemcům. Výběr nebude vymazán.';
 	@override String get link => 'Příjemci, kteří nemají nainstalovaný LocalSend, si mohou vybrané soubory stáhnout otevřením odkazu ve svém prohlížeči.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomCs extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomCs._(_StringsCs root) : this._root = root, super._(root);
+
+	@override final _StringsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
