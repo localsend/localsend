@@ -18,6 +18,6 @@
     "packagers": "Packagers"
   },
   "tray": {
-    "closeWindows": "Exit LocalSend"
+    "closeWindows": "Exit"
   }
 }

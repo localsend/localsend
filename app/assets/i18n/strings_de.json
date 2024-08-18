@@ -377,7 +377,7 @@
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "LocalSend beenden",
-    "closeWindows": "LocalSend beenden"
+    "closeWindows": "Beenden"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

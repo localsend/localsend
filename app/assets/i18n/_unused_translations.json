@@ -23,7 +23,7 @@
       }
     },
     "tray": {
-      "closeWindows": "Exit LocalSend"
+      "closeWindows": "Exit"
     }
   },
   "ar": {},
