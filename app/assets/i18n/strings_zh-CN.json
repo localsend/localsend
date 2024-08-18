@@ -96,7 +96,8 @@
       "languageOptions": {
         "system": "跟随系统"
       },
-      "saveWindowPlacement": "关闭时：保存窗口位置",
+      "saveWindowPlacement": "关闭时保存窗口位置",
+      "saveWindowPlacementWindows": "退出时保存窗口位置",
       "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
       "launchMinimized": "静默自启：只启动托盘服务",
@@ -243,9 +244,9 @@
       "本程序可在 Android、iOS、macOS、Windows 和 Linux 上使用。您可以在官方主页找到所有下载选项。"
     ],
     "author": "作者",
-    "contributors": "贡献者",
+    "contributors": "贡献者"
+    "packagers": "包",
     "translators": "翻译者",
-    "packagers": "包"
   },
   "donationPage": {
     "title": "捐赠",
@@ -442,9 +443,10 @@
     "invalid": "文件名包含无效字符。"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "退出 LocalSend"
+    "closeWindows": "退出"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -457,7 +459,7 @@
     "size": "大小"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "确认",
     "cancel": "取消",
     "edit": "编辑",
