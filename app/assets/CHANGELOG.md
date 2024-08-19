@@ -1,6 +1,7 @@
 ## 1.15.4 (unreleased)
 
 - feat: show tooltip on the "Scan" button (@Tienisto)
+- feat(mobile): adjust padding between buttons in send tab to indicate that it's scrollable (@Tienisto)
 - feat(windows): title bar color should match the system theme (@FutoTan)
 - fix(desktop): multiple monitor setup may cause the window to be invisible at app start (@Tienisto)
 - i18n: distinguish between "Exit" and "Quit" depending on the platform (@sergd88)

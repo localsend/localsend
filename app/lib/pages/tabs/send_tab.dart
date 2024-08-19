@@ -24,9 +24,11 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:localsend_app/widget/horizontal_clip_list_view.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -44,6 +46,8 @@ class SendTab extends StatelessWidget {
       provider: sendTabVmProvider,
       init: (context) => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
+        final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
+        final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
         final ref = context.ref;
         return ResponsiveListView(
           padding: EdgeInsets.zero,
@@ -57,28 +61,22 @@ class SendTab extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    const SizedBox(width: 10),
-                    ..._options.map((option) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                        child: BigButton(
-                          icon: option.icon,
-                          label: option.label,
-                          filled: false,
-                          onTap: () async => ref.global.dispatchAsync(PickFileAction(
-                            option: option,
-                            context: context,
-                          )),
-                        ),
-                      );
-                    }),
-                    const SizedBox(width: 10),
-                  ],
-                ),
+              HorizontalClipListView(
+                outerHorizontalPadding: 15,
+                outerVerticalPadding: 10,
+                minPadding: 10,
+                childWidth: buttonWidth,
+                children: _options.map((option) {
+                  return BigButton(
+                    icon: option.icon,
+                    label: option.label,
+                    filled: false,
+                    onTap: () async => ref.global.dispatchAsync(PickFileAction(
+                      option: option,
+                      context: context,
+                    )),
+                  );
+                }).toList(),
               ),
             ] else ...[
               Card(
