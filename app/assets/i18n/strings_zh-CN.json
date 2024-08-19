@@ -50,6 +50,7 @@
   },
   "sendTab": {
     "title": "发送",
+    "manualSending": "手动发送",
     "selection": {
       "title": "选择",
       "files": "文件：{files}",
