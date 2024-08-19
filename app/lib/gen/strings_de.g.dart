@@ -123,6 +123,7 @@ class _StringsSendTabDe extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Geräte in der Nähe';
 	@override String get thisDevice => 'Dieses Gerät';
 	@override String get scan => 'Geräte suchen';
+	@override String get manualSending => 'Manuelles Senden';
 	@override String get sendMode => 'Sendemodus';
 	@override late final _StringsSendTabSendModesDe sendModes = _StringsSendTabSendModesDe._(_root);
 	@override String get sendModeHelp => 'Erklärung';
