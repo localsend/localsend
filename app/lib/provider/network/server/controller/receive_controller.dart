@@ -390,8 +390,9 @@ class ReceiveController {
       return server.responseJson(403, message: 'Invalid IP address: ${request.ip}');
     }
 
-    if (receiveState.status != SessionStatus.sending) {
-      _logger.warning('Wrong state: ${receiveState.status} (expected: ${SessionStatus.sending})');
+    const allowedStates = {SessionStatus.sending, SessionStatus.finishedWithErrors};
+    if (!allowedStates.contains(receiveState.status)) {
+      _logger.warning('Wrong state: ${receiveState.status}');
       return server.responseJson(409, message: 'Recipient is in wrong state');
     }
 
@@ -425,10 +426,10 @@ class ReceiveController {
               fileId,
               (_) => receivingFile.copyWith(
                 status: FileStatus.sending,
-                token: null, // remove token to reject further uploads of the same file
               ),
             ),
           startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
+          status: SessionStatus.sending, // in case it was finishedWithErrors and user retries a failed file
         ),
       ),
     );
@@ -465,7 +466,7 @@ class ReceiveController {
           }
         },
       );
-      if (server.getState().session == null || server.getState().session!.status != SessionStatus.sending) {
+      if (server.getState().session == null || !allowedStates.contains(server.getState().session!.status)) {
         return server.responseJson(500, message: 'Server is in invalid state');
       }
       server.setState(
@@ -516,8 +517,7 @@ class ReceiveController {
         );
 
     final session = server.getState().session!;
-    if (session.status == SessionStatus.sending &&
-        session.files.values.every((f) => f.status == FileStatus.finished || f.status == FileStatus.skipped || f.status == FileStatus.failed)) {
+    if (allowedStates.contains(session.status) && session.files.values.map((e) => e.status).isFinishedOrError) {
       final hasError = session.files.values.any((f) => f.status == FileStatus.failed);
       server.setState(
         (oldState) => oldState?.copyWith(
@@ -540,7 +540,7 @@ class ReceiveController {
 
     return server.getState().session?.files[fileId]?.status == FileStatus.finished
         ? server.responseJson(200)
-        : server.responseJson(500, message: 'Could not save file');
+        : server.responseJson(500, message: 'Could not save file. Check receiving device for more information.');
   }
 
   Response _cancelHandler({
