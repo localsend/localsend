@@ -4,7 +4,7 @@
 - feat: treat any URI as link, so it becomes clickable on receiver (e.g. file://, obsidian://) (@Tienisto)
 - feat(mobile): adjust padding between buttons in send tab to indicate that it's scrollable (@Tienisto)
 - feat(windows): title bar color should match the system theme (@FutoTan)
-- fix: memory leak when sending files (1.15.0 only fixed receiving files while causing regression bug) (@Tienisto)
+- fix: memory leak when sending files (regression in 1.15.0, 1.15.2 only fixed receiving files) (@Tienisto)
 - fix(windows): LocalSend window is invisible at app start (@Tienisto)
 - i18n: distinguish between "Exit" and "Quit" depending on the platform (@sergd88)
 - i18n: add Hindi (@rishi-singh26)
