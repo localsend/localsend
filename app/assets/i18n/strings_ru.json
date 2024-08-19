@@ -67,6 +67,7 @@
     "nearbyDevices": "Устройства поблизости",
     "thisDevice": "Это устройство",
     "scan": "Поиск устройств",
+    "manualSending": "Ручная отправка",
     "sendMode": "Режим отправки",
     "sendModes": {
       "single": "Один получатель",

@@ -67,6 +67,7 @@
     "nearbyDevices": "Пристрої поблизу",
     "thisDevice": "Цей пристрій",
     "scan": "Пошук пристроїв",
+    "manualSending": "Ручне надсилання",
     "sendMode": "Режим надсилання",
     "sendModes": {
       "single": "Один отримувач",

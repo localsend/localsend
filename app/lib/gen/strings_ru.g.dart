@@ -123,6 +123,7 @@ class _StringsSendTabRu extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Устройства поблизости';
 	@override String get thisDevice => 'Это устройство';
 	@override String get scan => 'Поиск устройств';
+	@override String get manualSending => 'Ручная отправка';
 	@override String get sendMode => 'Режим отправки';
 	@override late final _StringsSendTabSendModesRu sendModes = _StringsSendTabSendModesRu._(_root);
 	@override String get sendModeHelp => 'Справка';

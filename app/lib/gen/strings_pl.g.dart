@@ -123,6 +123,7 @@ class _StringsSendTabPl extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Urządzenia w pobliżu';
 	@override String get thisDevice => 'To urządzenie';
 	@override String get scan => 'Szukaj urządzeń';
+	@override String get manualSending => 'Wysyłanie ręczne';
 	@override String get sendMode => 'Tryb wysyłania';
 	@override late final _StringsSendTabSendModesPl sendModes = _StringsSendTabSendModesPl._(_root);
 	@override String get sendModeHelp => 'Wyjaśnienie';

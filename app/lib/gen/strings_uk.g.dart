@@ -123,6 +123,7 @@ class _StringsSendTabUk extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Пристрої поблизу';
 	@override String get thisDevice => 'Цей пристрій';
 	@override String get scan => 'Пошук пристроїв';
+	@override String get manualSending => 'Ручне надсилання';
 	@override String get sendMode => 'Режим надсилання';
 	@override late final _StringsSendTabSendModesUk sendModes = _StringsSendTabSendModesUk._(_root);
 	@override String get sendModeHelp => 'Довідка';
