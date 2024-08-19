@@ -4,14 +4,14 @@
     "After editing this file, you can run 'dart run slang apply --locale=sr-Cyrl' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Мануелно слање"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "Сними позицију прозора након изласка из апликације"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Изађи"
   }
 }
