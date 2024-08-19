@@ -117,6 +117,7 @@ class _StringsSendTabZhCn extends _StringsSendTabEn {
 
 	// Translations
 	@override String get title => '发送';
+	@override String get manualSending => '手动发送';
 	@override late final _StringsSendTabSelectionZhCn selection = _StringsSendTabSelectionZhCn._(_root);
 	@override late final _StringsSendTabPickerZhCn picker = _StringsSendTabPickerZhCn._(_root);
 	@override String get shareIntentInfo => '你也可以通过移动设备中的“分享”功能更简单地选择文件。';
