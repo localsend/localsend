@@ -2,7 +2,7 @@
 
 - feat: show tooltip on the "Scan" button (@Tienisto)
 - feat(windows): title bar color should match the system theme (@FutoTan)
-- fix(desktop): window is invisible in multiple monitor setup due to wrong initial position (@Tienisto)
+- fix(desktop): multiple monitor setup may cause the window to be invisible at app start (@Tienisto)
 - i18n: distinguish between "Exit" and "Quit" depending on the platform (@sergd88)
 - i18n: add Hindi (@rishi-singh26)
 
