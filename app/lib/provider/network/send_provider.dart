@@ -340,6 +340,32 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
       );
 
+      final Stream<List<int>>? fileStream = file.path != null
+          ? file.path!.startsWith('content://')
+              ? uriContent.getContentStream(Uri.parse(file.path!))
+              : File(file.path!).openRead()
+          : null;
+
+      final StreamController<List<int>>? streamController;
+      StreamSubscription<List<int>>? subscription;
+      if (fileStream != null) {
+        streamController = StreamController<List<int>>(
+          onListen: () => subscription!.resume(),
+          onPause: () => subscription!.pause(),
+          onResume: () => subscription!.resume(),
+          onCancel: () => subscription!.cancel(),
+        );
+
+        subscription = fileStream.listen(
+          (data) => streamController!.add(data),
+          onError: (e, st) => streamController!.addError(e, st),
+          onDone: () => streamController!.close(),
+        );
+      } else {
+        streamController = null;
+        subscription = null;
+      }
+
       String? fileError;
       try {
         final cancelToken = CancelToken();
@@ -360,11 +386,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               'Content-Type': file.file.lookupMime(),
             },
           ),
-          data: file.path != null
-              ? file.path!.startsWith('content://')
-                  ? uriContent.getContentStream(Uri.parse(file.path!))
-                  : File(file.path!).openRead().asBroadcastStream()
-              : file.bytes!,
+          data: streamController?.stream ?? file.bytes!,
           onSendProgress: (curr, total) {
             if (stopwatch.elapsedMilliseconds >= 100) {
               stopwatch.reset();
@@ -388,6 +410,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         fileError = e.humanErrorMessage;
         hasError = true;
         _logger.warning('Error while sending file ${file.file.fileName}', e, st);
+      } finally {
+        // Close the stream if it is still open
+        // ignore: unawaited_futures
+        streamController?.close();
+
+        // Cancel the subscription if it is still open
+        // ignore: unawaited_futures
+        subscription?.cancel();
       }
 
       state = state.updateSession(
