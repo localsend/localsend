@@ -3,7 +3,7 @@
 - feat: add button to retry a failed file transfer (@Tienisto)
 - feat: show tooltip on the "Scan" button (@Tienisto)
 - feat: treat any URI as link, so it becomes clickable on receiver (e.g. file://, obsidian://) (@Tienisto)
-- feat(mobile): adjust padding between buttons in send tab to indicate that it's scrollable (@Tienisto)
+- feat(mobile): adjust buttons width in send tab to indicate that it's scrollable (@Tienisto)
 - feat(windows): title bar color should match the system theme (@FutoTan)
 - fix: memory leak when sending files (regression in 1.15.0, 1.15.2 only fixed receiving files) (@Tienisto)
 - fix(windows): LocalSend window is invisible at app start (@Tienisto)

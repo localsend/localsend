@@ -64,8 +64,8 @@ class SendTab extends StatelessWidget {
               HorizontalClipListView(
                 outerHorizontalPadding: 15,
                 outerVerticalPadding: 10,
-                minPadding: 10,
-                childWidth: buttonWidth,
+                childPadding: 10,
+                minChildWidth: buttonWidth,
                 children: _options.map((option) {
                   return BigButton(
                     icon: option.icon,

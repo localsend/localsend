@@ -1,23 +1,21 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-/// A horizontal list that adjusts the padding if the screen is too small.
-/// In this case, the padding increases until half of the next button is visible.
+/// A horizontal list that adjusts the width if the screen is too small.
+/// In this case, the width increases until 10% - 50% of the next button is visible.
 /// This is useful to communicate to the user that there are more buttons to the right.
 class HorizontalClipListView extends StatelessWidget {
   final double outerHorizontalPadding;
   final double outerVerticalPadding;
-  final double minPadding;
-  final double childWidth;
+  final double childPadding;
+  final double minChildWidth;
   final List<Widget> children;
 
   const HorizontalClipListView({
     super.key,
     required this.outerHorizontalPadding,
     required this.outerVerticalPadding,
-    required this.minPadding,
-    required this.childWidth,
+    required this.childPadding,
+    required this.minChildWidth,
     required this.children,
   });
 
@@ -25,21 +23,16 @@ class HorizontalClipListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final availableWidth = constraints.maxWidth - outerHorizontalPadding;
-        final requiredWidth = childWidth * (children.length - 1) + childWidth * 0.2 + minPadding * (children.length - 1);
-        final padding = switch (requiredWidth <= availableWidth) {
-          true => minPadding,
-          false => _calcPadding(
-              availableWidth: availableWidth,
-              childWidth: childWidth,
-              childrenCount: children.length,
-              minPadding: minPadding,
-            ),
-        };
+        final childWidth = _calcOptimalButtonWidth(
+          availableWidth: constraints.maxWidth,
+          paddingLeft: outerHorizontalPadding,
+          childrenCount: children.length,
+          minChildWidth: minChildWidth,
+          childPadding: childPadding,
+        );
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
-            key: ValueKey(padding),
             padding: EdgeInsets.symmetric(
               horizontal: outerHorizontalPadding,
               vertical: outerVerticalPadding,
@@ -48,11 +41,16 @@ class HorizontalClipListView extends StatelessWidget {
               children: [
                 for (int i = 0; i < children.length; i++)
                   i == children.length - 1
-                      ? children[i]
-                      : Padding(
-                          key: ValueKey(i),
-                          padding: EdgeInsets.only(right: padding),
+                      ? SizedBox(
+                          width: childWidth,
                           child: children[i],
+                        )
+                      : Padding(
+                          padding: EdgeInsets.only(right: childPadding),
+                          child: SizedBox(
+                            width: childWidth,
+                            child: children[i],
+                          ),
                         ),
               ],
             ),
@@ -63,40 +61,84 @@ class HorizontalClipListView extends StatelessWidget {
   }
 }
 
-double _calcPadding({
+double _calcOptimalButtonWidth({
   required double availableWidth,
-  required double childWidth,
+  required double paddingLeft,
   required int childrenCount,
-  required double minPadding,
+  required double minChildWidth,
+  required double childPadding,
 }) {
-  final possiblePaddings = const [0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].map((percentage) => _calcPaddingFormula(
-        availableWidth: availableWidth,
-        childWidth: childWidth,
-        childrenCount: childrenCount,
-        minPadding: minPadding,
-        clipPercentage: percentage,
-      ));
+  int childWidth = minChildWidth.toInt();
+  while (true) {
+    if (_fitsOnScreen(
+          availableWidth: availableWidth,
+          paddingLeft: paddingLeft,
+          childrenCount: childrenCount,
+          childWidth: childWidth.toDouble(),
+          childPadding: childPadding,
+        ) ||
+        _fitsPartially(
+          availableWidth: availableWidth,
+          paddingLeft: paddingLeft,
+          childrenCount: childrenCount,
+          childWidth: childWidth.toDouble(),
+          childPadding: childPadding,
+        )) {
+      return childWidth.toDouble();
+    }
 
-  return max(minPadding, possiblePaddings.reduce(min));
+    childWidth++;
+  }
 }
 
-double _calcPaddingFormula({
+bool _fitsOnScreen({
   required double availableWidth,
-  required double childWidth,
+  required double paddingLeft,
   required int childrenCount,
-  required double minPadding,
-  required double clipPercentage,
+  required double childWidth,
+  required double childPadding,
 }) {
-  int visibleChildren = 0;
-  for (int i = 1; i <= childrenCount; i++) {
-    if (childWidth * i + minPadding * (i - 1) <= availableWidth + childWidth * clipPercentage) {
-      visibleChildren++;
-    } else {
-      break;
+  return paddingLeft + childrenCount * childWidth + (childrenCount - 1) * childPadding <= availableWidth;
+}
+
+bool _fitsPartially({
+  required double availableWidth,
+  required double paddingLeft,
+  required int childrenCount,
+  required double childWidth,
+  required double childPadding,
+}) {
+  for (int i = 2; i <= childrenCount; i++) {
+    final minWidth = _calcTotalWidthWithPartialLastItem(
+      paddingLeft: paddingLeft,
+      childrenCount: i,
+      childWidth: childWidth,
+      childPadding: childPadding,
+      lastItemPercentage: 0.1,
+    );
+    final maxWidth = _calcTotalWidthWithPartialLastItem(
+      paddingLeft: paddingLeft,
+      childrenCount: i,
+      childWidth: childWidth,
+      childPadding: childPadding,
+      lastItemPercentage: 0.5,
+    );
+
+    if (minWidth <= availableWidth && maxWidth > availableWidth) {
+      return true;
     }
   }
+  return false;
+}
 
-  final padding = (availableWidth + (childWidth * clipPercentage) - childWidth * visibleChildren) / (visibleChildren - 1);
-
-  return padding;
+@pragma('vm:prefer-inline')
+@pragma('dart2js:tryInline')
+double _calcTotalWidthWithPartialLastItem({
+  required double paddingLeft,
+  required int childrenCount,
+  required double childWidth,
+  required double childPadding,
+  required double lastItemPercentage,
+}) {
+  return paddingLeft + (childrenCount - 1) * childWidth + childWidth * lastItemPercentage + (childrenCount - 1) * childPadding;
 }
