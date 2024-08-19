@@ -62,7 +62,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required bool background,
   }) async {
     final requestDio = ref.read(dioProvider).longLiving;
-    final uploadDio = ref.read(dioProvider).longLiving;
     final cancelToken = CancelToken();
     final sessionId = _uuid.v4();
 
@@ -311,125 +310,35 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       ),
     );
 
-    await _send(sessionId, uploadDio, target, sendingFiles);
+    await _sendLoop(sessionId, target, sendingFiles);
   }
 
-  Future<void> _send(String sessionId, Dio dio, Device target, Map<String, SendingFile> files) async {
-    bool hasError = false;
-    final remoteSessionId = state[sessionId]!.remoteSessionId;
-
+  Future<void> _sendLoop(String sessionId, Device target, Map<String, SendingFile> files) async {
     state = state.updateSession(
       sessionId: sessionId,
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
     );
 
-    final uriContent = UriContent();
     for (final file in files.values) {
-      final token = file.token;
-      if (token == null) {
-        continue;
-      }
-
-      if (state[sessionId] != null && state[sessionId]!.status != SessionStatus.sending) {
+      final result = await sendFile(
+        sessionId: sessionId,
+        file: file,
+        isRetry: false,
+      );
+      if (!result) {
         break;
       }
-
-      _logger.info('Sending ${file.file.fileName}');
-      state = state.updateSession(
-        sessionId: sessionId,
-        state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
-      );
-
-      final Stream<List<int>>? fileStream = file.path != null
-          ? file.path!.startsWith('content://')
-              ? uriContent.getContentStream(Uri.parse(file.path!))
-              : File(file.path!).openRead()
-          : null;
-
-      final StreamController<List<int>>? streamController;
-      StreamSubscription<List<int>>? subscription;
-      if (fileStream != null) {
-        streamController = StreamController<List<int>>(
-          onListen: () => subscription!.resume(),
-          onPause: () => subscription!.pause(),
-          onResume: () => subscription!.resume(),
-          onCancel: () => subscription!.cancel(),
-        );
-
-        subscription = fileStream.listen(
-          (data) => streamController!.add(data),
-          onError: (e, st) => streamController!.addError(e, st),
-          onDone: () => streamController!.close(),
-        );
-      } else {
-        streamController = null;
-        subscription = null;
-      }
-
-      String? fileError;
-      try {
-        final cancelToken = CancelToken();
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(cancelToken: cancelToken),
-        );
-        final stopwatch = Stopwatch()..start();
-        await dio.post(
-          ApiRoute.upload.target(target, query: {
-            if (remoteSessionId != null) 'sessionId': remoteSessionId,
-            'fileId': file.file.id,
-            'token': token,
-          }),
-          options: Options(
-            headers: {
-              'Content-Length': file.file.size,
-              'Content-Type': file.file.lookupMime(),
-            },
-          ),
-          data: streamController?.stream ?? file.bytes!,
-          onSendProgress: (curr, total) {
-            if (stopwatch.elapsedMilliseconds >= 100) {
-              stopwatch.reset();
-              ref.notifier(progressProvider).setProgress(
-                    sessionId: sessionId,
-                    fileId: file.file.id,
-                    progress: curr / total,
-                  );
-            }
-          },
-          cancelToken: cancelToken,
-        );
-
-        // set progress to 100% when successfully finished
-        ref.notifier(progressProvider).setProgress(
-              sessionId: sessionId,
-              fileId: file.file.id,
-              progress: 1,
-            );
-      } catch (e, st) {
-        fileError = e.humanErrorMessage;
-        hasError = true;
-        _logger.warning('Error while sending file ${file.file.fileName}', e, st);
-      } finally {
-        // Close the stream if it is still open
-        // ignore: unawaited_futures
-        streamController?.close();
-
-        // Cancel the subscription if it is still open
-        // ignore: unawaited_futures
-        subscription?.cancel();
-      }
-
-      state = state.updateSession(
-        sessionId: sessionId,
-        state: (s) => s?.withFileStatus(file.file.id, fileError != null ? FileStatus.failed : FileStatus.finished, fileError),
-      );
     }
 
+    _finish(sessionId: sessionId);
+  }
+
+  void _finish({required String sessionId}) {
     if (state[sessionId] != null && state[sessionId]!.status != SessionStatus.sending) {
       _logger.info('Transfer was canceled.');
     } else {
-      if (!hasError && state[sessionId]?.background == true) {
+      final hasError = state[sessionId]!.files.values.any((file) => file.status == FileStatus.failed);
+      if (!hasError && state[sessionId]!.background == true) {
         // close session because everything is fine and it is in background
         closeSession(sessionId);
         _logger.info('Transfer finished and session removed.');
@@ -450,6 +359,149 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         }
       }
     }
+  }
+
+  final uriContent = UriContent();
+
+  /// Sends a file.
+  /// Returns true, if the next file should be sent.
+  Future<bool> sendFile({
+    required String sessionId,
+    required SendingFile file,
+    required bool isRetry,
+  }) async {
+    final token = file.token;
+    if (token == null) {
+      return true;
+    }
+
+    final status = state[sessionId]?.status;
+    const allowedStates = {SessionStatus.sending, SessionStatus.finishedWithErrors};
+    if (status == null || !allowedStates.contains(status)) {
+      return false;
+    }
+
+    final remoteSessionId = state[sessionId]!.remoteSessionId;
+    final dio = ref.read(dioProvider).longLiving;
+    final target = state[sessionId]!.target;
+
+    if (isRetry) {
+      _logger.info('Retrying ${file.file.fileName}');
+
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(
+          status: SessionStatus.sending,
+          files: s.files.map((key, value) {
+            if (key == file.file.id) {
+              return MapEntry(key, value.copyWith(status: FileStatus.queue, errorMessage: null));
+            }
+            return MapEntry(key, value);
+          }),
+        ),
+      );
+    } else {
+      _logger.info('Sending ${file.file.fileName}');
+    }
+
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
+    );
+
+    final Stream<List<int>>? fileStream = file.path != null
+        ? file.path!.startsWith('content://')
+            ? uriContent.getContentStream(Uri.parse(file.path!))
+            : File(file.path!).openRead()
+        : null;
+
+    final StreamController<List<int>>? streamController;
+    StreamSubscription<List<int>>? subscription;
+    if (fileStream != null) {
+      streamController = StreamController<List<int>>(
+        onListen: () => subscription!.resume(),
+        onPause: () => subscription!.pause(),
+        onResume: () => subscription!.resume(),
+        onCancel: () => subscription!.cancel(),
+      );
+
+      subscription = fileStream.listen(
+        (data) => streamController!.add(data),
+        onError: (e, st) => streamController!.addError(e, st),
+        onDone: () => streamController!.close(),
+      );
+    } else {
+      streamController = null;
+      subscription = null;
+    }
+
+    String? fileError;
+    try {
+      final cancelToken = CancelToken();
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(cancelToken: cancelToken),
+      );
+      final stopwatch = Stopwatch()..start();
+      await dio.post(
+        ApiRoute.upload.target(target, query: {
+          if (remoteSessionId != null) 'sessionId': remoteSessionId,
+          'fileId': file.file.id,
+          'token': token,
+        }),
+        options: Options(
+          headers: {
+            'Content-Length': file.file.size,
+            'Content-Type': file.file.lookupMime(),
+          },
+        ),
+        data: streamController?.stream ?? file.bytes!,
+        onSendProgress: (curr, total) {
+          if (stopwatch.elapsedMilliseconds >= 100) {
+            stopwatch.reset();
+            ref.notifier(progressProvider).setProgress(
+                  sessionId: sessionId,
+                  fileId: file.file.id,
+                  progress: curr / total,
+                );
+          }
+        },
+        cancelToken: cancelToken,
+      );
+
+      // set progress to 100% when successfully finished
+      ref.notifier(progressProvider).setProgress(
+            sessionId: sessionId,
+            fileId: file.file.id,
+            progress: 1,
+          );
+    } catch (e, st) {
+      fileError = e.humanErrorMessage;
+      _logger.warning('Error while sending file ${file.file.fileName}', e, st);
+    } finally {
+      // Close the stream if it is still open
+      // ignore: unawaited_futures
+      streamController?.close();
+
+      // Cancel the subscription if it is still open
+      // ignore: unawaited_futures
+      subscription?.cancel();
+    }
+
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (s) => s?.withFileStatus(file.file.id, fileError != null ? FileStatus.failed : FileStatus.finished, fileError),
+    );
+
+    if (isRetry) {
+      final state = this.state[sessionId];
+      if (state != null && state.files.values.map((e) => e.status).isFinishedOrError) {
+        _finish(sessionId: sessionId);
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /// Closes the send-session and sends a cancel event to the receiver.
