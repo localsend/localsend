@@ -3,6 +3,9 @@ import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 
 class BigButton extends StatelessWidget {
+  static const double desktopWidth = 100.0;
+  static const double mobileWidth = 90.0;
+
   final IconData icon;
   final String label;
   final bool filled;
@@ -19,15 +22,10 @@ class BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
-    final buttonWidth = sizingInformation.isDesktop ? 100.0 : 90.0;
-    const buttonHeight = 65.0;
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: buttonWidth,
-        minWidth: buttonWidth,
-        minHeight: buttonHeight,
-        maxHeight: buttonHeight,
-      ),
+    final buttonWidth = sizingInformation.isDesktop ? desktopWidth : mobileWidth;
+    return SizedBox(
+      width: buttonWidth,
+      height: 65.0,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: filled ? colorScheme.primary : colorScheme.secondaryContainerIfDark,
