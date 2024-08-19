@@ -4,7 +4,7 @@
 - feat(mobile): adjust padding between buttons in send tab to indicate that it's scrollable (@Tienisto)
 - feat(windows): title bar color should match the system theme (@FutoTan)
 - fix: memory leak when sending files (1.15.0 only fixed receiving files while causing regression bug) (@Tienisto)
-- fix(desktop): multiple monitor setup may cause the window to be invisible at app start (@Tienisto)
+- fix(windows): LocalSend window is invisible at app start (@Tienisto)
 - i18n: distinguish between "Exit" and "Quit" depending on the platform (@sergd88)
 - i18n: add Hindi (@rishi-singh26)
 
