@@ -745,8 +745,8 @@ class _StringsDialogsCancelSessionEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Cancel file transfer';
-	String get content => 'Do you really want to cancel the file transfer?';
+	String get title => 'Cancel files transfer';
+	String get content => 'Do you really want to cancel the files transfer?';
 }
 
 // Path: dialogs.cannotOpenFile

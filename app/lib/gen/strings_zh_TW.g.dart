@@ -123,6 +123,7 @@ class _StringsSendTabZhTw extends _StringsSendTabEn {
 	@override String get nearbyDevices => '附近的裝置';
 	@override String get thisDevice => '此裝置';
 	@override String get scan => '尋找裝置';
+	@override String get manualSending => '手動傳送';
 	@override String get sendMode => '傳送模式';
 	@override late final _StringsSendTabSendModesZhTw sendModes = _StringsSendTabSendModesZhTw._(_root);
 	@override String get sendModeHelp => '說明';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageZhTw extends _StringsTroubleshootPageEn {
 	@override String get solution => '解決方案:';
 	@override String get fixButton => '自動修正';
 	@override late final _StringsTroubleshootPageFirewallZhTw firewall = _StringsTroubleshootPageFirewallZhTw._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryZhTw noDiscovery = _StringsTroubleshootPageNoDiscoveryZhTw._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionZhTw noConnection = _StringsTroubleshootPageNoConnectionZhTw._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPageZhTw extends _StringsAboutPageEn {
 	];
 	@override String get author => '作者';
 	@override String get contributors => '貢獻者';
+	@override String get packagers => '打包者';
 	@override String get translators => '翻譯者';
 }
 
@@ -381,6 +384,7 @@ class _StringsTrayZhTw extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => '離開 LocalSend';
+	@override String get closeWindows => '離開';
 }
 
 // Path: web
@@ -503,6 +507,7 @@ class _StringsSettingsTabGeneralZhTw extends _StringsSettingsTabGeneralEn {
 	@override String get language => '語言';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsZhTw languageOptions = _StringsSettingsTabGeneralLanguageOptionsZhTw._(_root);
 	@override String get saveWindowPlacement => '離開：儲存視窗位置';
+	@override String get saveWindowPlacementWindows => '離開後儲存視窗位置';
 	@override String get minimizeToTray => '離開：最小化至系統匣';
 	@override String get launchAtStartup => '登入後自動啟動';
 	@override String get launchMinimized => '自動啟動至系統匣';
@@ -552,7 +557,7 @@ class _StringsSettingsTabNetworkZhTw extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => '裝置類型';
 	@override String get deviceModel => '裝置型號';
 	@override String get port => '通訊埠';
-	@override String get discoveryTimeout => '搜索裝置逾時';
+	@override String get discoveryTimeout => '探索裝置逾時';
 	@override String portWarning({required Object defaultPort}) => '您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：${defaultPort})';
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多點傳送';
@@ -583,6 +588,17 @@ class _StringsTroubleshootPageFirewallZhTw extends _StringsTroubleshootPageFirew
 	@override String get symptom => '此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。';
 	@override String solution({required Object port}) => '這很可能是防火牆問題。您可以透過允許通訊埠 ${port} 上的連入連線 (UDP 和 TCP) 以解決此問題。';
 	@override String get openFirewall => '開啟防火牆';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryZhTw extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => '本設備無法探索其他設備。';
+	@override String get solution => '請確保所有裝置都在同一個 Wi-Fi 網路上並分享相同的設定（埠、多播位址、加密）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。';
 }
 
 // Path: troubleshootPage.noConnection

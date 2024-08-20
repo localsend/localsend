@@ -123,6 +123,7 @@ class _StringsSendTabHu extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Közeli eszközök';
 	@override String get thisDevice => 'Ez az eszköz';
 	@override String get scan => 'Keressen eszközöket';
+	@override String get manualSending => 'Manuális küldés';
 	@override String get sendMode => 'Küldési mód';
 	@override late final _StringsSendTabSendModesHu sendModes = _StringsSendTabSendModesHu._(_root);
 	@override String get sendModeHelp => 'Magyarázat';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageHu extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Megoldás:';
 	@override String get fixButton => 'Autom. javítás';
 	@override late final _StringsTroubleshootPageFirewallHu firewall = _StringsTroubleshootPageFirewallHu._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryHu noDiscovery = _StringsTroubleshootPageNoDiscoveryHu._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionHu noConnection = _StringsTroubleshootPageNoConnectionHu._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPageHu extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Szerző';
 	@override String get contributors => 'Közreműködők';
+	@override String get packagers => 'Csomagolók';
 	@override String get translators => 'Fordítók';
 }
 
@@ -381,6 +384,7 @@ class _StringsTrayHu extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Kilépés';
+	@override String get closeWindows => 'Kilépés';
 }
 
 // Path: web
@@ -503,6 +507,7 @@ class _StringsSettingsTabGeneralHu extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Nyelv';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsHu languageOptions = _StringsSettingsTabGeneralLanguageOptionsHu._(_root);
 	@override String get saveWindowPlacement => 'Kilépés: Ablak pozíció mentése';
+	@override String get saveWindowPlacementWindows => 'Az ablak pozíciójának mentése kilépés után';
 	@override String get minimizeToTray => 'Kilépés: Minimalizálja a tálcára';
 	@override String get launchAtStartup => 'Auto. indítás bejelentkezés után';
 	@override String get launchMinimized => 'Auto. indítás: Kis méretben';
@@ -583,6 +588,17 @@ class _StringsTroubleshootPageFirewallHu extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.';
 	@override String solution({required Object port}) => 'Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a ${port} porton.';
 	@override String get openFirewall => 'Tűzfal megnyitás';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryHu extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryHu._(_StringsHu root) : this._root = root, super._(root);
+
+	@override final _StringsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Ez az eszköz nem tud más eszközöket felismerni.';
+	@override String get solution => 'Győződjön meg róla, hogy minden eszköz ugyanabban a Wi-Fi hálózatban van, és ugyanaz a konfiguráció (port, multicast cím, titkosítás). Megpróbálhatja manuálisan beírni a céleszköz IP-címét. Ha ez működik, fontolja meg az eszköz hozzáadását a kedvencekhez, hogy a jövőben automatikusan fel lehessen fedezni.';
 }
 
 // Path: troubleshootPage.noConnection

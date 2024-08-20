@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-TW>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-TW' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "manualSending": "手動傳送"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "離開後儲存視窗位置"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "本設備無法探索其他設備。",
-      "solution": "請確保所有裝置都在同一個 Wi-Fi 網路上並分享相同的設定（埠、多播位址、加密）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。"
-    }
-  },
-  "aboutPage": {
-    "packagers": "打包者"
-  },
-  "tray": {
-    "closeWindows": "離開"
-  }
+  ]
 }
