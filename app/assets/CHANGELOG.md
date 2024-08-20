@@ -1,3 +1,7 @@
+## 1.16.0 (unreleased)
+
+- feat: only automatically finish when files are either successfully received or skipped (@Tienisto)
+
 ## 1.15.4 (2024-08-20)
 
 - feat: add button to retry a failed file transfer (@Tienisto)
