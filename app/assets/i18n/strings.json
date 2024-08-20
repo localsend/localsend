@@ -344,8 +344,8 @@
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
-      "title": "Cancel file transfer",
-      "content": "Do you really want to cancel the file transfer?"
+      "title": "Cancel files transfer",
+      "content": "Do you really want to cancel the files transfer?"
     },
     "cannotOpenFile": {
       "title": "Cannot open file",
