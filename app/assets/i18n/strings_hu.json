@@ -412,5 +412,55 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
+  },
+  "settingsTab": {
+    "general": {
+      "showInContextMenu": "A LocalSend megjelenítése a helyi menüben"
+    },
+    "receive": {
+      "requirePin": "@:webSharePage.requirePin"
+    }
+  },
+  "receiveHistoryPage": {
+    "entryActions": {
+      "showInFolder": "Megjelenítés a mappában"
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "webSharePage": {
+    "requirePin": "PIN kód megkövetelése",
+    "pinHint": "A PIN kód \"{pin}\""
+  },
+  "dialogs": {
+    "pin": {
+      "title": "PIN kód megadása"
+    }
+  },
+  "web": {
+    "enterPin": "PIN kód megadása",
+    "invalidPin": "Érvénytelen a PIN",
+    "tooManyAttempts": "Túl sok kísérlet"
+  },
+  "sendTab": {
+    "manualSending": "Manuális küldés"
+  },
+  "settingsTab": {
+    "general": {
+      "saveWindowPlacementWindows": "Az ablak pozíciójának mentése kilépés után"
+    }
+  },
+  "troubleshootPage": {
+    "noDiscovery": {
+      "symptom": "Ez az eszköz nem tud más eszközöket felismerni.",
+      "solution": "Győződjön meg róla, hogy minden eszköz ugyanabban a Wi-Fi hálózatban van, és ugyanaz a konfiguráció (port, multicast cím, titkosítás). Megpróbálhatja manuálisan beírni a céleszköz IP-címét. Ha ez működik, fontolja meg az eszköz hozzáadását a kedvencekhez, hogy a jövőben automatikusan fel lehessen fedezni."
+    }
+  },
+  "aboutPage": {
+    "packagers": "Csomagolók"
+  },
+  "tray": {
+    "closeWindows": "Kilépés"
   }
 }
