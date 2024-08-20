@@ -12,10 +12,9 @@ import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/simple_server.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:shelf/shelf_io.dart';
-import 'package:shelf_router/shelf_router.dart';
 
 final _logger = Logger('Server');
 
@@ -98,7 +97,7 @@ class ServerService extends Notifier<ServerState?> {
       port = defaultPort;
     }
 
-    final router = Router();
+    final router = SimpleServerRouteBuilder();
     final fingerprint = ref.read(securityProvider).certificateHash;
     _receiveController.installRoutes(
       router: router,
@@ -115,42 +114,37 @@ class ServerService extends Notifier<ServerState?> {
     );
 
     _logger.info('Starting server...');
-    ServerState? newServerState;
 
+    final HttpServer httpServer;
     if (https) {
       final securityContext = ref.read(securityProvider);
-      newServerState = ServerState(
-        httpServer: await _startServer(
-          router: router,
-          port: port,
-          securityContext: SecurityContext()
-            ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
-            ..useCertificateChainBytes(securityContext.certificate.codeUnits),
-        ),
-        alias: alias,
-        port: port,
-        https: true,
-        session: null,
-        webSendState: null,
-        pinAttempts: {},
+      httpServer = await HttpServer.bindSecure(
+        '0.0.0.0',
+        port,
+        SecurityContext()
+          ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+          ..useCertificateChainBytes(securityContext.certificate.codeUnits),
       );
-      _logger.info('Server started. (Port: ${newServerState.port}, HTTPS only)');
+      _logger.info('Server started. (Port: $port, HTTPS only)');
     } else {
-      newServerState = ServerState(
-        httpServer: await _startServer(
-          router: router,
-          port: port,
-          securityContext: null,
-        ),
-        alias: alias,
-        port: port,
-        https: false,
-        session: null,
-        webSendState: null,
-        pinAttempts: {},
+      httpServer = await HttpServer.bind(
+        '0.0.0.0',
+        port,
       );
-      _logger.info('Server started. (Port: ${newServerState.port}, HTTP only)');
+      _logger.info('Server started. (Port: $port, HTTP only)');
     }
+
+    final server = SimpleServer.start(server: httpServer, routes: router);
+
+    final newServerState = ServerState(
+      httpServer: server,
+      alias: alias,
+      port: port,
+      https: https,
+      session: null,
+      webSendState: null,
+      pinAttempts: {},
+    );
 
     state = newServerState;
     return newServerState;
@@ -158,7 +152,7 @@ class ServerService extends Notifier<ServerState?> {
 
   Future<void> stopServer() async {
     _logger.info('Stopping server...');
-    await state?.httpServer.close(force: true);
+    await state?.httpServer.close();
     state = null;
     _logger.info('Server stopped.');
   }
@@ -233,21 +227,6 @@ class ServerService extends Notifier<ServerState?> {
   void declineWebSendRequest(String sessionId) {
     _sendController.declineRequest(sessionId);
   }
-}
-
-/// Starts the (actual) server.
-/// This binds the server to the given [port] and returns the [HttpServer] instance.
-Future<HttpServer> _startServer({
-  required Router router,
-  required int port,
-  required SecurityContext? securityContext,
-}) async {
-  return serve(
-    router.call,
-    '0.0.0.0',
-    port,
-    securityContext: securityContext,
-  );
 }
 
 // Below is a first prototype of mTLS (mutual TLS).

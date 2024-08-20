@@ -22,8 +22,8 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   @override
   final String id = 'ServerState';
 
-  static HttpServer _$httpServer(ServerState v) => v.httpServer;
-  static const Field<ServerState, HttpServer> _f$httpServer = Field('httpServer', _$httpServer);
+  static SimpleServer _$httpServer(ServerState v) => v.httpServer;
+  static const Field<ServerState, SimpleServer> _f$httpServer = Field('httpServer', _$httpServer);
   static String _$alias(ServerState v) => v.alias;
   static const Field<ServerState, String> _f$alias = Field('alias', _$alias);
   static int _$port(ServerState v) => v.port;
@@ -106,7 +106,7 @@ abstract class ServerStateCopyWith<$R, $In extends ServerState, $Out> implements
   WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState;
   MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts;
   $R call(
-      {HttpServer? httpServer,
+      {SimpleServer? httpServer,
       String? alias,
       int? port,
       bool? https,
@@ -130,7 +130,7 @@ class _ServerStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ServerSta
       MapCopyWith($value.pinAttempts, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(pinAttempts: v));
   @override
   $R call(
-          {HttpServer? httpServer,
+          {SimpleServer? httpServer,
           String? alias,
           int? port,
           bool? https,

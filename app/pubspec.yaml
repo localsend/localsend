@@ -58,8 +58,6 @@ dependencies:
   shared_preferences: 2.2.3
   shared_preferences_platform_interface: any
   shared_storage: 0.8.1
-  shelf: 1.4.1
-  shelf_router: 1.1.4
   slang: 3.31.1
   slang_flutter: 3.31.0
   system_settings: 2.1.0

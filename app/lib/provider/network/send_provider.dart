@@ -27,6 +27,7 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/stream.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -415,25 +416,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             : File(file.path!).openRead()
         : null;
 
-    final StreamController<List<int>>? streamController;
-    StreamSubscription<List<int>>? subscription;
-    if (fileStream != null) {
-      streamController = StreamController<List<int>>(
-        onListen: () => subscription!.resume(),
-        onPause: () => subscription!.pause(),
-        onResume: () => subscription!.resume(),
-        onCancel: () => subscription!.cancel(),
-      );
-
-      subscription = fileStream.listen(
-        (data) => streamController!.add(data),
-        onError: (e, st) => streamController!.addError(e, st),
-        onDone: () => streamController!.close(),
-      );
-    } else {
-      streamController = null;
-      subscription = null;
-    }
+    final (streamController, subscription) = fileStream?.digested() ?? (null, null);
 
     String? fileError;
     try {
