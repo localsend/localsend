@@ -69,7 +69,7 @@ Dowiedz się więcej o [kanałach dystrybucji][].
 [snap]: https://snapcraft.io/localsend
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
-[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[kanałach dystrybucji]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
 ## Instalacja
 
@@ -114,9 +114,9 @@ Aby skompilować LocalSend z kodu źródłowego, wykonaj następujące czynnośc
 4. Wykonaj `flutter pub get`, aby pobrać zależności
 5. Wykonaj `flutter run`, aby uruchomić aplikację
 
-> [!NOTATKA]
+> [!NOTE]
 > LocalSend obecnie wymaga starszej wersji Fluttera (określonej w [.fvmrc](.fvmrc))
-> a tym samym problemy z kompilacją mogą być spowodowane niedopasowaniem wymaganej i zainstalowanej (w obrębie całego systemu) wersji Fluttera.
+> a tym samym problemy z kompilacją mogą być spowodowane niedopasowaniem wymaganej i zainstalowanej (w obrębie całego systemu) wersji Fluttera.  
 > Aby uczynić rozwój bardziej spójnym, LocalSend używa [fvm](https://fvm.app) do zarządzania wersją projektu Flutter.
 > Po zainstalowaniu `fvm`, wykonaj `fvm flutter` zamiast `flutter`.
 

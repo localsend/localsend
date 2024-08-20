@@ -116,7 +116,7 @@ To compile LocalSend from the source code, follow these steps:
 
 > [!NOTE]
 > LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
-> and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.
+> and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
 > After installing `fvm`, run `fvm flutter` instead of `flutter`.
 
