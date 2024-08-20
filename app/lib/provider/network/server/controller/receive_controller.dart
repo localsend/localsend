@@ -204,7 +204,6 @@ class ReceiveController {
       final payload = await request.readAsString();
       dto = PrepareUploadRequestDto.fromJson(jsonDecode(payload));
     } catch (e) {
-      print(e);
       return await request.respondJson(400, message: 'Request body malformed');
     }
 
