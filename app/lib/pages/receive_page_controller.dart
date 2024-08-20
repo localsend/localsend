@@ -1,4 +1,5 @@
-import 'package:common/common.dart';
+import 'package:common/model/device.dart';
+import 'package:common/model/session_status.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/pages/progress_page.dart';
@@ -108,7 +109,7 @@ class InitReceivePageAction extends ReduxAction<ReceivePageController, ReceivePa
       showSenderInfo: true,
       fileCount: receiveSession.files.length,
       message: receiveSession.message,
-      isLink: receiveSession.message != null && (receiveSession.message!.startsWith('http://') || receiveSession.message!.startsWith('https')),
+      isLink: receiveSession.message != null && (receiveSession.message!.isLink),
       showFullIp: false,
       onAccept: () async {
         if (state.message != null) {
@@ -166,7 +167,7 @@ class InitReceivePageFromHistoryMessageAction extends ReduxAction<ReceivePageCon
       showSenderInfo: false,
       fileCount: 1,
       message: entry.fileName,
-      isLink: entry.fileName.startsWith('http://') || entry.fileName.startsWith('https'),
+      isLink: entry.fileName.isLink,
       showFullIp: false,
       onAccept: () {},
       onDecline: () {},
@@ -186,4 +187,8 @@ class SetShowFullIpAction extends ReduxAction<ReceivePageController, ReceivePage
       showFullIp: showFullIp,
     );
   }
+}
+
+extension on String {
+  bool get isLink => Uri.tryParse(this)?.isAbsolute ?? false;
 }

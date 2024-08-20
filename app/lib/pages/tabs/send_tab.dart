@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:common/common.dart';
+import 'package:common/model/device.dart';
+import 'package:common/model/session_status.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
@@ -13,7 +15,6 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
@@ -23,9 +24,11 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:localsend_app/widget/horizontal_clip_list_view.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -43,6 +46,8 @@ class SendTab extends StatelessWidget {
       provider: sendTabVmProvider,
       init: (context) => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
+        final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
+        final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
         final ref = context.ref;
         return ResponsiveListView(
           padding: EdgeInsets.zero,
@@ -56,28 +61,22 @@ class SendTab extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    const SizedBox(width: 10),
-                    ..._options.map((option) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                        child: BigButton(
-                          icon: option.icon,
-                          label: option.label,
-                          filled: false,
-                          onTap: () async => ref.global.dispatchAsync(PickFileAction(
-                            option: option,
-                            context: context,
-                          )),
-                        ),
-                      );
-                    }),
-                    const SizedBox(width: 10),
-                  ],
-                ),
+              HorizontalClipListView(
+                outerHorizontalPadding: 15,
+                outerVerticalPadding: 10,
+                childPadding: 10,
+                minChildWidth: buttonWidth,
+                children: _options.map((option) {
+                  return BigButton(
+                    icon: option.icon,
+                    label: option.label,
+                    filled: false,
+                    onTap: () async => ref.global.dispatchAsync(PickFileAction(
+                      option: option,
+                      context: context,
+                    )),
+                  );
+                }).toList(),
               ),
             ] else ...[
               Card(
@@ -177,7 +176,7 @@ class SendTab extends StatelessWidget {
                   ips: vm.localIps,
                 ),
                 Tooltip(
-                  message: t.dialogs.addressInput.title,
+                  message: t.sendTab.manualSending,
                   child: CustomIconButton(
                     onPressed: () async => vm.onTapAddress(context),
                     child: const Icon(Icons.ads_click),
@@ -317,16 +316,19 @@ class _ScanButton extends StatelessWidget {
     final iconColor = !animations && scanningIps.isNotEmpty ? Theme.of(context).colorScheme.warning : null;
 
     if (ips.length <= StartSmartScan.maxInterfaces) {
-      return RotatingWidget(
-        duration: const Duration(seconds: 2),
-        spinning: spinning,
-        reverse: true,
-        child: CustomIconButton(
-          onPressed: () async {
-            context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
-            await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
-          },
-          child: Icon(Icons.sync, color: iconColor),
+      return Tooltip(
+        message: t.sendTab.scan,
+        child: RotatingWidget(
+          duration: const Duration(seconds: 2),
+          spinning: spinning,
+          reverse: true,
+          child: CustomIconButton(
+            onPressed: () async {
+              context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
+              await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
+            },
+            child: Icon(Icons.sync, color: iconColor),
+          ),
         ),
       );
     }

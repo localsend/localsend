@@ -21,14 +21,6 @@ class ProgressNotifier extends ChangeNotifier {
     return _progressMap[sessionId]?[fileId] ?? 0.0;
   }
 
-  int getFinishedCount(String sessionId) {
-    final progressMap = _progressMap[sessionId];
-    if (progressMap == null) {
-      return 0;
-    }
-    return progressMap.values.fold(0, (prev, curr) => curr == 1 ? prev + 1 : prev);
-  }
-
   void removeSession(String sessionId) {
     _progressMap.remove(sessionId);
     notifyListeners();

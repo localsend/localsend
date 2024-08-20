@@ -50,6 +50,7 @@
   },
   "sendTab": {
     "title": "发送",
+    "manualSending": "手动发送",
     "selection": {
       "title": "选择",
       "files": "文件：{files}",
@@ -96,7 +97,8 @@
       "languageOptions": {
         "system": "跟随系统"
       },
-      "saveWindowPlacement": "关闭时：保存窗口位置",
+      "saveWindowPlacement": "关闭时保存窗口位置",
+      "saveWindowPlacementWindows": "退出时保存窗口位置",
       "minimizeToTray": "关闭时：最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
       "launchMinimized": "静默自启：只启动托盘服务",
@@ -153,6 +155,10 @@
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
       "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
+    },
+    "noDiscovery": {
+      "symptom": "此设备未能发现其他设备。",
+      "solution": "确保所有设备都在同一个Wi-Fi网络上，并共享相同的配置（端口、多播地址、加密）。您可以尝试手动键入目标设备的IP地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
     }
   },
   "receiveHistoryPage": {
@@ -240,6 +246,7 @@
     ],
     "author": "作者",
     "contributors": "贡献者",
+    "packagers": "包",
     "translators": "翻译者"
   },
   "donationPage": {
@@ -437,9 +444,10 @@
     "invalid": "文件名包含无效字符。"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
-    "close": "退出 LocalSend"
+    "close": "退出 LocalSend",
+    "closeWindows": "退出"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -452,7 +460,7 @@
     "size": "大小"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "确认",
     "cancel": "取消",
     "edit": "编辑",

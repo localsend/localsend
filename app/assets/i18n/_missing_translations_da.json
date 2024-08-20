@@ -3,8 +3,12 @@
     "Here are translations that exist in <en> but not in <da>.",
     "After editing this file, you can run 'dart run slang apply --locale=da' to quickly apply the newly added translations."
   ],
+  "sendTab": {
+    "manualSending": "Manual sending"
+  },
   "settingsTab": {
     "general": {
+      "saveWindowPlacementWindows": "Save window position after exit",
       "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
@@ -16,6 +20,12 @@
     },
     "network": {
       "discoveryTimeout": "Discovery Timeout"
+    }
+  },
+  "troubleshootPage": {
+    "noDiscovery": {
+      "symptom": "This device cannot discover other devices.",
+      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
     }
   },
   "receiveHistoryPage": {
@@ -31,6 +41,9 @@
     "requirePin": "Require PIN",
     "pinHint": "The PIN is \"{pin}\""
   },
+  "aboutPage": {
+    "packagers": "Packagers"
+  },
   "dialogs": {
     "pin": {
       "title": "Enter PIN"
@@ -42,6 +55,9 @@
   "sanitization": {
     "empty": "Filename cannot be empty",
     "invalid": "Filename contains invalid characters"
+  },
+  "tray": {
+    "closeWindows": "Exit"
   },
   "web": {
     "enterPin": "Enter PIN",

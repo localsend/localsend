@@ -100,11 +100,13 @@
       "minimizeToTray": "Thoát: Ẩn xuống thanh tác vụ",
       "launchAtStartup": "Tự khởi động sau khi đăng nhập",
       "launchMinimized": "Tự khởi động: Khởi động ẩn",
+      "showInContextMenu": "Hiển thị LocalSend ở danh mục",
       "animations": "Hoạt ảnh"
     },
     "receive": {
       "title": "Nhận",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Tự động hoàn thành",
       "destination": "Đích đến",
       "downloads": "(Downloads)",
@@ -123,6 +125,7 @@
       "deviceType": "Loại thiết bị",
       "deviceModel": "Model thiết bị",
       "port": "Port",
+      "discoveryTimeout": "Hết thời gian tìm kiếm",
       "portWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: {defaultPort})",
       "encryption": "Mã hoá",
       "multicastGroup": "Đa phương tiện",
@@ -159,6 +162,7 @@
     "empty": "Lịch sử rỗng.",
     "entryActions": {
       "open": "Mở tập tin",
+      "showInFolder": "Hiển thị trong thư mục",
       "info": "Thông tin",
       "deleteFromHistory": "Xoá khỏi lịch sử"
     }
@@ -191,6 +195,7 @@
   "sendPage": {
     "waiting": "Đang chờ phản hồi...",
     "rejected": "Người nhận đã từ chối yêu cầu.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Người nhận đang bận xử lý một yêu cầu khác."
   },
   "progressPage": {
@@ -222,6 +227,8 @@
     "noRequests": "Hiện không có yêu cầu nào.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Tự động chấp nhận yêu cầu",
+    "requirePin": "Cần cung cấp mã PIN",
+    "pinHint": "Mã PIN là \"{pin}\"",
     "encryptionHint": "LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.",
     "pendingRequests": "Yêu cầu chờ: {n}"
   },
@@ -343,12 +350,22 @@
       "title": "@:general.quickSave",
       "content": "Yêu cầu tập tin đã được chấp thuận tự động. Chú ý rằng bất kỳ ai dùng chung mạng nội bộ với bạn đều có thể gửi tập tin cho bạn."
     },
+    "pin": {
+      "title": "Nhập mã PIN"
+    },
     "sendModeHelp": {
       "title": "Chế độ gửi",
       "single": "Gửi tập tin tới một người nhận. Lựa chọn sẽ được xoá sau khi quá trình gửi hoàn thành.",
       "multiple": "Gửi tập tin tới nhiều người nhận. Lựa chọn sẽ không bị xoá.",
       "link": "Người nhận chưa cài đặt LocalSend có thể nhận tập tin bằng cách mở liên kết trong trình duyệt."
+    },
+    "zoom": {
+      "title": "Đường dẫn"
     }
+  },
+  "sanitization": {
+    "empty": "Tên tập tin không được để trống",
+    "invalid": "Tên tập tin chứa ký tự không hợp lệ"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -357,6 +374,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Nhập mã PIN",
+    "invalidPin": "Sai mã PIN",
+    "tooManyAttempts": "Sai quá nhiều",
     "rejected": "Đã từ chối",
     "files": "Tập tin",
     "fileName": "Tên",

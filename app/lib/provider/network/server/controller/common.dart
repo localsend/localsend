@@ -1,33 +1,38 @@
-import 'package:localsend_app/provider/network/server/server_utils.dart';
-import 'package:shelf/shelf.dart';
+import 'dart:io';
 
-/// Returns 401 or 429 if the pin is invalid or too many attempts.
-/// Returns null if the pin is correct, or if no pin is set.
-Response? handlePin({
+import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/util/simple_server.dart';
+
+/// Responds with 401 or 429 if the pin is invalid or too many attempts.
+/// Returns true if the pin is correct, or if no pin is set.
+Future<bool> checkPin({
   required ServerUtils server,
   required String? pin,
   required Map<String, int> pinAttempts,
-  required Request request,
-}) {
+  required HttpRequest request,
+}) async {
   if (pin != null) {
     final attempts = pinAttempts[request.ip] ?? 0;
     if (attempts >= 3) {
-      return server.responseJson(429, message: 'Too many attempts.');
+      await request.respondJson(429, message: 'Too many attempts.');
+      return false;
     }
 
-    final requestPin = request.url.queryParameters['pin'];
+    final requestPin = request.uri.queryParameters['pin'];
     if (requestPin != pin) {
       if (requestPin?.isNotEmpty ?? false) {
         pinAttempts[request.ip] = attempts + 1;
 
         if (attempts == 2) {
           // it was 2 before incrementing
-          return server.responseJson(429, message: 'Too many attempts.');
+          await request.respondJson(429, message: 'Too many attempts.');
+          return false;
         }
       }
-      return server.responseJson(401, message: 'Invalid pin.');
+      await request.respondJson(401, message: 'Invalid pin.');
+      return false;
     }
   }
 
-  return null;
+  return true;
 }

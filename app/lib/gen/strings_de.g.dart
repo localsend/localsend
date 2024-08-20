@@ -123,6 +123,7 @@ class _StringsSendTabDe extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Geräte in der Nähe';
 	@override String get thisDevice => 'Dieses Gerät';
 	@override String get scan => 'Geräte suchen';
+	@override String get manualSending => 'Manuelles Senden';
 	@override String get sendMode => 'Sendemodus';
 	@override late final _StringsSendTabSendModesDe sendModes = _StringsSendTabSendModesDe._(_root);
 	@override String get sendModeHelp => 'Erklärung';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageDe extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Lösung:';
 	@override String get fixButton => 'Automatisch beheben';
 	@override late final _StringsTroubleshootPageFirewallDe firewall = _StringsTroubleshootPageFirewallDe._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryDe noDiscovery = _StringsTroubleshootPageNoDiscoveryDe._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionDe noConnection = _StringsTroubleshootPageNoConnectionDe._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPageDe extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Mitwirkende';
+	@override String get packagers => 'Packagers';
 	@override String get translators => 'Übersetzer:innen';
 }
 
@@ -381,6 +384,7 @@ class _StringsTrayDe extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend beenden';
+	@override String get closeWindows => 'Beenden';
 }
 
 // Path: web
@@ -502,8 +506,9 @@ class _StringsSettingsTabGeneralDe extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsDe colorOptions = _StringsSettingsTabGeneralColorOptionsDe._(_root);
 	@override String get language => 'Sprache';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsDe languageOptions = _StringsSettingsTabGeneralLanguageOptionsDe._(_root);
-	@override String get saveWindowPlacement => 'Schließen: Fensterposition speichern';
-	@override String get minimizeToTray => 'Schließen: in Symbolleiste minimieren';
+	@override String get saveWindowPlacement => 'Beenden: Fensterposition speichern';
+	@override String get saveWindowPlacementWindows => 'Beenden: Fensterposition speichern';
+	@override String get minimizeToTray => 'Beenden: in Symbolleiste minimieren';
 	@override String get launchAtStartup => 'Autostart nach Login';
 	@override String get launchMinimized => 'Autostart: versteckt starten';
 	@override String get showInContextMenu => 'LocalSend im Kontextmenü anzeigen';
@@ -585,6 +590,17 @@ class _StringsTroubleshootPageFirewallDe extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'Firewall öffnen';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryDe extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryDe._(_StringsDe root) : this._root = root, super._(root);
+
+	@override final _StringsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Dieses Gerät kann keine anderen Geräte entdecken.';
+	@override String get solution => 'Stelle sicher, dass alle Geräte im selben Wi-Fi-Netzwerk sind und die gleiche Konfiguration teilen (Port, Multicast-Adresse, Verschlüsselung). Du kannst versuchen, die IP-Adresse des Zielgeräts manuell einzugeben. Wenn dies funktioniert, füge dieses Gerät zu den Favoriten hinzu, damit es in Zukunft automatisch entdeckt werden kann.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionDe extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionDe._(_StringsDe root) : this._root = root, super._(root);
@@ -593,7 +609,7 @@ class _StringsTroubleshootPageNoConnectionDe extends _StringsTroubleshootPageNoC
 
 	// Translations
 	@override String get symptom => 'Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.';
-	@override String get solution => 'Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt. In diesem Fall muss am Router diese Option aktiviert werden.';
+	@override String get solution => 'Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden.';
 }
 
 // Path: receiveHistoryPage.entryActions

@@ -37,7 +37,7 @@ Future<void> initTray() async {
       ),
       tm.MenuItem(
         key: TrayEntry.close.name,
-        label: t.tray.close,
+        label: defaultTargetPlatform == TargetPlatform.windows ? t.tray.closeWindows : t.tray.close,
       ),
     ];
     await tm.trayManager.setContextMenu(tm.Menu(items: items));

@@ -158,6 +158,7 @@ class _StringsTroubleshootPageFa extends _StringsTroubleshootPageEn {
 	@override String get solution => 'راه حل:';
 	@override String get fixButton => 'تعمیر خودکار';
 	@override late final _StringsTroubleshootPageFirewallFa firewall = _StringsTroubleshootPageFirewallFa._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryFa noDiscovery = _StringsTroubleshootPageNoDiscoveryFa._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionFa noConnection = _StringsTroubleshootPageNoConnectionFa._(_root);
 }
 
@@ -293,6 +294,7 @@ class _StringsAboutPageFa extends _StringsAboutPageEn {
 	];
 	@override String get author => 'مولف';
 	@override String get contributors => 'مشارکت کنندگان';
+	@override String get packagers => 'بسته بندی‌ها';
 	@override String get translators => 'مترجمان';
 }
 
@@ -654,6 +656,17 @@ class _StringsTroubleshootPageFirewallFa extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'این برنامه می تواند فایل ها را به دستگاه های دیگر ارسال کند اما دستگاه های دیگر نمی توانند فایل ها را به این دستگاه ارسال کنند';
 	@override String solution({required Object port}) => 'این مشکل به احتمال زیاد مربوط به فایروال است. شما می توانید با دادن مجوز به اتصالات ورودی این مشکل را حل کنید (UDP و TCP) در پورت ${port}';
 	@override String get openFirewall => 'باز کردن فایروال';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryFa extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'این دستگاه نمی‌تواند دستگاه‌های دیگر را پیدا کند';
+	@override String get solution => 'مطمئن شوید که هر دو دستگاه به یک شبکه وای فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد دلخواه اضافه کنید تا در آینده به طور خودکار کشف شود';
 }
 
 // Path: troubleshootPage.noConnection

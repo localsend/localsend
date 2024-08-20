@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:common/util/sleep.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/util/sleep.dart';
 
 /// A slideshow of widgets using [AnimatedOpacity] as transition.
 class OpacitySlideshow extends StatefulWidget {

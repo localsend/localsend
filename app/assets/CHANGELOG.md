@@ -1,3 +1,30 @@
+## 1.15.4 (2024-08-20)
+
+- feat: add button to retry a failed file transfer (@Tienisto)
+- feat: show tooltip on the "Scan" button (@Tienisto)
+- feat: treat any URI as link, so it becomes clickable on receiver (e.g. file://, obsidian://) (@Tienisto)
+- feat(mobile): adjust button width in send tab to indicate that it's scrollable (@Tienisto)
+- feat(windows): title bar color should match the system theme (@FutoTan)
+- fix: memory leak when sending files (regression in 1.15.0, 1.15.2 only fixed receiving files) (@Tienisto)
+- fix(windows): LocalSend window is invisible at app start (@Tienisto)
+- i18n: distinguish between "Exit" and "Quit" depending on the platform (@sergd88)
+- i18n: add Hindi (@rishi-singh26)
+
+## 1.15.3 (2024-07-29)
+
+- feat: reduce receive history length to 30 items to increase performance (@Tienisto)
+- feat: show error message when initialization fails for better debugging (@Tienisto)
+- fix(android): properly close app on back gesture (@Tienisto)
+
+## 1.15.2 (2024-07-25)
+
+- feat: extract network scanning to separate threads, scanning should not cause UI lags anymore (@Tienisto)
+- feat(windows): use bigger icon for the installer (@Tienisto)
+- fix: memory leak when receiving files, properly receive files that exceed available RAM (@Tienisto)
+- fix(android): save files outside of Download folder (@Tienisto)
+- fix(windows): use correct portable settings file when started via autostart (@Tienisto)
+- fix(windows): make installer work on arm64 (@Tienisto)
+
 ## 1.15.1 (2024-07-18)
 
 - feat: support Internet Explorer 8 (IE8) in web share (@Tienisto)

@@ -24,7 +24,11 @@ Future<void> _migrate2() async {
 
       final legacyFile = File(_windowsLegacyFile);
       legacyFile.copySync(_windowsFile);
-      legacyFile.parent.parent.deleteSync(recursive: true);
+      try {
+        legacyFile.parent.parent.deleteSync(recursive: true);
+      } catch (e) {
+        _logger.warning('Failed to delete legacy folder: $e');
+      }
       SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
     }
   }

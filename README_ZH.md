@@ -7,7 +7,7 @@
 
 [主页][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English](README.md)
+[English](README.md) • [日本語](README_JA.md)
 
 > 注意：中文文档更新可能不够及时，请以英文文档为准。
 

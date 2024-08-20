@@ -1,5 +1,5 @@
+import 'package:common/util/sleep.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/util/sleep.dart';
 
 /// The same as AnimatedCrossFade but with an opacity animation
 class AnimatedOpacityCrossFade extends StatefulWidget {

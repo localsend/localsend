@@ -74,7 +74,7 @@
       "link": "링크로 공유하기"
     },
     "sendModeHelp": "설명",
-    "help": "보낼 기기가 같은 Wi-Fi 네트워크에 연결되었는지 확인해주세요",
+    "help": "보내려는 기기가 동일한 Wi-Fi 네트워크에 연결되어 있는지 확인해 주세요",
     "placeItems": "드롭해서 공유"
   },
   "settingsTab": {
@@ -100,11 +100,13 @@
       "minimizeToTray": "종료 시 시스템 트레이로 최소화",
       "launchAtStartup": "로그인 시 자동으로 시작",
       "launchMinimized": "최소화된 상태로 시작",
+      "showInContextMenu": "컨텍스트 메뉴에 LocalSend 표시",
       "animations": "애니메이션"
     },
     "receive": {
       "title": "수신",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "자동 완료",
       "destination": "저장 위치",
       "downloads": "(다운로드 폴더)",
@@ -123,6 +125,7 @@
       "deviceType": "기기 유형",
       "deviceModel": "기기 모델",
       "port": "포트",
+      "discoveryTimeout": "탐색 제한시간",
       "portWarning": "커스텀 포트를 사용하면 이 디바이스가 다른 장치에서 감지되지 않을 수 있습니다. (기본값: {defaultPort})",
       "encryption": "암호화",
       "multicastGroup": "멀티캐스트",
@@ -138,14 +141,18 @@
     "advancedSettings": "고급 설정"
   },
   "troubleshootPage": {
-    "title": "문제해결",
+    "title": "문제 해결",
     "subTitle": "이 앱이 예상대로 작동하지 않나요? 여기에서 일반적인 해결 방법을 찾을 수 있습니다.",
-    "solution": "해결방법:",
+    "solution": "해결 방법:",
     "fixButton": "자동으로 수정하기",
     "firewall": {
       "symptom": "이 앱은 다른 기기로 파일을 보낼 수 있지만, 다른 기기에서 이 기기로 파일을 보낼 수 없습니다.",
       "solution": "방화벽 설정 때문일 가능성이 높습니다. {port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.",
       "openFirewall": "방화벽 열기"
+    },
+    "noDiscovery": {
+      "symptom": "현재 기기에서 다른 기기를 찾을 수 없습니다.",
+      "solution": "모든 장치가 동일한 Wi-Fi 네트워크에 연결되어 있고 동일한 설정(포트, 멀티캐스트 주소, 암호화)을 공유하는지 확인하세요. 기기의 IP 주소를 수동으로 입력해 볼 수도 있습니다. 이 방법이 작동하면, 해당 기기를 즐겨찾기에 추가하여 앞으로 자동으로 검색될 수 있도록 해 보세요."
     },
     "noConnection": {
       "symptom": "두 기기 모두 서로를 검색하거나 파일을 공유할 수 없습니다.",
@@ -159,6 +166,7 @@
     "empty": "전송 기록이 비어 있습니다.",
     "entryActions": {
       "open": "파일 열기",
+      "showInFolder": "폴더에서 보기",
       "info": "정보",
       "deleteFromHistory": "기록에서 삭제"
     }
@@ -191,6 +199,7 @@
   "sendPage": {
     "waiting": "답변을 기다리는 중…",
     "rejected": "받는 사람이 요청을 거부했습니다",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "수신자가 다른 요청으로 바쁩니다."
   },
   "progressPage": {
@@ -222,6 +231,8 @@
     "noRequests": "아직 요청이 없습니다.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "요청 자동 수락",
+    "requirePin": "PIN 번호 사용",
+    "pinHint": "PIN 번호는 \"{pin}\" 입니다",
     "encryptionHint": "LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 수락해야 합니다.",
     "pendingRequests": "대기중인 요청: {n}"
   },
@@ -233,6 +244,7 @@
     ],
     "author": "작성자",
     "contributors": "기여자",
+    "packagers": "패키지 관리자",
     "translators": "번역자"
   },
   "donationPage": {
@@ -343,12 +355,22 @@
       "title": "@:general.quickSave",
       "content": "파일 요청이 자동으로 수락됩니다. 로컬 네트워크의 누구나 파일을 보낼 수 있게되므로 주의해 주세요."
     },
+    "pin": {
+      "title": "PIN 번호 입력"
+    },
     "sendModeHelp": {
       "title": "전송 모드",
       "single": "파일을 한 명의 수신자에게 보냅니다. 파일 전송이 완료되면 선택이 지워집니다.",
       "multiple": "파일을 여러 명의 수신자에게 보냅니다. 선택이 지워지지 않습니다.",
       "link": "LocalSend를 설치하지 않은 수신자는 브라우저에서 링크를 열어 선택한 파일을 다운로드할 수 있습니다."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "파일 이름은 비워 둘 수 없습니다",
+    "invalid": "파일 이름에 잘못된 문자가 포함되어 있습니다"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -357,6 +379,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN 번호 입력",
+    "invalidPin": "PIN 번호가 올바르지 않습니다",
+    "tooManyAttempts": "시도 횟수를 초과했습니다",
     "rejected": "거부됨",
     "files": "파일",
     "fileName": "파일 이름",

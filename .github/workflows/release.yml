@@ -67,13 +67,16 @@ jobs:
 
       - name: Build APK
         working-directory: ${{ env.APK_BUILD_DIR }}/app
-        run: flutter build apk
+        run: flutter build apk --split-per-abi
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: apk-result
-          path: ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-release.apk
+          path: |
+            ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+            ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+            ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-x86_64-release.apk
 
   build_tar_x86_64:
     needs: build
@@ -364,16 +367,36 @@ jobs:
           path: apk-result
 
       - name: Copy apk file to root
-        run: cp apk-result/*.apk result.apk
+        run: cp apk-result/*.apk .
 
-      - name: Upload Release Asset
+      - name: Upload Release Asset (arm32v7)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.apk
-          asset_name: LocalSend-${{ needs.build.outputs.version }}.apk
+          asset_path: app-armeabi-v7a-release.apk
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-android-arm32v7.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload Release Asset (arm64v8)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: app-arm64-v8a-release.apk
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-android-arm64v8.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload Release Asset (x64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: app-x86_64-release.apk
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-android-x64.apk
           asset_content_type: application/vnd.android.package-archive
 
       # TAR.GZ (x86_64)

@@ -123,6 +123,7 @@ class _StringsSendTabPl extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Urządzenia w pobliżu';
 	@override String get thisDevice => 'To urządzenie';
 	@override String get scan => 'Szukaj urządzeń';
+	@override String get manualSending => 'Wysyłanie ręczne';
 	@override String get sendMode => 'Tryb wysyłania';
 	@override late final _StringsSendTabSendModesPl sendModes = _StringsSendTabSendModesPl._(_root);
 	@override String get sendModeHelp => 'Wyjaśnienie';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPagePl extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Rozwiązanie:';
 	@override String get fixButton => 'Napraw automatycznie';
 	@override late final _StringsTroubleshootPageFirewallPl firewall = _StringsTroubleshootPageFirewallPl._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryPl noDiscovery = _StringsTroubleshootPageNoDiscoveryPl._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionPl noConnection = _StringsTroubleshootPageNoConnectionPl._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPagePl extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Współautorzy';
+	@override String get packagers => 'Pakujący';
 	@override String get translators => 'Tłumacze';
 }
 
@@ -380,7 +383,8 @@ class _StringsTrayPl extends _StringsTrayEn {
 
 	// Translations
 	@override String get open => _root.general.open;
-	@override String get close => 'Zamknij LocalSend';
+	@override String get close => 'Zakończ LocalSend';
+	@override String get closeWindows => 'Zamknij';
 }
 
 // Path: web
@@ -502,8 +506,9 @@ class _StringsSettingsTabGeneralPl extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsPl colorOptions = _StringsSettingsTabGeneralColorOptionsPl._(_root);
 	@override String get language => 'Język';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsPl languageOptions = _StringsSettingsTabGeneralLanguageOptionsPl._(_root);
-	@override String get saveWindowPlacement => 'Zamknij: zapisz położenie okna';
-	@override String get minimizeToTray => 'Wyjdź: zminimalizuj do menu ukrytych ikon';
+	@override String get saveWindowPlacement => 'Zapisz pozycję okna po zakończeniu';
+	@override String get saveWindowPlacementWindows => 'Zapisz pozycję okna po zamknięciu';
+	@override String get minimizeToTray => 'Zminimalizuj do menu ukrytych ikon przy zamykaniu';
 	@override String get launchAtStartup => 'Autostart po zalogowaniu';
 	@override String get launchMinimized => 'Autostart: start ukryty';
 	@override String get showInContextMenu => 'Pokaż LocalSend w menu kontekstowym';
@@ -583,6 +588,17 @@ class _StringsTroubleshootPageFirewallPl extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'Aplikacja może wysyłać pliki do innych urządzeń, ale inne urządzenia nie mogą wysyłać plików do tego urządzenia.';
 	@override String solution({required Object port}) => 'Prawdopodobnie jest to problem z zaporą. Możesz go rozwiązać, zezwalając na przychodzące połączenia (UDP i TCP) na porcie ${port}.';
 	@override String get openFirewall => 'Otwórz zaporę';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryPl extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryPl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'To urządzenie nie może wykryć innych urządzeń.';
+	@override String get solution => 'Upewnij się, że wszystkie urządzenia są w tej samej sieci Wi-Fi i mają tę samą konfigurację (port, adres multiemisji, szyfrowanie). Możesz spróbować wpisać adres IP urządzenia docelowego ręcznie. Jeśli to zadziała, rozważ dodanie tego urządzenia do ulubionych, aby mogło zostać automatycznie wykryte w przyszłości.';
 }
 
 // Path: troubleshootPage.noConnection

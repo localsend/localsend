@@ -67,6 +67,7 @@
     "nearbyDevices": "Uredjaji u blizini",
     "thisDevice": "Ovaj uredjaj",
     "scan": "Potraži uredjaje",
+    "manualSending": "Manuelno slanje",
     "sendMode": "Mod za slanje",
     "sendModes": {
       "single": "Jedan primalac",
@@ -97,6 +98,7 @@
         "system": "Sistem"
       },
       "saveWindowPlacement": "Izadji: Snimi položaj prozora",
+      "saveWindowPlacementWindows": "Zapamti poziciju prozora nakon izlaska iz aplikacije",
       "minimizeToTray": "Izadji: Minimizuj u Tray/MenuBar",
       "launchAtStartup": "Autostartuj posle login-a",
       "launchMinimized": "Autostartuj: Start sakriven",
@@ -149,6 +151,10 @@
       "symptom": "Ova aplikacija može poslati fajlove drugim uredjajima; ali drugi uredjaji ne mogu poslati fajlove ovom uredjaju.",
       "solution": "Ovo je najverovatnije Firewall problem. Možete rešiti ovo omogućavanjem dolaznih konekcija (UDP and TCP) na portu {port}.",
       "openFirewall": "Otvori Firewall"
+    },
+    "noDiscovery": {
+      "symptom": "Ovaj uredjaj ne može da pronadje druge uredjaje.",
+      "solution": "Uverite se da su svi uredjaji na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodavanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti."
     },
     "noConnection": {
       "symptom": "Uredjaji ne mogu ni da pronadju jedan drugog, ni da podele fajlove.",
@@ -240,6 +246,7 @@
     ],
     "author": "Autor",
     "contributors": "Saradnici",
+    "packagers": "Paketi",
     "translators": "Prevodioci"
   },
   "donationPage": {
@@ -440,7 +447,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Quit LocalSend",
+    "closeWindows": "Izadji"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

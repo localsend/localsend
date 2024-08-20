@@ -46,6 +46,7 @@ class _StringsVi extends Translations {
 	@override late final _StringsChangelogPageVi changelogPage = _StringsChangelogPageVi._(_root);
 	@override late final _StringsAliasGeneratorVi aliasGenerator = _StringsAliasGeneratorVi._(_root);
 	@override late final _StringsDialogsVi dialogs = _StringsDialogsVi._(_root);
+	@override late final _StringsSanitizationVi sanitization = _StringsSanitizationVi._(_root);
 	@override late final _StringsTrayVi tray = _StringsTrayVi._(_root);
 	@override late final _StringsWebVi web = _StringsWebVi._(_root);
 	@override late final _StringsAssetPickerVi assetPicker = _StringsAssetPickerVi._(_root);
@@ -236,6 +237,7 @@ class _StringsSendPageVi extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Đang chờ phản hồi...';
 	@override String get rejected => 'Người nhận đã từ chối yêu cầu.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Người nhận đang bận xử lý một yêu cầu khác.';
 }
 
@@ -271,6 +273,8 @@ class _StringsWebSharePageVi extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Hiện không có yêu cầu nào.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Tự động chấp nhận yêu cầu';
+	@override String get requirePin => 'Cần cung cấp mã PIN';
+	@override String pinHint({required Object pin}) => 'Mã PIN là "${pin}"';
 	@override String get encryptionHint => 'LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.';
 	@override String pendingRequests({required Object n}) => 'Yêu cầu chờ: ${n}';
 }
@@ -352,7 +356,20 @@ class _StringsDialogsVi extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrVi qr = _StringsDialogsQrVi._(_root);
 	@override late final _StringsDialogsQuickActionsVi quickActions = _StringsDialogsQuickActionsVi._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeVi quickSaveNotice = _StringsDialogsQuickSaveNoticeVi._(_root);
+	@override late final _StringsDialogsPinVi pin = _StringsDialogsPinVi._(_root);
 	@override late final _StringsDialogsSendModeHelpVi sendModeHelp = _StringsDialogsSendModeHelpVi._(_root);
+	@override late final _StringsDialogsZoomVi zoom = _StringsDialogsZoomVi._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationVi extends _StringsSanitizationEn {
+	_StringsSanitizationVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Tên tập tin không được để trống';
+	@override String get invalid => 'Tên tập tin chứa ký tự không hợp lệ';
 }
 
 // Path: tray
@@ -374,6 +391,9 @@ class _StringsWebVi extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Nhập mã PIN';
+	@override String get invalidPin => 'Sai mã PIN';
+	@override String get tooManyAttempts => 'Sai quá nhiều';
 	@override String get rejected => 'Đã từ chối';
 	@override String get files => 'Tập tin';
 	@override String get fileName => 'Tên';
@@ -486,6 +506,7 @@ class _StringsSettingsTabGeneralVi extends _StringsSettingsTabGeneralEn {
 	@override String get minimizeToTray => 'Thoát: Ẩn xuống thanh tác vụ';
 	@override String get launchAtStartup => 'Tự khởi động sau khi đăng nhập';
 	@override String get launchMinimized => 'Tự khởi động: Khởi động ẩn';
+	@override String get showInContextMenu => 'Hiển thị LocalSend ở danh mục';
 	@override String get animations => 'Hoạt ảnh';
 }
 
@@ -498,6 +519,7 @@ class _StringsSettingsTabReceiveVi extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Nhận';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Tự động hoàn thành';
 	@override String get destination => 'Đích đến';
 	@override String get downloads => '(Downloads)';
@@ -530,6 +552,7 @@ class _StringsSettingsTabNetworkVi extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Loại thiết bị';
 	@override String get deviceModel => 'Model thiết bị';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Hết thời gian tìm kiếm';
 	@override String portWarning({required Object defaultPort}) => 'Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: ${defaultPort})';
 	@override String get encryption => 'Mã hoá';
 	@override String get multicastGroup => 'Đa phương tiện';
@@ -581,6 +604,7 @@ class _StringsReceiveHistoryPageEntryActionsVi extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Mở tập tin';
+	@override String get showInFolder => 'Hiển thị trong thư mục';
 	@override String get info => 'Thông tin';
 	@override String get deleteFromHistory => 'Xoá khỏi lịch sử';
 }
@@ -832,6 +856,16 @@ class _StringsDialogsQuickSaveNoticeVi extends _StringsDialogsQuickSaveNoticeEn 
 	@override String get content => 'Yêu cầu tập tin đã được chấp thuận tự động. Chú ý rằng bất kỳ ai dùng chung mạng nội bộ với bạn đều có thể gửi tập tin cho bạn.';
 }
 
+// Path: dialogs.pin
+class _StringsDialogsPinVi extends _StringsDialogsPinEn {
+	_StringsDialogsPinVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nhập mã PIN';
+}
+
 // Path: dialogs.sendModeHelp
 class _StringsDialogsSendModeHelpVi extends _StringsDialogsSendModeHelpEn {
 	_StringsDialogsSendModeHelpVi._(_StringsVi root) : this._root = root, super._(root);
@@ -843,6 +877,16 @@ class _StringsDialogsSendModeHelpVi extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Gửi tập tin tới một người nhận. Lựa chọn sẽ được xoá sau khi quá trình gửi hoàn thành.';
 	@override String get multiple => 'Gửi tập tin tới nhiều người nhận. Lựa chọn sẽ không bị xoá.';
 	@override String get link => 'Người nhận chưa cài đặt LocalSend có thể nhận tập tin bằng cách mở liên kết trong trình duyệt.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomVi extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomVi._(_StringsVi root) : this._root = root, super._(root);
+
+	@override final _StringsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Đường dẫn';
 }
 
 // Path: settingsTab.general.brightnessOptions

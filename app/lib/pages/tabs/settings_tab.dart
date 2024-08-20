@@ -1,8 +1,10 @@
 import 'dart:io';
 
-import 'package:common/common.dart';
+import 'package:common/constants.dart';
+import 'package:common/model/device.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
@@ -12,7 +14,6 @@ import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
-import 'package:localsend_app/theme.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -87,7 +88,9 @@ class SettingsTab extends StatelessWidget {
                   /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
                   if (vm.advanced && checkPlatformIsNotWaylandDesktop())
                     _BooleanEntry(
-                      label: t.settingsTab.general.saveWindowPlacement,
+                      label: defaultTargetPlatform == TargetPlatform.windows
+                          ? t.settingsTab.general.saveWindowPlacementWindows
+                          : t.settingsTab.general.saveWindowPlacement,
                       value: vm.settings.saveWindowPlacement,
                       onChanged: (b) async {
                         await ref.notifier(settingsProvider).setSaveWindowPlacement(b);

@@ -1,14 +1,13 @@
-import 'dart:io';
-
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
+import 'package:localsend_app/util/simple_server.dart';
 
 part 'server_state.mapper.dart';
 
 @MappableClass()
 class ServerState with ServerStateMappable {
-  final HttpServer httpServer;
+  final SimpleServer httpServer;
   final String alias;
   final int port;
   final bool https;

@@ -100,16 +100,22 @@
       "minimizeToTray": "Quit: Paliitin sa Tray/Menu Bar",
       "launchAtStartup": "I-autostart pagkatapos mag-login",
       "launchMinimized": "Autostart: I-start nang nakatago",
+      "showInContextMenu": "Ipakita ang LocalSend sa context menu",
       "animations": "Animations"
     },
     "receive": {
       "title": "Tumanggap",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish",
       "destination": "Patutunguhan",
       "downloads": "(Downloads)",
       "saveToGallery": "I-save ang media sa gallery",
       "saveToHistory": "I-save sa history"
+    },
+    "send": {
+      "title": "Ipasa",
+      "shareViaLinkAutoAccept": "Kusang tanggapin ang request sa \"Share via link\" mode"
     },
     "network": {
       "title": "Network",
@@ -119,6 +125,7 @@
       "deviceType": "Device type",
       "deviceModel": "Device model",
       "port": "Port",
+      "discoveryTimeout": "Nag Timeout ang Discovery",
       "portWarning": "Maaaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
@@ -143,6 +150,10 @@
       "solution": "Ito ay kadalasang isyu sa firewall. Maaari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port {port}.",
       "openFirewall": "Buksan ang Firewall"
     },
+    "noDiscovery": {
+      "symptom": "Ang device na'to ay hindi maka-discover ng ibang devices.",
+      "solution": "Siguraduhing lahat ng device ay nasa same WI-FI network at i-share ang parehong configuration (port, multicast address, encryption). Pwedeng i-type manually ang IP address ng target device. Kung gumana, i-consider na i-dagdag ang device sa favorites upang automatic na ma discover sa susunod na paggamit."
+    },
     "noConnection": {
       "symptom": "Ang dalawa o higit pang device ay hindi ma-discover ang isa't isa o hindi makapag-share ng mga file.",
       "solution": "Ang problema ay nangyayari sa dalawang device? Mangyaring siguraduhin na ang dalawang device ay nasa parehas na wifi network at mayroong parehas na configuration (port, multicast address, encryption). Maaaring ang wifi ay hindi pinahihintulutan and komunikasyon sa pagitan nang mga participants. Sa ganitong pangyayari, ang option na ito ay dapat i-enable sa router."
@@ -155,6 +166,7 @@
     "empty": "Walang laman ang history.",
     "entryActions": {
       "open": "Buksan ang file",
+      "showInFolder": "Buksan sa folder",
       "info": "Impormasyon",
       "deleteFromHistory": "Burahin sa history"
     }
@@ -187,6 +199,7 @@
   "sendPage": {
     "waiting": "Naghihintay ng response...",
     "rejected": "Tinanggihan ng recipient ang request.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Ang recipient ay abala pa sa ibang request."
   },
   "progressPage": {
@@ -217,6 +230,9 @@
     "requests": "Requests",
     "noRequests": "Wala pang mga request.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Kusang I-accept ang request",
+    "requirePin": "I-require ang Pin",
+    "pinHint": "Ang Pin ay \"{pin}\"",
     "encryptionHint": "Ang LocalSend ay gumagamit ng self-signed certificate. Kailangan mo itong i-accept sa browser.",
     "pendingRequests": "Mga naka-pending na request: {n}"
   },
@@ -228,6 +244,7 @@
     ],
     "author": "Author",
     "contributors": "Mga Contributor",
+    "packagers": "Mga Packagers",
     "translators": "Mga Translator"
   },
   "donationPage": {
@@ -408,12 +425,22 @@
       "title": "@:general.quickSave",
       "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring magpadala sa iyo ng mga file."
     },
+    "pin": {
+      "title": "Ilagay ang PIN"
+    },
     "sendModeHelp": {
       "title": "Send modes",
       "single": "Magpadala ng mga file sa iisang recipient o tatanggap. Ang mga pagpipilian ay maaalis pagkatapos ipadala ang file.",
       "multiple": "Magpadala ng mga file sa maraming recipient o tatanggap. Ang mga pagpipilian ay hindi maaalis.",
       "link": "Ang mga recipient o tatanggap na walang nakainstall na LocalSend ay maaaring mag download nang mga napiling file sa pamamagitan ng pagbukas ng link sa kanilang browser."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Ang Filename ay hindi maaaring walang laman",
+    "invalid": "Ang Filename ay naglalaman ng hindi suportado na characters"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -422,6 +449,9 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Ilagay ang PIN",
+    "invalidPin": "Ang PIN ay invalid",
+    "tooManyAttempts": "Marami nang pagsubok",
     "rejected": "Hindi Tinanggap",
     "files": "Files",
     "fileName": "Pangalan ng file",
