@@ -57,7 +57,7 @@ Dowiedz się więcej o [kanałach dystrybucji][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
-[play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
+[sklep play]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [amazon]: https://www.amazon.com/dp/B0BW6MP732
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
