@@ -68,9 +68,9 @@ PODS:
     - Flutter
     - FlutterMacOS
   - ReachabilitySwift (5.2.3)
-  - SDWebImage (5.19.4):
-    - SDWebImage/Core (= 5.19.4)
-  - SDWebImage/Core (5.19.4)
+  - SDWebImage (5.19.6):
+    - SDWebImage/Core (= 5.19.6)
+  - SDWebImage/Core (5.19.6)
   - share_handler_ios (0.0.11):
     - Flutter
     - share_handler_ios/share_handler_ios_models (= 0.0.11)
@@ -199,7 +199,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
-  SDWebImage: 066c47b573f408f18caa467d71deace7c0f8280d
+  SDWebImage: a79252b60f4678812d94316c91da69ec83089c9f
   share_handler_ios: ae3584532280673e02aacdf77f2cdfb2c96b9211
   share_handler_ios_models: fc638c9b4330dc7f082586c92aee9dfa0b87b871
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
