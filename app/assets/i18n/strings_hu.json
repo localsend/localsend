@@ -442,5 +442,25 @@
     "enterPin": "PIN kód megadása",
     "invalidPin": "Érvénytelen a PIN",
     "tooManyAttempts": "Túl sok kísérlet"
+  },
+  "sendTab": {
+    "manualSending": "Manuális küldés"
+  },
+  "settingsTab": {
+    "general": {
+      "saveWindowPlacementWindows": "Az ablak pozíciójának mentése kilépés után"
+    }
+  },
+  "troubleshootPage": {
+    "noDiscovery": {
+      "symptom": "Ez az eszköz nem tud más eszközöket felismerni.",
+      "solution": "Győződjön meg róla, hogy minden eszköz ugyanabban a Wi-Fi hálózatban van, és ugyanaz a konfiguráció (port, multicast cím, titkosítás). Megpróbálhatja manuálisan beírni a céleszköz IP-címét. Ha ez működik, fontolja meg az eszköz hozzáadását a kedvencekhez, hogy a jövőben automatikusan fel lehessen fedezni."
+    }
+  },
+  "aboutPage": {
+    "packagers": "Csomagolók"
+  },
+  "tray": {
+    "closeWindows": "Kilépés"
   }
 }
