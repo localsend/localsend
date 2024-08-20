@@ -123,6 +123,7 @@ class _StringsSendTabSrCyrl extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Уређаји у близини';
 	@override String get thisDevice => 'Овај уређај';
 	@override String get scan => 'Потражи уређаје';
+	@override String get manualSending => 'Мануелно слање';
 	@override String get sendMode => 'Мод за слање';
 	@override late final _StringsSendTabSendModesSrCyrl sendModes = _StringsSendTabSendModesSrCyrl._(_root);
 	@override String get sendModeHelp => 'Објашњење';
@@ -454,6 +455,7 @@ class _StringsTraySrCyrl extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Quit LocalSend';
+	@override String get closeWindows => 'Изађи';
 }
 
 // Path: web
@@ -576,6 +578,7 @@ class _StringsSettingsTabGeneralSrCyrl extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Језик';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsSrCyrl languageOptions = _StringsSettingsTabGeneralLanguageOptionsSrCyrl._(_root);
 	@override String get saveWindowPlacement => 'Изађи: Сними положај прозора';
+	@override String get saveWindowPlacementWindows => 'Сними позицију прозора након изласка из апликације';
 	@override String get minimizeToTray => 'Изађи: Минимизуј у Tray/MenuBar';
 	@override String get launchAtStartup => 'Аутостартуј после login-а';
 	@override String get launchMinimized => 'Аутостартуј: Старт сакривен';

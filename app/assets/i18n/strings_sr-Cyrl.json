@@ -67,6 +67,7 @@
     "nearbyDevices": "Уређаји у близини",
     "thisDevice": "Овај уређај",
     "scan": "Потражи уређаје",
+    "manualSending": "Мануелно слање",
     "sendMode": "Мод за слање",
     "sendModes": {
       "single": "Један прималац",
@@ -97,6 +98,7 @@
         "system": "Систем"
       },
       "saveWindowPlacement": "Изађи: Сними положај прозора",
+      "saveWindowPlacementWindows": "Сними позицију прозора након изласка из апликације",
       "minimizeToTray": "Изађи: Минимизуј у Tray/MenuBar",
       "launchAtStartup": "Аутостартуј после login-а",
       "launchMinimized": "Аутостартуј: Старт сакривен",
@@ -445,7 +447,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Quit LocalSend",
+    "closeWindows": "Изађи"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

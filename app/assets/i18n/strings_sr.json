@@ -67,6 +67,7 @@
     "nearbyDevices": "Uredjaji u blizini",
     "thisDevice": "Ovaj uredjaj",
     "scan": "Potraži uredjaje",
+    "manualSending": "Manuelno slanje",
     "sendMode": "Mod za slanje",
     "sendModes": {
       "single": "Jedan primalac",
@@ -97,6 +98,7 @@
         "system": "Sistem"
       },
       "saveWindowPlacement": "Izadji: Snimi položaj prozora",
+      "saveWindowPlacementWindows": "Zapamti poziciju prozora nakon izlaska iz aplikacije",
       "minimizeToTray": "Izadji: Minimizuj u Tray/MenuBar",
       "launchAtStartup": "Autostartuj posle login-a",
       "launchMinimized": "Autostartuj: Start sakriven",
@@ -445,7 +447,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Quit LocalSend",
+    "closeWindows": "Izadji"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

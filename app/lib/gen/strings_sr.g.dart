@@ -123,6 +123,7 @@ class _StringsSendTabSr extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Uredjaji u blizini';
 	@override String get thisDevice => 'Ovaj uredjaj';
 	@override String get scan => 'Potraži uredjaje';
+	@override String get manualSending => 'Manuelno slanje';
 	@override String get sendMode => 'Mod za slanje';
 	@override late final _StringsSendTabSendModesSr sendModes = _StringsSendTabSendModesSr._(_root);
 	@override String get sendModeHelp => 'Objašnjenje';
@@ -454,6 +455,7 @@ class _StringsTraySr extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Quit LocalSend';
+	@override String get closeWindows => 'Izadji';
 }
 
 // Path: web
@@ -576,6 +578,7 @@ class _StringsSettingsTabGeneralSr extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Jezik';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsSr languageOptions = _StringsSettingsTabGeneralLanguageOptionsSr._(_root);
 	@override String get saveWindowPlacement => 'Izadji: Snimi položaj prozora';
+	@override String get saveWindowPlacementWindows => 'Zapamti poziciju prozora nakon izlaska iz aplikacije';
 	@override String get minimizeToTray => 'Izadji: Minimizuj u Tray/MenuBar';
 	@override String get launchAtStartup => 'Autostartuj posle login-a';
 	@override String get launchMinimized => 'Autostartuj: Start sakriven';
