@@ -1,4 +1,4 @@
-## 1.15.4 (unreleased)
+## 1.15.4 (2024-08-20)
 
 - feat: add button to retry a failed file transfer (@Tienisto)
 - feat: show tooltip on the "Scan" button (@Tienisto)
