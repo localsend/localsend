@@ -16,10 +16,10 @@
 
 LocalSend jest darmową, otwartoźródłową aplikacją, która umożliwia Ci bezpiecznie udostępnianie plików oraz wiadomości pobliskim urządzeniom w Twojej sieci lokalnej bez konieczności połączenia z internetem.
 
-- [Co?](#Co?)
+- [O projekcie](#O-projekcie)
 - [Zrzuty ekranu](#Zrzuty-ekranu)
 - [Pobieranie](#Pobieranie)
-- [Jak to działa?](#Jak-to-działa?)
+- [Jak to działa?](#Jak-to-działa)
 - [Pierwsze kroki](#Pierwsze-kroki)
 - [Wnoszenie wkładu](#Wnoszenie-wkładu)
   - [Tłumaczenie](#Tłumaczenie)
@@ -31,7 +31,7 @@ LocalSend jest darmową, otwartoźródłową aplikacją, która umożliwia Ci be
   - [Windows](#windows)
   - [Linux](#linux)
 
-## Co?
+## O projekcie
 
 LocalSend jest wieloplatformową aplikacją, która umożliwia bezpieczną komunikację między urządzeniami przy użyciu REST API oraz szyfrowania HTTPS. W przeciwieństwie do innych aplikacji, które bazują na zewnętrznych serwerach, LocalSend nie wymaga połączenia z internetem ani serwerów osób trzecich, co czyni go szybkim i niezawodnym rozwiązaniem dla lokalnej komunikacji.
 
@@ -41,11 +41,11 @@ LocalSend jest wieloplatformową aplikacją, która umożliwia bezpieczną komun
 
 ## Pobieranie
 
-Zaleca się pobranie aplikacji ze sklepu z aplikacjami albo menedżera paczek, ponieważ aplikacja posiada automatycznego aktualizatora.
+Zaleca się pobranie aplikacji ze sklepu z aplikacjami albo menedżera paczek, ponieważ aplikacja nie posiada automatycznych aktualizacji.
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |-------------------------|-------------------------|--------------------|----------------|---------------|------------|
-| [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
+| [Winget][]              | [App Store][]           | [Flathub][]        | [Sklep Play][] | [App Store][] | [Amazon][] |
 | [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
 | [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
 | [EXE Installer][latest] |                         | [AUR][]            |                |               |            |
@@ -57,7 +57,7 @@ Dowiedz się więcej o [kanałach dystrybucji][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
-[play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
+[sklep play]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
 [f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
 [amazon]: https://www.amazon.com/dp/B0BW6MP732
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
@@ -78,11 +78,11 @@ W większości przypadków LocalSend powinien działać od razu po instalacji. J
 | Typ ruchu    | Protokół | Port    | Akcja  |
 |--------------|----------|---------|--------|
 | Przychodzący | TCP, UDP | 53317   | Zezwól |
-| Wychodzący   | TCP, UDP | dowolny | Zezwól |
+| Wychodzący   | TCP, UDP | każdy   | Zezwól |
 
 Również, upewnij się, że izolacja klientów na Twoim routerze jest wyłączona. Zwykle powinna być ona domyślnie wyłączona, ale niektóre routery mogą mieć ją włączoną (szczególnie sieci gościnne).
 
-**Tryb przenośny**
+**Tryb przenośny (portable)**
 
 (Wprowadzony w v1.13.0)
 
@@ -90,13 +90,13 @@ Stwórz plik o nazwie `settings.json` znajdujący się w tym samym katalogu, co 
 Plik może być pusty.
 Aplikacja będzie używać tego pliku do przechowywania ustawień zamiast domyślnej lokalizacji.
 
-**Uruchom ukryte**
+**Uruchom w zasobniku (w tle)**
 
 (Zaktualizowano w v1.15.0)
 
-Aby uruchomić aplikację ukrytą (tylko w zasobniku), użyj flagi `--hidden` (przykład: `localsend_app.exe --hidden`).
+Aby uruchomić aplikację do zasobnika, użyj flagi `--hidden` (przykład: `localsend_app.exe --hidden`).
 
-W wersji v1.14.0 i wcześniejszych aplikacja uruchamia się ukryta, jeśli ustawiona jest flaga `autostart`, a ustawienie ukrycia jest włączone.
+W wersji v1.14.0 i wcześniejszych aplikacja uruchamia się do zasobnika, jeśli ustawiona jest flaga `autostart`, a ustawienie uruchamiania do zasobnika jest włączone.
 
 ## Jak to działa?
 
@@ -135,7 +135,7 @@ Możesz pomóc tłumaczyć tę aplikację na inne języki!
    - Dodaj nowy język: Stwórz plik; zobacz też: [kody regionalne][].
 3. Opcjonalnie: Uruchom ponownie aplikację
    1. Wykonaj `cd app`, aby wejść do katalogu `app`.
-   2. Upewnij się, że [uruchomiłeś](#Pierwsze-kroki) tę aplikację raz.
+   2. Upewnij się, że [uruchomiłeś](#Pierwsze-kroki) tę aplikację przynajmniej raz.
    3. Zaktualizuj tłumaczenia poprzez `flutter pub run slang`
    4. Uruchom aplikację wykonując `flutter run`
    5. Otwórz pull request
@@ -218,7 +218,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Zachęcamy do otwarcia pull requesta. Istnieje gałąź `snap` do wykorzystania.
+Zachęcamy do otwarcia pull requesta. Do dyspozycji istnieje gałąź `snap`.
 
 ## Współtwórcy
 
