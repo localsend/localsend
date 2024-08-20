@@ -16,10 +16,10 @@
 
 LocalSend jest darmową, otwartoźródłową aplikacją, która umożliwia Ci bezpiecznie udostępnianie plików oraz wiadomości pobliskim urządzeniom w Twojej sieci lokalnej bez konieczności połączenia z internetem.
 
-- [Co?](#Co?)
+- [Co?](#Co)
 - [Zrzuty ekranu](#Zrzuty-ekranu)
 - [Pobieranie](#Pobieranie)
-- [Jak to działa?](#Jak-to-działa?)
+- [Jak to działa?](#Jak-to-działa)
 - [Pierwsze kroki](#Pierwsze-kroki)
 - [Wnoszenie wkładu](#Wnoszenie-wkładu)
   - [Tłumaczenie](#Tłumaczenie)
@@ -41,11 +41,11 @@ LocalSend jest wieloplatformową aplikacją, która umożliwia bezpieczną komun
 
 ## Pobieranie
 
-Zaleca się pobranie aplikacji ze sklepu z aplikacjami albo menedżera paczek, ponieważ aplikacja posiada automatycznego aktualizatora.
+Zaleca się pobranie aplikacji ze sklepu z aplikacjami albo menedżera paczek, ponieważ aplikacja nie posiada automatycznego aktualizatora.
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |-------------------------|-------------------------|--------------------|----------------|---------------|------------|
-| [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
+| [Winget][]              | [App Store][]           | [Flathub][]        | [Sklep Play][] | [App Store][] | [Amazon][] |
 | [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
 | [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
 | [EXE Installer][latest] |                         | [AUR][]            |                |               |            |
