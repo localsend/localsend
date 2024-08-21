@@ -4,14 +4,14 @@
     "After editing this file, you can run 'dart run slang apply --locale=fr' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Envoi manuel"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "Sauvegarder la position de la fenêtre avant de quitter"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Fermer"
   }
 }
