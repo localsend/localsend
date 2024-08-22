@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=it' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Invio manuale"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
+      "saveWindowPlacementWindows": "Salva la posizione della finestra dopo l'uscita",
+      "showInContextMenu": "Mostra LocalSend nel menu contestuale"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
@@ -17,36 +17,36 @@
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Questo dispositivo non riesce a rilevare altri dispositivi.",
+      "solution": "Assicurati che tutti i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Puoi provare a digitare manualmente l'indirizzo IP del dispositivo di destinazione. Se funziona, considera di aggiungere questo dispositivo ai preferiti in modo che possa essere scoperto automaticamente in futuro."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Mostra nella cartella"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "Richiedi PIN",
+    "pinHint": "Il PIN è \"{pin}\""
   },
   "aboutPage": {
     "packagers": "Packagers"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Inserisci il PIN"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Uscita"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Inserisci il PIN",
+    "invalidPin": "PIN non valido",
+    "tooManyAttempts": "Troppi tentativi"
   }
 }
