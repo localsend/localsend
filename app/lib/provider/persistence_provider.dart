@@ -72,6 +72,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
+const _quickSaveFromFavorites = 'ls_quick_save_from_favorites';
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
@@ -342,6 +343,14 @@ class PersistenceService {
 
   Future<void> setQuickSave(bool quickSave) async {
     await _prefs.setBool(_quickSave, quickSave);
+  }
+
+  bool isQuickSaveFromFavorites() {
+    return _prefs.getBool(_quickSaveFromFavorites) ?? false;
+  }
+
+  Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
+    await _prefs.setBool(_quickSaveFromFavorites, quickSaveFromFavorites);
   }
 
   String? getReceivePin() {

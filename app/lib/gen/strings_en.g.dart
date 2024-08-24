@@ -90,6 +90,7 @@ class _StringsGeneralEn {
 	String get open => 'Open';
 	String get queue => 'Queue';
 	String get quickSave => 'Quick Save';
+	String get quickSaveFromFavorites => 'Quick Save From Favorites';
 	String get renamed => 'Renamed';
 	String get reset => 'Undo changes';
 	String get restart => 'Restart';
@@ -435,6 +436,7 @@ class _StringsDialogsEn {
 	late final _StringsDialogsQrEn qr = _StringsDialogsQrEn._(_root);
 	late final _StringsDialogsQuickActionsEn quickActions = _StringsDialogsQuickActionsEn._(_root);
 	late final _StringsDialogsQuickSaveNoticeEn quickSaveNotice = _StringsDialogsQuickSaveNoticeEn._(_root);
+	late final _StringsDialogsQuickSaveFromFavoritesNoticeEn quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeEn._(_root);
 	late final _StringsDialogsPinEn pin = _StringsDialogsPinEn._(_root);
 	late final _StringsDialogsSendModeHelpEn sendModeHelp = _StringsDialogsSendModeHelpEn._(_root);
 	late final _StringsDialogsZoomEn zoom = _StringsDialogsZoomEn._(_root);
@@ -600,6 +602,7 @@ class _StringsSettingsTabReceiveEn {
 	// Translations
 	String get title => 'Receive';
 	String get quickSave => _root.general.quickSave;
+	String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	String get requirePin => _root.webSharePage.requirePin;
 	String get autoFinish => 'Auto Finish';
 	String get destination => 'Save to folder';
@@ -946,6 +949,17 @@ class _StringsDialogsQuickSaveNoticeEn {
 	// Translations
 	String get title => _root.general.quickSave;
 	String get content => 'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => _root.general.quickSaveFromFavorites;
+	String get content => 'File requests are automatically accepted from favorites.';
 }
 
 // Path: dialogs.pin
