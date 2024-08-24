@@ -50,6 +50,7 @@
   },
   "sendTab": {
     "title": "Enviar",
+    "manualSending": "Envio manual",
     "selection": {
       "title": "Seleção",
       "files": "Arquivos: {files}",
@@ -86,7 +87,9 @@
         "system": "Sistema",
         "dark": "Escuro",
         "light": "Claro"
-      },
+  },
+      "saveWindowPlacementWindows": "Salvar posição da janela ao sair",
+      "showInContextMenu": "Mostrar LocalSend no menu de contexto",  
       "color": "Cores",
       "colorOptions": {
         "system": "Sistema",
@@ -109,9 +112,14 @@
       "destination": "Destino",
       "downloads": "(Downloads)",
       "saveToGallery": "Salvar mídia na Galeria",
-      "saveToHistory": "Salvar no histórico"
+      "saveToHistory": "Salvar no histórico",
+      "requirePin": "@:webSharePage.requirePin"	  
     },
-    "network": {
+    "send": {
+      "title": "Enviar",
+      "shareViaLinkAutoAccept": "Aceitar automaticamente pedidos no modo \"Compartilhar por link\""
+	},
+	  "network": {
       "title": "Rede",
       "needRestart": "Reinicie o servidor para aplicar as configurações!",
       "server": "Servidor",
@@ -122,7 +130,8 @@
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
+      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})",
+      "discoveryTimeout": "Tempo limite de descoberta"
     },
     "other": {
       "title": "Outros",
@@ -148,6 +157,10 @@
       "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
     }
   },
+    "noDiscovery": {
+      "symptom": "Este dispositivo não consegue descobrir outros dispositivos.",
+      "solution": "Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e compartilham as mesmas configurações (porta, endereço multicast, criptografia). Você pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro."
+  },
   "receiveHistoryPage": {
     "title": "Histórico",
     "openFolder": "Abrir pasta",
@@ -156,7 +169,8 @@
     "entryActions": {
       "open": "Abrir arquivo",
       "info": "Informações",
-      "deleteFromHistory": "Remover do histórico"
+      "deleteFromHistory": "Remover do histórico",
+      "showInFolder": "Mostrar na pasta"	  
     }
   },
   "apkPickerPage": {
@@ -187,7 +201,8 @@
   "sendPage": {
     "waiting": "Aguardando resposta...",
     "rejected": "O destinatário rejeitou a solicitação.",
-    "busy": "O destinatário está ocupado com outra solicitação de transferência."
+    "busy": "O destinatário está ocupado com outra solicitação de transferência.",
+    "tooManyAttempts": "@:web.tooManyAttempts"	
   },
   "progressPage": {
     "titleSending": "Enviando arquivos",
@@ -218,7 +233,10 @@
     "noRequests": "Nenhuma solicitação ainda.",
     "encryption": "@:settingsTab.network.encryption",
     "encryptionHint": "LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no navegador.",
-    "pendingRequests": "Solicitações pendentes: {n}"
+    "pendingRequests": "Solicitações pendentes: {n}",
+    "autoAccept": "Aceitar pedidos automaticamente",
+    "requirePin": "Solicitar PIN",
+    "pinHint": "O PIN é \"{pin}\""	
   },
   "aboutPage": {
     "title": "Sobre LocalSend",
@@ -228,7 +246,8 @@
     ],
     "author": "Autor",
     "contributors": "Contribuidores",
-    "translators": "Tradutores"
+    "translators": "Tradutores",
+    "packagers": "Empacotadores"	
   },
   "donationPage": {
     "title": "Doar",
@@ -383,6 +402,9 @@
       "title": "Indisponível",
       "content": "Essa função está disponível somente no: "
     },
+    "pin": {
+      "title": "Digite o PIN"
+	},	
     "qr": {
       "title": "QR Code"
     },
@@ -398,6 +420,10 @@
       "title": "@:general.quickSave",
       "content": "Solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você."
     },
+  "sanitization": {
+    "empty": "O nome do arquivo não pode estar vazio",
+    "invalid": "O nome do arquivo contém caracteres inválidos"
+  },
     "sendModeHelp": {
       "title": "Modos de envio",
       "single": "Envia arquivos para um destinatário. A seleção será apagada após a conclusão da transferência dos arquivos.",
@@ -408,14 +434,21 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Fechar LocalSend"
+    "close": "Fechar LocalSend",
+    "closeWindows": "Sair"	
   },
   "web": {
     "waiting": "@:sendPage.waiting",
     "rejected": "Conexão Rejeitada",
     "files": "Arquivos",
     "fileName": "Nome do arquivo",
-    "size": "Tamanho"
+    "size": "Tamanho",
+    "enterPin": "Digite o PIN",
+    "invalidPin": "PIN inválido",
+    "tooManyAttempts": "Muitas tentativas"	
+  },
+    "zoom": {
+      "title": "URL"  
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",
