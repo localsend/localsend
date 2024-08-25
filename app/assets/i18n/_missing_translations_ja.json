@@ -4,23 +4,23 @@
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "手動送信"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "終了時にウィンドウ配置を記憶"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "このデバイスで他のデバイスを見つけられない。",
+      "solution": "すべてのデバイスが同じWi-Fiネットワーク上にあり、各種設定(ポート、マルチキャストアドレス、暗号化)が一致していることを確認してください。もしくは、送信先デバイスのIPアドレスを手動で入力することもできます。これでうまくいく場合は、そのデバイスをお気に入りに追加して、今後自動的に検出できるようにすることもご検討ください。"
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "パッケージ協力者"
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "終了"
   }
 }
