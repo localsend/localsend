@@ -70,7 +70,7 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get copy => 'Copia';
 	@override String get copiedToClipboard => 'Copiato negli Appunti';
 	@override String get decline => 'Rifiuta';
-	@override String get done => 'Eseguito';
+	@override String get done => 'Fatto';
 	@override String get delete => 'Cancella';
 	@override String get edit => 'Modifica';
 	@override String get error => 'Errore';

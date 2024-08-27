@@ -42,9 +42,11 @@ class _StringsUr extends Translations {
 	@override late final _StringsProgressPageUr progressPage = _StringsProgressPageUr._(_root);
 	@override late final _StringsWebSharePageUr webSharePage = _StringsWebSharePageUr._(_root);
 	@override late final _StringsAboutPageUr aboutPage = _StringsAboutPageUr._(_root);
+	@override late final _StringsDonationPageUr donationPage = _StringsDonationPageUr._(_root);
 	@override late final _StringsChangelogPageUr changelogPage = _StringsChangelogPageUr._(_root);
 	@override late final _StringsAliasGeneratorUr aliasGenerator = _StringsAliasGeneratorUr._(_root);
 	@override late final _StringsDialogsUr dialogs = _StringsDialogsUr._(_root);
+	@override late final _StringsSanitizationUr sanitization = _StringsSanitizationUr._(_root);
 	@override late final _StringsTrayUr tray = _StringsTrayUr._(_root);
 	@override late final _StringsWebUr web = _StringsWebUr._(_root);
 	@override late final _StringsAssetPickerUr assetPicker = _StringsAssetPickerUr._(_root);
@@ -69,6 +71,7 @@ class _StringsGeneralUr extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'کلپ بورڈ پر کاپی کیا گیا';
 	@override String get decline => 'رد کرنا';
 	@override String get done => 'ہو گیا';
+	@override String get delete => 'حذف کریں';
 	@override String get edit => 'ترمیم';
 	@override String get error => 'خرابی';
 	@override String get example => 'مثال';
@@ -92,6 +95,7 @@ class _StringsGeneralUr extends _StringsGeneralEn {
 	@override String get save => 'محفوظ کریں';
 	@override String get unchanged => 'غیر تبدیل شدہ';
 	@override String get unknown => 'نامعلوم';
+	@override String get noItemInClipboard => 'کلپ بورڈ میں کوئی آئٹم نہیں ہے۔';
 }
 
 // Path: receiveTab
@@ -119,6 +123,7 @@ class _StringsSendTabUr extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'قریبی ڈیوائس';
 	@override String get thisDevice => 'یہ ڈیوائس';
 	@override String get scan => 'ڈیوائس تلاش کریں';
+	@override String get manualSending => 'خود بھیجنا';
 	@override String get sendMode => 'سینڈ موڈ';
 	@override late final _StringsSendTabSendModesUr sendModes = _StringsSendTabSendModesUr._(_root);
 	@override String get sendModeHelp => 'وضاحت';
@@ -136,7 +141,9 @@ class _StringsSettingsTabUr extends _StringsSettingsTabEn {
 	@override String get title => 'ترتیبات';
 	@override late final _StringsSettingsTabGeneralUr general = _StringsSettingsTabGeneralUr._(_root);
 	@override late final _StringsSettingsTabReceiveUr receive = _StringsSettingsTabReceiveUr._(_root);
+	@override late final _StringsSettingsTabSendUr send = _StringsSettingsTabSendUr._(_root);
 	@override late final _StringsSettingsTabNetworkUr network = _StringsSettingsTabNetworkUr._(_root);
+	@override late final _StringsSettingsTabOtherUr other = _StringsSettingsTabOtherUr._(_root);
 	@override String get advancedSettings => 'تجاویز شھر کی ترتیبات';
 }
 
@@ -152,6 +159,7 @@ class _StringsTroubleshootPageUr extends _StringsTroubleshootPageEn {
 	@override String get solution => 'حل:';
 	@override String get fixButton => 'خود بخود درست کریں۔';
 	@override late final _StringsTroubleshootPageFirewallUr firewall = _StringsTroubleshootPageFirewallUr._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryUr noDiscovery = _StringsTroubleshootPageNoDiscoveryUr._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionUr noConnection = _StringsTroubleshootPageNoConnectionUr._(_root);
 }
 
@@ -231,6 +239,7 @@ class _StringsSendPageUr extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'جواب کا منتظر...';
 	@override String get rejected => 'وصول کنندہ نے درخواست مسترد کر دی ہے۔';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'وصول کنندہ دوسری درخواست میں مصروف ہے۔';
 }
 
@@ -265,6 +274,9 @@ class _StringsWebSharePageUr extends _StringsWebSharePageEn {
 	@override String get requests => 'درخواستیں';
 	@override String get noRequests => 'ابھی تک کوئی درخواست نہیں۔';
 	@override String get encryption => _root.settingsTab.network.encryption;
+	@override String get autoAccept => 'درخواستیں خود بخود قبول کریں';
+	@override String get requirePin => 'PIN درکار ہے';
+	@override String pinHint({required Object pin}) => 'PIN ہے "${pin}"';
 	@override String get encryptionHint => 'LocalSend براؤزر میں استعمال کرنے کیلئے آپ کوخود سائن کردہ سرٹیفکیٹ قبول کرنا ہوگا۔';
 	@override String pendingRequests({required Object n}) => 'زیر التواء درخواستیں: ${n}';
 }
@@ -277,6 +289,28 @@ class _StringsAboutPageUr extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'کے بارے میں LocalSend';
+	@override List<String> get description => [
+		'LocalSend ایک مفت، اوپن سورس ایپ ہے جو آپ کو انٹرنیٹ کنکشن کی ضرورت کے بغیر اپنے مقامی نیٹ ورک کے ذریعے قریبی آلات کے ساتھ فائلیں اور پیغامات محفوظ طریقے سے شیئر کرنے کی اجازت دیتی ہے۔',
+		'یہ ایپ اینڈرائیڈ، iOS، macOS، ونڈوز، اور لینکس پر دستیاب ہے۔ آپ تمام ڈاؤن لوڈ کے اختیارات سرکاری ویب سائٹ پر تلاش کر سکتے ہیں۔',
+	];
+	@override String get author => 'مصنف';
+	@override String get contributors => 'تعاون کنندگان';
+	@override String get packagers => 'پیکجرز';
+	@override String get translators => 'مترجمین';
+}
+
+// Path: donationPage
+class _StringsDonationPageUr extends _StringsDonationPageEn {
+	_StringsDonationPageUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'عطیہ کریں';
+	@override String get info => 'LocalSend مفت، اوپن سورس ہے اور اس میں کوئی اشتہارات نہیں ہیں۔ اگر آپ کو ایپ پسند ہے، تو آپ عطیہ کے ذریعے ترقی کی حمایت کر سکتے ہیں۔';
+	@override String donate({required Object amount}) => 'عطیہ کریں ${amount}';
+	@override String get thanks => 'آپ کا بہت بہت شکریہ!';
+	@override String get restore => 'خریداری بحال کریں';
 }
 
 // Path: changelogPage
@@ -311,8 +345,12 @@ class _StringsDialogsUr extends _StringsDialogsEn {
 	@override late final _StringsDialogsCannotOpenFileUr cannotOpenFile = _StringsDialogsCannotOpenFileUr._(_root);
 	@override late final _StringsDialogsEncryptionDisabledNoticeUr encryptionDisabledNotice = _StringsDialogsEncryptionDisabledNoticeUr._(_root);
 	@override late final _StringsDialogsErrorDialogUr errorDialog = _StringsDialogsErrorDialogUr._(_root);
+	@override late final _StringsDialogsFavoriteDialogUr favoriteDialog = _StringsDialogsFavoriteDialogUr._(_root);
+	@override late final _StringsDialogsFavoriteDeleteDialogUr favoriteDeleteDialog = _StringsDialogsFavoriteDeleteDialogUr._(_root);
+	@override late final _StringsDialogsFavoriteEditDialogUr favoriteEditDialog = _StringsDialogsFavoriteEditDialogUr._(_root);
 	@override late final _StringsDialogsFileInfoUr fileInfo = _StringsDialogsFileInfoUr._(_root);
 	@override late final _StringsDialogsFileNameInputUr fileNameInput = _StringsDialogsFileNameInputUr._(_root);
+	@override late final _StringsDialogsHistoryClearDialogUr historyClearDialog = _StringsDialogsHistoryClearDialogUr._(_root);
 	@override late final _StringsDialogsLocalNetworkUnauthorizedUr localNetworkUnauthorized = _StringsDialogsLocalNetworkUnauthorizedUr._(_root);
 	@override late final _StringsDialogsMessageInputUr messageInput = _StringsDialogsMessageInputUr._(_root);
 	@override late final _StringsDialogsNoFilesUr noFiles = _StringsDialogsNoFilesUr._(_root);
@@ -321,7 +359,20 @@ class _StringsDialogsUr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrUr qr = _StringsDialogsQrUr._(_root);
 	@override late final _StringsDialogsQuickActionsUr quickActions = _StringsDialogsQuickActionsUr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeUr quickSaveNotice = _StringsDialogsQuickSaveNoticeUr._(_root);
+	@override late final _StringsDialogsPinUr pin = _StringsDialogsPinUr._(_root);
 	@override late final _StringsDialogsSendModeHelpUr sendModeHelp = _StringsDialogsSendModeHelpUr._(_root);
+	@override late final _StringsDialogsZoomUr zoom = _StringsDialogsZoomUr._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationUr extends _StringsSanitizationEn {
+	_StringsSanitizationUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'فائل کا نام خالی نہیں ہو سکتا';
+	@override String get invalid => 'فائل کے نام میں غلط حروف ہیں';
 }
 
 // Path: tray
@@ -333,6 +384,7 @@ class _StringsTrayUr extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'چھوڑو LocalSend';
+	@override String get closeWindows => 'بند کریں';
 }
 
 // Path: web
@@ -343,6 +395,9 @@ class _StringsWebUr extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'PIN درج کریں';
+	@override String get invalidPin => 'غلط PIN';
+	@override String get tooManyAttempts => 'بہت زیادہ کوششیں';
 	@override String get rejected => 'منسوخ کردیا';
 	@override String get files => 'فائلیں';
 	@override String get fileName => 'فائل کا نام';
@@ -422,6 +477,7 @@ class _StringsSendTabPickerUr extends _StringsSendTabPickerEn {
 	@override String get media => 'میڈیا';
 	@override String get text => 'ٹیکسٹ';
 	@override String get app => 'ایپ';
+	@override String get clipboard => 'چسپاں کریں';
 }
 
 // Path: sendTab.sendModes
@@ -451,9 +507,11 @@ class _StringsSettingsTabGeneralUr extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'زبان';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsUr languageOptions = _StringsSettingsTabGeneralLanguageOptionsUr._(_root);
 	@override String get saveWindowPlacement => 'چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔';
+	@override String get saveWindowPlacementWindows => 'بند ہونے پر ونڈو کی پوزیشن محفوظ کریں';
 	@override String get minimizeToTray => 'چھوڑیں: ٹرے میں چھوٹا کریں۔';
 	@override String get launchAtStartup => 'لاگ ان کے بعد آٹو اسٹارٹ';
 	@override String get launchMinimized => 'آٹو سٹارٹ: سٹارٹ پوشیدہ';
+	@override String get showInContextMenu => 'سیاق و سباق کے مینو میں LocalSend دکھائیں';
 	@override String get animations => 'تحریکات';
 }
 
@@ -466,10 +524,23 @@ class _StringsSettingsTabReceiveUr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'وصول کریں';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
+	@override String get autoFinish => 'خودکار تکمیل';
 	@override String get destination => 'منزل';
 	@override String get downloads => '(ڈاؤن لوڈ)';
 	@override String get saveToGallery => 'میڈیا کو گیلری میں محفوظ کریں۔';
 	@override String get saveToHistory => 'تاریخچہ میں محفوظ کریں';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendUr extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'بھیجیں';
+	@override String get shareViaLinkAutoAccept => '"لنک کے ذریعے شیئر کریں" موڈ میں درخواستیں خود بخود قبول کریں';
 }
 
 // Path: settingsTab.network
@@ -486,10 +557,25 @@ class _StringsSettingsTabNetworkUr extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'آلہ کی قسم';
 	@override String get deviceModel => 'آلہ کا ماڈل';
 	@override String get port => 'پورٹ';
+	@override String get discoveryTimeout => 'نیٹورک پرڈھونڈنے کی مدت ختم ہوگئ ہے';
 	@override String portWarning({required Object defaultPort}) => 'ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ چل سکے کیونکہ آپ حسب ضرورت پورٹ استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: ${defaultPort})';
 	@override String get encryption => 'خفیہ کاری';
 	@override String get multicastGroup => 'ملٹی کاسٹ';
 	@override String multicastGroupWarning({required Object defaultMulticast}) => 'ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherUr extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'دیگر';
+	@override String get support => 'LocalSend کی حمایت کریں';
+	@override String get donate => 'عطیہ کریں';
+	@override String get privacyPolicy => 'رازداری کی پالیسی';
+	@override String get termsOfUse => 'استعمال کی شرائط';
 }
 
 // Path: troubleshootPage.firewall
@@ -502,6 +588,17 @@ class _StringsTroubleshootPageFirewallUr extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'یہ ایپ دیگر آلات پر فائلیں بھیج سکتی ہے لیکن دیگر آلات اس ڈیوائس پر فائلیں نہیں بھیج سکتے۔';
 	@override String solution({required Object port}) => 'یہ ممکنہ طور پر فائر وال کا مسئلہ ہے۔ آپ اسے پورٹ ${port} پر آنے والے کنکشنز (UDP اور TCP) کی اجازت دے کر حل کر سکتے ہیں۔';
 	@override String get openFirewall => 'فائر وال کھولیں';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryUr extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'یہ آلہ دوسرے آلات کو دریافت نہیں کر سکتا۔';
+	@override String get solution => 'براہ کرم یقینی بنائیں کہ تمام آلات ایک ہی وائی فائی نیٹ ورک پر ہیں اور ایک ہی ترتیب (پورٹ، ملٹی کاسٹ ایڈریس، انکرپشن) شیئر کرتے ہیں۔ آپ ہدف والے آلے کا IP پتہ دستی طور پر ٹائپ کرنے کی کوشش کر سکتے ہیں۔ اگر یہ کام کرتا ہے، تو اس آلے کو پسندیدہ میں شامل کرنے پر غور کریں تاکہ مستقبل میں اسے خود بخود دریافت کیا جا سکے۔';
 }
 
 // Path: troubleshootPage.noConnection
@@ -523,6 +620,7 @@ class _StringsReceiveHistoryPageEntryActionsUr extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'فائل کھولو';
+	@override String get showInFolder => 'فولڈر میں دکھائیں';
 	@override String get info => 'معلومات';
 	@override String get deleteFromHistory => 'تاریخ سے حذف کریں';
 }
@@ -607,6 +705,44 @@ class _StringsDialogsErrorDialogUr extends _StringsDialogsErrorDialogEn {
 	@override String get title => _root.general.error;
 }
 
+// Path: dialogs.favoriteDialog
+class _StringsDialogsFavoriteDialogUr extends _StringsDialogsFavoriteDialogEn {
+	_StringsDialogsFavoriteDialogUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پسندیدہ';
+	@override String get noFavorites => 'ابھی تک کوئی پسندیدہ آلات نہیں ہیں۔';
+	@override String get addFavorite => 'شامل کریں';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _StringsDialogsFavoriteDeleteDialogUr extends _StringsDialogsFavoriteDeleteDialogEn {
+	_StringsDialogsFavoriteDeleteDialogUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پسندیدہ سے حذف کریں';
+	@override String content({required Object name}) => 'کیا آپ واقعی "${name}" کو پسندیدہ سے حذف کرنا چاہتے ہیں؟';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _StringsDialogsFavoriteEditDialogUr extends _StringsDialogsFavoriteEditDialogEn {
+	_StringsDialogsFavoriteEditDialogUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get titleAdd => 'پسندیدہ میں شامل کریں';
+	@override String get titleEdit => 'ترتیبات';
+	@override String get name => 'آلے کا نام';
+	@override String get auto => '(خودکار)';
+	@override String get ip => 'IP پتہ';
+	@override String get port => 'پورٹ';
+}
+
 // Path: dialogs.fileInfo
 class _StringsDialogsFileInfoUr extends _StringsDialogsFileInfoEn {
 	_StringsDialogsFileInfoUr._(_StringsUr root) : this._root = root, super._(root);
@@ -631,6 +767,17 @@ class _StringsDialogsFileNameInputUr extends _StringsDialogsFileNameInputEn {
 	// Translations
 	@override String get title => 'فائل کا نام درج کریں۔';
 	@override String original({required Object original}) => 'اصل: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _StringsDialogsHistoryClearDialogUr extends _StringsDialogsHistoryClearDialogEn {
+	_StringsDialogsHistoryClearDialogUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تاریخ صاف کریں';
+	@override String get content => 'کیا آپ واقعی پوری تاریخ حذف کرنا چاہتے ہیں؟';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -725,6 +872,16 @@ class _StringsDialogsQuickSaveNoticeUr extends _StringsDialogsQuickSaveNoticeEn 
 	@override String get content => 'فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔';
 }
 
+// Path: dialogs.pin
+class _StringsDialogsPinUr extends _StringsDialogsPinEn {
+	_StringsDialogsPinUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PIN درج کریں';
+}
+
 // Path: dialogs.sendModeHelp
 class _StringsDialogsSendModeHelpUr extends _StringsDialogsSendModeHelpEn {
 	_StringsDialogsSendModeHelpUr._(_StringsUr root) : this._root = root, super._(root);
@@ -736,6 +893,16 @@ class _StringsDialogsSendModeHelpUr extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'ایک ریسیور کو فائل بھیجتا ہے۔ بھیجتے وقت سلیکشن ختم ہوجائیگا۔';
 	@override String get multiple => 'اکثر متعدد ریسیورز کو فائل بھیجتا ہے۔ سلیکشن ختم نہیں ہوگا۔';
 	@override String get link => 'LocalSend نصب نہیں ہونے والے رسیورز منتخب شدہ فائلز کو لنک اپنے براؤزر میں کھولنے سے ڈاؤن لوڈ کر سکتے ہیں۔';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomUr extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomUr._(_StringsUr root) : this._root = root, super._(root);
+
+	@override final _StringsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -758,6 +925,7 @@ class _StringsSettingsTabGeneralColorOptionsUr extends _StringsSettingsTabGenera
 
 	// Translations
 	@override String get system => 'نظام';
+	@override String get oled => 'OLED';
 }
 
 // Path: settingsTab.general.languageOptions
