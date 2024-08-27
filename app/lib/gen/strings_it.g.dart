@@ -123,6 +123,7 @@ class _StringsSendTabIt extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Dispositivi vicini';
 	@override String get thisDevice => 'Questo Dispositivo';
 	@override String get scan => 'Cerca dispositivi';
+	@override String get manualSending => 'Invio manuale';
 	@override String get sendMode => 'Modalità di invio';
 	@override late final _StringsSendTabSendModesIt sendModes = _StringsSendTabSendModesIt._(_root);
 	@override String get sendModeHelp => 'Spiegazione';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageIt extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Soluzione:';
 	@override String get fixButton => 'Risolvi automaticamente';
 	@override late final _StringsTroubleshootPageFirewallIt firewall = _StringsTroubleshootPageFirewallIt._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryIt noDiscovery = _StringsTroubleshootPageNoDiscoveryIt._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionIt noConnection = _StringsTroubleshootPageNoConnectionIt._(_root);
 }
 
@@ -237,6 +239,7 @@ class _StringsSendPageIt extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'In attesa di risposta...';
 	@override String get rejected => 'Il destinatario ha rifiutato la richiesta.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Il destinatario è occupato con un\'altra richiesta.';
 }
 
@@ -272,6 +275,8 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 	@override String get noRequests => 'Nessuna richiesta ancora.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Accetta automaticamente le richieste';
+	@override String get requirePin => 'Richiedi PIN';
+	@override String pinHint({required Object pin}) => 'Il PIN è "${pin}"';
 	@override String get encryptionHint => 'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
 	@override String pendingRequests({required Object n}) => 'Richieste in sospeso: ${n}';
 }
@@ -290,6 +295,7 @@ class _StringsAboutPageIt extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autore';
 	@override String get contributors => 'Contributori';
+	@override String get packagers => 'Packagers';
 	@override String get translators => 'Traduttori';
 }
 
@@ -353,6 +359,7 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrIt qr = _StringsDialogsQrIt._(_root);
 	@override late final _StringsDialogsQuickActionsIt quickActions = _StringsDialogsQuickActionsIt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice = _StringsDialogsQuickSaveNoticeIt._(_root);
+	@override late final _StringsDialogsPinIt pin = _StringsDialogsPinIt._(_root);
 	@override late final _StringsDialogsSendModeHelpIt sendModeHelp = _StringsDialogsSendModeHelpIt._(_root);
 	@override late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
 }
@@ -377,6 +384,7 @@ class _StringsTrayIt extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Chiudi LocalSend';
+	@override String get closeWindows => 'Uscita';
 }
 
 // Path: web
@@ -387,6 +395,9 @@ class _StringsWebIt extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Inserisci il PIN';
+	@override String get invalidPin => 'PIN non valido';
+	@override String get tooManyAttempts => 'Troppi tentativi';
 	@override String get rejected => 'Rifiutato';
 	@override String get files => 'File';
 	@override String get fileName => 'Nome del file';
@@ -496,9 +507,11 @@ class _StringsSettingsTabGeneralIt extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Lingua';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsIt languageOptions = _StringsSettingsTabGeneralLanguageOptionsIt._(_root);
 	@override String get saveWindowPlacement => 'Esci: Salva posizione della finestra';
+	@override String get saveWindowPlacementWindows => 'Salva la posizione della finestra dopo l\'uscita';
 	@override String get minimizeToTray => 'Esci: Riduci ad icona nel vassoio';
 	@override String get launchAtStartup => 'Avvio automatico dopo il login';
 	@override String get launchMinimized => 'Avvio automatico: Avvio nascosto';
+	@override String get showInContextMenu => 'Mostra LocalSend nel menu contestuale';
 	@override String get animations => 'Animazioni';
 }
 
@@ -511,6 +524,7 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Ricevi';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Termina automaticamente';
 	@override String get destination => 'Destinazione';
 	@override String get downloads => '(Download)';
@@ -576,6 +590,17 @@ class _StringsTroubleshootPageFirewallIt extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'Apri Firewall';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryIt extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Questo dispositivo non riesce a rilevare altri dispositivi.';
+	@override String get solution => 'Assicurati che tutti i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Puoi provare a digitare manualmente l\'indirizzo IP del dispositivo di destinazione. Se funziona, considera di aggiungere questo dispositivo ai preferiti in modo che possa essere scoperto automaticamente in futuro.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionIt extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionIt._(_StringsIt root) : this._root = root, super._(root);
@@ -595,6 +620,7 @@ class _StringsReceiveHistoryPageEntryActionsIt extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Apri file';
+	@override String get showInFolder => 'Mostra nella cartella';
 	@override String get info => 'Informazioni';
 	@override String get deleteFromHistory => 'Elimina dalla cronologia';
 }
@@ -844,6 +870,16 @@ class _StringsDialogsQuickSaveNoticeIt extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinIt extends _StringsDialogsPinEn {
+	_StringsDialogsPinIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Inserisci il PIN';
 }
 
 // Path: dialogs.sendModeHelp

@@ -123,6 +123,7 @@ class _StringsSendTabTr extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Yakınınızdaki cihazlar';
 	@override String get thisDevice => 'Cihazınız';
 	@override String get scan => 'Cihazları tara';
+	@override String get manualSending => 'Manuel Gönderme';
 	@override String get sendMode => 'Gönderme Modu';
 	@override late final _StringsSendTabSendModesTr sendModes = _StringsSendTabSendModesTr._(_root);
 	@override String get sendModeHelp => 'Açıklama';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageTr extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Çözüm:';
 	@override String get fixButton => 'Otomatik olarak düzelt';
 	@override late final _StringsTroubleshootPageFirewallTr firewall = _StringsTroubleshootPageFirewallTr._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryTr noDiscovery = _StringsTroubleshootPageNoDiscoveryTr._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionTr noConnection = _StringsTroubleshootPageNoConnectionTr._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPageTr extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Yazar';
 	@override String get contributors => 'Katkıda bulunanlar';
+	@override String get packagers => 'Paketleyiciler';
 	@override String get translators => 'Çevirmenler';
 }
 
@@ -381,6 +384,7 @@ class _StringsTrayTr extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend\'den çık';
+	@override String get closeWindows => 'Çıkış';
 }
 
 // Path: web
@@ -503,6 +507,7 @@ class _StringsSettingsTabGeneralTr extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Dil';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsTr languageOptions = _StringsSettingsTabGeneralLanguageOptionsTr._(_root);
 	@override String get saveWindowPlacement => 'Çıkış: Burayı Kaydet';
+	@override String get saveWindowPlacementWindows => 'Çıkıştan sonra pencere konumunu kaydet';
 	@override String get minimizeToTray => 'Çıkış: Simge durumuna küçült';
 	@override String get launchAtStartup => 'Giriş yapıldıktan sonra otomatik başlat';
 	@override String get launchMinimized => 'Otomatik başlatma: Gizli Başlatma';
@@ -583,6 +588,17 @@ class _StringsTroubleshootPageFirewallTr extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.';
 	@override String solution({required Object port}) => 'Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port ${port} \'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.';
 	@override String get openFirewall => 'Güvenlik Duvarını Aç';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryTr extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryTr._(_StringsTr root) : this._root = root, super._(root);
+
+	@override final _StringsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Bu cihaz diğer cihazları keşfedemez.';
+	@override String get solution => 'Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün.';
 }
 
 // Path: troubleshootPage.noConnection

@@ -67,6 +67,7 @@
     "nearbyDevices": "Dispositivi vicini",
     "thisDevice": "Questo Dispositivo",
     "scan": "Cerca dispositivi",
+    "manualSending": "Invio manuale",
     "sendMode": "Modalità di invio",
     "sendModes": {
       "single": "Singolo destinatario",
@@ -97,14 +98,17 @@
         "system": "Sistema"
       },
       "saveWindowPlacement": "Esci: Salva posizione della finestra",
+      "saveWindowPlacementWindows": "Salva la posizione della finestra dopo l'uscita",
       "minimizeToTray": "Esci: Riduci ad icona nel vassoio",
       "launchAtStartup": "Avvio automatico dopo il login",
       "launchMinimized": "Avvio automatico: Avvio nascosto",
+      "showInContextMenu": "Mostra LocalSend nel menu contestuale",
       "animations": "Animazioni"
     },
     "receive": {
       "title": "Ricevi",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Termina automaticamente",
       "destination": "Destinazione",
       "downloads": "(Download)",
@@ -148,6 +152,10 @@
       "solution": "È molto probabile che si tratti di un problema di firewall. Puoi risolverlo consentendo connessioni in entrata (UDP e TCP) sulla porta {port}.",
       "openFirewall": "Apri Firewall"
     },
+    "noDiscovery": {
+      "symptom": "Questo dispositivo non riesce a rilevare altri dispositivi.",
+      "solution": "Assicurati che tutti i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Puoi provare a digitare manualmente l'indirizzo IP del dispositivo di destinazione. Se funziona, considera di aggiungere questo dispositivo ai preferiti in modo che possa essere scoperto automaticamente in futuro."
+    },
     "noConnection": {
       "symptom": "Entrambi i dispositivi non riescono a scoprirsi a vicenda né a condividere file.",
       "solution": "Il problema esiste su entrambi i lati? Allora devi assicurarti che entrambi i dispositivi siano nella stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Il Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti. In questo caso, questa opzione deve essere abilitata sul router."
@@ -160,6 +168,7 @@
     "empty": "La cronologia è vuota.",
     "entryActions": {
       "open": "Apri file",
+      "showInFolder": "Mostra nella cartella",
       "info": "Informazioni",
       "deleteFromHistory": "Elimina dalla cronologia"
     }
@@ -192,6 +201,7 @@
   "sendPage": {
     "waiting": "In attesa di risposta...",
     "rejected": "Il destinatario ha rifiutato la richiesta.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Il destinatario è occupato con un'altra richiesta."
   },
   "progressPage": {
@@ -223,6 +233,8 @@
     "noRequests": "Nessuna richiesta ancora.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Accetta automaticamente le richieste",
+    "requirePin": "Richiedi PIN",
+    "pinHint": "Il PIN è \"{pin}\"",
     "encryptionHint": "LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
   },
@@ -234,6 +246,7 @@
     ],
     "author": "Autore",
     "contributors": "Contributori",
+    "packagers": "Packagers",
     "translators": "Traduttori"
   },
   "donationPage": {
@@ -344,6 +357,9 @@
       "title": "@:general.quickSave",
       "content": "Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file."
     },
+    "pin": {
+      "title": "Inserisci il PIN"
+    },
     "sendModeHelp": {
       "title": "Modalità di invio",
       "single": "Invia file a un destinatario. La selezione verrà cancellata dopo il trasferimento del file.",
@@ -361,10 +377,14 @@
   "tray": {
     "@info": "Le linee guida Apple sono molto rigide riguardo alla dicitura 'close'.",
     "open": "@:general.open",
-    "close": "Chiudi LocalSend"
+    "close": "Chiudi LocalSend",
+    "closeWindows": "Uscita"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Inserisci il PIN",
+    "invalidPin": "PIN non valido",
+    "tooManyAttempts": "Troppi tentativi",
     "rejected": "Rifiutato",
     "files": "File",
     "fileName": "Nome del file",

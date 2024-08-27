@@ -67,6 +67,7 @@
     "nearbyDevices": "Appareils à proximité",
     "thisDevice": "Cet Appareil",
     "scan": "Recherchez des appareils",
+    "manualSending": "Envoi manuel",
     "sendMode": "Mode envoi",
     "sendModes": {
       "single": "Récipient unique",
@@ -97,6 +98,7 @@
         "system": "Système"
       },
       "saveWindowPlacement": "Quitter: Sauvegarder l'emplacement de la fenêtre",
+      "saveWindowPlacementWindows": "Sauvegarder la position de la fenêtre avant de quitter",
       "minimizeToTray": "Quitter : Réduire à la barre des tâches",
       "launchAtStartup": "Démarrage automatique : Après la connexion",
       "launchMinimized": "Démarrage automatique : Minimiser",
@@ -375,7 +377,8 @@
   "tray": {
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
     "open": "@:general.open",
-    "close": "Quitter LocalSend"
+    "close": "Quitter LocalSend",
+    "closeWindows": "Fermer"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

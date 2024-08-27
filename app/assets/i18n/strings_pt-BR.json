@@ -152,6 +152,10 @@
       "solution": "Provavelmente isto se trata de um problema de firewall. Você pode resolver esse problema permitindo conexões recebidas (UDP e TCP) na porta {port}.",
       "openFirewall": "Abrir o Firewall"
     },
+    "noDiscovery": {
+      "symptom": "Este dispositivo não consegue descobrir outros dispositivos.",
+      "solution": "Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e compartilham as mesmas configurações (porta, endereço multicast, criptografia). Você pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro."
+    },
     "noConnection": {
       "symptom": "Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.",
       "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
@@ -422,10 +426,13 @@
       "multiple": "Envia arquivos para múltiplos destinatários. A seleção não será apagada.",
       "link": "Os destinatários que não têm o LocalSend instalado podem baixar os arquivos selecionados abrindo o link fornecido no navegador."
     },
-    "sanitization": {
-      "empty": "O nome do arquivo não pode estar vazio",
-      "invalid": "O nome do arquivo contém caracteres inválidos"
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "O nome do arquivo não pode estar vazio",
+    "invalid": "O nome do arquivo contém caracteres inválidos"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -473,12 +480,5 @@
     "sActionUseCameraHint": "use a câmera",
     "sNameDurationLabel": "duração",
     "sUnitAssetCountLabel": "Total"
-  },
-  "noDiscovery": {
-    "symptom": "Este dispositivo não consegue descobrir outros dispositivos.",
-    "solution": "Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e compartilham as mesmas configurações (porta, endereço multicast, criptografia). Você pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro."
-  },
-  "zoom": {
-    "title": "URL"
   }
 }

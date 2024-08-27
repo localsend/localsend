@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <tr>.",
     "After editing this file, you can run 'dart run slang apply --locale=tr' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "manualSending": "Manuel Gönderme"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Çıkıştan sonra pencere konumunu kaydet"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Bu cihaz diğer cihazları keşfedemez.",
-      "solution": "Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Paketleyiciler"
-  },
-  "tray": {
-    "closeWindows": "Çıkış"
-  }
+  ]
 }

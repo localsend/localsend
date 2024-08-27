@@ -67,6 +67,7 @@
     "nearbyDevices": "近くのデバイス",
     "thisDevice": "このデバイス",
     "scan": "デバイスを検索",
+    "manualSending": "手動送信",
     "sendMode": "送信モード",
     "sendModes": {
       "single": "一対一送信",
@@ -97,6 +98,7 @@
         "system": "システム"
       },
       "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
+      "saveWindowPlacementWindows": "終了時にウィンドウ配置を記憶",
       "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動で起動",
       "launchMinimized": "自動起動時: 隠れた状態で開始",
@@ -149,6 +151,10 @@
       "symptom": "このアプリから他のデバイスへはファイルを送信できるのに、他のデバイスからこのデバイスへはファイルが送信できない。",
       "solution": "ファイアウォールに問題があると思われます。ポート {port} の受け入れ (UDPとTCP) を許可することでこの問題を解決できます。",
       "openFirewall": "ファイアウォールを開く"
+    },
+    "noDiscovery": {
+      "symptom": "このデバイスで他のデバイスを見つけられない。",
+      "solution": "すべてのデバイスが同じWi-Fiネットワーク上にあり、各種設定(ポート、マルチキャストアドレス、暗号化)が一致していることを確認してください。もしくは、送信先デバイスのIPアドレスを手動で入力することもできます。これでうまくいく場合は、そのデバイスをお気に入りに追加して、今後自動的に検出できるようにすることもご検討ください。"
     },
     "noConnection": {
       "symptom": "どちらのデバイスも互いに表示されず、ファイルも共有できない。",
@@ -240,6 +246,7 @@
     ],
     "author": "制作者",
     "contributors": "貢献者",
+    "packagers": "パッケージ協力者",
     "translators": "翻訳者"
   },
   "donationPage": {
@@ -370,7 +377,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "LocalSendを終了"
+    "close": "LocalSendを終了",
+    "closeWindows": "終了"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

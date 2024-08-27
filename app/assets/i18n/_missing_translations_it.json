@@ -2,51 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <it>.",
     "After editing this file, you can run 'dart run slang apply --locale=it' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "manualSending": "Invio manuale"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Salva la posizione della finestra dopo l'uscita",
-      "showInContextMenu": "Mostra LocalSend nel menu contestuale"
-    },
-    "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Questo dispositivo non riesce a rilevare altri dispositivi.",
-      "solution": "Assicurati che tutti i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Puoi provare a digitare manualmente l'indirizzo IP del dispositivo di destinazione. Se funziona, considera di aggiungere questo dispositivo ai preferiti in modo che possa essere scoperto automaticamente in futuro."
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Mostra nella cartella"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "Richiedi PIN",
-    "pinHint": "Il PIN è \"{pin}\""
-  },
-  "aboutPage": {
-    "packagers": "Packagers"
-  },
-  "dialogs": {
-    "pin": {
-      "title": "Inserisci il PIN"
-    }
-  },
-  "tray": {
-    "closeWindows": "Uscita"
-  },
-  "web": {
-    "enterPin": "Inserisci il PIN",
-    "invalidPin": "PIN non valido",
-    "tooManyAttempts": "Troppi tentativi"
-  }
+  ]
 }

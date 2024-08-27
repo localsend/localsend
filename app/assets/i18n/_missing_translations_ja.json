@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "sendTab": {
-    "manualSending": "手動送信"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "終了時にウィンドウ配置を記憶"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "このデバイスで他のデバイスを見つけられない。",
-      "solution": "すべてのデバイスが同じWi-Fiネットワーク上にあり、各種設定(ポート、マルチキャストアドレス、暗号化)が一致していることを確認してください。もしくは、送信先デバイスのIPアドレスを手動で入力することもできます。これでうまくいく場合は、そのデバイスをお気に入りに追加して、今後自動的に検出できるようにすることもご検討ください。"
-    }
-  },
-  "aboutPage": {
-    "packagers": "パッケージ協力者"
-  },
-  "tray": {
-    "closeWindows": "終了"
-  }
+  ]
 }

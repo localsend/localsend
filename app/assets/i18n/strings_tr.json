@@ -67,6 +67,7 @@
     "nearbyDevices": "Yakınınızdaki cihazlar",
     "thisDevice": "Cihazınız",
     "scan": "Cihazları tara",
+    "manualSending": "Manuel Gönderme",
     "sendMode": "Gönderme Modu",
     "sendModes": {
       "single": "Tek alıcı",
@@ -97,6 +98,7 @@
         "system": "Sistem dili"
       },
       "saveWindowPlacement": "Çıkış: Burayı Kaydet",
+      "saveWindowPlacementWindows": "Çıkıştan sonra pencere konumunu kaydet",
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
@@ -149,6 +151,10 @@
       "symptom": "Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.",
       "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
       "openFirewall": "Güvenlik Duvarını Aç"
+    },
+    "noDiscovery": {
+      "symptom": "Bu cihaz diğer cihazları keşfedemez.",
+      "solution": "Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün."
     },
     "noConnection": {
       "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
@@ -240,6 +246,7 @@
     ],
     "author": "Yazar",
     "contributors": "Katkıda bulunanlar",
+    "packagers": "Paketleyiciler",
     "translators": "Çevirmenler"
   },
   "donationPage": {
@@ -370,7 +377,8 @@
   "tray": {
     "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
     "open": "@:general.open",
-    "close": "LocalSend'den çık"
+    "close": "LocalSend'den çık",
+    "closeWindows": "Çıkış"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

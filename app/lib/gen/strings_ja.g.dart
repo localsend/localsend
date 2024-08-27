@@ -123,6 +123,7 @@ class _StringsSendTabJa extends _StringsSendTabEn {
 	@override String get nearbyDevices => '近くのデバイス';
 	@override String get thisDevice => 'このデバイス';
 	@override String get scan => 'デバイスを検索';
+	@override String get manualSending => '手動送信';
 	@override String get sendMode => '送信モード';
 	@override late final _StringsSendTabSendModesJa sendModes = _StringsSendTabSendModesJa._(_root);
 	@override String get sendModeHelp => '説明';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageJa extends _StringsTroubleshootPageEn {
 	@override String get solution => '解決策:';
 	@override String get fixButton => '自動で修正する';
 	@override late final _StringsTroubleshootPageFirewallJa firewall = _StringsTroubleshootPageFirewallJa._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryJa noDiscovery = _StringsTroubleshootPageNoDiscoveryJa._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionJa noConnection = _StringsTroubleshootPageNoConnectionJa._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPageJa extends _StringsAboutPageEn {
 	];
 	@override String get author => '制作者';
 	@override String get contributors => '貢献者';
+	@override String get packagers => 'パッケージ協力者';
 	@override String get translators => '翻訳者';
 }
 
@@ -381,6 +384,7 @@ class _StringsTrayJa extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'LocalSendを終了';
+	@override String get closeWindows => '終了';
 }
 
 // Path: web
@@ -503,6 +507,7 @@ class _StringsSettingsTabGeneralJa extends _StringsSettingsTabGeneralEn {
 	@override String get language => '言語';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsJa languageOptions = _StringsSettingsTabGeneralLanguageOptionsJa._(_root);
 	@override String get saveWindowPlacement => '終了時: ウィンドウ配置を記憶';
+	@override String get saveWindowPlacementWindows => '終了時にウィンドウ配置を記憶';
 	@override String get minimizeToTray => '終了時: トレイに最小化';
 	@override String get launchAtStartup => 'ログイン時に自動で起動';
 	@override String get launchMinimized => '自動起動時: 隠れた状態で開始';
@@ -583,6 +588,17 @@ class _StringsTroubleshootPageFirewallJa extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'このアプリから他のデバイスへはファイルを送信できるのに、他のデバイスからこのデバイスへはファイルが送信できない。';
 	@override String solution({required Object port}) => 'ファイアウォールに問題があると思われます。ポート ${port} の受け入れ (UDPとTCP) を許可することでこの問題を解決できます。';
 	@override String get openFirewall => 'ファイアウォールを開く';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryJa extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'このデバイスで他のデバイスを見つけられない。';
+	@override String get solution => 'すべてのデバイスが同じWi-Fiネットワーク上にあり、各種設定(ポート、マルチキャストアドレス、暗号化)が一致していることを確認してください。もしくは、送信先デバイスのIPアドレスを手動で入力することもできます。これでうまくいく場合は、そのデバイスをお気に入りに追加して、今後自動的に検出できるようにすることもご検討ください。';
 }
 
 // Path: troubleshootPage.noConnection

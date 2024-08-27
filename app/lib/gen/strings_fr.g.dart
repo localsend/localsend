@@ -123,6 +123,7 @@ class _StringsSendTabFr extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Appareils à proximité';
 	@override String get thisDevice => 'Cet Appareil';
 	@override String get scan => 'Recherchez des appareils';
+	@override String get manualSending => 'Envoi manuel';
 	@override String get sendMode => 'Mode envoi';
 	@override late final _StringsSendTabSendModesFr sendModes = _StringsSendTabSendModesFr._(_root);
 	@override String get sendModeHelp => 'Explication';
@@ -383,6 +384,7 @@ class _StringsTrayFr extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Quitter LocalSend';
+	@override String get closeWindows => 'Fermer';
 }
 
 // Path: web
@@ -505,6 +507,7 @@ class _StringsSettingsTabGeneralFr extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Langue';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsFr languageOptions = _StringsSettingsTabGeneralLanguageOptionsFr._(_root);
 	@override String get saveWindowPlacement => 'Quitter: Sauvegarder l\'emplacement de la fenêtre';
+	@override String get saveWindowPlacementWindows => 'Sauvegarder la position de la fenêtre avant de quitter';
 	@override String get minimizeToTray => 'Quitter : Réduire à la barre des tâches';
 	@override String get launchAtStartup => 'Démarrage automatique : Après la connexion';
 	@override String get launchMinimized => 'Démarrage automatique : Minimiser';
