@@ -23,7 +23,10 @@ class AppDelegate: FlutterAppDelegate {
     private func setupStatusBarItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem?.button {
-            button.image = NSImage(systemSymbolName: "globe", accessibilityDescription: "Hello World")
+            let image = NSImage(named: "StatusBarItemIcon")
+            image!.size = NSSize(width: 18, height: 18)
+            image!.isTemplate = true
+            button.image = image
             
             let menu = NSMenu()
             
