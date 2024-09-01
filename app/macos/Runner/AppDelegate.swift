@@ -38,7 +38,7 @@ class AppDelegate: FlutterAppDelegate {
             
             statusItem?.menu = menu
             
-            let dragView = DraggableView(frame: button.bounds)
+            let dragView = FileDropView(frame: button.bounds)
             dragView.appDelegate = self
             button.addSubview(dragView)
             
@@ -88,7 +88,7 @@ class AppDelegate: FlutterAppDelegate {
     // END: handle opened files
 }
 
-class DraggableView: NSView {
+class FileDropView: NSView {
     weak var appDelegate: AppDelegate?
     
     override init(frame frameRect: NSRect) {
