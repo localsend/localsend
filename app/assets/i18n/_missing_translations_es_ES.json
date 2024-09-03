@@ -4,59 +4,59 @@
     "After editing this file, you can run 'dart run slang apply --locale=es-ES' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Envío manual"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
+      "saveWindowPlacementWindows": "Guardar la posición de la ventana después de salir",
+      "showInContextMenu": "Mostrar LocalSend en el menú contextual"
     },
     "receive": {
       "requirePin": "@:webSharePage.requirePin"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Tiempo de espera para Detección"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Este dispositivo no puede descubrir otros dispositivos.",
+      "solution": "Asegúrese de que todos los dispositivos estén en la misma red Wi-Fi y compartan la misma configuración (puerto, dirección de multidifusión, cifrado). Puede intentar escribir la dirección IP del dispositivo de destino manualmente. Si esto funciona, considere agregar este dispositivo a los favoritos para que pueda detectarse automáticamente en el futuro."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Mostrar en carpeta"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "Requerir PIN",
+    "pinHint": "El PIN es \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Empaquetadores"
   },
   "dialogs": {
     "pin": {
-      "title": "Enter PIN"
+      "title": "Ingresar PIN"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "El nombre del archivo no puede estar vacío",
+    "invalid": "El nombre del archivo contiene caracteres no válidos"
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Cerrar"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Ingresar PIN",
+    "invalidPin": "PIN Inválido",
+    "tooManyAttempts": "Demasiados intentos"
   }
 }
