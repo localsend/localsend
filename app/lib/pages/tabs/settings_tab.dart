@@ -20,6 +20,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
+import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
@@ -154,6 +155,17 @@ class SettingsTab extends StatelessWidget {
                     await ref.notifier(settingsProvider).setQuickSave(b);
                     if (!old && b && context.mounted) {
                       await QuickSaveNotice.open(context);
+                    }
+                  },
+                ),
+                _BooleanEntry(
+                  label: t.settingsTab.receive.quickSaveFromFavorites,
+                  value: vm.settings.quickSaveFromFavorites,
+                  onChanged: (b) async {
+                    final old = vm.settings.quickSaveFromFavorites;
+                    await ref.notifier(settingsProvider).setQuickSaveFromFavorites(b);
+                    if (!old && b && context.mounted) {
+                      await QuickSaveFromFavoritesNotice.open(context);
                     }
                   },
                 ),

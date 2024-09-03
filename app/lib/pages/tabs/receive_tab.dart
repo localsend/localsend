@@ -68,22 +68,43 @@ class ReceiveTab extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Center(
-                      child: vm.quickSaveSettings
-                          ? ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).colorScheme.primary,
-                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                              onPressed: () async => vm.onSetQuickSave(context, false),
-                              child: Text('${t.general.quickSave}: ${t.general.on}'),
-                            )
-                          : TextButton(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Colors.grey,
-                              ),
-                              onPressed: () async => vm.onSetQuickSave(context, true),
-                              child: Text('${t.general.quickSave}: ${t.general.off}'),
-                            ),
+                      child: Column(
+                        children: [
+                          vm.quickSaveSettings
+                              ? ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).colorScheme.primary,
+                                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  onPressed: () async => vm.onSetQuickSave(context, false),
+                                  child: Text('${t.general.quickSave}: ${t.general.on}'),
+                                )
+                              : TextButton(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.grey,
+                                  ),
+                                  onPressed: () async => vm.onSetQuickSave(context, true),
+                                  child: Text('${t.general.quickSave}: ${t.general.off}'),
+                                ),
+                          const SizedBox(height: 10),
+                          vm.quickSaveFromFavoritesSettings
+                              ? ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                                  ),
+                                  onPressed: () async => vm.onSetQuickSaveFromFavorites(context, false),
+                                  child: Text('${t.general.quickSaveFromFavorites}: ${t.general.on}'),
+                                )
+                              : TextButton(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.grey,
+                                  ),
+                                  onPressed: () async => vm.onSetQuickSaveFromFavorites(context, true),
+                                  child: Text('${t.general.quickSaveFromFavorites}: ${t.general.off}'),
+                                ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 15),

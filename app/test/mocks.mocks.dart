@@ -401,6 +401,26 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  bool isQuickSaveFromFavorites() => (super.noSuchMethod(
+        Invocation.method(
+          #isQuickSaveFromFavorites,
+          [],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i4.Future<void> setQuickSaveFromFavorites(bool? quickSaveFromFavorites) => (super.noSuchMethod(
+        Invocation.method(
+          #setQuickSaveFromFavorites,
+          [quickSaveFromFavorites],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   _i4.Future<void> setReceivePin(String? pin) => (super.noSuchMethod(
         Invocation.method(
           #setReceivePin,

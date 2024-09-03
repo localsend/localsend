@@ -251,7 +251,14 @@ class ReceiveController {
       ),
     );
 
-    final quickSave = settings.quickSave && server.getState().session?.message == null;
+    bool quickSave = settings.quickSave && server.getState().session?.message == null;
+    final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
+    if (quickSaveFromFavorites) {
+      final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == dto.info.fingerprint);
+      if (isFavorite) {
+        quickSave = true;
+      }
+    }
     final Map<String, String>? selection;
     if (quickSave) {
       // accept all files
@@ -528,7 +535,17 @@ class ReceiveController {
           ),
         ),
       );
-      if (server.ref.read(settingsProvider).quickSave && server.getState().session?.message == null) {
+      final settings = server.ref.read(settingsProvider);
+      bool quickSave = settings.quickSave && server.getState().session?.message == null;
+      final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
+      if (quickSaveFromFavorites) {
+        // dto is not defined here. I must check sender fingerprint
+        final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == session.sender.fingerprint);
+        if (isFavorite) {
+          quickSave = true;
+        }
+      }
+      if (quickSave) {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();

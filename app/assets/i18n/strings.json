@@ -28,6 +28,7 @@
     "open": "Open",
     "queue": "Queue",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Quick Save from Favorites",
     "renamed": "Renamed",
     "reset": "Undo changes",
     "restart": "Restart",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish",
       "destination": "Save to folder",
@@ -426,6 +428,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "File requests are automatically accepted from devices in your contact list."
     },
     "pin": {
       "title": "Enter PIN"

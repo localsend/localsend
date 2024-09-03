@@ -40,6 +40,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         saveToGallery: _persistence.isSaveToGallery(),
         saveToHistory: _persistence.isSaveToHistory(),
         quickSave: _persistence.isQuickSave(),
+        quickSaveFromFavorites: _persistence.isQuickSaveFromFavorites(),
         receivePin: _persistence.getReceivePin(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
@@ -127,6 +128,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setQuickSave(quickSave);
     state = state.copyWith(
       quickSave: quickSave,
+    );
+  }
+
+  Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
+    await _persistence.setQuickSaveFromFavorites(quickSaveFromFavorites);
+    state = state.copyWith(
+      quickSaveFromFavorites: quickSaveFromFavorites,
     );
   }
 
