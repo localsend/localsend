@@ -82,7 +82,7 @@ class SendTab extends StatelessWidget {
               Card(
                 margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 5, bottom: 15),
+                  padding: const EdgeInsetsDirectional.only(start: 15, top: 5, bottom: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
