@@ -1,6 +1,8 @@
 ## 1.16.0 (unreleased)
 
+- feat: add option to automatically receive files only from favorites (@Davte)
 - feat: only automatically finish when files are either successfully received or skipped (@Tienisto)
+- feat(macos): drag and drop files into menu bar icon (@ShlomoCode)
 
 ## 1.15.4 (2024-08-20)
 
