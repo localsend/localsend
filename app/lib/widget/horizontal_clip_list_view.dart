@@ -46,7 +46,7 @@ class HorizontalClipListView extends StatelessWidget {
                           child: children[i],
                         )
                       : Padding(
-                          padding: EdgeInsets.only(right: childPadding),
+                          padding: EdgeInsetsDirectional.only(end: childPadding),
                           child: SizedBox(
                             width: childWidth,
                             child: children[i],
