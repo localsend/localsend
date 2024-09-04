@@ -2,8 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 
 const _methodChannel = MethodChannel('main-delegate-channel');
+
+Future<void> setupStatusBar() async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return;
+  }
+
+  await _methodChannel.invokeMethod('setupStatusBar', {
+    'open': t.tray.open,
+    'quit': t.tray.close,
+  });
+}
 
 /// Returns a list of files the app was opened with.
 /// This happens:

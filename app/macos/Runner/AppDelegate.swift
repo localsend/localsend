@@ -16,11 +16,9 @@ class AppDelegate: FlutterAppDelegate {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handle)
-        
-        setupStatusBarItem()
     }
     
-    private func setupStatusBarItem() {
+    private func setupStatusBarItem(i18n: [String: String]) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem?.button {
             let image = NSImage(named: "StatusBarItemIcon")
@@ -29,11 +27,13 @@ class AppDelegate: FlutterAppDelegate {
             button.image = image
             
             let menu = NSMenu()
-            
-            let openItem = NSMenuItem(title: "Open", action: #selector(openApp), keyEquivalent: "o")
+
+            let openString = i18n["open"]!
+            let openItem = NSMenuItem(title: openString, action: #selector(openApp), keyEquivalent: "o")
             menu.addItem(openItem)
-            
-            let quitItem = NSMenuItem(title: "Quit LocalSend", action: #selector(quitApp), keyEquivalent: "q")
+
+            let quitString = i18n["quit"]!
+            let quitItem = NSMenuItem(title: quitString, action: #selector(quitApp), keyEquivalent: "q")
             menu.addItem(quitItem)
             
             statusItem?.menu = menu
@@ -72,6 +72,10 @@ class AppDelegate: FlutterAppDelegate {
         case "getFiles":
             result(cachedFiles ?? [])
             cachedFiles = nil // files has been fetched, no need to cache anymore
+        case "setupStatusBar":
+            let i18n = call.arguments as! [String: String]
+            setupStatusBarItem(i18n: i18n)
+            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }

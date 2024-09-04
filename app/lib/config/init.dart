@@ -36,7 +36,7 @@ import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:localsend_app/util/native/open_file_receiver.dart';
+import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
@@ -107,6 +107,10 @@ Future<RefenaContainer> preInit(List<String> args) async {
       startHidden = true;
     } else {
       await WindowManager.instance.show();
+    }
+
+    if (defaultTargetPlatform == TargetPlatform.macOS) {
+      await setupStatusBar();
     }
   }
 
