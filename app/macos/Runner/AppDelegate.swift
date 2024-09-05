@@ -1,5 +1,6 @@
 import Cocoa
 import FlutterMacOS
+import Defaults
 
 @main
 class AppDelegate: FlutterAppDelegate {
@@ -11,11 +12,19 @@ class AppDelegate: FlutterAppDelegate {
     private var statusItem: NSStatusItem?
     private var channel: FlutterMethodChannel?
     private var cachedFiles: [String]? = []
+    private var sharedURLObservation: Defaults.Observation?
     
     override func applicationDidFinishLaunching(_ notification: Notification) {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handle)
+        
+        sharedURLObservation = Defaults.observe(.sharedURL) { change in
+            guard let newURL = Defaults[.sharedURL] else { return }
+            self.sendFilesToFlutter([newURL.path])
+            sharedDefaults[.sharedURL] = nil
+            self.openApp()
+        }
     }
     
     private func setupStatusBarItem(i18n: [String: String]) {
@@ -27,11 +36,11 @@ class AppDelegate: FlutterAppDelegate {
             button.image = image
             
             let menu = NSMenu()
-
+            
             let openString = i18n["open"]!
             let openItem = NSMenuItem(title: openString, action: #selector(openApp), keyEquivalent: "o")
             menu.addItem(openItem)
-
+            
             let quitString = i18n["quit"]!
             let quitItem = NSMenuItem(title: quitString, action: #selector(quitApp), keyEquivalent: "q")
             menu.addItem(quitItem)
