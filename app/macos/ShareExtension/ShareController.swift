@@ -22,7 +22,7 @@ final class ShareController: ExtensionController {
             return []
         }
         
-        // Save the file urls to a shared UserDefaults
+        // Save the file URLs to a shared UserDefaults
         // This is Apple's recommended way to share data from App Extension to the Containing App
         // See: https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html#//apple_ref/doc/uid/TP40014214-CH21-SW6
         Defaults[.pendingFiles].append(contentsOf: urls)

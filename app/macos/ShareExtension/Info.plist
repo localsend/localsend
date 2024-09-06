@@ -9,7 +9,9 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
+			<dict/>
+			<key>NSExtensionActivationSupportsFileWithMaxCount</key>
+			<integer>99999</integer>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.share-services</string>
