@@ -90,9 +90,9 @@ fileprivate func isAppRunning(at url: URL) -> Bool {
     NSWorkspace.shared.runningApplications.contains { $0.bundleURL == url }
 }
 
-func launchAppIfNeeded(appUrl: URL) {
-    guard !isAppRunning(at: appUrl) else { return }
-    NSWorkspace.shared.openApplication(at: appUrl, configuration: NSWorkspace.OpenConfiguration()) { (app, error) in
+func launchAppIfNeeded(appURL: URL) {
+    guard !isAppRunning(at: appURL) else { return }
+    NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration()) { (app, error) in
         if let error = error {
             print("Error opening the application: \(error.localizedDescription)")
         } else if let app = app {
