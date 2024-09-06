@@ -4,14 +4,14 @@
     "After editing this file, you can run 'dart run slang apply --locale=fil-PH' to quickly apply the newly added translations."
   ],
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Mano-manong pagpapadala"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "I-save ang posisyon ng window pagkasara"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Isara"
   }
 }
