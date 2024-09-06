@@ -1,7 +1,6 @@
 import SwiftUI
 import Defaults
 
-@available(macOS 13.0, *)
 final class ShareController: ExtensionController {
     override func run(_ context: NSExtensionContext) async throws -> [NSExtensionItem] {
         var urls: [URL] = []
@@ -9,8 +8,8 @@ final class ShareController: ExtensionController {
         for attachment in context.attachments {
             if attachment.hasItemConforming(to: .url) {
                 do {
-                    let url = try await attachment.loadTransferable(type: URL.self)
-                    urls.append(url)
+                    let url = try await attachment.loadItem(ofClass: NSURL.self)
+                    urls.append(url as URL)
                 } catch {
                     print("Failed to load URL: \(error)")
                 }

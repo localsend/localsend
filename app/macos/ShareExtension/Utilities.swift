@@ -40,11 +40,16 @@ extension NSExtensionContext {
 
 
 extension NSItemProvider {
-    @available(macOS 13.0, *)
-    func loadTransferable<T: Transferable>(type transferableType: T.Type) async throws -> T {
+    func loadItem<T>(ofClass cls: T.Type) async throws -> T where T: NSItemProviderReading {
         try await withCheckedThrowingContinuation { continuation in
-            _ = loadTransferable(type: transferableType) {
-                continuation.resume(with: $0)
+            _ = self.loadObject(ofClass: cls) { (item, error) in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let item = item as? T {
+                    continuation.resume(returning: item)
+                } else {
+                    continuation.resume(throwing: NSError(domain: "ItemProviderError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to load item of expected type"]))
+                }
             }
         }
     }
