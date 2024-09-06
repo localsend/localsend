@@ -9,9 +9,22 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<dict/>
-			<key>NSExtensionActivationSupportsFileWithMaxCount</key>
-			<integer>99999</integer>
+			<dict>
+				<key>NSExtensionActivationDictionaryVersion</key>
+				<integer>2</integer>
+				<key>NSExtensionActivationSupportsAttachmentsWithMaxCount</key>
+				<integer>1000</integer>
+				<key>NSExtensionActivationSupportsFileWithMaxCount</key>
+				<integer>1000</integer>
+				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
+				<integer>1000</integer>
+				<key>NSExtensionActivationSupportsMovieWithMaxCount</key>
+				<integer>1000</integer>
+				<key>NSExtensionActivationSupportsText</key>
+				<false/>
+				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+				<integer>0</integer>
+			</dict>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.share-services</string>
