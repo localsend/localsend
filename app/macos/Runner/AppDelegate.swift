@@ -11,19 +11,21 @@ class AppDelegate: FlutterAppDelegate {
     
     private var statusItem: NSStatusItem?
     private var channel: FlutterMethodChannel?
-    private var cachedFiles: [String]? = []
-    private var sharedURLObservation: Defaults.Observation?
+    private var pendingFilesObservation: Defaults.Observation?
     
     override func applicationDidFinishLaunching(_ notification: Notification) {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handle)
         
-        sharedURLObservation = Defaults.observe(.sharedURL) { change in
-            guard let newURL = Defaults[.sharedURL] else { return }
-            self.sendFilesToFlutter([newURL.path])
-            sharedDefaults[.sharedURL] = nil
-            self.openApp()
+        self.setupPendingItemsObservation()
+    }
+    
+    private func setupPendingItemsObservation() {
+        self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
+            let pendingFiles = Defaults[.pendingFiles]
+            guard !pendingFiles.isEmpty else { return }
+            self.sendPendingItemsToFlutter()
         }
     }
     
@@ -48,7 +50,6 @@ class AppDelegate: FlutterAppDelegate {
             statusItem?.menu = menu
             
             let dragView = FileDropView(frame: button.bounds)
-            dragView.appDelegate = self
             button.addSubview(dragView)
             
             dragView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,17 +71,19 @@ class AppDelegate: FlutterAppDelegate {
         NSApp.terminate(nil)
     }
     
-    func sendFilesToFlutter(_ filenames: [String]) {
-        cachedFiles?.append(contentsOf: filenames)
-        channel?.invokeMethod("onFiles", arguments: filenames)
+    func sendPendingItemsToFlutter() {
+        channel?.invokeMethod("onPendingFiles", arguments: Defaults[.pendingFiles].map { $0.path })
+        Defaults[.pendingFiles] = []
+        openApp()
     }
     
     // START: handle opened files
     private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "getFiles":
-            result(cachedFiles ?? [])
-            cachedFiles = nil // files has been fetched, no need to cache anymore
+        case "getPendingFiles":
+            result(Defaults[.pendingFiles].map { $0.path })
+            Defaults[.pendingFiles] = []
+            openApp()
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
@@ -91,47 +94,12 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     override func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        sendFilesToFlutter([filename])
+        Defaults[.pendingFiles].append(URL(string: filename)!)
         return true
     }
     
     override func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        sendFilesToFlutter(filenames)
+        Defaults[.pendingFiles].append(contentsOf: filenames.map { URL(string: $0)! })
     }
     // END: handle opened files
-}
-
-class FileDropView: NSView {
-    weak var appDelegate: AppDelegate?
-    
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
-    private func setup() {
-        registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
-    }
-    
-    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .copy
-    }
-    
-    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        let pasteboard = sender.draggingPasteboard
-        
-        if let fileUrls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL] {
-            let filenames = fileUrls.map { $0.path }
-            appDelegate?.sendFilesToFlutter(filenames)
-            appDelegate?.openApp()
-            return true
-        }
-        
-        return false
-    }
 }

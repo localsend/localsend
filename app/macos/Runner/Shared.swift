@@ -4,5 +4,5 @@ import Defaults
 let sharedDefaults = UserDefaults(suiteName: "com.localsend.shared_group")!
 
 extension Defaults.Keys {
-    static let sharedURL = Key<URL?>("sharedURL", suite: sharedDefaults)
+    static let pendingFiles = Key<[URL]>("pendingFiles", default: [], suite: sharedDefaults)
 }

@@ -58,7 +58,7 @@ class DebugPage extends StatelessWidget {
           if (defaultTargetPlatform == TargetPlatform.macOS)
             FutureBuilder(
               // ignore: discarded_futures
-              future: getOpenedFiles().onError((error, stackTrace) async {
+              future: getPendingFiles().onError((error, stackTrace) async {
                 return <String>[error.toString()];
               }),
               builder: (context, snapshot) {
