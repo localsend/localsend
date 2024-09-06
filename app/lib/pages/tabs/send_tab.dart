@@ -481,7 +481,10 @@ class _SendModeButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.help),
+              const Directionality(
+                textDirection: TextDirection.ltr,
+                child: Icon(Icons.help),
+              ),
               const SizedBox(width: 10),
               Text(t.sendTab.sendModeHelp),
             ],
