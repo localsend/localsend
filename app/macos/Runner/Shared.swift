@@ -6,6 +6,7 @@ let sharedDefaults = UserDefaults(suiteName: "com.localsend.shared_group")!
 typealias FileBookmarkData = Data
 extension Defaults.Keys {
     static let pendingFiles = Key<[FileBookmarkData]>("pendingFiles", default: [], suite: sharedDefaults)
+    static let pendingStrings = Key<[String]>("pendingStrings", default: [], suite: sharedDefaults)
 }
 
 /**

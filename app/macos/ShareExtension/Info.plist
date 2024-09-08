@@ -13,17 +13,17 @@
 				<key>NSExtensionActivationDictionaryVersion</key>
 				<integer>2</integer>
 				<key>NSExtensionActivationSupportsAttachmentsWithMaxCount</key>
-				<integer>1000</integer>
+				<integer>999</integer>
 				<key>NSExtensionActivationSupportsFileWithMaxCount</key>
-				<integer>1000</integer>
+				<integer>999</integer>
 				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
-				<integer>1000</integer>
+				<integer>999</integer>
 				<key>NSExtensionActivationSupportsMovieWithMaxCount</key>
-				<integer>1000</integer>
+				<integer>999</integer>
 				<key>NSExtensionActivationSupportsText</key>
-				<false/>
+				<true/>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
-				<integer>0</integer>
+				<integer>1</integer>
 			</dict>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
