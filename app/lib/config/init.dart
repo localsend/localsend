@@ -183,7 +183,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
-      final files = await getOpenedFiles();
+      final files = await getPendingFiles();
       if (files.isNotEmpty) {
         await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
           args: files,
@@ -191,7 +191,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       }
 
       // handle future dropped files
-      getOpenedFilesStream().listen((files) {
+      getPendingFilesStream().listen((files) {
         ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
           args: files,
         ));

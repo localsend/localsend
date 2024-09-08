@@ -1,21 +1,32 @@
 import Cocoa
 import FlutterMacOS
+import Defaults
 
 @main
 class AppDelegate: FlutterAppDelegate {
+    private var statusItem: NSStatusItem?
+    private var channel: FlutterMethodChannel?
+    private var pendingFilesObservation: Defaults.Observation?
+    
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
         return false
     }
     
-    private var statusItem: NSStatusItem?
-    private var channel: FlutterMethodChannel?
-    private var cachedFiles: [String]? = []
-    
     override func applicationDidFinishLaunching(_ notification: Notification) {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handle)
+        
+        self.setupPendingItemsObservation()
+    }
+    
+    private func setupPendingItemsObservation() {
+        self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
+            let pendingFileBookmarks = Defaults[.pendingFiles]
+            guard !pendingFileBookmarks.isEmpty else { return }
+            self.sendPendingItemsToFlutter()
+        }
     }
     
     private func setupStatusBarItem(i18n: [String: String]) {
@@ -27,11 +38,11 @@ class AppDelegate: FlutterAppDelegate {
             button.image = image
             
             let menu = NSMenu()
-
+            
             let openString = i18n["open"]!
             let openItem = NSMenuItem(title: openString, action: #selector(openApp), keyEquivalent: "o")
             menu.addItem(openItem)
-
+            
             let quitString = i18n["quit"]!
             let quitItem = NSMenuItem(title: quitString, action: #selector(quitApp), keyEquivalent: "q")
             menu.addItem(quitItem)
@@ -39,7 +50,6 @@ class AppDelegate: FlutterAppDelegate {
             statusItem?.menu = menu
             
             let dragView = FileDropView(frame: button.bounds)
-            dragView.appDelegate = self
             button.addSubview(dragView)
             
             dragView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,17 +71,37 @@ class AppDelegate: FlutterAppDelegate {
         NSApp.terminate(nil)
     }
     
-    func sendFilesToFlutter(_ filenames: [String]) {
-        cachedFiles?.append(contentsOf: filenames)
-        channel?.invokeMethod("onFiles", arguments: filenames)
+    func sendPendingItemsToFlutter() {
+        let pendingFileBookmarks = Defaults[.pendingFiles]
+        var filePaths: [String] = []
+        
+        for bookmark in pendingFileBookmarks {
+            if let url = SecurityScopedResourceManager.shared.startAccessing(bookmark: bookmark) {
+                filePaths.append(url.path)
+            }
+        }
+        
+        channel?.invokeMethod("onPendingFiles", arguments: filePaths)
+        Defaults[.pendingFiles] = []
+        openApp()
     }
     
     // START: handle opened files
     private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "getFiles":
-            result(cachedFiles ?? [])
-            cachedFiles = nil // files has been fetched, no need to cache anymore
+        case "getPendingFiles":
+            let pendingFileBookmarks = Defaults[.pendingFiles]
+            var filePaths: [String] = []
+            
+            for bookmark in pendingFileBookmarks {
+                if let url = SecurityScopedResourceManager.shared.startAccessing(bookmark: bookmark) {
+                    filePaths.append(url.path)
+                }
+            }
+            
+            result(filePaths)
+            Defaults[.pendingFiles] = []
+            openApp()
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
@@ -82,47 +112,23 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     override func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        sendFilesToFlutter([filename])
+        /**
+         Although file URLs shared via the dock icon or the "open with" file menu item already contain access permission, we pass this through the bookmark mechanism for uniformity and readability of the code with URLs shared from the share extension.
+         - SeeAlso: [Enabling App Sandbox#Enabling User-Selected File Access](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6)
+         - SeeAlso: [``Shared/createBookmarkForFile(at:)``](x-source-tag://create-bookmark-func)
+         */
+        if let fileBookmark = createBookmarkForFile(at: URL(fileURLWithPath: filename)) {
+            Defaults[.pendingFiles].append(fileBookmark)
+        }
         return true
     }
     
     override func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        sendFilesToFlutter(filenames)
+        for filename in filenames {
+            if let fileBookmark = createBookmarkForFile(at: URL(fileURLWithPath: filename)) {
+                Defaults[.pendingFiles].append(fileBookmark)
+            }
+        }
     }
     // END: handle opened files
-}
-
-class FileDropView: NSView {
-    weak var appDelegate: AppDelegate?
-    
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
-    private func setup() {
-        registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
-    }
-    
-    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .copy
-    }
-    
-    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        let pasteboard = sender.draggingPasteboard
-        
-        if let fileUrls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL] {
-            let filenames = fileUrls.map { $0.path }
-            appDelegate?.sendFilesToFlutter(filenames)
-            appDelegate?.openApp()
-            return true
-        }
-        
-        return false
-    }
 }
