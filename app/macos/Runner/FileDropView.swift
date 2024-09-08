@@ -23,7 +23,13 @@ class FileDropView: NSView {
         let pasteboard = sender.draggingPasteboard
         
         if let fileUrls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL] {
-            Defaults[.pendingFiles].append(contentsOf: fileUrls)
+            /**
+             Although file URLs shared via dragging already contain access permission, we pass this through the bookmark mechanism for uniformity and readability of the code with URLs shared from the share extension.
+             - SeeAlso: [Enabling App Sandbox#Enabling User-Selected File Access](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6)
+             - SeeAlso: [``Shared/createBookmarkForFile(at:)``](x-source-tag://create-bookmark-func)
+             */
+            let bookmarks: [Data] = fileUrls.compactMap { createBookmarkForFile(at: $0) }
+            Defaults[.pendingFiles].append(contentsOf: bookmarks)
             return true
         }
         

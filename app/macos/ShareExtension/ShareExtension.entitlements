@@ -8,7 +8,7 @@
 	<array>
 		<string>com.localsend.shared_group</string>
 	</array>
-	<key>com.apple.security.files.user-selected.read-only</key>
+	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>
 </dict>
 </plist>

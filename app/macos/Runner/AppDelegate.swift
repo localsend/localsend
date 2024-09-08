@@ -4,14 +4,14 @@ import Defaults
 
 @main
 class AppDelegate: FlutterAppDelegate {
+    private var statusItem: NSStatusItem?
+    private var channel: FlutterMethodChannel?
+    private var pendingFilesObservation: Defaults.Observation?
+    
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
         return false
     }
-    
-    private var statusItem: NSStatusItem?
-    private var channel: FlutterMethodChannel?
-    private var pendingFilesObservation: Defaults.Observation?
     
     override func applicationDidFinishLaunching(_ notification: Notification) {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
@@ -23,8 +23,8 @@ class AppDelegate: FlutterAppDelegate {
     
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
-            let pendingFiles = Defaults[.pendingFiles]
-            guard !pendingFiles.isEmpty else { return }
+            let pendingFileBookmarks = Defaults[.pendingFiles]
+            guard !pendingFileBookmarks.isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
     }
@@ -72,7 +72,16 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     func sendPendingItemsToFlutter() {
-        channel?.invokeMethod("onPendingFiles", arguments: Defaults[.pendingFiles].map { $0.path })
+        let pendingFileBookmarks = Defaults[.pendingFiles]
+        var filePaths: [String] = []
+        
+        for bookmark in pendingFileBookmarks {
+            if let url = SecurityScopedResourceManager.shared.startAccessing(bookmark: bookmark) {
+                filePaths.append(url.path)
+            }
+        }
+        
+        channel?.invokeMethod("onPendingFiles", arguments: filePaths)
         Defaults[.pendingFiles] = []
         openApp()
     }
@@ -81,7 +90,16 @@ class AppDelegate: FlutterAppDelegate {
     private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "getPendingFiles":
-            result(Defaults[.pendingFiles].map { $0.path })
+            let pendingFileBookmarks = Defaults[.pendingFiles]
+            var filePaths: [String] = []
+            
+            for bookmark in pendingFileBookmarks {
+                if let url = SecurityScopedResourceManager.shared.startAccessing(bookmark: bookmark) {
+                    filePaths.append(url.path)
+                }
+            }
+            
+            result(filePaths)
             Defaults[.pendingFiles] = []
             openApp()
         case "setupStatusBar":
@@ -94,12 +112,23 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     override func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        Defaults[.pendingFiles].append(URL(string: filename)!)
+        /**
+         Although file URLs shared via the dock icon or the "open with" file menu item already contain access permission, we pass this through the bookmark mechanism for uniformity and readability of the code with URLs shared from the share extension.
+         - SeeAlso: [Enabling App Sandbox#Enabling User-Selected File Access](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6)
+         - SeeAlso: [``Shared/createBookmarkForFile(at:)``](x-source-tag://create-bookmark-func)
+         */
+        if let fileBookmark = createBookmarkForFile(at: URL(fileURLWithPath: filename)) {
+            Defaults[.pendingFiles].append(fileBookmark)
+        }
         return true
     }
     
     override func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        Defaults[.pendingFiles].append(contentsOf: filenames.map { URL(string: $0)! })
+        for filename in filenames {
+            if let fileBookmark = createBookmarkForFile(at: URL(fileURLWithPath: filename)) {
+                Defaults[.pendingFiles].append(fileBookmark)
+            }
+        }
     }
     // END: handle opened files
 }
