@@ -9,12 +9,23 @@ extension Sequence where Element: Sequence {
     }
 }
 
+struct TextContent {
+    var title: String?
+    var body: String?
+}
 
 extension NSExtensionContext {
     var inputItemsTyped: [NSExtensionItem] { inputItems as! [NSExtensionItem] }
     
     var attachments: [NSItemProvider] {
         inputItemsTyped.compactMap(\.attachments).flatten()
+    }
+    
+    var textContent: TextContent {
+        TextContent(
+            title: inputItemsTyped.first?.attributedTitle?.string,
+            body: inputItemsTyped.first?.attributedContentText?.string
+        )
     }
 }
 
@@ -38,7 +49,7 @@ extension NSExtensionContext {
     }
 }
 
-
+@MainActor
 extension NSItemProvider {
     func loadItem<T>(ofClass cls: T.Type) async throws -> T where T: NSItemProviderReading {
         try await withCheckedThrowingContinuation { continuation in

@@ -3,9 +3,10 @@ import Defaults
 
 let sharedDefaults = UserDefaults(suiteName: "com.localsend.shared_group")!
 
-typealias BookmarkData = Data
+typealias FileBookmarkData = Data
 extension Defaults.Keys {
-    static let pendingFiles = Key<[BookmarkData]>("pendingFiles", default: [], suite: sharedDefaults)
+    static let pendingFiles = Key<[FileBookmarkData]>("pendingFiles", default: [], suite: sharedDefaults)
+    static let pendingStrings = Key<[String]>("pendingStrings", default: [], suite: sharedDefaults)
 }
 
 /**
@@ -24,7 +25,7 @@ extension Defaults.Keys {
  
  - Tag: create-bookmark-func
  */
-func createBookmarkForFile(at url: URL) -> BookmarkData? {
+func createBookmarkForFile(at url: URL) -> FileBookmarkData? {
     do {
         let securityScopedBookmark = try (url as NSURL).bookmarkData(
             options: .minimalBookmark,

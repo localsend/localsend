@@ -1,6 +1,6 @@
 import Defaults
 
-class FileDropView: NSView {
+class ContentDropView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
@@ -12,7 +12,7 @@ class FileDropView: NSView {
     }
     
     private func setup() {
-        registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
+        registerForDraggedTypes([.fileURL, .URL, .string])
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -21,7 +21,9 @@ class FileDropView: NSView {
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         let pasteboard = sender.draggingPasteboard
+        var success = false
         
+        // File URLs
         if let fileUrls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL] {
             /**
              Although file URLs shared via dragging already contain access permission, we pass this through the bookmark mechanism for uniformity and readability of the code with URLs shared from the share extension.
@@ -30,9 +32,23 @@ class FileDropView: NSView {
              */
             let bookmarks: [Data] = fileUrls.compactMap { createBookmarkForFile(at: $0) }
             Defaults[.pendingFiles].append(contentsOf: bookmarks)
-            return true
+            success = true
         }
         
-        return false
+        // Web URLs and text
+        if let items = pasteboard.readObjects(forClasses: [NSURL.self, NSString.self], options: nil) {
+            let strings = items.compactMap { item -> String? in
+                if let url = item as? URL {
+                    return url.absoluteString
+                } else if let string = item as? String {
+                    return string
+                }
+                return nil
+            }
+            Defaults[.pendingStrings].append(contentsOf: strings)
+            success = true
+        }
+        
+        return success
     }
 }
