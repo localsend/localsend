@@ -76,6 +76,7 @@ enum FilePickerOption {
       return [
         FilePickerOption.file,
         FilePickerOption.media,
+        FilePickerOption.clipboard,
         FilePickerOption.text,
         FilePickerOption.folder,
         FilePickerOption.app,
@@ -259,18 +260,6 @@ Future<void> _pickText(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickClipboard(BuildContext context, Ref ref) async {
-  late List<String> files = [];
-  for (final file in await Pasteboard.files()) {
-    files.add(file);
-  }
-  if (files.isNotEmpty) {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: files.map((e) => XFile(e)).toList(),
-          converter: CrossFileConverters.convertXFile,
-        ));
-    return;
-  }
-
   final data = await Clipboard.getData(Clipboard.kTextPlain);
   if (data?.text != null) {
     ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: data!.text!));
@@ -287,6 +276,18 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
           fileType: FileType.image,
           fileName: fileName,
         ));
+    return;
+  }
+
+  late List<String> files = [];
+  for (final file in await Pasteboard.files()) {
+    files.add(file);
+  }
+  if (files.isNotEmpty) {
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+      files: files.map((e) => XFile(e)).toList(),
+      converter: CrossFileConverters.convertXFile,
+    ));
     return;
   }
 
