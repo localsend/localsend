@@ -53,3 +53,39 @@ Stream<List<String>> getPendingFilesStream() {
 
   return controller.stream.asBroadcastStream();
 }
+
+/// Returns a list of pending strings from the native swift runner.
+/// This happens:
+/// - on macOS when text is dropped onto the app Dock icon
+/// - on macOS when text is dropped onto the app menu bar icon
+/// - on macOS when text\web link are shared to the app using the share extension (i.e. the system share menu)
+Future<List<String>> getPendingStrings() async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return <String>[];
+  }
+
+  final strings = await _methodChannel.invokeMethod<List>('getPendingStrings');
+  if (strings == null) {
+    throw PlatformException(
+      code: 'UNKNOWN',
+      message: 'Unable to get strings',
+    );
+  }
+
+  return strings.cast<String>();
+}
+
+Stream<List<String>> getPendingStringsStream() {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return Stream.value(<String>[]).asBroadcastStream();
+  }
+
+  final controller = StreamController<List<String>>();
+  _methodChannel.setMethodCallHandler((call) async {
+    if (call.method == 'onPendingStrings') {
+      controller.add((call.arguments as List).cast<String>());
+    }
+  });
+
+  return controller.stream.asBroadcastStream();
+}

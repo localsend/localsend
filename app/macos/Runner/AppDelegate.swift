@@ -7,6 +7,7 @@ class AppDelegate: FlutterAppDelegate {
     private var statusItem: NSStatusItem?
     private var channel: FlutterMethodChannel?
     private var pendingFilesObservation: Defaults.Observation?
+    private var pendingStringsObservation: Defaults.Observation?
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -19,6 +20,8 @@ class AppDelegate: FlutterAppDelegate {
         channel?.setMethodCallHandler(handle)
         
         self.setupPendingItemsObservation()
+        
+        self.setupDockIconTextDropEventListener()
     }
     
     private func setupPendingItemsObservation() {
@@ -27,6 +30,23 @@ class AppDelegate: FlutterAppDelegate {
             guard !pendingFileBookmarks.isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
+        
+        self.pendingStringsObservation = Defaults.observe(.pendingStrings) { change in
+            let pendingStrings = Defaults[.pendingStrings]
+            guard !pendingStrings.isEmpty else { return }
+            self.sendPendingItemsToFlutter()
+        }
+    }
+    
+    private func setupDockIconTextDropEventListener() {
+        let appleEventManager = NSAppleEventManager.shared()
+        
+        appleEventManager.setEventHandler(
+            self,
+            andSelector: #selector(handleOpenContentsEvent(_:withReplyEvent:)),
+            forEventClass: AEEventClass(kCoreEventClass),
+            andEventID: AEEventID(kAEOpenContents)
+        )
     }
     
     private func setupStatusBarItem(i18n: [String: String]) {
@@ -49,7 +69,7 @@ class AppDelegate: FlutterAppDelegate {
             
             statusItem?.menu = menu
             
-            let dragView = FileDropView(frame: button.bounds)
+            let dragView = ContentDropView(frame: button.bounds)
             button.addSubview(dragView)
             
             dragView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +93,7 @@ class AppDelegate: FlutterAppDelegate {
     
     func sendPendingItemsToFlutter() {
         let pendingFileBookmarks = Defaults[.pendingFiles]
+        let pendingStrings = Defaults[.pendingStrings]
         var filePaths: [String] = []
         
         for bookmark in pendingFileBookmarks {
@@ -81,8 +102,15 @@ class AppDelegate: FlutterAppDelegate {
             }
         }
         
-        channel?.invokeMethod("onPendingFiles", arguments: filePaths)
+        if !filePaths.isEmpty{
+            channel?.invokeMethod("onPendingFiles", arguments: filePaths)
+        }
+        if !pendingStrings.isEmpty     {
+            channel?.invokeMethod("onPendingStrings", arguments: pendingStrings)
+        }
+        
         Defaults[.pendingFiles] = []
+        Defaults[.pendingStrings] = []
         openApp()
     }
     
@@ -101,6 +129,11 @@ class AppDelegate: FlutterAppDelegate {
             
             result(filePaths)
             Defaults[.pendingFiles] = []
+            openApp()
+        case "getPendingStrings":
+            let pendingStrings = Defaults[.pendingStrings]
+            result(pendingStrings)
+            Defaults[.pendingStrings] = []
             openApp()
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
@@ -131,4 +164,11 @@ class AppDelegate: FlutterAppDelegate {
         }
     }
     // END: handle opened files
+    
+    /// Handle **text** droped onto the Dock icon
+    @objc func handleOpenContentsEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
+        if let string = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
+            Defaults[.pendingStrings].append(string)
+        }
+    }
 }

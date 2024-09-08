@@ -2,7 +2,8 @@
 
 - feat: add option to automatically receive files only from favorites (@Davte)
 - feat: only automatically finish when files are either successfully received or skipped (@Tienisto)
-- feat(macos): drag and drop files into menu bar icon (@ShlomoCode)
+- feat(macos): drag-and-drop files and text into menu bar icon (@ShlomoCode)
+- feat(macos): include LocalSend as a share target in the share menu (@ShlomoCode)
 - feat: improve various padding and spacing issues in RTL languages (@ShlomoCode)
 
 ## 1.15.4 (2024-08-20)
