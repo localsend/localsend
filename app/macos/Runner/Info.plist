@@ -118,5 +118,24 @@
             </array>
         </dict>
     </array>
+
+    <key>NSServices</key>
+    <array>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Send to LocalSend</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>handleTextDropEvent</string>
+            <key>NSPortName</key>
+            <string>LocalSend</string>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.plain-text</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

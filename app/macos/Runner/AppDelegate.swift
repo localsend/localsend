@@ -20,6 +20,8 @@ class AppDelegate: FlutterAppDelegate {
         channel?.setMethodCallHandler(handle)
         
         self.setupPendingItemsObservation()
+        
+        self.setupDockIconTextDropEventListener()
     }
     
     private func setupPendingItemsObservation() {
@@ -34,6 +36,17 @@ class AppDelegate: FlutterAppDelegate {
             guard !pendingStrings.isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
+    }
+    
+    private func setupDockIconTextDropEventListener() {
+        let appleEventManager = NSAppleEventManager.shared()
+        
+        appleEventManager.setEventHandler(
+            self,
+            andSelector: #selector(handleOpenContentsEvent(_:withReplyEvent:)),
+            forEventClass: AEEventClass(kCoreEventClass),
+            andEventID: AEEventID(kAEOpenContents)
+        )
     }
     
     private func setupStatusBarItem(i18n: [String: String]) {
@@ -151,4 +164,11 @@ class AppDelegate: FlutterAppDelegate {
         }
     }
     // END: handle opened files
+    
+    /// Handle **text** droped onto the Dock icon
+    @objc func handleOpenContentsEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
+        if let string = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
+            Defaults[.pendingStrings].append(string)
+        }
+    }
 }
