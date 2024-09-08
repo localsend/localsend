@@ -1,7 +1,7 @@
 import Foundation
 import Defaults
 
-let sharedDefaults = UserDefaults(suiteName: "com.localsend.shared_group")!
+let sharedDefaults = UserDefaults(suiteName: "org.localsend.shared_group")!
 
 typealias FileBookmarkData = Data
 extension Defaults.Keys {
