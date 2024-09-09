@@ -17,7 +17,7 @@ class AppDelegate: FlutterAppDelegate {
     override func applicationDidFinishLaunching(_ notification: Notification) {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
-        channel?.setMethodCallHandler(handle)
+        channel?.setMethodCallHandler(handleFlutterCall)
         
         self.setupPendingItemsObservation()
         
@@ -26,14 +26,12 @@ class AppDelegate: FlutterAppDelegate {
     
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
-            let pendingFileBookmarks = Defaults[.pendingFiles]
-            guard !pendingFileBookmarks.isEmpty else { return }
+            guard !Defaults[.pendingFiles].isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
         
         self.pendingStringsObservation = Defaults.observe(.pendingStrings) { change in
-            let pendingStrings = Defaults[.pendingStrings]
-            guard !pendingStrings.isEmpty else { return }
+            guard !Defaults[.pendingStrings].isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
     }
@@ -115,7 +113,7 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     // START: handle opened files
-    private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    private func handleFlutterCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "getPendingFiles":
             let pendingFileBookmarks = Defaults[.pendingFiles]
