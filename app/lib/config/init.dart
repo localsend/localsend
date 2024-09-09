@@ -183,6 +183,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
+      setupMethodCallHandler();
+
       final pendingFiles = await getPendingFiles();
       if (pendingFiles.isNotEmpty) {
         await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
@@ -191,7 +193,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       }
 
       // handle future dropped files
-      getPendingFilesStream().listen((files) {
+      pendingFilesStreamController.stream.listen((files) {
         ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
           args: files,
         ));
@@ -207,7 +209,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       }
 
       // handle future dropped strings
-      getPendingStringsStream().listen((pendingStrings) {
+      pendingStringsStreamController.stream.listen((pendingStrings) {
         for (final string in pendingStrings) {
           ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
           ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
