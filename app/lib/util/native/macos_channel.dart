@@ -39,21 +39,6 @@ Future<List<String>> getPendingFiles() async {
   return files.cast<String>();
 }
 
-Stream<List<String>> getPendingFilesStream() {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return Stream.value(<String>[]).asBroadcastStream();
-  }
-
-  final controller = StreamController<List<String>>();
-  _methodChannel.setMethodCallHandler((call) async {
-    if (call.method == 'onPendingFiles') {
-      controller.add((call.arguments as List).cast<String>());
-    }
-  });
-
-  return controller.stream.asBroadcastStream();
-}
-
 /// Returns a list of pending strings from the native swift runner.
 /// This happens:
 /// - on macOS when text is dropped onto the app Dock icon
@@ -75,17 +60,18 @@ Future<List<String>> getPendingStrings() async {
   return strings.cast<String>();
 }
 
-Stream<List<String>> getPendingStringsStream() {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return Stream.value(<String>[]).asBroadcastStream();
-  }
+final pendingFilesStreamController = StreamController<List<String>>.broadcast();
+final pendingStringsStreamController = StreamController<List<String>>.broadcast();
 
-  final controller = StreamController<List<String>>();
+void setupMethodCallHandler() {
   _methodChannel.setMethodCallHandler((call) async {
-    if (call.method == 'onPendingStrings') {
-      controller.add((call.arguments as List).cast<String>());
+    switch (call.method) {
+      case 'onPendingFiles':
+        pendingFilesStreamController.add((call.arguments as List).cast<String>());
+        break;
+      case 'onPendingStrings':
+        pendingStringsStreamController.add((call.arguments as List).cast<String>());
+        break;
     }
   });
-
-  return controller.stream.asBroadcastStream();
 }
