@@ -38,7 +38,7 @@ class ContentDropView: NSView {
         // Web URLs and text
         if let items = pasteboard.readObjects(forClasses: [NSURL.self, NSString.self], options: nil) {
             let strings = items.compactMap { item -> String? in
-                if let url = item as? URL {
+                if let url = item as? URL, !url.isFileURL {
                     return url.absoluteString
                 } else if let string = item as? String {
                     return string
