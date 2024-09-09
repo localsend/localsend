@@ -67,6 +67,7 @@
     "nearbyDevices": "Malalapit na mga device",
     "thisDevice": "Ang Device na Ito",
     "scan": "Maghanap ng mga device",
+    "manualSending": "Mano-manong pagpapadala",
     "sendMode": "Send mode",
     "sendModes": {
       "single": "Isang tatanggap",
@@ -97,6 +98,7 @@
         "system": "System"
       },
       "saveWindowPlacement": "Quit: I-save ang window placement",
+      "saveWindowPlacementWindows": "I-save ang posisyon ng window pagkasara",
       "minimizeToTray": "Quit: Paliitin sa Tray/Menu Bar",
       "launchAtStartup": "I-autostart pagkatapos mag-login",
       "launchMinimized": "Autostart: I-start nang nakatago",
@@ -445,7 +447,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Isara ang LocalSend"
+    "close": "Isara ang LocalSend",
+    "closeWindows": "Isara"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

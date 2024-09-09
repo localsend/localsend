@@ -90,7 +90,7 @@ class _StringsGeneralEn {
 	String get open => 'Open';
 	String get queue => 'Queue';
 	String get quickSave => 'Quick Save';
-	String get quickSaveFromFavorites => 'Quick Save From Favorites';
+	String get quickSaveFromFavorites => 'Quick Save for "Favorites"';
 	String get renamed => 'Renamed';
 	String get reset => 'Undo changes';
 	String get restart => 'Restart';
@@ -959,7 +959,7 @@ class _StringsDialogsQuickSaveFromFavoritesNoticeEn {
 
 	// Translations
 	String get title => _root.general.quickSaveFromFavorites;
-	String get content => 'File requests are automatically accepted from favorites.';
+	String get content => 'File requests are automatically accepted from devices in your contact list.';
 }
 
 // Path: dialogs.pin

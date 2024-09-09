@@ -123,6 +123,7 @@ class _StringsSendTabFilPh extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Malalapit na mga device';
 	@override String get thisDevice => 'Ang Device na Ito';
 	@override String get scan => 'Maghanap ng mga device';
+	@override String get manualSending => 'Mano-manong pagpapadala';
 	@override String get sendMode => 'Send mode';
 	@override late final _StringsSendTabSendModesFilPh sendModes = _StringsSendTabSendModesFilPh._(_root);
 	@override String get sendModeHelp => 'Paliwanag';
@@ -454,6 +455,7 @@ class _StringsTrayFilPh extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'Isara ang LocalSend';
+	@override String get closeWindows => 'Isara';
 }
 
 // Path: web
@@ -576,6 +578,7 @@ class _StringsSettingsTabGeneralFilPh extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Wika';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsFilPh languageOptions = _StringsSettingsTabGeneralLanguageOptionsFilPh._(_root);
 	@override String get saveWindowPlacement => 'Quit: I-save ang window placement';
+	@override String get saveWindowPlacementWindows => 'I-save ang posisyon ng window pagkasara';
 	@override String get minimizeToTray => 'Quit: Paliitin sa Tray/Menu Bar';
 	@override String get launchAtStartup => 'I-autostart pagkatapos mag-login';
 	@override String get launchMinimized => 'Autostart: I-start nang nakatago';

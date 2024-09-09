@@ -3,60 +3,18 @@
     "Here are translations that exist in <en> but not in <es-ES>.",
     "After editing this file, you can run 'dart run slang apply --locale=es-ES' to quickly apply the newly added translations."
   ],
-  "sendTab": {
-    "manualSending": "Envío manual"
+  "general": {
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
   },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Guardar la posición de la ventana después de salir",
-      "showInContextMenu": "Mostrar LocalSend en el menú contextual"
-    },
     "receive": {
-      "requirePin": "@:webSharePage.requirePin"
-    },
-    "network": {
-      "discoveryTimeout": "Tiempo de espera para Detección"
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Este dispositivo no puede descubrir otros dispositivos.",
-      "solution": "Asegúrese de que todos los dispositivos estén en la misma red Wi-Fi y compartan la misma configuración (puerto, dirección de multidifusión, cifrado). Puede intentar escribir la dirección IP del dispositivo de destino manualmente. Si esto funciona, considere agregar este dispositivo a los favoritos para que pueda detectarse automáticamente en el futuro."
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Mostrar en carpeta"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "Requerir PIN",
-    "pinHint": "El PIN es \"{pin}\""
-  },
-  "aboutPage": {
-    "packagers": "Empaquetadores"
   },
   "dialogs": {
-    "pin": {
-      "title": "Ingresar PIN"
-    },
-    "zoom": {
-      "title": "URL"
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "File requests are automatically accepted from devices in your contact list."
     }
-  },
-  "sanitization": {
-    "empty": "El nombre del archivo no puede estar vacío",
-    "invalid": "El nombre del archivo contiene caracteres no válidos"
-  },
-  "tray": {
-    "closeWindows": "Cerrar"
-  },
-  "web": {
-    "enterPin": "Ingresar PIN",
-    "invalidPin": "PIN Inválido",
-    "tooManyAttempts": "Demasiados intentos"
   }
 }

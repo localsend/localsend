@@ -5,6 +5,7 @@
   ],
   "general": {
     "delete": "Delete",
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\"",
     "noItemInClipboard": "No items in Clipboard."
   },
   "sendTab": {
@@ -22,6 +23,7 @@
       "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish"
     },
@@ -97,6 +99,10 @@
     "historyClearDialog": {
       "title": "Clear history",
       "content": "Do you really want to delete the entire history?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "File requests are automatically accepted from devices in your contact list."
     },
     "pin": {
       "title": "Enter PIN"

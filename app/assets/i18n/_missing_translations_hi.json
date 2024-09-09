@@ -3,12 +3,18 @@
     "Here are translations that exist in <en> but not in <hi>.",
     "After editing this file, you can run 'dart run slang apply --locale=hi' to quickly apply the newly added translations."
   ],
+  "general": {
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+  },
   "sendTab": {
     "manualSending": "Manual sending"
   },
   "settingsTab": {
     "general": {
       "saveWindowPlacementWindows": "Save window position after exit"
+    },
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     }
   },
   "troubleshootPage": {
@@ -19,6 +25,12 @@
   },
   "aboutPage": {
     "packagers": "Packagers"
+  },
+  "dialogs": {
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "File requests are automatically accepted from devices in your contact list."
+    }
   },
   "tray": {
     "closeWindows": "Exit"
