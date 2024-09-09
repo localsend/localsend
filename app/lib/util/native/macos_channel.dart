@@ -61,17 +61,20 @@ Future<List<String>> getPendingStrings() async {
   return strings.cast<String>();
 }
 
-final pendingFilesStreamController = StreamController<List<String>>.broadcast();
-final pendingStringsStreamController = StreamController<List<String>>.broadcast();
+final _pendingFilesStreamController = StreamController<List<String>>.broadcast();
+Stream<List<String>> get pendingFilesStream => _pendingFilesStreamController.stream;
+
+final _pendingStringsStreamController = StreamController<List<String>>.broadcast();
+Stream<List<String>> get pendingStringsStream => _pendingStringsStreamController.stream;
 
 void setupMethodCallHandler() {
   _methodChannel.setMethodCallHandler((call) async {
     switch (call.method) {
       case 'onPendingFiles':
-        pendingFilesStreamController.add((call.arguments as List).cast<String>());
+        _pendingFilesStreamController.add((call.arguments as List).cast<String>());
         break;
       case 'onPendingStrings':
-        pendingStringsStreamController.add((call.arguments as List).cast<String>());
+        _pendingStringsStreamController.add((call.arguments as List).cast<String>());
         break;
       case 'showLocalSendFromMenuBar':
         await showFromTray();
