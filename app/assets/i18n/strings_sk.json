@@ -1,0 +1,500 @@
+{
+  "locale": "Slovenčina",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Prijať",
+    "accepted": "Prijaté",
+    "add": "Pridať",
+    "advanced": "Pokročilé",
+    "cancel": "Zrušiť",
+    "close": "Zavrieť",
+    "confirm": "Potvrdiť",
+    "continueStr": "Pokračovať",
+    "copy": "Kopírovať",
+    "copiedToClipboard": "Skopírované do schránky",
+    "decline": "Odmietnuť",
+    "done": "Hotovo",
+    "delete": "Odstrániť",
+    "edit": "Upraviť",
+    "error": "Chyba",
+    "example": "Príklad",
+    "files": "Súbory",
+    "finished": "Dokončené",
+    "hide": "Skryť",
+    "off": "Vypnuté",
+    "offline": "Offline",
+    "on": "Zapnuté",
+    "online": "Online",
+    "open": "Otvoriť",
+    "queue": "Fronta",
+    "quickSave": "Rýchle uloženie",
+    "quickSaveFromFavorites": "Rýchle uloženie pre \"Obľúbené\"",
+    "renamed": "Premenovaný",
+    "reset": "Vrátiť späť zmeny",
+    "restart": "Reštartovať",
+    "settings": "Nastavenia",
+    "skipped": "Preskočené",
+    "start": "Spustiť",
+    "stop": "Zastaviť",
+    "save": "Uložiť",
+    "unchanged": "Nezmenené",
+    "unknown": "Neznáme",
+    "noItemInClipboard": "Žiadne položky v schránke."
+  },
+  "receiveTab": {
+    "title": "Prijať",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Názov zariadenia:"
+    }
+  },
+  "sendTab": {
+    "title": "Odoslať",
+    "selection": {
+      "title": "Výber",
+      "files": "Súbory: {files}",
+      "size": "Veľkosť: {size}"
+    },
+    "picker": {
+      "file": "Súbor",
+      "folder": "Priečinok",
+      "media": "Médiá",
+      "text": "Text",
+      "app": "Aplikácia",
+      "clipboard": "Vložiť"
+    },
+    "shareIntentInfo": "Na jednoduchší výber súborov môžete použiť aj funkciu \"Zdieľať\" vášho mobilného zariadenia.",
+    "nearbyDevices": "Zariadenia v blízkosti",
+    "thisDevice": "Toto zariadenie",
+    "scan": "Vyhľadať zariadenia",
+    "manualSending": "Manuálne odoslanie",
+    "sendMode": "Režim odosielania",
+    "sendModes": {
+      "single": "Jeden príjemca",
+      "multiple": "Viacerí príjemcovia",
+      "link": "Zdieľať cez odkaz"
+    },
+    "sendModeHelp": "Vysvetlenie",
+    "help": "Uistite sa, že požadované zariadenie je tiež v rovnakej sieti Wi-Fi.",
+    "placeItems": "Umiestnite položky na zdieľanie."
+  },
+  "settingsTab": {
+    "title": "Nastavenia",
+    "general": {
+      "title": "Všeobecné",
+      "brightness": "Téma",
+      "brightnessOptions": {
+        "system": "Systémová",
+        "dark": "Tmavá",
+        "light": "Svetlá"
+      },
+      "color": "Farba",
+      "colorOptions": {
+        "system": "Systémová",
+        "oled": "OLED"
+      },
+      "language": "Jazyk",
+      "languageOptions": {
+        "system": "Systémový"
+      },
+      "saveWindowPlacement": "Uložiť polohu okna po ukončení",
+      "saveWindowPlacementWindows": "Uložiť polohu okna po ukončení",
+      "minimizeToTray": "Minimalizovať na systémový panel/panel ponuky pri zatvorení",
+      "launchAtStartup": "Autoštart po prihlásení",
+      "launchMinimized": "Autoštart: Spustiť skryté",
+      "showInContextMenu": "Zobraziť LocalSend v kontextovej ponuke",
+      "animations": "Animácie"
+    },
+    "receive": {
+      "title": "Prijať",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automatické dokončenie",
+      "destination": "Uložiť do priečinka",
+      "downloads": "(Stiahnuté)",
+      "saveToGallery": "Uložiť médiá do galérie",
+      "saveToHistory": "Uložiť do histórie"
+    },
+    "send": {
+      "title": "Odoslať",
+      "shareViaLinkAutoAccept": "Automaticky prijímať žiadosti v režime \"Zdieľať cez odkaz\"."
+    },
+    "network": {
+      "title": "Sieť",
+      "needRestart": "Ak chcete použiť nastavenia, reštartujte server!",
+      "server": "Server",
+      "alias": "Názov zariadenia",
+      "deviceType": "Typ zariadenia",
+      "deviceModel": "Model zariadenia",
+      "port": "Port",
+      "discoveryTimeout": "Časový limit objavovania",
+      "portWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: {defaultPort})",
+      "encryption": "Šifrovanie",
+      "multicastGroup": "Multicast adresa",
+      "multicastGroupWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Iné",
+      "support": "Podporte LocalSend",
+      "donate": "Darovať",
+      "privacyPolicy": "Zásady ochrany osobných údajov",
+      "termsOfUse": "Podmienky používania"
+    },
+    "advancedSettings": "Pokročilé nastavenia"
+  },
+  "troubleshootPage": {
+    "title": "Riešenie problémov",
+    "subTitle": "Aplikácia nefunguje podľa očakávania? Tu nájdete niektoré bežné riešenia problémov.",
+    "solution": "Riešenie:",
+    "fixButton": "Opraviť automaticky",
+    "firewall": {
+      "symptom": "Toto zariadenie môže odosielať súbory do iných zariadení, ale iné zariadenia nemôžu odosielať súbory do tohto zariadenia.",
+      "solution": "S najväčšou pravdepodobnosťou ide o problém brány firewall. Môžete to vyriešiť povolením prichádzajúcich spojení (UDP a TCP) na porte {port}.",
+      "openFirewall": "Otvoriť firewall"
+    },
+    "noDiscovery": {
+      "symptom": "Toto zariadenie nemôže objaviť iné zariadenia.",
+      "solution": "Uistite sa, že všetky zariadenia sú v rovnakej sieti Wi-Fi a zdieľajú rovnakú konfiguráciu (port, multicast adresa, šifrovanie). Môžete sa pokúsiť zadať IP adresu cieľového zariadenia ručne. Ak to funguje, zvážte pridanie tohto zariadenia do obľúbených položiek, aby mohlo byť v budúcnosti automaticky objavené."
+    },
+    "noConnection": {
+      "symptom": "Obe zariadenia sa nedokážu navzájom objaviť ani nemôžu zdieľať súbory.",
+      "solution": "Existuje problém na oboch stranách? Ak áno, musíte sa uistiť, že obe zariadenia sú v rovnakej sieti Wi-Fi a majú rovnakú konfiguráciu (port, multicastovú adresu, šifrovanie). Sieť Wi-Fi nemusí umožňovať komunikáciu medzi účastníkmi (izolácia prístupového bodu). V takom prípade musí byť táto možnosť povolená na smerovači."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "História",
+    "openFolder": "Otvoriť priečinok",
+    "deleteHistory": "Odstrániť históriu",
+    "empty": "História je prázdna.",
+    "entryActions": {
+      "open": "Otvoriť súbor",
+      "showInFolder": "Zobraziť v priečinku",
+      "info": "Informácie",
+      "deleteFromHistory": "Vymazať z histórie"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aplikácie (APK)",
+    "excludeSystemApps": "Vylúčiť systémové aplikácie",
+    "excludeAppsWithoutLaunchIntent": "Vylúčiť nespustiteľné aplikácie",
+    "apps": "{n} Aplikácie"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Vymazať všetky"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "vám chce poslať súbor",
+      "other": "vám chce poslať {n} súborov"
+    },
+    "subTitleMessage": "vám poslal správu:",
+    "subTitleLink": "vám poslal odkaz:",
+    "canceled": "Odosielateľ zrušil žiadosť."
+  },
+  "receiveOptionsPage": {
+    "title": "Možnosti",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(Priečinok LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Automaticky vypnuté, pretože existujú priečinky."
+  },
+  "sendPage": {
+    "waiting": "Čaká sa na odpoveď...",
+    "rejected": "Príjemca zamietol žiadosť.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Príjemca je zaneprázdnený inou žiadosťou."
+  },
+  "progressPage": {
+    "titleSending": "Odosielanie súborov",
+    "titleReceiving": "Prijímanie súborov",
+    "savedToGallery": "Uložené vo Fotkách",
+    "total": {
+      "title": {
+        "sending": "Celkový priebeh ({time})",
+        "finishedError": "Dokončené s chybou",
+        "canceledSender": "Zrušené odosielateľom",
+        "canceledReceiver": "Zrušené príjemcom"
+      },
+      "count": "Súbory: {curr} / {n}",
+      "size": "Veľkosť: {curr} / {n}",
+      "speed": "Rýchlosť: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Zdieľať cez odkaz",
+    "loading": "Spúšťa sa server...",
+    "stopping": "Zastavuje sa server...",
+    "error": "Pri spúšťaní servera sa vyskytla chyba.",
+    "openLink": {
+      "one": "Otvorte tento odkaz vo svojom prehliadači:",
+      "other": "Otvorte jeden z týchto odkazov vo svojom prehliadači:"
+    },
+    "requests": "Žiadosti",
+    "noRequests": "Zatiaľ žiadne žiadosti.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automaticky prijímať žiadosti",
+    "requirePin": "Vyžadovať PIN",
+    "pinHint": "PIN je \"{pin}\"",
+    "encryptionHint": "LocalSend používa certifikát s vlastným podpisom. Musíte ho prijať vo svojom prehliadači.",
+    "pendingRequests": "Nespracované žiadosti: {n}"
+  },
+  "aboutPage": {
+    "title": "O aplikácii LocalSend",
+    "description": [
+      "LocalSend je bezplatná aplikácia s otvoreným zdrojovým kódom, ktorá vám umožňuje bezpečne zdieľať súbory a správy so zariadeniami v okolí cez vašu lokálnu sieť bez potreby pripojenia k internetu.",
+      "Táto aplikácia je dostupná pre Android, iOS, macOS, Windows a Linux. Všetky možnosti stiahnutia nájdete na oficiálnej domovskej stránke."
+    ],
+    "author": "Autor",
+    "contributors": "Prispievatelia",
+    "packagers": "Zostavovatelia balíkov",
+    "translators": "Prekladatelia"
+  },
+  "donationPage": {
+    "title": "Darovať",
+    "info": "LocalSend je bezplatný, s otvoreným kódom a bez reklám. Ak sa vám aplikácia páči, môžete jej vývoj podporiť darom.",
+    "donate": "Darovať {amount}",
+    "thanks": "Ďakujeme veľmi pekne!",
+    "restore": "Obnoviť nákup"
+  },
+  "changelogPage": {
+    "title": "Zoznam zmien"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Rôzne miestne nastavenia môžu mať rôzne slová, nemusia sa presne zhodovať",
+    "adjectives": [
+      "Rozkošná",
+      "Krásna",
+      "Veľká",
+      "Ľahká",
+      "Okúzľujúca",
+      "Šikovná",
+      "Pohodová",
+      "Roztomilá",
+      "Prefíkaná",
+      "Odhodlaná",
+      "Energická",
+      "Efektívna",
+      "Fantastická",
+      "Rýchla",
+      "Fajná",
+      "Čerstvá",
+      "Dobrá",
+      "Nádherná",
+      "Skvelá",
+      "Sympatická",
+      "Horúca",
+      "Milá",
+      "Zvodná",
+      "Mystická",
+      "Čistá",
+      "Úhľadná",
+      "Trpezlivá",
+      "Pekná",
+      "Výkonná",
+      "Bohatá",
+      "Tajomná",
+      "Inteligentná",
+      "Pôvabná",
+      "Špeciálna",
+      "Strategická",
+      "Silná",
+      "Vášnivá",
+      "Múdra"
+    ],
+    "fruits": [
+      "hruška",
+      "višňa",
+      "čerešňa",
+      "broskyňa",
+      "slivka",
+      "marhuľa",
+      "ringlota",
+      "čučoriedka",
+      "brusnica",
+      "ríbezľa",
+      "malina",
+      "jahoda",
+      "moruša",
+      "mandarínka",
+      "marakuja",
+      "datľa",
+      "dula",
+      "figa",
+      "limetka",
+      "papája",
+      "tekvica",
+      "akébia",
+      "brokolica",
+      "cibuľa",
+      "kapusta",
+      "paradajka"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "V niektorých jazykoch musí byť prídavné meno posledné."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Pridať do výberu",
+      "content": "Čo chcete pridať?"
+    },
+    "addressInput": {
+      "title": "Zadajte adresu",
+      "hashtag": "Hashtag",
+      "ip": "IP adresa",
+      "recentlyUsed": "Nedávno použité: "
+    },
+    "cancelSession": {
+      "title": "Zrušiť prenos súborov",
+      "content": "Naozaj chcete zrušiť prenos súborov?"
+    },
+    "cannotOpenFile": {
+      "title": "Nie je možné otvoriť súbor",
+      "content": "Nepodarilo sa otvoriť súbor \"{file}\". Bol tento súbor presunutý, premenovaný alebo odstránený?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Šifrovanie je vypnuté",
+      "content": "Komunikácia teraz prebieha cez nešifrovaný protokol HTTP. Ak chcete použiť protokol HTTPS, opäť povoľte šifrovanie."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Obľúbené",
+      "noFavorites": "Zatiaľ žiadne obľúbené zariadenia.",
+      "addFavorite": "Pridať"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Odstrániť z obľúbených",
+      "content": "Naozaj chcete odstrániť \"{name}\" z obľúbených?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Pridať k obľúbeným",
+      "titleEdit": "Nastavenia",
+      "name": "Názov zariadenia",
+      "auto": "(automaticky)",
+      "ip": "IP adresa",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Informácie o súbore",
+      "fileName": "Názov súboru:",
+      "path": "Cesta:",
+      "size": "Veľkosť:",
+      "sender": "Odosielateľ:",
+      "time": "Čas:"
+    },
+    "fileNameInput": {
+      "title": "Zadajte názov súboru",
+      "original": "Originál: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Vymazať históriu",
+      "content": "Naozaj chcete vymazať celú históriu?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend nemôže nájsť iné zariadenia bez povolenia na prehľadanie lokálnej siete. Povoľte prosím toto povolenie v nastaveniach.",
+      "gotoSettings": "Nastavenia"
+    },
+    "messageInput": {
+      "title": "Napíšte správu",
+      "multiline": "Viacriadková"
+    },
+    "noFiles": {
+      "title": "Nie sú vybraté žiadne súbory",
+      "content": "Vyberte prosím aspoň jeden súbor."
+    },
+    "noPermission": {
+      "title": "Žiadne povolenie",
+      "content": "Neudelili ste potrebné povolenia. Udeľte ich prosím v nastaveniach."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Nie je k dispozícii",
+      "content": "Táto funkcia je dostupná iba na:"
+    },
+    "qr": {
+      "title": "QR kód"
+    },
+    "quickActions": {
+      "title": "Rýchle akcie",
+      "counter": "Počítadlo",
+      "prefix": "Predpona",
+      "padZero": "Vyplniť s nulami",
+      "sortBeforeCount": "Vopred zoradiť podľa abecedy (A-Z)",
+      "random": "Náhodne"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Žiadosti o súbor sú automaticky akceptované. Uvedomte si, že každý v miestnej sieti vám môže posielať súbory."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Žiadosti o súbor sa automaticky prijímajú zo zariadení vo vašom zozname kontaktov."
+    },
+    "pin": {
+      "title": "Zadajte PIN"
+    },
+    "sendModeHelp": {
+      "title": "Režimy odosielania",
+      "single": "Odošle súbory jednému príjemcovi. Výber sa vymaže po dokončení prenosu súborov.",
+      "multiple": "Posiela súbory viacerým príjemcom. Výber sa vymaže po dokončení prenosu súborov.",
+      "link": "Príjemcovia, ktorí nemajú nainštalovaný LocalSend, si môžu stiahnuť vybrané súbory otvorením odkazu vo svojom prehliadači."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Názov súboru nemôže byť prázdny",
+    "invalid": "Názov súboru obsahuje neplatné znaky"
+  },
+  "tray": {
+    "@info": "Pokyny spoločnosti Apple sú veľmi prísne, pokiaľ ide o výraz \"blízke\".",
+    "open": "@:general.open",
+    "close": "Ukončiť LocalSend",
+    "closeWindows": "Ukončiť"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Zadajte PIN",
+    "invalidPin": "Neplatný PIN kód",
+    "tooManyAttempts": "Príliš veľa pokusov",
+    "rejected": "Odmietnuté",
+    "files": "Súbory",
+    "fileName": "Názov súboru",
+    "size": "Veľkosť"
+  },
+  "assetPicker": {
+    "@info": "Preklady pre nástroj na výber médií pre Android a iPhone",
+    "confirm": "Potvrdiť",
+    "cancel": "Zrušiť",
+    "edit": "Upraviť",
+    "gifIndicator": "GIF",
+    "loadFailed": "Načítanie zlyhalo",
+    "original": "Pôvod",
+    "preview": "Ukážka",
+    "select": "Vybrať",
+    "emptyList": "Prázdny zoznam",
+    "unSupportedAssetType": "Nepodporovaný typ súboru.",
+    "unableToAccessAll": "Nie je možné získať prístup ku všetkým súborom v zariadení",
+    "viewingLimitedAssetsTip": "Zobraziť iba súbory a albumy, ktoré má aplikácia prístupné.",
+    "changeAccessibleLimitedAssets": "Kliknutím aktualizujete prístupné súbory",
+    "accessAllTip": "Aplikácia má prístup iba k niektorým súborom v zariadení. Prejdite do systémových nastavení a povoľte aplikácii prístup ku všetkým médiám v zariadení.",
+    "goToSystemSettings": "Prejdite do nastavení systému",
+    "accessLimitedAssets": "Pokračovať s obmedzeným prístupom",
+    "accessiblePathName": "Prístupné súbory",
+    "sTypeAudioLabel": "Zvuk",
+    "sTypeImageLabel": "Obrázok",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Iné médiá",
+    "sActionPlayHint": "prehrať",
+    "sActionPreviewHint": "náhľad",
+    "sActionSelectHint": "vyberať",
+    "sActionSwitchPathLabel": "zmeniť cestu",
+    "sActionUseCameraHint": "použiť fotoaparát",
+    "sNameDurationLabel": "trvanie",
+    "sUnitAssetCountLabel": "počet"
+  }
+}
