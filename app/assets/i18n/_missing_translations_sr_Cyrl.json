@@ -4,7 +4,7 @@
     "After editing this file, you can run 'dart run slang apply --locale=sr-Cyrl' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "Брзо сними у \"Омиљени\""
   },
   "settingsTab": {
     "receive": {
@@ -14,7 +14,7 @@
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are automatically accepted from devices in your contact list."
+      "content": "Фајлови који су послати са уређаја у контакт листи су аутоматски прихваћени."
     }
   }
 }
