@@ -109,7 +109,7 @@ class AppDelegate: FlutterAppDelegate {
         Defaults[.pendingFiles] = []
         Defaults[.pendingStrings] = []
 
-        channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
+        self.showLocalSendFromMenuBar()
     }
     
     // START: handle opened files
