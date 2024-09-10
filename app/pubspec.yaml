@@ -33,7 +33,7 @@ dependencies:
   gal: 2.3.0
   image_picker: 1.0.8
   in_app_purchase: 3.1.13 # [FOSS_REMOVE]
-  intl: '>=0.18.0' # allow newer versions, so it can compile with newer Flutter versions
+  intl: '>=0.18.0 <1.0.0' # allow newer versions, so it can compile with newer Flutter versions
   legalize: ^1.2.2
   logging: 1.2.0
   # https://github.com/NightFeather0615/macos_dock_progress/issues/1
@@ -64,10 +64,10 @@ dependencies:
   tray_manager: 0.2.3
   uri_content: 2.2.0
   url_launcher: 6.2.4
-  uuid: ^4.5.0
+  uuid: 4.5.0
   wakelock_plus: 1.1.4
   wechat_assets_picker: 9.2.1
-  win32_registry: 1.1.4
+  win32_registry: 1.1.2
   window_manager: 0.3.9
   windows_taskbar: 1.1.2
   yaru: 1.2.2

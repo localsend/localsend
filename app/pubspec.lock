@@ -1759,10 +1759,10 @@ packages:
     dependency: "direct main"
     description:
       name: win32_registry
-      sha256: "723b7f851e5724c55409bb3d5a32b203b3afe8587eaf5dafb93a5fed8ecda0d6"
+      sha256: "41fd8a189940d8696b1b810efb9abcf60827b6cbfab90b0c43e8439e3a39d85a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.2"
   window_manager:
     dependency: "direct main"
     description:
