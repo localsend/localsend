@@ -944,8 +944,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/pasteboard"
-      ref: e07816a9bf16e4c1da2593f595949ecfb46ab30a
-      resolved-ref: e07816a9bf16e4c1da2593f595949ecfb46ab30a
+      ref: "58748dae405df5e68a131e4905d48e75d0624be2"
+      resolved-ref: "58748dae405df5e68a131e4905d48e75d0624be2"
       url: "https://github.com/Seidko/flutter-plugins.git"
     source: git
     version: "0.3.0"
