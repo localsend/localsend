@@ -28,6 +28,7 @@
     "open": "打开",
     "queue": "队列",
     "quickSave": "快速保存",
+    "quickSaveFromFavorites": "快速保存到\"收藏\"",
     "renamed": "已重命名",
     "reset": "重置",
     "restart": "重启",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "自动完成",
       "destination": "保存目录",
@@ -425,6 +427,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "现在，您的收藏夹列表中的设备会自动接受文件请求。"
     },
     "pin": {
       "title": "输入 PIN"
