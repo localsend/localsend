@@ -17,7 +17,7 @@ class AppDelegate: FlutterAppDelegate {
     override func applicationDidFinishLaunching(_ notification: Notification) {
         let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
-        channel?.setMethodCallHandler(handle)
+        channel?.setMethodCallHandler(handleFlutterCall)
         
         self.setupPendingItemsObservation()
         
@@ -26,14 +26,12 @@ class AppDelegate: FlutterAppDelegate {
     
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
-            let pendingFileBookmarks = Defaults[.pendingFiles]
-            guard !pendingFileBookmarks.isEmpty else { return }
+            guard !Defaults[.pendingFiles].isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
         
         self.pendingStringsObservation = Defaults.observe(.pendingStrings) { change in
-            let pendingStrings = Defaults[.pendingStrings]
-            guard !pendingStrings.isEmpty else { return }
+            guard !Defaults[.pendingStrings].isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
     }
@@ -60,7 +58,7 @@ class AppDelegate: FlutterAppDelegate {
             let menu = NSMenu()
             
             let openString = i18n["open"]!
-            let openItem = NSMenuItem(title: openString, action: #selector(openApp), keyEquivalent: "o")
+            let openItem = NSMenuItem(title: openString, action: #selector(showLocalSendFromMenuBar), keyEquivalent: "o")
             menu.addItem(openItem)
             
             let quitString = i18n["quit"]!
@@ -82,9 +80,8 @@ class AppDelegate: FlutterAppDelegate {
         }
     }
     
-    @objc func openApp() {
-        NSApp.activate(ignoringOtherApps: true)
-        mainFlutterWindow?.makeKeyAndOrderFront(nil)
+    @objc func showLocalSendFromMenuBar() {
+        channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
     }
     
     @objc private func quitApp() {
@@ -111,11 +108,12 @@ class AppDelegate: FlutterAppDelegate {
         
         Defaults[.pendingFiles] = []
         Defaults[.pendingStrings] = []
-        openApp()
+
+        self.showLocalSendFromMenuBar()
     }
     
     // START: handle opened files
-    private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    private func handleFlutterCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "getPendingFiles":
             let pendingFileBookmarks = Defaults[.pendingFiles]
@@ -128,13 +126,18 @@ class AppDelegate: FlutterAppDelegate {
             }
             
             result(filePaths)
+
             Defaults[.pendingFiles] = []
-            openApp()
+            
+            channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
         case "getPendingStrings":
             let pendingStrings = Defaults[.pendingStrings]
+
             result(pendingStrings)
+            
             Defaults[.pendingStrings] = []
-            openApp()
+            
+            channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)

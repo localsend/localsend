@@ -3,15 +3,18 @@
     "Here are translations that exist in <en> but not in <fil-PH>.",
     "After editing this file, you can run 'dart run slang apply --locale=fil-PH' to quickly apply the newly added translations."
   ],
-  "sendTab": {
-    "manualSending": "Mano-manong pagpapadala"
+  "general": {
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
   },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "I-save ang posisyon ng window pagkasara"
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     }
   },
-  "tray": {
-    "closeWindows": "Isara"
+  "dialogs": {
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "File requests are automatically accepted from devices in your contact list."
+    }
   }
 }

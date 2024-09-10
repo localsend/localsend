@@ -3,24 +3,18 @@
     "Here are translations that exist in <en> but not in <he>.",
     "After editing this file, you can run 'dart run slang apply --locale=he' to quickly apply the newly added translations."
   ],
-  "sendTab": {
-    "manualSending": "שליחה ידנית"
+  "general": {
+    "quickSaveFromFavorites": "שמירה מהירה מהמועדפים"
   },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "שמור את מיקום החלון בעת יציאה"
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     }
   },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "המכשיר הזה לא מצליח לגלות מכשירים אחרים.",
-      "solution": "אנא ודא שכל המכשירים נמצאים באותה רשת Wi-Fi וחולקים את אותה תצורה (יציאה, כתובת ריבוי שידור, הצפנה). אתה יכול לנסות להקליד את כתובת ה-IP של מכשיר היעד באופן ידני. אם זה יעבוד, שקול להוסיף את המכשיר למועדפים כדי שניתן יהיה לגלות אותו אוטומטית בעתיד."
+  "dialogs": {
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "בקשות שליחה מתקבלות אוטומטית ממכשירים ברשימת המועדפים שלך."
     }
-  },
-  "aboutPage": {
-    "packagers": "אורזים"
-  },
-  "tray": {
-    "closeWindows": "יציאה"
   }
 }

@@ -123,6 +123,7 @@ class _StringsSendTabHe extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'מכשירים בקרבת מקום';
 	@override String get thisDevice => 'המכשיר הזה';
 	@override String get scan => 'חפש מכשירים';
+	@override String get manualSending => 'שליחה ידנית';
 	@override String get sendMode => 'מצב שליחה';
 	@override late final _StringsSendTabSendModesHe sendModes = _StringsSendTabSendModesHe._(_root);
 	@override String get sendModeHelp => 'עזרה';
@@ -158,6 +159,7 @@ class _StringsTroubleshootPageHe extends _StringsTroubleshootPageEn {
 	@override String get solution => 'פתרון:';
 	@override String get fixButton => 'תקן אוטומטית';
 	@override late final _StringsTroubleshootPageFirewallHe firewall = _StringsTroubleshootPageFirewallHe._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryHe noDiscovery = _StringsTroubleshootPageNoDiscoveryHe._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionHe noConnection = _StringsTroubleshootPageNoConnectionHe._(_root);
 }
 
@@ -293,6 +295,7 @@ class _StringsAboutPageHe extends _StringsAboutPageEn {
 	];
 	@override String get author => 'יוצר';
 	@override String get contributors => 'תורמים';
+	@override String get packagers => 'אורזים';
 	@override String get translators => 'מתרגמים';
 }
 
@@ -381,6 +384,7 @@ class _StringsTrayHe extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'צא מ-LocalSend';
+	@override String get closeWindows => 'יציאה';
 }
 
 // Path: web
@@ -503,6 +507,7 @@ class _StringsSettingsTabGeneralHe extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'שפה';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsHe languageOptions = _StringsSettingsTabGeneralLanguageOptionsHe._(_root);
 	@override String get saveWindowPlacement => 'יציאה: שמירת מיקום החלון';
+	@override String get saveWindowPlacementWindows => 'שמור את מיקום החלון בעת יציאה';
 	@override String get minimizeToTray => 'יציאה: מזעור למגש';
 	@override String get launchAtStartup => 'הפעלה אוטומטית לאחר הכניסה';
 	@override String get launchMinimized => 'הפעלה אוטומטית: התחל מוסתר';
@@ -583,6 +588,17 @@ class _StringsTroubleshootPageFirewallHe extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה';
 	@override String solution({required Object port}) => 'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
 	@override String get openFirewall => 'פתח את חומת האש';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryHe extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'המכשיר הזה לא מצליח לגלות מכשירים אחרים.';
+	@override String get solution => 'אנא ודא שכל המכשירים נמצאים באותה רשת Wi-Fi וחולקים את אותה תצורה (יציאה, כתובת ריבוי שידור, הצפנה). אתה יכול לנסות להקליד את כתובת ה-IP של מכשיר היעד באופן ידני. אם זה יעבוד, שקול להוסיף את המכשיר למועדפים כדי שניתן יהיה לגלות אותו אוטומטית בעתיד.';
 }
 
 // Path: troubleshootPage.noConnection

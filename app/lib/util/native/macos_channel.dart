@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/util/native/tray_helper.dart';
 
 const _methodChannel = MethodChannel('main-delegate-channel');
 
@@ -39,21 +40,6 @@ Future<List<String>> getPendingFiles() async {
   return files.cast<String>();
 }
 
-Stream<List<String>> getPendingFilesStream() {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return Stream.value(<String>[]).asBroadcastStream();
-  }
-
-  final controller = StreamController<List<String>>();
-  _methodChannel.setMethodCallHandler((call) async {
-    if (call.method == 'onPendingFiles') {
-      controller.add((call.arguments as List).cast<String>());
-    }
-  });
-
-  return controller.stream.asBroadcastStream();
-}
-
 /// Returns a list of pending strings from the native swift runner.
 /// This happens:
 /// - on macOS when text is dropped onto the app Dock icon
@@ -75,17 +61,24 @@ Future<List<String>> getPendingStrings() async {
   return strings.cast<String>();
 }
 
-Stream<List<String>> getPendingStringsStream() {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return Stream.value(<String>[]).asBroadcastStream();
-  }
+final _pendingFilesStreamController = StreamController<List<String>>.broadcast();
+Stream<List<String>> get pendingFilesStream => _pendingFilesStreamController.stream;
 
-  final controller = StreamController<List<String>>();
+final _pendingStringsStreamController = StreamController<List<String>>.broadcast();
+Stream<List<String>> get pendingStringsStream => _pendingStringsStreamController.stream;
+
+void setupMethodCallHandler() {
   _methodChannel.setMethodCallHandler((call) async {
-    if (call.method == 'onPendingStrings') {
-      controller.add((call.arguments as List).cast<String>());
+    switch (call.method) {
+      case 'onPendingFiles':
+        _pendingFilesStreamController.add((call.arguments as List).cast<String>());
+        break;
+      case 'onPendingStrings':
+        _pendingStringsStreamController.add((call.arguments as List).cast<String>());
+        break;
+      case 'showLocalSendFromMenuBar':
+        await showFromTray();
+        break;
     }
   });
-
-  return controller.stream.asBroadcastStream();
 }
