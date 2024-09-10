@@ -8,6 +8,7 @@ class AppDelegate: FlutterAppDelegate {
     private var channel: FlutterMethodChannel?
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
+    private var methodChannelInitialized = false
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -27,12 +28,18 @@ class AppDelegate: FlutterAppDelegate {
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
             guard !Defaults[.pendingFiles].isEmpty else { return }
-            self.sendPendingItemsToFlutter()
+
+            if self.methodChannelInitialized {
+                self.sendPendingItemsToFlutter()
+            }
         }
         
         self.pendingStringsObservation = Defaults.observe(.pendingStrings) { change in
             guard !Defaults[.pendingStrings].isEmpty else { return }
-            self.sendPendingItemsToFlutter()
+
+            if self.methodChannelInitialized {
+                self.sendPendingItemsToFlutter()
+            }
         }
     }
     
@@ -99,10 +106,10 @@ class AppDelegate: FlutterAppDelegate {
             }
         }
         
-        if !filePaths.isEmpty{
+        if !filePaths.isEmpty {
             channel?.invokeMethod("onPendingFiles", arguments: filePaths)
         }
-        if !pendingStrings.isEmpty     {
+        if !pendingStrings.isEmpty {
             channel?.invokeMethod("onPendingStrings", arguments: pendingStrings)
         }
         
@@ -115,29 +122,12 @@ class AppDelegate: FlutterAppDelegate {
     // START: handle opened files
     private func handleFlutterCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "getPendingFiles":
-            let pendingFileBookmarks = Defaults[.pendingFiles]
-            var filePaths: [String] = []
-            
-            for bookmark in pendingFileBookmarks {
-                if let url = SecurityScopedResourceManager.shared.startAccessing(bookmark: bookmark) {
-                    filePaths.append(url.path)
-                }
+        case "methodChannelInitialized":
+            methodChannelInitialized = true
+            if !Defaults[.pendingFiles].isEmpty || !Defaults[.pendingStrings].isEmpty {
+                sendPendingItemsToFlutter()
             }
-            
-            result(filePaths)
-
-            Defaults[.pendingFiles] = []
-            
-            channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
-        case "getPendingStrings":
-            let pendingStrings = Defaults[.pendingStrings]
-
-            result(pendingStrings)
-            
-            Defaults[.pendingStrings] = []
-            
-            channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
+            result(nil)
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
