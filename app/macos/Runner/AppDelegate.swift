@@ -1,6 +1,7 @@
 import Cocoa
 import FlutterMacOS
 import Defaults
+import DockProgress
 
 @main
 class AppDelegate: FlutterAppDelegate {
@@ -20,6 +21,9 @@ class AppDelegate: FlutterAppDelegate {
         channel?.setMethodCallHandler(handleFlutterCall)
         
         self.setupDockIconTextDropEventListener()
+        
+        let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
+        DockProgress.style = .squircle(color: localsendBrandColor)
     }
     
     private func setupPendingItemsObservation() {
@@ -120,6 +124,10 @@ class AppDelegate: FlutterAppDelegate {
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
+            result(nil)
+        case "updateDockProgress":
+            let progress = call.arguments as! Double
+            DockProgress.progress = progress
             result(nil)
         default:
             result(FlutterMethodNotImplemented)

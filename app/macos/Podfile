@@ -33,6 +33,7 @@ target 'Runner' do
   flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
   
   pod 'Defaults', '~> 4.2'
+  pod 'DockProgress'
 end
 
 post_install do |installer|

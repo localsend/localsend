@@ -18,6 +18,14 @@ Future<void> setupStatusBar() async {
   });
 }
 
+Future<void> updateDockProgress(double progress) async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return;
+  }
+
+  await _methodChannel.invokeMethod('updateDockProgress', progress);
+}
+
 // This happens:
 /// - on macOS when text is dropped onto the app Dock icon
 /// - on macOS when text is dropped onto the app menu bar icon
