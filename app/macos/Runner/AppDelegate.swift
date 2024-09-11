@@ -8,7 +8,6 @@ class AppDelegate: FlutterAppDelegate {
     private var channel: FlutterMethodChannel?
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
-    private var methodChannelInitialized = false
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -20,26 +19,18 @@ class AppDelegate: FlutterAppDelegate {
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handleFlutterCall)
         
-        self.setupPendingItemsObservation()
-        
         self.setupDockIconTextDropEventListener()
     }
     
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
             guard !Defaults[.pendingFiles].isEmpty else { return }
-
-            if self.methodChannelInitialized {
-                self.sendPendingItemsToFlutter()
-            }
+            self.sendPendingItemsToFlutter()
         }
         
         self.pendingStringsObservation = Defaults.observe(.pendingStrings) { change in
             guard !Defaults[.pendingStrings].isEmpty else { return }
-
-            if self.methodChannelInitialized {
-                self.sendPendingItemsToFlutter()
-            }
+            self.sendPendingItemsToFlutter()
         }
     }
     
@@ -115,7 +106,7 @@ class AppDelegate: FlutterAppDelegate {
         
         Defaults[.pendingFiles] = []
         Defaults[.pendingStrings] = []
-
+        
         self.showLocalSendFromMenuBar()
     }
     
@@ -123,10 +114,8 @@ class AppDelegate: FlutterAppDelegate {
     private func handleFlutterCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "methodChannelInitialized":
-            methodChannelInitialized = true
-            if !Defaults[.pendingFiles].isEmpty || !Defaults[.pendingStrings].isEmpty {
-                sendPendingItemsToFlutter()
-            }
+            /// Any call to the channel is dropped until methodChannelInitialized is called from Flutter
+            setupPendingItemsObservation()
             result(nil)
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
@@ -158,7 +147,7 @@ class AppDelegate: FlutterAppDelegate {
     }
     // END: handle opened files
     
-    /// Handle **text** droped onto the Dock icon
+    /// Handle **text** dropped onto the Dock icon
     @objc func handleOpenContentsEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
         if let string = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
             Defaults[.pendingStrings].append(string)

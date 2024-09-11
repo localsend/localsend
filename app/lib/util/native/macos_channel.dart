@@ -18,14 +18,22 @@ Future<void> setupStatusBar() async {
   });
 }
 
+// This happens:
+/// - on macOS when text is dropped onto the app Dock icon
+/// - on macOS when text is dropped onto the app menu bar icon
+/// - on macOS when text\web link are shared to the app using the share extension (i.e. the system share menu)
 final _pendingFilesStreamController = StreamController<List<String>>.broadcast();
 Stream<List<String>> get pendingFilesStream => _pendingFilesStreamController.stream;
 
+/// This happens:
+/// - on macOS when text is dropped onto the app Dock icon
+/// - on macOS when text is dropped onto the app menu bar icon
+/// - on macOS when text\web link are shared to the app using the share extension (i.e. the system share menu)
 final _pendingStringsStreamController = StreamController<List<String>>.broadcast();
 Stream<List<String>> get pendingStringsStream => _pendingStringsStreamController.stream;
 
 /// Sets up the method call handler.
-/// Any call from native code is dropped until this method is called.
+/// Any call from swift native code is dropped until this method is called.
 Future<void> setupMethodCallHandler() async {
   _methodChannel.setMethodCallHandler((call) async {
     switch (call.method) {
