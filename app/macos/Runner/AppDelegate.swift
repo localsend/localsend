@@ -3,6 +3,12 @@ import FlutterMacOS
 import Defaults
 import DockProgress
 
+enum DockIcon {
+    case regular
+    case error
+    case success
+}
+
 @main
 class AppDelegate: FlutterAppDelegate {
     private var statusItem: NSStatusItem?
@@ -35,6 +41,20 @@ class AppDelegate: FlutterAppDelegate {
         self.pendingStringsObservation = Defaults.observe(.pendingStrings) { change in
             guard !Defaults[.pendingStrings].isEmpty else { return }
             self.sendPendingItemsToFlutter()
+        }
+    }
+    
+    private func setDockIcon(icon: DockIcon) {
+        switch icon {
+        case .regular:
+            let newIcon = NSImage(named: "AppIcon")!
+            NSApplication.shared.applicationIconImage = newIcon
+        case .error:
+            let newIcon = NSImage(named: "AppIconWithErrorMark")!
+            NSApplication.shared.applicationIconImage = newIcon
+        case .success:
+            let newIcon = NSImage(named: "AppIconWithSuccessMark")!
+            NSApplication.shared.applicationIconImage = newIcon
         }
     }
     
@@ -129,6 +149,9 @@ class AppDelegate: FlutterAppDelegate {
             let progress = call.arguments as! Double
             DockProgress.progress = progress
             result(nil)
+        case "setDockIcon":
+            let newIcon = call.arguments as! DockIcon
+            setDockIcon(icon: newIcon)
         default:
             result(FlutterMethodNotImplemented)
         }

@@ -3,6 +3,8 @@ import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
+enum TaskbarIcon { regular, error, success }
+
 class TaskbarHelper {
   static final _isWindows = checkPlatform([TargetPlatform.windows]);
   static final _isMacos = checkPlatform([TargetPlatform.macOS]);
@@ -35,6 +37,12 @@ class TaskbarHelper {
   static Future<void> setProgressBarMode(int mode) async {
     if (_isWindows) {
       await WindowsTaskbar.setProgressMode(mode);
+    }
+  }
+
+  Future<void> setTaskbarIcon(TaskbarIcon icon) async {
+    if (_isMacos) {
+      await setDockIcon(icon);
     }
   }
 }
