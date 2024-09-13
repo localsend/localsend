@@ -79,12 +79,13 @@ class _StringsGeneralHe extends _StringsGeneralEn {
 	@override String get finished => 'הסתיים';
 	@override String get hide => 'הסתרה';
 	@override String get off => 'כבויה';
-	@override String get offline => 'אין אינטרנט';
+	@override String get offline => 'כבוי';
 	@override String get on => 'פעילה';
 	@override String get online => 'מקוון';
 	@override String get open => 'פתח';
 	@override String get queue => 'תור';
 	@override String get quickSave => 'שמירה מהירה';
+	@override String get quickSaveFromFavorites => 'שמירה מהירה מהמועדפים';
 	@override String get renamed => 'שונה שם';
 	@override String get reset => 'איפוס';
 	@override String get restart => 'הפעל מחדש';
@@ -359,6 +360,7 @@ class _StringsDialogsHe extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrHe qr = _StringsDialogsQrHe._(_root);
 	@override late final _StringsDialogsQuickActionsHe quickActions = _StringsDialogsQuickActionsHe._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeHe quickSaveNotice = _StringsDialogsQuickSaveNoticeHe._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeHe quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeHe._(_root);
 	@override late final _StringsDialogsPinHe pin = _StringsDialogsPinHe._(_root);
 	@override late final _StringsDialogsSendModeHelpHe sendModeHelp = _StringsDialogsSendModeHelpHe._(_root);
 	@override late final _StringsDialogsZoomHe zoom = _StringsDialogsZoomHe._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'קבלה';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'סיום אוטומטי';
 	@override String get destination => 'יעד';
@@ -870,6 +873,17 @@ class _StringsDialogsQuickSaveNoticeHe extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeHe extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'בקשות שליחה מתקבלות אוטומטית ממכשירים ברשימת המועדפים שלך.';
 }
 
 // Path: dialogs.pin

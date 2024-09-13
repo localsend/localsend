@@ -51,7 +51,7 @@
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are automatically accepted from devices in your contact list."
+      "content": "File requests are now accepted automatically from devices in your favorites list."
     },
     "pin": {
       "title": "Enter PIN"

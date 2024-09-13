@@ -28,6 +28,7 @@
     "open": "פתח",
     "queue": "תור",
     "quickSave": "שמירה מהירה",
+    "quickSaveFromFavorites": "שמירה מהירה מהמועדפים",
     "renamed": "שונה שם",
     "reset": "איפוס",
     "restart": "הפעל מחדש",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "קבלה",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "סיום אוטומטי",
       "destination": "יעד",
@@ -356,6 +358,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "בקשות שליחה מתקבלות אוטומטית ממכשירים ברשימת המועדפים שלך."
     },
     "pin": {
       "title": "הזן סיסמה"

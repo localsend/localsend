@@ -28,6 +28,7 @@
     "open": "Отвори",
     "queue": "Стави у Queue",
     "quickSave": "Брзо сними",
+    "quickSaveFromFavorites": "Брзо сними у \"Омиљени\"",
     "renamed": "Преименовано",
     "reset": "Ресетуј",
     "restart": "Рестартуј",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "Примање",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Аутоматски заврши",
       "destination": "Дестинација",
@@ -426,6 +428,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Фајлови који су послати са уређаја у контакт листи су аутоматски прихваћени."
     },
     "pin": {
       "title": "Унеси PIN"

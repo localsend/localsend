@@ -85,6 +85,7 @@ class _StringsGeneralSr extends _StringsGeneralEn {
 	@override String get open => 'Otvori';
 	@override String get queue => 'Stavi u Queue';
 	@override String get quickSave => 'Brzo snimi';
+	@override String get quickSaveFromFavorites => 'Brzo snimi u "Omiljeni"';
 	@override String get renamed => 'Preimenovano';
 	@override String get reset => 'Resetuj';
 	@override String get restart => 'Restartuj';
@@ -430,6 +431,7 @@ class _StringsDialogsSr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrSr qr = _StringsDialogsQrSr._(_root);
 	@override late final _StringsDialogsQuickActionsSr quickActions = _StringsDialogsQuickActionsSr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeSr quickSaveNotice = _StringsDialogsQuickSaveNoticeSr._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeSr quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeSr._(_root);
 	@override late final _StringsDialogsPinSr pin = _StringsDialogsPinSr._(_root);
 	@override late final _StringsDialogsSendModeHelpSr sendModeHelp = _StringsDialogsSendModeHelpSr._(_root);
 	@override late final _StringsDialogsZoomSr zoom = _StringsDialogsZoomSr._(_root);
@@ -595,6 +597,7 @@ class _StringsSettingsTabReceiveSr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Primanje';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Automatski završi';
 	@override String get destination => 'Destinacija';
@@ -941,6 +944,17 @@ class _StringsDialogsQuickSaveNoticeSr extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeSr extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeSr._(_StringsSr root) : this._root = root, super._(root);
+
+	@override final _StringsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Fajlovi koji su poslati sa uredjaja u kontakt listi su automatski prihvaćeni.';
 }
 
 // Path: dialogs.pin

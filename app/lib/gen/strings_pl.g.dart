@@ -85,6 +85,7 @@ class _StringsGeneralPl extends _StringsGeneralEn {
 	@override String get open => 'Otwórz';
 	@override String get queue => 'Kolejka';
 	@override String get quickSave => 'Szybki zapis';
+	@override String get quickSaveFromFavorites => 'Szybki zapis dla "Ulubionych"';
 	@override String get renamed => 'Przemianowany';
 	@override String get reset => 'Resetowanie';
 	@override String get restart => 'Restartuj';
@@ -359,6 +360,7 @@ class _StringsDialogsPl extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrPl qr = _StringsDialogsQrPl._(_root);
 	@override late final _StringsDialogsQuickActionsPl quickActions = _StringsDialogsQuickActionsPl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticePl quickSaveNotice = _StringsDialogsQuickSaveNoticePl._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticePl quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticePl._(_root);
 	@override late final _StringsDialogsPinPl pin = _StringsDialogsPinPl._(_root);
 	@override late final _StringsDialogsSendModeHelpPl sendModeHelp = _StringsDialogsSendModeHelpPl._(_root);
 	@override late final _StringsDialogsZoomPl zoom = _StringsDialogsZoomPl._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceivePl extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Odbierz';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Zakończ automatycznie';
 	@override String get destination => 'Miejsce docelowe';
@@ -870,6 +873,17 @@ class _StringsDialogsQuickSaveNoticePl extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticePl extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticePl._(_StringsPl root) : this._root = root, super._(root);
+
+	@override final _StringsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Żądania plików są akceptowane automatycznie z urządzeń znajdujących się na liście kontaktów.';
 }
 
 // Path: dialogs.pin
