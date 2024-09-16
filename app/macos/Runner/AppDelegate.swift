@@ -47,14 +47,11 @@ class AppDelegate: FlutterAppDelegate {
     private func setDockIcon(icon: DockIcon) {
         switch icon {
         case .regular:
-            let newIcon = NSImage(named: "AppIcon")!
-            NSApplication.shared.applicationIconImage = newIcon
+            NSApplication.shared.applicationIconImage = NSImage(named: NSImage.applicationIconName)
         case .error:
-            let newIcon = NSImage(named: "AppIconWithErrorMark")!
-            NSApplication.shared.applicationIconImage = newIcon
+           NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithErrorMark")!
         case .success:
-            let newIcon = NSImage(named: "AppIconWithSuccessMark")!
-            NSApplication.shared.applicationIconImage = newIcon
+           NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithSuccessMark")!
         }
     }
     
@@ -135,7 +132,7 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     // START: handle opened files
-    private func handleFlutterCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    @MainActor private func handleFlutterCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "methodChannelInitialized":
             /// Any call to the channel is dropped until methodChannelInitialized is called from Flutter
