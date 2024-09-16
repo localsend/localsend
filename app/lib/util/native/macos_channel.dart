@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 
 const _methodChannel = MethodChannel('main-delegate-channel');
@@ -24,6 +25,14 @@ Future<void> updateDockProgress(double progress) async {
   }
 
   await _methodChannel.invokeMethod('updateDockProgress', progress);
+}
+
+Future<void> setDockIcon(TaskbarIcon icon) async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return;
+  }
+
+  await _methodChannel.invokeMethod('setDockIcon', icon.index);
 }
 
 // This happens:
