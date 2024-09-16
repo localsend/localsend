@@ -3,7 +3,7 @@ import FlutterMacOS
 import Defaults
 import DockProgress
 
-enum DockIcon {
+enum DockIcon: CaseIterable {
     case regular
     case error
     case success
@@ -150,7 +150,8 @@ class AppDelegate: FlutterAppDelegate {
             DockProgress.progress = progress
             result(nil)
         case "setDockIcon":
-            let newIcon = call.arguments as! DockIcon
+            let newIconIndex = call.arguments as! Int
+            let newIcon = DockIcon.allCases[newIconIndex]
             setDockIcon(icon: newIcon)
         default:
             result(FlutterMethodNotImplemented)

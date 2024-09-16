@@ -1,3 +1,4 @@
+import 'package:common/model/session_status.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -25,6 +26,7 @@ class TaskbarHelper {
       if (_isWindows) {
         await WindowsTaskbar.setProgress(digestedProgress, digestedTotal);
       } else if (_isMacos) {
+        print(progress);
         await updateDockProgress(progress / total);
       }
     } else {
@@ -40,9 +42,43 @@ class TaskbarHelper {
     }
   }
 
-  Future<void> setTaskbarIcon(TaskbarIcon icon) async {
+  static Future<void> setTaskbarIcon(TaskbarIcon icon) async {
     if (_isMacos) {
       await setDockIcon(icon);
+    }
+  }
+
+  static Future<void> visualizeStatus(SessionStatus? status) async {
+    // macOS handling
+    switch (status) {
+      case SessionStatus.finished:
+        await TaskbarHelper.setTaskbarIcon(TaskbarIcon.success);
+        break;
+      case SessionStatus.declined:
+      case SessionStatus.recipientBusy:
+      case SessionStatus.finishedWithErrors:
+      case SessionStatus.canceledBySender:
+      case SessionStatus.canceledByReceiver:
+        await TaskbarHelper.setTaskbarIcon(TaskbarIcon.error);
+        break;
+      default:
+        await TaskbarHelper.setTaskbarIcon(TaskbarIcon.regular);
+    }
+
+    // Windows handling
+    switch (status) {
+      case SessionStatus.waiting:
+        await TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate);
+        break;
+      case SessionStatus.declined:
+      case SessionStatus.recipientBusy:
+      case SessionStatus.finishedWithErrors:
+      case SessionStatus.canceledBySender:
+      case SessionStatus.canceledByReceiver:
+        await TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error);
+        break;
+      default:
+        await TaskbarHelper.setProgressBarMode(TaskbarProgressMode.normal);
     }
   }
 }

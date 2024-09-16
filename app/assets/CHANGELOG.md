@@ -6,6 +6,7 @@
 - feat(macos): drag-and-drop files and text into menu bar icon (@ShlomoCode)
 - feat(macos): drag-and-drop text into the app icon (@ShlomoCode)
 - feat(macos): include LocalSend as a share target in the share menu (@ShlomoCode)
+- feat(macos): show error and success state in the app icon (@ShlomoCode, @Tienisto)
 
 ## 1.15.4 (2024-08-20)
 

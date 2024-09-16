@@ -22,7 +22,6 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:windows_taskbar/windows_taskbar.dart';
 
 class ReceivePage extends StatefulWidget {
   const ReceivePage({super.key});
@@ -40,7 +39,13 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch(receivePageControllerProvider);
+    final vm = context.watch(receivePageControllerProvider, listener: (prev, next) {
+      if (prev.status != next.status) {
+        // ignore: discarded_futures
+        TaskbarHelper.visualizeStatus(next.status);
+      }
+    });
+
     if (vm.status == null && vm.message == null) {
       return const Scaffold(
         body: SizedBox(),
@@ -48,11 +53,6 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     }
 
     final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(vm.sender)));
-    if (vm.status == SessionStatus.canceledBySender) {
-      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
-    } else {
-      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
-    }
 
     return WillPopScope(
       onWillPop: () async {

@@ -49,6 +49,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   String? _remainingTime;
   List<FileDto> _files = []; // also contains declined files (files without token)
   Set<String> _selectedFiles = {};
+  SessionStatus? _lastStatus;
 
   // If [autoFinish] is enabled, we wait a few seconds before automatically closing the session.
   int _finishCounter = 3;
@@ -169,12 +170,20 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final currBytes = _files.fold<int>(
         0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()));
 
-    unawaited(TaskbarHelper.setProgressBar(currBytes, _totalBytes));
-
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
     final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
+
+    if (status == SessionStatus.sending) {
+      // ignore: discarded_futures
+      TaskbarHelper.setProgressBar(currBytes, _totalBytes);
+    } else if (status != _lastStatus) {
+      _lastStatus = status;
+      // ignore: discarded_futures
+      TaskbarHelper.visualizeStatus(status);
+    }
+
     if (status == null) {
       return Scaffold(
         body: Container(),
