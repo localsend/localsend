@@ -29,6 +29,7 @@
 		053DADFE2C89F83500C3B4DE /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053DADFA2C89F25E00C3B4DE /* Shared.swift */; };
 		0543E87B2C8A93A9004AA8B7 /* ContentDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0543E87A2C8A93A9004AA8B7 /* ContentDropView.swift */; };
 		05BAA8D02C8CE248003CFCF1 /* SecurityScopedResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA8CF2C8CE248003CFCF1 /* SecurityScopedResourceManager.swift */; };
+		05CD1E642C98F2220044F24D /* DockProgress in Frameworks */ = {isa = PBXBuildFile; productRef = 05CD1E632C98F2220044F24D /* DockProgress */; };
 		0F663CE30FCD07225E44A808 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8CCFF0FAB783405F067709 /* Pods_Runner.framework */; };
 		335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
 		33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
@@ -122,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05CD1E642C98F2220044F24D /* DockProgress in Frameworks */,
 				0F663CE30FCD07225E44A808 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +274,7 @@
 			);
 			name = Runner;
 			packageProductDependencies = (
+				05CD1E632C98F2220044F24D /* DockProgress */,
 			);
 			productName = Runner;
 			productReference = 33CC10ED2044A3C60003C045 /* LocalSend.app */;
@@ -317,6 +320,7 @@
 			);
 			mainGroup = 33CC10E42044A3C60003C045;
 			packageReferences = (
+				05CD1E622C98F2220044F24D /* XCRemoteSwiftPackageReference "DockProgress" */,
 			);
 			productRefGroup = 33CC10EE2044A3C60003C045 /* Products */;
 			projectDirPath = "";
@@ -921,6 +925,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		05CD1E622C98F2220044F24D /* XCRemoteSwiftPackageReference "DockProgress" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/DockProgress";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		05CD1E632C98F2220044F24D /* DockProgress */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 05CD1E622C98F2220044F24D /* XCRemoteSwiftPackageReference "DockProgress" */;
+			productName = DockProgress;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 33CC10E52044A3C60003C045 /* Project object */;
 }

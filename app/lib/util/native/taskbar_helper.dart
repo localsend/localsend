@@ -26,7 +26,6 @@ class TaskbarHelper {
       if (_isWindows) {
         await WindowsTaskbar.setProgress(digestedProgress, digestedTotal);
       } else if (_isMacos) {
-        print(progress);
         await updateDockProgress(progress / total);
       }
     } else {
