@@ -2,6 +2,7 @@ import Cocoa
 import FlutterMacOS
 import Defaults
 import DockProgress
+import LaunchAtLogin
 
 enum DockIcon: CaseIterable {
     case regular
@@ -47,6 +48,12 @@ class AppDelegate: FlutterAppDelegate {
             guard !Defaults[.pendingStrings].isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
+    }
+    
+    private var isLaunchedAsLoginItem: Bool {
+        // source: https://stackoverflow.com/a/19890943
+        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
+        return event.eventID == kAEOpenApplication && event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
     }
     
     private func setDockIcon(icon: DockIcon) {
@@ -155,6 +162,26 @@ class AppDelegate: FlutterAppDelegate {
             let newIconIndex = call.arguments as! Int
             let newIcon = DockIcon.allCases[newIconIndex]
             setDockIcon(icon: newIcon)
+        case "getLaunchAtLogin":
+            result(LaunchAtLogin.isEnabled)
+        case "setLaunchAtLogin":
+            if let launchAtLogin = call.arguments as? Bool {
+                LaunchAtLogin.isEnabled = launchAtLogin
+                result(nil)
+            } else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
+            }
+        case "getLaunchAtLoginMinimized":
+            result(UserDefaults.standard.bool(forKey: "launchAtLoginMinimized"))
+        case "setLaunchAtLoginMinimized":
+            if let launchAtLoginMinimized = call.arguments as? Bool {
+                UserDefaults.standard.set(launchAtLoginMinimized, forKey: "launchAtLoginMinimized")
+                result(nil)
+            } else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
+            }
+        case "isLaunchedAsLoginItem":
+            result(isLaunchedAsLoginItem)
         default:
             result(FlutterMethodNotImplemented)
         }

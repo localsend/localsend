@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
 import 'package:flutter/foundation.dart';
@@ -29,8 +27,6 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-final _isMacOSSandboxed = defaultTargetPlatform == TargetPlatform.macOS && Platform.environment['APP_SANDBOX_CONTAINER_ID'] != null;
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab();
@@ -106,7 +102,7 @@ class SettingsTab extends StatelessWidget {
                       },
                     ),
                   ],
-                  if (checkPlatformIsDesktop() && !_isMacOSSandboxed) ...[
+                  if (checkPlatformIsDesktop()) ...[
                     _BooleanEntry(
                       label: t.settingsTab.general.launchAtStartup,
                       value: vm.autoStart,

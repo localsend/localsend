@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:win32_registry/win32_registry.dart';
@@ -30,31 +31,8 @@ Terminal=false
         file.writeAsStringSync(contents);
         return true;
       case TargetPlatform.macOS:
-        final file = File(_getMacOSFilePath(packageInfo.packageName));
-        file.writeAsStringSync('''<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>Label</key>
-  <string>${packageInfo.packageName}</string>
-  <key>AssociatedBundleIdentifiers</key>
-  <string>${packageInfo.packageName}</string>
-  <key>ProgramArguments</key>
-  <array>
-    <string>${Platform.executable}</string>
-    ${startHidden ? '<string>$startHiddenFlag</string>' : ''}
-  </array>
-  <key>RunAtLoad</key>
-  <true/>
-  <key>ProcessType</key>
-  <string>Interactive</string>
-  <key>StandardErrorPath</key>
-  <string>/dev/null</string>
-  <key>StandardOutPath</key>
-  <string>/dev/null</string>
-</dict>
-</plist>
-        ''');
+        await setLaunchAtLogin(true);
+        await setLaunchAtLoginMinimized(startHidden);
         return true;
       case TargetPlatform.windows:
         _getWindowsRegistryKey().createValue(RegistryValue(
@@ -80,7 +58,7 @@ Future<bool> disableAutoStart() async {
         File(_getLinuxFilePath(packageInfo.packageName)).deleteSync();
         break;
       case TargetPlatform.macOS:
-        File(_getMacOSFilePath(packageInfo.packageName)).deleteSync();
+        await setLaunchAtLogin(false);
         break;
       case TargetPlatform.windows:
         _getWindowsRegistryKey().deleteValue(_windowsRegistryKeyValue);
@@ -101,7 +79,7 @@ Future<bool> isAutoStartEnabled() async {
     case TargetPlatform.linux:
       return File(_getLinuxFilePath(packageInfo.packageName)).existsSync();
     case TargetPlatform.macOS:
-      return File(_getMacOSFilePath(packageInfo.packageName)).existsSync();
+      return await getLaunchAtLogin();
     case TargetPlatform.windows:
       return _getWindowsRegistryKey().getValueAsString(_windowsRegistryKeyValue)?.contains(Platform.resolvedExecutable) ?? false;
     default:
@@ -119,11 +97,7 @@ Future<bool> isAutoStartHidden() async {
       }
       return file.readAsStringSync().contains(startHiddenFlag);
     case TargetPlatform.macOS:
-      final file = File(_getMacOSFilePath(packageInfo.packageName));
-      if (!file.existsSync()) {
-        return false;
-      }
-      return file.readAsStringSync().contains(startHiddenFlag);
+      return await getLaunchAtLoginMinimized();
     case TargetPlatform.windows:
       return _getWindowsRegistryKey().getValueAsString(_windowsRegistryKeyValue)?.contains(startHiddenFlag) ?? false;
     default:
@@ -143,8 +117,4 @@ RegistryKey _getWindowsRegistryKey() {
 
 String _getLinuxFilePath(String appName) {
   return '${Platform.environment['HOME']}/.config/autostart/$appName.desktop';
-}
-
-String _getMacOSFilePath(String appName) {
-  return '${Platform.environment['HOME']}/Library/LaunchAgents/$appName.plist';
 }
