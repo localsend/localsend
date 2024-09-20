@@ -105,6 +105,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
+
+      unawaited(hideToTray());
     } else {
       await WindowManager.instance.show();
     }
