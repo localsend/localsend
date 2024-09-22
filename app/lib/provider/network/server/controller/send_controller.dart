@@ -218,7 +218,6 @@ class SendController {
           request.response.close();
           subscription.cancel();
         });
-
       } else {
         final path = file.path!;
         final fileStream = path.startsWith('content://') ? UriContent().getContentStream(Uri.parse(file.path!)) : File(file.path!).openRead();
