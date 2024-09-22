@@ -32,6 +32,11 @@ class AppDelegate: FlutterAppDelegate {
         DockProgress.style = .squircle(color: localsendBrandColor)
     }
     
+    override func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showLocalSendFromMenuBar()
+        return false
+    }
+    
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
             guard !Defaults[.pendingFiles].isEmpty else { return }
@@ -49,9 +54,9 @@ class AppDelegate: FlutterAppDelegate {
         case .regular:
             NSApplication.shared.applicationIconImage = NSImage(named: NSImage.applicationIconName)
         case .error:
-           NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithErrorMark")!
+            NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithErrorMark")!
         case .success:
-           NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithSuccessMark")!
+            NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithSuccessMark")!
         }
     }
     
