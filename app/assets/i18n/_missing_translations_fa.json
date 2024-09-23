@@ -4,14 +4,14 @@
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "ذخیر سریع برای \"Favorites\""
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "ارسال دستی"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "ذخیره موقعیت پنجره پس از خروج"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
@@ -20,10 +20,10 @@
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
+      "content": "درخواست دستگاه‌های موجود در لیست علاقه‌مندی‌ها به طور خودکار پذیرفته میشوند"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "خروج"
   }
 }
