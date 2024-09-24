@@ -4,15 +4,15 @@
     "After editing this file, you can run 'dart run slang apply --locale=ar' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "حفظ سريع لـ \"Favorites\""
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "الإرسال اليدوي"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
+      "saveWindowPlacementWindows": "حفظ موضع النافذة بعد الخروج",
+      "showInContextMenu": "إظهار LocalSend في قائمة السياق"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
@@ -21,40 +21,40 @@
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "هذا الجهاز لا يمكنه اكتشاف الأجهزة الأخرى.",
+      "solution": "يرجى التأكد من أن جميع الأجهزة متصلة بنفس شبكة Wi-Fi وتشارك نفس التكوين (المنفذ، عنوان البث المتعدد، التشفير). يمكنك محاولة كتابة عنوان IP للجهاز المستهدف يدويًا. إذا نجح ذلك، فكر في إضافة هذا الجهاز إلى قائمة المفضلة حتى يتم اكتشافه تلقائيًا في المستقبل."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "عرض في المجلد"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "يتطلب رمز PIN",
+    "pinHint": "رمز PIN هو \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "الحزم"
   },
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
+      "content": "لقد تم قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك."
     },
     "pin": {
-      "title": "Enter PIN"
+      "title": "أدخل رمز PIN"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "خروج"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "أدخل رمز PIN",
+    "invalidPin": "رمز PIN غير صالح",
+    "tooManyAttempts": "محاولات كثيرة جدًا"
   }
 }
