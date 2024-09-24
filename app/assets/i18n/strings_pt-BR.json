@@ -14,7 +14,7 @@
     "copiedToClipboard": "Copiado para a Área de Transferência",
     "decline": "Rejeitar",
     "done": "Completo",
-    "delete": "Deletar",
+    "delete": "Excluir",
     "edit": "Editar",
     "error": "Erro",
     "example": "Exemplo",
@@ -28,6 +28,7 @@
     "open": "Abrir",
     "queue": "Fila",
     "quickSave": "Salvamento Rápido",
+    "quickSaveFromFavorites": "Salvamento rápido para \"Favoritos\"",
     "renamed": "Renomeado",
     "reset": "Redefinir",
     "restart": "Reiniciar",
@@ -75,7 +76,7 @@
       "link": "Compartilhe via link"
     },
     "sendModeHelp": "Explicação",
-    "help": "Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede wifi.",
+    "help": "Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.",
     "placeItems": "Coloque os itens para compartilhar."
   },
   "settingsTab": {
@@ -112,6 +113,7 @@
       "autoFinish": "Concluir Automaticamente",
       "destination": "Destino",
       "downloads": "(Downloads)",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "saveToGallery": "Salvar mídia na Galeria",
       "saveToHistory": "Salvar no histórico"
     },
@@ -158,13 +160,13 @@
     },
     "noConnection": {
       "symptom": "Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.",
-      "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
+      "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
     }
   },
   "receiveHistoryPage": {
     "title": "Histórico",
     "openFolder": "Abrir pasta",
-    "deleteHistory": "Deletar histórico",
+    "deleteHistory": "Excluir histórico",
     "empty": "O histórico está vazio.",
     "entryActions": {
       "open": "Abrir arquivo",
@@ -354,7 +356,7 @@
       "addFavorite": "Adicionar"
     },
     "favoriteDeleteDialog": {
-      "title": "Deletar favorito",
+      "title": "Excluir favorito",
       "content": "Você realmente deseja excluir \"{name}\" dos favoritos?"
     },
     "favoriteEditDialog": {
@@ -379,7 +381,7 @@
     },
     "historyClearDialog": {
       "title": "Limpar histórico",
-      "content": "Você realmente deseja deletar todo o histórico?"
+      "content": "Você realmente deseja excluir todo o histórico?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -412,6 +414,10 @@
       "padZero": "Preencher com zeros",
       "sortBeforeCount": "Ordenar alfabeticamente antes",
       "random": "Aleatório"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "As solicitações de arquivos agora são aceitas automaticamente nos dispositivos da sua lista de favoritos."
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
