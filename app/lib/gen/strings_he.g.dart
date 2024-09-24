@@ -825,7 +825,7 @@ class _StringsDialogsNoPermissionHe extends _StringsDialogsNoPermissionEn {
 
 	// Translations
 	@override String get title => 'אין הרשאה';
-	@override String get content => 'אתה לא נתת הרשאות הנדרשות. אנא הענק את הרשאות בהגדרות.';
+	@override String get content => 'לא הענקת את ההרשאות הנדרשות. אנא הענק את ההרשאות בהגדרות.';
 }
 
 // Path: dialogs.notAvailableOnPlatform

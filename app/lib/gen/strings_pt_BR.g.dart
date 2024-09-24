@@ -71,7 +71,7 @@ class _StringsGeneralPtBr extends _StringsGeneralEn {
 	@override String get copiedToClipboard => 'Copiado para a Área de Transferência';
 	@override String get decline => 'Rejeitar';
 	@override String get done => 'Completo';
-	@override String get delete => 'Deletar';
+	@override String get delete => 'Excluir';
 	@override String get edit => 'Editar';
 	@override String get error => 'Erro';
 	@override String get example => 'Exemplo';
@@ -85,6 +85,7 @@ class _StringsGeneralPtBr extends _StringsGeneralEn {
 	@override String get open => 'Abrir';
 	@override String get queue => 'Fila';
 	@override String get quickSave => 'Salvamento Rápido';
+	@override String get quickSaveFromFavorites => 'Salvamento rápido para "Favoritos"';
 	@override String get renamed => 'Renomeado';
 	@override String get reset => 'Redefinir';
 	@override String get restart => 'Reiniciar';
@@ -127,7 +128,7 @@ class _StringsSendTabPtBr extends _StringsSendTabEn {
 	@override String get sendMode => 'Modo de envio';
 	@override late final _StringsSendTabSendModesPtBr sendModes = _StringsSendTabSendModesPtBr._(_root);
 	@override String get sendModeHelp => 'Explicação';
-	@override String get help => 'Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede wifi.';
+	@override String get help => 'Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.';
 	@override String get placeItems => 'Coloque os itens para compartilhar.';
 }
 
@@ -172,7 +173,7 @@ class _StringsReceiveHistoryPagePtBr extends _StringsReceiveHistoryPageEn {
 	// Translations
 	@override String get title => 'Histórico';
 	@override String get openFolder => 'Abrir pasta';
-	@override String get deleteHistory => 'Deletar histórico';
+	@override String get deleteHistory => 'Excluir histórico';
 	@override String get empty => 'O histórico está vazio.';
 	@override late final _StringsReceiveHistoryPageEntryActionsPtBr entryActions = _StringsReceiveHistoryPageEntryActionsPtBr._(_root);
 }
@@ -419,6 +420,7 @@ class _StringsDialogsPtBr extends _StringsDialogsEn {
 	@override late final _StringsDialogsNotAvailableOnPlatformPtBr notAvailableOnPlatform = _StringsDialogsNotAvailableOnPlatformPtBr._(_root);
 	@override late final _StringsDialogsQrPtBr qr = _StringsDialogsQrPtBr._(_root);
 	@override late final _StringsDialogsQuickActionsPtBr quickActions = _StringsDialogsQuickActionsPtBr._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticePtBr quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticePtBr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticePtBr quickSaveNotice = _StringsDialogsQuickSaveNoticePtBr._(_root);
 	@override late final _StringsDialogsPinPtBr pin = _StringsDialogsPinPtBr._(_root);
 	@override late final _StringsDialogsSendModeHelpPtBr sendModeHelp = _StringsDialogsSendModeHelpPtBr._(_root);
@@ -589,6 +591,7 @@ class _StringsSettingsTabReceivePtBr extends _StringsSettingsTabReceiveEn {
 	@override String get autoFinish => 'Concluir Automaticamente';
 	@override String get destination => 'Destino';
 	@override String get downloads => '(Downloads)';
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get saveToGallery => 'Salvar mídia na Galeria';
 	@override String get saveToHistory => 'Salvar no histórico';
 }
@@ -670,7 +673,7 @@ class _StringsTroubleshootPageNoConnectionPtBr extends _StringsTroubleshootPageN
 
 	// Translations
 	@override String get symptom => 'Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.';
-	@override String get solution => 'O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador.';
+	@override String get solution => 'O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -785,7 +788,7 @@ class _StringsDialogsFavoriteDeleteDialogPtBr extends _StringsDialogsFavoriteDel
 	@override final _StringsPtBr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Deletar favorito';
+	@override String get title => 'Excluir favorito';
 	@override String content({required Object name}) => 'Você realmente deseja excluir "${name}" dos favoritos?';
 }
 
@@ -838,7 +841,7 @@ class _StringsDialogsHistoryClearDialogPtBr extends _StringsDialogsHistoryClearD
 
 	// Translations
 	@override String get title => 'Limpar histórico';
-	@override String get content => 'Você realmente deseja deletar todo o histórico?';
+	@override String get content => 'Você realmente deseja excluir todo o histórico?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -920,6 +923,17 @@ class _StringsDialogsQuickActionsPtBr extends _StringsDialogsQuickActionsEn {
 	@override String get padZero => 'Preencher com zeros';
 	@override String get sortBeforeCount => 'Ordenar alfabeticamente antes';
 	@override String get random => 'Aleatório';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticePtBr extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticePtBr._(_StringsPtBr root) : this._root = root, super._(root);
+
+	@override final _StringsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'As solicitações de arquivos agora são aceitas automaticamente nos dispositivos da sua lista de favoritos.';
 }
 
 // Path: dialogs.quickSaveNotice

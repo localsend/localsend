@@ -85,6 +85,7 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get open => 'Apri';
 	@override String get queue => 'Coda';
 	@override String get quickSave => 'Salvataggio rapido';
+	@override String get quickSaveFromFavorites => 'Salvataggio rapido per "Preferiti"';
 	@override String get renamed => 'Rinominato';
 	@override String get reset => 'Reset';
 	@override String get restart => 'Riavvia';
@@ -359,6 +360,7 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrIt qr = _StringsDialogsQrIt._(_root);
 	@override late final _StringsDialogsQuickActionsIt quickActions = _StringsDialogsQuickActionsIt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice = _StringsDialogsQuickSaveNoticeIt._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeIt quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeIt._(_root);
 	@override late final _StringsDialogsPinIt pin = _StringsDialogsPinIt._(_root);
 	@override late final _StringsDialogsSendModeHelpIt sendModeHelp = _StringsDialogsSendModeHelpIt._(_root);
 	@override late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Ricevi';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Termina automaticamente';
 	@override String get destination => 'Destinazione';
@@ -870,6 +873,17 @@ class _StringsDialogsQuickSaveNoticeIt extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeIt extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell\'elenco dei preferiti.';
 }
 
 // Path: dialogs.pin

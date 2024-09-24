@@ -85,6 +85,7 @@ class _StringsGeneralFilPh extends _StringsGeneralEn {
 	@override String get open => 'Buksan';
 	@override String get queue => 'Pila';
 	@override String get quickSave => 'Quick Save';
+	@override String get quickSaveFromFavorites => 'I-save agad kapag galing sa "Favorites"';
 	@override String get renamed => 'Pinangalanan';
 	@override String get reset => 'Reset';
 	@override String get restart => 'Restart';
@@ -430,6 +431,7 @@ class _StringsDialogsFilPh extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrFilPh qr = _StringsDialogsQrFilPh._(_root);
 	@override late final _StringsDialogsQuickActionsFilPh quickActions = _StringsDialogsQuickActionsFilPh._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFilPh quickSaveNotice = _StringsDialogsQuickSaveNoticeFilPh._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeFilPh quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeFilPh._(_root);
 	@override late final _StringsDialogsPinFilPh pin = _StringsDialogsPinFilPh._(_root);
 	@override late final _StringsDialogsSendModeHelpFilPh sendModeHelp = _StringsDialogsSendModeHelpFilPh._(_root);
 	@override late final _StringsDialogsZoomFilPh zoom = _StringsDialogsZoomFilPh._(_root);
@@ -595,6 +597,7 @@ class _StringsSettingsTabReceiveFilPh extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Tumanggap';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Auto Finish';
 	@override String get destination => 'Patutunguhan';
@@ -941,6 +944,17 @@ class _StringsDialogsQuickSaveNoticeFilPh extends _StringsDialogsQuickSaveNotice
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring magpadala sa iyo ng mga file.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeFilPh extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeFilPh._(_StringsFilPh root) : this._root = root, super._(root);
+
+	@override final _StringsFilPh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Ang mga pag-request ng file ay awtomatikong tinatatanggap na ngayon galing sa mga devices sa iyong listahan ng favorites.';
 }
 
 // Path: dialogs.pin

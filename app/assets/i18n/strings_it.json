@@ -28,6 +28,7 @@
     "open": "Apri",
     "queue": "Coda",
     "quickSave": "Salvataggio rapido",
+    "quickSaveFromFavorites": "Salvataggio rapido per \"Preferiti\"",
     "renamed": "Rinominato",
     "reset": "Reset",
     "restart": "Riavvia",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "Ricevi",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Termina automaticamente",
       "destination": "Destinazione",
@@ -356,6 +358,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti."
     },
     "pin": {
       "title": "Inserisci il PIN"
