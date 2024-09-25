@@ -98,7 +98,7 @@
       "languageOptions": {
         "system": "Sistema"
       },
-      "saveWindowPlacement": "Salva la posizione della finestra alla chiusura",
+      "saveWindowPlacement": "Salva la posizione della finestra all'uscita",
       "saveWindowPlacementWindows": "Salva la posizione della finestra alla chiusura",
       "minimizeToTray": "Riduci a icona anziché chiudere",
       "launchAtStartup": "Avvio automatico all'accesso",
