@@ -16,6 +16,7 @@ class AppDelegate: FlutterAppDelegate {
     private var channel: FlutterMethodChannel?
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
+    private var isLaunchedAsLoginItem: Bool?
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -31,6 +32,12 @@ class AppDelegate: FlutterAppDelegate {
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
+        
+        // source: https://stackoverflow.com/a/19890943
+        // NOTE: this check must be in applicationDidFinishLaunching, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be nil
+        if let event = NSAppleEventManager.shared().currentAppleEvent {
+            isLaunchedAsLoginItem = (event.eventID == kAEOpenApplication) && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
+        }
     }
     
     override func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -48,12 +55,6 @@ class AppDelegate: FlutterAppDelegate {
             guard !Defaults[.pendingStrings].isEmpty else { return }
             self.sendPendingItemsToFlutter()
         }
-    }
-    
-    private var isLaunchedAsLoginItem: Bool {
-        // source: https://stackoverflow.com/a/19890943
-        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
-        return event.eventID == kAEOpenApplication && event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
     }
     
     private func setDockIcon(icon: DockIcon) {
