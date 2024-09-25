@@ -10,6 +10,20 @@ enum DockIcon: CaseIterable {
     case success
 }
 
+extension LaunchAtLogin {
+    /**
+     Whether the app was launched at login (i.e. as login items).
+     - Important: This property must only be checked in `NSApplicationDelegate#applicationDidFinishLaunching` method, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be `nil`.
+     - Source: https://stackoverflow.com/a/19890943
+     - Note: When we drop macOS 12 support and move to LaunchAtLogin-Modern package, this extension should be removed as it's ialready included - https://github.com/sindresorhus/LaunchAtLogin-Modern/blob/a04ec1c363be3627734f6dad757d82f5d4fa8fcc/Sources/LaunchAtLogin/LaunchAtLogin.swift#L34-L44
+     */
+    public static var wasLaunchedAtLogin: Bool {
+        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
+        return (event.eventID == kAEOpenApplication)
+        && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
+    }
+}
+
 @main
 class AppDelegate: FlutterAppDelegate {
     private var statusItem: NSStatusItem?
@@ -33,11 +47,7 @@ class AppDelegate: FlutterAppDelegate {
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
         
-        // source: https://stackoverflow.com/a/19890943
-        // NOTE: this check must be in applicationDidFinishLaunching, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be nil
-        if let event = NSAppleEventManager.shared().currentAppleEvent {
-            isLaunchedAsLoginItem = (event.eventID == kAEOpenApplication) && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
-        }
+        isLaunchedAsLoginItem = LaunchAtLogin.wasLaunchedAtLogin
     }
     
     override func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
