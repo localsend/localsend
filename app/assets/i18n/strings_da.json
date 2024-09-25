@@ -8,7 +8,7 @@
     "advanced": "Avanceret",
     "cancel": "Afbryd",
     "close": "Luk",
-    "confirm": "Bebkræft",
+    "confirm": "Bekræft",
     "continueStr": "Videre",
     "copy": "Kopier",
     "copiedToClipboard": "Kopieret til udklipsholderen.",
@@ -140,7 +140,7 @@
     "fixButton": "Løs automatisk",
     "firewall": {
       "symptom": "Denne app kan sende filer til andre endheder, men ikke omvendt.",
-      "solution": "Dette er højsy sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port {port} zulässt.",
+      "solution": "Dette er højst sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port {port}.",
       "openFirewall": "Åben firewall"
     },
     "noConnection": {
@@ -271,7 +271,7 @@
     },
     "favoriteDialog": {
       "title": "Favoritter",
-      "noFavorites": "Ingen favoritten indstillet.",
+      "noFavorites": "Ingen favoritter indstillet.",
       "addFavorite": "Ny"
     },
     "favoriteDeleteDialog": {
@@ -305,7 +305,7 @@
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend kan ikke finde andre enheder uden tilladelse til at scanne det lokale netværk. Giv venligst tilladelse i systemindstillingerne.",
-      "gotoSettings": "Einstellungen"
+      "gotoSettings": "Indstillinger"
     },
     "messageInput": {
       "title": "Skriv besked",
@@ -359,7 +359,7 @@
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",
-    "confirm": "Bebkræft",
+    "confirm": "Bekræft",
     "cancel": "Afbryd",
     "edit": "Rediger",
     "gifIndicator": "GIF",
@@ -371,7 +371,7 @@
     "unSupportedAssetType": "Formatet understøttes ikke.",
     "unableToAccessAll": "Kan ikke tilgå alle filer på enheden.",
     "viewingLimitedAssetsTip": "Vis kun filer og mapper tilgængelig for appen.",
-    "changeAccessibleLimitedAssets": "Click for at opdatere tilgængelige filer",
+    "changeAccessibleLimitedAssets": "Klik for at opdatere tilgængelige filer",
     "accessAllTip": "Appen kan kun tilgå nogle filer på enheden. Åben venligst systemindstillingerne og giv appen adgang til alle medier på enheden.",
     "goToSystemSettings": "Gå til systemindstillingerne",
     "accessLimitedAssets": "Fortsæt med begrænset adgang",
