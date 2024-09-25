@@ -27,6 +27,46 @@ Future<void> updateDockProgress(double progress) async {
   await _methodChannel.invokeMethod('updateDockProgress', progress);
 }
 
+Future<void> setLaunchAtLogin(bool value) async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return;
+  }
+
+  await _methodChannel.invokeMethod('setLaunchAtLogin', value);
+}
+
+Future<bool> getLaunchAtLogin() async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return false;
+  }
+
+  return await _methodChannel.invokeMethod('getLaunchAtLogin');
+}
+
+Future<void> setLaunchAtLoginMinimized(bool value) async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return;
+  }
+
+  await _methodChannel.invokeMethod('setLaunchAtLoginMinimized', value);
+}
+
+Future<bool> getLaunchAtLoginMinimized() async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return false;
+  }
+
+  return await _methodChannel.invokeMethod('getLaunchAtLoginMinimized');
+}
+
+Future<bool> isLaunchedAsLoginItem() async {
+  if (defaultTargetPlatform != TargetPlatform.macOS) {
+    return false;
+  }
+
+  return await _methodChannel.invokeMethod('isLaunchedAsLoginItem');
+}
+
 Future<void> setDockIcon(TaskbarIcon icon) async {
   if (defaultTargetPlatform != TargetPlatform.macOS) {
     return;

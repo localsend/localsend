@@ -2,6 +2,7 @@ import Cocoa
 import FlutterMacOS
 import Defaults
 import DockProgress
+import LaunchAtLogin
 
 enum DockIcon: CaseIterable {
     case regular
@@ -15,6 +16,7 @@ class AppDelegate: FlutterAppDelegate {
     private var channel: FlutterMethodChannel?
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
+    private var isLaunchedAsLoginItem: Bool?
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -30,6 +32,12 @@ class AppDelegate: FlutterAppDelegate {
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
+        
+        // source: https://stackoverflow.com/a/19890943
+        // NOTE: this check must be in applicationDidFinishLaunching, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be nil
+        if let event = NSAppleEventManager.shared().currentAppleEvent {
+            isLaunchedAsLoginItem = (event.eventID == kAEOpenApplication) && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
+        }
     }
     
     override func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -155,6 +163,26 @@ class AppDelegate: FlutterAppDelegate {
             let newIconIndex = call.arguments as! Int
             let newIcon = DockIcon.allCases[newIconIndex]
             setDockIcon(icon: newIcon)
+        case "getLaunchAtLogin":
+            result(LaunchAtLogin.isEnabled)
+        case "setLaunchAtLogin":
+            if let launchAtLogin = call.arguments as? Bool {
+                LaunchAtLogin.isEnabled = launchAtLogin
+                result(nil)
+            } else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
+            }
+        case "getLaunchAtLoginMinimized":
+            result(UserDefaults.standard.bool(forKey: "launchAtLoginMinimized"))
+        case "setLaunchAtLoginMinimized":
+            if let launchAtLoginMinimized = call.arguments as? Bool {
+                UserDefaults.standard.set(launchAtLoginMinimized, forKey: "launchAtLoginMinimized")
+                result(nil)
+            } else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
+            }
+        case "isLaunchedAsLoginItem":
+            result(isLaunchedAsLoginItem)
         default:
             result(FlutterMethodNotImplemented)
         }
