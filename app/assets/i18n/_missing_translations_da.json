@@ -4,15 +4,15 @@
     "After editing this file, you can run 'dart run slang apply --locale=da' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "Hurtig gem for \"Favorites\""
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Manuel afsendelse"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
+      "saveWindowPlacementWindows": "Gem vinduesposition efter afslutning",
+      "showInContextMenu": "Vis LocalSend i kontekstmenu"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
@@ -20,56 +20,56 @@
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "shareViaLinkAutoAccept": "Accepter automatisk anmodninger i \"Share via link\"-tilstand"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Timeout for opdagelse"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Denne enhed kan ikke finde andre enheder.",
+      "solution": "Kontrollér venligst, at alle enheder er på det samme Wi-Fi-netværk og har samme konfiguration (port, multicast-adresse, kryptering). Du kan prøve at indtaste enhedens IP-adresse manuelt. Hvis dette virker, kan du overveje at tilføje denne enhed til favoritterne, så den automatisk kan blive opdaget i fremtiden."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Vis i mappe"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "autoAccept": "Accepter automatisk anmodninger",
+    "requirePin": "Kræv PIN-kode",
+    "pinHint": "PIN-koden er \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Pakkere"
   },
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
+      "content": "Filanmodninger accepteres nu automatisk fra enheder på din favoritliste."
     },
     "pin": {
-      "title": "Enter PIN"
+      "title": "Indtast PIN-kode"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Filnavn kan ikke være tomt",
+    "invalid": "Filnavn indeholder ugyldige tegn"
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Afslut"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Indtast PIN-kode",
+    "invalidPin": "Ugyldig PIN-kode",
+    "tooManyAttempts": "For mange forsøg"
   }
 }
