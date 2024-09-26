@@ -7,7 +7,7 @@
 
 [Tahanan][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English](/README.md) • [中文](README_ZH.md) • [日本語](README_JA.md) • [ภาษาไทย](README_TH.md) • [Filipino](README_PH.md) • [Polski](README_PL.md) • [Español](README_ES.md) • [Tiếng Việt](README_VI.md) • [Portugês Brasil](readme_i18n/README_PTBR.md)
+[English](/README.md) • [中文](README_ZH.md) • [日本語](README_JA.md) • [ภาษาไทย](README_TH.md) • [Filipino](README_PH.md) • [Polski](README_PL.md) • [Español](README_ES.md) • [Tiếng Việt](README_VI.md) • [Portugês Brasil](readme_i18n/README_PTBR.md) • [Italiano](README_IT.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -119,7 +119,6 @@ Upang i-compile ang LocalSend mula sa source code, sundin ang mga hakbang na ito
 > at ang mga isyu sa build ay maaaring sanhi ng mismatch sa pagitan ng required at ang (system-wide) na naka-install na Flutter version.
 > Upang gawing mas consistent ang development, gumagamit ang LocalSend [fvm](https://fvm.app) upang i-manage ang proyekto Flutter version.
 > Pagkatapos i-install ang `fvm`, i-run ang `fvm flutter` sa halip na `flutter`.
-
 ## Pag-aambag
 
 Malugod naming tinatanggap ang mga kontribusyon mula sa sinumang interesado na makatulong na mapabuti ang LocalSend. Kung nais mong mag-ambag, may ilang mga paraan upang makilahok:
