@@ -8,6 +8,7 @@
 - feat(macos): include LocalSend as a share target in the share menu (@ShlomoCode)
 - feat(macos): starts hidden in menu bar instead of being minimized when autostart is enabled (@ShlomoCode)
 - feat(macos): show error and success state in the app icon (@ShlomoCode, @Tienisto)
+- feat(macos): also have autostart option in sandboxed version (App Store) (@ShlomoCode)
 - fix(macos): reopen app from launchpad after minimizing to menu bar should make window visible (@ShlomoCode)
 - i18n: add Slovak (@dodog)
 
