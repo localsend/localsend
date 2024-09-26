@@ -209,13 +209,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final fileStatusMap = receiveSession?.files.map((k, f) => MapEntry(k, f.status)) ?? sendSession!.files.map((k, f) => MapEntry(k, f.status));
     final finishedCount = fileStatusMap.values.where((s) => s == FileStatus.finished).length;
 
-    return WillPopScope(
-      onWillPop: () async {
-        if (await _onWillPop() && mounted) {
-          return true;
+    return PopScope(
+      onPopInvokedWithResult: (_, __) async {
+        if (await _onWillPop() && context.mounted) {
+          context.pop();
         }
-        return false;
       },
+      canPop: false,
       child: Scaffold(
         appBar: widget.showAppBar
             ? AppBar(

@@ -54,11 +54,13 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
 
     final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(vm.sender)));
 
-    return WillPopScope(
-      onWillPop: () async {
-        vm.onDecline();
-        return true;
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          vm.onDecline();
+        }
       },
+      canPop: true,
       child: Scaffold(
         body: SafeArea(
           child: Center(
@@ -269,8 +271,8 @@ class _Actions extends StatelessWidget {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 elevation: colorMode == ColorMode.yaru ? 0 : null,
-                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
-                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.onError,
+                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
+                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
               ),
               onPressed: () {
                 vm.onDecline();

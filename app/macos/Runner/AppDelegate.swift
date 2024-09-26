@@ -2,11 +2,26 @@ import Cocoa
 import FlutterMacOS
 import Defaults
 import DockProgress
+import LaunchAtLogin
 
 enum DockIcon: CaseIterable {
     case regular
     case error
     case success
+}
+
+extension LaunchAtLogin {
+    /**
+     Whether the app was launched at login (i.e. as login items).
+     - Important: This property must only be checked in `NSApplicationDelegate#applicationDidFinishLaunching` method, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be `nil`.
+     - Source: https://stackoverflow.com/a/19890943
+     - Note: When we drop macOS 12 support and move to LaunchAtLogin-Modern package, this extension should be removed as it's already included - https://github.com/sindresorhus/LaunchAtLogin-Modern/blob/a04ec1c363be3627734f6dad757d82f5d4fa8fcc/Sources/LaunchAtLogin/LaunchAtLogin.swift#L34-L44
+     */
+    public static var wasLaunchedAtLogin: Bool {
+        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
+        return (event.eventID == kAEOpenApplication)
+        && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
+    }
 }
 
 @main
@@ -15,6 +30,7 @@ class AppDelegate: FlutterAppDelegate {
     private var channel: FlutterMethodChannel?
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
+    private var isLaunchedAsLoginItem: Bool?
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -30,6 +46,8 @@ class AppDelegate: FlutterAppDelegate {
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
+        
+        isLaunchedAsLoginItem = LaunchAtLogin.wasLaunchedAtLogin
     }
     
     override func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -155,6 +173,26 @@ class AppDelegate: FlutterAppDelegate {
             let newIconIndex = call.arguments as! Int
             let newIcon = DockIcon.allCases[newIconIndex]
             setDockIcon(icon: newIcon)
+        case "getLaunchAtLogin":
+            result(LaunchAtLogin.isEnabled)
+        case "setLaunchAtLogin":
+            if let launchAtLogin = call.arguments as? Bool {
+                LaunchAtLogin.isEnabled = launchAtLogin
+                result(nil)
+            } else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
+            }
+        case "getLaunchAtLoginMinimized":
+            result(UserDefaults.standard.bool(forKey: "launchAtLoginMinimized"))
+        case "setLaunchAtLoginMinimized":
+            if let launchAtLoginMinimized = call.arguments as? Bool {
+                UserDefaults.standard.set(launchAtLoginMinimized, forKey: "launchAtLoginMinimized")
+                result(nil)
+            } else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
+            }
+        case "isLaunchedAsLoginItem":
+            result(isLaunchedAsLoginItem)
         default:
             result(FlutterMethodNotImplemented)
         }

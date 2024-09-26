@@ -105,7 +105,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
+    } else if (defaultTargetPlatform == TargetPlatform.macOS) {
+      startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
+    }
 
+    if (startHidden) {
       unawaited(hideToTray());
     } else {
       await WindowManager.instance.show();

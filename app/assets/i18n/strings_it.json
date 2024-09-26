@@ -21,10 +21,10 @@
     "files": "File",
     "finished": "Completato",
     "hide": "Nascondi",
-    "off": "Disattivato",
-    "offline": "Non in linea",
-    "on": "Attivato",
-    "online": "In linea",
+    "off": "disattivato",
+    "offline": "Offline",
+    "on": "attivato",
+    "online": "Online",
     "open": "Apri",
     "queue": "Coda",
     "quickSave": "Salvataggio rapido",
@@ -39,7 +39,7 @@
     "save": "Salva",
     "unchanged": "Invariato",
     "unknown": "Sconosciuto",
-    "noItemInClipboard": "Nessun elemento negli Appunti"
+    "noItemInClipboard": "Nessun elemento negli Appunti."
   },
   "receiveTab": {
     "title": "Ricevi",
@@ -64,20 +64,20 @@
       "app": "App",
       "clipboard": "Incolla"
     },
-    "shareIntentInfo": "Puoi anche usare la funzionalità \"Condividi\" sul tuo dispositivo mobile per selezionare file in modo più semplice.",
+    "shareIntentInfo": "Puoi anche usare la funzione \"Condividi\" del dispositivo mobile per selezionare più facilmente i file.",
     "nearbyDevices": "Dispositivi vicini",
-    "thisDevice": "Questo Dispositivo",
+    "thisDevice": "Questo dispositivo",
     "scan": "Cerca dispositivi",
     "manualSending": "Invio manuale",
     "sendMode": "Modalità di invio",
     "sendModes": {
-      "single": "Singolo destinatario",
+      "single": "Destinatario singolo",
       "multiple": "Destinatari multipli",
       "link": "Condividi tramite link"
     },
     "sendModeHelp": "Spiegazione",
-    "help": "Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.",
-    "placeItems": "Inserire gli oggetti da condividere."
+    "help": "Assicurati che il destinatario desiderato si trovi sulla stessa rete Wi-Fi.",
+    "placeItems": "Rilascia qui gli elementi da condividere."
   },
   "settingsTab": {
     "title": "Impostazioni",
@@ -98,12 +98,12 @@
       "languageOptions": {
         "system": "Sistema"
       },
-      "saveWindowPlacement": "Esci: Salva posizione della finestra",
-      "saveWindowPlacementWindows": "Salva la posizione della finestra dopo l'uscita",
-      "minimizeToTray": "Esci: Riduci ad icona nel vassoio",
-      "launchAtStartup": "Avvio automatico dopo il login",
-      "launchMinimized": "Avvio automatico: Avvio nascosto",
-      "showInContextMenu": "Mostra LocalSend nel menu contestuale",
+      "saveWindowPlacement": "Salva la posizione della finestra all'uscita",
+      "saveWindowPlacementWindows": "Salva la posizione della finestra alla chiusura",
+      "minimizeToTray": "Riduci a icona anziché chiudere",
+      "launchAtStartup": "Avvio automatico all'accesso",
+      "launchMinimized": "Avvio automatico: ridotto a icona",
+      "showInContextMenu": "Mostra LocalSend nel menù contestuale",
       "animations": "Animazioni"
     },
     "receive": {
@@ -119,21 +119,21 @@
     },
     "send": {
       "title": "Invia",
-      "shareViaLinkAutoAccept": "Condividi via link: Accetta automaticamente"
+      "shareViaLinkAutoAccept": "Accetta automaticamente le richieste in modalità \"Condividi tramite link\""
     },
     "network": {
       "title": "Rete",
       "needRestart": "Riavvia il server per applicare le modifiche!",
       "server": "Server",
-      "alias": "Alias",
+      "alias": "Nome del dispositivo",
       "deviceType": "Tipo di dispositivo",
-      "deviceModel": "Modello di dispositivo",
+      "deviceModel": "Modello del dispositivo",
       "port": "Porta",
       "discoveryTimeout": "Timeout di rilevamento",
-      "portWarning": "Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: {defaultPort})",
+      "portWarning": "Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata (default: {defaultPort}).",
       "encryption": "Crittografia",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
+      "multicastGroup": "Indirizzo Multicast",
+      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato (predefinito: {defaultMulticast})."
     },
     "other": {
       "title": "Altro",
@@ -146,7 +146,7 @@
   },
   "troubleshootPage": {
     "title": "Risoluzione dei problemi",
-    "subTitle": "Questa app non funziona come previsto? Qui puoi trovare soluzioni comuni.",
+    "subTitle": "L'app non funziona come previsto? Qui puoi trovare le soluzioni più comuni.",
     "solution": "Soluzione:",
     "fixButton": "Risolvi automaticamente",
     "firewall": {
@@ -159,8 +159,8 @@
       "solution": "Assicurati che tutti i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Puoi provare a digitare manualmente l'indirizzo IP del dispositivo di destinazione. Se funziona, considera di aggiungere questo dispositivo ai preferiti in modo che possa essere scoperto automaticamente in futuro."
     },
     "noConnection": {
-      "symptom": "Entrambi i dispositivi non riescono a scoprirsi a vicenda né a condividere file.",
-      "solution": "Il problema esiste su entrambi i lati? Allora devi assicurarti che entrambi i dispositivi siano nella stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Il Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti. In questo caso, questa opzione deve essere abilitata sul router."
+      "symptom": "Entrambi i dispositivi non sono in grado di riconoscersi a vicenda né di condividere file.",
+      "solution": "Il problema si presenta da entrambi le parti? In tal caso, assicurati che i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). La rete Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti (isolamento dell'Access Point). In questo caso, l'opzione deve essere abilitata sul router."
     }
   },
   "receiveHistoryPage": {
@@ -182,23 +182,23 @@
     "apps": "{n} App"
   },
   "selectedFilesPage": {
-    "deleteAll": "Elimina tutti"
+    "deleteAll": "Rimuovi tutti"
   },
   "receivePage": {
     "subTitle": {
       "one": "vuole inviarti un file",
-      "other": "vuole inviarti {n} files"
+      "other": "vuole inviarti {n} file"
     },
     "subTitleMessage": "ti ha inviato un messaggio:",
     "subTitleLink": "ti ha inviato un link:",
-    "canceled": "Il mittente ha cancellato la richiesta."
+    "canceled": "Il mittente ha annullato la richiesta."
   },
   "receiveOptionsPage": {
     "title": "Opzioni",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend cartella)",
+    "appDirectory": "(cartella LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Disattivato automaticamente perché ci sono delle cartelle."
+    "saveToGalleryOff": "Disattivato automaticamente in presenza di cartelle."
   },
   "sendPage": {
     "waiting": "In attesa di risposta...",
@@ -214,8 +214,8 @@
       "title": {
         "sending": "Progresso complessivo ({time})",
         "finishedError": "Terminato con errore",
-        "canceledSender": "Cancellato dal mittente",
-        "canceledReceiver": "Cancellato dal destinatario"
+        "canceledSender": "Annullato dal mittente",
+        "canceledReceiver": "Annullato dal destinatario"
       },
       "count": "File: {curr} / {n}",
       "size": "Dimensione: {curr} / {n}",
@@ -232,28 +232,28 @@
       "other": "Apri uno di questi link nel browser:"
     },
     "requests": "Richieste",
-    "noRequests": "Nessuna richiesta ancora.",
+    "noRequests": "Ancora nessuna richiesta.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Accetta automaticamente le richieste",
     "requirePin": "Richiedi PIN",
     "pinHint": "Il PIN è \"{pin}\"",
-    "encryptionHint": "LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.",
+    "encryptionHint": "LocalSend utilizza un certificato autofirmato. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
   },
   "aboutPage": {
     "title": "Riguardo LocalSend",
     "description": [
-      "LocalSend è un'app gratuita e open-source che ti consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale senza bisogno di una connessione Internet.",
-      "Questa app è disponibile su Android, iOS, macOS, Windows e Linux. Puoi trovare tutte le opzioni di download sulla homepage ufficiale."
+      "LocalSend è un'app gratuita e open-source che consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale, senza bisogno di una connessione internet.",
+      "Quest'app è disponibile su Android, iOS, macOS, Windows e Linux. Puoi trovare tutte le opzioni di download sulla homepage ufficiale."
     ],
     "author": "Autore",
     "contributors": "Contributori",
-    "packagers": "Packagers",
+    "packagers": "Packager",
     "translators": "Traduttori"
   },
   "donationPage": {
     "title": "Dona",
-    "info": "LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l'applicazione, puoi supportare lo sviluppo con una donazione.",
+    "info": "LocalSend è gratuito, open-source e privo di pubblicità. Se ti piace l'applicazione, puoi supportarne lo sviluppo con una donazione.",
     "donate": "Dona {amount}",
     "thanks": "Grazie per il tuo supporto!",
     "restore": "Ripristina acquisti"
@@ -277,14 +277,14 @@
     },
     "cancelSession": {
       "title": "Interrompi trasferimento",
-      "content": "Sei sicuro di voler interromper il trasferimento?"
+      "content": "Sei sicuro di voler interrompere il trasferimento?"
     },
     "cannotOpenFile": {
       "title": "Impossibile aprire il file",
-      "content": "Impossibile aprire \"{file}\". Questo file è stato spostato, rinominato o eliminato?"
+      "content": "Impossibile aprire \"{file}\". Hai spostato, rinominato o eliminato il file?"
     },
     "encryptionDisabledNotice": {
-      "title": "Crittografia disabiitata",
+      "title": "Crittografia disabilitata",
       "content": "La comunicazione ora avviene tramite il protocollo HTTP non crittografato. Per usare il protocollo crittografato HTTPS, abilita la crittografia."
     },
     "errorDialog": {
@@ -292,17 +292,17 @@
     },
     "favoriteDialog": {
       "title": "Preferiti",
-      "noFavorites": "Nessun dispositivo preferito al momento.",
+      "noFavorites": "Non ci sono ancora dispositivi preferiti.",
       "addFavorite": "Aggiungi"
     },
     "favoriteDeleteDialog": {
-      "title": "Elimina dai preferiti",
-      "content": "Sei davvero sicuro di voler eliminare dai preferiti \"{name}\"?"
+      "title": "Rimuovi dai preferiti",
+      "content": "Sei davvero sicuro di voler rimuovere \"{name}\" dai preferiti?"
     },
     "favoriteEditDialog": {
       "titleAdd": "Aggiungi ai preferiti",
       "titleEdit": "Modifica",
-      "name": "Alias",
+      "name": "Nome del dispositivo",
       "auto": "(automatico)",
       "ip": "Indirizzo IP",
       "port": "Porta"
@@ -316,7 +316,7 @@
       "time": "Ora:"
     },
     "fileNameInput": {
-      "title": "Inserisci un nome del file",
+      "title": "Inserisci nome file",
       "original": "Originale: {original}"
     },
     "historyClearDialog": {
@@ -325,7 +325,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend non può trovare altri dispositivi senza avere il permesso di eseguire la scansione della rete locale. Si prega di concedere questo permesso nelle impostazioni.",
+      "description": "LocalSend non può trovare altri dispositivi senza il permesso per la scansione della rete locale. Puoi concedere questo permesso nelle impostazioni.",
       "gotoSettings": "Impostazioni"
     },
     "messageInput": {
@@ -338,7 +338,7 @@
     },
     "noPermission": {
       "title": "Nessun permesso",
-      "content": "Non hai concesso le autorizzazioni necessarie. Per favore, concedile nelle impostazioni."
+      "content": "Non hai concesso le autorizzazioni necessarie. Si prega di concederle nelle impostazioni."
     },
     "notAvailableOnPlatform": {
       "title": "Non disponibile",
@@ -348,28 +348,28 @@
       "title": "Codice QR"
     },
     "quickActions": {
-      "title": "Azioni Rapide",
+      "title": "Azioni rapide",
       "counter": "Contatore",
       "prefix": "Prefisso",
       "padZero": "Riempi con zero",
-      "sortBeforeCount": "Preordina alfabeticamente",
+      "sortBeforeCount": "Preordina alfabeticamente (A-Z)",
       "random": "Casuale"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file."
+      "content": "Le richieste di file ora vengono accettate automaticamente. Tieni presente che chiunque abbia accesso alla tua rete locale può inviarti file."
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti."
+      "content": "Le richieste di file ora vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti."
     },
     "pin": {
       "title": "Inserisci il PIN"
     },
     "sendModeHelp": {
       "title": "Modalità di invio",
-      "single": "Invia file a un destinatario. La selezione verrà cancellata dopo il trasferimento del file.",
-      "multiple": "Invia file a più destinatari. La selezione non verrà cancellata.",
+      "single": "Invia file a un destinatario. Gli elementi saranno deselezionati dopo il trasferimento dei file.",
+      "multiple": "Invia file a più destinatari. Gli elementi non saranno deselezionati dopo il trasferimento dei file.",
       "link": "I destinatari che non hanno installato LocalSend possono scaricare i file selezionati aprendo il link nel loro browser."
     },
     "zoom": {
@@ -378,12 +378,12 @@
   },
   "sanitization": {
     "empty": "Il nome del file non può essere vuoto",
-    "invalid": "Il nome del file contiene caratteri invalidi"
+    "invalid": "Il nome del file contiene dei caratteri non validi"
   },
   "tray": {
-    "@info": "Le linee guida Apple sono molto rigide riguardo alla dicitura 'close'.",
+    "@info": "Le linee guida Apple sono molto rigide riguardo alla dicitura \"chiudi\".",
     "open": "@:general.open",
-    "close": "Chiudi LocalSend",
+    "close": "Esci da LocalSend",
     "closeWindows": "Uscita"
   },
   "web": {
@@ -397,7 +397,7 @@
     "size": "Dimensione"
   },
   "assetPicker": {
-    "@info": "Traduzioni per lo strumento di selezione multimediale per Android e Iphone",
+    "@info": "Traduzioni per lo strumento di selezione multimediale per Android e iPhone",
     "confirm": "Conferma",
     "cancel": "Annulla",
     "edit": "Modifica",
@@ -409,8 +409,8 @@
     "emptyList": "Lista vuota",
     "unSupportedAssetType": "Tipo di file non supportato.",
     "unableToAccessAll": "Impossibile accedere a tutti i file sul dispositivo",
-    "viewingLimitedAssetsTip": "Visualizza solo file e album accessibili all'app.",
-    "changeAccessibleLimitedAssets": "Fai clic per aggiornare i file accessibili",
+    "viewingLimitedAssetsTip": "Visualizza solo file e album accessibili dall'app.",
+    "changeAccessibleLimitedAssets": "Clicca per aggiornare i file accessibili",
     "accessAllTip": "L'app può accedere solo ad alcuni file sul dispositivo. Vai alle impostazioni di sistema e consenti all'app di accedere a tutti i file multimediali sul dispositivo.",
     "goToSystemSettings": "Vai alle impostazioni di sistema",
     "accessLimitedAssets": "Continua con accesso limitato",
