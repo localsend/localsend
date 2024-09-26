@@ -211,7 +211,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
     return PopScope(
       onPopInvokedWithResult: (_, __) async {
-        if (await _onWillPop() && mounted) {
+        if (await _onWillPop() && context.mounted) {
           context.pop();
         }
       },

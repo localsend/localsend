@@ -164,7 +164,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 InkWell(
                                   onTap: () async {
                                     await Clipboard.setData(ClipboardData(text: url));
-                                    if (mounted && checkPlatformIsDesktop()) {
+                                    if (context.mounted && checkPlatformIsDesktop()) {
                                       context.showSnackBar(t.general.copiedToClipboard);
                                     }
                                   },

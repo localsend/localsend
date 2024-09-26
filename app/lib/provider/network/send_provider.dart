@@ -162,9 +162,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             // wait until animation is finished
             await sleepAsync(500);
 
-            // ignore: use_build_context_synchronously
             pin = await showDialog<String>(
-              context: Routerino.context,
+              context: Routerino.context, // ignore: use_build_context_synchronously
               builder: (_) => PinDialog(
                 obscureText: true,
                 showInvalidPin: !pinFirstAttempt,
