@@ -8,6 +8,3 @@
 .refena_inspector/
 
 /secrets
-
-# FVM Version Cache
-.fvm/
