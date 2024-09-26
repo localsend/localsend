@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
@@ -9,10 +8,6 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 const _methodChannel = MethodChannel('main-delegate-channel');
 
 Future<void> setupStatusBar() async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return;
-  }
-
   await _methodChannel.invokeMethod('setupStatusBar', {
     'open': t.tray.open,
     'quit': t.tray.close,
@@ -20,58 +15,30 @@ Future<void> setupStatusBar() async {
 }
 
 Future<void> updateDockProgress(double progress) async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return;
-  }
-
   await _methodChannel.invokeMethod('updateDockProgress', progress);
 }
 
 Future<void> setLaunchAtLogin(bool value) async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return;
-  }
-
   await _methodChannel.invokeMethod('setLaunchAtLogin', value);
 }
 
 Future<bool> getLaunchAtLogin() async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return false;
-  }
-
   return await _methodChannel.invokeMethod('getLaunchAtLogin');
 }
 
 Future<void> setLaunchAtLoginMinimized(bool value) async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return;
-  }
-
   await _methodChannel.invokeMethod('setLaunchAtLoginMinimized', value);
 }
 
 Future<bool> getLaunchAtLoginMinimized() async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return false;
-  }
-
   return await _methodChannel.invokeMethod('getLaunchAtLoginMinimized');
 }
 
 Future<bool> isLaunchedAsLoginItem() async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return false;
-  }
-
   return await _methodChannel.invokeMethod('isLaunchedAsLoginItem');
 }
 
 Future<void> setDockIcon(TaskbarIcon icon) async {
-  if (defaultTargetPlatform != TargetPlatform.macOS) {
-    return;
-  }
-
   await _methodChannel.invokeMethod('setDockIcon', icon.index);
 }
 
