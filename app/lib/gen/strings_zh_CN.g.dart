@@ -85,6 +85,7 @@ class _StringsGeneralZhCn extends _StringsGeneralEn {
 	@override String get open => '打开';
 	@override String get queue => '队列';
 	@override String get quickSave => '快速保存';
+	@override String get quickSaveFromFavorites => '快速保存到"收藏"';
 	@override String get renamed => '已重命名';
 	@override String get reset => '重置';
 	@override String get restart => '重启';
@@ -428,6 +429,7 @@ class _StringsDialogsZhCn extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrZhCn qr = _StringsDialogsQrZhCn._(_root);
 	@override late final _StringsDialogsQuickActionsZhCn quickActions = _StringsDialogsQuickActionsZhCn._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeZhCn quickSaveNotice = _StringsDialogsQuickSaveNoticeZhCn._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeZhCn quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeZhCn._(_root);
 	@override late final _StringsDialogsPinZhCn pin = _StringsDialogsPinZhCn._(_root);
 	@override late final _StringsDialogsSendModeHelpZhCn sendModeHelp = _StringsDialogsSendModeHelpZhCn._(_root);
 	@override late final _StringsDialogsZoomZhCn zoom = _StringsDialogsZoomZhCn._(_root);
@@ -593,6 +595,7 @@ class _StringsSettingsTabReceiveZhCn extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '接收';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => '自动完成';
 	@override String get destination => '保存目录';
@@ -939,6 +942,17 @@ class _StringsDialogsQuickSaveNoticeZhCn extends _StringsDialogsQuickSaveNoticeE
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => '自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeZhCn extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => '现在，您的收藏夹列表中的设备会自动接受文件请求。';
 }
 
 // Path: dialogs.pin

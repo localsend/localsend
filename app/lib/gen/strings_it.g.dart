@@ -78,13 +78,14 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get files => 'File';
 	@override String get finished => 'Completato';
 	@override String get hide => 'Nascondi';
-	@override String get off => 'Disattivato';
-	@override String get offline => 'Non in linea';
-	@override String get on => 'Attivato';
-	@override String get online => 'In linea';
+	@override String get off => 'disattivato';
+	@override String get offline => 'Offline';
+	@override String get on => 'attivato';
+	@override String get online => 'Online';
 	@override String get open => 'Apri';
 	@override String get queue => 'Coda';
 	@override String get quickSave => 'Salvataggio rapido';
+	@override String get quickSaveFromFavorites => 'Salvataggio rapido per "Preferiti"';
 	@override String get renamed => 'Rinominato';
 	@override String get reset => 'Reset';
 	@override String get restart => 'Riavvia';
@@ -95,7 +96,7 @@ class _StringsGeneralIt extends _StringsGeneralEn {
 	@override String get save => 'Salva';
 	@override String get unchanged => 'Invariato';
 	@override String get unknown => 'Sconosciuto';
-	@override String get noItemInClipboard => 'Nessun elemento negli Appunti';
+	@override String get noItemInClipboard => 'Nessun elemento negli Appunti.';
 }
 
 // Path: receiveTab
@@ -119,16 +120,16 @@ class _StringsSendTabIt extends _StringsSendTabEn {
 	@override String get title => 'Invia';
 	@override late final _StringsSendTabSelectionIt selection = _StringsSendTabSelectionIt._(_root);
 	@override late final _StringsSendTabPickerIt picker = _StringsSendTabPickerIt._(_root);
-	@override String get shareIntentInfo => 'Puoi anche usare la funzionalità "Condividi" sul tuo dispositivo mobile per selezionare file in modo più semplice.';
+	@override String get shareIntentInfo => 'Puoi anche usare la funzione "Condividi" del dispositivo mobile per selezionare più facilmente i file.';
 	@override String get nearbyDevices => 'Dispositivi vicini';
-	@override String get thisDevice => 'Questo Dispositivo';
+	@override String get thisDevice => 'Questo dispositivo';
 	@override String get scan => 'Cerca dispositivi';
 	@override String get manualSending => 'Invio manuale';
 	@override String get sendMode => 'Modalità di invio';
 	@override late final _StringsSendTabSendModesIt sendModes = _StringsSendTabSendModesIt._(_root);
 	@override String get sendModeHelp => 'Spiegazione';
-	@override String get help => 'Assicurarsi che il destinatario desiderato si trovi nella stessa rete wifi.';
-	@override String get placeItems => 'Inserire gli oggetti da condividere.';
+	@override String get help => 'Assicurati che il destinatario desiderato si trovi sulla stessa rete Wi-Fi.';
+	@override String get placeItems => 'Rilascia qui gli elementi da condividere.';
 }
 
 // Path: settingsTab
@@ -155,7 +156,7 @@ class _StringsTroubleshootPageIt extends _StringsTroubleshootPageEn {
 
 	// Translations
 	@override String get title => 'Risoluzione dei problemi';
-	@override String get subTitle => 'Questa app non funziona come previsto? Qui puoi trovare soluzioni comuni.';
+	@override String get subTitle => 'L\'app non funziona come previsto? Qui puoi trovare le soluzioni più comuni.';
 	@override String get solution => 'Soluzione:';
 	@override String get fixButton => 'Risolvi automaticamente';
 	@override late final _StringsTroubleshootPageFirewallIt firewall = _StringsTroubleshootPageFirewallIt._(_root);
@@ -197,7 +198,7 @@ class _StringsSelectedFilesPageIt extends _StringsSelectedFilesPageEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get deleteAll => 'Elimina tutti';
+	@override String get deleteAll => 'Rimuovi tutti';
 }
 
 // Path: receivePage
@@ -209,11 +210,11 @@ class _StringsReceivePageIt extends _StringsReceivePageEn {
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(n,
 		one: 'vuole inviarti un file',
-		other: 'vuole inviarti ${n} files',
+		other: 'vuole inviarti ${n} file',
 	);
 	@override String get subTitleMessage => 'ti ha inviato un messaggio:';
 	@override String get subTitleLink => 'ti ha inviato un link:';
-	@override String get canceled => 'Il mittente ha cancellato la richiesta.';
+	@override String get canceled => 'Il mittente ha annullato la richiesta.';
 }
 
 // Path: receiveOptionsPage
@@ -225,9 +226,9 @@ class _StringsReceiveOptionsPageIt extends _StringsReceiveOptionsPageEn {
 	// Translations
 	@override String get title => 'Opzioni';
 	@override String get destination => _root.settingsTab.receive.destination;
-	@override String get appDirectory => '(LocalSend cartella)';
+	@override String get appDirectory => '(cartella LocalSend)';
 	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-	@override String get saveToGalleryOff => 'Disattivato automaticamente perché ci sono delle cartelle.';
+	@override String get saveToGalleryOff => 'Disattivato automaticamente in presenza di cartelle.';
 }
 
 // Path: sendPage
@@ -272,12 +273,12 @@ class _StringsWebSharePageIt extends _StringsWebSharePageEn {
 		other: 'Apri uno di questi link nel browser:',
 	);
 	@override String get requests => 'Richieste';
-	@override String get noRequests => 'Nessuna richiesta ancora.';
+	@override String get noRequests => 'Ancora nessuna richiesta.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'Accetta automaticamente le richieste';
 	@override String get requirePin => 'Richiedi PIN';
 	@override String pinHint({required Object pin}) => 'Il PIN è "${pin}"';
-	@override String get encryptionHint => 'LocalSend utilizza un certificato self-signed. Devi accettarlo nel browser.';
+	@override String get encryptionHint => 'LocalSend utilizza un certificato autofirmato. Devi accettarlo nel browser.';
 	@override String pendingRequests({required Object n}) => 'Richieste in sospeso: ${n}';
 }
 
@@ -290,12 +291,12 @@ class _StringsAboutPageIt extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Riguardo LocalSend';
 	@override List<String> get description => [
-		'LocalSend è un\'app gratuita e open-source che ti consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale senza bisogno di una connessione Internet.',
-		'Questa app è disponibile su Android, iOS, macOS, Windows e Linux. Puoi trovare tutte le opzioni di download sulla homepage ufficiale.',
+		'LocalSend è un\'app gratuita e open-source che consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale, senza bisogno di una connessione internet.',
+		'Quest\'app è disponibile su Android, iOS, macOS, Windows e Linux. Puoi trovare tutte le opzioni di download sulla homepage ufficiale.',
 	];
 	@override String get author => 'Autore';
 	@override String get contributors => 'Contributori';
-	@override String get packagers => 'Packagers';
+	@override String get packagers => 'Packager';
 	@override String get translators => 'Traduttori';
 }
 
@@ -307,7 +308,7 @@ class _StringsDonationPageIt extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Dona';
-	@override String get info => 'LocalSend è un progetto open-source gratuito e senza pubblicità. Se ti piace l\'applicazione, puoi supportare lo sviluppo con una donazione.';
+	@override String get info => 'LocalSend è gratuito, open-source e privo di pubblicità. Se ti piace l\'applicazione, puoi supportarne lo sviluppo con una donazione.';
 	@override String donate({required Object amount}) => 'Dona ${amount}';
 	@override String get thanks => 'Grazie per il tuo supporto!';
 	@override String get restore => 'Ripristina acquisti';
@@ -359,6 +360,7 @@ class _StringsDialogsIt extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrIt qr = _StringsDialogsQrIt._(_root);
 	@override late final _StringsDialogsQuickActionsIt quickActions = _StringsDialogsQuickActionsIt._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeIt quickSaveNotice = _StringsDialogsQuickSaveNoticeIt._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeIt quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeIt._(_root);
 	@override late final _StringsDialogsPinIt pin = _StringsDialogsPinIt._(_root);
 	@override late final _StringsDialogsSendModeHelpIt sendModeHelp = _StringsDialogsSendModeHelpIt._(_root);
 	@override late final _StringsDialogsZoomIt zoom = _StringsDialogsZoomIt._(_root);
@@ -372,7 +374,7 @@ class _StringsSanitizationIt extends _StringsSanitizationEn {
 
 	// Translations
 	@override String get empty => 'Il nome del file non può essere vuoto';
-	@override String get invalid => 'Il nome del file contiene caratteri invalidi';
+	@override String get invalid => 'Il nome del file contiene dei caratteri non validi';
 }
 
 // Path: tray
@@ -383,7 +385,7 @@ class _StringsTrayIt extends _StringsTrayEn {
 
 	// Translations
 	@override String get open => _root.general.open;
-	@override String get close => 'Chiudi LocalSend';
+	@override String get close => 'Esci da LocalSend';
 	@override String get closeWindows => 'Uscita';
 }
 
@@ -422,8 +424,8 @@ class _StringsAssetPickerIt extends _StringsAssetPickerEn {
 	@override String get emptyList => 'Lista vuota';
 	@override String get unSupportedAssetType => 'Tipo di file non supportato.';
 	@override String get unableToAccessAll => 'Impossibile accedere a tutti i file sul dispositivo';
-	@override String get viewingLimitedAssetsTip => 'Visualizza solo file e album accessibili all\'app.';
-	@override String get changeAccessibleLimitedAssets => 'Fai clic per aggiornare i file accessibili';
+	@override String get viewingLimitedAssetsTip => 'Visualizza solo file e album accessibili dall\'app.';
+	@override String get changeAccessibleLimitedAssets => 'Clicca per aggiornare i file accessibili';
 	@override String get accessAllTip => 'L\'app può accedere solo ad alcuni file sul dispositivo. Vai alle impostazioni di sistema e consenti all\'app di accedere a tutti i file multimediali sul dispositivo.';
 	@override String get goToSystemSettings => 'Vai alle impostazioni di sistema';
 	@override String get accessLimitedAssets => 'Continua con accesso limitato';
@@ -487,7 +489,7 @@ class _StringsSendTabSendModesIt extends _StringsSendTabSendModesEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get single => 'Singolo destinatario';
+	@override String get single => 'Destinatario singolo';
 	@override String get multiple => 'Destinatari multipli';
 	@override String get link => 'Condividi tramite link';
 }
@@ -506,12 +508,12 @@ class _StringsSettingsTabGeneralIt extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsIt colorOptions = _StringsSettingsTabGeneralColorOptionsIt._(_root);
 	@override String get language => 'Lingua';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsIt languageOptions = _StringsSettingsTabGeneralLanguageOptionsIt._(_root);
-	@override String get saveWindowPlacement => 'Esci: Salva posizione della finestra';
-	@override String get saveWindowPlacementWindows => 'Salva la posizione della finestra dopo l\'uscita';
-	@override String get minimizeToTray => 'Esci: Riduci ad icona nel vassoio';
-	@override String get launchAtStartup => 'Avvio automatico dopo il login';
-	@override String get launchMinimized => 'Avvio automatico: Avvio nascosto';
-	@override String get showInContextMenu => 'Mostra LocalSend nel menu contestuale';
+	@override String get saveWindowPlacement => 'Salva la posizione della finestra all\'uscita';
+	@override String get saveWindowPlacementWindows => 'Salva la posizione della finestra alla chiusura';
+	@override String get minimizeToTray => 'Riduci a icona anziché chiudere';
+	@override String get launchAtStartup => 'Avvio automatico all\'accesso';
+	@override String get launchMinimized => 'Avvio automatico: ridotto a icona';
+	@override String get showInContextMenu => 'Mostra LocalSend nel menù contestuale';
 	@override String get animations => 'Animazioni';
 }
 
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveIt extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Ricevi';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Termina automaticamente';
 	@override String get destination => 'Destinazione';
@@ -540,7 +543,7 @@ class _StringsSettingsTabSendIt extends _StringsSettingsTabSendEn {
 
 	// Translations
 	@override String get title => 'Invia';
-	@override String get shareViaLinkAutoAccept => 'Condividi via link: Accetta automaticamente';
+	@override String get shareViaLinkAutoAccept => 'Accetta automaticamente le richieste in modalità "Condividi tramite link"';
 }
 
 // Path: settingsTab.network
@@ -553,15 +556,15 @@ class _StringsSettingsTabNetworkIt extends _StringsSettingsTabNetworkEn {
 	@override String get title => 'Rete';
 	@override String get needRestart => 'Riavvia il server per applicare le modifiche!';
 	@override String get server => 'Server';
-	@override String get alias => 'Alias';
+	@override String get alias => 'Nome del dispositivo';
 	@override String get deviceType => 'Tipo di dispositivo';
-	@override String get deviceModel => 'Modello di dispositivo';
+	@override String get deviceModel => 'Modello del dispositivo';
 	@override String get port => 'Porta';
 	@override String get discoveryTimeout => 'Timeout di rilevamento';
-	@override String portWarning({required Object defaultPort}) => 'Alcuni dispositivi potrebbero non rilevare il tua dispositivi perché stai usando una porta personalizzata. (default: ${defaultPort})';
+	@override String portWarning({required Object defaultPort}) => 'Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata (default: ${defaultPort}).';
 	@override String get encryption => 'Crittografia';
-	@override String get multicastGroup => 'Multicast';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: ${defaultMulticast})';
+	@override String get multicastGroup => 'Indirizzo Multicast';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato (predefinito: ${defaultMulticast}).';
 }
 
 // Path: settingsTab.other
@@ -608,8 +611,8 @@ class _StringsTroubleshootPageNoConnectionIt extends _StringsTroubleshootPageNoC
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Entrambi i dispositivi non riescono a scoprirsi a vicenda né a condividere file.';
-	@override String get solution => 'Il problema esiste su entrambi i lati? Allora devi assicurarti che entrambi i dispositivi siano nella stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). Il Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti. In questo caso, questa opzione deve essere abilitata sul router.';
+	@override String get symptom => 'Entrambi i dispositivi non sono in grado di riconoscersi a vicenda né di condividere file.';
+	@override String get solution => 'Il problema si presenta da entrambi le parti? In tal caso, assicurati che i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). La rete Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti (isolamento dell\'Access Point). In questo caso, l\'opzione deve essere abilitata sul router.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -670,7 +673,7 @@ class _StringsDialogsCancelSessionIt extends _StringsDialogsCancelSessionEn {
 
 	// Translations
 	@override String get title => 'Interrompi trasferimento';
-	@override String get content => 'Sei sicuro di voler interromper il trasferimento?';
+	@override String get content => 'Sei sicuro di voler interrompere il trasferimento?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -681,7 +684,7 @@ class _StringsDialogsCannotOpenFileIt extends _StringsDialogsCannotOpenFileEn {
 
 	// Translations
 	@override String get title => 'Impossibile aprire il file';
-	@override String content({required Object file}) => 'Impossibile aprire "${file}". Questo file è stato spostato, rinominato o eliminato?';
+	@override String content({required Object file}) => 'Impossibile aprire "${file}". Hai spostato, rinominato o eliminato il file?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -691,7 +694,7 @@ class _StringsDialogsEncryptionDisabledNoticeIt extends _StringsDialogsEncryptio
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Crittografia disabiitata';
+	@override String get title => 'Crittografia disabilitata';
 	@override String get content => 'La comunicazione ora avviene tramite il protocollo HTTP non crittografato. Per usare il protocollo crittografato HTTPS, abilita la crittografia.';
 }
 
@@ -713,7 +716,7 @@ class _StringsDialogsFavoriteDialogIt extends _StringsDialogsFavoriteDialogEn {
 
 	// Translations
 	@override String get title => 'Preferiti';
-	@override String get noFavorites => 'Nessun dispositivo preferito al momento.';
+	@override String get noFavorites => 'Non ci sono ancora dispositivi preferiti.';
 	@override String get addFavorite => 'Aggiungi';
 }
 
@@ -724,8 +727,8 @@ class _StringsDialogsFavoriteDeleteDialogIt extends _StringsDialogsFavoriteDelet
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Elimina dai preferiti';
-	@override String content({required Object name}) => 'Sei davvero sicuro di voler eliminare dai preferiti "${name}"?';
+	@override String get title => 'Rimuovi dai preferiti';
+	@override String content({required Object name}) => 'Sei davvero sicuro di voler rimuovere "${name}" dai preferiti?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -737,7 +740,7 @@ class _StringsDialogsFavoriteEditDialogIt extends _StringsDialogsFavoriteEditDia
 	// Translations
 	@override String get titleAdd => 'Aggiungi ai preferiti';
 	@override String get titleEdit => 'Modifica';
-	@override String get name => 'Alias';
+	@override String get name => 'Nome del dispositivo';
 	@override String get auto => '(automatico)';
 	@override String get ip => 'Indirizzo IP';
 	@override String get port => 'Porta';
@@ -765,7 +768,7 @@ class _StringsDialogsFileNameInputIt extends _StringsDialogsFileNameInputEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Inserisci un nome del file';
+	@override String get title => 'Inserisci nome file';
 	@override String original({required Object original}) => 'Originale: ${original}';
 }
 
@@ -788,7 +791,7 @@ class _StringsDialogsLocalNetworkUnauthorizedIt extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => _root.dialogs.noPermission.title;
-	@override String get description => 'LocalSend non può trovare altri dispositivi senza avere il permesso di eseguire la scansione della rete locale. Si prega di concedere questo permesso nelle impostazioni.';
+	@override String get description => 'LocalSend non può trovare altri dispositivi senza il permesso per la scansione della rete locale. Puoi concedere questo permesso nelle impostazioni.';
 	@override String get gotoSettings => 'Impostazioni';
 }
 
@@ -822,7 +825,7 @@ class _StringsDialogsNoPermissionIt extends _StringsDialogsNoPermissionEn {
 
 	// Translations
 	@override String get title => 'Nessun permesso';
-	@override String get content => 'Non hai concesso le autorizzazioni necessarie. Per favore, concedile nelle impostazioni.';
+	@override String get content => 'Non hai concesso le autorizzazioni necessarie. Si prega di concederle nelle impostazioni.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -853,11 +856,11 @@ class _StringsDialogsQuickActionsIt extends _StringsDialogsQuickActionsEn {
 	@override final _StringsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Azioni Rapide';
+	@override String get title => 'Azioni rapide';
 	@override String get counter => 'Contatore';
 	@override String get prefix => 'Prefisso';
 	@override String get padZero => 'Riempi con zero';
-	@override String get sortBeforeCount => 'Preordina alfabeticamente';
+	@override String get sortBeforeCount => 'Preordina alfabeticamente (A-Z)';
 	@override String get random => 'Casuale';
 }
 
@@ -869,7 +872,18 @@ class _StringsDialogsQuickSaveNoticeIt extends _StringsDialogsQuickSaveNoticeEn 
 
 	// Translations
 	@override String get title => _root.general.quickSave;
-	@override String get content => 'Ogni richiesta è automaticamente accettata. Sii consapevole che chiunque abbia accesso alla tua rete locale può inviarti file.';
+	@override String get content => 'Le richieste di file ora vengono accettate automaticamente. Tieni presente che chiunque abbia accesso alla tua rete locale può inviarti file.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeIt extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeIt._(_StringsIt root) : this._root = root, super._(root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Le richieste di file ora vengono accettate automaticamente dai dispositivi presenti nell\'elenco dei preferiti.';
 }
 
 // Path: dialogs.pin
@@ -890,8 +904,8 @@ class _StringsDialogsSendModeHelpIt extends _StringsDialogsSendModeHelpEn {
 
 	// Translations
 	@override String get title => 'Modalità di invio';
-	@override String get single => 'Invia file a un destinatario. La selezione verrà cancellata dopo il trasferimento del file.';
-	@override String get multiple => 'Invia file a più destinatari. La selezione non verrà cancellata.';
+	@override String get single => 'Invia file a un destinatario. Gli elementi saranno deselezionati dopo il trasferimento dei file.';
+	@override String get multiple => 'Invia file a più destinatari. Gli elementi non saranno deselezionati dopo il trasferimento dei file.';
 	@override String get link => 'I destinatari che non hanno installato LocalSend possono scaricare i file selezionati aprendo il link nel loro browser.';
 }
 
@@ -947,6 +961,6 @@ class _StringsProgressPageTotalTitleIt extends _StringsProgressPageTotalTitleEn 
 	// Translations
 	@override String sending({required Object time}) => 'Progresso complessivo (${time})';
 	@override String get finishedError => 'Terminato con errore';
-	@override String get canceledSender => 'Cancellato dal mittente';
-	@override String get canceledReceiver => 'Cancellato dal destinatario';
+	@override String get canceledSender => 'Annullato dal mittente';
+	@override String get canceledReceiver => 'Annullato dal destinatario';
 }

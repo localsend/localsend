@@ -85,6 +85,7 @@ class _StringsGeneralSrCyrl extends _StringsGeneralEn {
 	@override String get open => 'Отвори';
 	@override String get queue => 'Стави у Queue';
 	@override String get quickSave => 'Брзо сними';
+	@override String get quickSaveFromFavorites => 'Брзо сними у "Омиљени"';
 	@override String get renamed => 'Преименовано';
 	@override String get reset => 'Ресетуј';
 	@override String get restart => 'Рестартуј';
@@ -430,6 +431,7 @@ class _StringsDialogsSrCyrl extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrSrCyrl qr = _StringsDialogsQrSrCyrl._(_root);
 	@override late final _StringsDialogsQuickActionsSrCyrl quickActions = _StringsDialogsQuickActionsSrCyrl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeSrCyrl quickSaveNotice = _StringsDialogsQuickSaveNoticeSrCyrl._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeSrCyrl quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeSrCyrl._(_root);
 	@override late final _StringsDialogsPinSrCyrl pin = _StringsDialogsPinSrCyrl._(_root);
 	@override late final _StringsDialogsSendModeHelpSrCyrl sendModeHelp = _StringsDialogsSendModeHelpSrCyrl._(_root);
 	@override late final _StringsDialogsZoomSrCyrl zoom = _StringsDialogsZoomSrCyrl._(_root);
@@ -595,6 +597,7 @@ class _StringsSettingsTabReceiveSrCyrl extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Примање';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Аутоматски заврши';
 	@override String get destination => 'Дестинација';
@@ -941,6 +944,17 @@ class _StringsDialogsQuickSaveNoticeSrCyrl extends _StringsDialogsQuickSaveNotic
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Захтеви за слање фајлова су аутоматски прихваћени. Примите к знању да било ко на локалној мрежи може да Вам пошаље фајл.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeSrCyrl extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeSrCyrl._(_StringsSrCyrl root) : this._root = root, super._(root);
+
+	@override final _StringsSrCyrl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Фајлови који су послати са уређаја у контакт листи су аутоматски прихваћени.';
 }
 
 // Path: dialogs.pin

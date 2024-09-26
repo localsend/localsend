@@ -85,6 +85,7 @@ class _StringsGeneralFa extends _StringsGeneralEn {
 	@override String get open => 'باز کردن';
 	@override String get queue => 'صف';
 	@override String get quickSave => 'ذخیره سریع';
+	@override String get quickSaveFromFavorites => 'ذخیر سریع برای "Favorites"';
 	@override String get renamed => 'تغییر نام یافت';
 	@override String get reset => 'بازنشانی';
 	@override String get restart => 'راه اندازی مجدد';
@@ -123,6 +124,7 @@ class _StringsSendTabFa extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'دستگاه های  اطراف';
 	@override String get thisDevice => 'این دستگاه';
 	@override String get scan => 'جستجوی دستگاه ها';
+	@override String get manualSending => 'ارسال دستی';
 	@override String get sendMode => 'حالت ارسال';
 	@override late final _StringsSendTabSendModesFa sendModes = _StringsSendTabSendModesFa._(_root);
 	@override String get sendModeHelp => 'توضیح';
@@ -429,6 +431,7 @@ class _StringsDialogsFa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrFa qr = _StringsDialogsQrFa._(_root);
 	@override late final _StringsDialogsQuickActionsFa quickActions = _StringsDialogsQuickActionsFa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFa quickSaveNotice = _StringsDialogsQuickSaveNoticeFa._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeFa quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeFa._(_root);
 	@override late final _StringsDialogsPinFa pin = _StringsDialogsPinFa._(_root);
 	@override late final _StringsDialogsSendModeHelpFa sendModeHelp = _StringsDialogsSendModeHelpFa._(_root);
 	@override late final _StringsDialogsZoomFa zoom = _StringsDialogsZoomFa._(_root);
@@ -454,6 +457,7 @@ class _StringsTrayFa extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'خروج از لوکال سند';
+	@override String get closeWindows => 'خروج';
 }
 
 // Path: web
@@ -576,6 +580,7 @@ class _StringsSettingsTabGeneralFa extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'زبان';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsFa languageOptions = _StringsSettingsTabGeneralLanguageOptionsFa._(_root);
 	@override String get saveWindowPlacement => 'خروج: ذخیره قرار دادن پنجره';
+	@override String get saveWindowPlacementWindows => 'ذخیره موقعیت پنجره پس از خروج';
 	@override String get minimizeToTray => 'خروج: ارسال برنامه به سیستم تری';
 	@override String get launchAtStartup => 'شروع خودکار پس از ورود به سیستم';
 	@override String get launchMinimized => 'شروع خودکار: شروع به صورت پنجره پنهان';
@@ -592,6 +597,7 @@ class _StringsSettingsTabReceiveFa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'دریافت';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'پایان خودکار';
 	@override String get destination => 'مقصد';
@@ -938,6 +944,17 @@ class _StringsDialogsQuickSaveNoticeFa extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'درخواست ها به صورت خودکار پذیرفته می شوند. توجه داشته باشید که همه افراد در شبکه محلی می توانند برای شما فایل ارسال کنند';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeFa extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeFa._(_StringsFa root) : this._root = root, super._(root);
+
+	@override final _StringsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'درخواست دستگاه‌های موجود در لیست علاقه‌مندی‌ها به طور خودکار پذیرفته میشوند';
 }
 
 // Path: dialogs.pin

@@ -2,19 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ru>.",
     "After editing this file, you can run 'dart run slang apply --locale=ru' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "quickSaveFromFavorites": "Быстрое сохранение для \"Избранных\""
-  },
-  "settingsTab": {
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
-    }
-  },
-  "dialogs": {
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Запросы на получение файлов теперь принимаются автоматически от устройств из вашего списка избранных."
-    }
-  }
+  ]
 }

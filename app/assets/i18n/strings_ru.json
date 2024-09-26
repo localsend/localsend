@@ -28,6 +28,7 @@
     "open": "Открыть",
     "queue": "Очередь",
     "quickSave": "Быстрое сохранение",
+    "quickSaveFromFavorites": "Быстрое сохранение для \"Избранных\"",
     "renamed": "Переименовано",
     "reset": "Отменить изменения",
     "restart": "Перезапустить",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "Получение",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Автозавершение",
       "destination": "Сохранять в папку",
@@ -356,6 +358,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Запросы на получение файлов теперь принимаются автоматически. Будьте осторожны, все пользователи этой локальной сети могут отправлять вам файлы."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Запросы на получение файлов теперь принимаются автоматически от устройств из вашего списка избранных."
     },
     "pin": {
       "title": "Введите PIN-код"

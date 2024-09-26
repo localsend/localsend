@@ -85,6 +85,7 @@ class _StringsGeneralUk extends _StringsGeneralEn {
 	@override String get open => 'Відкрити';
 	@override String get queue => 'Черга';
 	@override String get quickSave => 'Швидке збереження';
+	@override String get quickSaveFromFavorites => 'Швидке збереження для "Улюблених"';
 	@override String get renamed => 'Перейменовано';
 	@override String get reset => 'Скасувати зміни';
 	@override String get restart => 'Перезапустити';
@@ -359,6 +360,7 @@ class _StringsDialogsUk extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrUk qr = _StringsDialogsQrUk._(_root);
 	@override late final _StringsDialogsQuickActionsUk quickActions = _StringsDialogsQuickActionsUk._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeUk quickSaveNotice = _StringsDialogsQuickSaveNoticeUk._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeUk quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeUk._(_root);
 	@override late final _StringsDialogsPinUk pin = _StringsDialogsPinUk._(_root);
 	@override late final _StringsDialogsSendModeHelpUk sendModeHelp = _StringsDialogsSendModeHelpUk._(_root);
 	@override late final _StringsDialogsZoomUk zoom = _StringsDialogsZoomUk._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveUk extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Отримання';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Автозавершення';
 	@override String get destination => 'Зберігати в папку';
@@ -870,6 +873,17 @@ class _StringsDialogsQuickSaveNoticeUk extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Запити на отримання файлів відтепер приймаються автоматично. Будьте обережні, всі користувачі цієї локальної мережі можуть надсилати вам файли.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeUk extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeUk._(_StringsUk root) : this._root = root, super._(root);
+
+	@override final _StringsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Запити на отримання файлів відтепер приймаються автоматично від пристроїв з вашого списку улюблених.';
 }
 
 // Path: dialogs.pin

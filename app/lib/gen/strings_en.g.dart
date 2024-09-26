@@ -948,7 +948,7 @@ class _StringsDialogsQuickSaveNoticeEn {
 
 	// Translations
 	String get title => _root.general.quickSave;
-	String get content => 'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
+	String get content => 'File requests are now accepted automatically. Be aware that everyone on the local network can send you files.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -959,7 +959,7 @@ class _StringsDialogsQuickSaveFromFavoritesNoticeEn {
 
 	// Translations
 	String get title => _root.general.quickSaveFromFavorites;
-	String get content => 'File requests are automatically accepted from devices in your contact list.';
+	String get content => 'File requests are now accepted automatically from devices in your favorites list.';
 }
 
 // Path: dialogs.pin

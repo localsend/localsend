@@ -46,6 +46,7 @@ class _StringsDa extends Translations {
 	@override late final _StringsChangelogPageDa changelogPage = _StringsChangelogPageDa._(_root);
 	@override late final _StringsAliasGeneratorDa aliasGenerator = _StringsAliasGeneratorDa._(_root);
 	@override late final _StringsDialogsDa dialogs = _StringsDialogsDa._(_root);
+	@override late final _StringsSanitizationDa sanitization = _StringsSanitizationDa._(_root);
 	@override late final _StringsTrayDa tray = _StringsTrayDa._(_root);
 	@override late final _StringsWebDa web = _StringsWebDa._(_root);
 	@override late final _StringsAssetPickerDa assetPicker = _StringsAssetPickerDa._(_root);
@@ -84,6 +85,7 @@ class _StringsGeneralDa extends _StringsGeneralEn {
 	@override String get open => 'Åben';
 	@override String get queue => 'Kø';
 	@override String get quickSave => 'Quick Save';
+	@override String get quickSaveFromFavorites => 'Hurtig gem for "Favorites"';
 	@override String get renamed => 'Omdøbt';
 	@override String get reset => 'Nulstil';
 	@override String get restart => 'Genstart';
@@ -122,6 +124,7 @@ class _StringsSendTabDa extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'Enheder tæt på';
 	@override String get thisDevice => 'Denne enhed';
 	@override String get scan => 'Søg efter enheder';
+	@override String get manualSending => 'Manuel afsendelse';
 	@override String get sendMode => 'Sendemåde';
 	@override late final _StringsSendTabSendModesDa sendModes = _StringsSendTabSendModesDa._(_root);
 	@override String get sendModeHelp => 'Forklaring';
@@ -139,6 +142,7 @@ class _StringsSettingsTabDa extends _StringsSettingsTabEn {
 	@override String get title => 'Indstillinger';
 	@override late final _StringsSettingsTabGeneralDa general = _StringsSettingsTabGeneralDa._(_root);
 	@override late final _StringsSettingsTabReceiveDa receive = _StringsSettingsTabReceiveDa._(_root);
+	@override late final _StringsSettingsTabSendDa send = _StringsSettingsTabSendDa._(_root);
 	@override late final _StringsSettingsTabNetworkDa network = _StringsSettingsTabNetworkDa._(_root);
 	@override late final _StringsSettingsTabOtherDa other = _StringsSettingsTabOtherDa._(_root);
 	@override String get advancedSettings => 'Avancerede indstillinger';
@@ -156,6 +160,7 @@ class _StringsTroubleshootPageDa extends _StringsTroubleshootPageEn {
 	@override String get solution => 'Løsning:';
 	@override String get fixButton => 'Løs automatisk';
 	@override late final _StringsTroubleshootPageFirewallDa firewall = _StringsTroubleshootPageFirewallDa._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryDa noDiscovery = _StringsTroubleshootPageNoDiscoveryDa._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionDa noConnection = _StringsTroubleshootPageNoConnectionDa._(_root);
 }
 
@@ -235,6 +240,7 @@ class _StringsSendPageDa extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Venter på svar...';
 	@override String get rejected => 'Modtageren har afvist delingen.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'Modtageren er optaget med en anden deling.';
 }
 
@@ -269,6 +275,9 @@ class _StringsWebSharePageDa extends _StringsWebSharePageEn {
 	@override String get requests => 'Forespørgsler';
 	@override String get noRequests => 'Ingen forespørgsler endnu.';
 	@override String get encryption => _root.settingsTab.network.encryption;
+	@override String get autoAccept => 'Accepter automatisk anmodninger';
+	@override String get requirePin => 'Kræv PIN-kode';
+	@override String pinHint({required Object pin}) => 'PIN-koden er "${pin}"';
 	@override String get encryptionHint => 'LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.';
 	@override String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
 }
@@ -287,6 +296,7 @@ class _StringsAboutPageDa extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Skaber';
 	@override String get contributors => 'Medvirkende';
+	@override String get packagers => 'Pakkere';
 	@override String get translators => 'Oversættere';
 }
 
@@ -350,7 +360,21 @@ class _StringsDialogsDa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrDa qr = _StringsDialogsQrDa._(_root);
 	@override late final _StringsDialogsQuickActionsDa quickActions = _StringsDialogsQuickActionsDa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeDa quickSaveNotice = _StringsDialogsQuickSaveNoticeDa._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeDa quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeDa._(_root);
+	@override late final _StringsDialogsPinDa pin = _StringsDialogsPinDa._(_root);
 	@override late final _StringsDialogsSendModeHelpDa sendModeHelp = _StringsDialogsSendModeHelpDa._(_root);
+	@override late final _StringsDialogsZoomDa zoom = _StringsDialogsZoomDa._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationDa extends _StringsSanitizationEn {
+	_StringsSanitizationDa._(_StringsDa root) : this._root = root, super._(root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Filnavn kan ikke være tomt';
+	@override String get invalid => 'Filnavn indeholder ugyldige tegn';
 }
 
 // Path: tray
@@ -362,6 +386,7 @@ class _StringsTrayDa extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend beenden';
+	@override String get closeWindows => 'Afslut';
 }
 
 // Path: web
@@ -372,6 +397,9 @@ class _StringsWebDa extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Indtast PIN-kode';
+	@override String get invalidPin => 'Ugyldig PIN-kode';
+	@override String get tooManyAttempts => 'For mange forsøg';
 	@override String get rejected => 'Afvist';
 	@override String get files => 'Filer';
 	@override String get fileName => 'Filname';
@@ -481,9 +509,11 @@ class _StringsSettingsTabGeneralDa extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'Sprog';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsDa languageOptions = _StringsSettingsTabGeneralLanguageOptionsDa._(_root);
 	@override String get saveWindowPlacement => 'Afslut: Gem vindueposition.';
+	@override String get saveWindowPlacementWindows => 'Gem vinduesposition efter afslutning';
 	@override String get minimizeToTray => 'Afslut: minimer til dock/menubjælke';
 	@override String get launchAtStartup => 'Autostart ved login';
 	@override String get launchMinimized => 'Autostart: Skjult ved opstart';
+	@override String get showInContextMenu => 'Vis LocalSend i kontekstmenu';
 	@override String get animations => 'Animationer';
 }
 
@@ -496,11 +526,24 @@ class _StringsSettingsTabReceiveDa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Modtag';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Fuldend automatisk';
 	@override String get destination => 'Placering';
 	@override String get downloads => '(Overførsler)';
 	@override String get saveToGallery => 'Gem medier i galleri';
 	@override String get saveToHistory => 'Gem i historik';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendDa extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendDa._(_StringsDa root) : this._root = root, super._(root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Send';
+	@override String get shareViaLinkAutoAccept => 'Accepter automatisk anmodninger i "Share via link"-tilstand';
 }
 
 // Path: settingsTab.network
@@ -517,6 +560,7 @@ class _StringsSettingsTabNetworkDa extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Enhedstype';
 	@override String get deviceModel => 'Enhedsmodel';
 	@override String get port => 'Port';
+	@override String get discoveryTimeout => 'Timeout for opdagelse';
 	@override String portWarning({required Object defaultPort}) => 'Hvis du bruger en brugerdefineret port, vil du muligvis ikke blive genkendt af andre enheder. (Standard: ${defaultPort})';
 	@override String get encryption => 'Kryptering';
 	@override String get multicastGroup => 'Multicast';
@@ -549,6 +593,17 @@ class _StringsTroubleshootPageFirewallDa extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'Åben firewall';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryDa extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryDa._(_StringsDa root) : this._root = root, super._(root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Denne enhed kan ikke finde andre enheder.';
+	@override String get solution => 'Kontrollér venligst, at alle enheder er på det samme Wi-Fi-netværk og har samme konfiguration (port, multicast-adresse, kryptering). Du kan prøve at indtaste enhedens IP-adresse manuelt. Hvis dette virker, kan du overveje at tilføje denne enhed til favoritterne, så den automatisk kan blive opdaget i fremtiden.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionDa extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionDa._(_StringsDa root) : this._root = root, super._(root);
@@ -568,6 +623,7 @@ class _StringsReceiveHistoryPageEntryActionsDa extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Åben fil';
+	@override String get showInFolder => 'Vis i mappe';
 	@override String get info => 'Information';
 	@override String get deleteFromHistory => 'Slet fra historikken';
 }
@@ -819,6 +875,27 @@ class _StringsDialogsQuickSaveNoticeDa extends _StringsDialogsQuickSaveNoticeEn 
 	@override String get content => 'Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer.';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeDa extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeDa._(_StringsDa root) : this._root = root, super._(root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Filanmodninger accepteres nu automatisk fra enheder på din favoritliste.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinDa extends _StringsDialogsPinEn {
+	_StringsDialogsPinDa._(_StringsDa root) : this._root = root, super._(root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Indtast PIN-kode';
+}
+
 // Path: dialogs.sendModeHelp
 class _StringsDialogsSendModeHelpDa extends _StringsDialogsSendModeHelpEn {
 	_StringsDialogsSendModeHelpDa._(_StringsDa root) : this._root = root, super._(root);
@@ -830,6 +907,16 @@ class _StringsDialogsSendModeHelpDa extends _StringsDialogsSendModeHelpEn {
 	@override String get single => 'Send filer til en modtager. Filvalget vil blive ryddet når filoverførslen er slut.';
 	@override String get multiple => 'Send filer til flere modtagere. Filvalget vil ikke blive ryddet.';
 	@override String get link => 'Modtagere, der ikke har LocalSend installeret, kan downloade de valgte filer i en browser.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomDa extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomDa._(_StringsDa root) : this._root = root, super._(root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
