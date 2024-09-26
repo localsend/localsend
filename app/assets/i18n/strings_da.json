@@ -28,6 +28,7 @@
     "open": "Åben",
     "queue": "Kø",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Hurtig gem for \"Favorites\"",
     "renamed": "Omdøbt",
     "reset": "Nulstil",
     "restart": "Genstart",
@@ -67,6 +68,7 @@
     "nearbyDevices": "Enheder tæt på",
     "thisDevice": "Denne enhed",
     "scan": "Søg efter enheder",
+    "manualSending": "Manuel afsendelse",
     "sendMode": "Sendemåde",
     "sendModes": {
       "single": "Enkelt modtager",
@@ -97,19 +99,27 @@
         "system": "System"
       },
       "saveWindowPlacement": "Afslut: Gem vindueposition.",
+      "saveWindowPlacementWindows": "Gem vinduesposition efter afslutning",
       "minimizeToTray": "Afslut: minimer til dock/menubjælke",
       "launchAtStartup": "Autostart ved login",
       "launchMinimized": "Autostart: Skjult ved opstart",
+      "showInContextMenu": "Vis LocalSend i kontekstmenu",
       "animations": "Animationer"
     },
     "receive": {
       "title": "Modtag",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Fuldend automatisk",
       "destination": "Placering",
       "downloads": "(Overførsler)",
       "saveToGallery": "Gem medier i galleri",
       "saveToHistory": "Gem i historik"
+    },
+    "send": {
+      "title": "Send",
+      "shareViaLinkAutoAccept": "Accepter automatisk anmodninger i \"Share via link\"-tilstand"
     },
     "network": {
       "title": "Netværk",
@@ -119,6 +129,7 @@
       "deviceType": "Enhedstype",
       "deviceModel": "Enhedsmodel",
       "port": "Port",
+      "discoveryTimeout": "Timeout for opdagelse",
       "portWarning": "Hvis du bruger en brugerdefineret port, vil du muligvis ikke blive genkendt af andre enheder. (Standard: {defaultPort})",
       "encryption": "Kryptering",
       "multicastGroup": "Multicast",
@@ -143,6 +154,10 @@
       "solution": "Dette er højsy sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port {port} zulässt.",
       "openFirewall": "Åben firewall"
     },
+    "noDiscovery": {
+      "symptom": "Denne enhed kan ikke finde andre enheder.",
+      "solution": "Kontrollér venligst, at alle enheder er på det samme Wi-Fi-netværk og har samme konfiguration (port, multicast-adresse, kryptering). Du kan prøve at indtaste enhedens IP-adresse manuelt. Hvis dette virker, kan du overveje at tilføje denne enhed til favoritterne, så den automatisk kan blive opdaget i fremtiden."
+    },
     "noConnection": {
       "symptom": "Begge enheder kan hverken se hinanden eller dele data.",
       "solution": "Findes problemet på begge sider? I så fald skal du sikrer, at begge enheder er tilsluttet samme Wi-Fi-netværk og deler den samme konfiguration (Port, Multicast-adresse, kryptering). Det er muligt, at Wi-Fi-netværket ikke tillader forbindelser mellem enheder. I så fald skal denne indstilling slås til på routeren."
@@ -155,6 +170,7 @@
     "empty": "Historikken er tom.",
     "entryActions": {
       "open": "Åben fil",
+      "showInFolder": "Vis i mappe",
       "info": "Information",
       "deleteFromHistory": "Slet fra historikken"
     }
@@ -187,6 +203,7 @@
   "sendPage": {
     "waiting": "Venter på svar...",
     "rejected": "Modtageren har afvist delingen.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Modtageren er optaget med en anden deling."
   },
   "progressPage": {
@@ -217,6 +234,9 @@
     "requests": "Forespørgsler",
     "noRequests": "Ingen forespørgsler endnu.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Accepter automatisk anmodninger",
+    "requirePin": "Kræv PIN-kode",
+    "pinHint": "PIN-koden er \"{pin}\"",
     "encryptionHint": "LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
@@ -228,6 +248,7 @@
     ],
     "author": "Skaber",
     "contributors": "Medvirkende",
+    "packagers": "Pakkere",
     "translators": "Oversættere"
   },
   "donationPage": {
@@ -338,20 +359,38 @@
       "title": "@:general.quickSave",
       "content": "Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Filanmodninger accepteres nu automatisk fra enheder på din favoritliste."
+    },
+    "pin": {
+      "title": "Indtast PIN-kode"
+    },
     "sendModeHelp": {
       "title": "Sendemåde",
       "single": "Send filer til en modtager. Filvalget vil blive ryddet når filoverførslen er slut.",
       "multiple": "Send filer til flere modtagere. Filvalget vil ikke blive ryddet.",
       "link": "Modtagere, der ikke har LocalSend installeret, kan downloade de valgte filer i en browser."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Filnavn kan ikke være tomt",
+    "invalid": "Filnavn indeholder ugyldige tegn"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "LocalSend beenden"
+    "close": "LocalSend beenden",
+    "closeWindows": "Afslut"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Indtast PIN-kode",
+    "invalidPin": "Ugyldig PIN-kode",
+    "tooManyAttempts": "For mange forsøg",
     "rejected": "Afvist",
     "files": "Filer",
     "fileName": "Filname",
