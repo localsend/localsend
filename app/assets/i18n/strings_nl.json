@@ -189,8 +189,8 @@
       "one": "wil een bestand naar je verzenden",
       "other": "wil {n} bestanden naar je verzenden"
     },
-    "subTitleMessage": "heeft je een bericht gestuurd:",
-    "subTitleLink": "heeft je een link gestuurd:",
+    "subTitleMessage": "heeft een bericht naar je verzonden:",
+    "subTitleLink": "heeft een link naar je verzonden:",
     "canceled": "De verzender heeft het verzoek geannuleerd."
   },
   "receiveOptionsPage": {
@@ -209,7 +209,7 @@
   "progressPage": {
     "titleSending": "Bestanden verzenden",
     "titleReceiving": "Bestanden ontvangen",
-    "savedToGallery": "Opgeslagen in Foto's",
+    "savedToGallery": "Opgeslagen in galerij",
     "total": {
       "title": {
         "sending": "Totale voortgang ({time})",
@@ -281,7 +281,7 @@
     },
     "cannotOpenFile": {
       "title": "Kan bestand niet openen",
-      "content": "Het bestand '{file}' kan niet worden geopend. Het is mogelijk verplaatst, hernoemd of verwijderen."
+      "content": "Het bestand '{file}' kan niet worden geopend. Het is mogelijk verplaatst, hernoemd of verwijderd."
     },
     "encryptionDisabledNotice": {
       "title": "Versleuteling uitgeschakeld",
@@ -310,7 +310,7 @@
     "fileInfo": {
       "title": "Bestandsinformatie",
       "fileName": "Bestandsnaam:",
-      "path": "Pad:",
+      "path": "Locatie:",
       "size": "Grootte:",
       "sender": "Afzender:",
       "time": "Tijd:"
@@ -357,7 +357,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Bestandsverzoeken worden nu automatisch geaccepteerd. Iedereen op het lokale netwerk kan je dus nu bestanden sturen."
+      "content": "Bestandsverzoeken worden nu automatisch geaccepteerd. Iedereen op het lokale netwerk kan nu dus bestanden naar je verzenden."
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
