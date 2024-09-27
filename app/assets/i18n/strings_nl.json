@@ -31,7 +31,7 @@
     "quickSaveFromFavorites": "Snel opslaan voor 'Favorieten'",
     "renamed": "Hernoemd",
     "reset": "Herstellen",
-    "restart": "Opnieuw opstarten",
+    "restart": "Opnieuw starten",
     "settings": "Instellingen",
     "skipped": "Overgeslagen",
     "start": "Starten",
@@ -123,7 +123,7 @@
     },
     "network": {
       "title": "Netwerk",
-      "needRestart": "Start de server opnieuw op om de wijzigingen door te voeren.",
+      "needRestart": "Start de server opnieuw op om de instellingen toe te passen.",
       "server": "Server",
       "alias": "Apparaatnaam",
       "deviceType": "Apparaattype",
@@ -235,8 +235,8 @@
     "noRequests": "Nog geen verzoeken.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Verzoeken automatisch accepteren",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\"",
+    "requirePin": "Code vereisen",
+    "pinHint": "De code is '{pin}'.",
     "encryptionHint": "LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.",
     "pendingRequests": "Openstaande verzoeken: {n}"
   },
@@ -364,7 +364,7 @@
       "content": "Bestandsverzoeken van je favoriete apparaten worden nu automatisch geaccepteerd."
     },
     "pin": {
-      "title": "Vul de PIN in"
+      "title": "Vul de code in"
     },
     "sendModeHelp": {
       "title": "Verzendmodi",
@@ -388,8 +388,8 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "enterPin": "Vul de PIN in",
-    "invalidPin": "Ongeldige PIN",
+    "enterPin": "Vul de code in",
+    "invalidPin": "Ongeldige code",
     "tooManyAttempts": "Te veel pogingen",
     "rejected": "Geweigerd",
     "files": "Bestanden",
