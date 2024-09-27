@@ -44,9 +44,7 @@ class SettingsTab extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 8),
-              child: Text(t.settingsTab.title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center),
+              child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
             ),
             const SizedBox(height: 30),
             _SettingsSection(
@@ -186,9 +184,7 @@ class SettingsTab extends StatelessWidget {
                       );
 
                       if (newPin != null && newPin.isNotEmpty) {
-                        await ref
-                            .notifier(settingsProvider)
-                            .setReceivePin(newPin);
+                        await ref.notifier(settingsProvider).setReceivePin(newPin);
                       }
                     }
                   },
@@ -200,7 +196,8 @@ class SettingsTab extends StatelessWidget {
                       style: TextButton.styleFrom(
                         backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
                         shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
-                        foregroundColor:Theme.of(context).colorScheme.onSurface,),
+                        foregroundColor:Theme.of(context).colorScheme.onSurface,
+                      ),
                       onPressed: () async {
                         if (vm.settings.destination != null) {
                           await ref.notifier(settingsProvider).setDestination(null);
@@ -214,10 +211,7 @@ class SettingsTab extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Text(
-                            vm.settings.destination ??
-                                t.settingsTab.receive.downloads,
-                            style: Theme.of(context).textTheme.titleMedium),
+                        child: Text(vm.settings.destination ?? t.settingsTab.receive.downloads, style: Theme.of(context).textTheme.titleMedium),
                       ),
                     ),
                   ),
@@ -273,9 +267,7 @@ class SettingsTab extends StatelessWidget {
                   firstChild: Container(),
                   secondChild: Padding(
                     padding: const EdgeInsets.only(bottom: 15),
-                    child: Text(t.settingsTab.network.needRestart,
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.warning)),
+                    child: Text(t.settingsTab.network.needRestart, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
                   ),
                 ),
                 _SettingsEntry(
@@ -283,7 +275,7 @@ class SettingsTab extends StatelessWidget {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: Theme.of(context).inputDecorationTheme.fillColor,
-                      borderRadius:Theme.of(context).inputDecorationTheme.borderRadius,
+                      borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -301,8 +293,7 @@ class SettingsTab extends StatelessWidget {
                           Tooltip(
                             message: t.general.restart,
                             child: TextButton(
-                              style: TextButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface),
+                              style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                               onPressed: () => vm.onTapRestartServer(context),
                               child: const Icon(Icons.refresh),
                             ),
@@ -310,8 +301,7 @@ class SettingsTab extends StatelessWidget {
                         Tooltip(
                           message: t.general.stop,
                           child: TextButton(
-                            style: TextButton.styleFrom(
-                                foregroundColor: Theme.of(context).colorScheme.onSurface),
+                            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                             onPressed: vm.serverState == null ? null : vm.onTapStopServer,
                             child: const Icon(Icons.stop),
                           ),
@@ -336,9 +326,7 @@ class SettingsTab extends StatelessWidget {
                           // Persist the new alias using the settingsProvider
                           await ref.notifier(settingsProvider).setAlias(newAlias);
                         },
-                        icon: const Icon(
-                          Icons.casino,
-                        ),
+                        icon: const Icon(Icons.casino),
                       ),
                     ),
                     Tooltip(
@@ -348,15 +336,10 @@ class SettingsTab extends StatelessWidget {
                           // Uses dart.io to find the systems hostname
                           final newAlias = Platform.localHostname;
 
-                          // Update the TextField with the new alias
                           vm.aliasController.text = newAlias;
-
-                          // Persist the new alias using the settingsProvider
                           await ref.notifier(settingsProvider).setAlias(newAlias);
                         },
-                        icon: const Icon(
-                          Icons.desktop_windows_rounded,
-                        ),
+                        icon: const Icon(Icons.desktop_windows_rounded),
                       ),
                     ),
                   ],
