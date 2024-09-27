@@ -196,7 +196,7 @@ class SettingsTab extends StatelessWidget {
                       style: TextButton.styleFrom(
                         backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
                         shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
-                        foregroundColor:Theme.of(context).colorScheme.onSurface,
+                        foregroundColor: Theme.of(context).colorScheme.onSurface,
                       ),
                       onPressed: () async {
                         if (vm.settings.destination != null) {
@@ -344,7 +344,7 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ],
                   child: TextFieldTv(
-                    name: 't.settingsTab.network.alias',
+                    name: t.settingsTab.network.alias,
                     controller: vm.aliasController,
                     onChanged: (s) async {
                       await ref.notifier(settingsProvider).setAlias(s);
@@ -444,8 +444,7 @@ class SettingsTab extends StatelessWidget {
                   ),
                 ),
                 AnimatedCrossFade(
-                  crossFadeState:
-                      vm.settings.multicastGroup != defaultMulticastGroup ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                  crossFadeState: vm.settings.multicastGroup != defaultMulticastGroup ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                   duration: const Duration(milliseconds: 200),
                   alignment: Alignment.topLeft,
                   firstChild: Container(),
@@ -636,9 +635,7 @@ class _ButtonEntry extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-          shape: RoundedRectangleBorder(
-              borderRadius:
-                  Theme.of(context).inputDecorationTheme.borderRadius),
+          shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
           foregroundColor: Theme.of(context).colorScheme.onSurface,
         ),
         onPressed: onTap,
