@@ -319,7 +319,7 @@ class SettingsTab extends StatelessWidget {
                     onChanged: (s) async {
                       await ref.notifier(settingsProvider).setAlias(s);
                     },
-                    leadingIcons: [
+                    actions: [
                       Tooltip(
                         message: t.settingsTab.network.generateRandomAlias,
                         child: IconButton(

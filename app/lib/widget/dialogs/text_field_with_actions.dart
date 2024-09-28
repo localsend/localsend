@@ -9,13 +9,13 @@ class TextFieldWithActions extends StatefulWidget {
   final String name;
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
-  final List<Widget> leadingIcons;
+  final List<Widget> actions;
 
   const TextFieldWithActions({
     required this.name,
     required this.controller,
     required this.onChanged,
-    required this.leadingIcons,
+    required this.actions,
   });
 
   @override
@@ -40,10 +40,10 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Display leading icons inside the dialog
+                  // Display actions inside the dialog
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: widget.leadingIcons,
+                    children: widget.actions,
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
