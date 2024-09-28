@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +13,7 @@ import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
+import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -21,6 +23,7 @@ import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
+import 'package:localsend_app/widget/dialogs/text_field_with_actions.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -310,12 +313,43 @@ class SettingsTab extends StatelessWidget {
                 ),
                 _SettingsEntry(
                   label: t.settingsTab.network.alias,
-                  child: TextFieldTv(
+                  child: TextFieldWithActions(
                     name: t.settingsTab.network.alias,
                     controller: vm.aliasController,
                     onChanged: (s) async {
                       await ref.notifier(settingsProvider).setAlias(s);
                     },
+                    actions: [
+                      Tooltip(
+                        message: t.settingsTab.network.generateRandomAlias,
+                        child: IconButton(
+                          onPressed: () async {
+                            // Generates random alias
+                            final newAlias = generateRandomAlias();
+
+                            // Update the TextField with the new alias
+                            vm.aliasController.text = newAlias;
+
+                            // Persist the new alias using the settingsProvider
+                            await ref.notifier(settingsProvider).setAlias(newAlias);
+                          },
+                          icon: const Icon(Icons.casino),
+                        ),
+                      ),
+                      Tooltip(
+                        message: t.settingsTab.network.useSystemName,
+                        child: IconButton(
+                          onPressed: () async {
+                            // Uses dart.io to find the systems hostname
+                            final newAlias = Platform.localHostname;
+
+                            vm.aliasController.text = newAlias;
+                            await ref.notifier(settingsProvider).setAlias(newAlias);
+                          },
+                          icon: const Icon(Icons.desktop_windows_rounded),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 if (vm.advanced)
