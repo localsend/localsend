@@ -474,8 +474,8 @@ class SettingsTab extends StatelessWidget {
                   value: vm.advanced,
                   labelFirst: true,
                   onChanged: (b) async {
-                      vm.onTapAdvanced(b == true);
-                      await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
+                    vm.onTapAdvanced(b == true);
+                    await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
                   },
                 ),
                 const SizedBox(width: 10),
