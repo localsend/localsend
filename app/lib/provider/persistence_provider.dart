@@ -82,6 +82,7 @@ const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+const _advancedSettingsKey = 'ls_advanced_settings';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -159,6 +160,10 @@ class PersistenceService {
 
     if (prefs.getString(_securityContext) == null) {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+    }
+
+    if (prefs.getBool(_advancedSettingsKey) == null) {
+      await prefs.setBool(_advancedSettingsKey, false);
     }
 
     if (prefs.getString(_colorKey) == null) {
@@ -335,6 +340,14 @@ class PersistenceService {
 
   Future<void> setSaveToHistory(bool saveToHistory) async {
     await _prefs.setBool(_saveToHistory, saveToHistory);
+  }
+
+  bool getAdvancedSettingsEnabled() {
+    return _prefs.getBool(_advancedSettingsKey) ?? false;
+  }
+
+  Future<void> setAdvancedSettingsEnabled(bool isEnabled) async {
+    await _prefs.setBool(_advancedSettingsKey, isEnabled);
   }
 
   bool isQuickSave() {
