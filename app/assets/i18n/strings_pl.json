@@ -130,6 +130,8 @@
       "deviceModel": "Model urządzenia",
       "port": "Port",
       "discoveryTimeout": "Limit czasu wykrywania",
+      "useSystemName": "Użyj nazwy systemu",
+      "generateRandomAlias": "Wygeneruj losowy alias",
       "portWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: {defaultPort})",
       "encryption": "Szyfrowanie",
       "multicastGroup": "Multicast",
