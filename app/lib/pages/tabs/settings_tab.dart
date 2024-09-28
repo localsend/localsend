@@ -650,44 +650,6 @@ class _ButtonEntry extends StatelessWidget {
   }
 }
 
-/// A specialized version of [_SettingsEntry].
-class _SettingsEntryWithLeadingIcons extends StatelessWidget {
-  final String label;
-  final Widget child;
-  final List<Widget>? leadingIcons; // Optional list of widgets for icons
-
-  const _SettingsEntryWithLeadingIcons({
-    required this.label,
-    required this.child,
-    this.leadingIcons,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(label),
-          ),
-          const SizedBox(width: 10),
-          Row(
-            children: [
-              // If leadingIcons are provided, display them; otherwise, show nothing
-              if (leadingIcons != null) ...leadingIcons!,
-              SizedBox(
-                width: 150,
-                child: child,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _SettingsSection extends StatelessWidget {
   final String title;
   final List<Widget> children;
