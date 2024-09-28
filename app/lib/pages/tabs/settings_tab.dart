@@ -23,6 +23,7 @@ import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
+import 'package:localsend_app/widget/dialogs/text_field_with_actions.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -310,10 +311,14 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ),
                 ),
-                _SettingsEntryWithLeadingIcons(
+                _SettingsEntry(
                   label: t.settingsTab.network.alias,
-                  leadingIcons: [
-                    Tooltip(
+                  child: TextFieldWithActions(
+                    name: t.settingsTab.network.alias,
+                    controller: vm.aliasController,
+                    onChanged: (s) async {
+                      await ref.notifier(settingsProvider).setAlias(s);
+                    }, leadingIcons: [Tooltip(
                       message: t.settingsTab.network.generateRandomAlias,
                       child: IconButton(
                         onPressed: () async {
@@ -341,14 +346,7 @@ class SettingsTab extends StatelessWidget {
                         },
                         icon: const Icon(Icons.desktop_windows_rounded),
                       ),
-                    ),
-                  ],
-                  child: TextFieldTv(
-                    name: t.settingsTab.network.alias,
-                    controller: vm.aliasController,
-                    onChanged: (s) async {
-                      await ref.notifier(settingsProvider).setAlias(s);
-                    },
+                    ),],
                   ),
                 ),
                 if (vm.advanced)
