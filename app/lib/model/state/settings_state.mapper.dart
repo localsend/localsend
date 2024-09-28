@@ -194,7 +194,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       String? deviceModel,
       bool? shareViaLinkAutoAccept,
       int? discoveryTimeout,
-      bool? advancedSettings,});
+      bool? advancedSettings});
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
