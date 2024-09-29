@@ -117,7 +117,7 @@
     },
     "send": {
       "title": "Senden",
-      "shareViaLinkAutoAccept": "Link teilen: Autom. aktzeptieren"
+      "shareViaLinkAutoAccept": "Link teilen: Autom. akzeptieren"
     },
     "network": {
       "title": "Netzwerk",
@@ -232,7 +232,7 @@
     "requests": "Anfragen",
     "noRequests": "Bisher keine Anfragen erhalten.",
     "encryption": "@:settingsTab.network.encryption",
-    "autoAccept": "Anfragen automatisch aktzeptieren",
+    "autoAccept": "Anfragen automatisch akzeptieren",
     "requirePin": "PIN erforderlich",
     "pinHint": "Die PIN lautet \"{pin}\"",
     "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",

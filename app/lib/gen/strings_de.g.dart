@@ -274,7 +274,7 @@ class _StringsWebSharePageDe extends _StringsWebSharePageEn {
 	@override String get requests => 'Anfragen';
 	@override String get noRequests => 'Bisher keine Anfragen erhalten.';
 	@override String get encryption => _root.settingsTab.network.encryption;
-	@override String get autoAccept => 'Anfragen automatisch aktzeptieren';
+	@override String get autoAccept => 'Anfragen automatisch akzeptieren';
 	@override String get requirePin => 'PIN erforderlich';
 	@override String pinHint({required Object pin}) => 'Die PIN lautet "${pin}"';
 	@override String get encryptionHint => 'LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.';
@@ -540,7 +540,7 @@ class _StringsSettingsTabSendDe extends _StringsSettingsTabSendEn {
 
 	// Translations
 	@override String get title => 'Senden';
-	@override String get shareViaLinkAutoAccept => 'Link teilen: Autom. aktzeptieren';
+	@override String get shareViaLinkAutoAccept => 'Link teilen: Autom. akzeptieren';
 }
 
 // Path: settingsTab.network
