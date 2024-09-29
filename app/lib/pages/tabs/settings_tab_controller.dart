@@ -48,7 +48,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   @override
   SettingsTabVm init() {
     return SettingsTabVm(
-      advanced: false,
+      advanced: _settingsService.state.advancedSettings,
       aliasController: TextEditingController(text: _settingsService.state.alias),
       deviceModelController: TextEditingController(text: _initialDeviceInfo.deviceModel),
       portController: TextEditingController(text: _settingsService.state.port.toString()),

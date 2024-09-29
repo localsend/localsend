@@ -67,6 +67,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, bool> _f$shareViaLinkAutoAccept = Field('shareViaLinkAutoAccept', _$shareViaLinkAutoAccept);
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field('discoveryTimeout', _$discoveryTimeout);
+  static bool _$advancedSettings(SettingsState v) => v.advancedSettings;
+  static const Field<SettingsState, bool> _f$advancedSettings = Field('advancedSettings', _$advancedSettings);
 
   @override
   final MappableFields<SettingsState> fields = const {
@@ -93,6 +95,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #deviceModel: _f$deviceModel,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
     #discoveryTimeout: _f$discoveryTimeout,
+    #advancedSettings: _f$advancedSettings,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -119,7 +122,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         deviceType: data.dec(_f$deviceType),
         deviceModel: data.dec(_f$deviceModel),
         shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
-        discoveryTimeout: data.dec(_f$discoveryTimeout));
+        discoveryTimeout: data.dec(_f$discoveryTimeout),
+        advancedSettings: data.dec(_f$advancedSettings));
   }
 
   @override
@@ -189,7 +193,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       DeviceType? deviceType,
       String? deviceModel,
       bool? shareViaLinkAutoAccept,
-      int? discoveryTimeout});
+      int? discoveryTimeout,
+      bool? advancedSettings});
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -223,7 +228,8 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           Object? deviceType = $none,
           Object? deviceModel = $none,
           bool? shareViaLinkAutoAccept,
-          int? discoveryTimeout}) =>
+          int? discoveryTimeout,
+          bool? advancedSettings}) =>
       $apply(FieldCopyWithData({
         if (showToken != null) #showToken: showToken,
         if (alias != null) #alias: alias,
@@ -247,7 +253,8 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (deviceType != $none) #deviceType: deviceType,
         if (deviceModel != $none) #deviceModel: deviceModel,
         if (shareViaLinkAutoAccept != null) #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
-        if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout
+        if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
+        if (advancedSettings != null) #advancedSettings: advancedSettings
       }));
   @override
   SettingsState $make(CopyWithData data) => SettingsState(
@@ -273,7 +280,8 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       deviceType: data.get(#deviceType, or: $value.deviceType),
       deviceModel: data.get(#deviceModel, or: $value.deviceModel),
       shareViaLinkAutoAccept: data.get(#shareViaLinkAutoAccept, or: $value.shareViaLinkAutoAccept),
-      discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout));
+      discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
+      advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings));
 
   @override
   SettingsStateCopyWith<$R2, SettingsState, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _SettingsStateCopyWithImpl($value, $cast, t);

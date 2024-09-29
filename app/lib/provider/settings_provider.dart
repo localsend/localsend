@@ -52,6 +52,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         deviceModel: _persistence.getDeviceModel(),
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
         discoveryTimeout: _persistence.getDiscoveryTimeout(),
+        advancedSettings: _persistence.getAdvancedSettingsEnabled(),
       );
 
   Future<void> setAlias(String alias) async {
@@ -72,6 +73,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setColorMode(mode);
     state = state.copyWith(
       colorMode: mode,
+    );
+  }
+
+  Future<void> setAdvancedSettingsEnabled(bool isEnabled) async {
+    await _persistence.setAdvancedSettingsEnabled(isEnabled);
+    state = state.copyWith(
+      advancedSettings: isEnabled,
     );
   }
 
