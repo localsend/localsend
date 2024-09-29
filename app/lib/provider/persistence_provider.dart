@@ -162,10 +162,6 @@ class PersistenceService {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
     }
 
-    if (prefs.getBool(_advancedSettingsKey) == null) {
-      await prefs.setBool(_advancedSettingsKey, false);
-    }
-
     if (prefs.getString(_colorKey) == null) {
       await _initColorSetting(prefs, supportsDynamicColors);
     } else {
