@@ -204,7 +204,6 @@
   "sendPage": {
     "waiting": "Menunggu respons...",
     "rejected": "Penerima telah menolak permintaan.",
-    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Penerima sibuk dengan permintaan lain."
   },
   "progressPage": {

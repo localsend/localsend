@@ -28,6 +28,7 @@
     "open": "Abrir",
     "queue": "Cola",
     "quickSave": "Guardado Rápido",
+    "quickSaveFromFavorites": "Guardado rápido en \"Favoritos\"",
     "renamed": "Renombrado",
     "reset": "Resetear",
     "restart": "Reiniciar",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "Recibir",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto finalizar",
       "destination": "Destino",
@@ -356,6 +358,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Las solicitudes de archivos ahora se aceptarán automáticamente desde los dispositivos incluidos en t lista de favoritos."
     },
     "pin": {
       "title": "Ingresar PIN"

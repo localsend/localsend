@@ -65,7 +65,7 @@ class _StringsGeneralDa extends _StringsGeneralEn {
 	@override String get advanced => 'Avanceret';
 	@override String get cancel => 'Afbryd';
 	@override String get close => 'Luk';
-	@override String get confirm => 'Bebkræft';
+	@override String get confirm => 'Bekræft';
 	@override String get continueStr => 'Videre';
 	@override String get copy => 'Kopier';
 	@override String get copiedToClipboard => 'Kopieret til udklipsholderen.';
@@ -85,7 +85,7 @@ class _StringsGeneralDa extends _StringsGeneralEn {
 	@override String get open => 'Åben';
 	@override String get queue => 'Kø';
 	@override String get quickSave => 'Quick Save';
-	@override String get quickSaveFromFavorites => 'Hurtig gem for "Favorites"';
+	@override String get quickSaveFromFavorites => 'Quick Save til "Favoritter"';
 	@override String get renamed => 'Omdøbt';
 	@override String get reset => 'Nulstil';
 	@override String get restart => 'Genstart';
@@ -228,7 +228,7 @@ class _StringsReceiveOptionsPageDa extends _StringsReceiveOptionsPageEn {
 	@override String get destination => _root.settingsTab.receive.destination;
 	@override String get appDirectory => '(LocalSend mappe)';
 	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-	@override String get saveToGalleryOff => 'Aufgrund von Ordnern automatisch ausgeschaltet.';
+	@override String get saveToGalleryOff => 'Slået fra automatisk, fordi der er mapper.';
 }
 
 // Path: sendPage
@@ -267,10 +267,10 @@ class _StringsWebSharePageDa extends _StringsWebSharePageEn {
 	@override String get title => 'Del med link';
 	@override String get loading => 'Start server...';
 	@override String get stopping => 'Stop server...';
-	@override String get error => 'En fejl opstod mens serveren blev startet.';
+	@override String get error => 'En fejl opstod, mens serveren blev startet.';
 	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
 		one: 'Åben dette link i browseren:',
-		other: 'Åben et af disse link i browseren:',
+		other: 'Åben et af disse links i browseren:',
 	);
 	@override String get requests => 'Forespørgsler';
 	@override String get noRequests => 'Ingen forespørgsler endnu.';
@@ -279,7 +279,7 @@ class _StringsWebSharePageDa extends _StringsWebSharePageEn {
 	@override String get requirePin => 'Kræv PIN-kode';
 	@override String pinHint({required Object pin}) => 'PIN-koden er "${pin}"';
 	@override String get encryptionHint => 'LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.';
-	@override String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
+	@override String pendingRequests({required Object n}) => 'Ventende forespørgsler: ${n}';
 }
 
 // Path: aboutPage
@@ -291,7 +291,7 @@ class _StringsAboutPageDa extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Om LocalSend';
 	@override List<String> get description => [
-		'LocalSend er en gratis Open-Source-App, som du kan bruge til sikkert at dele filer og beskeder med andre enheder i nærheden på dit lokale netværk, uden en internet forbindelse.',
+		'LocalSend er en gratis open-source app, som du kan bruge til sikkert at dele filer og beskeder med andre enheder i nærheden på dit lokale netværk, uden en internet forbindelse.',
 		'Appen findes til Android, iOS, macOS, Windows og Linux. Alle downloadmuligheder finder du på den officielle hjemmeside.',
 	];
 	@override String get author => 'Skaber';
@@ -307,9 +307,9 @@ class _StringsDonationPageDa extends _StringsDonationPageEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Doner';
+	@override String get title => 'Donér';
 	@override String get info => 'LocalSend er gratis, open-source og reklamefri. Hvis du kan lide denne app, kan du støtte dens udvikling med en donation.';
-	@override String donate({required Object amount}) => 'Donation ${amount}';
+	@override String donate({required Object amount}) => 'Donér ${amount}';
 	@override String get thanks => 'Tusind tak for din støtte!';
 	@override String get restore => 'Genskab køb';
 }
@@ -385,7 +385,7 @@ class _StringsTrayDa extends _StringsTrayEn {
 
 	// Translations
 	@override String get open => _root.general.open;
-	@override String get close => 'LocalSend beenden';
+	@override String get close => 'Luk LocalSend';
 	@override String get closeWindows => 'Afslut';
 }
 
@@ -402,7 +402,7 @@ class _StringsWebDa extends _StringsWebEn {
 	@override String get tooManyAttempts => 'For mange forsøg';
 	@override String get rejected => 'Afvist';
 	@override String get files => 'Filer';
-	@override String get fileName => 'Filname';
+	@override String get fileName => 'Filnavn';
 	@override String get size => 'Størrelse';
 }
 
@@ -413,7 +413,7 @@ class _StringsAssetPickerDa extends _StringsAssetPickerEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get confirm => 'Bebkræft';
+	@override String get confirm => 'Bekræft';
 	@override String get cancel => 'Afbryd';
 	@override String get edit => 'Rediger';
 	@override String get gifIndicator => 'GIF';
@@ -425,7 +425,7 @@ class _StringsAssetPickerDa extends _StringsAssetPickerEn {
 	@override String get unSupportedAssetType => 'Formatet understøttes ikke.';
 	@override String get unableToAccessAll => 'Kan ikke tilgå alle filer på enheden.';
 	@override String get viewingLimitedAssetsTip => 'Vis kun filer og mapper tilgængelig for appen.';
-	@override String get changeAccessibleLimitedAssets => 'Click for at opdatere tilgængelige filer';
+	@override String get changeAccessibleLimitedAssets => 'Klik for at opdatere tilgængelige filer';
 	@override String get accessAllTip => 'Appen kan kun tilgå nogle filer på enheden. Åben venligst systemindstillingerne og giv appen adgang til alle medier på enheden.';
 	@override String get goToSystemSettings => 'Gå til systemindstillingerne';
 	@override String get accessLimitedAssets => 'Fortsæt med begrænset adgang';
@@ -489,7 +489,7 @@ class _StringsSendTabSendModesDa extends _StringsSendTabSendModesEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get single => 'Enkelt modtager';
+	@override String get single => 'Enkel modtager';
 	@override String get multiple => 'Flere modtagere';
 	@override String get link => 'Del med link';
 }
@@ -543,7 +543,7 @@ class _StringsSettingsTabSendDa extends _StringsSettingsTabSendEn {
 
 	// Translations
 	@override String get title => 'Send';
-	@override String get shareViaLinkAutoAccept => 'Accepter automatisk anmodninger i "Share via link"-tilstand';
+	@override String get shareViaLinkAutoAccept => 'Accepter automatisk anmodninger i "Del med link"-tilstand';
 }
 
 // Path: settingsTab.network
@@ -554,7 +554,7 @@ class _StringsSettingsTabNetworkDa extends _StringsSettingsTabNetworkEn {
 
 	// Translations
 	@override String get title => 'Netværk';
-	@override String get needRestart => 'Genstart serveren for at effektuere ændringer!';
+	@override String get needRestart => 'Genstart serveren for at anvende ændringerne!';
 	@override String get server => 'Server';
 	@override String get alias => 'Alias';
 	@override String get deviceType => 'Enhedstype';
@@ -576,7 +576,7 @@ class _StringsSettingsTabOtherDa extends _StringsSettingsTabOtherEn {
 	// Translations
 	@override String get title => 'Andet';
 	@override String get support => 'Støt LocalSend';
-	@override String get donate => 'Doner';
+	@override String get donate => 'Donér';
 	@override String get privacyPolicy => 'Privatlivspolitik';
 	@override String get termsOfUse => 'Brugsbetingelser';
 }
@@ -589,7 +589,7 @@ class _StringsTroubleshootPageFirewallDa extends _StringsTroubleshootPageFirewal
 
 	// Translations
 	@override String get symptom => 'Denne app kan sende filer til andre endheder, men ikke omvendt.';
-	@override String solution({required Object port}) => 'Dette er højsy sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port ${port} zulässt.';
+	@override String solution({required Object port}) => 'Dette er højst sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port ${port}.';
 	@override String get openFirewall => 'Åben firewall';
 }
 
@@ -662,7 +662,7 @@ class _StringsDialogsAddressInputDa extends _StringsDialogsAddressInputEn {
 	@override String get title => 'Skriv adresse';
 	@override String get hashtag => 'Hashtag';
 	@override String get ip => 'IP-adresse';
-	@override String get recentlyUsed => 'Senest brugt: ';
+	@override String get recentlyUsed => 'Senest brugt:';
 }
 
 // Path: dialogs.cancelSession
@@ -683,7 +683,7 @@ class _StringsDialogsCannotOpenFileDa extends _StringsDialogsCannotOpenFileEn {
 	@override final _StringsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kan ikke åbne fil';
+	@override String get title => 'Kan ikke åbne filen';
 	@override String content({required Object file}) => 'Filen "${file}" kunne ikke åbnes. Er denne fil blevet flyttet, omdøbt eller slettet?';
 }
 
@@ -695,7 +695,7 @@ class _StringsDialogsEncryptionDisabledNoticeDa extends _StringsDialogsEncryptio
 
 	// Translations
 	@override String get title => 'Kryptering slået fra';
-	@override String get content => 'Kommunikationen forløber nu over den ukrypterede HTTP-protokol. Aktiver krypteringe for igen at benytte HTTPS.';
+	@override String get content => 'Kommunikationen forløber nu over den ukrypterede HTTP-protokol. Aktiver kryptering for igen at benytte HTTPS.';
 }
 
 // Path: dialogs.errorDialog
@@ -716,7 +716,7 @@ class _StringsDialogsFavoriteDialogDa extends _StringsDialogsFavoriteDialogEn {
 
 	// Translations
 	@override String get title => 'Favoritter';
-	@override String get noFavorites => 'Ingen favoritten indstillet.';
+	@override String get noFavorites => 'Ingen favoritter indstillet.';
 	@override String get addFavorite => 'Ny';
 }
 
@@ -792,7 +792,7 @@ class _StringsDialogsLocalNetworkUnauthorizedDa extends _StringsDialogsLocalNetw
 	// Translations
 	@override String get title => _root.dialogs.noPermission.title;
 	@override String get description => 'LocalSend kan ikke finde andre enheder uden tilladelse til at scanne det lokale netværk. Giv venligst tilladelse i systemindstillingerne.';
-	@override String get gotoSettings => 'Einstellungen';
+	@override String get gotoSettings => 'Indstillinger';
 }
 
 // Path: dialogs.messageInput
@@ -814,7 +814,7 @@ class _StringsDialogsNoFilesDa extends _StringsDialogsNoFilesEn {
 
 	// Translations
 	@override String get title => 'Ingen fil valgt';
-	@override String get content => 'Vælg mindst en fil.';
+	@override String get content => 'Vælg mindst én fil.';
 }
 
 // Path: dialogs.noPermission

@@ -42,9 +42,11 @@ class _StringsNl extends Translations {
 	@override late final _StringsProgressPageNl progressPage = _StringsProgressPageNl._(_root);
 	@override late final _StringsWebSharePageNl webSharePage = _StringsWebSharePageNl._(_root);
 	@override late final _StringsAboutPageNl aboutPage = _StringsAboutPageNl._(_root);
+	@override late final _StringsDonationPageNl donationPage = _StringsDonationPageNl._(_root);
 	@override late final _StringsChangelogPageNl changelogPage = _StringsChangelogPageNl._(_root);
 	@override late final _StringsAliasGeneratorNl aliasGenerator = _StringsAliasGeneratorNl._(_root);
 	@override late final _StringsDialogsNl dialogs = _StringsDialogsNl._(_root);
+	@override late final _StringsSanitizationNl sanitization = _StringsSanitizationNl._(_root);
 	@override late final _StringsTrayNl tray = _StringsTrayNl._(_root);
 	@override late final _StringsWebNl web = _StringsWebNl._(_root);
 	@override late final _StringsAssetPickerNl assetPicker = _StringsAssetPickerNl._(_root);
@@ -64,17 +66,17 @@ class _StringsGeneralNl extends _StringsGeneralEn {
 	@override String get cancel => 'Annuleren';
 	@override String get close => 'Sluiten';
 	@override String get confirm => 'Bevestigen';
-	@override String get continueStr => 'Ga verder';
+	@override String get continueStr => 'Doorgaan';
 	@override String get copy => 'Kopiëren';
-	@override String get copiedToClipboard => 'Gekopieerd naar het klembord';
+	@override String get copiedToClipboard => 'Gekopieerd naar klembord';
 	@override String get decline => 'Weigeren';
-	@override String get done => 'Klaar';
+	@override String get done => 'Gereed';
 	@override String get delete => 'Verwijderen';
 	@override String get edit => 'Bewerken';
 	@override String get error => 'Fout';
 	@override String get example => 'Voorbeeld';
 	@override String get files => 'Bestanden';
-	@override String get finished => 'Afgewerkt';
+	@override String get finished => 'Voltooid';
 	@override String get hide => 'Verbergen';
 	@override String get off => 'Uit';
 	@override String get offline => 'Offline';
@@ -83,17 +85,18 @@ class _StringsGeneralNl extends _StringsGeneralEn {
 	@override String get open => 'Openen';
 	@override String get queue => 'Wachtrij';
 	@override String get quickSave => 'Snel opslaan';
+	@override String get quickSaveFromFavorites => 'Snel opslaan voor \'Favorieten\'';
 	@override String get renamed => 'Hernoemd';
-	@override String get reset => 'Reset';
-	@override String get restart => 'Herstarten';
+	@override String get reset => 'Herstellen';
+	@override String get restart => 'Opnieuw starten';
 	@override String get settings => 'Instellingen';
 	@override String get skipped => 'Overgeslagen';
-	@override String get start => 'Start';
-	@override String get stop => 'Stop';
+	@override String get start => 'Starten';
+	@override String get stop => 'Stoppen';
 	@override String get save => 'Opslaan';
 	@override String get unchanged => 'Ongewijzigd';
 	@override String get unknown => 'Onbekend';
-	@override String get noItemInClipboard => 'Niets in klembord';
+	@override String get noItemInClipboard => 'Het klembord is leeg.';
 }
 
 // Path: receiveTab
@@ -117,15 +120,16 @@ class _StringsSendTabNl extends _StringsSendTabEn {
 	@override String get title => 'Verzenden';
 	@override late final _StringsSendTabSelectionNl selection = _StringsSendTabSelectionNl._(_root);
 	@override late final _StringsSendTabPickerNl picker = _StringsSendTabPickerNl._(_root);
-	@override String get shareIntentInfo => 'Je kan ook de  "Delen" functie van je telefoon gebruiken om bestanden gemakkelijker te selecteren.';
+	@override String get shareIntentInfo => 'Je kunt ook de functie \'Delen\' van je mobiele apparaat gebruiken om gemakkelijker bestanden te selecteren.';
 	@override String get nearbyDevices => 'Apparaten in de buurt';
 	@override String get thisDevice => 'Dit apparaat';
-	@override String get scan => 'Zoek naar apparaten';
-	@override String get sendMode => 'Verzend modus';
+	@override String get scan => 'Apparaten zoeken';
+	@override String get manualSending => 'Handmatig verzenden';
+	@override String get sendMode => 'Verzendmodus';
 	@override late final _StringsSendTabSendModesNl sendModes = _StringsSendTabSendModesNl._(_root);
-	@override String get sendModeHelp => 'Info';
-	@override String get help => 'Zorg ervoor dat het gewenste doel zich ook in hetzelfde wifi-netwerk bevindt.';
-	@override String get placeItems => 'Plaats items om te delen.';
+	@override String get sendModeHelp => 'Informatie';
+	@override String get help => 'Zorg ervoor dat de ontvanger is verbonden met hetzelfde wifi-netwerk.';
+	@override String get placeItems => 'Zet items neer om te delen.';
 }
 
 // Path: settingsTab
@@ -138,7 +142,9 @@ class _StringsSettingsTabNl extends _StringsSettingsTabEn {
 	@override String get title => 'Instellingen';
 	@override late final _StringsSettingsTabGeneralNl general = _StringsSettingsTabGeneralNl._(_root);
 	@override late final _StringsSettingsTabReceiveNl receive = _StringsSettingsTabReceiveNl._(_root);
+	@override late final _StringsSettingsTabSendNl send = _StringsSettingsTabSendNl._(_root);
 	@override late final _StringsSettingsTabNetworkNl network = _StringsSettingsTabNetworkNl._(_root);
+	@override late final _StringsSettingsTabOtherNl other = _StringsSettingsTabOtherNl._(_root);
 	@override String get advancedSettings => 'Geavanceerde instellingen';
 }
 
@@ -149,11 +155,12 @@ class _StringsTroubleshootPageNl extends _StringsTroubleshootPageEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Probleem oplossen';
-	@override String get subTitle => 'Werkt de app niet als verwacht? Hier kun je algemene oplossingen vinden.';
+	@override String get title => 'Problemen oplossen';
+	@override String get subTitle => 'Werkt de app niet zoals verwacht? Op deze pagina vind je oplossingen voor veelvoorkomende problemen.';
 	@override String get solution => 'Oplossing:';
 	@override String get fixButton => 'Automatisch oplossen';
 	@override late final _StringsTroubleshootPageFirewallNl firewall = _StringsTroubleshootPageFirewallNl._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryNl noDiscovery = _StringsTroubleshootPageNoDiscoveryNl._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionNl noConnection = _StringsTroubleshootPageNoConnectionNl._(_root);
 }
 
@@ -165,7 +172,7 @@ class _StringsReceiveHistoryPageNl extends _StringsReceiveHistoryPageEn {
 
 	// Translations
 	@override String get title => 'Geschiedenis';
-	@override String get openFolder => 'Map openen ';
+	@override String get openFolder => 'Map openen';
 	@override String get deleteHistory => 'Geschiedenis verwijderen';
 	@override String get empty => 'De geschiedenis is leeg.';
 	@override late final _StringsReceiveHistoryPageEntryActionsNl entryActions = _StringsReceiveHistoryPageEntryActionsNl._(_root);
@@ -179,9 +186,9 @@ class _StringsApkPickerPageNl extends _StringsApkPickerPageEn {
 
 	// Translations
 	@override String get title => 'Apps (APK)';
-	@override String get excludeSystemApps => 'Sluit systeem-apps uit';
-	@override String get excludeAppsWithoutLaunchIntent => 'Sluit niet-startbare apps uit';
-	@override String apps({required Object n}) => '${n} Apps';
+	@override String get excludeSystemApps => 'Systeemapps uitsluiten';
+	@override String get excludeAppsWithoutLaunchIntent => 'Niet-startbare apps uitsluiten';
+	@override String apps({required Object n}) => '${n} apps';
 }
 
 // Path: selectedFilesPage
@@ -191,7 +198,7 @@ class _StringsSelectedFilesPageNl extends _StringsSelectedFilesPageEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get deleteAll => 'Verwijder alles';
+	@override String get deleteAll => 'Alles verwijderen';
 }
 
 // Path: receivePage
@@ -202,11 +209,11 @@ class _StringsReceivePageNl extends _StringsReceivePageEn {
 
 	// Translations
 	@override String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
-		one: 'wil je een bestand verzenden',
-		other: 'wil je ${n} bestanden verzenden',
+		one: 'wil een bestand naar je verzenden',
+		other: 'wil ${n} bestanden naar je verzenden',
 	);
-	@override String get subTitleMessage => 'heeft je een bericht verzonden:';
-	@override String get subTitleLink => 'heeft je een link verzonden:';
+	@override String get subTitleMessage => 'heeft een bericht naar je verzonden:';
+	@override String get subTitleLink => 'heeft een link naar je verzonden:';
 	@override String get canceled => 'De verzender heeft het verzoek geannuleerd.';
 }
 
@@ -219,9 +226,9 @@ class _StringsReceiveOptionsPageNl extends _StringsReceiveOptionsPageEn {
 	// Translations
 	@override String get title => 'Opties';
 	@override String get destination => _root.settingsTab.receive.destination;
-	@override String get appDirectory => '(LocalSend folder)';
+	@override String get appDirectory => '(LocalSend-map)';
 	@override String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-	@override String get saveToGalleryOff => 'Automatisch uitgezet want er zijn mappen.';
+	@override String get saveToGalleryOff => 'Automatisch uitgezet omdat er mappen bij zitten.';
 }
 
 // Path: sendPage
@@ -233,7 +240,8 @@ class _StringsSendPageNl extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'Wachten op antwoord...';
 	@override String get rejected => 'De ontvanger heeft het verzoek geweigerd.';
-	@override String get busy => 'De ontvanger is met een ander verzoek bezig.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
+	@override String get busy => 'De ontvanger is bezig met een ander verzoek.';
 }
 
 // Path: progressPage
@@ -243,9 +251,9 @@ class _StringsProgressPageNl extends _StringsProgressPageEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get titleSending => 'Verzenden bestanden';
-	@override String get titleReceiving => 'Ontvangen bestanden';
-	@override String get savedToGallery => 'Bewaard in foto\'s';
+	@override String get titleSending => 'Bestanden verzenden';
+	@override String get titleReceiving => 'Bestanden ontvangen';
+	@override String get savedToGallery => 'Opgeslagen in galerij';
 	@override late final _StringsProgressPageTotalNl total = _StringsProgressPageTotalNl._(_root);
 }
 
@@ -256,18 +264,21 @@ class _StringsWebSharePageNl extends _StringsWebSharePageEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Delen via weblink';
+	@override String get title => 'Delen via link';
 	@override String get loading => 'Server starten...';
 	@override String get stopping => 'Server stoppen...';
-	@override String get error => 'Onverwachte fout bij het opstarten van de server.';
+	@override String get error => 'Er is een fout opgetreden bij het starten van de server.';
 	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
-		one: 'Open deze link in de browser:',
-		other: 'Open een van deze links in de browser:',
+		one: 'Open deze link in je browser:',
+		other: 'Open een van deze links in je browser:',
 	);
 	@override String get requests => 'Verzoeken';
 	@override String get noRequests => 'Nog geen verzoeken.';
 	@override String get encryption => _root.settingsTab.network.encryption;
-	@override String get encryptionHint => 'LocalSend maakt gebruik van een zelfondertekend certificaat. U moet het accepteren in de browser.';
+	@override String get autoAccept => 'Verzoeken automatisch accepteren';
+	@override String get requirePin => 'Code vereisen';
+	@override String pinHint({required Object pin}) => 'De code is \'${pin}\'.';
+	@override String get encryptionHint => 'LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.';
 	@override String pendingRequests({required Object n}) => 'Openstaande verzoeken: ${n}';
 }
 
@@ -279,6 +290,28 @@ class _StringsAboutPageNl extends _StringsAboutPageEn {
 
 	// Translations
 	@override String get title => 'Over LocalSend';
+	@override List<String> get description => [
+		'LocalSend is een gratis en opensource app waarmee je veilig bestanden en berichten met apparaten op je lokale netwerk kunt delen, zonder internetverbinding.',
+		'De app is beschikbaar voor Android, iOS, macOS, Windows en Linux. Je vindt alle downloadopties op de officiële website.',
+	];
+	@override String get author => 'Auteur';
+	@override String get contributors => 'Bijdragers';
+	@override String get packagers => 'Distributeurs';
+	@override String get translators => 'Vertalers';
+}
+
+// Path: donationPage
+class _StringsDonationPageNl extends _StringsDonationPageEn {
+	_StringsDonationPageNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Doneren';
+	@override String get info => 'LocalSend is gratis, opensource en advertentievrij. Als je de app graag gebruikt, kun je de ontwikkeling steunen middels een donatie.';
+	@override String donate({required Object amount}) => '${amount} doneren';
+	@override String get thanks => 'Ontzettend bedankt!';
+	@override String get restore => 'Aankoop herstellen';
 }
 
 // Path: changelogPage
@@ -288,7 +321,7 @@ class _StringsChangelogPageNl extends _StringsChangelogPageEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Changelog';
+	@override String get title => 'Wijzigingenoverzicht';
 }
 
 // Path: aliasGenerator
@@ -327,7 +360,21 @@ class _StringsDialogsNl extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrNl qr = _StringsDialogsQrNl._(_root);
 	@override late final _StringsDialogsQuickActionsNl quickActions = _StringsDialogsQuickActionsNl._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeNl quickSaveNotice = _StringsDialogsQuickSaveNoticeNl._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeNl quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeNl._(_root);
+	@override late final _StringsDialogsPinNl pin = _StringsDialogsPinNl._(_root);
 	@override late final _StringsDialogsSendModeHelpNl sendModeHelp = _StringsDialogsSendModeHelpNl._(_root);
+	@override late final _StringsDialogsZoomNl zoom = _StringsDialogsZoomNl._(_root);
+}
+
+// Path: sanitization
+class _StringsSanitizationNl extends _StringsSanitizationEn {
+	_StringsSanitizationNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Bestandsnaam mag niet leeg zijn';
+	@override String get invalid => 'Bestandsnaam bevat ongeldige tekens';
 }
 
 // Path: tray
@@ -339,6 +386,7 @@ class _StringsTrayNl extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'LocalSend afsluiten';
+	@override String get closeWindows => 'Sluiten';
 }
 
 // Path: web
@@ -349,6 +397,9 @@ class _StringsWebNl extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'Vul de code in';
+	@override String get invalidPin => 'Ongeldige code';
+	@override String get tooManyAttempts => 'Te veel pogingen';
 	@override String get rejected => 'Geweigerd';
 	@override String get files => 'Bestanden';
 	@override String get fileName => 'Bestandsnaam';
@@ -363,30 +414,30 @@ class _StringsAssetPickerNl extends _StringsAssetPickerEn {
 
 	// Translations
 	@override String get confirm => 'Bevestigen';
-	@override String get cancel => 'Anuleren';
+	@override String get cancel => 'Annuleren';
 	@override String get edit => 'Bewerken';
 	@override String get gifIndicator => 'GIF';
-	@override String get loadFailed => 'Laadfout';
+	@override String get loadFailed => 'Laden mislukt';
 	@override String get original => 'Herkomst';
-	@override String get preview => 'Preview';
+	@override String get preview => 'Voorbeeld';
 	@override String get select => 'Selecteren';
 	@override String get emptyList => 'Lege lijst';
 	@override String get unSupportedAssetType => 'Niet-ondersteund bestandstype.';
-	@override String get unableToAccessAll => 'Geen toegang tot alle gegevens op apparaat';
-	@override String get viewingLimitedAssetsTip => 'Beperkte toegang tot gegevens voor deze app.';
-	@override String get changeAccessibleLimitedAssets => 'toegangelijke bestanden voor deze app aanpassen';
-	@override String get accessAllTip => 'De app heeft slechts beperkte toegang tot uw bestanden. Ga naar het instellingen menu van uw apparaat om de toegangsrechten aan te passen.';
-	@override String get goToSystemSettings => 'Ga naar het instellingen menu';
-	@override String get accessLimitedAssets => 'Behoud beperkte toegang tot bestanden';
-	@override String get accessiblePathName => 'Toegangkelijke bestanden';
+	@override String get unableToAccessAll => 'Geen toegang tot alle bestanden op het apparaat';
+	@override String get viewingLimitedAssetsTip => 'De app heeft beperkte toegang tot bestanden.';
+	@override String get changeAccessibleLimitedAssets => 'Toegankelijke bestanden aanpassen';
+	@override String get accessAllTip => 'De app heeft slechts beperkte toegang tot je bestanden. Ga naar de systeeminstellingen om de toegangsrechten aan te passen.';
+	@override String get goToSystemSettings => 'Naar systeeminstellingen';
+	@override String get accessLimitedAssets => 'Doorgaan met beperkte toegang';
+	@override String get accessiblePathName => 'Toegankelijke bestanden';
 	@override String get sTypeAudioLabel => 'Audio';
-	@override String get sTypeImageLabel => 'Fotos';
-	@override String get sTypeVideoLabel => 'Videos';
-	@override String get sTypeOtherLabel => 'andere media';
-	@override String get sActionPlayHint => 'Afspelen';
-	@override String get sActionPreviewHint => 'preview';
+	@override String get sTypeImageLabel => 'Foto\'s';
+	@override String get sTypeVideoLabel => 'Video\'s';
+	@override String get sTypeOtherLabel => 'Andere media';
+	@override String get sActionPlayHint => 'afspelen';
+	@override String get sActionPreviewHint => 'voorbeeld';
 	@override String get sActionSelectHint => 'selecteren';
-	@override String get sActionSwitchPathLabel => 'bestandspad aanpassen';
+	@override String get sActionSwitchPathLabel => 'pad wijzigen';
 	@override String get sActionUseCameraHint => 'camera gebruiken';
 	@override String get sNameDurationLabel => 'duur';
 	@override String get sUnitAssetCountLabel => 'aantal';
@@ -399,9 +450,9 @@ class _StringsReceiveTabInfoBoxNl extends _StringsReceiveTabInfoBoxEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get ip => 'IP:';
+	@override String get ip => 'IP-adres:';
 	@override String get port => 'Poort:';
-	@override String get alias => 'Alias:';
+	@override String get alias => 'Apparaatnaam:';
 }
 
 // Path: sendTab.selection
@@ -438,7 +489,7 @@ class _StringsSendTabSendModesNl extends _StringsSendTabSendModesEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get single => 'Één ontvanger';
+	@override String get single => 'Eén ontvanger';
 	@override String get multiple => 'Meerdere ontvangers';
 	@override String get link => 'Delen via link';
 }
@@ -457,10 +508,12 @@ class _StringsSettingsTabGeneralNl extends _StringsSettingsTabGeneralEn {
 	@override late final _StringsSettingsTabGeneralColorOptionsNl colorOptions = _StringsSettingsTabGeneralColorOptionsNl._(_root);
 	@override String get language => 'Taal';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsNl languageOptions = _StringsSettingsTabGeneralLanguageOptionsNl._(_root);
-	@override String get saveWindowPlacement => 'Afsluiten: Vensterindeling behouden';
-	@override String get minimizeToTray => 'Stoppen: Minimaliseer naar systeemvak';
-	@override String get launchAtStartup => 'Autostart na inloggen';
-	@override String get launchMinimized => 'Autostart: Start verborgen';
+	@override String get saveWindowPlacement => 'Afsluiten: vensterindeling behouden';
+	@override String get saveWindowPlacementWindows => 'Afsluiten: vensterindeling behouden';
+	@override String get minimizeToTray => 'Sluiten: minimaliseren naar systeemvak/menubalk';
+	@override String get launchAtStartup => 'Automatisch starten na aanmelden';
+	@override String get launchMinimized => 'Automatisch starten: verborgen';
+	@override String get showInContextMenu => 'LocalSend weergeven in contextmenu';
 	@override String get animations => 'Animaties';
 }
 
@@ -473,10 +526,24 @@ class _StringsSettingsTabReceiveNl extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Ontvangen';
 	@override String get quickSave => _root.general.quickSave;
-	@override String get destination => 'Bestemming';
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+	@override String get requirePin => _root.webSharePage.requirePin;
+	@override String get autoFinish => 'Automatisch voltooien';
+	@override String get destination => 'Opslaan in map';
 	@override String get downloads => '(Downloads)';
-	@override String get saveToGallery => 'Bewaar media in galerij';
+	@override String get saveToGallery => 'Media opslaan in galerij';
 	@override String get saveToHistory => 'Opslaan in geschiedenis';
+}
+
+// Path: settingsTab.send
+class _StringsSettingsTabSendNl extends _StringsSettingsTabSendEn {
+	_StringsSettingsTabSendNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Verzenden';
+	@override String get shareViaLinkAutoAccept => 'Automatisch verzoeken goedkeuren in modus \'Delen via link\'';
 }
 
 // Path: settingsTab.network
@@ -487,16 +554,31 @@ class _StringsSettingsTabNetworkNl extends _StringsSettingsTabNetworkEn {
 
 	// Translations
 	@override String get title => 'Netwerk';
-	@override String get needRestart => 'Server herstarten om instellingen toe te passen!';
+	@override String get needRestart => 'Start de server opnieuw op om de instellingen toe te passen.';
 	@override String get server => 'Server';
-	@override String get alias => 'Alias';
+	@override String get alias => 'Apparaatnaam';
 	@override String get deviceType => 'Apparaattype';
 	@override String get deviceModel => 'Apparaatmodel';
 	@override String get port => 'Poort';
-	@override String portWarning({required Object defaultPort}) => 'Je wordt mogelijk niet gedetecteerd door andere apparaten omdat je een aagepaste poort gebruikt. (standaard: ${defaultPort})';
-	@override String get encryption => 'Encryptie';
-	@override String get multicastGroup => 'Multicast';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Je wordt mogelijk niet gedetecteerd door andere apparaten omdate je een aangepast multicast-addres gebruikt. (standaard: ${defaultMulticast})';
+	@override String get discoveryTimeout => 'Time-out voor scannen';
+	@override String portWarning({required Object defaultPort}) => 'Je apparaat kan mogelijk niet worden gevonden omdat je een aangepaste poort gebruikt. (Standaard: ${defaultPort})';
+	@override String get encryption => 'Versleuteling';
+	@override String get multicastGroup => 'Multicast-adres';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: ${defaultMulticast})';
+}
+
+// Path: settingsTab.other
+class _StringsSettingsTabOtherNl extends _StringsSettingsTabOtherEn {
+	_StringsSettingsTabOtherNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Overig';
+	@override String get support => 'LocalSend steunen';
+	@override String get donate => 'Doneren';
+	@override String get privacyPolicy => 'Privacybeleid';
+	@override String get termsOfUse => 'Gebruiksvoorwaarden';
 }
 
 // Path: troubleshootPage.firewall
@@ -506,9 +588,20 @@ class _StringsTroubleshootPageFirewallNl extends _StringsTroubleshootPageFirewal
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Deze app kan bestanden verzenden naar andere apparaten maar andere apparaten kunnen geen bestanden verzenden naar dit apparaat.';
-	@override String solution({required Object port}) => 'Dit is hoogstwaarschijnlijk een firewall probleem. Je kan dit oplossen door inkomende verbindingen (UDP en TCP) toe te staan op poort ${port}.';
+	@override String get symptom => 'Dit apparaat kan bestanden naar andere apparaten verzenden, maar andere apparaten kunnen geen bestanden naar dit apparaat verzenden.';
+	@override String solution({required Object port}) => 'Dit is hoogstwaarschijnlijk een firewallprobleem. Je kunt dit oplossen door inkomende verbindingen (UDP en TCP) op poort ${port} toe te staan.';
 	@override String get openFirewall => 'Firewall openen';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryNl extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'Dit apparaat vindt geen andere apparaten.';
+	@override String get solution => 'Zorg ervoor dat alle apparaten met hetzelfde wifi-netwerk zijn verbonden en dat ze dezelfde configuratie hebben (poort, multicast-adres, versleuteling). Je kunt proberen het IP-adres van het apparaat handmatig in te vullen. Als dat werkt, kun je het apparaat toevoegen aan je favorieten, zodat het voortaan automatisch kan worden gevonden.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -518,8 +611,8 @@ class _StringsTroubleshootPageNoConnectionNl extends _StringsTroubleshootPageNoC
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Beide apparaten kunnen elkaar niet ontdekken en kunnen ook geen bestanden delen.';
-	@override String get solution => 'Het probleem doet zich aan beide kanten voor? Dan moet je ervoor zorgen dat beide apparaten zich in hetzelfde wifi-netwerk bevinden en dezelfde configuratie delen (poort, multicast-adres, encryptie). De wifi staat mogelijk geen communicatie tussen deelnemers toe. In dit geval moet deze optie op de router zijn ingeschakeld.';
+	@override String get symptom => 'Beide apparaten kunnen elkaar niet vinden en kunnen ook geen bestanden delen.';
+	@override String get solution => 'Doet het probleem zich aan beide kanten voor? Zorg er dan voor dat beide apparaten met hetzelfde wifi-netwerk zijn verbonden en dat ze dezelfde configuratie hebben (poort, multicast-address, versleuteling). Mogelijk is onderlinge communicatie tussen apparaten op het wifi-netwerk geblokkeerd (AP-isolatie). Dit moet je dan toestaan in de instellingen van je router.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -530,8 +623,9 @@ class _StringsReceiveHistoryPageEntryActionsNl extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'Bestand openen';
+	@override String get showInFolder => 'Weergeven in map';
 	@override String get info => 'Informatie';
-	@override String get deleteFromHistory => 'Uit geschiedenis verwijderen';
+	@override String get deleteFromHistory => 'Verwijderen uit geschiedenis';
 }
 
 // Path: progressPage.total
@@ -565,10 +659,10 @@ class _StringsDialogsAddressInputNl extends _StringsDialogsAddressInputEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Adres ingeven';
+	@override String get title => 'Vul een adres in';
 	@override String get hashtag => 'Hashtag';
-	@override String get ip => 'IP Adres';
-	@override String get recentlyUsed => 'Recent gebruikt: ';
+	@override String get ip => 'IP-adres';
+	@override String get recentlyUsed => 'Onlangs gebruikt: ';
 }
 
 // Path: dialogs.cancelSession
@@ -579,7 +673,7 @@ class _StringsDialogsCancelSessionNl extends _StringsDialogsCancelSessionEn {
 
 	// Translations
 	@override String get title => 'Bestandsoverdracht annuleren';
-	@override String get content => 'Weet je zeker dat je de bestandsoverdracht wil annuleren?';
+	@override String get content => 'Wil je de bestandsoverdracht annuleren?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -589,8 +683,8 @@ class _StringsDialogsCannotOpenFileNl extends _StringsDialogsCannotOpenFileEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Openen mislukt';
-	@override String content({required Object file}) => 'Kan het bestand "${file}" niet openen. Is het bestand van plaats veranderd, hernoemd of verwijderd?';
+	@override String get title => 'Kan bestand niet openen';
+	@override String content({required Object file}) => 'Het bestand \'${file}\' kan niet worden geopend. Het is mogelijk verplaatst, hernoemd of verwijderd.';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -600,8 +694,8 @@ class _StringsDialogsEncryptionDisabledNoticeNl extends _StringsDialogsEncryptio
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Encryptie uitgeschakeld';
-	@override String get content => 'Communicatie gebeurt nu via het onversleutelde HTTP-protocol. Schakel encryptie in om HTTPS opnieuw te gebruiken.';
+	@override String get title => 'Versleuteling uitgeschakeld';
+	@override String get content => 'Communicatie verloopt nu via het onversleutelde HTTP-protocol. Schakel versleuteling weer in om het HTTPS-protocol te gebruiken.';
 }
 
 // Path: dialogs.errorDialog
@@ -621,8 +715,8 @@ class _StringsDialogsFavoriteDialogNl extends _StringsDialogsFavoriteDialogEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Voorkeuren';
-	@override String get noFavorites => 'Geen Favoriete Apparaten';
+	@override String get title => 'Favorieten';
+	@override String get noFavorites => 'Nog geen favoriete apparaten.';
 	@override String get addFavorite => 'Toevoegen';
 }
 
@@ -633,8 +727,8 @@ class _StringsDialogsFavoriteDeleteDialogNl extends _StringsDialogsFavoriteDelet
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'uit voorkeuren verwijderen';
-	@override String content({required Object name}) => 'Weet u zeker dat u  "${name}" wilt verwijderen uit uw favorieten?';
+	@override String get title => 'Verwijderen uit favorieten';
+	@override String content({required Object name}) => 'Wil je \'${name}\' uit je favorieten verwijderen?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -644,11 +738,11 @@ class _StringsDialogsFavoriteEditDialogNl extends _StringsDialogsFavoriteEditDia
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get titleAdd => 'Aan Favorieten toevoegen';
-	@override String get titleEdit => 'Aanpassen';
-	@override String get name => 'Alias';
-	@override String get auto => '(auto)';
-	@override String get ip => 'IP Adres';
+	@override String get titleAdd => 'Toevoegen aan favorieten';
+	@override String get titleEdit => 'Instellingen';
+	@override String get name => 'Apparaatnaam';
+	@override String get auto => '(automatisch)';
+	@override String get ip => 'IP-adres';
 	@override String get port => 'Poort';
 }
 
@@ -662,9 +756,9 @@ class _StringsDialogsFileInfoNl extends _StringsDialogsFileInfoEn {
 	@override String get title => 'Bestandsinformatie';
 	@override String get fileName => 'Bestandsnaam:';
 	@override String get path => 'Locatie:';
-	@override String get size => 'Groote:';
-	@override String get sender => 'Verzender:';
-	@override String get time => 'Tijdstip:';
+	@override String get size => 'Grootte:';
+	@override String get sender => 'Afzender:';
+	@override String get time => 'Tijd:';
 }
 
 // Path: dialogs.fileNameInput
@@ -674,7 +768,7 @@ class _StringsDialogsFileNameInputNl extends _StringsDialogsFileNameInputEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Voer bestandsnaam in';
+	@override String get title => 'Vul een bestandsnaam in';
 	@override String original({required Object original}) => 'Origineel: ${original}';
 }
 
@@ -686,7 +780,7 @@ class _StringsDialogsHistoryClearDialogNl extends _StringsDialogsHistoryClearDia
 
 	// Translations
 	@override String get title => 'Geschiedenis wissen';
-	@override String get content => 'Weet u zeker dat u de geschiedenis wilt wissen?';
+	@override String get content => 'Wil je de volledige geschiedenis verwijderen?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -697,7 +791,7 @@ class _StringsDialogsLocalNetworkUnauthorizedNl extends _StringsDialogsLocalNetw
 
 	// Translations
 	@override String get title => _root.dialogs.noPermission.title;
-	@override String get description => 'LocalSend kan geen andere apparaten op uw netwerk vinden zonder de juiste rechten voor netwerktoegang te hebben verkregen. Stel deze correct in in het instellingen menu.';
+	@override String get description => 'LocalSend heeft rechten nodig om op het lokale netwerk naar andere apparaten te kunnen zoeken. Verleen deze rechten in de instellingen.';
 	@override String get gotoSettings => 'Instellingen';
 }
 
@@ -708,8 +802,8 @@ class _StringsDialogsMessageInputNl extends _StringsDialogsMessageInputEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Typ bericht';
-	@override String get multiline => 'Meerdere lijnen';
+	@override String get title => 'Typ een bericht';
+	@override String get multiline => 'Meerdere regels';
 }
 
 // Path: dialogs.noFiles
@@ -719,8 +813,8 @@ class _StringsDialogsNoFilesNl extends _StringsDialogsNoFilesEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Geen bestand geselecteerd';
-	@override String get content => 'Selecteer minstens één bestand.';
+	@override String get title => 'Geen bestanden geselecteerd';
+	@override String get content => 'Selecteer ten minste één bestand.';
 }
 
 // Path: dialogs.noPermission
@@ -731,7 +825,7 @@ class _StringsDialogsNoPermissionNl extends _StringsDialogsNoPermissionEn {
 
 	// Translations
 	@override String get title => 'Geen rechten';
-	@override String get content => 'U heeft de benodigde rechten niet verleend. Verleen deze alstublieft in de instellingen.';
+	@override String get content => 'Je hebt de benodigde rechten niet verleend. Verleen deze in de instellingen.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -742,7 +836,7 @@ class _StringsDialogsNotAvailableOnPlatformNl extends _StringsDialogsNotAvailabl
 
 	// Translations
 	@override String get title => 'Niet beschikbaar';
-	@override String get content => 'Deze functie is enkel beschikbaar op:';
+	@override String get content => 'Deze functie is alleen beschikbaar op:';
 }
 
 // Path: dialogs.qr
@@ -752,7 +846,7 @@ class _StringsDialogsQrNl extends _StringsDialogsQrEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'QR Code';
+	@override String get title => 'QR-code';
 }
 
 // Path: dialogs.quickActions
@@ -764,9 +858,9 @@ class _StringsDialogsQuickActionsNl extends _StringsDialogsQuickActionsEn {
 	// Translations
 	@override String get title => 'Snelle acties';
 	@override String get counter => 'Teller';
-	@override String get prefix => 'Prefix';
-	@override String get padZero => 'Met nullen aanvullen';
-	@override String get sortBeforeCount => 'Vooraf alfabetisch sorteren';
+	@override String get prefix => 'Voorvoegsel';
+	@override String get padZero => 'Aanvullen met nullen';
+	@override String get sortBeforeCount => 'Vooraf alfabetisch sorteren (A-Z)';
 	@override String get random => 'Willekeurig';
 }
 
@@ -778,7 +872,28 @@ class _StringsDialogsQuickSaveNoticeNl extends _StringsDialogsQuickSaveNoticeEn 
 
 	// Translations
 	@override String get title => _root.general.quickSave;
-	@override String get content => 'Bestandsoverdrachten worden automatisch geaccepteerd. Houd er rekening mee dat iedereen in het lokale netwerk je bestanden kan sturen.';
+	@override String get content => 'Bestandsverzoeken worden nu automatisch geaccepteerd. Iedereen op het lokale netwerk kan nu dus bestanden naar je verzenden.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeNl extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Bestandsverzoeken van je favoriete apparaten worden nu automatisch geaccepteerd.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinNl extends _StringsDialogsPinEn {
+	_StringsDialogsPinNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vul de code in';
 }
 
 // Path: dialogs.sendModeHelp
@@ -788,10 +903,20 @@ class _StringsDialogsSendModeHelpNl extends _StringsDialogsSendModeHelpEn {
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Verzend opties';
-	@override String get single => 'Naar één ontvanger zenden. Selectie de-selecteren na verzending.';
-	@override String get multiple => 'Naar meerdere ontvangers zenden. Selectie blijft geselecteerd na verzending.';
-	@override String get link => 'Ontvangers die de app niet hebben geïnstalleerd kunnen bestanden downloaden door de link in hun browser te openen.';
+	@override String get title => 'Verzendmodi';
+	@override String get single => 'Bestanden naar één ontvanger verzenden. De selectie wordt na de bestandsoverdracht gewist.';
+	@override String get multiple => 'Bestanden naar meerdere ontvangers verzenden. De selectie blijft na de bestandsoverdracht behouden.';
+	@override String get link => 'Ontvangers die LocalSend niet hebben geïnstalleerd kunnen de bestanden downloaden door de link in hun browser te openen.';
+}
+
+// Path: dialogs.zoom
+class _StringsDialogsZoomNl extends _StringsDialogsZoomEn {
+	_StringsDialogsZoomNl._(_StringsNl root) : this._root = root, super._(root);
+
+	@override final _StringsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -834,8 +959,8 @@ class _StringsProgressPageTotalTitleNl extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Totale vooruitgang (${time})';
-	@override String get finishedError => 'Afgerond met een foutmelding';
-	@override String get canceledSender => 'Geannuleerd door de verzender';
-	@override String get canceledReceiver => 'Geannuleerd door de ontvanger';
+	@override String sending({required Object time}) => 'Totale voortgang (${time})';
+	@override String get finishedError => 'Voltooid met fouten';
+	@override String get canceledSender => 'Geannuleerd door verzender';
+	@override String get canceledReceiver => 'Geannuleerd door ontvanger';
 }

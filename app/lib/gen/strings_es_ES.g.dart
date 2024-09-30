@@ -85,6 +85,7 @@ class _StringsGeneralEsEs extends _StringsGeneralEn {
 	@override String get open => 'Abrir';
 	@override String get queue => 'Cola';
 	@override String get quickSave => 'Guardado Rápido';
+	@override String get quickSaveFromFavorites => 'Guardado rápido en "Favoritos"';
 	@override String get renamed => 'Renombrado';
 	@override String get reset => 'Resetear';
 	@override String get restart => 'Reiniciar';
@@ -359,6 +360,7 @@ class _StringsDialogsEsEs extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrEsEs qr = _StringsDialogsQrEsEs._(_root);
 	@override late final _StringsDialogsQuickActionsEsEs quickActions = _StringsDialogsQuickActionsEsEs._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeEsEs quickSaveNotice = _StringsDialogsQuickSaveNoticeEsEs._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeEsEs quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeEsEs._(_root);
 	@override late final _StringsDialogsPinEsEs pin = _StringsDialogsPinEsEs._(_root);
 	@override late final _StringsDialogsSendModeHelpEsEs sendModeHelp = _StringsDialogsSendModeHelpEsEs._(_root);
 	@override late final _StringsDialogsZoomEsEs zoom = _StringsDialogsZoomEsEs._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveEsEs extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Recibir';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Auto finalizar';
 	@override String get destination => 'Destino';
@@ -870,6 +873,17 @@ class _StringsDialogsQuickSaveNoticeEsEs extends _StringsDialogsQuickSaveNoticeE
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeEsEs extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeEsEs._(_StringsEsEs root) : this._root = root, super._(root);
+
+	@override final _StringsEsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Las solicitudes de archivos ahora se aceptarán automáticamente desde los dispositivos incluidos en t lista de favoritos.';
 }
 
 // Path: dialogs.pin

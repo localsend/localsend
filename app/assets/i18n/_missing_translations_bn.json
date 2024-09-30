@@ -23,7 +23,9 @@
       "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Discovery Timeout",
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
   },
   "troubleshootPage": {

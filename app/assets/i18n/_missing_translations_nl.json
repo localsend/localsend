@@ -3,95 +3,10 @@
     "Here are translations that exist in <en> but not in <nl>.",
     "After editing this file, you can run 'dart run slang apply --locale=nl' to quickly apply the newly added translations."
   ],
-  "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
-  },
-  "sendTab": {
-    "manualSending": "Manual sending"
-  },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
-    },
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "Auto Finish"
-    },
-    "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
-    },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
-    },
-    "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Show in folder"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "autoAccept": "Automatically accept requests",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
-  },
-  "aboutPage": {
-    "description": [
-      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
-      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
-    ],
-    "author": "Author",
-    "contributors": "Contributors",
-    "packagers": "Packagers",
-    "translators": "Translators"
-  },
-  "donationPage": {
-    "title": "Donate",
-    "info": "LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.",
-    "donate": "Donate {amount}",
-    "thanks": "Thank you very much!",
-    "restore": "Restore purchase"
-  },
-  "dialogs": {
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
-    },
-    "pin": {
-      "title": "Enter PIN"
-    },
-    "zoom": {
-      "title": "URL"
-    }
-  },
-  "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
-  },
-  "tray": {
-    "closeWindows": "Exit"
-  },
-  "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
   }
 }

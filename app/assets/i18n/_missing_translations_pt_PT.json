@@ -17,6 +17,10 @@
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin"
+    },
+    "network": {
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
   },
   "troubleshootPage": {

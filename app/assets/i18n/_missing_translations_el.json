@@ -19,7 +19,9 @@
       "requirePin": "@:webSharePage.requirePin"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Discovery Timeout",
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
   },
   "troubleshootPage": {

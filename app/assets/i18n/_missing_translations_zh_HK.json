@@ -15,6 +15,10 @@
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+    },
+    "network": {
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
   },
   "troubleshootPage": {

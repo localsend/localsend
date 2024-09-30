@@ -1,0 +1,25 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <ms>.",
+    "After editing this file, you can run 'dart run slang apply --locale=ms' to quickly apply the newly added translations."
+  ],
+  "settingsTab": {
+    "general": {
+      "saveWindowPlacementWindows": "Save window position after exit"
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "webSharePage": {
+    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser."
+  },
+  "aboutPage": {
+    "packagers": "Packagers"
+  },
+  "web": {
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts"
+  }
+}

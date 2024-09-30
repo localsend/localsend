@@ -561,6 +561,8 @@ class _StringsSettingsTabNetworkPl extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'Model urządzenia';
 	@override String get port => 'Port';
 	@override String get discoveryTimeout => 'Limit czasu wykrywania';
+	@override String get useSystemName => 'Użyj nazwy systemu';
+	@override String get generateRandomAlias => 'Wygeneruj losowy alias';
 	@override String portWarning({required Object defaultPort}) => 'Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: ${defaultPort})';
 	@override String get encryption => 'Szyfrowanie';
 	@override String get multicastGroup => 'Multicast';
