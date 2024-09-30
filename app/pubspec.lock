@@ -1004,10 +1004,11 @@ packages:
   pasteboard:
     dependency: "direct main"
     description:
-      name: pasteboard
-      sha256: "7bf733f3a00c7188ec1f2c6f0612854248b302cf91ef3611a2b7bb141c0f9d55"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/pasteboard"
+      ref: "58748dae405df5e68a131e4905d48e75d0624be2"
+      resolved-ref: "58748dae405df5e68a131e4905d48e75d0624be2"
+      url: "https://github.com/Seidko/flutter-plugins.git"
+    source: git
     version: "0.3.0"
   path:
     dependency: "direct main"
@@ -1134,10 +1135,10 @@ packages:
     dependency: transitive
     description:
       name: photo_manager
-      sha256: "2b5c0d02014b64b971e57aa840ae7d7ffd81b0482a082579eb17ff83e5dc408e"
+      sha256: "32a1ce1095aeaaa792a29f28c1f74613aa75109f21c2d4ab85be3ad9964230a4"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "3.5.0"
   photo_manager_image_provider:
     dependency: transitive
     description:

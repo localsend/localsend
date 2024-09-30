@@ -84,6 +84,12 @@ dev_dependencies:
   test: ^1.24.7
 
 dependency_overrides:
+  pasteboard:
+    # This is temporary workaround, wait upstream for update
+    git:
+      url: https://github.com/Seidko/flutter-plugins.git
+      ref: 58748dae405df5e68a131e4905d48e75d0624be2
+      path: packages/pasteboard
   permission_handler_windows:
     # Remove windows support as it causes trouble with Windows 7
     # https://github.com/Baseflow/flutter-permission-handler/issues/1034
