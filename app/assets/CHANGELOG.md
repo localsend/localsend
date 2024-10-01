@@ -13,6 +13,7 @@
 - feat(macos): also have autostart option in sandboxed version (App Store) (@ShlomoCode)
 - fix(macos): reopen app from launchpad after minimizing to menu bar should make window visible (@ShlomoCode)
 - i18n: add Slovak (@dodog)
+- i18n: add Malaysian (@Gloridust)
 
 ## 1.15.4 (2024-08-20)
 
