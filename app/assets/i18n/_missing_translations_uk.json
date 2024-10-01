@@ -5,7 +5,7 @@
   ],
   "settingsTab": {
     "network": {
-      "useSystemName": "Використати ім'я системи",
+      "useSystemName": "Використати системне ім'я",
       "generateRandomAlias": "Згенерувати випадковий псевдонім"
     }
   }
