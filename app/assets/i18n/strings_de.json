@@ -157,7 +157,7 @@
       "solution": "Stelle sicher, dass alle Geräte im selben Wi-Fi-Netzwerk sind und die gleiche Konfiguration teilen (Port, Multicast-Adresse, Verschlüsselung). Du kannst versuchen, die IP-Adresse des Zielgeräts manuell einzugeben. Wenn dies funktioniert, füge dieses Gerät zu den Favoriten hinzu, damit es in Zukunft automatisch entdeckt werden kann."
     },
     "noConnection": {
-      "symptom": "Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.",
+      "symptom": "Beide Geräte können sich weder sehen noch können sie Dateien miteinander teilen.",
       "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden."
     }
   },
@@ -235,7 +235,7 @@
     "autoAccept": "Anfragen automatisch akzeptieren",
     "requirePin": "PIN erforderlich",
     "pinHint": "Die PIN lautet \"{pin}\"",
-    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
+    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
@@ -246,18 +246,18 @@
     ],
     "author": "Autor",
     "contributors": "Mitwirkende",
-    "packagers": "Packagers",
-    "translators": "Übersetzer:innen"
+    "packagers": "Paketierende",
+    "translators": "Übersetzende"
   },
   "donationPage": {
     "title": "Spenden",
-    "info": "LocalSend ist kostenlos, open-source und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.",
+    "info": "LocalSend ist kostenlos, quelloffen und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.",
     "donate": "Spende {amount}",
     "thanks": "Vielen Dank für deine Unterstützung!",
-    "restore": "Käufe Wiederherstellen"
+    "restore": "Käufe wiederherstellen"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "Änderungsprotokoll"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -302,7 +302,7 @@
       "titleEdit": "Favorit bearbeiten",
       "name": "Name",
       "auto": "(auto)",
-      "ip": "IP-Addresse",
+      "ip": "IP-Adresse",
       "port": "Port"
     },
     "fileInfo": {
@@ -336,7 +336,7 @@
     },
     "noPermission": {
       "title": "Keine Berechtigung",
-      "content": "Sie haben die erforderlichen Berechtigungen nicht gewährt. Bitte gewähren Sie sie in den Einstellungen."
+      "content": "Du hast die erforderlichen Berechtigungen nicht gewährt. Bitte gewähre sie in den Einstellungen."
     },
     "notAvailableOnPlatform": {
       "title": "Nicht verfügbar",
@@ -403,11 +403,11 @@
     "emptyList": "Leere Liste",
     "unSupportedAssetType": "Format ist nicht unterstützt.",
     "unableToAccessAll": "Zugriff nicht möglich",
-    "viewingLimitedAssetsTip": "Zeigen Sie nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "viewingLimitedAssetsTip": "Zeige nur Dateien und Alben an, auf die die App zugreifen kann.",
     "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
-    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
+    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlauben der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
     "goToSystemSettings": "Gehe zu den Systemeinstellungen",
-    "accessLimitedAssets": "Fahre fort mit limitiertem Zugriff",
+    "accessLimitedAssets": "Fahre mit eingeschränktem Zugriff fort",
     "accessiblePathName": "Verfügbare Assets",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Bild",
