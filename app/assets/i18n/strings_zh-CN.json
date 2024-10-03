@@ -130,6 +130,8 @@
       "deviceModel": "设备型号",
       "port": "端口",
       "discoveryTimeout": "搜索设备超时",
+      "useSystemName": "使用系统名称",
+      "generateRandomAlias": "生成随机昵称",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多播",
