@@ -32,6 +32,7 @@ class SettingsState with SettingsStateMappable {
   final String? deviceModel;
   final bool shareViaLinkAutoAccept;
   final int discoveryTimeout;
+  final bool advancedSettings;
 
   const SettingsState({
     required this.showToken,
@@ -57,5 +58,6 @@ class SettingsState with SettingsStateMappable {
     required this.deviceModel,
     required this.shareViaLinkAutoAccept,
     required this.discoveryTimeout,
+    required this.advancedSettings,
   });
 }

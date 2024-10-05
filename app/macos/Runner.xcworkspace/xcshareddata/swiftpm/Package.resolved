@@ -1,0 +1,24 @@
+{
+  "originHash" : "72ae1b64a4d55b124e5d523ea3b7e7432749772550fc8b66a0f17a2caa5d4dc1",
+  "pins" : [
+    {
+      "identity" : "dockprogress",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/DockProgress",
+      "state" : {
+        "revision" : "d4f23b5a8f5ca0fac393eb7ba78c2fe3e32e52da",
+        "version" : "4.3.1"
+      }
+    },
+    {
+      "identity" : "launchatlogin-legacy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/LaunchAtLogin-Legacy",
+      "state" : {
+        "revision" : "9a894d799269cb591037f9f9cb0961510d4dca81",
+        "version" : "5.0.2"
+      }
+    }
+  ],
+  "version" : 3
+}

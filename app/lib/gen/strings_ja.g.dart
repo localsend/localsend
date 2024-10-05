@@ -85,6 +85,7 @@ class _StringsGeneralJa extends _StringsGeneralEn {
 	@override String get open => '開く';
 	@override String get queue => '順番待ち';
 	@override String get quickSave => 'クイックセーブ';
+	@override String get quickSaveFromFavorites => '"Favorites"からクイックセーブ';
 	@override String get renamed => '改名済み';
 	@override String get reset => 'リセット';
 	@override String get restart => '再起動';
@@ -359,6 +360,7 @@ class _StringsDialogsJa extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrJa qr = _StringsDialogsQrJa._(_root);
 	@override late final _StringsDialogsQuickActionsJa quickActions = _StringsDialogsQuickActionsJa._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeJa quickSaveNotice = _StringsDialogsQuickSaveNoticeJa._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeJa quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeJa._(_root);
 	@override late final _StringsDialogsPinJa pin = _StringsDialogsPinJa._(_root);
 	@override late final _StringsDialogsSendModeHelpJa sendModeHelp = _StringsDialogsSendModeHelpJa._(_root);
 	@override late final _StringsDialogsZoomJa zoom = _StringsDialogsZoomJa._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveJa extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => '受信';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => '自動で完了';
 	@override String get destination => '保存先';
@@ -870,6 +873,17 @@ class _StringsDialogsQuickSaveNoticeJa extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeJa extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'お気に入りにあるデバイスからのファイルリクエストが自動で承諾されます。';
 }
 
 // Path: dialogs.pin

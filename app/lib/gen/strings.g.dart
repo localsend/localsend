@@ -3,8 +3,8 @@
 /// Original: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 42
-/// Strings: 12994 (309 per locale)
+/// Locales: 44
+/// Strings: 13894 (315 per locale)
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -38,6 +38,7 @@ part 'strings_it.g.dart';
 part 'strings_ja.g.dart';
 part 'strings_km.g.dart';
 part 'strings_ko.g.dart';
+part 'strings_ms.g.dart';
 part 'strings_ne.g.dart';
 part 'strings_nl.g.dart';
 part 'strings_pl.g.dart';
@@ -45,6 +46,7 @@ part 'strings_pt_BR.g.dart';
 part 'strings_pt_PT.g.dart';
 part 'strings_ro.g.dart';
 part 'strings_ru.g.dart';
+part 'strings_sk.g.dart';
 part 'strings_sr.g.dart';
 part 'strings_sr_Cyrl.g.dart';
 part 'strings_sv.g.dart';
@@ -90,6 +92,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	ja(languageCode: 'ja', build: _StringsJa.build),
 	km(languageCode: 'km', build: _StringsKm.build),
 	ko(languageCode: 'ko', build: _StringsKo.build),
+	ms(languageCode: 'ms', build: _StringsMs.build),
 	ne(languageCode: 'ne', build: _StringsNe.build),
 	nl(languageCode: 'nl', build: _StringsNl.build),
 	pl(languageCode: 'pl', build: _StringsPl.build),
@@ -97,6 +100,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	ptPt(languageCode: 'pt', countryCode: 'PT', build: _StringsPtPt.build),
 	ro(languageCode: 'ro', build: _StringsRo.build),
 	ru(languageCode: 'ru', build: _StringsRu.build),
+	sk(languageCode: 'sk', build: _StringsSk.build),
 	sr(languageCode: 'sr', build: _StringsSr.build),
 	srCyrl(languageCode: 'sr', scriptCode: 'Cyrl', build: _StringsSrCyrl.build),
 	sv(languageCode: 'sv', build: _StringsSv.build),

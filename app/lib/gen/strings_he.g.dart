@@ -79,12 +79,13 @@ class _StringsGeneralHe extends _StringsGeneralEn {
 	@override String get finished => 'הסתיים';
 	@override String get hide => 'הסתרה';
 	@override String get off => 'כבויה';
-	@override String get offline => 'אין אינטרנט';
+	@override String get offline => 'כבוי';
 	@override String get on => 'פעילה';
 	@override String get online => 'מקוון';
 	@override String get open => 'פתח';
 	@override String get queue => 'תור';
 	@override String get quickSave => 'שמירה מהירה';
+	@override String get quickSaveFromFavorites => 'שמירה מהירה מהמועדפים';
 	@override String get renamed => 'שונה שם';
 	@override String get reset => 'איפוס';
 	@override String get restart => 'הפעל מחדש';
@@ -123,6 +124,7 @@ class _StringsSendTabHe extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'מכשירים בקרבת מקום';
 	@override String get thisDevice => 'המכשיר הזה';
 	@override String get scan => 'חפש מכשירים';
+	@override String get manualSending => 'שליחה ידנית';
 	@override String get sendMode => 'מצב שליחה';
 	@override late final _StringsSendTabSendModesHe sendModes = _StringsSendTabSendModesHe._(_root);
 	@override String get sendModeHelp => 'עזרה';
@@ -158,6 +160,7 @@ class _StringsTroubleshootPageHe extends _StringsTroubleshootPageEn {
 	@override String get solution => 'פתרון:';
 	@override String get fixButton => 'תקן אוטומטית';
 	@override late final _StringsTroubleshootPageFirewallHe firewall = _StringsTroubleshootPageFirewallHe._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryHe noDiscovery = _StringsTroubleshootPageNoDiscoveryHe._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionHe noConnection = _StringsTroubleshootPageNoConnectionHe._(_root);
 }
 
@@ -293,6 +296,7 @@ class _StringsAboutPageHe extends _StringsAboutPageEn {
 	];
 	@override String get author => 'יוצר';
 	@override String get contributors => 'תורמים';
+	@override String get packagers => 'אורזים';
 	@override String get translators => 'מתרגמים';
 }
 
@@ -356,6 +360,7 @@ class _StringsDialogsHe extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrHe qr = _StringsDialogsQrHe._(_root);
 	@override late final _StringsDialogsQuickActionsHe quickActions = _StringsDialogsQuickActionsHe._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeHe quickSaveNotice = _StringsDialogsQuickSaveNoticeHe._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeHe quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeHe._(_root);
 	@override late final _StringsDialogsPinHe pin = _StringsDialogsPinHe._(_root);
 	@override late final _StringsDialogsSendModeHelpHe sendModeHelp = _StringsDialogsSendModeHelpHe._(_root);
 	@override late final _StringsDialogsZoomHe zoom = _StringsDialogsZoomHe._(_root);
@@ -381,6 +386,7 @@ class _StringsTrayHe extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'צא מ-LocalSend';
+	@override String get closeWindows => 'יציאה';
 }
 
 // Path: web
@@ -503,6 +509,7 @@ class _StringsSettingsTabGeneralHe extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'שפה';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsHe languageOptions = _StringsSettingsTabGeneralLanguageOptionsHe._(_root);
 	@override String get saveWindowPlacement => 'יציאה: שמירת מיקום החלון';
+	@override String get saveWindowPlacementWindows => 'שמור את מיקום החלון בעת יציאה';
 	@override String get minimizeToTray => 'יציאה: מזעור למגש';
 	@override String get launchAtStartup => 'הפעלה אוטומטית לאחר הכניסה';
 	@override String get launchMinimized => 'הפעלה אוטומטית: התחל מוסתר';
@@ -519,6 +526,7 @@ class _StringsSettingsTabReceiveHe extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'קבלה';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'סיום אוטומטי';
 	@override String get destination => 'יעד';
@@ -553,6 +561,8 @@ class _StringsSettingsTabNetworkHe extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'דגם המכשיר';
 	@override String get port => 'יציאה';
 	@override String get discoveryTimeout => 'זמן קצוב לגילוי';
+	@override String get useSystemName => 'השתמש בשם מערכת';
+	@override String get generateRandomAlias => 'צור כינוי אקראי';
 	@override String portWarning({required Object defaultPort}) => 'יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: ${defaultPort})';
 	@override String get encryption => 'הצפנה';
 	@override String get multicastGroup => 'מולטיקאסט';
@@ -583,6 +593,17 @@ class _StringsTroubleshootPageFirewallHe extends _StringsTroubleshootPageFirewal
 	@override String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה';
 	@override String solution({required Object port}) => 'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
 	@override String get openFirewall => 'פתח את חומת האש';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryHe extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'המכשיר הזה לא מצליח לגלות מכשירים אחרים.';
+	@override String get solution => 'אנא ודא שכל המכשירים נמצאים באותה רשת Wi-Fi וחולקים את אותה תצורה (יציאה, כתובת ריבוי שידור, הצפנה). אתה יכול לנסות להקליד את כתובת ה-IP של מכשיר היעד באופן ידני. אם זה יעבוד, שקול להוסיף את המכשיר למועדפים כדי שניתן יהיה לגלות אותו אוטומטית בעתיד.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -806,7 +827,7 @@ class _StringsDialogsNoPermissionHe extends _StringsDialogsNoPermissionEn {
 
 	// Translations
 	@override String get title => 'אין הרשאה';
-	@override String get content => 'אתה לא נתת הרשאות הנדרשות. אנא הענק את הרשאות בהגדרות.';
+	@override String get content => 'לא הענקת את ההרשאות הנדרשות. אנא הענק את ההרשאות בהגדרות.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -854,6 +875,17 @@ class _StringsDialogsQuickSaveNoticeHe extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeHe extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeHe._(_StringsHe root) : this._root = root, super._(root);
+
+	@override final _StringsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'בקשות שליחה מתקבלות אוטומטית ממכשירים ברשימת המועדפים שלך.';
 }
 
 // Path: dialogs.pin

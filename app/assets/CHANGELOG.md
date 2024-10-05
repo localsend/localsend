@@ -2,9 +2,18 @@
 
 - feat: add option to automatically receive files only from favorites (@Davte)
 - feat: only automatically finish when files are either successfully received or skipped (@Tienisto)
-- feat(macos): drag-and-drop files and text into menu bar icon (@ShlomoCode)
-- feat(macos): include LocalSend as a share target in the share menu (@ShlomoCode)
 - feat: improve various padding and spacing issues in RTL languages (@ShlomoCode)
+- feat: persist "advanced settings" toggle (@Nolle10)
+- feat: add alias-regeneration button and alias update dialog (@Nolle10)
+- feat(macos): drag-and-drop files and text into menu bar icon (@ShlomoCode)
+- feat(macos): drag-and-drop text into the app icon (@ShlomoCode)
+- feat(macos): include LocalSend as a share target in the share menu (@ShlomoCode)
+- feat(macos): starts hidden in menu bar instead of being minimized when autostart is enabled (@ShlomoCode)
+- feat(macos): show error and success state in the app icon (@ShlomoCode, @Tienisto)
+- feat(macos): also have autostart option in sandboxed version (App Store) (@ShlomoCode)
+- fix(macos): reopen app from launchpad after minimizing to menu bar should make window visible (@ShlomoCode)
+- i18n: add Slovak (@dodog)
+- i18n: add Malaysian (@Gloridust)
 
 ## 1.15.4 (2024-08-20)
 

@@ -85,6 +85,7 @@ class _StringsGeneralRu extends _StringsGeneralEn {
 	@override String get open => 'Открыть';
 	@override String get queue => 'Очередь';
 	@override String get quickSave => 'Быстрое сохранение';
+	@override String get quickSaveFromFavorites => 'Быстрое сохранение для "Избранных"';
 	@override String get renamed => 'Переименовано';
 	@override String get reset => 'Отменить изменения';
 	@override String get restart => 'Перезапустить';
@@ -359,6 +360,7 @@ class _StringsDialogsRu extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrRu qr = _StringsDialogsQrRu._(_root);
 	@override late final _StringsDialogsQuickActionsRu quickActions = _StringsDialogsQuickActionsRu._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeRu quickSaveNotice = _StringsDialogsQuickSaveNoticeRu._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeRu quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeRu._(_root);
 	@override late final _StringsDialogsPinRu pin = _StringsDialogsPinRu._(_root);
 	@override late final _StringsDialogsSendModeHelpRu sendModeHelp = _StringsDialogsSendModeHelpRu._(_root);
 	@override late final _StringsDialogsZoomRu zoom = _StringsDialogsZoomRu._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveRu extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Получение';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Автозавершение';
 	@override String get destination => 'Сохранять в папку';
@@ -558,6 +561,8 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'Модель устройства';
 	@override String get port => 'Порт';
 	@override String get discoveryTimeout => 'Тайм-аут поиска';
+	@override String get useSystemName => 'Использовать системное имя';
+	@override String get generateRandomAlias => 'Сгенерировать случайный псевдоним';
 	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не найти, поскольку вы используете другой, собственный порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрование';
 	@override String get multicastGroup => 'Адрес мультивещание';
@@ -870,6 +875,17 @@ class _StringsDialogsQuickSaveNoticeRu extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Запросы на получение файлов теперь принимаются автоматически. Будьте осторожны, все пользователи этой локальной сети могут отправлять вам файлы.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeRu extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeRu._(_StringsRu root) : this._root = root, super._(root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Запросы на получение файлов теперь принимаются автоматически от устройств из вашего списка избранных.';
 }
 
 // Path: dialogs.pin

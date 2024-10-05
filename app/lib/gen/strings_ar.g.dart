@@ -85,6 +85,7 @@ class _StringsGeneralAr extends _StringsGeneralEn {
 	@override String get open => 'مفتوح';
 	@override String get queue => 'طابور';
 	@override String get quickSave => 'حفظ سريع';
+	@override String get quickSaveFromFavorites => 'حفظ سريع لـ "Favorites"';
 	@override String get renamed => 'اعادة تسمية';
 	@override String get reset => 'إعادة ضبط';
 	@override String get restart => 'إعادة تشغيل';
@@ -123,6 +124,7 @@ class _StringsSendTabAr extends _StringsSendTabEn {
 	@override String get nearbyDevices => 'الأجهزة القريبة';
 	@override String get thisDevice => 'هذا الجهاز';
 	@override String get scan => 'ابحث عن أجهزة';
+	@override String get manualSending => 'الإرسال اليدوي';
 	@override String get sendMode => 'وضع الإرسال';
 	@override late final _StringsSendTabSendModesAr sendModes = _StringsSendTabSendModesAr._(_root);
 	@override String get sendModeHelp => 'شرح';
@@ -158,6 +160,7 @@ class _StringsTroubleshootPageAr extends _StringsTroubleshootPageEn {
 	@override String get solution => 'الحل:';
 	@override String get fixButton => 'إصلاح تلقائيًا';
 	@override late final _StringsTroubleshootPageFirewallAr firewall = _StringsTroubleshootPageFirewallAr._(_root);
+	@override late final _StringsTroubleshootPageNoDiscoveryAr noDiscovery = _StringsTroubleshootPageNoDiscoveryAr._(_root);
 	@override late final _StringsTroubleshootPageNoConnectionAr noConnection = _StringsTroubleshootPageNoConnectionAr._(_root);
 }
 
@@ -237,6 +240,7 @@ class _StringsSendPageAr extends _StringsSendPageEn {
 	// Translations
 	@override String get waiting => 'بإنتظار الرد...';
 	@override String get rejected => 'المستلم رفض الطلب.';
+	@override String get tooManyAttempts => _root.web.tooManyAttempts;
 	@override String get busy => 'المستلم مشغول بطلب آخر.';
 }
 
@@ -272,6 +276,8 @@ class _StringsWebSharePageAr extends _StringsWebSharePageEn {
 	@override String get noRequests => 'لا يوجد طلبات حتى الآن.';
 	@override String get encryption => _root.settingsTab.network.encryption;
 	@override String get autoAccept => 'قبول الطلبات تلقائيا';
+	@override String get requirePin => 'يتطلب رمز PIN';
+	@override String pinHint({required Object pin}) => 'رمز PIN هو "${pin}"';
 	@override String get encryptionHint => 'يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.';
 	@override String pendingRequests({required Object n}) => 'الطلبات المعلقة: ${n}';
 }
@@ -290,6 +296,7 @@ class _StringsAboutPageAr extends _StringsAboutPageEn {
 	];
 	@override String get author => 'المؤلف';
 	@override String get contributors => 'المساهمون';
+	@override String get packagers => 'الحزم';
 	@override String get translators => 'المترجمون';
 }
 
@@ -424,6 +431,8 @@ class _StringsDialogsAr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrAr qr = _StringsDialogsQrAr._(_root);
 	@override late final _StringsDialogsQuickActionsAr quickActions = _StringsDialogsQuickActionsAr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeAr quickSaveNotice = _StringsDialogsQuickSaveNoticeAr._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeAr quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeAr._(_root);
+	@override late final _StringsDialogsPinAr pin = _StringsDialogsPinAr._(_root);
 	@override late final _StringsDialogsSendModeHelpAr sendModeHelp = _StringsDialogsSendModeHelpAr._(_root);
 	@override late final _StringsDialogsZoomAr zoom = _StringsDialogsZoomAr._(_root);
 }
@@ -448,6 +457,7 @@ class _StringsTrayAr extends _StringsTrayEn {
 	// Translations
 	@override String get open => _root.general.open;
 	@override String get close => 'أغلق LocalSend';
+	@override String get closeWindows => 'خروج';
 }
 
 // Path: web
@@ -458,6 +468,9 @@ class _StringsWebAr extends _StringsWebEn {
 
 	// Translations
 	@override String get waiting => _root.sendPage.waiting;
+	@override String get enterPin => 'أدخل رمز PIN';
+	@override String get invalidPin => 'رمز PIN غير صالح';
+	@override String get tooManyAttempts => 'محاولات كثيرة جدًا';
 	@override String get rejected => 'مرفوضة';
 	@override String get files => 'الملفات';
 	@override String get fileName => 'اسم الملف';
@@ -567,9 +580,11 @@ class _StringsSettingsTabGeneralAr extends _StringsSettingsTabGeneralEn {
 	@override String get language => 'لغة';
 	@override late final _StringsSettingsTabGeneralLanguageOptionsAr languageOptions = _StringsSettingsTabGeneralLanguageOptionsAr._(_root);
 	@override String get saveWindowPlacement => 'إنهاء: حفظ موقع النافذة';
+	@override String get saveWindowPlacementWindows => 'حفظ موضع النافذة بعد الخروج';
 	@override String get minimizeToTray => 'إنهاء : أخفاء في شريط المهام';
 	@override String get launchAtStartup => 'تشغيل تلقائي بعد تسجيل الدخول';
 	@override String get launchMinimized => 'تشغيل تلقائي: ابدأ مخفيًا';
+	@override String get showInContextMenu => 'إظهار LocalSend في قائمة السياق';
 	@override String get animations => 'الرسوم المتحركة';
 }
 
@@ -582,6 +597,8 @@ class _StringsSettingsTabReceiveAr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'استلم';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'إنهاء تلقائي';
 	@override String get destination => 'حفظ في';
 	@override String get downloads => '(التنزيلات)';
@@ -647,6 +664,17 @@ class _StringsTroubleshootPageFirewallAr extends _StringsTroubleshootPageFirewal
 	@override String get openFirewall => 'افتح جدار الحماية';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _StringsTroubleshootPageNoDiscoveryAr extends _StringsTroubleshootPageNoDiscoveryEn {
+	_StringsTroubleshootPageNoDiscoveryAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get symptom => 'هذا الجهاز لا يمكنه اكتشاف الأجهزة الأخرى.';
+	@override String get solution => 'يرجى التأكد من أن جميع الأجهزة متصلة بنفس شبكة Wi-Fi وتشارك نفس التكوين (المنفذ، عنوان البث المتعدد، التشفير). يمكنك محاولة كتابة عنوان IP للجهاز المستهدف يدويًا. إذا نجح ذلك، فكر في إضافة هذا الجهاز إلى قائمة المفضلة حتى يتم اكتشافه تلقائيًا في المستقبل.';
+}
+
 // Path: troubleshootPage.noConnection
 class _StringsTroubleshootPageNoConnectionAr extends _StringsTroubleshootPageNoConnectionEn {
 	_StringsTroubleshootPageNoConnectionAr._(_StringsAr root) : this._root = root, super._(root);
@@ -666,6 +694,7 @@ class _StringsReceiveHistoryPageEntryActionsAr extends _StringsReceiveHistoryPag
 
 	// Translations
 	@override String get open => 'فتح الملف';
+	@override String get showInFolder => 'عرض في المجلد';
 	@override String get info => 'معلومات';
 	@override String get deleteFromHistory => 'حذف من السجل';
 }
@@ -915,6 +944,27 @@ class _StringsDialogsQuickSaveNoticeAr extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeAr extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'لقد تم قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك.';
+}
+
+// Path: dialogs.pin
+class _StringsDialogsPinAr extends _StringsDialogsPinEn {
+	_StringsDialogsPinAr._(_StringsAr root) : this._root = root, super._(root);
+
+	@override final _StringsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'أدخل رمز PIN';
 }
 
 // Path: dialogs.sendModeHelp

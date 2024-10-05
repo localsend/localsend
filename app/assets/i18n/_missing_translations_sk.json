@@ -1,0 +1,12 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <sk>.",
+    "After editing this file, you can run 'dart run slang apply --locale=sk' to quickly apply the newly added translations."
+  ],
+  "settingsTab": {
+    "network": {
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
+    }
+  }
+}

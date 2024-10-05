@@ -105,6 +105,12 @@ Future<RefenaContainer> preInit(List<String> args) async {
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
+    } else if (defaultTargetPlatform == TargetPlatform.macOS) {
+      startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
+    }
+
+    if (startHidden) {
+      unawaited(hideToTray());
     } else {
       await WindowManager.instance.show();
     }
@@ -183,36 +189,22 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
-      final pendingFiles = await getPendingFiles();
-      if (pendingFiles.isNotEmpty) {
-        await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
-          args: pendingFiles,
-        ));
-      }
-
-      // handle future dropped files
-      getPendingFilesStream().listen((files) {
+      // handle dropped files
+      pendingFilesStream.listen((files) {
         ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
           args: files,
         ));
+      });
+
+      // handle dropped strings
+      pendingStringsStream.listen((pendingStrings) {
+        for (final string in pendingStrings) {
+          ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
+        }
         ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
       });
 
-      final pendingStrings = await getPendingStrings();
-      if (pendingStrings.isNotEmpty) {
-        for (final string in pendingStrings) {
-          ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
-          ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
-        }
-      }
-
-      // handle future dropped strings
-      getPendingStringsStream().listen((pendingStrings) {
-        for (final string in pendingStrings) {
-          ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
-          ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
-        }
-      });
+      await setupMethodCallHandler();
     } else {
       final args = ref.read(appArgumentsProvider);
       await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(

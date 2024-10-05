@@ -28,6 +28,7 @@
     "open": "باز کردن",
     "queue": "صف",
     "quickSave": "ذخیره سریع",
+    "quickSaveFromFavorites": "ذخیر سریع برای \"Favorites\"",
     "renamed": "تغییر نام یافت",
     "reset": "بازنشانی",
     "restart": "راه اندازی مجدد",
@@ -67,6 +68,7 @@
     "nearbyDevices": "دستگاه های  اطراف",
     "thisDevice": "این دستگاه",
     "scan": "جستجوی دستگاه ها",
+    "manualSending": "ارسال دستی",
     "sendMode": "حالت ارسال",
     "sendModes": {
       "single": "یک دریافت کننده",
@@ -97,6 +99,7 @@
         "system": "سیستم"
       },
       "saveWindowPlacement": "خروج: ذخیره قرار دادن پنجره",
+      "saveWindowPlacementWindows": "ذخیره موقعیت پنجره پس از خروج",
       "minimizeToTray": "خروج: ارسال برنامه به سیستم تری",
       "launchAtStartup": "شروع خودکار پس از ورود به سیستم",
       "launchMinimized": "شروع خودکار: شروع به صورت پنجره پنهان",
@@ -106,6 +109,7 @@
     "receive": {
       "title": "دریافت",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "پایان خودکار",
       "destination": "مقصد",
@@ -425,6 +429,10 @@
       "title": "@:general.quickSave",
       "content": "درخواست ها به صورت خودکار پذیرفته می شوند. توجه داشته باشید که همه افراد در شبکه محلی می توانند برای شما فایل ارسال کنند"
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "درخواست دستگاه‌های موجود در لیست علاقه‌مندی‌ها به طور خودکار پذیرفته میشوند"
+    },
     "pin": {
       "title": "پین را وارد کنید"
     },
@@ -445,7 +453,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "خروج از لوکال سند"
+    "close": "خروج از لوکال سند",
+    "closeWindows": "خروج"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

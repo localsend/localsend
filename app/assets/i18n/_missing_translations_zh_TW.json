@@ -2,5 +2,23 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <zh-TW>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-TW' to quickly apply the newly added translations."
-  ]
+  ],
+  "general": {
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+  },
+  "settingsTab": {
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+    },
+    "network": {
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
+    }
+  },
+  "dialogs": {
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "File requests are now accepted automatically from devices in your favorites list."
+    }
+  }
 }

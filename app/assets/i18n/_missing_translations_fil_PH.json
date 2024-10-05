@@ -3,15 +3,10 @@
     "Here are translations that exist in <en> but not in <fil-PH>.",
     "After editing this file, you can run 'dart run slang apply --locale=fil-PH' to quickly apply the newly added translations."
   ],
-  "sendTab": {
-    "manualSending": "Mano-manong pagpapadala"
-  },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "I-save ang posisyon ng window pagkasara"
+    "network": {
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
-  },
-  "tray": {
-    "closeWindows": "Isara"
   }
 }

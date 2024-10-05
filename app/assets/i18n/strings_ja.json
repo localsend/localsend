@@ -28,6 +28,7 @@
     "open": "開く",
     "queue": "順番待ち",
     "quickSave": "クイックセーブ",
+    "quickSaveFromFavorites": "\"Favorites\"からクイックセーブ",
     "renamed": "改名済み",
     "reset": "リセット",
     "restart": "再起動",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "受信",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "自動で完了",
       "destination": "保存先",
@@ -356,6 +358,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "お気に入りにあるデバイスからのファイルリクエストが自動で承諾されます。"
     },
     "pin": {
       "title": "PINコードを入力"

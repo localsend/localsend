@@ -10,7 +10,7 @@ import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
-import 'package:saf_stream/saf_stream_method_channel.dart';
+import 'package:saf_stream/saf_stream_platform_interface.dart';
 
 final _logger = Logger('FileSaver');
 

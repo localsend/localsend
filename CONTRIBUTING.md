@@ -128,7 +128,6 @@ TODO:
 You can help in publishing LocalSend on more platforms. Please create an issue to notify us!
 
 - Traditional Linux distributions (Debian, Fedora, etc.)
-- Snap
 - (Your idea here)
 
 ## Notes

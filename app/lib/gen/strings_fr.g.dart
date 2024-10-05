@@ -85,6 +85,7 @@ class _StringsGeneralFr extends _StringsGeneralEn {
 	@override String get open => 'Ouvrir';
 	@override String get queue => 'File d\'attente';
 	@override String get quickSave => 'Sauvegarde rapide';
+	@override String get quickSaveFromFavorites => 'Sauvegarde rapide des favoris';
 	@override String get renamed => 'Renommé';
 	@override String get reset => 'Réinitialiser';
 	@override String get restart => 'Redémarrer';
@@ -359,6 +360,7 @@ class _StringsDialogsFr extends _StringsDialogsEn {
 	@override late final _StringsDialogsQrFr qr = _StringsDialogsQrFr._(_root);
 	@override late final _StringsDialogsQuickActionsFr quickActions = _StringsDialogsQuickActionsFr._(_root);
 	@override late final _StringsDialogsQuickSaveNoticeFr quickSaveNotice = _StringsDialogsQuickSaveNoticeFr._(_root);
+	@override late final _StringsDialogsQuickSaveFromFavoritesNoticeFr quickSaveFromFavoritesNotice = _StringsDialogsQuickSaveFromFavoritesNoticeFr._(_root);
 	@override late final _StringsDialogsPinFr pin = _StringsDialogsPinFr._(_root);
 	@override late final _StringsDialogsSendModeHelpFr sendModeHelp = _StringsDialogsSendModeHelpFr._(_root);
 	@override late final _StringsDialogsZoomFr zoom = _StringsDialogsZoomFr._(_root);
@@ -524,6 +526,7 @@ class _StringsSettingsTabReceiveFr extends _StringsSettingsTabReceiveEn {
 	// Translations
 	@override String get title => 'Reçu';
 	@override String get quickSave => _root.general.quickSave;
+	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 	@override String get requirePin => _root.webSharePage.requirePin;
 	@override String get autoFinish => 'Finir automatiquement';
 	@override String get destination => 'Destination';
@@ -558,6 +561,8 @@ class _StringsSettingsTabNetworkFr extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'Modèle d\'appareil';
 	@override String get port => 'Port';
 	@override String get discoveryTimeout => 'Temps maximal de recherche';
+	@override String get useSystemName => 'Utiliser le nom du système';
+	@override String get generateRandomAlias => 'Générer un alias aléatoire';
 	@override String portWarning({required Object defaultPort}) => 'Il se peut que vous ne soyez pas détecté par d\'autres appareils car vous utilisez un port personnalisé. (par défaut : ${defaultPort})';
 	@override String get encryption => 'Chiffrement';
 	@override String get multicastGroup => 'Multicast';
@@ -870,6 +875,17 @@ class _StringsDialogsQuickSaveNoticeFr extends _StringsDialogsQuickSaveNoticeEn 
 	// Translations
 	@override String get title => _root.general.quickSave;
 	@override String get content => 'Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _StringsDialogsQuickSaveFromFavoritesNoticeFr extends _StringsDialogsQuickSaveFromFavoritesNoticeEn {
+	_StringsDialogsQuickSaveFromFavoritesNoticeFr._(_StringsFr root) : this._root = root, super._(root);
+
+	@override final _StringsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get content => 'Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées.';
 }
 
 // Path: dialogs.pin

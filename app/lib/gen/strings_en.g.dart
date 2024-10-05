@@ -90,7 +90,7 @@ class _StringsGeneralEn {
 	String get open => 'Open';
 	String get queue => 'Queue';
 	String get quickSave => 'Quick Save';
-	String get quickSaveFromFavorites => 'Quick Save From Favorites';
+	String get quickSaveFromFavorites => 'Quick Save for "Favorites"';
 	String get renamed => 'Renamed';
 	String get reset => 'Undo changes';
 	String get restart => 'Restart';
@@ -637,6 +637,8 @@ class _StringsSettingsTabNetworkEn {
 	String get deviceModel => 'Device model';
 	String get port => 'Port';
 	String get discoveryTimeout => 'Discovery Timeout';
+	String get useSystemName => 'Use system name';
+	String get generateRandomAlias => 'Generate random alias';
 	String portWarning({required Object defaultPort}) => 'You might not be detected by other devices because you are using a custom port. (default: ${defaultPort})';
 	String get encryption => 'Encryption';
 	String get multicastGroup => 'Multicast address';
@@ -948,7 +950,7 @@ class _StringsDialogsQuickSaveNoticeEn {
 
 	// Translations
 	String get title => _root.general.quickSave;
-	String get content => 'File requests are automatically accepted. Be aware that everyone on the local network can send you files.';
+	String get content => 'File requests are now accepted automatically. Be aware that everyone on the local network can send you files.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -959,7 +961,7 @@ class _StringsDialogsQuickSaveFromFavoritesNoticeEn {
 
 	// Translations
 	String get title => _root.general.quickSaveFromFavorites;
-	String get content => 'File requests are automatically accepted from favorites.';
+	String get content => 'File requests are now accepted automatically from devices in your favorites list.';
 }
 
 // Path: dialogs.pin
