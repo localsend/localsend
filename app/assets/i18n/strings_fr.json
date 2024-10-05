@@ -28,6 +28,7 @@
     "open": "Ouvrir",
     "queue": "File d'attente",
     "quickSave": "Sauvegarde rapide",
+    "quickSaveFromFavorites": "Sauvegarde rapide des favoris",
     "renamed": "Renommé",
     "reset": "Réinitialiser",
     "restart": "Redémarrer",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "Reçu",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Finir automatiquement",
       "destination": "Destination",
@@ -128,6 +130,8 @@
       "deviceModel": "Modèle d'appareil",
       "port": "Port",
       "discoveryTimeout": "Temps maximal de recherche",
+      "useSystemName": "Utiliser le nom du système",
+      "generateRandomAlias": "Générer un alias aléatoire",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
@@ -356,6 +360,10 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées."
     },
     "pin": {
       "title": "Entrez le code PIN"
