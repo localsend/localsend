@@ -630,6 +630,8 @@ class _StringsSettingsTabNetworkZhCn extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => '设备型号';
 	@override String get port => '端口';
 	@override String get discoveryTimeout => '搜索设备超时';
+	@override String get useSystemName => '使用系统名称';
+	@override String get generateRandomAlias => '生成随机昵称';
 	@override String portWarning({required Object defaultPort}) => '由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：${defaultPort}）';
 	@override String get encryption => '加密';
 	@override String get multicastGroup => '多播';

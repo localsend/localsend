@@ -2,23 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fr>.",
     "After editing this file, you can run 'dart run slang apply --locale=fr' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "quickSaveFromFavorites": "Sauvegarde rapide des favoris"
-  },
-  "settingsTab": {
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
-    },
-    "network": {
-      "useSystemName": "Utiliser le nom du système",
-      "generateRandomAlias": "Générer un alias aléatoire"
-    }
-  },
-  "dialogs": {
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées."
-    }
-  }
+  ]
 }

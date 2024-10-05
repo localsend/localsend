@@ -130,6 +130,8 @@
       "deviceModel": "Модель устройства",
       "port": "Порт",
       "discoveryTimeout": "Тайм-аут поиска",
+      "useSystemName": "Использовать системное имя",
+      "generateRandomAlias": "Сгенерировать случайный псевдоним",
       "portWarning": "Другие устройства могут вас не найти, поскольку вы используете другой, собственный порт. (default: {defaultPort})",
       "encryption": "Шифрование",
       "multicastGroup": "Адрес мультивещание",

@@ -561,6 +561,8 @@ class _StringsSettingsTabNetworkRu extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'Модель устройства';
 	@override String get port => 'Порт';
 	@override String get discoveryTimeout => 'Тайм-аут поиска';
+	@override String get useSystemName => 'Использовать системное имя';
+	@override String get generateRandomAlias => 'Сгенерировать случайный псевдоним';
 	@override String portWarning({required Object defaultPort}) => 'Другие устройства могут вас не найти, поскольку вы используете другой, собственный порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрование';
 	@override String get multicastGroup => 'Адрес мультивещание';

@@ -561,6 +561,8 @@ class _StringsSettingsTabNetworkUk extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'Модель пристрою';
 	@override String get port => 'Порт';
 	@override String get discoveryTimeout => 'Тайм-аут пошуку';
+	@override String get useSystemName => 'Використати системне ім\'я';
+	@override String get generateRandomAlias => 'Згенерувати випадковий псевдонім';
 	@override String portWarning({required Object defaultPort}) => 'Інші пристрої можуть вас не знайти, оскільки ви використовуєте інший, власний порт. (default: ${defaultPort})';
 	@override String get encryption => 'Шифрування';
 	@override String get multicastGroup => 'Адреса групової передачі';

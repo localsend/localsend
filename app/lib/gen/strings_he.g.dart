@@ -561,6 +561,8 @@ class _StringsSettingsTabNetworkHe extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'דגם המכשיר';
 	@override String get port => 'יציאה';
 	@override String get discoveryTimeout => 'זמן קצוב לגילוי';
+	@override String get useSystemName => 'השתמש בשם מערכת';
+	@override String get generateRandomAlias => 'צור כינוי אקראי';
 	@override String portWarning({required Object defaultPort}) => 'יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: ${defaultPort})';
 	@override String get encryption => 'הצפנה';
 	@override String get multicastGroup => 'מולטיקאסט';

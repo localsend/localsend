@@ -277,7 +277,7 @@ class _StringsWebSharePageDe extends _StringsWebSharePageEn {
 	@override String get autoAccept => 'Anfragen automatisch akzeptieren';
 	@override String get requirePin => 'PIN erforderlich';
 	@override String pinHint({required Object pin}) => 'Die PIN lautet "${pin}"';
-	@override String get encryptionHint => 'LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.';
+	@override String get encryptionHint => 'LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.';
 	@override String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
 }
 
@@ -295,8 +295,8 @@ class _StringsAboutPageDe extends _StringsAboutPageEn {
 	];
 	@override String get author => 'Autor';
 	@override String get contributors => 'Mitwirkende';
-	@override String get packagers => 'Packagers';
-	@override String get translators => 'Übersetzer:innen';
+	@override String get packagers => 'Paketierende';
+	@override String get translators => 'Übersetzende';
 }
 
 // Path: donationPage
@@ -307,10 +307,10 @@ class _StringsDonationPageDe extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Spenden';
-	@override String get info => 'LocalSend ist kostenlos, open-source und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.';
+	@override String get info => 'LocalSend ist kostenlos, quelloffen und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.';
 	@override String donate({required Object amount}) => 'Spende ${amount}';
 	@override String get thanks => 'Vielen Dank für deine Unterstützung!';
-	@override String get restore => 'Käufe Wiederherstellen';
+	@override String get restore => 'Käufe wiederherstellen';
 }
 
 // Path: changelogPage
@@ -320,7 +320,7 @@ class _StringsChangelogPageDe extends _StringsChangelogPageEn {
 	@override final _StringsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Changelog';
+	@override String get title => 'Änderungsprotokoll';
 }
 
 // Path: aliasGenerator
@@ -422,11 +422,11 @@ class _StringsAssetPickerDe extends _StringsAssetPickerEn {
 	@override String get emptyList => 'Leere Liste';
 	@override String get unSupportedAssetType => 'Format ist nicht unterstützt.';
 	@override String get unableToAccessAll => 'Zugriff nicht möglich';
-	@override String get viewingLimitedAssetsTip => 'Zeigen Sie nur Dateien und Alben an, auf die die App zugreifen kann.';
+	@override String get viewingLimitedAssetsTip => 'Zeige nur Dateien und Alben an, auf die die App zugreifen kann.';
 	@override String get changeAccessibleLimitedAssets => 'Tippen, um erlaubte Dateien zu aktualisieren';
-	@override String get accessAllTip => 'Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen';
+	@override String get accessAllTip => 'Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlauben der App, \nauf alle Dateien auf dem Gerät zuzugreifen';
 	@override String get goToSystemSettings => 'Gehe zu den Systemeinstellungen';
-	@override String get accessLimitedAssets => 'Fahre fort mit limitiertem Zugriff';
+	@override String get accessLimitedAssets => 'Fahre mit eingeschränktem Zugriff fort';
 	@override String get accessiblePathName => 'Verfügbare Assets';
 	@override String get sTypeAudioLabel => 'Audio';
 	@override String get sTypeImageLabel => 'Bild';
@@ -608,7 +608,7 @@ class _StringsTroubleshootPageNoConnectionDe extends _StringsTroubleshootPageNoC
 	@override final _StringsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.';
+	@override String get symptom => 'Beide Geräte können sich weder sehen noch können sie Dateien miteinander teilen.';
 	@override String get solution => 'Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden.';
 }
 
@@ -739,7 +739,7 @@ class _StringsDialogsFavoriteEditDialogDe extends _StringsDialogsFavoriteEditDia
 	@override String get titleEdit => 'Favorit bearbeiten';
 	@override String get name => 'Name';
 	@override String get auto => '(auto)';
-	@override String get ip => 'IP-Addresse';
+	@override String get ip => 'IP-Adresse';
 	@override String get port => 'Port';
 }
 
@@ -822,7 +822,7 @@ class _StringsDialogsNoPermissionDe extends _StringsDialogsNoPermissionEn {
 
 	// Translations
 	@override String get title => 'Keine Berechtigung';
-	@override String get content => 'Sie haben die erforderlichen Berechtigungen nicht gewährt. Bitte gewähren Sie sie in den Einstellungen.';
+	@override String get content => 'Du hast die erforderlichen Berechtigungen nicht gewährt. Bitte gewähre sie in den Einstellungen.';
 }
 
 // Path: dialogs.notAvailableOnPlatform

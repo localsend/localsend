@@ -130,6 +130,8 @@
       "deviceModel": "דגם המכשיר",
       "port": "יציאה",
       "discoveryTimeout": "זמן קצוב לגילוי",
+      "useSystemName": "השתמש בשם מערכת",
+      "generateRandomAlias": "צור כינוי אקראי",
       "portWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: {defaultPort})",
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",

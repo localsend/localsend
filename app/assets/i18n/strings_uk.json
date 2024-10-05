@@ -130,6 +130,8 @@
       "deviceModel": "Модель пристрою",
       "port": "Порт",
       "discoveryTimeout": "Тайм-аут пошуку",
+      "useSystemName": "Використати системне ім'я",
+      "generateRandomAlias": "Згенерувати випадковий псевдонім",
       "portWarning": "Інші пристрої можуть вас не знайти, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
       "multicastGroup": "Адреса групової передачі",
