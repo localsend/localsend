@@ -6,7 +6,7 @@
   "settingsTab": {
     "network": {
       "useSystemName": "Koristi ime sistema",
-      "generateRandomAlias": "Generiši slučajni alias"
+      "generateRandomAlias": "Generiši slučajni pseudonim"
     }
   }
 }
