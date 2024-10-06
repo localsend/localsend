@@ -63,7 +63,7 @@ Bạn nên tải xuống ứng dụng từ cửa hàng ứng dụng hoặc từ 
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
 [scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=localsend&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
 [chocolatey]: https://community.chocolatey.org/packages/localsend
-[homebrew]: https://github.com/localsend/homebrew-localsend
+[homebrew]: https://formulae.brew.sh/cask/localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [nixpkgs]: https://search.nixos.org/packages?show=localsend
 [snap]: https://snapcraft.io/localsend

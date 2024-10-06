@@ -67,7 +67,7 @@ LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实�
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
 [scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=localsend&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
 [chocolatey]: https://community.chocolatey.org/packages/localsend
-[homebrew]: https://github.com/localsend/homebrew-localsend
+[homebrew]: https://formulae.brew.sh/cask/localsend
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [nixpkgs]: https://search.nixos.org/packages?show=localsend
