@@ -5,8 +5,8 @@
   ],
   "settingsTab": {
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Користи име система",
+      "generateRandomAlias": "Генериши случајни псеудоним"
     }
   }
 }
