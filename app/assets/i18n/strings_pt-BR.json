@@ -28,7 +28,7 @@
     "open": "Abrir",
     "queue": "Fila",
     "quickSave": "Salvamento Rápido",
-    "quickSaveFromFavorites": "Salvamento rápido para \"Favoritos\"",
+    "quickSaveFromFavorites": "salvar rapidamente dos \"Favoritos\"",
     "renamed": "Renomeado",
     "reset": "Redefinir",
     "restart": "Reiniciar",
@@ -113,7 +113,7 @@
       "autoFinish": "Concluir Automaticamente",
       "destination": "Destino",
       "downloads": "(Downloads)",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "quickSaveFromFavorites": "Salvar rapidamente dos \"Favoritos\"",
       "saveToGallery": "Salvar mídia na Galeria",
       "saveToHistory": "Salvar no histórico"
     },
@@ -416,7 +416,7 @@
       "random": "Aleatório"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
+      "title": "Salvar rapidamento dos \"Favoritos\"",
       "content": "As solicitações de arquivos agora são aceitas automaticamente nos dispositivos da sua lista de favoritos."
     },
     "quickSaveNotice": {
