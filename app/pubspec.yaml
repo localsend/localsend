@@ -10,7 +10,6 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  app_group_directory: 2.0.0
   basic_utils: 5.7.0
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   common:
@@ -46,6 +45,7 @@ dependencies:
   pasteboard: 0.3.0
   path: 1.9.0
   path_provider: 2.1.4
+  path_provider_foundation: 2.4.0
   permission_handler: 11.3.1
   pretty_qr_code: 3.3.0
   refena_flutter: 2.1.1

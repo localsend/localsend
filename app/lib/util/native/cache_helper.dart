@@ -3,7 +3,6 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:app_group_directory/app_group_directory.dart';
 import 'package:common/util/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +10,7 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_foundation/path_provider_foundation.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -46,11 +46,17 @@ Future<void> _clear(RootIsolateToken token) async {
           })
         : Future.value(),
     checkPlatform([TargetPlatform.iOS])
-        ? AppGroupDirectory.getAppGroupDirectory('group.org.localsend.localsendApp').then((directory) async {
-            if (directory == null) {
+        ? PathProviderFoundation()
+            .getContainerPath(
+            appGroupIdentifier: 'group.org.localsend.localsendApp',
+          )
+            .then((directoryPath) async {
+            if (directoryPath == null) {
               _logger.warning('Failed to get app group directory');
               return;
             }
+
+            final directory = Directory(directoryPath);
 
             // delete contents of the directory (only files, not directories)
             await for (final entry in directory.list(recursive: false, followLinks: false)) {
