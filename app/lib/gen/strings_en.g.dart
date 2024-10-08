@@ -594,9 +594,9 @@ class _StringsReceiveTabInfoBoxEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String get ip => 'IP Address\t:';
-  String get port => 'Port\t:';
-  String get alias => 'Device Name\t:';
+  String get ip => 'IP:';
+  String get port => 'Port:';
+  String get alias => 'Device name:';
 }
 
 // Path: sendTab.selection
