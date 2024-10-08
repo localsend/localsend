@@ -85,7 +85,7 @@ class _StringsGeneralPtBr extends _StringsGeneralEn {
 	@override String get open => 'Abrir';
 	@override String get queue => 'Fila';
 	@override String get quickSave => 'Salvamento Rápido';
-	@override String get quickSaveFromFavorites => 'Salvamento rápido para "Favoritos"';
+	@override String get quickSaveFromFavorites => 'salvar rapidamente dos "Favoritos"';
 	@override String get renamed => 'Renomeado';
 	@override String get reset => 'Redefinir';
 	@override String get restart => 'Reiniciar';
@@ -591,7 +591,7 @@ class _StringsSettingsTabReceivePtBr extends _StringsSettingsTabReceiveEn {
 	@override String get autoFinish => 'Concluir Automaticamente';
 	@override String get destination => 'Destino';
 	@override String get downloads => '(Downloads)';
-	@override String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+	@override String get quickSaveFromFavorites => 'Salvar rapidamente dos "Favoritos"';
 	@override String get saveToGallery => 'Salvar mídia na Galeria';
 	@override String get saveToHistory => 'Salvar no histórico';
 }
@@ -932,7 +932,7 @@ class _StringsDialogsQuickSaveFromFavoritesNoticePtBr extends _StringsDialogsQui
 	@override final _StringsPtBr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => _root.general.quickSaveFromFavorites;
+	@override String get title => 'Salvar rapidamento dos "Favoritos"';
 	@override String get content => 'As solicitações de arquivos agora são aceitas automaticamente nos dispositivos da sua lista de favoritos.';
 }
 

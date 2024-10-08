@@ -77,11 +77,11 @@ class _StringsGeneralId extends _StringsGeneralEn {
 	@override String get example => 'Contoh';
 	@override String get files => 'File';
 	@override String get finished => 'Selesai';
-	@override String get hide => 'sembunyi';
+	@override String get hide => 'Sembunyikan';
 	@override String get off => 'Mati';
-	@override String get offline => 'Luring';
+	@override String get offline => 'Offline';
 	@override String get on => 'Hidup';
-	@override String get online => 'Daring';
+	@override String get online => 'Online';
 	@override String get open => 'Buka';
 	@override String get queue => 'Antrean';
 	@override String get quickSave => 'Penyimpanan Cepat';
@@ -120,10 +120,10 @@ class _StringsSendTabId extends _StringsSendTabEn {
 	@override late final _StringsSendTabSelectionId selection = _StringsSendTabSelectionId._(_root);
 	@override late final _StringsSendTabPickerId picker = _StringsSendTabPickerId._(_root);
 	@override String get shareIntentInfo => 'Anda juga dapat menggunakan fitur "Berbagi" untuk memilih berkas dengan lebih mudah.';
-	@override String get nearbyDevices => 'Perangkat terdekat';
+	@override String get nearbyDevices => 'Perangkat Terdekat';
 	@override String get thisDevice => 'Perangkat ini';
 	@override String get scan => 'Cari perangkat';
-	@override String get sendMode => 'Mode pengiriman';
+	@override String get sendMode => 'Mode Pengiriman';
 	@override late final _StringsSendTabSendModesId sendModes = _StringsSendTabSendModesId._(_root);
 	@override String get sendModeHelp => 'Penjelasan';
 	@override String get help => 'Pastikan perangkat terkoneksi pada jaringan yang sama.';
@@ -153,7 +153,7 @@ class _StringsTroubleshootPageId extends _StringsTroubleshootPageEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Perbaikan masalah';
+	@override String get title => 'Perbaikan Masalah';
 	@override String get subTitle => 'Aplikasi ini tidak berfungsi seperti yang diharapkan? Di sini Anda dapat menemukan solusi umum.';
 	@override String get solution => 'Solusi:';
 	@override String get fixButton => 'Perbaiki secara otomatis';
@@ -235,7 +235,7 @@ class _StringsSendPageId extends _StringsSendPageEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get waiting => 'Menunggu respon...';
+	@override String get waiting => 'Menunggu respons...';
 	@override String get rejected => 'Penerima menolak permintaan.';
 	@override String get busy => 'Penerima sedang sibuk dengan permintaan lain.';
 }
@@ -247,8 +247,8 @@ class _StringsProgressPageId extends _StringsProgressPageEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get titleSending => 'Mengirim berkas';
-	@override String get titleReceiving => 'Menerima berkas';
+	@override String get titleSending => 'Mengirim Berkas';
+	@override String get titleReceiving => 'Menerima Berkas';
 	@override String get savedToGallery => 'Simpan ke galeri';
 	@override late final _StringsProgressPageTotalId total = _StringsProgressPageTotalId._(_root);
 }
@@ -260,13 +260,13 @@ class _StringsWebSharePageId extends _StringsWebSharePageEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bagikan melalui tautan';
+	@override String get title => 'Bagikan melalui Tautan';
 	@override String get loading => 'Memulai server...';
 	@override String get stopping => 'Menghentikan server...';
 	@override String get error => 'Terjadi kesalahan saat memulai server.';
 	@override String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('id'))(n,
-		one: 'Buka tautan ini di browser:',
-		other: 'Buka salah satu tautan ini di browser:',
+		one: 'Buka tautan ini di peramban:',
+		other: 'Buka salah satu tautan ini di peramban:',
 	);
 	@override String get requests => 'Permintaan';
 	@override String get noRequests => 'Belum ada permintaan.';
@@ -285,12 +285,12 @@ class _StringsAboutPageId extends _StringsAboutPageEn {
 	// Translations
 	@override String get title => 'Tentang LocalSend';
 	@override List<String> get description => [
-		'LocalSend merupakan aplikasi gratis, open-source (terbuka) yang dapat membantu anda untuk membagikan berkas dan pesan secara aman dengan perangkat terdekat lain melalui jaringan lokal tanpa perlu koneksi internet atau paket data.',
-		'Aplikasi ini tersedia untuk Android, iOS, macOS, Windows dan Linux. Anda dapat menemukan semua pilihan unduhan pada halaman resmi kami.',
+		'LocalSend adalah aplikasi gratis, open-source yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.',
+		'Aplikasi ini tersedia untuk Android, iOS, macOS, Windows, dan Linux. Semua opsi unduhan dapat ditemukan di situs resmi kami.',
 	];
 	@override String get author => 'Pencipta';
 	@override String get contributors => 'Daftar Kontributor';
-	@override String get translators => 'Daftar Terjemahan';
+	@override String get translators => 'Daftar Penerjemah';
 }
 
 // Path: donationPage
@@ -301,7 +301,7 @@ class _StringsDonationPageId extends _StringsDonationPageEn {
 
 	// Translations
 	@override String get title => 'Donasi';
-	@override String get info => 'LocalSend merupakan aplikasi gratis, terbuka dan bebas iklan. Jika anda menyukai aplikasi ini, anda dapat membantu dengan cara memberikan donasi.';
+	@override String get info => 'LocalSend adalah aplikasi gratis, terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, Anda bisa mendukung kami dengan memberikan donasi.';
 	@override String donate({required Object amount}) => 'Donasi ${amount}';
 	@override String get thanks => 'Terima kasih banyak!';
 	@override String get restore => 'Kembalikan dana';
@@ -367,7 +367,7 @@ class _StringsAliasGeneratorId extends _StringsAliasGeneratorEn {
 	@override List<String> get fruits => [
 		'Apel',
 		'Alpukat',
-		'Pisan',
+		'Pisang',
 		'Blackberry',
 		'Blueberry',
 		'Brokoli',
@@ -388,7 +388,7 @@ class _StringsAliasGeneratorId extends _StringsAliasGeneratorEn {
 		'Nanas',
 		'Kentang',
 		'Labu',
-		'Rasberi',
+		'Raspberi',
 		'Stroberi',
 		'Tomat',
 	];
@@ -473,7 +473,7 @@ class _StringsAssetPickerId extends _StringsAssetPickerEn {
 	// Translations
 	@override String get confirm => 'Konfirmasi';
 	@override String get cancel => 'Batal';
-	@override String get edit => 'Edit';
+	@override String get edit => 'Ubah';
 	@override String get gifIndicator => 'GIF';
 	@override String get loadFailed => 'Gagal memuat';
 	@override String get original => 'Asli';
@@ -492,12 +492,12 @@ class _StringsAssetPickerId extends _StringsAssetPickerEn {
 	@override String get sTypeImageLabel => 'Gambar';
 	@override String get sTypeVideoLabel => 'Video';
 	@override String get sTypeOtherLabel => 'Media lainnya';
-	@override String get sActionPlayHint => 'mainkan';
-	@override String get sActionPreviewHint => 'pratinjau';
-	@override String get sActionSelectHint => 'pilih';
-	@override String get sActionSwitchPathLabel => 'ubah jalur';
-	@override String get sActionUseCameraHint => 'gunakan kamera';
-	@override String get sNameDurationLabel => 'durasi';
+	@override String get sActionPlayHint => 'Putar';
+	@override String get sActionPreviewHint => 'Pratinjau';
+	@override String get sActionSelectHint => 'Pilih';
+	@override String get sActionSwitchPathLabel => 'Ubah jalur';
+	@override String get sActionUseCameraHint => 'Gunakan kamera';
+	@override String get sNameDurationLabel => 'Durasi';
 	@override String get sUnitAssetCountLabel => 'jumlah';
 }
 
@@ -549,7 +549,7 @@ class _StringsSendTabSendModesId extends _StringsSendTabSendModesEn {
 	// Translations
 	@override String get single => 'Penerima tunggal';
 	@override String get multiple => 'Penerima ganda';
-	@override String get link => 'Bagikan melalui tautan';
+	@override String get link => 'Bagikan melalui Tautan';
 }
 
 // Path: settingsTab.general
@@ -569,7 +569,7 @@ class _StringsSettingsTabGeneralId extends _StringsSettingsTabGeneralEn {
 	@override String get saveWindowPlacement => 'Keluar: Simpan posisi jendela';
 	@override String get minimizeToTray => 'Keluar: Perkecil ke pojok bawah';
 	@override String get launchAtStartup => 'Mulai otomatis setelah masuk';
-	@override String get launchMinimized => 'Mulai otomatis: Berjalan di belakang';
+	@override String get launchMinimized => 'Mulai otomatis: Berjalan di latar belakang';
 	@override String get animations => 'Animasi';
 }
 
@@ -596,8 +596,8 @@ class _StringsSettingsTabSendId extends _StringsSettingsTabSendEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Send';
-	@override String get shareViaLinkAutoAccept => 'Share via link: Auto accept';
+	@override String get title => 'Kirim';
+	@override String get shareViaLinkAutoAccept => 'Bagikan melalui tautan: Terima otomatis';
 }
 
 // Path: settingsTab.network
@@ -615,10 +615,10 @@ class _StringsSettingsTabNetworkId extends _StringsSettingsTabNetworkEn {
 	@override String get deviceModel => 'Model Perangkat';
 	@override String get port => 'Port';
 	@override String get discoveryTimeout => 'Waktu penemuan habis';
-	@override String portWarning({required Object defaultPort}) => 'Anda mungkin tidak terdeteksi oleh perangkat lain dikarenakan anda menggunakan port kustom. (bawaan: ${defaultPort})';
+	@override String portWarning({required Object defaultPort}) => 'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan port kustom. (bawaan: ${defaultPort})';
 	@override String get encryption => 'Enkripsi';
 	@override String get multicastGroup => 'Multicast';
-	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Anda mungkin tidak terdeteksi oleh perangkat lain karena Anda menggunakan alamat multicast khusus. (bawaan: ${defaultMulticast})';
+	@override String multicastGroupWarning({required Object defaultMulticast}) => 'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -630,7 +630,7 @@ class _StringsSettingsTabOtherId extends _StringsSettingsTabOtherEn {
 	// Translations
 	@override String get title => 'Lainnya';
 	@override String get support => 'Dukung LocalSend';
-	@override String get donate => 'Berikan Donasi';
+	@override String get donate => 'Donasi';
 	@override String get privacyPolicy => 'Kebijakan Privasi';
 	@override String get termsOfUse => 'Syarat dan Ketentuan Penggunaan';
 }
@@ -655,7 +655,7 @@ class _StringsTroubleshootPageNoConnectionId extends _StringsTroubleshootPageNoC
 
 	// Translations
 	@override String get symptom => 'Kedua perangkat tidak dapat saling menemukan atau berbagi berkas.';
-	@override String get solution => 'Masalah ada di kedua sisi? Maka Anda perlu memastikan bahwa kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Wifi mungkin tidak memperbolehkan komunikasi antara peserta. Dalam hal ini, opsi ini harus diaktifkan pada router.';
+	@override String get solution => 'Pastikan kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Jika wifi tidak memperbolehkan komunikasi, aktifkan opsi ini pada router.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -690,7 +690,7 @@ class _StringsDialogsAddFileId extends _StringsDialogsAddFileEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tambah dalam pilihan';
+	@override String get title => 'Tambahkan dalam pilihan';
 	@override String get content => 'Apa yang ingin ditambahkan?';
 }
 
@@ -701,10 +701,10 @@ class _StringsDialogsAddressInputId extends _StringsDialogsAddressInputEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Masukan Alamat';
+	@override String get title => 'Masukkan Alamat';
 	@override String get hashtag => 'Tagar';
 	@override String get ip => 'Alamat IP';
-	@override String get recentlyUsed => 'Baru saja digunakan: ';
+	@override String get recentlyUsed => 'Baru saja digunakan:';
 }
 
 // Path: dialogs.cancelSession
@@ -758,7 +758,7 @@ class _StringsDialogsFavoriteDialogId extends _StringsDialogsFavoriteDialogEn {
 
 	// Translations
 	@override String get title => 'Favorit';
-	@override String get noFavorites => 'Tidak adan perangkat difavoritkan.';
+	@override String get noFavorites => 'Tidak ada perangkat difavoritkan.';
 	@override String get addFavorite => 'Tambah';
 }
 
@@ -795,8 +795,8 @@ class _StringsDialogsFileInfoId extends _StringsDialogsFileInfoEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Informasi berkas';
-	@override String get fileName => 'Nama berkas:';
+	@override String get title => 'Informasi Berkas';
+	@override String get fileName => 'Nama Berkas:';
 	@override String get path => 'Jalur:';
 	@override String get size => 'Ukuran:';
 	@override String get sender => 'Pengirim:';
@@ -810,7 +810,7 @@ class _StringsDialogsFileNameInputId extends _StringsDialogsFileNameInputEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Masukan nama berkas';
+	@override String get title => 'Masukkan nama berkas';
 	@override String original({required Object original}) => 'Asli: ${original}';
 }
 
@@ -821,7 +821,7 @@ class _StringsDialogsHistoryClearDialogId extends _StringsDialogsHistoryClearDia
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hapus riwayat';
+	@override String get title => 'Hapus Riwayat';
 	@override String get content => 'Anda yakin ingin menghapus seluruh riwayat?';
 }
 
@@ -845,7 +845,7 @@ class _StringsDialogsMessageInputId extends _StringsDialogsMessageInputEn {
 
 	// Translations
 	@override String get title => 'Ketik pesan';
-	@override String get multiline => 'Baris ganda';
+	@override String get multiline => 'Baris Ganda';
 }
 
 // Path: dialogs.noFiles
@@ -898,10 +898,10 @@ class _StringsDialogsQuickActionsId extends _StringsDialogsQuickActionsEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tindakan Cepat';
+	@override String get title => 'Aksi Cepat';
 	@override String get counter => 'Penghitung';
 	@override String get prefix => 'Awalan';
-	@override String get padZero => 'Pad dengan nol';
+	@override String get padZero => 'Isi dengan nol';
 	@override String get sortBeforeCount => 'Urutkan berdasarkan abjad sebelumnya';
 	@override String get random => 'Acak';
 }
@@ -924,10 +924,10 @@ class _StringsDialogsSendModeHelpId extends _StringsDialogsSendModeHelpEn {
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mode pengiriman';
+	@override String get title => 'Mode Pengiriman';
 	@override String get single => 'Mengirim berkas ke satu penerima. Pilihan akan dihapus setelah selesai membagikan berkas.';
 	@override String get multiple => 'Mengirim berkas ke beberapa penerima. Pilihan tidak akan dihapus.';
-	@override String get link => 'Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di browser mereka.';
+	@override String get link => 'Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban mereka.';
 }
 
 // Path: dialogs.zoom
