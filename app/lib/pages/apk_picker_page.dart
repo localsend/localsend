@@ -24,6 +24,17 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
   final _textController = TextEditingController();
   final List<Application> _selectedApps = [];
 
+  Future<void> _pickApp(Application app) async {
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+          files: [app],
+          converter: CrossFileConverters.convertApplication,
+        ));
+
+    if (mounted) {
+      context.pop();
+    }
+  }
+
   Future<void> _pickApps(List<Application> apps) async {
     // ignore: discarded_futures
 
@@ -153,7 +164,33 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
               ),
             ),
             SliverToBoxAdapter(
-              child: Text(t.apkPickerPage.apps(n: apkAsync.data?.length ?? 0)),
+              child: Row(
+                children: [
+                  Text(t.apkPickerPage.apps(n: apkAsync.data?.length ?? 0)),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Text('Select Multiple Apps'),
+                      const SizedBox(width: 5),
+                      Switch(
+                        value: apkParams.selectMultipleApps,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            apkParams.selectMultipleApps =
+                                !apkParams.selectMultipleApps;
+                          });
+                        },
+                        activeTrackColor: Theme.of(context).colorScheme.primary,
+                        activeColor: Theme.of(context).colorScheme.onPrimary,
+                        inactiveThumbColor:
+                            Theme.of(context).colorScheme.outline,
+                        inactiveTrackColor:
+                            Theme.of(context).colorScheme.surface,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 10),
@@ -170,7 +207,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: InkWell(
-                          onTap: () => _appSelection(app),
+                          onTap: () async => (apkParams.selectMultipleApps)
+                              ? _appSelection(app)
+                              : _pickApp(app),
                           customBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -224,14 +263,15 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                   ],
                                 ),
                               ),
-                              Icon(
-                                _selectedApps.contains(app)
-                                    ? Icons.check_circle
-                                    : Icons.radio_button_unchecked,
-                                color: _selectedApps.contains(app)
-                                    ? Theme.of(context).iconTheme.color
-                                    : Colors.grey,
-                              )
+                              if (apkParams.selectMultipleApps)
+                                Icon(
+                                  _selectedApps.contains(app)
+                                      ? Icons.check_circle
+                                      : Icons.radio_button_unchecked,
+                                  color: _selectedApps.contains(app)
+                                      ? Theme.of(context).iconTheme.color
+                                      : Colors.grey,
+                                )
                             ],
                           ),
                         ),
