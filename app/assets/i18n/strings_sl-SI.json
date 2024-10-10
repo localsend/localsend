@@ -1,0 +1,502 @@
+{
+    "locale": "Slovenščina",
+    "appName": "LocalSend",
+    "general": {
+        "accept": "Sprejmi",
+        "accepted": "Sprejeto",
+        "add": "Dodaj",
+        "advanced": "Napredno",
+        "cancel": "Prekliči",
+        "close": "Zapri",
+        "confirm": "Potrdi",
+        "continueStr": "Nadaljuj",
+        "copy": "Kopiraj",
+        "copiedToClipboard": "Kopirano v odložišče",
+        "decline": "Zavrni",
+        "done": "Končano",
+        "delete": "Izbriši",
+        "edit": "Uredi",
+        "error": "Napaka",
+        "example": "Primer",
+        "files": "Datoteke",
+        "finished": "Končano",
+        "hide": "Skrij",
+        "off": "Izklopljeno",
+        "offline": "Brez povezave",
+        "on": "Vklopljeno",
+        "online": "Na spletu",
+        "open": "Odpri",
+        "queue": "Čakalna vrsta",
+        "quickSave": "Hitro shranjevanje",
+        "quickSaveFromFavorites": "Hitro shranjevanje za »Priljubljene«",
+        "renamed": "Preimenovano",
+        "reset": "Razveljavi spremembe",
+        "restart": "Ponovni zagon",
+        "settings": "Nastavitve",
+        "skipped": "Preskočeno",
+        "start": "Začni",
+        "stop": "Ustavi",
+        "save": "Shrani",
+        "unchanged": "Nespremenjeno",
+        "unknown": "Neznano",
+        "noItemInClipboard": "V odložišču ni elementov."
+    },
+    "receiveTab": {
+        "title": "Prejem",
+        "infoBox": {
+            "ip": "IP:",
+            "port": "Vrata:",
+            "alias": "Ime naprave:"
+        }
+    },
+    "sendTab": {
+        "title": "Pošlji",
+        "selection": {
+            "title": "Izbira",
+            "files": "Datoteke: {files}",
+            "size": "Velikost: {size}"
+        },
+        "picker": {
+            "file": "Datoteka",
+            "folder": "Mapa",
+            "media": "Mediji",
+            "text": "Besedilo",
+            "app": "Aplikacija",
+            "clipboard": "Prilepi"
+        },
+        "shareIntentInfo": "Lahko uporabite funkcijo »Deli« na vaši mobilni napravi za lažjo izbiro datotek.",
+        "nearbyDevices": "Naprave v bližini",
+        "thisDevice": "Ta naprava",
+        "scan": "Išči naprave",
+        "manualSending": "Ročno pošiljanje",
+        "sendMode": "Način pošiljanja",
+        "sendModes": {
+            "single": "En prejemnik",
+            "multiple": "Več prejemnikov",
+            "link": "Deli prek povezave"
+        },
+        "sendModeHelp": "Pojasnilo",
+        "help": "Preverite, da je ciljna naprava povezana v isto Wi-Fi omrežje.",
+        "placeItems": "Postavite elemente za deljenje."
+    },
+    "settingsTab": {
+        "title": "Nastavitve",
+        "general": {
+            "title": "Splošno",
+            "brightness": "Tema",
+            "brightnessOptions": {
+                "system": "Sistem",
+                "dark": "Temna",
+                "light": "Svetla"
+            },
+            "color": "Barva",
+            "colorOptions": {
+                "system": "Sistem",
+                "oled": "OLED"
+            },
+            "language": "Jezik",
+            "languageOptions": {
+                "system": "Sistem"
+            },
+            "saveWindowPlacement": "Shrani položaj okna ob izhodu",
+            "saveWindowPlacementWindows": "Shrani položaj okna ob zaprtju",
+            "minimizeToTray": "Ob zaprtju minimiziraj v sistemski pladenj / meni",
+            "launchAtStartup": "Samodejni zagon po prijavi",
+            "launchMinimized": "Samodejni zagon: Začni skrito",
+            "showInContextMenu": "Prikaži LocalSend v kontekstnem meniju",
+            "animations": "Animacije"
+        },
+        "receive": {
+            "title": "Prejem",
+            "quickSave": "@:general.quickSave",
+            "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+            "requirePin": "@:webSharePage.requirePin",
+            "autoFinish": "Samodejno dokončaj",
+            "destination": "Shrani v mapo",
+            "downloads": "(Prenosi)",
+            "saveToGallery": "Shrani medije v galerijo",
+            "saveToHistory": "Shrani v zgodovino"
+        },
+        "send": {
+            "title": "Pošlji",
+            "shareViaLinkAutoAccept": "Samodejno sprejmi zahteve v načinu »Deli prek povezave«"
+        },
+        "network": {
+            "title": "Omrežje",
+            "needRestart": "Ponovno zaženite strežnik, da uveljavite nastavitve!",
+            "server": "Strežnik",
+            "alias": "Ime naprave",
+            "deviceType": "Tip naprave",
+            "deviceModel": "Model naprave",
+            "port": "Vrata",
+            "discoveryTimeout": "Časovna omejitev za odkrivanje",
+            "useSystemName": "Uporabi sistemsko ime",
+            "generateRandomAlias": "Ustvari naključni vzdevek",
+            "portWarning": "Morda vas druge naprave ne bodo zaznale, ker uporabljate nestandardna vrata. (privzeto: {defaultPort})",
+            "encryption": "Šifriranje",
+            "multicastGroup": "Večtočkovni naslov",
+            "multicastGroupWarning": "Morda vas druge naprave ne bodo zaznale, ker uporabljate nestandardni večtočkovni naslov. (privzeto: {defaultMulticast})"
+        },
+        "other": {
+            "title": "Drugo",
+            "support": "Podprite LocalSend",
+            "donate": "Donirajte",
+            "privacyPolicy": "Politika zasebnosti",
+            "termsOfUse": "Pogoji uporabe"
+        },
+        "advancedSettings": "Napredne nastavitve"
+    },
+    "troubleshootPage": {
+        "title": "Odpravljanje težav",
+        "subTitle": "Aplikacija ne deluje pravilno? Tukaj najdete rešitve za pogoste težave.",
+        "solution": "Rešitev:",
+        "fixButton": "Samodejno odpravi",
+        "firewall": {
+            "symptom": "Ta naprava lahko pošilja datoteke, ne more pa jih prejemati.",
+            "solution": "Verjetno gre za težavo z požarnim zidom. Dovoli dohodne povezave (UDP in TCP) na vrata {port}.",
+            "openFirewall": "Odpri požarni zid"
+        },
+        "noDiscovery": {
+            "symptom": "Ta naprava ne more najti drugih naprav.",
+            "solution": "Preverite, da so vse naprave v istem Wi-Fi omrežju in imajo enako konfiguracijo (vrata, večtočkovni naslov, šifriranje). Poskusite ročno vnesti IP naslov ciljne naprave. Če to deluje, jo dodajte med priljubljene za prihodnje odkrivanje."
+        },
+        "noConnection": {
+            "symptom": "Naprave se ne najdejo in ne morejo deliti datotek.",
+            "solution": "Preverite, da so obe napravi v istem Wi-Fi omrežju in imajo enake nastavitve (vrata, večtočkovni naslov, šifriranje). Morda omrežje preprečuje komunikacijo med udeleženci (izolacija AP)."
+        }
+    },
+    "receiveHistoryPage": {
+        "title": "Zgodovina",
+        "openFolder": "Odpri mapo",
+        "deleteHistory": "Izbriši zgodovino",
+        "empty": "Zgodovina je prazna.",
+        "entryActions": {
+            "open": "Odpri datoteko",
+            "showInFolder": "Prikaži v mapi",
+            "info": "Informacije",
+            "deleteFromHistory": "Izbriši iz zgodovine"
+        }
+    },
+    "apkPickerPage": {
+        "title": "Aplikacije (APK)",
+        "excludeSystemApps": "Izključi sistemske aplikacije",
+        "excludeAppsWithoutLaunchIntent": "Izključi aplikacije, ki jih ni mogoče zagnati",
+        "apps": "{n} aplikacij"
+    },
+    "selectedFilesPage": {
+        "deleteAll": "Izbriši vse"
+    },
+    "receivePage": {
+        "subTitle": {
+            "one": "želi poslati datoteko",
+            "other": "želi poslati {n} datotek"
+        },
+        "subTitleMessage": "vam je poslal sporočilo:",
+        "subTitleLink": "vam je poslal povezavo:",
+        "canceled": "Pošiljatelj je preklical zahtevo."
+    },
+    "receiveOptionsPage": {
+        "title": "Možnosti",
+        "destination": "@:settingsTab.receive.destination",
+        "appDirectory": "(mapa LocalSend)",
+        "saveToGallery": "@:settingsTab.receive.saveToGallery",
+        "saveToGalleryOff": "Samodejno izklopljeno, ker obstajajo mape."
+    },
+    "sendPage": {
+        "waiting": "Čakanje na odgovor...",
+        "rejected": "Prejemnik je zavrnil zahtevo.",
+        "tooManyAttempts": "@:web.tooManyAttempts",
+        "busy": "Prejemnik je zaseden z drugo zahtevo."
+    },
+    "progressPage": {
+        "titleSending": "Pošiljanje datotek",
+        "titleReceiving": "Prejemanje datotek",
+        "savedToGallery": "Shranjeno v Fotografije",
+        "total": {
+            "title": {
+                "sending": "Skupni napredek ({time})",
+                "finishedError": "Zaključeno z napako",
+                "canceledSender": "Preklical pošiljatelj",
+                "canceledReceiver": "Preklical prejemnik"
+            },
+            "count": "Datoteke: {curr} / {n}",
+            "size": "Velikost: {curr} / {n}",
+            "speed": "Hitrost: {speed}/s"
+        }
+    },
+    "webSharePage": {
+        "title": "Deli prek povezave",
+        "loading": "Zagon strežnika...",
+        "stopping": "Ustavitev strežnika...",
+        "error": "Prišlo je do napake pri zagonu strežnika.",
+        "openLink": {
+            "one": "Odprite to povezavo v svojem brskalniku:",
+            "other": "Odprite eno od teh povezav v svojem brskalniku:"
+        },
+        "requests": "Zahteve",
+        "noRequests": "Zaenkrat ni nobenih zahtev.",
+        "encryption": "@:settingsTab.network.encryption",
+        "autoAccept": "Samodejno sprejemaj zahteve",
+        "requirePin": "Zahtevaj PIN",
+        "pinHint": "PIN je \"{pin}\"",
+        "encryptionHint": "LocalSend uporablja samopodpisano potrdilo. Sprejeti ga morate v svojem brskalniku.",
+        "pendingRequests": "Čakajoče zahteve: {n}"
+    },
+    "aboutPage": {
+        "title": "O LocalSend",
+        "description": [
+            "LocalSend je brezplačna, odprtokodna aplikacija, ki vam omogoča varno deljenje datotek in sporočil z napravami v bližini prek lokalnega omrežja brez potrebe po internetni povezavi.",
+            "Aplikacija je na voljo za Android, iOS, macOS, Windows in Linux. Vse možnosti prenosa lahko najdete na uradni spletni strani."
+        ],
+        "author": "Avtor",
+        "contributors": "Sodelavci",
+        "packagers": "Paketniki",
+        "translators": "Prevajalci"
+    },
+    "donationPage": {
+        "title": "Doniraj",
+        "info": "LocalSend je brezplačna, odprtokodna in brez oglasov. Če vam je aplikacija všeč, lahko podprete razvoj z donacijo.",
+        "donate": "Doniraj {amount}",
+        "thanks": "Najlepša hvala!",
+        "restore": "Obnovi nakup"
+    },
+    "changelogPage": {
+        "title": "Dnevnik sprememb"
+    },
+    "aliasGenerator(ignoreMissing, ignoreGpt)": {
+        "@info": "Različne lokalizacije imajo lahko različne besede, morda se ne ujemajo 1:1",
+        "adjectives": [
+            "Ljubek",
+            "Lep",
+            "Velik",
+            "Svetel",
+            "Čist",
+            "Pameten",
+            "Kul",
+            "Prisrčen",
+            "Prebrisan",
+            "Odločen",
+            "Energijski",
+            "Učinkovit",
+            "Fantastičen",
+            "Hiter",
+            "Fin",
+            "Svež",
+            "Dober",
+            "Čudovit",
+            "Odličen",
+            "Postaven",
+            "Vroč",
+            "Prijazen",
+            "Ljubek",
+            "Mističen",
+            "Urejen",
+            "Lep",
+            "Potrpežljiv",
+            "Prikupen",
+            "Mogočen",
+            "Bogat",
+            "Skrivnosten",
+            "Pameten",
+            "Trden",
+            "Poseben",
+            "Strateški",
+            "Močan",
+            "Pospravljeno",
+            "Moder"
+        ],
+        "fruits": [
+            "Jabolko",
+            "Avokado",
+            "Banana",
+            "Robida",
+            "Borovnica",
+            "Brokoli",
+            "Korenček",
+            "Češnja",
+            "Kokos",
+            "Grozdje",
+            "Limona",
+            "Solata",
+            "Mango",
+            "Melona",
+            "Goba",
+            "Čebula",
+            "Pomaranča",
+            "Papaja",
+            "Breskev",
+            "Hruška",
+            "Ananas",
+            "Krompir",
+            "Buča",
+            "Malina",
+            "Jagoda",
+            "Paradižnik"
+        ],
+        "combination": "{adjective} {fruit}",
+        "@combination": "V nekaterih jezikih mora biti pridevnik na koncu."
+    },
+    "dialogs": {
+        "addFile": {
+            "title": "Dodaj k izbiri",
+            "content": "Kaj želite dodati?"
+        },
+        "addressInput": {
+            "title": "Vnesite naslov",
+            "hashtag": "Hashtag",
+            "ip": "IP naslov",
+            "recentlyUsed": "Nedavno uporabljeno: "
+        },
+        "cancelSession": {
+            "title": "Prekliči prenos datotek",
+            "content": "Ali res želite preklicati prenos datotek?"
+        },
+        "cannotOpenFile": {
+            "title": "Ne morem odpreti datoteke",
+            "content": "Ni mogoče odpreti \"{file}\". Ali je bila ta datoteka premaknjena, preimenovana ali izbrisana?"
+        },
+        "encryptionDisabledNotice": {
+            "title": "Šifriranje onemogočeno",
+            "content": "Komunikacija zdaj poteka prek nezaščitenega HTTP protokola. Če želite uporabljati HTTPS, znova omogočite šifriranje."
+        },
+        "errorDialog": {
+            "title": "@:general.error"
+        },
+        "favoriteDialog": {
+            "title": "Priljubljene naprave",
+            "noFavorites": "Ni še priljubljenih naprav.",
+            "addFavorite": "Dodaj"
+        },
+        "favoriteDeleteDialog": {
+            "title": "Izbriši iz priljubljenih",
+            "content": "Ali res želite izbrisati napravo \"{name}\" iz priljubljenih?"
+        },
+        "favoriteEditDialog": {
+            "titleAdd": "Dodaj v priljubljene",
+            "titleEdit": "Nastavitve",
+            "name": "Ime naprave",
+            "auto": "(samodejno)",
+            "ip": "IP naslov",
+            "port": "Vrata"
+        },
+        "fileInfo": {
+            "title": "Informacije o datoteki",
+            "fileName": "Ime datoteke:",
+            "path": "Pot:",
+            "size": "Velikost:",
+            "sender": "Pošiljatelj:",
+            "time": "Čas:"
+        },
+        "fileNameInput": {
+            "title": "Vnesite ime datoteke",
+            "original": "Izvirno: {original}"
+        },
+        "historyClearDialog": {
+            "title": "Počisti zgodovino",
+            "content": "Ali res želite izbrisati celotno zgodovino?"
+        },
+        "localNetworkUnauthorized": {
+            "title": "@:dialogs.noPermission.title",
+            "description": "LocalSend ne more najti drugih naprav brez dovoljenja za iskanje v lokalnem omrežju. Prosim, omogočite to dovoljenje v nastavitvah.",
+            "gotoSettings": "Nastavitve"
+        },
+        "messageInput": {
+            "title": "Vnesite sporočilo",
+            "multiline": "Več vrstic"
+        },
+        "noFiles": {
+            "title": "Ni izbranih datotek",
+            "content": "Prosim, izberite vsaj eno datoteko."
+        },
+        "noPermission": {
+            "title": "Ni dovoljenja",
+            "content": "Niste podelili zahtevanih dovoljenj. Prosim, omogočite jih v nastavitvah."
+        },
+        "notAvailableOnPlatform": {
+            "title": "Ni na voljo",
+            "content": "Ta funkcija je na voljo samo na:"
+        },
+        "qr": {
+            "title": "QR koda"
+        },
+        "quickActions": {
+            "title": "Hitre akcije",
+            "counter": "Števec",
+            "prefix": "Predpona",
+            "padZero": "Dodaj ničle",
+            "sortBeforeCount": "Predhodno uredi po abecedi (A-Ž)",
+            "random": "Naključno"
+        },
+        "quickSaveNotice": {
+            "title": "@:general.quickSave",
+            "content": "Zahteve za datoteke so zdaj samodejno sprejete. Bodite pozorni, da vam lahko vsi v lokalnem omrežju pošiljajo datoteke."
+        },
+        "quickSaveFromFavoritesNotice": {
+            "title": "@:general.quickSaveFromFavorites",
+            "content": "Zahteve za datoteke so zdaj samodejno sprejete od naprav na seznamu priljubljenih."
+        },
+        "pin": {
+            "title": "Vnesite PIN"
+        },
+        "sendModeHelp": {
+            "title": "Načini pošiljanja",
+            "single": "Pošlje datoteke enemu prejemniku. Izbira bo po končanem prenosu izbrisana.",
+            "multiple": "Pošlje datoteke več prejemnikom. Izbira po končanem prenosu ne bo izbrisana.",
+            "link": "Prejemniki, ki nimajo nameščenega LocalSend, lahko prenesejo izbrane datoteke z odpiranjem povezave v brskalniku."
+        },
+        "zoom": {
+            "title": "URL"
+        }
+    },
+    "sanitization": {
+        "empty": "Ime datoteke ne sme biti prazno",
+        "invalid": "Ime datoteke vsebuje neveljavne znake"
+    },
+    "tray": {
+        "@info": "Smernice Appla so zelo stroge glede uporabe besede \"zapri\".",
+        "open": "@:general.open",
+        "close": "Zapri LocalSend",
+        "closeWindows": "Izhod"
+    },
+    "web": {
+        "waiting": "@:sendPage.waiting",
+        "enterPin": "Vnesite PIN",
+        "invalidPin": "Neveljaven PIN",
+        "tooManyAttempts": "Preveč poskusov",
+        "rejected": "Zavrnjeno",
+        "files": "Datoteke",
+        "fileName": "Ime datoteke",
+        "size": "Velikost"
+    },
+    "assetPicker": {
+        "@info": "Prevod za orodje za izbiro medijev na Androidu in iPhoneu",
+        "confirm": "Potrdi",
+        "cancel": "Prekliči",
+        "edit": "Uredi",
+        "gifIndicator": "GIF",
+        "loadFailed": "Nalaganje ni uspelo",
+        "original": "Izvirnik",
+        "preview": "Predogled",
+        "select": "Izberi",
+        "emptyList": "Prazno",
+        "unSupportedAssetType": "Nepodprt tip datoteke.",
+        "unableToAccessAll": "Ni mogoče dostopati do vseh datotek na napravi",
+        "viewingLimitedAssetsTip": "Prikaži samo datoteke in albume, do katerih ima aplikacija dostop.",
+        "changeAccessibleLimitedAssets": "Kliknite za posodobitev dostopnih datotek",
+        "accessAllTip": "Aplikacija lahko dostopa le do nekaterih datotek na napravi. Pojdite v sistemske nastavitve in omogočite dostop do vseh medijev na napravi.",
+        "goToSystemSettings": "Pojdi v sistemske nastavitve",
+        "accessLimitedAssets": "Nadaljuj z omejenim dostopom",
+        "accessiblePathName": "Dostopne datoteke",
+        "sTypeAudioLabel": "Zvok",
+        "sTypeImageLabel": "Slika",
+        "sTypeVideoLabel": "Video",
+        "sTypeOtherLabel": "Ostalo",
+        "sActionPlayHint": "predvajaj",
+        "sActionPreviewHint": "predogled",
+        "sActionSelectHint": "izberi",
+        "sActionSwitchPathLabel": "spremeni pot",
+        "sActionUseCameraHint": "uporabi kamero",
+        "sNameDurationLabel": "trajanje",
+        "sUnitAssetCountLabel": "številka"
+    }
+}
