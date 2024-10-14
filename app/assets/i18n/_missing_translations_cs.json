@@ -4,30 +4,30 @@
     "After editing this file, you can run 'dart run slang apply --locale=cs' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "Rychlé uložení pro \"Oblíbené\""
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Manuální odeslání"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "Uložit polohu okna po ukončení"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Použít název systému",
+      "generateRandomAlias": "Generovat náhodný alias"
     }
   },
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
+      "content": "Požadavky na soubory jsou nyní automaticky přijímány ze zařízení ve vašem seznamu oblíbených."
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Konec"
   }
 }
