@@ -28,6 +28,7 @@ PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=D:\inno-result
 OutputBaseFilename=localsend
 SetupIconFile=D:\inno\logo.ico
+UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
