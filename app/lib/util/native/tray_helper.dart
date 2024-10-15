@@ -29,7 +29,7 @@ Future<void> initTray() async {
       return;
     } else if (checkPlatform([TargetPlatform.linux])) {
       String icon;
-      if (await File("/.flatpak-info").exists()) {
+      if (await File('/.flatpak-info').exists()) {
         // Icon for Flatpak, which must exist in /app/share/icons/hicolor/*x*/apps.
         icon = 'org.localsend.localsend_app-tray';
       } else {
