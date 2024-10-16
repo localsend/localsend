@@ -13,6 +13,7 @@
     "copy": "Copiar",
     "copiedToClipboard": "Copiat al porta-paper",
     "decline": "Rebutjar",
+    "delete": "Eliminar",
     "done": "Fet",
     "edit": "Editar",
     "error": "Error",
@@ -20,6 +21,7 @@
     "files": "Fitxers",
     "finished": "Finalitzat",
     "hide": "Amagar",
+    "noItemInClipboard": "No hi ha elements al porta-papers.",
     "off": "Apagat",
     "offline": "Desconnectat",
     "on": "Encès",
@@ -27,6 +29,7 @@
     "open": "Obrir",
     "queue": "Cua",
     "quickSave": "Desar ràpid",
+    "quickSaveFromFavorites": "Desar ràpid per \"Preferits\"",
     "renamed": "Reanomenar",
     "reset": "Restablir",
     "restart": "Reiniciar",
@@ -54,6 +57,7 @@
       "size": "Mida: {size}"
     },
     "picker": {
+      "clipboard": "Enganxar",
       "file": "Fitxer",
       "folder": "Carpeta",
       "media": "Media",
@@ -61,6 +65,7 @@
       "app": "App"
     },
     "shareIntentInfo": "També pot utilitzar l'opció de \"Compartir\" del seu dispositiu mòbil per seleccionar fitxer d'una manera més fàcil.",
+    "manualSending": "Enviament manual",
     "nearbyDevices": "Dispositius propers",
     "thisDevice": "Aquest dispositiu",
     "scan": "Cercar dispositius",
@@ -86,6 +91,7 @@
       },
       "color": "Color",
       "colorOptions": {
+        "oled": "OLED",
         "system": "Sistema"
       },
       "language": "Idioma",
@@ -93,18 +99,27 @@
         "system": "Sistema"
       },
       "saveWindowPlacement": "Surt: desa la ubicació de la finestra",
+      "saveWindowPlacementWindows": "Desa la posició de la finestra després de sortir",
+      "showInContextMenu": "Mostrar LocalSend al menu contextual"
       "minimizeToTray": "Surt: Minimitzar a la safata",
       "launchAtStartup": "Inici automàtic després d'iniciar sessió",
       "launchMinimized": "Inici automàtic: Inici minimitzat",
       "animations": "Animacions"
     },
     "receive": {
+      "autoFinish": "Finalització Automàtica",
       "title": "Rebre",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "destination": "Destinació",
       "downloads": "(Descàrregues)",
+      "requirePin": "@:webSharePage.requirePin",
       "saveToGallery": "Desar media a la galeria",
       "saveToHistory": "Desa a l'historial"
+    },
+    "send": {
+      "title": "Enviar",
+      "shareViaLinkAutoAccept": "Acceptar peticions automàticament amb el mode \"Compartir mitjançant enllaç\""
     },
     "network": {
       "title": "Xarxa",
@@ -113,11 +128,21 @@
       "alias": "Àlies",
       "deviceType": "Tipus de dispositiu",
       "deviceModel": "Model de dispositiu",
+      "discoveryTimeout": "Temps d'espera de descobriment",
+      "generateRandomAlias": "Generar àlies aleatòriament",
       "port": "Port",
       "portWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant un port personalitzat. (per defecte: {defaultPort})",
       "encryption": "Encriptació",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant una adreça multicast personalitzada. (per defecte: {defaultMulticast})"
+      "multicastGroupWarning": "Podria no ser detectat per altres dispositius perquè està utilitzant una adreça multicast personalitzada. (per defecte: {defaultMulticast})",
+      "useSystemName": "Utilitzar nom del sistema"
+    },
+    "other": {
+      "title": "Altre",
+      "support": "Suport LocalSend",
+      "donate": "Donació",
+      "privacyPolicy": "Política Privacitat",
+      "termsOfUse": "Condicions d'ús"
     },
     "advancedSettings": "Configuració avançada"
   },
@@ -134,6 +159,10 @@
     "noConnection": {
       "symptom": "Ambdós dispositius no poden trobar-se ni compartir fitxers.",
       "solution": "El problema existeix als dos costats? S'ha d'assegurar que els dispositius estan a la mateixa xarxa Wi-Fi i comparteixen la mateixa configuració (port, adreça multicast i encriptació). El Wi-Fi pot no permetre la comunciació entre participants. En aquest cas, s'ha d'activar l'opció a l'encaminador."
+    },
+    "noDiscovery": {
+      "symptom": "Aquest dispositiu no pot descobrir altres dispositius.",
+      "solution": "Si us plau, asseguris que tots els dispositius estan a la mateixa xarxa Wi-Fi i tenen la mateixa configuració (port, adreça multicast i encriptació). Pot provar d'escriure l'adreça IP del dispositiu de destí manulament. Si això funciona, consideri afegir aquest dispositiu a preferits per tal de ser descobert automàticament en un futur."
     }
   },
   "receiveHistoryPage": {
@@ -144,7 +173,8 @@
     "entryActions": {
       "open": "Obrir fitxer",
       "info": "Informació",
-      "deleteFromHistory": "Eliminar de l'historial"
+      "deleteFromHistory": "Eliminar de l'historial",
+      "showInFolder": "Mostrar a la carpeta"
     }
   },
   "apkPickerPage": {
@@ -175,7 +205,8 @@
   "sendPage": {
     "waiting": "Esperant una resposta...",
     "rejected": "El destinatari ha rebutjat la petició.",
-    "busy": "El destinatari està ocupat amb una altra petició."
+    "busy": "El destinatari està ocupat amb una altra petició.",
+    "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "progressPage": {
     "titleSending": "Enviant fitxers",
@@ -194,6 +225,7 @@
     }
   },
   "webSharePage": {
+    "autoAccept": "Acceptar peticions automàticament",
     "title": "Compartir via enllaç",
     "loading": "Iniciant servidor...",
     "stopping": "Parant servidor...",
@@ -202,14 +234,31 @@
       "one": "Obrir l'enllaç al navegador:",
       "other": "Obrir un d'aquests enllaços al navegador:"
     },
+    "pinHint": "El PIN és \"{pin}\"",
     "requests": "Peticions",
+    "requirePin": "Requerir un PIN",
     "noRequests": "Encar ano hi ha peticions.",
     "encryption": "@:settingsTab.network.encryption",
     "encryptionHint": "LocalSend utilitza un certificat auto-signat. Cal que l'accepteu al navegador.",
     "pendingRequests": "Peticions pendents: {n}"
   },
   "aboutPage": {
+    "description": [
+      "LocalSend és una aplicació gratuïta i de codi obert que us permet compartir fitxers i missatges de manera segura amb dispositius propers a la vostra xarxa local sense necessitat de connexió a Internet.",
+      "Aquesta aplicació està disponible per a Android, iOS, macOS, Windows i Linux. Pot trobar totes les opcions de descàrrega a la pàgina d'inici oficial."
+    ],
+    "author": "Autor",
+    "contributors": "Col·laboradors",
+    "packagers": "Empaquetadors",
+    "translators": "Traductors",
     "title": "Sobre LocalSend"
+  },
+  "donationPage": {
+    "title": "Donació",
+    "info": "LocalSend és gratuït, de codi obert i sense cap anunci. Si t'agrada l'aplicació, pots donar suport al desenvolupament amb una donació.",
+    "donate": "Donació {amount}",
+    "thanks": "Moltes gràcies!",
+    "restore": "Restaurar la compra"
   },
   "changelogPage": {
     "title": "Registre de canvis"
@@ -324,7 +373,28 @@
     "fileNameInput": {
       "title": "Introdueixi el nom del fitxer",
       "original": "Original: {original}"
+    },    
+    "favoriteDialog": {
+      "title": "Preferits",
+      "noFavorites": "Encara no hi ha cap dispositiu preferit.",
+      "addFavorite": "Afegir"
     },
+    "favoriteDeleteDialog": {
+      "title": "Eliminar de preferits",
+      "content": "Realment vol eliminar \"{name}\" de preferits?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Afegir a preferits",
+      "titleEdit": "Configuració",
+      "name": "Nom del dispositiu",
+      "auto": "(auto)",
+      "ip": "Adreça IP",
+      "port": "Port"
+    },
+    "historyClearDialog": {
+      "title": "Netejar historial",
+      "content": "Realment vol eliminar tot l'historial?"
+    },    
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend no pot trobar altres dispositius sense tenir el permís per escanejar la xarxa local. Concediu aquest permís a la configuració.",
@@ -346,6 +416,9 @@
       "title": "No disponible",
       "content": "Aquesta característica només està disponible a:"
     },
+    "pin": {
+      "title": "Introduïr PIN"
+    },
     "qr": {
       "title": "Codi QR"
     },
@@ -357,6 +430,10 @@
       "sortBeforeCount": "Ordenar prèviament alfabèticament",
       "random": "Aleatori"
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": "Les sol·licituds de fitxers ara s'accepten automàticament des dels dispositius de la vostra llista de preferits."
+    },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Les sol·licituds d'arxiu s'accepten automàticament. Tingueu en compte que tothom a la xarxa local us pot enviar fitxers."
@@ -366,14 +443,25 @@
       "single": "Enviar fitxers a un destinatari. La selecció s'esborrarà un cop finalitzada la transferència de fitxers.",
       "multiple": "Enviar fitxers a diversos destinataris. La selecció no s'esborrarà.",
       "link": "Els destinataris que no tinguin LocalSend instal·lat poden descarregar els fitxers seleccionats obrint l'enllaç al seu navegador."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "El nom del fitxer no pot estar buit",
+    "invalid": "El nom del fitxer conté caràcters invàlids"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Sortir de LocalSend"
+    "close": "Sortir de LocalSend",
+    "closeWindows": "Sortir"
   },
   "web": {
+    "enterPin": "Introduïr PIN",
+    "invalidPin": "PIN invàlid",
+    "tooManyAttempts": "Massa intents",
     "waiting": "@:sendPage.waiting",
     "rejected": "Rebutjat",
     "files": "Fitxers",
