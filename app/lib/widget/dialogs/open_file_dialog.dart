@@ -2,23 +2,19 @@ import 'dart:async';
 
 import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:routerino/routerino.dart';
-import '../../gen/strings.g.dart';
 
 class OpenFileDialog extends StatefulWidget {
   final String fileName;
   final String filePath;
   final FileType fileType;
 
-  const OpenFileDialog(
-      {super.key,
-      required this.filePath,
-      required this.fileName,
-      required this.fileType});
+  const OpenFileDialog({super.key, required this.filePath, required this.fileName, required this.fileType});
 
-
-  static Future<void> open(BuildContext context, {
+  static Future<void> open(
+    BuildContext context, {
     required String filePath,
     required String fileName,
     required FileType fileType,
@@ -32,6 +28,7 @@ class OpenFileDialog extends StatefulWidget {
       ),
     );
   }
+
   @override
   State<OpenFileDialog> createState() => _OpenFileDialogState();
 }
@@ -66,10 +63,8 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
       title: Text(t.dialogs.openFile.title),
       content: Text(t.dialogs.openFile.content),
       actions: [
-
         TextButton(
-          onPressed: () async =>
-              openFile(context, widget.fileType, widget.filePath),
+          onPressed: () async => openFile(context, widget.fileType, widget.filePath),
           child: Text(t.general.open),
         ),
         TextButton(

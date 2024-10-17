@@ -143,7 +143,7 @@ Future<void> _saveFile({
     await close();
 
     if (saveToGallery) {
-      isImage ? await Gal.putImage(destinationPath,album: 'test') : await Gal.putVideo(destinationPath);
+      isImage ? await Gal.putImage(destinationPath, album: 'test') : await Gal.putVideo(destinationPath);
       await File(destinationPath).delete();
     }
 
