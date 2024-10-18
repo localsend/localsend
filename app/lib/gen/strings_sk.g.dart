@@ -128,7 +128,7 @@ class _StringsSendTabSk extends _StringsSendTabEn {
 	@override String get sendMode => 'Režim odosielania';
 	@override late final _StringsSendTabSendModesSk sendModes = _StringsSendTabSendModesSk._(_root);
 	@override String get sendModeHelp => 'Vysvetlenie';
-	@override String get help => 'Uistite sa, že požadované zariadenie je tiež v rovnakej sieti Wi-Fi.';
+	@override String get help => 'Uistite sa, že je požadované zariadenie v rovnakej Wi-Fi sieti.';
 	@override String get placeItems => 'Umiestnite položky na zdieľanie.';
 }
 
@@ -631,7 +631,7 @@ class _StringsSettingsTabNetworkSk extends _StringsSettingsTabNetworkEn {
 	@override String get deviceType => 'Typ zariadenia';
 	@override String get deviceModel => 'Model zariadenia';
 	@override String get port => 'Port';
-	@override String get discoveryTimeout => 'Časový limit objavovania';
+	@override String get discoveryTimeout => 'Časový limit hľadania';
 	@override String portWarning({required Object defaultPort}) => 'Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: ${defaultPort})';
 	@override String get encryption => 'Šifrovanie';
 	@override String get multicastGroup => 'Multicast adresa';
@@ -671,8 +671,8 @@ class _StringsTroubleshootPageNoDiscoverySk extends _StringsTroubleshootPageNoDi
 	@override final _StringsSk _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Toto zariadenie nemôže objaviť iné zariadenia.';
-	@override String get solution => 'Uistite sa, že všetky zariadenia sú v rovnakej sieti Wi-Fi a zdieľajú rovnakú konfiguráciu (port, multicast adresa, šifrovanie). Môžete sa pokúsiť zadať IP adresu cieľového zariadenia ručne. Ak to funguje, zvážte pridanie tohto zariadenia do obľúbených položiek, aby mohlo byť v budúcnosti automaticky objavené.';
+	@override String get symptom => 'Toto zariadenie nemôže nájsť iné zariadenia.';
+	@override String get solution => 'Uistite sa, že sú všetky zariadenia v rovnakej Wi-Fi sieti a zdieľajú rovnakú konfiguráciu (port, multicast adresa, šifrovanie). Môžete sa pokúsiť zadať IP adresu cieľového zariadenia ručne. Ak to funguje, zvážte pridanie tohto zariadenia do obľúbených položiek, aby mohlo byť v budúcnosti automaticky nájdené.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -682,8 +682,8 @@ class _StringsTroubleshootPageNoConnectionSk extends _StringsTroubleshootPageNoC
 	@override final _StringsSk _root; // ignore: unused_field
 
 	// Translations
-	@override String get symptom => 'Obe zariadenia sa nedokážu navzájom objaviť ani nemôžu zdieľať súbory.';
-	@override String get solution => 'Existuje problém na oboch stranách? Ak áno, musíte sa uistiť, že obe zariadenia sú v rovnakej sieti Wi-Fi a majú rovnakú konfiguráciu (port, multicastovú adresu, šifrovanie). Sieť Wi-Fi nemusí umožňovať komunikáciu medzi účastníkmi (izolácia prístupového bodu). V takom prípade musí byť táto možnosť povolená na smerovači.';
+	@override String get symptom => 'Obe zariadenia sa nedokážu navzájom nájsť ani nemôžu zdieľať súbory.';
+	@override String get solution => 'Existuje problém na oboch stranách? Ak áno, musíte sa uistiť, že sú obe zariadenia v rovnakej Wi-Fi sieti a majú rovnakú konfiguráciu (port, multicastovú adresu, šifrovanie). Sieť Wi-Fi nemusí umožňovať komunikáciu medzi účastníkmi (izolácia prístupového bodu). V takom prípade musí byť táto možnosť povolená na smerovači.';
 }
 
 // Path: receiveHistoryPage.entryActions

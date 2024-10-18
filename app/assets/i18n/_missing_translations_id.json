@@ -4,61 +4,61 @@
     "After editing this file, you can run 'dart run slang apply --locale=id' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "Simpan Cepat untuk \"Favorites\""
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Kirim Manual"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
+      "saveWindowPlacementWindows": "Simpan posisi jendela setelah keluar",
+      "showInContextMenu": "Tampilkan LocalSend di menu konteks"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Gunakan nama sistem",
+      "generateRandomAlias": "Hasilkan alias acak"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Perangkat ini tidak dapat menemukan perangkat lain.",
+      "solution": "Pastikan semua perangkat berada di jaringan Wi-Fi yang sama dan menggunakan konfigurasi yang sama (port, alamat multicast, enkripsi). Anda dapat mencoba mengetik alamat IP perangkat target secara manual. Jika ini berhasil, pertimbangkan untuk menambahkan perangkat ini ke daftar favorit sehingga bisa ditemukan secara otomatis di masa depan."
     }
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "Tampilkan di folder"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "requirePin": "Memerlukan PIN",
+    "pinHint": "PIN-nya adalah \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Pengemas"
   },
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
+      "content": "Permintaan file sekarang diterima secara otomatis dari perangkat di daftar favorit Anda."
     },
     "pin": {
-      "title": "Enter PIN"
+      "title": "Masukkan PIN"
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Keluar"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "Masukkan PIN",
+    "invalidPin": "PIN Salah",
+    "tooManyAttempts": "Terlalu banyak percobaan"
   }
 }

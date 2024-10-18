@@ -6,10 +6,11 @@ import 'package:localsend_app/provider/param/cached_apk_provider_param.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 final apkSearchParamProvider = StateProvider<ApkProviderParam>(
-  (ref) => const ApkProviderParam(
+  (ref) => ApkProviderParam(
     query: '',
     includeSystemApps: false,
     onlyAppsWithLaunchIntent: true,
+    selectMultipleApps: false,
   ),
 );
 
@@ -20,6 +21,7 @@ final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
       .watch(_apkProvider(CachedApkProviderParam(
         includeSystemApps: param.includeSystemApps,
         onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,
+        selectMultipleApps: param.selectMultipleApps,
       )))
       .maybeWhen(
         data: (apps) {

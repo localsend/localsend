@@ -70,6 +70,7 @@ enum FilePickerOption {
       return [
         FilePickerOption.media,
         FilePickerOption.text,
+        FilePickerOption.clipboard,
         FilePickerOption.file,
         FilePickerOption.folder,
       ];

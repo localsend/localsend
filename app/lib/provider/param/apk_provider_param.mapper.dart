@@ -36,9 +36,10 @@ class ApkProviderParamMapper extends ClassMapperBase<ApkProviderParam> {
 
   static ApkProviderParam _instantiate(DecodingData data) {
     return ApkProviderParam(
-        query: data.dec(_f$query),
-        includeSystemApps: data.dec(_f$includeSystemApps),
-        onlyAppsWithLaunchIntent: data.dec(_f$onlyAppsWithLaunchIntent));
+      query: data.dec(_f$query),
+      includeSystemApps: data.dec(_f$includeSystemApps),
+      onlyAppsWithLaunchIntent: data.dec(_f$onlyAppsWithLaunchIntent),
+    );
   }
 
   @override

@@ -76,7 +76,7 @@
       "link": "Zdieľať cez odkaz"
     },
     "sendModeHelp": "Vysvetlenie",
-    "help": "Uistite sa, že požadované zariadenie je tiež v rovnakej sieti Wi-Fi.",
+    "help": "Uistite sa, že je požadované zariadenie v rovnakej Wi-Fi sieti.",
     "placeItems": "Umiestnite položky na zdieľanie."
   },
   "settingsTab": {
@@ -129,7 +129,7 @@
       "deviceType": "Typ zariadenia",
       "deviceModel": "Model zariadenia",
       "port": "Port",
-      "discoveryTimeout": "Časový limit objavovania",
+      "discoveryTimeout": "Časový limit hľadania",
       "portWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: {defaultPort})",
       "encryption": "Šifrovanie",
       "multicastGroup": "Multicast adresa",
@@ -155,12 +155,12 @@
       "openFirewall": "Otvoriť firewall"
     },
     "noDiscovery": {
-      "symptom": "Toto zariadenie nemôže objaviť iné zariadenia.",
-      "solution": "Uistite sa, že všetky zariadenia sú v rovnakej sieti Wi-Fi a zdieľajú rovnakú konfiguráciu (port, multicast adresa, šifrovanie). Môžete sa pokúsiť zadať IP adresu cieľového zariadenia ručne. Ak to funguje, zvážte pridanie tohto zariadenia do obľúbených položiek, aby mohlo byť v budúcnosti automaticky objavené."
+      "symptom": "Toto zariadenie nemôže nájsť iné zariadenia.",
+      "solution": "Uistite sa, že sú všetky zariadenia v rovnakej Wi-Fi sieti a zdieľajú rovnakú konfiguráciu (port, multicast adresa, šifrovanie). Môžete sa pokúsiť zadať IP adresu cieľového zariadenia ručne. Ak to funguje, zvážte pridanie tohto zariadenia do obľúbených položiek, aby mohlo byť v budúcnosti automaticky nájdené."
     },
     "noConnection": {
-      "symptom": "Obe zariadenia sa nedokážu navzájom objaviť ani nemôžu zdieľať súbory.",
-      "solution": "Existuje problém na oboch stranách? Ak áno, musíte sa uistiť, že obe zariadenia sú v rovnakej sieti Wi-Fi a majú rovnakú konfiguráciu (port, multicastovú adresu, šifrovanie). Sieť Wi-Fi nemusí umožňovať komunikáciu medzi účastníkmi (izolácia prístupového bodu). V takom prípade musí byť táto možnosť povolená na smerovači."
+      "symptom": "Obe zariadenia sa nedokážu navzájom nájsť ani nemôžu zdieľať súbory.",
+      "solution": "Existuje problém na oboch stranách? Ak áno, musíte sa uistiť, že sú obe zariadenia v rovnakej Wi-Fi sieti a majú rovnakú konfiguráciu (port, multicastovú adresu, šifrovanie). Sieť Wi-Fi nemusí umožňovať komunikáciu medzi účastníkmi (izolácia prístupového bodu). V takom prípade musí byť táto možnosť povolená na smerovači."
     }
   },
   "receiveHistoryPage": {
