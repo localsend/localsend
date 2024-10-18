@@ -13,7 +13,9 @@ import 'package:common/model/dto/register_dto.dart';
 import 'package:common/model/file_status.dart';
 import 'package:common/model/file_type.dart';
 import 'package:common/model/session_status.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
@@ -40,6 +42,7 @@ import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/simple_server.dart';
+import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
@@ -441,17 +444,15 @@ class ReceiveController {
         ),
       ),
     );
+    final fileType = receivingFile.file.fileType;
+    final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
+    final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
+      parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
+      fileName: receivingFile.desiredName!,
+      createdDirectories: receiveState.createdDirectories,
+    );
     try {
-      final fileType = receivingFile.file.fileType;
-      final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
-
-      final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
-        parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
-        fileName: receivingFile.desiredName!,
-        createdDirectories: receiveState.createdDirectories,
-      );
-
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       await saveFile(
@@ -549,8 +550,20 @@ class ReceiveController {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();
+          _logger.info('Closing session');
+
           // ignore: use_build_context_synchronously
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
+
+          /* open the dialog to open file instantly*/
+          if (destinationPath.isNotEmpty) {
+            OpenFileDialog.open(
+                // ignore: use_build_context_synchronously
+                Routerino.context,
+                filePath: destinationPath,
+                fileName: receivingFile.desiredName!,
+                fileType: fileType);
+          }
         });
       }
       _logger.info('Received all files.');
