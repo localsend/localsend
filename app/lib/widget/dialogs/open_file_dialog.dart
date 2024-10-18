@@ -45,9 +45,19 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
         });
       } else {
         timer.cancel();
-        context.pop(); // Automatically close the dialog
+        if (context.mounted) {
+          context.pop(); // Automatically close the dialog
+        }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    super.dispose();
   }
 
   @override

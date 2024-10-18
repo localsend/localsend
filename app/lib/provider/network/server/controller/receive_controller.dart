@@ -550,7 +550,7 @@ class ReceiveController {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();
-          _logger.severe('Closing session');
+          _logger.info('Closing session');
 
           // ignore: use_build_context_synchronously
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
