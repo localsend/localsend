@@ -24,15 +24,21 @@ class CachedApkProviderParamMapper extends ClassMapperBase<CachedApkProviderPara
   static const Field<CachedApkProviderParam, bool> _f$includeSystemApps = Field('includeSystemApps', _$includeSystemApps);
   static bool _$onlyAppsWithLaunchIntent(CachedApkProviderParam v) => v.onlyAppsWithLaunchIntent;
   static const Field<CachedApkProviderParam, bool> _f$onlyAppsWithLaunchIntent = Field('onlyAppsWithLaunchIntent', _$onlyAppsWithLaunchIntent);
+  static bool _$selectMultipleApps(CachedApkProviderParam v) => v.selectMultipleApps;
+  static const Field<CachedApkProviderParam, bool> _f$selectMultipleApps = Field('selectMultipleApps', _$selectMultipleApps, opt: true, def: false);
 
   @override
   final MappableFields<CachedApkProviderParam> fields = const {
     #includeSystemApps: _f$includeSystemApps,
     #onlyAppsWithLaunchIntent: _f$onlyAppsWithLaunchIntent,
+    #selectMultipleApps: _f$selectMultipleApps,
   };
 
   static CachedApkProviderParam _instantiate(DecodingData data) {
-    return CachedApkProviderParam(includeSystemApps: data.dec(_f$includeSystemApps), onlyAppsWithLaunchIntent: data.dec(_f$onlyAppsWithLaunchIntent));
+    return CachedApkProviderParam(
+        includeSystemApps: data.dec(_f$includeSystemApps),
+        onlyAppsWithLaunchIntent: data.dec(_f$onlyAppsWithLaunchIntent),
+        selectMultipleApps: data.dec(_f$selectMultipleApps));
   }
 
   @override
@@ -80,7 +86,7 @@ extension CachedApkProviderParamValueCopy<$R, $Out> on ObjectCopyWith<$R, Cached
 }
 
 abstract class CachedApkProviderParamCopyWith<$R, $In extends CachedApkProviderParam, $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({bool? includeSystemApps, bool? onlyAppsWithLaunchIntent});
+  $R call({bool? includeSystemApps, bool? onlyAppsWithLaunchIntent, bool? selectMultipleApps});
   CachedApkProviderParamCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -91,14 +97,16 @@ class _CachedApkProviderParamCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R
   @override
   late final ClassMapperBase<CachedApkProviderParam> $mapper = CachedApkProviderParamMapper.ensureInitialized();
   @override
-  $R call({bool? includeSystemApps, bool? onlyAppsWithLaunchIntent}) => $apply(FieldCopyWithData({
+  $R call({bool? includeSystemApps, bool? onlyAppsWithLaunchIntent, bool? selectMultipleApps}) => $apply(FieldCopyWithData({
         if (includeSystemApps != null) #includeSystemApps: includeSystemApps,
-        if (onlyAppsWithLaunchIntent != null) #onlyAppsWithLaunchIntent: onlyAppsWithLaunchIntent
+        if (onlyAppsWithLaunchIntent != null) #onlyAppsWithLaunchIntent: onlyAppsWithLaunchIntent,
+        if (selectMultipleApps != null) #selectMultipleApps: selectMultipleApps
       }));
   @override
   CachedApkProviderParam $make(CopyWithData data) => CachedApkProviderParam(
       includeSystemApps: data.get(#includeSystemApps, or: $value.includeSystemApps),
-      onlyAppsWithLaunchIntent: data.get(#onlyAppsWithLaunchIntent, or: $value.onlyAppsWithLaunchIntent));
+      onlyAppsWithLaunchIntent: data.get(#onlyAppsWithLaunchIntent, or: $value.onlyAppsWithLaunchIntent),
+      selectMultipleApps: data.get(#selectMultipleApps, or: $value.selectMultipleApps));
 
   @override
   CachedApkProviderParamCopyWith<$R2, CachedApkProviderParam, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

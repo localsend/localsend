@@ -340,6 +340,9 @@
     "addFile": {
       "title": "Add to selection",
       "content": "What do you want to add?"
+    },"openFile": {
+      "title": "Open file",
+      "content": "Do you want to open received file?"
     },
     "addressInput": {
       "title": "Enter address",
