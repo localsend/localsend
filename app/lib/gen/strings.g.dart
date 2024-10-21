@@ -69,65 +69,61 @@ const AppLocale _baseLocale = AppLocale.en;
 /// - Locale locale = AppLocale.en.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
-  en(languageCode: 'en', build: Translations.build),
-  ar(languageCode: 'ar', build: _StringsAr.build),
-  bn(languageCode: 'bn', build: _StringsBn.build),
-  ca(languageCode: 'ca', build: _StringsCa.build),
-  cs(languageCode: 'cs', build: _StringsCs.build),
-  da(languageCode: 'da', build: _StringsDa.build),
-  de(languageCode: 'de', build: _StringsDe.build),
-  el(languageCode: 'el', build: _StringsEl.build),
-  enIn(languageCode: 'en', countryCode: 'IN', build: _StringsEnIn.build),
-  esEs(languageCode: 'es', countryCode: 'ES', build: _StringsEsEs.build),
-  eu(languageCode: 'eu', build: _StringsEu.build),
-  fa(languageCode: 'fa', build: _StringsFa.build),
-  fi(languageCode: 'fi', build: _StringsFi.build),
-  filPh(languageCode: 'fil', countryCode: 'PH', build: _StringsFilPh.build),
-  fr(languageCode: 'fr', build: _StringsFr.build),
-  gu(languageCode: 'gu', build: _StringsGu.build),
-  he(languageCode: 'he', build: _StringsHe.build),
-  hi(languageCode: 'hi', build: _StringsHi.build),
-  hu(languageCode: 'hu', build: _StringsHu.build),
-  id(languageCode: 'id', build: _StringsId.build),
-  it(languageCode: 'it', build: _StringsIt.build),
-  ja(languageCode: 'ja', build: _StringsJa.build),
-  km(languageCode: 'km', build: _StringsKm.build),
-  ko(languageCode: 'ko', build: _StringsKo.build),
-  ms(languageCode: 'ms', build: _StringsMs.build),
-  ne(languageCode: 'ne', build: _StringsNe.build),
-  nl(languageCode: 'nl', build: _StringsNl.build),
-  pl(languageCode: 'pl', build: _StringsPl.build),
-  ptBr(languageCode: 'pt', countryCode: 'BR', build: _StringsPtBr.build),
-  ptPt(languageCode: 'pt', countryCode: 'PT', build: _StringsPtPt.build),
-  ro(languageCode: 'ro', build: _StringsRo.build),
-  ru(languageCode: 'ru', build: _StringsRu.build),
-  sk(languageCode: 'sk', build: _StringsSk.build),
-  slSi(languageCode: 'sl', countryCode: 'SI', build: _StringsSlSi.build),
-  sr(languageCode: 'sr', build: _StringsSr.build),
-  srCyrl(languageCode: 'sr', scriptCode: 'Cyrl', build: _StringsSrCyrl.build),
-  sv(languageCode: 'sv', build: _StringsSv.build),
-  th(languageCode: 'th', build: _StringsTh.build),
-  tr(languageCode: 'tr', build: _StringsTr.build),
-  uk(languageCode: 'uk', build: _StringsUk.build),
-  ur(languageCode: 'ur', build: _StringsUr.build),
-  vi(languageCode: 'vi', build: _StringsVi.build),
-  zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build),
-  zhHk(languageCode: 'zh', countryCode: 'HK', build: _StringsZhHk.build),
-  zhTw(languageCode: 'zh', countryCode: 'TW', build: _StringsZhTw.build);
+	en(languageCode: 'en', build: Translations.build),
+	ar(languageCode: 'ar', build: _StringsAr.build),
+	bn(languageCode: 'bn', build: _StringsBn.build),
+	ca(languageCode: 'ca', build: _StringsCa.build),
+	cs(languageCode: 'cs', build: _StringsCs.build),
+	da(languageCode: 'da', build: _StringsDa.build),
+	de(languageCode: 'de', build: _StringsDe.build),
+	el(languageCode: 'el', build: _StringsEl.build),
+	enIn(languageCode: 'en', countryCode: 'IN', build: _StringsEnIn.build),
+	esEs(languageCode: 'es', countryCode: 'ES', build: _StringsEsEs.build),
+	eu(languageCode: 'eu', build: _StringsEu.build),
+	fa(languageCode: 'fa', build: _StringsFa.build),
+	fi(languageCode: 'fi', build: _StringsFi.build),
+	filPh(languageCode: 'fil', countryCode: 'PH', build: _StringsFilPh.build),
+	fr(languageCode: 'fr', build: _StringsFr.build),
+	gu(languageCode: 'gu', build: _StringsGu.build),
+	he(languageCode: 'he', build: _StringsHe.build),
+	hi(languageCode: 'hi', build: _StringsHi.build),
+	hu(languageCode: 'hu', build: _StringsHu.build),
+	id(languageCode: 'id', build: _StringsId.build),
+	it(languageCode: 'it', build: _StringsIt.build),
+	ja(languageCode: 'ja', build: _StringsJa.build),
+	km(languageCode: 'km', build: _StringsKm.build),
+	ko(languageCode: 'ko', build: _StringsKo.build),
+	ms(languageCode: 'ms', build: _StringsMs.build),
+	ne(languageCode: 'ne', build: _StringsNe.build),
+	nl(languageCode: 'nl', build: _StringsNl.build),
+	pl(languageCode: 'pl', build: _StringsPl.build),
+	ptBr(languageCode: 'pt', countryCode: 'BR', build: _StringsPtBr.build),
+	ptPt(languageCode: 'pt', countryCode: 'PT', build: _StringsPtPt.build),
+	ro(languageCode: 'ro', build: _StringsRo.build),
+	ru(languageCode: 'ru', build: _StringsRu.build),
+	sk(languageCode: 'sk', build: _StringsSk.build),
+	slSi(languageCode: 'sl', countryCode: 'SI', build: _StringsSlSi.build),
+	sr(languageCode: 'sr', build: _StringsSr.build),
+	srCyrl(languageCode: 'sr', scriptCode: 'Cyrl', build: _StringsSrCyrl.build),
+	sv(languageCode: 'sv', build: _StringsSv.build),
+	th(languageCode: 'th', build: _StringsTh.build),
+	tr(languageCode: 'tr', build: _StringsTr.build),
+	uk(languageCode: 'uk', build: _StringsUk.build),
+	ur(languageCode: 'ur', build: _StringsUr.build),
+	vi(languageCode: 'vi', build: _StringsVi.build),
+	zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build),
+	zhHk(languageCode: 'zh', countryCode: 'HK', build: _StringsZhHk.build),
+	zhTw(languageCode: 'zh', countryCode: 'TW', build: _StringsZhTw.build);
 
-  const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
+	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
-  @override
-  final String languageCode;
-  @override
-  final String? scriptCode;
-  @override
-  final String? countryCode;
-  @override
-  final TranslationBuilder<AppLocale, Translations> build;
+	@override final String languageCode;
+	@override final String? scriptCode;
+	@override final String? countryCode;
+	@override final TranslationBuilder<AppLocale, Translations> build;
 
-  /// Gets current instance managed by [LocaleSettings].
-  Translations get translations => LocaleSettings.instance.translationMap[this]!;
+	/// Gets current instance managed by [LocaleSettings].
+	Translations get translations => LocaleSettings.instance.translationMap[this]!;
 }
 
 /// Method A: Simple
@@ -155,9 +151,9 @@ Translations get t => LocaleSettings.instance.currentTranslations;
 /// final t = Translations.of(context); // Get t variable.
 /// String a = t.someKey.anotherKey; // Use t variable.
 class TranslationProvider extends BaseTranslationProvider<AppLocale, Translations> {
-  TranslationProvider({required super.child}) : super(settings: LocaleSettings.instance);
+	TranslationProvider({required super.child}) : super(settings: LocaleSettings.instance);
 
-  static InheritedLocaleData<AppLocale, Translations> of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context);
+	static InheritedLocaleData<AppLocale, Translations> of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context);
 }
 
 /// Method B shorthand via [BuildContext] extension method.
@@ -166,47 +162,41 @@ class TranslationProvider extends BaseTranslationProvider<AppLocale, Translation
 /// Usage (e.g. in a widget's build method):
 /// context.t.someKey.anotherKey
 extension BuildContextTranslationsExtension on BuildContext {
-  Translations get t => TranslationProvider.of(this).translations;
+	Translations get t => TranslationProvider.of(this).translations;
 }
 
 /// Manages all translation instances and the current locale
 class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> {
-  LocaleSettings._() : super(utils: AppLocaleUtils.instance);
+	LocaleSettings._() : super(utils: AppLocaleUtils.instance);
 
-  static final instance = LocaleSettings._();
+	static final instance = LocaleSettings._();
 
-  // static aliases (checkout base methods for documentation)
-  static AppLocale get currentLocale => instance.currentLocale;
-  static Stream<AppLocale> getLocaleStream() => instance.getLocaleStream();
-  static AppLocale setLocale(AppLocale locale, {bool? listenToDeviceLocale = false}) =>
-      instance.setLocale(locale, listenToDeviceLocale: listenToDeviceLocale);
-  static AppLocale setLocaleRaw(String rawLocale, {bool? listenToDeviceLocale = false}) =>
-      instance.setLocaleRaw(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
-  static AppLocale useDeviceLocale() => instance.useDeviceLocale();
-  @Deprecated('Use [AppLocaleUtils.supportedLocales]')
-  static List<Locale> get supportedLocales => instance.supportedLocales;
-  @Deprecated('Use [AppLocaleUtils.supportedLocalesRaw]')
-  static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
-  static void setPluralResolver({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) =>
-      instance.setPluralResolver(
-        language: language,
-        locale: locale,
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      );
+	// static aliases (checkout base methods for documentation)
+	static AppLocale get currentLocale => instance.currentLocale;
+	static Stream<AppLocale> getLocaleStream() => instance.getLocaleStream();
+	static AppLocale setLocale(AppLocale locale, {bool? listenToDeviceLocale = false}) => instance.setLocale(locale, listenToDeviceLocale: listenToDeviceLocale);
+	static AppLocale setLocaleRaw(String rawLocale, {bool? listenToDeviceLocale = false}) => instance.setLocaleRaw(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
+	static AppLocale useDeviceLocale() => instance.useDeviceLocale();
+	@Deprecated('Use [AppLocaleUtils.supportedLocales]') static List<Locale> get supportedLocales => instance.supportedLocales;
+	@Deprecated('Use [AppLocaleUtils.supportedLocalesRaw]') static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
+	static void setPluralResolver({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) => instance.setPluralResolver(
+		language: language,
+		locale: locale,
+		cardinalResolver: cardinalResolver,
+		ordinalResolver: ordinalResolver,
+	);
 }
 
 /// Provides utility functions without any side effects.
 class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
-  AppLocaleUtils._() : super(baseLocale: _baseLocale, locales: AppLocale.values);
+	AppLocaleUtils._() : super(baseLocale: _baseLocale, locales: AppLocale.values);
 
-  static final instance = AppLocaleUtils._();
+	static final instance = AppLocaleUtils._();
 
-  // static aliases (checkout base methods for documentation)
-  static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
-  static AppLocale parseLocaleParts({required String languageCode, String? scriptCode, String? countryCode}) =>
-      instance.parseLocaleParts(languageCode: languageCode, scriptCode: scriptCode, countryCode: countryCode);
-  static AppLocale findDeviceLocale() => instance.findDeviceLocale();
-  static List<Locale> get supportedLocales => instance.supportedLocales;
-  static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
+	// static aliases (checkout base methods for documentation)
+	static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
+	static AppLocale parseLocaleParts({required String languageCode, String? scriptCode, String? countryCode}) => instance.parseLocaleParts(languageCode: languageCode, scriptCode: scriptCode, countryCode: countryCode);
+	static AppLocale findDeviceLocale() => instance.findDeviceLocale();
+	static List<Locale> get supportedLocales => instance.supportedLocales;
+	static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
 }
