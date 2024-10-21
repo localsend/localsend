@@ -1030,7 +1030,7 @@ class _StringsProgressPageTotalTitleZhCn extends _StringsProgressPageTotalTitleE
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => '总进度 (${time})';
+	@override String sending({required Object time, required Object speed}) => '总进度 (${time}) (${speed})';
 	@override String get finishedError => '已完成，但发生错误';
 	@override String get canceledSender => '发送者已取消';
 	@override String get canceledReceiver => '接收者已取消';

@@ -945,7 +945,7 @@ class _StringsProgressPageTotalTitleHu extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Teljes folyamat (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Teljes folyamat (${time}) (${speed})';
 	@override String get finishedError => 'Hibával befejezve';
 	@override String get canceledSender => 'A küldő törölte';
 	@override String get canceledReceiver => 'A fogadó törölte';

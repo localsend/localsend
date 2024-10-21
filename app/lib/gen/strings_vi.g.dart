@@ -929,7 +929,7 @@ class _StringsProgressPageTotalTitleVi extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Tổng tiến độ (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Tổng tiến độ (${time}) (${speed})';
 	@override String get finishedError => 'Kết thúc với lỗi';
 	@override String get canceledSender => 'Đã huỷ bởi người gửi';
 	@override String get canceledReceiver => 'Đã huỷ bởi người nhận';

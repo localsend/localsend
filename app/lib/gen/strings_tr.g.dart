@@ -945,7 +945,7 @@ class _StringsProgressPageTotalTitleTr extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Toplam ilerleme (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Toplam ilerleme (${time}) (${speed})';
 	@override String get finishedError => 'İşlem hatayla sonuçlandı';
 	@override String get canceledSender => 'Gönderici tarafından iptal edildi';
 	@override String get canceledReceiver => 'Alıcı tarafından iptal edildi';

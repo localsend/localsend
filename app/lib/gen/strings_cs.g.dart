@@ -942,7 +942,7 @@ class _StringsProgressPageTotalTitleCs extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Celkový průběh (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Celkový průběh (${time}) (${speed})';
 	@override String get finishedError => 'Dokončeno s chybou';
 	@override String get canceledSender => 'Zrušeno odesílatelem';
 	@override String get canceledReceiver => 'Zrušeno příjemcem';

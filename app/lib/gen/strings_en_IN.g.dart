@@ -1000,7 +1000,7 @@ class _StringsProgressPageTotalTitleEnIn extends _StringsProgressPageTotalTitleE
 	@override final _StringsEnIn _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Total progress (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Total progress (${time}) (${speed})';
 	@override String get finishedError => 'Finished with error';
 	@override String get canceledSender => 'Cancelled by sender';
 	@override String get canceledReceiver => 'Cancelled by receiver';

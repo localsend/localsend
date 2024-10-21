@@ -983,7 +983,7 @@ class _StringsProgressPageTotalTitlePtPt extends _StringsProgressPageTotalTitleE
 	@override final _StringsPtPt _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Progresso total (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Progresso total (${time}) (${speed})';
 	@override String get finishedError => 'Terminado com erro';
 	@override String get canceledSender => 'Cancelado pelo remetente';
 	@override String get canceledReceiver => 'Cancelado pelo destinatário';

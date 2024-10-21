@@ -1032,7 +1032,7 @@ class _StringsProgressPageTotalTitleSlSi extends _StringsProgressPageTotalTitleE
 	@override final _StringsSlSi _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Skupni napredek (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Skupni napredek (${time}) (${speed})';
 	@override String get finishedError => 'Zaključeno z napako';
 	@override String get canceledSender => 'Preklical pošiljatelj';
 	@override String get canceledReceiver => 'Preklical prejemnik';

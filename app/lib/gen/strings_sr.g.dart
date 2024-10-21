@@ -1030,7 +1030,7 @@ class _StringsProgressPageTotalTitleSr extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Ukupan progres (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Ukupan progres (${time}) (${speed})';
 	@override String get finishedError => 'Završeno sa greškom';
 	@override String get canceledSender => 'Pošiljalac odustao';
 	@override String get canceledReceiver => 'Primalac odustao';

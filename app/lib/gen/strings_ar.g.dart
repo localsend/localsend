@@ -1030,7 +1030,7 @@ class _StringsProgressPageTotalTitleAr extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'التقدم الكلي (${time})';
+	@override String sending({required Object time, required Object speed}) => 'التقدم الكلي (${time}) (${speed})';
 	@override String get finishedError => 'انتهى مع وجود خطأ';
 	@override String get canceledSender => 'ألغي من قبل المرسل';
 	@override String get canceledReceiver => 'ألغي من قبل المتلقي';

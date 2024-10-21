@@ -1022,7 +1022,7 @@ class _StringsProgressPageTotalTitleMs extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Kemajuan keseluruhan (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Kemajuan keseluruhan (${time}) (${speed})';
 	@override String get finishedError => 'Selesai dengan ralat';
 	@override String get canceledSender => 'Dibatalkan oleh penghantar';
 	@override String get canceledReceiver => 'Dibatalkan oleh penerima';

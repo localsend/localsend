@@ -945,7 +945,7 @@ class _StringsProgressPageTotalTitleUr extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'کل پیش رفت (${time})';
+	@override String sending({required Object time, required Object speed}) => 'کل پیش رفت (${time}) (${speed})';
 	@override String get finishedError => 'غلطی کے ساتھ ختم';
 	@override String get canceledSender => 'بھیجنے والے کے ذریعے منسوخ کر دیا گیا۔';
 	@override String get canceledReceiver => 'وصول کنندہ کے ذریعے منسوخ کر دیا گیا۔';

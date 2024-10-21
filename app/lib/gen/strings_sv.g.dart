@@ -848,7 +848,7 @@ class _StringsProgressPageTotalTitleSv extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Total  (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Total  (${time}) (${speed})';
 	@override String get finishedError => 'Avslutad med fel';
 	@override String get canceledSender => 'Avbruten av sändaren';
 	@override String get canceledReceiver => 'Avbruten av mottagaren';

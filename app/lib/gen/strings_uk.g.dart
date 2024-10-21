@@ -961,7 +961,7 @@ class _StringsProgressPageTotalTitleUk extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Загальний час передачі (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Загальний час передачі (${time}) (${speed})';
 	@override String get finishedError => 'Завершено з помилкою';
 	@override String get canceledSender => 'Скасовано відправником';
 	@override String get canceledReceiver => 'Скасовано отримувачем';

@@ -959,7 +959,7 @@ class _StringsProgressPageTotalTitleNl extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Totale voortgang (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Totale voortgang (${time}) (${speed})';
 	@override String get finishedError => 'Voltooid met fouten';
 	@override String get canceledSender => 'Geannuleerd door verzender';
 	@override String get canceledReceiver => 'Geannuleerd door ontvanger';

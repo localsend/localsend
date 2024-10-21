@@ -1030,7 +1030,7 @@ class _StringsProgressPageTotalTitleSrCyrl extends _StringsProgressPageTotalTitl
 	@override final _StringsSrCyrl _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Укупан прогрес (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Укупан прогрес (${time}) (${speed})';
 	@override String get finishedError => 'Завршено са грешком';
 	@override String get canceledSender => 'Пошиљалац је одустао';
 	@override String get canceledReceiver => 'Прималац је одустао';

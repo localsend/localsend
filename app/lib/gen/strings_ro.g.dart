@@ -998,7 +998,7 @@ class _StringsProgressPageTotalTitleRo extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Progres total (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Progres total (${time}) (${speed})';
 	@override String get finishedError => 'Finalizat cu eroare';
 	@override String get canceledSender => 'Anulat de trimitent';
 	@override String get canceledReceiver => 'Anulat de receptor';

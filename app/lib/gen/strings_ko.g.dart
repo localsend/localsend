@@ -942,7 +942,7 @@ class _StringsProgressPageTotalTitleKo extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => '진행 시간 (${time})';
+	@override String sending({required Object time, required Object speed}) => '진행 시간 (${time}) (${speed})';
 	@override String get finishedError => '에러로 인해 종료되었습니다';
 	@override String get canceledSender => '보내는 사람이 취소했습니다';
 	@override String get canceledReceiver => '받는 사람이 취소했습니다';

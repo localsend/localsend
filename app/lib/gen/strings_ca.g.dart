@@ -848,7 +848,7 @@ class _StringsProgressPageTotalTitleCa extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsCa _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Progrés total (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Progrés total (${time}) (${speed})';
 	@override String get finishedError => 'Finalitzat amb error';
 	@override String get canceledSender => 'Cancel·lat pel remitent';
 	@override String get canceledReceiver => 'Cancelat pel destinatari';

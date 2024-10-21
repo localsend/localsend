@@ -959,7 +959,7 @@ class _StringsProgressPageTotalTitleJa extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => '総進捗 (${time})';
+	@override String sending({required Object time, required Object speed}) => '総進捗 (${time}) (${speed})';
 	@override String get finishedError => 'エラーで終了しました';
 	@override String get canceledSender => '送信者によりキャンセルされました';
 	@override String get canceledReceiver => '受信者よりキャンセルされました';

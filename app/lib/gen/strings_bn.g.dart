@@ -943,7 +943,7 @@ class _StringsProgressPageTotalTitleBn extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'মোট অগ্রগতি (${time})';
+	@override String sending({required Object time, required Object speed}) => 'মোট অগ্রগতি (${time}) (${speed})';
 	@override String get finishedError => 'ত্রুটি সহ সমাপ্ত হয়েছে';
 	@override String get canceledSender => 'সেন্ডারের দ্বারা বাতিল করা হয়েছে';
 	@override String get canceledReceiver => 'রিসিভার দ্বারা বাতিল করা হয়েছে';

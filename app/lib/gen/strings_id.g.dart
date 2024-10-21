@@ -980,7 +980,7 @@ class _StringsProgressPageTotalTitleId extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsId _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Total proses (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Total proses (${time}) (${speed})';
 	@override String get finishedError => 'Selesai dengan kesalahan';
 	@override String get canceledSender => 'Dibatalkan oleh pengirim';
 	@override String get canceledReceiver => 'Dibatalkan oleh penerima';

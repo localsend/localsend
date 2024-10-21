@@ -956,7 +956,7 @@ class _StringsProgressPageTotalTitleEl extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'Συνολική πρόοδος (${time})';
+	@override String sending({required Object time, required Object speed}) => 'Συνολική πρόοδος (${time}) (${speed})';
 	@override String get finishedError => 'Ολοκληρώθηκε με σφάλμα';
 	@override String get canceledSender => 'Ακυρώθηκε από τον αποστολέα';
 	@override String get canceledReceiver => 'Ακυρώθηκε από τον παραλήπτη';

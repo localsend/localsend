@@ -848,7 +848,7 @@ class _StringsProgressPageTotalTitleNe extends _StringsProgressPageTotalTitleEn 
 	@override final _StringsNe _root; // ignore: unused_field
 
 	// Translations
-	@override String sending({required Object time}) => 'कुल प्रगति (${time})';
+	@override String sending({required Object time, required Object speed}) => 'कुल प्रगति (${time}) (${speed})';
 	@override String get finishedError => 'त्रुटि संग समाप्त भयो';
 	@override String get canceledSender => 'प्रेषकद्वारा रद्द गरियो';
 	@override String get canceledReceiver => 'प्राप्तकर्ता द्वारा रद्द गरियो';
