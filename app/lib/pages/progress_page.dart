@@ -504,7 +504,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                             status.getLabel(
                               remainingTime: _remainingTime ?? '-',
                               actualSpeed: (speedInBytes != null)
-                                  ? _displaySpeed(speedInBytes)
+                                  ? displaySpeed(speedInBytes)
                                   : '-',
                             ),
                             style: const TextStyle(fontSize: 20),
@@ -591,16 +591,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         ),
       ),
     );
-  }
-}
-
-String _displaySpeed(int speedInBytes) {
-  double speedInKB = speedInBytes / 1024;
-  double speedInMB = speedInBytes / (1024 * 1024);
-  if (speedInBytes >= (1024 * 1024)) {
-    return '${speedInMB.toStringAsFixed(2)} Mbps';
-  } else {
-    return '${speedInKB.toStringAsFixed(2)} Kbps';
   }
 }
 
