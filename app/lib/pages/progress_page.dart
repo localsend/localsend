@@ -227,16 +227,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final endTime = receiveSession?.endTime ?? sendSession?.endTime;
     final int? speedInBytes;
 
-    print("ReceiveSession: $receiveSession, SendSession: $sendSession");
-    print("StartTime: $startTime, EndTime: $endTime");
-
     if (startTime != null && currBytes >= 500 * 1024) {
       speedInBytes = getFileSpeed(
           start: startTime,
           end: endTime ?? DateTime.now().millisecondsSinceEpoch,
           bytes: currBytes);
-
-      print("Speed in Bytes: $speedInBytes");
 
       final now = DateTime.now().millisecondsSinceEpoch;
       if (now - _lastRemainingTimeUpdate >= 1000) {
