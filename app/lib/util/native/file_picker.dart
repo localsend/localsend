@@ -178,9 +178,10 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
       return;
     }
 
-    // ignore: use_build_context_synchronously
     await showDialog(
-        context: context, builder: (_) => const NoPermissionDialog());
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (_) => const NoPermissionDialog());
     _logger.warning('Failed to pick files', e);
   } finally {
     // ignore: use_build_context_synchronously
@@ -236,7 +237,9 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     _logger.warning('Failed to pick directory', e);
     // ignore: use_build_context_synchronously
     await showDialog(
-        context: context, builder: (_) => const NoPermissionDialog());
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (_) => const NoPermissionDialog());
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog

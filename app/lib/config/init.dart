@@ -190,7 +190,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   }
 
   try {
-    ref
+    await ref
         .redux(nearbyDevicesProvider)
         .dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
   } catch (e) {

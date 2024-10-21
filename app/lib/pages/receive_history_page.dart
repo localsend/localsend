@@ -89,6 +89,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                       : () async {
                           // ignore: use_build_context_synchronously
                           final destination =
+                              // ignore: use_build_context_synchronously
                               context.read(settingsProvider).destination ??
                                   await getDefaultDestinationDirectory();
                           await openFolder(destination);

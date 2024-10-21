@@ -101,7 +101,7 @@ Future<void> updateSystemOverlayStyleWithBrightness(
         RefenaScope.defaultRef.read(deviceInfoProvider).androidSdkInt ?? 0;
     final bool edgeToEdge = androidSdkInt >= 29;
 
-    SystemChrome.setEnabledSystemUIMode(
+    await SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.edgeToEdge); // ignore: unawaited_futures
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
