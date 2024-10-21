@@ -31,11 +31,24 @@ int _getRemainingTime({
 
 // Returns transfer speed in Kbps or Mbps
 String displaySpeed(int speedInBytes) {
-  double speedInKB = speedInBytes / 1024;
-  double speedInMB = speedInBytes / (1024 * 1024);
-  if (speedInBytes >= (1024 * 1024)) {
+  const int kb = 1024;
+  const int mb = kb * 1024;
+  const int gb = mb * 1024;
+  const int tb = gb * 1024;
+
+  if (speedInBytes >= tb) {
+    double speedInTB = speedInBytes / tb;
+    return '${speedInTB.toStringAsFixed(2)} Tbps';
+  } else if (speedInBytes >= gb) {
+    double speedInGB = speedInBytes / gb;
+    return '${speedInGB.toStringAsFixed(2)} Gbps';
+  } else if (speedInBytes >= mb) {
+    double speedInMB = speedInBytes / mb;
     return '${speedInMB.toStringAsFixed(2)} Mbps';
-  } else {
+  } else if (speedInBytes >= kb) {
+    double speedInKB = speedInBytes / kb;
     return '${speedInKB.toStringAsFixed(2)} Kbps';
+  } else {
+    return '$speedInBytes Bps';
   }
 }

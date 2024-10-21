@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io' show Directory, Platform;
 
 import 'package:flutter/foundation.dart';
@@ -7,7 +9,6 @@ import 'package:shared_storage/shared_storage.dart' as shared_storage;
 Future<String> getDefaultDestinationDirectory() async {
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
-      // ignore: deprecated_member_use
       final dir = await shared_storage.getExternalStoragePublicDirectory(
           shared_storage.EnvironmentDirectory.downloads);
       return dir?.path ?? '/storage/emulated/0/Download';
