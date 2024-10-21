@@ -80,7 +80,8 @@ class ContentUriHelper {
       return uri;
     }
 
-    final encodedPath = Uri.encodeComponent(Uri.decodeComponent(uri.substring(treeIndex + 6)));
+    final encodedPath =
+        Uri.encodeComponent(Uri.decodeComponent(uri.substring(treeIndex + 6)));
     return uri.substring(0, treeIndex + 6) + encodedPath;
   }
 }

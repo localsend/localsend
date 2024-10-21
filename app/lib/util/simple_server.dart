@@ -91,11 +91,13 @@ extension RequestExt on HttpRequest {
   ///
   /// Usage:
   /// respondJson(200, message: 'Hello World')
-  Future<void> respondJson(int code, {String? message, Map<String, dynamic>? body}) async {
+  Future<void> respondJson(int code,
+      {String? message, Map<String, dynamic>? body}) async {
     response
       ..statusCode = code
       ..headers.contentType = ContentType.json
-      ..write(jsonEncode(message != null ? {'message': message} : (body ?? {})));
+      ..write(
+          jsonEncode(message != null ? {'message': message} : (body ?? {})));
 
     await response.close();
   }
@@ -104,7 +106,8 @@ extension RequestExt on HttpRequest {
   ///
   /// Usage:
   /// respondAsset(200, 'assets/web/index.html')
-  Future<void> respondAsset(int code, String asset, [String type = 'text/html; charset=utf-8']) async {
+  Future<void> respondAsset(int code, String asset,
+      [String type = 'text/html; charset=utf-8']) async {
     response
       ..statusCode = code
       ..headers.contentType = ContentType.parse(type)

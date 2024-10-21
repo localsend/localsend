@@ -36,7 +36,8 @@ Future<void> saveFile({
     SafWriteStreamInfo? safInfo;
 
     if (documentUri != null || destinationPath.startsWith('content://')) {
-      _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
+      _logger.info(
+          'Using SAF to save file to ${documentUri ?? destinationPath} as $name');
       safInfo = await _saf.startWriteStream(
         Uri.parse(documentUri ?? destinationPath),
         name,
@@ -46,10 +47,12 @@ Future<void> saveFile({
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {
         // Use Android SAF to save the file to the SD card
-        final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
+        final uriString =
+            ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
         _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
-          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
+          Uri.parse(
+              'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
           name,
           lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
         );
@@ -143,7 +146,9 @@ Future<void> _saveFile({
     await close();
 
     if (saveToGallery) {
-      isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
+      isImage
+          ? await Gal.putImage(destinationPath)
+          : await Gal.putVideo(destinationPath);
       await File(destinationPath).delete();
     }
 
@@ -169,25 +174,33 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     final String documentUri;
     if (fileName.contains('/')) {
       try {
-        await createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
+        await createMissingDirectoriesAndroid(
+            parentUri: parentDirectory,
+            fileName: fileName,
+            createdDirectories: createdDirectories);
       } catch (e) {
         _logger.warning('Could not create missing directories', e);
       }
-      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: fileName.parentPath());
+      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(
+          treeUri: parentDirectory, suffix: fileName.parentPath());
     } else {
       // root directory
-      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: null);
+      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(
+          treeUri: parentDirectory, suffix: null);
     }
 
     // destinationUri is for the history
     // documentUri is for SAF to save the file, it should point to the parent directory
-    final destinationUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: fileName);
+    final destinationUri = ContentUriHelper.convertTreeUriToDocumentUri(
+        treeUri: parentDirectory, suffix: fileName);
     return (destinationUri, documentUri, p.basename(fileName));
   }
 
-  final actualFileName = legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
+  final actualFileName =
+      legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
   final fileNameParts = p.split(fileName);
-  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
+  final dir = p.joinAll(
+      [parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
   try {
     Directory(dir).createSync(recursive: true);
@@ -198,13 +211,16 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   String destinationPath;
   int counter = 1;
   do {
-    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
+    destinationPath = counter == 1
+        ? p.join(dir, actualFileName)
+        : p.join(dir, actualFileName.withCount(counter));
     counter++;
   } while (await File(destinationPath).exists());
   return (destinationPath, null, p.basename(destinationPath));
 }
 
-final _sdCardPathRegex = RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
+final _sdCardPathRegex =
+    RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
 
 class SdCardPath {
   final String sdCardId;

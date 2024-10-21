@@ -10,7 +10,8 @@ import 'package:refena_flutter/refena_flutter.dart';
 /// Returns null if the user cancels the selection.
 Future<String?> pickDirectoryPath() async {
   if (defaultTargetPlatform == TargetPlatform.android &&
-      (RefenaScope.defaultRef.read(deviceRawInfoProvider).androidSdkInt ?? 0) >= contentUriMinSdk) {
+      (RefenaScope.defaultRef.read(deviceRawInfoProvider).androidSdkInt ?? 0) >=
+          contentUriMinSdk) {
     return await pickDirectoryPathAndroid();
   }
 

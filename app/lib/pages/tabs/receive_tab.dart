@@ -26,7 +26,8 @@ class ReceiveTab extends StatelessWidget {
       children: [
         Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+            constraints: const BoxConstraints(
+                maxWidth: ResponsiveListView.defaultMaxWidth),
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: ColumnListView(
@@ -41,23 +42,33 @@ class ReceiveTab extends StatelessWidget {
                           delay: const Duration(milliseconds: 200),
                           child: Consumer(builder: (context, ref) {
                             final animations = ref.watch(animationProvider);
-                            final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
+                            final activeTab = ref.watch(
+                                homePageControllerProvider
+                                    .select((state) => state.currentTab));
                             return RotatingWidget(
                               duration: const Duration(seconds: 15),
-                              spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
+                              spinning: vm.serverState != null &&
+                                  animations &&
+                                  activeTab == HomeTab.receive,
                               child: const LocalSendLogo(withText: false),
                             );
                           }),
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
+                          child: Text(vm.serverState?.alias ?? vm.aliasSettings,
+                              style: const TextStyle(fontSize: 48)),
                         ),
                         InitialFadeTransition(
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 500),
                           child: Text(
-                            vm.serverState == null ? t.general.offline : vm.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                            vm.serverState == null
+                                ? t.general.offline
+                                : vm.localIps
+                                    .map((ip) => '#${ip.visualId}')
+                                    .toSet()
+                                    .join(' '),
                             style: const TextStyle(fontSize: 24),
                             textAlign: TextAlign.center,
                           ),
@@ -73,35 +84,50 @@ class ReceiveTab extends StatelessWidget {
                           vm.quickSaveSettings
                               ? ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.primary,
-                                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    foregroundColor:
+                                        Theme.of(context).colorScheme.onPrimary,
                                   ),
-                                  onPressed: () async => vm.onSetQuickSave(context, false),
-                                  child: Text('${t.general.quickSave}: ${t.general.on}'),
+                                  onPressed: () async =>
+                                      vm.onSetQuickSave(context, false),
+                                  child: Text(
+                                      '${t.general.quickSave}: ${t.general.on}'),
                                 )
                               : TextButton(
                                   style: TextButton.styleFrom(
                                     foregroundColor: Colors.grey,
                                   ),
-                                  onPressed: () async => vm.onSetQuickSave(context, true),
-                                  child: Text('${t.general.quickSave}: ${t.general.off}'),
+                                  onPressed: () async =>
+                                      vm.onSetQuickSave(context, true),
+                                  child: Text(
+                                      '${t.general.quickSave}: ${t.general.off}'),
                                 ),
                           const SizedBox(height: 10),
                           vm.quickSaveFromFavoritesSettings
                               ? ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                    foregroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
                                   ),
-                                  onPressed: () async => vm.onSetQuickSaveFromFavorites(context, false),
-                                  child: Text('${t.general.quickSaveFromFavorites}: ${t.general.on}'),
+                                  onPressed: () async =>
+                                      vm.onSetQuickSaveFromFavorites(
+                                          context, false),
+                                  child: Text(
+                                      '${t.general.quickSaveFromFavorites}: ${t.general.on}'),
                                 )
                               : TextButton(
                                   style: TextButton.styleFrom(
                                     foregroundColor: Colors.grey,
                                   ),
-                                  onPressed: () async => vm.onSetQuickSaveFromFavorites(context, true),
-                                  child: Text('${t.general.quickSaveFromFavorites}: ${t.general.off}'),
+                                  onPressed: () async =>
+                                      vm.onSetQuickSaveFromFavorites(
+                                          context, true),
+                                  child: Text(
+                                      '${t.general.quickSaveFromFavorites}: ${t.general.off}'),
                                 ),
                         ],
                       ),
@@ -114,7 +140,9 @@ class ReceiveTab extends StatelessWidget {
           ),
         ),
         AnimatedCrossFade(
-          crossFadeState: vm.showAdvanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          crossFadeState: vm.showAdvanced
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
           duration: const Duration(milliseconds: 200),
           firstChild: Container(),
           secondChild: Align(
@@ -158,7 +186,8 @@ class ReceiveTab extends StatelessWidget {
                         children: [
                           Text(t.receiveTab.infoBox.port),
                           const SizedBox(width: 10),
-                          SelectableText(vm.serverState?.port.toString() ?? '-'),
+                          SelectableText(
+                              vm.serverState?.port.toString() ?? '-'),
                         ],
                       ),
                     ],

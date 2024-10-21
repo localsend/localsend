@@ -27,7 +27,13 @@ final serverProvider = NotifierProvider<ServerService, ServerState?>((ref) {
 }, onChanged: (_, next, ref) {
   final settings = ref.read(settingsProvider);
   final syncState = ref.read(parentIsolateProvider).syncState;
-  final syncStatePrev = (syncState.alias, syncState.port, syncState.protocol, syncState.serverRunning, syncState.download);
+  final syncStatePrev = (
+    syncState.alias,
+    syncState.port,
+    syncState.protocol,
+    syncState.serverRunning,
+    syncState.download
+  );
   final syncStateNext = (
     next?.alias ?? settings.alias,
     next?.port ?? settings.port,
@@ -162,7 +168,8 @@ class ServerService extends Notifier<ServerState?> {
     return await startServerFromSettings();
   }
 
-  Future<ServerState?> restartServer({required String alias, required int port, required bool https}) async {
+  Future<ServerState?> restartServer(
+      {required String alias, required int port, required bool https}) async {
     await stopServer();
     return await startServer(alias: alias, port: port, https: https);
   }

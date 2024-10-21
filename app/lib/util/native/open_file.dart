@@ -13,7 +13,8 @@ Future<void> openFile(
   String filePath, {
   void Function()? onDeleteTap,
 }) async {
-  if ((fileType == FileType.apk || filePath.toLowerCase().endsWith('.apk')) && checkPlatform([TargetPlatform.android])) {
+  if ((fileType == FileType.apk || filePath.toLowerCase().endsWith('.apk')) &&
+      checkPlatform([TargetPlatform.android])) {
     await Permission.requestInstallPackages.request();
   }
 

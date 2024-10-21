@@ -54,14 +54,16 @@ class SendController {
         return await request.respondAsset(403, Assets.web.error403);
       }
 
-      return await request.respondAsset(200, Assets.web.main, 'text/javascript; charset=utf-8');
+      return await request.respondAsset(
+          200, Assets.web.main, 'text/javascript; charset=utf-8');
     });
 
     router.get('/i18n.json', (HttpRequest request) async {
       final state = server.getState();
       if (state.webSendState == null) {
         // There is no web send state
-        return await request.respondJson(403, message: 'Web send not initialized.');
+        return await request.respondJson(403,
+            message: 'Web send not initialized.');
       }
 
       return await request.respondJson(200, body: {
@@ -86,8 +88,11 @@ class SendController {
       final requestSessionId = request.uri.queryParameters['sessionId'];
       if (requestSessionId != null) {
         // Check if the user already has permission
-        final session = server.getState().webSendState?.sessions[requestSessionId];
-        if (session != null && session.responseHandler == null && session.ip == request.ip) {
+        final session =
+            server.getState().webSendState?.sessions[requestSessionId];
+        if (session != null &&
+            session.responseHandler == null &&
+            session.ip == request.ip) {
           final deviceInfo = server.ref.read(deviceInfoProvider);
           return await request.respondJson(200,
               body: ReceiveRequestResponseDto(
@@ -101,7 +106,8 @@ class SendController {
                 ),
                 sessionId: session.sessionId,
                 files: {
-                  for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
+                  for (final entry in state.webSendState!.files.entries)
+                    entry.key: entry.value.file,
                 },
               ).toJson());
         }
@@ -135,7 +141,8 @@ class SendController {
         ),
       );
 
-      final accepted = state.webSendState?.autoAccept == true || await streamController.stream.first;
+      final accepted = state.webSendState?.autoAccept == true ||
+          await streamController.stream.first;
       if (!accepted) {
         // user rejected the file transfer
         server.setState(
@@ -143,12 +150,14 @@ class SendController {
             webSendState: oldState.webSendState!.copyWith(
               sessions: {
                 for (final entry in oldState.webSendState!.sessions.entries)
-                  if (entry.key != sessionId) entry.key: entry.value, // remove session
+                  if (entry.key != sessionId)
+                    entry.key: entry.value, // remove session
               },
             ),
           ),
         );
-        return await request.respondJson(403, message: 'File transfer rejected.');
+        return await request.respondJson(403,
+            message: 'File transfer rejected.');
       }
 
       server.setState(
@@ -157,7 +166,8 @@ class SendController {
             sessionId: sessionId,
             update: (oldSession) {
               return oldSession.copyWith(
-                responseHandler: null, // this indicates that the session is active
+                responseHandler:
+                    null, // this indicates that the session is active
               );
             },
           ),
@@ -176,7 +186,8 @@ class SendController {
             ),
             sessionId: sessionId,
             files: {
-              for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
+              for (final entry in state.webSendState!.files.entries)
+                entry.key: entry.value.file,
             },
           ).toJson());
     });
@@ -188,7 +199,9 @@ class SendController {
       }
 
       final session = server.getState().webSendState?.sessions[sessionId];
-      if (session == null || session.responseHandler != null || session.ip != request.ip) {
+      if (session == null ||
+          session.responseHandler != null ||
+          session.ip != request.ip) {
         return await request.respondJson(403, message: 'Invalid sessionId.');
       }
 
@@ -202,12 +215,14 @@ class SendController {
         return await request.respondJson(403, message: 'Invalid fileId.');
       }
 
-      final fileName = file.file.fileName.replaceAll('/', '-'); // File name may be inside directories
+      final fileName = file.file.fileName
+          .replaceAll('/', '-'); // File name may be inside directories
 
       request.response
         ..statusCode = 200
         ..headers.set('content-type', 'application/octet-stream')
-        ..headers.set('content-disposition', 'attachment; filename="${Uri.encodeComponent(fileName)}"')
+        ..headers.set('content-disposition',
+            'attachment; filename="${Uri.encodeComponent(fileName)}"')
         ..headers.set('content-length', '${file.file.size}');
 
       if (file.bytes != null) {
@@ -220,7 +235,9 @@ class SendController {
         });
       } else {
         final path = file.path!;
-        final fileStream = path.startsWith('content://') ? UriContent().getContentStream(Uri.parse(file.path!)) : File(file.path!).openRead();
+        final fileStream = path.startsWith('content://')
+            ? UriContent().getContentStream(Uri.parse(file.path!))
+            : File(file.path!).openRead();
         final (streamController, subscription) = fileStream.digested();
 
         await request.response.addStream(streamController.stream).then((_) {
@@ -245,8 +262,10 @@ class SendController {
               size: file.size,
               fileType: file.fileType,
               hash: null,
-              preview: files.first.fileType == FileType.text && files.first.bytes != null
-                  ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+              preview: files.first.fileType == FileType.text &&
+                      files.first.bytes != null
+                  ? utf8.decode(files.first
+                      .bytes!) // send simple message by embedding it into the preview
                   : null,
               metadata: file.lastModified != null || file.lastAccessed != null
                   ? FileMetadata(
@@ -283,7 +302,8 @@ class SendController {
   }
 
   void _respondRequest(String sessionId, bool accepted) {
-    final controller = server.getState().webSendState?.sessions[sessionId]?.responseHandler;
+    final controller =
+        server.getState().webSendState?.sessions[sessionId]?.responseHandler;
     if (controller == null) {
       return;
     }

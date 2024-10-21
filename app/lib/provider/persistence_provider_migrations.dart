@@ -6,7 +6,8 @@ Future<void> _runMigrations(int from) async {
   switch (from) {
     case 1:
       await _migrate2();
-      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 2);
+      await SharedPreferencesStorePlatform.instance
+          .setValue('Int', 'flutter.$_version', 2);
       break;
   }
 }
@@ -29,7 +30,8 @@ Future<void> _migrate2() async {
       } catch (e) {
         _logger.warning('Failed to delete legacy folder: $e');
       }
-      SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
+      SharedPreferencesStorePlatform.instance =
+          SharedPreferencesFile(filePath: _windowsFile);
     }
   }
 }

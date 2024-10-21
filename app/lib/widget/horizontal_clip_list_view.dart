@@ -46,7 +46,8 @@ class HorizontalClipListView extends StatelessWidget {
                           child: children[i],
                         )
                       : Padding(
-                          padding: EdgeInsetsDirectional.only(end: childPadding),
+                          padding:
+                              EdgeInsetsDirectional.only(end: childPadding),
                           child: SizedBox(
                             width: childWidth,
                             child: children[i],
@@ -98,7 +99,10 @@ bool _fitsOnScreen({
   required double childWidth,
   required double childPadding,
 }) {
-  return paddingLeft + childrenCount * childWidth + (childrenCount - 1) * childPadding <= availableWidth;
+  return paddingLeft +
+          childrenCount * childWidth +
+          (childrenCount - 1) * childPadding <=
+      availableWidth;
 }
 
 bool _fitsPartially({
@@ -140,5 +144,8 @@ double _calcTotalWidthWithPartialLastItem({
   required double childPadding,
   required double lastItemPercentage,
 }) {
-  return paddingLeft + (childrenCount - 1) * childWidth + childWidth * lastItemPercentage + (childrenCount - 1) * childPadding;
+  return paddingLeft +
+      (childrenCount - 1) * childWidth +
+      childWidth * lastItemPercentage +
+      (childrenCount - 1) * childPadding;
 }

@@ -28,7 +28,8 @@ class TroubleshootPage extends StatelessWidget {
           const SizedBox(height: 5),
           _TroubleshootItem(
             symptomText: t.troubleshootPage.firewall.symptom,
-            solutionText: t.troubleshootPage.firewall.solution(port: settings.port),
+            solutionText:
+                t.troubleshootPage.firewall.solution(port: settings.port),
             primaryButton: _FixButton(
               label: t.troubleshootPage.fixButton,
               onTapMap: {
@@ -95,7 +96,8 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.symptomText, style: Theme.of(context).textTheme.titleMedium),
+              Text(widget.symptomText,
+                  style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 10),
               Text(t.troubleshootPage.solution),
               Text(widget.solutionText),
@@ -121,7 +123,9 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                   ],
                 ),
                 AnimatedCrossFade(
-                  crossFadeState: _showCommands ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                  crossFadeState: _showCommands
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
                   duration: const Duration(milliseconds: 200),
                   firstChild: Container(),
                   secondChild: SelectionArea(
@@ -130,7 +134,9 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                         ...?widget.primaryButton?.onTap?.commands?.map((cmd) {
                           return Padding(
                             padding: const EdgeInsets.only(top: 10),
-                            child: Text(cmd, style: const TextStyle(fontFamily: 'RobotoMono')),
+                            child: Text(cmd,
+                                style:
+                                    const TextStyle(fontFamily: 'RobotoMono')),
                           );
                         }),
                       ],
@@ -169,7 +175,8 @@ class _FixButton extends StatelessWidget {
         } else {
           await showDialog(
             context: context,
-            builder: (_) => NotAvailableOnPlatformDialog(platforms: onTapMap.keys.toList()),
+            builder: (_) =>
+                NotAvailableOnPlatformDialog(platforms: onTapMap.keys.toList()),
           );
         }
       },

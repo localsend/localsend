@@ -1130,7 +1130,8 @@ class _StringsProgressPageTotalTitleEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String sending({required Object time, required Object speed}) => 'Total progress (${time}) (${speed})';
+  String sending({required Object time, required Object speed}) =>
+      'Total progress (${time}) (${speed})';
   String get finishedError => 'Finished with error';
   String get canceledSender => 'Canceled by sender';
   String get canceledReceiver => 'Canceled by receiver';

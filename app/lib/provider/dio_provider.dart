@@ -19,9 +19,11 @@ class DioCollection {
 /// Changes must be made in common/lib/src/isolate/child/dio_provider.dart also
 final dioProvider = ViewProvider((ref) {
   final securityContext = ref.watch(securityProvider);
-  final discoveryTimeout = ref.watch(settingsProvider.select((state) => state.discoveryTimeout));
+  final discoveryTimeout =
+      ref.watch(settingsProvider.select((state) => state.discoveryTimeout));
   return DioCollection(
-    discovery: createDio(Duration(milliseconds: discoveryTimeout), securityContext),
+    discovery:
+        createDio(Duration(milliseconds: discoveryTimeout), securityContext),
     longLiving: createDio(
       const Duration(days: 30),
       securityContext,
@@ -32,7 +34,8 @@ final dioProvider = ViewProvider((ref) {
         responseHeader: false,
         responseBody: true,
         error: true,
-        logPrint: (log) => ref.notifier(httpLogsProvider).addLog(log.toString()),
+        logPrint: (log) =>
+            ref.notifier(httpLogsProvider).addLog(log.toString()),
       ),
     ),
   );

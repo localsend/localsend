@@ -5,7 +5,8 @@ class CustomProgressBar extends StatelessWidget {
   final double borderRadius;
   final Color? color;
 
-  const CustomProgressBar({required this.progress, this.borderRadius = 10, this.color});
+  const CustomProgressBar(
+      {required this.progress, this.borderRadius = 10, this.color});
 
   @override
   Widget build(BuildContext context) {

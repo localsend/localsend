@@ -8,11 +8,13 @@ import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-final settingsProvider = NotifierProvider<SettingsService, SettingsState>((ref) {
+final settingsProvider =
+    NotifierProvider<SettingsService, SettingsState>((ref) {
   return SettingsService(ref.read(persistenceProvider));
 }, onChanged: (_, next, ref) {
   final syncState = ref.read(parentIsolateProvider).syncState;
-  if (syncState.multicastGroup == next.multicastGroup && syncState.discoveryTimeout == next.discoveryTimeout) {
+  if (syncState.multicastGroup == next.multicastGroup &&
+      syncState.discoveryTimeout == next.discoveryTimeout) {
     return;
   }
 

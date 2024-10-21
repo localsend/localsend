@@ -217,7 +217,8 @@ void main() {
       expect(serialized['info']['deviceType'], 'mobile');
       expect(serialized['files'].length, 2);
       expect(serialized['files']['some id']['fileType'], 'image/jpeg');
-      expect(serialized['files']['some id 2']['fileType'], 'application/vnd.android.package-archive');
+      expect(serialized['files']['some id 2']['fileType'],
+          'application/vnd.android.package-archive');
       expect(serialized['files']['some id 2']['metadata'], {
         'modified': '2020-01-01T00:00:00.000Z',
         'accessed': '2021-01-01T00:00:00.000Z',

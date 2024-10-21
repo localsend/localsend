@@ -66,7 +66,8 @@ void main() {
   test('Should remove the 30th entry when adding another', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
-      initialState: List.generate(30, (index) => _createEntry(index.toString())),
+      initialState:
+          List.generate(30, (index) => _createEntry(index.toString())),
     );
 
     expect(service.state.length, 30);

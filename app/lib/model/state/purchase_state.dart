@@ -29,7 +29,8 @@ enum PurchaseItem {
   final String androidId;
   final String iosId;
 
-  String get platformProductId => defaultTargetPlatform == TargetPlatform.android ? androidId : iosId;
+  String get platformProductId =>
+      defaultTargetPlatform == TargetPlatform.android ? androidId : iosId;
 }
 
 @MappableClass()

@@ -35,7 +35,9 @@ class CrossFileConverters {
       thumbnail: null,
       asset: null,
       path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
+      bytes: kIsWeb
+          ? await file.readAsBytes()
+          : null, // we can fetch it now because in Web it is already there
       lastModified: kIsWeb ? null : await file.lastModified(),
       lastAccessed: null,
     );
@@ -64,12 +66,14 @@ class CrossFileConverters {
       asset: null,
       path: file.uri,
       bytes: null,
-      lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true),
+      lastModified:
+          DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true),
       lastAccessed: null,
     );
   }
 
-  static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
+  static Future<CrossFile> convertSharedAttachment(
+      SharedAttachment attachment) async {
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
     return CrossFile(

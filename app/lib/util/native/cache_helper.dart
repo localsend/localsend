@@ -59,7 +59,8 @@ Future<void> _clear(RootIsolateToken token) async {
             final directory = Directory(directoryPath);
 
             // delete contents of the directory (only files, not directories)
-            await for (final entry in directory.list(recursive: false, followLinks: false)) {
+            await for (final entry
+                in directory.list(recursive: false, followLinks: false)) {
               if (entry is File && !entry.path.fileName.startsWith('.')) {
                 _logger.info('Deleting ${entry.path}');
                 entry.deleteSync();

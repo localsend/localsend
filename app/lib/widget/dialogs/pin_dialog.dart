@@ -28,7 +28,10 @@ class _PinDialogState extends State<PinDialog> {
   @override
   void initState() {
     super.initState();
-    _textController.text = widget.pin ?? (widget.generateRandom ? nanoid(alphabet: Alphabet.noDoppelganger, length: 6) : '');
+    _textController.text = widget.pin ??
+        (widget.generateRandom
+            ? nanoid(alphabet: Alphabet.noDoppelganger, length: 6)
+            : '');
   }
 
   @override

@@ -69,6 +69,7 @@ class SharedPreferencesFile extends SharedPreferencesStorePlatform {
       _file.createSync(recursive: true);
     }
 
-    _file.writeAsStringSync((beautify ? _beautyEncoder : _encoder).convert(data));
+    _file.writeAsStringSync(
+        (beautify ? _beautyEncoder : _encoder).convert(data));
   }
 }

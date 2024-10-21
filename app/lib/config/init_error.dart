@@ -48,7 +48,8 @@ class _ErrorAppState extends State<_ErrorApp> {
     _controller.text = 'Error: ${widget.error}\n\n${widget.stackTrace}';
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final info = await PackageInfo.fromPlatform();
-      _controller.text = 'LocalSend ${info.version} (${info.buildNumber})\n\nError: ${widget.error}\n\n${widget.stackTrace}';
+      _controller.text =
+          'LocalSend ${info.version} (${info.buildNumber})\n\nError: ${widget.error}\n\n${widget.stackTrace}';
     });
   }
 

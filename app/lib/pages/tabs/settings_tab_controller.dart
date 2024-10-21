@@ -15,7 +15,8 @@ import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-final settingsTabControllerProvider = ReduxProvider<SettingsTabController, SettingsTabVm>((ref) {
+final settingsTabControllerProvider =
+    ReduxProvider<SettingsTabController, SettingsTabVm>((ref) {
   final settings = ref.notifier(settingsProvider);
   final server = ref.notifier(serverProvider);
   final initialDeviceInfo = ref.read(deviceInfoProvider);
@@ -49,21 +50,29 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   SettingsTabVm init() {
     return SettingsTabVm(
       advanced: _settingsService.state.advancedSettings,
-      aliasController: TextEditingController(text: _settingsService.state.alias),
-      deviceModelController: TextEditingController(text: _initialDeviceInfo.deviceModel),
-      portController: TextEditingController(text: _settingsService.state.port.toString()),
-      timeoutController: TextEditingController(text: _settingsService.state.discoveryTimeout.toString()),
-      multicastController: TextEditingController(text: _settingsService.state.multicastGroup),
+      aliasController:
+          TextEditingController(text: _settingsService.state.alias),
+      deviceModelController:
+          TextEditingController(text: _initialDeviceInfo.deviceModel),
+      portController:
+          TextEditingController(text: _settingsService.state.port.toString()),
+      timeoutController: TextEditingController(
+          text: _settingsService.state.discoveryTimeout.toString()),
+      multicastController:
+          TextEditingController(text: _settingsService.state.multicastGroup),
       settings: _settingsService.state,
       serverState: _serverService.state,
       deviceInfo: _initialDeviceInfo,
-      colorModes: _supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system).toList(),
+      colorModes: _supportsDynamicColors
+          ? ColorMode.values
+          : ColorMode.values.where((e) => e != ColorMode.system).toList(),
       autoStart: false,
       autoStartLaunchHidden: false,
       showInContextMenu: false,
       onChangeTheme: (context, theme) async {
         await _settingsService.setTheme(theme);
-        await sleepAsync(500); // workaround: brightness takes some time to be updated
+        await sleepAsync(
+            500); // workaround: brightness takes some time to be updated
         if (context.mounted) {
           await updateSystemOverlayStyle(context);
         }
@@ -83,7 +92,8 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
         if (state.autoStart) {
           success = await disableAutoStart();
         } else {
-          success = await enableAutoStart(startHidden: state.autoStartLaunchHidden);
+          success =
+              await enableAutoStart(startHidden: state.autoStartLaunchHidden);
         }
 
         if (success) {
@@ -92,9 +102,11 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
       },
       onToggleAutoStartLaunchHidden: (context) async {
         if (state.autoStart) {
-          final success = await enableAutoStart(startHidden: !state.autoStartLaunchHidden);
+          final success =
+              await enableAutoStart(startHidden: !state.autoStartLaunchHidden);
           if (success) {
-            redux.dispatch(_SetAutoStartLaunchHiddenAction(!state.autoStartLaunchHidden));
+            redux.dispatch(
+                _SetAutoStartLaunchHiddenAction(!state.autoStartLaunchHidden));
           }
         }
       },
@@ -156,7 +168,8 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   }
 }
 
-class _SettingsTabInitAction extends AsyncReduxAction<SettingsTabController, SettingsTabVm> {
+class _SettingsTabInitAction
+    extends AsyncReduxAction<SettingsTabController, SettingsTabVm> {
   @override
   Future<SettingsTabVm> reduce() async {
     dispatch(_SettingsTabWatchAction());
@@ -171,7 +184,8 @@ class _SettingsTabInitAction extends AsyncReduxAction<SettingsTabController, Set
   }
 }
 
-class _SettingsTabWatchAction extends WatchAction<SettingsTabController, SettingsTabVm> {
+class _SettingsTabWatchAction
+    extends WatchAction<SettingsTabController, SettingsTabVm> {
   @override
   SettingsTabVm reduce() {
     return state.copyWith(
@@ -182,7 +196,8 @@ class _SettingsTabWatchAction extends WatchAction<SettingsTabController, Setting
   }
 }
 
-class SetAdvancedAction extends ReduxAction<SettingsTabController, SettingsTabVm> {
+class SetAdvancedAction
+    extends ReduxAction<SettingsTabController, SettingsTabVm> {
   final bool advanced;
 
   SetAdvancedAction(this.advanced);
@@ -193,7 +208,8 @@ class SetAdvancedAction extends ReduxAction<SettingsTabController, SettingsTabVm
   }
 }
 
-class _SetAutoStartAction extends ReduxAction<SettingsTabController, SettingsTabVm> {
+class _SetAutoStartAction
+    extends ReduxAction<SettingsTabController, SettingsTabVm> {
   final bool enabled;
 
   _SetAutoStartAction(this.enabled);
@@ -204,7 +220,8 @@ class _SetAutoStartAction extends ReduxAction<SettingsTabController, SettingsTab
   }
 }
 
-class _SetAutoStartLaunchHiddenAction extends ReduxAction<SettingsTabController, SettingsTabVm> {
+class _SetAutoStartLaunchHiddenAction
+    extends ReduxAction<SettingsTabController, SettingsTabVm> {
   final bool enabled;
 
   _SetAutoStartLaunchHiddenAction(this.enabled);
@@ -215,7 +232,8 @@ class _SetAutoStartLaunchHiddenAction extends ReduxAction<SettingsTabController,
   }
 }
 
-class _SetShowInContextMenuAction extends ReduxAction<SettingsTabController, SettingsTabVm> {
+class _SetShowInContextMenuAction
+    extends ReduxAction<SettingsTabController, SettingsTabVm> {
   final bool enabled;
 
   _SetShowInContextMenuAction(this.enabled);

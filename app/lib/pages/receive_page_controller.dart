@@ -40,7 +40,8 @@ class ReceivePageVm with ReceivePageVmMappable {
   });
 }
 
-final receivePageControllerProvider = ReduxProvider<ReceivePageController, ReceivePageVm>((ref) {
+final receivePageControllerProvider =
+    ReduxProvider<ReceivePageController, ReceivePageVm>((ref) {
   return ReceivePageController(
     server: ref.notifier(serverProvider),
     selectedReceivingFiles: ref.notifier(selectedReceivingFilesProvider),
@@ -87,16 +88,19 @@ class ReceivePageController extends ReduxNotifier<ReceivePageVm> {
   get initialAction => _WatchStatusAction();
 }
 
-class _WatchStatusAction extends WatchAction<ReceivePageController, ReceivePageVm> {
+class _WatchStatusAction
+    extends WatchAction<ReceivePageController, ReceivePageVm> {
   @override
   ReceivePageVm reduce() {
     return state.copyWith(
-      status: ref.watch(serverProvider.select((state) => state?.session?.status)),
+      status:
+          ref.watch(serverProvider.select((state) => state?.session?.status)),
     );
   }
 }
 
-class InitReceivePageAction extends ReduxAction<ReceivePageController, ReceivePageVm> {
+class InitReceivePageAction
+    extends ReduxAction<ReceivePageController, ReceivePageVm> {
   @override
   ReceivePageVm reduce() {
     final receiveSession = notifier._server.state?.session;
@@ -109,7 +113,8 @@ class InitReceivePageAction extends ReduxAction<ReceivePageController, ReceivePa
       showSenderInfo: true,
       fileCount: receiveSession.files.length,
       message: receiveSession.message,
-      isLink: receiveSession.message != null && (receiveSession.message!.isLink),
+      isLink:
+          receiveSession.message != null && (receiveSession.message!.isLink),
       showFullIp: false,
       onAccept: () async {
         if (state.message != null) {
@@ -145,7 +150,8 @@ class InitReceivePageAction extends ReduxAction<ReceivePageController, ReceivePa
   }
 }
 
-class InitReceivePageFromHistoryMessageAction extends ReduxAction<ReceivePageController, ReceivePageVm> {
+class InitReceivePageFromHistoryMessageAction
+    extends ReduxAction<ReceivePageController, ReceivePageVm> {
   final ReceiveHistoryEntry entry;
 
   InitReceivePageFromHistoryMessageAction({required this.entry});
@@ -176,7 +182,8 @@ class InitReceivePageFromHistoryMessageAction extends ReduxAction<ReceivePageCon
   }
 }
 
-class SetShowFullIpAction extends ReduxAction<ReceivePageController, ReceivePageVm> {
+class SetShowFullIpAction
+    extends ReduxAction<ReceivePageController, ReceivePageVm> {
   final bool showFullIp;
 
   SetShowFullIpAction(this.showFullIp);

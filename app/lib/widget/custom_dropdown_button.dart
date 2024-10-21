@@ -20,7 +20,8 @@ class CustomDropdownButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Theme.of(context).inputDecorationTheme.fillColor,
-      shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+      shape: RoundedRectangleBorder(
+          borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
       child: DropdownButton<T>(
         value: value,
         isExpanded: expanded,

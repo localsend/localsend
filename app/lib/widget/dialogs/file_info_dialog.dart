@@ -40,7 +40,9 @@ class FileInfoDialog extends StatelessWidget {
                       children: [
                         Text(t.dialogs.fileInfo.path),
                         const SizedBox(width: 10),
-                        SelectableText(entry.savedToGallery ? t.progressPage.savedToGallery : (entry.path ?? '')),
+                        SelectableText(entry.savedToGallery
+                            ? t.progressPage.savedToGallery
+                            : (entry.path ?? '')),
                       ],
                     ),
                   ],
@@ -70,7 +72,8 @@ class FileInfoDialog extends StatelessWidget {
               if (entry.isMessage)
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: SelectableText(entry.fileName + entry.fileName + entry.fileName),
+                  child: SelectableText(
+                      entry.fileName + entry.fileName + entry.fileName),
                 ),
             ],
           ),

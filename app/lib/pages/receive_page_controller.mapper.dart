@@ -22,25 +22,34 @@ class ReceivePageVmMapper extends ClassMapperBase<ReceivePageVm> {
   final String id = 'ReceivePageVm';
 
   static SessionStatus? _$status(ReceivePageVm v) => v.status;
-  static const Field<ReceivePageVm, SessionStatus> _f$status = Field('status', _$status);
+  static const Field<ReceivePageVm, SessionStatus> _f$status =
+      Field('status', _$status);
   static Device _$sender(ReceivePageVm v) => v.sender;
-  static const Field<ReceivePageVm, Device> _f$sender = Field('sender', _$sender);
+  static const Field<ReceivePageVm, Device> _f$sender =
+      Field('sender', _$sender);
   static bool _$showSenderInfo(ReceivePageVm v) => v.showSenderInfo;
-  static const Field<ReceivePageVm, bool> _f$showSenderInfo = Field('showSenderInfo', _$showSenderInfo);
+  static const Field<ReceivePageVm, bool> _f$showSenderInfo =
+      Field('showSenderInfo', _$showSenderInfo);
   static int _$fileCount(ReceivePageVm v) => v.fileCount;
-  static const Field<ReceivePageVm, int> _f$fileCount = Field('fileCount', _$fileCount);
+  static const Field<ReceivePageVm, int> _f$fileCount =
+      Field('fileCount', _$fileCount);
   static String? _$message(ReceivePageVm v) => v.message;
-  static const Field<ReceivePageVm, String> _f$message = Field('message', _$message);
+  static const Field<ReceivePageVm, String> _f$message =
+      Field('message', _$message);
   static bool _$isLink(ReceivePageVm v) => v.isLink;
   static const Field<ReceivePageVm, bool> _f$isLink = Field('isLink', _$isLink);
   static bool _$showFullIp(ReceivePageVm v) => v.showFullIp;
-  static const Field<ReceivePageVm, bool> _f$showFullIp = Field('showFullIp', _$showFullIp);
+  static const Field<ReceivePageVm, bool> _f$showFullIp =
+      Field('showFullIp', _$showFullIp);
   static void Function() _$onAccept(ReceivePageVm v) => v.onAccept;
-  static const Field<ReceivePageVm, void Function()> _f$onAccept = Field('onAccept', _$onAccept);
+  static const Field<ReceivePageVm, void Function()> _f$onAccept =
+      Field('onAccept', _$onAccept);
   static void Function() _$onDecline(ReceivePageVm v) => v.onDecline;
-  static const Field<ReceivePageVm, void Function()> _f$onDecline = Field('onDecline', _$onDecline);
+  static const Field<ReceivePageVm, void Function()> _f$onDecline =
+      Field('onDecline', _$onDecline);
   static void Function() _$onClose(ReceivePageVm v) => v.onClose;
-  static const Field<ReceivePageVm, void Function()> _f$onClose = Field('onClose', _$onClose);
+  static const Field<ReceivePageVm, void Function()> _f$onClose =
+      Field('onClose', _$onClose);
 
   @override
   final MappableFields<ReceivePageVm> fields = const {
@@ -84,36 +93,45 @@ class ReceivePageVmMapper extends ClassMapperBase<ReceivePageVm> {
 
 mixin ReceivePageVmMappable {
   String serialize() {
-    return ReceivePageVmMapper.ensureInitialized().encodeJson<ReceivePageVm>(this as ReceivePageVm);
+    return ReceivePageVmMapper.ensureInitialized()
+        .encodeJson<ReceivePageVm>(this as ReceivePageVm);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceivePageVmMapper.ensureInitialized().encodeMap<ReceivePageVm>(this as ReceivePageVm);
+    return ReceivePageVmMapper.ensureInitialized()
+        .encodeMap<ReceivePageVm>(this as ReceivePageVm);
   }
 
-  ReceivePageVmCopyWith<ReceivePageVm, ReceivePageVm, ReceivePageVm> get copyWith =>
-      _ReceivePageVmCopyWithImpl(this as ReceivePageVm, $identity, $identity);
+  ReceivePageVmCopyWith<ReceivePageVm, ReceivePageVm, ReceivePageVm>
+      get copyWith => _ReceivePageVmCopyWithImpl(
+          this as ReceivePageVm, $identity, $identity);
   @override
   String toString() {
-    return ReceivePageVmMapper.ensureInitialized().stringifyValue(this as ReceivePageVm);
+    return ReceivePageVmMapper.ensureInitialized()
+        .stringifyValue(this as ReceivePageVm);
   }
 
   @override
   bool operator ==(Object other) {
-    return ReceivePageVmMapper.ensureInitialized().equalsValue(this as ReceivePageVm, other);
+    return ReceivePageVmMapper.ensureInitialized()
+        .equalsValue(this as ReceivePageVm, other);
   }
 
   @override
   int get hashCode {
-    return ReceivePageVmMapper.ensureInitialized().hashValue(this as ReceivePageVm);
+    return ReceivePageVmMapper.ensureInitialized()
+        .hashValue(this as ReceivePageVm);
   }
 }
 
-extension ReceivePageVmValueCopy<$R, $Out> on ObjectCopyWith<$R, ReceivePageVm, $Out> {
-  ReceivePageVmCopyWith<$R, ReceivePageVm, $Out> get $asReceivePageVm => $base.as((v, t, t2) => _ReceivePageVmCopyWithImpl(v, t, t2));
+extension ReceivePageVmValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ReceivePageVm, $Out> {
+  ReceivePageVmCopyWith<$R, ReceivePageVm, $Out> get $asReceivePageVm =>
+      $base.as((v, t, t2) => _ReceivePageVmCopyWithImpl(v, t, t2));
 }
 
-abstract class ReceivePageVmCopyWith<$R, $In extends ReceivePageVm, $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class ReceivePageVmCopyWith<$R, $In extends ReceivePageVm, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
   DeviceCopyWith<$R, Device, Device> get sender;
   $R call(
       {SessionStatus? status,
@@ -129,14 +147,17 @@ abstract class ReceivePageVmCopyWith<$R, $In extends ReceivePageVm, $Out> implem
   ReceivePageVmCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _ReceivePageVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ReceivePageVm, $Out>
+class _ReceivePageVmCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ReceivePageVm, $Out>
     implements ReceivePageVmCopyWith<$R, ReceivePageVm, $Out> {
   _ReceivePageVmCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ReceivePageVm> $mapper = ReceivePageVmMapper.ensureInitialized();
+  late final ClassMapperBase<ReceivePageVm> $mapper =
+      ReceivePageVmMapper.ensureInitialized();
   @override
-  DeviceCopyWith<$R, Device, Device> get sender => $value.sender.copyWith.$chain((v) => call(sender: v));
+  DeviceCopyWith<$R, Device, Device> get sender =>
+      $value.sender.copyWith.$chain((v) => call(sender: v));
   @override
   $R call(
           {Object? status = $none,
@@ -175,5 +196,7 @@ class _ReceivePageVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Receive
       onClose: data.get(#onClose, or: $value.onClose));
 
   @override
-  ReceivePageVmCopyWith<$R2, ReceivePageVm, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _ReceivePageVmCopyWithImpl($value, $cast, t);
+  ReceivePageVmCopyWith<$R2, ReceivePageVm, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ReceivePageVmCopyWithImpl($value, $cast, t);
 }

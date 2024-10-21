@@ -14,7 +14,8 @@ class HomePageVm {
   });
 }
 
-final homePageControllerProvider = ReduxProvider<HomePageController, HomePageVm>(
+final homePageControllerProvider =
+    ReduxProvider<HomePageController, HomePageVm>(
   (ref) => HomePageController(),
 );
 

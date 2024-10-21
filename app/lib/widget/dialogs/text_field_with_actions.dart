@@ -28,7 +28,8 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-        shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+        shape: RoundedRectangleBorder(
+            borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
         foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
       onPressed: () async {

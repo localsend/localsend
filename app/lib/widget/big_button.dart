@@ -21,19 +21,29 @@ class BigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
-    final buttonWidth = sizingInformation.isDesktop ? desktopWidth : mobileWidth;
+    final sizingInformation =
+        SizingInformation(MediaQuery.sizeOf(context).width);
+    final buttonWidth =
+        sizingInformation.isDesktop ? desktopWidth : mobileWidth;
     return SizedBox(
       width: buttonWidth,
       height: 65.0,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: filled ? colorScheme.primary : colorScheme.secondaryContainerIfDark,
-          foregroundColor: filled ? colorScheme.onPrimary : colorScheme.onSecondaryContainerIfDark,
+          backgroundColor: filled
+              ? colorScheme.primary
+              : colorScheme.secondaryContainerIfDark,
+          foregroundColor: filled
+              ? colorScheme.onPrimary
+              : colorScheme.onSecondaryContainerIfDark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          padding: EdgeInsets.only(left: 2, right: 2, top: 10 + desktopPaddingFix, bottom: 8 + desktopPaddingFix),
+          padding: EdgeInsets.only(
+              left: 2,
+              right: 2,
+              top: 10 + desktopPaddingFix,
+              bottom: 8 + desktopPaddingFix),
         ),
         onPressed: onTap,
         child: Column(

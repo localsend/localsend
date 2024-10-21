@@ -5,9 +5,13 @@ import 'package:refena_flutter/refena_flutter.dart';
 final progressProvider = ChangeNotifierProvider((ref) => ProgressNotifier());
 
 class ProgressNotifier extends ChangeNotifier {
-  final _progressMap = <String, Map<String, double>>{}; // session id -> (file id -> 0..1)
+  final _progressMap =
+      <String, Map<String, double>>{}; // session id -> (file id -> 0..1)
 
-  void setProgress({required String sessionId, required String fileId, required double progress}) {
+  void setProgress(
+      {required String sessionId,
+      required String fileId,
+      required double progress}) {
     Map<String, double>? progressMap = _progressMap[sessionId];
     if (progressMap == null) {
       progressMap = {};

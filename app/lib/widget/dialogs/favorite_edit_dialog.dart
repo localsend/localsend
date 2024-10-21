@@ -35,12 +35,15 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   void initState() {
     super.initState();
 
-    _ipController.text = widget.prefilledDevice?.ip ?? widget.favorite?.ip ?? '';
-    _aliasController.text = widget.prefilledDevice?.alias ?? widget.favorite?.alias ?? '';
+    _ipController.text =
+        widget.prefilledDevice?.ip ?? widget.favorite?.ip ?? '';
+    _aliasController.text =
+        widget.prefilledDevice?.alias ?? widget.favorite?.alias ?? '';
 
     ensureRef((ref) {
-      _portController.text =
-          widget.prefilledDevice?.port.toString() ?? widget.favorite?.port.toString() ?? ref.read(settingsProvider).port.toString();
+      _portController.text = widget.prefilledDevice?.port.toString() ??
+          widget.favorite?.port.toString() ??
+          ref.read(settingsProvider).port.toString();
     });
   }
 
@@ -55,7 +58,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.favorite != null ? t.dialogs.favoriteEditDialog.titleEdit : t.dialogs.favoriteEditDialog.titleAdd),
+      title: Text(widget.favorite != null
+          ? t.dialogs.favoriteEditDialog.titleEdit
+          : t.dialogs.favoriteEditDialog.titleAdd),
       content: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -76,7 +81,8 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
             const SizedBox(height: 5),
             TextFormField(
               controller: _ipController,
-              autofocus: widget.favorite == null && widget.prefilledDevice == null,
+              autofocus:
+                  widget.favorite == null && widget.prefilledDevice == null,
               enabled: !_fetching,
             ),
             const SizedBox(height: 16),
@@ -100,7 +106,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                   );
 
                   if (context.mounted && result == true) {
-                    await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
+                    await context.ref.redux(favoritesProvider).dispatchAsync(
+                        RemoveFavoriteAction(
+                            deviceFingerprint: widget.favorite!.fingerprint));
                     if (context.mounted) {
                       context.pop();
                     }
@@ -113,7 +121,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
             if (_failed)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                child: Text(t.general.error,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.warning)),
               ),
           ],
         ),
@@ -143,11 +153,13 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                       return;
                     }
 
-                    await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(existingFavorite.copyWith(
+                    await ref.redux(favoritesProvider).dispatchAsync(
+                            UpdateFavoriteAction(existingFavorite.copyWith(
                           ip: _ipController.text,
                           port: int.parse(_portController.text),
                           alias: trimmedNewAlias,
-                          customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
+                          customAlias: existingFavorite.customAlias ||
+                              trimmedNewAlias != existingFavorite.alias,
                         )));
                   } else {
                     // Add new favorite
@@ -157,7 +169,10 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     setState(() {
                       _fetching = true;
                     });
-                    final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+                    final result = await ref
+                        .redux(parentIsolateProvider)
+                        .dispatchAsyncTakeResult(
+                            IsolateTargetHttpDiscoveryAction(
                           ip: ip,
                           port: port,
                           https: https,
@@ -172,7 +187,8 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
 
                     final name = _aliasController.text.trim();
 
-                    await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
+                    await ref.redux(favoritesProvider).dispatchAsync(
+                            AddFavoriteAction(FavoriteDevice.fromValues(
                           fingerprint: result.fingerprint,
                           ip: _ipController.text,
                           port: int.parse(_portController.text),
