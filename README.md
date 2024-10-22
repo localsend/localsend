@@ -218,7 +218,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Feel free to open a pull request. There is a `snap` branch to play with.
+Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributors
 
