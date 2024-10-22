@@ -9,7 +9,8 @@ part 'settings_state.mapper.dart';
 
 @MappableClass()
 class SettingsState with SettingsStateMappable {
-  final String showToken; // the token to show / maximize the window because only one instance is allowed
+  final String
+      showToken; // the token to show / maximize the window because only one instance is allowed
   final String alias;
   final ThemeMode theme;
   final ColorMode colorMode;
@@ -20,7 +21,9 @@ class SettingsState with SettingsStateMappable {
   final bool saveToGallery; // only Android, iOS
   final bool saveToHistory;
   final bool quickSave; // automatically accept file requests
-  final bool quickSaveFromFavorites; // automatically accept file requests from favorites
+  final bool quickSaveFromFavorites;
+  final bool quickSaveDialog;
+  final bool quickSaveFromFavoritesDialog;
   final String? receivePin; // null = disabled
   final bool autoFinish; // automatically finish sessions
   final bool minimizeToTray; // minimize to tray instead of exiting the app
@@ -47,6 +50,8 @@ class SettingsState with SettingsStateMappable {
     required this.saveToHistory,
     required this.quickSave,
     required this.quickSaveFromFavorites,
+    required this.quickSaveDialog,
+    required this.quickSaveFromFavoritesDialog,
     required this.receivePin,
     required this.autoFinish,
     required this.minimizeToTray,

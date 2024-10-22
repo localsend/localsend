@@ -8,11 +8,13 @@ import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-final settingsProvider = NotifierProvider<SettingsService, SettingsState>((ref) {
+final settingsProvider =
+    NotifierProvider<SettingsService, SettingsState>((ref) {
   return SettingsService(ref.read(persistenceProvider));
 }, onChanged: (_, next, ref) {
   final syncState = ref.read(parentIsolateProvider).syncState;
-  if (syncState.multicastGroup == next.multicastGroup && syncState.discoveryTimeout == next.discoveryTimeout) {
+  if (syncState.multicastGroup == next.multicastGroup &&
+      syncState.discoveryTimeout == next.discoveryTimeout) {
     return;
   }
 
@@ -41,6 +43,9 @@ class SettingsService extends PureNotifier<SettingsState> {
         saveToHistory: _persistence.isSaveToHistory(),
         quickSave: _persistence.isQuickSave(),
         quickSaveFromFavorites: _persistence.isQuickSaveFromFavorites(),
+        quickSaveDialog: _persistence.isQuickSaveDialog(),
+        quickSaveFromFavoritesDialog:
+            _persistence.isQuickSaveFromFavoritesDialog(),
         receivePin: _persistence.getReceivePin(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
@@ -143,6 +148,22 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setQuickSaveFromFavorites(quickSaveFromFavorites);
     state = state.copyWith(
       quickSaveFromFavorites: quickSaveFromFavorites,
+    );
+  }
+
+  Future<void> setQuickSaveDialog(bool quickSaveDialog) async {
+    await _persistence.setQuickSaveDialog(quickSaveDialog);
+    state = state.copyWith(
+      quickSaveDialog: quickSaveDialog,
+    );
+  }
+
+  Future<void> setQuickSaveFromFavoritesDialog(
+      bool quickSaveFromFavoritesDialog) async {
+    await _persistence
+        .setQuickSaveFromFavoritesDialog(quickSaveFromFavoritesDialog);
+    state = state.copyWith(
+      quickSaveFromFavoritesDialog: quickSaveFromFavoritesDialog,
     );
   }
 
