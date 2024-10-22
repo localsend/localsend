@@ -381,6 +381,26 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  bool getAdvancedSettingsEnabled() => (super.noSuchMethod(
+        Invocation.method(
+          #getAdvancedSettingsEnabled,
+          [],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i4.Future<void> setAdvancedSettingsEnabled(bool? isEnabled) => (super.noSuchMethod(
+        Invocation.method(
+          #setAdvancedSettingsEnabled,
+          [isEnabled],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   bool isQuickSave() => (super.noSuchMethod(
         Invocation.method(
           #isQuickSave,

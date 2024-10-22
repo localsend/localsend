@@ -417,6 +417,7 @@ class _StringsDialogsEn {
 
 	// Translations
 	late final _StringsDialogsAddFileEn addFile = _StringsDialogsAddFileEn._(_root);
+	late final _StringsDialogsOpenFileEn openFile = _StringsDialogsOpenFileEn._(_root);
 	late final _StringsDialogsAddressInputEn addressInput = _StringsDialogsAddressInputEn._(_root);
 	late final _StringsDialogsCancelSessionEn cancelSession = _StringsDialogsCancelSessionEn._(_root);
 	late final _StringsDialogsCannotOpenFileEn cannotOpenFile = _StringsDialogsCannotOpenFileEn._(_root);
@@ -728,6 +729,17 @@ class _StringsDialogsAddFileEn {
 	// Translations
 	String get title => 'Add to selection';
 	String get content => 'What do you want to add?';
+}
+
+// Path: dialogs.openFile
+class _StringsDialogsOpenFileEn {
+	_StringsDialogsOpenFileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Open file';
+	String get content => 'Do you want to open received file?';
 }
 
 // Path: dialogs.addressInput
