@@ -18,13 +18,13 @@
     "edit": "Ubah",
     "error": "Kesalahan",
     "example": "Contoh",
-    "files": "File",
+    "files": "Berkas",
     "finished": "Selesai",
     "hide": "Sembunyikan",
     "off": "Mati",
-    "offline": "Offline",
+    "offline": "Luring",
     "on": "Hidup",
-    "online": "Online",
+    "online": "Daring",
     "open": "Buka",
     "queue": "Antrean",
     "quickSave": "Penyimpanan Cepat",
@@ -38,13 +38,13 @@
     "save": "Simpan",
     "unchanged": "Tidak berubah",
     "unknown": "Tidak dikenal",
-    "noItemInClipboard": "Tidak ada item di Papan klip"
+    "noItemInClipboard": "Tidak ada butir di Papan klip"
   },
   "receiveTab": {
     "title": "Terima",
     "infoBox": {
       "ip": "IP:",
-      "port": "Port:",
+      "port": "Porta:",
       "alias": "Alias:"
     }
   },
@@ -122,7 +122,7 @@
       "alias": "Alias",
       "deviceType": "Tipe Perangkat",
       "deviceModel": "Model Perangkat",
-      "port": "Port",
+      "port": "Porta",
       "discoveryTimeout": "Waktu penemuan habis",
       "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan port kustom. (bawaan: {defaultPort})",
       "encryption": "Enkripsi",
@@ -146,11 +146,11 @@
     "firewall": {
       "symptom": "Aplikasi ini dapat mengirim berkas ke perangkat lain tetapi perangkat lain tidak dapat mengirim berkas ke perangkat ini.",
       "solution": "Ini kemungkinan masalah firewall. Anda dapat memperbaikinya dengan memperbolehkan koneksi masuk (UDP dan TCP) pada port {port}.",
-      "openFirewall": "Buka Firewall"
+      "openFirewall": "Buka Tembok Api"
     },
     "noConnection": {
       "symptom": "Kedua perangkat tidak dapat saling menemukan atau berbagi berkas.",
-      "solution": "Pastikan kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Jika wifi tidak memperbolehkan komunikasi, aktifkan opsi ini pada router."
+      "solution": "Pastikan kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Jika wifi tidak memperbolehkan komunikasi, aktifkan opsi ini pada ruter."
     }
   },
   "receiveHistoryPage": {
@@ -232,7 +232,7 @@
       "LocalSend adalah aplikasi gratis, open-source yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.",
       "Aplikasi ini tersedia untuk Android, iOS, macOS, Windows, dan Linux. Semua opsi unduhan dapat ditemukan di situs resmi kami."
     ],
-    "author": "Pencipta",
+    "author": "Pembuat",
     "contributors": "Daftar Kontributor",
     "translators": "Daftar Penerjemah"
   },
@@ -293,7 +293,7 @@
       "Alpukat",
       "Pisang",
       "Blackberry",
-      "Blueberry",
+      "Bluberi",
       "Brokoli",
       "Wortel",
       "Ceri",
@@ -312,7 +312,7 @@
       "Nanas",
       "Kentang",
       "Labu",
-      "Raspberi",
+      "Rasberi",
       "Stroberi",
       "Tomat"
     ],
@@ -360,12 +360,12 @@
       "name": "Nama perangkat",
       "auto": "(otomatis)",
       "ip": "Alamat IP",
-      "port": "Port"
+      "port": "Porta"
     },
     "fileInfo": {
       "title": "Informasi Berkas",
       "fileName": "Nama Berkas:",
-      "path": "Jalur:",
+      "path": "Lokasi:",
       "size": "Ukuran:",
       "sender": "Pengirim:",
       "time": "Waktu:"
