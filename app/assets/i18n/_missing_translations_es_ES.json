@@ -5,8 +5,8 @@
   ],
   "settingsTab": {
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Usar el nombre del sistema",
+      "generateRandomAlias": "Generar alias aleatorio"
     }
   }
 }
