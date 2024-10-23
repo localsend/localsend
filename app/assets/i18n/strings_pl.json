@@ -270,6 +270,9 @@
     "addFile": {
       "title": "Dodaj do wyboru",
       "content": "Co chcesz dodać?"
+    },"openFile": {
+      "title": "Otwórz plik",
+      "content": "Czy chcesz otworzyć odebrany plik?"
     },
     "addressInput": {
       "title": "Wpisz adres",
