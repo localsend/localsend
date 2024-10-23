@@ -15,9 +15,17 @@ class QuickSaveNotice extends StatelessWidget {
           title: Text(t.dialogs.quickSaveNotice.title),
           content: Text(t.dialogs.quickSaveNotice.content),
           actions: [
-            TextButton(
-              onPressed: () => context.pop(),
-              child: Text(t.general.close),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () => context.pop(),
+                  child: Text(t.general.close),
+                ),
+                TextButton(
+                  onPressed: () => context.pop(),
+                  child: Text(t.general.close),
+                ),
+              ],
             )
           ],
         ),
