@@ -378,7 +378,7 @@ class _StringsAliasGeneratorFa extends _StringsAliasGeneratorEn {
 		'توت',
 		'بلوبری',
 		'کلم',
-		'هویچ',
+		'هویج',
 		'گیلاس',
 		'نارگیل',
 		'انگور',
