@@ -1,7 +1,7 @@
 {
   "locale": "Česky",
   "appName": "LocalSend",
-  "general": {
+  "general": "Obecné"
     "accept": "Přijmout",
     "accepted": "Přijato",
     "add": "Přidat",
