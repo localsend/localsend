@@ -6,20 +6,20 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Омиљени",
       "on": "@:general.on"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Отвори фајл",
+      "content": "Да ли желите да отворите примљени фајл?"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
-        "However, this option is still more secure than allowing any device."
+        "Захтеви за примање фајлова су аутоматски прихваћени од уређаја у листи Омиљених.",
+        "Упозорење: Ово тренутно није потпуно безбедно, јер нападач који зна Fingerprint вашег уређаја у Омиљенима такође може да вам пошаље фајл.",
+        "Ипак, ово је и даље сигурније него дозволити пријем са свих уређаја."
       ]
     }
   }
