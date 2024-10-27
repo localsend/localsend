@@ -163,7 +163,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         ),
                                         if (vm.isLink)
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 20),
+                                            padding: const EdgeInsetsDirectional.only(start: 20),
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Theme.of(context).colorScheme.primary,
