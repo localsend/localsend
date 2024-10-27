@@ -15,6 +15,12 @@ import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
+enum _QuickSaveMode {
+  off,
+  favorites,
+  on,
+}
+
 class ReceiveTab extends StatelessWidget {
   const ReceiveTab();
 
@@ -72,47 +78,45 @@ class ReceiveTab extends StatelessWidget {
                         children: [
                           Text(t.general.quickSave),
                           const SizedBox(height: 10),
-                          ToggleButtons(
-                            borderRadius: const BorderRadius.all(Radius.circular(5)),
-                            onPressed: (index) async {
-                              switch (index) {
-                                case 0:
-                                  await vm.onSetQuickSave(context, false);
-                                  if (context.mounted) {
-                                    await vm.onSetQuickSaveFromFavorites(context, false);
-                                  }
-                                  break;
-                                case 1:
+                          SegmentedButton<_QuickSaveMode>(
+                            multiSelectionEnabled: false,
+                            emptySelectionAllowed: false,
+                            showSelectedIcon: false,
+                            onSelectionChanged: (selection) async {
+                              if (selection.contains(_QuickSaveMode.off)) {
+                                await vm.onSetQuickSave(context, false);
+                                if (context.mounted) {
+                                  await vm.onSetQuickSaveFromFavorites(context, false);
+                                }
+                              } else if (selection.contains(_QuickSaveMode.favorites)) {
+                                await vm.onSetQuickSave(context, false);
+                                if (context.mounted) {
                                   await vm.onSetQuickSaveFromFavorites(context, true);
-                                  if (context.mounted) {
-                                    await vm.onSetQuickSave(context, false);
-                                  }
-                                  break;
-                                case 2:
+                                }
+                              } else if (selection.contains(_QuickSaveMode.on)) {
+                                await vm.onSetQuickSaveFromFavorites(context, false);
+                                if (context.mounted) {
                                   await vm.onSetQuickSave(context, true);
-                                  if (context.mounted) {
-                                    await vm.onSetQuickSaveFromFavorites(context, false);
-                                  }
-                                  break;
+                                }
                               }
                             },
-                            isSelected: [
-                              !vm.quickSaveSettings && !vm.quickSaveFromFavoritesSettings,
-                              vm.quickSaveFromFavoritesSettings,
-                              vm.quickSaveSettings,
-                            ],
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(t.receiveTab.quickSave.off),
+                            selected: {
+                              if (!vm.quickSaveSettings && !vm.quickSaveFromFavoritesSettings) _QuickSaveMode.off,
+                              if (vm.quickSaveFromFavoritesSettings) _QuickSaveMode.favorites,
+                              if (vm.quickSaveSettings) _QuickSaveMode.on,
+                            },
+                            segments: [
+                              ButtonSegment(
+                                value: _QuickSaveMode.off,
+                                label: Text(t.receiveTab.quickSave.off),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(t.receiveTab.quickSave.favorites),
+                              ButtonSegment(
+                                value: _QuickSaveMode.favorites,
+                                label: Text(t.receiveTab.quickSave.favorites),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(t.receiveTab.quickSave.on),
+                              ButtonSegment(
+                                value: _QuickSaveMode.on,
+                                label: Text(t.receiveTab.quickSave.on),
                               ),
                             ],
                           ),
