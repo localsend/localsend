@@ -180,6 +180,8 @@ class _TranslationsReceiveTabHe extends TranslationsReceiveTabEn {
   String get title => 'קבלה';
   @override
   late final _TranslationsReceiveTabInfoBoxHe infoBox = _TranslationsReceiveTabInfoBoxHe._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveHe quickSave = _TranslationsReceiveTabQuickSaveHe._(_root);
 }
 
 // Path: sendTab
@@ -528,6 +530,8 @@ class _TranslationsDialogsHe extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileHe addFile = _TranslationsDialogsAddFileHe._(_root);
   @override
+  late final _TranslationsDialogsOpenFileHe openFile = _TranslationsDialogsOpenFileHe._(_root);
+  @override
   late final _TranslationsDialogsAddressInputHe addressInput = _TranslationsDialogsAddressInputHe._(_root);
   @override
   late final _TranslationsDialogsCancelSessionHe cancelSession = _TranslationsDialogsCancelSessionHe._(_root);
@@ -717,6 +721,23 @@ class _TranslationsReceiveTabInfoBoxHe extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'יציאה:';
   @override
   String get alias => 'כינוי:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveHe extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveHe._(TranslationsHe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'מועדפים';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1022,6 +1043,21 @@ class _TranslationsDialogsAddFileHe extends TranslationsDialogsAddFileEn {
   String get title => 'הוסף לבחירה';
   @override
   String get content => 'מה אתה רוצה להוסיף?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileHe extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileHe._(TranslationsHe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'פתח קובץ';
+  @override
+  String get content => 'האם ברצונך לפתוח את הקובץ שהתקבל?';
 }
 
 // Path: dialogs.addressInput
@@ -1348,6 +1384,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeHe extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'כעת בקשות לקבצים ייתקבלו אוטומטית ממכשירים ברשימת המועדפים שלך.',
+        'אזהרה: כרגע זה לא לגמרי מאובטח מכיוון שהאקר שנמצא ברשת שלך ויודע את טביעת האצבע של המכשירים האהובים עליך עדיין יכול לשלוח לך קבצים ללא אישור.',
+        'עם זאת, אפשרות זו עדיין מאובטחת יותר מאשר לאפשר קבלה אוטומטית מכל מכשיר.',
+      ];
 }
 
 // Path: dialogs.pin
