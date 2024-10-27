@@ -470,5 +470,38 @@
   },
   "tray": {
     "closeWindows": "Kilépés"
+  },
+  "general": {
+    "quickSaveFromFavorites": "Gyors mentés a \"Kedvencek\"-hez"
+  },
+  "receiveTab": {
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Kedvencek",
+      "on": "@:general.on"
+    }
+  },
+  "settingsTab": {
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+    },
+    "network": {
+      "useSystemName": "Rendszernév használata",
+      "generateRandomAlias": "Véletlenszerű álnév generálás"
+    }
+  },
+  "dialogs": {
+    "openFile": {
+      "title": "Fájl megnyitás",
+      "content": "Meg akarja nyitni a fogadott fájlt?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről.",
+        "Figyelmeztetés: Ez jelenleg nem teljesen biztonságos, mert egy hacker, aki ismeri a kedvenc eszközeinek ujjlenyomatát, még mindig küldhet fájlokat.",
+        "Ez a lehetőség azonban még mindig biztonságosabb, mint bármely eszköz engedélyezése."
+      ]
+    }
   }
 }
