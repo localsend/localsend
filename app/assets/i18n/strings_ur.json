@@ -14,6 +14,7 @@
     "copiedToClipboard": "کلپ بورڈ پر کاپی کیا گیا",
     "decline": "رد کرنا",
     "done": "ہو گیا",
+    "delete": "حذف کریں",
     "edit": "ترمیم",
     "error": "خرابی",
     "example": "مثال",
@@ -36,7 +37,8 @@
     "stop": "رک جاؤ",
     "save": "محفوظ کریں",
     "unchanged": "غیر تبدیل شدہ",
-    "unknown": "نامعلوم"
+    "unknown": "نامعلوم",
+    "noItemInClipboard": "کلپ بورڈ میں کوئی آئٹم نہیں ہے۔"
   },
   "receiveTab": {
     "title": "وصول کریں",
@@ -58,12 +60,14 @@
       "folder": "فولڈر",
       "media": "میڈیا",
       "text": "ٹیکسٹ",
-      "app": "ایپ"
+      "app": "ایپ",
+      "clipboard": "چسپاں کریں"
     },
     "shareIntentInfo": "آپ اپنے موبائل ڈیوائس کی \"شیئر کریں\" فیچر کو بھی آسانی سے فائلوں کو منتخب کرنے کے لیے استعمال کرسکتے ہیں۔",
     "nearbyDevices": "قریبی ڈیوائس",
     "thisDevice": "یہ ڈیوائس",
     "scan": "ڈیوائس تلاش کریں",
+    "manualSending": "خود بھیجنا",
     "sendMode": "سینڈ موڈ",
     "sendModes": {
       "single": "سنگل رسپٹ",
@@ -86,25 +90,34 @@
       },
       "color": "رنگ",
       "colorOptions": {
-        "system": "نظام"
+        "system": "نظام",
+        "oled": "OLED"
       },
       "language": "زبان",
       "languageOptions": {
         "system": "سسٹم"
       },
       "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔",
+      "saveWindowPlacementWindows": "بند ہونے پر ونڈو کی پوزیشن محفوظ کریں",
       "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں۔",
       "launchAtStartup": "لاگ ان کے بعد آٹو اسٹارٹ",
       "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ",
+      "showInContextMenu": "سیاق و سباق کے مینو میں LocalSend دکھائیں",
       "animations": "تحریکات"
     },
     "receive": {
       "title": "وصول کریں",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "خودکار تکمیل",
       "destination": "منزل",
       "downloads": "(ڈاؤن لوڈ)",
       "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔",
       "saveToHistory": "تاریخچہ میں محفوظ کریں"
+    },
+    "send": {
+      "title": "بھیجیں",
+      "shareViaLinkAutoAccept": "\"لنک کے ذریعے شیئر کریں\" موڈ میں درخواستیں خود بخود قبول کریں"
     },
     "network": {
       "title": "نیٹ ورک",
@@ -114,10 +127,18 @@
       "deviceType": "آلہ کی قسم",
       "deviceModel": "آلہ کا ماڈل",
       "port": "پورٹ",
+      "discoveryTimeout": "نیٹورک پرڈھونڈنے کی مدت ختم ہوگئ ہے",
       "portWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ چل سکے کیونکہ آپ حسب ضرورت پورٹ استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultPort})",
       "encryption": "خفیہ کاری",
       "multicastGroup": "ملٹی کاسٹ",
       "multicastGroupWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultMulticast})"
+    },
+    "other": {
+      "title": "دیگر",
+      "support": "LocalSend کی حمایت کریں",
+      "donate": "عطیہ کریں",
+      "privacyPolicy": "رازداری کی پالیسی",
+      "termsOfUse": "استعمال کی شرائط"
     },
     "advancedSettings": "تجاویز شھر کی ترتیبات"
   },
@@ -131,6 +152,10 @@
       "solution": "یہ ممکنہ طور پر فائر وال کا مسئلہ ہے۔ آپ اسے پورٹ {port} پر آنے والے کنکشنز (UDP اور TCP) کی اجازت دے کر حل کر سکتے ہیں۔",
       "openFirewall": "فائر وال کھولیں"
     },
+    "noDiscovery": {
+      "symptom": "یہ آلہ دوسرے آلات کو دریافت نہیں کر سکتا۔",
+      "solution": "براہ کرم یقینی بنائیں کہ تمام آلات ایک ہی وائی فائی نیٹ ورک پر ہیں اور ایک ہی ترتیب (پورٹ، ملٹی کاسٹ ایڈریس، انکرپشن) شیئر کرتے ہیں۔ آپ ہدف والے آلے کا IP پتہ دستی طور پر ٹائپ کرنے کی کوشش کر سکتے ہیں۔ اگر یہ کام کرتا ہے، تو اس آلے کو پسندیدہ میں شامل کرنے پر غور کریں تاکہ مستقبل میں اسے خود بخود دریافت کیا جا سکے۔"
+    },
     "noConnection": {
       "symptom": "دونوں آلات ایک دوسرے کو دریافت نہیں کرسکتے ہیں اور نہ ہی وہ فائلوں کا اشتراک کرسکتے ہیں۔",
       "solution": "مسئلہ دونوں طرف موجود ہے؟ پھر آپ کو یہ یقینی بنانا ہوگا کہ دونوں ڈیوائسز ایک ہی وائی فائی نیٹ ورک میں ہیں اور ایک ہی کنفیگریشن (پورٹ، ملٹی کاسٹ ایڈریس، انکرپشن) کا اشتراک کرتے ہیں۔ وائی فائی شرکاء کے درمیان مواصلت کی اجازت نہیں دے سکتا ہے۔ اس صورت میں، یہ اختیار روٹر پر فعال ہونا ضروری ہے."
@@ -143,6 +168,7 @@
     "empty": "تاریخ خالی ہے۔",
     "entryActions": {
       "open": "فائل کھولو",
+      "showInFolder": "فولڈر میں دکھائیں",
       "info": "معلومات",
       "deleteFromHistory": "تاریخ سے حذف کریں"
     }
@@ -175,6 +201,7 @@
   "sendPage": {
     "waiting": "جواب کا منتظر...",
     "rejected": "وصول کنندہ نے درخواست مسترد کر دی ہے۔",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "وصول کنندہ دوسری درخواست میں مصروف ہے۔"
   },
   "progressPage": {
@@ -205,11 +232,29 @@
     "requests": "درخواستیں",
     "noRequests": "ابھی تک کوئی درخواست نہیں۔",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "درخواستیں خود بخود قبول کریں",
+    "requirePin": "PIN درکار ہے",
+    "pinHint": "PIN ہے \"{pin}\"",
     "encryptionHint": "LocalSend براؤزر میں استعمال کرنے کیلئے آپ کوخود سائن کردہ سرٹیفکیٹ قبول کرنا ہوگا۔",
     "pendingRequests": "زیر التواء درخواستیں: {n}"
   },
   "aboutPage": {
-    "title": "کے بارے میں LocalSend"
+    "title": "کے بارے میں LocalSend",
+    "description": [
+      "LocalSend ایک مفت، اوپن سورس ایپ ہے جو آپ کو انٹرنیٹ کنکشن کی ضرورت کے بغیر اپنے مقامی نیٹ ورک کے ذریعے قریبی آلات کے ساتھ فائلیں اور پیغامات محفوظ طریقے سے شیئر کرنے کی اجازت دیتی ہے۔",
+      "یہ ایپ اینڈرائیڈ، iOS، macOS، ونڈوز، اور لینکس پر دستیاب ہے۔ آپ تمام ڈاؤن لوڈ کے اختیارات سرکاری ویب سائٹ پر تلاش کر سکتے ہیں۔"
+    ],
+    "author": "مصنف",
+    "contributors": "تعاون کنندگان",
+    "packagers": "پیکجرز",
+    "translators": "مترجمین"
+  },
+  "donationPage": {
+    "title": "عطیہ کریں",
+    "info": "LocalSend مفت، اوپن سورس ہے اور اس میں کوئی اشتہارات نہیں ہیں۔ اگر آپ کو ایپ پسند ہے، تو آپ عطیہ کے ذریعے ترقی کی حمایت کر سکتے ہیں۔",
+    "donate": "عطیہ کریں {amount}",
+    "thanks": "آپ کا بہت بہت شکریہ!",
+    "restore": "خریداری بحال کریں"
   },
   "changelogPage": {
     "title": "چینج لاگ"
@@ -243,6 +288,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "پسندیدہ",
+      "noFavorites": "ابھی تک کوئی پسندیدہ آلات نہیں ہیں۔",
+      "addFavorite": "شامل کریں"
+    },
+    "favoriteDeleteDialog": {
+      "title": "پسندیدہ سے حذف کریں",
+      "content": "کیا آپ واقعی \"{name}\" کو پسندیدہ سے حذف کرنا چاہتے ہیں؟"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "پسندیدہ میں شامل کریں",
+      "titleEdit": "ترتیبات",
+      "name": "آلے کا نام",
+      "auto": "(خودکار)",
+      "ip": "IP پتہ",
+      "port": "پورٹ"
+    },
     "fileInfo": {
       "title": "فائل کی معلومات",
       "fileName": "فائل کا نام:",
@@ -254,6 +316,10 @@
     "fileNameInput": {
       "title": "فائل کا نام درج کریں۔",
       "original": "اصل: {original}"
+    },
+    "historyClearDialog": {
+      "title": "تاریخ صاف کریں",
+      "content": "کیا آپ واقعی پوری تاریخ حذف کرنا چاہتے ہیں؟"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -291,20 +357,34 @@
       "title": "@:general.quickSave",
       "content": "فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔"
     },
+    "pin": {
+      "title": "PIN درج کریں"
+    },
     "sendModeHelp": {
       "title": "بھیجنے کے انداز",
       "single": "ایک ریسیور کو فائل بھیجتا ہے۔ بھیجتے وقت سلیکشن ختم ہوجائیگا۔",
       "multiple": "اکثر متعدد ریسیورز کو فائل بھیجتا ہے۔ سلیکشن ختم نہیں ہوگا۔",
       "link": "LocalSend نصب نہیں ہونے والے رسیورز منتخب شدہ فائلز کو لنک اپنے براؤزر میں کھولنے سے ڈاؤن لوڈ کر سکتے ہیں۔"
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "فائل کا نام خالی نہیں ہو سکتا",
+    "invalid": "فائل کے نام میں غلط حروف ہیں"
   },
   "tray": {
     "@info": "ایپل کے رہنما خطوط 'قریبی' الفاظ کے بارے میں بہت سخت ہیں۔",
     "open": "@:general.open",
-    "close": "چھوڑو LocalSend"
+    "close": "چھوڑو LocalSend",
+    "closeWindows": "بند کریں"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN درج کریں",
+    "invalidPin": "غلط PIN",
+    "tooManyAttempts": "بہت زیادہ کوششیں",
     "rejected": "منسوخ کردیا",
     "files": "فائلیں",
     "fileName": "فائل کا نام",

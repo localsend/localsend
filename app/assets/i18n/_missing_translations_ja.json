@@ -3,24 +3,30 @@
     "Here are translations that exist in <en> but not in <ja>.",
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
   ],
-  "sendTab": {
-    "manualSending": "Manual sending"
+  "receiveTab": {
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorites",
+      "on": "@:general.on"
+    }
   },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+    "network": {
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     }
   },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+  "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
+        "However, this option is still more secure than allowing any device."
+      ]
     }
-  },
-  "aboutPage": {
-    "packagers": "Packagers"
-  },
-  "tray": {
-    "closeWindows": "Exit"
   }
 }

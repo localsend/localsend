@@ -72,6 +72,7 @@ const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
+const _quickSaveFromFavorites = 'ls_quick_save_from_favorites';
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
@@ -81,6 +82,7 @@ const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+const _advancedSettingsKey = 'ls_advanced_settings';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -143,9 +145,9 @@ class PersistenceService {
     // Locale configuration upon persistence initialisation to prevent unlocalised Alias generation
     final persistedLocale = prefs.getString(_localeKey);
     if (persistedLocale == null) {
-      LocaleSettings.useDeviceLocale();
+      await LocaleSettings.useDeviceLocale();
     } else {
-      LocaleSettings.setLocaleRaw(persistedLocale);
+      await LocaleSettings.setLocaleRaw(persistedLocale);
     }
 
     if (prefs.getString(_showToken) == null) {
@@ -336,12 +338,28 @@ class PersistenceService {
     await _prefs.setBool(_saveToHistory, saveToHistory);
   }
 
+  bool getAdvancedSettingsEnabled() {
+    return _prefs.getBool(_advancedSettingsKey) ?? false;
+  }
+
+  Future<void> setAdvancedSettingsEnabled(bool isEnabled) async {
+    await _prefs.setBool(_advancedSettingsKey, isEnabled);
+  }
+
   bool isQuickSave() {
     return _prefs.getBool(_quickSave) ?? false;
   }
 
   Future<void> setQuickSave(bool quickSave) async {
     await _prefs.setBool(_quickSave, quickSave);
+  }
+
+  bool isQuickSaveFromFavorites() {
+    return _prefs.getBool(_quickSaveFromFavorites) ?? false;
+  }
+
+  Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
+    await _prefs.setBool(_quickSaveFromFavorites, quickSaveFromFavorites);
   }
 
   String? getReceivePin() {

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>AppIdentifierPrefix</key>
+	<string>$(AppIdentifierPrefix)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -61,6 +63,7 @@
         <string>ja</string>
         <string>km</string>
         <string>ko</string>
+        <string>ms</string>
         <string>ne</string>
         <string>nl</string>
         <string>pl</string>
@@ -68,6 +71,8 @@
         <string>pt-PT</string>
         <string>ro</string>
         <string>ru</string>
+        <string>sk</string>
+        <string>sl</string>
         <string>sr</string>
         <string>sr-Cyrl</string>
         <string>sv</string>
@@ -115,6 +120,25 @@
             <array>
                 <string>public.data</string>
                 <string>public.content</string>
+            </array>
+        </dict>
+    </array>
+
+    <key>NSServices</key>
+    <array>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Send to LocalSend</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>handleTextDropEvent</string>
+            <key>NSPortName</key>
+            <string>LocalSend</string>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.plain-text</string>
             </array>
         </dict>
     </array>

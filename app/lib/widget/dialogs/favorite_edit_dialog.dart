@@ -99,9 +99,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     builder: (_) => FavoriteDeleteDialog(widget.favorite!),
                   );
 
-                  if (mounted && result == true) {
+                  if (context.mounted && result == true) {
                     await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
-                    if (mounted) {
+                    if (context.mounted) {
                       context.pop();
                     }
                   }
@@ -180,7 +180,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                         )));
                   }
 
-                  if (mounted) {
+                  if (context.mounted) {
                     context.pop();
                   }
                 },

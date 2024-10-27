@@ -36,7 +36,7 @@ import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:localsend_app/util/native/open_file_receiver.dart';
+import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
@@ -65,7 +65,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     await enableContextMenu();
   }
 
-  initI18n();
+  await initI18n();
 
   bool startHidden = false;
   if (checkPlatformIsDesktop()) {
@@ -105,8 +105,18 @@ Future<RefenaContainer> preInit(List<String> args) async {
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
+    } else if (defaultTargetPlatform == TargetPlatform.macOS) {
+      startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
+    }
+
+    if (startHidden) {
+      unawaited(hideToTray());
     } else {
       await WindowManager.instance.show();
+    }
+
+    if (defaultTargetPlatform == TargetPlatform.macOS) {
+      await setupStatusBar();
     }
   }
 
@@ -179,19 +189,22 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
-      final files = await getOpenedFiles();
-      if (files.isNotEmpty) {
-        await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
-          args: files,
-        ));
-      }
-
-      // handle future dropped files
-      getOpenedFilesStream().listen((files) {
+      // handle dropped files
+      pendingFilesStream.listen((files) {
         ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
           args: files,
         ));
       });
+
+      // handle dropped strings
+      pendingStringsStream.listen((pendingStrings) {
+        for (final string in pendingStrings) {
+          ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
+        }
+        ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+      });
+
+      await setupMethodCallHandler();
     } else {
       final args = ref.read(appArgumentsProvider);
       await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(

@@ -3,6 +3,16 @@
     "Here are translations that exist in <en> but not in <eu>.",
     "After editing this file, you can run 'dart run slang apply --locale=eu' to quickly apply the newly added translations."
   ],
+  "general": {
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+  },
+  "receiveTab": {
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorites",
+      "on": "@:general.on"
+    }
+  },
   "sendTab": {
     "manualSending": "Manual sending"
   },
@@ -12,6 +22,7 @@
       "showInContextMenu": "Show LocalSend in context menu"
     },
     "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish"
     },
@@ -20,7 +31,9 @@
       "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
     },
     "network": {
-      "discoveryTimeout": "Discovery Timeout"
+      "discoveryTimeout": "Discovery Timeout",
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias"
     },
     "other": {
       "title": "Other",
@@ -67,9 +80,21 @@
     "restore": "Restore purchase"
   },
   "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
+    },
     "historyClearDialog": {
       "title": "Clear history",
       "content": "Do you really want to delete the entire history?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
+        "However, this option is still more secure than allowing any device."
+      ]
     },
     "pin": {
       "title": "Enter PIN"

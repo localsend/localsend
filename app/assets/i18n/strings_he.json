@@ -22,12 +22,13 @@
     "finished": "הסתיים",
     "hide": "הסתרה",
     "off": "כבויה",
-    "offline": "אין אינטרנט",
+    "offline": "כבוי",
     "on": "פעילה",
     "online": "מקוון",
     "open": "פתח",
     "queue": "תור",
     "quickSave": "שמירה מהירה",
+    "quickSaveFromFavorites": "שמירה מהירה מהמועדפים",
     "renamed": "שונה שם",
     "reset": "איפוס",
     "restart": "הפעל מחדש",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "יציאה:",
       "alias": "כינוי:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "מועדפים",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -67,6 +73,7 @@
     "nearbyDevices": "מכשירים בקרבת מקום",
     "thisDevice": "המכשיר הזה",
     "scan": "חפש מכשירים",
+    "manualSending": "שליחה ידנית",
     "sendMode": "מצב שליחה",
     "sendModes": {
       "single": "שליחה למקבל בודד",
@@ -97,6 +104,7 @@
         "system": "מערכת"
       },
       "saveWindowPlacement": "יציאה: שמירת מיקום החלון",
+      "saveWindowPlacementWindows": "שמור את מיקום החלון בעת יציאה",
       "minimizeToTray": "יציאה: מזעור למגש",
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
       "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
@@ -106,6 +114,7 @@
     "receive": {
       "title": "קבלה",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "סיום אוטומטי",
       "destination": "יעד",
@@ -126,6 +135,8 @@
       "deviceModel": "דגם המכשיר",
       "port": "יציאה",
       "discoveryTimeout": "זמן קצוב לגילוי",
+      "useSystemName": "השתמש בשם מערכת",
+      "generateRandomAlias": "צור כינוי אקראי",
       "portWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: {defaultPort})",
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",
@@ -149,6 +160,10 @@
       "symptom": "האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה",
       "solution": "כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה {port}.",
       "openFirewall": "פתח את חומת האש"
+    },
+    "noDiscovery": {
+      "symptom": "המכשיר הזה לא מצליח לגלות מכשירים אחרים.",
+      "solution": "אנא ודא שכל המכשירים נמצאים באותה רשת Wi-Fi וחולקים את אותה תצורה (יציאה, כתובת ריבוי שידור, הצפנה). אתה יכול לנסות להקליד את כתובת ה-IP של מכשיר היעד באופן ידני. אם זה יעבוד, שקול להוסיף את המכשיר למועדפים כדי שניתן יהיה לגלות אותו אוטומטית בעתיד."
     },
     "noConnection": {
       "symptom": "שני המכשירים לא מצליחים לגלות אחד את השני כדי לשתף קבצים",
@@ -240,6 +255,7 @@
     ],
     "author": "יוצר",
     "contributors": "תורמים",
+    "packagers": "אורזים",
     "translators": "מתרגמים"
   },
   "donationPage": {
@@ -259,6 +275,10 @@
     "addFile": {
       "title": "הוסף לבחירה",
       "content": "מה אתה רוצה להוסיף?"
+    },
+    "openFile": {
+      "title": "פתח קובץ",
+      "content": "האם ברצונך לפתוח את הקובץ שהתקבל?"
     },
     "addressInput": {
       "title": "הכנס כתובת",
@@ -329,7 +349,7 @@
     },
     "noPermission": {
       "title": "אין הרשאה",
-      "content": "אתה לא נתת הרשאות הנדרשות. אנא הענק את הרשאות בהגדרות."
+      "content": "לא הענקת את ההרשאות הנדרשות. אנא הענק את ההרשאות בהגדרות."
     },
     "notAvailableOnPlatform": {
       "title": "לא זמין",
@@ -349,6 +369,14 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "כעת בקשות לקבצים ייתקבלו אוטומטית ממכשירים ברשימת המועדפים שלך.",
+        "אזהרה: כרגע זה לא לגמרי מאובטח מכיוון שהאקר שנמצא ברשת שלך ויודע את טביעת האצבע של המכשירים האהובים עליך עדיין יכול לשלוח לך קבצים ללא אישור.",
+        "עם זאת, אפשרות זו עדיין מאובטחת יותר מאשר לאפשר קבלה אוטומטית מכל מכשיר."
+      ]
     },
     "pin": {
       "title": "הזן סיסמה"
@@ -370,7 +398,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "צא מ-LocalSend"
+    "close": "צא מ-LocalSend",
+    "closeWindows": "יציאה"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

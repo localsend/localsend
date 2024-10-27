@@ -67,6 +67,7 @@
     "nearbyDevices": "Közeli eszközök",
     "thisDevice": "Ez az eszköz",
     "scan": "Keressen eszközöket",
+    "manualSending": "Manuális küldés",
     "sendMode": "Küldési mód",
     "sendModes": {
       "single": "Egyetlen címzett",
@@ -97,6 +98,7 @@
         "system": "Rendszer"
       },
       "saveWindowPlacement": "Kilépés: Ablak pozíció mentése",
+      "saveWindowPlacementWindows": "Az ablak pozíciójának mentése kilépés után",
       "minimizeToTray": "Kilépés: Minimalizálja a tálcára",
       "launchAtStartup": "Auto. indítás bejelentkezés után",
       "launchMinimized": "Auto. indítás: Kis méretben",
@@ -149,6 +151,10 @@
       "symptom": "Ez az alkalmazás képes fájlokat küldeni más eszközökre, de más eszközök nem küldhetnek fájlokat erre az eszközre.",
       "solution": "Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a {port} porton.",
       "openFirewall": "Tűzfal megnyitás"
+    },
+    "noDiscovery": {
+      "symptom": "Ez az eszköz nem tud más eszközöket felismerni.",
+      "solution": "Győződjön meg róla, hogy minden eszköz ugyanabban a Wi-Fi hálózatban van, és ugyanaz a konfiguráció (port, multicast cím, titkosítás). Megpróbálhatja manuálisan beírni a céleszköz IP-címét. Ha ez működik, fontolja meg az eszköz hozzáadását a kedvencekhez, hogy a jövőben automatikusan fel lehessen fedezni."
     },
     "noConnection": {
       "symptom": "A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.",
@@ -240,6 +246,7 @@
     ],
     "author": "Szerző",
     "contributors": "Közreműködők",
+    "packagers": "Csomagolók",
     "translators": "Fordítók"
   },
   "donationPage": {
@@ -370,7 +377,8 @@
   "tray": {
     "@info": "Az Apple irányelvei nagyon szigorúak a 'közeli' megfogalmazással kapcsolatban.",
     "open": "@:general.open",
-    "close": "Kilépés"
+    "close": "Kilépés",
+    "closeWindows": "Kilépés"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

@@ -28,6 +28,7 @@
     "open": "Öffnen",
     "queue": "Warteschlange",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Quick Save für \"Favoriten\"",
     "renamed": "Umbenannt",
     "reset": "Zurücksetzen",
     "restart": "Neustarten",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoriten",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -108,6 +114,7 @@
     "receive": {
       "title": "Empfangen",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Autom. beenden",
       "destination": "Ziel-Ordner",
@@ -117,7 +124,7 @@
     },
     "send": {
       "title": "Senden",
-      "shareViaLinkAutoAccept": "Link teilen: Autom. aktzeptieren"
+      "shareViaLinkAutoAccept": "Link teilen: Autom. akzeptieren"
     },
     "network": {
       "title": "Netzwerk",
@@ -128,6 +135,8 @@
       "deviceModel": "Gerätemodell",
       "port": "Port",
       "discoveryTimeout": "Erkennungs-Timeout",
+      "useSystemName": "Systemnamen verwenden",
+      "generateRandomAlias": "Zufälligen Alias generieren",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
@@ -157,7 +166,7 @@
       "solution": "Stelle sicher, dass alle Geräte im selben Wi-Fi-Netzwerk sind und die gleiche Konfiguration teilen (Port, Multicast-Adresse, Verschlüsselung). Du kannst versuchen, die IP-Adresse des Zielgeräts manuell einzugeben. Wenn dies funktioniert, füge dieses Gerät zu den Favoriten hinzu, damit es in Zukunft automatisch entdeckt werden kann."
     },
     "noConnection": {
-      "symptom": "Beide Geräte können sich nicht sehen noch können sie Dateien miteinander teilen.",
+      "symptom": "Beide Geräte können sich weder sehen noch können sie Dateien miteinander teilen.",
       "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden."
     }
   },
@@ -232,10 +241,10 @@
     "requests": "Anfragen",
     "noRequests": "Bisher keine Anfragen erhalten.",
     "encryption": "@:settingsTab.network.encryption",
-    "autoAccept": "Anfragen automatisch aktzeptieren",
+    "autoAccept": "Anfragen automatisch akzeptieren",
     "requirePin": "PIN erforderlich",
     "pinHint": "Die PIN lautet \"{pin}\"",
-    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Sie müssen es im Browser akzeptieren.",
+    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
   },
   "aboutPage": {
@@ -246,18 +255,18 @@
     ],
     "author": "Autor",
     "contributors": "Mitwirkende",
-    "packagers": "Packagers",
-    "translators": "Übersetzer:innen"
+    "packagers": "Paketierende",
+    "translators": "Übersetzende"
   },
   "donationPage": {
     "title": "Spenden",
-    "info": "LocalSend ist kostenlos, open-source und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.",
+    "info": "LocalSend ist kostenlos, quelloffen und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.",
     "donate": "Spende {amount}",
     "thanks": "Vielen Dank für deine Unterstützung!",
-    "restore": "Käufe Wiederherstellen"
+    "restore": "Käufe wiederherstellen"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "Änderungsprotokoll"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -266,6 +275,10 @@
     "addFile": {
       "title": "Zur Auswahl hinzufügen",
       "content": "Was möchtest du zum Senden hinzufügen?"
+    },
+    "openFile": {
+      "title": "Datei öffnen",
+      "content": "Möchtest du die empfangene Datei öffnen?"
     },
     "addressInput": {
       "title": "Adresse eingeben",
@@ -302,7 +315,7 @@
       "titleEdit": "Favorit bearbeiten",
       "name": "Name",
       "auto": "(auto)",
-      "ip": "IP-Addresse",
+      "ip": "IP-Adresse",
       "port": "Port"
     },
     "fileInfo": {
@@ -336,7 +349,7 @@
     },
     "noPermission": {
       "title": "Keine Berechtigung",
-      "content": "Sie haben die erforderlichen Berechtigungen nicht gewährt. Bitte gewähren Sie sie in den Einstellungen."
+      "content": "Du hast die erforderlichen Berechtigungen nicht gewährt. Bitte gewähre sie in den Einstellungen."
     },
     "notAvailableOnPlatform": {
       "title": "Nicht verfügbar",
@@ -356,6 +369,14 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.",
+        "Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.",
+        "Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät."
+      ]
     },
     "pin": {
       "title": "PIN eingeben"
@@ -403,11 +424,11 @@
     "emptyList": "Leere Liste",
     "unSupportedAssetType": "Format ist nicht unterstützt.",
     "unableToAccessAll": "Zugriff nicht möglich",
-    "viewingLimitedAssetsTip": "Zeigen Sie nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "viewingLimitedAssetsTip": "Zeige nur Dateien und Alben an, auf die die App zugreifen kann.",
     "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
-    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffnen Sie die Systemeinstellungen und erlauben Sie der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
+    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlauben der App, \nauf alle Dateien auf dem Gerät zuzugreifen",
     "goToSystemSettings": "Gehe zu den Systemeinstellungen",
-    "accessLimitedAssets": "Fahre fort mit limitiertem Zugriff",
+    "accessLimitedAssets": "Fahre mit eingeschränktem Zugriff fort",
     "accessiblePathName": "Verfügbare Assets",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Bild",

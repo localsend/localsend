@@ -44,7 +44,7 @@ class SendTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder(
       provider: sendTabVmProvider,
-      init: (context) => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
+      init: (context) async => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
         final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
         final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
@@ -82,7 +82,7 @@ class SendTab extends StatelessWidget {
               Card(
                 margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 5, bottom: 15),
+                  padding: const EdgeInsetsDirectional.only(start: 15, top: 5, bottom: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -481,7 +481,10 @@ class _SendModeButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.help),
+              const Directionality(
+                textDirection: TextDirection.ltr,
+                child: Icon(Icons.help),
+              ),
               const SizedBox(width: 10),
               Text(t.sendTab.sendModeHelp),
             ],

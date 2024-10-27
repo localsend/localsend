@@ -67,6 +67,7 @@
     "nearbyDevices": "附近的裝置",
     "thisDevice": "此裝置",
     "scan": "尋找裝置",
+    "manualSending": "手動傳送",
     "sendMode": "傳送模式",
     "sendModes": {
       "single": "單一接收者",
@@ -97,6 +98,7 @@
         "system": "系統"
       },
       "saveWindowPlacement": "離開：儲存視窗位置",
+      "saveWindowPlacementWindows": "離開後儲存視窗位置",
       "minimizeToTray": "離開：最小化至系統匣",
       "launchAtStartup": "登入後自動啟動",
       "launchMinimized": "自動啟動至系統匣",
@@ -125,7 +127,7 @@
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "通訊埠",
-      "discoveryTimeout": "搜索裝置逾時",
+      "discoveryTimeout": "探索裝置逾時",
       "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
       "encryption": "加密",
       "multicastGroup": "多點傳送",
@@ -149,6 +151,10 @@
       "symptom": "此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。",
       "solution": "這很可能是防火牆問題。您可以透過允許通訊埠 {port} 上的連入連線 (UDP 和 TCP) 以解決此問題。",
       "openFirewall": "開啟防火牆"
+    },
+    "noDiscovery": {
+      "symptom": "本設備無法探索其他設備。",
+      "solution": "請確保所有裝置都在同一個 Wi-Fi 網路上並分享相同的設定（埠、多播位址、加密）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。"
     },
     "noConnection": {
       "symptom": "兩部裝置無法探索彼此，也無法分享檔案。",
@@ -240,6 +246,7 @@
     ],
     "author": "作者",
     "contributors": "貢獻者",
+    "packagers": "打包者",
     "translators": "翻譯者"
   },
   "donationPage": {
@@ -370,7 +377,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "離開 LocalSend"
+    "close": "離開 LocalSend",
+    "closeWindows": "離開"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

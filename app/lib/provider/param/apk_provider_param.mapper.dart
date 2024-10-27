@@ -26,19 +26,23 @@ class ApkProviderParamMapper extends ClassMapperBase<ApkProviderParam> {
   static const Field<ApkProviderParam, bool> _f$includeSystemApps = Field('includeSystemApps', _$includeSystemApps);
   static bool _$onlyAppsWithLaunchIntent(ApkProviderParam v) => v.onlyAppsWithLaunchIntent;
   static const Field<ApkProviderParam, bool> _f$onlyAppsWithLaunchIntent = Field('onlyAppsWithLaunchIntent', _$onlyAppsWithLaunchIntent);
+  static bool _$selectMultipleApps(ApkProviderParam v) => v.selectMultipleApps;
+  static const Field<ApkProviderParam, bool> _f$selectMultipleApps = Field('selectMultipleApps', _$selectMultipleApps, opt: true, def: false);
 
   @override
   final MappableFields<ApkProviderParam> fields = const {
     #query: _f$query,
     #includeSystemApps: _f$includeSystemApps,
     #onlyAppsWithLaunchIntent: _f$onlyAppsWithLaunchIntent,
+    #selectMultipleApps: _f$selectMultipleApps,
   };
 
   static ApkProviderParam _instantiate(DecodingData data) {
     return ApkProviderParam(
         query: data.dec(_f$query),
         includeSystemApps: data.dec(_f$includeSystemApps),
-        onlyAppsWithLaunchIntent: data.dec(_f$onlyAppsWithLaunchIntent));
+        onlyAppsWithLaunchIntent: data.dec(_f$onlyAppsWithLaunchIntent),
+        selectMultipleApps: data.dec(_f$selectMultipleApps));
   }
 
   @override
@@ -85,7 +89,7 @@ extension ApkProviderParamValueCopy<$R, $Out> on ObjectCopyWith<$R, ApkProviderP
 }
 
 abstract class ApkProviderParamCopyWith<$R, $In extends ApkProviderParam, $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? query, bool? includeSystemApps, bool? onlyAppsWithLaunchIntent});
+  $R call({String? query, bool? includeSystemApps, bool? onlyAppsWithLaunchIntent, bool? selectMultipleApps});
   ApkProviderParamCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -96,16 +100,18 @@ class _ApkProviderParamCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ApkP
   @override
   late final ClassMapperBase<ApkProviderParam> $mapper = ApkProviderParamMapper.ensureInitialized();
   @override
-  $R call({String? query, bool? includeSystemApps, bool? onlyAppsWithLaunchIntent}) => $apply(FieldCopyWithData({
+  $R call({String? query, bool? includeSystemApps, bool? onlyAppsWithLaunchIntent, bool? selectMultipleApps}) => $apply(FieldCopyWithData({
         if (query != null) #query: query,
         if (includeSystemApps != null) #includeSystemApps: includeSystemApps,
-        if (onlyAppsWithLaunchIntent != null) #onlyAppsWithLaunchIntent: onlyAppsWithLaunchIntent
+        if (onlyAppsWithLaunchIntent != null) #onlyAppsWithLaunchIntent: onlyAppsWithLaunchIntent,
+        if (selectMultipleApps != null) #selectMultipleApps: selectMultipleApps
       }));
   @override
   ApkProviderParam $make(CopyWithData data) => ApkProviderParam(
       query: data.get(#query, or: $value.query),
       includeSystemApps: data.get(#includeSystemApps, or: $value.includeSystemApps),
-      onlyAppsWithLaunchIntent: data.get(#onlyAppsWithLaunchIntent, or: $value.onlyAppsWithLaunchIntent));
+      onlyAppsWithLaunchIntent: data.get(#onlyAppsWithLaunchIntent, or: $value.onlyAppsWithLaunchIntent),
+      selectMultipleApps: data.get(#selectMultipleApps, or: $value.selectMultipleApps));
 
   @override
   ApkProviderParamCopyWith<$R2, ApkProviderParam, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _ApkProviderParamCopyWithImpl($value, $cast, t);

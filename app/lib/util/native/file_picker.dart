@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:common/model/file_type.dart';
 import 'package:common/util/sleep.dart';
-import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/determine_image_type.dart';
+import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/android_saf.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
@@ -26,9 +27,11 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 final _logger = Logger('FilePickerHelper');
+final _uriContent = UriContent();
 
 enum FilePickerOption {
   file(Icons.description),
@@ -67,6 +70,7 @@ enum FilePickerOption {
       return [
         FilePickerOption.media,
         FilePickerOption.text,
+        FilePickerOption.clipboard,
         FilePickerOption.file,
         FilePickerOption.folder,
       ];
@@ -76,6 +80,7 @@ enum FilePickerOption {
       return [
         FilePickerOption.file,
         FilePickerOption.media,
+        FilePickerOption.clipboard,
         FilePickerOption.text,
         FilePickerOption.folder,
         FilePickerOption.app,
@@ -156,7 +161,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
             ));
       }
     } else {
-      final result = await file_selector.openFiles();
+      final result = await openFiles();
       await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
             files: result,
             converter: CrossFileConverters.convertXFile,
@@ -259,18 +264,6 @@ Future<void> _pickText(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickClipboard(BuildContext context, Ref ref) async {
-  late List<String> files = [];
-  for (final file in await Pasteboard.files()) {
-    files.add(file);
-  }
-  if (files.isNotEmpty) {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: files.map((e) => XFile(e)).toList(),
-          converter: CrossFileConverters.convertXFile,
-        ));
-    return;
-  }
-
   final data = await Clipboard.getData(Clipboard.kTextPlain);
   if (data?.text != null) {
     ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: data!.text!));
@@ -287,6 +280,33 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
           fileType: FileType.image,
           fileName: fileName,
         ));
+    return;
+  }
+
+  final List<String> files = await Pasteboard.files();
+  if (files.isNotEmpty) {
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(
+          AddFilesAction(
+            files: files.map((e) => XFile(e)).toList(),
+            converter: (file) async {
+              if (!file.path.startsWith('content://')) {
+                return CrossFileConverters.convertXFile(file);
+              }
+              // handle content uri
+              return CrossFile(
+                name: file.name,
+                fileType: file.name.guessFileType(),
+                size: await _uriContent.getContentLength(Uri.parse(file.path)) ?? -1,
+                path: file.path,
+                thumbnail: null,
+                asset: null,
+                bytes: null,
+                lastModified: null,
+                lastAccessed: null,
+              );
+            },
+          ),
+        );
     return;
   }
 

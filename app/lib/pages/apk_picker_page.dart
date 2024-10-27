@@ -22,11 +22,32 @@ class ApkPickerPage extends StatefulWidget {
 
 class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
   final _textController = TextEditingController();
+  final List<Application> _selectedApps = [];
 
-  void _pickApp(Application app) {
+  Future<void> _pickApp(Application app) async {
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+          files: [app],
+          converter: CrossFileConverters.convertApplication,
+        ));
+
+    if (mounted) {
+      context.pop();
+    }
+  }
+
+  Future<void> _pickApps(List<Application> apps) async {
     // ignore: discarded_futures
-    ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: [app], converter: CrossFileConverters.convertApplication));
-    context.pop();
+
+    for (Application app in apps) {
+      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
+            files: [app],
+            converter: CrossFileConverters.convertApplication,
+          ));
+    }
+
+    if (mounted) {
+      context.pop();
+    }
   }
 
   @override
@@ -34,6 +55,16 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
     _textController.dispose();
     ref.dispose(apkSearchParamProvider);
     super.dispose();
+  }
+
+  void _appSelection(Application app) {
+    setState(() {
+      if (_selectedApps.contains(app)) {
+        _selectedApps.remove(app);
+      } else {
+        _selectedApps.add(app);
+      }
+    });
   }
 
   @override
@@ -70,6 +101,18 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
           }),
         ],
       ),
+      floatingActionButton: (_selectedApps.isEmpty)
+          ? Container()
+          : FloatingActionButton.extended(
+              onPressed: () async => await _pickApps(_selectedApps),
+              label: Row(
+                children: [
+                  const Icon(Icons.add),
+                  const SizedBox(width: 5),
+                  Text('Add ${_selectedApps.length} ${(_selectedApps.length == 1) ? "App" : "Apps"}'),
+                ],
+              ),
+            ),
       body: ResponsiveListView.single(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         tabletPadding: const EdgeInsets.symmetric(horizontal: 15),
@@ -110,7 +153,30 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
               ),
             ),
             SliverToBoxAdapter(
-              child: Text(t.apkPickerPage.apps(n: apkAsync.data?.length ?? 0)),
+              child: Row(
+                children: [
+                  Text(t.apkPickerPage.apps(n: apkAsync.data?.length ?? 0)),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Text('Select Multiple Apps'),
+                      const SizedBox(width: 5),
+                      Switch(
+                        value: apkParams.selectMultipleApps,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            apkParams.selectMultipleApps = !apkParams.selectMultipleApps;
+                          });
+                        },
+                        activeTrackColor: Theme.of(context).colorScheme.primary,
+                        activeColor: Theme.of(context).colorScheme.onPrimary,
+                        inactiveThumbColor: Theme.of(context).colorScheme.outline,
+                        inactiveTrackColor: Theme.of(context).colorScheme.surface,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 10),
@@ -127,7 +193,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: InkWell(
-                          onTap: () => _pickApp(app),
+                          onTap: () async => (apkParams.selectMultipleApps) ? _appSelection(app) : _pickApp(app),
                           customBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -174,6 +240,11 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                   ],
                                 ),
                               ),
+                              if (apkParams.selectMultipleApps)
+                                Icon(
+                                  _selectedApps.contains(app) ? Icons.check_circle : Icons.radio_button_unchecked,
+                                  color: _selectedApps.contains(app) ? Theme.of(context).iconTheme.color : Colors.grey,
+                                )
                             ],
                           ),
                         ),
@@ -194,7 +265,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
               },
             ),
             SliverToBoxAdapter(
-              child: SizedBox(height: getNavBarPadding(context) + 30), // handle navigation bar + some additional padding
+              child: SizedBox(height: getNavBarPadding(context) + 50),
             ),
           ],
         ),

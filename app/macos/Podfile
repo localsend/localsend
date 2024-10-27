@@ -31,6 +31,8 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
+  
+  pod 'Defaults', '~> 4.2'
 end
 
 post_install do |installer|

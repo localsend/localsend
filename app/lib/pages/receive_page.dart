@@ -22,7 +22,6 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:windows_taskbar/windows_taskbar.dart';
 
 class ReceivePage extends StatefulWidget {
   const ReceivePage({super.key});
@@ -40,7 +39,13 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch(receivePageControllerProvider);
+    final vm = context.watch(receivePageControllerProvider, listener: (prev, next) {
+      if (prev.status != next.status) {
+        // ignore: discarded_futures
+        TaskbarHelper.visualizeStatus(next.status);
+      }
+    });
+
     if (vm.status == null && vm.message == null) {
       return const Scaffold(
         body: SizedBox(),
@@ -48,17 +53,14 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     }
 
     final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(vm.sender)));
-    if (vm.status == SessionStatus.canceledBySender) {
-      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.error));
-    } else {
-      unawaited(TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate));
-    }
 
-    return WillPopScope(
-      onWillPop: () async {
-        vm.onDecline();
-        return true;
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          vm.onDecline();
+        }
       },
+      canPop: true,
       child: Scaffold(
         body: SafeArea(
           child: Center(
@@ -161,7 +163,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         ),
                                         if (vm.isLink)
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 20),
+                                            padding: const EdgeInsetsDirectional.only(start: 20),
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Theme.of(context).colorScheme.primary,
@@ -269,8 +271,8 @@ class _Actions extends StatelessWidget {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 elevation: colorMode == ColorMode.yaru ? 0 : null,
-                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.error,
-                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onBackground : Theme.of(context).colorScheme.onError,
+                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
+                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
               ),
               onPressed: () {
                 vm.onDecline();

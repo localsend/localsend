@@ -28,6 +28,7 @@
     "open": "Buksan",
     "queue": "Pila",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "I-save agad kapag galing sa \"Favorites\"",
     "renamed": "Pinangalanan",
     "reset": "Reset",
     "restart": "Restart",
@@ -67,6 +68,7 @@
     "nearbyDevices": "Malalapit na mga device",
     "thisDevice": "Ang Device na Ito",
     "scan": "Maghanap ng mga device",
+    "manualSending": "Mano-manong pagpapadala",
     "sendMode": "Send mode",
     "sendModes": {
       "single": "Isang tatanggap",
@@ -97,6 +99,7 @@
         "system": "System"
       },
       "saveWindowPlacement": "Quit: I-save ang window placement",
+      "saveWindowPlacementWindows": "I-save ang posisyon ng window pagkasara",
       "minimizeToTray": "Quit: Paliitin sa Tray/Menu Bar",
       "launchAtStartup": "I-autostart pagkatapos mag-login",
       "launchMinimized": "Autostart: I-start nang nakatago",
@@ -106,6 +109,7 @@
     "receive": {
       "title": "Tumanggap",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish",
       "destination": "Patutunguhan",
@@ -425,6 +429,9 @@
       "title": "@:general.quickSave",
       "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring magpadala sa iyo ng mga file."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites"
+    },
     "pin": {
       "title": "Ilagay ang PIN"
     },
@@ -445,7 +452,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Isara ang LocalSend"
+    "close": "Isara ang LocalSend",
+    "closeWindows": "Isara"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

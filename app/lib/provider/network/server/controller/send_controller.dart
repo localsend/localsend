@@ -211,8 +211,13 @@ class SendController {
         ..headers.set('content-length', '${file.file.size}');
 
       if (file.bytes != null) {
-        request.response.write(file.bytes!);
-        await request.response.close();
+        final byteStream = Stream.fromIterable([file.bytes!]);
+        final (streamController, subscription) = byteStream.digested();
+
+        await request.response.addStream(streamController.stream).then((_) {
+          request.response.close();
+          subscription.cancel();
+        });
       } else {
         final path = file.path!;
         final fileStream = path.startsWith('content://') ? UriContent().getContentStream(Uri.parse(file.path!)) : File(file.path!).openRead();

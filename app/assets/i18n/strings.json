@@ -28,6 +28,7 @@
     "open": "Open",
     "queue": "Queue",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\"",
     "renamed": "Renamed",
     "reset": "Undo changes",
     "restart": "Restart",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Device name:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorites",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -108,6 +114,7 @@
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish",
       "destination": "Save to folder",
@@ -128,6 +135,8 @@
       "deviceModel": "Device model",
       "port": "Port",
       "discoveryTimeout": "Discovery Timeout",
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast address",
@@ -337,6 +346,10 @@
       "title": "Add to selection",
       "content": "What do you want to add?"
     },
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
+    },
     "addressInput": {
       "title": "Enter address",
       "hashtag": "Hashtag",
@@ -344,8 +357,8 @@
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
-      "title": "Cancel file transfer",
-      "content": "Do you really want to cancel the file transfer?"
+      "title": "Cancel files transfer",
+      "content": "Do you really want to cancel the files transfer?"
     },
     "cannotOpenFile": {
       "title": "Cannot open file",
@@ -425,7 +438,15 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
+      "content": "File requests are now accepted automatically. Be aware that everyone on the local network can send you files."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
+        "However, this option is still more secure than allowing any device."
+      ]
     },
     "pin": {
       "title": "Enter PIN"

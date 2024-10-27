@@ -40,6 +40,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         saveToGallery: _persistence.isSaveToGallery(),
         saveToHistory: _persistence.isSaveToHistory(),
         quickSave: _persistence.isQuickSave(),
+        quickSaveFromFavorites: _persistence.isQuickSaveFromFavorites(),
         receivePin: _persistence.getReceivePin(),
         autoFinish: _persistence.isAutoFinish(),
         minimizeToTray: _persistence.isMinimizeToTray(),
@@ -51,6 +52,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         deviceModel: _persistence.getDeviceModel(),
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
         discoveryTimeout: _persistence.getDiscoveryTimeout(),
+        advancedSettings: _persistence.getAdvancedSettingsEnabled(),
       );
 
   Future<void> setAlias(String alias) async {
@@ -71,6 +73,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setColorMode(mode);
     state = state.copyWith(
       colorMode: mode,
+    );
+  }
+
+  Future<void> setAdvancedSettingsEnabled(bool isEnabled) async {
+    await _persistence.setAdvancedSettingsEnabled(isEnabled);
+    state = state.copyWith(
+      advancedSettings: isEnabled,
     );
   }
 
@@ -127,6 +136,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setQuickSave(quickSave);
     state = state.copyWith(
       quickSave: quickSave,
+    );
+  }
+
+  Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
+    await _persistence.setQuickSaveFromFavorites(quickSaveFromFavorites);
+    state = state.copyWith(
+      quickSaveFromFavorites: quickSaveFromFavorites,
     );
   }
 

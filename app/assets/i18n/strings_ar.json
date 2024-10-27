@@ -28,6 +28,7 @@
     "open": "مفتوح",
     "queue": "طابور",
     "quickSave": "حفظ سريع",
+    "quickSaveFromFavorites": "حفظ سريع لـ \"Favorites\"",
     "renamed": "اعادة تسمية",
     "reset": "إعادة ضبط",
     "restart": "إعادة تشغيل",
@@ -67,6 +68,7 @@
     "nearbyDevices": "الأجهزة القريبة",
     "thisDevice": "هذا الجهاز",
     "scan": "ابحث عن أجهزة",
+    "manualSending": "الإرسال اليدوي",
     "sendMode": "وضع الإرسال",
     "sendModes": {
       "single": "مستلم واحد",
@@ -97,14 +99,18 @@
         "system": "نظام"
       },
       "saveWindowPlacement": "إنهاء: حفظ موقع النافذة",
+      "saveWindowPlacementWindows": "حفظ موضع النافذة بعد الخروج",
       "minimizeToTray": "إنهاء : أخفاء في شريط المهام",
       "launchAtStartup": "تشغيل تلقائي بعد تسجيل الدخول",
       "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا",
+      "showInContextMenu": "إظهار LocalSend في قائمة السياق",
       "animations": "الرسوم المتحركة"
     },
     "receive": {
       "title": "استلم",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "إنهاء تلقائي",
       "destination": "حفظ في",
       "downloads": "(التنزيلات)",
@@ -148,6 +154,10 @@
       "solution": "هذه المشكلة عادة ما تكون مشكلة في جدار الحماية. يمكنك حل هذه المشكلة عن طريق السماح بالاتصالات الواردة (UDP و TCP) على المنفذ {port}.",
       "openFirewall": "افتح جدار الحماية"
     },
+    "noDiscovery": {
+      "symptom": "هذا الجهاز لا يمكنه اكتشاف الأجهزة الأخرى.",
+      "solution": "يرجى التأكد من أن جميع الأجهزة متصلة بنفس شبكة Wi-Fi وتشارك نفس التكوين (المنفذ، عنوان البث المتعدد، التشفير). يمكنك محاولة كتابة عنوان IP للجهاز المستهدف يدويًا. إذا نجح ذلك، فكر في إضافة هذا الجهاز إلى قائمة المفضلة حتى يتم اكتشافه تلقائيًا في المستقبل."
+    },
     "noConnection": {
       "symptom": "لا يمكن للجهازين اكتشاف بعضهما البعض ولا يمكنهما مشاركة الملفات.",
       "solution": "هل المشكلة موجودة على الجانبين؟ في هذه الحالة ، يجب عليك التأكد من أن الجهازين في نفس شبكة الواي فاي ويشتركان في نفس التكوين (المنفذ وعنوان البث المتعدد والتشفير). قد لا يسمح الواي فاي بالاتصال بين المشاركين. في هذه الحالة ، يجب تمكين هذا الخيار على الجهاز التوجيه."
@@ -160,6 +170,7 @@
     "empty": "السجل فارغ.",
     "entryActions": {
       "open": "فتح الملف",
+      "showInFolder": "عرض في المجلد",
       "info": "معلومات",
       "deleteFromHistory": "حذف من السجل"
     }
@@ -192,6 +203,7 @@
   "sendPage": {
     "waiting": "بإنتظار الرد...",
     "rejected": "المستلم رفض الطلب.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "المستلم مشغول بطلب آخر."
   },
   "progressPage": {
@@ -223,6 +235,8 @@
     "noRequests": "لا يوجد طلبات حتى الآن.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "قبول الطلبات تلقائيا",
+    "requirePin": "يتطلب رمز PIN",
+    "pinHint": "رمز PIN هو \"{pin}\"",
     "encryptionHint": "يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
     "pendingRequests": "الطلبات المعلقة: {n}"
   },
@@ -234,6 +248,7 @@
     ],
     "author": "المؤلف",
     "contributors": "المساهمون",
+    "packagers": "الحزم",
     "translators": "المترجمون"
   },
   "donationPage": {
@@ -414,6 +429,12 @@
       "title": "@:general.quickSave",
       "content": "يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites"
+    },
+    "pin": {
+      "title": "أدخل رمز PIN"
+    },
     "sendModeHelp": {
       "title": "أوضاع الإرسال",
       "single": "يقوم بإرسال الملفات إلى مستلم واحد. ستتم مسح الاختيار بعد انتهاء نقل الملف.",
@@ -431,10 +452,14 @@
   "tray": {
     "@info": "إرشادات Apple صارمة للغاية بشأن صياغة 'الإغلاق'.",
     "open": "@:general.open",
-    "close": "أغلق LocalSend"
+    "close": "أغلق LocalSend",
+    "closeWindows": "خروج"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "أدخل رمز PIN",
+    "invalidPin": "رمز PIN غير صالح",
+    "tooManyAttempts": "محاولات كثيرة جدًا",
     "rejected": "مرفوضة",
     "files": "الملفات",
     "fileName": "اسم الملف",

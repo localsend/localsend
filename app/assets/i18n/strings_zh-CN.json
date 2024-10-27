@@ -28,6 +28,7 @@
     "open": "打开",
     "queue": "队列",
     "quickSave": "快速保存",
+    "quickSaveFromFavorites": "快速保存到\"收藏\"",
     "renamed": "已重命名",
     "reset": "重置",
     "restart": "重启",
@@ -50,7 +51,6 @@
   },
   "sendTab": {
     "title": "发送",
-    "manualSending": "手动发送",
     "selection": {
       "title": "选择",
       "files": "文件：{files}",
@@ -68,6 +68,7 @@
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
+    "manualSending": "手动发送",
     "sendMode": "发送模式",
     "sendModes": {
       "single": "单个接收者",
@@ -108,6 +109,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "自动完成",
       "destination": "保存目录",
@@ -128,6 +130,8 @@
       "deviceModel": "设备型号",
       "port": "端口",
       "discoveryTimeout": "搜索设备超时",
+      "useSystemName": "使用系统名称",
+      "generateRandomAlias": "生成随机昵称",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多播",
@@ -152,13 +156,13 @@
       "solution": "这最可能是由防火墙引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。",
       "openFirewall": "打开防火墙"
     },
-    "noConnection": {
-      "symptom": "双方设备均无法发现对方或者分享文件。",
-      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
-    },
     "noDiscovery": {
       "symptom": "此设备未能发现其他设备。",
       "solution": "确保所有设备都在同一个Wi-Fi网络上，并共享相同的配置（端口、多播地址、加密）。您可以尝试手动键入目标设备的IP地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
+    },
+    "noConnection": {
+      "symptom": "双方设备均无法发现对方或者分享文件。",
+      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
     }
   },
   "receiveHistoryPage": {
@@ -425,6 +429,9 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "输入 PIN"

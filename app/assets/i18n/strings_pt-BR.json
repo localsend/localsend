@@ -14,7 +14,7 @@
     "copiedToClipboard": "Copiado para a Área de Transferência",
     "decline": "Rejeitar",
     "done": "Completo",
-    "delete": "Deletar",
+    "delete": "Excluir",
     "edit": "Editar",
     "error": "Erro",
     "example": "Exemplo",
@@ -28,6 +28,7 @@
     "open": "Abrir",
     "queue": "Fila",
     "quickSave": "Salvamento Rápido",
+    "quickSaveFromFavorites": "salvar rapidamente dos \"Favoritos\"",
     "renamed": "Renomeado",
     "reset": "Redefinir",
     "restart": "Reiniciar",
@@ -67,6 +68,7 @@
     "nearbyDevices": "Dispositivos próximos",
     "thisDevice": "Este dispositivo",
     "scan": "Procurar dispositivos",
+    "manualSending": "Envio manual",
     "sendMode": "Modo de envio",
     "sendModes": {
       "single": "Único destinatário",
@@ -74,7 +76,7 @@
       "link": "Compartilhe via link"
     },
     "sendModeHelp": "Explicação",
-    "help": "Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede wifi.",
+    "help": "Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.",
     "placeItems": "Coloque os itens para compartilhar."
   },
   "settingsTab": {
@@ -97,19 +99,27 @@
         "system": "Sistema"
       },
       "saveWindowPlacement": "Salvar a posição da janela ao fechar",
+      "saveWindowPlacementWindows": "Salvar posição da janela ao sair",
       "minimizeToTray": "Minimizar para a bandeja ao fechar",
       "launchAtStartup": "Abrir automaticamente após o login",
       "launchMinimized": "Início automático: Abrir minimizado",
+      "showInContextMenu": "Mostrar LocalSend no menu de contexto",
       "animations": "Animações"
     },
     "receive": {
       "title": "Recebimento",
       "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Concluir Automaticamente",
       "destination": "Destino",
       "downloads": "(Downloads)",
+      "quickSaveFromFavorites": "Salvar rapidamente dos \"Favoritos\"",
       "saveToGallery": "Salvar mídia na Galeria",
       "saveToHistory": "Salvar no histórico"
+    },
+    "send": {
+      "title": "Enviar",
+      "shareViaLinkAutoAccept": "Aceitar automaticamente pedidos no modo \"Compartilhar por link\""
     },
     "network": {
       "title": "Rede",
@@ -119,6 +129,7 @@
       "deviceType": "Tipo de dispositivo",
       "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
+      "discoveryTimeout": "Tempo limite de descoberta",
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
       "multicastGroup": "Multicast",
@@ -143,18 +154,23 @@
       "solution": "Provavelmente isto se trata de um problema de firewall. Você pode resolver esse problema permitindo conexões recebidas (UDP e TCP) na porta {port}.",
       "openFirewall": "Abrir o Firewall"
     },
+    "noDiscovery": {
+      "symptom": "Este dispositivo não consegue descobrir outros dispositivos.",
+      "solution": "Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e compartilham as mesmas configurações (porta, endereço multicast, criptografia). Você pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro."
+    },
     "noConnection": {
       "symptom": "Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.",
-      "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede wifi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede wifi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
+      "solution": "O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador."
     }
   },
   "receiveHistoryPage": {
     "title": "Histórico",
     "openFolder": "Abrir pasta",
-    "deleteHistory": "Deletar histórico",
+    "deleteHistory": "Excluir histórico",
     "empty": "O histórico está vazio.",
     "entryActions": {
       "open": "Abrir arquivo",
+      "showInFolder": "Mostrar na pasta",
       "info": "Informações",
       "deleteFromHistory": "Remover do histórico"
     }
@@ -187,6 +203,7 @@
   "sendPage": {
     "waiting": "Aguardando resposta...",
     "rejected": "O destinatário rejeitou a solicitação.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "O destinatário está ocupado com outra solicitação de transferência."
   },
   "progressPage": {
@@ -217,6 +234,9 @@
     "requests": "Solicitações",
     "noRequests": "Nenhuma solicitação ainda.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Aceitar pedidos automaticamente",
+    "requirePin": "Solicitar PIN",
+    "pinHint": "O PIN é \"{pin}\"",
     "encryptionHint": "LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no navegador.",
     "pendingRequests": "Solicitações pendentes: {n}"
   },
@@ -228,6 +248,7 @@
     ],
     "author": "Autor",
     "contributors": "Contribuidores",
+    "packagers": "Empacotadores",
     "translators": "Tradutores"
   },
   "donationPage": {
@@ -335,7 +356,7 @@
       "addFavorite": "Adicionar"
     },
     "favoriteDeleteDialog": {
-      "title": "Deletar favorito",
+      "title": "Excluir favorito",
       "content": "Você realmente deseja excluir \"{name}\" dos favoritos?"
     },
     "favoriteEditDialog": {
@@ -360,7 +381,7 @@
     },
     "historyClearDialog": {
       "title": "Limpar histórico",
-      "content": "Você realmente deseja deletar todo o histórico?"
+      "content": "Você realmente deseja excluir todo o histórico?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -394,24 +415,41 @@
       "sortBeforeCount": "Ordenar alfabeticamente antes",
       "random": "Aleatório"
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "Salvar rapidamento dos \"Favoritos\""
+    },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você."
+    },
+    "pin": {
+      "title": "Digite o PIN"
     },
     "sendModeHelp": {
       "title": "Modos de envio",
       "single": "Envia arquivos para um destinatário. A seleção será apagada após a conclusão da transferência dos arquivos.",
       "multiple": "Envia arquivos para múltiplos destinatários. A seleção não será apagada.",
       "link": "Os destinatários que não têm o LocalSend instalado podem baixar os arquivos selecionados abrindo o link fornecido no navegador."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "O nome do arquivo não pode estar vazio",
+    "invalid": "O nome do arquivo contém caracteres inválidos"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Fechar LocalSend"
+    "close": "Fechar LocalSend",
+    "closeWindows": "Sair"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Digite o PIN",
+    "invalidPin": "PIN inválido",
+    "tooManyAttempts": "Muitas tentativas",
     "rejected": "Conexão Rejeitada",
     "files": "Arquivos",
     "fileName": "Nome do arquivo",
