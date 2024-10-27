@@ -6,26 +6,26 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Mga Paborito",
       "on": "@:general.on"
     }
   },
   "settingsTab": {
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Gamitin ang pangalan ng system",
+      "generateRandomAlias": "Mag-generate ng random na alias"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Buksan ang file",
+      "content": "Gusto mo bang buksan ang natanggap na file?"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
-        "However, this option is still more secure than allowing any device."
+        "Ang mga file request ngayon ay awtomatikong tinatanggap sa mga device sa iyong listahan ng mga paborito.",
+        "Babala: Ito ay kasalukuyang hindi ganap na secure dahil ang isang hacker na alam ang fingerprint ng iyong mga paboritong device ay maaari pa ring magpadala sa iyo ng mga file.",
+        "Gayunpaman, ang opsyon na ito ay mas secure kaysa sa pag-allow sa anumang device."
       ]
     }
   }
