@@ -7,16 +7,12 @@ targets:
           fallback_strategy: base_locale
           input_directory: assets/i18n
           input_file_pattern: .json
-          output_format: multiple_files
           string_interpolation: braces
           timestamp: false # for F-Droid Reproducible Builds
           flat_map: false
-          gpt:
-            model: gpt-4
-            excludes:
-              - 'bn'
-            description: |
-              "LocalSend" is a file sharing app that allows you to send files to other devices on the same network.
+          format:
+            enabled: true
+            width: 150
       dart_mappable_builder:
         options:
           renameMethods:

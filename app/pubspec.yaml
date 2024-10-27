@@ -58,8 +58,8 @@ dependencies:
   shared_preferences: 2.3.2
   shared_preferences_platform_interface: any
   shared_storage: 0.8.1
-  slang: 3.31.2
-  slang_flutter: 3.31.0
+  slang: 4.1.0
+  slang_flutter: 4.1.0
   system_settings: 2.1.0
   tray_manager: 0.2.3
   uri_content: 2.2.0
@@ -79,8 +79,7 @@ dev_dependencies:
   flutter_lints: 4.0.0
   mockito: 5.4.4
   refena_inspector: 2.0.0
-  slang_build_runner: 3.31.0
-  slang_gpt: 0.10.3
+  slang_build_runner: 4.1.0
   test: ^1.24.7
 
 dependency_overrides:

@@ -17,6 +17,12 @@
   "aboutPage": {
     "packagers": "Packagers"
   },
+  "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open received file?"
+    }
+  },
   "web": {
     "enterPin": "Enter PIN",
     "invalidPin": "Invalid PIN",

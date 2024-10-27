@@ -8,5 +8,11 @@
       "useSystemName": "Use system name",
       "generateRandomAlias": "Generate random alias"
     }
+  },
+  "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open received file?"
+    }
   }
 }

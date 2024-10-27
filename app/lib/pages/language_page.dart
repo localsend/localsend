@@ -26,9 +26,9 @@ class LanguagePage extends StatelessWidget {
               onTap: () async {
                 await context.ref.notifier(settingsProvider).setLocale(locale);
                 if (locale == null) {
-                  LocaleSettings.useDeviceLocale();
+                  await LocaleSettings.useDeviceLocale();
                 } else {
-                  LocaleSettings.setLocale(locale);
+                  await LocaleSettings.setLocale(locale);
                 }
               },
               title: Row(

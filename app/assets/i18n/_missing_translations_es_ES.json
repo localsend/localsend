@@ -3,10 +3,10 @@
     "Here are translations that exist in <en> but not in <es-ES>.",
     "After editing this file, you can run 'dart run slang apply --locale=es-ES' to quickly apply the newly added translations."
   ],
-  "settingsTab": {
-    "network": {
-      "useSystemName": "Usar el nombre del sistema",
-      "generateRandomAlias": "Generar alias aleatorio"
+  "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open received file?"
     }
   }
 }

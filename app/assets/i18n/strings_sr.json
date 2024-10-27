@@ -130,6 +130,8 @@
       "deviceModel": "Model uredjaja",
       "port": "Port",
       "discoveryTimeout": "Otkrivanje otkazano",
+      "useSystemName": "Koristi ime sistema",
+      "generateRandomAlias": "Generiši slučajni pseudonim",
       "portWarning": "Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom Port.(default: {defaultPort})",
       "encryption": "Enkripcija",
       "multicastGroup": "Multicast",

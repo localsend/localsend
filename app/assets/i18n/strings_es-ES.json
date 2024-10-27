@@ -130,6 +130,8 @@
       "deviceModel": "Modelo de dispositivo",
       "port": "Puerto",
       "discoveryTimeout": "Tiempo de espera para Detección",
+      "useSystemName": "Usar el nombre del sistema",
+      "generateRandomAlias": "Generar alias aleatorio",
       "portWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando un puerto personalizado. (Puerto por defecto: {defaultPort})",
       "encryption": "Encriptación",
       "multicastGroup": "Multicast",

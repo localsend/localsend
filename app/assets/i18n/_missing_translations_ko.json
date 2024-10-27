@@ -22,6 +22,10 @@
     }
   },
   "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open received file?"
+    },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": "File requests are now accepted automatically from devices in your favorites list."

@@ -145,9 +145,9 @@ class PersistenceService {
     // Locale configuration upon persistence initialisation to prevent unlocalised Alias generation
     final persistedLocale = prefs.getString(_localeKey);
     if (persistedLocale == null) {
-      LocaleSettings.useDeviceLocale();
+      await LocaleSettings.useDeviceLocale();
     } else {
-      LocaleSettings.setLocaleRaw(persistedLocale);
+      await LocaleSettings.setLocaleRaw(persistedLocale);
     }
 
     if (prefs.getString(_showToken) == null) {

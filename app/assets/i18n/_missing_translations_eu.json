@@ -73,6 +73,10 @@
     "restore": "Restore purchase"
   },
   "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open received file?"
+    },
     "historyClearDialog": {
       "title": "Clear history",
       "content": "Do you really want to delete the entire history?"

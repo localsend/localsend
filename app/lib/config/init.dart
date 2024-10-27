@@ -65,7 +65,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     await enableContextMenu();
   }
 
-  initI18n();
+  await initI18n();
 
   bool startHidden = false;
   if (checkPlatformIsDesktop()) {

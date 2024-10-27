@@ -100,7 +100,7 @@
       },
       "saveWindowPlacement": "Surt: desa la ubicació de la finestra",
       "saveWindowPlacementWindows": "Desa la posició de la finestra després de sortir",
-      "showInContextMenu": "Mostrar LocalSend al menu contextual"
+      "showInContextMenu": "Mostrar LocalSend al menu contextual",
       "minimizeToTray": "Surt: Minimitzar a la safata",
       "launchAtStartup": "Inici automàtic després d'iniciar sessió",
       "launchMinimized": "Inici automàtic: Inici minimitzat",
