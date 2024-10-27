@@ -6,26 +6,26 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "علاقه‌مندی‌ها",
       "on": "@:general.on"
     }
   },
   "settingsTab": {
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "استفاده از نام سیستم",
+      "generateRandomAlias": "ایجاد نام مستعار تصادفی"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "باز کردن فایل",
+      "content": "آیا می خواهید فایل دریافتی را باز کنید؟"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
-        "However, this option is still more secure than allowing any device."
+        "درخواست‌ها اکنون به طور خودکار از دستگاه‌های موجود در لیست علاقه‌مندی‌ها پذیرفته می‌شود",
+        "هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکری به دستگاه‌های موجود در لیست علاقه‌مندی‌ها، می‌تواند برای شما فایل ارسال کند",
+        "با این حال، این گزینه از اجازه دادن به هر دستگاهی ایمن‌تر است"
       ]
     }
   }
