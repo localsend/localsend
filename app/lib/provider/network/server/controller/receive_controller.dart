@@ -525,7 +525,11 @@ class ReceiveController {
           progress: 1,
         );
 
-    final session = server.getState().session!;
+    final session = server.getState().session;
+    if (session == null) {
+      return await request.respondJson(500, message: 'Server is in invalid state');
+    }
+
     if (allowedStates.contains(session.status) && session.files.values.map((e) => e.status).isFinishedOrError) {
       final hasError = session.files.values.any((f) => f.status == FileStatus.failed);
       server.setState(
