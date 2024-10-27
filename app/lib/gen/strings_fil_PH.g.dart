@@ -1424,8 +1424,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFilPh extends Translations
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Ang mga pag-request ng file ay awtomatikong tinatatanggap na ngayon galing sa mga devices sa iyong listahan ng favorites.';
 }
 
 // Path: dialogs.pin

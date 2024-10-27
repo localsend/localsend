@@ -1348,8 +1348,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeHe extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'בקשות שליחה מתקבלות אוטומטית ממכשירים ברשימת המועדפים שלך.';
 }
 
 // Path: dialogs.pin

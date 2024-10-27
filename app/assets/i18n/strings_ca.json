@@ -43,7 +43,7 @@
   },
   "receiveTab": {
     "title": "Rebre",
-    "infoBox": {      
+    "infoBox": {
       "alias": "Àlies:",
       "ip": "IP:",
       "port": "Port:"
@@ -53,7 +53,7 @@
     "help": "Si us plau, asseguris que el destinatari està a la mateixa xarxa Wi-Fi.",
     "manualSending": "Enviament manual",
     "nearbyDevices": "Dispositius propers",
-    "picker": {      
+    "picker": {
       "app": "App",
       "clipboard": "Enganxar",
       "file": "Fitxer",
@@ -373,7 +373,7 @@
     "fileNameInput": {
       "title": "Introdueixi el nom del fitxer",
       "original": "Original: {original}"
-    },    
+    },
     "favoriteDialog": {
       "title": "Preferits",
       "noFavorites": "Encara no hi ha cap dispositiu preferit.",
@@ -394,7 +394,7 @@
     "historyClearDialog": {
       "title": "Netejar historial",
       "content": "Realment vol eliminar tot l'historial?"
-    },    
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "LocalSend no pot trobar altres dispositius sense tenir el permís per escanejar la xarxa local. Concediu aquest permís a la configuració.",
@@ -431,7 +431,6 @@
       "random": "Aleatori"
     },
     "quickSaveFromFavoritesNotice": {
-      "content": "Les sol·licituds de fitxers ara s'accepten automàticament des dels dispositius de la vostra llista de preferits.",
       "title": "@:general.quickSaveFromFavorites"
     },
     "quickSaveNotice": {
@@ -453,7 +452,7 @@
     "invalid": "El nom del fitxer conté caràcters invàlids"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",    
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "close": "Sortir de LocalSend",
     "closeWindows": "Sortir",
     "open": "@:general.open"

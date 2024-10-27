@@ -1425,8 +1425,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSr extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Fajlovi koji su poslati sa uredjaja u kontakt listi su automatski prihvaćeni.';
 }
 
 // Path: dialogs.pin

@@ -432,8 +432,7 @@
       "content": "Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Fajlovi koji su poslati sa uredjaja u kontakt listi su automatski prihvaćeni."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Unesi PIN"

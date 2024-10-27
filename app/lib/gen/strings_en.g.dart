@@ -116,6 +116,7 @@ class TranslationsReceiveTabEn {
   // Translations
   String get title => 'Receive';
   late final TranslationsReceiveTabInfoBoxEn infoBox = TranslationsReceiveTabInfoBoxEn.internal(_root);
+  late final TranslationsReceiveTabQuickSaveEn quickSave = TranslationsReceiveTabQuickSaveEn.internal(_root);
 }
 
 // Path: sendTab
@@ -539,6 +540,18 @@ class TranslationsReceiveTabInfoBoxEn {
   String get alias => 'Device name:';
 }
 
+// Path: receiveTab.quickSave
+class TranslationsReceiveTabQuickSaveEn {
+  TranslationsReceiveTabQuickSaveEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get off => _root.general.off;
+  String get favorites => 'Favorites';
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class TranslationsSendTabSelectionEn {
   TranslationsSendTabSelectionEn.internal(this._root);
@@ -751,7 +764,7 @@ class TranslationsDialogsOpenFileEn {
 
   // Translations
   String get title => 'Open file';
-  String get content => 'Do you want to open received file?';
+  String get content => 'Do you want to open the received file?';
 }
 
 // Path: dialogs.addressInput
@@ -986,7 +999,11 @@ class TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
 
   // Translations
   String get title => _root.general.quickSaveFromFavorites;
-  String get content => 'File requests are now accepted automatically from devices in your favorites list.';
+  List<String> get content => [
+        'File requests are now accepted automatically from devices in your favorites list.',
+        'Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.',
+        'However, this option is still more secure than allowing any device.',
+      ];
 }
 
 // Path: dialogs.pin

@@ -359,8 +359,7 @@
       "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim berkas."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Permintaan file sekarang diterima secara otomatis dari perangkat di daftar favorit Anda."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Masukkan PIN"

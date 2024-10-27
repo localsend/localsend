@@ -1353,8 +1353,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeEsEs extends TranslationsD
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Las solicitudes de archivos ahora se aceptarán automáticamente desde los dispositivos incluidos en t lista de favoritos.';
 }
 
 // Path: dialogs.pin

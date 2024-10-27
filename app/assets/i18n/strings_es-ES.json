@@ -362,8 +362,7 @@
       "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Las solicitudes de archivos ahora se aceptarán automáticamente desde los dispositivos incluidos en t lista de favoritos."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Ingresar PIN"

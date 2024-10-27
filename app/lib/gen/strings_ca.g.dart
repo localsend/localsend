@@ -1423,8 +1423,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeCa extends TranslationsDia
 
   // Translations
   @override
-  String get content => 'Les sol·licituds de fitxers ara s\'accepten automàticament des dels dispositius de la vostra llista de preferits.';
-  @override
   String get title => _root.general.quickSaveFromFavorites;
 }
 

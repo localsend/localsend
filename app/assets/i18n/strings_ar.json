@@ -430,8 +430,7 @@
       "content": "يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "لقد تم قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "أدخل رمز PIN"

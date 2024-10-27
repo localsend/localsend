@@ -430,8 +430,7 @@
       "content": "درخواست ها به صورت خودکار پذیرفته می شوند. توجه داشته باشید که همه افراد در شبکه محلی می توانند برای شما فایل ارسال کنند"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "درخواست دستگاه‌های موجود در لیست علاقه‌مندی‌ها به طور خودکار پذیرفته میشوند"
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "پین را وارد کنید"

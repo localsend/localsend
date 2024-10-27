@@ -362,8 +362,7 @@
       "content": "Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Entrez le code PIN"

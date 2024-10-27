@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Device name:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorites",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -340,9 +345,10 @@
     "addFile": {
       "title": "Add to selection",
       "content": "What do you want to add?"
-    },"openFile": {
+    },
+    "openFile": {
       "title": "Open file",
-      "content": "Do you want to open received file?"
+      "content": "Do you want to open the received file?"
     },
     "addressInput": {
       "title": "Enter address",
@@ -436,7 +442,11 @@
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "File requests are now accepted automatically from devices in your favorites list."
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
+        "However, this option is still more secure than allowing any device."
+      ]
     },
     "pin": {
       "title": "Enter PIN"

@@ -362,8 +362,7 @@
       "content": "Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Požadavky na soubory jsou nyní automaticky přijímány ze zařízení ve vašem seznamu oblíbených."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Vložit PIN"

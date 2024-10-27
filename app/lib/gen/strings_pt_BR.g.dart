@@ -1398,8 +1398,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr extends TranslationsD
   // Translations
   @override
   String get title => 'Salvar rapidamento dos "Favoritos"';
-  @override
-  String get content => 'As solicitações de arquivos agora são aceitas automaticamente nos dispositivos da sua lista de favoritos.';
 }
 
 // Path: dialogs.quickSaveNotice

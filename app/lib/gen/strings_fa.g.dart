@@ -1422,8 +1422,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFa extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'درخواست دستگاه‌های موجود در لیست علاقه‌مندی‌ها به طور خودکار پذیرفته میشوند';
 }
 
 // Path: dialogs.pin

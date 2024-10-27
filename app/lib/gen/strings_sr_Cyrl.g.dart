@@ -1426,8 +1426,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl extends Translation
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Фајлови који су послати са уређаја у контакт листи су аутоматски прихваћени.';
 }
 
 // Path: dialogs.pin

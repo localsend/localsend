@@ -416,8 +416,7 @@
       "random": "Aleatório"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "Salvar rapidamento dos \"Favoritos\"",
-      "content": "As solicitações de arquivos agora são aceitas automaticamente nos dispositivos da sua lista de favoritos."
+      "title": "Salvar rapidamento dos \"Favoritos\""
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",

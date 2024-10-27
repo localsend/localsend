@@ -1415,8 +1415,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhCn extends TranslationsD
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => '现在，您的收藏夹列表中的设备会自动接受文件请求。';
 }
 
 // Path: dialogs.pin

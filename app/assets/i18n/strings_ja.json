@@ -360,8 +360,7 @@
       "content": "ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "お気に入りにあるデバイスからのファイルリクエストが自動で承諾されます。"
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "PINコードを入力"

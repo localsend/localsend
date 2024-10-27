@@ -362,8 +362,7 @@
       "content": "בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "בקשות שליחה מתקבלות אוטומטית ממכשירים ברשימת המועדפים שלך."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "הזן סיסמה"

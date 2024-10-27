@@ -1355,8 +1355,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeMs extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Permintaan fail kini diterima secara automatik dari peranti dalam senarai kegemaran anda.';
 }
 
 // Path: dialogs.sendModeHelp

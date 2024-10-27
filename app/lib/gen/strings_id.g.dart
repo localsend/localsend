@@ -1426,8 +1426,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeId extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Permintaan file sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.';
 }
 
 // Path: dialogs.pin

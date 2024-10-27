@@ -407,8 +407,7 @@
       "content": "Permintaan fail kini diterima secara automatik. Sila ambil perhatian bahawa semua orang dalam rangkaian tempatan boleh menghantar fail kepada anda."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Permintaan fail kini diterima secara automatik dari peranti dalam senarai kegemaran anda."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "sendModeHelp": {
       "title": "Mod penghantaran",

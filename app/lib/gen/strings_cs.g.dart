@@ -1350,8 +1350,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeCs extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Požadavky na soubory jsou nyní automaticky přijímány ze zařízení ve vašem seznamu oblíbených.';
 }
 
 // Path: dialogs.pin

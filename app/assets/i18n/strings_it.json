@@ -360,8 +360,7 @@
       "content": "Le richieste di file ora vengono accettate automaticamente. Tieni presente che chiunque abbia accesso alla tua rete locale può inviarti file."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Le richieste di file ora vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Inserisci il PIN"

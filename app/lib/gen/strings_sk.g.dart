@@ -1420,8 +1420,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSk extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Žiadosti o súbor sa automaticky prijímajú zo zariadení vo vašom zozname kontaktov.';
 }
 
 // Path: dialogs.pin

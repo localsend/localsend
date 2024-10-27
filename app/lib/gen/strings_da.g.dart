@@ -1346,8 +1346,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeDa extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Filanmodninger accepteres nu automatisk fra enheder på din favoritliste.';
 }
 
 // Path: dialogs.pin

@@ -13,7 +13,7 @@ class QuickSaveFromFavoritesNotice extends StatelessWidget {
         context: context,
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.quickSaveFromFavoritesNotice.title),
-          content: Text(t.dialogs.quickSaveFromFavoritesNotice.content),
+          content: Text(t.dialogs.quickSaveFromFavoritesNotice.content.join('\n')),
           actions: [
             TextButton(
               onPressed: () => context.pop(),
@@ -31,7 +31,7 @@ class QuickSaveFromFavoritesNotice extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomBottomSheet(
       title: t.dialogs.quickSaveFromFavoritesNotice.title,
-      description: t.dialogs.quickSaveFromFavoritesNotice.content,
+      description: t.dialogs.quickSaveFromFavoritesNotice.content.join('\n'),
       child: Center(
         child: ElevatedButton(
           onPressed: () => context.popUntilRoot(),

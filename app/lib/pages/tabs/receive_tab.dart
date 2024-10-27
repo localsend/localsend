@@ -70,39 +70,52 @@ class ReceiveTab extends StatelessWidget {
                     child: Center(
                       child: Column(
                         children: [
-                          vm.quickSaveSettings
-                              ? ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.primary,
-                                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                                  onPressed: () async => vm.onSetQuickSave(context, false),
-                                  child: Text('${t.general.quickSave}: ${t.general.on}'),
-                                )
-                              : TextButton(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Colors.grey,
-                                  ),
-                                  onPressed: () async => vm.onSetQuickSave(context, true),
-                                  child: Text('${t.general.quickSave}: ${t.general.off}'),
-                                ),
+                          Text(t.general.quickSave),
                           const SizedBox(height: 10),
-                          vm.quickSaveFromFavoritesSettings
-                              ? ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
-                                  ),
-                                  onPressed: () async => vm.onSetQuickSaveFromFavorites(context, false),
-                                  child: Text('${t.general.quickSaveFromFavorites}: ${t.general.on}'),
-                                )
-                              : TextButton(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Colors.grey,
-                                  ),
-                                  onPressed: () async => vm.onSetQuickSaveFromFavorites(context, true),
-                                  child: Text('${t.general.quickSaveFromFavorites}: ${t.general.off}'),
-                                ),
+                          ToggleButtons(
+                            borderRadius: const BorderRadius.all(Radius.circular(5)),
+                            onPressed: (index) async {
+                              switch (index) {
+                                case 0:
+                                  await vm.onSetQuickSave(context, false);
+                                  if (context.mounted) {
+                                    await vm.onSetQuickSaveFromFavorites(context, false);
+                                  }
+                                  break;
+                                case 1:
+                                  await vm.onSetQuickSaveFromFavorites(context, true);
+                                  if (context.mounted) {
+                                    await vm.onSetQuickSave(context, false);
+                                  }
+                                  break;
+                                case 2:
+                                  await vm.onSetQuickSave(context, true);
+                                  if (context.mounted) {
+                                    await vm.onSetQuickSaveFromFavorites(context, false);
+                                  }
+                                  break;
+                              }
+                            },
+                            isSelected: [
+                              !vm.quickSaveSettings && !vm.quickSaveFromFavoritesSettings,
+                              vm.quickSaveFromFavoritesSettings,
+                              vm.quickSaveSettings,
+                            ],
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(t.receiveTab.quickSave.off),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(t.receiveTab.quickSave.favorites),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(t.receiveTab.quickSave.on),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -113,89 +126,121 @@ class ReceiveTab extends StatelessWidget {
             ),
           ),
         ),
-        AnimatedCrossFade(
-          crossFadeState: vm.showAdvanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-          duration: const Duration(milliseconds: 200),
-          firstChild: Container(),
-          secondChild: Align(
-            alignment: Alignment.topRight,
+        _InfoBox(vm),
+        _CornerButtons(
+          showAdvanced: vm.showAdvanced,
+          showHistoryButton: vm.showHistoryButton,
+          toggleAdvanced: vm.toggleAdvanced,
+        ),
+      ],
+    );
+  }
+}
+
+class _CornerButtons extends StatelessWidget {
+  final bool showAdvanced;
+  final bool showHistoryButton;
+  final Future<void> Function() toggleAdvanced;
+
+  const _CornerButtons({
+    required this.showAdvanced,
+    required this.showHistoryButton,
+    required this.toggleAdvanced,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if (!showAdvanced)
+              AnimatedOpacity(
+                opacity: showHistoryButton ? 1 : 0,
+                duration: const Duration(milliseconds: 200),
+                child: CustomIconButton(
+                  onPressed: () async {
+                    await context.push(() => const ReceiveHistoryPage());
+                  },
+                  child: const Icon(Icons.history),
+                ),
+              ),
+            CustomIconButton(
+              key: const ValueKey('info-btn'),
+              onPressed: toggleAdvanced,
+              child: const Icon(Icons.info),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InfoBox extends StatelessWidget {
+  final ReceiveTabVm vm;
+
+  const _InfoBox(this.vm);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedCrossFade(
+      crossFadeState: vm.showAdvanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      duration: const Duration(milliseconds: 200),
+      firstChild: Container(),
+      secondChild: Align(
+        alignment: Alignment.topRight,
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Card(
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Table(
-                    columnWidths: const {
-                      0: IntrinsicColumnWidth(),
-                      1: IntrinsicColumnWidth(),
-                      2: IntrinsicColumnWidth(),
-                    },
+              child: Table(
+                columnWidths: const {
+                  0: IntrinsicColumnWidth(),
+                  1: IntrinsicColumnWidth(),
+                  2: IntrinsicColumnWidth(),
+                },
+                children: [
+                  TableRow(
                     children: [
-                      TableRow(
-                        children: [
-                          Text(t.receiveTab.infoBox.alias),
-                          const SizedBox(width: 10),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: SelectableText(vm.serverState?.alias ?? '-'),
-                          ),
-                        ],
+                      Text(t.receiveTab.infoBox.alias),
+                      const SizedBox(width: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 30),
+                        child: SelectableText(vm.serverState?.alias ?? '-'),
                       ),
-                      TableRow(
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Text(t.receiveTab.infoBox.ip),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(t.receiveTab.infoBox.ip),
-                          const SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (vm.localIps.isEmpty) Text(t.general.unknown),
-                              ...vm.localIps.map((ip) => SelectableText(ip)),
-                            ],
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Text(t.receiveTab.infoBox.port),
-                          const SizedBox(width: 10),
-                          SelectableText(vm.serverState?.port.toString() ?? '-'),
+                          if (vm.localIps.isEmpty) Text(t.general.unknown),
+                          ...vm.localIps.map((ip) => SelectableText(ip)),
                         ],
                       ),
                     ],
                   ),
-                ),
+                  TableRow(
+                    children: [
+                      Text(t.receiveTab.infoBox.port),
+                      const SizedBox(width: 10),
+                      SelectableText(vm.serverState?.port.toString() ?? '-'),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (!vm.showAdvanced)
-                  AnimatedOpacity(
-                    opacity: vm.showHistoryButton ? 1 : 0,
-                    duration: const Duration(milliseconds: 200),
-                    child: CustomIconButton(
-                      onPressed: () async {
-                        await context.push(() => const ReceiveHistoryPage());
-                      },
-                      child: const Icon(Icons.history),
-                    ),
-                  ),
-                CustomIconButton(
-                  key: const ValueKey('info-btn'),
-                  onPressed: vm.toggleAdvanced,
-                  child: const Icon(Icons.info),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

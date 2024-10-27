@@ -360,8 +360,7 @@
       "content": "Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Filanmodninger accepteres nu automatisk fra enheder på din favoritliste."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Indtast PIN-kode"

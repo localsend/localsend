@@ -430,8 +430,7 @@
       "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring magpadala sa iyo ng mga file."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Ang mga pag-request ng file ay awtomatikong tinatatanggap na ngayon galing sa mga devices sa iyong listahan ng favorites."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Ilagay ang PIN"

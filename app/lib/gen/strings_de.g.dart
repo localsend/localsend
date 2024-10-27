@@ -142,6 +142,8 @@ class _TranslationsGeneralDe extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Quick Save';
   @override
+  String get quickSaveFromFavorites => 'Quick Save für "Favoriten"';
+  @override
   String get renamed => 'Umbenannt';
   @override
   String get reset => 'Zurücksetzen';
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabDe extends TranslationsReceiveTabEn {
   String get title => 'Empfangen';
   @override
   late final _TranslationsReceiveTabInfoBoxDe infoBox = _TranslationsReceiveTabInfoBoxDe._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveDe quickSave = _TranslationsReceiveTabQuickSaveDe._(_root);
 }
 
 // Path: sendTab
@@ -527,6 +531,8 @@ class _TranslationsDialogsDe extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileDe addFile = _TranslationsDialogsAddFileDe._(_root);
   @override
+  late final _TranslationsDialogsOpenFileDe openFile = _TranslationsDialogsOpenFileDe._(_root);
+  @override
   late final _TranslationsDialogsAddressInputDe addressInput = _TranslationsDialogsAddressInputDe._(_root);
   @override
   late final _TranslationsDialogsCancelSessionDe cancelSession = _TranslationsDialogsCancelSessionDe._(_root);
@@ -564,6 +570,9 @@ class _TranslationsDialogsDe extends TranslationsDialogsEn {
   late final _TranslationsDialogsQuickActionsDe quickActions = _TranslationsDialogsQuickActionsDe._(_root);
   @override
   late final _TranslationsDialogsQuickSaveNoticeDe quickSaveNotice = _TranslationsDialogsQuickSaveNoticeDe._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeDe quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeDe._(_root);
   @override
   late final _TranslationsDialogsPinDe pin = _TranslationsDialogsPinDe._(_root);
   @override
@@ -716,6 +725,23 @@ class _TranslationsReceiveTabInfoBoxDe extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'Alias:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveDe extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveDe._(TranslationsDe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favoriten';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionDe extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionDe._(TranslationsDe root)
@@ -826,6 +852,8 @@ class _TranslationsSettingsTabReceiveDe extends TranslationsSettingsTabReceiveEn
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'Autom. beenden';
@@ -879,6 +907,10 @@ class _TranslationsSettingsTabNetworkDe extends TranslationsSettingsTabNetworkEn
   String get port => 'Port';
   @override
   String get discoveryTimeout => 'Erkennungs-Timeout';
+  @override
+  String get useSystemName => 'Systemnamen verwenden';
+  @override
+  String get generateRandomAlias => 'Zufälligen Alias generieren';
   @override
   String portWarning({required Object defaultPort}) =>
       'Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: ${defaultPort})';
@@ -1013,6 +1045,21 @@ class _TranslationsDialogsAddFileDe extends TranslationsDialogsAddFileEn {
   String get title => 'Zur Auswahl hinzufügen';
   @override
   String get content => 'Was möchtest du zum Senden hinzufügen?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileDe extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileDe._(TranslationsDe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Datei öffnen';
+  @override
+  String get content => 'Möchtest du die empfangene Datei öffnen?';
 }
 
 // Path: dialogs.addressInput
@@ -1329,6 +1376,25 @@ class _TranslationsDialogsQuickSaveNoticeDe extends TranslationsDialogsQuickSave
   String get title => _root.general.quickSave;
   @override
   String get content => 'Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeDe extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeDe._(TranslationsDe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.',
+        'Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.',
+        'Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät.',
+      ];
 }
 
 // Path: dialogs.pin

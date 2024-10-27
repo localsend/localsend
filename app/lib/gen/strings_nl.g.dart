@@ -1354,8 +1354,6 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeNl extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
-  @override
-  String get content => 'Bestandsverzoeken van je favoriete apparaten worden nu automatisch geaccepteerd.';
 }
 
 // Path: dialogs.pin
