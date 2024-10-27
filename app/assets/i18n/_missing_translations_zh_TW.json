@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=zh-TW' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "快速儲存到 \"最愛\""
   },
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "最愛",
       "on": "@:general.on"
     }
   },
@@ -18,21 +18,21 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "使用系統名稱",
+      "generateRandomAlias": "隨機產生別名"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "開啟檔案",
+      "content": "您想開啟接收到的檔案嗎？"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning: This is currently not entirely secure because a hacker who knows the fingerprint of your favorite devices can still send you files.",
-        "However, this option is still more secure than allowing any device."
+        "自動接受來自您最愛列表中裝置傳送的檔案。",
+        "警告：目前這並不完全安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。",
+        "但仍然比允許任何裝置更安全。"
       ]
     }
   }
