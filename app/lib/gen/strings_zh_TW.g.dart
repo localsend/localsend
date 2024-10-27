@@ -142,6 +142,8 @@ class _TranslationsGeneralZhTw extends TranslationsGeneralEn {
   @override
   String get quickSave => '快速儲存';
   @override
+  String get quickSaveFromFavorites => '快速儲存到 "最愛"';
+  @override
   String get renamed => '已重新命名';
   @override
   String get reset => '重設';
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabZhTw extends TranslationsReceiveTabEn {
   String get title => '接收';
   @override
   late final _TranslationsReceiveTabInfoBoxZhTw infoBox = _TranslationsReceiveTabInfoBoxZhTw._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveZhTw quickSave = _TranslationsReceiveTabQuickSaveZhTw._(_root);
 }
 
 // Path: sendTab
@@ -526,6 +530,8 @@ class _TranslationsDialogsZhTw extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileZhTw addFile = _TranslationsDialogsAddFileZhTw._(_root);
   @override
+  late final _TranslationsDialogsOpenFileZhTw openFile = _TranslationsDialogsOpenFileZhTw._(_root);
+  @override
   late final _TranslationsDialogsAddressInputZhTw addressInput = _TranslationsDialogsAddressInputZhTw._(_root);
   @override
   late final _TranslationsDialogsCancelSessionZhTw cancelSession = _TranslationsDialogsCancelSessionZhTw._(_root);
@@ -563,6 +569,9 @@ class _TranslationsDialogsZhTw extends TranslationsDialogsEn {
   late final _TranslationsDialogsQuickActionsZhTw quickActions = _TranslationsDialogsQuickActionsZhTw._(_root);
   @override
   late final _TranslationsDialogsQuickSaveNoticeZhTw quickSaveNotice = _TranslationsDialogsQuickSaveNoticeZhTw._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw._(_root);
   @override
   late final _TranslationsDialogsPinZhTw pin = _TranslationsDialogsPinZhTw._(_root);
   @override
@@ -714,6 +723,23 @@ class _TranslationsReceiveTabInfoBoxZhTw extends TranslationsReceiveTabInfoBoxEn
   String get alias => '別名：';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveZhTw extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveZhTw._(TranslationsZhTw root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => '最愛';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionZhTw extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionZhTw._(TranslationsZhTw root)
@@ -824,6 +850,8 @@ class _TranslationsSettingsTabReceiveZhTw extends TranslationsSettingsTabReceive
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => '自動完成';
@@ -877,6 +905,10 @@ class _TranslationsSettingsTabNetworkZhTw extends TranslationsSettingsTabNetwork
   String get port => '通訊埠';
   @override
   String get discoveryTimeout => '探索裝置逾時';
+  @override
+  String get useSystemName => '使用系統名稱';
+  @override
+  String get generateRandomAlias => '隨機產生別名';
   @override
   String portWarning({required Object defaultPort}) => '您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：${defaultPort})';
   @override
@@ -1006,6 +1038,21 @@ class _TranslationsDialogsAddFileZhTw extends TranslationsDialogsAddFileEn {
   String get title => '新增檔案';
   @override
   String get content => '您想要新增什麼檔案？';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileZhTw extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileZhTw._(TranslationsZhTw root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '開啟檔案';
+  @override
+  String get content => '您想開啟接收到的檔案嗎？';
 }
 
 // Path: dialogs.addressInput
@@ -1319,6 +1366,25 @@ class _TranslationsDialogsQuickSaveNoticeZhTw extends TranslationsDialogsQuickSa
   String get title => _root.general.quickSave;
   @override
   String get content => '自動接受所有檔案要求。請注意，區域網路中的所有人都可以傳送檔案給您。';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw._(TranslationsZhTw root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        '自動接受來自您最愛列表中裝置傳送的檔案。',
+        '警告：目前這並不完全安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。',
+        '但仍然比允許任何裝置更安全。',
+      ];
 }
 
 // Path: dialogs.pin

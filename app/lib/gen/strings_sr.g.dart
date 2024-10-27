@@ -180,6 +180,8 @@ class _TranslationsReceiveTabSr extends TranslationsReceiveTabEn {
   String get title => 'Primanje';
   @override
   late final _TranslationsReceiveTabInfoBoxSr infoBox = _TranslationsReceiveTabInfoBoxSr._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveSr quickSave = _TranslationsReceiveTabQuickSaveSr._(_root);
 }
 
 // Path: sendTab
@@ -603,6 +605,8 @@ class _TranslationsDialogsSr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileSr addFile = _TranslationsDialogsAddFileSr._(_root);
   @override
+  late final _TranslationsDialogsOpenFileSr openFile = _TranslationsDialogsOpenFileSr._(_root);
+  @override
   late final _TranslationsDialogsAddressInputSr addressInput = _TranslationsDialogsAddressInputSr._(_root);
   @override
   late final _TranslationsDialogsCancelSessionSr cancelSession = _TranslationsDialogsCancelSessionSr._(_root);
@@ -793,6 +797,23 @@ class _TranslationsReceiveTabInfoBoxSr extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Port:';
   @override
   String get alias => 'Ime uredjaja:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveSr extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveSr._(TranslationsSr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Omiljeni';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1098,6 +1119,21 @@ class _TranslationsDialogsAddFileSr extends TranslationsDialogsAddFileEn {
   String get title => 'Dodaj u Selekciju';
   @override
   String get content => 'Šta želiš da dodaš?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileSr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileSr._(TranslationsSr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Otvori fajl';
+  @override
+  String get content => 'Da li želite da otvorite primljeni fajl?';
 }
 
 // Path: dialogs.addressInput
@@ -1425,6 +1461,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSr extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Zahtevi za primanje fajlova su automatski prihvaćeni od uredjaja u listi Omiljenih.',
+        'Upozorenje: Ovo trenutno nije potpuno bezbedno, jer napadač koji zna Fingerprint vašeg uredjaja u Omiljenima takodje može da vam pošalje fajl.',
+        'Ipak, ovo je i dalje sigurnije nego dozvoliti prijem sa svih uredjaja.',
+      ];
 }
 
 // Path: dialogs.pin

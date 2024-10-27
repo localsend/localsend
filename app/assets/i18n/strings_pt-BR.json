@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Porta:",
       "alias": "Nome:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoritos",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -109,11 +114,11 @@
     "receive": {
       "title": "Recebimento",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "Salvar rapidamente dos \"Favoritos\"",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Concluir Automaticamente",
       "destination": "Destino",
       "downloads": "(Downloads)",
-      "quickSaveFromFavorites": "Salvar rapidamente dos \"Favoritos\"",
       "saveToGallery": "Salvar mídia na Galeria",
       "saveToHistory": "Salvar no histórico"
     },
@@ -130,6 +135,8 @@
       "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
       "discoveryTimeout": "Tempo limite de descoberta",
+      "useSystemName": "Usar nome do sistema",
+      "generateRandomAlias": "Gerar apelido aleatório",
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
       "multicastGroup": "Multicast",
@@ -329,6 +336,10 @@
       "title": "Adicionar à seleção",
       "content": "O que você quer adicionar?"
     },
+    "openFile": {
+      "title": "Abrir arquivo",
+      "content": "Você quer abrir o arquivo recebido?"
+    },
     "addressInput": {
       "title": "Digite o endereço",
       "hashtag": "Hashtag",
@@ -415,12 +426,17 @@
       "sortBeforeCount": "Ordenar alfabeticamente antes",
       "random": "Aleatório"
     },
-    "quickSaveFromFavoritesNotice": {
-      "title": "Salvar rapidamento dos \"Favoritos\""
-    },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "Salvar rapidamento dos \"Favoritos\"",
+      "content": [
+        "Requisições de arquivo agora são aceitas automaticamente de dispositivos da sua lista de favoritos.",
+        "Atenção: Essa opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos",
+        "De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo."
+      ]
     },
     "pin": {
       "title": "Digite o PIN"

@@ -180,6 +180,8 @@ class _TranslationsReceiveTabSrCyrl extends TranslationsReceiveTabEn {
   String get title => 'Примање';
   @override
   late final _TranslationsReceiveTabInfoBoxSrCyrl infoBox = _TranslationsReceiveTabInfoBoxSrCyrl._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveSrCyrl quickSave = _TranslationsReceiveTabQuickSaveSrCyrl._(_root);
 }
 
 // Path: sendTab
@@ -602,6 +604,8 @@ class _TranslationsDialogsSrCyrl extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileSrCyrl addFile = _TranslationsDialogsAddFileSrCyrl._(_root);
   @override
+  late final _TranslationsDialogsOpenFileSrCyrl openFile = _TranslationsDialogsOpenFileSrCyrl._(_root);
+  @override
   late final _TranslationsDialogsAddressInputSrCyrl addressInput = _TranslationsDialogsAddressInputSrCyrl._(_root);
   @override
   late final _TranslationsDialogsCancelSessionSrCyrl cancelSession = _TranslationsDialogsCancelSessionSrCyrl._(_root);
@@ -794,6 +798,23 @@ class _TranslationsReceiveTabInfoBoxSrCyrl extends TranslationsReceiveTabInfoBox
   String get port => 'Порт:';
   @override
   String get alias => 'Име уређаја:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveSrCyrl extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveSrCyrl._(TranslationsSrCyrl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSrCyrl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Омиљени';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1100,6 +1121,21 @@ class _TranslationsDialogsAddFileSrCyrl extends TranslationsDialogsAddFileEn {
   String get title => 'Додај у селекцију';
   @override
   String get content => 'Шта желиш да додаш?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileSrCyrl extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileSrCyrl._(TranslationsSrCyrl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSrCyrl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Отвори фајл';
+  @override
+  String get content => 'Да ли желите да отворите примљени фајл?';
 }
 
 // Path: dialogs.addressInput
@@ -1426,6 +1462,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl extends Translation
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Захтеви за примање фајлова су аутоматски прихваћени од уређаја у листи Омиљених.',
+        'Упозорење: Ово тренутно није потпуно безбедно, јер нападач који зна Fingerprint вашег уређаја у Омиљенима такође може да вам пошаље фајл.',
+        'Ипак, ово је и даље сигурније него дозволити пријем са свих уређаја.',
+      ];
 }
 
 // Path: dialogs.pin

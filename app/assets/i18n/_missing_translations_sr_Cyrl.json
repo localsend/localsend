@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <sr-Cyrl>.",
     "After editing this file, you can run 'dart run slang apply --locale=sr-Cyrl' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Омиљени",
-      "on": "@:general.on"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Отвори фајл",
-      "content": "Да ли желите да отворите примљени фајл?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Захтеви за примање фајлова су аутоматски прихваћени од уређаја у листи Омиљених.",
-        "Упозорење: Ово тренутно није потпуно безбедно, јер нападач који зна Fingerprint вашег уређаја у Омиљенима такође може да вам пошаље фајл.",
-        "Ипак, ово је и даље сигурније него дозволити пријем са свих уређаја."
-      ]
-    }
-  }
+  ]
 }

@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Puerto:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoritos",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -271,6 +276,10 @@
       "title": "Añadir a selección",
       "content": "¿Qué quieres añadir?"
     },
+    "openFile": {
+      "title": "Abrir archivo",
+      "content": "¿Quieres abrir el archivo recibido?"
+    },
     "addressInput": {
       "title": "Introducir dirección",
       "hashtag": "Hashtag",
@@ -362,7 +371,12 @@
       "content": "Las solicitudes de archivos se aceptan automáticamente. Ten en cuenta que cualquiera en la red local podrá enviarte archivos."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Se aceptarán automáticamente los archivos recibidos de los dispositivos incluidos en su lista de favoritos.",
+        "Advertencia: esta opción no es completamente segura, cualquiera que conozca la huella digital de sus dispositivos favoritos aún puede enviarle archivos.",
+        "Sin embargo, esta opción sigue siendo más segura que permitir cualquier dispositivo"
+      ]
     },
     "pin": {
       "title": "Ingresar PIN"

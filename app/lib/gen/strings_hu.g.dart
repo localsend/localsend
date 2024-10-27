@@ -142,6 +142,8 @@ class _TranslationsGeneralHu extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Autom. mentés';
   @override
+  String get quickSaveFromFavorites => 'Gyors mentés a "Kedvencek"-hez';
+  @override
   String get renamed => 'Átnevezve';
   @override
   String get reset => 'Reset';
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabHu extends TranslationsReceiveTabEn {
   String get title => 'Fogadás';
   @override
   late final _TranslationsReceiveTabInfoBoxHu infoBox = _TranslationsReceiveTabInfoBoxHu._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveHu quickSave = _TranslationsReceiveTabQuickSaveHu._(_root);
 }
 
 // Path: sendTab
@@ -527,6 +531,8 @@ class _TranslationsDialogsHu extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileHu addFile = _TranslationsDialogsAddFileHu._(_root);
   @override
+  late final _TranslationsDialogsOpenFileHu openFile = _TranslationsDialogsOpenFileHu._(_root);
+  @override
   late final _TranslationsDialogsAddressInputHu addressInput = _TranslationsDialogsAddressInputHu._(_root);
   @override
   late final _TranslationsDialogsCancelSessionHu cancelSession = _TranslationsDialogsCancelSessionHu._(_root);
@@ -564,6 +570,9 @@ class _TranslationsDialogsHu extends TranslationsDialogsEn {
   late final _TranslationsDialogsQuickActionsHu quickActions = _TranslationsDialogsQuickActionsHu._(_root);
   @override
   late final _TranslationsDialogsQuickSaveNoticeHu quickSaveNotice = _TranslationsDialogsQuickSaveNoticeHu._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeHu quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeHu._(_root);
   @override
   late final _TranslationsDialogsPinHu pin = _TranslationsDialogsPinHu._(_root);
   @override
@@ -716,6 +725,23 @@ class _TranslationsReceiveTabInfoBoxHu extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'Álnév:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveHu extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveHu._(TranslationsHu root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Kedvencek';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionHu extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionHu._(TranslationsHu root)
@@ -826,6 +852,8 @@ class _TranslationsSettingsTabReceiveHu extends TranslationsSettingsTabReceiveEn
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'Autom. befejezés';
@@ -879,6 +907,10 @@ class _TranslationsSettingsTabNetworkHu extends TranslationsSettingsTabNetworkEn
   String get port => 'Port';
   @override
   String get discoveryTimeout => 'Felfedezési időtúllépés';
+  @override
+  String get useSystemName => 'Rendszernév használata';
+  @override
+  String get generateRandomAlias => 'Véletlenszerű álnév generálás';
   @override
   String portWarning({required Object defaultPort}) =>
       'Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: ${defaultPort})';
@@ -1013,6 +1045,21 @@ class _TranslationsDialogsAddFileHu extends TranslationsDialogsAddFileEn {
   String get title => 'Hozzáadás a kijelöléshez';
   @override
   String get content => 'Mit szeretne hozzáfűzni?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileHu extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileHu._(TranslationsHu root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Fájl megnyitás';
+  @override
+  String get content => 'Meg akarja nyitni a fogadott fájlt?';
 }
 
 // Path: dialogs.addressInput
@@ -1328,6 +1375,25 @@ class _TranslationsDialogsQuickSaveNoticeHu extends TranslationsDialogsQuickSave
   String get title => _root.general.quickSave;
   @override
   String get content => 'A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeHu extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeHu._(TranslationsHu root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről.',
+        'Figyelmeztetés: Ez jelenleg nem teljesen biztonságos, mert egy hacker, aki ismeri a kedvenc eszközeinek ujjlenyomatát, még mindig küldhet fájlokat.',
+        'Ez a lehetőség azonban még mindig biztonságosabb, mint bármely eszköz engedélyezése.',
+      ];
 }
 
 // Path: dialogs.pin

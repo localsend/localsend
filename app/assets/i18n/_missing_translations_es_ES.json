@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <es-ES>.",
     "After editing this file, you can run 'dart run slang apply --locale=es-ES' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favoritos",
-      "on": "@:general.on"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Abrir archivo",
-      "content": "¿Quieres abrir el archivo recibido?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Se aceptarán automáticamente los archivos recibidos de los dispositivos incluidos en su lista de favoritos.",
-        "Advertencia: esta opción no es completamente segura, cualquiera que conozca la huella digital de sus dispositivos favoritos aún puede enviarle archivos.",
-        "Sin embargo, esta opción sigue siendo más segura que permitir cualquier dispositivo"
-      ]
-    }
-  }
+  ]
 }
