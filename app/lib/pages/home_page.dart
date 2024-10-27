@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> with Refena {
                 if (!sizingInformation.isMobile)
                   NavigationRail(
                     selectedIndex: vm.currentTab.index,
-                    groupAlignment: 0,
                     onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
                     extended: sizingInformation.isDesktop,
                     backgroundColor: Theme.of(context).cardColorWithElevation,
