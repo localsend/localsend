@@ -1,9 +1,9 @@
 import 'package:common/model/device.dart';
-import 'package:common/src/discovery/http_target_discovery.dart';
 import 'package:common/src/isolate/child/main.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
+import 'package:common/src/task/discovery/http_target_discovery.dart';
 import 'package:meta/meta.dart';
 
 class HttpTargetTask {
@@ -29,8 +29,8 @@ Future<void> setupHttpTargetDiscoveryIsolate(
     receiveFromMain: receiveFromMain,
     sendToMain: sendToMain,
     initialData: initialData,
-    handler: (task) async {
-      final device = await isolateContainer.read(httpTargetDiscoveryProvider).discover(
+    handler: (ref, task) async {
+      final device = await ref.read(httpTargetDiscoveryProvider).discover(
             ip: task.data.ip,
             port: task.data.port,
             https: task.data.https,
