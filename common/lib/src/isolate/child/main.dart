@@ -22,7 +22,11 @@ class InitialData {
   });
 }
 
-/// A helper to setup the child isolate.
+/// A helper to setup the child isolate,
+/// constructing an endless running task that listens to [receiveFromMain]
+/// and calls [handler] for each message (usually calling [sendToMain] in the [handler]).
+///
+/// An optional [init] function can be provided to run before the endless loop.
 @internal
 Future<void> setupChildIsolateHelper<S, R>({
   required String debugLabel,

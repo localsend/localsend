@@ -4,9 +4,17 @@ import 'package:common/src/isolate/child/main.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:meta/meta.dart';
 
+/// Sends an announcement to all devices to all network interfaces.
+/// They will respond with their device information.
+class MulticastAnnouncementTask {
+  static const instance = MulticastAnnouncementTask._();
+
+  const MulticastAnnouncementTask._();
+}
+
 @internal
 Future<void> setupMulticastDiscoveryIsolate(
-  Stream<SendToIsolateData<void>> receiveFromMain,
+  Stream<SendToIsolateData<MulticastAnnouncementTask>> receiveFromMain,
   void Function(Device) sendToMain,
   InitialData initialData,
 ) async {
