@@ -374,8 +374,8 @@
       "title": "@:general.quickSaveFromFavorites",
       "content": [
         "Żądania plików są teraz akceptowane automatycznie z urządzeń na liście ulubionych.",
-        "OSTRZEŻENIE: Obecnie nie jest to całkowicie bezpieczne, ponieważ haker, który zna odcisk palca ulubionych urządzeń, może nadal wysyłać Ci pliki.",
-        "Ta opcja jest jednak nadal bezpieczniejsza niż dopuszczenie dowolnego urządzenia."
+        "Uwaga! Obecnie nie jest to całkowicie bezpieczne, ponieważ haker, który ma odcisk palca dowolnego urządzenia z listy ulubionych, może wysyłać Ci pliki bez ograniczeń.",
+        "Jednak ta opcja jest nadal bezpieczniejsza niż umożliwienie wszystkim użytkownikom w sieci lokalnej wysyłanie plików bez ograniczeń."
       ]
     },
     "pin": {
