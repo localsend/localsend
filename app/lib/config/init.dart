@@ -132,6 +132,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       dynamicColorsProvider.overrideWithValue(dynamicColors),
       sleepProvider.overrideWithInitialState((ref) => startHidden),
     ],
+    platformHint: RefenaScope.getPlatformHint(), // help Refena know the correct platform
   );
 
   // initialize multi-threading
