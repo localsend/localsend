@@ -2,31 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fa>.",
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "علاقه‌مندی‌ها",
-      "on": "@:general.on"
-    }
-  },
-  "settingsTab": {
-    "network": {
-      "useSystemName": "استفاده از نام سیستم",
-      "generateRandomAlias": "ایجاد نام مستعار تصادفی"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "باز کردن فایل",
-      "content": "آیا می خواهید فایل دریافتی را باز کنید؟"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "درخواست‌ها اکنون به طور خودکار از دستگاه‌های موجود در لیست علاقه‌مندی‌ها پذیرفته می‌شود",
-        "هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکری به دستگاه‌های موجود در لیست علاقه‌مندی‌ها، می‌تواند برای شما فایل ارسال کند",
-        "با این حال، این گزینه از اجازه دادن به هر دستگاهی ایمن‌تر است"
-      ]
-    }
-  }
+  ]
 }

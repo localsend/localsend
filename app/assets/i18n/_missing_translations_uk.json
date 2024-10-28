@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <uk>.",
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Улюблені",
-      "on": "@:general.on"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Відкрити файл",
-      "content": "Хочете відкрити отриманий файл?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Запити на отримання файлів відтепер приймаються автоматично від пристроїв із вашого списку улюблених.",
-        "Попередження! Наразі, це не зовсім безпечно, оскільки хакер, який має відбиток пальця будь-якого пристрою з вашого списку улюблених, може безперешкодно надсилати вам файли.",
-        "Проте, цей варіант все одно безпечніший, ніж дозволити всім користувачам локальної мережі безперешкодно надсилати вам файли."
-      ]
-    }
-  }
+  ]
 }

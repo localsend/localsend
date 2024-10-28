@@ -440,7 +440,7 @@
       "content": "自动接受所有文件传输请求。请注意，这会让此网络中的所有人都可以向你发送文件。"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
       "content": [
         "当前会自动接受收藏夹中设备的文件请求。",
         "警告：这目前并不完全安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。",

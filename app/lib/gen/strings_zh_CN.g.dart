@@ -180,6 +180,8 @@ class _TranslationsReceiveTabZhCn extends TranslationsReceiveTabEn {
   String get title => '接收';
   @override
   late final _TranslationsReceiveTabInfoBoxZhCn infoBox = _TranslationsReceiveTabInfoBoxZhCn._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveZhCn quickSave = _TranslationsReceiveTabQuickSaveZhCn._(_root);
 }
 
 // Path: sendTab
@@ -600,6 +602,8 @@ class _TranslationsDialogsZhCn extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileZhCn addFile = _TranslationsDialogsAddFileZhCn._(_root);
   @override
+  late final _TranslationsDialogsOpenFileZhCn openFile = _TranslationsDialogsOpenFileZhCn._(_root);
+  @override
   late final _TranslationsDialogsAddressInputZhCn addressInput = _TranslationsDialogsAddressInputZhCn._(_root);
   @override
   late final _TranslationsDialogsCancelSessionZhCn cancelSession = _TranslationsDialogsCancelSessionZhCn._(_root);
@@ -789,6 +793,23 @@ class _TranslationsReceiveTabInfoBoxZhCn extends TranslationsReceiveTabInfoBoxEn
   String get port => '端口：';
   @override
   String get alias => '别名：';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveZhCn extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveZhCn._(TranslationsZhCn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => '收藏夹';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1089,6 +1110,21 @@ class _TranslationsDialogsAddFileZhCn extends TranslationsDialogsAddFileEn {
   String get title => '加入文件';
   @override
   String get content => '你想加入什么文件？';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileZhCn extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileZhCn._(TranslationsZhCn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '打开文件';
+  @override
+  String get content => '您是否要打开接收的文件？';
 }
 
 // Path: dialogs.addressInput
@@ -1415,6 +1451,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhCn extends TranslationsD
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        '当前会自动接受收藏夹中设备的文件请求。',
+        '警告：这目前并不完全安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。',
+        '但是，此选项比“允许任何设备”更安全。',
+      ];
 }
 
 // Path: dialogs.pin
