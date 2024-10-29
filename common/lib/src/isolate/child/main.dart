@@ -7,10 +7,10 @@ import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:refena/refena.dart';
 
-@internal
-final isolateContainer = RefenaContainer();
-
 final _logger = Logger('ChildIsolateMain');
+
+/// The container for the child isolate.
+final _isolateContainer = RefenaContainer();
 
 class InitialData {
   final SyncState syncState;
@@ -22,19 +22,26 @@ class InitialData {
   });
 }
 
-/// A helper to setup the child isolate.
+/// A helper to setup the child isolate,
+/// constructing an endless running task that listens to [receiveFromMain]
+/// and calls [handler] for each message (usually calling [sendToMain] in the [handler]).
+///
+/// The provided [Ref]s in the [handler] and [init] functions are instance of the child isolate [RefenaContainer],
+/// therefore, they can be safely used to call providers in the task directory.
+///
+/// An optional [init] function can be provided to run before the endless loop.
 @internal
 Future<void> setupChildIsolateHelper<S, R>({
   required String debugLabel,
   required Stream<SendToIsolateData<S>> receiveFromMain,
   required void Function(R) sendToMain,
   required InitialData initialData,
-  Future<void> Function()? init,
-  required Future<void> Function(S data) handler,
+  Future<void> Function(Ref ref)? init,
+  required Future<void> Function(Ref ref, S data) handler,
 }) async {
   initLogger(initialData.logLevel);
 
-  isolateContainer.set(
+  _isolateContainer.set(
     syncProvider.overrideWithNotifier(
       (ref) => SyncService(
         initial: initialData.syncState,
@@ -43,7 +50,7 @@ Future<void> setupChildIsolateHelper<S, R>({
   );
 
   if (init != null) {
-    await init();
+    await init(_isolateContainer);
   }
 
   _logger.info('Child isolate is ready: $debugLabel (logLevel: ${initialData.logLevel})');
@@ -54,16 +61,16 @@ Future<void> setupChildIsolateHelper<S, R>({
 }
 
 // separate function to avoid blocking the for loop
-void _handleMessage<S>(String debugLabel, SendToIsolateData<S> message, Future<void> Function(S data) handler) async {
+void _handleMessage<S>(String debugLabel, SendToIsolateData<S> message, Future<void> Function(Ref ref, S data) handler) async {
   final syncState = message.syncState;
   if (syncState != null) {
-    isolateContainer.redux(syncProvider).dispatch(UpdateSyncStateAction(syncState));
+    _isolateContainer.redux(syncProvider).dispatch(UpdateSyncStateAction(syncState));
   }
 
   final data = message.data;
   if (data != null) {
     try {
-      await handler(data);
+      await handler(_isolateContainer, data);
     } catch (e) {
       _logger.severe('Error in $debugLabel: $e', e);
     }

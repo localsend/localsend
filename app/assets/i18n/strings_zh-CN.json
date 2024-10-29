@@ -47,6 +47,11 @@
       "ip": "IP：",
       "port": "端口：",
       "alias": "别名："
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "收藏夹",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -340,6 +345,10 @@
       "title": "加入文件",
       "content": "你想加入什么文件？"
     },
+    "openFile": {
+      "title": "打开文件",
+      "content": "您是否要打开接收的文件？"
+    },
     "addressInput": {
       "title": "输入地址",
       "hashtag": "标签",
@@ -432,7 +441,11 @@
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "现在，您的收藏夹列表中的设备会自动接受文件请求。"
+      "content": [
+        "当前会自动接受收藏夹中设备的文件请求。",
+        "警告：这目前并不完全安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。",
+        "但是，此选项比“允许任何设备”更安全。"
+      ]
     },
     "pin": {
       "title": "输入 PIN"

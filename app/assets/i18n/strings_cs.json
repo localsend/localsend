@@ -28,6 +28,7 @@
     "open": "Otevřít",
     "queue": "Fronta",
     "quickSave": "Rychlé uložení",
+    "quickSaveFromFavorites": "Rychlé uložení pro \"Oblíbené\"",
     "renamed": "Přejmenováno",
     "reset": "Resetovat",
     "restart": "Restartovat",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Oblíbené",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -67,6 +73,7 @@
     "nearbyDevices": "Zařízení v okolí",
     "thisDevice": "Toto zařízení",
     "scan": "Hledat zařízení",
+    "manualSending": "Manuální odeslání",
     "sendMode": "Režim odesílání",
     "sendModes": {
       "single": "Jediný příjemce",
@@ -97,6 +104,7 @@
         "system": "Systém"
       },
       "saveWindowPlacement": "Při ukončení uložit umístění okna",
+      "saveWindowPlacementWindows": "Uložit polohu okna po ukončení",
       "minimizeToTray": "Při ukončení minimalizovat do lišty",
       "launchAtStartup": "Automatické spuštění po přihlášení",
       "launchMinimized": "Automatické spuštění: skrytý start",
@@ -106,6 +114,7 @@
     "receive": {
       "title": "Soubory",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Automatické dokončování",
       "destination": "Uložit do",
@@ -126,6 +135,8 @@
       "deviceModel": "Model zařízení",
       "port": "Port",
       "discoveryTimeout": "Časový limit zjišťování",
+      "useSystemName": "Použít název systému",
+      "generateRandomAlias": "Generovat náhodný alias",
       "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
       "encryption": "Šifrování",
       "multicastGroup": "Multicast",
@@ -265,6 +276,10 @@
       "title": "Přidat do výběru",
       "content": "Co chcete přidat?"
     },
+    "openFile": {
+      "title": "Otevřít soubor",
+      "content": "Chcete otevřít přijatý soubor?"
+    },
     "addressInput": {
       "title": "Zadat adresu",
       "hashtag": "Hashtag",
@@ -355,6 +370,14 @@
       "title": "@:general.quickSave",
       "content": "Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Žádosti o soubory jsou nyní přijímány automaticky ze zařízení ve vašem seznamu oblíbených.",
+        "Upozornění: V současné době to není zcela bezpečné, protože hacker, který zná vaše oblíbené zařízení, vám stále může posílat soubory.",
+        "Tato možnost je však stále bezpečnější než povolení libovolného zařízení."
+      ]
+    },
     "pin": {
       "title": "Vložit PIN"
     },
@@ -375,7 +398,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Ukončit LocalSend"
+    "close": "Ukončit LocalSend",
+    "closeWindows": "Konec"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

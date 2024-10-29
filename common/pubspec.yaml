@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: "none"
 
 environment:
-  sdk: ^3.1.1
+  sdk: ^3.5.0
 
 dependencies:
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions

@@ -130,6 +130,8 @@
       "deviceModel": "Apparaatmodel",
       "port": "Poort",
       "discoveryTimeout": "Time-out voor scannen",
+      "useSystemName": "Systeemnaam gebruiken",
+      "generateRandomAlias": "Willekeurige naam genereren",
       "portWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepaste poort gebruikt. (Standaard: {defaultPort})",
       "encryption": "Versleuteling",
       "multicastGroup": "Multicast-adres",
@@ -360,8 +362,7 @@
       "content": "Bestandsverzoeken worden nu automatisch geaccepteerd. Iedereen op het lokale netwerk kan nu dus bestanden naar je verzenden."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Bestandsverzoeken van je favoriete apparaten worden nu automatisch geaccepteerd."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Vul de code in"

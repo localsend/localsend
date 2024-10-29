@@ -65,7 +65,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     await enableContextMenu();
   }
 
-  initI18n();
+  await initI18n();
 
   bool startHidden = false;
   if (checkPlatformIsDesktop()) {
@@ -132,6 +132,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       dynamicColorsProvider.overrideWithValue(dynamicColors),
       sleepProvider.overrideWithInitialState((ref) => startHidden),
     ],
+    platformHint: RefenaScope.getPlatformHint(), // help Refena know the correct platform
   );
 
   // initialize multi-threading

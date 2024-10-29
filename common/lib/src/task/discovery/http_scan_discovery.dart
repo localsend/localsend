@@ -1,5 +1,5 @@
 import 'package:common/model/device.dart';
-import 'package:common/src/discovery/http_target_discovery.dart';
+import 'package:common/src/task/discovery/http_target_discovery.dart';
 import 'package:common/util/task_runner.dart';
 import 'package:logging/logging.dart';
 import 'package:refena/refena.dart';

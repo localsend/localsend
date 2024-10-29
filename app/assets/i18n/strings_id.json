@@ -18,16 +18,17 @@
     "edit": "Ubah",
     "error": "Kesalahan",
     "example": "Contoh",
-    "files": "File",
+    "files": "Berkas",
     "finished": "Selesai",
     "hide": "Sembunyikan",
     "off": "Mati",
-    "offline": "Offline",
+    "offline": "Luring",
     "on": "Hidup",
-    "online": "Online",
+    "online": "Daring",
     "open": "Buka",
     "queue": "Antrean",
     "quickSave": "Penyimpanan Cepat",
+    "quickSaveFromFavorites": "Simpan Cepat untuk \"Favorites\"",
     "renamed": "Berganti nama",
     "reset": "Atur Ulang",
     "restart": "Mengulang Kembali",
@@ -38,13 +39,13 @@
     "save": "Simpan",
     "unchanged": "Tidak berubah",
     "unknown": "Tidak dikenal",
-    "noItemInClipboard": "Tidak ada item di Papan klip"
+    "noItemInClipboard": "Tidak ada butir di Papan klip"
   },
   "receiveTab": {
     "title": "Terima",
     "infoBox": {
       "ip": "IP:",
-      "port": "Port:",
+      "port": "Porta:",
       "alias": "Alias:"
     }
   },
@@ -67,6 +68,7 @@
     "nearbyDevices": "Perangkat Terdekat",
     "thisDevice": "Perangkat ini",
     "scan": "Cari perangkat",
+    "manualSending": "Kirim Manual",
     "sendMode": "Mode Pengiriman",
     "sendModes": {
       "single": "Penerima tunggal",
@@ -97,14 +99,18 @@
         "system": "Sistem"
       },
       "saveWindowPlacement": "Keluar: Simpan posisi jendela",
+      "saveWindowPlacementWindows": "Simpan posisi jendela setelah keluar",
       "minimizeToTray": "Keluar: Perkecil ke pojok bawah",
       "launchAtStartup": "Mulai otomatis setelah masuk",
       "launchMinimized": "Mulai otomatis: Berjalan di latar belakang",
+      "showInContextMenu": "Tampilkan LocalSend di menu konteks",
       "animations": "Animasi"
     },
     "receive": {
       "title": "Menerima",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Selesai Otomatis",
       "destination": "Tujuan",
       "downloads": "(Unduhan)",
@@ -122,8 +128,10 @@
       "alias": "Alias",
       "deviceType": "Tipe Perangkat",
       "deviceModel": "Model Perangkat",
-      "port": "Port",
+      "port": "Porta",
       "discoveryTimeout": "Waktu penemuan habis",
+      "useSystemName": "Gunakan nama sistem",
+      "generateRandomAlias": "Hasilkan alias acak",
       "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan port kustom. (bawaan: {defaultPort})",
       "encryption": "Enkripsi",
       "multicastGroup": "Multicast",
@@ -146,11 +154,15 @@
     "firewall": {
       "symptom": "Aplikasi ini dapat mengirim berkas ke perangkat lain tetapi perangkat lain tidak dapat mengirim berkas ke perangkat ini.",
       "solution": "Ini kemungkinan masalah firewall. Anda dapat memperbaikinya dengan memperbolehkan koneksi masuk (UDP dan TCP) pada port {port}.",
-      "openFirewall": "Buka Firewall"
+      "openFirewall": "Buka Tembok Api"
+    },
+    "noDiscovery": {
+      "symptom": "Perangkat ini tidak dapat menemukan perangkat lain.",
+      "solution": "Pastikan semua perangkat berada di jaringan Wi-Fi yang sama dan menggunakan konfigurasi yang sama (port, alamat multicast, enkripsi). Anda dapat mencoba mengetik alamat IP perangkat target secara manual. Jika ini berhasil, pertimbangkan untuk menambahkan perangkat ini ke daftar favorit sehingga bisa ditemukan secara otomatis di masa depan."
     },
     "noConnection": {
       "symptom": "Kedua perangkat tidak dapat saling menemukan atau berbagi berkas.",
-      "solution": "Pastikan kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Jika wifi tidak memperbolehkan komunikasi, aktifkan opsi ini pada router."
+      "solution": "Pastikan kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Jika wifi tidak memperbolehkan komunikasi, aktifkan opsi ini pada ruter."
     }
   },
   "receiveHistoryPage": {
@@ -160,6 +172,7 @@
     "empty": "Riwayat kosong.",
     "entryActions": {
       "open": "Buka berkas",
+      "showInFolder": "Tampilkan di folder",
       "info": "Informasi",
       "deleteFromHistory": "Hapus dari riwayat"
     }
@@ -192,6 +205,7 @@
   "sendPage": {
     "waiting": "Menunggu respons...",
     "rejected": "Penerima menolak permintaan.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Penerima sedang sibuk dengan permintaan lain."
   },
   "progressPage": {
@@ -223,6 +237,8 @@
     "noRequests": "Belum ada permintaan.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Terima permintaan secara otomatis",
+    "requirePin": "Memerlukan PIN",
+    "pinHint": "PIN-nya adalah \"{pin}\"",
     "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Permintaan tertunda: {n}"
   },
@@ -232,8 +248,9 @@
       "LocalSend adalah aplikasi gratis, open-source yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.",
       "Aplikasi ini tersedia untuk Android, iOS, macOS, Windows, dan Linux. Semua opsi unduhan dapat ditemukan di situs resmi kami."
     ],
-    "author": "Pencipta",
+    "author": "Pembuat",
     "contributors": "Daftar Kontributor",
+    "packagers": "Pengemas",
     "translators": "Daftar Penerjemah"
   },
   "donationPage": {
@@ -245,79 +262,6 @@
   },
   "changelogPage": {
     "title": "Catatan Perubahan"
-  },
-  "aliasGenerator": {
-    "@info": "Lokasi yang berbeda mungkin memiliki kata yang berbeda, memungkinkan ketidakcocokan 1:1",
-    "adjectives": [
-      "Menarik",
-      "Cantik",
-      "Besar",
-      "Cerah",
-      "Bersih",
-      "Cerdik",
-      "Keren",
-      "Imut",
-      "Licik",
-      "Tekun",
-      "Giat",
-      "Efisien",
-      "Luar biasa",
-      "Cepat",
-      "Baik",
-      "Segar",
-      "Bagus",
-      "Menawan",
-      "Sangat Bagus",
-      "Tampan",
-      "Panas",
-      "Baik",
-      "Menyenangkan",
-      "Mistik",
-      "Rapi",
-      "Bagus",
-      "Sabar",
-      "Cantik",
-      "Kuat",
-      "Kaya",
-      "Rahasia",
-      "Cerdas",
-      "Kukuh",
-      "Khusus",
-      "Strategis",
-      "Tangguh",
-      "Rapi",
-      "Bijak"
-    ],
-    "fruits": [
-      "Apel",
-      "Alpukat",
-      "Pisang",
-      "Blackberry",
-      "Blueberry",
-      "Brokoli",
-      "Wortel",
-      "Ceri",
-      "Kelapa",
-      "Anggur",
-      "Lemon",
-      "Selada",
-      "Mangga",
-      "Melon",
-      "Jamur",
-      "Bawang",
-      "Jeruk",
-      "Pepaya",
-      "Persik",
-      "Pir",
-      "Nanas",
-      "Kentang",
-      "Labu",
-      "Raspberi",
-      "Stroberi",
-      "Tomat"
-    ],
-    "combination": "{fruit} {adjective}",
-    "@combination": "Pada beberapa bahasa, kata sifat harus diletakkan terakhir."
   },
   "dialogs": {
     "addFile": {
@@ -360,12 +304,12 @@
       "name": "Nama perangkat",
       "auto": "(otomatis)",
       "ip": "Alamat IP",
-      "port": "Port"
+      "port": "Porta"
     },
     "fileInfo": {
       "title": "Informasi Berkas",
       "fileName": "Nama Berkas:",
-      "path": "Jalur:",
+      "path": "Lokasi:",
       "size": "Ukuran:",
       "sender": "Pengirim:",
       "time": "Waktu:"
@@ -414,6 +358,12 @@
       "title": "@:general.quickSave",
       "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim berkas."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites"
+    },
+    "pin": {
+      "title": "Masukkan PIN"
+    },
     "sendModeHelp": {
       "title": "Mode Pengiriman",
       "single": "Mengirim berkas ke satu penerima. Pilihan akan dihapus setelah selesai membagikan berkas.",
@@ -431,10 +381,14 @@
   "tray": {
     "@info": "Pedoman Apple sangat ketat tentang kata-kata 'tutup'.",
     "open": "@:general.open",
-    "close": "Tutup LocalSend"
+    "close": "Tutup LocalSend",
+    "closeWindows": "Keluar"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Masukkan PIN",
+    "invalidPin": "PIN Salah",
+    "tooManyAttempts": "Terlalu banyak percobaan",
     "rejected": "Ditolak",
     "files": "Berkas",
     "fileName": "Nama Berkas",
@@ -470,5 +424,78 @@
     "sActionUseCameraHint": "Gunakan kamera",
     "sNameDurationLabel": "Durasi",
     "sUnitAssetCountLabel": "jumlah"
+  },
+  "aliasGenerator": {
+    "@info": "Lokasi yang berbeda mungkin memiliki kata yang berbeda, memungkinkan ketidakcocokan 1:1",
+    "adjectives": [
+      "Menarik",
+      "Cantik",
+      "Besar",
+      "Cerah",
+      "Bersih",
+      "Cerdik",
+      "Keren",
+      "Imut",
+      "Licik",
+      "Tekun",
+      "Giat",
+      "Efisien",
+      "Luar biasa",
+      "Cepat",
+      "Baik",
+      "Segar",
+      "Bagus",
+      "Menawan",
+      "Sangat Bagus",
+      "Tampan",
+      "Panas",
+      "Baik",
+      "Menyenangkan",
+      "Mistik",
+      "Rapi",
+      "Bagus",
+      "Sabar",
+      "Cantik",
+      "Kuat",
+      "Kaya",
+      "Rahasia",
+      "Cerdas",
+      "Kukuh",
+      "Khusus",
+      "Strategis",
+      "Tangguh",
+      "Rapi",
+      "Bijak"
+    ],
+    "fruits": [
+      "Apel",
+      "Alpukat",
+      "Pisang",
+      "Blackberry",
+      "Bluberi",
+      "Brokoli",
+      "Wortel",
+      "Ceri",
+      "Kelapa",
+      "Anggur",
+      "Lemon",
+      "Selada",
+      "Mangga",
+      "Melon",
+      "Jamur",
+      "Bawang",
+      "Jeruk",
+      "Pepaya",
+      "Persik",
+      "Pir",
+      "Nanas",
+      "Kentang",
+      "Labu",
+      "Rasberi",
+      "Stroberi",
+      "Tomat"
+    ],
+    "combination": "{fruit} {adjective}",
+    "@combination": "Pada beberapa bahasa, kata sifat harus diletakkan terakhir."
   }
 }

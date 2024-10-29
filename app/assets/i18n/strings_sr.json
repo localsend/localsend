@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Ime uredjaja:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Omiljeni",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -130,6 +135,8 @@
       "deviceModel": "Model uredjaja",
       "port": "Port",
       "discoveryTimeout": "Otkrivanje otkazano",
+      "useSystemName": "Koristi ime sistema",
+      "generateRandomAlias": "Generiši slučajni pseudonim",
       "portWarning": "Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom Port.(default: {defaultPort})",
       "encryption": "Enkripcija",
       "multicastGroup": "Multicast",
@@ -339,6 +346,10 @@
       "title": "Dodaj u Selekciju",
       "content": "Šta želiš da dodaš?"
     },
+    "openFile": {
+      "title": "Otvori fajl",
+      "content": "Da li želite da otvorite primljeni fajl?"
+    },
     "addressInput": {
       "title": "Upiši adresu",
       "hashtag": "Hashtag",
@@ -431,7 +442,11 @@
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
-      "content": "Fajlovi koji su poslati sa uredjaja u kontakt listi su automatski prihvaćeni."
+      "content": [
+        "Zahtevi za primanje fajlova su automatski prihvaćeni od uredjaja u listi Omiljenih.",
+        "Upozorenje: Ovo trenutno nije potpuno bezbedno, jer napadač koji zna Fingerprint vašeg uredjaja u Omiljenima takodje može da vam pošalje fajl.",
+        "Ipak, ovo je i dalje sigurnije nego dozvoliti prijem sa svih uredjaja."
+      ]
     },
     "pin": {
       "title": "Unesi PIN"

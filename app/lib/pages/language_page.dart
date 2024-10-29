@@ -4,8 +4,23 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-class LanguagePage extends StatelessWidget {
+class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
+
+  @override
+  State<LanguagePage> createState() => _LanguagePageState();
+}
+
+class _LanguagePageState extends State<LanguagePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    // ignore: discarded_futures
+    LocaleSettings.instance.loadAllLocales().then((_) {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +41,9 @@ class LanguagePage extends StatelessWidget {
               onTap: () async {
                 await context.ref.notifier(settingsProvider).setLocale(locale);
                 if (locale == null) {
-                  LocaleSettings.useDeviceLocale();
+                  await LocaleSettings.useDeviceLocale();
                 } else {
-                  LocaleSettings.setLocale(locale);
+                  await LocaleSettings.setLocale(locale);
                 }
               },
               title: Row(
@@ -52,6 +67,6 @@ class LanguagePage extends StatelessWidget {
 
 extension AppLocaleExt on AppLocale {
   String get humanName {
-    return LocaleSettings.instance.translationMap[this]!.locale;
+    return LocaleSettings.instance.translationMap[this]?.locale ?? 'Loading';
   }
 }

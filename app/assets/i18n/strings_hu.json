@@ -28,6 +28,7 @@
     "open": "Megnyit",
     "queue": "Várósor",
     "quickSave": "Autom. mentés",
+    "quickSaveFromFavorites": "Gyors mentés a \"Kedvencek\"-hez",
     "renamed": "Átnevezve",
     "reset": "Reset",
     "restart": "Újraindít",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Álnév:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Kedvencek",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -108,6 +114,7 @@
     "receive": {
       "title": "Fogadás",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Autom. befejezés",
       "destination": "Mentés helye",
@@ -128,6 +135,8 @@
       "deviceModel": "Eszköz modell",
       "port": "Port",
       "discoveryTimeout": "Felfedezési időtúllépés",
+      "useSystemName": "Rendszernév használata",
+      "generateRandomAlias": "Véletlenszerű álnév generálás",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
@@ -267,6 +276,10 @@
       "title": "Hozzáadás a kijelöléshez",
       "content": "Mit szeretne hozzáfűzni?"
     },
+    "openFile": {
+      "title": "Fájl megnyitás",
+      "content": "Meg akarja nyitni a fogadott fájlt?"
+    },
     "addressInput": {
       "title": "Adja meg a címet",
       "hashtag": "Hashtag",
@@ -356,6 +369,14 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "A fájlkérések autom. elfogadásra kerülnek. Ügyeljen arra, hogy a helyi hálózaton mindenki küldhet Önnek fájlokat."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről.",
+        "Figyelmeztetés: Ez jelenleg nem teljesen biztonságos, mert egy hacker, aki ismeri a kedvenc eszközeinek ujjlenyomatát, még mindig küldhet fájlokat.",
+        "Ez a lehetőség azonban még mindig biztonságosabb, mint bármely eszköz engedélyezése."
+      ]
     },
     "pin": {
       "title": "PIN kód megadása"

@@ -28,6 +28,7 @@
     "open": "Öffnen",
     "queue": "Warteschlange",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Quick Save für \"Favoriten\"",
     "renamed": "Umbenannt",
     "reset": "Zurücksetzen",
     "restart": "Neustarten",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoriten",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -108,6 +114,7 @@
     "receive": {
       "title": "Empfangen",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Autom. beenden",
       "destination": "Ziel-Ordner",
@@ -128,6 +135,8 @@
       "deviceModel": "Gerätemodell",
       "port": "Port",
       "discoveryTimeout": "Erkennungs-Timeout",
+      "useSystemName": "Systemnamen verwenden",
+      "generateRandomAlias": "Zufälligen Alias generieren",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
@@ -267,6 +276,10 @@
       "title": "Zur Auswahl hinzufügen",
       "content": "Was möchtest du zum Senden hinzufügen?"
     },
+    "openFile": {
+      "title": "Datei öffnen",
+      "content": "Möchtest du die empfangene Datei öffnen?"
+    },
     "addressInput": {
       "title": "Adresse eingeben",
       "hashtag": "Hashtag",
@@ -356,6 +369,14 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.",
+        "Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.",
+        "Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät."
+      ]
     },
     "pin": {
       "title": "PIN eingeben"

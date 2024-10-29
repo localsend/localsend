@@ -9,6 +9,22 @@ rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
+// temporary fix to keep using device_apps
+// https://stackoverflow.com/questions/69033022/message-error-resource-androidattr-lstar-not-found
+subprojects {
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin("com.android.application") ||
+                project.plugins.hasPlugin("com.android.library")) {
+            project.android {
+                compileSdkVersion 34
+                buildToolsVersion "34.0.0"
+            }
+        }
+    }
+}
+
+
 subprojects {
     project.evaluationDependsOn(':app')
 }

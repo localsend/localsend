@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>org.localsend.shared_group</string>
+		<string>$(AppIdentifierPrefix)localsend.shared_group</string>
 	</array>
 	<key>com.apple.security.cs.allow-jit</key>
 	<true/>

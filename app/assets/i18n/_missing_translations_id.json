@@ -3,62 +3,24 @@
     "Here are translations that exist in <en> but not in <id>.",
     "After editing this file, you can run 'dart run slang apply --locale=id' to quickly apply the newly added translations."
   ],
-  "general": {
-    "quickSaveFromFavorites": "Simpan Cepat untuk \"Favorites\""
-  },
-  "sendTab": {
-    "manualSending": "Kirim Manual"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Simpan posisi jendela setelah keluar",
-      "showInContextMenu": "Tampilkan LocalSend di menu konteks"
-    },
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "requirePin": "@:webSharePage.requirePin"
-    },
-    "network": {
-      "useSystemName": "Gunakan nama sistem",
-      "generateRandomAlias": "Hasilkan alias acak"
+  "receiveTab": {
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorites",
+      "on": "@:general.on"
     }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Perangkat ini tidak dapat menemukan perangkat lain.",
-      "solution": "Pastikan semua perangkat berada di jaringan Wi-Fi yang sama dan menggunakan konfigurasi yang sama (port, alamat multicast, enkripsi). Anda dapat mencoba mengetik alamat IP perangkat target secara manual. Jika ini berhasil, pertimbangkan untuk menambahkan perangkat ini ke daftar favorit sehingga bisa ditemukan secara otomatis di masa depan."
-    }
-  },
-  "receiveHistoryPage": {
-    "entryActions": {
-      "showInFolder": "Tampilkan di folder"
-    }
-  },
-  "sendPage": {
-    "tooManyAttempts": "@:web.tooManyAttempts"
-  },
-  "webSharePage": {
-    "requirePin": "Memerlukan PIN",
-    "pinHint": "PIN-nya adalah \"{pin}\""
-  },
-  "aboutPage": {
-    "packagers": "Pengemas"
   },
   "dialogs": {
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Permintaan file sekarang diterima secara otomatis dari perangkat di daftar favorit Anda."
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
     },
-    "pin": {
-      "title": "Masukkan PIN"
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
+        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+      ]
     }
-  },
-  "tray": {
-    "closeWindows": "Keluar"
-  },
-  "web": {
-    "enterPin": "Masukkan PIN",
-    "invalidPin": "PIN Salah",
-    "tooManyAttempts": "Terlalu banyak percobaan"
   }
 }

@@ -75,7 +75,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
           if (finished) {
             if (_finishCounter == 1) {
               timer.cancel();
-              exit();
+              _exit(closeSession: true);
             } else {
               setState(() {
                 _finishCounter--;
@@ -105,11 +105,12 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     });
   }
 
-  void exit() async {
+  void _exit({required bool closeSession}) async {
     final receiveSession = ref.read(serverProvider.select((s) => s?.session));
     final sendSession = ref.read(sendProvider)[widget.sessionId];
     final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
-    final result = status == null || await _askCancelConfirmation(status);
+    final keepSession = !closeSession && (status == SessionStatus.sending || status == SessionStatus.finishedWithErrors);
+    final result = status == null || keepSession || await _askCancelConfirmation(status);
 
     if (result && mounted) {
       // ignore: unawaited_futures
@@ -117,32 +118,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _finishTimer?.cancel();
-    unawaited(TaskbarHelper.clearProgressBar());
-    try {
-      unawaited(WakelockPlus.disable());
-    } catch (_) {}
-  }
-
-  Future<bool> _onWillPop() async {
-    final receiveSession = ref.read(serverProvider.select((s) => s?.session));
-    final sendSession = ref.read(sendProvider)[widget.sessionId];
-    final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
-    if (status == null) {
-      return true;
-    }
-    if (!widget.closeSessionOnClose && (status == SessionStatus.sending || status == SessionStatus.finishedWithErrors)) {
-      // keep session except [closeSessionOnClose] is true and the session is active
-      return true;
-    }
-    return _askCancelConfirmation(status);
-  }
-
   Future<bool> _askCancelConfirmation(SessionStatus status) async {
-    final bool result = status == SessionStatus.sending ? await context.pushBottomSheet(() => const CancelSessionDialog()) : true;
+    final bool result = switch (status == SessionStatus.sending) {
+      true => (await context.pushBottomSheet(() => const CancelSessionDialog())) == true,
+      false => true,
+    };
     if (result) {
       final receiveSession = ref.read(serverProvider)?.session;
       final sendState = ref.read(sendProvider)[widget.sessionId];
@@ -162,6 +142,16 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       }
     }
     return result;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _finishTimer?.cancel();
+    TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
+    try {
+      WakelockPlus.disable(); // ignore: discarded_futures
+    } catch (_) {}
   }
 
   @override
@@ -210,10 +200,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final finishedCount = fileStatusMap.values.where((s) => s == FileStatus.finished).length;
 
     return PopScope(
-      onPopInvokedWithResult: (_, __) async {
-        if (await _onWillPop() && context.mounted) {
-          context.pop();
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          // Already popped.
+          // Because the user cannot pop this page, we can safely assume that all sessions are closed if they should be.
+          return;
         }
+        _exit(closeSession: widget.closeSessionOnClose);
       },
       canPop: false,
       child: Scaffold(
@@ -473,7 +466,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                               ),
                               TextButton.icon(
                                 style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
-                                onPressed: exit,
+                                onPressed: () => _exit(closeSession: true),
                                 icon: Icon(status == SessionStatus.sending ? Icons.close : Icons.check_circle),
                                 label: Text(status == SessionStatus.sending
                                     ? t.general.cancel

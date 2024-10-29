@@ -1,0 +1,26 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <sl>.",
+    "After editing this file, you can run 'dart run slang apply --locale=sl' to quickly apply the newly added translations."
+  ],
+  "receiveTab": {
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorites",
+      "on": "@:general.on"
+    }
+  },
+  "dialogs": {
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
+        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+      ]
+    }
+  }
+}

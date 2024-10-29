@@ -430,8 +430,7 @@
       "content": "Žiadosti o súbor sú automaticky akceptované. Uvedomte si, že každý v miestnej sieti vám môže posielať súbory."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": "Žiadosti o súbor sa automaticky prijímajú zo zariadení vo vašom zozname kontaktov."
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Zadajte PIN"

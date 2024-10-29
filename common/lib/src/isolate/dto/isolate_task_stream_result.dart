@@ -1,5 +1,7 @@
 import 'package:common/src/isolate/dto/isolate_task.dart';
+import 'package:common/src/isolate/dto/isolate_task_result.dart';
 
+/// Stream version of [IsolateTaskResult].
 class IsolateTaskStreamResult<T> {
   /// The id of the task.
   /// Corresponds to [IsolateTask.id] that started the stream.

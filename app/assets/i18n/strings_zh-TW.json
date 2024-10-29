@@ -28,6 +28,7 @@
     "open": "開啟",
     "queue": "佇列",
     "quickSave": "快速儲存",
+    "quickSaveFromFavorites": "快速儲存到 \"最愛\"",
     "renamed": "已重新命名",
     "reset": "重設",
     "restart": "重新啟動",
@@ -46,6 +47,11 @@
       "ip": "IP：",
       "port": "通訊埠：",
       "alias": "別名："
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "最愛",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -108,6 +114,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "自動完成",
       "destination": "儲存目錄",
@@ -128,6 +135,8 @@
       "deviceModel": "裝置型號",
       "port": "通訊埠",
       "discoveryTimeout": "探索裝置逾時",
+      "useSystemName": "使用系統名稱",
+      "generateRandomAlias": "隨機產生別名",
       "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
       "encryption": "加密",
       "multicastGroup": "多點傳送",
@@ -267,6 +276,10 @@
       "title": "新增檔案",
       "content": "您想要新增什麼檔案？"
     },
+    "openFile": {
+      "title": "開啟檔案",
+      "content": "您想開啟接收到的檔案嗎？"
+    },
     "addressInput": {
       "title": "輸入位址",
       "hashtag": "雜湊標記",
@@ -356,6 +369,14 @@
     "quickSaveNotice": {
       "title": "@:general.quickSave",
       "content": "自動接受所有檔案要求。請注意，區域網路中的所有人都可以傳送檔案給您。"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "自動接受來自您最愛列表中裝置傳送的檔案。",
+        "警告：目前這並不完全安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。",
+        "但仍然比允許任何裝置更安全。"
+      ]
     },
     "pin": {
       "title": "@:web.enterPin"
