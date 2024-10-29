@@ -16,7 +16,7 @@
 
 LocalSend là một ứng dụng mã nguồn mở miễn phí cho phép bạn chia sẻ tệp và tin nhắn một cách an toàn với các thiết bị lân cận qua mạng cục bộ mà không cần kết nối Internet.
 
-- [About](#about)
+- [Giới thiệu](#giới-thiệu)
 - [Ảnh chụp màn hình](#ảnh-chụp-màn-hình)
 - [Tải xuống](#tải-xuống)
 - [Nó hoạt động như thế nào](#nó-hoạt-động-như-thế-nào)
@@ -31,7 +31,7 @@ LocalSend là một ứng dụng mã nguồn mở miễn phí cho phép bạn ch
   - [Windows](#windows)
   - [Linux](#linux)
 
-## About
+## Giới thiệu
 
 LocalSend là một ứng dụng đa nền tảng cho phép liên lạc an toàn giữa các thiết bị bằng cách sử dụng API REST và mã hóa HTTPS. Không giống như các ứng dụng nhắn tin khác dựa trên máy chủ bên ngoài, LocalSend không yêu cầu kết nối Internet hoặc máy chủ của bên thứ ba, khiến ứng dụng này trở thành giải pháp nhanh chóng và đáng tin cậy cho liên lạc nội bộ.
 
@@ -86,7 +86,7 @@ Trong hầu hết các trường hợp, LocalSend sẽ hoạt động tốt. Tuy
 
 (Được giới thiệu trong v1.13.0)
 
-Tạo một tập tin có tên`settings.json`nằm trong cùng thư mục với tệp thực thi.
+Tạo một tập tin có tên `settings.json` nằm trong cùng thư mục với tệp thực thi.
 Tập tin này có thể trống.
 Ứng dụng sẽ sử dụng tệp này để lưu trữ cài đặt thay vì vị trí mặc định.
 
@@ -94,30 +94,30 @@ Tập tin này có thể trống.
 
 (Cập nhật trong v1.15.0)
 
-Để khởi động ứng dụng ẩn (chỉ trong khay), hãy sử dụng`--hidden`cờ (ví dụ:`localsend_app.exe --hidden`).
+Để khởi động ứng dụng ẩn (chỉ trong khay), hãy sử dụng cờ `--hidden` (ví dụ: `localsend_app.exe --hidden`).
 
-Trên v1.14.0 trở về trước, ứng dụng sẽ bắt đầu ẩn nếu`autostart`cờ được đặt và cài đặt ẩn được bật.
+Trên v1.14.0 trở về trước, ứng dụng sẽ bắt đầu ẩn nếu cờ `autostart` được đặt và cài đặt ẩn được bật.
 
 ## Nó hoạt động như thế nào
 
 LocalSend sử dụng giao thức liên lạc an toàn cho phép các thiết bị liên lạc với nhau bằng API REST. Tất cả dữ liệu được gửi an toàn qua HTTPS và chứng chỉ TLS/SSL được tạo nhanh chóng trên mỗi thiết bị, đảm bảo tính bảo mật tối đa.
 
-Để biết thêm thông tin về Giao thức LocalSend, hãy xem phần[tài liệu](https://github.com/localsend/protocol).
+Để biết thêm thông tin về Giao thức LocalSend, hãy xem phần [tài liệu](https://github.com/localsend/protocol).
 
 ## Bắt đầu
 
 Để biên dịch LocalSend từ mã nguồn, hãy làm theo các bước sau:
 
-1.  Cài đặt Flutter[trực tiếp](https://flutter.dev)hoặc sử dụng[fvm](https://fvm.app) (see [phiên bản cần thiết](.fvmrc))
-2.  Sao chép`LocalSend`kho lưu trữ
-3.  Chạy`cd app`để vào thư mục ứng dụng
-4.  Chạy`flutter pub get`để tải xuống các phần phụ thuộc
-5.  Chạy`flutter run`để khởi động ứng dụng
+1.  Cài đặt Flutter [trực tiếp](https://flutter.dev)hoặc sử dụng [fvm](https://fvm.app) (xem [phiên bản cần thiết](.fvmrc))
+2.  Sao chép `LocalSend` kho lưu trữ
+3.  Chạy `cd app` để vào thư mục ứng dụng
+4.  Chạy `flutter pub get` để tải xuống các phần phụ thuộc
+5.  Chạy `flutter run` để khởi động ứng dụng
 
-> [!GHI CHÚ]LocalSend hiện yêu cầu phiên bản Flutter cũ hơn (được chỉ định trong[.fvmrc](.fvmrc))
+> [!GHI CHÚ]LocalSend hiện yêu cầu phiên bản Flutter cũ hơn (được chỉ định trong [.fvmrc](.fvmrc))
 > và do đó, các sự cố xây dựng có thể xảy ra do sự không khớp giữa phiên bản Flutter được cài đặt và yêu cầu (toàn hệ thống).  
-> Để phát triển nhất quán hơn, LocalSend sử dụng[fvm](https://fvm.app)để quản lý phiên bản Flutter của dự án.
-> Sau khi cài đặt`fvm`, chạy`fvm flutter`thay vì`flutter`.
+> Để phát triển nhất quán hơn, LocalSend sử dụng [fvm](https://fvm.app)để quản lý phiên bản Flutter của dự án.
+> Sau khi cài đặt `fvm`, chạy `fvm flutter` thay vì `flutter`.
 
 ## Đóng góp
 
@@ -127,29 +127,29 @@ Chúng tôi hoan nghênh sự đóng góp từ bất kỳ ai quan tâm đến vi
 
 Bạn có thể giúp dịch ứng dụng này sang các ngôn ngữ khác!
 
-1.  Ngã ba kho lưu trữ này
+1.  `Fork` repository này.
 2.  Chọn một
-    - Thêm bản dịch còn thiếu trong các ngôn ngữ hiện có: Chỉ cập nhật`_missing_translations_<locale>.json`TRONG[ứng dụng/tài sản/i18n][i18n]
-    - Sửa các bản dịch hiện có: Cập nhật`strings_<locale>.i18n.json`TRONG[ứng dụng/tài sản/i18n][i18n]
-    - Thêm ngôn ngữ mới: Tạo một tệp mới; xem thêm:[mã địa phương][].
+    - Thêm bản dịch còn thiếu trong các ngôn ngữ hiện có: Chỉ cập nhật `_missing_translations_<locale>.json` TRONG [app/assets/i18n][i18n]
+    - Sửa các bản dịch hiện có: Cập nhật `strings_<locale>.i18n.json` TRONG [app/assets/i18n][i18n]
+    - Thêm ngôn ngữ mới: Tạo một tệp mới; xem thêm: [mã địa phương](https://saimana.com/list-of-country-locale-code/).
 3.  Tùy chọn: Chạy lại ứng dụng này
-    1.  Chạy`cd app`để vào thư mục ứng dụng.
-    2.  Hãy chắc chắn rằng bạn có[chạy](#getting-started)ứng dụng này một lần.
-    3.  Cập nhật bản dịch qua`flutter pub run slang`
-    4.  Chạy ứng dụng qua`flutter run`
+    1.  Chạy `cd app` để vào thư mục ứng dụng.
+    2.  Hãy chắc chắn rằng bạn có [chạy](#getting-started) ứng dụng này một lần.
+    3.  Cập nhật bản dịch qua `flutter pub run slang`
+    4.  Chạy ứng dụng qua `flutter run`
     5.  Mở một yêu cầu kéo
 
 [i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
 [locale codes]: https://saimana.com/list-of-country-locale-code/
 
-**_Hãy lưu ý:_ Cánh đồng được trang trí bằng`@`không có nghĩa là được dịch; chúng không được sử dụng trong ứng dụng dưới bất kỳ hình thức nào mà chỉ đơn thuần là văn bản cung cấp thông tin về tệp hoặc cung cấp ngữ cảnh cho người dịch.**
+**_Hãy lưu ý:_ Phần bắt đầu bằng `@` không có nghĩa là cần được dịch; chúng không được sử dụng trong ứng dụng dưới bất kỳ hình thức nào mà chỉ đơn thuần là văn bản cung cấp thông tin về tệp hoặc cung cấp ngữ cảnh cho người dịch.**
 
 ### Sửa lỗi và cải tiến
 
 - **Sửa lỗi:** Nếu bạn tìm thấy lỗi, vui lòng tạo yêu cầu kéo với mô tả rõ ràng về sự cố và cách khắc phục.
 - **Cải tiến:** Bạn có ý tưởng về cách cải thiện LocalSend? Vui lòng tạo một vấn đề trước để thảo luận lý do tại sao cần cải thiện.
 
-Để biết thêm thông tin, xem[hướng dẫn đóng góp](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
+Để biết thêm thông tin, xem [hướng dẫn đóng góp](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
 ## Xây dựng
 
@@ -217,7 +217,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Hãy thoải mái mở một yêu cầu kéo. có một`snap`nhánh để chơi.
+Hãy thoải mái mở một yêu cầu kéo. có một `snap`nhánh để chơi.
 
 ## Contributors
 
