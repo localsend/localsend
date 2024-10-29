@@ -7,6 +7,7 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
+  async: ^2.11.0
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   dart_mappable: ^4.2.0
   dio: 5.7.0
