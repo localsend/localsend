@@ -4,54 +4,54 @@
     "After editing this file, you can run 'dart run slang apply --locale=vi' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "Lưu nhanh cho \"Yêu thích\""
   },
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Yêu thích",
       "on": "@:general.on"
     }
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "Gửi thủ công"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "Lưu vị trí cửa sổ sau khi thoát ứng dụng"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Dùng tên hệ thống",
+      "generateRandomAlias": "Dùng bí danh ngẫu nhiên"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "Thiết bị này không thể tìm thấy thiết bị khác.",
+      "solution": "Hãy đảm bảo rằng các thiết bị được kết nối với cùng một mạng Wi-Fi và dùng chung thiết lập (port, multicast address, encryption). Bạn có thể thử nhập địa chỉ IP của thiết bị đích đến. Nếu nó hoạt động, cân nhắc thêm thiết bị đó vào mục yêu thích. Thiết bị sẽ được nhận tự động trong những lần tìm kiếm trong tương lai."
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Công cụ đóng gói"
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Mở tệp tin",
+      "content": "Bạn có muốn mở tập tin vừa nhận được không?"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích.",
+        "Lưu ý! Hiện tại, tính năng này không hoàn toàn an toàn, vì tin tặc có thể mạo danh thiết bị trong danh sách yêu thích và gửi tệp tin cho bạn mà không gặp trở ngại gì.",
+        "Tuy nhiên, tính năng này vẫn an toàn hơn tự động chấp thuận tập tin từ tất cả người dùng chung mạng nội bộ."
       ]
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "Thoát"
   }
 }
