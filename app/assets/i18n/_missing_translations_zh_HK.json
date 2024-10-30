@@ -4,54 +4,54 @@
     "After editing this file, you can run 'dart run slang apply --locale=zh-HK' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "自動儲存來自已收藏裝置嘅檔案"
   },
   "receiveTab": {
     "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favorites",
-      "on": "@:general.on"
+      "off": "關閉",
+      "favorites": "僅來自已收藏裝置嘅檔案",
+      "on": "來自所有裝置嘅檔案"
     }
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "手動傳送"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "離開嗰陣記低視窗位置"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "使用系統名稱",
+      "generateRandomAlias": "求其改個名"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "呢部機偵測唔到其他裝置。",
+      "solution": "請確保所有裝置都駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果 work 嘅話可以選擇收藏呢部裝置，噉樣日後就會自動偵測到佢，毋須重新輸入。"
     }
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "封裝人員"
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "開啟檔案",
+      "content": "你係咪要開啟接收咗嘅檔案？"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "自動接受來自已收藏裝置嘅檔案傳輸請求。",
+        "警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。",
+        "不過揀已收藏裝置點都安全過揀所有裝置嘅。"
       ]
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "離開"
   }
 }

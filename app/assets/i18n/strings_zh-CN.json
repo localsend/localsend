@@ -27,8 +27,8 @@
     "online": "在线",
     "open": "打开",
     "queue": "队列",
-    "quickSave": "快速保存",
-    "quickSaveFromFavorites": "快速保存到\"收藏\"",
+    "quickSave": "自动保存",
+    "quickSaveFromFavorites": "自动保存来自“收藏夹”设备的文件",
     "renamed": "已重命名",
     "reset": "重置",
     "restart": "重启",
@@ -103,9 +103,9 @@
       "languageOptions": {
         "system": "跟随系统"
       },
-      "saveWindowPlacement": "关闭时保存窗口位置",
-      "saveWindowPlacementWindows": "退出时保存窗口位置",
-      "minimizeToTray": "关闭时：最小化到系统托盘",
+      "saveWindowPlacement": "退出时保存窗口位置",
+      "saveWindowPlacementWindows": "离开时保存窗口位置",
+      "minimizeToTray": "关闭时最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
       "launchMinimized": "静默自启：只启动托盘服务",
       "showInContextMenu": "在“发送到”文件菜单中显示 LocalSend",
@@ -163,11 +163,11 @@
     },
     "noDiscovery": {
       "symptom": "此设备未能发现其他设备。",
-      "solution": "确保所有设备都在同一个Wi-Fi网络上，并共享相同的配置（端口、多播地址、加密）。您可以尝试手动键入目标设备的IP地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
+      "solution": "确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。您可以尝试手动键入目标设备的 IP 地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
     },
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
-      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。"
+      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点 (AP) 隔离”选项。"
     }
   },
   "receiveHistoryPage": {
@@ -255,7 +255,7 @@
     ],
     "author": "作者",
     "contributors": "贡献者",
-    "packagers": "包",
+    "packagers": "打包者",
     "translators": "翻译者"
   },
   "donationPage": {
@@ -443,7 +443,7 @@
       "title": "@:general.quickSaveFromFavorites",
       "content": [
         "当前会自动接受收藏夹中设备的文件请求。",
-        "警告：这目前并不完全安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。",
+        "警告：这目前并非绝对安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。",
         "但是，此选项比“允许任何设备”更安全。"
       ]
     },
@@ -468,7 +468,7 @@
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "退出 LocalSend",
-    "closeWindows": "退出"
+    "closeWindows": "离开"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
