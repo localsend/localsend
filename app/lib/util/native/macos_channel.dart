@@ -14,6 +14,10 @@ Future<void> setupStatusBar() async {
   });
 }
 
+Future<void> requestFolderAccess(String path) async {
+  await _methodChannel.invokeMethod('requestFolderAccess', path);
+}
+
 Future<void> updateDockProgress(double progress) async {
   await _methodChannel.invokeMethod('updateDockProgress', progress);
 }

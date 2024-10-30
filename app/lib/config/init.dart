@@ -190,6 +190,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
+      switch (ref.read(settingsProvider).destination) {
+        case String path:
+          await requestFolderAccess(path);
+          break;
+      }
+
       // handle dropped files
       pendingFilesStream.listen((files) {
         ref.global.dispatchAsync(_HandleAppStartArgumentsAction(

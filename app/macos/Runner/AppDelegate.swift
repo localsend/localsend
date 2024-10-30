@@ -165,6 +165,22 @@ class AppDelegate: FlutterAppDelegate {
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
             result(nil)
+        case "requestFolderAccess":
+            do {
+                let folderPath = call.arguments as! String
+                let folderURL = URL(fileURLWithPath: folderPath)
+
+                let bookmarkData = try folderURL.bookmarkData(
+                    options: [.withSecurityScope],
+                    includingResourceValuesForKeys: nil,
+                    relativeTo: nil
+                )
+
+                let _ = SecurityScopedResourceManager.shared.startAccessing(bookmark: bookmarkData)
+                result(nil)
+            } catch {
+                result(FlutterError(code: "REQUEST_FOLDER_ACCESS_FAILED", message: "An error occurred while requesting folder access", details: nil))
+            }
         case "updateDockProgress":
             let progress = call.arguments as! Double
             DockProgress.progress = progress
