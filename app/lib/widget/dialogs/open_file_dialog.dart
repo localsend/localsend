@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:routerino/routerino.dart';
 
 class OpenFileDialog extends StatefulWidget {
@@ -34,10 +36,19 @@ class OpenFileDialog extends StatefulWidget {
 }
 
 class _OpenFileDialogState extends State<OpenFileDialog> {
-  int _countdown = 3; // Starting countdown value
-  Timer? _timer;
+  late Timer _timer;
+  int _countdown = 5; // Starting countdown value
 
-  void _startCountdown() {
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_countdown > 1) {
         setState(() {
@@ -53,21 +64,6 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
   }
 
   @override
-  void dispose() {
-    if (_timer != null) {
-      _timer!.cancel();
-    }
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Start the countdown timer
-    _startCountdown();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(t.dialogs.openFile.title),
@@ -78,11 +74,15 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
           child: Text(t.general.open),
         ),
         TextButton(
+          onPressed: () async => await openFolder(File(widget.filePath).parent.path),
+          child: Text(t.receiveHistoryPage.entryActions.showInFolder),
+        ),
+        TextButton(
           onPressed: () {
-            _timer!.cancel();
+            _timer.cancel();
             context.pop();
           },
-          child: Text('${t.general.close}($_countdown)'),
+          child: Text('${t.general.close} ($_countdown)'),
         ),
       ],
     );
