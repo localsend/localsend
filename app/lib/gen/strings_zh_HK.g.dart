@@ -140,7 +140,9 @@ class _TranslationsGeneralZhHk extends TranslationsGeneralEn {
   @override
   String get queue => '佇列';
   @override
-  String get quickSave => '快速儲存';
+  String get quickSave => '自動儲存';
+  @override
+  String get quickSaveFromFavorites => '自動儲存來自已收藏裝置嘅檔案';
   @override
   String get renamed => '改咗名';
   @override
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabZhHk extends TranslationsReceiveTabEn {
   String get title => _root.settingsTab.receive.title;
   @override
   late final _TranslationsReceiveTabInfoBoxZhHk infoBox = _TranslationsReceiveTabInfoBoxZhHk._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveZhHk quickSave = _TranslationsReceiveTabQuickSaveZhHk._(_root);
 }
 
 // Path: sendTab
@@ -203,6 +207,8 @@ class _TranslationsSendTabZhHk extends TranslationsSendTabEn {
   String get thisDevice => '此裝置';
   @override
   String get scan => '掃描裝置';
+  @override
+  String get manualSending => '手動傳送';
   @override
   String get sendMode => '傳送模式';
   @override
@@ -259,6 +265,8 @@ class _TranslationsTroubleshootPageZhHk extends TranslationsTroubleshootPageEn {
   String get fixButton => '自動修復';
   @override
   late final _TranslationsTroubleshootPageFirewallZhHk firewall = _TranslationsTroubleshootPageFirewallZhHk._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryZhHk noDiscovery = _TranslationsTroubleshootPageNoDiscoveryZhHk._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionZhHk noConnection = _TranslationsTroubleshootPageNoConnectionZhHk._(_root);
 }
@@ -460,6 +468,8 @@ class _TranslationsAboutPageZhHk extends TranslationsAboutPageEn {
   @override
   String get contributors => '貢獻者';
   @override
+  String get packagers => '封裝人員';
+  @override
   String get translators => '翻譯人員';
 }
 
@@ -520,6 +530,8 @@ class _TranslationsDialogsZhHk extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileZhHk addFile = _TranslationsDialogsAddFileZhHk._(_root);
   @override
+  late final _TranslationsDialogsOpenFileZhHk openFile = _TranslationsDialogsOpenFileZhHk._(_root);
+  @override
   late final _TranslationsDialogsAddressInputZhHk addressInput = _TranslationsDialogsAddressInputZhHk._(_root);
   @override
   late final _TranslationsDialogsCancelSessionZhHk cancelSession = _TranslationsDialogsCancelSessionZhHk._(_root);
@@ -558,6 +570,9 @@ class _TranslationsDialogsZhHk extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeZhHk quickSaveNotice = _TranslationsDialogsQuickSaveNoticeZhHk._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeZhHk quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeZhHk._(_root);
+  @override
   late final _TranslationsDialogsPinZhHk pin = _TranslationsDialogsPinZhHk._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpZhHk sendModeHelp = _TranslationsDialogsSendModeHelpZhHk._(_root);
@@ -593,6 +608,8 @@ class _TranslationsTrayZhHk extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => '退出 LocalSend';
+  @override
+  String get closeWindows => '離開';
 }
 
 // Path: web
@@ -706,6 +723,23 @@ class _TranslationsReceiveTabInfoBoxZhHk extends TranslationsReceiveTabInfoBoxEn
   String get alias => '名：';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveZhHk extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveZhHk._(TranslationsZhHk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => '關閉';
+  @override
+  String get favorites => '僅來自已收藏裝置嘅檔案';
+  @override
+  String get on => '來自所有裝置嘅檔案';
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionZhHk extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionZhHk._(TranslationsZhHk root)
@@ -789,7 +823,9 @@ class _TranslationsSettingsTabGeneralZhHk extends TranslationsSettingsTabGeneral
   @override
   String get saveWindowPlacement => '退出嗰陣記低視窗位置';
   @override
-  String get minimizeToTray => '退出嗰陣縮細做通知圖示';
+  String get saveWindowPlacementWindows => '離開嗰陣記低視窗位置';
+  @override
+  String get minimizeToTray => '關閉嗰陣縮細做通知圖示';
   @override
   String get launchAtStartup => '開機自動啟動';
   @override
@@ -813,6 +849,8 @@ class _TranslationsSettingsTabReceiveZhHk extends TranslationsSettingsTabReceive
   String get title => '接收';
   @override
   String get quickSave => _root.general.quickSave;
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
@@ -868,6 +906,10 @@ class _TranslationsSettingsTabNetworkZhHk extends TranslationsSettingsTabNetwork
   @override
   String get discoveryTimeout => '裝置搜尋逾時';
   @override
+  String get useSystemName => '使用系統名稱';
+  @override
+  String get generateRandomAlias => '求其改個名';
+  @override
   String portWarning({required Object defaultPort}) => '改 port 嘅話其他裝置有機會偵測唔到你。（預設：${defaultPort}）';
   @override
   String get encryption => '加密傳送';
@@ -915,6 +957,21 @@ class _TranslationsTroubleshootPageFirewallZhHk extends TranslationsTroubleshoot
   String get openFirewall => '開啟防火牆設定';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryZhHk extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryZhHk._(TranslationsZhHk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => '呢部機偵測唔到其他裝置。';
+  @override
+  String get solution => '請確保所有裝置都駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果 work 嘅話可以選擇收藏呢部裝置，噉樣日後就會自動偵測到佢，毋須重新輸入。';
+}
+
 // Path: troubleshootPage.noConnection
 class _TranslationsTroubleshootPageNoConnectionZhHk extends TranslationsTroubleshootPageNoConnectionEn {
   _TranslationsTroubleshootPageNoConnectionZhHk._(TranslationsZhHk root)
@@ -927,7 +984,8 @@ class _TranslationsTroubleshootPageNoConnectionZhHk extends TranslationsTroubles
   @override
   String get symptom => '兩部裝置都偵測唔到同 send 唔到嘢畀對方。';
   @override
-  String get solution => '如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊同樣嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下就要 router 嗰邊先開到。';
+  String get solution =>
+      '如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -940,7 +998,7 @@ class _TranslationsReceiveHistoryPageEntryActionsZhHk extends TranslationsReceiv
 
   // Translations
   @override
-  String get open => '開啟檔案';
+  String get open => _root.dialogs.openFile.title;
   @override
   String get showInFolder => '喺檔案瀏覽器顯示';
   @override
@@ -981,6 +1039,21 @@ class _TranslationsDialogsAddFileZhHk extends TranslationsDialogsAddFileEn {
   String get title => '將檔案加至選擇';
   @override
   String get content => '揀選要加入嘅檔案';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileZhHk extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileZhHk._(TranslationsZhHk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '開啟檔案';
+  @override
+  String get content => '你係咪要開啟接收咗嘅檔案？';
 }
 
 // Path: dialogs.addressInput
@@ -1294,6 +1367,25 @@ class _TranslationsDialogsQuickSaveNoticeZhHk extends TranslationsDialogsQuickSa
   String get title => _root.general.quickSave;
   @override
   String get content => '自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhHk extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeZhHk._(TranslationsZhHk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        '自動接受來自已收藏裝置嘅檔案傳輸請求。',
+        '警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。',
+        '不過揀已收藏裝置點都安全過揀所有裝置嘅。',
+      ];
 }
 
 // Path: dialogs.pin

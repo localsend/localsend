@@ -28,6 +28,7 @@
     "open": "Mở",
     "queue": "Hàng chờ",
     "quickSave": "Lưu nhanh",
+    "quickSaveFromFavorites": "Lưu nhanh cho \"Yêu thích\"",
     "renamed": "Đã đổi tên",
     "reset": "Thiết lập lại",
     "restart": "Khởi động lại",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Biệt danh:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Yêu thích",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -67,6 +73,7 @@
     "nearbyDevices": "Thiết bị lân cận",
     "thisDevice": "Thiết bị hiện tại",
     "scan": "Tìm kiếm thiết bị",
+    "manualSending": "Gửi thủ công",
     "sendMode": "Chế độ gửi",
     "sendModes": {
       "single": "Một người nhận",
@@ -97,6 +104,7 @@
         "system": "Hệ thống"
       },
       "saveWindowPlacement": "Thoát: Lưu vị trí cửa sổ hiển thị",
+      "saveWindowPlacementWindows": "Lưu vị trí cửa sổ sau khi thoát ứng dụng",
       "minimizeToTray": "Thoát: Ẩn xuống thanh tác vụ",
       "launchAtStartup": "Tự khởi động sau khi đăng nhập",
       "launchMinimized": "Tự khởi động: Khởi động ẩn",
@@ -106,6 +114,7 @@
     "receive": {
       "title": "Nhận",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Tự động hoàn thành",
       "destination": "Đích đến",
@@ -126,6 +135,8 @@
       "deviceModel": "Model thiết bị",
       "port": "Port",
       "discoveryTimeout": "Hết thời gian tìm kiếm",
+      "useSystemName": "Dùng tên hệ thống",
+      "generateRandomAlias": "Dùng bí danh ngẫu nhiên",
       "portWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: {defaultPort})",
       "encryption": "Mã hoá",
       "multicastGroup": "Đa phương tiện",
@@ -149,6 +160,10 @@
       "symptom": "Ứng dụng có thể gửi tập tin tới các thiết bị khác, nhưng các thiết bị khác không thể gửi tập tin đến thiết bị này.",
       "solution": "Có vẻ như đây là một vấn đề với tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port {port}.",
       "openFirewall": "Mở tường lửa(Firewall)"
+    },
+    "noDiscovery": {
+      "symptom": "Thiết bị này không thể tìm thấy thiết bị khác.",
+      "solution": "Hãy đảm bảo rằng các thiết bị được kết nối với cùng một mạng Wi-Fi và dùng chung thiết lập (port, multicast address, encryption). Bạn có thể thử nhập địa chỉ IP của thiết bị đích đến. Nếu nó hoạt động, cân nhắc thêm thiết bị đó vào mục yêu thích. Thiết bị sẽ được nhận tự động trong những lần tìm kiếm trong tương lai."
     },
     "noConnection": {
       "symptom": "Cả hai thiết bị không thể nhận diện lẫn nhau cũng như không thể chia sẻ tập tin.",
@@ -240,6 +255,7 @@
     ],
     "author": "Tác giả",
     "contributors": "Người đóng góp",
+    "packagers": "Công cụ đóng gói",
     "translators": "Người dịch"
   },
   "donationPage": {
@@ -259,6 +275,10 @@
     "addFile": {
       "title": "Thêm vào lựa chọn",
       "content": "Bạn muốn thêm mục nào?"
+    },
+    "openFile": {
+      "title": "Mở tệp tin",
+      "content": "Bạn có muốn mở tập tin vừa nhận được không?"
     },
     "addressInput": {
       "title": "Nhập địa chỉ",
@@ -350,6 +370,14 @@
       "title": "@:general.quickSave",
       "content": "Yêu cầu tập tin đã được chấp thuận tự động. Chú ý rằng bất kỳ ai dùng chung mạng nội bộ với bạn đều có thể gửi tập tin cho bạn."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích.",
+        "Lưu ý! Hiện tại, tính năng này không hoàn toàn an toàn, vì tin tặc có thể mạo danh thiết bị trong danh sách yêu thích và gửi tệp tin cho bạn mà không gặp trở ngại gì.",
+        "Tuy nhiên, tính năng này vẫn an toàn hơn tự động chấp thuận tập tin từ tất cả người dùng chung mạng nội bộ."
+      ]
+    },
     "pin": {
       "title": "Nhập mã PIN"
     },
@@ -370,7 +398,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Đóng LocalSend"
+    "close": "Đóng LocalSend",
+    "closeWindows": "Thoát"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

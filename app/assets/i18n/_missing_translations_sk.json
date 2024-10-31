@@ -2,31 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <sk>.",
     "After editing this file, you can run 'dart run slang apply --locale=sk' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Obľúbené",
-      "on": "@:general.on"
-    }
-  },
-  "settingsTab": {
-    "network": {
-      "useSystemName": "Použiť systémové meno",
-      "generateRandomAlias": "Generovať náhodnú prezývku"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Otvoriť súbor",
-      "content": "Chcete otvoriť prijatý súbor?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.",
-        "Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.",
-        "Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia. "
-      ]
-    }
-  }
+  ]
 }

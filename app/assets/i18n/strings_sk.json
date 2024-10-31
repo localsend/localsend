@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Názov zariadenia:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Obľúbené",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -130,6 +135,8 @@
       "deviceModel": "Model zariadenia",
       "port": "Port",
       "discoveryTimeout": "Časový limit hľadania",
+      "useSystemName": "Použiť systémové meno",
+      "generateRandomAlias": "Generovať náhodnú prezývku",
       "portWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: {defaultPort})",
       "encryption": "Šifrovanie",
       "multicastGroup": "Multicast adresa",
@@ -339,6 +346,10 @@
       "title": "Pridať do výberu",
       "content": "Čo chcete pridať?"
     },
+    "openFile": {
+      "title": "Otvoriť súbor",
+      "content": "Chcete otvoriť prijatý súbor?"
+    },
     "addressInput": {
       "title": "Zadajte adresu",
       "hashtag": "Hashtag",
@@ -430,7 +441,12 @@
       "content": "Žiadosti o súbor sú automaticky akceptované. Uvedomte si, že každý v miestnej sieti vám môže posielať súbory."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.",
+        "Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.",
+        "Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia. "
+      ]
     },
     "pin": {
       "title": "Zadajte PIN"

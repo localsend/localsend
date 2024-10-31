@@ -142,6 +142,8 @@ class _TranslationsGeneralVi extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Lưu nhanh';
   @override
+  String get quickSaveFromFavorites => 'Lưu nhanh cho "Yêu thích"';
+  @override
   String get renamed => 'Đã đổi tên';
   @override
   String get reset => 'Thiết lập lại';
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabVi extends TranslationsReceiveTabEn {
   String get title => 'Nhận';
   @override
   late final _TranslationsReceiveTabInfoBoxVi infoBox = _TranslationsReceiveTabInfoBoxVi._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveVi quickSave = _TranslationsReceiveTabQuickSaveVi._(_root);
 }
 
 // Path: sendTab
@@ -203,6 +207,8 @@ class _TranslationsSendTabVi extends TranslationsSendTabEn {
   String get thisDevice => 'Thiết bị hiện tại';
   @override
   String get scan => 'Tìm kiếm thiết bị';
+  @override
+  String get manualSending => 'Gửi thủ công';
   @override
   String get sendMode => 'Chế độ gửi';
   @override
@@ -259,6 +265,8 @@ class _TranslationsTroubleshootPageVi extends TranslationsTroubleshootPageEn {
   String get fixButton => 'Sửa lỗi tự động';
   @override
   late final _TranslationsTroubleshootPageFirewallVi firewall = _TranslationsTroubleshootPageFirewallVi._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryVi noDiscovery = _TranslationsTroubleshootPageNoDiscoveryVi._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionVi noConnection = _TranslationsTroubleshootPageNoConnectionVi._(_root);
 }
@@ -460,6 +468,8 @@ class _TranslationsAboutPageVi extends TranslationsAboutPageEn {
   @override
   String get contributors => 'Người đóng góp';
   @override
+  String get packagers => 'Công cụ đóng gói';
+  @override
   String get translators => 'Người dịch';
 }
 
@@ -521,6 +531,8 @@ class _TranslationsDialogsVi extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileVi addFile = _TranslationsDialogsAddFileVi._(_root);
   @override
+  late final _TranslationsDialogsOpenFileVi openFile = _TranslationsDialogsOpenFileVi._(_root);
+  @override
   late final _TranslationsDialogsAddressInputVi addressInput = _TranslationsDialogsAddressInputVi._(_root);
   @override
   late final _TranslationsDialogsCancelSessionVi cancelSession = _TranslationsDialogsCancelSessionVi._(_root);
@@ -559,6 +571,9 @@ class _TranslationsDialogsVi extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeVi quickSaveNotice = _TranslationsDialogsQuickSaveNoticeVi._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeVi quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeVi._(_root);
+  @override
   late final _TranslationsDialogsPinVi pin = _TranslationsDialogsPinVi._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpVi sendModeHelp = _TranslationsDialogsSendModeHelpVi._(_root);
@@ -594,6 +609,8 @@ class _TranslationsTrayVi extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => 'Đóng LocalSend';
+  @override
+  String get closeWindows => 'Thoát';
 }
 
 // Path: web
@@ -708,6 +725,23 @@ class _TranslationsReceiveTabInfoBoxVi extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'Biệt danh:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveVi extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveVi._(TranslationsVi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Yêu thích';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionVi extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionVi._(TranslationsVi root)
@@ -791,6 +825,8 @@ class _TranslationsSettingsTabGeneralVi extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'Thoát: Lưu vị trí cửa sổ hiển thị';
   @override
+  String get saveWindowPlacementWindows => 'Lưu vị trí cửa sổ sau khi thoát ứng dụng';
+  @override
   String get minimizeToTray => 'Thoát: Ẩn xuống thanh tác vụ';
   @override
   String get launchAtStartup => 'Tự khởi động sau khi đăng nhập';
@@ -815,6 +851,8 @@ class _TranslationsSettingsTabReceiveVi extends TranslationsSettingsTabReceiveEn
   String get title => 'Nhận';
   @override
   String get quickSave => _root.general.quickSave;
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
@@ -870,6 +908,10 @@ class _TranslationsSettingsTabNetworkVi extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'Hết thời gian tìm kiếm';
   @override
+  String get useSystemName => 'Dùng tên hệ thống';
+  @override
+  String get generateRandomAlias => 'Dùng bí danh ngẫu nhiên';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: ${defaultPort})';
   @override
@@ -918,6 +960,22 @@ class _TranslationsTroubleshootPageFirewallVi extends TranslationsTroubleshootPa
       'Có vẻ như đây là một vấn đề với tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port ${port}.';
   @override
   String get openFirewall => 'Mở tường lửa(Firewall)';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryVi extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryVi._(TranslationsVi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'Thiết bị này không thể tìm thấy thiết bị khác.';
+  @override
+  String get solution =>
+      'Hãy đảm bảo rằng các thiết bị được kết nối với cùng một mạng Wi-Fi và dùng chung thiết lập (port, multicast address, encryption). Bạn có thể thử nhập địa chỉ IP của thiết bị đích đến. Nếu nó hoạt động, cân nhắc thêm thiết bị đó vào mục yêu thích. Thiết bị sẽ được nhận tự động trong những lần tìm kiếm trong tương lai.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -987,6 +1045,21 @@ class _TranslationsDialogsAddFileVi extends TranslationsDialogsAddFileEn {
   String get title => 'Thêm vào lựa chọn';
   @override
   String get content => 'Bạn muốn thêm mục nào?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileVi extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileVi._(TranslationsVi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mở tệp tin';
+  @override
+  String get content => 'Bạn có muốn mở tập tin vừa nhận được không?';
 }
 
 // Path: dialogs.addressInput
@@ -1302,6 +1375,25 @@ class _TranslationsDialogsQuickSaveNoticeVi extends TranslationsDialogsQuickSave
   @override
   String get content =>
       'Yêu cầu tập tin đã được chấp thuận tự động. Chú ý rằng bất kỳ ai dùng chung mạng nội bộ với bạn đều có thể gửi tập tin cho bạn.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeVi extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeVi._(TranslationsVi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích.',
+        'Lưu ý! Hiện tại, tính năng này không hoàn toàn an toàn, vì tin tặc có thể mạo danh thiết bị trong danh sách yêu thích và gửi tệp tin cho bạn mà không gặp trở ngại gì.',
+        'Tuy nhiên, tính năng này vẫn an toàn hơn tự động chấp thuận tập tin từ tất cả người dùng chung mạng nội bộ.',
+      ];
 }
 
 // Path: dialogs.pin

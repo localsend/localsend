@@ -71,6 +71,8 @@ class TranslationsEl extends Translations {
   @override
   late final _TranslationsDialogsEl dialogs = _TranslationsDialogsEl._(_root);
   @override
+  late final _TranslationsSanitizationEl sanitization = _TranslationsSanitizationEl._(_root);
+  @override
   late final _TranslationsTrayEl tray = _TranslationsTrayEl._(_root);
   @override
   late final _TranslationsWebEl web = _TranslationsWebEl._(_root);
@@ -161,6 +163,8 @@ class _TranslationsGeneralEl extends TranslationsGeneralEn {
   String get unknown => 'Αγνωστο';
   @override
   String get noItemInClipboard => 'Κανένα στοιχείο στο Πρόχειρο';
+  @override
+  String get quickSaveFromFavorites => 'Γρήγορη Αποθήκευση των "Αγαπημένων"';
 }
 
 // Path: receiveTab
@@ -176,6 +180,8 @@ class _TranslationsReceiveTabEl extends TranslationsReceiveTabEn {
   String get title => 'Λήψη';
   @override
   late final _TranslationsReceiveTabInfoBoxEl infoBox = _TranslationsReceiveTabInfoBoxEl._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveEl quickSave = _TranslationsReceiveTabQuickSaveEl._(_root);
 }
 
 // Path: sendTab
@@ -212,6 +218,8 @@ class _TranslationsSendTabEl extends TranslationsSendTabEn {
   String get help => 'Βεβαιωθείτε ότι ο επιθυμητός παραλήπτης βρίσκεται επίσης στο ίδιο δίκτυο Wi-Fi.';
   @override
   String get placeItems => 'Τοποθετήστε στοιχεία για διαμοιρασμό.';
+  @override
+  String get manualSending => 'Χειροκίνητη αποστολή';
 }
 
 // Path: settingsTab
@@ -260,6 +268,8 @@ class _TranslationsTroubleshootPageEl extends TranslationsTroubleshootPageEn {
   late final _TranslationsTroubleshootPageFirewallEl firewall = _TranslationsTroubleshootPageFirewallEl._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionEl noConnection = _TranslationsTroubleshootPageNoConnectionEl._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryEl noDiscovery = _TranslationsTroubleshootPageNoDiscoveryEl._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -374,6 +384,8 @@ class _TranslationsSendPageEl extends TranslationsSendPageEn {
   String get rejected => 'Ο παραλήπτης απέρριψε το αίτημα.';
   @override
   String get busy => 'Ο παραλήπτης είναι απασχολημένος με άλλο αίτημα.';
+  @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
 }
 
 // Path: progressPage
@@ -430,6 +442,10 @@ class _TranslationsWebSharePageEl extends TranslationsWebSharePageEn {
   String get encryptionHint => 'Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.';
   @override
   String pendingRequests({required Object n}) => 'Αναμονή αιτημάτων: ${n}';
+  @override
+  String get requirePin => 'Απαίτηση PIN';
+  @override
+  String pinHint({required Object pin}) => 'Το PIN είναι "${pin}"';
 }
 
 // Path: aboutPage
@@ -454,6 +470,8 @@ class _TranslationsAboutPageEl extends TranslationsAboutPageEn {
   String get contributors => 'Συντελεστές';
   @override
   String get translators => 'Μεταφραστές';
+  @override
+  String get packagers => 'Συσκευαστές';
 }
 
 // Path: donationPage
@@ -627,6 +645,30 @@ class _TranslationsDialogsEl extends TranslationsDialogsEn {
   late final _TranslationsDialogsQuickSaveNoticeEl quickSaveNotice = _TranslationsDialogsQuickSaveNoticeEl._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpEl sendModeHelp = _TranslationsDialogsSendModeHelpEl._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileEl openFile = _TranslationsDialogsOpenFileEl._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeEl quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeEl._(_root);
+  @override
+  late final _TranslationsDialogsPinEl pin = _TranslationsDialogsPinEl._(_root);
+  @override
+  late final _TranslationsDialogsZoomEl zoom = _TranslationsDialogsZoomEl._(_root);
+}
+
+// Path: sanitization
+class _TranslationsSanitizationEl extends TranslationsSanitizationEn {
+  _TranslationsSanitizationEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'Το όνομα του αρχείου δεν μπορεί να είναι κενό';
+  @override
+  String get invalid => 'Το όνομα του αρχείου περιέχει μη έγκυρους χαρακτήρες';
 }
 
 // Path: tray
@@ -642,6 +684,8 @@ class _TranslationsTrayEl extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => 'Έξοδος από το LocalSend';
+  @override
+  String get closeWindows => 'Έξοδος';
 }
 
 // Path: web
@@ -663,6 +707,12 @@ class _TranslationsWebEl extends TranslationsWebEn {
   String get fileName => 'Όνομα αρχείου';
   @override
   String get size => 'Μέγεθος';
+  @override
+  String get enterPin => 'Εισαγωγή PIN';
+  @override
+  String get invalidPin => 'Μη έγκυρο PIN';
+  @override
+  String get tooManyAttempts => 'Πάρα πολλές προσπάθειες';
 }
 
 // Path: assetPicker
@@ -748,6 +798,23 @@ class _TranslationsReceiveTabInfoBoxEl extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Θύρα:';
   @override
   String get alias => 'Όνομα συσκευής:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveEl extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Αγαπημένα';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -840,6 +907,10 @@ class _TranslationsSettingsTabGeneralEl extends TranslationsSettingsTabGeneralEn
   String get launchMinimized => 'Αυτόματη εκκίνηση: Έναρξη ελαχιστοποιημένο';
   @override
   String get animations => 'Οπτικά εφέ';
+  @override
+  String get saveWindowPlacementWindows => 'Αποθήκευση της θέσης του παραθύρου κατά την έξοδο';
+  @override
+  String get showInContextMenu => 'Προβολή του LocalSend στο μενού του περιβάλλοντος εργασίας';
 }
 
 // Path: settingsTab.receive
@@ -865,6 +936,10 @@ class _TranslationsSettingsTabReceiveEl extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'Αποθήκευση μέσου στη συλλογή';
   @override
   String get saveToHistory => 'Αποθήκευση στο ιστορικό';
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
 }
 
 // Path: settingsTab.send
@@ -915,6 +990,12 @@ class _TranslationsSettingsTabNetworkEl extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Ενδέχεται να μην εντοπιστείτε από άλλες συσκευές επειδή χρησιμοποιείτε μια προσαρμοσμένη διεύθυνση αναμετάδοσης. (προεπιλογή: ${defaultMulticast})';
+  @override
+  String get discoveryTimeout => 'Λήξη χρόνου ανακάλυψης';
+  @override
+  String get useSystemName => 'Χρήση του ονόματος του συστήματος';
+  @override
+  String get generateRandomAlias => 'Δημιουργία τυχαίου ψευδώνυμου';
 }
 
 // Path: settingsTab.other
@@ -973,6 +1054,22 @@ class _TranslationsTroubleshootPageNoConnectionEl extends TranslationsTroublesho
       'Υπάρχει το πρόβλημα και από τις δύο πλευρές; Πρέπει να βεβαιωθείτε ότι και οι δύο συσκευές βρίσκονται στο ίδιο δίκτυο Wi-Fi και μοιράζονται την ίδια διαμόρφωση (θύρα, διεύθυνση αναμετάδοσης, κρυπτογράφηση). Το wifi ενδέχεται να μην επιτρέπει την επικοινωνία μεταξύ των συμμετεχόντων. Σε αυτήν την περίπτωση, αυτή η επιλογή πρέπει να είναι ενεργοποιημένη στο δρομολογητή.';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryEl extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'Αυτή η συσκευή δεν μπορεί ανακαλυφθεί από άλλες συσεκυές.';
+  @override
+  String get solution =>
+      'Βεβαιωθείτε ότι όλες οι συσκευές βρίσκονται στο ίδιο δίκτυο Wi-Fi και μοιράζονται την ίδια διαμόρφωση (θύρα, διεύθυνση multicast, κρυπτογράφηση). Μπορείτε να προσπαθήσετε να πληκτρολογήσετε τη διεύθυνση IP της συσκευής προορισμού με μη αυτόματο τρόπο. Εάν αυτό λειτουργεί, εξετάστε το ενδεχόμενο να προσθέσετε αυτήν τη συσκευή στα αγαπημένα, ώστε να μπορεί να ανακαλυφθεί αυτόματα στο μέλλον.';
+}
+
 // Path: receiveHistoryPage.entryActions
 class _TranslationsReceiveHistoryPageEntryActionsEl extends TranslationsReceiveHistoryPageEntryActionsEn {
   _TranslationsReceiveHistoryPageEntryActionsEl._(TranslationsEl root)
@@ -988,6 +1085,8 @@ class _TranslationsReceiveHistoryPageEntryActionsEl extends TranslationsReceiveH
   String get info => 'Πληροφορίες';
   @override
   String get deleteFromHistory => 'Διαγραφή από το ιστορικό';
+  @override
+  String get showInFolder => 'Προβολή στον φάκελο';
 }
 
 // Path: progressPage.total
@@ -1357,6 +1456,66 @@ class _TranslationsDialogsSendModeHelpEl extends TranslationsDialogsSendModeHelp
   @override
   String get link =>
       'Οι παραλήπτες που δεν έχουν εγκαταστήσει το LocalSend μπορούν να πραγματοποιήσουν λήψη των επιλεγμένων αρχείων ανοίγοντας τον σύνδεσμο στον φυλλομετρητή τους.';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileEl extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Άνοιγμα αρχείου';
+  @override
+  String get content => 'Θέλετε να ανοιχτεί το ληφθέν αρχείο;';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeEl extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Τα αιτήματα αρχείων γίνονται τώρα αυτόματα αποδεκτά από τις συσκευές της λίστας των αγαπημένων σας.',
+        'Προειδοποίηση! Επί του παρόντος, αυτό δεν είναι απολύτως ασφαλές, ένας χάκερ που έχει το δακτυλικό αποτύπωμα οποιασδήποτε συσκευής από τη λίστα των αγαπημένων σας μπορεί να σας στείλει αρχεία χωρίς περιορισμό.',
+        'Ωστόσο, αυτή η επιλογή είναι ακόμα πιο ασφαλής από το να επιτρέπεται σε όλους τους χρήστες στο τοπικό δίκτυο να σας στείλουν αρχεία χωρίς περιορισμό.',
+      ];
+}
+
+// Path: dialogs.pin
+class _TranslationsDialogsPinEl extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Εισαγωγή PIN';
+}
+
+// Path: dialogs.zoom
+class _TranslationsDialogsZoomEl extends TranslationsDialogsZoomEn {
+  _TranslationsDialogsZoomEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

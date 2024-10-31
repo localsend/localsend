@@ -180,6 +180,8 @@ class _TranslationsReceiveTabSk extends TranslationsReceiveTabEn {
   String get title => 'Prijať';
   @override
   late final _TranslationsReceiveTabInfoBoxSk infoBox = _TranslationsReceiveTabInfoBoxSk._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveSk quickSave = _TranslationsReceiveTabQuickSaveSk._(_root);
 }
 
 // Path: sendTab
@@ -602,6 +604,8 @@ class _TranslationsDialogsSk extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileSk addFile = _TranslationsDialogsAddFileSk._(_root);
   @override
+  late final _TranslationsDialogsOpenFileSk openFile = _TranslationsDialogsOpenFileSk._(_root);
+  @override
   late final _TranslationsDialogsAddressInputSk addressInput = _TranslationsDialogsAddressInputSk._(_root);
   @override
   late final _TranslationsDialogsCancelSessionSk cancelSession = _TranslationsDialogsCancelSessionSk._(_root);
@@ -794,6 +798,23 @@ class _TranslationsReceiveTabInfoBoxSk extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'Názov zariadenia:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveSk extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveSk._(TranslationsSk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Obľúbené';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionSk extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionSk._(TranslationsSk root)
@@ -960,6 +981,10 @@ class _TranslationsSettingsTabNetworkSk extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'Časový limit hľadania';
   @override
+  String get useSystemName => 'Použiť systémové meno';
+  @override
+  String get generateRandomAlias => 'Generovať náhodnú prezývku';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: ${defaultPort})';
   @override
@@ -1093,6 +1118,21 @@ class _TranslationsDialogsAddFileSk extends TranslationsDialogsAddFileEn {
   String get title => 'Pridať do výberu';
   @override
   String get content => 'Čo chcete pridať?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileSk extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileSk._(TranslationsSk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Otvoriť súbor';
+  @override
+  String get content => 'Chcete otvoriť prijatý súbor?';
 }
 
 // Path: dialogs.addressInput
@@ -1420,6 +1460,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSk extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.',
+        'Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.',
+        'Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia. ',
+      ];
 }
 
 // Path: dialogs.pin

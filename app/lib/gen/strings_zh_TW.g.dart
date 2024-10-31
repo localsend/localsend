@@ -140,9 +140,9 @@ class _TranslationsGeneralZhTw extends TranslationsGeneralEn {
   @override
   String get queue => '佇列';
   @override
-  String get quickSave => '快速儲存';
+  String get quickSave => '自動儲存';
   @override
-  String get quickSaveFromFavorites => '快速儲存到 "最愛"';
+  String get quickSaveFromFavorites => '自動儲存來自「最愛」裝置的檔案';
   @override
   String get renamed => '已重新命名';
   @override
@@ -607,7 +607,7 @@ class _TranslationsTrayZhTw extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get close => '離開 LocalSend';
+  String get close => '退出 LocalSend';
   @override
   String get closeWindows => '離開';
 }
@@ -821,11 +821,11 @@ class _TranslationsSettingsTabGeneralZhTw extends TranslationsSettingsTabGeneral
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsZhTw languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsZhTw._(_root);
   @override
-  String get saveWindowPlacement => '離開：儲存視窗位置';
+  String get saveWindowPlacement => '退出時儲存視窗位置';
   @override
-  String get saveWindowPlacementWindows => '離開後儲存視窗位置';
+  String get saveWindowPlacementWindows => '離開時儲存視窗位置';
   @override
-  String get minimizeToTray => '離開：最小化至系統匣';
+  String get minimizeToTray => '關閉時最小化至系統匣';
   @override
   String get launchAtStartup => '登入後自動啟動';
   @override
@@ -969,7 +969,7 @@ class _TranslationsTroubleshootPageNoDiscoveryZhTw extends TranslationsTroublesh
   @override
   String get symptom => '本設備無法探索其他設備。';
   @override
-  String get solution => '請確保所有裝置都在同一個 Wi-Fi 網路上並分享相同的設定（埠、多播位址、加密）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。';
+  String get solution => '請確保所有裝置都在同一個 Wi‑Fi 網路上並分享相同的設定（通訊埠、多點傳送位址、加密選項）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。';
 }
 
 // Path: troubleshootPage.noConnection
@@ -984,7 +984,7 @@ class _TranslationsTroubleshootPageNoConnectionZhTw extends TranslationsTroubles
   @override
   String get symptom => '兩部裝置無法探索彼此，也無法分享檔案。';
   @override
-  String get solution => '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上啟用此選項。';
+  String get solution => '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態（通訊埠、多點傳送位址、加密選項）。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1182,7 +1182,7 @@ class _TranslationsDialogsFavoriteEditDialogZhTw extends TranslationsDialogsFavo
   @override
   String get auto => '(自動)';
   @override
-  String get ip => 'IP位址';
+  String get ip => 'IP 位址';
   @override
   String get port => '連接埠';
 }
@@ -1382,7 +1382,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw extends TranslationsD
   @override
   List<String> get content => [
         '自動接受來自您最愛列表中裝置傳送的檔案。',
-        '警告：目前這並不完全安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。',
+        '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。',
         '但仍然比允許任何裝置更安全。',
       ];
 }
