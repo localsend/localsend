@@ -23,6 +23,9 @@ class IsolateTaskStreamResult<T> {
   /// If true, the stream is done.
   final bool done;
 
+  /// The error.
+  final Object? error;
+
   /// A single data event from the stream.
   final T? data;
 
@@ -30,15 +33,24 @@ class IsolateTaskStreamResult<T> {
     required this.id,
     required this.done,
     required this.data,
+    required this.error,
   });
 
   IsolateTaskStreamResult.event({
     required this.id,
     required this.data,
-  }) : done = false;
+  })  : done = false,
+        error = null;
 
   IsolateTaskStreamResult.done({
     required this.id,
+  })  : done = true,
+        data = null,
+        error = null;
+
+  IsolateTaskStreamResult.error({
+    required this.id,
+    required this.error,
   })  : done = true,
         data = null;
 }
@@ -50,5 +62,6 @@ class IsolateTaskStreamAckResult<T> extends IsolateTaskStreamResult<T> {
   }) : super._(
           data: null,
           done: false,
+          error: null,
         );
 }

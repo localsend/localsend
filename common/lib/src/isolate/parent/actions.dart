@@ -4,6 +4,7 @@ import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/http_scan_discovery_isolate.dart';
 import 'package:common/src/isolate/child/http_target_discovery_isolate.dart';
 import 'package:common/src/isolate/child/multicast_discovery_isolate.dart';
+import 'package:common/src/isolate/child/upload_isolate.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
@@ -143,6 +144,97 @@ class IsolateSendMulticastAnnouncementAction extends ReduxAction<IsolateControll
   }
 }
 
+class IsolateHttpUploadActionResult {
+  final int taskId;
+  final Stream<double> progress;
+
+  IsolateHttpUploadActionResult({
+    required this.taskId,
+    required this.progress,
+  });
+}
+
+class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, IsolateHttpUploadActionResult> {
+  final int isolateIndex;
+  final String? remoteSessionId;
+  final String remoteFileToken;
+  final String fileId;
+  final String? filePath;
+  final List<int>? fileBytes;
+  final String mime;
+  final int fileSize;
+  final Device device;
+
+  IsolateHttpUploadAction({
+    required this.isolateIndex,
+    required this.remoteSessionId,
+    required this.remoteFileToken,
+    required this.fileId,
+    required this.filePath,
+    required this.fileBytes,
+    required this.mime,
+    required this.fileSize,
+    required this.device,
+  });
+
+  @override
+  (ParentIsolateState, IsolateHttpUploadActionResult) reduce() {
+    final connection = state.httpUpload[isolateIndex];
+
+    final task = HttpUploadTask(
+      remoteSessionId: remoteSessionId,
+      remoteFileToken: remoteFileToken,
+      fileId: fileId,
+      filePath: filePath,
+      fileBytes: fileBytes,
+      mime: mime,
+      fileSize: fileSize,
+      device: device,
+    );
+
+    final taskId = _idProvider.getNextId();
+    final progress = _sendTaskAndListenStream(
+      task: task,
+      connection: connection,
+    );
+
+    return (
+      state,
+      IsolateHttpUploadActionResult(
+        taskId: taskId,
+        progress: progress,
+      ),
+    );
+  }
+}
+
+class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final int isolateIndex;
+  final int taskId;
+
+  IsolateHttpUploadCancelAction({
+    required this.isolateIndex,
+    required this.taskId,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpUpload[isolateIndex];
+
+    connection.sendToIsolate(SendToIsolateData(
+      syncState: null,
+      data: IsolateTask(
+        id: _idProvider.getNextId(),
+        data: HttpUploadCancelTask(
+          taskId: taskId,
+        ),
+      ),
+    ));
+
+    return state;
+  }
+}
+
 /// Sends a task to the isolate
 /// and transforms [IsolateTaskStreamResult] into a proper stream making it easier to work with.
 Stream<R> _sendTaskAndListenStream<R, T>({
@@ -168,38 +260,6 @@ Stream<R> _sendTaskAndListenStream<R, T>({
   );
 }
 
-/// Sends an [IsolateStreamTask] to the isolate
-/// and transforms [IsolateTaskStreamResult] into a proper stream making it easier to work with.
-Stream<R> _sendStreamTaskAndListenStream<R, S, T>({
-  required Stream<T> task,
-  required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateStreamTask<T>>> connection,
-}) {
-  final taskId = _idProvider.getNextId();
-
-  // ignore: unawaited_futures
-  Future.microtask(() async {
-    await for (final event in task) {
-      connection.sendToIsolate(SendToIsolateData<IsolateStreamTask<T>>(
-        syncState: null,
-        data: IsolateStreamTask.event(
-          id: taskId,
-          data: event,
-        ),
-      ));
-
-      // Make sure that the message was received because pulling the next event from the stream
-      await connection.receiveFromIsolate.firstWhere((result) {
-        return result is IsolateTaskStreamAckResult && result.id == taskId;
-      });
-    }
-  });
-
-  return _convertResponseToStream<R, T>(
-    taskId: taskId,
-    connection: connection,
-  );
-}
-
 Stream<R> _convertResponseToStream<R, T>({
   required int taskId,
   required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<BaseIsolateTask<T>>> connection,
@@ -208,11 +268,15 @@ Stream<R> _convertResponseToStream<R, T>({
   late StreamSubscription subscription;
   subscription = connection.receiveFromIsolate.listen((result) {
     if (result.id == taskId) {
-      if (result.done) {
-        subscription.cancel(); // ignore: discarded_futures
-        controller.close(); // ignore: discarded_futures
-      } else if (result.data != null) {
+      if (result.data != null) {
         controller.add(result.data as R);
+      } else if (result.done) {
+        if (result.error != null) {
+          controller.addError(result.error!);
+        } else {
+          subscription.cancel(); // ignore: discarded_futures
+          controller.close(); // ignore: discarded_futures
+        }
       }
     }
   });
