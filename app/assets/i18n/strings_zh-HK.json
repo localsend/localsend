@@ -27,7 +27,7 @@
     "online": "線上",
     "open": "開啟",
     "queue": "佇列",
-    "quickSave": "快速儲存",
+    "quickSave": "自動儲存",
     "renamed": "改咗名",
     "reset": "重設",
     "restart": "重新啟動",
@@ -97,7 +97,7 @@
         "system": "跟機"
       },
       "saveWindowPlacement": "退出嗰陣記低視窗位置",
-      "minimizeToTray": "退出嗰陣縮細做通知圖示",
+      "minimizeToTray": "關閉嗰陣縮細做通知圖示",
       "launchAtStartup": "開機自動啟動",
       "launchMinimized": "自動啟動成通知圖示",
       "showInContextMenu": "喺檔案功能表嘅「傳送到」項目顯示 LocalSend",
@@ -153,7 +153,7 @@
     },
     "noConnection": {
       "symptom": "兩部裝置都偵測唔到同 send 唔到嘢畀對方。",
-      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊同樣嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下就要 router 嗰邊先開到。"
+      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。"
     }
   },
   "receiveHistoryPage": {
@@ -162,7 +162,7 @@
     "deleteHistory": "清除記錄",
     "empty": "得個吉噃 :(",
     "entryActions": {
-      "open": "開啟檔案",
+      "open": "@:dialogs.openFile.title",
       "showInFolder": "喺檔案瀏覽器顯示",
       "info": "資訊",
       "deleteFromHistory": "刪走呢筆記錄"
