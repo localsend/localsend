@@ -8,6 +8,7 @@ typealias FileBookmarkData = Data
 extension Defaults.Keys {
     static let pendingFiles = Key<[FileBookmarkData]>("pendingFiles", default: [], suite: sharedDefaults)
     static let pendingStrings = Key<[String]>("pendingStrings", default: [], suite: sharedDefaults)
+    static let destinationFolderBookmark = Key<FileBookmarkData?>("destinationFolderBookmark", default: nil, suite: .standard)
 }
 
 /**

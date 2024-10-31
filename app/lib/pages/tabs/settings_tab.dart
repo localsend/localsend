@@ -203,13 +203,16 @@ class SettingsTab extends StatelessWidget {
                       onPressed: () async {
                         if (vm.settings.destination != null) {
                           await ref.notifier(settingsProvider).setDestination(null);
+                          if (defaultTargetPlatform == TargetPlatform.macOS) {
+                            await removeExistingDestinationAccess();
+                          }
                           return;
                         }
 
                         final directory = await pickDirectoryPath();
                         if (directory != null) {
                           if (defaultTargetPlatform == TargetPlatform.macOS) {
-                            await requestFolderAccess(directory);
+                            await persistDestinationFolderAccess(directory);
                           }
                           await ref.notifier(settingsProvider).setDestination(directory);
                         }
