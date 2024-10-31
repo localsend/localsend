@@ -262,7 +262,7 @@ Stream<R> _sendTaskAndListenStream<R, T>({
 
 Stream<R> _convertResponseToStream<R, T>({
   required int taskId,
-  required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<BaseIsolateTask<T>>> connection,
+  required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
 }) {
   final controller = StreamController<R>();
   late StreamSubscription subscription;
