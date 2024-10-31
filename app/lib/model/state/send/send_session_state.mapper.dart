@@ -38,8 +38,8 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
   static const Field<SendSessionState, int> _f$startTime = Field('startTime', _$startTime);
   static int? _$endTime(SendSessionState v) => v.endTime;
   static const Field<SendSessionState, int> _f$endTime = Field('endTime', _$endTime);
-  static CancelToken? _$cancelToken(SendSessionState v) => v.cancelToken;
-  static const Field<SendSessionState, CancelToken> _f$cancelToken = Field('cancelToken', _$cancelToken);
+  static List<SendingTask>? _$sendingTasks(SendSessionState v) => v.sendingTasks;
+  static const Field<SendSessionState, List<SendingTask>> _f$sendingTasks = Field('sendingTasks', _$sendingTasks);
   static String? _$errorMessage(SendSessionState v) => v.errorMessage;
   static const Field<SendSessionState, String> _f$errorMessage = Field('errorMessage', _$errorMessage);
 
@@ -53,7 +53,7 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
     #files: _f$files,
     #startTime: _f$startTime,
     #endTime: _f$endTime,
-    #cancelToken: _f$cancelToken,
+    #sendingTasks: _f$sendingTasks,
     #errorMessage: _f$errorMessage,
   };
 
@@ -67,7 +67,7 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
         files: data.dec(_f$files),
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
-        cancelToken: data.dec(_f$cancelToken),
+        sendingTasks: data.dec(_f$sendingTasks),
         errorMessage: data.dec(_f$errorMessage));
   }
 
@@ -117,6 +117,7 @@ extension SendSessionStateValueCopy<$R, $Out> on ObjectCopyWith<$R, SendSessionS
 abstract class SendSessionStateCopyWith<$R, $In extends SendSessionState, $Out> implements ClassCopyWith<$R, $In, $Out> {
   DeviceCopyWith<$R, Device, Device> get target;
   MapCopyWith<$R, String, SendingFile, SendingFileCopyWith<$R, SendingFile, SendingFile>> get files;
+  ListCopyWith<$R, SendingTask, ObjectCopyWith<$R, SendingTask, SendingTask>>? get sendingTasks;
   $R call(
       {String? sessionId,
       String? remoteSessionId,
@@ -126,7 +127,7 @@ abstract class SendSessionStateCopyWith<$R, $In extends SendSessionState, $Out> 
       Map<String, SendingFile>? files,
       int? startTime,
       int? endTime,
-      CancelToken? cancelToken,
+      List<SendingTask>? sendingTasks,
       String? errorMessage});
   SendSessionStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -143,6 +144,10 @@ class _SendSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Send
   MapCopyWith<$R, String, SendingFile, SendingFileCopyWith<$R, SendingFile, SendingFile>> get files =>
       MapCopyWith($value.files, (v, t) => v.copyWith.$chain(t), (v) => call(files: v));
   @override
+  ListCopyWith<$R, SendingTask, ObjectCopyWith<$R, SendingTask, SendingTask>>? get sendingTasks => $value.sendingTasks != null
+      ? ListCopyWith($value.sendingTasks!, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(sendingTasks: v))
+      : null;
+  @override
   $R call(
           {String? sessionId,
           Object? remoteSessionId = $none,
@@ -152,7 +157,7 @@ class _SendSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Send
           Map<String, SendingFile>? files,
           Object? startTime = $none,
           Object? endTime = $none,
-          Object? cancelToken = $none,
+          Object? sendingTasks = $none,
           Object? errorMessage = $none}) =>
       $apply(FieldCopyWithData({
         if (sessionId != null) #sessionId: sessionId,
@@ -163,7 +168,7 @@ class _SendSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Send
         if (files != null) #files: files,
         if (startTime != $none) #startTime: startTime,
         if (endTime != $none) #endTime: endTime,
-        if (cancelToken != $none) #cancelToken: cancelToken,
+        if (sendingTasks != $none) #sendingTasks: sendingTasks,
         if (errorMessage != $none) #errorMessage: errorMessage
       }));
   @override
@@ -176,7 +181,7 @@ class _SendSessionStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Send
       files: data.get(#files, or: $value.files),
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),
-      cancelToken: data.get(#cancelToken, or: $value.cancelToken),
+      sendingTasks: data.get(#sendingTasks, or: $value.sendingTasks),
       errorMessage: data.get(#errorMessage, or: $value.errorMessage));
 
   @override

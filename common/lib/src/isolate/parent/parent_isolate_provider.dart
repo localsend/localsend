@@ -4,9 +4,9 @@ import 'package:common/src/isolate/child/http_target_discovery_isolate.dart';
 import 'package:common/src/isolate/child/main.dart';
 import 'package:common/src/isolate/child/multicast_discovery_isolate.dart';
 import 'package:common/src/isolate/child/sync_provider.dart';
+import 'package:common/src/isolate/child/upload_isolate.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
-import 'package:common/src/isolate/dto/isolate_task_stream_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/util/isolate_helper.dart';
 import 'package:dart_mappable/dart_mappable.dart';
@@ -14,6 +14,8 @@ import 'package:logging/logging.dart';
 import 'package:refena/refena.dart';
 
 part 'parent_isolate_provider.mapper.dart';
+
+const _uploadIsolateCount = 2;
 
 /// Holds the state of the parent isolate that is visible in the main Flutter isolate.
 /// The [ParentIsolateState.syncState] is synchronized with all child isolates.
@@ -24,12 +26,15 @@ class ParentIsolateState with ParentIsolateStateMappable {
   final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
   final IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery;
   final IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? multicastDiscovery;
+  final List<IsolateConnector<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>> httpUpload;
+  int get uploadIsolateCount => httpUpload.length;
 
   ParentIsolateState({
     required this.syncState,
     required this.httpScanDiscovery,
     required this.httpTargetDiscovery,
     required this.multicastDiscovery,
+    required this.httpUpload,
   });
 
   static ParentIsolateState initial(SyncState syncState) => ParentIsolateState(
@@ -37,6 +42,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
         httpScanDiscovery: null,
         httpTargetDiscovery: null,
         multicastDiscovery: null,
+        httpUpload: [],
       );
 
   @override
@@ -63,6 +69,13 @@ class IsolateController extends ReduxNotifier<ParentIsolateState> {
 /// Starts the required isolates.
 /// Should be called by the main isolate.
 class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
+  /// If provided, file paths starting with "content://" will be resolved using this resolver.
+  final UriContentStreamResolver? uriContentStreamResolver;
+
+  IsolateSetupAction({
+    required this.uriContentStreamResolver,
+  });
+
   @override
   Future<ParentIsolateState> reduce() async {
     final httpScanDiscovery = await startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>, InitialData>(
@@ -89,10 +102,37 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
       ),
     );
 
+    final httpUploadIsolates = List.generate(
+      _uploadIsolateCount,
+      (index) async {
+        final httpUpload = await startIsolate<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
+          task: setupHttpUploadIsolate,
+          param: InitialData(
+            syncState: state.syncState,
+            logLevel: Logger.root.level,
+          ),
+        );
+
+        if (uriContentStreamResolver != null) {
+          httpUpload.sendToIsolate(SendToIsolateData(
+            syncState: null,
+            data: IsolateTask(
+              id: -1,
+              data: HttpUploadSetContentStreamResolverTask(resolver: uriContentStreamResolver!),
+            ),
+          ));
+        }
+
+        return httpUpload;
+      },
+      growable: false,
+    );
+
     return state.copyWith(
       httpScanDiscovery: httpScanDiscovery,
       httpTargetDiscovery: httpTargetDiscovery,
       multicastDiscovery: multicastDiscovery,
+      httpUpload: await Future.wait(httpUploadIsolates),
     );
   }
 }

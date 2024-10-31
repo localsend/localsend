@@ -1,3 +1,7 @@
+import 'package:common/isolate.dart';
+import 'package:flutter/services.dart';
+import 'package:uri_content/uri_content.dart';
+
 class ContentUriHelper {
   /// Converts
   /// content://com.android.externalstorage.documents/tree/primary%3ADocuments
@@ -82,5 +86,20 @@ class ContentUriHelper {
 
     final encodedPath = Uri.encodeComponent(Uri.decodeComponent(uri.substring(treeIndex + 6)));
     return uri.substring(0, treeIndex + 6) + encodedPath;
+  }
+}
+
+class AndroidUriContentStreamResolver implements UriContentStreamResolver {
+  UriContent? _uriContent;
+
+  @override
+  void init({required Object? rootIsolateToken}) {
+    BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken as RootIsolateToken);
+    _uriContent = UriContent();
+  }
+
+  @override
+  Stream<Uint8List> resolve(Uri uri) {
+    return _uriContent!.getContentStream(uri);
   }
 }

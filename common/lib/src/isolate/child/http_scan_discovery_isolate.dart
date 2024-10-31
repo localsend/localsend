@@ -1,7 +1,7 @@
 import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/main.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
-import 'package:common/src/isolate/dto/isolate_task_stream_result.dart';
+import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/task/discovery/http_scan_discovery.dart';
 import 'package:meta/meta.dart';
@@ -54,16 +54,13 @@ Future<void> setupHttpScanDiscoveryIsolate(
             ),
       };
       await for (final device in stream) {
-        sendToMain(IsolateTaskStreamResult(
+        sendToMain(IsolateTaskStreamResult.event(
           id: task.id,
-          done: false,
           data: device,
         ));
       }
-      sendToMain(IsolateTaskStreamResult(
+      sendToMain(IsolateTaskStreamResult.done(
         id: task.id,
-        done: true,
-        data: null,
       ));
     },
   );
