@@ -71,8 +71,8 @@ void _handleMessage<S>(String debugLabel, SendToIsolateData<S> message, Future<v
   if (data != null) {
     try {
       await handler(_isolateContainer, data);
-    } catch (e) {
-      _logger.severe('Error in $debugLabel: $e', e);
+    } catch (e, st) {
+      _logger.severe('Error in $debugLabel: $e', e, st);
     }
   }
 }

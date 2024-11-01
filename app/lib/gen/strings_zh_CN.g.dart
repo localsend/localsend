@@ -140,9 +140,9 @@ class _TranslationsGeneralZhCn extends TranslationsGeneralEn {
   @override
   String get queue => '队列';
   @override
-  String get quickSave => '快速保存';
+  String get quickSave => '自动保存';
   @override
-  String get quickSaveFromFavorites => '快速保存到"收藏"';
+  String get quickSaveFromFavorites => '自动保存来自“收藏夹”设备的文件';
   @override
   String get renamed => '已重命名';
   @override
@@ -468,7 +468,7 @@ class _TranslationsAboutPageZhCn extends TranslationsAboutPageEn {
   @override
   String get contributors => '贡献者';
   @override
-  String get packagers => '包';
+  String get packagers => '打包者';
   @override
   String get translators => '翻译者';
 }
@@ -681,7 +681,7 @@ class _TranslationsTrayZhCn extends TranslationsTrayEn {
   @override
   String get close => '退出 LocalSend';
   @override
-  String get closeWindows => '退出';
+  String get closeWindows => '离开';
 }
 
 // Path: web
@@ -893,11 +893,11 @@ class _TranslationsSettingsTabGeneralZhCn extends TranslationsSettingsTabGeneral
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsZhCn languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsZhCn._(_root);
   @override
-  String get saveWindowPlacement => '关闭时保存窗口位置';
+  String get saveWindowPlacement => '退出时保存窗口位置';
   @override
-  String get saveWindowPlacementWindows => '退出时保存窗口位置';
+  String get saveWindowPlacementWindows => '离开时保存窗口位置';
   @override
-  String get minimizeToTray => '关闭时：最小化到系统托盘';
+  String get minimizeToTray => '关闭时最小化到系统托盘';
   @override
   String get launchAtStartup => '登录系统后自动启动程序';
   @override
@@ -1041,7 +1041,7 @@ class _TranslationsTroubleshootPageNoDiscoveryZhCn extends TranslationsTroublesh
   @override
   String get symptom => '此设备未能发现其他设备。';
   @override
-  String get solution => '确保所有设备都在同一个Wi-Fi网络上，并共享相同的配置（端口、多播地址、加密）。您可以尝试手动键入目标设备的IP地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。';
+  String get solution => '确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。您可以尝试手动键入目标设备的 IP 地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1056,7 +1056,7 @@ class _TranslationsTroubleshootPageNoConnectionZhCn extends TranslationsTroubles
   @override
   String get symptom => '双方设备均无法发现对方或者分享文件。';
   @override
-  String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一 Wi‑Fi 网络内，且有相同的网络（端口、多播地址、加密选项）配置。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭这个（如：AP 隔离）选项。';
+  String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点 (AP) 隔离”选项。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1454,7 +1454,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhCn extends TranslationsD
   @override
   List<String> get content => [
         '当前会自动接受收藏夹中设备的文件请求。',
-        '警告：这目前并不完全安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。',
+        '警告：这目前并非绝对安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。',
         '但是，此选项比“允许任何设备”更安全。',
       ];
 }

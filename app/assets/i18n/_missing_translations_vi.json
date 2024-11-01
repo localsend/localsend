@@ -2,56 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <vi>.",
     "After editing this file, you can run 'dart run slang apply --locale=vi' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "quickSaveFromFavorites": "Lưu nhanh cho \"Yêu thích\""
-  },
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Yêu thích",
-      "on": "@:general.on"
-    }
-  },
-  "sendTab": {
-    "manualSending": "Gửi thủ công"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Lưu vị trí cửa sổ sau khi thoát ứng dụng"
-    },
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
-    },
-    "network": {
-      "useSystemName": "Dùng tên hệ thống",
-      "generateRandomAlias": "Dùng bí danh ngẫu nhiên"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Thiết bị này không thể tìm thấy thiết bị khác.",
-      "solution": "Hãy đảm bảo rằng các thiết bị được kết nối với cùng một mạng Wi-Fi và dùng chung thiết lập (port, multicast address, encryption). Bạn có thể thử nhập địa chỉ IP của thiết bị đích đến. Nếu nó hoạt động, cân nhắc thêm thiết bị đó vào mục yêu thích. Thiết bị sẽ được nhận tự động trong những lần tìm kiếm trong tương lai."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Công cụ đóng gói"
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Mở tệp tin",
-      "content": "Bạn có muốn mở tập tin vừa nhận được không?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": [
-        "Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích.",
-        "Lưu ý! Hiện tại, tính năng này không hoàn toàn an toàn, vì tin tặc có thể mạo danh thiết bị trong danh sách yêu thích và gửi tệp tin cho bạn mà không gặp trở ngại gì.",
-        "Tuy nhiên, tính năng này vẫn an toàn hơn tự động chấp thuận tập tin từ tất cả người dùng chung mạng nội bộ."
-      ]
-    }
-  },
-  "tray": {
-    "closeWindows": "Thoát"
-  }
+  ]
 }

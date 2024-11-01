@@ -11,6 +11,7 @@ part 'sync_provider.mapper.dart';
 /// In other words, the main isolate sends this state to the child isolate.
 @MappableClass()
 class SyncState with SyncStateMappable {
+  final Object rootIsolateToken;
   final StoredSecurityContext securityContext;
   final DeviceInfoResult deviceInfo;
   final String alias;
@@ -23,6 +24,7 @@ class SyncState with SyncStateMappable {
   final bool download;
 
   SyncState({
+    required this.rootIsolateToken,
     required this.securityContext,
     required this.deviceInfo,
     required this.alias,

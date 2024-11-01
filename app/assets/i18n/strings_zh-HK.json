@@ -28,6 +28,7 @@
     "open": "開啟",
     "queue": "佇列",
     "quickSave": "自動儲存",
+    "quickSaveFromFavorites": "自動儲存來自已收藏裝置嘅檔案",
     "renamed": "改咗名",
     "reset": "重設",
     "restart": "重新啟動",
@@ -46,6 +47,11 @@
       "ip": "IP：",
       "port": "Port：",
       "alias": "名："
+    },
+    "quickSave": {
+      "off": "關閉",
+      "favorites": "僅來自已收藏裝置嘅檔案",
+      "on": "來自所有裝置嘅檔案"
     }
   },
   "sendTab": {
@@ -67,6 +73,7 @@
     "nearbyDevices": "附近裝置",
     "thisDevice": "此裝置",
     "scan": "掃描裝置",
+    "manualSending": "手動傳送",
     "sendMode": "傳送模式",
     "sendModes": {
       "single": "單一接收者",
@@ -97,6 +104,7 @@
         "system": "跟機"
       },
       "saveWindowPlacement": "退出嗰陣記低視窗位置",
+      "saveWindowPlacementWindows": "離開嗰陣記低視窗位置",
       "minimizeToTray": "關閉嗰陣縮細做通知圖示",
       "launchAtStartup": "開機自動啟動",
       "launchMinimized": "自動啟動成通知圖示",
@@ -106,6 +114,7 @@
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "完成後自動關閉傳輸畫面",
       "destination": "儲存位置",
@@ -127,6 +136,8 @@
       "deviceModel": "裝置型號",
       "port": "Port",
       "discoveryTimeout": "裝置搜尋逾時",
+      "useSystemName": "使用系統名稱",
+      "generateRandomAlias": "求其改個名",
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",
       "multicastGroup": "多播 IP 地址",
@@ -150,6 +161,10 @@
       "symptom": "我 send 到嘢但係接收唔到。",
       "solution": "應該係防火牆嘅問題，可以透過允許接受 port {port} 嘅連線（UDP 同 TCP）嚟解決。",
       "openFirewall": "開啟防火牆設定"
+    },
+    "noDiscovery": {
+      "symptom": "呢部機偵測唔到其他裝置。",
+      "solution": "請確保所有裝置都駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果 work 嘅話可以選擇收藏呢部裝置，噉樣日後就會自動偵測到佢，毋須重新輸入。"
     },
     "noConnection": {
       "symptom": "兩部裝置都偵測唔到同 send 唔到嘢畀對方。",
@@ -241,6 +256,7 @@
     ],
     "author": "作者",
     "contributors": "貢獻者",
+    "packagers": "封裝人員",
     "translators": "翻譯人員"
   },
   "donationPage": {
@@ -260,6 +276,10 @@
     "addFile": {
       "title": "將檔案加至選擇",
       "content": "揀選要加入嘅檔案"
+    },
+    "openFile": {
+      "title": "開啟檔案",
+      "content": "你係咪要開啟接收咗嘅檔案？"
     },
     "addressInput": {
       "title": "輸入地址",
@@ -351,6 +371,14 @@
       "title": "@:general.quickSave",
       "content": "自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。"
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "自動接受來自已收藏裝置嘅檔案傳輸請求。",
+        "警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。",
+        "不過揀已收藏裝置點都安全過揀所有裝置嘅。"
+      ]
+    },
     "pin": {
       "title": "@:web.enterPin"
     },
@@ -371,7 +399,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "退出 LocalSend"
+    "close": "退出 LocalSend",
+    "closeWindows": "離開"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

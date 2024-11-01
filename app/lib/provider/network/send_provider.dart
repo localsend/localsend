@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:common/api_route_builder.dart';
+import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:common/model/dto/file_dto.dart';
 import 'package:common/model/dto/info_register_dto.dart';
@@ -27,7 +28,6 @@ import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/stream.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -106,7 +106,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       }))),
       startTime: null,
       endTime: null,
-      cancelToken: cancelToken,
+      sendingTasks: [],
       errorMessage: null,
     );
 
@@ -310,25 +310,40 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       ),
     );
 
-    await _sendLoop(sessionId, target, sendingFiles);
+    await _sendLoop(ref, sessionId, target, sendingFiles);
   }
 
-  Future<void> _sendLoop(String sessionId, Device target, Map<String, SendingFile> files) async {
+  Future<void> _sendLoop(Ref ref, String sessionId, Device target, Map<String, SendingFile> files) async {
     state = state.updateSession(
       sessionId: sessionId,
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
     );
 
-    for (final file in files.values) {
-      final result = await sendFile(
-        sessionId: sessionId,
-        file: file,
-        isRetry: false,
-      );
-      if (!result) {
-        break;
+    final queue = Queue<SendingFile>()..addAll(files.values);
+    final concurrency = ref.read(parentIsolateProvider).uploadIsolateCount;
+    _logger.info('Sending files using $concurrency concurrent isolates');
+
+    final futures = List.generate(concurrency, (index) async {
+      while (true) {
+        final file = switch (queue.isEmpty) {
+          true => null,
+          false => queue.removeFirst(),
+        };
+
+        if (file == null) {
+          break;
+        }
+
+        await sendFile(
+          sessionId: sessionId,
+          isolateIndex: index,
+          file: file,
+          isRetry: false,
+        );
       }
-    }
+    });
+
+    await Future.wait(futures);
 
     _finish(sessionId: sessionId);
   }
@@ -367,6 +382,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   /// Returns true, if the next file should be sent.
   Future<bool> sendFile({
     required String sessionId,
+    required int isolateIndex,
     required SendingFile file,
     required bool isRetry,
   }) async {
@@ -382,7 +398,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     final remoteSessionId = state[sessionId]!.remoteSessionId;
-    final dio = ref.read(dioProvider).longLiving;
     final target = state[sessionId]!.target;
 
     if (isRetry) {
@@ -409,47 +424,38 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
     );
 
-    final Stream<List<int>>? fileStream = file.path != null
-        ? file.path!.startsWith('content://')
-            ? uriContent.getContentStream(Uri.parse(file.path!))
-            : File(file.path!).openRead()
-        : null;
-
-    final (streamController, subscription) = fileStream?.digested() ?? (null, null);
+    final taskResult = ref.redux(parentIsolateProvider).dispatchTakeResult(IsolateHttpUploadAction(
+          isolateIndex: isolateIndex,
+          remoteSessionId: remoteSessionId,
+          remoteFileToken: token,
+          fileId: file.file.id,
+          filePath: file.path,
+          fileBytes: file.bytes,
+          mime: file.file.lookupMime(),
+          fileSize: file.file.size,
+          device: target,
+        ));
 
     String? fileError;
     try {
-      final cancelToken = CancelToken();
       state = state.updateSession(
         sessionId: sessionId,
-        state: (s) => s?.copyWith(cancelToken: cancelToken),
+        state: (s) => s?.copyWith(sendingTasks: [
+          ...?s.sendingTasks,
+          SendingTask(
+            isolateIndex: isolateIndex,
+            taskId: taskResult.taskId,
+          ),
+        ]),
       );
-      final stopwatch = Stopwatch()..start();
-      await dio.post(
-        ApiRoute.upload.target(target, query: {
-          if (remoteSessionId != null) 'sessionId': remoteSessionId,
-          'fileId': file.file.id,
-          'token': token,
-        }),
-        options: Options(
-          headers: {
-            'Content-Length': file.file.size,
-            'Content-Type': file.file.lookupMime(),
-          },
-        ),
-        data: streamController?.stream ?? file.bytes!,
-        onSendProgress: (curr, total) {
-          if (stopwatch.elapsedMilliseconds >= 100) {
-            stopwatch.reset();
-            ref.notifier(progressProvider).setProgress(
-                  sessionId: sessionId,
-                  fileId: file.file.id,
-                  progress: curr / total,
-                );
-          }
-        },
-        cancelToken: cancelToken,
-      );
+
+      await for (final progress in taskResult.progress) {
+        ref.notifier(progressProvider).setProgress(
+              sessionId: sessionId,
+              fileId: file.file.id,
+              progress: progress,
+            );
+      }
 
       // set progress to 100% when successfully finished
       ref.notifier(progressProvider).setProgress(
@@ -461,13 +467,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       fileError = e.humanErrorMessage;
       _logger.warning('Error while sending file ${file.file.fileName}', e, st);
     } finally {
-      // Close the stream if it is still open
-      // ignore: unawaited_futures
-      streamController?.close();
-
-      // Cancel the subscription if it is still open
-      // ignore: unawaited_futures
-      subscription?.cancel();
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(
+            sendingTasks: s.sendingTasks?.where((task) => !(task.isolateIndex == isolateIndex && task.taskId == taskResult.taskId)).toList()),
+      );
     }
 
     state = state.updateSession(
@@ -493,7 +497,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
     final remoteSessionId = sessionState.remoteSessionId;
-    sessionState.cancelToken?.cancel(); // cancel current request
+
+    _cancelRunningRequests(sessionState);
 
     // notify the receiver
     try {
@@ -515,7 +520,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
-    sessionState.cancelToken?.cancel(); // cancel current request
+    _cancelRunningRequests(sessionState);
 
     state = state.updateSession(
       sessionId: sessionId,
@@ -524,6 +529,15 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         endTime: DateTime.now().millisecondsSinceEpoch,
       ),
     );
+  }
+
+  void _cancelRunningRequests(SendSessionState state) {
+    for (final task in state.sendingTasks ?? <SendingTask>[]) {
+      ref.redux(parentIsolateProvider).dispatch(IsolateHttpUploadCancelAction(
+            isolateIndex: task.isolateIndex,
+            taskId: task.taskId,
+          ));
+    }
   }
 
   /// Closes the session

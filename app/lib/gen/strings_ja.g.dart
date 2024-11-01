@@ -142,7 +142,7 @@ class _TranslationsGeneralJa extends TranslationsGeneralEn {
   @override
   String get quickSave => 'クイックセーブ';
   @override
-  String get quickSaveFromFavorites => '"Favorites"からクイックセーブ';
+  String get quickSaveFromFavorites => '「お気に入り」からクイックセーブ';
   @override
   String get renamed => '改名済み';
   @override

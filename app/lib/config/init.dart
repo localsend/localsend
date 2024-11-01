@@ -11,6 +11,7 @@ import 'package:common/util/dio.dart';
 import 'package:common/util/logger.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:localsend_app/config/refena.dart';
@@ -23,8 +24,10 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
+
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -33,6 +36,7 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -141,6 +145,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     return IsolateController(
       initialState: ParentIsolateState.initial(
         SyncState(
+          rootIsolateToken: RootIsolateToken.instance!,
           securityContext: persistenceService.getSecurityContext(),
           deviceInfo: ref.read(deviceInfoProvider),
           alias: settings.alias,
@@ -155,7 +160,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
     );
   }));
 
-  await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
+  await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction(
+        uriContentStreamResolver: AndroidUriContentStreamResolver(),
+      ));
 
   return container;
 }
@@ -190,12 +197,6 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
-      switch (ref.read(settingsProvider).destination) {
-        case String path:
-          await requestFolderAccess(path);
-          break;
-      }
-
       // handle dropped files
       pendingFilesStream.listen((files) {
         ref.global.dispatchAsync(_HandleAppStartArgumentsAction(

@@ -1,5 +1,4 @@
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
-import 'package:common/src/isolate/dto/isolate_task_stream_result.dart';
 
 /// A data structure that can be sent to an isolate.
 /// This is used to represent the following schemas:

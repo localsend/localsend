@@ -22,6 +22,8 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
   @override
   final String id = 'SyncState';
 
+  static Object _$rootIsolateToken(SyncState v) => v.rootIsolateToken;
+  static const Field<SyncState, Object> _f$rootIsolateToken = Field('rootIsolateToken', _$rootIsolateToken);
   static StoredSecurityContext _$securityContext(SyncState v) => v.securityContext;
   static const Field<SyncState, StoredSecurityContext> _f$securityContext = Field('securityContext', _$securityContext);
   static DeviceInfoResult _$deviceInfo(SyncState v) => v.deviceInfo;
@@ -43,6 +45,7 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
 
   @override
   final MappableFields<SyncState> fields = const {
+    #rootIsolateToken: _f$rootIsolateToken,
     #securityContext: _f$securityContext,
     #deviceInfo: _f$deviceInfo,
     #alias: _f$alias,
@@ -56,6 +59,7 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
 
   static SyncState _instantiate(DecodingData data) {
     return SyncState(
+        rootIsolateToken: data.dec(_f$rootIsolateToken),
         securityContext: data.dec(_f$securityContext),
         deviceInfo: data.dec(_f$deviceInfo),
         alias: data.dec(_f$alias),
@@ -112,7 +116,8 @@ extension SyncStateValueCopy<$R, $Out> on ObjectCopyWith<$R, SyncState, $Out> {
 abstract class SyncStateCopyWith<$R, $In extends SyncState, $Out> implements ClassCopyWith<$R, $In, $Out> {
   StoredSecurityContextCopyWith<$R, StoredSecurityContext, StoredSecurityContext> get securityContext;
   $R call(
-      {StoredSecurityContext? securityContext,
+      {Object? rootIsolateToken,
+      StoredSecurityContext? securityContext,
       DeviceInfoResult? deviceInfo,
       String? alias,
       int? port,
@@ -134,7 +139,8 @@ class _SyncStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, SyncState, 
       $value.securityContext.copyWith.$chain((v) => call(securityContext: v));
   @override
   $R call(
-          {StoredSecurityContext? securityContext,
+          {Object? rootIsolateToken,
+          StoredSecurityContext? securityContext,
           DeviceInfoResult? deviceInfo,
           String? alias,
           int? port,
@@ -144,6 +150,7 @@ class _SyncStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, SyncState, 
           bool? serverRunning,
           bool? download}) =>
       $apply(FieldCopyWithData({
+        if (rootIsolateToken != null) #rootIsolateToken: rootIsolateToken,
         if (securityContext != null) #securityContext: securityContext,
         if (deviceInfo != null) #deviceInfo: deviceInfo,
         if (alias != null) #alias: alias,
@@ -156,6 +163,7 @@ class _SyncStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, SyncState, 
       }));
   @override
   SyncState $make(CopyWithData data) => SyncState(
+      rootIsolateToken: data.get(#rootIsolateToken, or: $value.rootIsolateToken),
       securityContext: data.get(#securityContext, or: $value.securityContext),
       deviceInfo: data.get(#deviceInfo, or: $value.deviceInfo),
       alias: data.get(#alias, or: $value.alias),
