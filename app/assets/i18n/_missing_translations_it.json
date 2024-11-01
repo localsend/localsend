@@ -6,26 +6,26 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Preferiti",
       "on": "@:general.on"
     }
   },
   "settingsTab": {
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Usa il nome di sistema",
+      "generateRandomAlias": "Genera un alias casuale"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Apri file",
+      "content": "Vuoi aprire il file ricevuto?"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti.",
+        "Attenzione! Al momento, questa soluzione non è del tutto sicura, poiché un hacker che possiede l'impronta digitale di un qualsiasi dispositivo presente nella tua lista dei preferiti può inviarti file senza restrizioni.",
+        "Tuttavia, questa opzione è comunque più sicura rispetto al consentire a tutti gli utenti della rete locale di inviarti file senza restrizioni."
       ]
     }
   }
