@@ -919,7 +919,7 @@ class _TranslationsSettingsTabNetworkFi extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Verkko';
   @override
-  String get needRestart => 'UUdelleenkäynistä sovellus, jotta muutokset tallennetaan.';
+  String get needRestart => 'Uudelleenkäynistä sovellus, jotta muutokset tallennetaan.';
   @override
   String get server => 'Palvelin';
   @override
