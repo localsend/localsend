@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Oblíbené",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -271,6 +276,10 @@
       "title": "Přidat do výběru",
       "content": "Co chcete přidat?"
     },
+    "openFile": {
+      "title": "Otevřít soubor",
+      "content": "Chcete otevřít přijatý soubor?"
+    },
     "addressInput": {
       "title": "Zadat adresu",
       "hashtag": "Hashtag",
@@ -362,7 +371,12 @@
       "content": "Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Žádosti o soubory jsou nyní přijímány automaticky ze zařízení ve vašem seznamu oblíbených.",
+        "Upozornění: V současné době to není zcela bezpečné, protože hacker, který zná vaše oblíbené zařízení, vám stále může posílat soubory.",
+        "Tato možnost je však stále bezpečnější než povolení libovolného zařízení."
+      ]
     },
     "pin": {
       "title": "Vložit PIN"

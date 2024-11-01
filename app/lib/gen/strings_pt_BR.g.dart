@@ -180,6 +180,8 @@ class _TranslationsReceiveTabPtBr extends TranslationsReceiveTabEn {
   String get title => 'Receber';
   @override
   late final _TranslationsReceiveTabInfoBoxPtBr infoBox = _TranslationsReceiveTabInfoBoxPtBr._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSavePtBr quickSave = _TranslationsReceiveTabQuickSavePtBr._(_root);
 }
 
 // Path: sendTab
@@ -594,6 +596,8 @@ class _TranslationsDialogsPtBr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFilePtBr addFile = _TranslationsDialogsAddFilePtBr._(_root);
   @override
+  late final _TranslationsDialogsOpenFilePtBr openFile = _TranslationsDialogsOpenFilePtBr._(_root);
+  @override
   late final _TranslationsDialogsAddressInputPtBr addressInput = _TranslationsDialogsAddressInputPtBr._(_root);
   @override
   late final _TranslationsDialogsCancelSessionPtBr cancelSession = _TranslationsDialogsCancelSessionPtBr._(_root);
@@ -630,10 +634,10 @@ class _TranslationsDialogsPtBr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickActionsPtBr quickActions = _TranslationsDialogsQuickActionsPtBr._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveNoticePtBr quickSaveNotice = _TranslationsDialogsQuickSaveNoticePtBr._(_root);
+  @override
   late final _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr quickSaveFromFavoritesNotice =
       _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr._(_root);
-  @override
-  late final _TranslationsDialogsQuickSaveNoticePtBr quickSaveNotice = _TranslationsDialogsQuickSaveNoticePtBr._(_root);
   @override
   late final _TranslationsDialogsPinPtBr pin = _TranslationsDialogsPinPtBr._(_root);
   @override
@@ -786,6 +790,23 @@ class _TranslationsReceiveTabInfoBoxPtBr extends TranslationsReceiveTabInfoBoxEn
   String get alias => 'Nome:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSavePtBr extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSavePtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favoritos';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionPtBr extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionPtBr._(TranslationsPtBr root)
@@ -896,6 +917,8 @@ class _TranslationsSettingsTabReceivePtBr extends TranslationsSettingsTabReceive
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => 'Salvar rapidamente dos "Favoritos"';
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'Concluir Automaticamente';
@@ -903,8 +926,6 @@ class _TranslationsSettingsTabReceivePtBr extends TranslationsSettingsTabReceive
   String get destination => 'Destino';
   @override
   String get downloads => '(Downloads)';
-  @override
-  String get quickSaveFromFavorites => 'Salvar rapidamente dos "Favoritos"';
   @override
   String get saveToGallery => 'Salvar mídia na Galeria';
   @override
@@ -951,6 +972,10 @@ class _TranslationsSettingsTabNetworkPtBr extends TranslationsSettingsTabNetwork
   String get port => 'Porta';
   @override
   String get discoveryTimeout => 'Tempo limite de descoberta';
+  @override
+  String get useSystemName => 'Usar nome do sistema';
+  @override
+  String get generateRandomAlias => 'Gerar apelido aleatório';
   @override
   String portWarning({required Object defaultPort}) =>
       'Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: ${defaultPort})';
@@ -1086,6 +1111,21 @@ class _TranslationsDialogsAddFilePtBr extends TranslationsDialogsAddFileEn {
   String get title => 'Adicionar à seleção';
   @override
   String get content => 'O que você quer adicionar?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFilePtBr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFilePtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Abrir arquivo';
+  @override
+  String get content => 'Você quer abrir o arquivo recebido?';
 }
 
 // Path: dialogs.addressInput
@@ -1387,19 +1427,6 @@ class _TranslationsDialogsQuickActionsPtBr extends TranslationsDialogsQuickActio
   String get random => 'Aleatório';
 }
 
-// Path: dialogs.quickSaveFromFavoritesNotice
-class _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
-  _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr._(TranslationsPtBr root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsPtBr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Salvar rapidamento dos "Favoritos"';
-}
-
 // Path: dialogs.quickSaveNotice
 class _TranslationsDialogsQuickSaveNoticePtBr extends TranslationsDialogsQuickSaveNoticeEn {
   _TranslationsDialogsQuickSaveNoticePtBr._(TranslationsPtBr root)
@@ -1414,6 +1441,25 @@ class _TranslationsDialogsQuickSaveNoticePtBr extends TranslationsDialogsQuickSa
   @override
   String get content =>
       'Solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Salvar rapidamento dos "Favoritos"';
+  @override
+  List<String> get content => [
+        'Requisições de arquivo agora são aceitas automaticamente de dispositivos da sua lista de favoritos.',
+        'Atenção: Essa opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos',
+        'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo.',
+      ];
 }
 
 // Path: dialogs.pin

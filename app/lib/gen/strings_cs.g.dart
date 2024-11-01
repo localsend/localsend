@@ -180,6 +180,8 @@ class _TranslationsReceiveTabCs extends TranslationsReceiveTabEn {
   String get title => 'Příjmout';
   @override
   late final _TranslationsReceiveTabInfoBoxCs infoBox = _TranslationsReceiveTabInfoBoxCs._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveCs quickSave = _TranslationsReceiveTabQuickSaveCs._(_root);
 }
 
 // Path: sendTab
@@ -528,6 +530,8 @@ class _TranslationsDialogsCs extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileCs addFile = _TranslationsDialogsAddFileCs._(_root);
   @override
+  late final _TranslationsDialogsOpenFileCs openFile = _TranslationsDialogsOpenFileCs._(_root);
+  @override
   late final _TranslationsDialogsAddressInputCs addressInput = _TranslationsDialogsAddressInputCs._(_root);
   @override
   late final _TranslationsDialogsCancelSessionCs cancelSession = _TranslationsDialogsCancelSessionCs._(_root);
@@ -718,6 +722,23 @@ class _TranslationsReceiveTabInfoBoxCs extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Port:';
   @override
   String get alias => 'Alias:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveCs extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveCs._(TranslationsCs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Oblíbené';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1023,6 +1044,21 @@ class _TranslationsDialogsAddFileCs extends TranslationsDialogsAddFileEn {
   String get title => 'Přidat do výběru';
   @override
   String get content => 'Co chcete přidat?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileCs extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileCs._(TranslationsCs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Otevřít soubor';
+  @override
+  String get content => 'Chcete otevřít přijatý soubor?';
 }
 
 // Path: dialogs.addressInput
@@ -1350,6 +1386,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeCs extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Žádosti o soubory jsou nyní přijímány automaticky ze zařízení ve vašem seznamu oblíbených.',
+        'Upozornění: V současné době to není zcela bezpečné, protože hacker, který zná vaše oblíbené zařízení, vám stále může posílat soubory.',
+        'Tato možnost je však stále bezpečnější než povolení libovolného zařízení.',
+      ];
 }
 
 // Path: dialogs.pin

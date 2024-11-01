@@ -32,8 +32,8 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
       v.httpTargetDiscovery;
   static const Field<ParentIsolateState, IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>>
       _f$httpTargetDiscovery = Field('httpTargetDiscovery', _$httpTargetDiscovery);
-  static IsolateConnector<Device, SendToIsolateData<Object>>? _$multicastDiscovery(ParentIsolateState v) => v.multicastDiscovery;
-  static const Field<ParentIsolateState, IsolateConnector<Device, SendToIsolateData<Object>>> _f$multicastDiscovery =
+  static IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? _$multicastDiscovery(ParentIsolateState v) => v.multicastDiscovery;
+  static const Field<ParentIsolateState, IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>> _f$multicastDiscovery =
       Field('multicastDiscovery', _$multicastDiscovery);
 
   @override
@@ -102,7 +102,7 @@ abstract class ParentIsolateStateCopyWith<$R, $In extends ParentIsolateState, $O
       {SyncState? syncState,
       IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery,
       IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery,
-      IsolateConnector<Device, SendToIsolateData<Object>>? multicastDiscovery});
+      IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? multicastDiscovery});
   ParentIsolateStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

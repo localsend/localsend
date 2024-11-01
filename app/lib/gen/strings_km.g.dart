@@ -71,6 +71,8 @@ class TranslationsKm extends Translations {
   @override
   late final _TranslationsDialogsKm dialogs = _TranslationsDialogsKm._(_root);
   @override
+  late final _TranslationsSanitizationKm sanitization = _TranslationsSanitizationKm._(_root);
+  @override
   late final _TranslationsTrayKm tray = _TranslationsTrayKm._(_root);
   @override
   late final _TranslationsWebKm web = _TranslationsWebKm._(_root);
@@ -140,6 +142,8 @@ class _TranslationsGeneralKm extends TranslationsGeneralEn {
   @override
   String get quickSave => 'រក្សាទុករហ័ស';
   @override
+  String get quickSaveFromFavorites => 'រក្សាទុករហ័សសម្រាប់ "ឧបករណ៍សំណព្វ"';
+  @override
   String get renamed => 'បានកែឈ្មោះ';
   @override
   String get reset => 'កំណត់ឡើងវិញ';
@@ -176,6 +180,8 @@ class _TranslationsReceiveTabKm extends TranslationsReceiveTabEn {
   String get title => 'ការទទួល';
   @override
   late final _TranslationsReceiveTabInfoBoxKm infoBox = _TranslationsReceiveTabInfoBoxKm._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveKm quickSave = _TranslationsReceiveTabQuickSaveKm._(_root);
 }
 
 // Path: sendTab
@@ -201,6 +207,8 @@ class _TranslationsSendTabKm extends TranslationsSendTabEn {
   String get thisDevice => 'ឧបករណ៍នេះ';
   @override
   String get scan => 'កំពុងរកមើលឧបករណ៍';
+  @override
+  String get manualSending => 'ផ្ញើដោយខ្លួនឯង';
   @override
   String get sendMode => 'ប្រភេទនៃការផ្ញើ';
   @override
@@ -229,6 +237,8 @@ class _TranslationsSettingsTabKm extends TranslationsSettingsTabEn {
   @override
   late final _TranslationsSettingsTabReceiveKm receive = _TranslationsSettingsTabReceiveKm._(_root);
   @override
+  late final _TranslationsSettingsTabSendKm send = _TranslationsSettingsTabSendKm._(_root);
+  @override
   late final _TranslationsSettingsTabNetworkKm network = _TranslationsSettingsTabNetworkKm._(_root);
   @override
   late final _TranslationsSettingsTabOtherKm other = _TranslationsSettingsTabOtherKm._(_root);
@@ -255,6 +265,8 @@ class _TranslationsTroubleshootPageKm extends TranslationsTroubleshootPageEn {
   String get fixButton => 'ជួសជុលដោយស្វ័យប្រវត្តិ';
   @override
   late final _TranslationsTroubleshootPageFirewallKm firewall = _TranslationsTroubleshootPageFirewallKm._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryKm noDiscovery = _TranslationsTroubleshootPageNoDiscoveryKm._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionKm noConnection = _TranslationsTroubleshootPageNoConnectionKm._(_root);
 }
@@ -370,6 +382,8 @@ class _TranslationsSendPageKm extends TranslationsSendPageEn {
   @override
   String get rejected => 'អ្នកទទួលបានបដិសេធសំណើនេះ។';
   @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
+  @override
   String get busy => 'អ្នកទទួលកំពុងជាប់រវល់ជាមួយសំណើផ្សេងទៀត។';
 }
 
@@ -422,6 +436,12 @@ class _TranslationsWebSharePageKm extends TranslationsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
+  String get autoAccept => 'ទទួលយកការស្នើរដោយស្វ័យប្រវត្តិ';
+  @override
+  String get requirePin => 'ត្រូវការលេខកូដ';
+  @override
+  String pinHint({required Object pin}) => 'លេខកូដគឺ "${pin}"';
+  @override
   String get encryptionHint => 'LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
   @override
   String pendingRequests({required Object n}) => 'សំណើដែលកំពុងរង់ចាំ: ${n}';
@@ -447,6 +467,8 @@ class _TranslationsAboutPageKm extends TranslationsAboutPageEn {
   String get author => 'ម្ចាស់កម្មសិទ្ធ';
   @override
   String get contributors => 'អ្នកចូលរួមចំណែក';
+  @override
+  String get packagers => 'អ្នកបង្កើតកញ្ចប់កម្មវិធី Package';
   @override
   String get translators => 'អ្នកបកប្រែ';
 }
@@ -583,6 +605,8 @@ class _TranslationsDialogsKm extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileKm addFile = _TranslationsDialogsAddFileKm._(_root);
   @override
+  late final _TranslationsDialogsOpenFileKm openFile = _TranslationsDialogsOpenFileKm._(_root);
+  @override
   late final _TranslationsDialogsAddressInputKm addressInput = _TranslationsDialogsAddressInputKm._(_root);
   @override
   late final _TranslationsDialogsCancelSessionKm cancelSession = _TranslationsDialogsCancelSessionKm._(_root);
@@ -621,7 +645,29 @@ class _TranslationsDialogsKm extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeKm quickSaveNotice = _TranslationsDialogsQuickSaveNoticeKm._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeKm quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeKm._(_root);
+  @override
+  late final _TranslationsDialogsPinKm pin = _TranslationsDialogsPinKm._(_root);
+  @override
   late final _TranslationsDialogsSendModeHelpKm sendModeHelp = _TranslationsDialogsSendModeHelpKm._(_root);
+  @override
+  late final _TranslationsDialogsZoomKm zoom = _TranslationsDialogsZoomKm._(_root);
+}
+
+// Path: sanitization
+class _TranslationsSanitizationKm extends TranslationsSanitizationEn {
+  _TranslationsSanitizationKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'ឈ្មោះឯកសារមិនអាចទទេបានទេ';
+  @override
+  String get invalid => 'ឈ្មោះឯកសារមានផ្ទុកនូវតួអក្សរដែលមិនត្រឹមត្រូវ';
 }
 
 // Path: tray
@@ -637,6 +683,8 @@ class _TranslationsTrayKm extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => 'ចាកចេញពីកម្មវិធី LocalSend';
+  @override
+  String get closeWindows => 'ចាកចេញ';
 }
 
 // Path: web
@@ -650,6 +698,12 @@ class _TranslationsWebKm extends TranslationsWebEn {
   // Translations
   @override
   String get waiting => _root.sendPage.waiting;
+  @override
+  String get enterPin => 'សូមបញ្ចូលលេខកូដ';
+  @override
+  String get invalidPin => 'លេខកូដមិនត្រឹមត្រូវ';
+  @override
+  String get tooManyAttempts => 'ចំនួននៃការប៉ុនប៉ងបញ្ចូលច្រើនដងពេកហើយ';
   @override
   String get rejected => 'បានបដិសេធ';
   @override
@@ -676,7 +730,7 @@ class _TranslationsAssetPickerKm extends TranslationsAssetPickerEn {
   @override
   String get edit => 'កែសម្រួល';
   @override
-  String get gifIndicator => 'រូប GIF';
+  String get gifIndicator => 'រូបចលនា GIF';
   @override
   String get loadFailed => 'ការផ្ទុកបរាជ័យ';
   @override
@@ -697,7 +751,7 @@ class _TranslationsAssetPickerKm extends TranslationsAssetPickerEn {
   String get changeAccessibleLimitedAssets => 'ចុចដើម្បីធ្វើបច្ចុប្បន្នភាពឯកសារដែលអាចចូលប្រើបាន។';
   @override
   String get accessAllTip =>
-      'កម្មវិធីអាចចូលប្រើបានតែឯកសារមួយចំនួននៅលើឧបករណ៍ប៉ុណ្ណោះ។ ចូលទៅកាន់ការកំណត់ប្រព័ន្ធ ហើយអនុញ្ញាតឱ្យកម្មវិធីចូលប្រើមេឌៀទាំងអស់នៅលើឧបករណ៍។';
+      'កម្មវិធីអាចចូលប្រើបានតែឯកសារមួយចំនួននៅលើឧបករណ៍ប៉ុណ្ណោះ។ ចូលទៅកាន់ការកំណត់ប្រព័ន្ធ ហើយអនុញ្ញាតឱ្យកម្មវិធីចូលប្រើមាតិកាទាំងអស់នៅលើឧបករណ៍។';
   @override
   String get goToSystemSettings => 'ចូលទៅកាន់ការកំណត់របស់ប្រព័ន្ធ';
   @override
@@ -711,7 +765,7 @@ class _TranslationsAssetPickerKm extends TranslationsAssetPickerEn {
   @override
   String get sTypeVideoLabel => 'វីដេអូ';
   @override
-  String get sTypeOtherLabel => 'មេឌៀផ្សេងទៀត';
+  String get sTypeOtherLabel => 'មាតិកាផ្សេងទៀត';
   @override
   String get sActionPlayHint => 'ចាក់';
   @override
@@ -745,6 +799,23 @@ class _TranslationsReceiveTabInfoBoxKm extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'ឈ្មោះដទៃ:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveKm extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'ឧបករណ៍សំណព្វ';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionKm extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionKm._(TranslationsKm root)
@@ -776,7 +847,7 @@ class _TranslationsSendTabPickerKm extends TranslationsSendTabPickerEn {
   @override
   String get folder => 'ថតឯកសារ';
   @override
-  String get media => 'មេឌៀ';
+  String get media => 'មាតិកា';
   @override
   String get text => 'សំណេរ';
   @override
@@ -828,11 +899,15 @@ class _TranslationsSettingsTabGeneralKm extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'ចាកចេញ: រក្សាទុកផ្ទាំង Window';
   @override
+  String get saveWindowPlacementWindows => 'រក្សាទុកទីតាំងផ្ទាំងអេក្រង់នៅដដែលបន្ទាប់ពីចាកចេញ';
+  @override
   String get minimizeToTray => 'ចាកចេញ: បង្រួមអប្បបរមាទៅរបារម៉ឺនុយ';
   @override
   String get launchAtStartup => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិបន្ទាប់ពីចូលគណនី';
   @override
   String get launchMinimized => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ: ការចាប់ផ្តើមត្រូវបានលាក់';
+  @override
+  String get showInContextMenu => 'បង្ហាញ LocalSend in នៅលើរបារម៉ឺនុយ';
   @override
   String get animations => 'ចលនារស់រវើក';
 }
@@ -851,6 +926,10 @@ class _TranslationsSettingsTabReceiveKm extends TranslationsSettingsTabReceiveEn
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
+  @override
   String get autoFinish => 'បញ្ចប់ដោយស្វ័យប្រវត្តិ';
   @override
   String get destination => 'ទិសដៅ';
@@ -860,6 +939,21 @@ class _TranslationsSettingsTabReceiveKm extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'រក្សាទុកទៅកាន់កម្មវិធីវិចិត្រសាល';
   @override
   String get saveToHistory => 'រក្សាទុកទៅកាន់ប្រវត្តិ';
+}
+
+// Path: settingsTab.send
+class _TranslationsSettingsTabSendKm extends TranslationsSettingsTabSendEn {
+  _TranslationsSettingsTabSendKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ផ្ញើ';
+  @override
+  String get shareViaLinkAutoAccept => 'ទទួលការស្នើដោយស្វ័យប្រវត្តិនៅក្នុងម៉ូដ"ចែករំលែកតាមរយៈតំណភ្ជាប់"';
 }
 
 // Path: settingsTab.network
@@ -885,6 +979,12 @@ class _TranslationsSettingsTabNetworkKm extends TranslationsSettingsTabNetworkEn
   String get deviceModel => 'ម៉ូឌែលរបស់ឧបករណ៍';
   @override
   String get port => 'ផត';
+  @override
+  String get discoveryTimeout => 'ថេរវេលាក្នុងការស្វែងរក';
+  @override
+  String get useSystemName => 'ប្រើប្រាស់ឈ្មោះរបស់ប្រព័ន្ធ';
+  @override
+  String get generateRandomAlias => 'បង្កើតឈ្មោះដទៃដោយដៃចៃដន្យ';
   @override
   String portWarning({required Object defaultPort}) =>
       'អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើច្រកដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: ${defaultPort})';
@@ -936,6 +1036,22 @@ class _TranslationsTroubleshootPageFirewallKm extends TranslationsTroubleshootPa
   String get openFirewall => 'បើក Firewall';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryKm extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'ឧបករណ៍នេះហាក់ដូចមិនអាចស្វែងរកឧបករណ៍ផ្សេងបានទេ។';
+  @override
+  String get solution =>
+      'សូមប្រាកដថាគ្រប់ឧបករណ៍ទាំងអស់ត្រូវតែស្ថិតក្នុងបណ្តាញ Wi-Fi តែមួយរួមគ្នា និងត្រូវមានការកំណត់រួមមួយដូចគ្នា (ផត, អាសយដ្ឋាន multicast, កូដនីយកម្ម ជាដើម)។ អ្នកអាចធ្វើការសាកល្បងវាយបញ្ចូលអាសយដ្ឋាន IP របស់ឧបករណ៍គោលដៅមួយទៀតដោយខ្លួនឯង។ បើធ្វើបែបនេះទៅដំណើរការ, អ្នកគួរតែបន្ថែម ឬបញ្ចូលឧបករណ៍នោះទៅក្នុងបញ្ជីឧបករណ៍សំណព្វដើម្បីងាយស្រួលក្នុងការស្វែងរក និងធ្វើប្រតិបត្តិការនាពេលក្រោយទៀតដោយស្វ័យប្រវត្តិ និងងាយស្រួល។';
+}
+
 // Path: troubleshootPage.noConnection
 class _TranslationsTroubleshootPageNoConnectionKm extends TranslationsTroubleshootPageNoConnectionEn {
   _TranslationsTroubleshootPageNoConnectionKm._(TranslationsKm root)
@@ -964,7 +1080,9 @@ class _TranslationsReceiveHistoryPageEntryActionsKm extends TranslationsReceiveH
   @override
   String get open => 'បើកឯកសារ';
   @override
-  String get info => 'ព័ត៌មាន';
+  String get showInFolder => 'បង្ហាញនៅក្នុងកម្មវិធីឯកសារ';
+  @override
+  String get info => 'ព័ត៌មាននៃឯកសារ';
   @override
   String get deleteFromHistory => 'លុបចោលពីប្រវត្តិ';
 }
@@ -1001,6 +1119,21 @@ class _TranslationsDialogsAddFileKm extends TranslationsDialogsAddFileEn {
   String get title => 'បន្ថែមទៅការជ្រើសរើស';
   @override
   String get content => 'តើអ្នកចង់បន្ថែមអ្វី?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileKm extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'បើកឯកសារ';
+  @override
+  String get content => 'តើអ្នកចង់បើកឯកសារដែលទទួលបាននេះមែនទេ??';
 }
 
 // Path: dialogs.addressInput
@@ -1146,7 +1279,7 @@ class _TranslationsDialogsFileInfoKm extends TranslationsDialogsFileInfoEn {
 
   // Translations
   @override
-  String get title => 'ព័ត៌មានឯកសារ';
+  String get title => 'ព័ត៌មាននៃឯកសារ';
   @override
   String get fileName => 'ឈ្មោះ​ឯកសារ:';
   @override
@@ -1319,6 +1452,38 @@ class _TranslationsDialogsQuickSaveNoticeKm extends TranslationsDialogsQuickSave
       'សំណើឯកសារត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិ។ ត្រូវ​ចំណាំ​ថា​អ្នក​រាល់​គ្នា​នៅ​ក្នុង​បណ្ដាញ​មូលដ្ឋាន​រួមគ្នាអាច​ផ្ញើ​ឯកសារ​មក​អ្នកបាន។';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeKm extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'ឥឡូវនេះសំណើឯកសារត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិពីឧបករណ៍ទាំងឡាយដែលមាននៅក្នុងបញ្ជីឧបករណ៍សំណព្វរបស់អ្នក។',
+        'ការព្រមាន៖ ពេលនេះជម្រើស ឬមុខងារមួយនេះមិនទាន់មានសុវត្ថិភាពទាំងស្រុងទេ និងណែនាំឲ្យប្រើប្រាស់នៅឡើយទេ ពីព្រោះជនអនាមិកដែលវាយប្រហារតាមប្រព័ន្ធបច្ចេកវិទ្យា ដែលស្គាល់ស្នាមដាននៃឧបករណ៍សំណព្វរបស់អ្នក អាចនឹងផ្ញើឯកសារផ្សេងៗមកអ្នកបាន។',
+        'ទោះ​ជា​យ៉ាង​ណាក៏ដោយ ជម្រើស​នេះ​នៅ​តែ​មាន​សុវត្ថិភាព​ជាង​ការ​អនុញ្ញាត​ឱ្យ​ឧបករណ៍​ទាំងអស់អាចផ្ញើមកអ្នកដោយសេរី​។',
+      ];
+}
+
+// Path: dialogs.pin
+class _TranslationsDialogsPinKm extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'វាយបញ្ចូលលេខកូដ';
+}
+
 // Path: dialogs.sendModeHelp
 class _TranslationsDialogsSendModeHelpKm extends TranslationsDialogsSendModeHelpEn {
   _TranslationsDialogsSendModeHelpKm._(TranslationsKm root)
@@ -1336,6 +1501,19 @@ class _TranslationsDialogsSendModeHelpKm extends TranslationsDialogsSendModeHelp
   String get multiple => 'ផ្ញើឯកសារទៅអ្នកទទួលច្រើននាក់។ ការជ្រើសរើសនឹងមិនត្រូវបានសម្អាតទេ។';
   @override
   String get link => 'អ្នកទទួលដែលមិនបានដំឡើង LocalSend អាចទាញយកឯកសារដែលបានជ្រើសរើសដោយបើកតំណនៅក្នុងកម្មវិធី browser របស់ពួកគេ។';
+}
+
+// Path: dialogs.zoom
+class _TranslationsDialogsZoomKm extends TranslationsDialogsZoomEn {
+  _TranslationsDialogsZoomKm._(TranslationsKm root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'តំណភ្ជាប់ URL';
 }
 
 // Path: settingsTab.general.brightnessOptions

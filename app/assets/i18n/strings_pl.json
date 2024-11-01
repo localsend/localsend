@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Ulubione",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -366,7 +371,12 @@
       "content": "Żądania plików są akceptowane automatycznie. Pamiętaj, że każdy w sieci lokalnej może przesyłać Ci pliki."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Żądania plików są teraz akceptowane automatycznie z urządzeń na liście ulubionych.",
+        "Uwaga! Obecnie nie jest to całkowicie bezpieczne, ponieważ haker, który ma odcisk palca dowolnego urządzenia z listy ulubionych, może wysyłać Ci pliki bez ograniczeń.",
+        "Jednak ta opcja jest nadal bezpieczniejsza niż umożliwienie wszystkim użytkownikom w sieci lokalnej wysyłanie plików bez ograniczeń."
+      ]
     },
     "pin": {
       "title": "Wpisz kod PIN"

@@ -180,6 +180,8 @@ class _TranslationsReceiveTabPl extends TranslationsReceiveTabEn {
   String get title => 'Odbierz';
   @override
   late final _TranslationsReceiveTabInfoBoxPl infoBox = _TranslationsReceiveTabInfoBoxPl._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSavePl quickSave = _TranslationsReceiveTabQuickSavePl._(_root);
 }
 
 // Path: sendTab
@@ -721,6 +723,23 @@ class _TranslationsReceiveTabInfoBoxPl extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Port:';
   @override
   String get alias => 'Alias:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSavePl extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSavePl._(TranslationsPl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Ulubione';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1368,6 +1387,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticePl extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Żądania plików są teraz akceptowane automatycznie z urządzeń na liście ulubionych.',
+        'OSTRZEŻENIE: Obecnie nie jest to całkowicie bezpieczne, ponieważ haker, który zna odcisk palca ulubionych urządzeń, może nadal wysyłać Ci pliki.',
+        'Ta opcja jest jednak nadal bezpieczniejsza niż dopuszczenie dowolnego urządzenia.',
+      ];
 }
 
 // Path: dialogs.pin

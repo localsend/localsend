@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Ime uredjaja:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Omiljeni",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -341,6 +346,10 @@
       "title": "Dodaj u Selekciju",
       "content": "Šta želiš da dodaš?"
     },
+    "openFile": {
+      "title": "Otvori fajl",
+      "content": "Da li želite da otvorite primljeni fajl?"
+    },
     "addressInput": {
       "title": "Upiši adresu",
       "hashtag": "Hashtag",
@@ -432,7 +441,12 @@
       "content": "Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Zahtevi za primanje fajlova su automatski prihvaćeni od uredjaja u listi Omiljenih.",
+        "Upozorenje: Ovo trenutno nije potpuno bezbedno, jer napadač koji zna Fingerprint vašeg uredjaja u Omiljenima takodje može da vam pošalje fajl.",
+        "Ipak, ovo je i dalje sigurnije nego dozvoliti prijem sa svih uredjaja."
+      ]
     },
     "pin": {
       "title": "Unesi PIN"

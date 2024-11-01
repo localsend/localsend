@@ -180,6 +180,8 @@ class _TranslationsReceiveTabFilPh extends TranslationsReceiveTabEn {
   String get title => 'Tumanggap';
   @override
   late final _TranslationsReceiveTabInfoBoxFilPh infoBox = _TranslationsReceiveTabInfoBoxFilPh._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveFilPh quickSave = _TranslationsReceiveTabQuickSaveFilPh._(_root);
 }
 
 // Path: sendTab
@@ -603,6 +605,8 @@ class _TranslationsDialogsFilPh extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileFilPh addFile = _TranslationsDialogsAddFileFilPh._(_root);
   @override
+  late final _TranslationsDialogsOpenFileFilPh openFile = _TranslationsDialogsOpenFileFilPh._(_root);
+  @override
   late final _TranslationsDialogsAddressInputFilPh addressInput = _TranslationsDialogsAddressInputFilPh._(_root);
   @override
   late final _TranslationsDialogsCancelSessionFilPh cancelSession = _TranslationsDialogsCancelSessionFilPh._(_root);
@@ -795,6 +799,23 @@ class _TranslationsReceiveTabInfoBoxFilPh extends TranslationsReceiveTabInfoBoxE
   String get alias => 'Alias:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveFilPh extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveFilPh._(TranslationsFilPh root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Mga Paborito';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionFilPh extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionFilPh._(TranslationsFilPh root)
@@ -961,6 +982,10 @@ class _TranslationsSettingsTabNetworkFilPh extends TranslationsSettingsTabNetwor
   @override
   String get discoveryTimeout => 'Nag Timeout ang Discovery';
   @override
+  String get useSystemName => 'Gamitin ang pangalan ng system';
+  @override
+  String get generateRandomAlias => 'Mag-generate ng random na alias';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Maaaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang port. (default: ${defaultPort})';
   @override
@@ -1095,6 +1120,21 @@ class _TranslationsDialogsAddFileFilPh extends TranslationsDialogsAddFileEn {
   String get title => 'Idagdag sa selection';
   @override
   String get content => 'Ano ang gusto mong idagdag?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileFilPh extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileFilPh._(TranslationsFilPh root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Buksan ang file';
+  @override
+  String get content => 'Gusto mo bang buksan ang natanggap na file?';
 }
 
 // Path: dialogs.addressInput
@@ -1424,6 +1464,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFilPh extends Translations
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Ang mga file request ngayon ay awtomatikong tinatanggap sa mga device sa iyong listahan ng mga paborito.',
+        'Babala: Ito ay kasalukuyang hindi ganap na secure dahil ang isang hacker na alam ang fingerprint ng iyong mga paboritong device ay maaari pa ring magpadala sa iyo ng mga file.',
+        'Gayunpaman, ang opsyon na ito ay mas secure kaysa sa pag-allow sa anumang device.',
+      ];
 }
 
 // Path: dialogs.pin

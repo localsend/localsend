@@ -23,7 +23,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
   final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
   final IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery;
-  final IsolateConnector<Device, SendToIsolateData<Object>>? multicastDiscovery;
+  final IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? multicastDiscovery;
 
   ParentIsolateState({
     required this.syncState,
@@ -81,7 +81,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
       ),
     );
 
-    final multicastDiscovery = await startIsolate<Device, SendToIsolateData<Object>, InitialData>(
+    final multicastDiscovery = await startIsolate<Device, SendToIsolateData<MulticastAnnouncementTask>, InitialData>(
       task: setupMulticastDiscoveryIsolate,
       param: InitialData(
         syncState: state.syncState,

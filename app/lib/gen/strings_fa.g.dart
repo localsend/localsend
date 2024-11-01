@@ -180,6 +180,8 @@ class _TranslationsReceiveTabFa extends TranslationsReceiveTabEn {
   String get title => 'دریافت';
   @override
   late final _TranslationsReceiveTabInfoBoxFa infoBox = _TranslationsReceiveTabInfoBoxFa._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveFa quickSave = _TranslationsReceiveTabQuickSaveFa._(_root);
 }
 
 // Path: sendTab
@@ -603,6 +605,8 @@ class _TranslationsDialogsFa extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileFa addFile = _TranslationsDialogsAddFileFa._(_root);
   @override
+  late final _TranslationsDialogsOpenFileFa openFile = _TranslationsDialogsOpenFileFa._(_root);
+  @override
   late final _TranslationsDialogsAddressInputFa addressInput = _TranslationsDialogsAddressInputFa._(_root);
   @override
   late final _TranslationsDialogsCancelSessionFa cancelSession = _TranslationsDialogsCancelSessionFa._(_root);
@@ -795,6 +799,23 @@ class _TranslationsReceiveTabInfoBoxFa extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'نام مستعار:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveFa extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveFa._(TranslationsFa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'علاقه‌مندی‌ها';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionFa extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionFa._(TranslationsFa root)
@@ -961,6 +982,10 @@ class _TranslationsSettingsTabNetworkFa extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'مدت یابش';
   @override
+  String get useSystemName => 'استفاده از نام سیستم';
+  @override
+  String get generateRandomAlias => 'ایجاد نام مستعار تصادفی';
+  @override
   String portWarning({required Object defaultPort}) =>
       'ممکن است به دلیل استفاده از یک پورت سفارشی، دستگاه های دیگر شما را شناسایی نکنند (پیشفرض : ${defaultPort})';
   @override
@@ -1095,6 +1120,21 @@ class _TranslationsDialogsAddFileFa extends TranslationsDialogsAddFileEn {
   String get title => 'افزودن به انتخاب شده ها';
   @override
   String get content => 'چه چیزی می خواهید اضافه کنید؟';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileFa extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileFa._(TranslationsFa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'باز کردن فایل';
+  @override
+  String get content => 'آیا می خواهید فایل دریافتی را باز کنید؟';
 }
 
 // Path: dialogs.addressInput
@@ -1422,6 +1462,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFa extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'درخواست‌ها اکنون به طور خودکار از دستگاه‌های موجود در لیست علاقه‌مندی‌ها پذیرفته می‌شود',
+        'هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکری به دستگاه‌های موجود در لیست علاقه‌مندی‌ها، می‌تواند برای شما فایل ارسال کند',
+        'با این حال، این گزینه از اجازه دادن به هر دستگاهی ایمن‌تر است',
+      ];
 }
 
 // Path: dialogs.pin

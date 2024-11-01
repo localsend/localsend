@@ -92,7 +92,7 @@ class _TranslationsGeneralFr extends TranslationsGeneralEn {
   @override
   String get accept => 'Accepter';
   @override
-  String get accepted => 'Acceptée';
+  String get accepted => 'Accepté';
   @override
   String get add => 'Ajouter';
   @override
@@ -128,11 +128,11 @@ class _TranslationsGeneralFr extends TranslationsGeneralEn {
   @override
   String get hide => 'Masquer';
   @override
-  String get off => 'Off';
+  String get off => 'Désactivé';
   @override
   String get offline => 'Hors ligne';
   @override
-  String get on => 'On';
+  String get on => 'Activé';
   @override
   String get online => 'En ligne';
   @override
@@ -146,7 +146,7 @@ class _TranslationsGeneralFr extends TranslationsGeneralEn {
   @override
   String get renamed => 'Renommé';
   @override
-  String get reset => 'Réinitialiser';
+  String get reset => 'Annuler les changements';
   @override
   String get restart => 'Redémarrer';
   @override
@@ -180,6 +180,8 @@ class _TranslationsReceiveTabFr extends TranslationsReceiveTabEn {
   String get title => 'Recevoir';
   @override
   late final _TranslationsReceiveTabInfoBoxFr infoBox = _TranslationsReceiveTabInfoBoxFr._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveFr quickSave = _TranslationsReceiveTabQuickSaveFr._(_root);
 }
 
 // Path: sendTab
@@ -205,17 +207,17 @@ class _TranslationsSendTabFr extends TranslationsSendTabEn {
   @override
   String get thisDevice => 'Cet Appareil';
   @override
-  String get scan => 'Recherchez des appareils';
+  String get scan => 'Recherche automatique';
   @override
-  String get manualSending => 'Envoi manuel';
+  String get manualSending => 'Recherche manuelle';
   @override
-  String get sendMode => 'Mode envoi';
+  String get sendMode => 'Mode d\'envoi';
   @override
   late final _TranslationsSendTabSendModesFr sendModes = _TranslationsSendTabSendModesFr._(_root);
   @override
   String get sendModeHelp => 'Explication';
   @override
-  String get help => 'Veuillez vous assurer que la cible souhaitée se trouve également dans le même réseau wifi.';
+  String get help => 'Veuillez vous assurer que l\'appareil cible se trouve sur le même réseau Wi-Fi.';
   @override
   String get placeItems => 'Placez des éléments à partager.';
 }
@@ -257,11 +259,11 @@ class _TranslationsTroubleshootPageFr extends TranslationsTroubleshootPageEn {
   @override
   String get title => 'Dépannage';
   @override
-  String get subTitle => 'Cette application ne marche pas comme vous l\'espérez? Vous pouvez ici trouver des solutions à des problèmes communs.';
+  String get subTitle => 'Cette application ne fonctionne pas comme vous l\'espérez ? Vous trouverez ici des solutions aux problèmes communs.';
   @override
   String get solution => 'Solution:';
   @override
-  String get fixButton => 'Régler automatiquement';
+  String get fixButton => 'Corriger automatiquement';
   @override
   late final _TranslationsTroubleshootPageFirewallFr firewall = _TranslationsTroubleshootPageFirewallFr._(_root);
   @override
@@ -383,7 +385,7 @@ class _TranslationsSendPageFr extends TranslationsSendPageEn {
   @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
-  String get busy => 'Le destinataire est occupé avec une autre requête.';
+  String get busy => 'Le destinataire ne peut pas traiter la requête actuelle. Veuillez réessayer ultérieument.';
 }
 
 // Path: progressPage
@@ -400,7 +402,7 @@ class _TranslationsProgressPageFr extends TranslationsProgressPageEn {
   @override
   String get titleReceiving => 'Réception des fichiers';
   @override
-  String get savedToGallery => 'Sauvegardé dans Photos';
+  String get savedToGallery => 'Sauvegardé dans la Galerie';
   @override
   late final _TranslationsProgressPageTotalFr total = _TranslationsProgressPageTotalFr._(_root);
 }
@@ -419,14 +421,14 @@ class _TranslationsWebSharePageFr extends TranslationsWebSharePageEn {
   @override
   String get loading => 'Démarrage du serveur...';
   @override
-  String get stopping => 'Fermeture du serveur...';
+  String get stopping => 'Arrêt du serveur...';
   @override
   String get error => 'Une erreur est survenue lors du démarrage du serveur.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(
         n,
-        one: 'Ouvrir ce lien dans le navigateur:',
-        other: 'Ouvrir un de ces liens dans le navigateur:',
+        one: 'Ouvrir ce lien dans le navigateur :',
+        other: 'Ouvrir un des liens suivants dans le navigateur :',
       );
   @override
   String get requests => 'Requêtes';
@@ -437,7 +439,7 @@ class _TranslationsWebSharePageFr extends TranslationsWebSharePageEn {
   @override
   String get autoAccept => 'Accepter automatiquement les requêtes';
   @override
-  String get requirePin => 'Code PIN nécessaire';
+  String get requirePin => 'Code PIN requis';
   @override
   String pinHint({required Object pin}) => 'Le code PIN est "${pin}"';
   @override
@@ -456,18 +458,18 @@ class _TranslationsAboutPageFr extends TranslationsAboutPageEn {
 
   // Translations
   @override
-  String get title => 'A propos de LocalSend';
+  String get title => 'À propos de LocalSend';
   @override
   List<String> get description => [
-        'Localsend est un logiciel gratuit et open-source qui vous permet de partager de manière sécurisée des fichers et des messages avec d\'autres appareils sur votre réseau local, sans même avoir besoin d\'une connexion à internet.',
-        'Localsend est disponible sur Android, iOS, macOS, Windows et Linux. Vous pouvez accéder à ces téléchargements sur la page officielle.',
+        'Localsend est un logiciel gratuit et open-source qui vous permet de partager de manière sécurisée des fichiers et des messages avec d\'autres appareils connectés à votre réseau local. Une connexion à internet n\'est pas requise.',
+        'Localsend est disponible sur Android, iOS, macOS, Windows et Linux. Vous pouvez accéder à ces téléchargements depuis la page officielle.',
       ];
   @override
   String get author => 'Auteur';
   @override
   String get contributors => 'Contributeurs';
   @override
-  String get packagers => 'Empaqueteurs';
+  String get packagers => 'Distributeurs';
   @override
   String get translators => 'Traducteurs';
 }
@@ -485,11 +487,11 @@ class _TranslationsDonationPageFr extends TranslationsDonationPageEn {
   String get title => 'Faire une donation';
   @override
   String get info =>
-      'LocalSend est gratuit, open-source and sans aucune pub. Si vous aimez ce logiciel, vous pouvez faire un don pour supporter son développement.';
+      'LocalSend est gratuit, open-source et sans aucune pub. Si vous aimez ce logiciel, vous pouvez faire un don pour soutenir son développement.';
   @override
   String donate({required Object amount}) => 'Donner ${amount}';
   @override
-  String get thanks => 'Merci beaucoup!';
+  String get thanks => 'Merci beaucoup !';
   @override
   String get restore => 'Restaurer les achats';
 }
@@ -562,6 +564,8 @@ class _TranslationsDialogsFr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsNotAvailableOnPlatformFr notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformFr._(_root);
   @override
+  late final _TranslationsDialogsOpenFileFr openFile = _TranslationsDialogsOpenFileFr._(_root);
+  @override
   late final _TranslationsDialogsQrFr qr = _TranslationsDialogsQrFr._(_root);
   @override
   late final _TranslationsDialogsQuickActionsFr quickActions = _TranslationsDialogsQuickActionsFr._(_root);
@@ -624,7 +628,7 @@ class _TranslationsWebFr extends TranslationsWebEn {
   @override
   String get enterPin => 'Entrez le code PIN';
   @override
-  String get invalidPin => 'Code PIN Invalide';
+  String get invalidPin => 'Code PIN invalide';
   @override
   String get tooManyAttempts => 'Trop d\'essais infructueux';
   @override
@@ -669,12 +673,12 @@ class _TranslationsAssetPickerFr extends TranslationsAssetPickerEn {
   @override
   String get unableToAccessAll => 'Impossible d\'accéder aux médias de votre appareil';
   @override
-  String get viewingLimitedAssetsTip => 'Affichage des médias et albums limité.';
+  String get viewingLimitedAssetsTip => 'Affichage limité des médias et des albums.';
   @override
   String get changeAccessibleLimitedAssets => 'Modifier l\'accès limité aux médias';
   @override
   String get accessAllTip =>
-      'L\'application ne peut accéder qu\'à certains medias. Allez dans les paramètres système et autoriser l\'application à accéder à tous les medias sur l\'appareil.';
+      'L\'application ne peut accéder qu\'à certains medias. Allez dans les paramètres système et autorisez l\'application à accéder à tous les medias sur l\'appareil.';
   @override
   String get goToSystemSettings => 'Allez dans les paramètres système';
   @override
@@ -682,15 +686,15 @@ class _TranslationsAssetPickerFr extends TranslationsAssetPickerEn {
   @override
   String get accessiblePathName => 'Medias accessible';
   @override
-  String get sTypeAudioLabel => 'l\'audio';
+  String get sTypeAudioLabel => 'Audio';
   @override
-  String get sTypeImageLabel => 'image';
+  String get sTypeImageLabel => 'Image';
   @override
-  String get sTypeVideoLabel => 'vidéo';
+  String get sTypeVideoLabel => 'Vidéo';
   @override
   String get sTypeOtherLabel => 'Autre';
   @override
-  String get sActionPlayHint => 'jouer';
+  String get sActionPlayHint => 'lire';
   @override
   String get sActionPreviewHint => 'aperçu';
   @override
@@ -720,6 +724,23 @@ class _TranslationsReceiveTabInfoBoxFr extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Port:';
   @override
   String get alias => 'Alias:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveFr extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favoris';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -791,7 +812,7 @@ class _TranslationsSettingsTabGeneralFr extends TranslationsSettingsTabGeneralEn
   @override
   String get title => 'Général';
   @override
-  String get brightness => 'Luminosité';
+  String get brightness => 'Thème';
   @override
   late final _TranslationsSettingsTabGeneralBrightnessOptionsFr brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsFr._(_root);
   @override
@@ -803,17 +824,17 @@ class _TranslationsSettingsTabGeneralFr extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsFr languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsFr._(_root);
   @override
-  String get saveWindowPlacement => 'Quitter: Sauvegarder l\'emplacement de la fenêtre';
+  String get saveWindowPlacement => 'Sauvegarder l\'emplacement de la fenêtre à la fermeture';
   @override
-  String get saveWindowPlacementWindows => 'Sauvegarder la position de la fenêtre avant de quitter';
+  String get saveWindowPlacementWindows => 'Sauvegarder la position de la fenêtre en quittant';
   @override
-  String get minimizeToTray => 'Quitter : Réduire à la barre des tâches';
+  String get minimizeToTray => 'Réduire dans la barre des tâches à la fermeture';
   @override
-  String get launchAtStartup => 'Démarrage automatique : Après la connexion';
+  String get launchAtStartup => 'Lancer LocalSend à la connexion de l\'utilisateur';
   @override
-  String get launchMinimized => 'Démarrage automatique : Minimiser';
+  String get launchMinimized => 'Minimiser LocalSend lors du lancement';
   @override
-  String get showInContextMenu => 'Montrer LocalSend dans le menu contextuel';
+  String get showInContextMenu => 'Afficher LocalSend dans le menu contextuel';
   @override
   String get animations => 'Animations';
 }
@@ -828,7 +849,7 @@ class _TranslationsSettingsTabReceiveFr extends TranslationsSettingsTabReceiveEn
 
   // Translations
   @override
-  String get title => 'Reçu';
+  String get title => 'Réception';
   @override
   String get quickSave => _root.general.quickSave;
   @override
@@ -836,7 +857,7 @@ class _TranslationsSettingsTabReceiveFr extends TranslationsSettingsTabReceiveEn
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
-  String get autoFinish => 'Finir automatiquement';
+  String get autoFinish => 'Fermer la page du transfert lorqu\'il est terminé';
   @override
   String get destination => 'Destination';
   @override
@@ -844,7 +865,7 @@ class _TranslationsSettingsTabReceiveFr extends TranslationsSettingsTabReceiveEn
   @override
   String get saveToGallery => 'Sauvegarder les médias dans la galerie';
   @override
-  String get saveToHistory => 'Enregistrer dans l\'historique';
+  String get saveToHistory => 'Activer l\'historique';
 }
 
 // Path: settingsTab.send
@@ -886,7 +907,7 @@ class _TranslationsSettingsTabNetworkFr extends TranslationsSettingsTabNetworkEn
   @override
   String get port => 'Port';
   @override
-  String get discoveryTimeout => 'Temps maximal de recherche';
+  String get discoveryTimeout => 'Délai d\'expiration de la recherche';
   @override
   String get useSystemName => 'Utiliser le nom du système';
   @override
@@ -915,7 +936,7 @@ class _TranslationsSettingsTabOtherFr extends TranslationsSettingsTabOtherEn {
   @override
   String get title => 'Autre';
   @override
-  String get support => 'Supporter LocalSend';
+  String get support => 'Soutenir LocalSend';
   @override
   String get donate => 'Faire une donation';
   @override
@@ -934,11 +955,10 @@ class _TranslationsTroubleshootPageFirewallFr extends TranslationsTroubleshootPa
 
   // Translations
   @override
-  String get symptom =>
-      'Cet appareil peut envoyer des fichiers à d\'autres appareils, mais d\'autres appareils ne peuvent pas en envoyer à cet appareil.';
+  String get symptom => 'Cet appareil peut envoyer des fichiers mais pas en recevoir.';
   @override
   String solution({required Object port}) =>
-      'Le problème est probablement dû à votre pare-feu. Vous pouvez le régler en autorisant les connections entrantes (UDP et TCP) sur le port ${port}.';
+      'Il se peut que votre pare-feu bloque la réception de fichiers. Pour corriger ce problème, il est nécessaire d\'autoriser les connections entrantes (UDP et TCP) sur le port ${port}.';
   @override
   String get openFirewall => 'Ouvrir le pare-feu';
 }
@@ -956,7 +976,7 @@ class _TranslationsTroubleshootPageNoDiscoveryFr extends TranslationsTroubleshoo
   String get symptom => 'Cet appareil ne peut pas trouver d\'autres appareils.';
   @override
   String get solution =>
-      'Assurez-vous que tous les appareils sont sur le même réseau Wifi et qu\'ils partagent la même configuration (port, addresse multicast, chiffrement). Vous pouvez également essayer d\'utiliser l\'addresse IP de votre appareil cible directement. Si cela fonctionne, assurez-vous d\'ajouter le dit appareil à vos favoris pour qu\'il soit détecté automatiquement lors des prochaines recherches.';
+      'Assurez-vous que tous les appareils soient sur le même réseau Wi-Fi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Vous pouvez également rechercher manuellement d\'autres appareils en utilisant leur addresse IP. Pensez à ajouter l\'appareil à vos favoris pour faciliter les prochains transferts de fichiers.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -972,7 +992,7 @@ class _TranslationsTroubleshootPageNoConnectionFr extends TranslationsTroublesho
   String get symptom => 'Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.';
   @override
   String get solution =>
-      'Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils sont connectés au même réseau wifi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Le wifi peut ne pas autoriser les communications entre appareils. Dans ce cas, l\'option doit être activée dans les paramètres du routeur.';
+      'Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l\'option "Isolement du point d\'accès" ou "AP Isolation".';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1038,7 +1058,7 @@ class _TranslationsDialogsAddressInputFr extends TranslationsDialogsAddressInput
 
   // Translations
   @override
-  String get title => 'Entrez l\'adresse';
+  String get title => 'Entrez l\'adresse IP';
   @override
   String get hashtag => 'Hashtag';
   @override
@@ -1089,7 +1109,7 @@ class _TranslationsDialogsEncryptionDisabledNoticeFr extends TranslationsDialogs
   @override
   String get title => 'Chiffrement désactivé';
   @override
-  String get content => 'La communication s\'effectue désormais via le protocole HTTP non crypté. Pour utiliser HTTPS, réactivez le chiffrement.';
+  String get content => 'La communication s\'effectue désormais via le protocole non chiffré HTTP. Pour utiliser HTTPS, réactivez le chiffrement.';
 }
 
 // Path: dialogs.errorDialog
@@ -1149,7 +1169,7 @@ class _TranslationsDialogsFavoriteEditDialogFr extends TranslationsDialogsFavori
   @override
   String get titleAdd => 'Ajouter aux favoris';
   @override
-  String get titleEdit => 'Ajuster';
+  String get titleEdit => 'Modifier le favori';
   @override
   String get name => 'Alias';
   @override
@@ -1178,9 +1198,9 @@ class _TranslationsDialogsFileInfoFr extends TranslationsDialogsFileInfoEn {
   @override
   String get size => 'Taille :';
   @override
-  String get sender => 'Éxpéditeur :';
+  String get sender => 'Expéditeur :';
   @override
-  String get time => 'Temps :';
+  String get time => 'Date :';
 }
 
 // Path: dialogs.fileNameInput
@@ -1210,7 +1230,7 @@ class _TranslationsDialogsHistoryClearDialogFr extends TranslationsDialogsHistor
   @override
   String get title => 'Effacer l\'historique';
   @override
-  String get content => 'Voulez-vous vraiment effacer l\'historique entier?';
+  String get content => 'Voulez-vous vraiment effacer l\'historique ?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1226,7 +1246,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedFr extends TranslationsDialogs
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend ne peut pas trouver d\'autres appareils sans la permission de scanner votre réseau local. Veuillez autoriser cette permission à LocalSend dans les paramètres.';
+      'LocalSend ne peut pas trouver d\'autres appareils sans la permission de scanner votre réseau local. Veuillez donner cette permission à LocalSend dans les paramètres système.';
   @override
   String get gotoSettings => 'Paramètres';
 }
@@ -1271,9 +1291,9 @@ class _TranslationsDialogsNoPermissionFr extends TranslationsDialogsNoPermission
 
   // Translations
   @override
-  String get title => 'Pas la permission';
+  String get title => 'LocalSend n\'a pas la permission';
   @override
-  String get content => 'Vous n\'avez pas accordé les autorisations nécessaires. Veuillez les accorder dans les paramètres.';
+  String get content => 'Vous n\'avez pas accordé les autorisations nécessaires. Veuillez les accorder dans les paramètres systèmes.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1289,6 +1309,21 @@ class _TranslationsDialogsNotAvailableOnPlatformFr extends TranslationsDialogsNo
   String get title => 'Non disponible';
   @override
   String get content => 'Cette fonctionalité est disponible uniquement sur:';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileFr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ouvrir le fichier';
+  @override
+  String get content => 'Voulez-vous ouvrir le fichier reçu ?';
 }
 
 // Path: dialogs.qr
@@ -1340,7 +1375,7 @@ class _TranslationsDialogsQuickSaveNoticeFr extends TranslationsDialogsQuickSave
   String get title => _root.general.quickSave;
   @override
   String get content =>
-      'Les demandes de fichiers sont automatiquement acceptées. Sachez que tous les membres du réseau local peuvent vous envoyer des fichiers.';
+      'Les demandes d\'envoi de fichiers sont désormais automatiquement acceptées. Veuillez noter que tous les appareils connectés au réseau local pourront vous envoyer des fichiers.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1354,6 +1389,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFr extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées.',
+        'Attention : Cette option n\'est pas sûre car un hackeur qui connaîtrait l\'empreinte numérique de vos appareils favoris pourrait quand même vous envoyer des fichiers.',
+        'Cette option reste néanmoins plus sûre que d\'autoriser tous les appareils.',
+      ];
 }
 
 // Path: dialogs.pin

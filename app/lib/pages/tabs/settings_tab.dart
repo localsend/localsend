@@ -15,6 +15,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
+import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
@@ -207,6 +208,9 @@ class SettingsTab extends StatelessWidget {
 
                         final directory = await pickDirectoryPath();
                         if (directory != null) {
+                          if (defaultTargetPlatform == TargetPlatform.macOS) {
+                            await requestFolderAccess(directory);
+                          }
                           await ref.notifier(settingsProvider).setDestination(directory);
                         }
                       },

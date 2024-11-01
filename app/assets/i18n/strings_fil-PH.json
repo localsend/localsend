@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Mga Paborito",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -130,6 +135,8 @@
       "deviceModel": "Device model",
       "port": "Port",
       "discoveryTimeout": "Nag Timeout ang Discovery",
+      "useSystemName": "Gamitin ang pangalan ng system",
+      "generateRandomAlias": "Mag-generate ng random na alias",
       "portWarning": "Maaaring hindi ka ma-detect ng ibang devices dahil ikaw ay gumagamit ng ibang port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
@@ -339,6 +346,10 @@
       "title": "Idagdag sa selection",
       "content": "Ano ang gusto mong idagdag?"
     },
+    "openFile": {
+      "title": "Buksan ang file",
+      "content": "Gusto mo bang buksan ang natanggap na file?"
+    },
     "addressInput": {
       "title": "Ilagay ang address",
       "hashtag": "Hashtag",
@@ -430,7 +441,12 @@
       "content": "Ang mga file request ay awtomatikong tinatanggap. Mabatid lamang na ang lahat ng nasa lokal na network ay maaaring magpadala sa iyo ng mga file."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Ang mga file request ngayon ay awtomatikong tinatanggap sa mga device sa iyong listahan ng mga paborito.",
+        "Babala: Ito ay kasalukuyang hindi ganap na secure dahil ang isang hacker na alam ang fingerprint ng iyong mga paboritong device ay maaari pa ring magpadala sa iyo ng mga file.",
+        "Gayunpaman, ang opsyon na ito ay mas secure kaysa sa pag-allow sa anumang device."
+      ]
     },
     "pin": {
       "title": "Ilagay ang PIN"

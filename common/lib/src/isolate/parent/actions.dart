@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/http_scan_discovery_isolate.dart';
 import 'package:common/src/isolate/child/http_target_discovery_isolate.dart';
+import 'package:common/src/isolate/child/multicast_discovery_isolate.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_stream_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
@@ -141,13 +142,15 @@ class IsolateSendMulticastAnnouncementAction extends ReduxAction<IsolateControll
 
     connection.sendToIsolate(SendToIsolateData(
       syncState: null,
-      data: const Object(),
+      data: MulticastAnnouncementTask.instance,
     ));
 
     return state;
   }
 }
 
+/// Sends the task to the isolate
+/// and transforms [IsolateTaskStreamResult] into a proper stream making it easier to work with.
 Stream<R> _sendTaskAndListenStream<R, T>({
   required IsolateTask<T> task,
   required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
