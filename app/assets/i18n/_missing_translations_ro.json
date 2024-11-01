@@ -2,56 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ro>.",
     "After editing this file, you can run 'dart run slang apply --locale=ro' to quickly apply the newly added translations."
-  ],
-  "general": {
-    "quickSaveFromFavorites": "Salvare rapidă din \"Favorite\""
-  },
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favorite",
-      "on": "@:general.on"
-    }
-  },
-  "sendTab": {
-    "manualSending": "Trimitere manuală"
-  },
-  "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Salvarea poziției ferestrei după închidere"
-    },
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
-    },
-    "network": {
-      "useSystemName": "Folosește numele sistemului",
-      "generateRandomAlias": "Generează alias aleatoriu"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "Acest dispozitiv nu poate descoperi alte dispozitive.",
-      "solution": "Asigură-te că toate dispozitivele sunt pe aceeași rețea Wi-Fi și au aceeași configurație (port, adresă de multicast, criptare). Poți încerca să scrii manual adresa IP pe dispozitivul ales. Dacă merge, consideră să adaugi dispozitivul la favorite ca să fie găsit automat în viitor."
-    }
-  },
-  "aboutPage": {
-    "packagers": "Pachetari"
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Deschide fișierul",
-      "content": "Vrei să deschizi fișierul primit?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": [
-        "Fișierele cu cereri sunt acum acceptate automat de dispozitivele din lista ta de favorite.",
-        "Atenție! În prezent, aceasta nu este complet securizată, deoarece un hacker care are amprente pe oricare dintre dispozitivele din lista ta de favorite poate trimite fișiere fără restricții.",
-        "Oricum ar fi, această opțiune este mult mai sigură decât să permiți utilizatorilor din rețeaua locală să trimită fișiere fără restricții."
-      ]
-    }
-  },
-  "tray": {
-    "closeWindows": "Închide"
-  }
+  ]
 }

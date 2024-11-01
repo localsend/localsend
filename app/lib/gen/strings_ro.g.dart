@@ -142,6 +142,8 @@ class _TranslationsGeneralRo extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Salvare Rapidă';
   @override
+  String get quickSaveFromFavorites => 'Salvare rapidă din "Favorite"';
+  @override
   String get renamed => 'Redenumit';
   @override
   String get reset => 'Resetare';
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabRo extends TranslationsReceiveTabEn {
   String get title => 'Primire';
   @override
   late final _TranslationsReceiveTabInfoBoxRo infoBox = _TranslationsReceiveTabInfoBoxRo._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveRo quickSave = _TranslationsReceiveTabQuickSaveRo._(_root);
 }
 
 // Path: sendTab
@@ -203,6 +207,8 @@ class _TranslationsSendTabRo extends TranslationsSendTabEn {
   String get thisDevice => 'Acest dispozitiv';
   @override
   String get scan => 'Caută dispozitive';
+  @override
+  String get manualSending => 'Trimitere manuală';
   @override
   String get sendMode => 'Mod de trimitere';
   @override
@@ -259,6 +265,8 @@ class _TranslationsTroubleshootPageRo extends TranslationsTroubleshootPageEn {
   String get fixButton => 'Rezolvă automată';
   @override
   late final _TranslationsTroubleshootPageFirewallRo firewall = _TranslationsTroubleshootPageFirewallRo._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryRo noDiscovery = _TranslationsTroubleshootPageNoDiscoveryRo._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionRo noConnection = _TranslationsTroubleshootPageNoConnectionRo._(_root);
 }
@@ -460,6 +468,8 @@ class _TranslationsAboutPageRo extends TranslationsAboutPageEn {
   @override
   String get contributors => 'Contribuitori';
   @override
+  String get packagers => 'Pachetari';
+  @override
   String get translators => 'Traducători';
 }
 
@@ -592,6 +602,8 @@ class _TranslationsDialogsRo extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileRo addFile = _TranslationsDialogsAddFileRo._(_root);
   @override
+  late final _TranslationsDialogsOpenFileRo openFile = _TranslationsDialogsOpenFileRo._(_root);
+  @override
   late final _TranslationsDialogsAddressInputRo addressInput = _TranslationsDialogsAddressInputRo._(_root);
   @override
   late final _TranslationsDialogsCancelSessionRo cancelSession = _TranslationsDialogsCancelSessionRo._(_root);
@@ -630,6 +642,9 @@ class _TranslationsDialogsRo extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeRo quickSaveNotice = _TranslationsDialogsQuickSaveNoticeRo._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeRo quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeRo._(_root);
+  @override
   late final _TranslationsDialogsPinRo pin = _TranslationsDialogsPinRo._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpRo sendModeHelp = _TranslationsDialogsSendModeHelpRo._(_root);
@@ -665,6 +680,8 @@ class _TranslationsTrayRo extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => 'Închide LocalSend';
+  @override
+  String get closeWindows => 'Închide';
 }
 
 // Path: web
@@ -779,6 +796,23 @@ class _TranslationsReceiveTabInfoBoxRo extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'Nume dispozitivului:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveRo extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveRo._(TranslationsRo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favorite';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionRo extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionRo._(TranslationsRo root)
@@ -862,6 +896,8 @@ class _TranslationsSettingsTabGeneralRo extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'Închidere: Salvează plasarea ferestrei';
   @override
+  String get saveWindowPlacementWindows => 'Salvarea poziției ferestrei după închidere';
+  @override
   String get minimizeToTray => 'Închidere: Minimizează în Bara de Meniuri/Tray';
   @override
   String get launchAtStartup => 'Autopornire după logare';
@@ -886,6 +922,8 @@ class _TranslationsSettingsTabReceiveRo extends TranslationsSettingsTabReceiveEn
   String get title => 'Primire';
   @override
   String get quickSave => _root.general.quickSave;
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
@@ -941,6 +979,10 @@ class _TranslationsSettingsTabNetworkRo extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'Timp de așteptare pentru descoperire';
   @override
+  String get useSystemName => 'Folosește numele sistemului';
+  @override
+  String get generateRandomAlias => 'Generează alias aleatoriu';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Este posibil să nu fii detectat de alte dispozitive pentru că folosești un port customizat. (implicit: ${defaultPort})';
   @override
@@ -990,6 +1032,22 @@ class _TranslationsTroubleshootPageFirewallRo extends TranslationsTroubleshootPa
       'Cel mai probabil problema este de la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul ${port}.';
   @override
   String get openFirewall => 'Deschide Firewall';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryRo extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryRo._(TranslationsRo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'Acest dispozitiv nu poate descoperi alte dispozitive.';
+  @override
+  String get solution =>
+      'Asigură-te că toate dispozitivele sunt pe aceeași rețea Wi-Fi și au aceeași configurație (port, adresă de multicast, criptare). Poți încerca să scrii manual adresa IP pe dispozitivul ales. Dacă merge, consideră să adaugi dispozitivul la favorite ca să fie găsit automat în viitor.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1059,6 +1117,21 @@ class _TranslationsDialogsAddFileRo extends TranslationsDialogsAddFileEn {
   String get title => 'Adaugă la selecție';
   @override
   String get content => 'Ce vrei să adaugi?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileRo extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileRo._(TranslationsRo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Deschide fișierul';
+  @override
+  String get content => 'Vrei să deschizi fișierul primit?';
 }
 
 // Path: dialogs.addressInput
@@ -1373,6 +1446,25 @@ class _TranslationsDialogsQuickSaveNoticeRo extends TranslationsDialogsQuickSave
   String get title => _root.general.quickSave;
   @override
   String get content => 'Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeRo extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeRo._(TranslationsRo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Fișierele cu cereri sunt acum acceptate automat de dispozitivele din lista ta de favorite.',
+        'Atenție! În prezent, aceasta nu este complet securizată, deoarece un hacker care are amprente pe oricare dintre dispozitivele din lista ta de favorite poate trimite fișiere fără restricții.',
+        'Oricum ar fi, această opțiune este mult mai sigură decât să permiți utilizatorilor din rețeaua locală să trimită fișiere fără restricții.',
+      ];
 }
 
 // Path: dialogs.pin

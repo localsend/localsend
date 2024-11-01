@@ -28,6 +28,7 @@
     "open": "Deschide",
     "queue": "Coadă",
     "quickSave": "Salvare Rapidă",
+    "quickSaveFromFavorites": "Salvare rapidă din \"Favorite\"",
     "renamed": "Redenumit",
     "reset": "Resetare",
     "restart": "Repornire",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Nume dispozitivului:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorite",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -67,6 +73,7 @@
     "nearbyDevices": "Dispozitive din apropiere",
     "thisDevice": "Acest dispozitiv",
     "scan": "Caută dispozitive",
+    "manualSending": "Trimitere manuală",
     "sendMode": "Mod de trimitere",
     "sendModes": {
       "single": "Recipient unic",
@@ -97,6 +104,7 @@
         "system": "Sistem"
       },
       "saveWindowPlacement": "Închidere: Salvează plasarea ferestrei",
+      "saveWindowPlacementWindows": "Salvarea poziției ferestrei după închidere",
       "minimizeToTray": "Închidere: Minimizează în Bara de Meniuri/Tray",
       "launchAtStartup": "Autopornire după logare",
       "launchMinimized": "Autopornire: Pornire ascunsă",
@@ -106,6 +114,7 @@
     "receive": {
       "title": "Primire",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Finisare automată",
       "destination": "Destinație",
@@ -126,6 +135,8 @@
       "deviceModel": "Model dispozitiv",
       "port": "Port",
       "discoveryTimeout": "Timp de așteptare pentru descoperire",
+      "useSystemName": "Folosește numele sistemului",
+      "generateRandomAlias": "Generează alias aleatoriu",
       "portWarning": "Este posibil să nu fii detectat de alte dispozitive pentru că folosești un port customizat. (implicit: {defaultPort})",
       "encryption": "Criptare",
       "multicastGroup": "Multicast",
@@ -149,6 +160,10 @@
       "symptom": "Această aplicație poate trimite fișiere la alte dispozitive, dar alte dispozitive nu pot trimite fișiere de pe acest dispozitiv.",
       "solution": "Cel mai probabil problema este de la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul {port}.",
       "openFirewall": "Deschide Firewall"
+    },
+    "noDiscovery": {
+      "symptom": "Acest dispozitiv nu poate descoperi alte dispozitive.",
+      "solution": "Asigură-te că toate dispozitivele sunt pe aceeași rețea Wi-Fi și au aceeași configurație (port, adresă de multicast, criptare). Poți încerca să scrii manual adresa IP pe dispozitivul ales. Dacă merge, consideră să adaugi dispozitivul la favorite ca să fie găsit automat în viitor."
     },
     "noConnection": {
       "symptom": "Ambele dispozitive nu se pot descoperi și nu pot partaja fișiere.",
@@ -240,6 +255,7 @@
     ],
     "author": "Autor",
     "contributors": "Contribuitori",
+    "packagers": "Pachetari",
     "translators": "Traducători"
   },
   "donationPage": {
@@ -327,6 +343,10 @@
     "addFile": {
       "title": "Adaugă la selecție",
       "content": "Ce vrei să adaugi?"
+    },
+    "openFile": {
+      "title": "Deschide fișierul",
+      "content": "Vrei să deschizi fișierul primit?"
     },
     "addressInput": {
       "title": "Introdu adresa",
@@ -418,6 +438,14 @@
       "title": "@:general.quickSave",
       "content": "Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Fișierele cu cereri sunt acum acceptate automat de dispozitivele din lista ta de favorite.",
+        "Atenție! În prezent, aceasta nu este complet securizată, deoarece un hacker care are amprente pe oricare dintre dispozitivele din lista ta de favorite poate trimite fișiere fără restricții.",
+        "Oricum ar fi, această opțiune este mult mai sigură decât să permiți utilizatorilor din rețeaua locală să trimită fișiere fără restricții."
+      ]
+    },
     "pin": {
       "title": "Introdu PIN-ul"
     },
@@ -438,7 +466,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Închide LocalSend"
+    "close": "Închide LocalSend",
+    "closeWindows": "Închide"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
