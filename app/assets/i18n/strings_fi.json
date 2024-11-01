@@ -117,7 +117,7 @@
     },
     "network": {
       "title": "Verkko",
-      "needRestart": "UUdelleenkäynistä sovellus, jotta muutokset tallennetaan.",
+      "needRestart": "Uudelleenkäynistä sovellus, jotta muutokset tallennetaan.",
       "server": "Palvelin",
       "alias": "Laitteen nimi",
       "deviceType": "Laitteen tyyppi",
