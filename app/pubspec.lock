@@ -94,6 +94,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  build_cli_annotations:
+    dependency: transitive
+    description:
+      name: build_cli_annotations
+      sha256: b59d2769769efd6c9ff6d4c4cede0be115a566afc591705c2040b707534b1172
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   build_config:
     dependency: transitive
     description:
@@ -543,6 +551,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.23"
+  flutter_rust_bridge:
+    dependency: transitive
+    description:
+      name: flutter_rust_bridge
+      sha256: "5fe868d3cb8cbc4d83091748552e03f00ccfa41b8e44691bc382611f831d5f8b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.1"
   flutter_test:
     dependency: transitive
     description: flutter
@@ -553,6 +569,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.4"
   frontend_server_client:
     dependency: transitive
     description:
@@ -1251,6 +1275,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  rhttp:
+    dependency: "direct main"
+    description:
+      name: rhttp
+      sha256: "8dc4e1b50cbbd4422a3da93accfd40ea96227fb7d2264d6856754122aedfb194"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0"
   routerino:
     dependency: "direct main"
     description:

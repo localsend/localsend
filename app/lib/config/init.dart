@@ -43,10 +43,12 @@ import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/rhttp.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:rhttp/rhttp.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -145,7 +147,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
     return IsolateController(
       initialState: ParentIsolateState.initial(
         SyncState(
+          init: () async {
+            await Rhttp.init();
+          },
           rootIsolateToken: RootIsolateToken.instance!,
+          httpClientFactory: RhttpWrapper.create,
           securityContext: persistenceService.getSecurityContext(),
           deviceInfo: ref.read(deviceInfoProvider),
           alias: settings.alias,

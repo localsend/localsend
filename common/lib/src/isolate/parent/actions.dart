@@ -196,6 +196,7 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
     final progress = _sendTaskAndListenStream(
       task: task,
       connection: connection,
+      taskId: taskId,
     );
 
     return (
@@ -240,9 +241,10 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
 Stream<R> _sendTaskAndListenStream<R, T>({
   required T task,
   required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
+  int? taskId,
 }) {
   final wrappedTask = IsolateTask(
-    id: _idProvider.getNextId(),
+    id: taskId ?? _idProvider.getNextId(),
     data: task,
   );
 

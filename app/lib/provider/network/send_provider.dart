@@ -349,11 +349,16 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   void _finish({required String sessionId}) {
-    if (state[sessionId] != null && state[sessionId]!.status != SessionStatus.sending) {
+    final sessionState = state[sessionId];
+    if (sessionState == null) {
+      return;
+    }
+
+    if (state[sessionId]!.status != SessionStatus.sending) {
       _logger.info('Transfer was canceled.');
     } else {
-      final hasError = state[sessionId]!.files.values.any((file) => file.status == FileStatus.failed);
-      if (!hasError && state[sessionId]!.background == true) {
+      final hasError = sessionState.files.values.any((file) => file.status == FileStatus.failed);
+      if (!hasError && sessionState.background == true) {
         // close session because everything is fine and it is in background
         closeSession(sessionId);
         _logger.info('Transfer finished and session removed.');
