@@ -6,20 +6,20 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Favorieten",
       "on": "@:general.on"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Bestand openen",
+      "content": "Wil je het ontvangen bestand openen?"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.",
+        "Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.",
+        "Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden."
       ]
     }
   }
