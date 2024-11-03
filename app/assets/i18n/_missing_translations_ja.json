@@ -6,26 +6,26 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "お気に入り",
       "on": "@:general.on"
     }
   },
   "settingsTab": {
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "システム名を使用",
+      "generateRandomAlias": "ランダムな別名を生成"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "ファイルを開く",
+      "content": "受信したファイルを開きますか？"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。",
+        "警告 現時点では、お気に入りリストのデバイスと一致するフィンガープリントがあればハッカーが無制限にファイルを送信できてしまうため、この設定は完全に安全とは言えません。",
+        "ですが、この設定はローカルネットワーク上のすべてのユーザーに無制限のファイル送信を許可するよりはまだ安全です。"
       ]
     }
   }
