@@ -40,6 +40,7 @@ dependencies:
   mime: 1.0.6
   nanoid2: 2.0.1
   network_info_plus: 6.0.1
+  open_dir: 0.0.2+1
   open_filex: 4.5.0
   package_info_plus: 8.0.2
   pasteboard: 0.3.0
