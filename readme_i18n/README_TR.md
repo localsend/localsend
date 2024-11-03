@@ -115,7 +115,7 @@ v1.14.0 ve önceki sürümlerde, `autostart` bayrağı ayarlandığında ve gizl
 
 LocalSend, cihazların birbirleriyle iletişim kurmasını sağlayan güvenli bir iletişim protokolü kullanır ve bu iletişim REST API aracılığıyla gerçekleştirilir. Tüm veriler HTTPS üzerinden güvenli bir şekilde iletilir ve her cihazda anlık olarak oluşturulan TLS/SSL sertifikası ile maksimum güvenlik sağlanır.
 
-LocalSend Protokolü hakkında daha fazla bilgi için [documentation](https://github.com/localsend/protocol).
+LocalSend Protokolü hakkında daha fazla bilgi için [dökümantasyon](https://github.com/localsend/protocol).
 
 ## Başlarken
 
