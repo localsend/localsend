@@ -8,7 +8,7 @@ fvm flutter clean
 fvm flutter pub get
 fvm flutter build windows
 
-Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend-XXX-windows-x86-64.zip
+Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend-XXX-windows-x86-64.zip
 
 cd ..
 

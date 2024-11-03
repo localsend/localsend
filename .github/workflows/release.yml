@@ -321,13 +321,13 @@ jobs:
       - name: Add DLL files
         working-directory: app
         run: |
-          Copy-Item ../scripts/windows/x64/msvcp140.dll build/windows/runner/Release/
-          Copy-Item ../scripts/windows/x64/vcruntime140.dll build/windows/runner/Release/
-          Copy-Item ../scripts/windows/x64/vcruntime140_1.dll build/windows/runner/Release/
+          Copy-Item ../scripts/windows/x64/msvcp140.dll build/windows/x64/runner/Release/
+          Copy-Item ../scripts/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
+          Copy-Item ../scripts/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
 
       - name: Zip compiled files
         working-directory: app
-        run: Compress-Archive -Path build/windows/runner/Release/* -DestinationPath LocalSend.zip
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
 
       - name: Upload zip
         uses: actions/upload-artifact@v4
