@@ -257,7 +257,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                         ? null
                                         : (TapGestureRecognizer()
                                           ..onTap = () async {
-                                            await openFolder(receiveSession.destinationDirectory);
+                                            await openFolder(folderPath: receiveSession.destinationDirectory);
                                           }),
                                   ),
                                 ],

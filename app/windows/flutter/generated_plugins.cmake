@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   file_selector_windows
   gal
+  open_dir_windows
   pasteboard
   permission_handler_windows
   screen_retriever

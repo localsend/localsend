@@ -985,6 +985,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  open_dir:
+    dependency: "direct main"
+    description:
+      name: open_dir
+      sha256: a4884b00e5e5795a9b4b3d582ac6a66e9196795ed760dbc3c63b4837c70c5901
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+1"
+  open_dir_linux:
+    dependency: transitive
+    description:
+      name: open_dir_linux
+      sha256: "566cd9e02403971be06af35e1abc8057a4f3f98888c1226042e96a2af333b8bc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+1"
+  open_dir_macos:
+    dependency: transitive
+    description:
+      name: open_dir_macos
+      sha256: "51fdc8c3a06c9d571b599b5901045ada23d1440b24c3052c0a66cf3ee4ac901b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
+  open_dir_platform_interface:
+    dependency: transitive
+    description:
+      name: open_dir_platform_interface
+      sha256: ca189abb02d8e3320f9b2493b6d58e3a33f393d5eb4ccbbef02e0bc0fd393872
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
+  open_dir_windows:
+    dependency: transitive
+    description:
+      name: open_dir_windows
+      sha256: ec48df32ce61adb6f6cede0330d13b0d89714d2ee2df198f32ecd520e3a5d250
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+1"
   open_filex:
     dependency: "direct main"
     description:
