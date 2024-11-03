@@ -47,6 +47,11 @@
       "ip": "IP-adres:",
       "port": "Poort:",
       "alias": "Apparaatnaam:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorieten",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -271,6 +276,10 @@
       "title": "Toevoegen aan selectie",
       "content": "Wat wil je toevoegen?"
     },
+    "openFile": {
+      "title": "Bestand openen",
+      "content": "Wil je het ontvangen bestand openen?"
+    },
     "addressInput": {
       "title": "Vul een adres in",
       "hashtag": "Hashtag",
@@ -362,7 +371,12 @@
       "content": "Bestandsverzoeken worden nu automatisch geaccepteerd. Iedereen op het lokale netwerk kan nu dus bestanden naar je verzenden."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.",
+        "Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.",
+        "Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden."
+      ]
     },
     "pin": {
       "title": "Vul de code in"

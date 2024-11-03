@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Porta:",
       "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Preferiti",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -130,6 +135,8 @@
       "deviceModel": "Modello del dispositivo",
       "port": "Porta",
       "discoveryTimeout": "Timeout di rilevamento",
+      "useSystemName": "Usa il nome di sistema",
+      "generateRandomAlias": "Genera un alias casuale",
       "portWarning": "Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata (default: {defaultPort}).",
       "encryption": "Crittografia",
       "multicastGroup": "Indirizzo Multicast",
@@ -269,6 +276,10 @@
       "title": "Aggiungi alla selezione",
       "content": "Cosa vuoi aggiungere?"
     },
+    "openFile": {
+      "title": "Apri file",
+      "content": "Vuoi aprire il file ricevuto?"
+    },
     "addressInput": {
       "title": "Inserisci l'indirizzo",
       "hashtag": "Hashtag",
@@ -360,7 +371,12 @@
       "content": "Le richieste di file ora vengono accettate automaticamente. Tieni presente che chiunque abbia accesso alla tua rete locale può inviarti file."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti.",
+        "Attenzione! Al momento, questa soluzione non è del tutto sicura, poiché un hacker che possiede l'impronta digitale di un qualsiasi dispositivo presente nella tua lista dei preferiti può inviarti file senza restrizioni.",
+        "Tuttavia, questa opzione è comunque più sicura rispetto al consentire a tutti gli utenti della rete locale di inviarti file senza restrizioni."
+      ]
     },
     "pin": {
       "title": "Inserisci il PIN"

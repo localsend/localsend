@@ -2,25 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <nl>.",
     "After editing this file, you can run 'dart run slang apply --locale=nl' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favorieten",
-      "on": "@:general.on"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Bestand openen",
-      "content": "Wil je het ontvangen bestand openen?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.",
-        "Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.",
-        "Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden."
-      ]
-    }
-  }
+  ]
 }

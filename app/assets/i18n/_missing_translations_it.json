@@ -2,31 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <it>.",
     "After editing this file, you can run 'dart run slang apply --locale=it' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Preferiti",
-      "on": "@:general.on"
-    }
-  },
-  "settingsTab": {
-    "network": {
-      "useSystemName": "Usa il nome di sistema",
-      "generateRandomAlias": "Genera un alias casuale"
-    }
-  },
-  "dialogs": {
-    "openFile": {
-      "title": "Apri file",
-      "content": "Vuoi aprire il file ricevuto?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti.",
-        "Attenzione! Al momento, questa soluzione non è del tutto sicura, poiché un hacker che possiede l'impronta digitale di un qualsiasi dispositivo presente nella tua lista dei preferiti può inviarti file senza restrizioni.",
-        "Tuttavia, questa opzione è comunque più sicura rispetto al consentire a tutti gli utenti della rete locale di inviarti file senza restrizioni."
-      ]
-    }
-  }
+  ]
 }
