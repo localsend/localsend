@@ -1,3 +1,7 @@
+## 1.16.1 (unreleased)
+
+- fix(android): properly close app on back gesture (@Tienisto)
+
 ## 1.16.0 (2024-11-03)
 
 - feat: improve transfer speed if the sending device is the bottleneck by using Rust as HTTP client and multithreading (@Tienisto)

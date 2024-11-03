@@ -143,6 +143,9 @@ class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateS
     state.httpScanDiscovery?.isolate.kill();
     state.httpTargetDiscovery?.isolate.kill();
     state.multicastDiscovery?.isolate.kill();
+    for (final httpUpload in state.httpUpload) {
+      httpUpload.isolate.kill();
+    }
     return state;
   }
 }
