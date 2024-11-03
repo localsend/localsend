@@ -1,6 +1,6 @@
 ## 1.16.0 (2024-11-03)
 
-- feat: improve transfer speed from slow device to fast device by using Rust as HTTP client and multithreading (@Tienisto)
+- feat: improve transfer speed if the sending device is the bottleneck by using Rust as HTTP client and multithreading (@Tienisto)
 - feat: add option to automatically receive files only from favorites (@Davte)
 - feat: only automatically finish when files are either successfully received or skipped (@Tienisto)
 - feat: improve various padding and spacing issues in RTL languages (@ShlomoCode)
