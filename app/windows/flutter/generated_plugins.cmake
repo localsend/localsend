@@ -11,7 +11,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   open_dir_windows
   pasteboard
   permission_handler_windows
-  screen_retriever
+  screen_retriever_windows
   tray_manager
   uri_content
   url_launcher_windows

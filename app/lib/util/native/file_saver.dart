@@ -38,7 +38,7 @@ Future<void> saveFile({
     if (documentUri != null || destinationPath.startsWith('content://')) {
       _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
       safInfo = await _saf.startWriteStream(
-        Uri.parse(documentUri ?? destinationPath),
+        documentUri ?? destinationPath,
         name,
         lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
       );
@@ -49,7 +49,7 @@ Future<void> saveFile({
         final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
         _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
-          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
+          'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString',
           name,
           lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
         );
