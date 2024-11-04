@@ -672,12 +672,12 @@ class _TranslationsAssetPickerEsEs extends TranslationsAssetPickerEn {
   @override
   String get unableToAccessAll => 'No se puede acceder a los archivos del dispositivo.';
   @override
-  String get viewingLimitedAssetsTip => 'Ver sólo los archivos y álbumes accesibles para la aplicación.';
+  String get viewingLimitedAssetsTip => 'Ver solo los archivos y álbumes accesibles para la aplicación.';
   @override
   String get changeAccessibleLimitedAssets => 'Haga clic para actualizar los archivos accesibles';
   @override
   String get accessAllTip =>
-      'La aplicación sólo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.';
+      'La aplicación solo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.';
   @override
   String get goToSystemSettings => 'Ir a los ajustes del sistema';
   @override
