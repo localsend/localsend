@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
-import 'package:common/util/task_runner.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -9,6 +10,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -38,7 +40,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
   _InputMode _mode = _InputMode.hashtag;
   String _input = '';
   bool _fetching = false;
-  bool _failed = false;
+  String? _error;
 
   Future<void> _submit(List<String> localIps, int port, [String? candidate]) async {
     final List<String> candidates;
@@ -56,35 +58,51 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     });
 
     final https = ref.read(settingsProvider).https;
-    final results = TaskRunner<Device?>(
-      concurrency: 10,
-      initialTasks: [
-        for (final ip in candidates)
-          () => ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-                ip: ip,
-                port: port,
-                https: https,
-              )),
-      ],
-    ).stream;
 
-    bool found = false;
+    final deviceCompleter = Completer<void>();
+    Device? foundDevice;
+    String? error;
 
-    await for (final device in results) {
-      if (device != null) {
-        found = true;
-        if (mounted) {
-          ref.redux(lastDevicesProvider).dispatch(AddLastDeviceAction(device));
-          context.pop(device);
-        }
-        break;
-      }
+    final List<Future<Device>> futures = [
+      for (final ip in candidates)
+        () async {
+          try {
+            final device = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+                  ip: ip,
+                  port: port,
+                  https: https,
+                ));
+            foundDevice = device;
+            deviceCompleter.complete();
+            return device;
+          } catch (e) {
+            error = e.toString();
+            rethrow;
+          }
+        }(),
+    ];
+
+    // Wait until,
+    // - a device is found
+    // - all candidates are checked
+    try {
+      await Future.any([
+        deviceCompleter.future,
+        Future.wait(futures),
+      ]);
+    } catch (_) {}
+
+    if (!mounted) {
+      return;
     }
 
-    if (!found && mounted) {
+    if (foundDevice != null) {
+      ref.redux(lastDevicesProvider).dispatch(AddLastDeviceAction(foundDevice!));
+      context.pop(foundDevice);
+    } else {
       setState(() {
         _fetching = false;
-        _failed = true;
+        _error = error;
       });
     }
   }
@@ -182,10 +200,29 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                 ),
               ),
           ],
-          if (_failed)
+          if (_error != null)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+              child: Row(
+                children: [
+                  Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                  if (_error != null) ...[
+                    const SizedBox(width: 5),
+                    InkWell(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (_) => ErrorDialog(error: _error!),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
         ],
       ),

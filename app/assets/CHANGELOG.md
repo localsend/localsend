@@ -1,5 +1,6 @@
 ## 1.16.1 (unreleased)
 
+- feat: show exact error message when using IP address dialog or favorite dialog (@Tienisto)
 - feat(desktop): highlight file when tapping "Show in folder" (@Tienisto)
 - fix(android): properly close app on back gesture (@Tienisto)
 

@@ -15,7 +15,7 @@ import 'package:refena/refena.dart';
 
 final _idProvider = IdProvider();
 
-class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<IsolateController, ParentIsolateState, Device?> {
+class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<IsolateController, ParentIsolateState, Device> {
   final String ip;
   final int port;
   final bool https;
@@ -27,7 +27,7 @@ class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<Isolat
   });
 
   @override
-  Future<(ParentIsolateState, Device?)> reduce() async {
+  Future<(ParentIsolateState, Device)> reduce() async {
     final connection = state.httpTargetDiscovery;
     if (connection == null) {
       throw StateError('httpTargetDiscovery is not initialized');
@@ -52,11 +52,16 @@ class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<Isolat
 
     await for (final result in connection.receiveFromIsolate) {
       if (result.id == task.id) {
-        return (state, result.data);
+        switch (result) {
+          case IsolateTaskSuccessResult<Device>():
+            return (state, result.data);
+          case IsolateTaskErrorResult<Device>():
+            throw result.error;
+        }
       }
     }
 
-    return (state, null);
+    throw StateError('Unexpected end of stream');
   }
 }
 

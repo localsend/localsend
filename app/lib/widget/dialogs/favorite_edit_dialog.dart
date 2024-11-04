@@ -6,6 +6,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -29,7 +30,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   final _portController = TextEditingController();
   final _aliasController = TextEditingController();
   bool _fetching = false;
-  bool _failed = false;
+  String? _error;
 
   @override
   void initState() {
@@ -110,10 +111,29 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                 label: Text(t.general.delete),
               ),
             ],
-            if (_failed)
+            if (_error != null)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                child: Row(
+                  children: [
+                    Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                    if (_error != null) ...[
+                      const SizedBox(width: 5),
+                      InkWell(
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (_) => ErrorDialog(error: _error!),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
               ),
           ],
         ),
@@ -157,31 +177,32 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     setState(() {
                       _fetching = true;
                     });
-                    final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-                          ip: ip,
-                          port: port,
-                          https: https,
-                        ));
-                    if (result == null) {
+
+                    try {
+                      final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+                            ip: ip,
+                            port: port,
+                            https: https,
+                          ));
+
+                      final name = _aliasController.text.trim();
+
+                      await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
+                            fingerprint: result.fingerprint,
+                            ip: _ipController.text,
+                            port: int.parse(_portController.text),
+                            alias: name.isEmpty ? result.alias : name,
+                          )));
+
+                      if (context.mounted) {
+                        context.pop();
+                      }
+                    } catch (e) {
                       setState(() {
                         _fetching = false;
-                        _failed = true;
+                        _error = e.toString();
                       });
-                      return;
                     }
-
-                    final name = _aliasController.text.trim();
-
-                    await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
-                          fingerprint: result.fingerprint,
-                          ip: _ipController.text,
-                          port: int.parse(_portController.text),
-                          alias: name.isEmpty ? result.alias : name,
-                        )));
-                  }
-
-                  if (context.mounted) {
-                    context.pop();
                   }
                 },
           child: Text(t.general.confirm),

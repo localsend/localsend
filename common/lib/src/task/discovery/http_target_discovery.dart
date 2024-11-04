@@ -38,7 +38,7 @@ class HttpTargetDiscoveryService {
       final dto = InfoDto.fromJson(response.data);
       return dto.toDevice(ip, port, https);
     } on DioException catch (e) {
-      onError?.call(url, e.error);
+      onError?.call(url, e);
       return null;
     } catch (e) {
       onError?.call(url, e);

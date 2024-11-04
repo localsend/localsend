@@ -28,9 +28,9 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
       v.httpScanDiscovery;
   static const Field<ParentIsolateState, IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>>
       _f$httpScanDiscovery = Field('httpScanDiscovery', _$httpScanDiscovery);
-  static IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? _$httpTargetDiscovery(ParentIsolateState v) =>
+  static IsolateConnector<IsolateTaskResult<Device>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? _$httpTargetDiscovery(ParentIsolateState v) =>
       v.httpTargetDiscovery;
-  static const Field<ParentIsolateState, IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>>
+  static const Field<ParentIsolateState, IsolateConnector<IsolateTaskResult<Device>, SendToIsolateData<IsolateTask<HttpTargetTask>>>>
       _f$httpTargetDiscovery = Field('httpTargetDiscovery', _$httpTargetDiscovery);
   static IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? _$multicastDiscovery(ParentIsolateState v) => v.multicastDiscovery;
   static const Field<ParentIsolateState, IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>> _f$multicastDiscovery =
@@ -113,7 +113,7 @@ abstract class ParentIsolateStateCopyWith<$R, $In extends ParentIsolateState, $O
   $R call(
       {SyncState? syncState,
       IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery,
-      IsolateConnector<IsolateTaskResult<Device?>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery,
+      IsolateConnector<IsolateTaskResult<Device>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery,
       IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? multicastDiscovery,
       List<IsolateConnector<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>>? httpUpload});
   ParentIsolateStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
