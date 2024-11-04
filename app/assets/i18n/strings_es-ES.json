@@ -434,7 +434,7 @@
     "sTypeImageLabel": "Imagen",
     "sTypeVideoLabel": "Video",
     "sTypeOtherLabel": "Otros medios",
-    "sActionPlayHint": "play",
+    "sActionPlayHint": "reproducir",
     "sActionPreviewHint": "vista previa",
     "sActionSelectHint": "selecccionar",
     "sActionSwitchPathLabel": "cambiar ruta",
