@@ -48,28 +48,38 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   static const Field<SettingsTabVm, bool> _f$autoStartLaunchHidden = Field('autoStartLaunchHidden', _$autoStartLaunchHidden);
   static bool _$showInContextMenu(SettingsTabVm v) => v.showInContextMenu;
   static const Field<SettingsTabVm, bool> _f$showInContextMenu = Field('showInContextMenu', _$showInContextMenu);
-  static void Function(BuildContext, ThemeMode) _$onChangeTheme(SettingsTabVm v) => v.onChangeTheme;
-  static const Field<SettingsTabVm, void Function(BuildContext, ThemeMode)> _f$onChangeTheme = Field('onChangeTheme', _$onChangeTheme);
-  static void Function(ColorMode) _$onChangeColorMode(SettingsTabVm v) => v.onChangeColorMode;
-  static const Field<SettingsTabVm, void Function(ColorMode)> _f$onChangeColorMode = Field('onChangeColorMode', _$onChangeColorMode);
-  static void Function(BuildContext) _$onTapLanguage(SettingsTabVm v) => v.onTapLanguage;
-  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onTapLanguage = Field('onTapLanguage', _$onTapLanguage);
-  static void Function(BuildContext) _$onToggleAutoStart(SettingsTabVm v) => v.onToggleAutoStart;
-  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onToggleAutoStart = Field('onToggleAutoStart', _$onToggleAutoStart);
-  static void Function(BuildContext) _$onToggleAutoStartLaunchHidden(SettingsTabVm v) => v.onToggleAutoStartLaunchHidden;
-  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onToggleAutoStartLaunchHidden =
-      Field('onToggleAutoStartLaunchHidden', _$onToggleAutoStartLaunchHidden);
-  static void Function(BuildContext) _$onToggleShowInContextMenu(SettingsTabVm v) => v.onToggleShowInContextMenu;
-  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onToggleShowInContextMenu =
-      Field('onToggleShowInContextMenu', _$onToggleShowInContextMenu);
-  static void Function(BuildContext) _$onTapRestartServer(SettingsTabVm v) => v.onTapRestartServer;
-  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onTapRestartServer = Field('onTapRestartServer', _$onTapRestartServer);
-  static void Function(BuildContext) _$onTapStartServer(SettingsTabVm v) => v.onTapStartServer;
-  static const Field<SettingsTabVm, void Function(BuildContext)> _f$onTapStartServer = Field('onTapStartServer', _$onTapStartServer);
-  static void Function() _$onTapStopServer(SettingsTabVm v) => v.onTapStopServer;
-  static const Field<SettingsTabVm, void Function()> _f$onTapStopServer = Field('onTapStopServer', _$onTapStopServer);
-  static void Function(bool) _$onTapAdvanced(SettingsTabVm v) => v.onTapAdvanced;
-  static const Field<SettingsTabVm, void Function(bool)> _f$onTapAdvanced = Field('onTapAdvanced', _$onTapAdvanced);
+  static Function _$onChangeTheme(SettingsTabVm v) => (v as dynamic).onChangeTheme as Function;
+  static dynamic _arg$onChangeTheme(f) => f<void Function(BuildContext, ThemeMode)>();
+  static const Field<SettingsTabVm, Function> _f$onChangeTheme = Field('onChangeTheme', _$onChangeTheme, arg: _arg$onChangeTheme);
+  static Function _$onChangeColorMode(SettingsTabVm v) => (v as dynamic).onChangeColorMode as Function;
+  static dynamic _arg$onChangeColorMode(f) => f<void Function(ColorMode)>();
+  static const Field<SettingsTabVm, Function> _f$onChangeColorMode = Field('onChangeColorMode', _$onChangeColorMode, arg: _arg$onChangeColorMode);
+  static Function _$onTapLanguage(SettingsTabVm v) => (v as dynamic).onTapLanguage as Function;
+  static dynamic _arg$onTapLanguage(f) => f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onTapLanguage = Field('onTapLanguage', _$onTapLanguage, arg: _arg$onTapLanguage);
+  static Function _$onToggleAutoStart(SettingsTabVm v) => (v as dynamic).onToggleAutoStart as Function;
+  static dynamic _arg$onToggleAutoStart(f) => f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onToggleAutoStart = Field('onToggleAutoStart', _$onToggleAutoStart, arg: _arg$onToggleAutoStart);
+  static Function _$onToggleAutoStartLaunchHidden(SettingsTabVm v) => (v as dynamic).onToggleAutoStartLaunchHidden as Function;
+  static dynamic _arg$onToggleAutoStartLaunchHidden(f) => f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onToggleAutoStartLaunchHidden =
+      Field('onToggleAutoStartLaunchHidden', _$onToggleAutoStartLaunchHidden, arg: _arg$onToggleAutoStartLaunchHidden);
+  static Function _$onToggleShowInContextMenu(SettingsTabVm v) => (v as dynamic).onToggleShowInContextMenu as Function;
+  static dynamic _arg$onToggleShowInContextMenu(f) => f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onToggleShowInContextMenu =
+      Field('onToggleShowInContextMenu', _$onToggleShowInContextMenu, arg: _arg$onToggleShowInContextMenu);
+  static Function _$onTapRestartServer(SettingsTabVm v) => (v as dynamic).onTapRestartServer as Function;
+  static dynamic _arg$onTapRestartServer(f) => f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onTapRestartServer = Field('onTapRestartServer', _$onTapRestartServer, arg: _arg$onTapRestartServer);
+  static Function _$onTapStartServer(SettingsTabVm v) => (v as dynamic).onTapStartServer as Function;
+  static dynamic _arg$onTapStartServer(f) => f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onTapStartServer = Field('onTapStartServer', _$onTapStartServer, arg: _arg$onTapStartServer);
+  static Function _$onTapStopServer(SettingsTabVm v) => (v as dynamic).onTapStopServer as Function;
+  static dynamic _arg$onTapStopServer(f) => f<void Function()>();
+  static const Field<SettingsTabVm, Function> _f$onTapStopServer = Field('onTapStopServer', _$onTapStopServer, arg: _arg$onTapStopServer);
+  static Function _$onTapAdvanced(SettingsTabVm v) => (v as dynamic).onTapAdvanced as Function;
+  static dynamic _arg$onTapAdvanced(f) => f<void Function(bool)>();
+  static const Field<SettingsTabVm, Function> _f$onTapAdvanced = Field('onTapAdvanced', _$onTapAdvanced, arg: _arg$onTapAdvanced);
   static List<ThemeMode> _$themeModes(SettingsTabVm v) => v.themeModes;
   static const Field<SettingsTabVm, List<ThemeMode>> _f$themeModes = Field('themeModes', _$themeModes, mode: FieldMode.member);
 
