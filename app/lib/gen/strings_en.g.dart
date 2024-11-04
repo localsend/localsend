@@ -248,7 +248,7 @@ class TranslationsSendPageEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String get waiting => 'Waiting for response...';
+  String get waiting => 'Waiting for response…';
   String get rejected => 'The recipient has rejected the request.';
   String get tooManyAttempts => _root.web.tooManyAttempts;
   String get busy => 'The recipient is busy with another request.';
@@ -275,8 +275,8 @@ class TranslationsWebSharePageEn {
 
   // Translations
   String get title => 'Share via link';
-  String get loading => 'Starting server...';
-  String get stopping => 'Stopping server...';
+  String get loading => 'Starting server…';
+  String get stopping => 'Stopping server…';
   String get error => 'An error occurred while starting the server.';
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
         n,

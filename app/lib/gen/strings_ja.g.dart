@@ -180,6 +180,8 @@ class _TranslationsReceiveTabJa extends TranslationsReceiveTabEn {
   String get title => '受信';
   @override
   late final _TranslationsReceiveTabInfoBoxJa infoBox = _TranslationsReceiveTabInfoBoxJa._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveJa quickSave = _TranslationsReceiveTabQuickSaveJa._(_root);
 }
 
 // Path: sendTab
@@ -528,6 +530,8 @@ class _TranslationsDialogsJa extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileJa addFile = _TranslationsDialogsAddFileJa._(_root);
   @override
+  late final _TranslationsDialogsOpenFileJa openFile = _TranslationsDialogsOpenFileJa._(_root);
+  @override
   late final _TranslationsDialogsAddressInputJa addressInput = _TranslationsDialogsAddressInputJa._(_root);
   @override
   late final _TranslationsDialogsCancelSessionJa cancelSession = _TranslationsDialogsCancelSessionJa._(_root);
@@ -719,6 +723,23 @@ class _TranslationsReceiveTabInfoBoxJa extends TranslationsReceiveTabInfoBoxEn {
   String get alias => '別名:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveJa extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveJa._(TranslationsJa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'お気に入り';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionJa extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionJa._(TranslationsJa root)
@@ -885,6 +906,10 @@ class _TranslationsSettingsTabNetworkJa extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => '探索がタイムアウトしました';
   @override
+  String get useSystemName => 'システム名を使用';
+  @override
+  String get generateRandomAlias => 'ランダムな別名を生成';
+  @override
   String portWarning({required Object defaultPort}) => 'ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: ${defaultPort})';
   @override
   String get encryption => '暗号化';
@@ -1015,6 +1040,21 @@ class _TranslationsDialogsAddFileJa extends TranslationsDialogsAddFileEn {
   String get title => '選択に追加';
   @override
   String get content => '何を追加しますか？';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileJa extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileJa._(TranslationsJa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ファイルを開く';
+  @override
+  String get content => '受信したファイルを開きますか？';
 }
 
 // Path: dialogs.addressInput
@@ -1341,6 +1381,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeJa extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。',
+        '警告 現時点では、お気に入りリストのデバイスと一致するフィンガープリントがあればハッカーが無制限にファイルを送信できてしまうため、この設定は完全に安全とは言えません。',
+        'ですが、この設定はローカルネットワーク上のすべてのユーザーに無制限のファイル送信を許可するよりはまだ安全です。',
+      ];
 }
 
 // Path: dialogs.pin

@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "ポート:",
       "alias": "別名:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "お気に入り",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -130,6 +135,8 @@
       "deviceModel": "デバイスモデル",
       "port": "ポート",
       "discoveryTimeout": "探索がタイムアウトしました",
+      "useSystemName": "システム名を使用",
+      "generateRandomAlias": "ランダムな別名を生成",
       "portWarning": "ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
@@ -269,6 +276,10 @@
       "title": "選択に追加",
       "content": "何を追加しますか？"
     },
+    "openFile": {
+      "title": "ファイルを開く",
+      "content": "受信したファイルを開きますか？"
+    },
     "addressInput": {
       "title": "アドレスを入力",
       "hashtag": "ハッシュタグ",
@@ -360,7 +371,12 @@
       "content": "ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。",
+        "警告 現時点では、お気に入りリストのデバイスと一致するフィンガープリントがあればハッカーが無制限にファイルを送信できてしまうため、この設定は完全に安全とは言えません。",
+        "ですが、この設定はローカルネットワーク上のすべてのユーザーに無制限のファイル送信を許可するよりはまだ安全です。"
+      ]
     },
     "pin": {
       "title": "PINコードを入力"
