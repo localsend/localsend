@@ -24,7 +24,7 @@ Future<void> saveFile({
   required String name,
   required bool saveToGallery,
   required bool isImage,
-  required Stream<List<int>> stream,
+  required Stream<Uint8List> stream,
   required int? androidSdkInt,
   required DateTime? lastModified,
   required DateTime? lastAccessed,
@@ -66,7 +66,7 @@ Future<void> saveFile({
         onProgress: onProgress,
         write: null,
         writeAsync: (data) async {
-          await _saf.writeChunk(sessionID, Uint8List.fromList(data));
+          await _saf.writeChunk(sessionID, data);
         },
         flush: null,
         close: () async {
@@ -108,10 +108,10 @@ Future<void> _saveFile({
   required String destinationPath,
   required bool saveToGallery,
   required bool isImage,
-  required Stream<List<int>> stream,
+  required Stream<Uint8List> stream,
   required void Function(int savedBytes) onProgress,
-  required void Function(List<int> data)? write,
-  required Future<void> Function(List<int> data)? writeAsync,
+  required void Function(Uint8List data)? write,
+  required Future<void> Function(Uint8List data)? writeAsync,
   required Future<void> Function()? flush,
   required Future<void> Function() close,
 }) async {
