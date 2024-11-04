@@ -28,7 +28,7 @@
     "open": "Otwórz",
     "queue": "Kolejka",
     "quickSave": "Szybki zapis",
-    "quickSaveFromFavorites": "Szybki zapis dla \"Ulubionych\"",
+    "quickSaveFromFavorites": "Szybki zapis dla „Ulubionych”",
     "renamed": "Przemianowany",
     "reset": "Resetowanie",
     "restart": "Restartuj",
@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Wyłączono automatycznie, ponieważ istnieją katalogi."
   },
   "sendPage": {
-    "waiting": "Czekanie na odpowiedź...",
+    "waiting": "Czekanie na odpowiedź…",
     "rejected": "Odbiorca odrzucił żądanie.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Odbiorca jest zajęty innym żądaniem."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Udostępnij przez link",
-    "loading": "Uruchamianie serwera...",
-    "stopping": "Zatrzymywanie serwera...",
+    "loading": "Uruchamianie serwera…",
+    "stopping": "Zatrzymywanie serwera…",
     "error": "Wystąpił błąd podczas uruchamiania serwera.",
     "openLink": {
       "one": "Otwórz ten link w przeglądarce:",
@@ -243,7 +243,7 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Automatycznie akceptuj żądania",
     "requirePin": "Wymagaj kodu PIN",
-    "pinHint": "Kod PIN to \"{pin}\"",
+    "pinHint": "Kod PIN to „{pin}”",
     "encryptionHint": "LocalSend używa samopodpisanego certyfikatu. Musisz go zaakceptować w przeglądarce.",
     "pendingRequests": "Oczekujące żądania: {n}"
   },
@@ -292,7 +292,7 @@
     },
     "cannotOpenFile": {
       "title": "Nie można otworzyć pliku",
-      "content": "Nie można otworzyć \"{file}\". Czy ten plik został przeniesiony, zmieniono mu nazwę lub usunięto?"
+      "content": "Nie można otworzyć „{file}”. Czy ten plik został przeniesiony, zmieniono mu nazwę lub usunięto?"
     },
     "encryptionDisabledNotice": {
       "title": "Szyfrowanie wyłączone",
@@ -308,7 +308,7 @@
     },
     "favoriteDeleteDialog": {
       "title": "Usuń z ulubionych",
-      "content": "Czy na pewno chcesz usunąć z ulubionych \"{name}\"?"
+      "content": "Czy na pewno chcesz usunąć z ulubionych „{name}”?"
     },
     "favoriteEditDialog": {
       "titleAdd": "Dodaj do ulubionych",

@@ -412,7 +412,7 @@
     "size": "Tamaño"
   },
   "assetPicker": {
-    "@info": "Traducciones de la herramienta de selección de medios para Android e Iphone",
+    "@info": "Traducciones de la herramienta de selección de medios para Android e iPhone",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",
@@ -424,9 +424,9 @@
     "emptyList": "Lista vacía",
     "unSupportedAssetType": "Tipo de archivo no soportado.",
     "unableToAccessAll": "No se puede acceder a los archivos del dispositivo.",
-    "viewingLimitedAssetsTip": "Ver sólo los archivos y álbumes accesibles para la aplicación.",
+    "viewingLimitedAssetsTip": "Ver solo los archivos y álbumes accesibles para la aplicación.",
     "changeAccessibleLimitedAssets": "Haga clic para actualizar los archivos accesibles",
-    "accessAllTip": "La aplicación sólo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.",
+    "accessAllTip": "La aplicación solo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.",
     "goToSystemSettings": "Ir a los ajustes del sistema",
     "accessLimitedAssets": "Continuar con acceso limitado",
     "accessiblePathName": "Archivos accesibles",
