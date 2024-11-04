@@ -1,9 +1,12 @@
 # LocalSend
 
 [![CI status][ci-badge]][ci-workflow]
+[![Translations][translate-badge]][translate-link]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
+[translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
+[translate-link]: https://hosted.weblate.org/engage/localsend/
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
