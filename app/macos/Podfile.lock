@@ -20,6 +20,8 @@ PODS:
     - FlutterMacOS
   - network_info_plus (0.0.1):
     - FlutterMacOS
+  - open_dir_macos (0.0.1):
+    - FlutterMacOS
   - package_info_plus (0.0.1):
     - FlutterMacOS
   - pasteboard (0.0.1):
@@ -32,7 +34,7 @@ PODS:
     - FlutterMacOS
   - rhttp (0.0.1):
     - FlutterMacOS
-  - screen_retriever (0.0.1):
+  - screen_retriever_macos (0.0.1):
     - FlutterMacOS
   - shared_preferences_foundation (0.0.1):
     - Flutter
@@ -62,12 +64,13 @@ DEPENDENCIES:
   - gal (from `Flutter/ephemeral/.symlinks/plugins/gal/darwin`)
   - in_app_purchase_storekit (from `Flutter/ephemeral/.symlinks/plugins/in_app_purchase_storekit/darwin`)
   - network_info_plus (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos`)
+  - open_dir_macos (from `Flutter/ephemeral/.symlinks/plugins/open_dir_macos/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - pasteboard (from `Flutter/ephemeral/.symlinks/plugins/pasteboard/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
   - photo_manager (from `Flutter/ephemeral/.symlinks/plugins/photo_manager/macos`)
   - rhttp (from `Flutter/ephemeral/.symlinks/plugins/rhttp/macos`)
-  - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
+  - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - uri_content (from `Flutter/ephemeral/.symlinks/plugins/uri_content/macos`)
@@ -99,6 +102,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/in_app_purchase_storekit/darwin
   network_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos
+  open_dir_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/open_dir_macos/macos
   package_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
   pasteboard:
@@ -109,8 +114,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/photo_manager/macos
   rhttp:
     :path: Flutter/ephemeral/.symlinks/plugins/rhttp/macos
-  screen_retriever:
-    :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
+  screen_retriever_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
   tray_manager:
@@ -127,22 +132,23 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
+  connectivity_plus: 4c41c08fc6d7c91f63bc7aec70ffe3730b04f563
   Defaults: d785e56c0fb8890dc40351603f05c8e1df1bdd45
   desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
-  device_info_plus: ce1b7762849d3ec103d0e0517299f2db7ad60720
+  device_info_plus: 74e614483d05c89290d30a4c8feae15d555f7427
   dynamic_color: 2eaa27267de1ca20d879fbd6e01259773fb1670f
   file_selector_macos: cc3858c981fe6889f364731200d6232dac1d812d
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   gal: 61e868295d28fe67ffa297fae6dacebf56fd53e1
   in_app_purchase_storekit: 8c3b0b3eb1b0f04efbff401c3de6266d4258d433
-  network_info_plus: aeb9c4ed699cae128bc94b9d0f04f2389a414cbb
-  package_info_plus: fa739dd842b393193c5ca93c26798dff6e3d0e0c
+  network_info_plus: 7a508beb58da171b7e30c45f4d7b74814e475968
+  open_dir_macos: 9649018f88e71eb9fb8aa3d95caec30a73c08c5b
+  package_info_plus: f5790acc797bf17c3e959e9d6cf162cc68ff7523
   pasteboard: 9b69dba6fedbb04866be632205d532fe2f6b1d99
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   photo_manager: ff695c7a1dd5bc379974953a2b5c0a293f7c4c8a
   rhttp: 337afda4c3e4df31087160719ffca6452c225cc2
-  screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
+  screen_retriever_macos: 776e0fa5d42c6163d2bf772d22478df4b302b161
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   uri_content: bfedc2e58f0ee4de88a63e5bcb826398389b22cb

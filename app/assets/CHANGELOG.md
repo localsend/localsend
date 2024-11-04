@@ -1,4 +1,4 @@
-## 1.16.1 (unreleased)
+## 1.16.1 (2024-11-05)
 
 - feat: show exact error message when using IP address dialog or favorite dialog (@Tienisto)
 - feat(desktop): highlight file when tapping "Show in folder" (@Tienisto)
