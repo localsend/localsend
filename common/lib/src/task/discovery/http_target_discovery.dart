@@ -4,7 +4,6 @@ import 'package:common/model/device.dart';
 import 'package:common/model/dto/info_dto.dart';
 import 'package:common/src/isolate/child/http_provider.dart';
 import 'package:common/src/isolate/child/sync_provider.dart';
-import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
 import 'package:refena/refena.dart';
 
@@ -37,9 +36,6 @@ class HttpTargetDiscoveryService {
       });
       final dto = InfoDtoMapper.deserialize(response);
       return dto.toDevice(ip, port, https);
-    } on DioException catch (e) {
-      onError?.call(url, e);
-      return null;
     } catch (e) {
       onError?.call(url, e);
       return null;

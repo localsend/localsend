@@ -14,7 +14,6 @@ import 'package:common/model/file_status.dart';
 import 'package:common/model/file_type.dart';
 import 'package:common/model/session_status.dart';
 import 'package:common/util/sleep.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -24,13 +23,14 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/dio_provider.dart';
+import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:rhttp/rhttp.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
@@ -62,7 +62,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final requestDio = ref.read(dioProvider).longLiving;
+    final client = ref.read(httpProvider).longLiving;
     final cancelToken = CancelToken();
     final sessionId = _uuid.v4();
 
@@ -140,22 +140,23 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       );
     }
 
-    Response? response;
+    HttpTextResponse? response;
     bool invalidPin;
     bool pinFirstAttempt = true;
     String? pin;
     do {
       invalidPin = false;
       try {
-        response = await requestDio.post(
-          ApiRoute.prepareUpload.target(target, query: {
+        response = await client.post(
+          ApiRoute.prepareUpload.target(target),
+          query: {
             if (pin != null) 'pin': pin,
-          }),
-          data: jsonEncode(requestDto), // jsonEncode for better logging
+          },
+          body: HttpBody.json(requestDto.toJson()),
           cancelToken: cancelToken,
         );
-      } on DioException catch (e) {
-        switch (e.response?.statusCode) {
+      } on RhttpStatusCodeException catch (e) {
+        switch (e.statusCode) {
           case 401:
             invalidPin = true;
 
@@ -234,7 +235,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     final Map<String, String> fileMap;
     if (target.version == '1.0') {
-      fileMap = (response.data as Map).cast<String, String>();
+      fileMap = (response.bodyToJson as Map).cast<String, String>();
     } else {
       if (response.statusCode == 204) {
         // Nothing selected
@@ -242,7 +243,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         fileMap = {};
       } else {
         try {
-          final responseDto = PrepareUploadResponseDto.fromJson(response.data);
+          final responseDto = PrepareUploadResponseDto.fromJson(response.bodyToJson);
           fileMap = responseDto.files;
           state = state.updateSession(
             sessionId: sessionId,
@@ -508,7 +509,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     // notify the receiver
     try {
       ref
-          .read(dioProvider)
+          .read(httpProvider)
           .discovery
           // ignore: discarded_futures
           .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null));
@@ -607,17 +608,27 @@ extension on SendSessionState {
 extension on Object {
   String get humanErrorMessage {
     final e = this;
-    if (e is DioException && e.response != null) {
-      final body = e.response!.data;
-      String message;
-      try {
-        message = (body as Map)['message'];
-      } catch (_) {
-        message = body;
-      }
-      return '[${e.response!.statusCode}] $message';
+    final (statusCode, message) = switch (this) {
+      RhttpStatusCodeException(:final statusCode, :final body) => (statusCode, _parseErrorMessage(body)),
+      _ => (null, e.toString()),
+    };
+
+    if (statusCode != null && message != null) {
+      return '[$statusCode] $message';
     }
 
     return e.toString();
+  }
+}
+
+String? _parseErrorMessage(Object? body) {
+  if (body is! String) {
+    return null;
+  }
+
+  try {
+    return (jsonDecode(body) as Map)['message'];
+  } catch (_) {
+    return null;
   }
 }

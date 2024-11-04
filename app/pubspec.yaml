@@ -19,7 +19,6 @@ dependencies:
   desktop_drop: 0.5.0
   device_apps: 2.2.0
   device_info_plus: 10.1.2
-  dio: 5.7.0
   dynamic_color: 1.7.0
   file_picker: 8.1.2
   file_selector: 1.0.3
@@ -51,7 +50,7 @@ dependencies:
   pretty_qr_code: 3.3.0
   refena_flutter: 2.1.1
   refena_inspector_client: 2.0.0
-  rhttp: 0.9.0
+  rhttp: 0.9.1
   routerino: 0.8.0
   saf_stream: 0.7.5
   screen_retriever: 0.1.9

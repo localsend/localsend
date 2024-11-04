@@ -349,22 +349,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      sha256: "5598aa796bbf4699afd5c67c0f5f6e2ed542afc956884b9cd58c306966efc260"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.7.0"
-  dio_web_adapter:
-    dependency: transitive
-    description:
-      name: dio_web_adapter
-      sha256: "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -1319,10 +1303,10 @@ packages:
     dependency: "direct main"
     description:
       name: rhttp
-      sha256: "8dc4e1b50cbbd4422a3da93accfd40ea96227fb7d2264d6856754122aedfb194"
+      sha256: "92fb57dea6338370efe1e4e2101e8b521f91f15bc60ef6908469b4392dd9803a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0"
+    version: "0.9.1"
   routerino:
     dependency: "direct main"
     description:

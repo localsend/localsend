@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/api_route_builder.dart';
@@ -7,7 +6,6 @@ import 'package:common/constants.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/dto/file_dto.dart';
 import 'package:common/model/dto/multicast_dto.dart';
-import 'package:common/util/dio.dart';
 import 'package:common/util/logger.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
@@ -61,6 +59,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
+  await Rhttp.init();
+
   final dynamicColors = await getDynamicColors();
 
   final persistenceService = await PersistenceService.initialize(
@@ -78,20 +78,20 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final dio = createDio(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
+    final client = createRhttpClient(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
 
     try {
-      await dio.post(
+      await client.post(
         ApiRoute.show.targetRaw(
           '127.0.0.1',
           persistenceService.getPort(),
           persistenceService.isHttps(),
           peerProtocolVersion,
         ),
-        queryParameters: {
+        query: {
           'token': persistenceService.getShowToken(),
         },
-        data: jsonEncode({
+        body: HttpBody.json({
           'args': args,
         }),
       );
