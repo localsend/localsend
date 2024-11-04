@@ -3,6 +3,17 @@ import 'package:refena/refena.dart';
 
 /// An abstraction to provide a custom http client.
 abstract class CustomHttpClient {
+  Future<String> get({
+    required String uri,
+    required Map<String, String> query,
+  });
+
+  Future<String> post({
+    required String uri,
+    Map<String, String> query = const {},
+    required Map<String, dynamic> json,
+  });
+
   Future<void> postStream({
     required String uri,
     required Map<String, String> query,

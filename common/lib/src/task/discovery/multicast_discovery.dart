@@ -8,7 +8,7 @@ import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:common/model/dto/multicast_dto.dart';
 import 'package:common/model/dto/register_dto.dart';
-import 'package:common/src/isolate/child/dio_provider.dart';
+import 'package:common/src/isolate/child/http_provider.dart';
 import 'package:common/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:refena/refena.dart';
@@ -98,9 +98,9 @@ class MulticastService {
   Future<void> _answerAnnouncement(Device peer) async {
     try {
       // Answer with TCP
-      await _ref.read(dioProvider).discovery.post(
-            ApiRoute.register.target(peer),
-            data: _getRegisterDto().toJson(),
+      await _ref.read(httpProvider).discovery.post(
+            uri: ApiRoute.register.target(peer),
+            json: _getRegisterDto().toJson(),
           );
       _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
