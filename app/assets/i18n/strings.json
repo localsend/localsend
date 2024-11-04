@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Turned off automatically because there are folders."
   },
   "sendPage": {
-    "waiting": "Waiting for response...",
+    "waiting": "Waiting for response…",
     "rejected": "The recipient has rejected the request.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "The recipient is busy with another request."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
+    "loading": "Starting server…",
+    "stopping": "Stopping server…",
     "error": "An error occurred while starting the server.",
     "openLink": {
       "one": "Open this link in your browser:",
