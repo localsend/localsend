@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
   },
   "sendPage": {
-    "waiting": "Warte auf Antwort...",
+    "waiting": "Warte auf Antwort…",
     "rejected": "Der Empfänger hat die Anfrage abgelehnt.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Der Empfänger ist mit einer anderen Anfrage beschäftigt."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Per Link teilen",
-    "loading": "Starte Server...",
-    "stopping": "Stoppe server...",
+    "loading": "Starte Server…",
+    "stopping": "Stoppe server…",
     "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
     "openLink": {
       "one": "Öffne diesen Link im Browser:",
