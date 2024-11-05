@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=tr' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "\"Favoriler\" için Hızlı Kaydet"
   },
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Favoriler",
       "on": "@:general.on"
     }
   },
@@ -18,21 +18,21 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "Sistem adını kullan",
+      "generateRandomAlias": "Rastgele bir takma ad oluştur"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Dosyayı Aç",
+      "content": "Alınan dosyayı açmak istiyor musunuz?"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Dosya istekleri artık favoriler listenizdeki cihazlardan otomatik olarak kabul edilir.",
+        "Uyarı! Şu anda bu tamamen güvenli değil, çünkü favori listenizdeki herhangi bir cihazın parmak izine sahip bir saldırgan, size kısıtlama olmaksızın dosya gönderebilir.",
+        "Yine de bu seçenek, yerel ağdaki tüm kullanıcıların size kısıtlama olmaksızın dosya göndermesine izin vermekten daha güvenlidir."
       ]
     }
   }
