@@ -3,7 +3,7 @@ description: An open source cross-platform alternative to AirDrop
 homepage: https://localsend.org/
 publish_to: "none"
 
-version: 1.16.1+57
+version: 1.16.2+57
 
 environment:
   flutter: ">=3.24.0"
