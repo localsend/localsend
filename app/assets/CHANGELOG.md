@@ -1,3 +1,7 @@
+## 1.16.2 (2024-11-06)
+
+- fix(ios): share from other apps to LocalSend doesn't work in iOS 18 (@Tienisto)
+
 ## 1.16.1 (2024-11-05)
 
 - feat: show exact error message when using IP address dialog or favorite dialog (@Tienisto)
