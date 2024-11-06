@@ -124,7 +124,8 @@
     },
     "send": {
       "title": "发送",
-      "shareViaLinkAutoAccept": "通过链接分享：自动接受"
+      "shareViaLinkAutoAccept": "通过链接分享：自动接受",
+      "privacyProtectionMode":"隐私保护模式：不请求相册权限"
     },
     "network": {
       "title": "网络",

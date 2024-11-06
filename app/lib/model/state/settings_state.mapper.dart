@@ -65,6 +65,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, String> _f$deviceModel = Field('deviceModel', _$deviceModel);
   static bool _$shareViaLinkAutoAccept(SettingsState v) => v.shareViaLinkAutoAccept;
   static const Field<SettingsState, bool> _f$shareViaLinkAutoAccept = Field('shareViaLinkAutoAccept', _$shareViaLinkAutoAccept);
+  static bool _$privacyProtectionMode(SettingsState v) => v.privacyProtectionMode;
+  static const Field<SettingsState, bool> _f$privacyProtectionMode = Field('privacyProtectionMode', _$privacyProtectionMode);
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field('discoveryTimeout', _$discoveryTimeout);
   static bool _$advancedSettings(SettingsState v) => v.advancedSettings;
@@ -94,6 +96,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
+    #privacyProtectionMode:_f$privacyProtectionMode,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
   };
@@ -122,6 +125,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         deviceType: data.dec(_f$deviceType),
         deviceModel: data.dec(_f$deviceModel),
         shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
+        privacyProtectionMode: data.dec(_f$privacyProtectionMode),
         discoveryTimeout: data.dec(_f$discoveryTimeout),
         advancedSettings: data.dec(_f$advancedSettings));
   }
@@ -193,6 +197,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       DeviceType? deviceType,
       String? deviceModel,
       bool? shareViaLinkAutoAccept,
+      bool? privacyProtectionMode,
       int? discoveryTimeout,
       bool? advancedSettings});
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -228,6 +233,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           Object? deviceType = $none,
           Object? deviceModel = $none,
           bool? shareViaLinkAutoAccept,
+          bool? privacyProtectionMode,
           int? discoveryTimeout,
           bool? advancedSettings}) =>
       $apply(FieldCopyWithData({
@@ -253,6 +259,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (deviceType != $none) #deviceType: deviceType,
         if (deviceModel != $none) #deviceModel: deviceModel,
         if (shareViaLinkAutoAccept != null) #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+        if (privacyProtectionMode != null) #privacyProtectionMode: privacyProtectionMode,
         if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
         if (advancedSettings != null) #advancedSettings: advancedSettings
       }));
@@ -280,6 +287,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       deviceType: data.get(#deviceType, or: $value.deviceType),
       deviceModel: data.get(#deviceModel, or: $value.deviceModel),
       shareViaLinkAutoAccept: data.get(#shareViaLinkAutoAccept, or: $value.shareViaLinkAutoAccept),
+      privacyProtectionMode: data.get(#privacyProtectionMode, or: $value.privacyProtectionMode),
       discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
       advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings));
 

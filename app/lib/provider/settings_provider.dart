@@ -51,6 +51,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         deviceType: _persistence.getDeviceType(),
         deviceModel: _persistence.getDeviceModel(),
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
+        privacyProtectionMode: _persistence.getPrivacyProtectionMode(),
         discoveryTimeout: _persistence.getDiscoveryTimeout(),
         advancedSettings: _persistence.getAdvancedSettingsEnabled(),
       );
@@ -214,6 +215,14 @@ class SettingsService extends PureNotifier<SettingsState> {
 
     state = state.copyWith(
       shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+    );
+  }
+
+  Future<void> setPrivacyProtectionMode(bool privacyProtectionMode) async {
+    await _persistence.setPrivacyProtectionMode(privacyProtectionMode);
+
+    state = state.copyWith(
+      privacyProtectionMode: privacyProtectionMode,
     );
   }
 }
