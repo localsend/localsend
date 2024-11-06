@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:path/path.dart' as path;
 import 'package:routerino/routerino.dart';
 
@@ -14,7 +15,11 @@ class OpenFileDialog extends StatefulWidget {
   final String filePath;
   final FileType fileType;
 
-  const OpenFileDialog({super.key, required this.filePath, required this.fileName, required this.fileType});
+  const OpenFileDialog(
+      {super.key,
+      required this.filePath,
+      required this.fileName,
+      required this.fileType});
 
   static Future<void> open(
     BuildContext context, {
@@ -71,16 +76,19 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
       content: Text(t.dialogs.openFile.content),
       actions: [
         TextButton(
-          onPressed: () async => openFile(context, widget.fileType, widget.filePath),
+          onPressed: () async =>
+              openFile(context, widget.fileType, widget.filePath),
           child: Text(t.general.open),
         ),
         TextButton(
-          onPressed: () async => await openFolder(
-            folderPath: File(widget.filePath).parent.path,
-            fileName: path.basename(widget.filePath),
+            onPressed: checkPlatform([TargetPlatform.iOS])
+                      ? null
+                      :() async => await openFolder(
+              folderPath: File(widget.filePath).parent.path,
+              fileName: path.basename(widget.filePath),
+            ),
+            child: Text(t.receiveHistoryPage.entryActions.showInFolder),
           ),
-          child: Text(t.receiveHistoryPage.entryActions.showInFolder),
-        ),
         TextButton(
           onPressed: () {
             _timer.cancel();
