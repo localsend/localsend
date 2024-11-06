@@ -423,10 +423,17 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                             style: const TextStyle(fontSize: 20),
                           ),
                           const SizedBox(height: 5),
-                          CustomProgressBar(
-                            progress: _totalBytes == 0 ? 0 : currBytes / _totalBytes,
+                          TweenAnimationBuilder<double>(
+  tween: Tween<double>(begin:0, end:_totalBytes == 0 ? 0 : currBytes / _totalBytes),
+  duration: Duration(seconds: 1),
+  curve: Curves.easeOut,
+  builder: (context, value, child) {
+    return CustomProgressBar(
+                            progress: value,
                             borderRadius: 5,
-                          ),
+                          );
+  },
+),
                           AnimatedCrossFade(
                             crossFadeState: _advanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                             duration: const Duration(milliseconds: 200),
