@@ -793,6 +793,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  irondash_engine_context:
+    dependency: transitive
+    description:
+      name: irondash_engine_context
+      sha256: cd7b769db11a2b5243b037c8a9b1ecaef02e1ae27a2d909ffa78c1dad747bb10
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.4"
+  irondash_message_channel:
+    dependency: transitive
+    description:
+      name: irondash_message_channel
+      sha256: b4101669776509c76133b8917ab8cfc704d3ad92a8c450b92934dd8884a2f060
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   js:
     dependency: transitive
     description:
@@ -1203,6 +1219,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  pixel_snap:
+    dependency: transitive
+    description:
+      name: pixel_snap
+      sha256: "677410ea37b07cd37ecb6d5e6c0d8d7615a7cf3bd92ba406fd1ac57e937d1fb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.5"
   platform:
     dependency: transitive
     description:
@@ -1616,6 +1640,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  super_clipboard:
+    dependency: transitive
+    description:
+      name: super_clipboard
+      sha256: "1340c8876da05caf17ef2c887b7df4d608cb550170219fa7e33a5675870475f3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0-dev.3"
+  super_drag_and_drop:
+    dependency: "direct main"
+    description:
+      name: super_drag_and_drop
+      sha256: "037c1b38e81ccac9862553b49ec49abffc35d90a3f7c330e5c774276d381ad68"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0-dev.3"
+  super_native_extensions:
+    dependency: transitive
+    description:
+      name: super_native_extensions
+      sha256: "72df71db3fb87de2579285084f8d75b71bf2688e91ee57061aeab87b3aa8dea5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0-dev.3"
   system_settings:
     dependency: "direct main"
     description:

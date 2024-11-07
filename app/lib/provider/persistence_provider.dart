@@ -82,7 +82,7 @@ const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
-const _privacyProtectionMode = 'privacy_protection_mode';
+const _share_media_metadata = 'ls_share_media_metadata';
 const _advancedSettingsKey = 'ls_advanced_settings';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
@@ -299,16 +299,16 @@ class PersistenceService {
     return _prefs.getBool(_shareViaLinkAutoAccept) ?? false;
   }
 
-  bool getPrivacyProtectionMode() {
-    return _prefs.getBool(_privacyProtectionMode) ?? false;
-  }
-
   Future<void> setShareViaLinkAutoAccept(bool shareViaLinkAutoAccept) async {
     await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
   }
 
-  Future<void> setPrivacyProtectionMode(bool privacyProtectionMode) async {
-    await _prefs.setBool(_privacyProtectionMode, privacyProtectionMode);
+  bool isShareMediaMetadata() {
+    return _prefs.getBool(_share_media_metadata) ?? false;
+  }
+
+  Future<void> setShareMediaMetadata(bool share_media_metadata) async {
+    await _prefs.setBool(_share_media_metadata, share_media_metadata);
   }
 
   String getMulticastGroup() {

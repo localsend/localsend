@@ -60,6 +60,7 @@ dependencies:
   shared_storage: 0.8.1
   slang: 4.1.0
   slang_flutter: 4.1.0
+  super_drag_and_drop: 0.9.0-dev.3
   system_settings: 2.1.0
   tray_manager: 0.2.4
   uri_content: 2.2.0

@@ -7,9 +7,11 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   file_selector_linux
   gtk
+  irondash_engine_context
   open_dir_linux
   pasteboard
   screen_retriever_linux
+  super_native_extensions
   tray_manager
   uri_content
   url_launcher_linux

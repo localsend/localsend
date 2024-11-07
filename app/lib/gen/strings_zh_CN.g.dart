@@ -951,8 +951,7 @@ class _TranslationsSettingsTabSendZhCn extends TranslationsSettingsTabSendEn {
   @override
   String get shareViaLinkAutoAccept => '通过链接分享：自动接受';
   @override
-  String get privacyProtectionMode => '隐私保护模式：不请求相册权限';
-  
+  String get isShareMediaMetadata => '隐私保护模式：不请求相册权限';
 }
 
 // Path: settingsTab.network

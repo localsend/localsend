@@ -65,7 +65,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, String> _f$deviceModel = Field('deviceModel', _$deviceModel);
   static bool _$shareViaLinkAutoAccept(SettingsState v) => v.shareViaLinkAutoAccept;
   static const Field<SettingsState, bool> _f$shareViaLinkAutoAccept = Field('shareViaLinkAutoAccept', _$shareViaLinkAutoAccept);
-  static bool _$privacyProtectionMode(SettingsState v) => v.privacyProtectionMode;
+  static bool _$privacyProtectionMode(SettingsState v) => v.isShareMediaMetadata;
   static const Field<SettingsState, bool> _f$privacyProtectionMode = Field('privacyProtectionMode', _$privacyProtectionMode);
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field('discoveryTimeout', _$discoveryTimeout);
@@ -125,7 +125,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         deviceType: data.dec(_f$deviceType),
         deviceModel: data.dec(_f$deviceModel),
         shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
-        privacyProtectionMode: data.dec(_f$privacyProtectionMode),
+        isShareMediaMetadata: data.dec(_f$privacyProtectionMode),
         discoveryTimeout: data.dec(_f$discoveryTimeout),
         advancedSettings: data.dec(_f$advancedSettings));
   }
@@ -287,7 +287,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       deviceType: data.get(#deviceType, or: $value.deviceType),
       deviceModel: data.get(#deviceModel, or: $value.deviceModel),
       shareViaLinkAutoAccept: data.get(#shareViaLinkAutoAccept, or: $value.shareViaLinkAutoAccept),
-      privacyProtectionMode: data.get(#privacyProtectionMode, or: $value.privacyProtectionMode),
+      isShareMediaMetadata: data.get(#privacyProtectionMode, or: $value.isShareMediaMetadata),
       discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
       advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings));
 

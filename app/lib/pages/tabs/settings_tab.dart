@@ -287,12 +287,12 @@ class SettingsTab extends StatelessWidget {
                   ),
                   if (vm.advanced && checkPlatform([TargetPlatform.iOS])) ...[
                     _BooleanEntry(
-                      label: t.settingsTab.send.privacyProtectionMode,
-                      value: vm.settings.privacyProtectionMode,
+                      label: t.settingsTab.send.isShareMediaMetadata,
+                      value: vm.settings.isShareMediaMetadata,
                       onChanged: (b) async {
                         await ref
                             .notifier(settingsProvider)
-                            .setPrivacyProtectionMode(b);
+                            .setShareMediaMetadata(b);
                       },
                     ),
                   ]

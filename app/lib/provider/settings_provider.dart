@@ -51,7 +51,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         deviceType: _persistence.getDeviceType(),
         deviceModel: _persistence.getDeviceModel(),
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
-        privacyProtectionMode: _persistence.getPrivacyProtectionMode(),
+        isShareMediaMetadata: _persistence.isShareMediaMetadata(),
         discoveryTimeout: _persistence.getDiscoveryTimeout(),
         advancedSettings: _persistence.getAdvancedSettingsEnabled(),
       );
@@ -218,11 +218,11 @@ class SettingsService extends PureNotifier<SettingsState> {
     );
   }
 
-  Future<void> setPrivacyProtectionMode(bool privacyProtectionMode) async {
-    await _persistence.setPrivacyProtectionMode(privacyProtectionMode);
+  Future<void> setShareMediaMetadata(bool shareMediaMetadata) async {
+    await _persistence.setShareMediaMetadata(shareMediaMetadata);
 
     state = state.copyWith(
-      privacyProtectionMode: privacyProtectionMode,
+      privacyProtectionMode: shareMediaMetadata,
     );
   }
 }

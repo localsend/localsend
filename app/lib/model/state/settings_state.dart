@@ -31,7 +31,7 @@ class SettingsState with SettingsStateMappable {
   final DeviceType? deviceType;
   final String? deviceModel;
   final bool shareViaLinkAutoAccept;
-  final bool privacyProtectionMode;
+  final bool isShareMediaMetadata;
   final int discoveryTimeout;
   final bool advancedSettings;
 
@@ -58,7 +58,7 @@ class SettingsState with SettingsStateMappable {
     required this.deviceType,
     required this.deviceModel,
     required this.shareViaLinkAutoAccept,
-    required this.privacyProtectionMode,
+    required this.isShareMediaMetadata,
     required this.discoveryTimeout,
     required this.advancedSettings,
   });

@@ -641,7 +641,7 @@ class TranslationsSettingsTabSendEn {
   // Translations
   String get title => 'Send';
   String get shareViaLinkAutoAccept => 'Automatically accept requests in "Share via link" mode';
-  String get privacyProtectionMode => 'Privacy Protection Mode: No Photo Library Access';
+  String get isShareMediaMetadata => 'Privacy Protection Mode: No Photo Library Access';
 }
 
 // Path: settingsTab.network

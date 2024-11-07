@@ -124,7 +124,8 @@
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode",
+      "isShareMediaMetadata":"Privacy Protection Mode: No Photo Library Access"
     },
     "network": {
       "title": "Network",

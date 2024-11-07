@@ -8,10 +8,12 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   file_selector_windows
   gal
+  irondash_engine_context
   open_dir_windows
   pasteboard
   permission_handler_windows
   screen_retriever_windows
+  super_native_extensions
   tray_manager
   uri_content
   url_launcher_windows

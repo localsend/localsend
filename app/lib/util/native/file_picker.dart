@@ -249,14 +249,12 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
-  if (ref.read(settingsProvider).privacyProtectionMode) {
+  if (ref.read(settingsProvider).isShareMediaMetadata) {
     final ImagePicker picker = ImagePicker();
-    final List<XFile>? images = await picker.pickMultiImage(requestFullMetadata:false);
+    final List<XFile>? images =
+        await picker.pickMultiImage(requestFullMetadata: false);
     if (images != null && images.isNotEmpty) {
-      // 将文件转换器函数赋值给一个变量
       final converterFunction = CrossFileConverters.convertXFile;
-
-      // 分发文件添加的 action，并使用定义的转换器
       await ref
           .redux(selectedSendingFilesProvider)
           .dispatchAsync(AddFilesAction(
@@ -282,10 +280,7 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
     });
 
     if (result != null) {
-      // 将文件转换器函数赋值给一个变量
       final converterFunction = CrossFileConverters.convertAssetEntity;
-
-// 分发文件添加的 action，并使用定义的转换器
       await ref
           .redux(selectedSendingFilesProvider)
           .dispatchAsync(AddFilesAction(
@@ -304,6 +299,12 @@ Future<void> _pickText(BuildContext context, Ref ref) async {
         .redux(selectedSendingFilesProvider)
         .dispatch(AddMessageAction(message: result));
   }
+}
+
+Future<void> addDroppedText(Ref ref, String result) async {
+  ref
+      .redux(selectedSendingFilesProvider)
+      .dispatch(AddMessageAction(message: result));
 }
 
 Future<void> _pickClipboard(BuildContext context, Ref ref) async {
