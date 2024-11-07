@@ -5,6 +5,7 @@ on:
 
 env:
   FLUTTER_VERSION: "3.24.4"
+  RUST_VERSION: "1.82.0"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:
@@ -60,6 +61,12 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: ${{ env.RUST_VERSION }}
 
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app
