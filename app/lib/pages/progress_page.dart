@@ -54,6 +54,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   // If [autoFinish] is enabled, we wait a few seconds before automatically closing the session.
   int _finishCounter = 3;
   Timer? _finishTimer;
+  Timer? _wakelockPlusTimer;
 
   bool _advanced = false;
 
@@ -64,8 +65,15 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
-        WakelockPlus.enable(); // ignore: discarded_futures
+        unawaited(WakelockPlus.enable());
       } catch (_) {}
+
+      // Periodically call WakelockPlus.enable() to keep the screen awake
+      _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+        try {
+          unawaited(WakelockPlus.enable());
+        } catch (_) {}
+      });
 
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -148,6 +156,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   void dispose() {
     super.dispose();
     _finishTimer?.cancel();
+    _wakelockPlusTimer?.cancel();
     TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
     try {
       WakelockPlus.disable(); // ignore: discarded_futures
