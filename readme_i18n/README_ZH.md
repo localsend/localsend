@@ -104,10 +104,11 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 要从源代码编译 LocalSend，请按照以下步骤进行操作：
 
 1. 安装 [Flutter](https://flutter.dev)。
-2. 克隆 LocalSend 代码库。
-3. 执行 `cd app` 进入 app 目录。
-4. 运行 `flutter pub get` 下载依赖项。
-5. 运行 `flutter run` 启动应用程序。
+2. 安装 [Rust](https://www.rust-lang.org/tools/install)。
+3. 克隆 LocalSend 代码库。
+4. 执行 `cd app` 进入 app 目录。
+5. 运行 `flutter pub get` 下载依赖项。
+6. 运行 `flutter run` 启动应用程序。
 
 可能的问题是所需的 Flutter 版本与已安装的 Flutter 版本不匹配。
 
