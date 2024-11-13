@@ -122,10 +122,11 @@ For more information on the LocalSend Protocol, see the [documentation](https://
 To compile LocalSend from the source code, follow these steps:
 
 1. Install Flutter [directly](https://flutter.dev) or using [fvm](https://fvm.app) (see [version required](.fvmrc))
-2. Clone the `LocalSend` repository
-3. Run `cd app` to enter the app directory
-4. Run `flutter pub get` to download dependencies
-5. Run `flutter run` to start the app
+2. Install [Rust](https://www.rust-lang.org/tools/install)
+3. Clone the `LocalSend` repository
+4. Run `cd app` to enter the app directory
+5. Run `flutter pub get` to download dependencies
+6. Run `flutter run` to start the app
 
 > [!NOTE]
 > LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
