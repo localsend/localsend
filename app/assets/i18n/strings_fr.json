@@ -39,14 +39,14 @@
     "save": "Sauvegarder",
     "unchanged": "Inchangé",
     "unknown": "Inconnu",
-    "noItemInClipboard": "Aucun élément dans le presse-papiers"
+    "noItemInClipboard": "Aucun élément dans le presse-papiers."
   },
   "receiveTab": {
     "title": "Recevoir",
     "infoBox": {
-      "ip": "IP:",
-      "port": "Port:",
-      "alias": "Alias:"
+      "ip": "IP :",
+      "port": "Port :",
+      "alias": "Nom du périphérique :"
     },
     "quickSave": {
       "off": "@:general.off",
@@ -58,8 +58,8 @@
     "title": "Envoyer",
     "selection": {
       "title": "Sélection",
-      "files": "Fichiers: {files}",
-      "size": "Taille: {size}"
+      "files": "Fichiers : {files}",
+      "size": "Taille : {size}"
     },
     "picker": {
       "file": "Fichier",
@@ -154,7 +154,7 @@
   "troubleshootPage": {
     "title": "Dépannage",
     "subTitle": "Cette application ne fonctionne pas comme vous l'espérez ? Vous trouverez ici des solutions aux problèmes communs.",
-    "solution": "Solution:",
+    "solution": "Solution :",
     "fixButton": "Corriger automatiquement",
     "firewall": {
       "symptom": "Cet appareil peut envoyer des fichiers mais pas en recevoir.",
@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
   "sendPage": {
-    "waiting": "En attente d'une réponse...",
+    "waiting": "En attente d'une réponse …",
     "rejected": "Le destinataire a rejeté la demande.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Le destinataire ne peut pas traiter la requête actuelle. Veuillez réessayer ultérieument."
@@ -224,15 +224,15 @@
         "canceledSender": "Annulé par l'expéditeur",
         "canceledReceiver": "Annulé par le destinataire"
       },
-      "count": "Fichiers: {curr} / {n}",
-      "size": "Taille: {curr} / {n}",
-      "speed": "Vitesse: {speed}/s"
+      "count": "Fichiers : {curr} / {n}",
+      "size": "Taille : {curr} / {n}",
+      "speed": "Vitesse : {speed}/s"
     }
   },
   "webSharePage": {
     "title": "Partager via un lien",
-    "loading": "Démarrage du serveur...",
-    "stopping": "Arrêt du serveur...",
+    "loading": "Démarrage du serveur …",
+    "stopping": "Arrêt du serveur …",
     "error": "Une erreur est survenue lors du démarrage du serveur.",
     "openLink": {
       "one": "Ouvrir ce lien dans le navigateur :",
@@ -245,7 +245,7 @@
     "requirePin": "Code PIN requis",
     "pinHint": "Le code PIN est \"{pin}\"",
     "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
-    "pendingRequests": "Requêtes en attente: {n}"
+    "pendingRequests": "Requêtes en attente : {n}"
   },
   "aboutPage": {
     "title": "À propos de LocalSend",
@@ -280,7 +280,7 @@
       "title": "Entrez l'adresse IP",
       "hashtag": "Hashtag",
       "ip": "Adresse IP",
-      "recentlyUsed": "Récemment utilisé :"
+      "recentlyUsed": "Récemment utilisé : "
     },
     "cancelSession": {
       "title": "Annuler le transfert de fichiers",
@@ -324,7 +324,7 @@
     },
     "fileNameInput": {
       "title": "Entrez le nom du fichier",
-      "original": "Original: {original}"
+      "original": "Original : {original}"
     },
     "historyClearDialog": {
       "title": "Effacer l'historique",
@@ -349,7 +349,7 @@
     },
     "notAvailableOnPlatform": {
       "title": "Non disponible",
-      "content": "Cette fonctionalité est disponible uniquement sur:"
+      "content": "Cette fonctionnalité est disponible uniquement sur :"
     },
     "openFile": {
       "title": "Ouvrir le fichier",
