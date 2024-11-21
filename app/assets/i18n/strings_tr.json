@@ -38,7 +38,8 @@
     "save": "Kaydet",
     "unchanged": "Değiştirilmemiş",
     "unknown": "Bilinmiyor",
-    "noItemInClipboard": "Panoda öğe yok"
+    "noItemInClipboard": "Panoda öğe yok.",
+    "quickSaveFromFavorites": "Favoriler"
   },
   "receiveTab": {
     "title": "Alım",
@@ -158,7 +159,7 @@
     },
     "noConnection": {
       "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
-      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir. "
+      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
     }
   },
   "receiveHistoryPage": {
@@ -199,7 +200,7 @@
     "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
   },
   "sendPage": {
-    "waiting": "Alıcıdan cevap bekleniyor...",
+    "waiting": "Alıcıdan cevap bekleniyor…",
     "rejected": "Alıcı isteği reddetti.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Alıcı başka bir istekle meşgul."
@@ -222,8 +223,8 @@
   },
   "webSharePage": {
     "title": "Link üzerinden paylaşın",
-    "loading": "Sunucu başlıyor...",
-    "stopping": "Sunucu durduruluyor ...",
+    "loading": "Sunucu başlıyor…",
+    "stopping": "Sunucu durduruluyor…",
     "error": "Sunucuyu başlatırken bir hata oluştu.",
     "openLink": {
       "one": "Bu bağlantıyı tarayıcıda açın:",

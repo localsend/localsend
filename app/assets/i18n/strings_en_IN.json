@@ -38,7 +38,8 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No items in Clipboard"
+    "noItemInClipboard": "No items in Clipboard.",
+    "quickSaveFromFavorites": "Quick Save for \"Favourites\""
   },
   "receiveTab": {
     "title": "Receive",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Device name:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favourites",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -75,7 +81,8 @@
     },
     "sendModeHelp": "Explanation",
     "help": "Please ensure that the desired target is also on the same Wi-Fi network.",
-    "placeItems": "Place items to share."
+    "placeItems": "Place items to share.",
+    "manualSending": "Manual Sending"
   },
   "settingsTab": {
     "title": "Settings",
@@ -101,7 +108,8 @@
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
       "showInContextMenu": "Show LocalSend in context menu",
-      "animations": "Animations"
+      "animations": "Animations",
+      "saveWindowPlacementWindows": "Save window position after exit"
     },
     "receive": {
       "title": "Receive",
@@ -111,7 +119,8 @@
       "destination": "Destination",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
-      "saveToHistory": "Save to history"
+      "saveToHistory": "Save to history",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavourites"
     },
     "send": {
       "title": "Send",
@@ -129,7 +138,9 @@
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})",
+      "generateRandomAlias": "Generate random alias",
+      "useSystemName": "Use system name"
     },
     "other": {
       "title": "Other",
@@ -153,6 +164,10 @@
     "noConnection": {
       "symptom": "Both devices cannot discover each other nor can they share files.",
       "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
+    },
+    "noDiscovery": {
+      "symptom": "This device cannot discover other devices.",
+      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favourites so it can be automatically discovered in the future."
     }
   },
   "receiveHistoryPage": {
@@ -193,7 +208,7 @@
     "saveToGalleryOff": "Turned off automatically because there are directories."
   },
   "sendPage": {
-    "waiting": "Waiting for response...",
+    "waiting": "Waiting for response…",
     "rejected": "The recipient has rejected the request.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "The recipient is busy with another request."
@@ -216,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Share via link",
-    "loading": "Starting server...",
-    "stopping": "Stopping server...",
+    "loading": "Starting server…",
+    "stopping": "Stopping server…",
     "error": "An error occurred while starting the server.",
     "openLink": {
       "one": "Open this link in your browser:",
@@ -240,7 +255,8 @@
     ],
     "author": "Author",
     "contributors": "Contributors",
-    "translators": "Translators"
+    "translators": "Translators",
+    "packagers": "Packagers"
   },
   "donationPage": {
     "title": "Donate",
@@ -431,6 +447,18 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "File requests are now accepted automatically from devices in your favourites list.",
+        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favourites list can send you files without restriction.",
+        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+      ],
+      "title": "@:general.quickSaveFromFavourites"
+    },
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
     }
   },
   "sanitization": {
@@ -440,7 +468,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Quit LocalSend"
+    "close": "Quit LocalSend",
+    "closeWindows": "Exit"
   },
   "web": {
     "waiting": "@:sendPage.waiting",

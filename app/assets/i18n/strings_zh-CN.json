@@ -82,7 +82,7 @@
     },
     "sendModeHelp": "解释",
     "help": "请确保目标连接的是同一个 Wi‑Fi 网络",
-    "placeItems": "列出要分享的文件"
+    "placeItems": "列出要分享的项目"
   },
   "settingsTab": {
     "title": "设置",
@@ -193,8 +193,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "想要发送给你一个文件。",
-      "other": "想要发送给你 {n} 个文件。"
+      "one": "想要发送给你一个文件",
+      "other": "想要发送给你 {n} 个文件"
     },
     "subTitleMessage": "发送给你了一条消息：",
     "subTitleLink": "发送给你了一个链接：",
@@ -353,7 +353,7 @@
       "title": "输入地址",
       "hashtag": "标签",
       "ip": "IP 地址",
-      "recentlyUsed": "最近使用："
+      "recentlyUsed": "最近使用： "
     },
     "cancelSession": {
       "title": "取消文件传输",
@@ -461,8 +461,8 @@
     }
   },
   "sanitization": {
-    "empty": "文件名不能为空。",
-    "invalid": "文件名包含无效字符。"
+    "empty": "文件名不能为空",
+    "invalid": "文件名包含无效字符"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
@@ -474,14 +474,14 @@
     "waiting": "@:sendPage.waiting",
     "enterPin": "输入 PIN",
     "invalidPin": "PIN 无效",
-    "tooManyAttempts": "尝试次数过多，请稍后再试。",
+    "tooManyAttempts": "尝试次数过多",
     "rejected": "已拒绝",
     "files": "文件",
     "fileName": "文件名",
     "size": "大小"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "Android 和 iPhone 媒体选择工具的翻译",
     "confirm": "确认",
     "cancel": "取消",
     "edit": "编辑",

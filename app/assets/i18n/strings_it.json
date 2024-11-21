@@ -137,10 +137,10 @@
       "discoveryTimeout": "Timeout di rilevamento",
       "useSystemName": "Usa il nome di sistema",
       "generateRandomAlias": "Genera un alias casuale",
-      "portWarning": "Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata (default: {defaultPort}).",
+      "portWarning": "Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata. (predefinita: {defaultPort})",
       "encryption": "Crittografia",
       "multicastGroup": "Indirizzo Multicast",
-      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato (predefinito: {defaultMulticast})."
+      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
     },
     "other": {
       "title": "Altro",
@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Disattivato automaticamente in presenza di cartelle."
   },
   "sendPage": {
-    "waiting": "In attesa di risposta...",
+    "waiting": "In attesa di risposta…",
     "rejected": "Il destinatario ha rifiutato la richiesta.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Il destinatario è occupato con un'altra richiesta."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Condividi tramite link",
-    "loading": "Avvio del server...",
-    "stopping": "Arresto del server...",
+    "loading": "Avvio del server…",
+    "stopping": "Arresto del server…",
     "error": "Si è verificato un errore durante l'avvio del server.",
     "openLink": {
       "one": "Apri questo link nel browser:",
