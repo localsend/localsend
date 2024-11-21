@@ -26,6 +26,7 @@ class ReceiveTabVm {
   final Future<void> Function() toggleAdvanced;
   final Future<void> Function(BuildContext context, bool enable) onSetQuickSave;
   final Future<void> Function(BuildContext context, bool enable) onSetQuickSaveFromFavorites;
+  final Future<void> Function(BuildContext context, bool enable) onSetTransferFiles;
 
   const ReceiveTabVm({
     required this.aliasSettings,
@@ -38,6 +39,7 @@ class ReceiveTabVm {
     required this.toggleAdvanced,
     required this.onSetQuickSave,
     required this.onSetQuickSaveFromFavorites,
+    required this.onSetTransferFiles,
   });
 }
 
@@ -76,6 +78,12 @@ final receiveTabVmProvider = ViewProvider((ref) {
       await ref.notifier(settingsProvider).setQuickSaveFromFavorites(enable);
       if (enable && context.mounted) {
         await QuickSaveFromFavoritesNotice.open(context);
+      }
+    },
+    onSetTransferFiles: (context, enable) async {
+      await ref.notifier(settingsProvider).setTransferFiles(enable);
+      if (enable && context.mounted) {
+        await QuickSaveNotice.open(context);
       }
     },
   );
