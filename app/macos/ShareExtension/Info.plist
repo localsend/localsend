@@ -10,6 +10,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>CFBundleIconFile</key>
 	<string>icon</string>
+	<key>CFBundleDisplayName</key>
+	<string>LocalSend</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
