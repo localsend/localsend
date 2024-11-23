@@ -1,3 +1,7 @@
+## 1.17.0 (unreleased)
+
+- fix: black screen when tapping on "Back" twice in "Share via link" (@Tienisto)
+
 ## 1.16.2 (2024-11-06)
 
 - fix(ios): share from other apps to LocalSend doesn't work in iOS 18 (@Tienisto)
