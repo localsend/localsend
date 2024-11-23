@@ -28,6 +28,7 @@
     "open": "Aç",
     "queue": "Sıra",
     "quickSave": "Hızlı kaydetme",
+    "quickSaveFromFavorites": "Favoriler",
     "renamed": "Yeniden adlandırıldı",
     "reset": "Sıfırla",
     "restart": "Yeniden başlat",
@@ -38,8 +39,7 @@
     "save": "Kaydet",
     "unchanged": "Değiştirilmemiş",
     "unknown": "Bilinmiyor",
-    "noItemInClipboard": "Panoda öğe yok.",
-    "quickSaveFromFavorites": "Favoriler"
+    "noItemInClipboard": "Panoda öğe yok."
   },
   "receiveTab": {
     "title": "Alım",

@@ -109,12 +109,12 @@
       "title": "Terima",
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "Memerlukan PIN",
+      "autoFinish": "Selesai Automatik",
       "destination": "Simpan ke folder",
       "downloads": "(Muat turun)",
       "saveToGallery": "Simpan media ke galeri",
-      "saveToHistory": "Simpan ke sejarah",
-      "requirePin": "Memerlukan PIN",
-      "autoFinish": "Selesai Automatik"
+      "saveToHistory": "Simpan ke sejarah"
     },
     "send": {
       "title": "Hantar",
@@ -128,13 +128,13 @@
       "deviceType": "Jenis peranti",
       "deviceModel": "Model peranti",
       "port": "Port",
+      "discoveryTimeout": "Tamat Masa Penemuan",
+      "useSystemName": "Gunakan nama sistem",
+      "generateRandomAlias": "Jana alias rawak",
       "portWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan port tersuai. (lalai: {defaultPort})",
       "encryption": "Penyulitan",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})",
-      "discoveryTimeout": "Tamat Masa Penemuan",
-      "useSystemName": "Gunakan nama sistem",
-      "generateRandomAlias": "Jana alias rawak"
+      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})"
     },
     "other": {
       "title": "Lain-lain",
@@ -354,6 +354,23 @@
     "errorDialog": {
       "title": "@:general.error"
     },
+    "favoriteDialog": {
+      "title": "Kegemaran",
+      "noFavorites": "Tiada peranti kegemaran lagi.",
+      "addFavorite": "Tambah"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Padam dari kegemaran",
+      "content": "Adakah anda benar-benar mahu memadam \"{name}\" dari kegemaran?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Tambah ke kegemaran",
+      "titleEdit": "Tetapan",
+      "name": "Nama peranti",
+      "auto": "(auto)",
+      "ip": "Alamat IP",
+      "port": "Port"
+    },
     "fileInfo": {
       "title": "Maklumat fail",
       "fileName": "Nama fail:",
@@ -409,35 +426,22 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites"
     },
+    "pin": {
+      "title": "Masukkan PIN"
+    },
     "sendModeHelp": {
       "title": "Mod penghantaran",
       "single": "Menghantar fail kepada satu penerima. Pilihan akan dibersihkan selepas pemindahan fail selesai.",
       "multiple": "Menghantar fail kepada beberapa penerima. Pilihan tidak akan dibersihkan.",
       "link": "Penerima yang tidak mempunyai LocalSend dipasang boleh memuat turun fail yang dipilih dengan membuka pautan dalam pelayar mereka."
     },
-    "favoriteDialog": {
-      "title": "Kegemaran",
-      "noFavorites": "Tiada peranti kegemaran lagi.",
-      "addFavorite": "Tambah"
-    },
-    "favoriteDeleteDialog": {
-      "title": "Padam dari kegemaran",
-      "content": "Adakah anda benar-benar mahu memadam \"{name}\" dari kegemaran?"
-    },
-    "favoriteEditDialog": {
-      "titleAdd": "Tambah ke kegemaran",
-      "titleEdit": "Tetapan",
-      "name": "Nama peranti",
-      "auto": "(auto)",
-      "ip": "Alamat IP",
-      "port": "Port"
-    },
-    "pin": {
-      "title": "Masukkan PIN"
-    },
     "zoom": {
       "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Nama fail tidak boleh kosong",
+    "invalid": "Nama fail mengandungi aksara yang tidak sah"
   },
   "tray": {
     "open": "@:general.open",
@@ -480,9 +484,5 @@
     "sActionUseCameraHint": "guna kamera",
     "sNameDurationLabel": "tempoh",
     "sUnitAssetCountLabel": "kiraan"
-  },
-  "sanitization": {
-    "empty": "Nama fail tidak boleh kosong",
-    "invalid": "Nama fail mengandungi aksara yang tidak sah"
   }
 }

@@ -3,8 +3,8 @@
 /// Source: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 45
-/// Strings: 14650 (325 per locale)
+/// Locales: 47
+/// Strings: 15303 (325 per locale)
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -16,6 +16,7 @@ import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
 import 'strings_ar.g.dart' deferred as l_ar;
+import 'strings_bg.g.dart' deferred as l_bg;
 import 'strings_bn.g.dart' deferred as l_bn;
 import 'strings_ca.g.dart' deferred as l_ca;
 import 'strings_cs.g.dart' deferred as l_cs;
@@ -46,6 +47,7 @@ import 'strings_pt_BR.g.dart' deferred as l_pt_BR;
 import 'strings_pt_PT.g.dart' deferred as l_pt_PT;
 import 'strings_ro.g.dart' deferred as l_ro;
 import 'strings_ru.g.dart' deferred as l_ru;
+import 'strings_si.g.dart' deferred as l_si;
 import 'strings_sk.g.dart' deferred as l_sk;
 import 'strings_sl.g.dart' deferred as l_sl;
 import 'strings_sr.g.dart' deferred as l_sr;
@@ -70,6 +72,7 @@ part 'strings_en.g.dart';
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
   en(languageCode: 'en'),
   ar(languageCode: 'ar'),
+  bg(languageCode: 'bg'),
   bn(languageCode: 'bn'),
   ca(languageCode: 'ca'),
   cs(languageCode: 'cs'),
@@ -100,6 +103,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
   ptPt(languageCode: 'pt', countryCode: 'PT'),
   ro(languageCode: 'ro'),
   ru(languageCode: 'ru'),
+  si(languageCode: 'si'),
   sk(languageCode: 'sk'),
   sl(languageCode: 'sl'),
   sr(languageCode: 'sr'),
@@ -143,6 +147,13 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
       case AppLocale.ar:
         await l_ar.loadLibrary();
         return l_ar.TranslationsAr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
+      case AppLocale.bg:
+        await l_bg.loadLibrary();
+        return l_bg.TranslationsBg(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
@@ -357,6 +368,13 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
         );
+      case AppLocale.si:
+        await l_si.loadLibrary();
+        return l_si.TranslationsSi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sk:
         await l_sk.loadLibrary();
         return l_sk.TranslationsSk(
@@ -466,6 +484,12 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
         );
       case AppLocale.ar:
         return l_ar.TranslationsAr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
+      case AppLocale.bg:
+        return l_bg.TranslationsBg(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
@@ -646,6 +670,12 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
         );
       case AppLocale.ru:
         return l_ru.TranslationsRu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
+      case AppLocale.si:
+        return l_si.TranslationsSi(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,

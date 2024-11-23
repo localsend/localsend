@@ -71,13 +71,13 @@ class TranslationsMs extends Translations {
   @override
   late final _TranslationsDialogsMs dialogs = _TranslationsDialogsMs._(_root);
   @override
+  late final _TranslationsSanitizationMs sanitization = _TranslationsSanitizationMs._(_root);
+  @override
   late final _TranslationsTrayMs tray = _TranslationsTrayMs._(_root);
   @override
   late final _TranslationsWebMs web = _TranslationsWebMs._(_root);
   @override
   late final _TranslationsAssetPickerMs assetPicker = _TranslationsAssetPickerMs._(_root);
-  @override
-  late final _TranslationsSanitizationMs sanitization = _TranslationsSanitizationMs._(_root);
 }
 
 // Path: general
@@ -604,6 +604,12 @@ class _TranslationsDialogsMs extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsErrorDialogMs errorDialog = _TranslationsDialogsErrorDialogMs._(_root);
   @override
+  late final _TranslationsDialogsFavoriteDialogMs favoriteDialog = _TranslationsDialogsFavoriteDialogMs._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDeleteDialogMs favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogMs._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteEditDialogMs favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogMs._(_root);
+  @override
   late final _TranslationsDialogsFileInfoMs fileInfo = _TranslationsDialogsFileInfoMs._(_root);
   @override
   late final _TranslationsDialogsFileNameInputMs fileNameInput = _TranslationsDialogsFileNameInputMs._(_root);
@@ -629,17 +635,26 @@ class _TranslationsDialogsMs extends TranslationsDialogsEn {
   late final _TranslationsDialogsQuickSaveFromFavoritesNoticeMs quickSaveFromFavoritesNotice =
       _TranslationsDialogsQuickSaveFromFavoritesNoticeMs._(_root);
   @override
-  late final _TranslationsDialogsSendModeHelpMs sendModeHelp = _TranslationsDialogsSendModeHelpMs._(_root);
-  @override
-  late final _TranslationsDialogsFavoriteDialogMs favoriteDialog = _TranslationsDialogsFavoriteDialogMs._(_root);
-  @override
-  late final _TranslationsDialogsFavoriteDeleteDialogMs favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogMs._(_root);
-  @override
-  late final _TranslationsDialogsFavoriteEditDialogMs favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogMs._(_root);
-  @override
   late final _TranslationsDialogsPinMs pin = _TranslationsDialogsPinMs._(_root);
   @override
+  late final _TranslationsDialogsSendModeHelpMs sendModeHelp = _TranslationsDialogsSendModeHelpMs._(_root);
+  @override
   late final _TranslationsDialogsZoomMs zoom = _TranslationsDialogsZoomMs._(_root);
+}
+
+// Path: sanitization
+class _TranslationsSanitizationMs extends TranslationsSanitizationEn {
+  _TranslationsSanitizationMs._(TranslationsMs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'Nama fail tidak boleh kosong';
+  @override
+  String get invalid => 'Nama fail mengandungi aksara yang tidak sah';
 }
 
 // Path: tray
@@ -746,21 +761,6 @@ class _TranslationsAssetPickerMs extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'tempoh';
   @override
   String get sUnitAssetCountLabel => 'kiraan';
-}
-
-// Path: sanitization
-class _TranslationsSanitizationMs extends TranslationsSanitizationEn {
-  _TranslationsSanitizationMs._(TranslationsMs root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get empty => 'Nama fail tidak boleh kosong';
-  @override
-  String get invalid => 'Nama fail mengandungi aksara yang tidak sah';
 }
 
 // Path: receiveTab.infoBox
@@ -890,6 +890,10 @@ class _TranslationsSettingsTabReceiveMs extends TranslationsSettingsTabReceiveEn
   @override
   String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
+  String get requirePin => 'Memerlukan PIN';
+  @override
+  String get autoFinish => 'Selesai Automatik';
+  @override
   String get destination => 'Simpan ke folder';
   @override
   String get downloads => '(Muat turun)';
@@ -897,10 +901,6 @@ class _TranslationsSettingsTabReceiveMs extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'Simpan media ke galeri';
   @override
   String get saveToHistory => 'Simpan ke sejarah';
-  @override
-  String get requirePin => 'Memerlukan PIN';
-  @override
-  String get autoFinish => 'Selesai Automatik';
 }
 
 // Path: settingsTab.send
@@ -942,6 +942,12 @@ class _TranslationsSettingsTabNetworkMs extends TranslationsSettingsTabNetworkEn
   @override
   String get port => 'Port';
   @override
+  String get discoveryTimeout => 'Tamat Masa Penemuan';
+  @override
+  String get useSystemName => 'Gunakan nama sistem';
+  @override
+  String get generateRandomAlias => 'Jana alias rawak';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan port tersuai. (lalai: ${defaultPort})';
   @override
@@ -951,12 +957,6 @@ class _TranslationsSettingsTabNetworkMs extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: ${defaultMulticast})';
-  @override
-  String get discoveryTimeout => 'Tamat Masa Penemuan';
-  @override
-  String get useSystemName => 'Gunakan nama sistem';
-  @override
-  String get generateRandomAlias => 'Jana alias rawak';
 }
 
 // Path: settingsTab.other
@@ -1161,6 +1161,61 @@ class _TranslationsDialogsErrorDialogMs extends TranslationsDialogsErrorDialogEn
   String get title => _root.general.error;
 }
 
+// Path: dialogs.favoriteDialog
+class _TranslationsDialogsFavoriteDialogMs extends TranslationsDialogsFavoriteDialogEn {
+  _TranslationsDialogsFavoriteDialogMs._(TranslationsMs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kegemaran';
+  @override
+  String get noFavorites => 'Tiada peranti kegemaran lagi.';
+  @override
+  String get addFavorite => 'Tambah';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _TranslationsDialogsFavoriteDeleteDialogMs extends TranslationsDialogsFavoriteDeleteDialogEn {
+  _TranslationsDialogsFavoriteDeleteDialogMs._(TranslationsMs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Padam dari kegemaran';
+  @override
+  String content({required Object name}) => 'Adakah anda benar-benar mahu memadam "${name}" dari kegemaran?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _TranslationsDialogsFavoriteEditDialogMs extends TranslationsDialogsFavoriteEditDialogEn {
+  _TranslationsDialogsFavoriteEditDialogMs._(TranslationsMs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get titleAdd => 'Tambah ke kegemaran';
+  @override
+  String get titleEdit => 'Tetapan';
+  @override
+  String get name => 'Nama peranti';
+  @override
+  String get auto => '(auto)';
+  @override
+  String get ip => 'Alamat IP';
+  @override
+  String get port => 'Port';
+}
+
 // Path: dialogs.fileInfo
 class _TranslationsDialogsFileInfoMs extends TranslationsDialogsFileInfoEn {
   _TranslationsDialogsFileInfoMs._(TranslationsMs root)
@@ -1357,6 +1412,19 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeMs extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
 }
 
+// Path: dialogs.pin
+class _TranslationsDialogsPinMs extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinMs._(TranslationsMs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Masukkan PIN';
+}
+
 // Path: dialogs.sendModeHelp
 class _TranslationsDialogsSendModeHelpMs extends TranslationsDialogsSendModeHelpEn {
   _TranslationsDialogsSendModeHelpMs._(TranslationsMs root)
@@ -1375,74 +1443,6 @@ class _TranslationsDialogsSendModeHelpMs extends TranslationsDialogsSendModeHelp
   @override
   String get link =>
       'Penerima yang tidak mempunyai LocalSend dipasang boleh memuat turun fail yang dipilih dengan membuka pautan dalam pelayar mereka.';
-}
-
-// Path: dialogs.favoriteDialog
-class _TranslationsDialogsFavoriteDialogMs extends TranslationsDialogsFavoriteDialogEn {
-  _TranslationsDialogsFavoriteDialogMs._(TranslationsMs root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Kegemaran';
-  @override
-  String get noFavorites => 'Tiada peranti kegemaran lagi.';
-  @override
-  String get addFavorite => 'Tambah';
-}
-
-// Path: dialogs.favoriteDeleteDialog
-class _TranslationsDialogsFavoriteDeleteDialogMs extends TranslationsDialogsFavoriteDeleteDialogEn {
-  _TranslationsDialogsFavoriteDeleteDialogMs._(TranslationsMs root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Padam dari kegemaran';
-  @override
-  String content({required Object name}) => 'Adakah anda benar-benar mahu memadam "${name}" dari kegemaran?';
-}
-
-// Path: dialogs.favoriteEditDialog
-class _TranslationsDialogsFavoriteEditDialogMs extends TranslationsDialogsFavoriteEditDialogEn {
-  _TranslationsDialogsFavoriteEditDialogMs._(TranslationsMs root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get titleAdd => 'Tambah ke kegemaran';
-  @override
-  String get titleEdit => 'Tetapan';
-  @override
-  String get name => 'Nama peranti';
-  @override
-  String get auto => '(auto)';
-  @override
-  String get ip => 'Alamat IP';
-  @override
-  String get port => 'Port';
-}
-
-// Path: dialogs.pin
-class _TranslationsDialogsPinMs extends TranslationsDialogsPinEn {
-  _TranslationsDialogsPinMs._(TranslationsMs root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Masukkan PIN';
 }
 
 // Path: dialogs.zoom

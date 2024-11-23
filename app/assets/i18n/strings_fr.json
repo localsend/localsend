@@ -276,6 +276,10 @@
       "title": "Ajouter à la sélection",
       "content": "Que voulez-vous ajouter ?"
     },
+    "openFile": {
+      "title": "Ouvrir le fichier",
+      "content": "Voulez-vous ouvrir le fichier reçu ?"
+    },
     "addressInput": {
       "title": "Entrez l'adresse IP",
       "hashtag": "Hashtag",
@@ -350,10 +354,6 @@
     "notAvailableOnPlatform": {
       "title": "Non disponible",
       "content": "Cette fonctionnalité est disponible uniquement sur :"
-    },
-    "openFile": {
-      "title": "Ouvrir le fichier",
-      "content": "Voulez-vous ouvrir le fichier reçu ?"
     },
     "qr": {
       "title": "QR Code"

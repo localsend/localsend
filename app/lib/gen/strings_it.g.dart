@@ -378,7 +378,7 @@ class _TranslationsSendPageIt extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'In attesa di risposta...';
+  String get waiting => 'In attesa di risposta…';
   @override
   String get rejected => 'Il destinatario ha rifiutato la richiesta.';
   @override
@@ -418,9 +418,9 @@ class _TranslationsWebSharePageIt extends TranslationsWebSharePageEn {
   @override
   String get title => 'Condividi tramite link';
   @override
-  String get loading => 'Avvio del server...';
+  String get loading => 'Avvio del server…';
   @override
-  String get stopping => 'Arresto del server...';
+  String get stopping => 'Arresto del server…';
   @override
   String get error => 'Si è verificato un errore durante l\'avvio del server.';
   @override
@@ -913,14 +913,14 @@ class _TranslationsSettingsTabNetworkIt extends TranslationsSettingsTabNetworkEn
   String get generateRandomAlias => 'Genera un alias casuale';
   @override
   String portWarning({required Object defaultPort}) =>
-      'Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata (default: ${defaultPort}).';
+      'Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata. (predefinita: ${defaultPort})';
   @override
   String get encryption => 'Crittografia';
   @override
   String get multicastGroup => 'Indirizzo Multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato (predefinito: ${defaultMulticast}).';
+      'Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other

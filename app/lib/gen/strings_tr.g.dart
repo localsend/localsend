@@ -142,6 +142,8 @@ class _TranslationsGeneralTr extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Hızlı kaydetme';
   @override
+  String get quickSaveFromFavorites => 'Favoriler';
+  @override
   String get renamed => 'Yeniden adlandırıldı';
   @override
   String get reset => 'Sıfırla';
@@ -162,7 +164,7 @@ class _TranslationsGeneralTr extends TranslationsGeneralEn {
   @override
   String get unknown => 'Bilinmiyor';
   @override
-  String get noItemInClipboard => 'Panoda öğe yok';
+  String get noItemInClipboard => 'Panoda öğe yok.';
 }
 
 // Path: receiveTab
@@ -374,7 +376,7 @@ class _TranslationsSendPageTr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Alıcıdan cevap bekleniyor...';
+  String get waiting => 'Alıcıdan cevap bekleniyor…';
   @override
   String get rejected => 'Alıcı isteği reddetti.';
   @override
@@ -414,9 +416,9 @@ class _TranslationsWebSharePageTr extends TranslationsWebSharePageEn {
   @override
   String get title => 'Link üzerinden paylaşın';
   @override
-  String get loading => 'Sunucu başlıyor...';
+  String get loading => 'Sunucu başlıyor…';
   @override
-  String get stopping => 'Sunucu durduruluyor ...';
+  String get stopping => 'Sunucu durduruluyor…';
   @override
   String get error => 'Sunucuyu başlatırken bir hata oluştu.';
   @override
@@ -959,7 +961,7 @@ class _TranslationsTroubleshootPageNoConnectionTr extends TranslationsTroublesho
   String get symptom => 'Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.';
   @override
   String get solution =>
-      'Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir. ';
+      'Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir.';
 }
 
 // Path: receiveHistoryPage.entryActions

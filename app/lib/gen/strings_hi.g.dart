@@ -96,7 +96,7 @@ class _TranslationsGeneralHi extends TranslationsGeneralEn {
   @override
   String get add => 'जोड़ें';
   @override
-  String get advanced => 'उन्नत';
+  String get advanced => 'एडवांस्ड';
   @override
   String get cancel => 'रद्द करें';
   @override
@@ -142,6 +142,8 @@ class _TranslationsGeneralHi extends TranslationsGeneralEn {
   @override
   String get quickSave => 'त्वरित सहेजें';
   @override
+  String get quickSaveFromFavorites => '"पसंदीदा" के लिए त्वरित सहेजें।';
+  @override
   String get renamed => 'नाम बदला गया';
   @override
   String get reset => 'रीसेट करें';
@@ -178,6 +180,8 @@ class _TranslationsReceiveTabHi extends TranslationsReceiveTabEn {
   String get title => 'प्राप्त करें';
   @override
   late final _TranslationsReceiveTabInfoBoxHi infoBox = _TranslationsReceiveTabInfoBoxHi._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveHi quickSave = _TranslationsReceiveTabQuickSaveHi._(_root);
 }
 
 // Path: sendTab
@@ -203,6 +207,8 @@ class _TranslationsSendTabHi extends TranslationsSendTabEn {
   String get thisDevice => 'यह डिवाइस';
   @override
   String get scan => 'उपकरणों को खोजें';
+  @override
+  String get manualSending => 'मैन्युअल भेजना';
   @override
   String get sendMode => 'भेजने का मोड';
   @override
@@ -259,6 +265,8 @@ class _TranslationsTroubleshootPageHi extends TranslationsTroubleshootPageEn {
   String get fixButton => 'स्वतः ठीक करें';
   @override
   late final _TranslationsTroubleshootPageFirewallHi firewall = _TranslationsTroubleshootPageFirewallHi._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryHi noDiscovery = _TranslationsTroubleshootPageNoDiscoveryHi._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionHi noConnection = _TranslationsTroubleshootPageNoConnectionHi._(_root);
 }
@@ -460,6 +468,8 @@ class _TranslationsAboutPageHi extends TranslationsAboutPageEn {
   @override
   String get contributors => 'योगदानकर्ताओं';
   @override
+  String get packagers => 'पैकेजर्स';
+  @override
   String get translators => 'अनुवादकों';
 }
 
@@ -594,6 +604,8 @@ class _TranslationsDialogsHi extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileHi addFile = _TranslationsDialogsAddFileHi._(_root);
   @override
+  late final _TranslationsDialogsOpenFileHi openFile = _TranslationsDialogsOpenFileHi._(_root);
+  @override
   late final _TranslationsDialogsAddressInputHi addressInput = _TranslationsDialogsAddressInputHi._(_root);
   @override
   late final _TranslationsDialogsCancelSessionHi cancelSession = _TranslationsDialogsCancelSessionHi._(_root);
@@ -632,6 +644,9 @@ class _TranslationsDialogsHi extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeHi quickSaveNotice = _TranslationsDialogsQuickSaveNoticeHi._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeHi quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeHi._(_root);
+  @override
   late final _TranslationsDialogsPinHi pin = _TranslationsDialogsPinHi._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpHi sendModeHelp = _TranslationsDialogsSendModeHelpHi._(_root);
@@ -667,6 +682,8 @@ class _TranslationsTrayHi extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => 'LocalSend बंद करें';
+  @override
+  String get closeWindows => 'बाहर जाएं।';
 }
 
 // Path: web
@@ -781,6 +798,23 @@ class _TranslationsReceiveTabInfoBoxHi extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'डिवाइस का नाम:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveHi extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveHi._(TranslationsHi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'पसंदीदा';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionHi extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionHi._(TranslationsHi root)
@@ -864,6 +898,8 @@ class _TranslationsSettingsTabGeneralHi extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'बंद करें: विंडो प्लेसमेंट सहेजें';
   @override
+  String get saveWindowPlacementWindows => 'बाहर निकलने के बाद विंडो की स्थिति सहेजें।';
+  @override
   String get minimizeToTray => 'बंद करें: ट्रे/मेनू बार में मिनिमाइज करें';
   @override
   String get launchAtStartup => 'लॉगिन के बाद ऑटोस्टार्ट';
@@ -888,6 +924,8 @@ class _TranslationsSettingsTabReceiveHi extends TranslationsSettingsTabReceiveEn
   String get title => 'प्राप्त करें';
   @override
   String get quickSave => _root.general.quickSave;
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
@@ -943,6 +981,10 @@ class _TranslationsSettingsTabNetworkHi extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'खोज का समय समाप्त';
   @override
+  String get useSystemName => 'सिस्टम नाम का उपयोग करें';
+  @override
+  String get generateRandomAlias => 'रैंडम उपनाम जनरेट करें';
+  @override
   String portWarning({required Object defaultPort}) =>
       'आप कस्टम पोर्ट का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: ${defaultPort})';
   @override
@@ -991,6 +1033,22 @@ class _TranslationsTroubleshootPageFirewallHi extends TranslationsTroubleshootPa
       'यह संभवतः फ़ायरवॉल समस्या है। आप इसे पोर्ट ${port} पर आने वाले कनेक्शनों (UDP और TCP) को अनुमति देकर हल कर सकते हैं।';
   @override
   String get openFirewall => 'फायरवॉल खोलें';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryHi extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryHi._(TranslationsHi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'यह डिवाइस अन्य डिवाइसों को ढूंढ नहीं सकता।';
+  @override
+  String get solution =>
+      'सुनिश्चित करें कि सभी डिवाइस एक ही वाई-फाई नेटवर्क से जुड़े हों। पोर्ट, मल्टीकास्ट पता और एन्क्रिप्शन की सेटिंग्स समान होनी चाहिए। यदि डिवाइस नहीं मिलता है, तो लक्ष्य डिवाइस का आईपी पता स्वयं दर्ज करें। अगर यह काम करता है, तो डिवाइस को पसंदीदा में सहेजें ताकि भविष्य में स्वचालित रूप से मिल सके।';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1060,6 +1118,21 @@ class _TranslationsDialogsAddFileHi extends TranslationsDialogsAddFileEn {
   String get title => 'फाइल जोड़ें';
   @override
   String get content => 'आप क्या जोड़ना चाहते हैं?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileHi extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileHi._(TranslationsHi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'फ़ाइल खोलें';
+  @override
+  String get content => 'क्या आप प्राप्त फ़ाइल खोलना चाहते हैं?';
 }
 
 // Path: dialogs.addressInput
@@ -1375,6 +1448,25 @@ class _TranslationsDialogsQuickSaveNoticeHi extends TranslationsDialogsQuickSave
   String get title => _root.general.quickSave;
   @override
   String get content => 'फ़ाइल अनुरोध स्वचालित रूप से स्वीकार कर लिए जाते हैं। ध्यान दें कि स्थानीय नेटवर्क पर सभी लोग आपको फ़ाइलें भेज सकते हैं।';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeHi extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeHi._(TranslationsHi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'अब आपके पसंदीदा सूची में शामिल डिवाइसों से फ़ाइल अनुरोध स्वतः स्वीकार किए जाएंगे।',
+        'चेतावनी! वर्तमान में, यह पूरी तरह से सुरक्षित नहीं है, क्योंकि कोई हैकर जो आपकी पसंदीदा सूची में शामिल किसी भी डिवाइस का फ़िंगरप्रिंट प्राप्त कर लेता है, वह बिना किसी प्रतिबंध के आपको फ़ाइलें भेज सकता है।',
+        'हालांकि, यह विकल्प अभी भी उन सभी उपयोगकर्ताओं को बिना प्रतिबंध फ़ाइलें भेजने की अनुमति देने की तुलना में सुरक्षित है, जो स्थानीय नेटवर्क पर हैं।',
+      ];
 }
 
 // Path: dialogs.pin

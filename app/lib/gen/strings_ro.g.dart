@@ -96,7 +96,7 @@ class _TranslationsGeneralRo extends TranslationsGeneralEn {
   @override
   String get add => 'Adaugă';
   @override
-  String get advanced => 'Advansat';
+  String get advanced => 'Avansat';
   @override
   String get cancel => 'Anulare';
   @override

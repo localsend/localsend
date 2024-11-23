@@ -28,6 +28,7 @@
     "open": "Open",
     "queue": "Queue",
     "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Quick Save for \"Favourites\"",
     "renamed": "Renamed",
     "reset": "Reset",
     "restart": "Restart",
@@ -38,8 +39,7 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No items in Clipboard.",
-    "quickSaveFromFavorites": "Quick Save for \"Favourites\""
+    "noItemInClipboard": "No items in Clipboard."
   },
   "receiveTab": {
     "title": "Receive",
@@ -73,6 +73,7 @@
     "nearbyDevices": "Nearby devices",
     "thisDevice": "This Device",
     "scan": "Look for devices",
+    "manualSending": "Manual Sending",
     "sendMode": "Send mode",
     "sendModes": {
       "single": "Single recipient",
@@ -81,8 +82,7 @@
     },
     "sendModeHelp": "Explanation",
     "help": "Please ensure that the desired target is also on the same Wi-Fi network.",
-    "placeItems": "Place items to share.",
-    "manualSending": "Manual Sending"
+    "placeItems": "Place items to share."
   },
   "settingsTab": {
     "title": "Settings",
@@ -104,23 +104,23 @@
         "system": "System"
       },
       "saveWindowPlacement": "Quit: Save window placement",
+      "saveWindowPlacementWindows": "Save window position after exit",
       "minimizeToTray": "Quit: Minimize to Tray/Menu Bar",
       "launchAtStartup": "Autostart after login",
       "launchMinimized": "Autostart: Start hidden",
       "showInContextMenu": "Show LocalSend in context menu",
-      "animations": "Animations",
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "animations": "Animations"
     },
     "receive": {
       "title": "Receive",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto Finish",
       "destination": "Destination",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
-      "saveToHistory": "Save to history",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavourites"
+      "saveToHistory": "Save to history"
     },
     "send": {
       "title": "Send",
@@ -135,12 +135,12 @@
       "deviceModel": "Device model",
       "port": "Port",
       "discoveryTimeout": "Discovery Timeout",
+      "useSystemName": "Use system name",
+      "generateRandomAlias": "Generate random alias",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})",
-      "generateRandomAlias": "Generate random alias",
-      "useSystemName": "Use system name"
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },
     "other": {
       "title": "Other",
@@ -161,13 +161,13 @@
       "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
       "openFirewall": "Open Firewall"
     },
-    "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
-      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
-    },
     "noDiscovery": {
       "symptom": "This device cannot discover other devices.",
       "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favourites so it can be automatically discovered in the future."
+    },
+    "noConnection": {
+      "symptom": "Both devices cannot discover each other nor can they share files.",
+      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
     }
   },
   "receiveHistoryPage": {
@@ -255,8 +255,8 @@
     ],
     "author": "Author",
     "contributors": "Contributors",
-    "translators": "Translators",
-    "packagers": "Packagers"
+    "packagers": "Packagers",
+    "translators": "Translators"
   },
   "donationPage": {
     "title": "Donate",
@@ -345,6 +345,10 @@
     "addFile": {
       "title": "Add to selection",
       "content": "What do you want to add?"
+    },
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
     },
     "addressInput": {
       "title": "Enter address",
@@ -436,6 +440,14 @@
       "title": "@:general.quickSave",
       "content": "File requests are automatically accepted. Be aware that everyone on the local network can send you files."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "File requests are now accepted automatically from devices in your favourites list.",
+        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favourites list can send you files without restriction.",
+        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+      ]
+    },
     "pin": {
       "title": "Enter PIN"
     },
@@ -447,18 +459,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "File requests are now accepted automatically from devices in your favourites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favourites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
-      ],
-      "title": "@:general.quickSaveFromFavourites"
-    },
-    "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
     }
   },
   "sanitization": {

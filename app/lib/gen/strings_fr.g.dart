@@ -164,7 +164,7 @@ class _TranslationsGeneralFr extends TranslationsGeneralEn {
   @override
   String get unknown => 'Inconnu';
   @override
-  String get noItemInClipboard => 'Aucun élément dans le presse-papiers';
+  String get noItemInClipboard => 'Aucun élément dans le presse-papiers.';
 }
 
 // Path: receiveTab
@@ -261,7 +261,7 @@ class _TranslationsTroubleshootPageFr extends TranslationsTroubleshootPageEn {
   @override
   String get subTitle => 'Cette application ne fonctionne pas comme vous l\'espérez ? Vous trouverez ici des solutions aux problèmes communs.';
   @override
-  String get solution => 'Solution:';
+  String get solution => 'Solution :';
   @override
   String get fixButton => 'Corriger automatiquement';
   @override
@@ -379,7 +379,7 @@ class _TranslationsSendPageFr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'En attente d\'une réponse...';
+  String get waiting => 'En attente d\'une réponse …';
   @override
   String get rejected => 'Le destinataire a rejeté la demande.';
   @override
@@ -419,9 +419,9 @@ class _TranslationsWebSharePageFr extends TranslationsWebSharePageEn {
   @override
   String get title => 'Partager via un lien';
   @override
-  String get loading => 'Démarrage du serveur...';
+  String get loading => 'Démarrage du serveur …';
   @override
-  String get stopping => 'Arrêt du serveur...';
+  String get stopping => 'Arrêt du serveur …';
   @override
   String get error => 'Une erreur est survenue lors du démarrage du serveur.';
   @override
@@ -445,7 +445,7 @@ class _TranslationsWebSharePageFr extends TranslationsWebSharePageEn {
   @override
   String get encryptionHint => 'LocalSend utilise un certificat auto-signé. Vous devez l\'accepter dans le navigateur.';
   @override
-  String pendingRequests({required Object n}) => 'Requêtes en attente: ${n}';
+  String pendingRequests({required Object n}) => 'Requêtes en attente : ${n}';
 }
 
 // Path: aboutPage
@@ -532,6 +532,8 @@ class _TranslationsDialogsFr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileFr addFile = _TranslationsDialogsAddFileFr._(_root);
   @override
+  late final _TranslationsDialogsOpenFileFr openFile = _TranslationsDialogsOpenFileFr._(_root);
+  @override
   late final _TranslationsDialogsAddressInputFr addressInput = _TranslationsDialogsAddressInputFr._(_root);
   @override
   late final _TranslationsDialogsCancelSessionFr cancelSession = _TranslationsDialogsCancelSessionFr._(_root);
@@ -563,8 +565,6 @@ class _TranslationsDialogsFr extends TranslationsDialogsEn {
   late final _TranslationsDialogsNoPermissionFr noPermission = _TranslationsDialogsNoPermissionFr._(_root);
   @override
   late final _TranslationsDialogsNotAvailableOnPlatformFr notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformFr._(_root);
-  @override
-  late final _TranslationsDialogsOpenFileFr openFile = _TranslationsDialogsOpenFileFr._(_root);
   @override
   late final _TranslationsDialogsQrFr qr = _TranslationsDialogsQrFr._(_root);
   @override
@@ -719,11 +719,11 @@ class _TranslationsReceiveTabInfoBoxFr extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get ip => 'IP:';
+  String get ip => 'IP :';
   @override
-  String get port => 'Port:';
+  String get port => 'Port :';
   @override
-  String get alias => 'Alias:';
+  String get alias => 'Nom du périphérique :';
 }
 
 // Path: receiveTab.quickSave
@@ -755,9 +755,9 @@ class _TranslationsSendTabSelectionFr extends TranslationsSendTabSelectionEn {
   @override
   String get title => 'Sélection';
   @override
-  String files({required Object files}) => 'Fichiers: ${files}';
+  String files({required Object files}) => 'Fichiers : ${files}';
   @override
-  String size({required Object size}) => 'Taille: ${size}';
+  String size({required Object size}) => 'Taille : ${size}';
 }
 
 // Path: sendTab.picker
@@ -1026,11 +1026,11 @@ class _TranslationsProgressPageTotalFr extends TranslationsProgressPageTotalEn {
   @override
   late final _TranslationsProgressPageTotalTitleFr title = _TranslationsProgressPageTotalTitleFr._(_root);
   @override
-  String count({required Object curr, required Object n}) => 'Fichiers: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Fichiers : ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) => 'Taille: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Taille : ${curr} / ${n}';
   @override
-  String speed({required Object speed}) => 'Vitesse: ${speed}/s';
+  String speed({required Object speed}) => 'Vitesse : ${speed}/s';
 }
 
 // Path: dialogs.addFile
@@ -1046,6 +1046,21 @@ class _TranslationsDialogsAddFileFr extends TranslationsDialogsAddFileEn {
   String get title => 'Ajouter à la sélection';
   @override
   String get content => 'Que voulez-vous ajouter ?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileFr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ouvrir le fichier';
+  @override
+  String get content => 'Voulez-vous ouvrir le fichier reçu ?';
 }
 
 // Path: dialogs.addressInput
@@ -1064,7 +1079,7 @@ class _TranslationsDialogsAddressInputFr extends TranslationsDialogsAddressInput
   @override
   String get ip => 'Adresse IP';
   @override
-  String get recentlyUsed => 'Récemment utilisé :';
+  String get recentlyUsed => 'Récemment utilisé : ';
 }
 
 // Path: dialogs.cancelSession
@@ -1215,7 +1230,7 @@ class _TranslationsDialogsFileNameInputFr extends TranslationsDialogsFileNameInp
   @override
   String get title => 'Entrez le nom du fichier';
   @override
-  String original({required Object original}) => 'Original: ${original}';
+  String original({required Object original}) => 'Original : ${original}';
 }
 
 // Path: dialogs.historyClearDialog
@@ -1308,22 +1323,7 @@ class _TranslationsDialogsNotAvailableOnPlatformFr extends TranslationsDialogsNo
   @override
   String get title => 'Non disponible';
   @override
-  String get content => 'Cette fonctionalité est disponible uniquement sur:';
-}
-
-// Path: dialogs.openFile
-class _TranslationsDialogsOpenFileFr extends TranslationsDialogsOpenFileEn {
-  _TranslationsDialogsOpenFileFr._(TranslationsFr root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsFr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Ouvrir le fichier';
-  @override
-  String get content => 'Voulez-vous ouvrir le fichier reçu ?';
+  String get content => 'Cette fonctionnalité est disponible uniquement sur :';
 }
 
 // Path: dialogs.qr

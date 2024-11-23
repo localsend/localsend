@@ -218,7 +218,7 @@ class _TranslationsSendTabZhCn extends TranslationsSendTabEn {
   @override
   String get help => '请确保目标连接的是同一个 Wi‑Fi 网络';
   @override
-  String get placeItems => '列出要分享的文件';
+  String get placeItems => '列出要分享的项目';
 }
 
 // Path: settingsTab
@@ -336,8 +336,8 @@ class _TranslationsReceivePageZhCn extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
         n,
-        one: '想要发送给你一个文件。',
-        other: '想要发送给你 ${n} 个文件。',
+        one: '想要发送给你一个文件',
+        other: '想要发送给你 ${n} 个文件',
       );
   @override
   String get subTitleMessage => '发送给你了一条消息：';
@@ -662,9 +662,9 @@ class _TranslationsSanitizationZhCn extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get empty => '文件名不能为空。';
+  String get empty => '文件名不能为空';
   @override
-  String get invalid => '文件名包含无效字符。';
+  String get invalid => '文件名包含无效字符';
 }
 
 // Path: tray
@@ -700,7 +700,7 @@ class _TranslationsWebZhCn extends TranslationsWebEn {
   @override
   String get invalidPin => 'PIN 无效';
   @override
-  String get tooManyAttempts => '尝试次数过多，请稍后再试。';
+  String get tooManyAttempts => '尝试次数过多';
   @override
   String get rejected => '已拒绝';
   @override
@@ -1143,7 +1143,7 @@ class _TranslationsDialogsAddressInputZhCn extends TranslationsDialogsAddressInp
   @override
   String get ip => 'IP 地址';
   @override
-  String get recentlyUsed => '最近使用：';
+  String get recentlyUsed => '最近使用： ';
 }
 
 // Path: dialogs.cancelSession
