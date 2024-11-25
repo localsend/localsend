@@ -4,17 +4,26 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.util.Locale
 
 fun openUri(context: Context, uriStr: String) {
     val uri = Uri.parse(uriStr)
-    val intent = Intent(Intent.ACTION_VIEW, uri)
     val type = getFileType(uriStr)
 
     println("Inferred type: $type")
 
+    val intent = Intent(Intent.ACTION_VIEW)
     intent.setDataAndType(uri, type)
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+    if (type.startsWith("image/") && uriStr.contains("/cache/")) {
+        val newUri = moveFileToUserAccessibleDirectory(context, uri)
+        intent.setDataAndType(newUri, type)
+    }
+
     context.startActivity(intent)
 }
 
@@ -90,4 +99,19 @@ private fun getFileType(filePath: String): String {
         "zip" -> "application/x-zip-compressed"
         else -> DocumentsContract.Document.MIME_TYPE_DIR
     }
+}
+
+private fun moveFileToUserAccessibleDirectory(context: Context, uri: Uri): Uri {
+    val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+    val fileName = uri.lastPathSegment?.substringAfterLast("/")
+    val newFile = File(context.getExternalFilesDir(null), fileName)
+    val outputStream = FileOutputStream(newFile)
+
+    inputStream?.use { input ->
+        outputStream.use { output ->
+            input.copyTo(output)
+        }
+    }
+
+    return Uri.fromFile(newFile)
 }
