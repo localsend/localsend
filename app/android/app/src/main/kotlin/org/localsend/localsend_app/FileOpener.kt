@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.util.Locale
 
 fun openUri(context: Context, uriStr: String) {
@@ -16,6 +19,10 @@ fun openUri(context: Context, uriStr: String) {
     intent.setDataAndType(uri, type)
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     context.startActivity(intent)
+
+    if (type.startsWith("video/")) {
+        saveFileToLocalSendDirectory(context, uri, uri.lastPathSegment ?: "video.mp4")
+    }
 }
 
 private fun getFileType(filePath: String): String {
@@ -89,5 +96,17 @@ private fun getFileType(filePath: String): String {
         "z" -> "application/x-compress"
         "zip" -> "application/x-zip-compressed"
         else -> DocumentsContract.Document.MIME_TYPE_DIR
+    }
+}
+
+private fun saveFileToLocalSendDirectory(context: Context, uri: Uri, fileName: String) {
+    val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+    val outputFile = File(context.getExternalFilesDir(null), fileName)
+    val outputStream = FileOutputStream(outputFile)
+
+    inputStream.use { input ->
+        outputStream.use { output ->
+            input?.copyTo(output)
+        }
     }
 }

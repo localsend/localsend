@@ -766,6 +766,16 @@ class ReceiveController {
     );
     server.ref.notifier(progressProvider).removeSession(sessionId);
   }
+
+  Future<void> saveFileToLocalSendDirectory(String filePath, String fileName) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final localSendDirectory = Directory('${directory.path}/localsend');
+    if (!await localSendDirectory.exists()) {
+      await localSendDirectory.create();
+    }
+    final newFilePath = '${localSendDirectory.path}/$fileName';
+    await File(filePath).copy(newFilePath);
+  }
 }
 
 void _cancelBySender(ServerUtils server) {
@@ -776,7 +786,7 @@ void _cancelBySender(ServerUtils server) {
 
   if (receiveSession.status == SessionStatus.waiting) {
     // received cancel during accept/decline
-    // pop just in case if user is in [ReceiveOptionsPage]
+    // pop just in case if user is in [ReceivePage]
     Routerino.context.popUntil(ReceivePage);
   }
 

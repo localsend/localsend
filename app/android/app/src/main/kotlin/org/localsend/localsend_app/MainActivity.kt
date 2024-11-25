@@ -10,6 +10,9 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
@@ -160,6 +163,9 @@ class MainActivity : FlutterActivity() {
                             lastModified = documentFile.lastModified,
                         )
                     )
+                    if (documentFile.name.endsWith(".mp4")) {
+                        saveFileToLocalSendDirectory(uri, documentFile.name)
+                    }
                 }
 
                 pendingResult?.success(resultList.map { it.toMap() })
@@ -235,6 +241,18 @@ class MainActivity : FlutterActivity() {
             cursor?.close()
         }
         return false
+    }
+
+    private fun saveFileToLocalSendDirectory(uri: Uri, fileName: String) {
+        val inputStream: InputStream? = contentResolver.openInputStream(uri)
+        val outputFile = File(getExternalFilesDir(null), fileName)
+        val outputStream = FileOutputStream(outputFile)
+
+        inputStream.use { input ->
+            outputStream.use { output ->
+                input?.copyTo(output)
+            }
+        }
     }
 }
 
