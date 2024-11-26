@@ -449,7 +449,7 @@ class ReceiveController {
 
     final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
       parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
-      fileName: receivingFile.desiredName!,
+      fileName: _getUniqueFileName(receiveState.files.values.map((f) => f.desiredName!), receivingFile.desiredName!),
       createdDirectories: receiveState.createdDirectories,
     );
     try {
@@ -766,6 +766,16 @@ class ReceiveController {
     );
     server.ref.notifier(progressProvider).removeSession(sessionId);
   }
+
+  String _getUniqueFileName(Iterable<String?> existingNames, String desiredName) {
+    var uniqueName = desiredName;
+    var count = 1;
+    while (existingNames.contains(uniqueName)) {
+      uniqueName = desiredName.withCount(count);
+      count++;
+    }
+    return uniqueName;
+  }
 }
 
 void _cancelBySender(ServerUtils server) {
@@ -804,6 +814,7 @@ extension on ReceiveSessionState {
             path: path,
             savedToGallery: savedToGallery,
             errorMessage: errorMessage,
+            desiredName: path?.fileName,
           ),
         ),
     );
