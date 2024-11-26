@@ -275,17 +275,17 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
   if (image != null) {
     // On Windows, Pasteboard read image from clipboard as BMP which is large and inefficient. Attempt to convert to PNG
     if (determineImageType(image) == 'bmp') {
-        try {
-          final pngImage = await (img.Command()
-          ..decodeBmp(image)
-          ..encodePng())
-          .getBytesThread();
-          if (pngImage != null) {
-            image = pngImage;
-          }
-        } catch (err) {
-          // Fail to convert to png, proceed with existing bmp
+      try {
+        final pngImage = await (img.Command()
+              ..decodeBmp(image)
+              ..encodePng())
+            .getBytesThread();
+        if (pngImage != null) {
+          image = pngImage;
         }
+      } catch (err) {
+        // Fail to convert to png, proceed with existing bmp
+      }
     }
     final now = DateTime.now();
     final fileName =
