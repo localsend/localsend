@@ -42,6 +42,7 @@ import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/simple_server.dart';
+import 'package:localsend_app/util/file_path_helper.dart'; // Import the file_path_helper.dart file
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -565,7 +566,7 @@ class ReceiveController {
                 // ignore: use_build_context_synchronously
                 Routerino.context,
                 filePath: destinationPath,
-                fileName: receivingFile.desiredName!,
+                fileName: receivingFile.desiredName!.preserveFileNameAndExtension(receivingFile.desiredName!), // Preserve file name and extension
                 fileType: fileType);
           }
         });

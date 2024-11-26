@@ -77,4 +77,15 @@ extension FilePathStringExt on String {
         return FileType.other;
     }
   }
+
+  String preserveFileNameAndExtension(String fileName) {
+    final index = fileName.lastIndexOf('.');
+    if (index != -1) {
+      final name = fileName.substring(0, index);
+      final ext = fileName.substring(index + 1);
+      return '$name.$ext';
+    } else {
+      return fileName;
+    }
+  }
 }
