@@ -6,6 +6,7 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image/image.dart' as img;
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
@@ -270,11 +271,25 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     return;
   }
 
-  final image = await Pasteboard.image;
+  var image = await Pasteboard.image;
   if (image != null) {
+    // On Windows, Pasteboard read image from clipboard as BMP which is large and inefficient. Attempt to convert to PNG
+    if (determineImageType(image) == 'bmp') {
+        try {
+          final pngImage = await (img.Command()
+          ..decodeBmp(image)
+          ..encodePng())
+          .getBytesThread();
+          if (pngImage != null) {
+            image = pngImage;
+          }
+        } catch (err) {
+          // Fail to convert to png, proceed with existing bmp
+        }
+    }
     final now = DateTime.now();
     final fileName =
-        'clipboard_${now.year}-${now.month.twoDigitString}-${now.day.twoDigitString}_${now.hour.twoDigitString}-${now.minute.twoDigitString}.${determineImageType(image)}';
+        'clipboard_${now.year}-${now.month.twoDigitString}-${now.day.twoDigitString}_${now.hour.twoDigitString}-${now.minute.twoDigitString}.${determineImageType(image!)}';
     ref.redux(selectedSendingFilesProvider).dispatch(AddBinaryAction(
           bytes: image,
           fileType: FileType.image,
