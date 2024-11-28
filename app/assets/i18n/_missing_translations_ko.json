@@ -4,45 +4,45 @@
     "After editing this file, you can run 'dart run slang apply --locale=ko' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "\"즐겨찾기\"를 위한 빠른 저장"
   },
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "즐겨찾기",
       "on": "@:general.on"
     }
   },
   "sendTab": {
-    "manualSending": "Manual sending"
+    "manualSending": "수동 전송"
   },
   "settingsTab": {
     "general": {
-      "saveWindowPlacementWindows": "Save window position after exit"
+      "saveWindowPlacementWindows": "종료 후 창 위치 기억"
     },
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "시스템 이름 사용",
+      "generateRandomAlias": "무작위 별명 생성"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "파일 열기",
+      "content": "수신받은 파일을 여시겠습니까?"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "이제 당신의 즐겨찾기 목록에 포함된 기기로부터 파일을 자동으로 전송받을 수 있습니다.",
+        "경고! 해당 기능은 아직 보안 측면에 있어서 완전하지 않습니다. 즐겨찾기 목록에 포함된 기기의 식별 정보를 가지고 있는 해커라면 아무런 제약없이 당신의 기기로 파일을 전송할 수 있습니다.",
+        "그러나, 로컬 네트워크 상에 존재하는 모든 사용자들로부터 파일을 전송할 수 있도록 허용하는 것보다는 여전히 안전합니다."
       ]
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "나가기"
   }
 }
