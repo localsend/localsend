@@ -24,4 +24,9 @@ class ServerState with ServerStateMappable {
     required this.webSendState,
     required this.pinAttempts,
   });
+
+  @override
+  String toString() {
+    return 'ServerState(alias: $alias, port: $port, https: $https, session: $session, webSendState: $webSendState, pinAttempts: $pinAttempts)';
+  }
 }

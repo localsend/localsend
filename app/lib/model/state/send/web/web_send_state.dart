@@ -19,4 +19,9 @@ class WebSendState with WebSendStateMappable {
     required this.pin,
     required this.pinAttempts,
   });
+
+  @override
+  String toString() {
+    return 'WebSendState(sessions: $sessions, files: <${files.keys}>, autoAccept: $autoAccept, pin: $pin, pinAttempts: $pinAttempts)';
+  }
 }
