@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
 
-part 'android_saf.mapper.dart';
+part 'android_channel.mapper.dart';
 
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
 final _logger = Logger('AndroidSaf');
@@ -81,6 +81,11 @@ Future<void> openContentUri({
   await _methodChannel.invokeMethod('openContentUri', {
     'uri': uri,
   });
+}
+
+Future<void> openGallery() async {
+  _logger.info('Opening gallery');
+  await _methodChannel.invokeMethod('openGallery');
 }
 
 @MappableClass()

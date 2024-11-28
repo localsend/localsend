@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:localsend_app/util/native/android_saf.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:open_dir/open_dir.dart';
@@ -13,7 +13,7 @@ Future<void> openFolder({
   String? fileName,
 }) async {
   if (folderPath.startsWith('content://')) {
-    await openContentUri(uri: folderPath);
+    await android_channel.openContentUri(uri: folderPath);
     return;
   }
 

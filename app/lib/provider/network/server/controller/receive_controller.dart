@@ -559,14 +559,14 @@ class ReceiveController {
           // ignore: use_build_context_synchronously
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
 
-          /* open the dialog to open file instantly*/
+          // open the dialog to open file instantly
           if (destinationPath.isNotEmpty) {
             OpenFileDialog.open(
-                // ignore: use_build_context_synchronously
-                Routerino.context,
-                filePath: destinationPath,
-                fileName: receivingFile.desiredName!,
-                fileType: fileType);
+              Routerino.context, // ignore: use_build_context_synchronously
+              filePath: destinationPath,
+              fileType: fileType,
+              openGallery: saveToGallery,
+            );
           }
         });
       }

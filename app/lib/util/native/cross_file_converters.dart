@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/android_saf.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -55,7 +55,7 @@ class CrossFileConverters {
     );
   }
 
-  static Future<CrossFile> convertFileInfo(FileInfo file) async {
+  static Future<CrossFile> convertFileInfo(android_channel.FileInfo file) async {
     return CrossFile(
       name: file.name,
       fileType: file.name.guessFileType(),

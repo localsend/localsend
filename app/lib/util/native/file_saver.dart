@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/android_saf.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
@@ -169,7 +169,7 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     final String documentUri;
     if (fileName.contains('/')) {
       try {
-        await createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
+        await android_channel.createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
       } catch (e) {
         _logger.warning('Could not create missing directories', e);
       }

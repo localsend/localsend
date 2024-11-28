@@ -15,7 +15,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/util/determine_image_type.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/image_converter.dart';
-import 'package:localsend_app/util/native/android_saf.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -154,7 +154,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
   }
   try {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      final result = await pickFilesAndroid();
+      final result = await android_channel.pickFilesAndroid();
       if (result != null) {
         await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
               files: result,
@@ -205,9 +205,9 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
   );
   await sleepAsync(200); // Wait for the dialog to be shown
   try {
-    if (defaultTargetPlatform == TargetPlatform.android && (ref.read(deviceInfoProvider).androidSdkInt ?? 0) >= contentUriMinSdk) {
+    if (defaultTargetPlatform == TargetPlatform.android && (ref.read(deviceInfoProvider).androidSdkInt ?? 0) >= android_channel.contentUriMinSdk) {
       // Android 8 and above have more predictable content URIs that we can parse.
-      final result = await pickDirectoryAndroid();
+      final result = await android_channel.pickDirectoryAndroid();
       if (result != null) {
         await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddAndroidDirectoryAction(result));
       }

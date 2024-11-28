@@ -49,6 +49,11 @@ class MainActivity : FlutterActivity() {
                     result.success(null)
                 }
 
+                "openGallery" -> {
+                    openGallery()
+                    result.success(null)
+                }
+
                 else -> result.notImplemented()
             }
         }
@@ -235,6 +240,13 @@ class MainActivity : FlutterActivity() {
             cursor?.close()
         }
         return false
+    }
+
+    private fun openGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        intent.type = "image/*"
+        startActivity(intent)
     }
 }
 

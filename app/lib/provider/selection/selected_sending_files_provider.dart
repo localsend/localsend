@@ -5,8 +5,8 @@ import 'dart:typed_data';
 import 'package:common/model/file_type.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/android_saf.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:logging/logging.dart';
@@ -184,7 +184,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
 
 /// A special [AddDirectoryAction] specifically for Android.
 class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
-  final PickDirectoryResult result;
+  final android_channel.PickDirectoryResult result;
 
   AddAndroidDirectoryAction(this.result);
 
