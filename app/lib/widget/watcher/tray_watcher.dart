@@ -35,10 +35,10 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
 
   @override
   void onTrayIconMouseDown() async {
-    if (checkPlatform([TargetPlatform.macOS])) {
-      await trayManager.popUpContextMenu();
-    } else {
+    if (checkPlatform([TargetPlatform.macOS, TargetPlatform.linux])) {
       await showFromTray();
+    } else {
+      await trayManager.popUpContextMenu();
     }
   }
 
