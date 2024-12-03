@@ -7,7 +7,7 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English](README.md) • [中文](readme_i18n/README_ZH.md) • [日本語](readme_i18n/README_JA.md) • [ภาษาไทย](readme_i18n/README_TH.md) • [Filipino](readme_i18n/README_PH.md) • [Polski](readme_i18n/README_PL.md) • [Español](readme_i18n/README_ES.md) • [Tiếng Việt](readme_i18n/README_VI.md) • [Portugês Brasil](readme_i18n/README_PT_BR.md) • [Italiano](readme_i18n/README_IT.md) • [Indonesia](readme_i18n/README_ID.md) • [ភាសាខ្មែរ](readme_i18n/README_KM.md) • [Français](readme_i18n/README_FR.md) • [فارسی](readme_i18n/README_FA.md) • [Turkish](readme_i18n/README_TR.md)
+[English](/README.md) • [中文](README_ZH.md) • [日本語](README_JA.md) • [ภาษาไทย](README_TH.md) • [Filipino](README_PH.md) • [Polski](README_PL.md) • [Español](README_ES.md) • [Tiếng Việt](README_VI.md) • [Portugês Brasil](README_PT_BR.md) • [Italiano](README_IT.md) • [Indonesia](README_ID.md) • [ភាសាខ្មែរ](README_KM.md) • [Français](README_FR.md) • [فارسی](README_FA.md) • [Turkish](README_TR.md) • [한국어](README_KO.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -16,23 +16,22 @@
 
 LocalSend, internet bağlantısına ihtiyaç duymadan, yerel ağ üzerinden yakın cihazlarla güvenli bir şekilde dosya ve mesaj paylaşmanıza olanak tanıyan ücretsiz, açık kaynaklı bir uygulamadır.
 
-- [LocalSend](#localsend)
-  - [Hakkında](#hakkında)
-  - [Ekran Görüntüleri](#ekran-görüntüleri)
-  - [İndir](#i̇ndir)
-  - [Kurulum](#kurulum)
-  - [Nasıl Çalışır](#nasıl-çalışır)
-  - [Başlarken](#başlarken)
-  - [Katkıda Bulunma](#katkıda-bulunma)
-    - [Çeviri](#çeviri)
-    - [Hata Düzeltmeleri ve İyileştirmeler](#hata-düzeltmeleri-ve-i̇yileştirmeler)
-  - [Derleme](#derleme)
-    - [Android](#android)
-    - [iOS](#ios)
-    - [macOS](#macos)
-    - [Windows](#windows)
-    - [Linux](#linux)
-  - [Katkıda Bulunanlar](#katkıda-bulunanlar)
+- [Hakkında](#hakkında)
+- [Ekran Görüntüleri](#ekran-görüntüleri)
+- [İndir](#i̇ndir)
+- [Kurulum](#kurulum)
+- [Nasıl Çalışır](#nasıl-çalışır)
+- [Başlarken](#başlarken)
+- [Katkıda Bulunma](#katkıda-bulunma)
+  - [Çeviri](#çeviri)
+  - [Hata Düzeltmeleri ve İyileştirmeler](#hata-düzeltmeleri-ve-i̇yileştirmeler)
+- [Derleme](#derleme)
+  - [Android](#android)
+  - [iOS](#ios)
+  - [macOS](#macos)
+  - [Windows](#windows)
+  - [Linux](#linux)
+- [Katkıda Bulunanlar](#katkıda-bulunanlar)
 
 ## Hakkında
 
