@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Opção desligada automaticamente pois uma pasta está sendo transferida."
   },
   "sendPage": {
-    "waiting": "Aguardando resposta...",
+    "waiting": "Aguardando resposta…",
     "rejected": "O destinatário rejeitou a solicitação.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "O destinatário está ocupado com outra solicitação de transferência."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Compartilhe via link",
-    "loading": "Iniciando o servidor...",
-    "stopping": "Parando o servidor...",
+    "loading": "Iniciando o servidor…",
+    "stopping": "Parando o servidor…",
     "error": "Um erro ocorreu enquanto o servidor tentava iniciar.",
     "openLink": {
       "one": "Abra este link no navegador:",
@@ -260,7 +260,7 @@
   },
   "donationPage": {
     "title": "Doar",
-    "info": "LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação!",
+    "info": "LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação.",
     "donate": "Doar {amount}",
     "thanks": "Muito obrigado!",
     "restore": "Restaurar compra"
@@ -269,7 +269,7 @@
     "title": "Histórico de alterações"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "Idiomas diferentes podem usar palavras diferentes, pode não ser 1:1",
     "adjectives": [
       "Adorável",
       "Elegante",
@@ -363,7 +363,7 @@
     },
     "favoriteDialog": {
       "title": "Favoritos",
-      "noFavorites": "Sem favoritos ainda :(",
+      "noFavorites": "Nenhum dispositivo favorito ainda.",
       "addFavorite": "Adicionar"
     },
     "favoriteDeleteDialog": {
@@ -413,7 +413,7 @@
     },
     "notAvailableOnPlatform": {
       "title": "Indisponível",
-      "content": "Essa função está disponível somente no: "
+      "content": "Essa função está disponível somente no:"
     },
     "qr": {
       "title": "QR Code"
@@ -434,7 +434,7 @@
       "title": "Salvar rapidamento dos \"Favoritos\"",
       "content": [
         "Requisições de arquivo agora são aceitas automaticamente de dispositivos da sua lista de favoritos.",
-        "Atenção: Essa opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos",
+        "Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos sem restrições.",
         "De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo."
       ]
     },

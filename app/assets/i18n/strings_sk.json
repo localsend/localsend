@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "Odoslať",
-      "shareViaLinkAutoAccept": "Automaticky prijímať žiadosti v režime \"Zdieľať cez odkaz\"."
+      "shareViaLinkAutoAccept": "Automaticky prijímať žiadosti v režime \"Zdieľať cez odkaz\""
     },
     "network": {
       "title": "Sieť",
@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Automaticky vypnuté, pretože existujú priečinky."
   },
   "sendPage": {
-    "waiting": "Čaká sa na odpoveď...",
+    "waiting": "Čaká sa na odpoveď…",
     "rejected": "Príjemca zamietol žiadosť.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Príjemca je zaneprázdnený inou žiadosťou."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Zdieľať cez odkaz",
-    "loading": "Spúšťa sa server...",
-    "stopping": "Zastavuje sa server...",
+    "loading": "Spúšťa sa server…",
+    "stopping": "Zastavuje sa server…",
     "error": "Pri spúšťaní servera sa vyskytla chyba.",
     "openLink": {
       "one": "Otvorte tento odkaz vo svojom prehliadači:",
@@ -445,7 +445,7 @@
       "content": [
         "Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.",
         "Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.",
-        "Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia. "
+        "Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia."
       ]
     },
     "pin": {
