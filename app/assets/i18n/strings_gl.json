@@ -1,0 +1,85 @@
+{
+  "receiveTab": {
+    "infoBox": {
+      "alias": "Nome do Dispositivo:",
+      "ip": "IP:",
+      "port": "Porto:"
+    },
+    "title": "Recibir",
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoritos",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "picker": {
+      "clipboard": "Pegar",
+      "file": "Arquivo",
+      "folder": "Cartafol",
+      "media": "Medios",
+      "text": "Texto",
+      "app": "App"
+    },
+    "shareIntentInfo": "Tamén podes usar a función \"Compartir\" do teu dispositivo móbil para seleccionar ficheiros máis facilmente.",
+    "title": "Enviar",
+    "selection": {
+      "title": "Selección",
+      "files": "Ficheiros: {ficheiros}",
+      "size": "Tamaño: {tamaño}"
+    },
+    "nearbyDevices": "Dispositivos Próximos",
+    "thisDevice": "Este Dispositivo",
+    "scan": "Busca Dispositivos",
+    "manualSending": "Envío Manual",
+    "sendMode": "Modo de Envío",
+    "sendModes": {
+      "link": "Comparte via ligazón",
+      "single": "Destinatario Único",
+      "multiple": "Múltiples Destinatarios"
+    },
+    "sendModeHelp": "Explicación"
+  },
+  "locale": "Inglés",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Aceptar",
+    "accepted": "Aceptado",
+    "add": "Engadir",
+    "advanced": "Avanzado",
+    "cancel": "Cancelar",
+    "close": "Pechar",
+    "confirm": "Confirmar",
+    "continueStr": "Continuar",
+    "copy": "Copiar",
+    "copiedToClipboard": "Copiouse no Portapapeis",
+    "done": "Feito",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "error": "Erro",
+    "example": "Exemplo",
+    "files": "Arquivos",
+    "finished": "Rematou",
+    "hide": "Ocultar",
+    "offline": "Sen Conexión",
+    "on": "Activado",
+    "online": "En Liña",
+    "open": "Aberto",
+    "queue": "Fila",
+    "quickSave": "Gardar Rápido",
+    "quickSaveFromFavorites": "Gardar rápido para \"Favoritos\"",
+    "reset": "Desfacer os cambios",
+    "restart": "Reiniciar",
+    "settings": "Configuración",
+    "skipped": "Omitido",
+    "start": "Comeza",
+    "stop": "Parar",
+    "save": "Gardar",
+    "unchanged": "Sen Cambios",
+    "decline": "Declinar",
+    "off": "Apagado",
+    "renamed": "Renomeado",
+    "unknown": "Descoñecido",
+    "noItemInClipboard": "Non hai elementos no Portapapeis."
+  }
+}

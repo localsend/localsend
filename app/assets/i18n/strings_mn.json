@@ -1,0 +1,203 @@
+{
+  "settingsTab": {
+    "general": {
+      "brightnessOptions": {
+        "light": "Гэгээлэг",
+        "system": "Систем",
+        "dark": "Харанхуй"
+      },
+      "colorOptions": {
+        "oled": "OLED",
+        "system": "Систем"
+      },
+      "language": "Хэл",
+      "languageOptions": {
+        "system": "Систем"
+      },
+      "saveWindowPlacement": "Гарсаны дараа цонхны байрлал хадгалах",
+      "minimizeToTray": "Цонх хаах үед програмыг нуух",
+      "launchAtStartup": "Нэвтрэх үед хамт нээх",
+      "launchMinimized": "Авто эхлүүлэх: Нуугдсан эхлэх",
+      "showInContextMenu": "Системийн цэсэнд LocalSend-д харуулах",
+      "animations": "Анимэйшн",
+      "title": "Ерөнхий",
+      "brightness": "Үзэмж",
+      "saveWindowPlacementWindows": "Гарсаны дараа цонхны байрлал хадгалах",
+      "color": "Өнгө"
+    },
+    "receive": {
+      "title": "Авах",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "destination": "Хавтаст хадгалах",
+      "downloads": "(Татсан файлууд)",
+      "saveToGallery": "Зургийн санд хадгалах",
+      "saveToHistory": "Түүхэнд хадгалах",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Авто-дуусгах"
+    },
+    "send": {
+      "title": "Илгээх",
+      "shareViaLinkAutoAccept": "\"Холбоосоор илгээх\" горимын хүсэлтүүдийн шууд зөвшөөрөх"
+    },
+    "network": {
+      "title": "Сүлжээ",
+      "needRestart": "Серверийг дахин ачаалж тохиргоог идэвхжүүлнэ үү!",
+      "server": "Сервер",
+      "deviceType": "Төхөөрөмжийн төрөл",
+      "deviceModel": "Төхөөрөмжийг модел",
+      "useSystemName": "Системийн нэр ашиглах",
+      "alias": "Төхөөрөмжийн нэр",
+      "port": "Порт",
+      "portWarning": "Та өөр порт ашиглаж байгаа тул бусад төхөөрөмжинд олдохгүй байж магадгүй . (өгөгдмөл: {defaultPort})",
+      "encryption": "Нууцлал",
+      "multicastGroup": "Мультикаст хаяг"
+    },
+    "other": {
+      "title": "Бусад",
+      "support": "LocalSend-г дэмжих",
+      "donate": "Хандив өгөх",
+      "privacyPolicy": "Нууцлалын бодлого",
+      "termsOfUse": "Ашиглах нөхцөл"
+    },
+    "title": "Тохиргоо"
+  },
+  "troubleshootPage": {
+    "title": "Асуудал илрүүлэх",
+    "firewall": {
+      "solution": "Энэ нь ихэвчлэн firewall-н асуудл байдаг. Та {port} дээр ирж буй холболтыг (UDP ба TCP) зөвшөөрч шийдвэрлэх боломжтой.",
+      "openFirewall": "Firewall-г нээх",
+      "symptom": "Энэ төрөөрөмж бусадруу файл илгээж чадаж байгаа ч бусад төхөөрөмж энэ төхөөрөмжрүү илгээж чадахгүй байна."
+    },
+    "noConnection": {
+      "symptom": "Төхөөрөмжүүд бие биенийгээ танихгүй, файл хуваалцаж чадахгүй байна."
+    },
+    "solution": "Шийдэл:",
+    "fixButton": "Автоматаар засварлах",
+    "noDiscovery": {
+      "symptom": "Энэ төхөөрөмж бусад төхөөрөмжийг илрүүлж чадахгүй байна.",
+      "solution": "Бүх төхөөрөмж адилхан Wi-Fi сүлжээнд орсон, адилхан тохиргоотой (порт, мультикаст хаяг, нууцлал) эсэхийг шалгана уу. Мөн төхөөрөмжийн IP хаягийг гараар оруулж үзнэ үү. Хэрэв болж байвал тухайн төхөөрөмжийг \"Хадгалсан\" хэсэгт нэмж дараа нь автоматаар таниулаарай."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Түүх",
+    "openFolder": "Хавтас нээх",
+    "empty": "Түүх хоосон байна.",
+    "entryActions": {
+      "info": "Мэдээлэл",
+      "deleteFromHistory": "Түүхээс устгах",
+      "open": "Файл нээх",
+      "showInFolder": "Хавтаст харуулах"
+    },
+    "deleteHistory": "Түүх устгах"
+  },
+  "apkPickerPage": {
+    "title": "Аппууд (APK)",
+    "apps": "{n} апп",
+    "excludeSystemApps": "Системийн аппуудыг хасах",
+    "excludeAppsWithoutLaunchIntent": "Нээх боломжгүй аппуудыг хасах"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Бүгдийг устгах"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "танруу файл явуулахыг хүсэж байна",
+      "other": "танруу {n} файл явуулахыг хүсэж байна"
+    },
+    "canceled": "Илгээгч хүсэлтийг цуцалсан байна.",
+    "subTitleLink": "танруу холбоос илгээлээ:",
+    "subTitleMessage": "танруу зурвас илгээлээ:"
+  },
+  "receiveOptionsPage": {
+    "appDirectory": "(LocalSend-н хавтас)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "destination": "@:settingsTab.receive.destination",
+    "saveToGalleryOff": "Хавтсууд байгаа учир автоматаар унтраалаа."
+  },
+  "sendPage": {
+    "rejected": "Хүлээн авагч хүсэлтйиг татгалзлаа.",
+    "busy": "Хүлээн авагч өөр хүсэлт авсан тул завгүй байна.",
+    "waiting": "Хариу хүлээж байна…",
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "progressPage": {
+    "titleSending": "Файлууд илгээж байна"
+  },
+  "general": {
+    "accept": "Зөвшөөрөх",
+    "add": "Нэмэх",
+    "cancel": "Цуцлах",
+    "close": "Хаах",
+    "confirm": "Баталгаажуулах",
+    "copiedToClipboard": "Амжилттай хууллаа",
+    "decline": "Татгалзах",
+    "done": "Болсон",
+    "delete": "Устгах",
+    "edit": "Өөрчлөх",
+    "error": "Алдаа",
+    "example": "Жишээ",
+    "files": "Файлууд",
+    "hide": "Нуух",
+    "open": "Нээх",
+    "start": "Эхлэх",
+    "save": "Хадгалах",
+    "reset": "Өөрчлөлтүүдийг буцаах",
+    "restart": "Дахин ачаалах",
+    "settings": "Тохиргоо",
+    "unknown": "Үл мэдэгдэх",
+    "noItemInClipboard": "Санах ой хоосон байна.",
+    "accepted": "Зөвшөөрсөн",
+    "copy": "Хуулах",
+    "continueStr": "Үргэлжлүүлэх",
+    "finished": "Дууссан",
+    "offline": "Оффлайн",
+    "online": "Онлайн",
+    "renamed": "Дахин нэрлэсэн",
+    "stop": "Зогсоох"
+  },
+  "receiveTab": {
+    "infoBox": {
+      "ip": "IP хаяг:",
+      "port": "Порт:",
+      "alias": "Төхөөрөмжийн нэр:"
+    },
+    "quickSave": {
+      "on": "@:general.on",
+      "off": "@:general.off",
+      "favorites": "Хадгалсан"
+    },
+    "title": "Авах"
+  },
+  "sendTab": {
+    "selection": {
+      "title": "Сонголт",
+      "size": "Хэмжээ: {size}",
+      "files": "Файлууд: {files}"
+    },
+    "picker": {
+      "folder": "Хавтас",
+      "text": "Бичвэр",
+      "app": "Апп",
+      "media": "Медиа",
+      "file": "Файл"
+    },
+    "nearbyDevices": "Ойролцоо төхөөрөмжүүд",
+    "scan": "Төхөөрөмжүүд хайх",
+    "manualSending": "Гар аргаар хайх",
+    "sendMode": "Илгээх горим",
+    "sendModes": {
+      "multiple": "Олон хүлээн авагч",
+      "link": "Холбоосоор хуваалцах",
+      "single": "Ганц хүлээн авагч"
+    },
+    "sendModeHelp": "Тайлбар",
+    "help": "Хүлээн авах төхөөрөмжийг адилхан Wi-Fi сүлжээнд байгаа эсэхийг шалгана уу.",
+    "placeItems": "Хуваалцах зүйлсээ орулна уу.",
+    "title": "Илгээх",
+    "shareIntentInfo": "Та өөрийн төхөөрөмжийн \"Хуваалцах\" цэсийг ашиглан файлуудаа хялбар сонгох боломжтой.",
+    "thisDevice": "Энэ төхөөрөмж"
+  },
+  "locale": "Mongolian",
+  "appName": "LocalSend"
+}
