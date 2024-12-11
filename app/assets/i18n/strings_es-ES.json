@@ -39,7 +39,7 @@
     "save": "Guardar",
     "unchanged": "Sin Cambios",
     "unknown": "Desconocido",
-    "noItemInClipboard": "No hay ningún elemento en el portapapeles"
+    "noItemInClipboard": "No hay ningún elemento en el portapapeles."
   },
   "receiveTab": {
     "title": "Recibir",
@@ -128,7 +128,7 @@
     },
     "network": {
       "title": "Red",
-      "needRestart": "Reiniciar el servidor para aplicar los ajustes.",
+      "needRestart": "¡Reinicia el servidor para aplicar los ajustes!",
       "server": "Servidor",
       "alias": "Alias",
       "deviceType": "Tipo de dispositivo",
@@ -208,7 +208,7 @@
     "saveToGalleryOff": "Desactivado automáticamente porque hay carpetas."
   },
   "sendPage": {
-    "waiting": "Esperando respuesta...",
+    "waiting": "Esperando respuesta…",
     "rejected": "El destino ha rechazado la petición.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "El destino está ocupado con otra petición."
@@ -231,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Compartir mediante enlace",
-    "loading": "Iniciando servidor...",
-    "stopping": "Deteniendo servidor...",
+    "loading": "Iniciando servidor…",
+    "stopping": "Deteniendo servidor…",
     "error": "Se ha producido un error al iniciar el servidor.",
     "openLink": {
       "one": "Abre este enlace en el navegador:",
@@ -375,7 +375,7 @@
       "content": [
         "Se aceptarán automáticamente los archivos recibidos de los dispositivos incluidos en su lista de favoritos.",
         "Advertencia: esta opción no es completamente segura, cualquiera que conozca la huella digital de sus dispositivos favoritos aún puede enviarle archivos.",
-        "Sin embargo, esta opción sigue siendo más segura que permitir cualquier dispositivo"
+        "Sin embargo, esta opción sigue siendo más segura que permitir que todos los usuarios en la red local te envíen archivos sin restricción."
       ]
     },
     "pin": {
@@ -423,7 +423,7 @@
     "select": "Seleccionar",
     "emptyList": "Lista vacía",
     "unSupportedAssetType": "Tipo de archivo no soportado.",
-    "unableToAccessAll": "No se puede acceder a los archivos del dispositivo.",
+    "unableToAccessAll": "No se puede acceder a todos los archivos del dispositivo",
     "viewingLimitedAssetsTip": "Ver solo los archivos y álbumes accesibles para la aplicación.",
     "changeAccessibleLimitedAssets": "Haga clic para actualizar los archivos accesibles",
     "accessAllTip": "La aplicación solo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.",
