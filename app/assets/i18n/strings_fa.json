@@ -134,7 +134,7 @@
       "deviceType": "نوع دستگاه",
       "deviceModel": "مدل دستگاه",
       "port": "پورت",
-      "discoveryTimeout": "مدت یابش",
+      "discoveryTimeout": "مدت کاوش",
       "useSystemName": "استفاده از نام سیستم",
       "generateRandomAlias": "ایجاد نام مستعار تصادفی",
       "portWarning": "ممکن است به دلیل استفاده از یک پورت سفارشی، دستگاه‌های دیگر شما را شناسایی نکنند (پیشفرض : {defaultPort})",
