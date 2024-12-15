@@ -28,8 +28,8 @@
     "open": "打开",
     "queue": "队列",
     "quickSave": "自动保存",
-    "quickSaveFromFavorites": "自动保存来自“收藏夹”设备的文件",
-    "renamed": "已重命名",
+    "quickSaveFromFavorites": "自动保存来自“收藏夹(白名单)”设备的文件",
+    "renamed": "重命名成功",
     "reset": "重置",
     "restart": "重启",
     "settings": "设置",
@@ -39,14 +39,14 @@
     "save": "保存",
     "unchanged": "未更改",
     "unknown": "未知",
-    "noItemInClipboard": "剪贴板中没有内容"
+    "noItemInClipboard": "剪贴板为空"
   },
   "receiveTab": {
     "title": "接收",
     "infoBox": {
       "ip": "IP：",
       "port": "端口：",
-      "alias": "别名："
+      "alias": "别名（设备名称）："
     },
     "quickSave": {
       "off": "@:general.off",
@@ -69,18 +69,18 @@
       "app": "应用",
       "clipboard": "剪贴板"
     },
-    "shareIntentInfo": "你也可以通过移动设备中的“分享”功能更简单地选择文件。",
+    "shareIntentInfo": "你也可以通过移动设备中的“分享”功能更简单地发送文件。",
     "nearbyDevices": "附近的设备",
     "thisDevice": "这台设备",
     "scan": "扫描设备",
     "manualSending": "手动发送",
     "sendMode": "发送模式",
     "sendModes": {
-      "single": "单个接收者",
+      "single": "一个接收者",
       "multiple": "多个接收者",
       "link": "通过链接分享"
     },
-    "sendModeHelp": "解释",
+    "sendModeHelp": "提示",
     "help": "请确保目标连接的是同一个 Wi‑Fi 网络",
     "placeItems": "列出要分享的项目"
   },
@@ -107,8 +107,8 @@
       "saveWindowPlacementWindows": "离开时保存窗口位置",
       "minimizeToTray": "关闭时最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
-      "launchMinimized": "静默自启：只启动托盘服务",
-      "showInContextMenu": "在“发送到”文件菜单中显示 LocalSend",
+      "launchMinimized": "启动时最小化到任务栏",
+      "showInContextMenu": "在“发送到...”文件菜单中显示 LocalSend",
       "animations": "动画效果"
     },
     "receive": {
@@ -139,8 +139,8 @@
       "generateRandomAlias": "生成随机昵称",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
-      "multicastGroup": "多播",
-      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
+      "multicastGroup": "多线程广播",
+      "multicastGroupWarning": "由于正在使用自定义多线程广播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     },
     "other": {
       "title": "其他",
@@ -158,16 +158,16 @@
     "fixButton": "自动修复",
     "firewall": {
       "symptom": "此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。",
-      "solution": "这最可能是由防火墙引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。",
+      "solution": "这最可能是由防火墙规则设定引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。",
       "openFirewall": "打开防火墙"
     },
     "noDiscovery": {
       "symptom": "此设备未能发现其他设备。",
-      "solution": "确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。您可以尝试手动键入目标设备的 IP 地址。如果这有效，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
+      "solution": "确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多线程广播地址、加密选项）。您可以尝试手动输入目标设备的 IP 地址。如果起到了效果，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
     },
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
-      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点 (AP) 隔离”选项。"
+      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多线程广播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点 (AP) 隔离”选项。"
     }
   },
   "receiveHistoryPage": {
@@ -443,7 +443,7 @@
       "title": "@:general.quickSaveFromFavorites",
       "content": [
         "当前会自动接受收藏夹中设备的文件请求。",
-        "警告：这目前并非绝对安全，知道您收藏夹列表中设备指纹的黑客仍可以向您发送文件。",
+        "警告：这目前并非绝对安全，知道您收藏夹列表中的设备指纹被黑客窃取，其仍可以向您发送文件。",
         "但是，此选项比“允许任何设备”更安全。"
       ]
     },
