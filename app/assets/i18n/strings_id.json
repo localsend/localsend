@@ -28,9 +28,9 @@
     "open": "Buka",
     "queue": "Antrean",
     "quickSave": "Penyimpanan Cepat",
-    "quickSaveFromFavorites": "Simpan Cepat untuk \"Favorites\"",
-    "renamed": "Berganti nama",
-    "reset": "Atur Ulang",
+    "quickSaveFromFavorites": "Simpan Cepat untuk “Favorit”",
+    "renamed": "Ganti nama",
+    "reset": "Batalkan perubahan",
     "restart": "Mengulang Kembali",
     "settings": "Pengaturan",
     "skipped": "Dilewati",
@@ -39,14 +39,19 @@
     "save": "Simpan",
     "unchanged": "Tidak berubah",
     "unknown": "Tidak dikenal",
-    "noItemInClipboard": "Tidak ada butir di Papan klip"
+    "noItemInClipboard": "Tidak ada item di Clipboard."
   },
   "receiveTab": {
     "title": "Terima",
     "infoBox": {
       "ip": "IP:",
-      "port": "Porta:",
-      "alias": "Alias:"
+      "port": "Port:",
+      "alias": "Nama perangkat:"
+    },
+    "quickSave": {
+      "favorites": "Favorit",
+      "on": "@:general.on",
+      "off": "@:general.off"
     }
   },
   "sendTab": {
@@ -58,7 +63,7 @@
     },
     "picker": {
       "file": "Berkas",
-      "folder": "Folder",
+      "folder": "Direktori",
       "media": "Media",
       "text": "Teks",
       "app": "Aplikasi",
@@ -196,14 +201,14 @@
     "canceled": "Pengirim membatalkan permintaan."
   },
   "receiveOptionsPage": {
-    "title": "Opsi",
+    "title": "Pilihan",
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(folder LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
   "sendPage": {
-    "waiting": "Menunggu respons...",
+    "waiting": "Menunggu tanggapan…",
     "rejected": "Penerima menolak permintaan.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Penerima sedang sibuk dengan permintaan lain."
@@ -226,8 +231,8 @@
   },
   "webSharePage": {
     "title": "Bagikan melalui Tautan",
-    "loading": "Memulai server...",
-    "stopping": "Menghentikan server...",
+    "loading": "Memulai server…",
+    "stopping": "Menghentikan server…",
     "error": "Terjadi kesalahan saat memulai server.",
     "openLink": {
       "one": "Buka tautan ini di peramban:",
@@ -272,7 +277,7 @@
       "title": "Masukkan Alamat",
       "hashtag": "Tagar",
       "ip": "Alamat IP",
-      "recentlyUsed": "Baru saja digunakan:"
+      "recentlyUsed": "Baru saja digunakan: "
     },
     "cancelSession": {
       "title": "Batalkan transfer berkas",
@@ -359,7 +364,12 @@
       "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim berkas."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.",
+        "Peringatan! Saat ini, hal ini tidak sepenuhnya aman, karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda file tanpa batasan.",
+        "Akan tetapi, pilihan ini masih lebih aman daripada mengizinkan semua pengguna di jaringan lokal mengirimkan file kepada Anda tanpa batasan."
+      ]
     },
     "pin": {
       "title": "Masukkan PIN"
@@ -372,6 +382,10 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "Buka berkas",
+      "content": "Apakah Anda ingin membuka berkas yang diterima?"
     }
   },
   "sanitization": {
@@ -497,5 +511,8 @@
     ],
     "combination": "{fruit} {adjective}",
     "@combination": "Pada beberapa bahasa, kata sifat harus diletakkan terakhir."
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Bahasa lokal yang berbeda mungkin memiliki kata-kata yang berbeda, mungkin tidak sama dengan 1:1"
   }
 }
