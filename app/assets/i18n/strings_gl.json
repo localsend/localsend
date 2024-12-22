@@ -38,7 +38,9 @@
       "single": "Destinatario Único",
       "multiple": "Múltiples Destinatarios"
     },
-    "sendModeHelp": "Explicación"
+    "sendModeHelp": "Explicación",
+    "help": "Asegúrate de que o obxectivo desexado tamén estea na mesma rede wifi.",
+    "placeItems": "Coloca elementos para compartir."
   },
   "locale": "Inglés",
   "appName": "LocalSend",
@@ -81,5 +83,29 @@
     "renamed": "Renomeado",
     "unknown": "Descoñecido",
     "noItemInClipboard": "Non hai elementos no Portapapeis."
+  },
+  "settingsTab": {
+    "title": "Configuración",
+    "general": {
+      "title": "Xeral",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistema",
+        "dark": "Escuro",
+        "light": "Luz"
+      },
+      "color": "Cor",
+      "colorOptions": {
+        "system": "Sistema",
+        "oled": "OLED"
+      },
+      "language": "Linguaxe",
+      "languageOptions": {
+        "system": "Sistema"
+      },
+      "saveWindowPlacement": "Garda a posición da xanela despois de saír",
+      "saveWindowPlacementWindows": "Garda a posición da xanela despois da saída",
+      "minimizeToTray": "Minimizar á Bandexa do Sistema/Barra de Menú ao Pechar"
+    }
   }
 }

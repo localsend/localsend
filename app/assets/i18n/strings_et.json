@@ -1,0 +1,445 @@
+{
+  "appName": "LocalSend",
+  "general": {
+    "add": "Lisa",
+    "accept": "Nõustu",
+    "skipped": "Vahelejäetud",
+    "copy": "Kopeeri",
+    "on": "Sees",
+    "unknown": "Teadmata",
+    "noItemInClipboard": "Lõikelaual pole midagi.",
+    "cancel": "Katkesta",
+    "done": "Valmis",
+    "close": "Sulge",
+    "continueStr": "Jätka",
+    "start": "Alusta",
+    "delete": "Kustuta",
+    "edit": "Muuda",
+    "error": "Viga",
+    "hide": "Peida",
+    "unchanged": "Muutmata",
+    "copiedToClipboard": "Kopeeritud lõikelauale",
+    "accepted": "Nõustusid",
+    "advanced": "Lisavalikud",
+    "confirm": "Kinnita",
+    "decline": "Keeldu",
+    "example": "Näide",
+    "files": "Failid",
+    "finished": "Valmis",
+    "off": "Väljas",
+    "offline": "Pole võrgus",
+    "online": "Võrgus",
+    "open": "Ava",
+    "queue": "Järjekord",
+    "quickSave": "Kiirsalvestus",
+    "quickSaveFromFavorites": "Kiirsalvestamine „Lemmikutelt“",
+    "renamed": "Nimi on muudetud",
+    "reset": "Tühista muudatused",
+    "restart": "Käivita uuesti",
+    "settings": "Seadistused",
+    "stop": "Peata",
+    "save": "Salvesta"
+  },
+  "locale": "Eesti keel",
+  "settingsTab": {
+    "general": {
+      "title": "Üldised seadistused",
+      "brightnessOptions": {
+        "dark": "Tume kujundus",
+        "light": "Hele kujundus",
+        "system": "Süsteemi kujundus"
+      },
+      "brightness": "Kujundus",
+      "language": "Keel",
+      "languageOptions": {
+        "system": "Süsteemi keel"
+      },
+      "color": "Värv",
+      "colorOptions": {
+        "system": "Süsteemi värvid",
+        "oled": "OLED"
+      },
+      "saveWindowPlacement": "Peale väljumist salvesta akna asukoht",
+      "saveWindowPlacementWindows": "Peale lõpetamist salvesta akna asukoht",
+      "minimizeToTray": "Sulgemisel aseta rakendus süsteemisalve",
+      "launchAtStartup": "Sisselogimisel käivita automaatselt",
+      "launchMinimized": "Automaatsel käivitamisel: käivita peidetuna",
+      "showInContextMenu": "Näita LocalSendi kontekstimenüüs",
+      "animations": "Animatsioonid"
+    },
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "saveToGallery": "Lisa meedia galeriisse",
+      "requirePin": "@:webSharePage.requirePin",
+      "destination": "Salvesta kausta",
+      "autoFinish": "Lõpeta automaatselt",
+      "downloads": "(Allalaadimised)",
+      "title": "Vastuvõtmine",
+      "quickSave": "@:general.quickSave",
+      "saveToHistory": "Salvesta ajalukku"
+    },
+    "other": {
+      "privacyPolicy": "Privaatsuspoliitika",
+      "title": "Muu teave",
+      "support": "Toeta LocalSendi",
+      "donate": "Toeta rahaliselt",
+      "termsOfUse": "Kasutustingimused"
+    },
+    "title": "Seadistused",
+    "network": {
+      "deviceType": "Seadme tüüp",
+      "title": "Võrk",
+      "alias": "Seadme nimi",
+      "deviceModel": "Seadme mudel",
+      "server": "Server",
+      "needRestart": "Muudatuste jõustamiseks palun käivita server uuesti!",
+      "port": "Kasutatav port",
+      "discoveryTimeout": "Leitavuse aegumine",
+      "useSystemName": "Kasuta süsteemset nime",
+      "generateRandomAlias": "Loo juhuslik nimi",
+      "portWarning": "Kuna kasutad endamääratud porti, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultPort})",
+      "encryption": "Krüptimine",
+      "multicastGroup": "Multiedastuse aadress",
+      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})"
+    },
+    "send": {
+      "shareViaLinkAutoAccept": "Kui kasutusel on „Jaga lingi abil“, siis nõustu vastuvõtmisega automaatselt",
+      "title": "Saatmine"
+    },
+    "advancedSettings": "Täiendavad seadistused"
+  },
+  "sendTab": {
+    "thisDevice": "See seade",
+    "scan": "Otsi seadmeid",
+    "sendModes": {
+      "single": "Üks vastuvõtja",
+      "link": "Jagamine lingi vahendusel",
+      "multiple": "Mitu vastuvõtjat"
+    },
+    "title": "Saada",
+    "picker": {
+      "app": "Rakendus",
+      "clipboard": "Aseta",
+      "file": "Fail",
+      "folder": "Kaust",
+      "media": "Meedia",
+      "text": "Tekst"
+    },
+    "shareIntentInfo": "Klikates nutiseadmes olevates rakendustes nuppu „Jaga“ võid kasutada ka mugavat jagamise võimalust.",
+    "selection": {
+      "files": "Failid: {files}",
+      "size": "Andmemaht: {size}",
+      "title": "Valik"
+    },
+    "nearbyDevices": "Läheduses asuvad seadmed",
+    "manualSending": "Saada käsitsi",
+    "sendMode": "Saatmisviis",
+    "sendModeHelp": "Selgitus",
+    "help": "Palun kontrolli, et sihtseade asub sama WiFi ühenduse piires.",
+    "placeItems": "Lisa jagatavad failid siia."
+  },
+  "receiveOptionsPage": {
+    "saveToGalleryOff": "Pole kasutusel, kuna saadetavate hulgas leidub kaustu.",
+    "appDirectory": "(LocalSendi kaust)",
+    "destination": "@:settingsTab.receive.destination",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "title": "Eelistused"
+  },
+  "receivePage": {
+    "subTitle": {
+      "other": "soovib sulle saata {n} faili",
+      "one": "soovib sulle saata faili"
+    },
+    "subTitleMessage": "saatis sulle sõnumi:",
+    "canceled": "Saatja on päringu tühistanud.",
+    "subTitleLink": "saatis sulle lingi:"
+  },
+  "troubleshootPage": {
+    "firewall": {
+      "solution": "Tõenäoliselt on see seotud tulemüüriga. Olukorra võid lahendada lubades sisenevad (UDP ja TCP) ühendused pordis {port}.",
+      "symptom": "Siit seadmest on võimalik teisele faile saata, kuid teised ei saa siia saata.",
+      "openFirewall": "Ava tulemüüri seadistused"
+    },
+    "noConnection": {
+      "solution": "Kas identne probleem on mõlemas seadmes? Kui nii, siis palun kontrolli, et mõlemad seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Aga samas on võimalik, et WiFi võrk on seadistatud nii, et kõik seadmed on üksteisest isoleeritud. Sel juhul küsi abi võrgu haldajalt, kes saab ruuteris teha vajalikud muudatused.",
+      "symptom": "Mõlemad seadmed ei suuda üksteist leida ega jagada faile."
+    },
+    "title": "Veaotsing",
+    "subTitle": "Kas rakendus toimib nii, nagu vaja? Siin võid leida lahendusi levinumatele probleemidele.",
+    "solution": "Lahendus:",
+    "fixButton": "Paranda automaatselt",
+    "noDiscovery": {
+      "solution": "Palun kontrolli, et kõik seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Sa võid ka proovida sihtseadme IP-aadressi lisamist käsitsi. Kui siis ühendus toimib, võid ta lisada lemmikuks ja hilisem tuvastamine saab olema automaatne.",
+      "symptom": "See seade ei suuda tuvastada teisi seadeid."
+    }
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Vastuvõtja on hõivatud teise päringuga tegelemisega.",
+    "rejected": "Vastuvõtja on vastuvõtmisest keeldunud.",
+    "waiting": "Ootame vastust…"
+  },
+  "donationPage": {
+    "restore": "Taasta ost",
+    "thanks": "Suur tänu!",
+    "title": "Toeta meid rahaliselt",
+    "info": "LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav, ega sisalda reklaame. Kui sulle see rakendus meeldib, siis palun toeta meie arendust.",
+    "donate": "Anneta {{amount}}"
+  },
+  "receiveHistoryPage": {
+    "deleteHistory": "Kustuta ajalugu",
+    "title": "Ajalugu",
+    "openFolder": "Ava kaust",
+    "empty": "Ajalugu on tühi.",
+    "entryActions": {
+      "open": "Ava fail",
+      "showInFolder": "Näita kaustas",
+      "info": "Teave",
+      "deleteFromHistory": "Kustuta ajaloost"
+    }
+  },
+  "aboutPage": {
+    "author": "Autor",
+    "contributors": "Kaasautorid",
+    "translators": "Tõlkijad",
+    "packagers": "Pakendajad",
+    "description": [
+      "LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav. Rakenduse eesmärgiks on võimaldada failide ja tekstide jagamist kohtvõrgus asuvate arvutite vahel nii, et välist internetiühendust pole vaja kasutada.",
+      "See rakendus on saadaval Androidi, iOSi, macOSi, Windowsi ja Linuxi jaoks. Kõik allalaaditavad paigaldusfailid leiad meie ametlikust veebisaidist."
+    ],
+    "title": "Rakenduse teave: LocalSend"
+  },
+  "progressPage": {
+    "savedToGallery": "Salvestatud kausta Fotod",
+    "titleSending": "Saadame faile",
+    "titleReceiving": "Võtame faile vastu",
+    "total": {
+      "title": {
+        "sending": "Edenemine kokku ({time})",
+        "finishedError": "Lõppes veaga",
+        "canceledSender": "Saatja poolt katkestatud",
+        "canceledReceiver": "Vastuvõtja poolt katkestatud"
+      },
+      "count": "Faile: {curr} / {n}",
+      "size": "Andmemaht: {curr} / {n}",
+      "speed": "Kiirus: {speed}/s"
+    }
+  },
+  "receiveTab": {
+    "title": "Võta vastu",
+    "infoBox": {
+      "ip": "IP-aadress:",
+      "port": "Port:",
+      "alias": "Seadme nimi:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Lemmikud",
+      "on": "@:general.on"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Rakendused (apk-failid)",
+    "excludeSystemApps": "Välista süsteemi rakendused",
+    "excludeAppsWithoutLaunchIntent": "Välista mittekäivitatavad rakendused",
+    "apps": "{n} rakendust"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Kustuta kõik"
+  },
+  "changelogPage": {
+    "title": "Muudatuste logi"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Erinevates lokaatides võivad olla kasutusel erinevad sõnad ning nad ei pruugi 1:1 kattuda"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "closeWindows": "Välju",
+    "@info": "Apple'i kasutajaliidese juhendid on väga ranged sõna „Sulge“ kasutamise osas.",
+    "close": "Sulge LocalSend"
+  },
+  "web": {
+    "tooManyAttempts": "Liiga palju sisestuskatseid",
+    "rejected": "Keelatud",
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Sisesta PIN-kood",
+    "invalidPin": "Vigane PIN-kood",
+    "files": "Failid",
+    "fileName": "Failinimi",
+    "size": "Suurus"
+  },
+  "dialogs": {
+    "quickActions": {
+      "sortBeforeCount": "Enne loendamist järjesta tähestiku järjekorras (A-Z)",
+      "counter": "Loendur",
+      "title": "Kiirtoimingud",
+      "prefix": "Eesliide",
+      "padZero": "Täida nullidega",
+      "random": "Juhuslikult"
+    },
+    "quickSaveNotice": {
+      "content": "Failipäringutega nõustume nüüd automaatselt. Palun arvesta, et seeläbi võivad kõik sinu kohtvõrgus saata sulle faile.",
+      "title": "@:general.quickSave"
+    },
+    "sendModeHelp": {
+      "link": "Kui failide vastuvõtjatel pole arvutis või nutiseadmes rakendust LocalSend, siis avades etteantud lingi oma veebibrauseris, saavad nad failid alla laadida.",
+      "title": "Saatmisviisid",
+      "single": "Sellega saadame faile ühele vastuvõtjale. Peale failide saatmise lõppu eemaldame failid saatmisloendist.",
+      "multiple": "Sellega saadame faile mitmele vastuvõtjale. Peale failide saatmise lõppu failid jäävad saatmisloendisse alles."
+    },
+    "favoriteDialog": {
+      "noFavorites": "Ühtegi lemmikseadet veel pole.",
+      "addFavorite": "Lisa",
+      "title": "Lemmikud"
+    },
+    "noFiles": {
+      "title": "Ühtegi faili pole valitud",
+      "content": "Palun vali vähemalt üks fail."
+    },
+    "addFile": {
+      "content": "Mida sa sooviksid lisada?",
+      "title": "Lisa valiku hulka"
+    },
+    "fileInfo": {
+      "size": "Suurus:",
+      "title": "Faili teave",
+      "fileName": "Failinimi:",
+      "path": "Asukoht:",
+      "sender": "Saatja:",
+      "time": "Kellaaeg:"
+    },
+    "openFile": {
+      "title": "Ava fail",
+      "content": "Kas sa soovid avada saadud faili?"
+    },
+    "cannotOpenFile": {
+      "title": "Faili avamine ei õnnestu",
+      "content": "„{file}“ faili avamine ei õnnestunud. Kas ta võib olla teisaldatud, ümbernimetatud või kustutatud?"
+    },
+    "encryptionDisabledNotice": {
+      "content": "Andmevahetus toimub nüüd krüptimata HTTP-protokolli vahendusel. Turvalise HTTPS-protokolli kasutamiseks lülita krüptimine sisse.",
+      "title": "Krüptimine pole kasutusel"
+    },
+    "favoriteDeleteDialog": {
+      "content": "Kas sa kindlasti soovid „{name}“ kustutada lemmikute hulgast?",
+      "title": "Kustuta lemmikute hulgast"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "gotoSettings": "Seadistused",
+      "description": "Ilma kohtvõrgu skaneerimise õiguseta ei suuda LocalSend leida teisi seadmeid. Palun luba süsteemi seadistustest vajalikud õigused."
+    },
+    "addressInput": {
+      "title": "Sisesta aadress",
+      "hashtag": "Teemaviide",
+      "ip": "IP-aadress",
+      "recentlyUsed": "Hiljuti kasutatud: "
+    },
+    "cancelSession": {
+      "title": "Katkesta failide edastamine",
+      "content": "Kas sa kindlasti soovid katkestada failide edastamise?"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Lisa lemmikuks",
+      "titleEdit": "Seadistused",
+      "port": "Kasutatav port",
+      "name": "Seadme nimi",
+      "auto": "(automaatne)",
+      "ip": "IP-aadress"
+    },
+    "fileNameInput": {
+      "title": "Sisesta failinimi",
+      "original": "Algne: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Tühjenda ajalugu",
+      "content": "Kas sa kindlasti soovid kogu ajaloo kustutada?"
+    },
+    "messageInput": {
+      "title": "Kirjuta sõnum",
+      "multiline": "Mitmerealine"
+    },
+    "noPermission": {
+      "title": "Õigused puuduvad",
+      "content": "Sa pole rakendusele jaganud vajalikke õigusi. Palun tee seda süsteemi seadistustes."
+    },
+    "notAvailableOnPlatform": {
+      "content": "See funktsionaalsus on saadaval vaid:",
+      "title": "Pole saadaval"
+    },
+    "qr": {
+      "title": "QR-kood"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud.",
+        "Hoiatus! Kui kohtvõrgus tegutsev võimalik pahatahtlik osapool saaks kätte sinul lemmikuks märgitud seadmete võtmed ja sõrmejäljed, siis saaks sulle piiranguteta faile saata ja seega pole lahendus hetkel täiesti turvaline.",
+        "Aga siiski on see valik turvalisem, kui lubada kõigil sinu kohtvõrgu kasutajatel saata sulle faile ilma igasuguste piiranguteta."
+      ]
+    },
+    "pin": {
+      "title": "Sisesta PIN-kood"
+    },
+    "zoom": {
+      "title": "Võrguaadress"
+    }
+  },
+  "assetPicker": {
+    "accessAllTip": "Rakendusel on selles nutiseadmes ligipääs vaid mõnedele failidele. Kui vajad ligipääsu kõikidele meediafailidele, siis ava seadistused ning luba vastavad õigused.",
+    "@info": "Androidis ja iPhone'is kasutatava meediavalija tõlked",
+    "cancel": "Katkesta",
+    "edit": "Muuda",
+    "gifIndicator": "GIF",
+    "loadFailed": "Laadimine ei õnnestunud",
+    "original": "Algne",
+    "preview": "Eelvaade",
+    "select": "Vali",
+    "emptyList": "Tühi loend",
+    "unSupportedAssetType": "Failitüüp pole toetatud.",
+    "unableToAccessAll": "Selles seadmes puudub ligipääs failidele",
+    "viewingLimitedAssetsTip": "Näed vaid faile ja albumeid, millele oled sellele rakendusele ligipääsu andnud.",
+    "changeAccessibleLimitedAssets": "Ligipääsetavate failide loendi uuendmiseks klõpsi",
+    "goToSystemSettings": "Ava süsteemi seadistused",
+    "accessLimitedAssets": "Jätka piiratud ligipääsuga",
+    "accessiblePathName": "Kasutatavad failid",
+    "sTypeAudioLabel": "Heli",
+    "sTypeImageLabel": "Pilt",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Muu meedia",
+    "sActionPlayHint": "esita",
+    "sActionUseCameraHint": "kasuta kaamerat",
+    "sActionPreviewHint": "eelvaade",
+    "sActionSelectHint": "vali",
+    "sActionSwitchPathLabel": "muuda asukohta",
+    "sUnitAssetCountLabel": "kogus",
+    "sNameDurationLabel": "kestus",
+    "confirm": "Kinnita"
+  },
+  "webSharePage": {
+    "encryption": "@:settingsTab.network.encryption",
+    "pendingRequests": "Ootel päringuid: {n}",
+    "pinHint": "PIN-kood on „{pin}“",
+    "autoAccept": "Nõustu päringutega automaatselt",
+    "noRequests": "Päringuid veel pole.",
+    "title": "Jaga lingi vahendusel",
+    "loading": "Käivitame serverit…",
+    "stopping": "Peatame serverit…",
+    "error": "Serveri käivitamisel tekkis viga.",
+    "openLink": {
+      "one": "Ava see link oma veebibrauseris:",
+      "other": "Ava üks neist linkidest oma veebibrauseris:"
+    },
+    "requests": "Päringuid",
+    "requirePin": "Küsi PIN-koodi",
+    "encryptionHint": "LocalSend kasutab enda poolt allkirjastatud sertifikaate. Ühenduse toimimiseks palun nõustu nendega veebibrauseris."
+  },
+  "sanitization": {
+    "empty": "Failil peab olema nimi",
+    "invalid": "Failinimes on valesid tähemärke"
+  }
+}
