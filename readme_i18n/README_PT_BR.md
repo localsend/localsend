@@ -132,7 +132,7 @@ Para compilar o LocalSend a partir do código-fonte, siga estes passos:
 4. Execute `flutter pub get` para baixar as dependências
 5. Execute `flutter run` para iniciar o aplicativo
 
-> [!NOTA]
+> [!NOTE]
 > Atualmente, o LocalSend requer uma versão mais antiga do Flutter (especificada em [.fvmrc](.fvmrc))
 > e, portanto, problemas de compilação podem ser causados por uma incompatibilidade entre a versão necessária e a versão do Flutter instalada (em todo o sistema).  
 > Para tornar o desenvolvimento mais consistente, o LocalSend usa o [fvm](https://fvm.app) para gerenciar a versão do Flutter do projeto.
