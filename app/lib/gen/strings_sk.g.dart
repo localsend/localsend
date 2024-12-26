@@ -378,7 +378,7 @@ class _TranslationsSendPageSk extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Čaká sa na odpoveď...';
+  String get waiting => 'Čaká sa na odpoveď…';
   @override
   String get rejected => 'Príjemca zamietol žiadosť.';
   @override
@@ -418,9 +418,9 @@ class _TranslationsWebSharePageSk extends TranslationsWebSharePageEn {
   @override
   String get title => 'Zdieľať cez odkaz';
   @override
-  String get loading => 'Spúšťa sa server...';
+  String get loading => 'Spúšťa sa server…';
   @override
-  String get stopping => 'Zastavuje sa server...';
+  String get stopping => 'Zastavuje sa server…';
   @override
   String get error => 'Pri spúšťaní servera sa vyskytla chyba.';
   @override
@@ -952,7 +952,7 @@ class _TranslationsSettingsTabSendSk extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'Odoslať';
   @override
-  String get shareViaLinkAutoAccept => 'Automaticky prijímať žiadosti v režime "Zdieľať cez odkaz".';
+  String get shareViaLinkAutoAccept => 'Automaticky prijímať žiadosti v režime "Zdieľať cez odkaz"';
 }
 
 // Path: settingsTab.network
@@ -1464,7 +1464,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSk extends TranslationsDia
   List<String> get content => [
         'Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.',
         'Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.',
-        'Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia. ',
+        'Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia.',
       ];
 }
 

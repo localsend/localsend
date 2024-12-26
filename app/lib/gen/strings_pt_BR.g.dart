@@ -379,7 +379,7 @@ class _TranslationsSendPagePtBr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Aguardando resposta...';
+  String get waiting => 'Aguardando resposta…';
   @override
   String get rejected => 'O destinatário rejeitou a solicitação.';
   @override
@@ -419,9 +419,9 @@ class _TranslationsWebSharePagePtBr extends TranslationsWebSharePageEn {
   @override
   String get title => 'Compartilhe via link';
   @override
-  String get loading => 'Iniciando o servidor...';
+  String get loading => 'Iniciando o servidor…';
   @override
-  String get stopping => 'Parando o servidor...';
+  String get stopping => 'Parando o servidor…';
   @override
   String get error => 'Um erro ocorreu enquanto o servidor tentava iniciar.';
   @override
@@ -487,7 +487,7 @@ class _TranslationsDonationPagePtBr extends TranslationsDonationPageEn {
   String get title => 'Doar';
   @override
   String get info =>
-      'LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação!';
+      'LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação.';
   @override
   String donate({required Object amount}) => 'Doar ${amount}';
   @override
@@ -1217,7 +1217,7 @@ class _TranslationsDialogsFavoriteDialogPtBr extends TranslationsDialogsFavorite
   @override
   String get title => 'Favoritos';
   @override
-  String get noFavorites => 'Sem favoritos ainda :(';
+  String get noFavorites => 'Nenhum dispositivo favorito ainda.';
   @override
   String get addFavorite => 'Adicionar';
 }
@@ -1388,7 +1388,7 @@ class _TranslationsDialogsNotAvailableOnPlatformPtBr extends TranslationsDialogs
   @override
   String get title => 'Indisponível';
   @override
-  String get content => 'Essa função está disponível somente no: ';
+  String get content => 'Essa função está disponível somente no:';
 }
 
 // Path: dialogs.qr
@@ -1457,7 +1457,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr extends TranslationsD
   @override
   List<String> get content => [
         'Requisições de arquivo agora são aceitas automaticamente de dispositivos da sua lista de favoritos.',
-        'Atenção: Essa opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos',
+        'Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos sem restrições.',
         'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo.',
       ];
 }

@@ -184,7 +184,7 @@
     "thanks": "Suur tänu!",
     "title": "Toeta meid rahaliselt",
     "info": "LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav, ega sisalda reklaame. Kui sulle see rakendus meeldib, siis palun toeta meie arendust.",
-    "donate": "Anneta {{amount}}"
+    "donate": "Anneta {amount}"
   },
   "receiveHistoryPage": {
     "deleteHistory": "Kustuta ajalugu",

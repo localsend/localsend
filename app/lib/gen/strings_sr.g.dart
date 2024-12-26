@@ -31,7 +31,7 @@ class TranslationsSr extends Translations {
 
   // Translations
   @override
-  String get locale => 'Srpski';
+  String get locale => 'Srpski (latinica)';
   @override
   String get appName => 'LocalSend';
   @override
@@ -98,7 +98,7 @@ class _TranslationsGeneralSr extends TranslationsGeneralEn {
   @override
   String get advanced => 'Napredno';
   @override
-  String get cancel => 'Odustani';
+  String get cancel => 'Otkaži';
   @override
   String get close => 'Zatvori';
   @override
@@ -108,7 +108,7 @@ class _TranslationsGeneralSr extends TranslationsGeneralEn {
   @override
   String get copy => 'Kopiraj';
   @override
-  String get copiedToClipboard => 'Kopirano u Clipboard';
+  String get copiedToClipboard => 'Kopirano u privremenu memoriju';
   @override
   String get decline => 'Odbij';
   @override
@@ -130,41 +130,41 @@ class _TranslationsGeneralSr extends TranslationsGeneralEn {
   @override
   String get off => 'Isključeno';
   @override
-  String get offline => 'Offline';
+  String get offline => 'Oflajn';
   @override
   String get on => 'Uključeno';
   @override
-  String get online => 'Online';
+  String get online => 'Onlajn';
   @override
   String get open => 'Otvori';
   @override
-  String get queue => 'Stavi u Queue';
+  String get queue => 'Redosled';
   @override
-  String get quickSave => 'Brzo snimi';
+  String get quickSave => 'Brzo čuvanje';
   @override
-  String get quickSaveFromFavorites => 'Brzo snimi u "Omiljeni"';
+  String get quickSaveFromFavorites => 'Brzo čuvanje u „Omiljeno“';
   @override
   String get renamed => 'Preimenovano';
   @override
-  String get reset => 'Resetuj';
+  String get reset => 'Poništi promene';
   @override
   String get restart => 'Restartuj';
   @override
-  String get settings => 'Postavke';
+  String get settings => 'Podešavanja';
   @override
-  String get skipped => 'Propušteno';
+  String get skipped => 'Preskočeno';
   @override
-  String get start => 'Startuj';
+  String get start => 'Pokreni';
   @override
   String get stop => 'Zaustavi';
   @override
-  String get save => 'Snimi';
+  String get save => 'Sačuvaj';
   @override
   String get unchanged => 'Nepromenjeno';
   @override
   String get unknown => 'Nepoznato';
   @override
-  String get noItemInClipboard => 'Nema itema u Clipboard-u';
+  String get noItemInClipboard => 'Nema predmeta u privremenoj memoriji.';
 }
 
 // Path: receiveTab
@@ -200,25 +200,25 @@ class _TranslationsSendTabSr extends TranslationsSendTabEn {
   @override
   late final _TranslationsSendTabPickerSr picker = _TranslationsSendTabPickerSr._(_root);
   @override
-  String get shareIntentInfo => 'Možeš takodje da koristiš i "Share" opciju tvog mobilnog uredjaja da bi lakše selektovao fajlove.';
+  String get shareIntentInfo => 'Takođe, možete da koristite funkciju „Deli“ na svom mobilnom uređaju da biste lakše birali fajlove.';
   @override
-  String get nearbyDevices => 'Uredjaji u blizini';
+  String get nearbyDevices => 'Uređaji u blizini';
   @override
-  String get thisDevice => 'Ovaj uredjaj';
+  String get thisDevice => 'Ovaj uređaj';
   @override
-  String get scan => 'Potraži uredjaje';
+  String get scan => 'Pretraga uređaja';
   @override
-  String get manualSending => 'Manuelno slanje';
+  String get manualSending => 'Ručno slanje';
   @override
-  String get sendMode => 'Mod za slanje';
+  String get sendMode => 'Režim slanja';
   @override
   late final _TranslationsSendTabSendModesSr sendModes = _TranslationsSendTabSendModesSr._(_root);
   @override
   String get sendModeHelp => 'Objašnjenje';
   @override
-  String get help => 'Molim uveri se da je željena destinacija takodje na istoj WiFi mreži.';
+  String get help => 'Uverite se da je primalac takođe na istoj Wi-Fi mreži.';
   @override
-  String get placeItems => 'Postavi šta želiš da share-uješ.';
+  String get placeItems => 'Postavite predmete za deljenje.';
 }
 
 // Path: settingsTab
@@ -231,7 +231,7 @@ class _TranslationsSettingsTabSr extends TranslationsSettingsTabEn {
 
   // Translations
   @override
-  String get title => 'Podešavanje';
+  String get title => 'Podešavanja';
   @override
   late final _TranslationsSettingsTabGeneralSr general = _TranslationsSettingsTabGeneralSr._(_root);
   @override
@@ -256,9 +256,9 @@ class _TranslationsTroubleshootPageSr extends TranslationsTroubleshootPageEn {
 
   // Translations
   @override
-  String get title => 'Troubleshoot';
+  String get title => 'Otklanjanje grešaka';
   @override
-  String get subTitle => 'Da li aplikacija radi kako treba? Ovde možete naći neka uobičajena rešenja.';
+  String get subTitle => 'Da li aplikacija radi kako treba? Ovde možete pronaći neka uobičajena rešenja problema.';
   @override
   String get solution => 'Rešenje:';
   @override
@@ -285,7 +285,7 @@ class _TranslationsReceiveHistoryPageSr extends TranslationsReceiveHistoryPageEn
   @override
   String get openFolder => 'Otvori folder';
   @override
-  String get deleteHistory => 'Obriši Istoriju';
+  String get deleteHistory => 'Izbriši istoriju';
   @override
   String get empty => 'Istorija je prazna.';
   @override
@@ -308,7 +308,7 @@ class _TranslationsApkPickerPageSr extends TranslationsApkPickerPageEn {
   @override
   String get excludeAppsWithoutLaunchIntent => 'Izostavi aplikacije koje se ne pokreću';
   @override
-  String apps({required Object n}) => '${n} Apps';
+  String apps({required Object n}) => '${n} aplikacija';
 }
 
 // Path: selectedFilesPage
@@ -321,7 +321,7 @@ class _TranslationsSelectedFilesPageSr extends TranslationsSelectedFilesPageEn {
 
   // Translations
   @override
-  String get deleteAll => 'Obriši sve';
+  String get deleteAll => 'Izbriši sve';
 }
 
 // Path: receivePage
@@ -336,15 +336,15 @@ class _TranslationsReceivePageSr extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
         n,
-        one: 'želi da pošalje fajl',
-        other: 'želi da pošalje ${n} fajlova',
+        one: 'želi da vam pošalje fajl',
+        other: 'želi da vam pošalje ${n} fajlova',
       );
   @override
-  String get subTitleMessage => 'je poslao poruku:';
+  String get subTitleMessage => 'poslao vam je poruku:';
   @override
-  String get subTitleLink => 'je poslao Link:';
+  String get subTitleLink => 'poslao vam je link:';
   @override
-  String get canceled => 'Pošiljalac je poništio zahtev.';
+  String get canceled => 'Pošiljalac je otkazao zahtev.';
 }
 
 // Path: receiveOptionsPage
@@ -365,7 +365,7 @@ class _TranslationsReceiveOptionsPageSr extends TranslationsReceiveOptionsPageEn
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => 'Isključeno automatski zato što postoje folderi.';
+  String get saveToGalleryOff => 'Automatski isključeno jer postoje folderi.';
 }
 
 // Path: sendPage
@@ -378,13 +378,13 @@ class _TranslationsSendPageSr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Čekam odgovor...';
+  String get waiting => 'Čekanje odgovora…';
   @override
   String get rejected => 'Primalac je odbio zahtev.';
   @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
-  String get busy => 'Primalac je zauzet nekim drugim zahtevom za slanje.';
+  String get busy => 'Primalac je zauzet drugim zahtevom.';
 }
 
 // Path: progressPage
@@ -401,7 +401,7 @@ class _TranslationsProgressPageSr extends TranslationsProgressPageEn {
   @override
   String get titleReceiving => 'Primanje fajlova';
   @override
-  String get savedToGallery => 'Snimljeno u Slike';
+  String get savedToGallery => 'Sačuvano u galeriji';
   @override
   late final _TranslationsProgressPageTotalSr total = _TranslationsProgressPageTotalSr._(_root);
 }
@@ -416,33 +416,33 @@ class _TranslationsWebSharePageSr extends TranslationsWebSharePageEn {
 
   // Translations
   @override
-  String get title => 'Deli pomoću Linka';
+  String get title => 'Deljenje putem linka';
   @override
-  String get loading => 'Pokrećem server...';
+  String get loading => 'Pokretanje servera…';
   @override
-  String get stopping => 'Zaustavljam server...';
+  String get stopping => 'Zaustavljanje servera…';
   @override
-  String get error => 'Prilikom pokretanja servera dogodila se greška.';
+  String get error => 'Došlo je do greške prilikom pokretanja servera.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
         n,
-        one: 'Otvori ovaj link u browseru:',
-        other: 'Otvori jedan od ovih linkova u browseru:',
+        one: 'Otvorite ovaj link u vašem pregledaču:',
+        other: 'Otvorite jedan od ovih linkova u vašem pregledaču:',
       );
   @override
   String get requests => 'Zahtevi';
   @override
-  String get noRequests => 'Nema zahteva još uvek.';
+  String get noRequests => 'Još uvek nema zahteva.';
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
   String get autoAccept => 'Automatski prihvati zahteve';
   @override
-  String get requirePin => 'Potreban PIN';
+  String get requirePin => 'Zahtevaj PIN';
   @override
-  String pinHint({required Object pin}) => 'PIN je "${pin}"';
+  String pinHint({required Object pin}) => 'PIN je „${pin}“';
   @override
-  String get encryptionHint => 'LocalSend koristi sertifikate koji su self-signed. Morate da prihvatite to u browseru.';
+  String get encryptionHint => 'LocalSend koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.';
   @override
   String pendingRequests({required Object n}) => 'Zahtevi na čekanju: ${n}';
 }
@@ -460,15 +460,15 @@ class _TranslationsAboutPageSr extends TranslationsAboutPageEn {
   String get title => 'O LocalSend-u';
   @override
   List<String> get description => [
-        'LocalSend je besplatna (slobodna) open-source aplikacija, koja vam omogućava da delite fajlove i poruke sa obližnjim uredjajima sigurno, preko lokalne mreže, bez potrebe za internet konekcijom.',
-        'Ova aplikacije je dostupna za Android, iOS, macOS, Windows i Linux. Možete pronaći sve opcije za download na oficijelnoj web strani.',
+        'LocalSend je besplatna aplikacija otvorenog koda koja vam omogućava da bezbedno delite fajlove i poruke sa uređajima u blizini preko vaše lokalne mreže, bez potrebe za internet vezom.',
+        'Ova aplikacije je dostupna za Android, iOS, macOS, Windows i Linux. Možete pronaći sve opcije za preuzimanje na zvaničnoj početnoj stranici.',
       ];
   @override
   String get author => 'Autor';
   @override
   String get contributors => 'Saradnici';
   @override
-  String get packagers => 'Paketi';
+  String get packagers => 'Pakeri';
   @override
   String get translators => 'Prevodioci';
 }
@@ -483,16 +483,15 @@ class _TranslationsDonationPageSr extends TranslationsDonationPageEn {
 
   // Translations
   @override
-  String get title => 'Doniraj';
+  String get title => 'Donacija';
   @override
-  String get info =>
-      'LocalSend je slobodna, open-source aplikacije bez reklama. Ako vam se dopada aplikacija, možete podržati razvoj putem donacije.';
+  String get info => 'LocalSend je besplatan, otvorenog koda i bez ikakvih oglasa. Ako vam se sviđa aplikacija, možete podržati razvoj donacijom.';
   @override
   String donate({required Object amount}) => 'Doniraj ${amount}';
   @override
-  String get thanks => 'Hvala vam!';
+  String get thanks => 'Hvala vam puno!';
   @override
-  String get restore => 'Obnovi kupovinu';
+  String get restore => 'Vrati kupovinu';
 }
 
 // Path: changelogPage
@@ -505,7 +504,7 @@ class _TranslationsChangelogPageSr extends TranslationsChangelogPageEn {
 
   // Translations
   @override
-  String get title => 'Log Promena';
+  String get title => 'Evidencija promena';
 }
 
 // Path: aliasGenerator
@@ -665,9 +664,9 @@ class _TranslationsSanitizationSr extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get empty => 'Ime fajla ne može biti prazno';
+  String get empty => 'Naziv fajla ne može biti prazan';
   @override
-  String get invalid => 'Ime fajla sadrži nedozvoljene karaktere';
+  String get invalid => 'Naziv fajla sadrži nevažeće znakove';
 }
 
 // Path: tray
@@ -682,9 +681,9 @@ class _TranslationsTraySr extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'Quit LocalSend';
+  String get close => 'Napusti LocalSend';
   @override
-  String get closeWindows => 'Izadji';
+  String get closeWindows => 'Izađi';
 }
 
 // Path: web
@@ -699,7 +698,7 @@ class _TranslationsWebSr extends TranslationsWebEn {
   @override
   String get waiting => _root.sendPage.waiting;
   @override
-  String get enterPin => 'Unesi PIN';
+  String get enterPin => 'Unesite PIN';
   @override
   String get invalidPin => 'Neispravan PIN';
   @override
@@ -709,7 +708,7 @@ class _TranslationsWebSr extends TranslationsWebEn {
   @override
   String get files => 'Fajlovi';
   @override
-  String get fileName => 'Ime fajla';
+  String get fileName => 'Naziv fajla';
   @override
   String get size => 'Veličina';
 }
@@ -726,7 +725,7 @@ class _TranslationsAssetPickerSr extends TranslationsAssetPickerEn {
   @override
   String get confirm => 'Potvrdi';
   @override
-  String get cancel => 'Odustani';
+  String get cancel => 'Otkaži';
   @override
   String get edit => 'Izmeni';
   @override
@@ -736,24 +735,24 @@ class _TranslationsAssetPickerSr extends TranslationsAssetPickerEn {
   @override
   String get original => 'Poreklo';
   @override
-  String get preview => 'Pogledaj';
+  String get preview => 'Pregled';
   @override
   String get select => 'Izaberi';
   @override
-  String get emptyList => 'Isprazni listu';
+  String get emptyList => 'Očisti listu';
   @override
-  String get unSupportedAssetType => 'Tip fajla nije podržan.';
+  String get unSupportedAssetType => 'Nepodržan tip fajla.';
   @override
-  String get unableToAccessAll => 'Nemoguće pristupiti svim fajlovima na ovom uredjaju';
+  String get unableToAccessAll => 'Nije moguće pristupiti svim fajlovima na uređaju';
   @override
-  String get viewingLimitedAssetsTip => 'Samo view fajlovi i albumi dostupni aplikaciji.';
+  String get viewingLimitedAssetsTip => 'Samo fajlovi za gledanje i albumi dostupni aplikaciji.';
   @override
-  String get changeAccessibleLimitedAssets => 'Klikni da updatuješ dostupne fajlove';
+  String get changeAccessibleLimitedAssets => 'Dodirnite da ažurirate dostupne fajlove';
   @override
   String get accessAllTip =>
-      'Aplikacija može da pristupi samo nekim fajlovima na uredjaju.Idi u Sistemska podešavanja i dozvoli aplikaciji pristup svim medijskim fajlovima na uredjaju.';
+      'Aplikacija može da pristupi samo nekim fajlovima na uređaju. Idite u sistemska podešavanja i dozvolite aplikaciji pristup svim medijima na uređaju.';
   @override
-  String get goToSystemSettings => 'Idi u Sistemska podešavanja';
+  String get goToSystemSettings => 'Idi u sistemska podešavanja';
   @override
   String get accessLimitedAssets => 'Nastavi sa ograničenim pristupom';
   @override
@@ -765,11 +764,11 @@ class _TranslationsAssetPickerSr extends TranslationsAssetPickerEn {
   @override
   String get sTypeVideoLabel => 'Video';
   @override
-  String get sTypeOtherLabel => 'Druga vrsta medija';
+  String get sTypeOtherLabel => 'Ostali mediji';
   @override
-  String get sActionPlayHint => 'play';
+  String get sActionPlayHint => 'pusti';
   @override
-  String get sActionPreviewHint => 'preview';
+  String get sActionPreviewHint => 'pregled';
   @override
   String get sActionSelectHint => 'izaberi';
   @override
@@ -796,7 +795,7 @@ class _TranslationsReceiveTabInfoBoxSr extends TranslationsReceiveTabInfoBoxEn {
   @override
   String get port => 'Port:';
   @override
-  String get alias => 'Ime uredjaja:';
+  String get alias => 'Naziv uređaja:';
 }
 
 // Path: receiveTab.quickSave
@@ -811,7 +810,7 @@ class _TranslationsReceiveTabQuickSaveSr extends TranslationsReceiveTabQuickSave
   @override
   String get off => _root.general.off;
   @override
-  String get favorites => 'Omiljeni';
+  String get favorites => 'Omiljeno';
   @override
   String get on => _root.general.on;
 }
@@ -826,7 +825,7 @@ class _TranslationsSendTabSelectionSr extends TranslationsSendTabSelectionEn {
 
   // Translations
   @override
-  String get title => 'Selekcija';
+  String get title => 'Izbor';
   @override
   String files({required Object files}) => 'Fajlovi: ${files}';
   @override
@@ -847,11 +846,11 @@ class _TranslationsSendTabPickerSr extends TranslationsSendTabPickerEn {
   @override
   String get folder => 'Folder';
   @override
-  String get media => 'Media';
+  String get media => 'Mediji';
   @override
   String get text => 'Tekst';
   @override
-  String get app => 'App';
+  String get app => 'Aplikacija';
   @override
   String get clipboard => 'Nalepi';
 }
@@ -870,7 +869,7 @@ class _TranslationsSendTabSendModesSr extends TranslationsSendTabSendModesEn {
   @override
   String get multiple => 'Više primalaca';
   @override
-  String get link => 'Deli pomoću Linka';
+  String get link => 'Deljenje putem linka';
 }
 
 // Path: settingsTab.general
@@ -883,7 +882,7 @@ class _TranslationsSettingsTabGeneralSr extends TranslationsSettingsTabGeneralEn
 
   // Translations
   @override
-  String get title => 'Uopšteno';
+  String get title => 'Opšte';
   @override
   String get brightness => 'Tema';
   @override
@@ -897,17 +896,17 @@ class _TranslationsSettingsTabGeneralSr extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsSr languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsSr._(_root);
   @override
-  String get saveWindowPlacement => 'Izadji: Snimi položaj prozora';
+  String get saveWindowPlacement => 'Sačuvaj položaj prozora nakon napuštanja';
   @override
-  String get saveWindowPlacementWindows => 'Zapamti poziciju prozora nakon izlaska iz aplikacije';
+  String get saveWindowPlacementWindows => 'Sačuvaj položaj prozora nakon izlaženja';
   @override
-  String get minimizeToTray => 'Izadji: Minimizuj u Tray/MenuBar';
+  String get minimizeToTray => 'Minimirizaj na sistemsku traku/traku menija prilikom zatvaranja';
   @override
-  String get launchAtStartup => 'Autostartuj posle login-a';
+  String get launchAtStartup => 'Automatski pokreni nakon prijave';
   @override
-  String get launchMinimized => 'Autostartuj: Start sakriven';
+  String get launchMinimized => 'Automatsko pokretanje: Pokretanje skriveno';
   @override
-  String get showInContextMenu => 'Prikaži LocalSend u kontekst meniju';
+  String get showInContextMenu => 'Prikaži LocalSend u kontekstualnom meniju';
   @override
   String get animations => 'Animacije';
 }
@@ -932,13 +931,13 @@ class _TranslationsSettingsTabReceiveSr extends TranslationsSettingsTabReceiveEn
   @override
   String get autoFinish => 'Automatski završi';
   @override
-  String get destination => 'Destinacija';
+  String get destination => 'Čuvanje u folder';
   @override
   String get downloads => '(Downloads)';
   @override
-  String get saveToGallery => 'Snimi media-fajlove u Galeriju';
+  String get saveToGallery => 'Sačuvaj medije u galeriju';
   @override
-  String get saveToHistory => 'Snimi u Istoriju';
+  String get saveToHistory => 'Sačuvaj u istoriji';
 }
 
 // Path: settingsTab.send
@@ -953,7 +952,7 @@ class _TranslationsSettingsTabSendSr extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'Slanje';
   @override
-  String get shareViaLinkAutoAccept => 'Podeli preko Link-a: Automatski prihvati';
+  String get shareViaLinkAutoAccept => 'Automatski prihvati zahteve u režimu „Deljenje putem linka“';
 }
 
 // Path: settingsTab.network
@@ -968,33 +967,33 @@ class _TranslationsSettingsTabNetworkSr extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Mreža';
   @override
-  String get needRestart => 'Restartuj server da bi Podešavanja bila primenjena!';
+  String get needRestart => 'Restartujte server da biste primenili podešavanja!';
   @override
   String get server => 'Server';
   @override
-  String get alias => 'Ime uredjaja';
+  String get alias => 'Naziv uređaja';
   @override
-  String get deviceType => 'Tip uredjaja';
+  String get deviceType => 'Tip uređaja';
   @override
-  String get deviceModel => 'Model uredjaja';
+  String get deviceModel => 'Model uređaja';
   @override
   String get port => 'Port';
   @override
-  String get discoveryTimeout => 'Otkrivanje otkazano';
+  String get discoveryTimeout => 'Otkrivanje je isteklo';
   @override
-  String get useSystemName => 'Koristi ime sistema';
+  String get useSystemName => 'Koristi sistemski naziv';
   @override
-  String get generateRandomAlias => 'Generiši slučajni pseudonim';
+  String get generateRandomAlias => 'Generiši nasumični pseudonim';
   @override
   String portWarning({required Object defaultPort}) =>
-      'Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom Port.(default: ${defaultPort})';
+      'Drugi uređaji vas možda neće otkriti, jer koristite prilagođeni port. (podrazumevani: ${defaultPort})';
   @override
-  String get encryption => 'Enkripcija';
+  String get encryption => 'Šifrovanje';
   @override
-  String get multicastGroup => 'Multicast';
+  String get multicastGroup => 'Adresa višesmernog emitovanja';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Možda nećete biti pronadjeni od strane drugih uredjaja jer koristite custom multicast adresu. (default: ${defaultMulticast})';
+      'Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -1007,13 +1006,13 @@ class _TranslationsSettingsTabOtherSr extends TranslationsSettingsTabOtherEn {
 
   // Translations
   @override
-  String get title => 'Drugo';
+  String get title => 'Ostalo';
   @override
-  String get support => 'Podrži LocalSend';
+  String get support => 'Podržite LocalSend';
   @override
   String get donate => 'Doniraj';
   @override
-  String get privacyPolicy => 'Politika Privatnosti';
+  String get privacyPolicy => 'Politika privatnosti';
   @override
   String get termsOfUse => 'Uslovi korišćenja';
 }
@@ -1028,12 +1027,12 @@ class _TranslationsTroubleshootPageFirewallSr extends TranslationsTroubleshootPa
 
   // Translations
   @override
-  String get symptom => 'Ova aplikacija može poslati fajlove drugim uredjajima; ali drugi uredjaji ne mogu poslati fajlove ovom uredjaju.';
+  String get symptom => 'Ovaj uređaj može slati fajlove drugim uređajima, ali drugi uređaji ne mogu slati fajlove ovom uređaju.';
   @override
   String solution({required Object port}) =>
-      'Ovo je najverovatnije Firewall problem. Možete rešiti ovo omogućavanjem dolaznih konekcija (UDP and TCP) na portu ${port}.';
+      'Ovo je najverovatnije problem sa zaštitnim zidom. Ovo možete rešiti tako što ćete dozvoliti dolazne veze (UDP i TCP) na portu ${port}.';
   @override
-  String get openFirewall => 'Otvori Firewall';
+  String get openFirewall => 'Otvori zaštitni zid';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1046,10 +1045,10 @@ class _TranslationsTroubleshootPageNoDiscoverySr extends TranslationsTroubleshoo
 
   // Translations
   @override
-  String get symptom => 'Ovaj uredjaj ne može da pronadje druge uredjaje.';
+  String get symptom => 'Ovaj uređaj ne može da otkrije druge uređaje.';
   @override
   String get solution =>
-      'Uverite se da su svi uredjaji na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multikast adresu, enkripciju). Možete da pokušate da upišete IP adresu manuelno. Ako to radi, razmislite o dodavanju te adrese u Omiljene tako da uredjaj može da bude automatski pronadjen u budućnosti.';
+      'Uverite se da su svi uređaji na istoj Wi-Fi mreži i da imaju istu konfiguraciju (port, adresa višesmernog emitovanja, šifrovanje). Možete pokušati da ručno unesete IP adresu ciljnog uređaja. Ako ovo funkcioniše, razmislite o dodavanju ovog uređaja u omiljene kako bi se mogao automatski otkriti u budućnosti.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1062,10 +1061,10 @@ class _TranslationsTroubleshootPageNoConnectionSr extends TranslationsTroublesho
 
   // Translations
   @override
-  String get symptom => 'Uredjaji ne mogu ni da pronadju jedan drugog, ni da podele fajlove.';
+  String get symptom => 'Oba uređaja ne mogu da otkriju jedan drugog niti mogu da dele fajlove.';
   @override
   String get solution =>
-      'Da li problem postoji na obe strane? Ako je tako, morate da se uverite da se oba uredjaja nalaze na istoj Wi-Fi mreži i da dele istu konfiguraciju (port, multicast adresa, enkripcija). Mreža možda ne dozvoljava komunikaciju medju uredjajima. U ovom slučaju, ova opcija mora biti omogućena na ruteru.';
+      'Da li problem postoji na obe strane? Ako je tako, potrebno je da se uverite da su oba uređaja na istoj Wi-Fi mreži i da imaju istu konfiguraciju (port, adresa višesmernog emitovanja, šifrovanje). Wi-Fi mreža možda neće dozvoliti komunikaciju između učesnika zbog izolacije pristupne tačke (AP). U ovom slučaju, ova opcija mora biti onemogućena na ruteru.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1084,7 +1083,7 @@ class _TranslationsReceiveHistoryPageEntryActionsSr extends TranslationsReceiveH
   @override
   String get info => 'Informacije';
   @override
-  String get deleteFromHistory => 'Obriši iz Istorije.';
+  String get deleteFromHistory => 'Izbriši iz istorije';
 }
 
 // Path: progressPage.total
@@ -1116,9 +1115,9 @@ class _TranslationsDialogsAddFileSr extends TranslationsDialogsAddFileEn {
 
   // Translations
   @override
-  String get title => 'Dodaj u Selekciju';
+  String get title => 'Dodajte u izbor';
   @override
-  String get content => 'Šta želiš da dodaš?';
+  String get content => 'Šta želite dodati?';
 }
 
 // Path: dialogs.openFile
@@ -1133,7 +1132,7 @@ class _TranslationsDialogsOpenFileSr extends TranslationsDialogsOpenFileEn {
   @override
   String get title => 'Otvori fajl';
   @override
-  String get content => 'Da li želite da otvorite primljeni fajl?';
+  String get content => 'Želite li da otvorite primljeni fajl?';
 }
 
 // Path: dialogs.addressInput
@@ -1146,11 +1145,11 @@ class _TranslationsDialogsAddressInputSr extends TranslationsDialogsAddressInput
 
   // Translations
   @override
-  String get title => 'Upiši adresu';
+  String get title => 'Unesite adresu';
   @override
-  String get hashtag => 'Hashtag';
+  String get hashtag => 'Heš-oznaka';
   @override
-  String get ip => 'IP Adresa';
+  String get ip => 'IP adresa';
   @override
   String get recentlyUsed => 'Nedavno korišćeno: ';
 }
@@ -1165,9 +1164,9 @@ class _TranslationsDialogsCancelSessionSr extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Odustani od prebacivanja fajla';
+  String get title => 'Otkažite prenos fajlova';
   @override
-  String get content => 'Da li stvarno želiš da odustaneš od slanja fajla?';
+  String get content => 'Želite li zaista da otkažete prenos fajlova?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1180,9 +1179,9 @@ class _TranslationsDialogsCannotOpenFileSr extends TranslationsDialogsCannotOpen
 
   // Translations
   @override
-  String get title => 'Ne mogu da otvorim fajl';
+  String get title => 'Nije moguće otvoriti fajl';
   @override
-  String content({required Object file}) => 'Ne mogu da otvorim "${file}". Da li je ovaj fajl negde pomeren, preimenovan, ili obrisan?';
+  String content({required Object file}) => 'Nije moguće otvoriti „${file}“. Da li je ovaj fajl premešten, preimenovan ili izbrisan?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1195,9 +1194,10 @@ class _TranslationsDialogsEncryptionDisabledNoticeSr extends TranslationsDialogs
 
   // Translations
   @override
-  String get title => 'Enkripcija onemogućena';
+  String get title => 'Šifrovanje onemogućeno';
   @override
-  String get content => 'Komunikacija se sada vrši preko ne-enkriptovanog HTTP protokola. Da bi koristio HTTPS, omogući Enkripciju opet.';
+  String get content =>
+      'Komunikacija se sada odvija preko nešifrovanog HTTP protokola. Da biste koristili HTTPS protokol, ponovo omogućite šifrovanje.';
 }
 
 // Path: dialogs.errorDialog
@@ -1223,9 +1223,9 @@ class _TranslationsDialogsFavoriteDialogSr extends TranslationsDialogsFavoriteDi
 
   // Translations
   @override
-  String get title => 'Omiljeni';
+  String get title => 'Omiljeno';
   @override
-  String get noFavorites => 'Nema omiljenih uredjaja još uvek.';
+  String get noFavorites => 'Još uvek nema omiljenih uređaja.';
   @override
   String get addFavorite => 'Dodaj';
 }
@@ -1240,9 +1240,9 @@ class _TranslationsDialogsFavoriteDeleteDialogSr extends TranslationsDialogsFavo
 
   // Translations
   @override
-  String get title => 'Izbriši iz Omiljenih';
+  String get title => 'Izbriši iz omiljenih';
   @override
-  String content({required Object name}) => 'Da li stvarno želiš da izbrišeš iz Omiljenih "${name}"?';
+  String content({required Object name}) => 'Želite li zaista da izbrišete „${name}“ iz omiljenih?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1255,15 +1255,15 @@ class _TranslationsDialogsFavoriteEditDialogSr extends TranslationsDialogsFavori
 
   // Translations
   @override
-  String get titleAdd => 'Dodaj u Omiljene';
+  String get titleAdd => 'Dodajte u omiljene';
   @override
   String get titleEdit => 'Podešavanja';
   @override
-  String get name => 'Ime Uredjaja';
+  String get name => 'Naziv uređaja';
   @override
-  String get auto => '(auto)';
+  String get auto => '(automatski)';
   @override
-  String get ip => 'IP Adresa';
+  String get ip => 'IP adresa';
   @override
   String get port => 'Port';
 }
@@ -1280,7 +1280,7 @@ class _TranslationsDialogsFileInfoSr extends TranslationsDialogsFileInfoEn {
   @override
   String get title => 'Informacije o fajlu';
   @override
-  String get fileName => 'Ime fajla:';
+  String get fileName => 'Naziv fajla:';
   @override
   String get path => 'Putanja:';
   @override
@@ -1301,9 +1301,9 @@ class _TranslationsDialogsFileNameInputSr extends TranslationsDialogsFileNameInp
 
   // Translations
   @override
-  String get title => 'Ubaci ima fajla';
+  String get title => 'Unesite naziv fajla';
   @override
-  String original({required Object original}) => 'Original: ${original}';
+  String original({required Object original}) => 'Originalni naziv fajla: ${original}';
 }
 
 // Path: dialogs.historyClearDialog
@@ -1316,9 +1316,9 @@ class _TranslationsDialogsHistoryClearDialogSr extends TranslationsDialogsHistor
 
   // Translations
   @override
-  String get title => 'Očisti Istoriju';
+  String get title => 'Očistite istoriju';
   @override
-  String get content => 'Da li stvarno želiš da izbrišeš celu Istoriju?';
+  String get content => 'Želite li zaista da očistite čitavu istoriju?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1333,8 +1333,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedSr extends TranslationsDialogs
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description =>
-      'LocalSend ne može da nadje druge uredjaje bez dozvole da skenira lokalnu mrežu. Molim dodajte ovu dozvolu u Podešavanja.';
+  String get description => 'LocalSend ne može da pronađe druge uređaje bez dozvole za skeniranje lokalne mreže. Dajte ovu dozvolu u podešavanjima.';
   @override
   String get gotoSettings => 'Podešavanja';
 }
@@ -1349,9 +1348,9 @@ class _TranslationsDialogsMessageInputSr extends TranslationsDialogsMessageInput
 
   // Translations
   @override
-  String get title => 'Upiši poruku';
+  String get title => 'Napišite poruku';
   @override
-  String get multiline => 'Multiline';
+  String get multiline => 'Više redova';
 }
 
 // Path: dialogs.noFiles
@@ -1364,9 +1363,9 @@ class _TranslationsDialogsNoFilesSr extends TranslationsDialogsNoFilesEn {
 
   // Translations
   @override
-  String get title => 'Nijedan fajl nije izabran';
+  String get title => 'Nije izabran nijedan fajl';
   @override
-  String get content => 'Molim izaberite bar jedan fajl.';
+  String get content => 'Izaberite bar jedan fajl.';
 }
 
 // Path: dialogs.noPermission
@@ -1381,7 +1380,7 @@ class _TranslationsDialogsNoPermissionSr extends TranslationsDialogsNoPermission
   @override
   String get title => 'Nema dozvole';
   @override
-  String get content => 'Niste dodali neophodne dozvole. Molim dodajte ih u Podešavanja.';
+  String get content => 'Niste dali neophodne dozvole. Dajte ih u podešavanjima.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1396,7 +1395,7 @@ class _TranslationsDialogsNotAvailableOnPlatformSr extends TranslationsDialogsNo
   @override
   String get title => 'Nije dostupno';
   @override
-  String get content => 'Ova opcija je dostupna samo na:';
+  String get content => 'Ova funkcija je dostupna samo na:';
 }
 
 // Path: dialogs.qr
@@ -1409,7 +1408,7 @@ class _TranslationsDialogsQrSr extends TranslationsDialogsQrEn {
 
   // Translations
   @override
-  String get title => 'QR Code';
+  String get title => 'QR kôd';
 }
 
 // Path: dialogs.quickActions
@@ -1422,17 +1421,17 @@ class _TranslationsDialogsQuickActionsSr extends TranslationsDialogsQuickActions
 
   // Translations
   @override
-  String get title => 'Brze Akcije';
+  String get title => 'Brze radnje';
   @override
-  String get counter => 'Merač';
+  String get counter => 'Brojač';
   @override
   String get prefix => 'Prefiks';
   @override
-  String get padZero => 'Bez padding-a';
+  String get padZero => 'Dopuna nulama';
   @override
-  String get sortBeforeCount => 'Sortiraj po abecedi prethodno';
+  String get sortBeforeCount => 'Sortiraj unapred po abecedi (A-Z)';
   @override
-  String get random => 'Random';
+  String get random => 'Nasumično';
 }
 
 // Path: dialogs.quickSaveNotice
@@ -1447,7 +1446,7 @@ class _TranslationsDialogsQuickSaveNoticeSr extends TranslationsDialogsQuickSave
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => 'Zahtevi za slanje fajlova su automatski prihvaćeni. Primite k znanju da bilo ko na lokalnoj mreži može da vam pošalje fajl.';
+  String get content => 'Zahtevi za fajlove se sada automatski prihvataju. Imajte na umu da svi na lokalnoj mreži mogu da vam šalju fajlove.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1463,9 +1462,9 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSr extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-        'Zahtevi za primanje fajlova su automatski prihvaćeni od uredjaja u listi Omiljenih.',
-        'Upozorenje: Ovo trenutno nije potpuno bezbedno, jer napadač koji zna Fingerprint vašeg uredjaja u Omiljenima takodje može da vam pošalje fajl.',
-        'Ipak, ovo je i dalje sigurnije nego dozvoliti prijem sa svih uredjaja.',
+        'Zahtevi za fajlove se sada automatski prihvataju sa uređaja koji su na vašoj listi omiljenih.',
+        'Upozorenje! Trenutno, ovo nije potpuno bezbedno, jer haker koji ima otisak prsta bilo kog uređaja sa vaše liste omiljenih može da vam šalje fajlove bez ograničenja.',
+        'Ipak, ova opcija je i dalje bezbednija od dopuštanja svim korisnicima na lokalnoj mreži da vam šalju fajlove bez ograničenja.',
       ];
 }
 
@@ -1479,7 +1478,7 @@ class _TranslationsDialogsPinSr extends TranslationsDialogsPinEn {
 
   // Translations
   @override
-  String get title => 'Unesi PIN';
+  String get title => 'Unesite PIN';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1492,13 +1491,13 @@ class _TranslationsDialogsSendModeHelpSr extends TranslationsDialogsSendModeHelp
 
   // Translations
   @override
-  String get title => 'Mod za slanje';
+  String get title => 'Režimi slanja';
   @override
-  String get single => 'Pošalji fajlove jednom primaocu. Selekcija će biti resetovana nakon završenog slanja.';
+  String get single => 'Slanje fajlova jednom primaocu. Izbor će biti očišćen nakon završenog prenosa fajlova.';
   @override
-  String get multiple => 'Pošalji fajlove za više primalaca. Selekcija neće biti resetovana nakon završenog slanja.';
+  String get multiple => 'Slanje fajlova više primalaca. Izbor neće biti očišćen nakon završenog prenosa fajlova.';
   @override
-  String get link => 'Primaoci koji nemaju LocalSend instaliran, mogu da download-uju selektovane fajlove preko Linka u browseru.';
+  String get link => 'Primaoci koji nemaju instaliran LocalSend mogu preuzeti izabrane fajlove otvaranjem linka u svom pregledaču.';
 }
 
 // Path: dialogs.zoom
@@ -1524,11 +1523,11 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsSr extends TranslationsSet
 
   // Translations
   @override
-  String get system => 'Sistem';
+  String get system => 'Sistemska';
   @override
-  String get dark => 'Tamno';
+  String get dark => 'Tamna';
   @override
-  String get light => 'Svetlo';
+  String get light => 'Svetla';
 }
 
 // Path: settingsTab.general.colorOptions
@@ -1541,7 +1540,7 @@ class _TranslationsSettingsTabGeneralColorOptionsSr extends TranslationsSettings
 
   // Translations
   @override
-  String get system => 'Sistem';
+  String get system => 'Sistemska';
   @override
   String get oled => 'OLED';
 }
@@ -1556,7 +1555,7 @@ class _TranslationsSettingsTabGeneralLanguageOptionsSr extends TranslationsSetti
 
   // Translations
   @override
-  String get system => 'Sistem';
+  String get system => 'Sistemski';
 }
 
 // Path: progressPage.total.title
@@ -1569,11 +1568,11 @@ class _TranslationsProgressPageTotalTitleSr extends TranslationsProgressPageTota
 
   // Translations
   @override
-  String sending({required Object time}) => 'Ukupan progres (${time})';
+  String sending({required Object time}) => 'Ukupan napredak (${time})';
   @override
   String get finishedError => 'Završeno sa greškom';
   @override
-  String get canceledSender => 'Pošiljalac odustao';
+  String get canceledSender => 'Pošiljalac je otkazao';
   @override
-  String get canceledReceiver => 'Primalac odustao';
+  String get canceledReceiver => 'Primalac je otkazao';
 }

@@ -25,8 +25,8 @@
     "title": "Enviar",
     "selection": {
       "title": "Selección",
-      "files": "Ficheiros: {ficheiros}",
-      "size": "Tamaño: {tamaño}"
+      "files": "Ficheiros: {files}",
+      "size": "Tamaño: {size}"
     },
     "nearbyDevices": "Dispositivos Próximos",
     "thisDevice": "Este Dispositivo",

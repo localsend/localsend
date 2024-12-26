@@ -28,7 +28,6 @@
     "receive": {
       "title": "Авах",
       "quickSave": "@:general.quickSave",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "destination": "Хавтаст хадгалах",
       "downloads": "(Татсан файлууд)",
       "saveToGallery": "Зургийн санд хадгалах",
@@ -124,8 +123,7 @@
   "sendPage": {
     "rejected": "Хүлээн авагч хүсэлтйиг татгалзлаа.",
     "busy": "Хүлээн авагч өөр хүсэлт авсан тул завгүй байна.",
-    "waiting": "Хариу хүлээж байна…",
-    "tooManyAttempts": "@:web.tooManyAttempts"
+    "waiting": "Хариу хүлээж байна…"
   },
   "progressPage": {
     "titleSending": "Файлууд илгээж байна",

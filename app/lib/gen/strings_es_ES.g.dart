@@ -164,7 +164,7 @@ class _TranslationsGeneralEsEs extends TranslationsGeneralEn {
   @override
   String get unknown => 'Desconocido';
   @override
-  String get noItemInClipboard => 'No hay ningún elemento en el portapapeles';
+  String get noItemInClipboard => 'No hay ningún elemento en el portapapeles.';
 }
 
 // Path: receiveTab
@@ -378,7 +378,7 @@ class _TranslationsSendPageEsEs extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Esperando respuesta...';
+  String get waiting => 'Esperando respuesta…';
   @override
   String get rejected => 'El destino ha rechazado la petición.';
   @override
@@ -418,9 +418,9 @@ class _TranslationsWebSharePageEsEs extends TranslationsWebSharePageEn {
   @override
   String get title => 'Compartir mediante enlace';
   @override
-  String get loading => 'Iniciando servidor...';
+  String get loading => 'Iniciando servidor…';
   @override
-  String get stopping => 'Deteniendo servidor...';
+  String get stopping => 'Deteniendo servidor…';
   @override
   String get error => 'Se ha producido un error al iniciar el servidor.';
   @override
@@ -670,7 +670,7 @@ class _TranslationsAssetPickerEsEs extends TranslationsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tipo de archivo no soportado.';
   @override
-  String get unableToAccessAll => 'No se puede acceder a los archivos del dispositivo.';
+  String get unableToAccessAll => 'No se puede acceder a todos los archivos del dispositivo';
   @override
   String get viewingLimitedAssetsTip => 'Ver solo los archivos y álbumes accesibles para la aplicación.';
   @override
@@ -894,7 +894,7 @@ class _TranslationsSettingsTabNetworkEsEs extends TranslationsSettingsTabNetwork
   @override
   String get title => 'Red';
   @override
-  String get needRestart => 'Reiniciar el servidor para aplicar los ajustes.';
+  String get needRestart => '¡Reinicia el servidor para aplicar los ajustes!';
   @override
   String get server => 'Servidor';
   @override
@@ -1393,7 +1393,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeEsEs extends TranslationsD
   List<String> get content => [
         'Se aceptarán automáticamente los archivos recibidos de los dispositivos incluidos en su lista de favoritos.',
         'Advertencia: esta opción no es completamente segura, cualquiera que conozca la huella digital de sus dispositivos favoritos aún puede enviarle archivos.',
-        'Sin embargo, esta opción sigue siendo más segura que permitir cualquier dispositivo',
+        'Sin embargo, esta opción sigue siendo más segura que permitir que todos los usuarios en la red local te envíen archivos sin restricción.',
       ];
 }
 
