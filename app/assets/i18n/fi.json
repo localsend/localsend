@@ -28,6 +28,7 @@
     "open": "Avaa",
     "queue": "Jono",
     "quickSave": "Pikatallennus",
+    "quickSaveFromFavorites": "Pikatallennus suosikeiksi",
     "renamed": "Nimetty uudelleen",
     "reset": "Nollaa",
     "restart": "Käynnistä uudelleen",
@@ -38,8 +39,7 @@
     "save": "Tallenna",
     "unchanged": "Muuttumaton",
     "unknown": "Tuntematon",
-    "noItemInClipboard": "Leikepöydällä ei ole mitään",
-    "quickSaveFromFavorites": "Pikatallennus suosikeiksi"
+    "noItemInClipboard": "Leikepöydällä ei ole mitään"
   },
   "receiveTab": {
     "title": "Ota Vastaan",
@@ -71,6 +71,7 @@
     "nearbyDevices": "Lähellä olevat laitteet",
     "thisDevice": "Tämä laite",
     "scan": "Etsi laitteita",
+    "manualSending": "Manuaalinen lähetys",
     "sendMode": "Lähetystapa",
     "sendModes": {
       "single": "Yksi vastaanottaja",
@@ -79,8 +80,7 @@
     },
     "sendModeHelp": "Selitys",
     "help": "Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.",
-    "placeItems": "Lissä tiedostot tähän, jakaaksesi ne.",
-    "manualSending": "Manuaalinen lähetys"
+    "placeItems": "Lissä tiedostot tähän, jakaaksesi ne."
   },
   "settingsTab": {
     "title": "Asetukset",
@@ -102,12 +102,12 @@
         "system": "Järjestelmä"
       },
       "saveWindowPlacement": "Poistu: Tallenna ikkunan sijainti",
+      "saveWindowPlacementWindows": "Tallenna ikkunan sijainti poistumisen jälkeen",
       "minimizeToTray": "Poistu: Minimoi ilmoitusalueelle",
       "launchAtStartup": "Automaattinen käynnistys",
       "launchMinimized": "Automaattinen käynnistys: Käynnistä piiilotettuna",
-      "animations": "Animaatiot",
-      "saveWindowPlacementWindows": "Tallenna ikkunan sijainti poistumisen jälkeen",
-      "showInContextMenu": "Näytä LocalSend kontekstivalikossa"
+      "showInContextMenu": "Näytä LocalSend kontekstivalikossa",
+      "animations": "Animaatiot"
     },
     "receive": {
       "title": "Vastaanotto",
@@ -131,12 +131,12 @@
       "deviceModel": "Laitteen malli",
       "port": "Portti",
       "discoveryTimeout": "Laitteiden etsintäaika",
+      "useSystemName": "Käytä järjestelmän nimeä",
+      "generateRandomAlias": "Luo satunnainen alias",
       "portWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua porttia. (oletus: {defaultPort})",
       "encryption": "Salaus",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: {defaultMulticast})",
-      "useSystemName": "Käytä järjestelmän nimeä",
-      "generateRandomAlias": "Luo satunnainen alias"
+      "multicastGroupWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: {defaultMulticast})"
     },
     "other": {
       "title": "Muut",
@@ -157,13 +157,13 @@
       "solution": "Tämä on todennäköisesti palomuuriongelma. Voit ratkaista tämän sallimalla saapuvat yhteydet (UDP ja TCP) porttiin {port}.",
       "openFirewall": "Avaa palomuuri"
     },
-    "noConnection": {
-      "symptom": "Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.",
-      "solution": "Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä."
-    },
     "noDiscovery": {
       "symptom": "Tämä laite ei pysty löytämään muita laitteita.",
       "solution": "Varmista, että kaikki laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, monilähetysosoite, salaus). Voit yrittää kirjoittaa kohdelaitteen IP-osoitteen manuaalisesti. Jos tämä toimii, harkitse tämän laitteen lisäämistä suosikkeihin, jotta se voidaan löytää automaattisesti tulevaisuudessa."
+    },
+    "noConnection": {
+      "symptom": "Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.",
+      "solution": "Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä."
     }
   },
   "receiveHistoryPage": {
@@ -173,9 +173,9 @@
     "empty": "Historia on tyhjä.",
     "entryActions": {
       "open": "Avaa tiedosto",
+      "showInFolder": "Näytä kansiossa",
       "info": "Tiedot",
-      "deleteFromHistory": "Poista historiasta",
-      "showInFolder": "Näytä kansiossa"
+      "deleteFromHistory": "Poista historiasta"
     }
   },
   "apkPickerPage": {
@@ -237,10 +237,10 @@
     "noRequests": "Ei pyyntöjä vielä.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Hyväksy pyynnöt automaattisesti",
-    "encryptionHint": "LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.",
-    "pendingRequests": "Odottavat pyynnöt: {n}",
     "requirePin": "Vaadi PIN",
-    "pinHint": "PIN-koodi on \"{pin}\""
+    "pinHint": "PIN-koodi on \"{pin}\"",
+    "encryptionHint": "LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.",
+    "pendingRequests": "Odottavat pyynnöt: {n}"
   },
   "aboutPage": {
     "title": "Tietoja LocalSendista",
@@ -250,8 +250,8 @@
     ],
     "author": "Tekijä",
     "contributors": "Avustajat",
-    "translators": "Kääntäjät",
-    "packagers": "Pakkaajat"
+    "packagers": "Pakkaajat",
+    "translators": "Kääntäjät"
   },
   "donationPage": {
     "title": "Lahjoita",
@@ -348,6 +348,10 @@
       "title": "Lisää valintaan",
       "content": "Mitä haluat lisätä?"
     },
+    "openFile": {
+      "title": "Avaa tiedosto",
+      "content": "Haluatko avata vastaanotetun tiedoston?"
+    },
     "addressInput": {
       "title": "Anna osoite",
       "hashtag": "Hashtag",
@@ -438,19 +442,6 @@
       "title": "Pikatallennus",
       "content": "Tiedostopyynnöt hyväksytään automaattisesti. Huomaa, että kuka tahansa paikallisverkossa voi lähettää sinulle tiedostoja."
     },
-    "sendModeHelp": {
-      "title": "Lähetystilat",
-      "single": "Lähettää tiedostoja yhdelle vastaanottajalle. Valinta tyhjennetään tiedostonsiirron päätyttyä.",
-      "multiple": "Lähettää tiedostoja useille vastaanottajille. Valinta ei tyhjene.",
-      "link": "Vastaanottajat, joilla ei ole LocalSendia asennettuna, voivat ladata valitut tiedostot avaamalla linkin selaimessaan."
-    },
-    "zoom": {
-      "title": "URL"
-    },
-    "openFile": {
-      "title": "Avaa tiedosto",
-      "content": "Haluatko avata vastaanotetun tiedoston?"
-    },
     "quickSaveFromFavoritesNotice": {
       "content": [
         "Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.",
@@ -460,6 +451,15 @@
     },
     "pin": {
       "title": "Syötä PIN-koodi"
+    },
+    "sendModeHelp": {
+      "title": "Lähetystilat",
+      "single": "Lähettää tiedostoja yhdelle vastaanottajalle. Valinta tyhjennetään tiedostonsiirron päätyttyä.",
+      "multiple": "Lähettää tiedostoja useille vastaanottajille. Valinta ei tyhjene.",
+      "link": "Vastaanottajat, joilla ei ole LocalSendia asennettuna, voivat ladata valitut tiedostot avaamalla linkin selaimessaan."
+    },
+    "zoom": {
+      "title": "URL"
     }
   },
   "sanitization": {
@@ -474,13 +474,13 @@
   },
   "web": {
     "waiting": "Odotetaan vastausta...",
+    "enterPin": "Syötä PIN-koodi",
+    "invalidPin": "Virheellinen PIN-koodi",
+    "tooManyAttempts": "Liian monta yritystä",
     "rejected": "Hylätty",
     "files": "Tiedostot",
     "fileName": "Tiedoston nimi",
-    "size": "Koko",
-    "enterPin": "Syötä PIN-koodi",
-    "invalidPin": "Virheellinen PIN-koodi",
-    "tooManyAttempts": "Liian monta yritystä"
+    "size": "Koko"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",

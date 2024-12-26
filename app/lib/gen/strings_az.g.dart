@@ -37,11 +37,11 @@ class TranslationsAz extends Translations {
   @override
   late final _TranslationsGeneralAz general = _TranslationsGeneralAz._(_root);
   @override
+  late final _TranslationsReceiveTabAz receiveTab = _TranslationsReceiveTabAz._(_root);
+  @override
   late final _TranslationsSendTabAz sendTab = _TranslationsSendTabAz._(_root);
   @override
   late final _TranslationsSettingsTabAz settingsTab = _TranslationsSettingsTabAz._(_root);
-  @override
-  late final _TranslationsReceiveTabAz receiveTab = _TranslationsReceiveTabAz._(_root);
 }
 
 // Path: general
@@ -78,6 +78,8 @@ class _TranslationsGeneralAz extends TranslationsGeneralEn {
   @override
   String get done => 'Bitdi';
   @override
+  String get delete => 'Sil';
+  @override
   String get edit => 'Düzəliş et';
   @override
   String get error => 'Xəta';
@@ -108,11 +110,9 @@ class _TranslationsGeneralAz extends TranslationsGeneralEn {
   @override
   String get renamed => 'Təkrar adlandırıldı';
   @override
-  String get restart => 'Təkrar başlat';
-  @override
-  String get delete => 'Sil';
-  @override
   String get reset => 'Dəyişiklikləri geri al';
+  @override
+  String get restart => 'Təkrar başlat';
   @override
   String get settings => 'Tənzimləmələr';
   @override
@@ -129,60 +129,6 @@ class _TranslationsGeneralAz extends TranslationsGeneralEn {
   String get unknown => 'Naməlum';
   @override
   String get noItemInClipboard => 'Buferdə element yoxdur.';
-}
-
-// Path: sendTab
-class _TranslationsSendTabAz extends TranslationsSendTabEn {
-  _TranslationsSendTabAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsAz _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _TranslationsSendTabPickerAz picker = _TranslationsSendTabPickerAz._(_root);
-  @override
-  String get title => 'Göndər';
-  @override
-  late final _TranslationsSendTabSelectionAz selection = _TranslationsSendTabSelectionAz._(_root);
-  @override
-  String get help => 'Xahiş olunur, əmin olun ki, istədiyiniz hədəf eyni Wi-Fi şəbəkəsindədir.';
-  @override
-  String get nearbyDevices => 'Yaxınlıqdakı cihazlar';
-  @override
-  String get thisDevice => 'Bu Cihaz';
-  @override
-  String get scan => 'Cihazları axtar';
-  @override
-  String get manualSending => 'Özünüz göndərin';
-  @override
-  String get sendMode => 'Göndərmə üsulu';
-  @override
-  late final _TranslationsSendTabSendModesAz sendModes = _TranslationsSendTabSendModesAz._(_root);
-  @override
-  String get sendModeHelp => 'İzahat';
-  @override
-  String get placeItems => 'Paylaşmaq üçün elementləri yerləşdir.';
-  @override
-  String get shareIntentInfo => 'Faylları daha rahat seçmək üçün mobil cihazınızın "Paylaş" xüsusiyyətin də istifadə edə bilərsiniz.';
-}
-
-// Path: settingsTab
-class _TranslationsSettingsTabAz extends TranslationsSettingsTabEn {
-  _TranslationsSettingsTabAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsAz _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Tənzimləmələr';
-  @override
-  late final _TranslationsSettingsTabGeneralAz general = _TranslationsSettingsTabGeneralAz._(_root);
-  @override
-  late final _TranslationsSettingsTabReceiveAz receive = _TranslationsSettingsTabReceiveAz._(_root);
 }
 
 // Path: receiveTab
@@ -202,9 +148,9 @@ class _TranslationsReceiveTabAz extends TranslationsReceiveTabEn {
   late final _TranslationsReceiveTabQuickSaveAz quickSave = _TranslationsReceiveTabQuickSaveAz._(_root);
 }
 
-// Path: sendTab.picker
-class _TranslationsSendTabPickerAz extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerAz._(TranslationsAz root)
+// Path: sendTab
+class _TranslationsSendTabAz extends TranslationsSendTabEn {
+  _TranslationsSendTabAz._(TranslationsAz root)
       : this._root = root,
         super.internal(root);
 
@@ -212,22 +158,36 @@ class _TranslationsSendTabPickerAz extends TranslationsSendTabPickerEn {
 
   // Translations
   @override
-  String get folder => 'Qovluq';
+  String get title => 'Göndər';
   @override
-  String get file => 'Fayl';
+  late final _TranslationsSendTabSelectionAz selection = _TranslationsSendTabSelectionAz._(_root);
   @override
-  String get media => 'Media';
+  late final _TranslationsSendTabPickerAz picker = _TranslationsSendTabPickerAz._(_root);
   @override
-  String get text => 'Mətn';
+  String get shareIntentInfo => 'Faylları daha rahat seçmək üçün mobil cihazınızın "Paylaş" xüsusiyyətin də istifadə edə bilərsiniz.';
   @override
-  String get app => 'Tətbiq';
+  String get nearbyDevices => 'Yaxınlıqdakı cihazlar';
   @override
-  String get clipboard => 'Yapışdır';
+  String get thisDevice => 'Bu Cihaz';
+  @override
+  String get scan => 'Cihazları axtar';
+  @override
+  String get manualSending => 'Özünüz göndərin';
+  @override
+  String get sendMode => 'Göndərmə üsulu';
+  @override
+  late final _TranslationsSendTabSendModesAz sendModes = _TranslationsSendTabSendModesAz._(_root);
+  @override
+  String get sendModeHelp => 'İzahat';
+  @override
+  String get help => 'Xahiş olunur, əmin olun ki, istədiyiniz hədəf eyni Wi-Fi şəbəkəsindədir.';
+  @override
+  String get placeItems => 'Paylaşmaq üçün elementləri yerləşdir.';
 }
 
-// Path: sendTab.selection
-class _TranslationsSendTabSelectionAz extends TranslationsSendTabSelectionEn {
-  _TranslationsSendTabSelectionAz._(TranslationsAz root)
+// Path: settingsTab
+class _TranslationsSettingsTabAz extends TranslationsSettingsTabEn {
+  _TranslationsSettingsTabAz._(TranslationsAz root)
       : this._root = root,
         super.internal(root);
 
@@ -235,86 +195,11 @@ class _TranslationsSendTabSelectionAz extends TranslationsSendTabSelectionEn {
 
   // Translations
   @override
-  String get title => 'Seçilmə';
+  String get title => 'Tənzimləmələr';
   @override
-  String files({required Object files}) => 'Fayllar: ${files}';
+  late final _TranslationsSettingsTabGeneralAz general = _TranslationsSettingsTabGeneralAz._(_root);
   @override
-  String size({required Object size}) => 'Həcm: ${size}';
-}
-
-// Path: sendTab.sendModes
-class _TranslationsSendTabSendModesAz extends TranslationsSendTabSendModesEn {
-  _TranslationsSendTabSendModesAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsAz _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get single => 'Tək qəbul edən';
-  @override
-  String get multiple => 'Çoxsaylı alıcılar';
-  @override
-  String get link => 'Bağlantıdan paylaş';
-}
-
-// Path: settingsTab.general
-class _TranslationsSettingsTabGeneralAz extends TranslationsSettingsTabGeneralEn {
-  _TranslationsSettingsTabGeneralAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsAz _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get language => 'Dil';
-  @override
-  late final _TranslationsSettingsTabGeneralBrightnessOptionsAz brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsAz._(_root);
-  @override
-  String get title => 'Ümumi';
-  @override
-  String get brightness => 'Tema';
-  @override
-  String get color => 'Rəng';
-  @override
-  late final _TranslationsSettingsTabGeneralColorOptionsAz colorOptions = _TranslationsSettingsTabGeneralColorOptionsAz._(_root);
-  @override
-  String get saveWindowPlacement => 'Çıxdıqdan sonra pəncərə mövqeyini saxla';
-  @override
-  String get saveWindowPlacementWindows => 'Çıxış sonrası pəncərə mövqeyin saxla';
-  @override
-  String get minimizeToTray => 'Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt';
-  @override
-  String get launchAtStartup => 'Girişdən sonra birbaşa başlat';
-  @override
-  String get launchMinimized => 'Birbaşa başlat: Gizli başlat';
-  @override
-  String get showInContextMenu => 'Məzmun menyusunda LocalSend-i göstər';
-  @override
-  String get animations => 'Animasiyalar';
-  @override
-  late final _TranslationsSettingsTabGeneralLanguageOptionsAz languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsAz._(_root);
-}
-
-// Path: settingsTab.receive
-class _TranslationsSettingsTabReceiveAz extends TranslationsSettingsTabReceiveEn {
-  _TranslationsSettingsTabReceiveAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsAz _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Qəbul et';
-  @override
-  String get quickSave => _root.general.quickSave;
-  @override
-  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
-  @override
-  String get autoFinish => 'Avtomatik Bitirmə';
+  late final _TranslationsSettingsTabReceiveAz receive = _TranslationsSettingsTabReceiveAz._(_root);
 }
 
 // Path: receiveTab.infoBox
@@ -349,6 +234,121 @@ class _TranslationsReceiveTabQuickSaveAz extends TranslationsReceiveTabQuickSave
   String get favorites => 'Sevimlilər';
   @override
   String get on => _root.general.on;
+}
+
+// Path: sendTab.selection
+class _TranslationsSendTabSelectionAz extends TranslationsSendTabSelectionEn {
+  _TranslationsSendTabSelectionAz._(TranslationsAz root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Seçilmə';
+  @override
+  String files({required Object files}) => 'Fayllar: ${files}';
+  @override
+  String size({required Object size}) => 'Həcm: ${size}';
+}
+
+// Path: sendTab.picker
+class _TranslationsSendTabPickerAz extends TranslationsSendTabPickerEn {
+  _TranslationsSendTabPickerAz._(TranslationsAz root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get file => 'Fayl';
+  @override
+  String get folder => 'Qovluq';
+  @override
+  String get media => 'Media';
+  @override
+  String get text => 'Mətn';
+  @override
+  String get app => 'Tətbiq';
+  @override
+  String get clipboard => 'Yapışdır';
+}
+
+// Path: sendTab.sendModes
+class _TranslationsSendTabSendModesAz extends TranslationsSendTabSendModesEn {
+  _TranslationsSendTabSendModesAz._(TranslationsAz root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get single => 'Tək qəbul edən';
+  @override
+  String get multiple => 'Çoxsaylı alıcılar';
+  @override
+  String get link => 'Bağlantıdan paylaş';
+}
+
+// Path: settingsTab.general
+class _TranslationsSettingsTabGeneralAz extends TranslationsSettingsTabGeneralEn {
+  _TranslationsSettingsTabGeneralAz._(TranslationsAz root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ümumi';
+  @override
+  String get brightness => 'Tema';
+  @override
+  late final _TranslationsSettingsTabGeneralBrightnessOptionsAz brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsAz._(_root);
+  @override
+  String get color => 'Rəng';
+  @override
+  late final _TranslationsSettingsTabGeneralColorOptionsAz colorOptions = _TranslationsSettingsTabGeneralColorOptionsAz._(_root);
+  @override
+  String get language => 'Dil';
+  @override
+  late final _TranslationsSettingsTabGeneralLanguageOptionsAz languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsAz._(_root);
+  @override
+  String get saveWindowPlacement => 'Çıxdıqdan sonra pəncərə mövqeyini saxla';
+  @override
+  String get saveWindowPlacementWindows => 'Çıxış sonrası pəncərə mövqeyin saxla';
+  @override
+  String get minimizeToTray => 'Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt';
+  @override
+  String get launchAtStartup => 'Girişdən sonra birbaşa başlat';
+  @override
+  String get launchMinimized => 'Birbaşa başlat: Gizli başlat';
+  @override
+  String get showInContextMenu => 'Məzmun menyusunda LocalSend-i göstər';
+  @override
+  String get animations => 'Animasiyalar';
+}
+
+// Path: settingsTab.receive
+class _TranslationsSettingsTabReceiveAz extends TranslationsSettingsTabReceiveEn {
+  _TranslationsSettingsTabReceiveAz._(TranslationsAz root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Qəbul et';
+  @override
+  String get quickSave => _root.general.quickSave;
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
+  String get autoFinish => 'Avtomatik Bitirmə';
 }
 
 // Path: settingsTab.general.brightnessOptions

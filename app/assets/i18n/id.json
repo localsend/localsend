@@ -49,9 +49,9 @@
       "alias": "Nama perangkat:"
     },
     "quickSave": {
+      "off": "@:general.off",
       "favorites": "Favorit",
-      "on": "@:general.on",
-      "off": "@:general.off"
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -268,10 +268,17 @@
   "changelogPage": {
     "title": "Catatan Perubahan"
   },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Bahasa lokal yang berbeda mungkin memiliki kata-kata yang berbeda, mungkin tidak sama persis 1:1"
+  },
   "dialogs": {
     "addFile": {
       "title": "Tambahkan dalam pilihan",
       "content": "Apa yang ingin Anda tambahkan?"
+    },
+    "openFile": {
+      "title": "Buka berkas",
+      "content": "Anda ingin membuka berkas yang diterima?"
     },
     "addressInput": {
       "title": "Masukkan Alamat",
@@ -382,10 +389,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "openFile": {
-      "title": "Buka berkas",
-      "content": "Anda ingin membuka berkas yang diterima?"
     }
   },
   "sanitization": {
@@ -438,81 +441,5 @@
     "sActionUseCameraHint": "Gunakan kamera",
     "sNameDurationLabel": "Durasi",
     "sUnitAssetCountLabel": "Jumlah"
-  },
-  "aliasGenerator": {
-    "@info": "Lokasi yang berbeda mungkin memiliki kata yang berbeda, memungkinkan ketidakcocokan 1:1",
-    "adjectives": [
-      "Menarik",
-      "Cantik",
-      "Besar",
-      "Cerah",
-      "Bersih",
-      "Cerdik",
-      "Keren",
-      "Imut",
-      "Licik",
-      "Tekun",
-      "Giat",
-      "Efisien",
-      "Luar biasa",
-      "Cepat",
-      "Baik",
-      "Segar",
-      "Bagus",
-      "Menawan",
-      "Sangat Bagus",
-      "Tampan",
-      "Panas",
-      "Baik",
-      "Menyenangkan",
-      "Mistik",
-      "Rapi",
-      "Bagus",
-      "Sabar",
-      "Cantik",
-      "Kuat",
-      "Kaya",
-      "Rahasia",
-      "Cerdas",
-      "Kukuh",
-      "Khusus",
-      "Strategis",
-      "Tangguh",
-      "Rapi",
-      "Bijak"
-    ],
-    "fruits": [
-      "Apel",
-      "Alpukat",
-      "Pisang",
-      "Blackberry",
-      "Bluberi",
-      "Brokoli",
-      "Wortel",
-      "Ceri",
-      "Kelapa",
-      "Anggur",
-      "Lemon",
-      "Selada",
-      "Mangga",
-      "Melon",
-      "Jamur",
-      "Bawang",
-      "Jeruk",
-      "Pepaya",
-      "Persik",
-      "Pir",
-      "Nanas",
-      "Kentang",
-      "Labu",
-      "Rasberi",
-      "Stroberi",
-      "Tomat"
-    ],
-    "combination": "{fruit} {adjective}",
-    "@combination": "Pada beberapa bahasa, kata sifat harus diletakkan terakhir."
-  },
-  "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Bahasa lokal yang berbeda mungkin memiliki kata-kata yang berbeda, mungkin tidak sama persis 1:1"
   }
 }

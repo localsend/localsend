@@ -677,7 +677,7 @@ class _TranslationsAssetPickerDe extends TranslationsAssetPickerEn {
   String get changeAccessibleLimitedAssets => 'Tippen, um erlaubte Dateien zu aktualisieren';
   @override
   String get accessAllTip =>
-      'Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlauben der App, \nauf alle Dateien auf dem Gerät zuzugreifen';
+      'Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlaube der App, auf alle Dateien auf dem Gerät zuzugreifen.';
   @override
   String get goToSystemSettings => 'Gehe zu den Systemeinstellungen';
   @override

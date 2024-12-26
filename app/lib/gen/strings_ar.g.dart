@@ -92,7 +92,7 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get accept => 'قبول';
   @override
-  String get accepted => 'تم قبولها';
+  String get accepted => 'قُبلت';
   @override
   String get add => 'إضافة';
   @override
@@ -180,6 +180,8 @@ class _TranslationsReceiveTabAr extends TranslationsReceiveTabEn {
   String get title => 'استلام';
   @override
   late final _TranslationsReceiveTabInfoBoxAr infoBox = _TranslationsReceiveTabInfoBoxAr._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveAr quickSave = _TranslationsReceiveTabQuickSaveAr._(_root);
 }
 
 // Path: sendTab
@@ -602,6 +604,8 @@ class _TranslationsDialogsAr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileAr addFile = _TranslationsDialogsAddFileAr._(_root);
   @override
+  late final _TranslationsDialogsOpenFileAr openFile = _TranslationsDialogsOpenFileAr._(_root);
+  @override
   late final _TranslationsDialogsAddressInputAr addressInput = _TranslationsDialogsAddressInputAr._(_root);
   @override
   late final _TranslationsDialogsCancelSessionAr cancelSession = _TranslationsDialogsCancelSessionAr._(_root);
@@ -791,7 +795,24 @@ class _TranslationsReceiveTabInfoBoxAr extends TranslationsReceiveTabInfoBoxEn {
   @override
   String get port => 'منفذ:';
   @override
-  String get alias => 'اسم مستعار:';
+  String get alias => 'اسم الجهاز:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveAr extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveAr._(TranslationsAr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'المفضلات';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -960,6 +981,10 @@ class _TranslationsSettingsTabNetworkAr extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'مهلة الاكتشاف';
   @override
+  String get useSystemName => 'استخدم اسم النظام';
+  @override
+  String get generateRandomAlias => 'ولّد كنية عشوائية';
+  @override
   String portWarning({required Object defaultPort}) =>
       'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: ${defaultPort})';
   @override
@@ -1093,6 +1118,21 @@ class _TranslationsDialogsAddFileAr extends TranslationsDialogsAddFileEn {
   String get title => 'أضف إلى الاختيار';
   @override
   String get content => 'ماذا تريد أن تضيف؟';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileAr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileAr._(TranslationsAr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'افتح الملف';
+  @override
+  String get content => 'هل تريد فتح الملف المستلم؟';
 }
 
 // Path: dialogs.addressInput
@@ -1419,6 +1459,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeAr extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك.',
+        'تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلة لديك أن يرسل لك ملفات دون قيود.',
+        'ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود.',
+      ];
 }
 
 // Path: dialogs.pin

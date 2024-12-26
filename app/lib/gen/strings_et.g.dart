@@ -31,53 +31,53 @@ class TranslationsEt extends Translations {
 
   // Translations
   @override
+  String get locale => 'Eesti keel';
+  @override
   String get appName => 'LocalSend';
   @override
   late final _TranslationsGeneralEt general = _TranslationsGeneralEt._(_root);
   @override
-  String get locale => 'Eesti keel';
-  @override
-  late final _TranslationsSettingsTabEt settingsTab = _TranslationsSettingsTabEt._(_root);
+  late final _TranslationsReceiveTabEt receiveTab = _TranslationsReceiveTabEt._(_root);
   @override
   late final _TranslationsSendTabEt sendTab = _TranslationsSendTabEt._(_root);
   @override
-  late final _TranslationsReceiveOptionsPageEt receiveOptionsPage = _TranslationsReceiveOptionsPageEt._(_root);
-  @override
-  late final _TranslationsReceivePageEt receivePage = _TranslationsReceivePageEt._(_root);
+  late final _TranslationsSettingsTabEt settingsTab = _TranslationsSettingsTabEt._(_root);
   @override
   late final _TranslationsTroubleshootPageEt troubleshootPage = _TranslationsTroubleshootPageEt._(_root);
   @override
-  late final _TranslationsSendPageEt sendPage = _TranslationsSendPageEt._(_root);
-  @override
-  late final _TranslationsDonationPageEt donationPage = _TranslationsDonationPageEt._(_root);
-  @override
   late final _TranslationsReceiveHistoryPageEt receiveHistoryPage = _TranslationsReceiveHistoryPageEt._(_root);
-  @override
-  late final _TranslationsAboutPageEt aboutPage = _TranslationsAboutPageEt._(_root);
-  @override
-  late final _TranslationsProgressPageEt progressPage = _TranslationsProgressPageEt._(_root);
-  @override
-  late final _TranslationsReceiveTabEt receiveTab = _TranslationsReceiveTabEt._(_root);
   @override
   late final _TranslationsApkPickerPageEt apkPickerPage = _TranslationsApkPickerPageEt._(_root);
   @override
   late final _TranslationsSelectedFilesPageEt selectedFilesPage = _TranslationsSelectedFilesPageEt._(_root);
   @override
+  late final _TranslationsReceivePageEt receivePage = _TranslationsReceivePageEt._(_root);
+  @override
+  late final _TranslationsReceiveOptionsPageEt receiveOptionsPage = _TranslationsReceiveOptionsPageEt._(_root);
+  @override
+  late final _TranslationsSendPageEt sendPage = _TranslationsSendPageEt._(_root);
+  @override
+  late final _TranslationsProgressPageEt progressPage = _TranslationsProgressPageEt._(_root);
+  @override
+  late final _TranslationsWebSharePageEt webSharePage = _TranslationsWebSharePageEt._(_root);
+  @override
+  late final _TranslationsAboutPageEt aboutPage = _TranslationsAboutPageEt._(_root);
+  @override
+  late final _TranslationsDonationPageEt donationPage = _TranslationsDonationPageEt._(_root);
+  @override
   late final _TranslationsChangelogPageEt changelogPage = _TranslationsChangelogPageEt._(_root);
   @override
   late final _TranslationsAliasGeneratorEt aliasGenerator = _TranslationsAliasGeneratorEt._(_root);
+  @override
+  late final _TranslationsDialogsEt dialogs = _TranslationsDialogsEt._(_root);
+  @override
+  late final _TranslationsSanitizationEt sanitization = _TranslationsSanitizationEt._(_root);
   @override
   late final _TranslationsTrayEt tray = _TranslationsTrayEt._(_root);
   @override
   late final _TranslationsWebEt web = _TranslationsWebEt._(_root);
   @override
-  late final _TranslationsDialogsEt dialogs = _TranslationsDialogsEt._(_root);
-  @override
   late final _TranslationsAssetPickerEt assetPicker = _TranslationsAssetPickerEt._(_root);
-  @override
-  late final _TranslationsWebSharePageEt webSharePage = _TranslationsWebSharePageEt._(_root);
-  @override
-  late final _TranslationsSanitizationEt sanitization = _TranslationsSanitizationEt._(_root);
 }
 
 // Path: general
@@ -90,29 +90,29 @@ class _TranslationsGeneralEt extends TranslationsGeneralEn {
 
   // Translations
   @override
-  String get add => 'Lisa';
-  @override
   String get accept => 'Nõustu';
   @override
-  String get skipped => 'Vahelejäetud';
+  String get accepted => 'Nõustusid';
   @override
-  String get copy => 'Kopeeri';
+  String get add => 'Lisa';
   @override
-  String get on => 'Sees';
-  @override
-  String get unknown => 'Teadmata';
-  @override
-  String get noItemInClipboard => 'Lõikelaual pole midagi.';
+  String get advanced => 'Lisavalikud';
   @override
   String get cancel => 'Katkesta';
   @override
-  String get done => 'Valmis';
-  @override
   String get close => 'Sulge';
+  @override
+  String get confirm => 'Kinnita';
   @override
   String get continueStr => 'Jätka';
   @override
-  String get start => 'Alusta';
+  String get copy => 'Kopeeri';
+  @override
+  String get copiedToClipboard => 'Kopeeritud lõikelauale';
+  @override
+  String get decline => 'Keeldu';
+  @override
+  String get done => 'Valmis';
   @override
   String get delete => 'Kustuta';
   @override
@@ -120,29 +120,19 @@ class _TranslationsGeneralEt extends TranslationsGeneralEn {
   @override
   String get error => 'Viga';
   @override
-  String get hide => 'Peida';
-  @override
-  String get unchanged => 'Muutmata';
-  @override
-  String get copiedToClipboard => 'Kopeeritud lõikelauale';
-  @override
-  String get accepted => 'Nõustusid';
-  @override
-  String get advanced => 'Lisavalikud';
-  @override
-  String get confirm => 'Kinnita';
-  @override
-  String get decline => 'Keeldu';
-  @override
   String get example => 'Näide';
   @override
   String get files => 'Failid';
   @override
   String get finished => 'Valmis';
   @override
+  String get hide => 'Peida';
+  @override
   String get off => 'Väljas';
   @override
   String get offline => 'Pole võrgus';
+  @override
+  String get on => 'Sees';
   @override
   String get online => 'Võrgus';
   @override
@@ -162,247 +152,19 @@ class _TranslationsGeneralEt extends TranslationsGeneralEn {
   @override
   String get settings => 'Seadistused';
   @override
+  String get skipped => 'Vahelejäetud';
+  @override
+  String get start => 'Alusta';
+  @override
   String get stop => 'Peata';
   @override
   String get save => 'Salvesta';
-}
-
-// Path: settingsTab
-class _TranslationsSettingsTabEt extends TranslationsSettingsTabEn {
-  _TranslationsSettingsTabEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
   @override
-  late final _TranslationsSettingsTabGeneralEt general = _TranslationsSettingsTabGeneralEt._(_root);
+  String get unchanged => 'Muutmata';
   @override
-  late final _TranslationsSettingsTabReceiveEt receive = _TranslationsSettingsTabReceiveEt._(_root);
+  String get unknown => 'Teadmata';
   @override
-  late final _TranslationsSettingsTabOtherEt other = _TranslationsSettingsTabOtherEt._(_root);
-  @override
-  String get title => 'Seadistused';
-  @override
-  late final _TranslationsSettingsTabNetworkEt network = _TranslationsSettingsTabNetworkEt._(_root);
-  @override
-  late final _TranslationsSettingsTabSendEt send = _TranslationsSettingsTabSendEt._(_root);
-  @override
-  String get advancedSettings => 'Täiendavad seadistused';
-}
-
-// Path: sendTab
-class _TranslationsSendTabEt extends TranslationsSendTabEn {
-  _TranslationsSendTabEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get thisDevice => 'See seade';
-  @override
-  String get scan => 'Otsi seadmeid';
-  @override
-  late final _TranslationsSendTabSendModesEt sendModes = _TranslationsSendTabSendModesEt._(_root);
-  @override
-  String get title => 'Saada';
-  @override
-  late final _TranslationsSendTabPickerEt picker = _TranslationsSendTabPickerEt._(_root);
-  @override
-  String get shareIntentInfo => 'Klikates nutiseadmes olevates rakendustes nuppu „Jaga“ võid kasutada ka mugavat jagamise võimalust.';
-  @override
-  late final _TranslationsSendTabSelectionEt selection = _TranslationsSendTabSelectionEt._(_root);
-  @override
-  String get nearbyDevices => 'Läheduses asuvad seadmed';
-  @override
-  String get manualSending => 'Saada käsitsi';
-  @override
-  String get sendMode => 'Saatmisviis';
-  @override
-  String get sendModeHelp => 'Selgitus';
-  @override
-  String get help => 'Palun kontrolli, et sihtseade asub sama WiFi ühenduse piires.';
-  @override
-  String get placeItems => 'Lisa jagatavad failid siia.';
-}
-
-// Path: receiveOptionsPage
-class _TranslationsReceiveOptionsPageEt extends TranslationsReceiveOptionsPageEn {
-  _TranslationsReceiveOptionsPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get saveToGalleryOff => 'Pole kasutusel, kuna saadetavate hulgas leidub kaustu.';
-  @override
-  String get appDirectory => '(LocalSendi kaust)';
-  @override
-  String get destination => _root.settingsTab.receive.destination;
-  @override
-  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-  @override
-  String get title => 'Eelistused';
-}
-
-// Path: receivePage
-class _TranslationsReceivePageEt extends TranslationsReceivePageEn {
-  _TranslationsReceivePageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
-        n,
-        other: 'soovib sulle saata ${n} faili',
-        one: 'soovib sulle saata faili',
-      );
-  @override
-  String get subTitleMessage => 'saatis sulle sõnumi:';
-  @override
-  String get canceled => 'Saatja on päringu tühistanud.';
-  @override
-  String get subTitleLink => 'saatis sulle lingi:';
-}
-
-// Path: troubleshootPage
-class _TranslationsTroubleshootPageEt extends TranslationsTroubleshootPageEn {
-  _TranslationsTroubleshootPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _TranslationsTroubleshootPageFirewallEt firewall = _TranslationsTroubleshootPageFirewallEt._(_root);
-  @override
-  late final _TranslationsTroubleshootPageNoConnectionEt noConnection = _TranslationsTroubleshootPageNoConnectionEt._(_root);
-  @override
-  String get title => 'Veaotsing';
-  @override
-  String get subTitle => 'Kas rakendus toimib nii, nagu vaja? Siin võid leida lahendusi levinumatele probleemidele.';
-  @override
-  String get solution => 'Lahendus:';
-  @override
-  String get fixButton => 'Paranda automaatselt';
-  @override
-  late final _TranslationsTroubleshootPageNoDiscoveryEt noDiscovery = _TranslationsTroubleshootPageNoDiscoveryEt._(_root);
-}
-
-// Path: sendPage
-class _TranslationsSendPageEt extends TranslationsSendPageEn {
-  _TranslationsSendPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get tooManyAttempts => _root.web.tooManyAttempts;
-  @override
-  String get busy => 'Vastuvõtja on hõivatud teise päringuga tegelemisega.';
-  @override
-  String get rejected => 'Vastuvõtja on vastuvõtmisest keeldunud.';
-  @override
-  String get waiting => 'Ootame vastust…';
-}
-
-// Path: donationPage
-class _TranslationsDonationPageEt extends TranslationsDonationPageEn {
-  _TranslationsDonationPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get restore => 'Taasta ost';
-  @override
-  String get thanks => 'Suur tänu!';
-  @override
-  String get title => 'Toeta meid rahaliselt';
-  @override
-  String get info =>
-      'LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav, ega sisalda reklaame. Kui sulle see rakendus meeldib, siis palun toeta meie arendust.';
-  @override
-  String donate({required Object amount}) => 'Anneta ${amount}';
-}
-
-// Path: receiveHistoryPage
-class _TranslationsReceiveHistoryPageEt extends TranslationsReceiveHistoryPageEn {
-  _TranslationsReceiveHistoryPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get deleteHistory => 'Kustuta ajalugu';
-  @override
-  String get title => 'Ajalugu';
-  @override
-  String get openFolder => 'Ava kaust';
-  @override
-  String get empty => 'Ajalugu on tühi.';
-  @override
-  late final _TranslationsReceiveHistoryPageEntryActionsEt entryActions = _TranslationsReceiveHistoryPageEntryActionsEt._(_root);
-}
-
-// Path: aboutPage
-class _TranslationsAboutPageEt extends TranslationsAboutPageEn {
-  _TranslationsAboutPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get author => 'Autor';
-  @override
-  String get contributors => 'Kaasautorid';
-  @override
-  String get translators => 'Tõlkijad';
-  @override
-  String get packagers => 'Pakendajad';
-  @override
-  List<String> get description => [
-        'LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav. Rakenduse eesmärgiks on võimaldada failide ja tekstide jagamist kohtvõrgus asuvate arvutite vahel nii, et välist internetiühendust pole vaja kasutada.',
-        'See rakendus on saadaval Androidi, iOSi, macOSi, Windowsi ja Linuxi jaoks. Kõik allalaaditavad paigaldusfailid leiad meie ametlikust veebisaidist.',
-      ];
-  @override
-  String get title => 'Rakenduse teave: LocalSend';
-}
-
-// Path: progressPage
-class _TranslationsProgressPageEt extends TranslationsProgressPageEn {
-  _TranslationsProgressPageEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get savedToGallery => 'Salvestatud kausta Fotod';
-  @override
-  String get titleSending => 'Saadame faile';
-  @override
-  String get titleReceiving => 'Võtame faile vastu';
-  @override
-  late final _TranslationsProgressPageTotalEt total = _TranslationsProgressPageTotalEt._(_root);
+  String get noItemInClipboard => 'Lõikelaual pole midagi.';
 }
 
 // Path: receiveTab
@@ -420,6 +182,114 @@ class _TranslationsReceiveTabEt extends TranslationsReceiveTabEn {
   late final _TranslationsReceiveTabInfoBoxEt infoBox = _TranslationsReceiveTabInfoBoxEt._(_root);
   @override
   late final _TranslationsReceiveTabQuickSaveEt quickSave = _TranslationsReceiveTabQuickSaveEt._(_root);
+}
+
+// Path: sendTab
+class _TranslationsSendTabEt extends TranslationsSendTabEn {
+  _TranslationsSendTabEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Saada';
+  @override
+  late final _TranslationsSendTabSelectionEt selection = _TranslationsSendTabSelectionEt._(_root);
+  @override
+  late final _TranslationsSendTabPickerEt picker = _TranslationsSendTabPickerEt._(_root);
+  @override
+  String get shareIntentInfo => 'Klikates nutiseadmes olevates rakendustes nuppu „Jaga“ võid kasutada ka mugavat jagamise võimalust.';
+  @override
+  String get nearbyDevices => 'Läheduses asuvad seadmed';
+  @override
+  String get thisDevice => 'See seade';
+  @override
+  String get scan => 'Otsi seadmeid';
+  @override
+  String get manualSending => 'Saada käsitsi';
+  @override
+  String get sendMode => 'Saatmisviis';
+  @override
+  late final _TranslationsSendTabSendModesEt sendModes = _TranslationsSendTabSendModesEt._(_root);
+  @override
+  String get sendModeHelp => 'Selgitus';
+  @override
+  String get help => 'Palun kontrolli, et sihtseade asub sama WiFi ühenduse piires.';
+  @override
+  String get placeItems => 'Lisa jagatavad failid siia.';
+}
+
+// Path: settingsTab
+class _TranslationsSettingsTabEt extends TranslationsSettingsTabEn {
+  _TranslationsSettingsTabEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Seadistused';
+  @override
+  late final _TranslationsSettingsTabGeneralEt general = _TranslationsSettingsTabGeneralEt._(_root);
+  @override
+  late final _TranslationsSettingsTabReceiveEt receive = _TranslationsSettingsTabReceiveEt._(_root);
+  @override
+  late final _TranslationsSettingsTabSendEt send = _TranslationsSettingsTabSendEt._(_root);
+  @override
+  late final _TranslationsSettingsTabNetworkEt network = _TranslationsSettingsTabNetworkEt._(_root);
+  @override
+  late final _TranslationsSettingsTabOtherEt other = _TranslationsSettingsTabOtherEt._(_root);
+  @override
+  String get advancedSettings => 'Täiendavad seadistused';
+}
+
+// Path: troubleshootPage
+class _TranslationsTroubleshootPageEt extends TranslationsTroubleshootPageEn {
+  _TranslationsTroubleshootPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Veaotsing';
+  @override
+  String get subTitle => 'Kas rakendus toimib nii, nagu vaja? Siin võid leida lahendusi levinumatele probleemidele.';
+  @override
+  String get solution => 'Lahendus:';
+  @override
+  String get fixButton => 'Paranda automaatselt';
+  @override
+  late final _TranslationsTroubleshootPageFirewallEt firewall = _TranslationsTroubleshootPageFirewallEt._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryEt noDiscovery = _TranslationsTroubleshootPageNoDiscoveryEt._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoConnectionEt noConnection = _TranslationsTroubleshootPageNoConnectionEt._(_root);
+}
+
+// Path: receiveHistoryPage
+class _TranslationsReceiveHistoryPageEt extends TranslationsReceiveHistoryPageEn {
+  _TranslationsReceiveHistoryPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ajalugu';
+  @override
+  String get openFolder => 'Ava kaust';
+  @override
+  String get deleteHistory => 'Kustuta ajalugu';
+  @override
+  String get empty => 'Ajalugu on tühi.';
+  @override
+  late final _TranslationsReceiveHistoryPageEntryActionsEt entryActions = _TranslationsReceiveHistoryPageEntryActionsEt._(_root);
 }
 
 // Path: apkPickerPage
@@ -454,6 +324,177 @@ class _TranslationsSelectedFilesPageEt extends TranslationsSelectedFilesPageEn {
   String get deleteAll => 'Kustuta kõik';
 }
 
+// Path: receivePage
+class _TranslationsReceivePageEt extends TranslationsReceivePageEn {
+  _TranslationsReceivePageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
+        n,
+        one: 'soovib sulle saata faili',
+        other: 'soovib sulle saata ${n} faili',
+      );
+  @override
+  String get subTitleMessage => 'saatis sulle sõnumi:';
+  @override
+  String get subTitleLink => 'saatis sulle lingi:';
+  @override
+  String get canceled => 'Saatja on päringu tühistanud.';
+}
+
+// Path: receiveOptionsPage
+class _TranslationsReceiveOptionsPageEt extends TranslationsReceiveOptionsPageEn {
+  _TranslationsReceiveOptionsPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Eelistused';
+  @override
+  String get destination => _root.settingsTab.receive.destination;
+  @override
+  String get appDirectory => '(LocalSendi kaust)';
+  @override
+  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
+  @override
+  String get saveToGalleryOff => 'Pole kasutusel, kuna saadetavate hulgas leidub kaustu.';
+}
+
+// Path: sendPage
+class _TranslationsSendPageEt extends TranslationsSendPageEn {
+  _TranslationsSendPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get waiting => 'Ootame vastust…';
+  @override
+  String get rejected => 'Vastuvõtja on vastuvõtmisest keeldunud.';
+  @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
+  @override
+  String get busy => 'Vastuvõtja on hõivatud teise päringuga tegelemisega.';
+}
+
+// Path: progressPage
+class _TranslationsProgressPageEt extends TranslationsProgressPageEn {
+  _TranslationsProgressPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get titleSending => 'Saadame faile';
+  @override
+  String get titleReceiving => 'Võtame faile vastu';
+  @override
+  String get savedToGallery => 'Salvestatud kausta Fotod';
+  @override
+  late final _TranslationsProgressPageTotalEt total = _TranslationsProgressPageTotalEt._(_root);
+}
+
+// Path: webSharePage
+class _TranslationsWebSharePageEt extends TranslationsWebSharePageEn {
+  _TranslationsWebSharePageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Jaga lingi vahendusel';
+  @override
+  String get loading => 'Käivitame serverit…';
+  @override
+  String get stopping => 'Peatame serverit…';
+  @override
+  String get error => 'Serveri käivitamisel tekkis viga.';
+  @override
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
+        n,
+        one: 'Ava see link oma veebibrauseris:',
+        other: 'Ava üks neist linkidest oma veebibrauseris:',
+      );
+  @override
+  String get requests => 'Päringuid';
+  @override
+  String get noRequests => 'Päringuid veel pole.';
+  @override
+  String get encryption => _root.settingsTab.network.encryption;
+  @override
+  String get autoAccept => 'Nõustu päringutega automaatselt';
+  @override
+  String get requirePin => 'Küsi PIN-koodi';
+  @override
+  String pinHint({required Object pin}) => 'PIN-kood on „${pin}“';
+  @override
+  String get encryptionHint => 'LocalSend kasutab enda poolt allkirjastatud sertifikaate. Ühenduse toimimiseks palun nõustu nendega veebibrauseris.';
+  @override
+  String pendingRequests({required Object n}) => 'Ootel päringuid: ${n}';
+}
+
+// Path: aboutPage
+class _TranslationsAboutPageEt extends TranslationsAboutPageEn {
+  _TranslationsAboutPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Rakenduse teave: LocalSend';
+  @override
+  List<String> get description => [
+        'LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav. Rakenduse eesmärgiks on võimaldada failide ja tekstide jagamist kohtvõrgus asuvate arvutite vahel nii, et välist internetiühendust pole vaja kasutada.',
+        'See rakendus on saadaval Androidi, iOSi, macOSi, Windowsi ja Linuxi jaoks. Kõik allalaaditavad paigaldusfailid leiad meie ametlikust veebisaidist.',
+      ];
+  @override
+  String get author => 'Autor';
+  @override
+  String get contributors => 'Kaasautorid';
+  @override
+  String get packagers => 'Pakendajad';
+  @override
+  String get translators => 'Tõlkijad';
+}
+
+// Path: donationPage
+class _TranslationsDonationPageEt extends TranslationsDonationPageEn {
+  _TranslationsDonationPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Toeta meid rahaliselt';
+  @override
+  String get info =>
+      'LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav, ega sisalda reklaame. Kui sulle see rakendus meeldib, siis palun toeta meie arendust.';
+  @override
+  String donate({required Object amount}) => 'Anneta ${amount}';
+  @override
+  String get thanks => 'Suur tänu!';
+  @override
+  String get restore => 'Taasta ost';
+}
+
 // Path: changelogPage
 class _TranslationsChangelogPageEt extends TranslationsChangelogPageEn {
   _TranslationsChangelogPageEt._(TranslationsEt root)
@@ -478,6 +519,83 @@ class _TranslationsAliasGeneratorEt extends TranslationsAliasGeneratorEn {
   // Translations
 }
 
+// Path: dialogs
+class _TranslationsDialogsEt extends TranslationsDialogsEn {
+  _TranslationsDialogsEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _TranslationsDialogsAddFileEt addFile = _TranslationsDialogsAddFileEt._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileEt openFile = _TranslationsDialogsOpenFileEt._(_root);
+  @override
+  late final _TranslationsDialogsAddressInputEt addressInput = _TranslationsDialogsAddressInputEt._(_root);
+  @override
+  late final _TranslationsDialogsCancelSessionEt cancelSession = _TranslationsDialogsCancelSessionEt._(_root);
+  @override
+  late final _TranslationsDialogsCannotOpenFileEt cannotOpenFile = _TranslationsDialogsCannotOpenFileEt._(_root);
+  @override
+  late final _TranslationsDialogsEncryptionDisabledNoticeEt encryptionDisabledNotice = _TranslationsDialogsEncryptionDisabledNoticeEt._(_root);
+  @override
+  late final _TranslationsDialogsErrorDialogEt errorDialog = _TranslationsDialogsErrorDialogEt._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDialogEt favoriteDialog = _TranslationsDialogsFavoriteDialogEt._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDeleteDialogEt favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogEt._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteEditDialogEt favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogEt._(_root);
+  @override
+  late final _TranslationsDialogsFileInfoEt fileInfo = _TranslationsDialogsFileInfoEt._(_root);
+  @override
+  late final _TranslationsDialogsFileNameInputEt fileNameInput = _TranslationsDialogsFileNameInputEt._(_root);
+  @override
+  late final _TranslationsDialogsHistoryClearDialogEt historyClearDialog = _TranslationsDialogsHistoryClearDialogEt._(_root);
+  @override
+  late final _TranslationsDialogsLocalNetworkUnauthorizedEt localNetworkUnauthorized = _TranslationsDialogsLocalNetworkUnauthorizedEt._(_root);
+  @override
+  late final _TranslationsDialogsMessageInputEt messageInput = _TranslationsDialogsMessageInputEt._(_root);
+  @override
+  late final _TranslationsDialogsNoFilesEt noFiles = _TranslationsDialogsNoFilesEt._(_root);
+  @override
+  late final _TranslationsDialogsNoPermissionEt noPermission = _TranslationsDialogsNoPermissionEt._(_root);
+  @override
+  late final _TranslationsDialogsNotAvailableOnPlatformEt notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformEt._(_root);
+  @override
+  late final _TranslationsDialogsQrEt qr = _TranslationsDialogsQrEt._(_root);
+  @override
+  late final _TranslationsDialogsQuickActionsEt quickActions = _TranslationsDialogsQuickActionsEt._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveNoticeEt quickSaveNotice = _TranslationsDialogsQuickSaveNoticeEt._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeEt quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeEt._(_root);
+  @override
+  late final _TranslationsDialogsPinEt pin = _TranslationsDialogsPinEt._(_root);
+  @override
+  late final _TranslationsDialogsSendModeHelpEt sendModeHelp = _TranslationsDialogsSendModeHelpEt._(_root);
+  @override
+  late final _TranslationsDialogsZoomEt zoom = _TranslationsDialogsZoomEt._(_root);
+}
+
+// Path: sanitization
+class _TranslationsSanitizationEt extends TranslationsSanitizationEn {
+  _TranslationsSanitizationEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'Failil peab olema nimi';
+  @override
+  String get invalid => 'Failinimes on valesid tähemärke';
+}
+
 // Path: tray
 class _TranslationsTrayEt extends TranslationsTrayEn {
   _TranslationsTrayEt._(TranslationsEt root)
@@ -490,9 +608,9 @@ class _TranslationsTrayEt extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get closeWindows => 'Välju';
-  @override
   String get close => 'Sulge LocalSend';
+  @override
+  String get closeWindows => 'Välju';
 }
 
 // Path: web
@@ -505,83 +623,21 @@ class _TranslationsWebEt extends TranslationsWebEn {
 
   // Translations
   @override
-  String get tooManyAttempts => 'Liiga palju sisestuskatseid';
-  @override
-  String get rejected => 'Keelatud';
-  @override
   String get waiting => _root.sendPage.waiting;
   @override
   String get enterPin => 'Sisesta PIN-kood';
   @override
   String get invalidPin => 'Vigane PIN-kood';
   @override
+  String get tooManyAttempts => 'Liiga palju sisestuskatseid';
+  @override
+  String get rejected => 'Keelatud';
+  @override
   String get files => 'Failid';
   @override
   String get fileName => 'Failinimi';
   @override
   String get size => 'Suurus';
-}
-
-// Path: dialogs
-class _TranslationsDialogsEt extends TranslationsDialogsEn {
-  _TranslationsDialogsEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _TranslationsDialogsQuickActionsEt quickActions = _TranslationsDialogsQuickActionsEt._(_root);
-  @override
-  late final _TranslationsDialogsQuickSaveNoticeEt quickSaveNotice = _TranslationsDialogsQuickSaveNoticeEt._(_root);
-  @override
-  late final _TranslationsDialogsSendModeHelpEt sendModeHelp = _TranslationsDialogsSendModeHelpEt._(_root);
-  @override
-  late final _TranslationsDialogsFavoriteDialogEt favoriteDialog = _TranslationsDialogsFavoriteDialogEt._(_root);
-  @override
-  late final _TranslationsDialogsNoFilesEt noFiles = _TranslationsDialogsNoFilesEt._(_root);
-  @override
-  late final _TranslationsDialogsAddFileEt addFile = _TranslationsDialogsAddFileEt._(_root);
-  @override
-  late final _TranslationsDialogsFileInfoEt fileInfo = _TranslationsDialogsFileInfoEt._(_root);
-  @override
-  late final _TranslationsDialogsOpenFileEt openFile = _TranslationsDialogsOpenFileEt._(_root);
-  @override
-  late final _TranslationsDialogsCannotOpenFileEt cannotOpenFile = _TranslationsDialogsCannotOpenFileEt._(_root);
-  @override
-  late final _TranslationsDialogsEncryptionDisabledNoticeEt encryptionDisabledNotice = _TranslationsDialogsEncryptionDisabledNoticeEt._(_root);
-  @override
-  late final _TranslationsDialogsFavoriteDeleteDialogEt favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogEt._(_root);
-  @override
-  late final _TranslationsDialogsLocalNetworkUnauthorizedEt localNetworkUnauthorized = _TranslationsDialogsLocalNetworkUnauthorizedEt._(_root);
-  @override
-  late final _TranslationsDialogsAddressInputEt addressInput = _TranslationsDialogsAddressInputEt._(_root);
-  @override
-  late final _TranslationsDialogsCancelSessionEt cancelSession = _TranslationsDialogsCancelSessionEt._(_root);
-  @override
-  late final _TranslationsDialogsErrorDialogEt errorDialog = _TranslationsDialogsErrorDialogEt._(_root);
-  @override
-  late final _TranslationsDialogsFavoriteEditDialogEt favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogEt._(_root);
-  @override
-  late final _TranslationsDialogsFileNameInputEt fileNameInput = _TranslationsDialogsFileNameInputEt._(_root);
-  @override
-  late final _TranslationsDialogsHistoryClearDialogEt historyClearDialog = _TranslationsDialogsHistoryClearDialogEt._(_root);
-  @override
-  late final _TranslationsDialogsMessageInputEt messageInput = _TranslationsDialogsMessageInputEt._(_root);
-  @override
-  late final _TranslationsDialogsNoPermissionEt noPermission = _TranslationsDialogsNoPermissionEt._(_root);
-  @override
-  late final _TranslationsDialogsNotAvailableOnPlatformEt notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformEt._(_root);
-  @override
-  late final _TranslationsDialogsQrEt qr = _TranslationsDialogsQrEt._(_root);
-  @override
-  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeEt quickSaveFromFavoritesNotice =
-      _TranslationsDialogsQuickSaveFromFavoritesNoticeEt._(_root);
-  @override
-  late final _TranslationsDialogsPinEt pin = _TranslationsDialogsPinEt._(_root);
-  @override
-  late final _TranslationsDialogsZoomEt zoom = _TranslationsDialogsZoomEt._(_root);
 }
 
 // Path: assetPicker
@@ -594,8 +650,7 @@ class _TranslationsAssetPickerEt extends TranslationsAssetPickerEn {
 
   // Translations
   @override
-  String get accessAllTip =>
-      'Rakendusel on selles nutiseadmes ligipääs vaid mõnedele failidele. Kui vajad ligipääsu kõikidele meediafailidele, siis ava seadistused ning luba vastavad õigused.';
+  String get confirm => 'Kinnita';
   @override
   String get cancel => 'Katkesta';
   @override
@@ -621,6 +676,9 @@ class _TranslationsAssetPickerEt extends TranslationsAssetPickerEn {
   @override
   String get changeAccessibleLimitedAssets => 'Ligipääsetavate failide loendi uuendmiseks klõpsi';
   @override
+  String get accessAllTip =>
+      'Rakendusel on selles nutiseadmes ligipääs vaid mõnedele failidele. Kui vajad ligipääsu kõikidele meediafailidele, siis ava seadistused ning luba vastavad õigused.';
+  @override
   String get goToSystemSettings => 'Ava süsteemi seadistused';
   @override
   String get accessLimitedAssets => 'Jätka piiratud ligipääsuga';
@@ -637,24 +695,22 @@ class _TranslationsAssetPickerEt extends TranslationsAssetPickerEn {
   @override
   String get sActionPlayHint => 'esita';
   @override
-  String get sActionUseCameraHint => 'kasuta kaamerat';
-  @override
   String get sActionPreviewHint => 'eelvaade';
   @override
   String get sActionSelectHint => 'vali';
   @override
   String get sActionSwitchPathLabel => 'muuda asukohta';
   @override
-  String get sUnitAssetCountLabel => 'kogus';
+  String get sActionUseCameraHint => 'kasuta kaamerat';
   @override
   String get sNameDurationLabel => 'kestus';
   @override
-  String get confirm => 'Kinnita';
+  String get sUnitAssetCountLabel => 'kogus';
 }
 
-// Path: webSharePage
-class _TranslationsWebSharePageEt extends TranslationsWebSharePageEn {
-  _TranslationsWebSharePageEt._(TranslationsEt root)
+// Path: receiveTab.infoBox
+class _TranslationsReceiveTabInfoBoxEt extends TranslationsReceiveTabInfoBoxEn {
+  _TranslationsReceiveTabInfoBoxEt._(TranslationsEt root)
       : this._root = root,
         super.internal(root);
 
@@ -662,40 +718,16 @@ class _TranslationsWebSharePageEt extends TranslationsWebSharePageEn {
 
   // Translations
   @override
-  String get encryption => _root.settingsTab.network.encryption;
+  String get ip => 'IP-aadress:';
   @override
-  String pendingRequests({required Object n}) => 'Ootel päringuid: ${n}';
+  String get port => 'Port:';
   @override
-  String pinHint({required Object pin}) => 'PIN-kood on „${pin}“';
-  @override
-  String get autoAccept => 'Nõustu päringutega automaatselt';
-  @override
-  String get noRequests => 'Päringuid veel pole.';
-  @override
-  String get title => 'Jaga lingi vahendusel';
-  @override
-  String get loading => 'Käivitame serverit…';
-  @override
-  String get stopping => 'Peatame serverit…';
-  @override
-  String get error => 'Serveri käivitamisel tekkis viga.';
-  @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
-        n,
-        one: 'Ava see link oma veebibrauseris:',
-        other: 'Ava üks neist linkidest oma veebibrauseris:',
-      );
-  @override
-  String get requests => 'Päringuid';
-  @override
-  String get requirePin => 'Küsi PIN-koodi';
-  @override
-  String get encryptionHint => 'LocalSend kasutab enda poolt allkirjastatud sertifikaate. Ühenduse toimimiseks palun nõustu nendega veebibrauseris.';
+  String get alias => 'Seadme nimi:';
 }
 
-// Path: sanitization
-class _TranslationsSanitizationEt extends TranslationsSanitizationEn {
-  _TranslationsSanitizationEt._(TranslationsEt root)
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveEt extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveEt._(TranslationsEt root)
       : this._root = root,
         super.internal(root);
 
@@ -703,9 +735,68 @@ class _TranslationsSanitizationEt extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get empty => 'Failil peab olema nimi';
+  String get off => _root.general.off;
   @override
-  String get invalid => 'Failinimes on valesid tähemärke';
+  String get favorites => 'Lemmikud';
+  @override
+  String get on => _root.general.on;
+}
+
+// Path: sendTab.selection
+class _TranslationsSendTabSelectionEt extends TranslationsSendTabSelectionEn {
+  _TranslationsSendTabSelectionEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Valik';
+  @override
+  String files({required Object files}) => 'Failid: ${files}';
+  @override
+  String size({required Object size}) => 'Andmemaht: ${size}';
+}
+
+// Path: sendTab.picker
+class _TranslationsSendTabPickerEt extends TranslationsSendTabPickerEn {
+  _TranslationsSendTabPickerEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get file => 'Fail';
+  @override
+  String get folder => 'Kaust';
+  @override
+  String get media => 'Meedia';
+  @override
+  String get text => 'Tekst';
+  @override
+  String get app => 'Rakendus';
+  @override
+  String get clipboard => 'Aseta';
+}
+
+// Path: sendTab.sendModes
+class _TranslationsSendTabSendModesEt extends TranslationsSendTabSendModesEn {
+  _TranslationsSendTabSendModesEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get single => 'Üks vastuvõtja';
+  @override
+  String get multiple => 'Mitu vastuvõtjat';
+  @override
+  String get link => 'Jagamine lingi vahendusel';
 }
 
 // Path: settingsTab.general
@@ -720,17 +811,17 @@ class _TranslationsSettingsTabGeneralEt extends TranslationsSettingsTabGeneralEn
   @override
   String get title => 'Üldised seadistused';
   @override
-  late final _TranslationsSettingsTabGeneralBrightnessOptionsEt brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsEt._(_root);
-  @override
   String get brightness => 'Kujundus';
   @override
-  String get language => 'Keel';
-  @override
-  late final _TranslationsSettingsTabGeneralLanguageOptionsEt languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsEt._(_root);
+  late final _TranslationsSettingsTabGeneralBrightnessOptionsEt brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsEt._(_root);
   @override
   String get color => 'Värv';
   @override
   late final _TranslationsSettingsTabGeneralColorOptionsEt colorOptions = _TranslationsSettingsTabGeneralColorOptionsEt._(_root);
+  @override
+  String get language => 'Keel';
+  @override
+  late final _TranslationsSettingsTabGeneralLanguageOptionsEt languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsEt._(_root);
   @override
   String get saveWindowPlacement => 'Peale väljumist salvesta akna asukoht';
   @override
@@ -757,28 +848,28 @@ class _TranslationsSettingsTabReceiveEt extends TranslationsSettingsTabReceiveEn
 
   // Translations
   @override
-  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
-  @override
-  String get saveToGallery => 'Lisa meedia galeriisse';
-  @override
-  String get requirePin => _root.webSharePage.requirePin;
-  @override
-  String get destination => 'Salvesta kausta';
-  @override
-  String get autoFinish => 'Lõpeta automaatselt';
-  @override
-  String get downloads => '(Allalaadimised)';
-  @override
   String get title => 'Vastuvõtmine';
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
+  @override
+  String get autoFinish => 'Lõpeta automaatselt';
+  @override
+  String get destination => 'Salvesta kausta';
+  @override
+  String get downloads => '(Allalaadimised)';
+  @override
+  String get saveToGallery => 'Lisa meedia galeriisse';
+  @override
   String get saveToHistory => 'Salvesta ajalukku';
 }
 
-// Path: settingsTab.other
-class _TranslationsSettingsTabOtherEt extends TranslationsSettingsTabOtherEn {
-  _TranslationsSettingsTabOtherEt._(TranslationsEt root)
+// Path: settingsTab.send
+class _TranslationsSettingsTabSendEt extends TranslationsSettingsTabSendEn {
+  _TranslationsSettingsTabSendEt._(TranslationsEt root)
       : this._root = root,
         super.internal(root);
 
@@ -786,15 +877,9 @@ class _TranslationsSettingsTabOtherEt extends TranslationsSettingsTabOtherEn {
 
   // Translations
   @override
-  String get privacyPolicy => 'Privaatsuspoliitika';
+  String get title => 'Saatmine';
   @override
-  String get title => 'Muu teave';
-  @override
-  String get support => 'Toeta LocalSendi';
-  @override
-  String get donate => 'Toeta rahaliselt';
-  @override
-  String get termsOfUse => 'Kasutustingimused';
+  String get shareViaLinkAutoAccept => 'Kui kasutusel on „Jaga lingi abil“, siis nõustu vastuvõtmisega automaatselt';
 }
 
 // Path: settingsTab.network
@@ -807,17 +892,17 @@ class _TranslationsSettingsTabNetworkEt extends TranslationsSettingsTabNetworkEn
 
   // Translations
   @override
-  String get deviceType => 'Seadme tüüp';
-  @override
   String get title => 'Võrk';
   @override
-  String get alias => 'Seadme nimi';
-  @override
-  String get deviceModel => 'Seadme mudel';
+  String get needRestart => 'Muudatuste jõustamiseks palun käivita server uuesti!';
   @override
   String get server => 'Server';
   @override
-  String get needRestart => 'Muudatuste jõustamiseks palun käivita server uuesti!';
+  String get alias => 'Seadme nimi';
+  @override
+  String get deviceType => 'Seadme tüüp';
+  @override
+  String get deviceModel => 'Seadme mudel';
   @override
   String get port => 'Kasutatav port';
   @override
@@ -838,9 +923,9 @@ class _TranslationsSettingsTabNetworkEt extends TranslationsSettingsTabNetworkEn
       'Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: ${defaultMulticast})';
 }
 
-// Path: settingsTab.send
-class _TranslationsSettingsTabSendEt extends TranslationsSettingsTabSendEn {
-  _TranslationsSettingsTabSendEt._(TranslationsEt root)
+// Path: settingsTab.other
+class _TranslationsSettingsTabOtherEt extends TranslationsSettingsTabOtherEn {
+  _TranslationsSettingsTabOtherEt._(TranslationsEt root)
       : this._root = root,
         super.internal(root);
 
@@ -848,66 +933,15 @@ class _TranslationsSettingsTabSendEt extends TranslationsSettingsTabSendEn {
 
   // Translations
   @override
-  String get shareViaLinkAutoAccept => 'Kui kasutusel on „Jaga lingi abil“, siis nõustu vastuvõtmisega automaatselt';
+  String get title => 'Muu teave';
   @override
-  String get title => 'Saatmine';
-}
-
-// Path: sendTab.sendModes
-class _TranslationsSendTabSendModesEt extends TranslationsSendTabSendModesEn {
-  _TranslationsSendTabSendModesEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
+  String get support => 'Toeta LocalSendi';
   @override
-  String get single => 'Üks vastuvõtja';
+  String get donate => 'Toeta rahaliselt';
   @override
-  String get link => 'Jagamine lingi vahendusel';
+  String get privacyPolicy => 'Privaatsuspoliitika';
   @override
-  String get multiple => 'Mitu vastuvõtjat';
-}
-
-// Path: sendTab.picker
-class _TranslationsSendTabPickerEt extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get app => 'Rakendus';
-  @override
-  String get clipboard => 'Aseta';
-  @override
-  String get file => 'Fail';
-  @override
-  String get folder => 'Kaust';
-  @override
-  String get media => 'Meedia';
-  @override
-  String get text => 'Tekst';
-}
-
-// Path: sendTab.selection
-class _TranslationsSendTabSelectionEt extends TranslationsSendTabSelectionEn {
-  _TranslationsSendTabSelectionEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String files({required Object files}) => 'Failid: ${files}';
-  @override
-  String size({required Object size}) => 'Andmemaht: ${size}';
-  @override
-  String get title => 'Valik';
+  String get termsOfUse => 'Kasutustingimused';
 }
 
 // Path: troubleshootPage.firewall
@@ -920,28 +954,12 @@ class _TranslationsTroubleshootPageFirewallEt extends TranslationsTroubleshootPa
 
   // Translations
   @override
+  String get symptom => 'Siit seadmest on võimalik teisele faile saata, kuid teised ei saa siia saata.';
+  @override
   String solution({required Object port}) =>
       'Tõenäoliselt on see seotud tulemüüriga. Olukorra võid lahendada lubades sisenevad (UDP ja TCP) ühendused pordis ${port}.';
   @override
-  String get symptom => 'Siit seadmest on võimalik teisele faile saata, kuid teised ei saa siia saata.';
-  @override
   String get openFirewall => 'Ava tulemüüri seadistused';
-}
-
-// Path: troubleshootPage.noConnection
-class _TranslationsTroubleshootPageNoConnectionEt extends TranslationsTroubleshootPageNoConnectionEn {
-  _TranslationsTroubleshootPageNoConnectionEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get solution =>
-      'Kas identne probleem on mõlemas seadmes? Kui nii, siis palun kontrolli, et mõlemad seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Aga samas on võimalik, et WiFi võrk on seadistatud nii, et kõik seadmed on üksteisest isoleeritud. Sel juhul küsi abi võrgu haldajalt, kes saab ruuteris teha vajalikud muudatused.';
-  @override
-  String get symptom => 'Mõlemad seadmed ei suuda üksteist leida ega jagada faile.';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -954,10 +972,26 @@ class _TranslationsTroubleshootPageNoDiscoveryEt extends TranslationsTroubleshoo
 
   // Translations
   @override
+  String get symptom => 'See seade ei suuda tuvastada teisi seadeid.';
+  @override
   String get solution =>
       'Palun kontrolli, et kõik seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Sa võid ka proovida sihtseadme IP-aadressi lisamist käsitsi. Kui siis ühendus toimib, võid ta lisada lemmikuks ja hilisem tuvastamine saab olema automaatne.';
+}
+
+// Path: troubleshootPage.noConnection
+class _TranslationsTroubleshootPageNoConnectionEt extends TranslationsTroubleshootPageNoConnectionEn {
+  _TranslationsTroubleshootPageNoConnectionEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
   @override
-  String get symptom => 'See seade ei suuda tuvastada teisi seadeid.';
+  String get symptom => 'Mõlemad seadmed ei suuda üksteist leida ega jagada faile.';
+  @override
+  String get solution =>
+      'Kas identne probleem on mõlemas seadmes? Kui nii, siis palun kontrolli, et mõlemad seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Aga samas on võimalik, et WiFi võrk on seadistatud nii, et kõik seadmed on üksteisest isoleeritud. Sel juhul küsi abi võrgu haldajalt, kes saab ruuteris teha vajalikud muudatused.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -998,130 +1032,6 @@ class _TranslationsProgressPageTotalEt extends TranslationsProgressPageTotalEn {
   String speed({required Object speed}) => 'Kiirus: ${speed}/s';
 }
 
-// Path: receiveTab.infoBox
-class _TranslationsReceiveTabInfoBoxEt extends TranslationsReceiveTabInfoBoxEn {
-  _TranslationsReceiveTabInfoBoxEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get ip => 'IP-aadress:';
-  @override
-  String get port => 'Port:';
-  @override
-  String get alias => 'Seadme nimi:';
-}
-
-// Path: receiveTab.quickSave
-class _TranslationsReceiveTabQuickSaveEt extends TranslationsReceiveTabQuickSaveEn {
-  _TranslationsReceiveTabQuickSaveEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get off => _root.general.off;
-  @override
-  String get favorites => 'Lemmikud';
-  @override
-  String get on => _root.general.on;
-}
-
-// Path: dialogs.quickActions
-class _TranslationsDialogsQuickActionsEt extends TranslationsDialogsQuickActionsEn {
-  _TranslationsDialogsQuickActionsEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get sortBeforeCount => 'Enne loendamist järjesta tähestiku järjekorras (A-Z)';
-  @override
-  String get counter => 'Loendur';
-  @override
-  String get title => 'Kiirtoimingud';
-  @override
-  String get prefix => 'Eesliide';
-  @override
-  String get padZero => 'Täida nullidega';
-  @override
-  String get random => 'Juhuslikult';
-}
-
-// Path: dialogs.quickSaveNotice
-class _TranslationsDialogsQuickSaveNoticeEt extends TranslationsDialogsQuickSaveNoticeEn {
-  _TranslationsDialogsQuickSaveNoticeEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get content => 'Failipäringutega nõustume nüüd automaatselt. Palun arvesta, et seeläbi võivad kõik sinu kohtvõrgus saata sulle faile.';
-  @override
-  String get title => _root.general.quickSave;
-}
-
-// Path: dialogs.sendModeHelp
-class _TranslationsDialogsSendModeHelpEt extends TranslationsDialogsSendModeHelpEn {
-  _TranslationsDialogsSendModeHelpEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get link =>
-      'Kui failide vastuvõtjatel pole arvutis või nutiseadmes rakendust LocalSend, siis avades etteantud lingi oma veebibrauseris, saavad nad failid alla laadida.';
-  @override
-  String get title => 'Saatmisviisid';
-  @override
-  String get single => 'Sellega saadame faile ühele vastuvõtjale. Peale failide saatmise lõppu eemaldame failid saatmisloendist.';
-  @override
-  String get multiple => 'Sellega saadame faile mitmele vastuvõtjale. Peale failide saatmise lõppu failid jäävad saatmisloendisse alles.';
-}
-
-// Path: dialogs.favoriteDialog
-class _TranslationsDialogsFavoriteDialogEt extends TranslationsDialogsFavoriteDialogEn {
-  _TranslationsDialogsFavoriteDialogEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get noFavorites => 'Ühtegi lemmikseadet veel pole.';
-  @override
-  String get addFavorite => 'Lisa';
-  @override
-  String get title => 'Lemmikud';
-}
-
-// Path: dialogs.noFiles
-class _TranslationsDialogsNoFilesEt extends TranslationsDialogsNoFilesEn {
-  _TranslationsDialogsNoFilesEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Ühtegi faili pole valitud';
-  @override
-  String get content => 'Palun vali vähemalt üks fail.';
-}
-
 // Path: dialogs.addFile
 class _TranslationsDialogsAddFileEt extends TranslationsDialogsAddFileEn {
   _TranslationsDialogsAddFileEt._(TranslationsEt root)
@@ -1132,32 +1042,9 @@ class _TranslationsDialogsAddFileEt extends TranslationsDialogsAddFileEn {
 
   // Translations
   @override
-  String get content => 'Mida sa sooviksid lisada?';
-  @override
   String get title => 'Lisa valiku hulka';
-}
-
-// Path: dialogs.fileInfo
-class _TranslationsDialogsFileInfoEt extends TranslationsDialogsFileInfoEn {
-  _TranslationsDialogsFileInfoEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
   @override
-  String get size => 'Suurus:';
-  @override
-  String get title => 'Faili teave';
-  @override
-  String get fileName => 'Failinimi:';
-  @override
-  String get path => 'Asukoht:';
-  @override
-  String get sender => 'Saatja:';
-  @override
-  String get time => 'Kellaaeg:';
+  String get content => 'Mida sa sooviksid lisada?';
 }
 
 // Path: dialogs.openFile
@@ -1173,70 +1060,6 @@ class _TranslationsDialogsOpenFileEt extends TranslationsDialogsOpenFileEn {
   String get title => 'Ava fail';
   @override
   String get content => 'Kas sa soovid avada saadud faili?';
-}
-
-// Path: dialogs.cannotOpenFile
-class _TranslationsDialogsCannotOpenFileEt extends TranslationsDialogsCannotOpenFileEn {
-  _TranslationsDialogsCannotOpenFileEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Faili avamine ei õnnestu';
-  @override
-  String content({required Object file}) => '„${file}“ faili avamine ei õnnestunud. Kas ta võib olla teisaldatud, ümbernimetatud või kustutatud?';
-}
-
-// Path: dialogs.encryptionDisabledNotice
-class _TranslationsDialogsEncryptionDisabledNoticeEt extends TranslationsDialogsEncryptionDisabledNoticeEn {
-  _TranslationsDialogsEncryptionDisabledNoticeEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get content =>
-      'Andmevahetus toimub nüüd krüptimata HTTP-protokolli vahendusel. Turvalise HTTPS-protokolli kasutamiseks lülita krüptimine sisse.';
-  @override
-  String get title => 'Krüptimine pole kasutusel';
-}
-
-// Path: dialogs.favoriteDeleteDialog
-class _TranslationsDialogsFavoriteDeleteDialogEt extends TranslationsDialogsFavoriteDeleteDialogEn {
-  _TranslationsDialogsFavoriteDeleteDialogEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String content({required Object name}) => 'Kas sa kindlasti soovid „${name}“ kustutada lemmikute hulgast?';
-  @override
-  String get title => 'Kustuta lemmikute hulgast';
-}
-
-// Path: dialogs.localNetworkUnauthorized
-class _TranslationsDialogsLocalNetworkUnauthorizedEt extends TranslationsDialogsLocalNetworkUnauthorizedEn {
-  _TranslationsDialogsLocalNetworkUnauthorizedEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => _root.dialogs.noPermission.title;
-  @override
-  String get gotoSettings => 'Seadistused';
-  @override
-  String get description =>
-      'Ilma kohtvõrgu skaneerimise õiguseta ei suuda LocalSend leida teisi seadmeid. Palun luba süsteemi seadistustest vajalikud õigused.';
 }
 
 // Path: dialogs.addressInput
@@ -1273,6 +1096,37 @@ class _TranslationsDialogsCancelSessionEt extends TranslationsDialogsCancelSessi
   String get content => 'Kas sa kindlasti soovid katkestada failide edastamise?';
 }
 
+// Path: dialogs.cannotOpenFile
+class _TranslationsDialogsCannotOpenFileEt extends TranslationsDialogsCannotOpenFileEn {
+  _TranslationsDialogsCannotOpenFileEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Faili avamine ei õnnestu';
+  @override
+  String content({required Object file}) => '„${file}“ faili avamine ei õnnestunud. Kas ta võib olla teisaldatud, ümbernimetatud või kustutatud?';
+}
+
+// Path: dialogs.encryptionDisabledNotice
+class _TranslationsDialogsEncryptionDisabledNoticeEt extends TranslationsDialogsEncryptionDisabledNoticeEn {
+  _TranslationsDialogsEncryptionDisabledNoticeEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Krüptimine pole kasutusel';
+  @override
+  String get content =>
+      'Andmevahetus toimub nüüd krüptimata HTTP-protokolli vahendusel. Turvalise HTTPS-protokolli kasutamiseks lülita krüptimine sisse.';
+}
+
 // Path: dialogs.errorDialog
 class _TranslationsDialogsErrorDialogEt extends TranslationsDialogsErrorDialogEn {
   _TranslationsDialogsErrorDialogEt._(TranslationsEt root)
@@ -1284,6 +1138,38 @@ class _TranslationsDialogsErrorDialogEt extends TranslationsDialogsErrorDialogEn
   // Translations
   @override
   String get title => _root.general.error;
+}
+
+// Path: dialogs.favoriteDialog
+class _TranslationsDialogsFavoriteDialogEt extends TranslationsDialogsFavoriteDialogEn {
+  _TranslationsDialogsFavoriteDialogEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Lemmikud';
+  @override
+  String get noFavorites => 'Ühtegi lemmikseadet veel pole.';
+  @override
+  String get addFavorite => 'Lisa';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _TranslationsDialogsFavoriteDeleteDialogEt extends TranslationsDialogsFavoriteDeleteDialogEn {
+  _TranslationsDialogsFavoriteDeleteDialogEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kustuta lemmikute hulgast';
+  @override
+  String content({required Object name}) => 'Kas sa kindlasti soovid „${name}“ kustutada lemmikute hulgast?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1300,13 +1186,36 @@ class _TranslationsDialogsFavoriteEditDialogEt extends TranslationsDialogsFavori
   @override
   String get titleEdit => 'Seadistused';
   @override
-  String get port => 'Kasutatav port';
-  @override
   String get name => 'Seadme nimi';
   @override
   String get auto => '(automaatne)';
   @override
   String get ip => 'IP-aadress';
+  @override
+  String get port => 'Kasutatav port';
+}
+
+// Path: dialogs.fileInfo
+class _TranslationsDialogsFileInfoEt extends TranslationsDialogsFileInfoEn {
+  _TranslationsDialogsFileInfoEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Faili teave';
+  @override
+  String get fileName => 'Failinimi:';
+  @override
+  String get path => 'Asukoht:';
+  @override
+  String get size => 'Suurus:';
+  @override
+  String get sender => 'Saatja:';
+  @override
+  String get time => 'Kellaaeg:';
 }
 
 // Path: dialogs.fileNameInput
@@ -1339,6 +1248,24 @@ class _TranslationsDialogsHistoryClearDialogEt extends TranslationsDialogsHistor
   String get content => 'Kas sa kindlasti soovid kogu ajaloo kustutada?';
 }
 
+// Path: dialogs.localNetworkUnauthorized
+class _TranslationsDialogsLocalNetworkUnauthorizedEt extends TranslationsDialogsLocalNetworkUnauthorizedEn {
+  _TranslationsDialogsLocalNetworkUnauthorizedEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.dialogs.noPermission.title;
+  @override
+  String get description =>
+      'Ilma kohtvõrgu skaneerimise õiguseta ei suuda LocalSend leida teisi seadmeid. Palun luba süsteemi seadistustest vajalikud õigused.';
+  @override
+  String get gotoSettings => 'Seadistused';
+}
+
 // Path: dialogs.messageInput
 class _TranslationsDialogsMessageInputEt extends TranslationsDialogsMessageInputEn {
   _TranslationsDialogsMessageInputEt._(TranslationsEt root)
@@ -1352,6 +1279,21 @@ class _TranslationsDialogsMessageInputEt extends TranslationsDialogsMessageInput
   String get title => 'Kirjuta sõnum';
   @override
   String get multiline => 'Mitmerealine';
+}
+
+// Path: dialogs.noFiles
+class _TranslationsDialogsNoFilesEt extends TranslationsDialogsNoFilesEn {
+  _TranslationsDialogsNoFilesEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ühtegi faili pole valitud';
+  @override
+  String get content => 'Palun vali vähemalt üks fail.';
 }
 
 // Path: dialogs.noPermission
@@ -1379,9 +1321,9 @@ class _TranslationsDialogsNotAvailableOnPlatformEt extends TranslationsDialogsNo
 
   // Translations
   @override
-  String get content => 'See funktsionaalsus on saadaval vaid:';
-  @override
   String get title => 'Pole saadaval';
+  @override
+  String get content => 'See funktsionaalsus on saadaval vaid:';
 }
 
 // Path: dialogs.qr
@@ -1395,6 +1337,44 @@ class _TranslationsDialogsQrEt extends TranslationsDialogsQrEn {
   // Translations
   @override
   String get title => 'QR-kood';
+}
+
+// Path: dialogs.quickActions
+class _TranslationsDialogsQuickActionsEt extends TranslationsDialogsQuickActionsEn {
+  _TranslationsDialogsQuickActionsEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kiirtoimingud';
+  @override
+  String get counter => 'Loendur';
+  @override
+  String get prefix => 'Eesliide';
+  @override
+  String get padZero => 'Täida nullidega';
+  @override
+  String get sortBeforeCount => 'Enne loendamist järjesta tähestiku järjekorras (A-Z)';
+  @override
+  String get random => 'Juhuslikult';
+}
+
+// Path: dialogs.quickSaveNotice
+class _TranslationsDialogsQuickSaveNoticeEt extends TranslationsDialogsQuickSaveNoticeEn {
+  _TranslationsDialogsQuickSaveNoticeEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSave;
+  @override
+  String get content => 'Failipäringutega nõustume nüüd automaatselt. Palun arvesta, et seeläbi võivad kõik sinu kohtvõrgus saata sulle faile.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1429,6 +1409,26 @@ class _TranslationsDialogsPinEt extends TranslationsDialogsPinEn {
   String get title => 'Sisesta PIN-kood';
 }
 
+// Path: dialogs.sendModeHelp
+class _TranslationsDialogsSendModeHelpEt extends TranslationsDialogsSendModeHelpEn {
+  _TranslationsDialogsSendModeHelpEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Saatmisviisid';
+  @override
+  String get single => 'Sellega saadame faile ühele vastuvõtjale. Peale failide saatmise lõppu eemaldame failid saatmisloendist.';
+  @override
+  String get multiple => 'Sellega saadame faile mitmele vastuvõtjale. Peale failide saatmise lõppu failid jäävad saatmisloendisse alles.';
+  @override
+  String get link =>
+      'Kui failide vastuvõtjatel pole arvutis või nutiseadmes rakendust LocalSend, siis avades etteantud lingi oma veebibrauseris, saavad nad failid alla laadida.';
+}
+
 // Path: dialogs.zoom
 class _TranslationsDialogsZoomEt extends TranslationsDialogsZoomEn {
   _TranslationsDialogsZoomEt._(TranslationsEt root)
@@ -1452,24 +1452,11 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsEt extends TranslationsSet
 
   // Translations
   @override
+  String get system => 'Süsteemi kujundus';
+  @override
   String get dark => 'Tume kujundus';
   @override
   String get light => 'Hele kujundus';
-  @override
-  String get system => 'Süsteemi kujundus';
-}
-
-// Path: settingsTab.general.languageOptions
-class _TranslationsSettingsTabGeneralLanguageOptionsEt extends TranslationsSettingsTabGeneralLanguageOptionsEn {
-  _TranslationsSettingsTabGeneralLanguageOptionsEt._(TranslationsEt root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get system => 'Süsteemi keel';
 }
 
 // Path: settingsTab.general.colorOptions
@@ -1485,6 +1472,19 @@ class _TranslationsSettingsTabGeneralColorOptionsEt extends TranslationsSettings
   String get system => 'Süsteemi värvid';
   @override
   String get oled => 'OLED';
+}
+
+// Path: settingsTab.general.languageOptions
+class _TranslationsSettingsTabGeneralLanguageOptionsEt extends TranslationsSettingsTabGeneralLanguageOptionsEn {
+  _TranslationsSettingsTabGeneralLanguageOptionsEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get system => 'Süsteemi keel';
 }
 
 // Path: progressPage.total.title

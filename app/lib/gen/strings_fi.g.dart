@@ -142,6 +142,8 @@ class _TranslationsGeneralFi extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Pikatallennus';
   @override
+  String get quickSaveFromFavorites => 'Pikatallennus suosikeiksi';
+  @override
   String get renamed => 'Nimetty uudelleen';
   @override
   String get reset => 'Nollaa';
@@ -163,8 +165,6 @@ class _TranslationsGeneralFi extends TranslationsGeneralEn {
   String get unknown => 'Tuntematon';
   @override
   String get noItemInClipboard => 'Leikepöydällä ei ole mitään';
-  @override
-  String get quickSaveFromFavorites => 'Pikatallennus suosikeiksi';
 }
 
 // Path: receiveTab
@@ -208,6 +208,8 @@ class _TranslationsSendTabFi extends TranslationsSendTabEn {
   @override
   String get scan => 'Etsi laitteita';
   @override
+  String get manualSending => 'Manuaalinen lähetys';
+  @override
   String get sendMode => 'Lähetystapa';
   @override
   late final _TranslationsSendTabSendModesFi sendModes = _TranslationsSendTabSendModesFi._(_root);
@@ -217,8 +219,6 @@ class _TranslationsSendTabFi extends TranslationsSendTabEn {
   String get help => 'Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.';
   @override
   String get placeItems => 'Lissä tiedostot tähän, jakaaksesi ne.';
-  @override
-  String get manualSending => 'Manuaalinen lähetys';
 }
 
 // Path: settingsTab
@@ -266,9 +266,9 @@ class _TranslationsTroubleshootPageFi extends TranslationsTroubleshootPageEn {
   @override
   late final _TranslationsTroubleshootPageFirewallFi firewall = _TranslationsTroubleshootPageFirewallFi._(_root);
   @override
-  late final _TranslationsTroubleshootPageNoConnectionFi noConnection = _TranslationsTroubleshootPageNoConnectionFi._(_root);
-  @override
   late final _TranslationsTroubleshootPageNoDiscoveryFi noDiscovery = _TranslationsTroubleshootPageNoDiscoveryFi._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoConnectionFi noConnection = _TranslationsTroubleshootPageNoConnectionFi._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -436,13 +436,13 @@ class _TranslationsWebSharePageFi extends TranslationsWebSharePageEn {
   @override
   String get autoAccept => 'Hyväksy pyynnöt automaattisesti';
   @override
-  String get encryptionHint => 'LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.';
-  @override
-  String pendingRequests({required Object n}) => 'Odottavat pyynnöt: ${n}';
-  @override
   String get requirePin => 'Vaadi PIN';
   @override
   String pinHint({required Object pin}) => 'PIN-koodi on "${pin}"';
+  @override
+  String get encryptionHint => 'LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.';
+  @override
+  String pendingRequests({required Object n}) => 'Odottavat pyynnöt: ${n}';
 }
 
 // Path: aboutPage
@@ -466,9 +466,9 @@ class _TranslationsAboutPageFi extends TranslationsAboutPageEn {
   @override
   String get contributors => 'Avustajat';
   @override
-  String get translators => 'Kääntäjät';
-  @override
   String get packagers => 'Pakkaajat';
+  @override
+  String get translators => 'Kääntäjät';
 }
 
 // Path: donationPage
@@ -610,6 +610,8 @@ class _TranslationsDialogsFi extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileFi addFile = _TranslationsDialogsAddFileFi._(_root);
   @override
+  late final _TranslationsDialogsOpenFileFi openFile = _TranslationsDialogsOpenFileFi._(_root);
+  @override
   late final _TranslationsDialogsAddressInputFi addressInput = _TranslationsDialogsAddressInputFi._(_root);
   @override
   late final _TranslationsDialogsCancelSessionFi cancelSession = _TranslationsDialogsCancelSessionFi._(_root);
@@ -648,16 +650,14 @@ class _TranslationsDialogsFi extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeFi quickSaveNotice = _TranslationsDialogsQuickSaveNoticeFi._(_root);
   @override
-  late final _TranslationsDialogsSendModeHelpFi sendModeHelp = _TranslationsDialogsSendModeHelpFi._(_root);
-  @override
-  late final _TranslationsDialogsZoomFi zoom = _TranslationsDialogsZoomFi._(_root);
-  @override
-  late final _TranslationsDialogsOpenFileFi openFile = _TranslationsDialogsOpenFileFi._(_root);
-  @override
   late final _TranslationsDialogsQuickSaveFromFavoritesNoticeFi quickSaveFromFavoritesNotice =
       _TranslationsDialogsQuickSaveFromFavoritesNoticeFi._(_root);
   @override
   late final _TranslationsDialogsPinFi pin = _TranslationsDialogsPinFi._(_root);
+  @override
+  late final _TranslationsDialogsSendModeHelpFi sendModeHelp = _TranslationsDialogsSendModeHelpFi._(_root);
+  @override
+  late final _TranslationsDialogsZoomFi zoom = _TranslationsDialogsZoomFi._(_root);
 }
 
 // Path: sanitization
@@ -704,6 +704,12 @@ class _TranslationsWebFi extends TranslationsWebEn {
   @override
   String get waiting => 'Odotetaan vastausta...';
   @override
+  String get enterPin => 'Syötä PIN-koodi';
+  @override
+  String get invalidPin => 'Virheellinen PIN-koodi';
+  @override
+  String get tooManyAttempts => 'Liian monta yritystä';
+  @override
   String get rejected => 'Hylätty';
   @override
   String get files => 'Tiedostot';
@@ -711,12 +717,6 @@ class _TranslationsWebFi extends TranslationsWebEn {
   String get fileName => 'Tiedoston nimi';
   @override
   String get size => 'Koko';
-  @override
-  String get enterPin => 'Syötä PIN-koodi';
-  @override
-  String get invalidPin => 'Virheellinen PIN-koodi';
-  @override
-  String get tooManyAttempts => 'Liian monta yritystä';
 }
 
 // Path: assetPicker
@@ -900,17 +900,17 @@ class _TranslationsSettingsTabGeneralFi extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'Poistu: Tallenna ikkunan sijainti';
   @override
+  String get saveWindowPlacementWindows => 'Tallenna ikkunan sijainti poistumisen jälkeen';
+  @override
   String get minimizeToTray => 'Poistu: Minimoi ilmoitusalueelle';
   @override
   String get launchAtStartup => 'Automaattinen käynnistys';
   @override
   String get launchMinimized => 'Automaattinen käynnistys: Käynnistä piiilotettuna';
   @override
-  String get animations => 'Animaatiot';
-  @override
-  String get saveWindowPlacementWindows => 'Tallenna ikkunan sijainti poistumisen jälkeen';
-  @override
   String get showInContextMenu => 'Näytä LocalSend kontekstivalikossa';
+  @override
+  String get animations => 'Animaatiot';
 }
 
 // Path: settingsTab.receive
@@ -979,6 +979,10 @@ class _TranslationsSettingsTabNetworkFi extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'Laitteiden etsintäaika';
   @override
+  String get useSystemName => 'Käytä järjestelmän nimeä';
+  @override
+  String get generateRandomAlias => 'Luo satunnainen alias';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua porttia. (oletus: ${defaultPort})';
   @override
@@ -988,10 +992,6 @@ class _TranslationsSettingsTabNetworkFi extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: ${defaultMulticast})';
-  @override
-  String get useSystemName => 'Käytä järjestelmän nimeä';
-  @override
-  String get generateRandomAlias => 'Luo satunnainen alias';
 }
 
 // Path: settingsTab.other
@@ -1034,22 +1034,6 @@ class _TranslationsTroubleshootPageFirewallFi extends TranslationsTroubleshootPa
   String get openFirewall => 'Avaa palomuuri';
 }
 
-// Path: troubleshootPage.noConnection
-class _TranslationsTroubleshootPageNoConnectionFi extends TranslationsTroubleshootPageNoConnectionEn {
-  _TranslationsTroubleshootPageNoConnectionFi._(TranslationsFi root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsFi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get symptom => 'Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.';
-  @override
-  String get solution =>
-      'Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä.';
-}
-
 // Path: troubleshootPage.noDiscovery
 class _TranslationsTroubleshootPageNoDiscoveryFi extends TranslationsTroubleshootPageNoDiscoveryEn {
   _TranslationsTroubleshootPageNoDiscoveryFi._(TranslationsFi root)
@@ -1066,6 +1050,22 @@ class _TranslationsTroubleshootPageNoDiscoveryFi extends TranslationsTroubleshoo
       'Varmista, että kaikki laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, monilähetysosoite, salaus). Voit yrittää kirjoittaa kohdelaitteen IP-osoitteen manuaalisesti. Jos tämä toimii, harkitse tämän laitteen lisäämistä suosikkeihin, jotta se voidaan löytää automaattisesti tulevaisuudessa.';
 }
 
+// Path: troubleshootPage.noConnection
+class _TranslationsTroubleshootPageNoConnectionFi extends TranslationsTroubleshootPageNoConnectionEn {
+  _TranslationsTroubleshootPageNoConnectionFi._(TranslationsFi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.';
+  @override
+  String get solution =>
+      'Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä.';
+}
+
 // Path: receiveHistoryPage.entryActions
 class _TranslationsReceiveHistoryPageEntryActionsFi extends TranslationsReceiveHistoryPageEntryActionsEn {
   _TranslationsReceiveHistoryPageEntryActionsFi._(TranslationsFi root)
@@ -1078,11 +1078,11 @@ class _TranslationsReceiveHistoryPageEntryActionsFi extends TranslationsReceiveH
   @override
   String get open => 'Avaa tiedosto';
   @override
+  String get showInFolder => 'Näytä kansiossa';
+  @override
   String get info => 'Tiedot';
   @override
   String get deleteFromHistory => 'Poista historiasta';
-  @override
-  String get showInFolder => 'Näytä kansiossa';
 }
 
 // Path: progressPage.total
@@ -1117,6 +1117,21 @@ class _TranslationsDialogsAddFileFi extends TranslationsDialogsAddFileEn {
   String get title => 'Lisää valintaan';
   @override
   String get content => 'Mitä haluat lisätä?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileFi extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileFi._(TranslationsFi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Avaa tiedosto';
+  @override
+  String get content => 'Haluatko avata vastaanotetun tiedoston?';
 }
 
 // Path: dialogs.addressInput
@@ -1432,6 +1447,36 @@ class _TranslationsDialogsQuickSaveNoticeFi extends TranslationsDialogsQuickSave
   String get content => 'Tiedostopyynnöt hyväksytään automaattisesti. Huomaa, että kuka tahansa paikallisverkossa voi lähettää sinulle tiedostoja.';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeFi extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeFi._(TranslationsFi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get content => [
+        'Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.',
+        'Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.',
+        'Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia.',
+      ];
+}
+
+// Path: dialogs.pin
+class _TranslationsDialogsPinFi extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinFi._(TranslationsFi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Syötä PIN-koodi';
+}
+
 // Path: dialogs.sendModeHelp
 class _TranslationsDialogsSendModeHelpFi extends TranslationsDialogsSendModeHelpEn {
   _TranslationsDialogsSendModeHelpFi._(TranslationsFi root)
@@ -1462,51 +1507,6 @@ class _TranslationsDialogsZoomFi extends TranslationsDialogsZoomEn {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.openFile
-class _TranslationsDialogsOpenFileFi extends TranslationsDialogsOpenFileEn {
-  _TranslationsDialogsOpenFileFi._(TranslationsFi root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsFi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Avaa tiedosto';
-  @override
-  String get content => 'Haluatko avata vastaanotetun tiedoston?';
-}
-
-// Path: dialogs.quickSaveFromFavoritesNotice
-class _TranslationsDialogsQuickSaveFromFavoritesNoticeFi extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
-  _TranslationsDialogsQuickSaveFromFavoritesNoticeFi._(TranslationsFi root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsFi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  List<String> get content => [
-        'Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.',
-        'Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.',
-        'Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia.',
-      ];
-}
-
-// Path: dialogs.pin
-class _TranslationsDialogsPinFi extends TranslationsDialogsPinEn {
-  _TranslationsDialogsPinFi._(TranslationsFi root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsFi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Syötä PIN-koodi';
 }
 
 // Path: settingsTab.general.brightnessOptions

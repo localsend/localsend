@@ -31,71 +31,17 @@ class TranslationsGl extends Translations {
 
   // Translations
   @override
-  late final _TranslationsReceiveTabGl receiveTab = _TranslationsReceiveTabGl._(_root);
-  @override
-  late final _TranslationsSendTabGl sendTab = _TranslationsSendTabGl._(_root);
-  @override
   String get locale => 'Inglés';
   @override
   String get appName => 'LocalSend';
   @override
   late final _TranslationsGeneralGl general = _TranslationsGeneralGl._(_root);
   @override
+  late final _TranslationsReceiveTabGl receiveTab = _TranslationsReceiveTabGl._(_root);
+  @override
+  late final _TranslationsSendTabGl sendTab = _TranslationsSendTabGl._(_root);
+  @override
   late final _TranslationsSettingsTabGl settingsTab = _TranslationsSettingsTabGl._(_root);
-}
-
-// Path: receiveTab
-class _TranslationsReceiveTabGl extends TranslationsReceiveTabEn {
-  _TranslationsReceiveTabGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _TranslationsReceiveTabInfoBoxGl infoBox = _TranslationsReceiveTabInfoBoxGl._(_root);
-  @override
-  String get title => 'Recibir';
-  @override
-  late final _TranslationsReceiveTabQuickSaveGl quickSave = _TranslationsReceiveTabQuickSaveGl._(_root);
-}
-
-// Path: sendTab
-class _TranslationsSendTabGl extends TranslationsSendTabEn {
-  _TranslationsSendTabGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _TranslationsSendTabPickerGl picker = _TranslationsSendTabPickerGl._(_root);
-  @override
-  String get shareIntentInfo => 'Tamén podes usar a función "Compartir" do teu dispositivo móbil para seleccionar ficheiros máis facilmente.';
-  @override
-  String get title => 'Enviar';
-  @override
-  late final _TranslationsSendTabSelectionGl selection = _TranslationsSendTabSelectionGl._(_root);
-  @override
-  String get nearbyDevices => 'Dispositivos Próximos';
-  @override
-  String get thisDevice => 'Este Dispositivo';
-  @override
-  String get scan => 'Busca Dispositivos';
-  @override
-  String get manualSending => 'Envío Manual';
-  @override
-  String get sendMode => 'Modo de Envío';
-  @override
-  late final _TranslationsSendTabSendModesGl sendModes = _TranslationsSendTabSendModesGl._(_root);
-  @override
-  String get sendModeHelp => 'Explicación';
-  @override
-  String get help => 'Asegúrate de que o obxectivo desexado tamén estea na mesma rede wifi.';
-  @override
-  String get placeItems => 'Coloca elementos para compartir.';
 }
 
 // Path: general
@@ -128,6 +74,8 @@ class _TranslationsGeneralGl extends TranslationsGeneralEn {
   @override
   String get copiedToClipboard => 'Copiouse no Portapapeis';
   @override
+  String get decline => 'Declinar';
+  @override
   String get done => 'Feito';
   @override
   String get delete => 'Eliminar';
@@ -144,6 +92,8 @@ class _TranslationsGeneralGl extends TranslationsGeneralEn {
   @override
   String get hide => 'Ocultar';
   @override
+  String get off => 'Apagado';
+  @override
   String get offline => 'Sen Conexión';
   @override
   String get on => 'Activado';
@@ -157,6 +107,8 @@ class _TranslationsGeneralGl extends TranslationsGeneralEn {
   String get quickSave => 'Gardar Rápido';
   @override
   String get quickSaveFromFavorites => 'Gardar rápido para "Favoritos"';
+  @override
+  String get renamed => 'Renomeado';
   @override
   String get reset => 'Desfacer os cambios';
   @override
@@ -174,15 +126,63 @@ class _TranslationsGeneralGl extends TranslationsGeneralEn {
   @override
   String get unchanged => 'Sen Cambios';
   @override
-  String get decline => 'Declinar';
-  @override
-  String get off => 'Apagado';
-  @override
-  String get renamed => 'Renomeado';
-  @override
   String get unknown => 'Descoñecido';
   @override
   String get noItemInClipboard => 'Non hai elementos no Portapapeis.';
+}
+
+// Path: receiveTab
+class _TranslationsReceiveTabGl extends TranslationsReceiveTabEn {
+  _TranslationsReceiveTabGl._(TranslationsGl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Recibir';
+  @override
+  late final _TranslationsReceiveTabInfoBoxGl infoBox = _TranslationsReceiveTabInfoBoxGl._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveGl quickSave = _TranslationsReceiveTabQuickSaveGl._(_root);
+}
+
+// Path: sendTab
+class _TranslationsSendTabGl extends TranslationsSendTabEn {
+  _TranslationsSendTabGl._(TranslationsGl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Enviar';
+  @override
+  late final _TranslationsSendTabSelectionGl selection = _TranslationsSendTabSelectionGl._(_root);
+  @override
+  late final _TranslationsSendTabPickerGl picker = _TranslationsSendTabPickerGl._(_root);
+  @override
+  String get shareIntentInfo => 'Tamén podes usar a función "Compartir" do teu dispositivo móbil para seleccionar ficheiros máis facilmente.';
+  @override
+  String get nearbyDevices => 'Dispositivos Próximos';
+  @override
+  String get thisDevice => 'Este Dispositivo';
+  @override
+  String get scan => 'Busca Dispositivos';
+  @override
+  String get manualSending => 'Envío Manual';
+  @override
+  String get sendMode => 'Modo de Envío';
+  @override
+  late final _TranslationsSendTabSendModesGl sendModes = _TranslationsSendTabSendModesGl._(_root);
+  @override
+  String get sendModeHelp => 'Explicación';
+  @override
+  String get help => 'Asegúrate de que o obxectivo desexado tamén estea na mesma rede wifi.';
+  @override
+  String get placeItems => 'Coloca elementos para compartir.';
 }
 
 // Path: settingsTab
@@ -210,11 +210,11 @@ class _TranslationsReceiveTabInfoBoxGl extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get alias => 'Nome do Dispositivo:';
-  @override
   String get ip => 'IP:';
   @override
   String get port => 'Porto:';
+  @override
+  String get alias => 'Nome do Dispositivo:';
 }
 
 // Path: receiveTab.quickSave
@@ -234,29 +234,6 @@ class _TranslationsReceiveTabQuickSaveGl extends TranslationsReceiveTabQuickSave
   String get on => _root.general.on;
 }
 
-// Path: sendTab.picker
-class _TranslationsSendTabPickerGl extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get clipboard => 'Pegar';
-  @override
-  String get file => 'Arquivo';
-  @override
-  String get folder => 'Cartafol';
-  @override
-  String get media => 'Medios';
-  @override
-  String get text => 'Texto';
-  @override
-  String get app => 'App';
-}
-
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionGl extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionGl._(TranslationsGl root)
@@ -274,6 +251,29 @@ class _TranslationsSendTabSelectionGl extends TranslationsSendTabSelectionEn {
   String size({required Object size}) => 'Tamaño: ${size}';
 }
 
+// Path: sendTab.picker
+class _TranslationsSendTabPickerGl extends TranslationsSendTabPickerEn {
+  _TranslationsSendTabPickerGl._(TranslationsGl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get file => 'Arquivo';
+  @override
+  String get folder => 'Cartafol';
+  @override
+  String get media => 'Medios';
+  @override
+  String get text => 'Texto';
+  @override
+  String get app => 'App';
+  @override
+  String get clipboard => 'Pegar';
+}
+
 // Path: sendTab.sendModes
 class _TranslationsSendTabSendModesGl extends TranslationsSendTabSendModesEn {
   _TranslationsSendTabSendModesGl._(TranslationsGl root)
@@ -284,11 +284,11 @@ class _TranslationsSendTabSendModesGl extends TranslationsSendTabSendModesEn {
 
   // Translations
   @override
-  String get link => 'Comparte via ligazón';
-  @override
   String get single => 'Destinatario Único';
   @override
   String get multiple => 'Múltiples Destinatarios';
+  @override
+  String get link => 'Comparte via ligazón';
 }
 
 // Path: settingsTab.general

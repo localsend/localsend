@@ -71,13 +71,13 @@ class TranslationsBg extends Translations {
   @override
   late final _TranslationsDialogsBg dialogs = _TranslationsDialogsBg._(_root);
   @override
-  late final _TranslationsAssetPickerBg assetPicker = _TranslationsAssetPickerBg._(_root);
+  late final _TranslationsSanitizationBg sanitization = _TranslationsSanitizationBg._(_root);
   @override
   late final _TranslationsTrayBg tray = _TranslationsTrayBg._(_root);
   @override
   late final _TranslationsWebBg web = _TranslationsWebBg._(_root);
   @override
-  late final _TranslationsSanitizationBg sanitization = _TranslationsSanitizationBg._(_root);
+  late final _TranslationsAssetPickerBg assetPicker = _TranslationsAssetPickerBg._(_root);
 }
 
 // Path: general
@@ -382,9 +382,9 @@ class _TranslationsSendPageBg extends TranslationsSendPageEn {
   @override
   String get rejected => 'Получателят е отхвърлил заявката.';
   @override
-  String get busy => 'Получателят е зает с друга заявка.';
-  @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
+  @override
+  String get busy => 'Получателят е зает с друга заявка.';
 }
 
 // Path: progressPage
@@ -569,128 +569,16 @@ class _TranslationsDialogsBg extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickActionsBg quickActions = _TranslationsDialogsQuickActionsBg._(_root);
   @override
-  late final _TranslationsDialogsSendModeHelpBg sendModeHelp = _TranslationsDialogsSendModeHelpBg._(_root);
-  @override
-  late final _TranslationsDialogsZoomBg zoom = _TranslationsDialogsZoomBg._(_root);
-  @override
   late final _TranslationsDialogsQuickSaveNoticeBg quickSaveNotice = _TranslationsDialogsQuickSaveNoticeBg._(_root);
   @override
   late final _TranslationsDialogsQuickSaveFromFavoritesNoticeBg quickSaveFromFavoritesNotice =
       _TranslationsDialogsQuickSaveFromFavoritesNoticeBg._(_root);
   @override
   late final _TranslationsDialogsPinBg pin = _TranslationsDialogsPinBg._(_root);
-}
-
-// Path: assetPicker
-class _TranslationsAssetPickerBg extends TranslationsAssetPickerEn {
-  _TranslationsAssetPickerBg._(TranslationsBg root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
   @override
-  String get unSupportedAssetType => 'Неподдържан тип файл.';
+  late final _TranslationsDialogsSendModeHelpBg sendModeHelp = _TranslationsDialogsSendModeHelpBg._(_root);
   @override
-  String get unableToAccessAll => 'Няма достъп до всички файлове на устройството';
-  @override
-  String get sTypeAudioLabel => 'Аудио';
-  @override
-  String get sTypeImageLabel => 'Изображение';
-  @override
-  String get cancel => 'Отказ';
-  @override
-  String get select => 'Избери';
-  @override
-  String get emptyList => 'Празен списък';
-  @override
-  String get viewingLimitedAssetsTip => 'Преглеждайте само файлове и албуми, достъпни за приложението.';
-  @override
-  String get sTypeVideoLabel => 'Видео';
-  @override
-  String get sTypeOtherLabel => 'Друга медия';
-  @override
-  String get sActionSwitchPathLabel => 'промяна на пътя';
-  @override
-  String get sUnitAssetCountLabel => 'брой';
-  @override
-  String get gifIndicator => 'GIF';
-  @override
-  String get loadFailed => 'Неуспешно зареждане';
-  @override
-  String get confirm => 'Потвърди';
-  @override
-  String get edit => 'Редактирай';
-  @override
-  String get accessLimitedAssets => 'Продължете с ограничен достъп';
-  @override
-  String get accessiblePathName => 'Достъпни файлове';
-  @override
-  String get sActionPreviewHint => 'преглед';
-  @override
-  String get sActionSelectHint => 'избери';
-  @override
-  String get sNameDurationLabel => 'продължителност';
-  @override
-  String get sActionPlayHint => 'изпълни';
-  @override
-  String get sActionUseCameraHint => 'използвайте камера';
-  @override
-  String get original => 'Произход';
-  @override
-  String get preview => 'Преглед';
-  @override
-  String get changeAccessibleLimitedAssets => 'Щракнете, за да актуализирате достъпните файлове';
-  @override
-  String get accessAllTip =>
-      'Приложението има достъп само до някои файлове на устройството. Отидете в системните настройки и разрешете на приложението достъп до всички медии на устройството.';
-  @override
-  String get goToSystemSettings => 'Отидете в системните настройки';
-}
-
-// Path: tray
-class _TranslationsTrayBg extends TranslationsTrayEn {
-  _TranslationsTrayBg._(TranslationsBg root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get close => 'Излезте от LocalSend';
-  @override
-  String get closeWindows => 'Изход';
-  @override
-  String get open => _root.general.open;
-}
-
-// Path: web
-class _TranslationsWebBg extends TranslationsWebEn {
-  _TranslationsWebBg._(TranslationsBg root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get enterPin => 'Въведете ПИН код';
-  @override
-  String get invalidPin => 'Невалиден ПИН код';
-  @override
-  String get fileName => 'Име на файл';
-  @override
-  String get size => 'Размер';
-  @override
-  String get waiting => _root.sendPage.waiting;
-  @override
-  String get tooManyAttempts => 'Твърде много опити';
-  @override
-  String get rejected => 'Отхвърлено';
-  @override
-  String get files => 'Файлове';
+  late final _TranslationsDialogsZoomBg zoom = _TranslationsDialogsZoomBg._(_root);
 }
 
 // Path: sanitization
@@ -703,9 +591,121 @@ class _TranslationsSanitizationBg extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get invalid => 'Името на файла съдържа невалидни знаци';
-  @override
   String get empty => 'Името на файла не може да бъде празно';
+  @override
+  String get invalid => 'Името на файла съдържа невалидни знаци';
+}
+
+// Path: tray
+class _TranslationsTrayBg extends TranslationsTrayEn {
+  _TranslationsTrayBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get open => _root.general.open;
+  @override
+  String get close => 'Излезте от LocalSend';
+  @override
+  String get closeWindows => 'Изход';
+}
+
+// Path: web
+class _TranslationsWebBg extends TranslationsWebEn {
+  _TranslationsWebBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get waiting => _root.sendPage.waiting;
+  @override
+  String get enterPin => 'Въведете ПИН код';
+  @override
+  String get invalidPin => 'Невалиден ПИН код';
+  @override
+  String get tooManyAttempts => 'Твърде много опити';
+  @override
+  String get rejected => 'Отхвърлено';
+  @override
+  String get files => 'Файлове';
+  @override
+  String get fileName => 'Име на файл';
+  @override
+  String get size => 'Размер';
+}
+
+// Path: assetPicker
+class _TranslationsAssetPickerBg extends TranslationsAssetPickerEn {
+  _TranslationsAssetPickerBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get confirm => 'Потвърди';
+  @override
+  String get cancel => 'Отказ';
+  @override
+  String get edit => 'Редактирай';
+  @override
+  String get gifIndicator => 'GIF';
+  @override
+  String get loadFailed => 'Неуспешно зареждане';
+  @override
+  String get original => 'Произход';
+  @override
+  String get preview => 'Преглед';
+  @override
+  String get select => 'Избери';
+  @override
+  String get emptyList => 'Празен списък';
+  @override
+  String get unSupportedAssetType => 'Неподдържан тип файл.';
+  @override
+  String get unableToAccessAll => 'Няма достъп до всички файлове на устройството';
+  @override
+  String get viewingLimitedAssetsTip => 'Преглеждайте само файлове и албуми, достъпни за приложението.';
+  @override
+  String get changeAccessibleLimitedAssets => 'Щракнете, за да актуализирате достъпните файлове';
+  @override
+  String get accessAllTip =>
+      'Приложението има достъп само до някои файлове на устройството. Отидете в системните настройки и разрешете на приложението достъп до всички медии на устройството.';
+  @override
+  String get goToSystemSettings => 'Отидете в системните настройки';
+  @override
+  String get accessLimitedAssets => 'Продължете с ограничен достъп';
+  @override
+  String get accessiblePathName => 'Достъпни файлове';
+  @override
+  String get sTypeAudioLabel => 'Аудио';
+  @override
+  String get sTypeImageLabel => 'Изображение';
+  @override
+  String get sTypeVideoLabel => 'Видео';
+  @override
+  String get sTypeOtherLabel => 'Друга медия';
+  @override
+  String get sActionPlayHint => 'изпълни';
+  @override
+  String get sActionPreviewHint => 'преглед';
+  @override
+  String get sActionSelectHint => 'избери';
+  @override
+  String get sActionSwitchPathLabel => 'промяна на пътя';
+  @override
+  String get sActionUseCameraHint => 'използвайте камера';
+  @override
+  String get sNameDurationLabel => 'продължителност';
+  @override
+  String get sUnitAssetCountLabel => 'брой';
 }
 
 // Path: receiveTab.infoBox
@@ -1363,38 +1363,6 @@ class _TranslationsDialogsQuickActionsBg extends TranslationsDialogsQuickActions
   String get random => 'Случаен';
 }
 
-// Path: dialogs.sendModeHelp
-class _TranslationsDialogsSendModeHelpBg extends TranslationsDialogsSendModeHelpEn {
-  _TranslationsDialogsSendModeHelpBg._(TranslationsBg root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get multiple => 'Изпраща файлове до множество получатели. Изборът няма да бъде изчистен след приключване на прехвърлянето на файлове.';
-  @override
-  String get single => 'Изпраща файлове до един получател. Изборът ще бъде изчистен след приключване на прехвърлянето на файлове.';
-  @override
-  String get link => 'Получателите, които нямат инсталиран LocalSend, могат да изтеглят избраните файлове, като отворят връзката в своя браузър.';
-  @override
-  String get title => 'Режими на изпращане';
-}
-
-// Path: dialogs.zoom
-class _TranslationsDialogsZoomBg extends TranslationsDialogsZoomEn {
-  _TranslationsDialogsZoomBg._(TranslationsBg root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'URL адрес';
-}
-
 // Path: dialogs.quickSaveNotice
 class _TranslationsDialogsQuickSaveNoticeBg extends TranslationsDialogsQuickSaveNoticeEn {
   _TranslationsDialogsQuickSaveNoticeBg._(TranslationsBg root)
@@ -1405,9 +1373,9 @@ class _TranslationsDialogsQuickSaveNoticeBg extends TranslationsDialogsQuickSave
 
   // Translations
   @override
-  String get content => 'Заявките за файлове вече се приемат автоматично. Имайте предвид, че всеки в локалната мрежа може да ви изпраща файлове.';
-  @override
   String get title => _root.general.quickSave;
+  @override
+  String get content => 'Заявките за файлове вече се приемат автоматично. Имайте предвид, че всеки в локалната мрежа може да ви изпраща файлове.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1420,13 +1388,13 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeBg extends TranslationsDia
 
   // Translations
   @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
   List<String> get content => [
         'Заявките за файлове вече се приемат автоматично от устройства в списъка ви с любими.',
         'Внимание! В момента това не е напълно сигурно, тъй като хакер, който има пръстов отпечатък на всяко устройство от списъка ви с любими, може да ви изпраща файлове без ограничения.',
         'Въпреки това, тази опция все още е по-безопасна от разрешаването на всички потребители в локалната мрежа да ви изпращат файлове без ограничения.',
       ];
-  @override
-  String get title => _root.general.quickSaveFromFavorites;
 }
 
 // Path: dialogs.pin
@@ -1440,6 +1408,38 @@ class _TranslationsDialogsPinBg extends TranslationsDialogsPinEn {
   // Translations
   @override
   String get title => 'Въведете ПИН код';
+}
+
+// Path: dialogs.sendModeHelp
+class _TranslationsDialogsSendModeHelpBg extends TranslationsDialogsSendModeHelpEn {
+  _TranslationsDialogsSendModeHelpBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Режими на изпращане';
+  @override
+  String get single => 'Изпраща файлове до един получател. Изборът ще бъде изчистен след приключване на прехвърлянето на файлове.';
+  @override
+  String get multiple => 'Изпраща файлове до множество получатели. Изборът няма да бъде изчистен след приключване на прехвърлянето на файлове.';
+  @override
+  String get link => 'Получателите, които нямат инсталиран LocalSend, могат да изтеглят избраните файлове, като отворят връзката в своя браузър.';
+}
+
+// Path: dialogs.zoom
+class _TranslationsDialogsZoomBg extends TranslationsDialogsZoomEn {
+  _TranslationsDialogsZoomBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'URL адрес';
 }
 
 // Path: settingsTab.general.brightnessOptions

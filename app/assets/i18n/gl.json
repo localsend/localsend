@@ -1,47 +1,4 @@
 {
-  "receiveTab": {
-    "infoBox": {
-      "alias": "Nome do Dispositivo:",
-      "ip": "IP:",
-      "port": "Porto:"
-    },
-    "title": "Recibir",
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favoritos",
-      "on": "@:general.on"
-    }
-  },
-  "sendTab": {
-    "picker": {
-      "clipboard": "Pegar",
-      "file": "Arquivo",
-      "folder": "Cartafol",
-      "media": "Medios",
-      "text": "Texto",
-      "app": "App"
-    },
-    "shareIntentInfo": "Tamén podes usar a función \"Compartir\" do teu dispositivo móbil para seleccionar ficheiros máis facilmente.",
-    "title": "Enviar",
-    "selection": {
-      "title": "Selección",
-      "files": "Ficheiros: {files}",
-      "size": "Tamaño: {size}"
-    },
-    "nearbyDevices": "Dispositivos Próximos",
-    "thisDevice": "Este Dispositivo",
-    "scan": "Busca Dispositivos",
-    "manualSending": "Envío Manual",
-    "sendMode": "Modo de Envío",
-    "sendModes": {
-      "link": "Comparte via ligazón",
-      "single": "Destinatario Único",
-      "multiple": "Múltiples Destinatarios"
-    },
-    "sendModeHelp": "Explicación",
-    "help": "Asegúrate de que o obxectivo desexado tamén estea na mesma rede wifi.",
-    "placeItems": "Coloca elementos para compartir."
-  },
   "locale": "Inglés",
   "appName": "LocalSend",
   "general": {
@@ -55,6 +12,7 @@
     "continueStr": "Continuar",
     "copy": "Copiar",
     "copiedToClipboard": "Copiouse no Portapapeis",
+    "decline": "Declinar",
     "done": "Feito",
     "delete": "Eliminar",
     "edit": "Editar",
@@ -63,6 +21,7 @@
     "files": "Arquivos",
     "finished": "Rematou",
     "hide": "Ocultar",
+    "off": "Apagado",
     "offline": "Sen Conexión",
     "on": "Activado",
     "online": "En Liña",
@@ -70,6 +29,7 @@
     "queue": "Fila",
     "quickSave": "Gardar Rápido",
     "quickSaveFromFavorites": "Gardar rápido para \"Favoritos\"",
+    "renamed": "Renomeado",
     "reset": "Desfacer os cambios",
     "restart": "Reiniciar",
     "settings": "Configuración",
@@ -78,11 +38,51 @@
     "stop": "Parar",
     "save": "Gardar",
     "unchanged": "Sen Cambios",
-    "decline": "Declinar",
-    "off": "Apagado",
-    "renamed": "Renomeado",
     "unknown": "Descoñecido",
     "noItemInClipboard": "Non hai elementos no Portapapeis."
+  },
+  "receiveTab": {
+    "title": "Recibir",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Porto:",
+      "alias": "Nome do Dispositivo:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoritos",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Enviar",
+    "selection": {
+      "title": "Selección",
+      "files": "Ficheiros: {files}",
+      "size": "Tamaño: {size}"
+    },
+    "picker": {
+      "file": "Arquivo",
+      "folder": "Cartafol",
+      "media": "Medios",
+      "text": "Texto",
+      "app": "App",
+      "clipboard": "Pegar"
+    },
+    "shareIntentInfo": "Tamén podes usar a función \"Compartir\" do teu dispositivo móbil para seleccionar ficheiros máis facilmente.",
+    "nearbyDevices": "Dispositivos Próximos",
+    "thisDevice": "Este Dispositivo",
+    "scan": "Busca Dispositivos",
+    "manualSending": "Envío Manual",
+    "sendMode": "Modo de Envío",
+    "sendModes": {
+      "single": "Destinatario Único",
+      "multiple": "Múltiples Destinatarios",
+      "link": "Comparte via ligazón"
+    },
+    "sendModeHelp": "Explicación",
+    "help": "Asegúrate de que o obxectivo desexado tamén estea na mesma rede wifi.",
+    "placeItems": "Coloca elementos para compartir."
   },
   "settingsTab": {
     "title": "Configuración",

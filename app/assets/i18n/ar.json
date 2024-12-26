@@ -49,8 +49,8 @@
       "alias": "اسم الجهاز:"
     },
     "quickSave": {
-      "favorites": "المفضلات",
       "off": "@:general.off",
+      "favorites": "المفضلات",
       "on": "@:general.on"
     }
   },
@@ -135,12 +135,12 @@
       "deviceModel": "نموذج الجهاز",
       "port": "منفذ",
       "discoveryTimeout": "مهلة الاكتشاف",
+      "useSystemName": "استخدم اسم النظام",
+      "generateRandomAlias": "ولّد كنية عشوائية",
       "portWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: {defaultPort})",
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
-      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})",
-      "useSystemName": "استخدم اسم النظام",
-      "generateRandomAlias": "ولّد كنية عشوائية"
+      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
     },
     "other": {
       "title": "أخرى",
@@ -346,6 +346,10 @@
       "title": "أضف إلى الاختيار",
       "content": "ماذا تريد أن تضيف؟"
     },
+    "openFile": {
+      "title": "افتح الملف",
+      "content": "هل تريد فتح الملف المستلم؟"
+    },
     "addressInput": {
       "title": "أدخل العنوان",
       "hashtag": "رابطة هاشتاق",
@@ -455,10 +459,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "openFile": {
-      "title": "افتح الملف",
-      "content": "هل تريد فتح الملف المستلم؟"
     }
   },
   "sanitization": {

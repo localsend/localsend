@@ -67,6 +67,8 @@ class TranslationsId extends Translations {
   @override
   late final _TranslationsChangelogPageId changelogPage = _TranslationsChangelogPageId._(_root);
   @override
+  late final _TranslationsAliasGeneratorId aliasGenerator = _TranslationsAliasGeneratorId._(_root);
+  @override
   late final _TranslationsDialogsId dialogs = _TranslationsDialogsId._(_root);
   @override
   late final _TranslationsSanitizationId sanitization = _TranslationsSanitizationId._(_root);
@@ -76,8 +78,6 @@ class TranslationsId extends Translations {
   late final _TranslationsWebId web = _TranslationsWebId._(_root);
   @override
   late final _TranslationsAssetPickerId assetPicker = _TranslationsAssetPickerId._(_root);
-  @override
-  late final _TranslationsAliasGeneratorId aliasGenerator = _TranslationsAliasGeneratorId._(_root);
 }
 
 // Path: general
@@ -508,6 +508,17 @@ class _TranslationsChangelogPageId extends TranslationsChangelogPageEn {
   String get title => 'Catatan Perubahan';
 }
 
+// Path: aliasGenerator
+class _TranslationsAliasGeneratorId extends TranslationsAliasGeneratorEn {
+  _TranslationsAliasGeneratorId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+}
+
 // Path: dialogs
 class _TranslationsDialogsId extends TranslationsDialogsEn {
   _TranslationsDialogsId._(TranslationsId root)
@@ -519,6 +530,8 @@ class _TranslationsDialogsId extends TranslationsDialogsEn {
   // Translations
   @override
   late final _TranslationsDialogsAddFileId addFile = _TranslationsDialogsAddFileId._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileId openFile = _TranslationsDialogsOpenFileId._(_root);
   @override
   late final _TranslationsDialogsAddressInputId addressInput = _TranslationsDialogsAddressInputId._(_root);
   @override
@@ -566,8 +579,6 @@ class _TranslationsDialogsId extends TranslationsDialogsEn {
   late final _TranslationsDialogsSendModeHelpId sendModeHelp = _TranslationsDialogsSendModeHelpId._(_root);
   @override
   late final _TranslationsDialogsZoomId zoom = _TranslationsDialogsZoomId._(_root);
-  @override
-  late final _TranslationsDialogsOpenFileId openFile = _TranslationsDialogsOpenFileId._(_root);
 }
 
 // Path: sanitization
@@ -697,17 +708,6 @@ class _TranslationsAssetPickerId extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'Jumlah';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorId extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorId._(TranslationsId root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsId _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxId extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxId._(TranslationsId root)
@@ -735,11 +735,11 @@ class _TranslationsReceiveTabQuickSaveId extends TranslationsReceiveTabQuickSave
 
   // Translations
   @override
+  String get off => _root.general.off;
+  @override
   String get favorites => 'Favorit';
   @override
   String get on => _root.general.on;
-  @override
-  String get off => _root.general.off;
 }
 
 // Path: sendTab.selection
@@ -1045,6 +1045,21 @@ class _TranslationsDialogsAddFileId extends TranslationsDialogsAddFileEn {
   String get title => 'Tambahkan dalam pilihan';
   @override
   String get content => 'Apa yang ingin Anda tambahkan?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileId extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Buka berkas';
+  @override
+  String get content => 'Anda ingin membuka berkas yang diterima?';
 }
 
 // Path: dialogs.addressInput
@@ -1423,21 +1438,6 @@ class _TranslationsDialogsZoomId extends TranslationsDialogsZoomEn {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.openFile
-class _TranslationsDialogsOpenFileId extends TranslationsDialogsOpenFileEn {
-  _TranslationsDialogsOpenFileId._(TranslationsId root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsId _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Buka berkas';
-  @override
-  String get content => 'Anda ingin membuka berkas yang diterima?';
 }
 
 // Path: settingsTab.general.brightnessOptions

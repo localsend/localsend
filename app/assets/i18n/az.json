@@ -14,6 +14,7 @@
     "copiedToClipboard": "Buferə Köçürüldü",
     "decline": "İmtina et",
     "done": "Bitdi",
+    "delete": "Sil",
     "edit": "Düzəliş et",
     "error": "Xəta",
     "example": "Nümunə",
@@ -29,9 +30,8 @@
     "quickSave": "Cəld Saxla",
     "quickSaveFromFavorites": "\"Sevimlilər\" üçün cəld saxla",
     "renamed": "Təkrar adlandırıldı",
-    "restart": "Təkrar başlat",
-    "delete": "Sil",
     "reset": "Dəyişiklikləri geri al",
+    "restart": "Təkrar başlat",
     "settings": "Tənzimləmələr",
     "skipped": "Ötürüldü",
     "start": "Başlat",
@@ -40,70 +40,6 @@
     "unchanged": "Dəyişməmiş",
     "unknown": "Naməlum",
     "noItemInClipboard": "Buferdə element yoxdur."
-  },
-  "sendTab": {
-    "picker": {
-      "folder": "Qovluq",
-      "file": "Fayl",
-      "media": "Media",
-      "text": "Mətn",
-      "app": "Tətbiq",
-      "clipboard": "Yapışdır"
-    },
-    "title": "Göndər",
-    "selection": {
-      "title": "Seçilmə",
-      "files": "Fayllar: {files}",
-      "size": "Həcm: {size}"
-    },
-    "help": "Xahiş olunur, əmin olun ki, istədiyiniz hədəf eyni Wi-Fi şəbəkəsindədir.",
-    "nearbyDevices": "Yaxınlıqdakı cihazlar",
-    "thisDevice": "Bu Cihaz",
-    "scan": "Cihazları axtar",
-    "manualSending": "Özünüz göndərin",
-    "sendMode": "Göndərmə üsulu",
-    "sendModes": {
-      "single": "Tək qəbul edən",
-      "multiple": "Çoxsaylı alıcılar",
-      "link": "Bağlantıdan paylaş"
-    },
-    "sendModeHelp": "İzahat",
-    "placeItems": "Paylaşmaq üçün elementləri yerləşdir.",
-    "shareIntentInfo": "Faylları daha rahat seçmək üçün mobil cihazınızın \"Paylaş\" xüsusiyyətin də istifadə edə bilərsiniz."
-  },
-  "settingsTab": {
-    "title": "Tənzimləmələr",
-    "general": {
-      "language": "Dil",
-      "brightnessOptions": {
-        "system": "Sistem",
-        "dark": "Qaranlıq",
-        "light": "İşıqlı"
-      },
-      "title": "Ümumi",
-      "brightness": "Tema",
-      "color": "Rəng",
-      "colorOptions": {
-        "system": "Sistem",
-        "oled": "OLED"
-      },
-      "saveWindowPlacement": "Çıxdıqdan sonra pəncərə mövqeyini saxla",
-      "saveWindowPlacementWindows": "Çıxış sonrası pəncərə mövqeyin saxla",
-      "minimizeToTray": "Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt",
-      "launchAtStartup": "Girişdən sonra birbaşa başlat",
-      "launchMinimized": "Birbaşa başlat: Gizli başlat",
-      "showInContextMenu": "Məzmun menyusunda LocalSend-i göstər",
-      "animations": "Animasiyalar",
-      "languageOptions": {
-        "system": "Sistem"
-      }
-    },
-    "receive": {
-      "title": "Qəbul et",
-      "quickSave": "@:general.quickSave",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "autoFinish": "Avtomatik Bitirmə"
-    }
   },
   "receiveTab": {
     "title": "Qəbul et",
@@ -116,6 +52,70 @@
       "off": "@:general.off",
       "favorites": "Sevimlilər",
       "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Göndər",
+    "selection": {
+      "title": "Seçilmə",
+      "files": "Fayllar: {files}",
+      "size": "Həcm: {size}"
+    },
+    "picker": {
+      "file": "Fayl",
+      "folder": "Qovluq",
+      "media": "Media",
+      "text": "Mətn",
+      "app": "Tətbiq",
+      "clipboard": "Yapışdır"
+    },
+    "shareIntentInfo": "Faylları daha rahat seçmək üçün mobil cihazınızın \"Paylaş\" xüsusiyyətin də istifadə edə bilərsiniz.",
+    "nearbyDevices": "Yaxınlıqdakı cihazlar",
+    "thisDevice": "Bu Cihaz",
+    "scan": "Cihazları axtar",
+    "manualSending": "Özünüz göndərin",
+    "sendMode": "Göndərmə üsulu",
+    "sendModes": {
+      "single": "Tək qəbul edən",
+      "multiple": "Çoxsaylı alıcılar",
+      "link": "Bağlantıdan paylaş"
+    },
+    "sendModeHelp": "İzahat",
+    "help": "Xahiş olunur, əmin olun ki, istədiyiniz hədəf eyni Wi-Fi şəbəkəsindədir.",
+    "placeItems": "Paylaşmaq üçün elementləri yerləşdir."
+  },
+  "settingsTab": {
+    "title": "Tənzimləmələr",
+    "general": {
+      "title": "Ümumi",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistem",
+        "dark": "Qaranlıq",
+        "light": "İşıqlı"
+      },
+      "color": "Rəng",
+      "colorOptions": {
+        "system": "Sistem",
+        "oled": "OLED"
+      },
+      "language": "Dil",
+      "languageOptions": {
+        "system": "Sistem"
+      },
+      "saveWindowPlacement": "Çıxdıqdan sonra pəncərə mövqeyini saxla",
+      "saveWindowPlacementWindows": "Çıxış sonrası pəncərə mövqeyin saxla",
+      "minimizeToTray": "Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt",
+      "launchAtStartup": "Girişdən sonra birbaşa başlat",
+      "launchMinimized": "Birbaşa başlat: Gizli başlat",
+      "showInContextMenu": "Məzmun menyusunda LocalSend-i göstər",
+      "animations": "Animasiyalar"
+    },
+    "receive": {
+      "title": "Qəbul et",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "autoFinish": "Avtomatik Bitirmə"
     }
   }
 }
