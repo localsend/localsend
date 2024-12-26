@@ -38,7 +38,8 @@
     "save": "Tallenna",
     "unchanged": "Muuttumaton",
     "unknown": "Tuntematon",
-    "noItemInClipboard": "Leikepöydällä ei ole mitään"
+    "noItemInClipboard": "Leikepöydällä ei ole mitään",
+    "quickSaveFromFavorites": "Pikatallennus suosikeiksi"
   },
   "receiveTab": {
     "title": "Ota Vastaan",
@@ -46,6 +47,9 @@
       "ip": "IP:",
       "port": "Portti:",
       "alias": "Laitteen nimi:"
+    },
+    "quickSave": {
+      "favorites": "Suosikit"
     }
   },
   "sendTab": {
@@ -75,7 +79,8 @@
     },
     "sendModeHelp": "Selitys",
     "help": "Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.",
-    "placeItems": "Lissä tiedostot tähän, jakaaksesi ne."
+    "placeItems": "Lissä tiedostot tähän, jakaaksesi ne.",
+    "manualSending": "Manuaalinen lähetys"
   },
   "settingsTab": {
     "title": "Asetukset",
@@ -100,7 +105,9 @@
       "minimizeToTray": "Poistu: Minimoi ilmoitusalueelle",
       "launchAtStartup": "Automaattinen käynnistys",
       "launchMinimized": "Automaattinen käynnistys: Käynnistä piiilotettuna",
-      "animations": "Animaatiot"
+      "animations": "Animaatiot",
+      "saveWindowPlacementWindows": "Tallenna ikkunan sijainti poistumisen jälkeen",
+      "showInContextMenu": "Näytä LocalSend kontekstivalikossa"
     },
     "receive": {
       "title": "Vastaanotto",
@@ -127,7 +134,9 @@
       "portWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua porttia. (oletus: {defaultPort})",
       "encryption": "Salaus",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: {defaultMulticast})"
+      "multicastGroupWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: {defaultMulticast})",
+      "useSystemName": "Käytä järjestelmän nimeä",
+      "generateRandomAlias": "Luo satunnainen alias"
     },
     "other": {
       "title": "Muut",
@@ -151,6 +160,10 @@
     "noConnection": {
       "symptom": "Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.",
       "solution": "Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä."
+    },
+    "noDiscovery": {
+      "symptom": "Tämä laite ei pysty löytämään muita laitteita.",
+      "solution": "Varmista, että kaikki laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, monilähetysosoite, salaus). Voit yrittää kirjoittaa kohdelaitteen IP-osoitteen manuaalisesti. Jos tämä toimii, harkitse tämän laitteen lisäämistä suosikkeihin, jotta se voidaan löytää automaattisesti tulevaisuudessa."
     }
   },
   "receiveHistoryPage": {
@@ -161,7 +174,8 @@
     "entryActions": {
       "open": "Avaa tiedosto",
       "info": "Tiedot",
-      "deleteFromHistory": "Poista historiasta"
+      "deleteFromHistory": "Poista historiasta",
+      "showInFolder": "Näytä kansiossa"
     }
   },
   "apkPickerPage": {
@@ -224,7 +238,9 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Hyväksy pyynnöt automaattisesti",
     "encryptionHint": "LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.",
-    "pendingRequests": "Odottavat pyynnöt: {n}"
+    "pendingRequests": "Odottavat pyynnöt: {n}",
+    "requirePin": "Vaadi PIN",
+    "pinHint": "PIN-koodi on \"{pin}\""
   },
   "aboutPage": {
     "title": "Tietoja LocalSendista",
@@ -234,7 +250,8 @@
     ],
     "author": "Tekijä",
     "contributors": "Avustajat",
-    "translators": "Kääntäjät"
+    "translators": "Kääntäjät",
+    "packagers": "Pakkaajat"
   },
   "donationPage": {
     "title": "Lahjoita",
@@ -429,6 +446,20 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "Avaa tiedosto",
+      "content": "Haluatko avata vastaanotetun tiedoston?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.",
+        "Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.",
+        "Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia."
+      ]
+    },
+    "pin": {
+      "title": "Syötä PIN-koodi"
     }
   },
   "sanitization": {
@@ -438,14 +469,18 @@
   "tray": {
     "@info": "Applen ohjeistukset ovat hyvin tiukat 'sulje'-sanan käytöstä.",
     "open": "Avaa",
-    "close": "Lopeta LocalSend"
+    "close": "Lopeta LocalSend",
+    "closeWindows": "Poistu"
   },
   "web": {
     "waiting": "Odotetaan vastausta...",
     "rejected": "Hylätty",
     "files": "Tiedostot",
     "fileName": "Tiedoston nimi",
-    "size": "Koko"
+    "size": "Koko",
+    "enterPin": "Syötä PIN-koodi",
+    "invalidPin": "Virheellinen PIN-koodi",
+    "tooManyAttempts": "Liian monta yritystä"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",
