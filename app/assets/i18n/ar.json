@@ -3,7 +3,7 @@
   "appName": "LocalSend",
   "general": {
     "accept": "قبول",
-    "accepted": "تم قبولها",
+    "accepted": "قُبلت",
     "add": "إضافة",
     "advanced": "متقدم",
     "cancel": "إلغاء",
@@ -46,7 +46,12 @@
     "infoBox": {
       "ip": "IP:",
       "port": "منفذ:",
-      "alias": "اسم مستعار:"
+      "alias": "اسم الجهاز:"
+    },
+    "quickSave": {
+      "favorites": "المفضلات",
+      "off": "@:general.off",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -133,7 +138,9 @@
       "portWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: {defaultPort})",
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
-      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
+      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})",
+      "useSystemName": "استخدم اسم النظام",
+      "generateRandomAlias": "ولّد كنية عشوائية"
     },
     "other": {
       "title": "أخرى",
@@ -430,7 +437,12 @@
       "content": "يتم قبول طلبات الملفات تلقائيًا. اعلم أن كل فرد في الشبكة المحلية يمكنه إرسال الملفات إليك."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك.",
+        "تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلة لديك أن يرسل لك ملفات دون قيود.",
+        "ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود."
+      ]
     },
     "pin": {
       "title": "أدخل رمز PIN"
@@ -443,6 +455,10 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "افتح الملف",
+      "content": "هل تريد فتح الملف المستلم؟"
     }
   },
   "sanitization": {
