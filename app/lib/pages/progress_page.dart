@@ -432,9 +432,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                             style: const TextStyle(fontSize: 20),
                           ),
                           const SizedBox(height: 5),
-                          TweenAnimationBuilder<double>(
+                          TweenAnimationBuilder(
                             tween: Tween<double>(begin: 0, end: _totalBytes == 0 ? 0 : currBytes / _totalBytes),
-                            duration: Duration(seconds: 1),
+                            duration: const Duration(milliseconds: 200),
                             curve: Curves.easeOut,
                             builder: (context, value, child) {
                               return CustomProgressBar(
