@@ -1524,26 +1524,26 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: "0af2983d4863f9b57f7a28f47fdd86df4ada462e1fad727b47e6bf5fc64d0060"
+      sha256: "4cdc3d8f4b384dbc56d94c87a5371d4a584460d82a74e18247ec690a0e369ff2"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.1"
+    version: "4.4.0"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: "2c0f2790ad0f68210c151fefee86b863c483f315816cbe59496dbbe744ef90e2"
+      sha256: "2111b409ca65b0adf33db02f21cbe05eb557af920edc71038e2133657ed451c4"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "4.4.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: "1693804c4c16a14134e753e48e488dca6a86ad682d5faf3c9c53e80b7b2e6b49"
+      sha256: "819637a23348adbc4f4e8faee3f274d8908f9af31d57bf1e277cd730b14bacde"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "4.4.0"
   source_gen:
     dependency: transitive
     description:
