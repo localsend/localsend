@@ -1,7 +1,7 @@
 ## 1.17.0 (unreleased)
 
 - feat(windows): when pasting an image, automatically convert it to PNG (@BrianMwit)
-- feat(android): add option to gallery when automatically saved (@Tienisto)
+- feat(android): add option to open gallery when image/video was automatically saved (@Tienisto)
 - fix: black screen when tapping on "Back" twice in "Share via link" (@Tienisto)
 - fix(macos): window disappears on command key when minimize to tray is enabled (@Tienisto)
 
