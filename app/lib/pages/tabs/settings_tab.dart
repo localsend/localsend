@@ -10,6 +10,7 @@ import 'package:localsend_app/pages/about/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
+import 'package:localsend_app/pages/settings/network_interfaces_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
@@ -400,6 +401,17 @@ class SettingsTab extends StatelessWidget {
                         }
                       },
                     ),
+                  ),
+                if (vm.advanced)
+                  _ButtonEntry(
+                    label: t.settingsTab.network.network,
+                    buttonLabel: switch (vm.settings.networkWhitelist != null || vm.settings.networkBlacklist != null) {
+                      true => t.settingsTab.network.networkOptions.filtered,
+                      false => t.settingsTab.network.networkOptions.all,
+                    },
+                    onTap: () async {
+                      await context.push(() => const NetworkInterfacesPage());
+                    },
                   ),
                 if (vm.advanced)
                   _SettingsEntry(

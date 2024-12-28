@@ -131,8 +131,6 @@ class IsolateFavoriteHttpDiscoveryAction extends ReduxActionWithResult<IsolateCo
 }
 
 class IsolateSendMulticastAnnouncementAction extends ReduxAction<IsolateController, ParentIsolateState> {
-  IsolateSendMulticastAnnouncementAction();
-
   @override
   ParentIsolateState reduce() {
     final connection = state.multicastDiscovery;
@@ -143,6 +141,23 @@ class IsolateSendMulticastAnnouncementAction extends ReduxAction<IsolateControll
     connection.sendToIsolate(SendToIsolateData(
       syncState: null,
       data: MulticastAnnouncementTask.instance,
+    ));
+
+    return state;
+  }
+}
+
+class IsolateSendMulticastRestartListenerAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.multicastDiscovery;
+    if (connection == null) {
+      throw StateError('multicastDiscovery is not initialized');
+    }
+
+    connection.sendToIsolate(SendToIsolateData(
+      syncState: null,
+      data: MulticastRestartListenerTask.instance,
     ));
 
     return state;

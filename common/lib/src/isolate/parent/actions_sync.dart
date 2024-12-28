@@ -45,10 +45,14 @@ class IsolateSyncDeviceInfoAction extends ReduxAction<IsolateController, ParentI
 }
 
 class IsolateSyncSettingsAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final List<String>? networkWhitelist;
+  final List<String>? networkBlacklist;
   final String multicastGroup;
   final int discoveryTimeout;
 
   IsolateSyncSettingsAction({
+    required this.networkWhitelist,
+    required this.networkBlacklist,
     required this.multicastGroup,
     required this.discoveryTimeout,
   });
@@ -57,6 +61,8 @@ class IsolateSyncSettingsAction extends ReduxAction<IsolateController, ParentIso
   ParentIsolateState reduce() {
     dispatch(_PublishSyncStateAction(
       syncState: state.syncState.copyWith(
+        networkWhitelist: networkWhitelist,
+        networkBlacklist: networkBlacklist,
         multicastGroup: multicastGroup,
         discoveryTimeout: discoveryTimeout,
       ),

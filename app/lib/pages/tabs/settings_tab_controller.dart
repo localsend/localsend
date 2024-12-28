@@ -1,3 +1,4 @@
+import 'package:common/isolate.dart';
 import 'package:common/model/device_info_result.dart';
 import 'package:common/util/sleep.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_vm.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
@@ -18,12 +20,16 @@ import 'package:routerino/routerino.dart';
 final settingsTabControllerProvider = ReduxProvider<SettingsTabController, SettingsTabVm>((ref) {
   final settings = ref.notifier(settingsProvider);
   final server = ref.notifier(serverProvider);
+  final isolateController = ref.notifier(parentIsolateProvider);
+  final localIpService = ref.notifier(localIpProvider);
   final initialDeviceInfo = ref.read(deviceInfoProvider);
   final supportsDynamicColors = ref.read(dynamicColorsProvider) != null;
 
   return SettingsTabController(
     settingsService: settings,
     serverNotifier: server,
+    isolateController: isolateController,
+    localIpService: localIpService,
     initialDeviceInfo: initialDeviceInfo,
     supportsDynamicColors: supportsDynamicColors,
   );
@@ -32,16 +38,22 @@ final settingsTabControllerProvider = ReduxProvider<SettingsTabController, Setti
 class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   final SettingsService _settingsService;
   final ServerService _serverService;
+  final IsolateController _isolateController;
+  final LocalIpService _localIpService;
   final DeviceInfoResult _initialDeviceInfo;
   final bool _supportsDynamicColors;
 
   SettingsTabController({
     required SettingsService settingsService,
     required ServerService serverNotifier,
+    required IsolateController isolateController,
+    required LocalIpService localIpService,
     required DeviceInfoResult initialDeviceInfo,
     required bool supportsDynamicColors,
   })  : _settingsService = settingsService,
         _serverService = serverNotifier,
+        _isolateController = isolateController,
+        _localIpService = localIpService,
         _initialDeviceInfo = initialDeviceInfo,
         _supportsDynamicColors = supportsDynamicColors;
 
@@ -123,6 +135,8 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
             state.portController.text = newServerState.port.toString();
             await _settingsService.setAlias(newServerState.alias);
             await _settingsService.setPort(newServerState.port);
+            external(_isolateController).dispatch(IsolateSendMulticastRestartListenerAction());
+            external(_localIpService).dispatchAsync(FetchLocalIpAction()); // ignore: unawaited_futures
           }
         } catch (e) {
           // ignore: use_build_context_synchronously

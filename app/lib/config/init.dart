@@ -156,6 +156,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
           deviceInfo: ref.read(deviceInfoProvider),
           alias: settings.alias,
           port: settings.port,
+          networkWhitelist: settings.networkWhitelist,
+          networkBlacklist: settings.networkBlacklist,
           protocol: settings.https ? ProtocolType.https : ProtocolType.http,
           multicastGroup: settings.multicastGroup,
           discoveryTimeout: settings.discoveryTimeout,

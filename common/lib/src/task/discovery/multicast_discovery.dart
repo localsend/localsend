@@ -9,6 +9,7 @@ import 'package:common/model/device.dart';
 import 'package:common/model/dto/multicast_dto.dart';
 import 'package:common/model/dto/register_dto.dart';
 import 'package:common/src/isolate/child/http_provider.dart';
+import 'package:common/util/network_interfaces.dart';
 import 'package:common/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:refena/refena.dart';
@@ -23,6 +24,7 @@ class MulticastService {
   MulticastService(this._ref);
 
   final Ref _ref;
+  Completer<void> _cancelCompleter = Completer();
   bool _listening = false;
 
   /// Binds the UDP port and listen to UDP multicast packages
@@ -35,49 +37,78 @@ class MulticastService {
 
     _listening = true;
 
-    final streamController = StreamController<Device>();
-    final syncState = _ref.read(syncProvider);
+    while (true) {
+      final streamController = StreamController<Device>();
+      final syncState = _ref.read(syncProvider);
 
-    final sockets = await _getSockets(syncState.multicastGroup, syncState.port);
-    for (final socket in sockets) {
-      socket.socket.listen((_) {
-        final datagram = socket.socket.receive();
-        if (datagram == null) {
-          return;
-        }
-
-        try {
-          final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
-          if (dto.fingerprint == syncState.securityContext.certificateHash) {
+      final sockets = await _getSockets(
+        whitelist: syncState.networkWhitelist,
+        blacklist: syncState.networkBlacklist,
+        multicastGroup: syncState.multicastGroup,
+        port: syncState.port,
+      );
+      for (final socket in sockets) {
+        socket.socket.listen((_) {
+          final datagram = socket.socket.receive();
+          if (datagram == null) {
             return;
           }
 
-          final ip = datagram.address.address;
-          final peer = dto.toDevice(ip, syncState.port, syncState.protocol == ProtocolType.https);
-          streamController.add(peer);
-          if ((dto.announcement == true || dto.announce == true) && syncState.serverRunning) {
-            // only respond when server is running
-            _answerAnnouncement(peer);
+          try {
+            final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
+            if (dto.fingerprint == syncState.securityContext.certificateHash) {
+              return;
+            }
+
+            final ip = datagram.address.address;
+            final peer = dto.toDevice(ip, syncState.port, syncState.protocol == ProtocolType.https);
+            streamController.add(peer);
+            if ((dto.announcement == true || dto.announce == true) && syncState.serverRunning) {
+              // only respond when server is running
+              _answerAnnouncement(peer);
+            }
+          } catch (e) {
+            _logger.warning('Could not parse multicast message', e);
           }
-        } catch (e) {
-          _logger.warning('Could not parse multicast message', e);
+        });
+        _logger.info(
+          'Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${syncState.multicastGroup}, port: ${syncState.port})',
+        );
+      }
+
+      // Tell everyone in the network that I am online
+      sendAnnouncement(); // ignore: unawaited_futures
+
+      _cancelCompleter = Completer();
+
+      // ignore: unawaited_futures
+      _cancelCompleter.future.then((_) {
+        streamController.close();
+        for (final socket in sockets) {
+          socket.socket.close();
         }
       });
-      _logger.info(
-        'Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${syncState.multicastGroup}, port: ${syncState.port})',
-      );
+
+      yield* streamController.stream;
+
+      // streamController is closed because of cancel
+      // wait for resources to be released (it works without on macOS, but who knows)
+      await sleepAsync(500);
     }
+  }
 
-    // Tell everyone in the network that I am online
-    sendAnnouncement(); // ignore: unawaited_futures
-
-    yield* streamController.stream;
+  void restartListener() {
+    _cancelCompleter.complete();
   }
 
   /// Sends an announcement which triggers a response on every LocalSend member of the network.
   Future<void> sendAnnouncement() async {
     final syncState = _ref.read(syncProvider);
-    final sockets = await _getSockets(syncState.multicastGroup);
+    final sockets = await _getSockets(
+      whitelist: syncState.networkWhitelist,
+      blacklist: syncState.networkBlacklist,
+      multicastGroup: syncState.multicastGroup,
+    );
     final dto = _getMulticastDto(announcement: true);
     for (final wait in [100, 500, 2000]) {
       await sleepAsync(wait);
@@ -106,7 +137,11 @@ class MulticastService {
     } catch (e) {
       // Fallback: Answer with UDP
       final syncState = _ref.read(syncProvider);
-      final sockets = await _getSockets(syncState.multicastGroup);
+      final sockets = await _getSockets(
+        whitelist: syncState.networkWhitelist,
+        blacklist: syncState.networkBlacklist,
+        multicastGroup: syncState.multicastGroup,
+      );
       final dto = _getMulticastDto(announcement: false);
       for (final socket in sockets) {
         try {
@@ -160,8 +195,16 @@ class _SocketResult {
   _SocketResult(this.interface, this.socket);
 }
 
-Future<List<_SocketResult>> _getSockets(String multicastGroup, [int? port]) async {
-  final interfaces = await NetworkInterface.list();
+Future<List<_SocketResult>> _getSockets({
+  required List<String>? whitelist,
+  required List<String>? blacklist,
+  required String multicastGroup,
+  int? port,
+}) async {
+  final interfaces = await getNetworkInterfaces(
+    whitelist: whitelist,
+    blacklist: blacklist,
+  );
   final sockets = <_SocketResult>[];
   for (final interface in interfaces) {
     try {
