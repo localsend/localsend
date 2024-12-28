@@ -25,7 +25,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
   final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
   final IsolateConnector<IsolateTaskResult<Device>, SendToIsolateData<IsolateTask<HttpTargetTask>>>? httpTargetDiscovery;
-  final IsolateConnector<Device, SendToIsolateData<MulticastAnnouncementTask>>? multicastDiscovery;
+  final IsolateConnector<Device, SendToIsolateData<MulticastTask>>? multicastDiscovery;
   final List<IsolateConnector<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>> httpUpload;
   int get uploadIsolateCount => httpUpload.length;
 
@@ -94,7 +94,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
       ),
     );
 
-    final multicastDiscovery = await startIsolate<Device, SendToIsolateData<MulticastAnnouncementTask>, InitialData>(
+    final multicastDiscovery = await startIsolate<Device, SendToIsolateData<MulticastTask>, InitialData>(
       task: setupMulticastDiscoveryIsolate,
       param: InitialData(
         syncState: state.syncState,

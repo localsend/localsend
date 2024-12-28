@@ -4,21 +4,30 @@ import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/task/discovery/multicast_discovery.dart';
 import 'package:meta/meta.dart';
 
+sealed class MulticastTask {}
+
 /// Sends an announcement to all devices to all network interfaces.
 /// They will respond with their device information.
 ///
 /// This is not wrapped in an [IsolateTask] because
 /// - (1) it is not important if the device was found by this specific announcement or another one
 /// - (2) it is not 100% accurate to know if a device was found by this announcement or another one
-class MulticastAnnouncementTask {
+class MulticastAnnouncementTask implements MulticastTask {
   static const instance = MulticastAnnouncementTask._();
 
   const MulticastAnnouncementTask._();
 }
 
+/// Restarts the listener.
+class MulticastRestartListenerTask implements MulticastTask {
+  static const instance = MulticastRestartListenerTask._();
+
+  const MulticastRestartListenerTask._();
+}
+
 @internal
 Future<void> setupMulticastDiscoveryIsolate(
-  Stream<SendToIsolateData<MulticastAnnouncementTask>> receiveFromMain,
+  Stream<SendToIsolateData<MulticastTask>> receiveFromMain,
   void Function(Device) sendToMain,
   InitialData initialData,
 ) async {
@@ -33,7 +42,14 @@ Future<void> setupMulticastDiscoveryIsolate(
       });
     },
     handler: (ref, task) async {
-      await ref.read(multicastDiscoveryProvider).sendAnnouncement();
+      switch (task) {
+        case MulticastAnnouncementTask():
+          await ref.read(multicastDiscoveryProvider).sendAnnouncement();
+          break;
+        case MulticastRestartListenerTask():
+          ref.read(multicastDiscoveryProvider).restartListener();
+          break;
+      }
     },
   );
 }

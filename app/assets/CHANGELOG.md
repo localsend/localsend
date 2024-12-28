@@ -1,5 +1,6 @@
 ## 1.17.0 (unreleased)
 
+- feat: add advanced setting to filter network interfaces (@Tienisto)
 - feat(windows): when pasting an image, automatically convert it to PNG (@BrianMwit)
 - feat(android): add option to open gallery when image/video was automatically saved (@Tienisto)
 - fix: black screen when tapping on "Back" twice in "Share via link" (@Tienisto)

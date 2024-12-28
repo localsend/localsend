@@ -857,6 +857,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  local_hero:
+    dependency: "direct main"
+    description:
+      name: local_hero
+      sha256: "5c85451dd51ecd0e8d3656775fac9a6db82f296f200d9931217186d34fed6089"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   logging:
     dependency: "direct main"
     description:
@@ -937,6 +945,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.4"
+  moform:
+    dependency: "direct main"
+    description:
+      name: moform
+      sha256: "4ef955b2422b0c7c676128b398e417b191647b6a1259d3928000a9a40c63f571"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.5"
   nanoid2:
     dependency: "direct main"
     description:
