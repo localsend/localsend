@@ -111,24 +111,24 @@ LocalSend — это кроссплатформенное приложение, 
 
 Чтобы запустить приложение скрытно (только в трее), используйте флаг `--hidden` (например: `localsend_app.exe --hidden`).
 
-В версии 1.14.0 и более ранних выпусках программа запускается скрыто, если установлен флаг `autostart` и включена настройка скрытого запуска.
+В версии 1.14.0 и более ранних выпусках программа запускается скрыто, если установлен флаг `--autostart` и включена настройка скрытого запуска.
 
-## How It Works
+## Как это работает
 
-LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
+LocalSend использует безопасный протокол связи, который позволяет устройствам взаимодействовать между собой с помощью REST API. Все данные безопасно передаются через HTTPS протокол, а сертификат TLS/SSL генерируется на лету на каждом устройстве, обеспечивая максимальную безопасность.
 
-For more information on the LocalSend Protocol, see the [documentation](https://github.com/localsend/protocol).
+Для получения дополнительной информации о протоколе LocalSend, смотрите [документацию](https://github.com/localsend/protocol).
 
-## Getting Started
+## Начало работы
 
-To compile LocalSend from the source code, follow these steps:
+Чтобы скомпилировать LocalSend из исходного кода, выполните следующие действия:
 
-1. Install Flutter [directly](https://flutter.dev) or using [fvm](https://fvm.app) (see [version required](.fvmrc))
-2. Install [Rust](https://www.rust-lang.org/tools/install)
-3. Clone the `LocalSend` repository
-4. Run `cd app` to enter the app directory
-5. Run `flutter pub get` to download dependencies
-6. Run `flutter run` to start the app
+1. Установите Flutter [напрямую](https://flutter.dev) или с помощью [fvm](https://fvm.app) (см. [необходимую версию](.fvmrc))
+2. Установите [Rust](https://www.rust-lang.org/tools/install)
+3. Клонируйте `LocalSend` репозиторий
+4. Выполните команду `cd app`, чтобы войти в директорию приложения
+5. Выполните команду `flutter pub get`, чтобы загрузить зависимости
+6. Выполните команду `flutter run`, чтобы запустить приложения
 
 > [!NOTE]
 > LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
