@@ -77,25 +77,25 @@ LocalSend — это кроссплатформенное приложение, 
 
 **Совместимость**
 
-| Платформа | Минимальная версия | Примечание                                                                                                                                |
-|----------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| Android  | 5.0             | -                                                                                                                                      |
-| iOS      | 12.0            | -                                                                                                                                      |
-| macOS    | 11 Big Sur      | Используйте OpenCore Legacy Patcher 2.0.2 (См. [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384))    |
-| Windows  | 10              | Последняя версия, поддерживающая Windows 7 — v1.15.4. Возможно, в будущем могут появиться обратные порты новых версий для Windows 7.   |
-| Linux    | Н/Д             | -                                                                                                                                      |
+| Платформа | Минимальная версия | Примечание                                                                                                                           |
+|-----------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Android   | 5.0                | -                                                                                                                                    |
+| iOS       | 12.0               | -                                                                                                                                    |
+| macOS     | 11 Big Sur         | Используйте OpenCore Legacy Patcher 2.0.2 (См. [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384))  |
+| Windows   | 10                 | Последняя версия, поддерживающая Windows 7 — v1.15.4. Возможно, в будущем могут появиться обратные порты новых версий для Windows 7. |
+| Linux     | Н/Д                | -                                                                                                                                    |
 
-## Setup
+## Настройки
 
-In most cases, LocalSend should work out of the box. However, if you are having trouble sending or receiving files, you may need to configure your firewall to allow LocalSend to communicate over your local network.
+В большинстве случаев LocalSend должен работать прямо из коробки. Однако, если у вас возникли проблемы с отправкой или получением файлов, возможно, вам придется настроить брандмауэр, чтобы позволить LocalSend взаимодействовать с вашей локальной сетью.
 
-| Traffic Type | Protocol | Port  | Action |
-|--------------|----------|-------|--------|
-| Incoming     | TCP, UDP | 53317 | Allow  |
-| Outgoing     | TCP, UDP | Any   | Allow  |
+| Тип трафика | Протокол | Порт  | Действие  |
+|-------------|----------|-------|-----------|
+| Входящий    | TCP, UDP | 53317 | Разрешить |
+| Исходящий   | TCP, UDP | Любой | Разрешить |
 
-Also make sure to disable AP isolation on your router. It should be usually disabled by default but some routers may have it enabled (especially guest networks).
-See [troubleshooting](#troubleshooting) for more information.
+Также убедитесь, что на вашем маршрутизаторе отключена изоляция точек доступа. Обычно она отключена по умолчанию, но на некоторых маршрутизаторах она может быть включена (особенно в гостевых сетях).
+Для отримання додаткової інформації перегляньте розділ [усунення несправностей](#troubleshooting).
 
 **Portable Mode**
 
