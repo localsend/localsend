@@ -154,22 +154,22 @@ LocalSend використовує безпечний протокол зв'яз
 
 **_Зверніть увагу:_ Поля, які містять `@`, не призначені для перекладу; вони жодним чином не використовуються в програмі, оскільки є лише інформативним текстом про файл або для надання контексту перекладачу.**
 
-### Bug Fixes and Improvements
+### Виправлення помилок та покращення
 
-- **Bug Fixes:** If you find a bug, please create a pull request with a clear description of the issue and how to fix it.
-- **Improvements:** Have an idea for how to improve LocalSend? Please create an issue first to discuss why the improvement is needed.
+- **Виправлення помилок:** Якщо ви знайшли помилку, створіть запит на витягування з чітким описом проблеми та способом її вирішення.
+- **Покращення:** Маєте ідею, як покращити LocalSend? Будь ласка, спочатку створіть відповідну тему, щоб обговорити, чому це покращення необхідне.
 
-For more information, see the [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
+Для отримання додаткової інформації перегляньте посібник про [внесок у розвиток проекту](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Troubleshooting
+## Усунення несправностей
 
-| Issue              | Platform (Sending) | Platform (Receiving) | Solution                                                                                                                                |
-|--------------------|--------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| Device not visible | Any                | Any                  | Make sure to disable AP-Isolation on your router. If it is enabled, connections between devices are forbidden.                          |
-| Device not visible | Any                | Windows              | Make sure to configure your network as a "private" network. Windows might be more restrictive when the network is configured as public. |
-| Device not visible | macOS, iOS         | Any                  | You can try to toggle the "Local Network" permission under "Privacy" in the OS settings.                                                |
-| Speed too slow     | Any                | Any                  | Use 5 Ghz; Disable encryption on both devices                                                                                           |
-| Speed too slow     | Any                | Android              | Known issue. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
+| Проблема                   | Платформа (Надсилання) | Платформа (Отримання) | Рішення                                                                                                                                |
+|----------------------------|------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Пристрій не відображається | Будь-яка               | Будь-яка              | Переконайтеся, що на вашому маршрутизаторі вимкнено ізоляцію точок доступу. Якщо вона увімкнена, з'єднання між пристроями буде заборонено. |
+| Пристрій не відображається | Будь-яка               | Windows               | Переконайтеся, що ваша мережа налаштована як "приватна". Windows може накладати додаткові обмеження, якщо мережа налаштована як загальнодоступна. |
+| Пристрій не відображається | macOS, iOS             | Будь-яка              | You can try to toggle the "Local Network" permission under "Privacy" in the OS settings.                                                |
+| Швидкість занадто низька   | Будь-яка               | Будь-яка              | Use 5 Ghz; Disable encryption on both devices                                                                                           |
+| Швидкість занадто низька   | Будь-яка               | Android               | Known issue. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
 
 ## Building
 
