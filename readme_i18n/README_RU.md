@@ -8,7 +8,7 @@
 [translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
 [translate-link]: https://hosted.weblate.org/engage/localsend/
 
-[Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
+[Домашняя страница][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
 [English](README.md) • [中文](readme_i18n/README_ZH.md) • [日本語](readme_i18n/README_JA.md) • [ภาษาไทย](readme_i18n/README_TH.md) • [Filipino](readme_i18n/README_PH.md) • [Polski](readme_i18n/README_PL.md) • [Español](readme_i18n/README_ES.md) • [Tiếng Việt](readme_i18n/README_VI.md) • [Portugês Brasil](readme_i18n/README_PT_BR.md) • [Italiano](readme_i18n/README_IT.md) • [Indonesia](readme_i18n/README_ID.md) • [ភាសាខ្មែរ](readme_i18n/README_KM.md) • [Français](readme_i18n/README_FR.md) • [فارسی](readme_i18n/README_FA.md) • [Turkish](readme_i18n/README_TR.md) • [한국어](readme_i18n/README_KO.md)
 
@@ -17,7 +17,7 @@
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
+LocalSend — это бесплатное приложение с открытым исходным кодом, которое позволяет вам безопасно обмениваться файлами и сообщениями с находящимися поблизости устройствами через локальную сеть, без необходимости подключения к Интернету.
 
 - [About](#about)
 - [Screenshots](#screenshots)
@@ -35,17 +35,17 @@ LocalSend is a free, open-source app that allows you to securely share files and
   - [Windows](#windows)
   - [Linux](#linux)
 
-## About
+## О LocalSend
 
-LocalSend is a cross-platform app that enables secure communication between devices using a REST API and HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
+LocalSend — это кроссплатформенное приложение, которое обеспечивает безопасную связь между устройствами с помощью REST API и HTTPS-шифрования. В отличие от других приложений для обмена сообщениями, которые полагаются на внешние серверы, LocalSend не требует подключения к Интернету или сторонним серверам, что делает его быстрым и надежным решением для локальной связи.
 
-## Screenshots
+## Скриншоты
 
 <img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
-## Download
+## Скачать
 
-It is recommended to download the app either from an app store or from a package manager because the app does not have an auto-update.
+Рекомендуется загружать приложение из магазина приложений или менеджера пакетов, поскольку приложение не имеет автоматического обновления.
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |-------------------------|-------------------------|--------------------|----------------|---------------|------------|
@@ -57,7 +57,7 @@ It is recommended to download the app either from an app store or from a package
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Read more about [distribution channels][].
+Подробнее о [каналах дистрибуции][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -73,17 +73,17 @@ Read more about [distribution channels][].
 [snap]: https://snapcraft.io/localsend
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
-[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[каналах дистрибуции]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
-**Compatibility**
+**Совместимость**
 
-| Platform | Minimum Version | Note                                                                                                                        |
-|----------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
-| Android  | 5.0             | -                                                                                                                           |
-| iOS      | 12.0            | -                                                                                                                           |
-| macOS    | 11 Big Sur      | Use OpenCore Legacy Patcher 2.0.2 (See [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
-| Windows  | 10              | The last version to support Windows 7 is v1.15.4. There might be backports of newer versions for Windows 7 in the future.   |
-| Linux    | N.A.            | -                                                                                                                           |
+| Платформа | Минимальная версия | Примечание                                                                                                                                |
+|----------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| Android  | 5.0             | -                                                                                                                                      |
+| iOS      | 12.0            | -                                                                                                                                      |
+| macOS    | 11 Big Sur      | Используйте OpenCore Legacy Patcher 2.0.2 (См. [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384))    |
+| Windows  | 10              | Последняя версия, поддерживающая Windows 7 — v1.15.4. Возможно, в будущем могут появиться обратные порты новых версий для Windows 7.   |
+| Linux    | Н/Д             | -                                                                                                                                      |
 
 ## Setup
 
