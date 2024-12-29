@@ -177,7 +177,7 @@ LocalSend використовує безпечний протокол зв'яз
 
 ### Android
 
-Класичний APK
+Класичний пакет APK
 
 ```bash
 flutter build apk
@@ -203,7 +203,7 @@ flutter build macos
 
 ### Windows
 
-**Класичний**
+**Класичний пакет**
 
 ```bash
 flutter build windows
@@ -223,7 +223,7 @@ flutter pub run msix:create --store
 
 ### Linux
 
-**Класичний**
+**Класичний пакет**
 
 ```bash
 flutter build linux
