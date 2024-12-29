@@ -73,7 +73,7 @@ LocalSend — це кросплатформна програма, яка заб�
 [snap]: https://snapcraft.io/localsend
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
-[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[канали дистрибуції]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
 **Сумісність**
 
