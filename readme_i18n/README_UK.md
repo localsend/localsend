@@ -171,19 +171,19 @@ LocalSend використовує безпечний протокол зв'яз
 | Швидкість занадто низька   | Будь-яка               | Будь-яка              | Використовуйте Wi-Fi 5 ГГц; Вимкніть шифрування на обох пристроях.                                                                         |
 | Швидкість занадто низька   | Будь-яка               | Android               | Відома проблема. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                    |
 
-## Building
+## Збірка
 
-These commands are intended for maintainers only.
+Ці команди призначені лише для для майнтейнерів (розробників).
 
 ### Android
 
-Traditional APK
+Класичний APK
 
 ```bash
 flutter build apk
 ```
 
-AppBundle for Google Play
+AppBundle для Google Play
 
 ```bash
 flutter build appbundle
@@ -203,19 +203,19 @@ flutter build macos
 
 ### Windows
 
-**Traditional**
+**Класичний**
 
 ```bash
 flutter build windows
 ```
 
-**Local MSIX App**
+**Локальний пакет формату MSIX**
 
 ```bash
 flutter pub run msix:create
 ```
 
-**Store ready**
+**Для магазину програм**
 
 ```bash
 flutter pub run msix:create --store
@@ -223,7 +223,7 @@ flutter pub run msix:create --store
 
 ### Linux
 
-**Traditional**
+**Класичний**
 
 ```bash
 flutter build linux
@@ -237,9 +237,9 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+Інструкції розташовані в [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
-## Contributors
+## Учасники
 
 <a href="https://github.com/localsend/localsend/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
