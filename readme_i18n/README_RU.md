@@ -97,21 +97,21 @@ LocalSend — это кроссплатформенное приложение, 
 Также убедитесь, что на вашем маршрутизаторе отключена изоляция точек доступа. Обычно она отключена по умолчанию, но на некоторых маршрутизаторах она может быть включена (особенно в гостевых сетях).
 Для получения дополнительной информации смотрите раздел [устранения неисправностей](#troubleshooting).
 
-**Portable Mode**
+**Портативный режим**
 
-(Introduced in v1.13.0)
+(Начиная с v1.13.0)
 
-Create a file named `settings.json` located in the same directory as the executable.
-This file can be empty.
-The app will use this file to store settings instead of the default location.
+Создайте файл с именем `settings.json` в той же директории, что и исполняемый файл.
+Этот файл может быть пустым.
+Приложение будет использовать этот файл для хранения настроек вместо расположения по умолчанию.
 
-**Start hidden**
+**Запуск в скрытом (фоновом) режиме**
 
-(Updated in v1.15.0)
+(Обновлено с v1.15.0)
 
-To start the app hidden (only in tray), use the `--hidden` flag (example: `localsend_app.exe --hidden`).
+Чтобы запустить приложение скрытно (только в трее), используйте флаг `--hidden` (например: `localsend_app.exe --hidden`).
 
-On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and the hidden setting is enabled.
+В версии 1.14.0 и более ранних выпусках программа запускается скрыто, если установлен флаг `autostart` и включена настройка скрытого запуска.
 
 ## How It Works
 
