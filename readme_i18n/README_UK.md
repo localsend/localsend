@@ -136,17 +136,17 @@ LocalSend використовує безпечний протокол зв'яз
 > Щоб зробити розробку більш узгодженою, LocalSend використовує [fvm](https://fvm.app) для керування версією проекту Flutter.
 > Після встановлення `fvm`, запустіть `fvm flutter` замість `flutter`.
 
-## Contributing
+## Внесок у розвиток проекту
 
-We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+Ми вітаємо внески від усіх, хто хоче допомогти покращити LocalSend. Якщо ви хочете зробити внесок, є кілька способів долучитися:
 
-### Translation
+### Переклад
 
-You can help translate LocalSend into other languages. We use the [Weblate](https://hosted.weblate.org/projects/localsend/app) platform to manage translations.
+Ви можете допомогти перекласти LocalSend на інші мови. Ми використовуємо платформу [Weblate](https://hosted.weblate.org/projects/localsend/app) для керування перекладами.
 
-Alternatively, you can also contribute by forking this repository and adding translations manually.
+Крім того, ви також можете зробити свій внесок, розгалуживши цей репозиторій та додавши переклади вручну.
 
-The translations are located in the [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) directory. Edit the `_missing_translations_<locale>.json` or `strings_<locale>.i18n.json` file to add or update translations.
+Переклади знаходяться в директорії [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Відредагуйте файл `_missing_translations_<locale>.json` або `strings_<locale>.i18n.json`, щоб додати або оновити переклади.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
