@@ -168,22 +168,22 @@ LocalSend использует безопасный протокол связи,
 | Устройство не отображается | Любая                | Любая                 | Убедитесь, что на вашем маршрутизаторе отключена изоляция точек доступа. Если она включена, соединение между устройствами будет запрещено.    |
 | Устройство не отображается | Любая                | Windows               | Убедитесь, что ваша сеть настроена как "частная". Windows может накладывать дополнительные ограничения, если сеть настроена как общедоступная. |
 | Устройство не отображается | macOS, iOS           | Любая                 | Вы можете попробовать повторно предоставить разрешение для "Локальной сети" в разделе "Конфиденциальность" в настройках ОС.                   |
-| Скорость слишком низкая    | Любая                | Любая                 | Используйте Wi-Fi 5 ГГц; Выключите шифрование на обоих устройствах                                                                            |
+| Скорость слишком низкая    | Любая                | Любая                 | Используйте Wi-Fi 5 ГГц; Выключите шифрование на обоих устройствах.                                                                           |
 | Скорость слишком низкая    | Любая                | Android               | Известная проблема. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                    |
 
-## Building
+## Сборка
 
-These commands are intended for maintainers only.
+Эти команды предназначены только для майнтейнеров (разработчиков).
 
 ### Android
 
-Traditional APK
+Классический APK
 
 ```bash
 flutter build apk
 ```
 
-AppBundle for Google Play
+AppBundle для Google Play
 
 ```bash
 flutter build appbundle
@@ -203,19 +203,19 @@ flutter build macos
 
 ### Windows
 
-**Traditional**
+**Классический**
 
 ```bash
 flutter build windows
 ```
 
-**Local MSIX App**
+**Локальный пакет формата MSIX**
 
 ```bash
 flutter pub run msix:create
 ```
 
-**Store ready**
+**Для магазина приложений**
 
 ```bash
 flutter pub run msix:create --store
@@ -223,7 +223,7 @@ flutter pub run msix:create --store
 
 ### Linux
 
-**Traditional**
+**Классический**
 
 ```bash
 flutter build linux
@@ -237,9 +237,9 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+Инструкции расположены в [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
-## Contributors
+## Участники
 
 <a href="https://github.com/localsend/localsend/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
