@@ -146,13 +146,13 @@ LocalSend використовує безпечний протокол зв'яз
 
 Крім того, ви також можете зробити свій внесок, розгалуживши цей репозиторій та додавши переклади вручну.
 
-Переклади знаходяться в директорії [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Відредагуйте файл `_missing_translations_<locale>.json` або `strings_<locale>.i18n.json`, щоб додати або оновити переклади.
+Переклади знаходяться в директорії [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Відредагуйте файл `_missing_translations_<locale>.json` або файл `strings_<locale>.i18n.json`, щоб додати або оновити переклади.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
 </a>
 
-**_Take note:_ Fields decorated with `@` are not meant to be translated; they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
+**_Зверніть увагу:_ Поля, які містять `@`, не призначені для перекладу; вони жодним чином не використовуються в програмі, оскільки є лише інформативним текстом про файл або для надання контексту перекладачу.**
 
 ### Bug Fixes and Improvements
 
