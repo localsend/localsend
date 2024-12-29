@@ -85,14 +85,14 @@ LocalSend — це кросплатформна програма, яка заб�
 | Windows  | 10              | Остання версія, що підтримує Windows 7 — v1.15.4. Можливо, в майбутньому можуть з'явитися зворотні порти новіших версій для Windows 7.   |
 | Linux    | Н/Д             | -                                                                                                                                        |
 
-## Setup
+## Налаштування
 
-In most cases, LocalSend should work out of the box. However, if you are having trouble sending or receiving files, you may need to configure your firewall to allow LocalSend to communicate over your local network.
+У більшості випадків LocalSend має працювати прямо з коробки. Проте, якщо у вас виникли проблеми з надсиланням або отриманням файлів, можливо, вам доведеться налаштувати брандмауер, щоб дозволити LocalSend взаємодіяти з вашою локальною мережею.
 
-| Traffic Type | Protocol | Port  | Action |
-|--------------|----------|-------|--------|
-| Incoming     | TCP, UDP | 53317 | Allow  |
-| Outgoing     | TCP, UDP | Any   | Allow  |
+| Тип трафіку | Протокол | Порт      | Дія       |
+|-------------|----------|-----------|-----------|
+| Вхідний     | TCP, UDP | 53317     | Дозволити |
+| Вихідний    | TCP, UDP | Будь-який | Дозволити |
 
 Also make sure to disable AP isolation on your router. It should be usually disabled by default but some routers may have it enabled (especially guest networks).
 See [troubleshooting](#troubleshooting) for more information.
