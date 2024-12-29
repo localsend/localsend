@@ -130,7 +130,7 @@ LocalSend використовує безпечний протокол зв'яз
 5. Виконайте команду `flutter pub get`, щоб завантажити залежності
 6. Виконайте команду `flutter run`, щоб запустити програму
 
-> [!Примітка]
+> [!NOTE]
 > LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
 > and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
