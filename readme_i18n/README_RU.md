@@ -131,22 +131,22 @@ LocalSend использует безопасный протокол связи,
 6. Выполните команду `flutter run`, чтобы запустить приложения
 
 > [!NOTE]
-> LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
-> and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
-> To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
-> After installing `fvm`, run `fvm flutter` instead of `flutter`.
+> На данный момент LocalSend требует более старой версии Flutter (указанной в [.fvmrc](.fvmrc)),
+> поэтому проблемы со сборкой могут возникать из-за несоответствия между необходимой версией и системной (установленной) версией Flutter.  
+> Чтобы сделать разработку более согласованной, LocalSend использует [fvm](https://fvm.app) для управления версией проекта Flutter.
+> После установки `fvm`, запустите `fvm flutter` вместо `flutter`.
 
-## Contributing
+## Вклад в развитие проекта
 
-We welcome contributions from anyone interested in helping improve LocalSend. If you'd like to contribute, there are a few ways to get involved:
+Мы приветствуем вклады от всех, кто хочет помочь улучшить LocalSend. Если вы хотите внести вклад, есть несколько способов принять участие:
 
-### Translation
+### Перевод
 
-You can help translate LocalSend into other languages. We use the [Weblate](https://hosted.weblate.org/projects/localsend/app) platform to manage translations.
+Вы можете помочь перевести LocalSend на другие языки. Мы используем платформу [Weblate](https://hosted.weblate.org/projects/localsend/app) для управления переводами.
 
-Alternatively, you can also contribute by forking this repository and adding translations manually.
+Кроме того, вы также можете внести свой вклад, создав ответвление этого репозитория и добавив переводы вручную.
 
-The translations are located in the [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) directory. Edit the `_missing_translations_<locale>.json` or `strings_<locale>.i18n.json` file to add or update translations.
+Переводы находятся в директории [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Отредактируйте файл `_missing_translations_<locale>.json` или `strings_<locale>.i18n.json`, чтобы добавить или обновить переводы.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
