@@ -10,7 +10,7 @@
 
 [Домашня сторінка][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](README.md) • [Español](readme_i18n/README_ES.md) • [فارسی](readme_i18n/README_FA.md) • [Filipino](readme_i18n/README_PH.md) • [Français](readme_i18n/README_FR.md) • [Indonesia](readme_i18n/README_ID.md) • [Italiano](readme_i18n/README_IT.md) • [日本語](readme_i18n/README_JA.md) • [ភាសាខ្មែរ](readme_i18n/README_KM.md) • [한국어](readme_i18n/README_KO.md) • [Polski](readme_i18n/README_PL.md) • [Portugês Brasil](readme_i18n/README_PT_BR.md) • [Русский](readme_i18n/README_RU.md) • [ภาษาไทย](readme_i18n/README_TH.md) • [Turkish](readme_i18n/README_TR.md) • [Українська](readme_i18n/README_UK.md) • [Tiếng Việt](readme_i18n/README_VI.md) • [中文](readme_i18n/README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -19,16 +19,16 @@
 
 LocalSend — це безплатна програма з відкритим вихідним кодом, яка дозволяє вам безпечно обмінюватися файлами та повідомленнями з пристроями поблизу через локальну мережу, без необхідності підключення до Інтернету.
 
-- [Про LocalSend](#Про-LocalSend)
-- [Скріншоти](#Скріншоти)
-- [Завантажити](#Завантажити)
-- [Як це працює](#Як-це-працює)
-- [Початок роботи](#Початок-роботи)
-- [Внесок у розвиток проекту](#Внесок-у-розвиток-проекту)
-  - [Переклад](#Переклад)
-  - [Виправлення помилок та покращення роботи](#Виправлення-помилок-та-покращення-роботи)
-- [Усунення несправностей](#Усунення-несправностей)
-- [Збірка (побудова) програми](#Збірка-(побудова)-програми)
+- [Про LocalSend](#про-localsend)
+- [Скріншоти](#скріншоти)
+- [Завантажити](#завантажити)
+- [Як це працює](#як-це-працює)
+- [Початок роботи](#початок-роботи)
+- [Внесок у розвиток проекту](#внесок-у-розвиток-проекту)
+  - [Переклад](#переклад)
+  - [Виправлення помилок та покращення роботи](#виправлення-помилок-та-покращення-роботи)
+- [Усунення несправностей](#усунення-несправностей)
+- [Збірка (побудова) програми](#збірка-побудова-програми)
   - [Android](#android)
   - [iOS](#ios)
   - [macOS](#macos)
@@ -173,7 +173,7 @@ LocalSend використовує безпечний протокол зв'яз
 
 ## Збірка (побудова) програми
 
-Ці команди призначені лише для для майнтейнерів (розробників).
+Ці команди призначені лише для майнтейнерів (розробників).
 
 ### Android
 
