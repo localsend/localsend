@@ -80,7 +80,7 @@ const _translators = <AppLocale, List<String>>{
     'Sergiy Tkachuk (@sergd88)',
   ],
   AppLocale.sr: [
-    'Nebojsa Tomic (@nebojsatomic)', 
+    'Nebojsa Tomic (@nebojsatomic)',
     'Nemanja Dimitrijevic (@nemanya-d)',
   ],
   AppLocale.th: [
