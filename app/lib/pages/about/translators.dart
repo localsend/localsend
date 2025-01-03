@@ -88,6 +88,7 @@ const _translators = <AppLocale, List<String>>{
   ],
   AppLocale.tr: [
     'Mert Şişmanoğlu (@mertssmnoglu)',
+    'Ali Mert Erdogan (@aliwert)',
   ],
   AppLocale.uk: [
     'Sergiy Tkachuk (@sergd88)',
