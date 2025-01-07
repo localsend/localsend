@@ -157,12 +157,11 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final globs = await ignoreManager.getGlobs();
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
-        final rootBasedPath = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
-        if (await checkIgnoreValidity(rootBasedPath, globs)) {
+        final relative = '$directoryName/${p.relative(entity.path, from: directoryPath).replaceAll('\\', '/')}';
+        if (await checkIgnoreValidity(relative, globs)) {
           continue;
         }
 
-        final relative = '$directoryName/$rootBasedPath';
         _logger.info('Add file $relative');
 
         final file = CrossFile(

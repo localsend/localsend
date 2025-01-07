@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:glob/glob.dart';
+import 'package:path/path.dart' as p;
 
 const String ignoreName = '.sendignore';
 const String globalIgnoreDirectory = '';
@@ -15,34 +16,50 @@ class IgnoreManager {
   const IgnoreManager(this.directoryPath);
 
   Future<Set<Glob>> getGlobs() async {
-    final String projectIgnorePath = '$directoryPath/$ignoreName';
-    if (!await File(projectIgnorePath).exists()) {
-      final String globalIgnorePath = '$globalIgnoreDirectory/$ignoreName';
-      if (!await File(globalIgnorePath).exists()) {
-        return {};
-      }
-      return SendIgnore(globalIgnorePath).globs;
+    final availablePaths = ignorePathCandidates.skipWhile((ignorePath) => !File('$ignorePath/$ignoreName').existsSync()).toList();
+    if (availablePaths.isEmpty) {
+      return {};
     }
-    return SendIgnore(projectIgnorePath).globs;
+    final firstCandidate = availablePaths.first;
+    // final String projectIgnorePath = '$directoryPath/$ignoreName';
+    // if (!await File(projectIgnorePath).exists()) {
+    //   final String globalIgnorePath = '$globalIgnoreDirectory/$ignoreName';
+    //   if (!await File(globalIgnorePath).exists()) {
+    //     return {};
+    //   }
+    //   return SendIgnore(globalIgnorePath).globs;
+    // }
+    return SendIgnore(firstCandidate).globs;
+  }
+
+  List<String> get ignorePathCandidates {
+    return [
+      directoryPath,
+      globalIgnoreDirectory
+    ];
   }
 }
 
 class SendIgnore {
-  final String ignorePath;
+  final String directoryPath;
 
-  const SendIgnore(this.ignorePath);
+  const SendIgnore(this.directoryPath);
 
   Future<Set<Glob>> get globs async {
-    File ignoreFile = File(ignorePath);
+    File ignoreFile = File('$directoryPath/$ignoreName');
     return makeGlobs(ignoreFile);
   }
 
   Future<Set<Glob>> makeGlobs(File ignoreFile) async {
-    if (!await ignoreFile.exists()) {
-      return {};
-    }
+    // if (!await ignoreFile.exists()) {
+    //   return {};
+    // }
     final List<String> ignoreContents = await ignoreFile.readAsLines();
-    final Set<Glob> ignoreGlobs = ignoreContents.map((line) => Glob(line)).toSet();
+    final Set<Glob> ignoreGlobs = ignoreContents.map((line) => Glob('$directoryBaseName/$line')).toSet();
     return ignoreGlobs;
+  }
+
+  String get directoryBaseName {
+    return p.basename(directoryPath);
   }
 }
