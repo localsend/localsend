@@ -46,7 +46,7 @@ pub async fn send_offer(
         payload.target,
         &WsServerMessage {
             ws_type: WsMessageType::Offer,
-            peers: None,
+            members: None,
             peer: Some(payload.info),
             peer_id: None,
             sdp: Some(payload.sdp),
@@ -72,7 +72,7 @@ pub async fn send_answer(
         payload.target,
         &WsServerMessage {
             ws_type: WsMessageType::Answer,
-            peers: None,
+            members: None,
             peer: Some(payload.info),
             peer_id: None,
             sdp: Some(payload.sdp),

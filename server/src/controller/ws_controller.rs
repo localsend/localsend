@@ -30,10 +30,10 @@ pub struct WsServerMessage {
     #[serde(rename = "type")]
     pub ws_type: WsMessageType,
 
-    /// The list of peers (including the client) in the IP room.
+    /// The list of members (including the client) in the IP room.
     /// Available only for `Hello` type.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub peers: Option<Vec<PeerInfo>>,
+    pub members: Option<Vec<PeerInfo>>,
 
     /// The peer that triggered the message.
     /// Available only for `Joined` and `Offer` types.
@@ -217,7 +217,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
             let _ = peer_tx
                 .send(WsServerMessage {
                     ws_type: WsMessageType::Joined,
-                    peers: None,
+                    members: None,
                     peer: Some(peer.clone()),
                     peer_id: None,
                     sdp: None,
@@ -227,7 +227,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
 
         tx.send(WsServerMessage {
             ws_type: WsMessageType::Hello,
-            peers: Some(peers),
+            members: Some(peers),
             peer: None,
             peer_id: None,
             sdp: None,
@@ -302,7 +302,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
         let _ = tx
             .send(WsServerMessage {
                 ws_type: WsMessageType::Left,
-                peers: None,
+                members: None,
                 peer: None,
                 peer_id: Some(peer_id),
                 sdp: None,
