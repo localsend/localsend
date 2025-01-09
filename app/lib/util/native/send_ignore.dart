@@ -33,10 +33,7 @@ class IgnoreManager {
   }
 
   List<String> get ignorePathCandidates {
-    return [
-      directoryPath,
-      globalIgnoreDirectory
-    ];
+    return [directoryPath, globalIgnoreDirectory];
   }
 }
 
