@@ -4,7 +4,7 @@ use axum::response::{IntoResponse, Response};
 // https://github.com/tokio-rs/axum/blob/main/examples/oauth/src/main.rs
 
 #[derive(Debug)]
-pub struct AppError{
+pub struct AppError {
     status: StatusCode,
     message: Option<String>,
     error: Option<anyhow::Error>,
@@ -23,13 +23,17 @@ impl AppError {
 impl IntoResponse for AppError {
     fn into_response(self) -> Response {
         if self.status >= StatusCode::INTERNAL_SERVER_ERROR {
-            tracing::error!("{:?}; {:?}", match &self.message {
-                Some(message) => message,
-                None => "(no message)",
-            }, match &self.error {
-                Some(error) => error.to_string(),
-                None => "(no error)".to_string(),
-            });
+            tracing::error!(
+                "{:?}; {:?}",
+                match &self.message {
+                    Some(message) => message,
+                    None => "(no message)",
+                },
+                match &self.error {
+                    Some(error) => error.to_string(),
+                    None => "(no error)".to_string(),
+                }
+            );
         }
 
         // return status code with message

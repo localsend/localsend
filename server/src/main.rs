@@ -1,7 +1,7 @@
-use std::net::SocketAddr;
-use axum::Router;
-use axum::routing::{get, post};
 use crate::controller::{rest_controller, ws_controller};
+use axum::routing::{get, post};
+use axum::Router;
+use std::net::SocketAddr;
 
 mod config;
 mod controller;
@@ -21,7 +21,9 @@ async fn main() {
     let server_port = std::env::var("SERVER_PORT").unwrap_or_else(|_| "3000".to_string());
     let bind_address = format!("{server_ip}:{server_port}");
 
-    let listener = tokio::net::TcpListener::bind(bind_address.clone()).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(bind_address.clone())
+        .await
+        .unwrap();
     tracing::info!("Listening on http://{bind_address}");
     axum::serve(listener, app).await.unwrap();
 }

@@ -1,4 +1,4 @@
-pub(crate) mod state;
-pub(crate) mod init;
 pub(crate) mod error;
+pub(crate) mod init;
 mod scheduler;
+pub(crate) mod state;

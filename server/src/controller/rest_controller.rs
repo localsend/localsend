@@ -3,11 +3,11 @@ use crate::config::state::{AppState, IpRequestCountMap, TxMap};
 use crate::controller::ws_controller::{PeerInfo, WsMessageType, WsServerMessage};
 use crate::util;
 use axum::extract::{ConnectInfo, State};
+use axum::http::StatusCode;
 use axum::Json;
 use serde::Deserialize;
 use std::net::SocketAddr;
 use std::sync::LazyLock;
-use axum::http::StatusCode;
 use tokio::sync::mpsc;
 use uuid::Uuid;
 
@@ -52,7 +52,8 @@ pub async fn send_offer(
             sdp: Some(payload.sdp),
         },
         &state.tx_map,
-    ).await;
+    )
+    .await;
 
     Ok(())
 }
@@ -77,7 +78,8 @@ pub async fn send_answer(
             sdp: Some(payload.sdp),
         },
         &state.tx_map,
-    ).await;
+    )
+    .await;
 
     Ok(())
 }
