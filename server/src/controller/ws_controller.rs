@@ -4,8 +4,8 @@ use crate::util;
 use crate::util::ip::get_ip_group;
 use axum::body::Body;
 use axum::extract::ws::{Message, WebSocket};
-use axum::extract::{ConnectInfo, State, WebSocketUpgrade};
-use axum::http::{HeaderMap, StatusCode};
+use axum::extract::{ConnectInfo, Query, State, WebSocketUpgrade};
+use axum::http::StatusCode;
 use axum::response::Response;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
@@ -103,36 +103,33 @@ pub struct PeerRegisterDto {
     pub device_type: PeerDeviceType,
 }
 
+#[derive(Deserialize)]
+pub struct WsQuery {
+    /// `PeerRegisterDto` encoded as base64.
+    pub d: String,
+}
+
 pub async fn ws_handler(
     State(state): State<AppState>,
     ws: WebSocketUpgrade,
-    header_map: HeaderMap,
+    Query(payload): Query<WsQuery>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
 ) -> Result<Response<Body>, AppError> {
     let peer_info = {
-        let x_data_str: Option<&str> = header_map.get("x-data").map(|v| v.to_str().ok()).flatten();
+        let base64_decoded: Vec<u8> = util::base64::decode(&payload.d)
+            .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-        match x_data_str {
-            Some(x_data_str) => {
-                let base64_decoded: Vec<u8> = util::base64::decode(x_data_str)
-                    .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
+        let base64_decoded: String = String::from_utf8(base64_decoded)
+            .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-                let base64_decoded: String = String::from_utf8(base64_decoded)
-                    .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
+        let register_dto = serde_json::from_str::<PeerRegisterDto>(&base64_decoded)
+            .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-                let register_dto = serde_json::from_str::<PeerRegisterDto>(&base64_decoded)
-                    .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
-
-                PeerInfo {
-                    id: Uuid::new_v4(),
-                    alias: register_dto.alias,
-                    device_model: register_dto.device_model,
-                    device_type: register_dto.device_type,
-                }
-            }
-            None => {
-                return Err(AppError::status(StatusCode::BAD_REQUEST, None));
-            }
+        PeerInfo {
+            id: Uuid::new_v4(),
+            alias: register_dto.alias,
+            device_model: register_dto.device_model,
+            device_type: register_dto.device_type,
         }
     };
 
