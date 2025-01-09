@@ -1,11 +1,16 @@
-use crate::controller::ws_controller::WsServerMessage;
+use crate::controller::ws_controller::{PeerInfoWithoutId, WsServerMessage};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};
 use uuid::Uuid;
 
-/// IP -> Peer ID -> WebSocket message sender.
-pub type TxMap = Arc<Mutex<HashMap<String, HashMap<Uuid, mpsc::Sender<WsServerMessage>>>>>;
+/// IP -> Peer ID -> PeerInfo + WebSocket message sender.
+pub type TxMap = Arc<Mutex<HashMap<String, HashMap<Uuid, PeerState>>>>;
+
+pub struct PeerState {
+    pub peer: PeerInfoWithoutId,
+    pub tx: mpsc::Sender<WsServerMessage>,
+}
 
 pub type IpRequestCountMap = Arc<Mutex<HashMap<String, u32>>>;
 

@@ -1,5 +1,5 @@
 use crate::config::error::AppError;
-use crate::config::state::{AppState, TxMap};
+use crate::config::state::{AppState, PeerState, TxMap};
 use crate::util;
 use crate::util::ip::get_ip_group;
 use axum::body::Body;
@@ -30,6 +30,11 @@ pub struct WsServerMessage {
     #[serde(rename = "type")]
     pub ws_type: WsMessageType,
 
+    /// The list of peers (including the client) in the IP room.
+    /// Available only for `Hello` type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub peers: Option<Vec<PeerInfo>>,
+
     /// The peer that triggered the message.
     /// Available only for `Joined` and `Offer` types.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -48,6 +53,10 @@ pub struct WsServerMessage {
 #[derive(Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum WsMessageType {
+    /// The initial message sent to the client that has just connected.
+    /// Contains the list of peers in the IP room.
+    Hello,
+
     /// A new peer has joined the IP room.
     /// Broadcasted to all peers.
     Joined,
@@ -94,7 +103,7 @@ pub enum PeerDeviceType {
 /// Sent as query during websocket connection.
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct PeerRegisterDto {
+pub struct PeerInfoWithoutId {
     /// The name of the peer.
     pub alias: String,
 
@@ -125,7 +134,7 @@ pub async fn ws_handler(
         let base64_decoded: String = String::from_utf8(base64_decoded)
             .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-        let register_dto = serde_json::from_str::<PeerRegisterDto>(&base64_decoded)
+        let register_dto = serde_json::from_str::<PeerInfoWithoutId>(&base64_decoded)
             .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
         PeerInfo {
@@ -147,10 +156,55 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
     let peer_id = peer.id;
     let (tx, mut rx) = mpsc::channel(4);
     {
-        let mut tx_map = tx_map.lock().await;
+        // Tx of other peers in the IP group.
+        let mut peers_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
 
-        let tx_local_map = tx_map.entry(ip_group.clone()).or_insert_with(HashMap::new);
-        if tx_local_map.len() >= *MAX_CONNECTIONS {
+        // Peers in the IP group including the current user.
+        let mut peers: Vec<PeerInfo> = Vec::new();
+
+        // If the limit of connections is reached.
+        // Used to break out of the lock as early as possible.
+        let mut limit_reached = false;
+
+        'lock: {
+            let mut tx_map = tx_map.lock().await;
+
+            let tx_local_map = tx_map.entry(ip_group.clone()).or_insert_with(HashMap::new);
+            if tx_local_map.len() >= *MAX_CONNECTIONS {
+                limit_reached = true;
+                break 'lock;
+            }
+
+            peers_tx = tx_local_map.values().map(|p| p.tx.clone()).collect();
+
+            tx_local_map.insert(
+                peer_id,
+                PeerState {
+                    peer: PeerInfoWithoutId {
+                        alias: peer.alias.clone(),
+                        device_model: peer.device_model.clone(),
+                        device_type: peer.device_type.clone(),
+                    },
+                    tx: tx.clone(),
+                },
+            );
+
+            peers = tx_local_map
+                .iter()
+                .map(|(k, v)| PeerInfo {
+                    id: *k,
+                    alias: v.peer.alias.clone(),
+                    device_model: v.peer.device_model.clone(),
+                    device_type: v.peer.device_type.clone(),
+                })
+                .collect();
+
+            let debug_active_connections = tx_map.len();
+            let debug_total_active_connections: usize = tx_map.values().map(|m| m.len()).sum();
+            tracing::info!("Connect: {peer_id} (active: {debug_active_connections}, total active: {debug_total_active_connections})");
+        }
+
+        if limit_reached {
             let (mut sender, _) = socket.split();
             let _ = sender
                 .send(Message::Text("Max connections reached".into()))
@@ -159,23 +213,27 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
             return;
         }
 
-        broadcast_to_group(
-            &WsServerMessage {
-                ws_type: WsMessageType::Joined,
-                peer: Some(peer),
-                peer_id: None,
-                sdp: None,
-            },
-            &tx_local_map,
-        )
-        .await;
+        for peer_tx in peers_tx {
+            let _ = peer_tx
+                .send(WsServerMessage {
+                    ws_type: WsMessageType::Joined,
+                    peers: None,
+                    peer: Some(peer.clone()),
+                    peer_id: None,
+                    sdp: None,
+                })
+                .await;
+        }
 
-        tx_local_map.insert(peer_id, tx);
-
-        let debug_active_connections = tx_map.len();
-        let debug_total_active_connections: usize = tx_map.values().map(|m| m.len()).sum();
-        drop(tx_map);
-        tracing::info!("Connect: {peer_id} (active: {debug_active_connections}, total active: {debug_total_active_connections})");
+        tx.send(WsServerMessage {
+            ws_type: WsMessageType::Hello,
+            peers: Some(peers),
+            peer: None,
+            peer_id: None,
+            sdp: None,
+        })
+        .await
+        .unwrap();
     }
 
     let (mut sender, mut receiver) = socket.split();
@@ -219,6 +277,8 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
     // When the "rx" is dropped, the corresponding "tx" will be closed as well.
     let _ = send_task.await;
 
+    let mut remaining_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
+
     {
         let mut tx_map = tx_map.lock().await;
         let final_active_connections = match tx_map.get_mut(&ip_group) {
@@ -228,16 +288,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
                     tx_map.remove(&ip_group);
                     0
                 } else {
-                    broadcast_to_group(
-                        &WsServerMessage {
-                            ws_type: WsMessageType::Left,
-                            peer: None,
-                            peer_id: Some(peer_id),
-                            sdp: None,
-                        },
-                        &tx_local_map,
-                    )
-                    .await;
+                    remaining_tx = tx_local_map.values().map(|p| p.tx.clone()).collect();
                     tx_local_map.len()
                 }
             }
@@ -246,26 +297,16 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
 
         tracing::info!("Disconnect: {peer_id} (active: {final_active_connections})");
     }
-}
 
-pub(crate) async fn broadcast_to_group(
-    message: &WsServerMessage,
-    tx_local_map: &HashMap<Uuid, mpsc::Sender<WsServerMessage>>,
-) {
-    for (_, tx) in tx_local_map.iter() {
-        let _ = tx.send(message.clone()).await;
-    }
-}
-
-pub(crate) async fn send_to_peer_with_lock(
-    ip_group: String,
-    peer_id: Uuid,
-    message: &WsServerMessage,
-    tx_map: &TxMap,
-) {
-    if let Some(tx_local_map) = tx_map.lock().await.get(&ip_group) {
-        if let Some(tx) = tx_local_map.get(&peer_id) {
-            let _ = tx.send(message.clone()).await;
-        }
+    for tx in remaining_tx {
+        let _ = tx
+            .send(WsServerMessage {
+                ws_type: WsMessageType::Left,
+                peers: None,
+                peer: None,
+                peer_id: Some(peer_id),
+                sdp: None,
+            })
+            .await;
     }
 }

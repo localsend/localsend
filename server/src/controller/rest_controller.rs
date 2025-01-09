@@ -1,6 +1,6 @@
 use crate::config::error::AppError;
-use crate::config::state::{AppState, IpRequestCountMap};
-use crate::controller::ws_controller::{send_to_peer_with_lock, PeerInfo, WsMessageType, WsServerMessage};
+use crate::config::state::{AppState, IpRequestCountMap, TxMap};
+use crate::controller::ws_controller::{PeerInfo, WsMessageType, WsServerMessage};
 use crate::util;
 use axum::extract::{ConnectInfo, State};
 use axum::Json;
@@ -8,6 +8,7 @@ use serde::Deserialize;
 use std::net::SocketAddr;
 use std::sync::LazyLock;
 use axum::http::StatusCode;
+use tokio::sync::mpsc;
 use uuid::Uuid;
 
 static MAX_REQUEST: LazyLock<u32> = LazyLock::new(|| {
@@ -45,12 +46,14 @@ pub async fn send_offer(
         payload.target,
         &WsServerMessage {
             ws_type: WsMessageType::Offer,
+            peers: None,
             peer: Some(payload.info),
             peer_id: None,
             sdp: Some(payload.sdp),
         },
         &state.tx_map,
     ).await;
+
     Ok(())
 }
 
@@ -68,12 +71,14 @@ pub async fn send_answer(
         payload.target,
         &WsServerMessage {
             ws_type: WsMessageType::Answer,
+            peers: None,
             peer: Some(payload.info),
             peer_id: None,
             sdp: Some(payload.sdp),
         },
         &state.tx_map,
     ).await;
+
     Ok(())
 }
 
@@ -88,4 +93,25 @@ async fn protect_ddos(
     }
     *count += 1;
     Ok(())
+}
+
+async fn send_to_peer_with_lock(
+    ip_group: String,
+    peer_id: Uuid,
+    message: &WsServerMessage,
+    tx_map: &TxMap,
+) {
+    let mut tx: Option<mpsc::Sender<WsServerMessage>> = None;
+    {
+        let tx_map = tx_map.lock().await;
+        if let Some(tx_local_map) = tx_map.get(&ip_group) {
+            if let Some(peer_state) = tx_local_map.get(&peer_id) {
+                tx = Some(peer_state.tx.clone());
+            }
+        }
+    }
+
+    if let Some(tx) = tx {
+        let _ = tx.send(message.clone()).await;
+    }
 }
