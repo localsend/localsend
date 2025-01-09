@@ -19,6 +19,7 @@ static MAX_REQUEST: LazyLock<u32> = LazyLock::new(|| {
 
 /// The HTTP request sent by the client to the server.
 #[derive(Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ClientOfferRequest {
     /// Description of the peer.
     pub info: PeerInfo,

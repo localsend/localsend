@@ -25,6 +25,7 @@ static MAX_CONNECTIONS: LazyLock<usize> = LazyLock::new(|| {
 
 /// A message sent by the server to the client.
 #[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct WsServerMessage {
     #[serde(rename = "type")]
     pub ws_type: WsMessageType,
@@ -63,6 +64,7 @@ pub enum WsMessageType {
 }
 
 #[derive(Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PeerInfo {
     /// The ID of the peer.
     pub id: Uuid,
@@ -88,9 +90,10 @@ pub enum PeerDeviceType {
     Server,
 }
 
-/// The data that is sent in the `x-data` header encoded as JSON which is again encoded as base64.
-/// Sent as header during websocket connection.
+/// The data that is encoded as JSON which is again encoded as base64.
+/// Sent as query during websocket connection.
 #[derive(Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PeerRegisterDto {
     /// The name of the peer.
     pub alias: String,
