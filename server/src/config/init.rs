@@ -6,6 +6,8 @@ pub async fn init() -> AppState {
     // Set up tracing / logging
     tracing_subscriber::fmt().with_max_level(Level::INFO).init();
 
+    tracing::info!("Starting LocalSend WebRTC signaling server...");
+
     // Initialize the AppState
     let app_state = AppState::new();
 

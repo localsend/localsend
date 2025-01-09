@@ -11,8 +11,6 @@ mod util;
 async fn main() {
     let app_state = config::init::init().await;
 
-    tracing::info!("Starting LocalSend WebRTC signaling server...");
-
     let app = configure_routes()
         .with_state(app_state)
         .into_make_service_with_connect_info::<SocketAddr>();

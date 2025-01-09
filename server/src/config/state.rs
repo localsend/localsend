@@ -1,4 +1,4 @@
-use crate::controller::ws_controller::{PeerInfoWithoutId, WsServerMessage};
+use localsend::webrtc::signaling::{PeerInfoWithoutId, WsServerMessage};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};

@@ -462,6 +462,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5aba8db14291edd000dfcc4d620c7ebfb122c613afb886ca8803fa4e128a20a"
 
 [[package]]
+name = "localsend"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "base64",
+ "futures-util",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "tungstenite",
+ "uuid",
+]
+
+[[package]]
 name = "lock_api"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -759,6 +774,7 @@ dependencies = [
  "axum",
  "base64",
  "futures-util",
+ "localsend",
  "serde",
  "serde_json",
  "tokio",

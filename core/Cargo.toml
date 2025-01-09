@@ -1,0 +1,23 @@
+[package]
+name = "localsend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.95"
+base64 = "0.22.1"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.135"
+tokio = { version = "1.43.0", features = ["full"] }
+uuid = { version = "1.11.0", features = ["serde", "v4"] }
+webrtc = { version = "0.12.0", optional = true }
+tokio-tungstenite = { version = "0.26.1", features = ["rustls-tls-native-roots"], optional = true }
+tracing = "0.1.41"
+tungstenite = "0.26.1"
+futures-util = { version = "0.3.31", features = ["sink"] }
+
+[features]
+default = []
+webrtc-signaling = ["tokio-tungstenite"]
+webrtc-support = ["webrtc", "webrtc-signaling"]
+full = ["webrtc-support"]

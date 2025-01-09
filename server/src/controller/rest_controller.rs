@@ -1,11 +1,10 @@
 use crate::config::error::AppError;
 use crate::config::state::{AppState, IpRequestCountMap, TxMap};
-use crate::controller::ws_controller::{PeerInfo, WsMessageType, WsServerMessage};
 use crate::util;
 use axum::extract::{ConnectInfo, State};
 use axum::http::StatusCode;
 use axum::Json;
-use serde::Deserialize;
+use localsend::webrtc::signaling::{SignalingRequestData, WsMessageType, WsServerMessage};
 use std::net::SocketAddr;
 use std::sync::LazyLock;
 use tokio::sync::mpsc;
@@ -18,24 +17,10 @@ static MAX_REQUEST: LazyLock<u32> = LazyLock::new(|| {
         .unwrap()
 });
 
-/// The HTTP request sent by the client to the server.
-#[derive(Clone, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ClientOfferRequest {
-    /// Description of the peer.
-    pub info: PeerInfo,
-
-    /// Target peer ID.
-    pub target: Uuid,
-
-    /// The SDP offer.
-    pub sdp: String,
-}
-
 pub async fn send_offer(
     State(state): State<AppState>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
-    Json(payload): Json<ClientOfferRequest>,
+    Json(payload): Json<SignalingRequestData>,
 ) -> Result<(), AppError> {
     let ip_group = util::ip::get_ip_group(addr.ip());
 
@@ -61,7 +46,7 @@ pub async fn send_offer(
 pub async fn send_answer(
     State(state): State<AppState>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
-    Json(payload): Json<ClientOfferRequest>,
+    Json(payload): Json<SignalingRequestData>,
 ) -> Result<(), AppError> {
     let ip_group = util::ip::get_ip_group(addr.ip());
 

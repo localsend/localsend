@@ -9,7 +9,8 @@ use axum::http::StatusCode;
 use axum::response::Response;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
-use serde::{Deserialize, Serialize};
+use localsend::webrtc::signaling::{PeerInfo, PeerInfoWithoutId, WsMessageType, WsServerMessage};
+use serde::Deserialize;
 use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::sync::LazyLock;
@@ -22,98 +23,6 @@ static MAX_CONNECTIONS: LazyLock<usize> = LazyLock::new(|| {
         .parse::<usize>()
         .unwrap()
 });
-
-/// A message sent by the server to the client.
-#[derive(Clone, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct WsServerMessage {
-    #[serde(rename = "type")]
-    pub ws_type: WsMessageType,
-
-    /// The list of members (including the client) in the IP room.
-    /// Available only for `Hello` type.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub members: Option<Vec<PeerInfo>>,
-
-    /// The peer that triggered the message.
-    /// Available only for `Joined` and `Offer` types.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub peer: Option<PeerInfo>,
-
-    /// The ID of the peer that triggered the message.
-    /// Available only for `Left` and `Answer` types.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub peer_id: Option<Uuid>,
-
-    /// The SDP string if the message is an offer or answer.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sdp: Option<String>,
-}
-
-#[derive(Clone, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub enum WsMessageType {
-    /// The initial message sent to the client that has just connected.
-    /// Contains the list of peers in the IP room.
-    Hello,
-
-    /// A new peer has joined the IP room.
-    /// Broadcasted to all peers.
-    Joined,
-
-    /// A peer has left the IP room.
-    /// Broadcasted to all peers.
-    Left,
-
-    /// SDP offer from a peer to another peer.
-    Offer,
-
-    /// SDP answer from a peer to another peer.
-    Answer,
-}
-
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct PeerInfo {
-    /// The ID of the peer.
-    pub id: Uuid,
-
-    /// The name of the peer.
-    pub alias: String,
-
-    /// The device model of the peer.
-    /// Windows, macOS, iPhone, Samsung, etc.
-    pub device_model: String,
-
-    /// The device type of the peer.
-    pub device_type: PeerDeviceType,
-}
-
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub enum PeerDeviceType {
-    Mobile,
-    Desktop,
-    Web,
-    Headless,
-    Server,
-}
-
-/// The data that is encoded as JSON which is again encoded as base64.
-/// Sent as query during websocket connection.
-#[derive(Clone, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct PeerInfoWithoutId {
-    /// The name of the peer.
-    pub alias: String,
-
-    /// The device model of the peer.
-    /// Windows, macOS, iPhone, Samsung, etc.
-    pub device_model: String,
-
-    /// The device type of the peer.
-    pub device_type: PeerDeviceType,
-}
 
 #[derive(Deserialize)]
 pub struct WsQuery {
@@ -139,6 +48,7 @@ pub async fn ws_handler(
 
         PeerInfo {
             id: Uuid::new_v4(),
+            fingerprint: register_dto.fingerprint,
             alias: register_dto.alias,
             device_model: register_dto.device_model,
             device_type: register_dto.device_type,
@@ -181,6 +91,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
                 peer_id,
                 PeerState {
                     peer: PeerInfoWithoutId {
+                        fingerprint: peer.fingerprint.clone(),
                         alias: peer.alias.clone(),
                         device_model: peer.device_model.clone(),
                         device_type: peer.device_type.clone(),
@@ -193,6 +104,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
                 .iter()
                 .map(|(k, v)| PeerInfo {
                     id: *k,
+                    fingerprint: v.peer.fingerprint.clone(),
                     alias: v.peer.alias.clone(),
                     device_model: v.peer.device_model.clone(),
                     device_type: v.peer.device_type.clone(),
