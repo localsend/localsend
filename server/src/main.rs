@@ -1,4 +1,4 @@
-use crate::controller::{rest_controller, ws_controller};
+use crate::controller::ws_controller;
 use axum::routing::{get, post};
 use axum::Router;
 use std::net::SocketAddr;
@@ -29,7 +29,5 @@ async fn main() {
 #[rustfmt::skip]
 fn configure_routes() -> Router<config::state::AppState> {
     Router::new()
-        .route("/v1/offer", post(rest_controller::send_offer))
-        .route("/v1/answer", post(rest_controller::send_answer))
         .route("/v1/ws", get(ws_controller::ws_handler))
 }

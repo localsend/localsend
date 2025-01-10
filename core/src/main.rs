@@ -12,11 +12,11 @@ async fn main() -> Result<()> {
         device_model: "test".to_string(),
         device_type: webrtc::signaling::PeerDeviceType::Desktop,
     };
-    let mut rx =
+    let mut connection =
         webrtc::signaling::connect_and_listen("wss://public.localsend.org/v1/ws", &info).await?;
 
     // listen for messages
-    while let Some(message) = rx.recv().await {
+    while let Some(message) = connection.rx.recv().await {
         println!("Received MAIN: {:?}", message);
     }
 

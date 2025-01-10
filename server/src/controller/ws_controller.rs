@@ -1,5 +1,5 @@
 use crate::config::error::AppError;
-use crate::config::state::{AppState, PeerState, TxMap};
+use crate::config::state::{AppState, IpRequestCountMap, PeerState, TxMap};
 use crate::util;
 use crate::util::ip::get_ip_group;
 use axum::body::Body;
@@ -9,7 +9,10 @@ use axum::http::StatusCode;
 use axum::response::Response;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
-use localsend::webrtc::signaling::{PeerInfo, PeerInfoWithoutId, WsMessageType, WsServerMessage};
+use localsend::webrtc::signaling::{
+    PeerInfo, PeerInfoWithoutId, WsClientMessage, WsClientMessageType, WsMessageType,
+    WsServerMessage,
+};
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::net::SocketAddr;
@@ -21,6 +24,13 @@ static MAX_CONNECTIONS: LazyLock<usize> = LazyLock::new(|| {
     std::env::var("MAX_CONNECTIONS_PER_IP")
         .unwrap_or_else(|_| "10".to_string())
         .parse::<usize>()
+        .unwrap()
+});
+
+static MAX_REQUESTS: LazyLock<u32> = LazyLock::new(|| {
+    std::env::var("MAX_REQUESTS_PER_IP_PER_HOUR")
+        .unwrap_or_else(|_| "1000".to_string())
+        .parse::<u32>()
         .unwrap()
 });
 
@@ -55,14 +65,25 @@ pub async fn ws_handler(
         }
     };
 
-    let tx_map_clone = state.tx_map.clone();
-    let ip_group = get_ip_group(addr.ip());
-
-    Ok(ws.on_upgrade(move |socket| handle_socket(tx_map_clone, socket, ip_group, peer_info)))
+    Ok(ws.on_upgrade(move |socket| {
+        handle_socket(
+            state.tx_map,
+            state.request_count_map,
+            socket,
+            get_ip_group(addr.ip()),
+            peer_info,
+        )
+    }))
 }
 
 /// The websocket context (one per connected device) is handled here.
-async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer: PeerInfo) {
+async fn handle_socket(
+    tx_map: TxMap,
+    request_count_map: IpRequestCountMap,
+    socket: WebSocket,
+    ip_group: String,
+    peer: PeerInfo,
+) {
     let peer_id = peer.id;
     let (tx, mut rx) = mpsc::channel(4);
     {
@@ -81,6 +102,14 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
 
             let tx_local_map = tx_map.entry(ip_group.clone()).or_insert_with(HashMap::new);
             if tx_local_map.len() >= *MAX_CONNECTIONS {
+                limit_reached = true;
+                break 'lock;
+            }
+
+            if protect_ddos_request_count(&request_count_map, &ip_group)
+                .await
+                .is_err()
+            {
                 limit_reached = true;
                 break 'lock;
             }
@@ -118,9 +147,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
 
         if limit_reached {
             let (mut sender, _) = socket.split();
-            let _ = sender
-                .send(Message::Text("Max connections reached".into()))
-                .await;
+            let _ = sender.send(Message::Text("Limit reached".into())).await;
             let _ = sender.close().await;
             return;
         }
@@ -133,6 +160,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
                     peer: Some(peer.clone()),
                     peer_id: None,
                     sdp: None,
+                    code: None,
                 })
                 .await;
         }
@@ -143,6 +171,7 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
             peer: None,
             peer_id: None,
             sdp: None,
+            code: None,
         })
         .await
         .unwrap();
@@ -161,9 +190,32 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
         }
     });
 
+    let tx_map_clone = tx_map.clone();
+    let ip_group_clone = ip_group.clone();
     let mut recv_task = tokio::spawn(async move {
-        while let Some(Ok(_)) = receiver.next().await {
-            // We do not expect any messages from the client.
+        while let Some(Ok(msg)) = receiver.next().await {
+            if let Message::Text(text) = msg {
+                if let Ok(msg) = serde_json::from_str::<WsClientMessage>(&text) {
+                    if protect_ddos_request_count(&request_count_map, &ip_group_clone)
+                        .await
+                        .is_err()
+                    {
+                        let _ = tx
+                            .send(WsServerMessage {
+                                ws_type: WsMessageType::Error,
+                                members: None,
+                                peer: None,
+                                peer_id: None,
+                                sdp: None,
+                                code: Some(StatusCode::TOO_MANY_REQUESTS.as_u16()),
+                            })
+                            .await;
+                        return;
+                    }
+
+                    send_to_peer_with_lock(&tx_map_clone, &ip_group_clone, peer.clone(), msg).await;
+                }
+            }
         }
     });
 
@@ -218,7 +270,54 @@ async fn handle_socket(tx_map: TxMap, socket: WebSocket, ip_group: String, peer:
                 peer: None,
                 peer_id: Some(peer_id),
                 sdp: None,
+                code: None,
             })
             .await;
     }
+}
+
+async fn send_to_peer_with_lock(
+    tx_map: &TxMap,
+    ip_group: &str,
+    origin_peer: PeerInfo,
+    message: WsClientMessage,
+) {
+    let mut target_peer_tx: Option<mpsc::Sender<WsServerMessage>> = None;
+    {
+        let tx_map = tx_map.lock().await;
+        if let Some(tx_local_map) = tx_map.get(ip_group) {
+            if let Some(peer_state) = tx_local_map.get(&message.target) {
+                target_peer_tx = Some(peer_state.tx.clone());
+            }
+        }
+    }
+
+    if let Some(tx) = target_peer_tx {
+        let _ = tx
+            .send(WsServerMessage {
+                ws_type: match message.ws_type {
+                    WsClientMessageType::Offer => WsMessageType::Offer,
+                    WsClientMessageType::Answer => WsMessageType::Answer,
+                },
+                members: None,
+                peer: Some(origin_peer),
+                peer_id: None,
+                sdp: Some(message.sdp),
+                code: None,
+            })
+            .await;
+    }
+}
+
+async fn protect_ddos_request_count(
+    request_count_map: &IpRequestCountMap,
+    ip_group: &str,
+) -> Result<(), AppError> {
+    let mut request_count_map = request_count_map.lock().await;
+    let count = request_count_map.entry(ip_group.to_string()).or_insert(0);
+    if *count >= *MAX_REQUESTS {
+        return Err(AppError::status(StatusCode::TOO_MANY_REQUESTS, None));
+    }
+    *count += 1;
+    Ok(())
 }

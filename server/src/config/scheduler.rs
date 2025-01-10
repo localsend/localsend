@@ -8,7 +8,7 @@ pub async fn configure_scheduling(
     let scheduler = JobScheduler::new().await?;
 
     scheduler
-        .add(Job::new_async("0 0 0 * * *", move |_uuid, _l| {
+        .add(Job::new_async("0 0 * * * *", move |_uuid, _l| {
             Box::pin({
                 let value = ip_request_count_map.clone();
                 async move {
