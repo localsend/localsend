@@ -1,6 +1,6 @@
 {
   "locale": "فارسی",
-  "appName": "LocalSend",
+  "appName": "لوکال‌سِند",
   "general": {
     "accept": "پذیرفتن",
     "accepted": "پذیرفته‌شده",
@@ -8,7 +8,7 @@
     "advanced": "پیشرفته",
     "cancel": "ردکردن",
     "close": "بستن",
-    "confirm": "تایید",
+    "confirm": "پذیرفتن",
     "continueStr": "ادامه",
     "copy": "کپی",
     "copiedToClipboard": "کپی شد",
@@ -295,10 +295,10 @@
       "مهربون",
       "دوست‌داشتنی",
       "مبهم",
-      "معرکه",
-      "مودب",
+      "بی‌نظیر",
+      "باادب",
       "صبور",
-      "خوشگل",
+      "زیبا",
       "نیرومند",
       "مایه‌دار",
       "اسرارآمیز",
@@ -353,11 +353,11 @@
     "addressInput": {
       "title": "آدرس را وارد کنید",
       "hashtag": "هشتگ",
-      "ip": "آدرس آی پی",
+      "ip": "آدرس آی‌پی",
       "recentlyUsed": "اخیرا استفاده شده: "
     },
     "cancelSession": {
-      "title": "لغو کردن انتقال فایل",
+      "title": "‌‌لغو انتقال فایل",
       "content": "واقعاً می‌خواهید انتقال فایل را لغو کنید؟"
     },
     "cannotOpenFile": {
@@ -410,7 +410,7 @@
       "gotoSettings": "تنظیمات"
     },
     "messageInput": {
-      "title": "پیام را تایپ کنید",
+      "title": "پیام را بنویسید",
       "multiline": "چند خطی"
     },
     "noFiles": {
@@ -474,8 +474,8 @@
   "web": {
     "waiting": "@:sendPage.waiting",
     "enterPin": "پین را وارد کنید",
-    "invalidPin": "پین نامعتبر",
-    "tooManyAttempts": "تلاش‌های بیش از حد",
+    "invalidPin": "پین اشتباه است",
+    "tooManyAttempts": "تلاش‌های بیش از اندازه",
     "rejected": "پذیرفته نشد",
     "files": "فایل‌ها",
     "fileName": "نام فایل",
