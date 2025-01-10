@@ -1,3 +1,4 @@
+mod model;
 mod util;
 mod webrtc;
 
@@ -13,7 +14,8 @@ async fn main() -> Result<()> {
         device_type: webrtc::signaling::PeerDeviceType::Desktop,
     };
     let mut connection =
-        webrtc::signaling::connect_and_listen("wss://public.localsend.org/v1/ws", &info).await?;
+        webrtc::signaling::SignalingConnection::connect("wss://public.localsend.org/v1/ws", &info)
+            .await?;
 
     // listen for messages
     while let Some(message) = connection.rx.recv().await {

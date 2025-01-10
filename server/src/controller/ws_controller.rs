@@ -159,6 +159,7 @@ async fn handle_socket(
                     members: None,
                     peer: Some(peer.clone()),
                     peer_id: None,
+                    session_id: None,
                     sdp: None,
                     code: None,
                 })
@@ -170,6 +171,7 @@ async fn handle_socket(
             members: Some(peers),
             peer: None,
             peer_id: None,
+            session_id: None,
             sdp: None,
             code: None,
         })
@@ -206,6 +208,7 @@ async fn handle_socket(
                                 members: None,
                                 peer: None,
                                 peer_id: None,
+                                session_id: None,
                                 sdp: None,
                                 code: Some(StatusCode::TOO_MANY_REQUESTS.as_u16()),
                             })
@@ -269,6 +272,7 @@ async fn handle_socket(
                 members: None,
                 peer: None,
                 peer_id: Some(peer_id),
+                session_id: None,
                 sdp: None,
                 code: None,
             })
@@ -302,6 +306,7 @@ async fn send_to_peer_with_lock(
                 members: None,
                 peer: Some(origin_peer),
                 peer_id: None,
+                session_id: Some(message.session_id),
                 sdp: Some(message.sdp),
                 code: None,
             })

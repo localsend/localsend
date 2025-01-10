@@ -1,16 +1,19 @@
-use std::env;
-use std::io::{Read, Write};
-use std::sync::Arc;
-use std::sync::atomic::{AtomicI32, Ordering};
+use crate::model::file::FileDto;
+use crate::webrtc::signaling::ManagedSignalingConnection;
 use anyhow::Result;
+use base64::engine::general_purpose::URL_SAFE_NO_PAD;
+use base64::engine::GeneralPurpose;
 use base64::Engine;
-use flate2::Compression;
-use flate2::write::ZlibEncoder;
+use std::io::{Read, Write};
+use std::sync::atomic::{AtomicI32, Ordering};
+use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio::time::Duration;
+use uuid::Uuid;
 use webrtc::api::interceptor_registry::register_default_interceptors;
 use webrtc::api::media_engine::MediaEngine;
 use webrtc::api::APIBuilder;
+use webrtc::data_channel::data_channel_init::RTCDataChannelInit;
 use webrtc::data_channel::data_channel_message::DataChannelMessage;
 use webrtc::data_channel::RTCDataChannel;
 use webrtc::ice_transport::ice_server::RTCIceServer;
@@ -20,45 +23,22 @@ use webrtc::peer_connection::math_rand_alpha;
 use webrtc::peer_connection::peer_connection_state::RTCPeerConnectionState;
 use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        println!("usage: {} offer|answer", args[0]);
-        return Ok(());
-    }
-
-    match &args[1] {
-        s if s == "offer" => offer().await?,
-        s if s == "answer" => answer().await?,
-        _ => println!("usage: {} offer|answer", args[0]),
-    }
-
-    Ok(())
-}
-
-async fn offer() -> Result<()> {
+pub async fn offer(
+    signaling: &ManagedSignalingConnection,
+    target_id: Uuid,
+    files: &[FileDto],
+) -> Result<()> {
     let mut m = MediaEngine::default();
-
-    // Register default codecs
     m.register_default_codecs()?;
 
-    // Create a InterceptorRegistry. This is the user configurable RTP/RTCP Pipeline.
-    // This provides NACKs, RTCP Reports and other features. If you use `webrtc.NewPeerConnection`
-    // this is enabled by default. If you are manually managing You MUST create a InterceptorRegistry
-    // for each PeerConnection.
     let mut registry = Registry::new();
-
-    // Use the default set of Interceptors
     registry = register_default_interceptors(registry, &mut m)?;
 
-    // Create the API object with the MediaEngine
     let api = APIBuilder::new()
         .with_media_engine(m)
         .with_interceptor_registry(registry)
         .build();
 
-    // Prepare the configuration
     let config = RTCConfiguration {
         ice_servers: vec![RTCIceServer {
             urls: vec!["stun:stun.l.google.com:19302".to_owned()],
@@ -67,16 +47,23 @@ async fn offer() -> Result<()> {
         ..Default::default()
     };
 
-    // Create a new RTCPeerConnection
     let peer_connection = Arc::new(api.new_peer_connection(config).await?);
 
-    // Create a datachannel with label 'data'
-    let data_channel = peer_connection.create_data_channel("data", None).await?;
+    let data_channel = peer_connection
+        .create_data_channel(
+            "data",
+            Some(RTCDataChannelInit {
+                ordered: Some(true),
+                max_packet_life_time: None,
+                max_retransmits: None,
+                protocol: None,
+                negotiated: None,
+            }),
+        )
+        .await?;
 
     let (done_tx, mut done_rx) = tokio::sync::mpsc::channel::<()>(1);
 
-    // Set the handler for Peer connection state
-    // This will notify you when the peer has connected/disconnected
     peer_connection.on_peer_connection_state_change(Box::new(move |s: RTCPeerConnectionState| {
         println!("Peer Connection State has changed: {s}");
 
@@ -122,47 +109,41 @@ async fn offer() -> Result<()> {
         Box::pin(async {})
     }));
 
-    // Create an offer to send to the browser
     let offer = peer_connection.create_offer(None).await?;
-
-    // Create channel that is blocked until ICE Gathering is complete
     let mut gather_complete = peer_connection.gathering_complete_promise().await;
-
-    // Sets the LocalDescription, and starts our UDP listeners
     peer_connection.set_local_description(offer).await?;
-
-    // Block until ICE Gathering is complete, disabling trickle ICE
-    // we do this because we only can exchange one signaling message
-    // in a production application you should exchange ICE Candidates via OnICECandidate
     let _ = gather_complete.recv().await;
 
-    // Output the answer in base64 so we can paste it in browser
-    if let Some(local_desc) = peer_connection.local_description().await {
-        let json_str = serde_json::to_string(&local_desc)?;
-        println!("LC: {json_str}");
-        let b64 = encode(&json_str);
-        println!("LC (base64): {b64}");
-    } else {
-        println!("generate local_description failed!");
-    }
+    let session_id = Uuid::new_v4();
+    let local_description = peer_connection
+        .local_description()
+        .await
+        .ok_or_else(|| anyhow::anyhow!("generate local_description failed!"))?;
 
-    // Wait for the answer to be pasted
-    let line = must_read_stdin()?;
-    let desc_data = decode(line.as_str())?;
-    let answer = serde_json::from_str::<RTCSessionDescription>(&desc_data)?;
+    signaling
+        .send_offer(
+            session_id,
+            target_id,
+            encode_sdp(&serde_json::to_string(&local_description).unwrap()),
+        )
+        .await?;
 
-    // Apply the answer as the remote description
+    let (tx_answer, rx_answer) = tokio::sync::oneshot::channel();
+
+    signaling
+        .on_answer(session_id, |message| {
+            Box::pin(async move {
+                tx_answer.send(message.sdp.unwrap()).unwrap();
+            })
+        })
+        .await;
+
+    let remote_desc = rx_answer.await?;
+    let answer = RTCSessionDescription::answer(remote_desc)?;
+
     peer_connection.set_remote_description(answer).await?;
 
-    println!("Press ctrl-c to stop");
-    tokio::select! {
-        _ = done_rx.recv() => {
-            println!("received done signal!");
-        }
-        _ = tokio::signal::ctrl_c() => {
-            println!();
-        }
-    }
+    done_rx.recv().await;
 
     peer_connection.close().await?;
 
@@ -287,8 +268,8 @@ async fn answer() -> Result<()> {
         }));
 
     // Wait for the offer to be pasted
-    let line = must_read_stdin()?;
-    let desc_data = decode(line.as_str())?;
+    let line = "must_read_stdin()?";
+    let desc_data = decode_sdp(line)?;
     let offer = serde_json::from_str::<RTCSessionDescription>(&desc_data)?;
 
     // Set the remote SessionDescription
@@ -311,7 +292,7 @@ async fn answer() -> Result<()> {
     // Output the answer in base64 so we can paste it in browser
     if let Some(local_desc) = peer_connection.local_description().await {
         let json_str = serde_json::to_string(&local_desc)?;
-        let b64 = encode(&json_str);
+        let b64 = encode_sdp(&json_str);
         println!("{b64}");
     } else {
         println!("generate local_description failed!");
@@ -332,25 +313,21 @@ async fn answer() -> Result<()> {
     Ok(())
 }
 
-fn encode(s: &str) -> String {
-    let mut e = ZlibEncoder::new(Vec::new(), Compression::default());
-    e.write_all(s.as_bytes()).unwrap();
-    let compressed_data = e.finish().unwrap();
-    base64::engine::general_purpose::STANDARD.encode(compressed_data)
+const BASE_64_SDP: GeneralPurpose = URL_SAFE_NO_PAD;
+
+fn encode_sdp(s: &str) -> String {
+    let mut compressor = brotli::CompressorWriter::new(Vec::new(), 4096, 11, 24);
+    compressor.write_all(s.as_bytes()).unwrap();
+    BASE_64_SDP.encode(&compressor.into_inner())
 }
 
-fn decode(s: &str) -> Result<String> {
-    let decoded_data = base64::engine::general_purpose::STANDARD.decode(s)?;
-    let mut d = flate2::bufread::ZlibDecoder::new(&decoded_data[..]);
-    let mut s = String::new();
-    d.read_to_string(&mut s)?;
-    Ok(s)
-}
-
-fn must_read_stdin() -> Result<String> {
-    let mut line = String::new();
-    std::io::stdin().read_line(&mut line)?;
-    line = line.trim().to_owned();
-    println!("read from stdin: {line}");
-    Ok(line)
+fn decode_sdp(s: &str) -> Result<String> {
+    let decoded_data = BASE_64_SDP.decode(s)?;
+    let mut decompressor = brotli::Decompressor::new(&decoded_data[..], 4096);
+    let mut decompressed = Vec::new();
+    decompressor
+        .read_to_end(&mut decompressed)
+        .expect("Decompression failed");
+    let result = String::from_utf8(decompressed)?;
+    Ok(result)
 }
