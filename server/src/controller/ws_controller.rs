@@ -116,6 +116,17 @@ async fn handle_socket(
 
             peers_tx = tx_local_map.values().map(|p| p.tx.clone()).collect();
 
+            peers = tx_local_map
+                .iter()
+                .map(|(k, v)| PeerInfo {
+                    id: *k,
+                    fingerprint: v.peer.fingerprint.clone(),
+                    alias: v.peer.alias.clone(),
+                    device_model: v.peer.device_model.clone(),
+                    device_type: v.peer.device_type.clone(),
+                })
+                .collect();
+
             tx_local_map.insert(
                 peer_id,
                 PeerState {
@@ -128,17 +139,6 @@ async fn handle_socket(
                     tx: tx.clone(),
                 },
             );
-
-            peers = tx_local_map
-                .iter()
-                .map(|(k, v)| PeerInfo {
-                    id: *k,
-                    fingerprint: v.peer.fingerprint.clone(),
-                    alias: v.peer.alias.clone(),
-                    device_model: v.peer.device_model.clone(),
-                    device_type: v.peer.device_type.clone(),
-                })
-                .collect();
 
             let debug_active_connections = tx_map.len();
             let debug_total_active_connections: usize = tx_map.values().map(|m| m.len()).sum();
@@ -157,6 +157,7 @@ async fn handle_socket(
                 .send(WsServerMessage {
                     ws_type: WsMessageType::Joined,
                     members: None,
+                    client: None,
                     peer: Some(peer.clone()),
                     peer_id: None,
                     session_id: None,
@@ -169,6 +170,7 @@ async fn handle_socket(
         tx.send(WsServerMessage {
             ws_type: WsMessageType::Hello,
             members: Some(peers),
+            client: Some(peer.clone()),
             peer: None,
             peer_id: None,
             session_id: None,
@@ -206,6 +208,7 @@ async fn handle_socket(
                             .send(WsServerMessage {
                                 ws_type: WsMessageType::Error,
                                 members: None,
+                                client: None,
                                 peer: None,
                                 peer_id: None,
                                 session_id: None,
@@ -270,6 +273,7 @@ async fn handle_socket(
             .send(WsServerMessage {
                 ws_type: WsMessageType::Left,
                 members: None,
+                client: None,
                 peer: None,
                 peer_id: Some(peer_id),
                 session_id: None,
@@ -304,6 +308,7 @@ async fn send_to_peer_with_lock(
                     WsClientMessageType::Answer => WsMessageType::Answer,
                 },
                 members: None,
+                client: None,
                 peer: Some(origin_peer),
                 peer_id: None,
                 session_id: Some(message.session_id),

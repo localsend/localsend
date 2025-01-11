@@ -1,5 +1,5 @@
 use crate::model::file::FileDto;
-use crate::webrtc::signaling::ManagedSignalingConnection;
+use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerMessage};
 use anyhow::Result;
 use base64::engine::general_purpose::URL_SAFE_NO_PAD;
 use base64::engine::GeneralPurpose;
@@ -19,35 +19,16 @@ use webrtc::data_channel::RTCDataChannel;
 use webrtc::ice_transport::ice_server::RTCIceServer;
 use webrtc::interceptor::registry::Registry;
 use webrtc::peer_connection::configuration::RTCConfiguration;
-use webrtc::peer_connection::math_rand_alpha;
 use webrtc::peer_connection::peer_connection_state::RTCPeerConnectionState;
 use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
+use webrtc::peer_connection::{math_rand_alpha, RTCPeerConnection};
 
 pub async fn offer(
     signaling: &ManagedSignalingConnection,
     target_id: Uuid,
     files: &[FileDto],
 ) -> Result<()> {
-    let mut m = MediaEngine::default();
-    m.register_default_codecs()?;
-
-    let mut registry = Registry::new();
-    registry = register_default_interceptors(registry, &mut m)?;
-
-    let api = APIBuilder::new()
-        .with_media_engine(m)
-        .with_interceptor_registry(registry)
-        .build();
-
-    let config = RTCConfiguration {
-        ice_servers: vec![RTCIceServer {
-            urls: vec!["stun:stun.l.google.com:19302".to_owned()],
-            ..Default::default()
-        }],
-        ..Default::default()
-    };
-
-    let peer_connection = Arc::new(api.new_peer_connection(config).await?);
+    let peer_connection = create_peer_connection().await?;
 
     let data_channel = peer_connection
         .create_data_channel(
@@ -121,11 +102,7 @@ pub async fn offer(
         .ok_or_else(|| anyhow::anyhow!("generate local_description failed!"))?;
 
     signaling
-        .send_offer(
-            session_id,
-            target_id,
-            encode_sdp(&serde_json::to_string(&local_description).unwrap()),
-        )
+        .send_offer(session_id, target_id, encode_sdp(&local_description.sdp))
         .await?;
 
     let (tx_answer, rx_answer) = tokio::sync::oneshot::channel();
@@ -137,7 +114,7 @@ pub async fn offer(
         .await;
 
     let remote_desc = rx_answer.await?;
-    let answer = RTCSessionDescription::answer(remote_desc)?;
+    let answer = RTCSessionDescription::answer(decode_sdp(&remote_desc)?)?;
 
     peer_connection.set_remote_description(answer).await?;
 
@@ -148,39 +125,11 @@ pub async fn offer(
     Ok(())
 }
 
-async fn answer() -> Result<()> {
-    // Create a MediaEngine object to configure the supported codec
-    let mut m = MediaEngine::default();
-
-    // Register default codecs
-    m.register_default_codecs()?;
-
-    // Create a InterceptorRegistry. This is the user configurable RTP/RTCP Pipeline.
-    // This provides NACKs, RTCP Reports and other features. If you use `webrtc.NewPeerConnection`
-    // this is enabled by default. If you are manually managing You MUST create a InterceptorRegistry
-    // for each PeerConnection.
-    let mut registry = Registry::new();
-
-    // Use the default set of Interceptors
-    registry = register_default_interceptors(registry, &mut m)?;
-
-    // Create the API object with the MediaEngine
-    let api = APIBuilder::new()
-        .with_media_engine(m)
-        .with_interceptor_registry(registry)
-        .build();
-
-    // Prepare the configuration
-    let config = RTCConfiguration {
-        ice_servers: vec![RTCIceServer {
-            urls: vec!["stun:stun.l.google.com:19302".to_owned()],
-            ..Default::default()
-        }],
-        ..Default::default()
-    };
-
-    // Create a new RTCPeerConnection
-    let peer_connection = Arc::new(api.new_peer_connection(config).await?);
+pub async fn accept_offer(
+    signaling: &ManagedSignalingConnection,
+    offer: &WsServerMessage,
+) -> Result<()> {
+    let peer_connection = create_peer_connection().await?;
 
     let (done_tx, mut done_rx) = tokio::sync::mpsc::channel::<()>(1);
 
@@ -265,50 +214,59 @@ async fn answer() -> Result<()> {
             })
         }));
 
-    // Wait for the offer to be pasted
-    let line = "must_read_stdin()?";
-    let desc_data = decode_sdp(line)?;
-    let offer = serde_json::from_str::<RTCSessionDescription>(&desc_data)?;
+    let remote_desc_sdp = decode_sdp(&offer.sdp.as_deref().unwrap())?;
+    let remote_desc = RTCSessionDescription::answer(remote_desc_sdp)?;
+    peer_connection.set_remote_description(remote_desc).await?;
 
-    // Set the remote SessionDescription
-    peer_connection.set_remote_description(offer).await?;
-
-    // Create an answer
     let answer = peer_connection.create_answer(None).await?;
 
-    // Create channel that is blocked until ICE Gathering is complete
     let mut gather_complete = peer_connection.gathering_complete_promise().await;
-
-    // Sets the LocalDescription, and starts our UDP listeners
     peer_connection.set_local_description(answer).await?;
-
-    // Block until ICE Gathering is complete, disabling trickle ICE
-    // we do this because we only can exchange one signaling message
-    // in a production application you should exchange ICE Candidates via OnICECandidate
     let _ = gather_complete.recv().await;
 
-    // Output the answer in base64 so we can paste it in browser
-    if let Some(local_desc) = peer_connection.local_description().await {
-        let json_str = serde_json::to_string(&local_desc)?;
-        let b64 = encode_sdp(&json_str);
-        println!("{b64}");
-    } else {
-        println!("generate local_description failed!");
-    }
+    let local_description = peer_connection
+        .local_description()
+        .await
+        .ok_or_else(|| anyhow::anyhow!("generate local_description failed!"))?;
 
-    println!("Press ctrl-c to stop");
-    tokio::select! {
-        _ = done_rx.recv() => {
-            println!("received done signal!");
-        }
-        _ = tokio::signal::ctrl_c() => {
-            println!();
-        }
-    };
+    signaling
+        .send_answer(
+            offer.session_id.unwrap(),
+            offer.peer_id.unwrap(),
+            encode_sdp(&local_description.sdp),
+        )
+        .await?;
+
+    done_rx.recv().await;
 
     peer_connection.close().await?;
 
     Ok(())
+}
+
+async fn create_peer_connection() -> Result<Arc<RTCPeerConnection>> {
+    let mut m = MediaEngine::default();
+    m.register_default_codecs()?;
+
+    let mut registry = Registry::new();
+    registry = register_default_interceptors(registry, &mut m)?;
+
+    let api = APIBuilder::new()
+        .with_media_engine(m)
+        .with_interceptor_registry(registry)
+        .build();
+
+    let config = RTCConfiguration {
+        ice_servers: vec![RTCIceServer {
+            urls: vec!["stun:stun.l.google.com:19302".to_owned()],
+            ..Default::default()
+        }],
+        ..Default::default()
+    };
+
+    let peer_connection = api.new_peer_connection(config).await?;
+
+    Ok(Arc::new(peer_connection))
 }
 
 const BASE_64_SDP: GeneralPurpose = URL_SAFE_NO_PAD;

@@ -1,3 +1,4 @@
+use std::cmp::PartialEq;
 use std::collections::HashMap;
 use std::future::Future;
 use std::pin::Pin;
@@ -22,10 +23,15 @@ pub struct WsServerMessage {
     #[serde(rename = "type")]
     pub ws_type: WsMessageType,
 
-    /// The list of members (including the client) in the IP room.
+    /// The list of members (excluding the client) in the IP room.
     /// Available only for `Hello`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub members: Option<Vec<PeerInfo>>,
+
+    /// The client that has just connected.
+    /// Only available for `Hello`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client: Option<PeerInfo>,
 
     /// The peer that triggered the message.
     /// Available only for `Joined`, `Offer`, and `Answer`.
@@ -52,7 +58,7 @@ pub struct WsServerMessage {
     pub code: Option<u16>,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub enum WsMessageType {
     /// The initial message sent to the client that has just connected.
@@ -158,7 +164,13 @@ pub enum WsClientMessageType {
 }
 
 pub struct SignalingConnection {
+    /// The peer info received from the server of the client.
+    pub client: PeerInfo,
+
+    /// The sender to send messages to the server.
     pub tx: mpsc::Sender<WsClientMessage>,
+
+    /// The receiver to receive messages from the server.
     pub rx: mpsc::Receiver<WsServerMessage>,
 }
 
@@ -175,7 +187,7 @@ impl SignalingConnection {
 
         let (ws_stream, _) = connect_async(&uri).await?;
 
-        tracing::debug!("Connected to the signaling server");
+        tracing::debug!("Connected to the signaling server. Waiting for the hello message...");
 
         let (mut write, read) = ws_stream.split();
 
@@ -214,12 +226,25 @@ impl SignalingConnection {
         });
 
         let (receive_tx, receive_rx) = mpsc::channel(1);
+        let (client_tx, mut client_rx) = mpsc::channel::<PeerInfo>(1);
 
         tokio::spawn(async move {
             read.for_each(|message| async {
                 if let Ok(Message::Text(message)) = message {
                     match serde_json::from_str::<WsServerMessage>(&message) {
-                        Ok(message) => receive_tx.send(message).await.unwrap(),
+                        Ok(message) => {
+                            if message.ws_type == WsMessageType::Hello {
+                                if let Some(client) = message.client.clone() {
+                                    if client_tx.send(client).await.is_err() {
+                                        return;
+                                    }
+                                }
+                            }
+                            match receive_tx.send(message).await {
+                                Ok(_) => {}
+                                Err(e) => tracing::error!("{e:?}"),
+                            }
+                        },
                         Err(_) => tracing::error!("Server: {message}"),
                     }
                 }
@@ -227,7 +252,12 @@ impl SignalingConnection {
                 .await;
         });
 
+        let client = client_rx.recv().await.unwrap();
+
+        tracing::debug!("Received hello message from the server: {client:?}");
+
         Ok(SignalingConnection {
+            client,
             tx: send_tx,
             rx: receive_rx,
         })
@@ -237,39 +267,46 @@ impl SignalingConnection {
     /// Upgrades the API to a higher-level API for
     /// - automatic tracking of peers in the IP room
     /// - exposing callbacks for offers and answers
-    pub async fn start_listener(mut self) -> ManagedSignalingConnection {
+    pub fn start_listener(mut self) -> ManagedSignalingConnection {
         let peers: Arc<Mutex<HashMap<Uuid, PeerInfo>>> = Arc::new(Mutex::new(HashMap::new()));
-        let on_offer: Arc<Mutex<Option<OfferCallback>>> = Arc::new(Mutex::new(None));
+        let (tx_joined_peer, rx_joined_peer) = mpsc::channel::<PeerInfo>(16);
+        let (tx_left_peer, rx_left_peer) = mpsc::channel::<Uuid>(16);
+        let (tx_offer, rx_offer) = mpsc::channel::<WsServerMessage>(16);
         let on_answer: Arc<Mutex<HashMap<Uuid, AnswerCallback>>> = Arc::new(Mutex::new(HashMap::new()));
 
         {
             let peers = peers.clone();
-            let on_offer = on_offer.clone();
             let on_answer = on_answer.clone();
             tokio::spawn(async move {
                 while let Some(message) = self.rx.recv().await {
                     match message.ws_type {
                         WsMessageType::Hello => {
                             if let Some(members) = message.members {
+                                {
+                                    let mut peers = peers.lock().await;
+                                    for member in members.clone() {
+                                        peers.insert(member.id, member);
+                                    }
+                                }
                                 for member in members {
-                                    peers.lock().await.insert(member.id, member);
+                                    tx_joined_peer.send(member).await.unwrap();
                                 }
                             }
                         }
                         WsMessageType::Joined => {
                             if let Some(peer) = message.peer {
-                                peers.lock().await.insert(peer.id, peer);
+                                peers.lock().await.insert(peer.id, peer.clone());
+                                tx_joined_peer.send(peer).await.unwrap();
                             }
                         }
                         WsMessageType::Left => {
                             if let Some(peer_id) = message.peer_id {
                                 peers.lock().await.remove(&peer_id);
+                                tx_left_peer.send(peer_id).await.unwrap();
                             }
                         }
                         WsMessageType::Offer => {
-                            if let Some(callback) = on_offer.lock().await.as_mut() {
-                                callback(message);
-                            }
+                            tx_offer.send(message).await.unwrap();
                         }
                         WsMessageType::Answer => {
                             if let Some(callback) = on_answer.lock().await.remove(&message.session_id.unwrap()) {
@@ -287,7 +324,9 @@ impl SignalingConnection {
         ManagedSignalingConnection {
             tx: self.tx,
             peers,
-            on_offer,
+            on_joined_peer: rx_joined_peer,
+            on_left_peer: rx_left_peer,
+            on_offer: rx_offer,
             on_answer,
         }
     }
@@ -322,7 +361,9 @@ type AnswerCallback = Box<dyn FnOnce(WsServerMessage) + Send + Sync>;
 pub struct ManagedSignalingConnection {
     tx: mpsc::Sender<WsClientMessage>,
     peers: Arc<Mutex<HashMap<Uuid, PeerInfo>>>,
-    on_offer: Arc<Mutex<Option<OfferCallback>>>,
+    pub on_joined_peer: mpsc::Receiver<PeerInfo>,
+    pub on_left_peer: mpsc::Receiver<Uuid>,
+    pub on_offer: mpsc::Receiver<WsServerMessage>,
     on_answer: Arc<Mutex<HashMap<Uuid, AnswerCallback>>>,
 }
 
@@ -350,16 +391,7 @@ impl ManagedSignalingConnection {
         Ok(())
     }
 
-    /// Adds a callback to be called when an offer is received.
-    pub async fn on_offer<F>(&self, callback: F)
-    where
-        F: FnMut(WsServerMessage) + Send + Sync + 'static,
-    {
-        let mut on_offer = self.on_offer.lock().await;
-        *on_offer = Some(Box::new(callback));
-    }
-
-    /// Adds a callback to be called when an answer is received.
+    /// Adds a callback to be called when an answer having a specific `session_id` is received.
     pub async fn on_answer<F>(&self, session_id: Uuid, callback: F)
     where
         F: FnOnce(WsServerMessage) + Send + Sync + 'static,
