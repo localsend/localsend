@@ -8,7 +8,9 @@ use tracing::Level;
 #[tokio::main]
 #[cfg(feature = "full")]
 async fn main() -> Result<()> {
-    tracing_subscriber::fmt().with_max_level(Level::DEBUG).init();
+    tracing_subscriber::fmt()
+        .with_max_level(Level::DEBUG)
+        .init();
 
     let info = webrtc::signaling::PeerInfoWithoutId {
         alias: "test".to_string(),
@@ -21,10 +23,17 @@ async fn main() -> Result<()> {
             .await?;
 
     let mut managed_connection = connection.start_listener();
+    let cloneable_connection = managed_connection.cloneable();
 
-    let on_joined_task = tokio::spawn(async move {
-        while let Some(message) = managed_connection.on_joined_peer.recv().await {
-            println!("Joined: {:?}", message);
+    let on_joined_task = tokio::spawn({
+        let cloneable_connection = cloneable_connection.clone();
+        async move {
+            while let Some(message) = managed_connection.on_joined_peer.recv().await {
+                println!("Joined: {:?}", message);
+                webrtc::webrtc::send_offer(&cloneable_connection, message.id, &*vec![])
+                    .await
+                    .expect("Failed to send offer");
+            }
         }
     });
 
@@ -34,17 +43,21 @@ async fn main() -> Result<()> {
         }
     });
 
-
-
-    // managed_connection.on_offer()
-    //
-    // // listen for messages
-    // while let Some(message) = connection.rx.recv().await {
-    //     println!("Received MAIN: {:?}", message);
-    // }
+    let on_offer_task = tokio::spawn({
+        let cloneable_connection = cloneable_connection.clone();
+        async move {
+            while let Some(message) = managed_connection.on_offer.recv().await {
+                println!("Offer: {:?}", message);
+                webrtc::webrtc::accept_offer(&cloneable_connection, &message)
+                    .await
+                    .expect("Failed to accept offer");
+            }
+        }
+    });
 
     on_joined_task.await?;
     on_left_task.await?;
+    on_offer_task.await?;
 
     Ok(())
 }

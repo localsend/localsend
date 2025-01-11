@@ -1,13 +1,13 @@
-use std::cmp::PartialEq;
-use std::collections::HashMap;
-use std::future::Future;
-use std::pin::Pin;
-use std::sync::Arc;
 use crate::util::base64;
 use anyhow::Result;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
 use serde::{Deserialize, Serialize};
+use std::cmp::PartialEq;
+use std::collections::HashMap;
+use std::future::Future;
+use std::pin::Pin;
+use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};
 use tokio::time::Duration;
 #[cfg(feature = "webrtc-signaling")]
@@ -207,7 +207,7 @@ impl SignalingConnection {
 
                     false
                 })
-                    .await;
+                .await;
 
                 match send_result {
                     Ok(success) => {
@@ -244,12 +244,12 @@ impl SignalingConnection {
                                 Ok(_) => {}
                                 Err(e) => tracing::error!("{e:?}"),
                             }
-                        },
+                        }
                         Err(_) => tracing::error!("Server: {message}"),
                     }
                 }
             })
-                .await;
+            .await;
         });
 
         let client = client_rx.recv().await.unwrap();
@@ -272,7 +272,8 @@ impl SignalingConnection {
         let (tx_joined_peer, rx_joined_peer) = mpsc::channel::<PeerInfo>(16);
         let (tx_left_peer, rx_left_peer) = mpsc::channel::<Uuid>(16);
         let (tx_offer, rx_offer) = mpsc::channel::<WsServerMessage>(16);
-        let on_answer: Arc<Mutex<HashMap<Uuid, AnswerCallback>>> = Arc::new(Mutex::new(HashMap::new()));
+        let on_answer: Arc<Mutex<HashMap<Uuid, AnswerCallback>>> =
+            Arc::new(Mutex::new(HashMap::new()));
 
         {
             let peers = peers.clone();
@@ -309,7 +310,9 @@ impl SignalingConnection {
                             tx_offer.send(message).await.unwrap();
                         }
                         WsMessageType::Answer => {
-                            if let Some(callback) = on_answer.lock().await.remove(&message.session_id.unwrap()) {
+                            if let Some(callback) =
+                                on_answer.lock().await.remove(&message.session_id.unwrap())
+                            {
                                 callback(message);
                             }
                         }
@@ -331,29 +334,18 @@ impl SignalingConnection {
         }
     }
 
-    pub async fn send_offer(
-        &self,
-        session_id: Uuid,
-        target: Uuid,
-        sdp: String,
-    ) -> Result<()> {
+    pub async fn send_offer(&self, session_id: Uuid, target: Uuid, sdp: String) -> Result<()> {
         send_offer(&self.tx, session_id, target, sdp).await?;
 
         Ok(())
     }
 
-    pub async fn send_answer(
-        &self,
-        session_id: Uuid,
-        target: Uuid,
-        sdp: String,
-    ) -> Result<()> {
+    pub async fn send_answer(&self, session_id: Uuid, target: Uuid, sdp: String) -> Result<()> {
         send_answer(&self.tx, session_id, target, sdp).await?;
 
         Ok(())
     }
 }
-
 
 type OfferCallback = Box<dyn FnMut(WsServerMessage) + Send + Sync>;
 type AnswerCallback = Box<dyn FnOnce(WsServerMessage) + Send + Sync>;
@@ -369,23 +361,13 @@ pub struct ManagedSignalingConnection {
 
 #[cfg(feature = "webrtc-signaling")]
 impl ManagedSignalingConnection {
-    pub async fn send_offer(
-        &self,
-        session_id: Uuid,
-        target: Uuid,
-        sdp: String,
-    ) -> Result<()> {
+    pub async fn send_offer(&self, session_id: Uuid, target: Uuid, sdp: String) -> Result<()> {
         send_offer(&self.tx, session_id, target, sdp).await?;
 
         Ok(())
     }
 
-    pub async fn send_answer(
-        &self,
-        session_id: Uuid,
-        target: Uuid,
-        sdp: String,
-    ) -> Result<()> {
+    pub async fn send_answer(&self, session_id: Uuid, target: Uuid, sdp: String) -> Result<()> {
         send_answer(&self.tx, session_id, target, sdp).await?;
 
         Ok(())
@@ -396,8 +378,45 @@ impl ManagedSignalingConnection {
     where
         F: FnOnce(WsServerMessage) + Send + Sync + 'static,
     {
-        let mut callbacks = self.on_answer.lock().await;
-        callbacks.insert(session_id, Box::new(callback));
+        on_answer(&self.on_answer, session_id, callback).await;
+    }
+
+    pub fn cloneable(&self) -> CloneableSignalingConnection {
+        CloneableSignalingConnection {
+            tx: self.tx.clone(),
+            peers: self.peers.clone(),
+            on_answer: self.on_answer.clone(),
+        }
+    }
+}
+
+#[derive(Clone)]
+pub struct CloneableSignalingConnection {
+    tx: mpsc::Sender<WsClientMessage>,
+    peers: Arc<Mutex<HashMap<Uuid, PeerInfo>>>,
+    on_answer: Arc<Mutex<HashMap<Uuid, AnswerCallback>>>,
+}
+
+#[cfg(feature = "webrtc-signaling")]
+impl CloneableSignalingConnection {
+    pub async fn send_offer(&self, session_id: Uuid, target: Uuid, sdp: String) -> Result<()> {
+        send_offer(&self.tx, session_id, target, sdp).await?;
+
+        Ok(())
+    }
+
+    pub async fn send_answer(&self, session_id: Uuid, target: Uuid, sdp: String) -> Result<()> {
+        send_answer(&self.tx, session_id, target, sdp).await?;
+
+        Ok(())
+    }
+
+    /// Adds a callback to be called when an answer having a specific `session_id` is received.
+    pub async fn on_answer<F>(&self, session_id: Uuid, callback: F)
+    where
+        F: FnOnce(WsServerMessage) + Send + Sync + 'static,
+    {
+        on_answer(&self.on_answer, session_id, callback).await;
     }
 }
 
@@ -407,14 +426,15 @@ async fn send_offer(
     target: Uuid,
     sdp: String,
 ) -> Result<()> {
-    tx
-        .send(WsClientMessage {
-            ws_type: WsClientMessageType::Offer,
-            session_id,
-            target,
-            sdp,
-        })
-        .await?;
+    tx.send(WsClientMessage {
+        ws_type: WsClientMessageType::Offer,
+        session_id,
+        target,
+        sdp,
+    })
+    .await?;
+
+    tracing::debug!("Sent offer to {target} with session ID {session_id}");
 
     Ok(())
 }
@@ -425,14 +445,26 @@ async fn send_answer(
     target: Uuid,
     sdp: String,
 ) -> Result<()> {
-    tx
-        .send(WsClientMessage {
-            ws_type: WsClientMessageType::Answer,
-            session_id,
-            target,
-            sdp,
-        })
-        .await?;
+    tx.send(WsClientMessage {
+        ws_type: WsClientMessageType::Answer,
+        session_id,
+        target,
+        sdp,
+    })
+    .await?;
+
+    tracing::debug!("Sent answer to {target} with session ID {session_id}");
 
     Ok(())
+}
+
+pub async fn on_answer<F>(
+    on_answer: &Arc<Mutex<HashMap<Uuid, AnswerCallback>>>,
+    session_id: Uuid,
+    callback: F,
+) where
+    F: FnOnce(WsServerMessage) + Send + Sync + 'static,
+{
+    let mut callbacks = on_answer.lock().await;
+    callbacks.insert(session_id, Box::new(callback));
 }
