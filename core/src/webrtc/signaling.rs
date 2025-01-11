@@ -273,7 +273,7 @@ impl SignalingConnection {
                         }
                         WsMessageType::Answer => {
                             if let Some(callback) = on_answer.lock().await.remove(&message.session_id.unwrap()) {
-                                let _ = callback(message).await;
+                                callback(message);
                             }
                         }
                         WsMessageType::Error => {
@@ -317,7 +317,7 @@ impl SignalingConnection {
 
 
 type OfferCallback = Box<dyn FnMut(WsServerMessage) + Send + Sync>;
-type AnswerCallback = Box<dyn FnOnce(WsServerMessage) -> Pin<Box<dyn Future<Output=()> + Send>> + Send + Sync>;
+type AnswerCallback = Box<dyn FnOnce(WsServerMessage) + Send + Sync>;
 
 pub struct ManagedSignalingConnection {
     tx: mpsc::Sender<WsClientMessage>,
@@ -362,7 +362,7 @@ impl ManagedSignalingConnection {
     /// Adds a callback to be called when an answer is received.
     pub async fn on_answer<F>(&self, session_id: Uuid, callback: F)
     where
-        F: FnOnce(WsServerMessage) -> Pin<Box<dyn Future<Output=()> + Send>> + Send + Sync + 'static,
+        F: FnOnce(WsServerMessage) + Send + Sync + 'static,
     {
         let mut callbacks = self.on_answer.lock().await;
         callbacks.insert(session_id, Box::new(callback));

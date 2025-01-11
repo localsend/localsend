@@ -96,7 +96,7 @@ pub async fn offer(
                         println!("Sending '{message}'");
                         result = d2.send_text(message).await.map_err(Into::into);
                     }
-                };
+                }
             }
         })
     }));
@@ -132,9 +132,7 @@ pub async fn offer(
 
     signaling
         .on_answer(session_id, |message| {
-            Box::pin(async move {
-                tx_answer.send(message.sdp.unwrap()).unwrap();
-            })
+            tx_answer.send(message.sdp.unwrap()).unwrap();
         })
         .await;
 
