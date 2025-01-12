@@ -140,7 +140,12 @@
       "portWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: {defaultPort})",
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
-      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
+      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})",
+      "networkOptions": {
+        "filtered": "مُصفاة",
+        "all": "الكل"
+      },
+      "network": "الشبكة"
     },
     "other": {
       "title": "أخرى",
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "استخدم الكاميرا",
     "sNameDurationLabel": "مدة",
     "sUnitAssetCountLabel": "عدد"
+  },
+  "networkInterfacesPage": {
+    "whitelist": "القائمة البيضاء",
+    "title": "واجهات الشبكة",
+    "blacklist": "القائمة السوداء",
+    "info": "بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.",
+    "preview": "معاينة"
   }
 }

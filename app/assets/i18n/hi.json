@@ -140,7 +140,11 @@
       "portWarning": "आप कस्टम पोर्ट का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultPort})",
       "encryption": "एन्क्रिप्शन",
       "multicastGroup": "मल्टीकास्ट",
-      "multicastGroupWarning": "आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultMulticast})"
+      "multicastGroupWarning": "आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultMulticast})",
+      "network": "नेटवर्क",
+      "networkOptions": {
+        "all": "सब"
+      }
     },
     "other": {
       "title": "अन्य",

@@ -76,8 +76,8 @@
     "manualSending": "Recherche manuelle",
     "sendMode": "Mode d'envoi",
     "sendModes": {
-      "single": "Récipient unique",
-      "multiple": "Récipients multiples",
+      "single": "Destinataire unique",
+      "multiple": "Destinataires multiples",
       "link": "Partager via un lien"
     },
     "sendModeHelp": "Explication",
@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "Envoyer",
-      "shareViaLinkAutoAccept": "Envoyer via un lien: Accepter automatiquement"
+      "shareViaLinkAutoAccept": "Accepter automatiquement les demandes de téléchargement d'un partage par lien"
     },
     "network": {
       "title": "Réseau",
@@ -140,7 +140,12 @@
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: {defaultMulticast})"
+      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : {defaultMulticast})",
+      "network": "Réseau",
+      "networkOptions": {
+        "filtered": "Filtré",
+        "all": "Tout"
+      }
     },
     "other": {
       "title": "Autre",
@@ -167,7 +172,7 @@
     },
     "noConnection": {
       "symptom": "Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.",
-      "solution": "Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l'option \"Isolement du point d'accès\" ou \"AP Isolation\"."
+      "solution": "Le problème existe-il des deux côtés ? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l'option \"Isolement du point d'accès\" ou \"AP Isolation\"."
     }
   },
   "receiveHistoryPage": {
@@ -383,9 +388,9 @@
     },
     "sendModeHelp": {
       "title": "Modes d'envoi",
-      "single": "Envoyer des fichiers à un récipient. La sélection sera effacée une fois l'envoi du fichier terminé.",
-      "multiple": "Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.",
-      "link": "Les récipients n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
+      "single": "Envoyer des fichiers à un destinataire. La sélection sera effacée une fois l'envoi du fichier terminé.",
+      "multiple": "Envoyer des fichiers à plusieurs destinataires. La sélection ne sera pas effacée.",
+      "link": "Les destinataires n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
     },
     "zoom": {
       "title": "URL"
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "Utiliser la Caméra",
     "sNameDurationLabel": "durée",
     "sUnitAssetCountLabel": "quantité"
+  },
+  "networkInterfacesPage": {
+    "title": "Interfaces réseau",
+    "info": "Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
+    "preview": "Aperçu",
+    "whitelist": "Liste blanche",
+    "blacklist": "Liste noire"
   }
 }
