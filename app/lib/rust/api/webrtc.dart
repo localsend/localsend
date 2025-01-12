@@ -33,21 +33,23 @@ enum PeerDeviceType {
 
 class PeerInfo {
   final String id;
-  final String fingerprint;
   final String alias;
-  final String deviceModel;
-  final PeerDeviceType deviceType;
+  final String version;
+  final String? deviceModel;
+  final PeerDeviceType? deviceType;
+  final String fingerprint;
 
   const PeerInfo({
     required this.id,
-    required this.fingerprint,
     required this.alias,
-    required this.deviceModel,
-    required this.deviceType,
+    required this.version,
+    this.deviceModel,
+    this.deviceType,
+    required this.fingerprint,
   });
 
   @override
-  int get hashCode => id.hashCode ^ fingerprint.hashCode ^ alias.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode;
+  int get hashCode => id.hashCode ^ alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ fingerprint.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -55,37 +57,41 @@ class PeerInfo {
       other is PeerInfo &&
           runtimeType == other.runtimeType &&
           id == other.id &&
-          fingerprint == other.fingerprint &&
           alias == other.alias &&
+          version == other.version &&
           deviceModel == other.deviceModel &&
-          deviceType == other.deviceType;
+          deviceType == other.deviceType &&
+          fingerprint == other.fingerprint;
 }
 
 class PeerInfoWithoutId {
-  final String fingerprint;
   final String alias;
-  final String deviceModel;
-  final PeerDeviceType deviceType;
+  final String version;
+  final String? deviceModel;
+  final PeerDeviceType? deviceType;
+  final String fingerprint;
 
   const PeerInfoWithoutId({
-    required this.fingerprint,
     required this.alias,
-    required this.deviceModel,
-    required this.deviceType,
+    required this.version,
+    this.deviceModel,
+    this.deviceType,
+    required this.fingerprint,
   });
 
   @override
-  int get hashCode => fingerprint.hashCode ^ alias.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode;
+  int get hashCode => alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ fingerprint.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is PeerInfoWithoutId &&
           runtimeType == other.runtimeType &&
-          fingerprint == other.fingerprint &&
           alias == other.alias &&
+          version == other.version &&
           deviceModel == other.deviceModel &&
-          deviceType == other.deviceType;
+          deviceType == other.deviceType &&
+          fingerprint == other.fingerprint;
 }
 
 class WsServerAnswerMessage {

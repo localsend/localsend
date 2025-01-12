@@ -70,17 +70,19 @@ pub struct WsServerErrorMessage {
 
 pub struct PeerInfo {
     pub id: String,
-    pub fingerprint: String,
     pub alias: String,
-    pub device_model: String,
-    pub device_type: PeerDeviceType,
+    pub version: String,
+    pub device_model: Option<String>,
+    pub device_type: Option<PeerDeviceType>,
+    pub fingerprint: String,
 }
 
 pub struct PeerInfoWithoutId {
-    pub fingerprint: String,
     pub alias: String,
-    pub device_model: String,
-    pub device_type: PeerDeviceType,
+    pub version: String,
+    pub device_model: Option<String>,
+    pub device_type: Option<PeerDeviceType>,
+    pub fingerprint: String,
 }
 
 pub enum PeerDeviceType {
@@ -103,37 +105,40 @@ impl Into<PeerDeviceType> for signaling::PeerDeviceType {
     }
 }
 
-impl Into<PeerInfo> for signaling::PeerInfo {
+impl Into<PeerInfo> for signaling::ClientInfo {
     fn into(self) -> PeerInfo {
         PeerInfo {
             id: self.id.to_string(),
-            fingerprint: self.fingerprint,
+            version: self.version,
             alias: self.alias,
             device_model: self.device_model,
-            device_type: self.device_type.into(),
+            device_type: self.device_type.map(|t| t.into()),
+            fingerprint: self.fingerprint,
         }
     }
 }
 
-impl Into<signaling::PeerInfo> for PeerInfo {
-    fn into(self) -> signaling::PeerInfo {
-        signaling::PeerInfo {
+impl Into<signaling::ClientInfo> for PeerInfo {
+    fn into(self) -> signaling::ClientInfo {
+        signaling::ClientInfo {
             id: Uuid::from_str(&self.id).unwrap(),
-            fingerprint: self.fingerprint,
             alias: self.alias,
+            version: self.version,
             device_model: self.device_model,
-            device_type: self.device_type.into(),
+            device_type: self.device_type.map(|t| t.into()),
+            fingerprint: self.fingerprint,
         }
     }
 }
 
-impl Into<signaling::PeerInfoWithoutId> for PeerInfoWithoutId {
-    fn into(self) -> signaling::PeerInfoWithoutId {
-        signaling::PeerInfoWithoutId {
-            fingerprint: self.fingerprint,
+impl Into<signaling::ClientInfoWithoutId> for PeerInfoWithoutId {
+    fn into(self) -> signaling::ClientInfoWithoutId {
+        signaling::ClientInfoWithoutId {
             alias: self.alias,
+            version: self.version,
             device_model: self.device_model,
-            device_type: self.device_type.into(),
+            device_type: self.device_type.map(|t| t.into()),
+            fingerprint: self.fingerprint,
         }
     }
 }
@@ -152,35 +157,38 @@ impl Into<signaling::PeerDeviceType> for PeerDeviceType {
 
 impl Into<WsServerMessage> for signaling::WsServerMessage {
     fn into(self) -> WsServerMessage {
-        match self.ws_type {
-            signaling::WsMessageType::Hello => WsServerMessage::Hello(WsServerHelloMessage {
-                client: self.client.unwrap().into(),
-                members: self
-                    .members
-                    .unwrap()
-                    .into_iter()
-                    .map(|p| p.into())
-                    .collect(),
-            }),
-            signaling::WsMessageType::Joined => WsServerMessage::Joined(WsServerJoinedMessage {
-                peer: self.peer.unwrap().into(),
-            }),
-            signaling::WsMessageType::Left => WsServerMessage::Left(WsServerLeftMessage {
-                peer_id: self.peer_id.unwrap().to_string(),
-            }),
-            signaling::WsMessageType::Offer => WsServerMessage::Offer(WsServerOfferMessage {
-                peer: self.peer.unwrap().into(),
-                session_id: self.session_id.unwrap(),
-                sdp: self.sdp.unwrap(),
-            }),
-            signaling::WsMessageType::Answer => WsServerMessage::Answer(WsServerAnswerMessage {
-                peer: self.peer.unwrap().into(),
-                session_id: self.session_id.unwrap(),
-                sdp: self.sdp.unwrap(),
-            }),
-            signaling::WsMessageType::Error => WsServerMessage::Error(WsServerErrorMessage {
-                code: self.code.unwrap(),
-            }),
+        match self {
+            signaling::WsServerMessage::Hello { client, peers } => {
+                WsServerMessage::Hello(WsServerHelloMessage {
+                    client: client.into(),
+                    members: peers.into_iter().map(|p| p.into()).collect(),
+                })
+            }
+            signaling::WsServerMessage::Joined { peer } => {
+                WsServerMessage::Joined(WsServerJoinedMessage { peer: peer.into() })
+            }
+            signaling::WsServerMessage::Left { peer_id } => {
+                WsServerMessage::Left(WsServerLeftMessage {
+                    peer_id: peer_id.to_string(),
+                })
+            }
+            signaling::WsServerMessage::Offer(sdp) => {
+                WsServerMessage::Offer(WsServerOfferMessage {
+                    peer: sdp.peer.into(),
+                    session_id: sdp.session_id,
+                    sdp: sdp.sdp,
+                })
+            }
+            signaling::WsServerMessage::Answer(sdp) => {
+                WsServerMessage::Answer(WsServerAnswerMessage {
+                    peer: sdp.peer.into(),
+                    session_id: sdp.session_id,
+                    sdp: sdp.sdp,
+                })
+            }
+            signaling::WsServerMessage::Error { code } => {
+                WsServerMessage::Error(WsServerErrorMessage { code })
+            }
         }
     }
 }
@@ -215,17 +223,12 @@ impl LsSignalingConnection {
     }
 }
 
-impl Into<signaling::WsServerMessage> for WsServerOfferMessage {
-    fn into(self) -> signaling::WsServerMessage {
-        signaling::WsServerMessage {
-            ws_type: signaling::WsMessageType::Offer,
-            members: None,
-            client: None,
-            peer: Some(self.peer.into()),
-            peer_id: None,
-            session_id: Some(self.session_id),
-            sdp: Some(self.sdp),
-            code: None,
+impl Into<signaling::WsServerSdpMessage> for WsServerOfferMessage {
+    fn into(self) -> signaling::WsServerSdpMessage {
+        signaling::WsServerSdpMessage {
+            peer: self.peer.into(),
+            session_id: self.session_id,
+            sdp: self.sdp,
         }
     }
 }

@@ -1,5 +1,5 @@
 use crate::config::error::AppError;
-use crate::config::state::{AppState, IpRequestCountMap, PeerState, TxMap};
+use crate::config::state::{AppState, IpRequestCountMap, ClientState, TxMap};
 use crate::util;
 use crate::util::ip::get_ip_group;
 use axum::body::Body;
@@ -10,8 +10,8 @@ use axum::response::Response;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
 use localsend::webrtc::signaling::{
-    PeerInfo, PeerInfoWithoutId, WsClientMessage, WsClientMessageType, WsMessageType,
-    WsServerMessage,
+    ClientInfo, ClientInfoWithoutId, WsClientMessage, WsClientMessageType, WsServerMessage,
+    WsServerSdpMessage,
 };
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -53,15 +53,16 @@ pub async fn ws_handler(
         let base64_decoded: String = String::from_utf8(base64_decoded)
             .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-        let register_dto = serde_json::from_str::<PeerInfoWithoutId>(&base64_decoded)
+        let register_dto = serde_json::from_str::<ClientInfoWithoutId>(&base64_decoded)
             .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-        PeerInfo {
+        ClientInfo {
             id: Uuid::new_v4(),
-            fingerprint: register_dto.fingerprint,
             alias: register_dto.alias,
+            version: register_dto.version,
             device_model: register_dto.device_model,
             device_type: register_dto.device_type,
+            fingerprint: register_dto.fingerprint,
         }
     };
 
@@ -82,7 +83,7 @@ async fn handle_socket(
     request_count_map: IpRequestCountMap,
     socket: WebSocket,
     ip_group: String,
-    peer: PeerInfo,
+    peer: ClientInfo,
 ) {
     let peer_id = peer.id;
     let (tx, mut rx) = mpsc::channel(4);
@@ -91,7 +92,7 @@ async fn handle_socket(
         let mut peers_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
 
         // Peers in the IP group including the current user.
-        let mut peers: Vec<PeerInfo> = Vec::new();
+        let mut peers: Vec<ClientInfo> = Vec::new();
 
         // If the limit of connections is reached.
         // Used to break out of the lock as early as possible.
@@ -118,23 +119,25 @@ async fn handle_socket(
 
             peers = tx_local_map
                 .iter()
-                .map(|(k, v)| PeerInfo {
+                .map(|(k, v)| ClientInfo {
                     id: *k,
-                    fingerprint: v.peer.fingerprint.clone(),
-                    alias: v.peer.alias.clone(),
-                    device_model: v.peer.device_model.clone(),
-                    device_type: v.peer.device_type.clone(),
+                    alias: v.client.alias.clone(),
+                    version: v.client.version.clone(),
+                    device_model: v.client.device_model.clone(),
+                    device_type: v.client.device_type.clone(),
+                    fingerprint: v.client.fingerprint.clone(),
                 })
                 .collect();
 
             tx_local_map.insert(
                 peer_id,
-                PeerState {
-                    peer: PeerInfoWithoutId {
-                        fingerprint: peer.fingerprint.clone(),
+                ClientState {
+                    client: ClientInfoWithoutId {
                         alias: peer.alias.clone(),
+                        version: peer.version.clone(),
                         device_model: peer.device_model.clone(),
                         device_type: peer.device_type.clone(),
+                        fingerprint: peer.fingerprint.clone(),
                     },
                     tx: tx.clone(),
                 },
@@ -154,28 +157,13 @@ async fn handle_socket(
 
         for peer_tx in peers_tx {
             let _ = peer_tx
-                .send(WsServerMessage {
-                    ws_type: WsMessageType::Joined,
-                    members: None,
-                    client: None,
-                    peer: Some(peer.clone()),
-                    peer_id: None,
-                    session_id: None,
-                    sdp: None,
-                    code: None,
-                })
+                .send(WsServerMessage::Joined { peer: peer.clone() })
                 .await;
         }
 
-        tx.send(WsServerMessage {
-            ws_type: WsMessageType::Hello,
-            members: Some(peers),
-            client: Some(peer.clone()),
-            peer: None,
-            peer_id: None,
-            session_id: None,
-            sdp: None,
-            code: None,
+        tx.send(WsServerMessage::Hello {
+            client: peer.clone(),
+            peers,
         })
         .await
         .unwrap();
@@ -205,15 +193,8 @@ async fn handle_socket(
                         .is_err()
                     {
                         let _ = tx
-                            .send(WsServerMessage {
-                                ws_type: WsMessageType::Error,
-                                members: None,
-                                client: None,
-                                peer: None,
-                                peer_id: None,
-                                session_id: None,
-                                sdp: None,
-                                code: Some(StatusCode::TOO_MANY_REQUESTS.as_u16()),
+                            .send(WsServerMessage::Error {
+                                code: StatusCode::TOO_MANY_REQUESTS.as_u16(),
                             })
                             .await;
                         return;
@@ -269,25 +250,14 @@ async fn handle_socket(
     }
 
     for tx in remaining_tx {
-        let _ = tx
-            .send(WsServerMessage {
-                ws_type: WsMessageType::Left,
-                members: None,
-                client: None,
-                peer: None,
-                peer_id: Some(peer_id),
-                session_id: None,
-                sdp: None,
-                code: None,
-            })
-            .await;
+        let _ = tx.send(WsServerMessage::Left { peer_id }).await;
     }
 }
 
 async fn send_to_peer_with_lock(
     tx_map: &TxMap,
     ip_group: &str,
-    origin_peer: PeerInfo,
+    origin_peer: ClientInfo,
     message: WsClientMessage,
 ) {
     let mut target_peer_tx: Option<mpsc::Sender<WsServerMessage>> = None;
@@ -301,19 +271,15 @@ async fn send_to_peer_with_lock(
     }
 
     if let Some(tx) = target_peer_tx {
+        let sdp_message = WsServerSdpMessage {
+            peer: origin_peer,
+            session_id: message.session_id,
+            sdp: message.sdp,
+        };
         let _ = tx
-            .send(WsServerMessage {
-                ws_type: match message.ws_type {
-                    WsClientMessageType::Offer => WsMessageType::Offer,
-                    WsClientMessageType::Answer => WsMessageType::Answer,
-                },
-                members: None,
-                client: None,
-                peer: Some(origin_peer),
-                peer_id: None,
-                session_id: Some(message.session_id),
-                sdp: Some(message.sdp),
-                code: None,
+            .send(match message.ws_type {
+                WsClientMessageType::Offer => WsServerMessage::Offer(sdp_message),
+                WsClientMessageType::Answer => WsServerMessage::Answer(sdp_message),
             })
             .await;
     }

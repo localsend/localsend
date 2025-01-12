@@ -357,6 +357,30 @@ impl SseDecode for Vec<u8> {
     }
 }
 
+impl SseDecode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<String>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<crate::api::webrtc::PeerDeviceType> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::webrtc::PeerDeviceType>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for crate::api::webrtc::PeerDeviceType {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -376,16 +400,19 @@ impl SseDecode for crate::api::webrtc::PeerInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_id = <String>::sse_decode(deserializer);
-        let mut var_fingerprint = <String>::sse_decode(deserializer);
         let mut var_alias = <String>::sse_decode(deserializer);
-        let mut var_deviceModel = <String>::sse_decode(deserializer);
-        let mut var_deviceType = <crate::api::webrtc::PeerDeviceType>::sse_decode(deserializer);
+        let mut var_version = <String>::sse_decode(deserializer);
+        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
+        let mut var_deviceType =
+            <Option<crate::api::webrtc::PeerDeviceType>>::sse_decode(deserializer);
+        let mut var_fingerprint = <String>::sse_decode(deserializer);
         return crate::api::webrtc::PeerInfo {
             id: var_id,
-            fingerprint: var_fingerprint,
             alias: var_alias,
+            version: var_version,
             device_model: var_deviceModel,
             device_type: var_deviceType,
+            fingerprint: var_fingerprint,
         };
     }
 }
@@ -393,15 +420,18 @@ impl SseDecode for crate::api::webrtc::PeerInfo {
 impl SseDecode for crate::api::webrtc::PeerInfoWithoutId {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_fingerprint = <String>::sse_decode(deserializer);
         let mut var_alias = <String>::sse_decode(deserializer);
-        let mut var_deviceModel = <String>::sse_decode(deserializer);
-        let mut var_deviceType = <crate::api::webrtc::PeerDeviceType>::sse_decode(deserializer);
+        let mut var_version = <String>::sse_decode(deserializer);
+        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
+        let mut var_deviceType =
+            <Option<crate::api::webrtc::PeerDeviceType>>::sse_decode(deserializer);
+        let mut var_fingerprint = <String>::sse_decode(deserializer);
         return crate::api::webrtc::PeerInfoWithoutId {
-            fingerprint: var_fingerprint,
             alias: var_alias,
+            version: var_version,
             device_model: var_deviceModel,
             device_type: var_deviceType,
+            fingerprint: var_fingerprint,
         };
     }
 }
@@ -639,10 +669,11 @@ impl flutter_rust_bridge::IntoDart for crate::api::webrtc::PeerInfo {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.id.into_into_dart().into_dart(),
-            self.fingerprint.into_into_dart().into_dart(),
             self.alias.into_into_dart().into_dart(),
+            self.version.into_into_dart().into_dart(),
             self.device_model.into_into_dart().into_dart(),
             self.device_type.into_into_dart().into_dart(),
+            self.fingerprint.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -659,10 +690,11 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::PeerInfo>
 impl flutter_rust_bridge::IntoDart for crate::api::webrtc::PeerInfoWithoutId {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
-            self.fingerprint.into_into_dart().into_dart(),
             self.alias.into_into_dart().into_dart(),
+            self.version.into_into_dart().into_dart(),
             self.device_model.into_into_dart().into_dart(),
             self.device_type.into_into_dart().into_dart(),
+            self.fingerprint.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -929,6 +961,26 @@ impl SseEncode for Vec<u8> {
     }
 }
 
+impl SseEncode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <String>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::webrtc::PeerDeviceType> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::webrtc::PeerDeviceType>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for crate::api::webrtc::PeerDeviceType {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -952,20 +1004,22 @@ impl SseEncode for crate::api::webrtc::PeerInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.id, serializer);
-        <String>::sse_encode(self.fingerprint, serializer);
         <String>::sse_encode(self.alias, serializer);
-        <String>::sse_encode(self.device_model, serializer);
-        <crate::api::webrtc::PeerDeviceType>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.version, serializer);
+        <Option<String>>::sse_encode(self.device_model, serializer);
+        <Option<crate::api::webrtc::PeerDeviceType>>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.fingerprint, serializer);
     }
 }
 
 impl SseEncode for crate::api::webrtc::PeerInfoWithoutId {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.fingerprint, serializer);
         <String>::sse_encode(self.alias, serializer);
-        <String>::sse_encode(self.device_model, serializer);
-        <crate::api::webrtc::PeerDeviceType>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.version, serializer);
+        <Option<String>>::sse_encode(self.device_model, serializer);
+        <Option<crate::api::webrtc::PeerDeviceType>>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.fingerprint, serializer);
     }
 }
 

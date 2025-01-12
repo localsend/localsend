@@ -284,6 +284,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PeerDeviceType dco_decode_box_autoadd_peer_device_type(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_peer_device_type(raw);
+  }
+
+  @protected
   PeerInfoWithoutId dco_decode_box_autoadd_peer_info_without_id(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_peer_info_without_id(raw);
@@ -350,6 +356,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  String? dco_decode_opt_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  PeerDeviceType? dco_decode_opt_box_autoadd_peer_device_type(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_peer_device_type(raw);
+  }
+
+  @protected
   PeerDeviceType dco_decode_peer_device_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return PeerDeviceType.values[raw as int];
@@ -359,13 +377,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PeerInfo dco_decode_peer_info(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 5) throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    if (arr.length != 6) throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
     return PeerInfo(
       id: dco_decode_String(arr[0]),
-      fingerprint: dco_decode_String(arr[1]),
-      alias: dco_decode_String(arr[2]),
-      deviceModel: dco_decode_String(arr[3]),
-      deviceType: dco_decode_peer_device_type(arr[4]),
+      alias: dco_decode_String(arr[1]),
+      version: dco_decode_String(arr[2]),
+      deviceModel: dco_decode_opt_String(arr[3]),
+      deviceType: dco_decode_opt_box_autoadd_peer_device_type(arr[4]),
+      fingerprint: dco_decode_String(arr[5]),
     );
   }
 
@@ -373,12 +392,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PeerInfoWithoutId dco_decode_peer_info_without_id(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 4) throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    if (arr.length != 5) throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
     return PeerInfoWithoutId(
-      fingerprint: dco_decode_String(arr[0]),
-      alias: dco_decode_String(arr[1]),
-      deviceModel: dco_decode_String(arr[2]),
-      deviceType: dco_decode_peer_device_type(arr[3]),
+      alias: dco_decode_String(arr[0]),
+      version: dco_decode_String(arr[1]),
+      deviceModel: dco_decode_opt_String(arr[2]),
+      deviceType: dco_decode_opt_box_autoadd_peer_device_type(arr[3]),
+      fingerprint: dco_decode_String(arr[4]),
     );
   }
 
@@ -552,6 +572,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PeerDeviceType sse_decode_box_autoadd_peer_device_type(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_peer_device_type(deserializer));
+  }
+
+  @protected
   PeerInfoWithoutId sse_decode_box_autoadd_peer_info_without_id(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_peer_info_without_id(deserializer));
@@ -625,6 +651,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  PeerDeviceType? sse_decode_opt_box_autoadd_peer_device_type(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_peer_device_type(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   PeerDeviceType sse_decode_peer_device_type(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
@@ -635,21 +683,25 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PeerInfo sse_decode_peer_info(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_id = sse_decode_String(deserializer);
-    var var_fingerprint = sse_decode_String(deserializer);
     var var_alias = sse_decode_String(deserializer);
-    var var_deviceModel = sse_decode_String(deserializer);
-    var var_deviceType = sse_decode_peer_device_type(deserializer);
-    return PeerInfo(id: var_id, fingerprint: var_fingerprint, alias: var_alias, deviceModel: var_deviceModel, deviceType: var_deviceType);
+    var var_version = sse_decode_String(deserializer);
+    var var_deviceModel = sse_decode_opt_String(deserializer);
+    var var_deviceType = sse_decode_opt_box_autoadd_peer_device_type(deserializer);
+    var var_fingerprint = sse_decode_String(deserializer);
+    return PeerInfo(
+        id: var_id, alias: var_alias, version: var_version, deviceModel: var_deviceModel, deviceType: var_deviceType, fingerprint: var_fingerprint);
   }
 
   @protected
   PeerInfoWithoutId sse_decode_peer_info_without_id(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_fingerprint = sse_decode_String(deserializer);
     var var_alias = sse_decode_String(deserializer);
-    var var_deviceModel = sse_decode_String(deserializer);
-    var var_deviceType = sse_decode_peer_device_type(deserializer);
-    return PeerInfoWithoutId(fingerprint: var_fingerprint, alias: var_alias, deviceModel: var_deviceModel, deviceType: var_deviceType);
+    var var_version = sse_decode_String(deserializer);
+    var var_deviceModel = sse_decode_opt_String(deserializer);
+    var var_deviceType = sse_decode_opt_box_autoadd_peer_device_type(deserializer);
+    var var_fingerprint = sse_decode_String(deserializer);
+    return PeerInfoWithoutId(
+        alias: var_alias, version: var_version, deviceModel: var_deviceModel, deviceType: var_deviceType, fingerprint: var_fingerprint);
   }
 
   @protected
@@ -821,6 +873,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_peer_device_type(PeerDeviceType self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_peer_device_type(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_peer_info_without_id(self, serializer);
@@ -891,6 +949,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_peer_device_type(PeerDeviceType? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_peer_device_type(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_peer_device_type(PeerDeviceType self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
@@ -900,19 +978,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_peer_info(PeerInfo self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.id, serializer);
-    sse_encode_String(self.fingerprint, serializer);
     sse_encode_String(self.alias, serializer);
-    sse_encode_String(self.deviceModel, serializer);
-    sse_encode_peer_device_type(self.deviceType, serializer);
+    sse_encode_String(self.version, serializer);
+    sse_encode_opt_String(self.deviceModel, serializer);
+    sse_encode_opt_box_autoadd_peer_device_type(self.deviceType, serializer);
+    sse_encode_String(self.fingerprint, serializer);
   }
 
   @protected
   void sse_encode_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_String(self.fingerprint, serializer);
     sse_encode_String(self.alias, serializer);
-    sse_encode_String(self.deviceModel, serializer);
-    sse_encode_peer_device_type(self.deviceType, serializer);
+    sse_encode_String(self.version, serializer);
+    sse_encode_opt_String(self.deviceModel, serializer);
+    sse_encode_opt_box_autoadd_peer_device_type(self.deviceType, serializer);
+    sse_encode_String(self.fingerprint, serializer);
   }
 
   @protected

@@ -1,5 +1,5 @@
 use crate::controller::ws_controller;
-use axum::routing::{get, post};
+use axum::routing::get;
 use axum::Router;
 use std::net::SocketAddr;
 

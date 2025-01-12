@@ -50,6 +50,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   String dco_decode_String(dynamic raw);
 
   @protected
+  PeerDeviceType dco_decode_box_autoadd_peer_device_type(dynamic raw);
+
+  @protected
   PeerInfoWithoutId dco_decode_box_autoadd_peer_info_without_id(dynamic raw);
 
   @protected
@@ -81,6 +84,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw);
+
+  @protected
+  PeerDeviceType? dco_decode_opt_box_autoadd_peer_device_type(dynamic raw);
 
   @protected
   PeerDeviceType dco_decode_peer_device_type(dynamic raw);
@@ -148,6 +157,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
+  PeerDeviceType sse_decode_box_autoadd_peer_device_type(SseDeserializer deserializer);
+
+  @protected
   PeerInfoWithoutId sse_decode_box_autoadd_peer_info_without_id(SseDeserializer deserializer);
 
   @protected
@@ -179,6 +191,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer);
+
+  @protected
+  PeerDeviceType? sse_decode_opt_box_autoadd_peer_device_type(SseDeserializer deserializer);
 
   @protected
   PeerDeviceType sse_decode_peer_device_type(SseDeserializer deserializer);
@@ -255,6 +273,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_String(String self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_peer_device_type(PeerDeviceType self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer);
 
   @protected
@@ -286,6 +307,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_list_prim_u_8_strict(Uint8List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_peer_device_type(PeerDeviceType? self, SseSerializer serializer);
 
   @protected
   void sse_encode_peer_device_type(PeerDeviceType self, SseSerializer serializer);

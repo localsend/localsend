@@ -1,5 +1,5 @@
 use crate::model::file::FileDto;
-use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerMessage};
+use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
 use anyhow::Result;
 use base64::engine::general_purpose::URL_SAFE_NO_PAD;
 use base64::engine::GeneralPurpose;
@@ -113,7 +113,7 @@ pub async fn send_offer(
 
     signaling
         .on_answer(session_id, |message| {
-            tx_answer.send(message.sdp.unwrap()).unwrap();
+            tx_answer.send(message.sdp).unwrap();
         })
         .await;
 
@@ -131,7 +131,7 @@ pub async fn send_offer(
 
 pub async fn accept_offer(
     signaling: &ManagedSignalingConnection,
-    offer: &WsServerMessage,
+    offer: &WsServerSdpMessage,
 ) -> Result<()> {
     let peer_connection = create_peer_connection().await?;
 
@@ -218,7 +218,7 @@ pub async fn accept_offer(
             })
         }));
 
-    let remote_desc_sdp = decode_sdp(&offer.sdp.as_deref().unwrap())?;
+    let remote_desc_sdp = decode_sdp(&offer.sdp)?;
     let remote_desc = RTCSessionDescription::offer(remote_desc_sdp)?;
     peer_connection.set_remote_description(remote_desc).await?;
 
@@ -235,8 +235,8 @@ pub async fn accept_offer(
 
     signaling
         .send_answer(
-            offer.session_id.as_ref().unwrap().clone(),
-            offer.peer.as_ref().unwrap().id,
+            offer.session_id.clone(),
+            offer.peer.id,
             encode_sdp(&local_description.sdp),
         )
         .await?;

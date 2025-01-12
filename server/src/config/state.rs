@@ -1,14 +1,14 @@
-use localsend::webrtc::signaling::{PeerInfoWithoutId, WsServerMessage};
+use localsend::webrtc::signaling::{ClientInfoWithoutId, WsServerMessage};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};
 use uuid::Uuid;
 
 /// IP -> Peer ID -> PeerInfo + WebSocket message sender.
-pub type TxMap = Arc<Mutex<HashMap<String, HashMap<Uuid, PeerState>>>>;
+pub type TxMap = Arc<Mutex<HashMap<String, HashMap<Uuid, ClientState>>>>;
 
-pub struct PeerState {
-    pub peer: PeerInfoWithoutId,
+pub struct ClientState {
+    pub client: ClientInfoWithoutId,
     pub tx: mpsc::Sender<WsServerMessage>,
 }
 
