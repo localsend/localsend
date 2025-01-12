@@ -31,6 +31,9 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
+import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
+import 'package:localsend_app/rust/api/webrtc.dart' as webrtc;
+import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
@@ -58,6 +61,42 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
+
+  await RustLib.init();
+
+  await rust_logging.enableDebugLogging();
+
+  webrtc.LsSignalingConnection? connection;
+  final stream = webrtc.connect(
+    uri: 'wss://public.localsend.org/v1/ws',
+    info: webrtc.PeerInfoWithoutId(
+      fingerprint: 'fingerprint',
+      alias: 'alias',
+      deviceModel: 'deviceModel',
+      deviceType: webrtc.PeerDeviceType.mobile,
+    ),
+    onConnection: (c) {
+      connection = c;
+      print('Got connection');
+    },
+  );
+
+  stream.listen((message) async {
+    print('Got message: $message');
+    webrtc.WsServerMessage;
+    await message.when(
+      hello: (h) {},
+      joined: (j) async {
+        await connection?.sendOffer(target: j.peer.id);
+      },
+      left: (l) {},
+      offer: (o) async {
+        await connection?.acceptOffer(offer: o);
+      },
+      answer: (a) {},
+      error: (e) {},
+    );
+  });
 
   await Rhttp.init();
 
