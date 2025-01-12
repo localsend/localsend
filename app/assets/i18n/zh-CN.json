@@ -81,7 +81,7 @@
       "link": "通过链接分享"
     },
     "sendModeHelp": "提示",
-    "help": "请确保目标连接的是同一个 Wi‑Fi 网络",
+    "help": "请确保目标连接的是同一个 Wi‑Fi 网络。",
     "placeItems": "列出要分享的项目"
   },
   "settingsTab": {
@@ -140,7 +140,12 @@
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多线程广播",
-      "multicastGroupWarning": "由于正在使用自定义多线程广播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
+      "multicastGroupWarning": "由于正在使用自定义多线程广播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）",
+      "network": "网络",
+      "networkOptions": {
+        "all": "所有",
+        "filtered": "已过滤"
+      }
     },
     "other": {
       "title": "其他",
@@ -233,7 +238,7 @@
     "title": "分享为链接",
     "loading": "正在启动服务器……",
     "stopping": "正在停止服务器……",
-    "error": "在启动服务器过程中发生了错误",
+    "error": "在启动服务器过程中发生了错误。",
     "openLink": {
       "one": "在浏览器中打开链接：",
       "other": "在浏览器中打开其中一个链接："
@@ -510,5 +515,12 @@
     "sActionUseCameraHint": "使用摄像头",
     "sNameDurationLabel": "时长",
     "sUnitAssetCountLabel": "计数"
+  },
+  "networkInterfacesPage": {
+    "title": "网络接口",
+    "info": "默认情况下，LocalSend使用所有可用的网络接口。您可以在此处排除不需要的网络。您需要重新启动服务器以应用更改。",
+    "preview": "预览",
+    "whitelist": "白名单",
+    "blacklist": "黑名单"
   }
 }

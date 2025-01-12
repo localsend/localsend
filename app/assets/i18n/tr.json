@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Takma isminiz:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoriler",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -132,7 +137,13 @@
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
-      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
+      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})",
+      "network": "Ağ",
+      "networkOptions": {
+        "all": "Tümü"
+      },
+      "useSystemName": "Sistem adını kullan",
+      "generateRandomAlias": "Rastgele takma ad oluştur"
     },
     "other": {
       "title": "Diğer",
@@ -369,6 +380,10 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "Dosya Aç",
+      "content": "Alınan dosyayı açmak istiyor musunuz?"
     }
   },
   "sanitization": {
@@ -421,5 +436,11 @@
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
+  },
+  "networkInterfacesPage": {
+    "title": "Ağ Arayüzleri",
+    "preview": "Önizle",
+    "whitelist": "Beyaz liste",
+    "blacklist": "Kara liste"
   }
 }
