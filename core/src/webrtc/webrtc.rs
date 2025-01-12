@@ -1,5 +1,5 @@
 use crate::model::file::FileDto;
-use crate::webrtc::signaling::{CloneableSignalingConnection, WsServerMessage};
+use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerMessage};
 use anyhow::Result;
 use base64::engine::general_purpose::URL_SAFE_NO_PAD;
 use base64::engine::GeneralPurpose;
@@ -24,7 +24,7 @@ use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
 use webrtc::peer_connection::{math_rand_alpha, RTCPeerConnection};
 
 pub async fn send_offer(
-    signaling: &CloneableSignalingConnection,
+    signaling: &ManagedSignalingConnection,
     target_id: Uuid,
     files: &[FileDto],
 ) -> Result<()> {
@@ -95,14 +95,18 @@ pub async fn send_offer(
     peer_connection.set_local_description(offer).await?;
     let _ = gather_complete.recv().await;
 
-    let session_id = Uuid::new_v4();
+    let session_id = Uuid::new_v4().to_string();
     let local_description = peer_connection
         .local_description()
         .await
         .ok_or_else(|| anyhow::anyhow!("generate local_description failed!"))?;
 
     signaling
-        .send_offer(session_id, target_id, encode_sdp(&local_description.sdp))
+        .send_offer(
+            session_id.clone(),
+            target_id,
+            encode_sdp(&local_description.sdp),
+        )
         .await?;
 
     let (tx_answer, rx_answer) = tokio::sync::oneshot::channel();
@@ -126,7 +130,7 @@ pub async fn send_offer(
 }
 
 pub async fn accept_offer(
-    signaling: &CloneableSignalingConnection,
+    signaling: &ManagedSignalingConnection,
     offer: &WsServerMessage,
 ) -> Result<()> {
     let peer_connection = create_peer_connection().await?;
@@ -231,7 +235,7 @@ pub async fn accept_offer(
 
     signaling
         .send_answer(
-            offer.session_id.unwrap(),
+            offer.session_id.as_ref().unwrap().clone(),
             offer.peer.as_ref().unwrap().id,
             encode_sdp(&local_description.sdp),
         )

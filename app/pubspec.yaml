@@ -28,6 +28,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.7.4+2
+  flutter_rust_bridge: 2.7.0
+  freezed_annotation: 2.4.4
   gal: 2.3.0
   glob: ^2.1.2
   image: 4.3.0
@@ -54,8 +56,10 @@ dependencies:
   pretty_qr_code: 3.3.0
   refena_flutter: 2.1.1
   refena_inspector_client: 2.0.1
-  rhttp: 0.9.2
+  rhttp: 0.9.8
   routerino: 0.8.0
+  rust_lib_localsend_app:
+    path: rust_builder
   saf_stream: 0.10.0
   screen_retriever: 0.2.0
   share_handler: 0.0.22
@@ -81,6 +85,7 @@ dev_dependencies:
   dart_mappable_builder: 4.3.0
   flutter_gen_runner: 5.8.0
   flutter_lints: 5.0.0
+  freezed: 2.5.7
   mockito: 5.4.4
   refena_inspector: 2.0.3
   slang_build_runner: 4.4.0

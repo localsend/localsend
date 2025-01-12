@@ -12,7 +12,7 @@ serde_json = "1.0.135"
 tokio = { version = "1.43.0", features = ["full"] }
 uuid = { version = "1.11.0", features = ["serde", "v4"] }
 webrtc = { version = "0.12.0", optional = true }
-tokio-tungstenite = { version = "0.26.1", features = ["rustls-tls-native-roots"], optional = true }
+tokio-tungstenite = { version = "0.26.1", features = ["rustls-tls-webpki-roots"], optional = true }
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.19" }
 tungstenite = "0.26.1"
