@@ -70,10 +70,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
   final stream = webrtc.connect(
     uri: 'wss://public.localsend.org/v1/ws',
     info: webrtc.PeerInfoWithoutId(
-      fingerprint: 'fingerprint',
       alias: 'alias',
+      version: 'version',
       deviceModel: 'deviceModel',
       deviceType: webrtc.PeerDeviceType.mobile,
+      fingerprint: 'fingerprint',
     ),
     onConnection: (c) {
       connection = c;

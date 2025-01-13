@@ -7,6 +7,7 @@ use base64::Engine;
 use std::io::{Read, Write};
 use std::sync::atomic::{AtomicI32, Ordering};
 use std::sync::Arc;
+use tokio::io::AsyncReadExt;
 use tokio::sync::Mutex;
 use tokio::time::Duration;
 use uuid::Uuid;
@@ -26,13 +27,13 @@ use webrtc::peer_connection::{math_rand_alpha, RTCPeerConnection};
 pub async fn send_offer(
     signaling: &ManagedSignalingConnection,
     target_id: Uuid,
-    files: &[FileDto],
+    files: Vec<FileDto>,
 ) -> Result<()> {
     let peer_connection = create_peer_connection().await?;
 
     let data_channel = peer_connection
         .create_data_channel(
-            "data",
+            "binary",
             Some(RTCDataChannelInit {
                 ordered: Some(true),
                 max_packet_life_time: None,
@@ -42,22 +43,6 @@ pub async fn send_offer(
             }),
         )
         .await?;
-
-    let (done_tx, mut done_rx) = tokio::sync::mpsc::channel::<()>(1);
-
-    peer_connection.on_peer_connection_state_change(Box::new(move |s: RTCPeerConnectionState| {
-        println!("Peer Connection State has changed: {s}");
-
-        if s == RTCPeerConnectionState::Failed {
-            // Wait until PeerConnection has had no network activity for 30 seconds or another failure. It may be reconnected using an ICE Restart.
-            // Use webrtc.PeerConnectionStateDisconnected if you are interested in detecting faster timeout.
-            // Note that the PeerConnection may come back from PeerConnectionStateDisconnected.
-            println!("Peer Connection has gone to failed exiting");
-            let _ = done_tx.try_send(());
-        }
-
-        Box::pin(async {})
-    }));
 
     // Register channel opening handling
     let d1 = Arc::clone(&data_channel);
@@ -121,6 +106,16 @@ pub async fn send_offer(
     let answer = RTCSessionDescription::answer(decode_sdp(&remote_desc)?)?;
 
     peer_connection.set_remote_description(answer).await?;
+
+    let (done_tx, mut done_rx) = tokio::sync::mpsc::channel::<()>(1);
+
+    peer_connection.on_peer_connection_state_change(Box::new(move |s: RTCPeerConnectionState| {
+        if s == RTCPeerConnectionState::Failed {
+            println!("Peer Connection has gone to failed exiting");
+            let _ = done_tx.try_send(());
+        }
+        Box::pin(async {})
+    }));
 
     done_rx.recv().await;
 

@@ -30,7 +30,7 @@ async fn main() -> Result<()> {
         match message {
             WsServerMessage::Joined { peer } => {
                 println!("Joined: {:?}", peer);
-                webrtc::webrtc::send_offer(&managed_connection, peer.id, &*vec![])
+                webrtc::webrtc::send_offer(&managed_connection, peer.id, vec![])
                     .await
                     .expect("Failed to send offer");
             }
