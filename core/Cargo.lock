@@ -903,6 +903,7 @@ dependencies = [
  "anyhow",
  "base64",
  "brotli",
+ "bytes",
  "futures-util",
  "serde",
  "serde_json",

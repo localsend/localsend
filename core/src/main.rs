@@ -3,8 +3,10 @@ mod util;
 mod webrtc;
 
 use anyhow::Result;
+use tokio::sync::mpsc;
 use tracing::Level;
 use crate::webrtc::signaling::WsServerMessage;
+use crate::webrtc::webrtc::{FileError, RTCSendMessage, RTCStatus};
 
 #[tokio::main]
 #[cfg(feature = "full")]
@@ -26,11 +28,16 @@ async fn main() -> Result<()> {
 
     let (managed_connection, mut rx) = connection.start_listener();
 
+
     while let Some(message) = rx.recv().await {
         match message {
             WsServerMessage::Joined { peer } => {
                 println!("Joined: {:?}", peer);
-                webrtc::webrtc::send_offer(&managed_connection, peer.id, vec![])
+                let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(16);
+                let (error_tx, error_rx) = mpsc::channel::<FileError>(16);
+                let (receive_tx, receive_rx) = mpsc::channel::<String>(16);
+                let (send_tx, send_rx) = mpsc::channel::<RTCSendMessage>(16);
+                webrtc::webrtc::send_offer(&managed_connection, peer.id, vec![], status_tx, error_tx, receive_tx, send_rx)
                     .await
                     .expect("Failed to send offer");
             }

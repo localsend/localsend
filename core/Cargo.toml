@@ -7,6 +7,7 @@ edition = "2021"
 anyhow = "1.0.95"
 base64 = "0.22.1"
 brotli = { version = "7.0.0", optional = true }
+bytes = "1.9.0"
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.135"
 tokio = { version = "1.43.0", features = ["full"] }

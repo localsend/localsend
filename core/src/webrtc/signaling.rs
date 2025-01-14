@@ -180,7 +180,7 @@ impl SignalingConnection {
 
         let (ws_stream, _) = connect_async(&uri).await?;
 
-        tracing::debug!("Connected to the signaling server. Waiting for the hello message...");
+        tracing::debug!("Connected to the signaling server. Waiting for hello...");
 
         let (mut write, read) = ws_stream.split();
 
@@ -250,7 +250,7 @@ impl SignalingConnection {
 
         let client = client_rx.recv().await.unwrap();
 
-        tracing::debug!("Received hello message from the server: {client:?}");
+        tracing::debug!("Received hello from server: {client:?}");
 
         Ok(SignalingConnection {
             client,
