@@ -1,17 +1,17 @@
-use std::collections::HashMap;
-use std::future::Future;
 use crate::model::file::FileDto;
 use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 use base64::engine::general_purpose::URL_SAFE_NO_PAD;
 use base64::engine::GeneralPurpose;
 use base64::Engine;
 use bytes::{Bytes, BytesMut};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+use std::future::Future;
 use std::io::{Read, Write};
 use std::pin::Pin;
 use std::sync::atomic::{AtomicI32, Ordering};
 use std::sync::Arc;
-use serde::{Deserialize, Serialize};
 use tokio::io::AsyncReadExt;
 use tokio::sync::{mpsc, Mutex};
 use tokio::time::Duration;
@@ -92,7 +92,6 @@ pub async fn send_offer(
         )
         .await?;
 
-
     {
         let data_channel_clone = Arc::clone(&data_channel);
         data_channel.on_open(Box::new(move || {
@@ -102,43 +101,53 @@ pub async fn send_offer(
                     .try_send(RTCStatus::Connected)
                     .expect("Failed to send status");
 
-                // send initial message
-                let initial_message = RTCInitialMessage {
-                    files,
-                };
-                let initial_message_str = serde_json::to_string(&initial_message).unwrap();
-                let result = data_channel.send(&Bytes::from(initial_message_str)).await;
-                if let Err(e) = result {
-                    error_tx
-                        .try_send(FileError {
-                            file_id: "".to_string(),
-                            error: e.to_string(),
-                        })
-                        .expect("Failed to send error");
+                {
+                    // send initial message
+                    let initial_message = RTCInitialMessage { files };
+                    let initial_message_str = serde_json::to_string(&initial_message).unwrap();
+                    let (tx, rx) = mpsc::channel(1);
+                    tx.send(initial_message_str.into_bytes()).await.unwrap();
+                    let result = process_in_chunks(
+                        Arc::clone(&data_channel),
+                        rx,
+                        |data_channel, chunk| async move {
+                            data_channel.send(&chunk).await?;
+                            Ok(data_channel)
+                        },
+                    )
+                    .await;
+                    if let Err(e) = result {
+                        error_tx
+                            .try_send(FileError {
+                                file_id: "".to_string(),
+                                error: e.to_string(),
+                            })
+                            .expect("Failed to send error");
 
-                    status_tx
-                        .try_send(RTCStatus::Error(e.to_string()))
-                        .expect("Failed to send status");
+                        status_tx
+                            .try_send(RTCStatus::Error(e.to_string()))
+                            .expect("Failed to send status");
 
-                    return;
+                        return;
+                    }
                 }
 
                 while let Some(mut message) = sending_rx.recv().await {
-                    let result = data_channel.send_text(message.file_id.clone()).await.map_err(|err| format!("{err}"));
+                    let result = data_channel
+                        .send_text(message.file_id.clone())
+                        .await
+                        .map_err(|err| format!("{err}"));
                     match result {
                         Ok(_) => {
-                            let result = process_in_chunks(Arc::clone(&data_channel), message.binary,  |data_channel, chunk| {
-                                Box::pin({
-                                    let data_channel = Arc::clone(&data_channel);
-                                    async move {
-                                        let result = data_channel.send(&chunk).await.map_err(|err| format!("{err}"));
-                                        match result {
-                                            Ok(_) => Ok(()),
-                                            Err(e) => Err(anyhow!("{e}")),
-                                        }
-                                    }
-                                })
-                            }).await;
+                            let result = process_in_chunks(
+                                Arc::clone(&data_channel),
+                                message.binary,
+                                |data_channel, chunk| async move {
+                                    data_channel.send(&chunk).await?;
+                                    Ok(data_channel)
+                                },
+                            )
+                            .await;
 
                             if let Err(e) = result {
                                 error_tx
@@ -169,7 +178,9 @@ pub async fn send_offer(
         Box::pin({
             let tx = receiving_tx.clone();
             async move {
-                tx.send(msg_str).await.expect("Failed to send received message");
+                tx.send(msg_str)
+                    .await
+                    .expect("Failed to send received message");
             }
         })
     }));
@@ -388,13 +399,16 @@ fn decode_sdp(s: &str) -> Result<String> {
 
 const CHUNK_SIZE: usize = 16 * 1024; // 16 KiB
 
-pub async fn process_in_chunks<T, F>(
-    data_channel: T,
+/// Process incoming data in chunks of CHUNK_SIZE
+/// The callback returns the same data_channel to avoid re-creating or lifetime issues.
+pub async fn process_in_chunks<T, F, Fut>(
+    mut data_channel: T,
     mut rx: mpsc::Receiver<Vec<u8>>,
     mut callback: F,
 ) -> Result<()>
 where
-    F: FnMut(&T, Bytes) -> Pin<Box<dyn Future<Output=Result<()>> + Send>> + Send,
+    F: FnMut(T, Bytes) -> Fut,
+    Fut: Future<Output = Result<T>>,
 {
     let mut buffer = BytesMut::with_capacity(CHUNK_SIZE);
 
@@ -405,13 +419,15 @@ where
         // While the buffer has enough data, split off CHUNK_SIZE
         while buffer.len() >= CHUNK_SIZE {
             let chunk = buffer.split_to(CHUNK_SIZE).freeze();
-            callback(&data_channel, chunk).await?;
+
+            // Process the chunk, reuse the data_channel
+            data_channel = callback(data_channel, chunk).await?;
         }
     }
 
     // After the channel is closed, if there's leftover data, handle it as needed:
     if !buffer.is_empty() {
-        callback(&data_channel, buffer.freeze()).await?;
+        callback(data_channel, buffer.freeze()).await?;
     }
 
     Ok(())
@@ -427,16 +443,18 @@ mod tests {
 
         tokio::spawn(async move {
             let mut test_vec = vec![0; CHUNK_SIZE * 2 + 5];
-            test_vec[CHUNK_SIZE..CHUNK_SIZE * 2].iter_mut().for_each(|x| *x = 1);
+            test_vec[CHUNK_SIZE..CHUNK_SIZE * 2]
+                .iter_mut()
+                .for_each(|x| *x = 1);
             test_vec[CHUNK_SIZE * 2..].iter_mut().for_each(|x| *x = 2);
             tx.send(test_vec).await.unwrap();
         });
 
         let mut chunks = Vec::new();
 
-        let result = process_in_chunks(&0, rx, |_, chunk| {
+        let result = process_in_chunks(0, rx, |_, chunk| {
             chunks.push(chunk);
-            Box::pin(async { Ok(()) })
+            async { Ok(0) }
         })
         .await;
 
