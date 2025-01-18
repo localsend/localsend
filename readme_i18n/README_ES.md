@@ -27,7 +27,7 @@ LocalSend es una aplicación gratuita y de código abierto que te permite compar
 - [Contribuir](#contribuir)
   - [Traducción](#traducción)
   - [Corrección de Errores y Mejoras](#corrección-de-errores-y-mejoras)
-  - [Solución de problemas](#solución-de-problemas)
+- [Solución de problemas](#solución-de-problemas)
 - [Compilación](#compilación)
   - [Android](#android)
   - [iOS](#ios)
@@ -121,10 +121,11 @@ Para más información sobre el protocolo LocalSend, consulta la [documentación
 Para compilar LocalSend desde el código fuente, sigue estos pasos:
 
 1. Instala Flutter [directamente](https://flutter.dev) o utilizando [fvm](https://fvm.app) (ver [versión requerida](.fvmrc))
-2. Clona el repositorio de `LocalSend`
-3. Ejecuta `cd app` para entrar en el directorio de la aplicación
-4. Ejecuta `flutter pub get` para descargar las dependencias
-5. Ejecuta `flutter run` para iniciar la aplicación
+2. Instala [Rust](https://www.rust-lang.org/tools/install)
+3. Clona el repositorio de `LocalSend`
+4. Ejecuta `cd app` para entrar en el directorio de la aplicación
+5. Ejecuta `flutter pub get` para descargar las dependencias
+6. Ejecuta `flutter run` para iniciar la aplicación
 
 > [!NOTA]
 > LocalSend actualmente requiere una versión más antigua de Flutter (especificada en [.fvmrc](.fvmrc))
