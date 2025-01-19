@@ -7,7 +7,7 @@ use anyhow::Result;
 use tokio::sync::mpsc;
 use tracing::Level;
 use crate::webrtc::signaling::WsServerMessage;
-use crate::webrtc::webrtc::{RTCError, RTCFile, RTCStatus};
+use crate::webrtc::webrtc::{RTCFileError, RTCFile, RTCStatus};
 
 #[tokio::main]
 #[cfg(feature = "full")]
@@ -36,7 +36,7 @@ async fn main() -> Result<()> {
                 println!("Joined: {:?}", peer);
                 let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(16);
                 let (selected_tx, selected_rx) = mpsc::channel::<HashSet<String>>(16);
-                let (error_tx, error_rx) = mpsc::channel::<RTCError>(16);
+                let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(16);
                 let (send_tx, send_rx) = mpsc::channel::<RTCFile>(16);
                 webrtc::webrtc::send_offer(&managed_connection, peer.id, vec![], status_tx, selected_tx, error_tx, send_rx)
                     .await

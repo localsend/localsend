@@ -67,8 +67,8 @@ pub enum RTCStatus {
     Error(String),
 }
 
-pub struct RTCError {
-    pub file_id: Option<String>,
+pub struct RTCFileError {
+    pub file_id: String,
     pub error: String,
 }
 
@@ -78,7 +78,7 @@ pub async fn send_offer(
     files: Vec<FileDto>,
     status_tx: mpsc::Sender<RTCStatus>,
     selected_files_tx: mpsc::Sender<HashSet<String>>,
-    error_tx: mpsc::Sender<RTCError>,
+    error_tx: mpsc::Sender<RTCFileError>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
 ) -> Result<()> {
     let (peer_connection, mut done_rx) = create_peer_connection().await?;
@@ -105,121 +105,125 @@ pub async fn send_offer(
         data_channel.on_open(Box::new(move || {
             let data_channel = Arc::clone(&data_channel_clone);
             Box::pin(async move {
-                if let Err(e) = status_tx.send(RTCStatus::Connected).await {
-                    let _ = error_tx.try_send(RTCError {
-                        file_id: None,
-                        error: e.to_string(),
-                    });
-                }
-
-                {
-                    // send initial message
-                    let initial_message = RTCInitialMessage { files };
-                    let initial_message_str = serde_json::to_string(&initial_message).unwrap();
-                    let (tx, rx) = mpsc::channel(1);
-                    tx.send(initial_message_str.into_bytes()).await.unwrap();
-                    let result = process_in_chunks(
-                        Arc::clone(&data_channel),
-                        rx,
-                        |data_channel, chunk| async move {
-                            data_channel.send(&chunk).await?;
-                            Ok(data_channel)
-                        },
-                    )
-                    .await;
-                    if let Err(e) = result {
-                        let _ = error_tx.try_send(RTCError {
-                            file_id: None,
-                            error: e.to_string(),
-                        });
-
+                'send: {
+                    if let Err(e) = status_tx.send(RTCStatus::Connected).await {
                         let _ = status_tx.try_send(RTCStatus::Error(e.to_string()));
-
-                        return;
+                        break 'send;
                     }
-                }
 
-                // Receive file tokens
-                let file_tokens = match file_tokens_rx.recv().await {
-                    Some(file_tokens) => file_tokens,
-                    None => {
-                        let _ = error_tx.try_send(RTCError {
-                            file_id: None,
-                            error: "Failed to receive file tokens".to_string(),
+                    {
+                        // send initial message
+                        let initial_message = RTCInitialMessage { files };
+                        let initial_message_str = serde_json::to_string(&initial_message).unwrap();
+                        let (tx, rx) = mpsc::channel(1);
+
+                        tokio::spawn(async move {
+                            let _ = tx.send(initial_message_str.into_bytes()).await;
                         });
 
-                        let _ = status_tx.try_send(RTCStatus::Error(
-                            "Failed to receive file tokens".to_string(),
-                        ));
+                        let result = process_in_chunks(
+                            Arc::clone(&data_channel),
+                            rx,
+                            |data_channel, chunk| async move {
+                                data_channel.send(&chunk).await?;
+                                Ok(data_channel)
+                            },
+                        )
+                        .await;
 
-                        return;
+                        if let Err(e) = result {
+                            let _ = status_tx.try_send(RTCStatus::Error(format!(
+                                "Failed to send initial message: {e}"
+                            )));
+                            break 'send;
+                        }
                     }
-                };
 
-                // Publish selected files
-                if let Err(e) = selected_files_tx
-                    .send(file_tokens.keys().cloned().collect())
-                    .await
-                {
-                    let _ = error_tx.try_send(RTCError {
-                        file_id: None,
-                        error: e.to_string(),
-                    });
-                }
+                    tracing::debug!("Sent initial message. Waiting for file tokens...");
 
-                while let Some(message) = sending_rx.recv().await {
-                    let file_token = match file_tokens.get(&message.file_id) {
-                        Some(file_token) => file_token,
+                    // Receive file tokens
+                    let file_tokens = match file_tokens_rx.recv().await {
+                        Some(file_tokens) => file_tokens,
                         None => {
-                            let _ = error_tx
-                                .send(RTCError {
-                                    file_id: Some(message.file_id),
-                                    error: "Failed to get file token".to_string(),
-                                })
+                            let _ = status_tx
+                                .send(RTCStatus::Error(
+                                    "Failed to receive file tokens".to_string(),
+                                ))
                                 .await;
 
-                            continue;
+                            break 'send;
                         }
                     };
 
-                    let header = RTCSendFileHeaderMessage {
-                        id: message.file_id.clone(),
-                        token: file_token.clone(),
-                    };
-
-                    if let Err(e) = data_channel
-                        .send_text(serde_json::to_string(&header).expect("Failed to serialize header"))
+                    // Publish selected files
+                    if let Err(e) = selected_files_tx
+                        .send(file_tokens.keys().cloned().collect())
                         .await
                     {
-                        let _ = error_tx
-                            .send(RTCError {
-                                file_id: Some(message.file_id),
-                                error: e.to_string(),
-                            })
-                            .await;
-                        continue;
+                        let _ = status_tx.send(RTCStatus::Error(e.to_string())).await;
+                        break 'send;
                     }
 
-                    let result = process_in_chunks(
-                        Arc::clone(&data_channel),
-                        message.binary,
-                        |data_channel, chunk| async move {
-                            data_channel.send(&chunk).await?;
-                            Ok(data_channel)
-                        },
-                    )
-                    .await;
+                    tracing::debug!("Received file tokens. Sending files...");
 
-                    if let Err(e) = result {
-                        let _ = error_tx
-                            .send(RTCError {
-                                file_id: Some(message.file_id),
-                                error: e.to_string(),
-                            })
-                            .await;
-                        continue;
+                    while let Some(message) = sending_rx.recv().await {
+                        let file_token = match file_tokens.get(&message.file_id) {
+                            Some(file_token) => file_token,
+                            None => {
+                                let _ = error_tx
+                                    .send(RTCFileError {
+                                        file_id: message.file_id,
+                                        error: "Failed to get file token".to_string(),
+                                    })
+                                    .await;
+
+                                continue;
+                            }
+                        };
+
+                        let header = RTCSendFileHeaderMessage {
+                            id: message.file_id.clone(),
+                            token: file_token.clone(),
+                        };
+
+                        if let Err(e) = data_channel
+                            .send_text(
+                                serde_json::to_string(&header).expect("Failed to serialize header"),
+                            )
+                            .await
+                        {
+                            let _ = error_tx
+                                .send(RTCFileError {
+                                    file_id: message.file_id,
+                                    error: e.to_string(),
+                                })
+                                .await;
+                            continue;
+                        }
+
+                        let result = process_in_chunks(
+                            Arc::clone(&data_channel),
+                            message.binary,
+                            |data_channel, chunk| async move {
+                                data_channel.send(&chunk).await?;
+                                Ok(data_channel)
+                            },
+                        )
+                        .await;
+
+                        if let Err(e) = result {
+                            let _ = error_tx
+                                .send(RTCFileError {
+                                    file_id: message.file_id,
+                                    error: e.to_string(),
+                                })
+                                .await;
+                            continue;
+                        }
                     }
                 }
+
+                tracing::debug!("Finishing...");
 
                 let _ = status_tx.send(RTCStatus::Finished).await;
                 if let Err(e) = data_channel.close().await {
@@ -250,7 +254,7 @@ pub async fn send_offer(
     let local_description = peer_connection
         .local_description()
         .await
-        .ok_or_else(|| anyhow::anyhow!("generate local_description failed!"))?;
+        .ok_or_else(|| anyhow::anyhow!("Could not generate local_description"))?;
 
     signaling
         .send_offer(
@@ -271,11 +275,7 @@ pub async fn send_offer(
     let remote_desc = rx_answer.await?;
 
     if let Err(e) = status_tx.send(RTCStatus::SdpExchanged).await {
-        let _ = error_tx.try_send(RTCError {
-            file_id: None,
-            error: e.to_string(),
-        });
-
+        peer_connection.close().await?;
         return Err(e.into());
     }
 
