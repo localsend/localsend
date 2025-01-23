@@ -35,11 +35,13 @@ struct RTCInitialResponse {
     pub files: HashMap<String, String>,
 }
 
+#[derive(Debug)]
 pub struct RTCFile {
     pub file_id: String,
     pub binary_rx: mpsc::Receiver<Bytes>,
 }
 
+#[derive(Debug)]
 struct RTCFileState {
     file_id: String,
     size: u64,
@@ -52,6 +54,7 @@ struct RTCSendFileHeaderMessage {
     pub token: String,
 }
 
+#[derive(Debug)]
 pub enum RTCStatus {
     /// Received remote SDP offer/answer. Ready to start P2P connection.
     SdpExchanged,
@@ -66,6 +69,7 @@ pub enum RTCStatus {
     Error(String),
 }
 
+#[derive(Debug)]
 pub struct RTCFileError {
     pub file_id: String,
     pub error: String,
@@ -78,7 +82,7 @@ pub async fn send_offer(
     target_id: Uuid,
     files: Vec<FileDto>,
     status_tx: mpsc::Sender<RTCStatus>,
-    selected_files_tx: mpsc::Sender<HashSet<String>>,
+    selected_files_tx: oneshot::Sender<HashSet<String>>,
     error_tx: mpsc::Sender<RTCFileError>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
 ) -> Result<()> {
@@ -119,6 +123,8 @@ pub async fn send_offer(
                 return Err(e.into());
             }
 
+            wait_buffer_sent(&data_channel).await;
+
             {
                 // send initial message
                 let initial_message = serde_json::to_string(&RTCInitialMessage { files })?;
@@ -140,8 +146,7 @@ pub async fn send_offer(
                     return Err(e.into());
                 }
 
-                // Mark the end of the initial message
-                if let Err(e) = data_channel.send_text("".to_string()).await {
+                if let Err(e) = send_delimiter(&data_channel).await {
                     let _ = status_tx.try_send(RTCStatus::Error(format!(
                         "Failed to send initial message: {e}"
                     )));
@@ -166,12 +171,13 @@ pub async fn send_offer(
             let file_tokens = initial_msg.files;
 
             // Publish selected files
-            if let Err(e) = selected_files_tx
+            if selected_files_tx
                 .send(file_tokens.keys().cloned().collect())
-                .await
+                .is_err()
             {
-                let _ = status_tx.send(RTCStatus::Error(e.to_string())).await;
-                return Err(e.into());
+                let error = "Could not publish selection";
+                let _ = status_tx.send(RTCStatus::Error(error.to_owned()));
+                return Err(anyhow::anyhow!(error));
             }
 
             tracing::debug!("Received file tokens. Sending files...");
@@ -230,6 +236,10 @@ pub async fn send_offer(
                 }
             }
 
+            send_delimiter(&data_channel).await?;
+
+            receive_rx.recv().await;
+
             Ok(())
         })
     };
@@ -276,12 +286,9 @@ pub async fn send_offer(
         _ = send_task => {
             tracing::debug!("Sending done.");
         }
-        _ = done_rx.recv() => {
-            let _ = status_tx.send(RTCStatus::Finished).await;
-        }
+        _ = done_rx.recv() => {}
     }
 
-    let _ = data_channel.send_text("".to_string()).await;
     let _ = status_tx.send(RTCStatus::Finished).await;
     if let Err(e) = data_channel.close().await {
         tracing::error!("Failed to close data channel: {e}");
@@ -378,8 +385,7 @@ pub async fn accept_offer(
                 return Err(e);
             }
 
-            // Mark the end of the initial message
-            data_channel.send_text("".to_string()).await?;
+            send_delimiter(&data_channel).await?;
 
             // Receive files
             let mut file_state: Option<RTCFileState> = None;
@@ -388,6 +394,7 @@ pub async fn accept_offer(
                     file_state = None;
 
                     if msg.data.is_empty() {
+                        send_delimiter(&data_channel).await?;
                         break;
                     }
 
@@ -510,16 +517,7 @@ pub async fn accept_offer(
 }
 
 async fn create_peer_connection() -> Result<(Arc<RTCPeerConnection>, mpsc::Receiver<()>)> {
-    let mut m = MediaEngine::default();
-    m.register_default_codecs()?;
-
-    let mut registry = Registry::new();
-    registry = register_default_interceptors(registry, &mut m)?;
-
-    let api = APIBuilder::new()
-        .with_media_engine(m)
-        .with_interceptor_registry(registry)
-        .build();
+    let api = APIBuilder::new().build();
 
     let config = RTCConfiguration {
         ice_servers: vec![RTCIceServer {
@@ -534,8 +532,7 @@ async fn create_peer_connection() -> Result<(Arc<RTCPeerConnection>, mpsc::Recei
     let (done_tx, done_rx) = mpsc::channel::<()>(1);
 
     peer_connection.on_peer_connection_state_change(Box::new(move |s: RTCPeerConnectionState| {
-        if s == RTCPeerConnectionState::Failed {
-            tracing::warn!("Peer Connection: State changed to Failed. Closing the connection...");
+        if s == RTCPeerConnectionState::Disconnected {
             let _ = done_tx.try_send(());
         }
         Box::pin(async {})
@@ -563,6 +560,18 @@ fn decode_sdp(s: &str) -> Result<String> {
         .expect("Decompression failed");
     let result = String::from_utf8(decompressed)?;
     Ok(result)
+}
+
+async fn send_delimiter(data_channel: &Arc<RTCDataChannel>) -> Result<()> {
+    // Somehow, empty messages are not received by the other peer, so we send a non-empty message
+    data_channel.send_text("0".to_string()).await?;
+    Ok(())
+}
+
+async fn wait_buffer_sent(data_channel: &Arc<RTCDataChannel>) {
+    while data_channel.buffered_amount().await != 0 {
+        tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+    }
 }
 
 const CHUNK_SIZE: usize = 16 * 1024; // 16 KiB
