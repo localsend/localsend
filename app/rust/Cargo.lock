@@ -70,6 +70,7 @@ dependencies = [
  "anyhow",
  "atomic",
  "backtrace",
+ "uuid",
 ]
 
 [[package]]
@@ -630,6 +631,7 @@ dependencies = [
  "portable-atomic",
  "threadpool",
  "tokio",
+ "uuid",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
@@ -1063,6 +1065,7 @@ dependencies = [
  "anyhow",
  "base64",
  "brotli",
+ "bytes",
  "futures-util",
  "serde",
  "serde_json",
@@ -1557,8 +1560,11 @@ dependencies = [
 name = "rust_lib_localsend_app"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "bytes",
  "flutter_rust_bridge",
  "localsend",
+ "tokio",
  "tracing",
  "tracing-subscriber",
  "uuid",

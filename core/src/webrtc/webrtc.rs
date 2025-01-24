@@ -12,14 +12,11 @@ use std::io::{Read, Write};
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 use uuid::Uuid;
-use webrtc::api::interceptor_registry::register_default_interceptors;
-use webrtc::api::media_engine::MediaEngine;
 use webrtc::api::APIBuilder;
 use webrtc::data_channel::data_channel_init::RTCDataChannelInit;
 use webrtc::data_channel::data_channel_message::DataChannelMessage;
 use webrtc::data_channel::RTCDataChannel;
 use webrtc::ice_transport::ice_server::RTCIceServer;
-use webrtc::interceptor::registry::Registry;
 use webrtc::peer_connection::configuration::RTCConfiguration;
 use webrtc::peer_connection::peer_connection_state::RTCPeerConnectionState;
 use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
@@ -79,6 +76,7 @@ const CHANNEL_LABEL: &str = "data";
 
 pub async fn send_offer(
     signaling: &ManagedSignalingConnection,
+    stun_servers: Vec<String>,
     target_id: Uuid,
     files: Vec<FileDto>,
     status_tx: mpsc::Sender<RTCStatus>,
@@ -86,7 +84,7 @@ pub async fn send_offer(
     error_tx: mpsc::Sender<RTCFileError>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
 ) -> Result<()> {
-    let (peer_connection, mut done_rx) = create_peer_connection().await?;
+    let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
 
     let data_channel = peer_connection
         .create_data_channel(
@@ -263,7 +261,7 @@ pub async fn send_offer(
         )
         .await?;
 
-    let (tx_answer, rx_answer) = tokio::sync::oneshot::channel();
+    let (tx_answer, rx_answer) = oneshot::channel();
 
     signaling
         .on_answer(session_id, |message| {
@@ -301,6 +299,7 @@ pub async fn send_offer(
 
 pub async fn accept_offer(
     signaling: &ManagedSignalingConnection,
+    stun_servers: Vec<String>,
     offer: &WsServerSdpMessage,
     status_tx: mpsc::Sender<RTCStatus>,
     files_tx: oneshot::Sender<Vec<FileDto>>,
@@ -308,7 +307,7 @@ pub async fn accept_offer(
     error_tx: mpsc::Sender<RTCFileError>,
     receiving_tx: mpsc::Sender<RTCFile>,
 ) -> Result<()> {
-    let (peer_connection, mut done_rx) = create_peer_connection().await?;
+    let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
 
     let (data_channel_tx, mut data_channel_rx) = mpsc::channel::<Arc<RTCDataChannel>>(1);
 
@@ -516,12 +515,12 @@ pub async fn accept_offer(
     Ok(())
 }
 
-async fn create_peer_connection() -> Result<(Arc<RTCPeerConnection>, mpsc::Receiver<()>)> {
+async fn create_peer_connection(stun: Vec<String>) -> Result<(Arc<RTCPeerConnection>, mpsc::Receiver<()>)> {
     let api = APIBuilder::new().build();
 
     let config = RTCConfiguration {
         ice_servers: vec![RTCIceServer {
-            urls: vec!["stun:stun.l.google.com:19302".to_owned()],
+            urls: stun,
             ..Default::default()
         }],
         ..Default::default()

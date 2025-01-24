@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.7.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1045480984;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1101921588;
 
 // Section: executor
 
@@ -71,8 +71,8 @@ fn wire__crate__api__webrtc__LsSignalingConnection_accept_offer_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
             >>::sse_decode(&mut deserializer);
-            let api_offer =
-                <crate::api::webrtc::WsServerOfferMessage>::sse_decode(&mut deserializer);
+            let api_stun_servers = <Vec<String>>::sse_decode(&mut deserializer);
+            let api_offer = <crate::api::webrtc::WsServerSdpMessage>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -96,6 +96,7 @@ fn wire__crate__api__webrtc__LsSignalingConnection_accept_offer_impl(
                         let api_that_guard = api_that_guard.unwrap();
                         let output_ok = crate::api::webrtc::LsSignalingConnection::accept_offer(
                             &*api_that_guard,
+                            api_stun_servers,
                             api_offer,
                         )
                         .await?;
@@ -132,7 +133,9 @@ fn wire__crate__api__webrtc__LsSignalingConnection_send_offer_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
             >>::sse_decode(&mut deserializer);
-            let api_target = <String>::sse_decode(&mut deserializer);
+            let api_stun_servers = <Vec<String>>::sse_decode(&mut deserializer);
+            let api_target = <uuid::Uuid>::sse_decode(&mut deserializer);
+            let api_files = <Vec<crate::api::model::FileDto>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -156,7 +159,741 @@ fn wire__crate__api__webrtc__LsSignalingConnection_send_offer_impl(
                         let api_that_guard = api_that_guard.unwrap();
                         let output_ok = crate::api::webrtc::LsSignalingConnection::send_offer(
                             &*api_that_guard,
+                            api_stun_servers,
                             api_target,
+                            api_files,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcFileReceiver_get_file_id_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcFileReceiver_get_file_id",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| {
+                transform_result_sse::<_, ()>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = Result::<_, ()>::Ok(
+                        crate::api::webrtc::RTCFileReceiver::get_file_id(&*api_that_guard),
+                    )?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcFileReceiver_receive_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcFileReceiver_receive",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>,
+            >>::sse_decode(&mut deserializer);
+            let api_sink =
+                <StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCodec>>::sse_decode(
+                    &mut deserializer,
+                );
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::webrtc::RTCFileReceiver::receive(
+                            &*api_that_guard,
+                            api_sink,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcFileSender_send_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcFileSender_send",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>,
+            >>::sse_decode(&mut deserializer);
+            let api_data = <Vec<u8>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok =
+                            crate::api::webrtc::RTCFileSender::send(&*api_that_guard, api_data)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcReceiveState_listen_error_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcReceiveState_listen_error",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+            >>::sse_decode(&mut deserializer);
+            let api_sink = <StreamSink<
+                crate::api::webrtc::RTCFileError,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, true,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref_mut().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let mut api_that_guard = api_that_guard.unwrap();
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::webrtc::RTCReceiveState::listen_error(
+                                &mut *api_that_guard,
+                                api_sink,
+                            )
+                            .await;
+                        })?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcReceiveState_listen_files_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcReceiveState_listen_files",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok =
+                            crate::api::webrtc::RTCReceiveState::listen_files(&*api_that_guard)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcReceiveState_listen_receiving_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcReceiveState_listen_receiving",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+            >>::sse_decode(&mut deserializer);
+            let api_sink = <StreamSink<
+                RTCFileReceiver,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, true,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref_mut().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let mut api_that_guard = api_that_guard.unwrap();
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::webrtc::RTCReceiveState::listen_receiving(
+                                &mut *api_that_guard,
+                                api_sink,
+                            )
+                            .await;
+                        })?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcReceiveState_listen_status_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcReceiveState_listen_status",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+            >>::sse_decode(&mut deserializer);
+            let api_sink = <StreamSink<
+                crate::api::webrtc::RTCStatus,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, true,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref_mut().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let mut api_that_guard = api_that_guard.unwrap();
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::webrtc::RTCReceiveState::listen_status(
+                                &mut *api_that_guard,
+                                api_sink,
+                            )
+                            .await;
+                        })?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcReceiveState_send_selection_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcReceiveState_send_selection",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+            >>::sse_decode(&mut deserializer);
+            let api_selection = <std::collections::HashSet<String>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::webrtc::RTCReceiveState::send_selection(
+                            &*api_that_guard,
+                            api_selection,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcSendState_listen_error_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcSendState_listen_error",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>,
+            >>::sse_decode(&mut deserializer);
+            let api_sink = <StreamSink<
+                crate::api::webrtc::RTCFileError,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, true,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref_mut().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let mut api_that_guard = api_that_guard.unwrap();
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::webrtc::RTCSendState::listen_error(
+                                &mut *api_that_guard,
+                                api_sink,
+                            )
+                            .await;
+                        })?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcSendState_listen_selected_files_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcSendState_listen_selected_files",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::webrtc::RTCSendState::listen_selected_files(
+                            &*api_that_guard,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcSendState_listen_status_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcSendState_listen_status",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>,
+            >>::sse_decode(&mut deserializer);
+            let api_sink = <StreamSink<
+                crate::api::webrtc::RTCStatus,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, true,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref_mut().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let mut api_that_guard = api_that_guard.unwrap();
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::webrtc::RTCSendState::listen_status(
+                                &mut *api_that_guard,
+                                api_sink,
+                            )
+                            .await;
+                        })?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__RtcSendState_send_file_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcSendState_send_file",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>,
+            >>::sse_decode(&mut deserializer);
+            let api_file_id = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::webrtc::RTCSendState::send_file(
+                            &*api_that_guard,
+                            api_file_id,
                         )
                         .await?;
                         Ok(output_ok)
@@ -178,7 +915,7 @@ fn wire__crate__api__webrtc__connect_impl(
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_sink = <StreamSink<crate::api::webrtc::WsServerMessage,flutter_rust_bridge::for_generated::SseCodec>>::sse_decode(&mut deserializer);
 let api_uri = <String>::sse_decode(&mut deserializer);
-let api_info = <crate::api::webrtc::PeerInfoWithoutId>::sse_decode(&mut deserializer);
+let api_info = <crate::api::webrtc::ClientInfoWithoutId>::sse_decode(&mut deserializer);
 let api_on_connection = decode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection_Output_unit_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));deserializer.end(); move |context| async move {
                     transform_result_sse::<_, ()>((move || async move {
                          let output_ok = Result::<_,()>::Ok({ crate::api::webrtc::connect(api_sink, api_uri, api_info, api_on_connection).await; })?;   Ok(output_ok)
@@ -220,6 +957,84 @@ fn wire__crate__api__logging__enable_debug_logging_impl(
     )
 }
 
+// Section: static_checks
+
+#[allow(clippy::unnecessary_literal_unwrap)]
+const _: fn() = || {
+    {
+        let ClientInfo = None::<crate::api::webrtc::ClientInfo>.unwrap();
+        let _: uuid::Uuid = ClientInfo.id;
+        let _: String = ClientInfo.alias;
+        let _: String = ClientInfo.version;
+        let _: Option<String> = ClientInfo.device_model;
+        let _: Option<crate::api::webrtc::PeerDeviceType> = ClientInfo.device_type;
+        let _: String = ClientInfo.fingerprint;
+    }
+    {
+        let ClientInfoWithoutId = None::<crate::api::webrtc::ClientInfoWithoutId>.unwrap();
+        let _: String = ClientInfoWithoutId.alias;
+        let _: String = ClientInfoWithoutId.version;
+        let _: Option<String> = ClientInfoWithoutId.device_model;
+        let _: Option<crate::api::webrtc::PeerDeviceType> = ClientInfoWithoutId.device_type;
+        let _: String = ClientInfoWithoutId.fingerprint;
+    }
+    {
+        let FileDto = None::<crate::api::model::FileDto>.unwrap();
+        let _: String = FileDto.id;
+        let _: String = FileDto.file_name;
+        let _: u64 = FileDto.size;
+        let _: String = FileDto.file_type;
+        let _: Option<String> = FileDto.sha256;
+        let _: Option<String> = FileDto.preview;
+        let _: Option<crate::api::model::FileMetadata> = FileDto.metadata;
+    }
+    {
+        let FileMetadata = None::<crate::api::model::FileMetadata>.unwrap();
+        let _: Option<String> = FileMetadata.modified;
+        let _: Option<String> = FileMetadata.accessed;
+    }
+    {
+        let RTCFileError = None::<crate::api::webrtc::RTCFileError>.unwrap();
+        let _: String = RTCFileError.file_id;
+        let _: String = RTCFileError.error;
+    }
+    match None::<crate::api::webrtc::RTCStatus>.unwrap() {
+        crate::api::webrtc::RTCStatus::SdpExchanged => {}
+        crate::api::webrtc::RTCStatus::Connected => {}
+        crate::api::webrtc::RTCStatus::Finished => {}
+        crate::api::webrtc::RTCStatus::Error(field0) => {
+            let _: String = field0;
+        }
+    }
+    match None::<crate::api::webrtc::WsServerMessage>.unwrap() {
+        crate::api::webrtc::WsServerMessage::Hello { client, peers } => {
+            let _: crate::api::webrtc::ClientInfo = client;
+            let _: Vec<crate::api::webrtc::ClientInfo> = peers;
+        }
+        crate::api::webrtc::WsServerMessage::Joined { peer } => {
+            let _: crate::api::webrtc::ClientInfo = peer;
+        }
+        crate::api::webrtc::WsServerMessage::Left { peer_id } => {
+            let _: uuid::Uuid = peer_id;
+        }
+        crate::api::webrtc::WsServerMessage::Offer(field0) => {
+            let _: crate::api::webrtc::WsServerSdpMessage = field0;
+        }
+        crate::api::webrtc::WsServerMessage::Answer(field0) => {
+            let _: crate::api::webrtc::WsServerSdpMessage = field0;
+        }
+        crate::api::webrtc::WsServerMessage::Error { code } => {
+            let _: u16 = code;
+        }
+    }
+    {
+        let WsServerSdpMessage = None::<crate::api::webrtc::WsServerSdpMessage>.unwrap();
+        let _: crate::api::webrtc::ClientInfo = WsServerSdpMessage.peer;
+        let _: String = WsServerSdpMessage.session_id;
+        let _: String = WsServerSdpMessage.sdp;
+    }
+};
+
 // Section: related_funcs
 
 fn decode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection_Output_unit_AnyhowException(
@@ -257,6 +1072,18 @@ fn decode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRu
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>
 );
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>
+);
 
 // Section: dart2rust
 
@@ -273,6 +1100,46 @@ impl SseDecode for LsSignalingConnection {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <RustOpaqueMoi<
             flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for RTCFileReceiver {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for RTCFileSender {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for RTCReceiveState {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for RTCSendState {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>,
         >>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
@@ -299,6 +1166,90 @@ impl SseDecode
 }
 
 impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode for std::collections::HashSet<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <Vec<String>>::sse_decode(deserializer);
+        return inner.into_iter().collect();
+    }
+}
+
+impl SseDecode for StreamSink<RTCFileReceiver, flutter_rust_bridge::for_generated::SseCodec> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode for StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCodec> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode
+    for StreamSink<crate::api::webrtc::RTCFileError, flutter_rust_bridge::for_generated::SseCodec>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode
+    for StreamSink<crate::api::webrtc::RTCStatus, flutter_rust_bridge::for_generated::SseCodec>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode
     for StreamSink<
         crate::api::webrtc::WsServerMessage,
         flutter_rust_bridge::for_generated::SseCodec,
@@ -319,6 +1270,88 @@ impl SseDecode for String {
     }
 }
 
+impl SseDecode for uuid::Uuid {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <Vec<u8>>::sse_decode(deserializer);
+        return uuid::Uuid::from_slice(&inner).expect("fail to decode uuid");
+    }
+}
+
+impl SseDecode for crate::api::webrtc::ClientInfo {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <uuid::Uuid>::sse_decode(deserializer);
+        let mut var_alias = <String>::sse_decode(deserializer);
+        let mut var_version = <String>::sse_decode(deserializer);
+        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
+        let mut var_deviceType =
+            <Option<crate::api::webrtc::PeerDeviceType>>::sse_decode(deserializer);
+        let mut var_fingerprint = <String>::sse_decode(deserializer);
+        return crate::api::webrtc::ClientInfo {
+            id: var_id,
+            alias: var_alias,
+            version: var_version,
+            device_model: var_deviceModel,
+            device_type: var_deviceType,
+            fingerprint: var_fingerprint,
+        };
+    }
+}
+
+impl SseDecode for crate::api::webrtc::ClientInfoWithoutId {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_alias = <String>::sse_decode(deserializer);
+        let mut var_version = <String>::sse_decode(deserializer);
+        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
+        let mut var_deviceType =
+            <Option<crate::api::webrtc::PeerDeviceType>>::sse_decode(deserializer);
+        let mut var_fingerprint = <String>::sse_decode(deserializer);
+        return crate::api::webrtc::ClientInfoWithoutId {
+            alias: var_alias,
+            version: var_version,
+            device_model: var_deviceModel,
+            device_type: var_deviceType,
+            fingerprint: var_fingerprint,
+        };
+    }
+}
+
+impl SseDecode for crate::api::model::FileDto {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_fileName = <String>::sse_decode(deserializer);
+        let mut var_size = <u64>::sse_decode(deserializer);
+        let mut var_fileType = <String>::sse_decode(deserializer);
+        let mut var_sha256 = <Option<String>>::sse_decode(deserializer);
+        let mut var_preview = <Option<String>>::sse_decode(deserializer);
+        let mut var_metadata = <Option<crate::api::model::FileMetadata>>::sse_decode(deserializer);
+        return crate::api::model::FileDto {
+            id: var_id,
+            file_name: var_fileName,
+            size: var_size,
+            file_type: var_fileType,
+            sha256: var_sha256,
+            preview: var_preview,
+            metadata: var_metadata,
+        };
+    }
+}
+
+impl SseDecode for crate::api::model::FileMetadata {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_modified = <Option<String>>::sse_decode(deserializer);
+        let mut var_accessed = <Option<String>>::sse_decode(deserializer);
+        return crate::api::model::FileMetadata {
+            modified: var_modified,
+            accessed: var_accessed,
+        };
+    }
+}
+
 impl SseDecode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -333,13 +1366,37 @@ impl SseDecode for isize {
     }
 }
 
-impl SseDecode for Vec<crate::api::webrtc::PeerInfo> {
+impl SseDecode for Vec<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::webrtc::PeerInfo>::sse_decode(deserializer));
+            ans_.push(<String>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::webrtc::ClientInfo> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::webrtc::ClientInfo>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::model::FileDto> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::model::FileDto>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -362,6 +1419,17 @@ impl SseDecode for Option<String> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<String>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<crate::api::model::FileMetadata> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::model::FileMetadata>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -396,43 +1464,40 @@ impl SseDecode for crate::api::webrtc::PeerDeviceType {
     }
 }
 
-impl SseDecode for crate::api::webrtc::PeerInfo {
+impl SseDecode for crate::api::webrtc::RTCFileError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_id = <String>::sse_decode(deserializer);
-        let mut var_alias = <String>::sse_decode(deserializer);
-        let mut var_version = <String>::sse_decode(deserializer);
-        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
-        let mut var_deviceType =
-            <Option<crate::api::webrtc::PeerDeviceType>>::sse_decode(deserializer);
-        let mut var_fingerprint = <String>::sse_decode(deserializer);
-        return crate::api::webrtc::PeerInfo {
-            id: var_id,
-            alias: var_alias,
-            version: var_version,
-            device_model: var_deviceModel,
-            device_type: var_deviceType,
-            fingerprint: var_fingerprint,
+        let mut var_fileId = <String>::sse_decode(deserializer);
+        let mut var_error = <String>::sse_decode(deserializer);
+        return crate::api::webrtc::RTCFileError {
+            file_id: var_fileId,
+            error: var_error,
         };
     }
 }
 
-impl SseDecode for crate::api::webrtc::PeerInfoWithoutId {
+impl SseDecode for crate::api::webrtc::RTCStatus {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_alias = <String>::sse_decode(deserializer);
-        let mut var_version = <String>::sse_decode(deserializer);
-        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
-        let mut var_deviceType =
-            <Option<crate::api::webrtc::PeerDeviceType>>::sse_decode(deserializer);
-        let mut var_fingerprint = <String>::sse_decode(deserializer);
-        return crate::api::webrtc::PeerInfoWithoutId {
-            alias: var_alias,
-            version: var_version,
-            device_model: var_deviceModel,
-            device_type: var_deviceType,
-            fingerprint: var_fingerprint,
-        };
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::api::webrtc::RTCStatus::SdpExchanged;
+            }
+            1 => {
+                return crate::api::webrtc::RTCStatus::Connected;
+            }
+            2 => {
+                return crate::api::webrtc::RTCStatus::Finished;
+            }
+            3 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::webrtc::RTCStatus::Error(var_field0);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -440,6 +1505,13 @@ impl SseDecode for u16 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         deserializer.cursor.read_u16::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for u64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_u64::<NativeEndian>().unwrap()
     }
 }
 
@@ -462,92 +1534,42 @@ impl SseDecode for usize {
     }
 }
 
-impl SseDecode for crate::api::webrtc::WsServerAnswerMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_peer = <crate::api::webrtc::PeerInfo>::sse_decode(deserializer);
-        let mut var_sessionId = <String>::sse_decode(deserializer);
-        let mut var_sdp = <String>::sse_decode(deserializer);
-        return crate::api::webrtc::WsServerAnswerMessage {
-            peer: var_peer,
-            session_id: var_sessionId,
-            sdp: var_sdp,
-        };
-    }
-}
-
-impl SseDecode for crate::api::webrtc::WsServerErrorMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_code = <u16>::sse_decode(deserializer);
-        return crate::api::webrtc::WsServerErrorMessage { code: var_code };
-    }
-}
-
-impl SseDecode for crate::api::webrtc::WsServerHelloMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_client = <crate::api::webrtc::PeerInfo>::sse_decode(deserializer);
-        let mut var_members = <Vec<crate::api::webrtc::PeerInfo>>::sse_decode(deserializer);
-        return crate::api::webrtc::WsServerHelloMessage {
-            client: var_client,
-            members: var_members,
-        };
-    }
-}
-
-impl SseDecode for crate::api::webrtc::WsServerJoinedMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_peer = <crate::api::webrtc::PeerInfo>::sse_decode(deserializer);
-        return crate::api::webrtc::WsServerJoinedMessage { peer: var_peer };
-    }
-}
-
-impl SseDecode for crate::api::webrtc::WsServerLeftMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_peerId = <String>::sse_decode(deserializer);
-        return crate::api::webrtc::WsServerLeftMessage {
-            peer_id: var_peerId,
-        };
-    }
-}
-
 impl SseDecode for crate::api::webrtc::WsServerMessage {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut tag_ = <i32>::sse_decode(deserializer);
         match tag_ {
             0 => {
-                let mut var_field0 =
-                    <crate::api::webrtc::WsServerHelloMessage>::sse_decode(deserializer);
-                return crate::api::webrtc::WsServerMessage::Hello(var_field0);
+                let mut var_client = <crate::api::webrtc::ClientInfo>::sse_decode(deserializer);
+                let mut var_peers = <Vec<crate::api::webrtc::ClientInfo>>::sse_decode(deserializer);
+                return crate::api::webrtc::WsServerMessage::Hello {
+                    client: var_client,
+                    peers: var_peers,
+                };
             }
             1 => {
-                let mut var_field0 =
-                    <crate::api::webrtc::WsServerJoinedMessage>::sse_decode(deserializer);
-                return crate::api::webrtc::WsServerMessage::Joined(var_field0);
+                let mut var_peer = <crate::api::webrtc::ClientInfo>::sse_decode(deserializer);
+                return crate::api::webrtc::WsServerMessage::Joined { peer: var_peer };
             }
             2 => {
-                let mut var_field0 =
-                    <crate::api::webrtc::WsServerLeftMessage>::sse_decode(deserializer);
-                return crate::api::webrtc::WsServerMessage::Left(var_field0);
+                let mut var_peerId = <uuid::Uuid>::sse_decode(deserializer);
+                return crate::api::webrtc::WsServerMessage::Left {
+                    peer_id: var_peerId,
+                };
             }
             3 => {
                 let mut var_field0 =
-                    <crate::api::webrtc::WsServerOfferMessage>::sse_decode(deserializer);
+                    <crate::api::webrtc::WsServerSdpMessage>::sse_decode(deserializer);
                 return crate::api::webrtc::WsServerMessage::Offer(var_field0);
             }
             4 => {
                 let mut var_field0 =
-                    <crate::api::webrtc::WsServerAnswerMessage>::sse_decode(deserializer);
+                    <crate::api::webrtc::WsServerSdpMessage>::sse_decode(deserializer);
                 return crate::api::webrtc::WsServerMessage::Answer(var_field0);
             }
             5 => {
-                let mut var_field0 =
-                    <crate::api::webrtc::WsServerErrorMessage>::sse_decode(deserializer);
-                return crate::api::webrtc::WsServerMessage::Error(var_field0);
+                let mut var_code = <u16>::sse_decode(deserializer);
+                return crate::api::webrtc::WsServerMessage::Error { code: var_code };
             }
             _ => {
                 unimplemented!("");
@@ -556,13 +1578,13 @@ impl SseDecode for crate::api::webrtc::WsServerMessage {
     }
 }
 
-impl SseDecode for crate::api::webrtc::WsServerOfferMessage {
+impl SseDecode for crate::api::webrtc::WsServerSdpMessage {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_peer = <crate::api::webrtc::PeerInfo>::sse_decode(deserializer);
+        let mut var_peer = <crate::api::webrtc::ClientInfo>::sse_decode(deserializer);
         let mut var_sessionId = <String>::sse_decode(deserializer);
         let mut var_sdp = <String>::sse_decode(deserializer);
-        return crate::api::webrtc::WsServerOfferMessage {
+        return crate::api::webrtc::WsServerSdpMessage {
             peer: var_peer,
             session_id: var_sessionId,
             sdp: var_sdp,
@@ -598,8 +1620,72 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        3 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
-        4 => {
+        3 => wire__crate__api__webrtc__RtcFileReceiver_get_file_id_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        4 => wire__crate__api__webrtc__RtcFileReceiver_receive_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        5 => wire__crate__api__webrtc__RtcFileSender_send_impl(port, ptr, rust_vec_len, data_len),
+        6 => wire__crate__api__webrtc__RtcReceiveState_listen_error_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        7 => wire__crate__api__webrtc__RtcReceiveState_listen_files_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        8 => wire__crate__api__webrtc__RtcReceiveState_listen_receiving_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        9 => wire__crate__api__webrtc__RtcReceiveState_listen_status_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        10 => wire__crate__api__webrtc__RtcReceiveState_send_selection_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        11 => wire__crate__api__webrtc__RtcSendState_listen_error_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        12 => wire__crate__api__webrtc__RtcSendState_listen_selected_files_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        13 => wire__crate__api__webrtc__RtcSendState_listen_status_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        14 => {
+            wire__crate__api__webrtc__RtcSendState_send_file_impl(port, ptr, rust_vec_len, data_len)
+        }
+        15 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
+        16 => {
             wire__crate__api__logging__enable_debug_logging_impl(port, ptr, rust_vec_len, data_len)
         }
         _ => unreachable!(),
@@ -641,190 +1727,215 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<LsSignalingConnection>>
 }
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::PeerDeviceType {
+impl flutter_rust_bridge::IntoDart for FrbWrapper<RTCFileReceiver> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self {
-            Self::Mobile => 0.into_dart(),
-            Self::Desktop => 1.into_dart(),
-            Self::Web => 2.into_dart(),
-            Self::Headless => 3.into_dart(),
-            Self::Server => 4.into_dart(),
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<RTCFileReceiver> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<RTCFileReceiver>> for RTCFileReceiver {
+    fn into_into_dart(self) -> FrbWrapper<RTCFileReceiver> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<RTCFileSender> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<RTCFileSender> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<RTCFileSender>> for RTCFileSender {
+    fn into_into_dart(self) -> FrbWrapper<RTCFileSender> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<RTCReceiveState> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<RTCReceiveState> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<RTCReceiveState>> for RTCReceiveState {
+    fn into_into_dart(self) -> FrbWrapper<RTCReceiveState> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<RTCSendState> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<RTCSendState> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<RTCSendState>> for RTCSendState {
+    fn into_into_dart(self) -> FrbWrapper<RTCSendState> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::ClientInfo> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.alias.into_into_dart().into_dart(),
+            self.0.version.into_into_dart().into_dart(),
+            self.0.device_model.into_into_dart().into_dart(),
+            self.0.device_type.into_into_dart().into_dart(),
+            self.0.fingerprint.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::webrtc::ClientInfo>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::ClientInfo>>
+    for crate::api::webrtc::ClientInfo
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::ClientInfo> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::ClientInfoWithoutId> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.alias.into_into_dart().into_dart(),
+            self.0.version.into_into_dart().into_dart(),
+            self.0.device_model.into_into_dart().into_dart(),
+            self.0.device_type.into_into_dart().into_dart(),
+            self.0.fingerprint.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::webrtc::ClientInfoWithoutId>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::ClientInfoWithoutId>>
+    for crate::api::webrtc::ClientInfoWithoutId
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::ClientInfoWithoutId> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::model::FileDto> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.file_name.into_into_dart().into_dart(),
+            self.0.size.into_into_dart().into_dart(),
+            self.0.file_type.into_into_dart().into_dart(),
+            self.0.sha256.into_into_dart().into_dart(),
+            self.0.preview.into_into_dart().into_dart(),
+            self.0.metadata.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::model::FileDto>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::model::FileDto>>
+    for crate::api::model::FileDto
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::model::FileDto> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::model::FileMetadata> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.modified.into_into_dart().into_dart(),
+            self.0.accessed.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::model::FileMetadata>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::model::FileMetadata>>
+    for crate::api::model::FileMetadata
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::model::FileMetadata> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::PeerDeviceType> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            crate::api::webrtc::PeerDeviceType::Mobile => 0.into_dart(),
+            crate::api::webrtc::PeerDeviceType::Desktop => 1.into_dart(),
+            crate::api::webrtc::PeerDeviceType::Web => 2.into_dart(),
+            crate::api::webrtc::PeerDeviceType::Headless => 3.into_dart(),
+            crate::api::webrtc::PeerDeviceType::Server => 4.into_dart(),
             _ => unreachable!(),
         }
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::webrtc::PeerDeviceType>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::PeerDeviceType>>
     for crate::api::webrtc::PeerDeviceType
 {
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::PeerDeviceType>
-    for crate::api::webrtc::PeerDeviceType
-{
-    fn into_into_dart(self) -> crate::api::webrtc::PeerDeviceType {
-        self
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::PeerDeviceType> {
+        self.into()
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::PeerInfo {
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::RTCFileError> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
-            self.id.into_into_dart().into_dart(),
-            self.alias.into_into_dart().into_dart(),
-            self.version.into_into_dart().into_dart(),
-            self.device_model.into_into_dart().into_dart(),
-            self.device_type.into_into_dart().into_dart(),
-            self.fingerprint.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::webrtc::PeerInfo {}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::PeerInfo>
-    for crate::api::webrtc::PeerInfo
-{
-    fn into_into_dart(self) -> crate::api::webrtc::PeerInfo {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::PeerInfoWithoutId {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.alias.into_into_dart().into_dart(),
-            self.version.into_into_dart().into_dart(),
-            self.device_model.into_into_dart().into_dart(),
-            self.device_type.into_into_dart().into_dart(),
-            self.fingerprint.into_into_dart().into_dart(),
+            self.0.file_id.into_into_dart().into_dart(),
+            self.0.error.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::PeerInfoWithoutId
+    for FrbWrapper<crate::api::webrtc::RTCFileError>
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::PeerInfoWithoutId>
-    for crate::api::webrtc::PeerInfoWithoutId
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::RTCFileError>>
+    for crate::api::webrtc::RTCFileError
 {
-    fn into_into_dart(self) -> crate::api::webrtc::PeerInfoWithoutId {
-        self
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::RTCFileError> {
+        self.into()
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerAnswerMessage {
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::RTCStatus> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.peer.into_into_dart().into_dart(),
-            self.session_id.into_into_dart().into_dart(),
-            self.sdp.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerAnswerMessage
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerAnswerMessage>
-    for crate::api::webrtc::WsServerAnswerMessage
-{
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerAnswerMessage {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerErrorMessage {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.code.into_into_dart().into_dart()].into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerErrorMessage
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerErrorMessage>
-    for crate::api::webrtc::WsServerErrorMessage
-{
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerErrorMessage {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerHelloMessage {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.client.into_into_dart().into_dart(),
-            self.members.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerHelloMessage
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerHelloMessage>
-    for crate::api::webrtc::WsServerHelloMessage
-{
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerHelloMessage {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerJoinedMessage {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.peer.into_into_dart().into_dart()].into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerJoinedMessage
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerJoinedMessage>
-    for crate::api::webrtc::WsServerJoinedMessage
-{
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerJoinedMessage {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerLeftMessage {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.peer_id.into_into_dart().into_dart()].into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerLeftMessage
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerLeftMessage>
-    for crate::api::webrtc::WsServerLeftMessage
-{
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerLeftMessage {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerMessage {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self {
-            crate::api::webrtc::WsServerMessage::Hello(field0) => {
-                [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::webrtc::WsServerMessage::Joined(field0) => {
-                [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::webrtc::WsServerMessage::Left(field0) => {
-                [2.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::webrtc::WsServerMessage::Offer(field0) => {
+        match self.0 {
+            crate::api::webrtc::RTCStatus::SdpExchanged => [0.into_dart()].into_dart(),
+            crate::api::webrtc::RTCStatus::Connected => [1.into_dart()].into_dart(),
+            crate::api::webrtc::RTCStatus::Finished => [2.into_dart()].into_dart(),
+            crate::api::webrtc::RTCStatus::Error(field0) => {
                 [3.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::webrtc::WsServerMessage::Answer(field0) => {
-                [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::webrtc::WsServerMessage::Error(field0) => {
-                [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
             _ => {
                 unimplemented!("");
@@ -833,36 +1944,78 @@ impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerMessage {
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerMessage
+    for FrbWrapper<crate::api::webrtc::RTCStatus>
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerMessage>
-    for crate::api::webrtc::WsServerMessage
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::RTCStatus>>
+    for crate::api::webrtc::RTCStatus
 {
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerMessage {
-        self
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::RTCStatus> {
+        self.into()
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::webrtc::WsServerOfferMessage {
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::WsServerMessage> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            crate::api::webrtc::WsServerMessage::Hello { client, peers } => [
+                0.into_dart(),
+                client.into_into_dart().into_dart(),
+                peers.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::webrtc::WsServerMessage::Joined { peer } => {
+                [1.into_dart(), peer.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::webrtc::WsServerMessage::Left { peer_id } => {
+                [2.into_dart(), peer_id.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::webrtc::WsServerMessage::Offer(field0) => {
+                [3.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::webrtc::WsServerMessage::Answer(field0) => {
+                [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::webrtc::WsServerMessage::Error { code } => {
+                [5.into_dart(), code.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::webrtc::WsServerMessage>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::WsServerMessage>>
+    for crate::api::webrtc::WsServerMessage
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::WsServerMessage> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::WsServerSdpMessage> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
-            self.peer.into_into_dart().into_dart(),
-            self.session_id.into_into_dart().into_dart(),
-            self.sdp.into_into_dart().into_dart(),
+            self.0.peer.into_into_dart().into_dart(),
+            self.0.session_id.into_into_dart().into_dart(),
+            self.0.sdp.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::webrtc::WsServerOfferMessage
+    for FrbWrapper<crate::api::webrtc::WsServerSdpMessage>
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::WsServerOfferMessage>
-    for crate::api::webrtc::WsServerOfferMessage
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::WsServerSdpMessage>>
+    for crate::api::webrtc::WsServerSdpMessage
 {
-    fn into_into_dart(self) -> crate::api::webrtc::WsServerOfferMessage {
-        self
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::WsServerSdpMessage> {
+        self.into()
     }
 }
 
@@ -882,6 +2035,34 @@ impl SseEncode for LsSignalingConnection {
             flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
             serializer,
         );
+    }
+}
+
+impl SseEncode for RTCFileReceiver {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for RTCFileSender {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for RTCReceiveState {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for RTCSendState {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
     }
 }
 
@@ -906,6 +2087,89 @@ impl SseEncode
 }
 
 impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode for std::collections::HashSet<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<String>>::sse_encode(self.into_iter().collect(), serializer);
+    }
+}
+
+impl SseEncode for StreamSink<RTCFileReceiver, flutter_rust_bridge::for_generated::SseCodec> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode for StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCodec> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode
+    for StreamSink<crate::api::webrtc::RTCFileError, flutter_rust_bridge::for_generated::SseCodec>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode
+    for StreamSink<crate::api::webrtc::RTCStatus, flutter_rust_bridge::for_generated::SseCodec>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode
     for StreamSink<
         crate::api::webrtc::WsServerMessage,
         flutter_rust_bridge::for_generated::SseCodec,
@@ -921,6 +2185,57 @@ impl SseEncode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Vec<u8>>::sse_encode(self.into_bytes(), serializer);
+    }
+}
+
+impl SseEncode for uuid::Uuid {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<u8>>::sse_encode(self.as_bytes().to_vec(), serializer);
+    }
+}
+
+impl SseEncode for crate::api::webrtc::ClientInfo {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <uuid::Uuid>::sse_encode(self.id, serializer);
+        <String>::sse_encode(self.alias, serializer);
+        <String>::sse_encode(self.version, serializer);
+        <Option<String>>::sse_encode(self.device_model, serializer);
+        <Option<crate::api::webrtc::PeerDeviceType>>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.fingerprint, serializer);
+    }
+}
+
+impl SseEncode for crate::api::webrtc::ClientInfoWithoutId {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.alias, serializer);
+        <String>::sse_encode(self.version, serializer);
+        <Option<String>>::sse_encode(self.device_model, serializer);
+        <Option<crate::api::webrtc::PeerDeviceType>>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.fingerprint, serializer);
+    }
+}
+
+impl SseEncode for crate::api::model::FileDto {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <String>::sse_encode(self.file_name, serializer);
+        <u64>::sse_encode(self.size, serializer);
+        <String>::sse_encode(self.file_type, serializer);
+        <Option<String>>::sse_encode(self.sha256, serializer);
+        <Option<String>>::sse_encode(self.preview, serializer);
+        <Option<crate::api::model::FileMetadata>>::sse_encode(self.metadata, serializer);
+    }
+}
+
+impl SseEncode for crate::api::model::FileMetadata {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<String>>::sse_encode(self.modified, serializer);
+        <Option<String>>::sse_encode(self.accessed, serializer);
     }
 }
 
@@ -941,12 +2256,32 @@ impl SseEncode for isize {
     }
 }
 
-impl SseEncode for Vec<crate::api::webrtc::PeerInfo> {
+impl SseEncode for Vec<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
-            <crate::api::webrtc::PeerInfo>::sse_encode(item, serializer);
+            <String>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::webrtc::ClientInfo> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::webrtc::ClientInfo>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::model::FileDto> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::model::FileDto>::sse_encode(item, serializer);
         }
     }
 }
@@ -967,6 +2302,16 @@ impl SseEncode for Option<String> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <String>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::model::FileMetadata> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::model::FileMetadata>::sse_encode(value, serializer);
         }
     }
 }
@@ -1000,26 +2345,35 @@ impl SseEncode for crate::api::webrtc::PeerDeviceType {
     }
 }
 
-impl SseEncode for crate::api::webrtc::PeerInfo {
+impl SseEncode for crate::api::webrtc::RTCFileError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.id, serializer);
-        <String>::sse_encode(self.alias, serializer);
-        <String>::sse_encode(self.version, serializer);
-        <Option<String>>::sse_encode(self.device_model, serializer);
-        <Option<crate::api::webrtc::PeerDeviceType>>::sse_encode(self.device_type, serializer);
-        <String>::sse_encode(self.fingerprint, serializer);
+        <String>::sse_encode(self.file_id, serializer);
+        <String>::sse_encode(self.error, serializer);
     }
 }
 
-impl SseEncode for crate::api::webrtc::PeerInfoWithoutId {
+impl SseEncode for crate::api::webrtc::RTCStatus {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.alias, serializer);
-        <String>::sse_encode(self.version, serializer);
-        <Option<String>>::sse_encode(self.device_model, serializer);
-        <Option<crate::api::webrtc::PeerDeviceType>>::sse_encode(self.device_type, serializer);
-        <String>::sse_encode(self.fingerprint, serializer);
+        match self {
+            crate::api::webrtc::RTCStatus::SdpExchanged => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::api::webrtc::RTCStatus::Connected => {
+                <i32>::sse_encode(1, serializer);
+            }
+            crate::api::webrtc::RTCStatus::Finished => {
+                <i32>::sse_encode(2, serializer);
+            }
+            crate::api::webrtc::RTCStatus::Error(field0) => {
+                <i32>::sse_encode(3, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -1027,6 +2381,13 @@ impl SseEncode for u16 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         serializer.cursor.write_u16::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for u64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_u64::<NativeEndian>(self).unwrap();
     }
 }
 
@@ -1052,71 +2413,34 @@ impl SseEncode for usize {
     }
 }
 
-impl SseEncode for crate::api::webrtc::WsServerAnswerMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <crate::api::webrtc::PeerInfo>::sse_encode(self.peer, serializer);
-        <String>::sse_encode(self.session_id, serializer);
-        <String>::sse_encode(self.sdp, serializer);
-    }
-}
-
-impl SseEncode for crate::api::webrtc::WsServerErrorMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <u16>::sse_encode(self.code, serializer);
-    }
-}
-
-impl SseEncode for crate::api::webrtc::WsServerHelloMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <crate::api::webrtc::PeerInfo>::sse_encode(self.client, serializer);
-        <Vec<crate::api::webrtc::PeerInfo>>::sse_encode(self.members, serializer);
-    }
-}
-
-impl SseEncode for crate::api::webrtc::WsServerJoinedMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <crate::api::webrtc::PeerInfo>::sse_encode(self.peer, serializer);
-    }
-}
-
-impl SseEncode for crate::api::webrtc::WsServerLeftMessage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.peer_id, serializer);
-    }
-}
-
 impl SseEncode for crate::api::webrtc::WsServerMessage {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         match self {
-            crate::api::webrtc::WsServerMessage::Hello(field0) => {
+            crate::api::webrtc::WsServerMessage::Hello { client, peers } => {
                 <i32>::sse_encode(0, serializer);
-                <crate::api::webrtc::WsServerHelloMessage>::sse_encode(field0, serializer);
+                <crate::api::webrtc::ClientInfo>::sse_encode(client, serializer);
+                <Vec<crate::api::webrtc::ClientInfo>>::sse_encode(peers, serializer);
             }
-            crate::api::webrtc::WsServerMessage::Joined(field0) => {
+            crate::api::webrtc::WsServerMessage::Joined { peer } => {
                 <i32>::sse_encode(1, serializer);
-                <crate::api::webrtc::WsServerJoinedMessage>::sse_encode(field0, serializer);
+                <crate::api::webrtc::ClientInfo>::sse_encode(peer, serializer);
             }
-            crate::api::webrtc::WsServerMessage::Left(field0) => {
+            crate::api::webrtc::WsServerMessage::Left { peer_id } => {
                 <i32>::sse_encode(2, serializer);
-                <crate::api::webrtc::WsServerLeftMessage>::sse_encode(field0, serializer);
+                <uuid::Uuid>::sse_encode(peer_id, serializer);
             }
             crate::api::webrtc::WsServerMessage::Offer(field0) => {
                 <i32>::sse_encode(3, serializer);
-                <crate::api::webrtc::WsServerOfferMessage>::sse_encode(field0, serializer);
+                <crate::api::webrtc::WsServerSdpMessage>::sse_encode(field0, serializer);
             }
             crate::api::webrtc::WsServerMessage::Answer(field0) => {
                 <i32>::sse_encode(4, serializer);
-                <crate::api::webrtc::WsServerAnswerMessage>::sse_encode(field0, serializer);
+                <crate::api::webrtc::WsServerSdpMessage>::sse_encode(field0, serializer);
             }
-            crate::api::webrtc::WsServerMessage::Error(field0) => {
+            crate::api::webrtc::WsServerMessage::Error { code } => {
                 <i32>::sse_encode(5, serializer);
-                <crate::api::webrtc::WsServerErrorMessage>::sse_encode(field0, serializer);
+                <u16>::sse_encode(code, serializer);
             }
             _ => {
                 unimplemented!("");
@@ -1125,10 +2449,10 @@ impl SseEncode for crate::api::webrtc::WsServerMessage {
     }
 }
 
-impl SseEncode for crate::api::webrtc::WsServerOfferMessage {
+impl SseEncode for crate::api::webrtc::WsServerSdpMessage {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <crate::api::webrtc::PeerInfo>::sse_encode(self.peer, serializer);
+        <crate::api::webrtc::ClientInfo>::sse_encode(self.peer, serializer);
         <String>::sse_encode(self.session_id, serializer);
         <String>::sse_encode(self.sdp, serializer);
     }
@@ -1173,6 +2497,62 @@ mod io {
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>::decrement_strong_count(ptr as _);
     }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>::increment_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>::decrement_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>::increment_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>::decrement_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>::increment_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>::decrement_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>::increment_strong_count(ptr as _);
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>::decrement_strong_count(ptr as _);
+    }
 }
 #[cfg(not(target_family = "wasm"))]
 pub use io::*;
@@ -1211,6 +2591,62 @@ mod web {
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>::decrement_strong_count(ptr as _);
     }
 }
 #[cfg(target_family = "wasm")]

@@ -8,9 +8,11 @@ import 'dart:convert';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/api/logging.dart';
+import 'package:localsend_app/rust/api/model.dart';
 import 'package:localsend_app/rust/api/webrtc.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/rust/frb_generated.io.dart' if (dart.library.js_interop) 'frb_generated.web.dart';
+import 'package:uuid/uuid.dart';
 
 /// Main entrypoint of the Rust API
 class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
@@ -64,7 +66,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.7.0';
 
   @override
-  int get rustContentHash => -1045480984;
+  int get rustContentHash => 1101921588;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -74,12 +76,38 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
-  Future<void> crateApiWebrtcLsSignalingConnectionAcceptOffer({required LsSignalingConnection that, required WsServerOfferMessage offer});
+  Future<RtcReceiveState> crateApiWebrtcLsSignalingConnectionAcceptOffer(
+      {required LsSignalingConnection that, required List<String> stunServers, required WsServerSdpMessage offer});
 
-  Future<void> crateApiWebrtcLsSignalingConnectionSendOffer({required LsSignalingConnection that, required String target});
+  Future<RtcSendState> crateApiWebrtcLsSignalingConnectionSendOffer(
+      {required LsSignalingConnection that, required List<String> stunServers, required UuidValue target, required List<FileDto> files});
+
+  Future<String> crateApiWebrtcRtcFileReceiverGetFileId({required RtcFileReceiver that});
+
+  Stream<Uint8List> crateApiWebrtcRtcFileReceiverReceive({required RtcFileReceiver that});
+
+  Future<void> crateApiWebrtcRtcFileSenderSend({required RtcFileSender that, required List<int> data});
+
+  Stream<RTCFileError> crateApiWebrtcRtcReceiveStateListenError({required RtcReceiveState that});
+
+  Future<List<FileDto>> crateApiWebrtcRtcReceiveStateListenFiles({required RtcReceiveState that});
+
+  Stream<RtcFileReceiver> crateApiWebrtcRtcReceiveStateListenReceiving({required RtcReceiveState that});
+
+  Stream<RTCStatus> crateApiWebrtcRtcReceiveStateListenStatus({required RtcReceiveState that});
+
+  Future<void> crateApiWebrtcRtcReceiveStateSendSelection({required RtcReceiveState that, required Set<String> selection});
+
+  Stream<RTCFileError> crateApiWebrtcRtcSendStateListenError({required RtcSendState that});
+
+  Future<Set<String>> crateApiWebrtcRtcSendStateListenSelectedFiles({required RtcSendState that});
+
+  Stream<RTCStatus> crateApiWebrtcRtcSendStateListenStatus({required RtcSendState that});
+
+  Future<RtcFileSender> crateApiWebrtcRtcSendStateSendFile({required RtcSendState that, required String fileId});
 
   Stream<WsServerMessage> crateApiWebrtcConnect(
-      {required String uri, required PeerInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection});
+      {required String uri, required ClientInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection});
 
   Future<void> crateApiLoggingEnableDebugLogging();
 
@@ -88,6 +116,30 @@ abstract class RustLibApi extends BaseApi {
   RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_LsSignalingConnection;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_LsSignalingConnectionPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcFileReceiver;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcFileReceiver;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcFileReceiverPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcFileSender;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcFileSender;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcFileSenderPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcReceiveState;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcReceiveState;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcReceiveStatePtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcSendState;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcSendState;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcSendStatePtr;
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -99,66 +151,368 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
-  Future<void> crateApiWebrtcLsSignalingConnectionAcceptOffer({required LsSignalingConnection that, required WsServerOfferMessage offer}) {
+  Future<RtcReceiveState> crateApiWebrtcLsSignalingConnectionAcceptOffer(
+      {required LsSignalingConnection that, required List<String> stunServers, required WsServerSdpMessage offer}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(that, serializer);
-        sse_encode_box_autoadd_ws_server_offer_message(offer, serializer);
+        sse_encode_list_String(stunServers, serializer);
+        sse_encode_box_autoadd_ws_server_sdp_message(offer, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1, port: port_);
       },
       codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
+        decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState,
         decodeErrorData: sse_decode_AnyhowException,
       ),
       constMeta: kCrateApiWebrtcLsSignalingConnectionAcceptOfferConstMeta,
-      argValues: [that, offer],
+      argValues: [that, stunServers, offer],
       apiImpl: this,
     ));
   }
 
   TaskConstMeta get kCrateApiWebrtcLsSignalingConnectionAcceptOfferConstMeta => const TaskConstMeta(
         debugName: 'LsSignalingConnection_accept_offer',
-        argNames: ['that', 'offer'],
+        argNames: ['that', 'stunServers', 'offer'],
       );
 
   @override
-  Future<void> crateApiWebrtcLsSignalingConnectionSendOffer({required LsSignalingConnection that, required String target}) {
+  Future<RtcSendState> crateApiWebrtcLsSignalingConnectionSendOffer(
+      {required LsSignalingConnection that, required List<String> stunServers, required UuidValue target, required List<FileDto> files}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(that, serializer);
-        sse_encode_String(target, serializer);
+        sse_encode_list_String(stunServers, serializer);
+        sse_encode_Uuid(target, serializer);
+        sse_encode_list_file_dto(files, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2, port: port_);
       },
       codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
+        decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState,
         decodeErrorData: sse_decode_AnyhowException,
       ),
       constMeta: kCrateApiWebrtcLsSignalingConnectionSendOfferConstMeta,
-      argValues: [that, target],
+      argValues: [that, stunServers, target, files],
       apiImpl: this,
     ));
   }
 
   TaskConstMeta get kCrateApiWebrtcLsSignalingConnectionSendOfferConstMeta => const TaskConstMeta(
         debugName: 'LsSignalingConnection_send_offer',
-        argNames: ['that', 'target'],
+        argNames: ['that', 'stunServers', 'target', 'files'],
+      );
+
+  @override
+  Future<String> crateApiWebrtcRtcFileReceiverGetFileId({required RtcFileReceiver that}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(that, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiWebrtcRtcFileReceiverGetFileIdConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcFileReceiverGetFileIdConstMeta => const TaskConstMeta(
+        debugName: 'RtcFileReceiver_get_file_id',
+        argNames: ['that'],
+      );
+
+  @override
+  Stream<Uint8List> crateApiWebrtcRtcFileReceiverReceive({required RtcFileReceiver that}) {
+    final sink = RustStreamSink<Uint8List>();
+    unawaited(handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(that, serializer);
+        sse_encode_StreamSink_list_prim_u_8_strict_Sse(sink, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcFileReceiverReceiveConstMeta,
+      argValues: [that, sink],
+      apiImpl: this,
+    )));
+    return sink.stream;
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcFileReceiverReceiveConstMeta => const TaskConstMeta(
+        debugName: 'RtcFileReceiver_receive',
+        argNames: ['that', 'sink'],
+      );
+
+  @override
+  Future<void> crateApiWebrtcRtcFileSenderSend({required RtcFileSender that, required List<int> data}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(that, serializer);
+        sse_encode_list_prim_u_8_loose(data, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcFileSenderSendConstMeta,
+      argValues: [that, data],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcFileSenderSendConstMeta => const TaskConstMeta(
+        debugName: 'RtcFileSender_send',
+        argNames: ['that', 'data'],
+      );
+
+  @override
+  Stream<RTCFileError> crateApiWebrtcRtcReceiveStateListenError({required RtcReceiveState that}) {
+    final sink = RustStreamSink<RTCFileError>();
+    unawaited(handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
+        sse_encode_StreamSink_rtc_file_error_Sse(sink, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiWebrtcRtcReceiveStateListenErrorConstMeta,
+      argValues: [that, sink],
+      apiImpl: this,
+    )));
+    return sink.stream;
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcReceiveStateListenErrorConstMeta => const TaskConstMeta(
+        debugName: 'RtcReceiveState_listen_error',
+        argNames: ['that', 'sink'],
+      );
+
+  @override
+  Future<List<FileDto>> crateApiWebrtcRtcReceiveStateListenFiles({required RtcReceiveState that}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_file_dto,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcReceiveStateListenFilesConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcReceiveStateListenFilesConstMeta => const TaskConstMeta(
+        debugName: 'RtcReceiveState_listen_files',
+        argNames: ['that'],
+      );
+
+  @override
+  Stream<RtcFileReceiver> crateApiWebrtcRtcReceiveStateListenReceiving({required RtcReceiveState that}) {
+    final sink = RustStreamSink<RtcFileReceiver>();
+    unawaited(handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
+        sse_encode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(sink, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiWebrtcRtcReceiveStateListenReceivingConstMeta,
+      argValues: [that, sink],
+      apiImpl: this,
+    )));
+    return sink.stream;
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcReceiveStateListenReceivingConstMeta => const TaskConstMeta(
+        debugName: 'RtcReceiveState_listen_receiving',
+        argNames: ['that', 'sink'],
+      );
+
+  @override
+  Stream<RTCStatus> crateApiWebrtcRtcReceiveStateListenStatus({required RtcReceiveState that}) {
+    final sink = RustStreamSink<RTCStatus>();
+    unawaited(handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
+        sse_encode_StreamSink_rtc_status_Sse(sink, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiWebrtcRtcReceiveStateListenStatusConstMeta,
+      argValues: [that, sink],
+      apiImpl: this,
+    )));
+    return sink.stream;
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcReceiveStateListenStatusConstMeta => const TaskConstMeta(
+        debugName: 'RtcReceiveState_listen_status',
+        argNames: ['that', 'sink'],
+      );
+
+  @override
+  Future<void> crateApiWebrtcRtcReceiveStateSendSelection({required RtcReceiveState that, required Set<String> selection}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
+        sse_encode_Set_String(selection, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcReceiveStateSendSelectionConstMeta,
+      argValues: [that, selection],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcReceiveStateSendSelectionConstMeta => const TaskConstMeta(
+        debugName: 'RtcReceiveState_send_selection',
+        argNames: ['that', 'selection'],
+      );
+
+  @override
+  Stream<RTCFileError> crateApiWebrtcRtcSendStateListenError({required RtcSendState that}) {
+    final sink = RustStreamSink<RTCFileError>();
+    unawaited(handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
+        sse_encode_StreamSink_rtc_file_error_Sse(sink, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiWebrtcRtcSendStateListenErrorConstMeta,
+      argValues: [that, sink],
+      apiImpl: this,
+    )));
+    return sink.stream;
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcSendStateListenErrorConstMeta => const TaskConstMeta(
+        debugName: 'RtcSendState_listen_error',
+        argNames: ['that', 'sink'],
+      );
+
+  @override
+  Future<Set<String>> crateApiWebrtcRtcSendStateListenSelectedFiles({required RtcSendState that}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_Set_String,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcSendStateListenSelectedFilesConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcSendStateListenSelectedFilesConstMeta => const TaskConstMeta(
+        debugName: 'RtcSendState_listen_selected_files',
+        argNames: ['that'],
+      );
+
+  @override
+  Stream<RTCStatus> crateApiWebrtcRtcSendStateListenStatus({required RtcSendState that}) {
+    final sink = RustStreamSink<RTCStatus>();
+    unawaited(handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
+        sse_encode_StreamSink_rtc_status_Sse(sink, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiWebrtcRtcSendStateListenStatusConstMeta,
+      argValues: [that, sink],
+      apiImpl: this,
+    )));
+    return sink.stream;
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcSendStateListenStatusConstMeta => const TaskConstMeta(
+        debugName: 'RtcSendState_listen_status',
+        argNames: ['that', 'sink'],
+      );
+
+  @override
+  Future<RtcFileSender> crateApiWebrtcRtcSendStateSendFile({required RtcSendState that, required String fileId}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
+        sse_encode_String(fileId, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcSendStateSendFileConstMeta,
+      argValues: [that, fileId],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcSendStateSendFileConstMeta => const TaskConstMeta(
+        debugName: 'RtcSendState_send_file',
+        argNames: ['that', 'fileId'],
       );
 
   @override
   Stream<WsServerMessage> crateApiWebrtcConnect(
-      {required String uri, required PeerInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection}) {
+      {required String uri, required ClientInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection}) {
     final sink = RustStreamSink<WsServerMessage>();
     unawaited(handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_StreamSink_ws_server_message_Sse(sink, serializer);
         sse_encode_String(uri, serializer);
-        sse_encode_box_autoadd_peer_info_without_id(info, serializer);
+        sse_encode_box_autoadd_client_info_without_id(info, serializer);
         sse_encode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection_Output_unit_AnyhowException(
             onConnection, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -181,7 +535,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -233,6 +587,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_LsSignalingConnection =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection;
 
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcFileReceiver =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcFileReceiver =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcFileSender =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcFileSender =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcReceiveState =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcReceiveState =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RtcSendState =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RtcSendState =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState;
+
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -246,9 +624,69 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RtcFileReceiver dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcFileReceiverImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcFileSender dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcFileSenderImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcReceiveState dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcSendState dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcReceiveState dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcSendState dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   LsSignalingConnection dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return LsSignalingConnectionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcFileReceiver dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcFileReceiverImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcFileSender dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcFileSenderImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcReceiveState dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcSendState dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -272,6 +710,61 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RtcFileReceiver dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcFileReceiverImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcFileSender dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcFileSenderImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcReceiveState dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RtcSendState dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Set<String> dco_decode_Set_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Set.from(dco_decode_list_String(raw));
+  }
+
+  @protected
+  RustStreamSink<RtcFileReceiver> dco_decode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
+  RustStreamSink<Uint8List> dco_decode_StreamSink_list_prim_u_8_strict_Sse(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
+  RustStreamSink<RTCFileError> dco_decode_StreamSink_rtc_file_error_Sse(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
+  RustStreamSink<RTCStatus> dco_decode_StreamSink_rtc_status_Sse(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
   RustStreamSink<WsServerMessage> dco_decode_StreamSink_ws_server_message_Sse(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError();
@@ -284,51 +777,95 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  UuidValue dco_decode_Uuid(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return UuidValue.fromByteList(dco_decode_list_prim_u_8_strict(raw));
+  }
+
+  @protected
+  ClientInfo dco_decode_box_autoadd_client_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_client_info(raw);
+  }
+
+  @protected
+  ClientInfoWithoutId dco_decode_box_autoadd_client_info_without_id(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_client_info_without_id(raw);
+  }
+
+  @protected
+  FileMetadata dco_decode_box_autoadd_file_metadata(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_file_metadata(raw);
+  }
+
+  @protected
   PeerDeviceType dco_decode_box_autoadd_peer_device_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_peer_device_type(raw);
   }
 
   @protected
-  PeerInfoWithoutId dco_decode_box_autoadd_peer_info_without_id(dynamic raw) {
+  WsServerSdpMessage dco_decode_box_autoadd_ws_server_sdp_message(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_peer_info_without_id(raw);
+    return dco_decode_ws_server_sdp_message(raw);
   }
 
   @protected
-  WsServerAnswerMessage dco_decode_box_autoadd_ws_server_answer_message(dynamic raw) {
+  ClientInfo dco_decode_client_info(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_ws_server_answer_message(raw);
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6) throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return ClientInfo(
+      id: dco_decode_Uuid(arr[0]),
+      alias: dco_decode_String(arr[1]),
+      version: dco_decode_String(arr[2]),
+      deviceModel: dco_decode_opt_String(arr[3]),
+      deviceType: dco_decode_opt_box_autoadd_peer_device_type(arr[4]),
+      fingerprint: dco_decode_String(arr[5]),
+    );
   }
 
   @protected
-  WsServerErrorMessage dco_decode_box_autoadd_ws_server_error_message(dynamic raw) {
+  ClientInfoWithoutId dco_decode_client_info_without_id(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_ws_server_error_message(raw);
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5) throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return ClientInfoWithoutId(
+      alias: dco_decode_String(arr[0]),
+      version: dco_decode_String(arr[1]),
+      deviceModel: dco_decode_opt_String(arr[2]),
+      deviceType: dco_decode_opt_box_autoadd_peer_device_type(arr[3]),
+      fingerprint: dco_decode_String(arr[4]),
+    );
   }
 
   @protected
-  WsServerHelloMessage dco_decode_box_autoadd_ws_server_hello_message(dynamic raw) {
+  FileDto dco_decode_file_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_ws_server_hello_message(raw);
+    final arr = raw as List<dynamic>;
+    if (arr.length != 7) throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    return FileDto(
+      id: dco_decode_String(arr[0]),
+      fileName: dco_decode_String(arr[1]),
+      size: dco_decode_u_64(arr[2]),
+      fileType: dco_decode_String(arr[3]),
+      sha256: dco_decode_opt_String(arr[4]),
+      preview: dco_decode_opt_String(arr[5]),
+      metadata: dco_decode_opt_box_autoadd_file_metadata(arr[6]),
+    );
   }
 
   @protected
-  WsServerJoinedMessage dco_decode_box_autoadd_ws_server_joined_message(dynamic raw) {
+  FileMetadata dco_decode_file_metadata(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_ws_server_joined_message(raw);
-  }
-
-  @protected
-  WsServerLeftMessage dco_decode_box_autoadd_ws_server_left_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_ws_server_left_message(raw);
-  }
-
-  @protected
-  WsServerOfferMessage dco_decode_box_autoadd_ws_server_offer_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_ws_server_offer_message(raw);
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return FileMetadata(
+      modified: dco_decode_opt_String(arr[0]),
+      accessed: dco_decode_opt_String(arr[1]),
+    );
   }
 
   @protected
@@ -344,9 +881,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<PeerInfo> dco_decode_list_peer_info(dynamic raw) {
+  List<String> dco_decode_list_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>).map(dco_decode_peer_info).toList();
+    return (raw as List<dynamic>).map(dco_decode_String).toList();
+  }
+
+  @protected
+  List<ClientInfo> dco_decode_list_client_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_client_info).toList();
+  }
+
+  @protected
+  List<FileDto> dco_decode_list_file_dto(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_file_dto).toList();
+  }
+
+  @protected
+  List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as List<int>;
   }
 
   @protected
@@ -362,6 +917,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FileMetadata? dco_decode_opt_box_autoadd_file_metadata(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_file_metadata(raw);
+  }
+
+  @protected
   PeerDeviceType? dco_decode_opt_box_autoadd_peer_device_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_peer_device_type(raw);
@@ -374,38 +935,45 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  PeerInfo dco_decode_peer_info(dynamic raw) {
+  RTCFileError dco_decode_rtc_file_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 6) throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
-    return PeerInfo(
-      id: dco_decode_String(arr[0]),
-      alias: dco_decode_String(arr[1]),
-      version: dco_decode_String(arr[2]),
-      deviceModel: dco_decode_opt_String(arr[3]),
-      deviceType: dco_decode_opt_box_autoadd_peer_device_type(arr[4]),
-      fingerprint: dco_decode_String(arr[5]),
+    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return RTCFileError(
+      fileId: dco_decode_String(arr[0]),
+      error: dco_decode_String(arr[1]),
     );
   }
 
   @protected
-  PeerInfoWithoutId dco_decode_peer_info_without_id(dynamic raw) {
+  RTCStatus dco_decode_rtc_status(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 5) throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
-    return PeerInfoWithoutId(
-      alias: dco_decode_String(arr[0]),
-      version: dco_decode_String(arr[1]),
-      deviceModel: dco_decode_opt_String(arr[2]),
-      deviceType: dco_decode_opt_box_autoadd_peer_device_type(arr[3]),
-      fingerprint: dco_decode_String(arr[4]),
-    );
+    switch (raw[0]) {
+      case 0:
+        return RTCStatus_SdpExchanged();
+      case 1:
+        return RTCStatus_Connected();
+      case 2:
+        return RTCStatus_Finished();
+      case 3:
+        return RTCStatus_Error(
+          dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception('unreachable');
+    }
   }
 
   @protected
   int dco_decode_u_16(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
+  }
+
+  @protected
+  BigInt dco_decode_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
   }
 
   @protected
@@ -427,85 +995,33 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WsServerAnswerMessage dco_decode_ws_server_answer_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-    return WsServerAnswerMessage(
-      peer: dco_decode_peer_info(arr[0]),
-      sessionId: dco_decode_String(arr[1]),
-      sdp: dco_decode_String(arr[2]),
-    );
-  }
-
-  @protected
-  WsServerErrorMessage dco_decode_ws_server_error_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 1) throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
-    return WsServerErrorMessage(
-      code: dco_decode_u_16(arr[0]),
-    );
-  }
-
-  @protected
-  WsServerHelloMessage dco_decode_ws_server_hello_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-    return WsServerHelloMessage(
-      client: dco_decode_peer_info(arr[0]),
-      members: dco_decode_list_peer_info(arr[1]),
-    );
-  }
-
-  @protected
-  WsServerJoinedMessage dco_decode_ws_server_joined_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 1) throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
-    return WsServerJoinedMessage(
-      peer: dco_decode_peer_info(arr[0]),
-    );
-  }
-
-  @protected
-  WsServerLeftMessage dco_decode_ws_server_left_message(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 1) throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
-    return WsServerLeftMessage(
-      peerId: dco_decode_String(arr[0]),
-    );
-  }
-
-  @protected
   WsServerMessage dco_decode_ws_server_message(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
       case 0:
         return WsServerMessage_Hello(
-          dco_decode_box_autoadd_ws_server_hello_message(raw[1]),
+          client: dco_decode_box_autoadd_client_info(raw[1]),
+          peers: dco_decode_list_client_info(raw[2]),
         );
       case 1:
         return WsServerMessage_Joined(
-          dco_decode_box_autoadd_ws_server_joined_message(raw[1]),
+          peer: dco_decode_box_autoadd_client_info(raw[1]),
         );
       case 2:
         return WsServerMessage_Left(
-          dco_decode_box_autoadd_ws_server_left_message(raw[1]),
+          peerId: dco_decode_Uuid(raw[1]),
         );
       case 3:
         return WsServerMessage_Offer(
-          dco_decode_box_autoadd_ws_server_offer_message(raw[1]),
+          dco_decode_box_autoadd_ws_server_sdp_message(raw[1]),
         );
       case 4:
         return WsServerMessage_Answer(
-          dco_decode_box_autoadd_ws_server_answer_message(raw[1]),
+          dco_decode_box_autoadd_ws_server_sdp_message(raw[1]),
         );
       case 5:
         return WsServerMessage_Error(
-          dco_decode_box_autoadd_ws_server_error_message(raw[1]),
+          code: dco_decode_u_16(raw[1]),
         );
       default:
         throw Exception('unreachable');
@@ -513,12 +1029,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WsServerOfferMessage dco_decode_ws_server_offer_message(dynamic raw) {
+  WsServerSdpMessage dco_decode_ws_server_sdp_message(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
     if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-    return WsServerOfferMessage(
-      peer: dco_decode_peer_info(arr[0]),
+    return WsServerSdpMessage(
+      peer: dco_decode_client_info(arr[0]),
       sessionId: dco_decode_String(arr[1]),
       sdp: dco_decode_String(arr[2]),
     );
@@ -539,10 +1055,70 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RtcFileReceiver sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcFileReceiverImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcFileSender sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcFileSenderImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcReceiveState sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcSendState sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcReceiveState sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcSendState sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   LsSignalingConnection sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return LsSignalingConnectionImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcFileReceiver sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcFileReceiverImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcFileSender sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcFileSenderImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcReceiveState sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcSendState sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
@@ -559,6 +1135,62 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RtcFileReceiver sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcFileReceiverImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcFileSender sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcFileSenderImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcReceiveState sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcReceiveStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RtcSendState sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RtcSendStateImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  Set<String> sse_decode_Set_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_String(deserializer);
+    return Set.from(inner);
+  }
+
+  @protected
+  RustStreamSink<RtcFileReceiver> sse_decode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    throw UnimplementedError('Unreachable ()');
+  }
+
+  @protected
+  RustStreamSink<Uint8List> sse_decode_StreamSink_list_prim_u_8_strict_Sse(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    throw UnimplementedError('Unreachable ()');
+  }
+
+  @protected
+  RustStreamSink<RTCFileError> sse_decode_StreamSink_rtc_file_error_Sse(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    throw UnimplementedError('Unreachable ()');
+  }
+
+  @protected
+  RustStreamSink<RTCStatus> sse_decode_StreamSink_rtc_status_Sse(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    throw UnimplementedError('Unreachable ()');
+  }
+
+  @protected
   RustStreamSink<WsServerMessage> sse_decode_StreamSink_ws_server_message_Sse(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     throw UnimplementedError('Unreachable ()');
@@ -572,51 +1204,87 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  UuidValue sse_decode_Uuid(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_prim_u_8_strict(deserializer);
+    return UuidValue.fromByteList(inner);
+  }
+
+  @protected
+  ClientInfo sse_decode_box_autoadd_client_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_client_info(deserializer));
+  }
+
+  @protected
+  ClientInfoWithoutId sse_decode_box_autoadd_client_info_without_id(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_client_info_without_id(deserializer));
+  }
+
+  @protected
+  FileMetadata sse_decode_box_autoadd_file_metadata(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_file_metadata(deserializer));
+  }
+
+  @protected
   PeerDeviceType sse_decode_box_autoadd_peer_device_type(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_peer_device_type(deserializer));
   }
 
   @protected
-  PeerInfoWithoutId sse_decode_box_autoadd_peer_info_without_id(SseDeserializer deserializer) {
+  WsServerSdpMessage sse_decode_box_autoadd_ws_server_sdp_message(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_peer_info_without_id(deserializer));
+    return (sse_decode_ws_server_sdp_message(deserializer));
   }
 
   @protected
-  WsServerAnswerMessage sse_decode_box_autoadd_ws_server_answer_message(SseDeserializer deserializer) {
+  ClientInfo sse_decode_client_info(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_ws_server_answer_message(deserializer));
+    var var_id = sse_decode_Uuid(deserializer);
+    var var_alias = sse_decode_String(deserializer);
+    var var_version = sse_decode_String(deserializer);
+    var var_deviceModel = sse_decode_opt_String(deserializer);
+    var var_deviceType = sse_decode_opt_box_autoadd_peer_device_type(deserializer);
+    var var_fingerprint = sse_decode_String(deserializer);
+    return ClientInfo(
+        id: var_id, alias: var_alias, version: var_version, deviceModel: var_deviceModel, deviceType: var_deviceType, fingerprint: var_fingerprint);
   }
 
   @protected
-  WsServerErrorMessage sse_decode_box_autoadd_ws_server_error_message(SseDeserializer deserializer) {
+  ClientInfoWithoutId sse_decode_client_info_without_id(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_ws_server_error_message(deserializer));
+    var var_alias = sse_decode_String(deserializer);
+    var var_version = sse_decode_String(deserializer);
+    var var_deviceModel = sse_decode_opt_String(deserializer);
+    var var_deviceType = sse_decode_opt_box_autoadd_peer_device_type(deserializer);
+    var var_fingerprint = sse_decode_String(deserializer);
+    return ClientInfoWithoutId(
+        alias: var_alias, version: var_version, deviceModel: var_deviceModel, deviceType: var_deviceType, fingerprint: var_fingerprint);
   }
 
   @protected
-  WsServerHelloMessage sse_decode_box_autoadd_ws_server_hello_message(SseDeserializer deserializer) {
+  FileDto sse_decode_file_dto(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_ws_server_hello_message(deserializer));
+    var var_id = sse_decode_String(deserializer);
+    var var_fileName = sse_decode_String(deserializer);
+    var var_size = sse_decode_u_64(deserializer);
+    var var_fileType = sse_decode_String(deserializer);
+    var var_sha256 = sse_decode_opt_String(deserializer);
+    var var_preview = sse_decode_opt_String(deserializer);
+    var var_metadata = sse_decode_opt_box_autoadd_file_metadata(deserializer);
+    return FileDto(
+        id: var_id, fileName: var_fileName, size: var_size, fileType: var_fileType, sha256: var_sha256, preview: var_preview, metadata: var_metadata);
   }
 
   @protected
-  WsServerJoinedMessage sse_decode_box_autoadd_ws_server_joined_message(SseDeserializer deserializer) {
+  FileMetadata sse_decode_file_metadata(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_ws_server_joined_message(deserializer));
-  }
-
-  @protected
-  WsServerLeftMessage sse_decode_box_autoadd_ws_server_left_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_ws_server_left_message(deserializer));
-  }
-
-  @protected
-  WsServerOfferMessage sse_decode_box_autoadd_ws_server_offer_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_ws_server_offer_message(deserializer));
+    var var_modified = sse_decode_opt_String(deserializer);
+    var var_accessed = sse_decode_opt_String(deserializer);
+    return FileMetadata(modified: var_modified, accessed: var_accessed);
   }
 
   @protected
@@ -632,15 +1300,46 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<PeerInfo> sse_decode_list_peer_info(SseDeserializer deserializer) {
+  List<String> sse_decode_list_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <PeerInfo>[];
+    var ans_ = <String>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(sse_decode_peer_info(deserializer));
+      ans_.add(sse_decode_String(deserializer));
     }
     return ans_;
+  }
+
+  @protected
+  List<ClientInfo> sse_decode_list_client_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <ClientInfo>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_client_info(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<FileDto> sse_decode_list_file_dto(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FileDto>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_file_dto(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint8List(len_);
   }
 
   @protected
@@ -656,6 +1355,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  FileMetadata? sse_decode_opt_box_autoadd_file_metadata(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_file_metadata(deserializer));
     } else {
       return null;
     }
@@ -680,34 +1390,43 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  PeerInfo sse_decode_peer_info(SseDeserializer deserializer) {
+  RTCFileError sse_decode_rtc_file_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_id = sse_decode_String(deserializer);
-    var var_alias = sse_decode_String(deserializer);
-    var var_version = sse_decode_String(deserializer);
-    var var_deviceModel = sse_decode_opt_String(deserializer);
-    var var_deviceType = sse_decode_opt_box_autoadd_peer_device_type(deserializer);
-    var var_fingerprint = sse_decode_String(deserializer);
-    return PeerInfo(
-        id: var_id, alias: var_alias, version: var_version, deviceModel: var_deviceModel, deviceType: var_deviceType, fingerprint: var_fingerprint);
+    var var_fileId = sse_decode_String(deserializer);
+    var var_error = sse_decode_String(deserializer);
+    return RTCFileError(fileId: var_fileId, error: var_error);
   }
 
   @protected
-  PeerInfoWithoutId sse_decode_peer_info_without_id(SseDeserializer deserializer) {
+  RTCStatus sse_decode_rtc_status(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_alias = sse_decode_String(deserializer);
-    var var_version = sse_decode_String(deserializer);
-    var var_deviceModel = sse_decode_opt_String(deserializer);
-    var var_deviceType = sse_decode_opt_box_autoadd_peer_device_type(deserializer);
-    var var_fingerprint = sse_decode_String(deserializer);
-    return PeerInfoWithoutId(
-        alias: var_alias, version: var_version, deviceModel: var_deviceModel, deviceType: var_deviceType, fingerprint: var_fingerprint);
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return RTCStatus_SdpExchanged();
+      case 1:
+        return RTCStatus_Connected();
+      case 2:
+        return RTCStatus_Finished();
+      case 3:
+        var var_field0 = sse_decode_String(deserializer);
+        return RTCStatus_Error(var_field0);
+      default:
+        throw UnimplementedError('');
+    }
   }
 
   @protected
   int sse_decode_u_16(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getUint16();
+  }
+
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
   }
 
   @protected
@@ -728,79 +1447,42 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WsServerAnswerMessage sse_decode_ws_server_answer_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_peer = sse_decode_peer_info(deserializer);
-    var var_sessionId = sse_decode_String(deserializer);
-    var var_sdp = sse_decode_String(deserializer);
-    return WsServerAnswerMessage(peer: var_peer, sessionId: var_sessionId, sdp: var_sdp);
-  }
-
-  @protected
-  WsServerErrorMessage sse_decode_ws_server_error_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_code = sse_decode_u_16(deserializer);
-    return WsServerErrorMessage(code: var_code);
-  }
-
-  @protected
-  WsServerHelloMessage sse_decode_ws_server_hello_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_client = sse_decode_peer_info(deserializer);
-    var var_members = sse_decode_list_peer_info(deserializer);
-    return WsServerHelloMessage(client: var_client, members: var_members);
-  }
-
-  @protected
-  WsServerJoinedMessage sse_decode_ws_server_joined_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_peer = sse_decode_peer_info(deserializer);
-    return WsServerJoinedMessage(peer: var_peer);
-  }
-
-  @protected
-  WsServerLeftMessage sse_decode_ws_server_left_message(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_peerId = sse_decode_String(deserializer);
-    return WsServerLeftMessage(peerId: var_peerId);
-  }
-
-  @protected
   WsServerMessage sse_decode_ws_server_message(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var tag_ = sse_decode_i_32(deserializer);
     switch (tag_) {
       case 0:
-        var var_field0 = sse_decode_box_autoadd_ws_server_hello_message(deserializer);
-        return WsServerMessage_Hello(var_field0);
+        var var_client = sse_decode_box_autoadd_client_info(deserializer);
+        var var_peers = sse_decode_list_client_info(deserializer);
+        return WsServerMessage_Hello(client: var_client, peers: var_peers);
       case 1:
-        var var_field0 = sse_decode_box_autoadd_ws_server_joined_message(deserializer);
-        return WsServerMessage_Joined(var_field0);
+        var var_peer = sse_decode_box_autoadd_client_info(deserializer);
+        return WsServerMessage_Joined(peer: var_peer);
       case 2:
-        var var_field0 = sse_decode_box_autoadd_ws_server_left_message(deserializer);
-        return WsServerMessage_Left(var_field0);
+        var var_peerId = sse_decode_Uuid(deserializer);
+        return WsServerMessage_Left(peerId: var_peerId);
       case 3:
-        var var_field0 = sse_decode_box_autoadd_ws_server_offer_message(deserializer);
+        var var_field0 = sse_decode_box_autoadd_ws_server_sdp_message(deserializer);
         return WsServerMessage_Offer(var_field0);
       case 4:
-        var var_field0 = sse_decode_box_autoadd_ws_server_answer_message(deserializer);
+        var var_field0 = sse_decode_box_autoadd_ws_server_sdp_message(deserializer);
         return WsServerMessage_Answer(var_field0);
       case 5:
-        var var_field0 = sse_decode_box_autoadd_ws_server_error_message(deserializer);
-        return WsServerMessage_Error(var_field0);
+        var var_code = sse_decode_u_16(deserializer);
+        return WsServerMessage_Error(code: var_code);
       default:
         throw UnimplementedError('');
     }
   }
 
   @protected
-  WsServerOfferMessage sse_decode_ws_server_offer_message(SseDeserializer deserializer) {
+  WsServerSdpMessage sse_decode_ws_server_sdp_message(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_peer = sse_decode_peer_info(deserializer);
+    var var_peer = sse_decode_client_info(deserializer);
     var var_sessionId = sse_decode_String(deserializer);
     var var_sdp = sse_decode_String(deserializer);
-    return WsServerOfferMessage(peer: var_peer, sessionId: var_sessionId, sdp: var_sdp);
+    return WsServerSdpMessage(peer: var_peer, sessionId: var_sessionId, sdp: var_sdp);
   }
 
   @protected
@@ -823,10 +1505,77 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+      RtcFileReceiver self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcFileReceiverImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+      RtcFileSender self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcFileSenderImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      RtcReceiveState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcReceiveStateImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcSendStateImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      RtcReceiveState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcReceiveStateImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+      RtcSendState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcSendStateImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
   void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(
       LsSignalingConnection self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize((self as LsSignalingConnectionImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+      RtcFileReceiver self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcFileReceiverImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(RtcFileSender self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcFileSenderImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      RtcReceiveState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcReceiveStateImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcSendStateImpl).frbInternalSseEncode(move: false), serializer);
   }
 
   @protected
@@ -855,6 +1604,85 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(RtcFileReceiver self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcFileReceiverImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(RtcFileSender self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcFileSenderImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(RtcReceiveState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcReceiveStateImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RtcSendStateImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_Set_String(Set<String> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_String(self.toList(), serializer);
+  }
+
+  @protected
+  void sse_encode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(
+      RustStreamSink<RtcFileReceiver> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(
+        self.setupAndSerialize(
+            codec: SseCodec(
+          decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver,
+          decodeErrorData: sse_decode_AnyhowException,
+        )),
+        serializer);
+  }
+
+  @protected
+  void sse_encode_StreamSink_list_prim_u_8_strict_Sse(RustStreamSink<Uint8List> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(
+        self.setupAndSerialize(
+            codec: SseCodec(
+          decodeSuccessData: sse_decode_list_prim_u_8_strict,
+          decodeErrorData: sse_decode_AnyhowException,
+        )),
+        serializer);
+  }
+
+  @protected
+  void sse_encode_StreamSink_rtc_file_error_Sse(RustStreamSink<RTCFileError> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(
+        self.setupAndSerialize(
+            codec: SseCodec(
+          decodeSuccessData: sse_decode_rtc_file_error,
+          decodeErrorData: sse_decode_AnyhowException,
+        )),
+        serializer);
+  }
+
+  @protected
+  void sse_encode_StreamSink_rtc_status_Sse(RustStreamSink<RTCStatus> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(
+        self.setupAndSerialize(
+            codec: SseCodec(
+          decodeSuccessData: sse_decode_rtc_status,
+          decodeErrorData: sse_decode_AnyhowException,
+        )),
+        serializer);
+  }
+
+  @protected
   void sse_encode_StreamSink_ws_server_message_Sse(RustStreamSink<WsServerMessage> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(
@@ -873,51 +1701,79 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_Uuid(UuidValue self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(self.toBytes(), serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_client_info(ClientInfo self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_client_info(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_client_info_without_id(ClientInfoWithoutId self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_client_info_without_id(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_file_metadata(FileMetadata self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_file_metadata(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_peer_device_type(PeerDeviceType self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_peer_device_type(self, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer) {
+  void sse_encode_box_autoadd_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_peer_info_without_id(self, serializer);
+    sse_encode_ws_server_sdp_message(self, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_ws_server_answer_message(WsServerAnswerMessage self, SseSerializer serializer) {
+  void sse_encode_client_info(ClientInfo self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ws_server_answer_message(self, serializer);
+    sse_encode_Uuid(self.id, serializer);
+    sse_encode_String(self.alias, serializer);
+    sse_encode_String(self.version, serializer);
+    sse_encode_opt_String(self.deviceModel, serializer);
+    sse_encode_opt_box_autoadd_peer_device_type(self.deviceType, serializer);
+    sse_encode_String(self.fingerprint, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_ws_server_error_message(WsServerErrorMessage self, SseSerializer serializer) {
+  void sse_encode_client_info_without_id(ClientInfoWithoutId self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ws_server_error_message(self, serializer);
+    sse_encode_String(self.alias, serializer);
+    sse_encode_String(self.version, serializer);
+    sse_encode_opt_String(self.deviceModel, serializer);
+    sse_encode_opt_box_autoadd_peer_device_type(self.deviceType, serializer);
+    sse_encode_String(self.fingerprint, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_ws_server_hello_message(WsServerHelloMessage self, SseSerializer serializer) {
+  void sse_encode_file_dto(FileDto self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ws_server_hello_message(self, serializer);
+    sse_encode_String(self.id, serializer);
+    sse_encode_String(self.fileName, serializer);
+    sse_encode_u_64(self.size, serializer);
+    sse_encode_String(self.fileType, serializer);
+    sse_encode_opt_String(self.sha256, serializer);
+    sse_encode_opt_String(self.preview, serializer);
+    sse_encode_opt_box_autoadd_file_metadata(self.metadata, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_ws_server_joined_message(WsServerJoinedMessage self, SseSerializer serializer) {
+  void sse_encode_file_metadata(FileMetadata self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ws_server_joined_message(self, serializer);
-  }
-
-  @protected
-  void sse_encode_box_autoadd_ws_server_left_message(WsServerLeftMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ws_server_left_message(self, serializer);
-  }
-
-  @protected
-  void sse_encode_box_autoadd_ws_server_offer_message(WsServerOfferMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ws_server_offer_message(self, serializer);
+    sse_encode_opt_String(self.modified, serializer);
+    sse_encode_opt_String(self.accessed, serializer);
   }
 
   @protected
@@ -933,12 +1789,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_list_peer_info(List<PeerInfo> self, SseSerializer serializer) {
+  void sse_encode_list_String(List<String> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
-      sse_encode_peer_info(item, serializer);
+      sse_encode_String(item, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_list_client_info(List<ClientInfo> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_client_info(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_file_dto(List<FileDto> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_file_dto(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint8List(self is Uint8List ? self : Uint8List.fromList(self));
   }
 
   @protected
@@ -959,6 +1840,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_file_metadata(FileMetadata? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_file_metadata(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_box_autoadd_peer_device_type(PeerDeviceType? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -975,30 +1866,38 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_peer_info(PeerInfo self, SseSerializer serializer) {
+  void sse_encode_rtc_file_error(RTCFileError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_String(self.id, serializer);
-    sse_encode_String(self.alias, serializer);
-    sse_encode_String(self.version, serializer);
-    sse_encode_opt_String(self.deviceModel, serializer);
-    sse_encode_opt_box_autoadd_peer_device_type(self.deviceType, serializer);
-    sse_encode_String(self.fingerprint, serializer);
+    sse_encode_String(self.fileId, serializer);
+    sse_encode_String(self.error, serializer);
   }
 
   @protected
-  void sse_encode_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer) {
+  void sse_encode_rtc_status(RTCStatus self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_String(self.alias, serializer);
-    sse_encode_String(self.version, serializer);
-    sse_encode_opt_String(self.deviceModel, serializer);
-    sse_encode_opt_box_autoadd_peer_device_type(self.deviceType, serializer);
-    sse_encode_String(self.fingerprint, serializer);
+    switch (self) {
+      case RTCStatus_SdpExchanged():
+        sse_encode_i_32(0, serializer);
+      case RTCStatus_Connected():
+        sse_encode_i_32(1, serializer);
+      case RTCStatus_Finished():
+        sse_encode_i_32(2, serializer);
+      case RTCStatus_Error(field0: final field0):
+        sse_encode_i_32(3, serializer);
+        sse_encode_String(field0, serializer);
+    }
   }
 
   @protected
   void sse_encode_u_16(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint16(self);
+  }
+
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
   }
 
   @protected
@@ -1019,67 +1918,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_ws_server_answer_message(WsServerAnswerMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_peer_info(self.peer, serializer);
-    sse_encode_String(self.sessionId, serializer);
-    sse_encode_String(self.sdp, serializer);
-  }
-
-  @protected
-  void sse_encode_ws_server_error_message(WsServerErrorMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_u_16(self.code, serializer);
-  }
-
-  @protected
-  void sse_encode_ws_server_hello_message(WsServerHelloMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_peer_info(self.client, serializer);
-    sse_encode_list_peer_info(self.members, serializer);
-  }
-
-  @protected
-  void sse_encode_ws_server_joined_message(WsServerJoinedMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_peer_info(self.peer, serializer);
-  }
-
-  @protected
-  void sse_encode_ws_server_left_message(WsServerLeftMessage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_String(self.peerId, serializer);
-  }
-
-  @protected
   void sse_encode_ws_server_message(WsServerMessage self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     switch (self) {
-      case WsServerMessage_Hello(field0: final field0):
+      case WsServerMessage_Hello(client: final client, peers: final peers):
         sse_encode_i_32(0, serializer);
-        sse_encode_box_autoadd_ws_server_hello_message(field0, serializer);
-      case WsServerMessage_Joined(field0: final field0):
+        sse_encode_box_autoadd_client_info(client, serializer);
+        sse_encode_list_client_info(peers, serializer);
+      case WsServerMessage_Joined(peer: final peer):
         sse_encode_i_32(1, serializer);
-        sse_encode_box_autoadd_ws_server_joined_message(field0, serializer);
-      case WsServerMessage_Left(field0: final field0):
+        sse_encode_box_autoadd_client_info(peer, serializer);
+      case WsServerMessage_Left(peerId: final peerId):
         sse_encode_i_32(2, serializer);
-        sse_encode_box_autoadd_ws_server_left_message(field0, serializer);
+        sse_encode_Uuid(peerId, serializer);
       case WsServerMessage_Offer(field0: final field0):
         sse_encode_i_32(3, serializer);
-        sse_encode_box_autoadd_ws_server_offer_message(field0, serializer);
+        sse_encode_box_autoadd_ws_server_sdp_message(field0, serializer);
       case WsServerMessage_Answer(field0: final field0):
         sse_encode_i_32(4, serializer);
-        sse_encode_box_autoadd_ws_server_answer_message(field0, serializer);
-      case WsServerMessage_Error(field0: final field0):
+        sse_encode_box_autoadd_ws_server_sdp_message(field0, serializer);
+      case WsServerMessage_Error(code: final code):
         sse_encode_i_32(5, serializer);
-        sse_encode_box_autoadd_ws_server_error_message(field0, serializer);
+        sse_encode_u_16(code, serializer);
     }
   }
 
   @protected
-  void sse_encode_ws_server_offer_message(WsServerOfferMessage self, SseSerializer serializer) {
+  void sse_encode_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_peer_info(self.peer, serializer);
+    sse_encode_client_info(self.peer, serializer);
     sse_encode_String(self.sessionId, serializer);
     sse_encode_String(self.sdp, serializer);
   }
@@ -1106,8 +1973,114 @@ class LsSignalingConnectionImpl extends RustOpaque implements LsSignalingConnect
     rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_LsSignalingConnectionPtr,
   );
 
-  Future<void> acceptOffer({required WsServerOfferMessage offer}) =>
-      RustLib.instance.api.crateApiWebrtcLsSignalingConnectionAcceptOffer(that: this, offer: offer);
+  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer}) =>
+      RustLib.instance.api.crateApiWebrtcLsSignalingConnectionAcceptOffer(that: this, stunServers: stunServers, offer: offer);
 
-  Future<void> sendOffer({required String target}) => RustLib.instance.api.crateApiWebrtcLsSignalingConnectionSendOffer(that: this, target: target);
+  Future<RtcSendState> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files}) =>
+      RustLib.instance.api.crateApiWebrtcLsSignalingConnectionSendOffer(that: this, stunServers: stunServers, target: target, files: files);
+}
+
+@sealed
+class RtcFileReceiverImpl extends RustOpaque implements RtcFileReceiver {
+  // Not to be used by end users
+  RtcFileReceiverImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RtcFileReceiverImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RtcFileReceiver,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RtcFileReceiver,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RtcFileReceiverPtr,
+  );
+
+  Future<String> getFileId() => RustLib.instance.api.crateApiWebrtcRtcFileReceiverGetFileId(
+        that: this,
+      );
+
+  Stream<Uint8List> receive() => RustLib.instance.api.crateApiWebrtcRtcFileReceiverReceive(
+        that: this,
+      );
+}
+
+@sealed
+class RtcFileSenderImpl extends RustOpaque implements RtcFileSender {
+  // Not to be used by end users
+  RtcFileSenderImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RtcFileSenderImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RtcFileSender,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RtcFileSender,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RtcFileSenderPtr,
+  );
+
+  Future<void> send({required List<int> data}) => RustLib.instance.api.crateApiWebrtcRtcFileSenderSend(that: this, data: data);
+}
+
+@sealed
+class RtcReceiveStateImpl extends RustOpaque implements RtcReceiveState {
+  // Not to be used by end users
+  RtcReceiveStateImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RtcReceiveStateImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RtcReceiveState,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RtcReceiveState,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RtcReceiveStatePtr,
+  );
+
+  Stream<RTCFileError> listenError() => RustLib.instance.api.crateApiWebrtcRtcReceiveStateListenError(
+        that: this,
+      );
+
+  Future<List<FileDto>> listenFiles() => RustLib.instance.api.crateApiWebrtcRtcReceiveStateListenFiles(
+        that: this,
+      );
+
+  Stream<RtcFileReceiver> listenReceiving() => RustLib.instance.api.crateApiWebrtcRtcReceiveStateListenReceiving(
+        that: this,
+      );
+
+  Stream<RTCStatus> listenStatus() => RustLib.instance.api.crateApiWebrtcRtcReceiveStateListenStatus(
+        that: this,
+      );
+
+  Future<void> sendSelection({required Set<String> selection}) =>
+      RustLib.instance.api.crateApiWebrtcRtcReceiveStateSendSelection(that: this, selection: selection);
+}
+
+@sealed
+class RtcSendStateImpl extends RustOpaque implements RtcSendState {
+  // Not to be used by end users
+  RtcSendStateImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RtcSendStateImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RtcSendState,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RtcSendState,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RtcSendStatePtr,
+  );
+
+  Stream<RTCFileError> listenError() => RustLib.instance.api.crateApiWebrtcRtcSendStateListenError(
+        that: this,
+      );
+
+  Future<Set<String>> listenSelectedFiles() => RustLib.instance.api.crateApiWebrtcRtcSendStateListenSelectedFiles(
+        that: this,
+      );
+
+  Stream<RTCStatus> listenStatus() => RustLib.instance.api.crateApiWebrtcRtcSendStateListenStatus(
+        that: this,
+      );
+
+  Future<RtcFileSender> sendFile({required String fileId}) => RustLib.instance.api.crateApiWebrtcRtcSendStateSendFile(that: this, fileId: fileId);
 }

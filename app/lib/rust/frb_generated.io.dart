@@ -9,8 +9,10 @@ import 'dart:ffi' as ffi;
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 import 'package:localsend_app/rust/api/logging.dart';
+import 'package:localsend_app/rust/api/model.dart';
 import 'package:localsend_app/rust/api/webrtc.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
+import 'package:uuid/uuid.dart';
 
 abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RustLibApiImplPlatform({
@@ -23,6 +25,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_LsSignalingConnectionPtr =>
       wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnectionPtr;
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcFileReceiverPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiverPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcFileSenderPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSenderPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcReceiveStatePtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveStatePtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RtcSendStatePtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendStatePtr;
+
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
@@ -30,7 +44,37 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   LsSignalingConnection dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(dynamic raw);
 
   @protected
+  RtcFileReceiver dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(dynamic raw);
+
+  @protected
+  RtcFileSender dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(dynamic raw);
+
+  @protected
+  RtcReceiveState dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw);
+
+  @protected
+  RtcSendState dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw);
+
+  @protected
+  RtcReceiveState dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw);
+
+  @protected
+  RtcSendState dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw);
+
+  @protected
   LsSignalingConnection dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(dynamic raw);
+
+  @protected
+  RtcFileReceiver dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(dynamic raw);
+
+  @protected
+  RtcFileSender dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(dynamic raw);
+
+  @protected
+  RtcReceiveState dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw);
+
+  @protected
+  RtcSendState dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw);
 
   @protected
   FutureOr<void> Function(LsSignalingConnection)
@@ -44,34 +88,68 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   LsSignalingConnection dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(dynamic raw);
 
   @protected
+  RtcFileReceiver dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(dynamic raw);
+
+  @protected
+  RtcFileSender dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(dynamic raw);
+
+  @protected
+  RtcReceiveState dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(dynamic raw);
+
+  @protected
+  RtcSendState dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(dynamic raw);
+
+  @protected
+  Set<String> dco_decode_Set_String(dynamic raw);
+
+  @protected
+  RustStreamSink<RtcFileReceiver> dco_decode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(
+      dynamic raw);
+
+  @protected
+  RustStreamSink<Uint8List> dco_decode_StreamSink_list_prim_u_8_strict_Sse(dynamic raw);
+
+  @protected
+  RustStreamSink<RTCFileError> dco_decode_StreamSink_rtc_file_error_Sse(dynamic raw);
+
+  @protected
+  RustStreamSink<RTCStatus> dco_decode_StreamSink_rtc_status_Sse(dynamic raw);
+
+  @protected
   RustStreamSink<WsServerMessage> dco_decode_StreamSink_ws_server_message_Sse(dynamic raw);
 
   @protected
   String dco_decode_String(dynamic raw);
 
   @protected
+  UuidValue dco_decode_Uuid(dynamic raw);
+
+  @protected
+  ClientInfo dco_decode_box_autoadd_client_info(dynamic raw);
+
+  @protected
+  ClientInfoWithoutId dco_decode_box_autoadd_client_info_without_id(dynamic raw);
+
+  @protected
+  FileMetadata dco_decode_box_autoadd_file_metadata(dynamic raw);
+
+  @protected
   PeerDeviceType dco_decode_box_autoadd_peer_device_type(dynamic raw);
 
   @protected
-  PeerInfoWithoutId dco_decode_box_autoadd_peer_info_without_id(dynamic raw);
+  WsServerSdpMessage dco_decode_box_autoadd_ws_server_sdp_message(dynamic raw);
 
   @protected
-  WsServerAnswerMessage dco_decode_box_autoadd_ws_server_answer_message(dynamic raw);
+  ClientInfo dco_decode_client_info(dynamic raw);
 
   @protected
-  WsServerErrorMessage dco_decode_box_autoadd_ws_server_error_message(dynamic raw);
+  ClientInfoWithoutId dco_decode_client_info_without_id(dynamic raw);
 
   @protected
-  WsServerHelloMessage dco_decode_box_autoadd_ws_server_hello_message(dynamic raw);
+  FileDto dco_decode_file_dto(dynamic raw);
 
   @protected
-  WsServerJoinedMessage dco_decode_box_autoadd_ws_server_joined_message(dynamic raw);
-
-  @protected
-  WsServerLeftMessage dco_decode_box_autoadd_ws_server_left_message(dynamic raw);
-
-  @protected
-  WsServerOfferMessage dco_decode_box_autoadd_ws_server_offer_message(dynamic raw);
+  FileMetadata dco_decode_file_metadata(dynamic raw);
 
   @protected
   int dco_decode_i_32(dynamic raw);
@@ -80,7 +158,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PlatformInt64 dco_decode_isize(dynamic raw);
 
   @protected
-  List<PeerInfo> dco_decode_list_peer_info(dynamic raw);
+  List<String> dco_decode_list_String(dynamic raw);
+
+  @protected
+  List<ClientInfo> dco_decode_list_client_info(dynamic raw);
+
+  @protected
+  List<FileDto> dco_decode_list_file_dto(dynamic raw);
+
+  @protected
+  List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
@@ -89,19 +176,25 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
+  FileMetadata? dco_decode_opt_box_autoadd_file_metadata(dynamic raw);
+
+  @protected
   PeerDeviceType? dco_decode_opt_box_autoadd_peer_device_type(dynamic raw);
 
   @protected
   PeerDeviceType dco_decode_peer_device_type(dynamic raw);
 
   @protected
-  PeerInfo dco_decode_peer_info(dynamic raw);
+  RTCFileError dco_decode_rtc_file_error(dynamic raw);
 
   @protected
-  PeerInfoWithoutId dco_decode_peer_info_without_id(dynamic raw);
+  RTCStatus dco_decode_rtc_status(dynamic raw);
 
   @protected
   int dco_decode_u_16(dynamic raw);
+
+  @protected
+  BigInt dco_decode_u_64(dynamic raw);
 
   @protected
   int dco_decode_u_8(dynamic raw);
@@ -113,25 +206,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BigInt dco_decode_usize(dynamic raw);
 
   @protected
-  WsServerAnswerMessage dco_decode_ws_server_answer_message(dynamic raw);
-
-  @protected
-  WsServerErrorMessage dco_decode_ws_server_error_message(dynamic raw);
-
-  @protected
-  WsServerHelloMessage dco_decode_ws_server_hello_message(dynamic raw);
-
-  @protected
-  WsServerJoinedMessage dco_decode_ws_server_joined_message(dynamic raw);
-
-  @protected
-  WsServerLeftMessage dco_decode_ws_server_left_message(dynamic raw);
-
-  @protected
   WsServerMessage dco_decode_ws_server_message(dynamic raw);
 
   @protected
-  WsServerOfferMessage dco_decode_ws_server_offer_message(dynamic raw);
+  WsServerSdpMessage dco_decode_ws_server_sdp_message(dynamic raw);
 
   @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
@@ -141,8 +219,38 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       SseDeserializer deserializer);
 
   @protected
+  RtcFileReceiver sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(SseDeserializer deserializer);
+
+  @protected
+  RtcFileSender sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(SseDeserializer deserializer);
+
+  @protected
+  RtcReceiveState sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer);
+
+  @protected
+  RtcSendState sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer);
+
+  @protected
+  RtcReceiveState sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer);
+
+  @protected
+  RtcSendState sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer);
+
+  @protected
   LsSignalingConnection sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(
       SseDeserializer deserializer);
+
+  @protected
+  RtcFileReceiver sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(SseDeserializer deserializer);
+
+  @protected
+  RtcFileSender sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(SseDeserializer deserializer);
+
+  @protected
+  RtcReceiveState sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer);
+
+  @protected
+  RtcSendState sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer);
 
   @protected
   Object sse_decode_DartOpaque(SseDeserializer deserializer);
@@ -151,34 +259,68 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   LsSignalingConnection sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(SseDeserializer deserializer);
 
   @protected
+  RtcFileReceiver sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(SseDeserializer deserializer);
+
+  @protected
+  RtcFileSender sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(SseDeserializer deserializer);
+
+  @protected
+  RtcReceiveState sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(SseDeserializer deserializer);
+
+  @protected
+  RtcSendState sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(SseDeserializer deserializer);
+
+  @protected
+  Set<String> sse_decode_Set_String(SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<RtcFileReceiver> sse_decode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(
+      SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<Uint8List> sse_decode_StreamSink_list_prim_u_8_strict_Sse(SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<RTCFileError> sse_decode_StreamSink_rtc_file_error_Sse(SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<RTCStatus> sse_decode_StreamSink_rtc_status_Sse(SseDeserializer deserializer);
+
+  @protected
   RustStreamSink<WsServerMessage> sse_decode_StreamSink_ws_server_message_Sse(SseDeserializer deserializer);
 
   @protected
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
+  UuidValue sse_decode_Uuid(SseDeserializer deserializer);
+
+  @protected
+  ClientInfo sse_decode_box_autoadd_client_info(SseDeserializer deserializer);
+
+  @protected
+  ClientInfoWithoutId sse_decode_box_autoadd_client_info_without_id(SseDeserializer deserializer);
+
+  @protected
+  FileMetadata sse_decode_box_autoadd_file_metadata(SseDeserializer deserializer);
+
+  @protected
   PeerDeviceType sse_decode_box_autoadd_peer_device_type(SseDeserializer deserializer);
 
   @protected
-  PeerInfoWithoutId sse_decode_box_autoadd_peer_info_without_id(SseDeserializer deserializer);
+  WsServerSdpMessage sse_decode_box_autoadd_ws_server_sdp_message(SseDeserializer deserializer);
 
   @protected
-  WsServerAnswerMessage sse_decode_box_autoadd_ws_server_answer_message(SseDeserializer deserializer);
+  ClientInfo sse_decode_client_info(SseDeserializer deserializer);
 
   @protected
-  WsServerErrorMessage sse_decode_box_autoadd_ws_server_error_message(SseDeserializer deserializer);
+  ClientInfoWithoutId sse_decode_client_info_without_id(SseDeserializer deserializer);
 
   @protected
-  WsServerHelloMessage sse_decode_box_autoadd_ws_server_hello_message(SseDeserializer deserializer);
+  FileDto sse_decode_file_dto(SseDeserializer deserializer);
 
   @protected
-  WsServerJoinedMessage sse_decode_box_autoadd_ws_server_joined_message(SseDeserializer deserializer);
-
-  @protected
-  WsServerLeftMessage sse_decode_box_autoadd_ws_server_left_message(SseDeserializer deserializer);
-
-  @protected
-  WsServerOfferMessage sse_decode_box_autoadd_ws_server_offer_message(SseDeserializer deserializer);
+  FileMetadata sse_decode_file_metadata(SseDeserializer deserializer);
 
   @protected
   int sse_decode_i_32(SseDeserializer deserializer);
@@ -187,7 +329,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PlatformInt64 sse_decode_isize(SseDeserializer deserializer);
 
   @protected
-  List<PeerInfo> sse_decode_list_peer_info(SseDeserializer deserializer);
+  List<String> sse_decode_list_String(SseDeserializer deserializer);
+
+  @protected
+  List<ClientInfo> sse_decode_list_client_info(SseDeserializer deserializer);
+
+  @protected
+  List<FileDto> sse_decode_list_file_dto(SseDeserializer deserializer);
+
+  @protected
+  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
@@ -196,19 +347,25 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
+  FileMetadata? sse_decode_opt_box_autoadd_file_metadata(SseDeserializer deserializer);
+
+  @protected
   PeerDeviceType? sse_decode_opt_box_autoadd_peer_device_type(SseDeserializer deserializer);
 
   @protected
   PeerDeviceType sse_decode_peer_device_type(SseDeserializer deserializer);
 
   @protected
-  PeerInfo sse_decode_peer_info(SseDeserializer deserializer);
+  RTCFileError sse_decode_rtc_file_error(SseDeserializer deserializer);
 
   @protected
-  PeerInfoWithoutId sse_decode_peer_info_without_id(SseDeserializer deserializer);
+  RTCStatus sse_decode_rtc_status(SseDeserializer deserializer);
 
   @protected
   int sse_decode_u_16(SseDeserializer deserializer);
+
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer);
 
   @protected
   int sse_decode_u_8(SseDeserializer deserializer);
@@ -220,25 +377,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BigInt sse_decode_usize(SseDeserializer deserializer);
 
   @protected
-  WsServerAnswerMessage sse_decode_ws_server_answer_message(SseDeserializer deserializer);
-
-  @protected
-  WsServerErrorMessage sse_decode_ws_server_error_message(SseDeserializer deserializer);
-
-  @protected
-  WsServerHelloMessage sse_decode_ws_server_hello_message(SseDeserializer deserializer);
-
-  @protected
-  WsServerJoinedMessage sse_decode_ws_server_joined_message(SseDeserializer deserializer);
-
-  @protected
-  WsServerLeftMessage sse_decode_ws_server_left_message(SseDeserializer deserializer);
-
-  @protected
   WsServerMessage sse_decode_ws_server_message(SseDeserializer deserializer);
 
   @protected
-  WsServerOfferMessage sse_decode_ws_server_offer_message(SseDeserializer deserializer);
+  WsServerSdpMessage sse_decode_ws_server_sdp_message(SseDeserializer deserializer);
 
   @protected
   bool sse_decode_bool(SseDeserializer deserializer);
@@ -251,8 +393,44 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       LsSignalingConnection self, SseSerializer serializer);
 
   @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+      RtcFileReceiver self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+      RtcFileSender self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      RtcReceiveState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      RtcReceiveState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer);
+
+  @protected
   void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(
       LsSignalingConnection self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+      RtcFileReceiver self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(RtcFileSender self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      RtcReceiveState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer);
 
   @protected
   void
@@ -267,34 +445,68 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       LsSignalingConnection self, SseSerializer serializer);
 
   @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(RtcFileReceiver self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(RtcFileSender self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(RtcReceiveState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(RtcSendState self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Set_String(Set<String> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(
+      RustStreamSink<RtcFileReceiver> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_StreamSink_list_prim_u_8_strict_Sse(RustStreamSink<Uint8List> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_StreamSink_rtc_file_error_Sse(RustStreamSink<RTCFileError> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_StreamSink_rtc_status_Sse(RustStreamSink<RTCStatus> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_StreamSink_ws_server_message_Sse(RustStreamSink<WsServerMessage> self, SseSerializer serializer);
 
   @protected
   void sse_encode_String(String self, SseSerializer serializer);
 
   @protected
+  void sse_encode_Uuid(UuidValue self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_client_info(ClientInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_client_info_without_id(ClientInfoWithoutId self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_file_metadata(FileMetadata self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_peer_device_type(PeerDeviceType self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer);
+  void sse_encode_box_autoadd_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_ws_server_answer_message(WsServerAnswerMessage self, SseSerializer serializer);
+  void sse_encode_client_info(ClientInfo self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_ws_server_error_message(WsServerErrorMessage self, SseSerializer serializer);
+  void sse_encode_client_info_without_id(ClientInfoWithoutId self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_ws_server_hello_message(WsServerHelloMessage self, SseSerializer serializer);
+  void sse_encode_file_dto(FileDto self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_ws_server_joined_message(WsServerJoinedMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_box_autoadd_ws_server_left_message(WsServerLeftMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_box_autoadd_ws_server_offer_message(WsServerOfferMessage self, SseSerializer serializer);
+  void sse_encode_file_metadata(FileMetadata self, SseSerializer serializer);
 
   @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
@@ -303,7 +515,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_isize(PlatformInt64 self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_peer_info(List<PeerInfo> self, SseSerializer serializer);
+  void sse_encode_list_String(List<String> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_client_info(List<ClientInfo> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_file_dto(List<FileDto> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_prim_u_8_strict(Uint8List self, SseSerializer serializer);
@@ -312,19 +533,25 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_box_autoadd_file_metadata(FileMetadata? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_peer_device_type(PeerDeviceType? self, SseSerializer serializer);
 
   @protected
   void sse_encode_peer_device_type(PeerDeviceType self, SseSerializer serializer);
 
   @protected
-  void sse_encode_peer_info(PeerInfo self, SseSerializer serializer);
+  void sse_encode_rtc_file_error(RTCFileError self, SseSerializer serializer);
 
   @protected
-  void sse_encode_peer_info_without_id(PeerInfoWithoutId self, SseSerializer serializer);
+  void sse_encode_rtc_status(RTCStatus self, SseSerializer serializer);
 
   @protected
   void sse_encode_u_16(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer);
 
   @protected
   void sse_encode_u_8(int self, SseSerializer serializer);
@@ -336,25 +563,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_usize(BigInt self, SseSerializer serializer);
 
   @protected
-  void sse_encode_ws_server_answer_message(WsServerAnswerMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_ws_server_error_message(WsServerErrorMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_ws_server_hello_message(WsServerHelloMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_ws_server_joined_message(WsServerJoinedMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_ws_server_left_message(WsServerLeftMessage self, SseSerializer serializer);
-
-  @protected
   void sse_encode_ws_server_message(WsServerMessage self, SseSerializer serializer);
 
   @protected
-  void sse_encode_ws_server_offer_message(WsServerOfferMessage self, SseSerializer serializer);
+  void sse_encode_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer);
 
   @protected
   void sse_encode_bool(bool self, SseSerializer serializer);
@@ -399,5 +611,125 @@ class RustLibWire implements BaseWire {
           'frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection');
   late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection =
       _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnectionPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiverPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiverPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiverPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiverPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSenderPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSenderPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSenderPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSenderPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveStatePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveStatePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveStatePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveStatePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendStatePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendStatePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendStatePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendStatePtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 }

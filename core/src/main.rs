@@ -34,13 +34,14 @@ async fn main() -> Result<()> {
     let managed_connection = Arc::new(managed_connection);
 
     while let Some(message) = rx.recv().await {
+        let stun_servers = vec!["stun:stun.l.google.com:19302".to_string()];
         match message {
             WsServerMessage::Joined { peer } => {
-                send_handler(managed_connection.clone(), peer).await;
+                send_handler(managed_connection.clone(), stun_servers, peer).await;
                 return Ok(());
             }
             WsServerMessage::Offer(offer) => {
-                receive_handler(managed_connection.clone(), offer).await;
+                receive_handler(managed_connection.clone(), stun_servers, offer).await;
                 return Ok(());
             }
             _ => {}
@@ -52,6 +53,7 @@ async fn main() -> Result<()> {
 
 async fn send_handler(
     connection: Arc<webrtc::signaling::ManagedSignalingConnection>,
+    stun_servers: Vec<String>,
     peer: ClientInfo,
 ) {
     tracing::info!("Joined: {peer:?}");
@@ -75,6 +77,7 @@ async fn send_handler(
         async move {
             webrtc::webrtc::send_offer(
                 &connection,
+                stun_servers,
                 peer.id,
                 files,
                 status_tx,
@@ -139,6 +142,7 @@ async fn send_handler(
 
 async fn receive_handler(
     connection: Arc<webrtc::signaling::ManagedSignalingConnection>,
+    stun_servers: Vec<String>,
     offer: webrtc::signaling::WsServerSdpMessage,
 ) {
     tracing::info!("Offer: {offer:?}");
@@ -151,6 +155,7 @@ async fn receive_handler(
     let receive_task = tokio::spawn(async move {
         webrtc::webrtc::accept_offer(
             &connection,
+            stun_servers,
             &offer,
             status_tx,
             files_tx,

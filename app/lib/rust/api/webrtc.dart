@@ -5,41 +5,68 @@
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+import 'package:localsend_app/rust/api/model.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
+import 'package:uuid/uuid.dart';
 
 part 'webrtc.freezed.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `into`, `into`, `into`, `into`, `into`, `into`, `into`
-
 Stream<WsServerMessage> connect(
-        {required String uri, required PeerInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection}) =>
+        {required String uri, required ClientInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection}) =>
     RustLib.instance.api.crateApiWebrtcConnect(uri: uri, info: info, onConnection: onConnection);
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>
 abstract class LsSignalingConnection implements RustOpaqueInterface {
-  Future<void> acceptOffer({required WsServerOfferMessage offer});
+  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer});
 
-  Future<void> sendOffer({required String target});
+  Future<RtcSendState> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files});
 }
 
-enum PeerDeviceType {
-  mobile,
-  desktop,
-  web,
-  headless,
-  server,
-  ;
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>
+abstract class RtcFileReceiver implements RustOpaqueInterface {
+  Future<String> getFileId();
+
+  Stream<Uint8List> receive();
 }
 
-class PeerInfo {
-  final String id;
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileSender>>
+abstract class RtcFileSender implements RustOpaqueInterface {
+  Future<void> send({required List<int> data});
+}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>
+abstract class RtcReceiveState implements RustOpaqueInterface {
+  Stream<RTCFileError> listenError();
+
+  Future<List<FileDto>> listenFiles();
+
+  Stream<RtcFileReceiver> listenReceiving();
+
+  Stream<RTCStatus> listenStatus();
+
+  Future<void> sendSelection({required Set<String> selection});
+}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>
+abstract class RtcSendState implements RustOpaqueInterface {
+  Stream<RTCFileError> listenError();
+
+  Future<Set<String>> listenSelectedFiles();
+
+  Stream<RTCStatus> listenStatus();
+
+  Future<RtcFileSender> sendFile({required String fileId});
+}
+
+class ClientInfo {
+  final UuidValue id;
   final String alias;
   final String version;
   final String? deviceModel;
   final PeerDeviceType? deviceType;
   final String fingerprint;
 
-  const PeerInfo({
+  const ClientInfo({
     required this.id,
     required this.alias,
     required this.version,
@@ -54,7 +81,7 @@ class PeerInfo {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PeerInfo &&
+      other is ClientInfo &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           alias == other.alias &&
@@ -64,14 +91,14 @@ class PeerInfo {
           fingerprint == other.fingerprint;
 }
 
-class PeerInfoWithoutId {
+class ClientInfoWithoutId {
   final String alias;
   final String version;
   final String? deviceModel;
   final PeerDeviceType? deviceType;
   final String fingerprint;
 
-  const PeerInfoWithoutId({
+  const ClientInfoWithoutId({
     required this.alias,
     required this.version,
     this.deviceModel,
@@ -85,7 +112,7 @@ class PeerInfoWithoutId {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PeerInfoWithoutId &&
+      other is ClientInfoWithoutId &&
           runtimeType == other.runtimeType &&
           alias == other.alias &&
           version == other.version &&
@@ -94,118 +121,75 @@ class PeerInfoWithoutId {
           fingerprint == other.fingerprint;
 }
 
-class WsServerAnswerMessage {
-  final PeerInfo peer;
-  final String sessionId;
-  final String sdp;
+enum PeerDeviceType {
+  mobile,
+  desktop,
+  web,
+  headless,
+  server,
+  ;
+}
 
-  const WsServerAnswerMessage({
-    required this.peer,
-    required this.sessionId,
-    required this.sdp,
+class RTCFileError {
+  final String fileId;
+  final String error;
+
+  const RTCFileError({
+    required this.fileId,
+    required this.error,
   });
 
   @override
-  int get hashCode => peer.hashCode ^ sessionId.hashCode ^ sdp.hashCode;
+  int get hashCode => fileId.hashCode ^ error.hashCode;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is WsServerAnswerMessage && runtimeType == other.runtimeType && peer == other.peer && sessionId == other.sessionId && sdp == other.sdp;
+      identical(this, other) || other is RTCFileError && runtimeType == other.runtimeType && fileId == other.fileId && error == other.error;
 }
 
-class WsServerErrorMessage {
-  final int code;
+@freezed
+sealed class RTCStatus with _$RTCStatus {
+  const RTCStatus._();
 
-  const WsServerErrorMessage({
-    required this.code,
-  });
-
-  @override
-  int get hashCode => code.hashCode;
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || other is WsServerErrorMessage && runtimeType == other.runtimeType && code == other.code;
-}
-
-class WsServerHelloMessage {
-  final PeerInfo client;
-  final List<PeerInfo> members;
-
-  const WsServerHelloMessage({
-    required this.client,
-    required this.members,
-  });
-
-  @override
-  int get hashCode => client.hashCode ^ members.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is WsServerHelloMessage && runtimeType == other.runtimeType && client == other.client && members == other.members;
-}
-
-class WsServerJoinedMessage {
-  final PeerInfo peer;
-
-  const WsServerJoinedMessage({
-    required this.peer,
-  });
-
-  @override
-  int get hashCode => peer.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is WsServerJoinedMessage && runtimeType == other.runtimeType && peer == other.peer;
-}
-
-class WsServerLeftMessage {
-  final String peerId;
-
-  const WsServerLeftMessage({
-    required this.peerId,
-  });
-
-  @override
-  int get hashCode => peerId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is WsServerLeftMessage && runtimeType == other.runtimeType && peerId == other.peerId;
+  const factory RTCStatus.sdpExchanged() = RTCStatus_SdpExchanged;
+  const factory RTCStatus.connected() = RTCStatus_Connected;
+  const factory RTCStatus.finished() = RTCStatus_Finished;
+  const factory RTCStatus.error(
+    String field0,
+  ) = RTCStatus_Error;
 }
 
 @freezed
 sealed class WsServerMessage with _$WsServerMessage {
   const WsServerMessage._();
 
-  const factory WsServerMessage.hello(
-    WsServerHelloMessage field0,
-  ) = WsServerMessage_Hello;
-  const factory WsServerMessage.joined(
-    WsServerJoinedMessage field0,
-  ) = WsServerMessage_Joined;
-  const factory WsServerMessage.left(
-    WsServerLeftMessage field0,
-  ) = WsServerMessage_Left;
+  const factory WsServerMessage.hello({
+    required ClientInfo client,
+    required List<ClientInfo> peers,
+  }) = WsServerMessage_Hello;
+  const factory WsServerMessage.joined({
+    required ClientInfo peer,
+  }) = WsServerMessage_Joined;
+  const factory WsServerMessage.left({
+    required UuidValue peerId,
+  }) = WsServerMessage_Left;
   const factory WsServerMessage.offer(
-    WsServerOfferMessage field0,
+    WsServerSdpMessage field0,
   ) = WsServerMessage_Offer;
   const factory WsServerMessage.answer(
-    WsServerAnswerMessage field0,
+    WsServerSdpMessage field0,
   ) = WsServerMessage_Answer;
-  const factory WsServerMessage.error(
-    WsServerErrorMessage field0,
-  ) = WsServerMessage_Error;
+  const factory WsServerMessage.error({
+    required int code,
+  }) = WsServerMessage_Error;
 }
 
-class WsServerOfferMessage {
-  final PeerInfo peer;
+class WsServerSdpMessage {
+  final ClientInfo peer;
   final String sessionId;
   final String sdp;
 
-  const WsServerOfferMessage({
+  const WsServerSdpMessage({
     required this.peer,
     required this.sessionId,
     required this.sdp,
@@ -217,5 +201,5 @@ class WsServerOfferMessage {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WsServerOfferMessage && runtimeType == other.runtimeType && peer == other.peer && sessionId == other.sessionId && sdp == other.sdp;
+      other is WsServerSdpMessage && runtimeType == other.runtimeType && peer == other.peer && sessionId == other.sessionId && sdp == other.sdp;
 }

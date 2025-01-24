@@ -15,36 +15,592 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$WsServerMessage {
-  Object get field0 => throw _privateConstructorUsedError;
+mixin _$RTCStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RTCStatusCopyWith<$Res> {
+  factory $RTCStatusCopyWith(RTCStatus value, $Res Function(RTCStatus) then) = _$RTCStatusCopyWithImpl<$Res, RTCStatus>;
+}
+
+/// @nodoc
+class _$RTCStatusCopyWithImpl<$Res, $Val extends RTCStatus> implements $RTCStatusCopyWith<$Res> {
+  _$RTCStatusCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_SdpExchangedImplCopyWith<$Res> {
+  factory _$$RTCStatus_SdpExchangedImplCopyWith(_$RTCStatus_SdpExchangedImpl value, $Res Function(_$RTCStatus_SdpExchangedImpl) then) =
+      __$$RTCStatus_SdpExchangedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_SdpExchangedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_SdpExchangedImpl>
+    implements _$$RTCStatus_SdpExchangedImplCopyWith<$Res> {
+  __$$RTCStatus_SdpExchangedImplCopyWithImpl(_$RTCStatus_SdpExchangedImpl _value, $Res Function(_$RTCStatus_SdpExchangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
+  const _$RTCStatus_SdpExchangedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.sdpExchanged()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_SdpExchangedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return sdpExchanged();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return sdpExchanged?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (sdpExchanged != null) {
+      return sdpExchanged();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return sdpExchanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return sdpExchanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (sdpExchanged != null) {
+      return sdpExchanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_SdpExchanged extends RTCStatus {
+  const factory RTCStatus_SdpExchanged() = _$RTCStatus_SdpExchangedImpl;
+  const RTCStatus_SdpExchanged._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_ConnectedImplCopyWith<$Res> {
+  factory _$$RTCStatus_ConnectedImplCopyWith(_$RTCStatus_ConnectedImpl value, $Res Function(_$RTCStatus_ConnectedImpl) then) =
+      __$$RTCStatus_ConnectedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_ConnectedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_ConnectedImpl>
+    implements _$$RTCStatus_ConnectedImplCopyWith<$Res> {
+  __$$RTCStatus_ConnectedImplCopyWithImpl(_$RTCStatus_ConnectedImpl _value, $Res Function(_$RTCStatus_ConnectedImpl) _then) : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
+  const _$RTCStatus_ConnectedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.connected()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_ConnectedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return connected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return connected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (connected != null) {
+      return connected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return connected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return connected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (connected != null) {
+      return connected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_Connected extends RTCStatus {
+  const factory RTCStatus_Connected() = _$RTCStatus_ConnectedImpl;
+  const RTCStatus_Connected._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_FinishedImplCopyWith<$Res> {
+  factory _$$RTCStatus_FinishedImplCopyWith(_$RTCStatus_FinishedImpl value, $Res Function(_$RTCStatus_FinishedImpl) then) =
+      __$$RTCStatus_FinishedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_FinishedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_FinishedImpl>
+    implements _$$RTCStatus_FinishedImplCopyWith<$Res> {
+  __$$RTCStatus_FinishedImplCopyWithImpl(_$RTCStatus_FinishedImpl _value, $Res Function(_$RTCStatus_FinishedImpl) _then) : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
+  const _$RTCStatus_FinishedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.finished()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_FinishedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return finished();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return finished?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (finished != null) {
+      return finished();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return finished(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return finished?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (finished != null) {
+      return finished(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_Finished extends RTCStatus {
+  const factory RTCStatus_Finished() = _$RTCStatus_FinishedImpl;
+  const RTCStatus_Finished._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_ErrorImplCopyWith<$Res> {
+  factory _$$RTCStatus_ErrorImplCopyWith(_$RTCStatus_ErrorImpl value, $Res Function(_$RTCStatus_ErrorImpl) then) =
+      __$$RTCStatus_ErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field0});
+}
+
+/// @nodoc
+class __$$RTCStatus_ErrorImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_ErrorImpl>
+    implements _$$RTCStatus_ErrorImplCopyWith<$Res> {
+  __$$RTCStatus_ErrorImplCopyWithImpl(_$RTCStatus_ErrorImpl _value, $Res Function(_$RTCStatus_ErrorImpl) _then) : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$RTCStatus_ErrorImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
+  const _$RTCStatus_ErrorImpl(this.field0) : super._();
+
+  @override
+  final String field0;
+
+  @override
+  String toString() {
+    return 'RTCStatus.error(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RTCStatus_ErrorImpl && (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RTCStatus_ErrorImplCopyWith<_$RTCStatus_ErrorImpl> get copyWith => __$$RTCStatus_ErrorImplCopyWithImpl<_$RTCStatus_ErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return error(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return error?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_Error extends RTCStatus {
+  const factory RTCStatus_Error(final String field0) = _$RTCStatus_ErrorImpl;
+  const RTCStatus_Error._() : super._();
+
+  String get field0;
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RTCStatus_ErrorImplCopyWith<_$RTCStatus_ErrorImpl> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$WsServerMessage {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -104,7 +660,7 @@ abstract class _$$WsServerMessage_HelloImplCopyWith<$Res> {
   factory _$$WsServerMessage_HelloImplCopyWith(_$WsServerMessage_HelloImpl value, $Res Function(_$WsServerMessage_HelloImpl) then) =
       __$$WsServerMessage_HelloImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({WsServerHelloMessage field0});
+  $Res call({ClientInfo client, List<ClientInfo> peers});
 }
 
 /// @nodoc
@@ -118,13 +674,18 @@ class __$$WsServerMessage_HelloImplCopyWithImpl<$Res> extends _$WsServerMessageC
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? field0 = null,
+    Object? client = null,
+    Object? peers = null,
   }) {
     return _then(_$WsServerMessage_HelloImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as WsServerHelloMessage,
+      client: null == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as ClientInfo,
+      peers: null == peers
+          ? _value._peers
+          : peers // ignore: cast_nullable_to_non_nullable
+              as List<ClientInfo>,
     ));
   }
 }
@@ -132,24 +693,36 @@ class __$$WsServerMessage_HelloImplCopyWithImpl<$Res> extends _$WsServerMessageC
 /// @nodoc
 
 class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
-  const _$WsServerMessage_HelloImpl(this.field0) : super._();
+  const _$WsServerMessage_HelloImpl({required this.client, required final List<ClientInfo> peers})
+      : _peers = peers,
+        super._();
 
   @override
-  final WsServerHelloMessage field0;
+  final ClientInfo client;
+  final List<ClientInfo> _peers;
+  @override
+  List<ClientInfo> get peers {
+    if (_peers is EqualUnmodifiableListView) return _peers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_peers);
+  }
 
   @override
   String toString() {
-    return 'WsServerMessage.hello(field0: $field0)';
+    return 'WsServerMessage.hello(client: $client, peers: $peers)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_HelloImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_HelloImpl &&
+            (identical(other.client, client) || other.client == client) &&
+            const DeepCollectionEquality().equals(other._peers, _peers));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, field0);
+  int get hashCode => Object.hash(runtimeType, client, const DeepCollectionEquality().hash(_peers));
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -162,42 +735,42 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
   }) {
-    return hello(field0);
+    return hello(client, peers);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
   }) {
-    return hello?.call(field0);
+    return hello?.call(client, peers);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) {
     if (hello != null) {
-      return hello(field0);
+      return hello(client, peers);
     }
     return orElse();
   }
@@ -247,11 +820,11 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
 }
 
 abstract class WsServerMessage_Hello extends WsServerMessage {
-  const factory WsServerMessage_Hello(final WsServerHelloMessage field0) = _$WsServerMessage_HelloImpl;
+  const factory WsServerMessage_Hello({required final ClientInfo client, required final List<ClientInfo> peers}) = _$WsServerMessage_HelloImpl;
   const WsServerMessage_Hello._() : super._();
 
-  @override
-  WsServerHelloMessage get field0;
+  ClientInfo get client;
+  List<ClientInfo> get peers;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -264,7 +837,7 @@ abstract class _$$WsServerMessage_JoinedImplCopyWith<$Res> {
   factory _$$WsServerMessage_JoinedImplCopyWith(_$WsServerMessage_JoinedImpl value, $Res Function(_$WsServerMessage_JoinedImpl) then) =
       __$$WsServerMessage_JoinedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({WsServerJoinedMessage field0});
+  $Res call({ClientInfo peer});
 }
 
 /// @nodoc
@@ -278,13 +851,13 @@ class __$$WsServerMessage_JoinedImplCopyWithImpl<$Res> extends _$WsServerMessage
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? field0 = null,
+    Object? peer = null,
   }) {
     return _then(_$WsServerMessage_JoinedImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as WsServerJoinedMessage,
+      peer: null == peer
+          ? _value.peer
+          : peer // ignore: cast_nullable_to_non_nullable
+              as ClientInfo,
     ));
   }
 }
@@ -292,24 +865,24 @@ class __$$WsServerMessage_JoinedImplCopyWithImpl<$Res> extends _$WsServerMessage
 /// @nodoc
 
 class _$WsServerMessage_JoinedImpl extends WsServerMessage_Joined {
-  const _$WsServerMessage_JoinedImpl(this.field0) : super._();
+  const _$WsServerMessage_JoinedImpl({required this.peer}) : super._();
 
   @override
-  final WsServerJoinedMessage field0;
+  final ClientInfo peer;
 
   @override
   String toString() {
-    return 'WsServerMessage.joined(field0: $field0)';
+    return 'WsServerMessage.joined(peer: $peer)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_JoinedImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType && other is _$WsServerMessage_JoinedImpl && (identical(other.peer, peer) || other.peer == peer));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, field0);
+  int get hashCode => Object.hash(runtimeType, peer);
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -322,42 +895,42 @@ class _$WsServerMessage_JoinedImpl extends WsServerMessage_Joined {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
   }) {
-    return joined(field0);
+    return joined(peer);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
   }) {
-    return joined?.call(field0);
+    return joined?.call(peer);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) {
     if (joined != null) {
-      return joined(field0);
+      return joined(peer);
     }
     return orElse();
   }
@@ -407,11 +980,10 @@ class _$WsServerMessage_JoinedImpl extends WsServerMessage_Joined {
 }
 
 abstract class WsServerMessage_Joined extends WsServerMessage {
-  const factory WsServerMessage_Joined(final WsServerJoinedMessage field0) = _$WsServerMessage_JoinedImpl;
+  const factory WsServerMessage_Joined({required final ClientInfo peer}) = _$WsServerMessage_JoinedImpl;
   const WsServerMessage_Joined._() : super._();
 
-  @override
-  WsServerJoinedMessage get field0;
+  ClientInfo get peer;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -424,7 +996,7 @@ abstract class _$$WsServerMessage_LeftImplCopyWith<$Res> {
   factory _$$WsServerMessage_LeftImplCopyWith(_$WsServerMessage_LeftImpl value, $Res Function(_$WsServerMessage_LeftImpl) then) =
       __$$WsServerMessage_LeftImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({WsServerLeftMessage field0});
+  $Res call({UuidValue peerId});
 }
 
 /// @nodoc
@@ -437,13 +1009,13 @@ class __$$WsServerMessage_LeftImplCopyWithImpl<$Res> extends _$WsServerMessageCo
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? field0 = null,
+    Object? peerId = null,
   }) {
     return _then(_$WsServerMessage_LeftImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as WsServerLeftMessage,
+      peerId: null == peerId
+          ? _value.peerId
+          : peerId // ignore: cast_nullable_to_non_nullable
+              as UuidValue,
     ));
   }
 }
@@ -451,24 +1023,24 @@ class __$$WsServerMessage_LeftImplCopyWithImpl<$Res> extends _$WsServerMessageCo
 /// @nodoc
 
 class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
-  const _$WsServerMessage_LeftImpl(this.field0) : super._();
+  const _$WsServerMessage_LeftImpl({required this.peerId}) : super._();
 
   @override
-  final WsServerLeftMessage field0;
+  final UuidValue peerId;
 
   @override
   String toString() {
-    return 'WsServerMessage.left(field0: $field0)';
+    return 'WsServerMessage.left(peerId: $peerId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_LeftImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType && other is _$WsServerMessage_LeftImpl && (identical(other.peerId, peerId) || other.peerId == peerId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, field0);
+  int get hashCode => Object.hash(runtimeType, peerId);
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -481,42 +1053,42 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
   }) {
-    return left(field0);
+    return left(peerId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
   }) {
-    return left?.call(field0);
+    return left?.call(peerId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) {
     if (left != null) {
-      return left(field0);
+      return left(peerId);
     }
     return orElse();
   }
@@ -566,11 +1138,10 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
 }
 
 abstract class WsServerMessage_Left extends WsServerMessage {
-  const factory WsServerMessage_Left(final WsServerLeftMessage field0) = _$WsServerMessage_LeftImpl;
+  const factory WsServerMessage_Left({required final UuidValue peerId}) = _$WsServerMessage_LeftImpl;
   const WsServerMessage_Left._() : super._();
 
-  @override
-  WsServerLeftMessage get field0;
+  UuidValue get peerId;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -583,7 +1154,7 @@ abstract class _$$WsServerMessage_OfferImplCopyWith<$Res> {
   factory _$$WsServerMessage_OfferImplCopyWith(_$WsServerMessage_OfferImpl value, $Res Function(_$WsServerMessage_OfferImpl) then) =
       __$$WsServerMessage_OfferImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({WsServerOfferMessage field0});
+  $Res call({WsServerSdpMessage field0});
 }
 
 /// @nodoc
@@ -603,7 +1174,7 @@ class __$$WsServerMessage_OfferImplCopyWithImpl<$Res> extends _$WsServerMessageC
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as WsServerOfferMessage,
+              as WsServerSdpMessage,
     ));
   }
 }
@@ -614,7 +1185,7 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   const _$WsServerMessage_OfferImpl(this.field0) : super._();
 
   @override
-  final WsServerOfferMessage field0;
+  final WsServerSdpMessage field0;
 
   @override
   String toString() {
@@ -641,12 +1212,12 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
   }) {
     return offer(field0);
   }
@@ -654,12 +1225,12 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
   }) {
     return offer?.call(field0);
   }
@@ -667,12 +1238,12 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) {
     if (offer != null) {
@@ -726,11 +1297,10 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
 }
 
 abstract class WsServerMessage_Offer extends WsServerMessage {
-  const factory WsServerMessage_Offer(final WsServerOfferMessage field0) = _$WsServerMessage_OfferImpl;
+  const factory WsServerMessage_Offer(final WsServerSdpMessage field0) = _$WsServerMessage_OfferImpl;
   const WsServerMessage_Offer._() : super._();
 
-  @override
-  WsServerOfferMessage get field0;
+  WsServerSdpMessage get field0;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -743,7 +1313,7 @@ abstract class _$$WsServerMessage_AnswerImplCopyWith<$Res> {
   factory _$$WsServerMessage_AnswerImplCopyWith(_$WsServerMessage_AnswerImpl value, $Res Function(_$WsServerMessage_AnswerImpl) then) =
       __$$WsServerMessage_AnswerImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({WsServerAnswerMessage field0});
+  $Res call({WsServerSdpMessage field0});
 }
 
 /// @nodoc
@@ -763,7 +1333,7 @@ class __$$WsServerMessage_AnswerImplCopyWithImpl<$Res> extends _$WsServerMessage
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as WsServerAnswerMessage,
+              as WsServerSdpMessage,
     ));
   }
 }
@@ -774,7 +1344,7 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   const _$WsServerMessage_AnswerImpl(this.field0) : super._();
 
   @override
-  final WsServerAnswerMessage field0;
+  final WsServerSdpMessage field0;
 
   @override
   String toString() {
@@ -801,12 +1371,12 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
   }) {
     return answer(field0);
   }
@@ -814,12 +1384,12 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
   }) {
     return answer?.call(field0);
   }
@@ -827,12 +1397,12 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) {
     if (answer != null) {
@@ -886,11 +1456,10 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
 }
 
 abstract class WsServerMessage_Answer extends WsServerMessage {
-  const factory WsServerMessage_Answer(final WsServerAnswerMessage field0) = _$WsServerMessage_AnswerImpl;
+  const factory WsServerMessage_Answer(final WsServerSdpMessage field0) = _$WsServerMessage_AnswerImpl;
   const WsServerMessage_Answer._() : super._();
 
-  @override
-  WsServerAnswerMessage get field0;
+  WsServerSdpMessage get field0;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -903,7 +1472,7 @@ abstract class _$$WsServerMessage_ErrorImplCopyWith<$Res> {
   factory _$$WsServerMessage_ErrorImplCopyWith(_$WsServerMessage_ErrorImpl value, $Res Function(_$WsServerMessage_ErrorImpl) then) =
       __$$WsServerMessage_ErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({WsServerErrorMessage field0});
+  $Res call({int code});
 }
 
 /// @nodoc
@@ -917,13 +1486,13 @@ class __$$WsServerMessage_ErrorImplCopyWithImpl<$Res> extends _$WsServerMessageC
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? field0 = null,
+    Object? code = null,
   }) {
     return _then(_$WsServerMessage_ErrorImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as WsServerErrorMessage,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -931,24 +1500,24 @@ class __$$WsServerMessage_ErrorImplCopyWithImpl<$Res> extends _$WsServerMessageC
 /// @nodoc
 
 class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
-  const _$WsServerMessage_ErrorImpl(this.field0) : super._();
+  const _$WsServerMessage_ErrorImpl({required this.code}) : super._();
 
   @override
-  final WsServerErrorMessage field0;
+  final int code;
 
   @override
   String toString() {
-    return 'WsServerMessage.error(field0: $field0)';
+    return 'WsServerMessage.error(code: $code)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_ErrorImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType && other is _$WsServerMessage_ErrorImpl && (identical(other.code, code) || other.code == code));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, field0);
+  int get hashCode => Object.hash(runtimeType, code);
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -961,42 +1530,42 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(WsServerHelloMessage field0) hello,
-    required TResult Function(WsServerJoinedMessage field0) joined,
-    required TResult Function(WsServerLeftMessage field0) left,
-    required TResult Function(WsServerOfferMessage field0) offer,
-    required TResult Function(WsServerAnswerMessage field0) answer,
-    required TResult Function(WsServerErrorMessage field0) error,
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
   }) {
-    return error(field0);
+    return error(code);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(WsServerHelloMessage field0)? hello,
-    TResult? Function(WsServerJoinedMessage field0)? joined,
-    TResult? Function(WsServerLeftMessage field0)? left,
-    TResult? Function(WsServerOfferMessage field0)? offer,
-    TResult? Function(WsServerAnswerMessage field0)? answer,
-    TResult? Function(WsServerErrorMessage field0)? error,
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
   }) {
-    return error?.call(field0);
+    return error?.call(code);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(WsServerHelloMessage field0)? hello,
-    TResult Function(WsServerJoinedMessage field0)? joined,
-    TResult Function(WsServerLeftMessage field0)? left,
-    TResult Function(WsServerOfferMessage field0)? offer,
-    TResult Function(WsServerAnswerMessage field0)? answer,
-    TResult Function(WsServerErrorMessage field0)? error,
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? joined,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(field0);
+      return error(code);
     }
     return orElse();
   }
@@ -1046,11 +1615,10 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
 }
 
 abstract class WsServerMessage_Error extends WsServerMessage {
-  const factory WsServerMessage_Error(final WsServerErrorMessage field0) = _$WsServerMessage_ErrorImpl;
+  const factory WsServerMessage_Error({required final int code}) = _$WsServerMessage_ErrorImpl;
   const WsServerMessage_Error._() : super._();
 
-  @override
-  WsServerErrorMessage get field0;
+  int get code;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.

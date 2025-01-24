@@ -32,6 +32,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
+import 'package:localsend_app/rust/api/model.dart' as model;
 import 'package:localsend_app/rust/api/webrtc.dart' as webrtc;
 import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
@@ -69,7 +70,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
   webrtc.LsSignalingConnection? connection;
   final stream = webrtc.connect(
     uri: 'wss://public.localsend.org/v1/ws',
-    info: webrtc.PeerInfoWithoutId(
+    info: webrtc.ClientInfoWithoutId(
       alias: 'alias',
       version: 'version',
       deviceModel: 'deviceModel',
@@ -82,17 +83,30 @@ Future<RefenaContainer> preInit(List<String> args) async {
     },
   );
 
+  const stunServers = ['stun:stun.l.google.com:19302'];
+
   stream.listen((message) async {
     print('Got message: $message');
     webrtc.WsServerMessage;
     await message.when(
-      hello: (h) {},
+      hello: (_, __) {},
       joined: (j) async {
-        await connection?.sendOffer(target: j.peer.id);
+        await connection?.sendOffer(
+          stunServers: stunServers,
+          target: j.id,
+          files: [
+            model.FileDto(
+              id: '1',
+              fileName: 'test.mp4',
+              size: BigInt.from(1),
+              fileType: 'fileType',
+            ),
+          ],
+        );
       },
       left: (l) {},
       offer: (o) async {
-        await connection?.acceptOffer(offer: o);
+        await connection?.acceptOffer(stunServers: stunServers, offer: o);
       },
       answer: (a) {},
       error: (e) {},
