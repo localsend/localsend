@@ -36,6 +36,7 @@ pub enum WsServerMessage {
     /// A peer has left the IP room.
     Left {
         /// The ID of the peer that triggered the message.
+        #[serde(rename = "peerId")]
         peer_id: Uuid,
     },
 
