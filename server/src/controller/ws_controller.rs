@@ -5,7 +5,7 @@ use crate::util::ip::get_ip_group;
 use axum::body::Body;
 use axum::extract::ws::{Message, WebSocket};
 use axum::extract::{ConnectInfo, Query, State, WebSocketUpgrade};
-use axum::http::StatusCode;
+use axum::http::{HeaderMap, StatusCode};
 use axum::response::Response;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
@@ -15,7 +15,8 @@ use localsend::webrtc::signaling::{
 };
 use serde::Deserialize;
 use std::collections::HashMap;
-use std::net::SocketAddr;
+use std::net::{IpAddr, SocketAddr};
+use std::str::FromStr;
 use std::sync::LazyLock;
 use tokio::sync::mpsc;
 use uuid::Uuid;
@@ -45,6 +46,7 @@ pub async fn ws_handler(
     ws: WebSocketUpgrade,
     Query(payload): Query<WsQuery>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
+    headers: HeaderMap,
 ) -> Result<Response<Body>, AppError> {
     let peer_info = {
         let base64_decoded: Vec<u8> = util::base64::decode(&payload.d)
@@ -66,12 +68,24 @@ pub async fn ws_handler(
         }
     };
 
+    let ip = {
+        // Prefer the forwarded IP if available.
+        let raw_forwarded = headers
+            .get("x-forwarded-for")
+            .and_then(|v| v.to_str().ok())
+            .and_then(|v| v.split(',').last()) // Get the last component
+            .map(|v| v.trim().to_string())
+            .and_then(|v| IpAddr::from_str(&v).ok());
+
+        raw_forwarded.unwrap_or(addr.ip())
+    };
+
     Ok(ws.on_upgrade(move |socket| {
         handle_socket(
             state.tx_map,
             state.request_count_map,
             socket,
-            get_ip_group(addr.ip()),
+            get_ip_group(ip),
             peer_info,
         )
     }))
@@ -145,7 +159,7 @@ async fn handle_socket(
 
             let debug_active_connections = tx_map.len();
             let debug_total_active_connections: usize = tx_map.values().map(|m| m.len()).sum();
-            tracing::info!("Connect: {peer_id} (active: {debug_active_connections}, total active: {debug_total_active_connections})");
+            tracing::info!("Connect: {ip_group} / {peer_id} (active: {debug_active_connections}, total active: {debug_total_active_connections})");
         }
 
         if limit_reached {
