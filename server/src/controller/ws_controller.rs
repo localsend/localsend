@@ -161,12 +161,11 @@ async fn handle_socket(
                 .await;
         }
 
-        tx.send(WsServerMessage::Hello {
+        let _ = tx.send(WsServerMessage::Hello {
             client: peer.clone(),
             peers,
         })
-        .await
-        .unwrap();
+        .await;
     }
 
     let (mut sender, mut receiver) = socket.split();
@@ -223,10 +222,6 @@ async fn handle_socket(
             send_task.abort();
         }
     }
-
-    // Wait for "rx" to be dropped (ensured by the select! macro)
-    // When the "rx" is dropped, the corresponding "tx" will be closed as well.
-    let _ = send_task.await;
 
     let mut remaining_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
 
