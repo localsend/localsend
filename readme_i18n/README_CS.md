@@ -124,7 +124,7 @@ Chcete-li zkompilovat LocalSend ze zdrojového kódu, postupujte následovně:
 
 1. Nainstalujte Flutter [přímo](https://flutter.dev) nebo pomocí [fvm](https://fvm.app) (viz [požadovaná verze](.fvmrc))
 2. Nainstalujte [Rust](https://www.rust-lang.org/tools/install)
-3. Naklonujte úložiště `LocalSend`
+3. Naklonujte repozitář `LocalSend`
 4. `cd app` přejděte do adresáře aplikace
 5. `flutter pub get` stáhněte závislosti
 6. `flutter run` pro spuštění aplikace
@@ -151,7 +151,7 @@ Překlady jsou umístěny v adresáři [app/assets/i18n](https://github.com/loca
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
 </a>
 
-**_Vezměte na vědomí:_ Pole označená `@` nejsou určena k překladu; nejsou v aplikaci žádným způsobem použity, jsou pouze informativním textem o souboru nebo poskytují kontext překladateli.**
+**_Upozornění:_ Pole označená `@` nejsou určena k překladu; nejsou v aplikaci žádným způsobem použity, jsou pouze informativním textem o souboru nebo poskytují kontext překladateli.**
 
 ### Opravy chyb a vylepšení
 
@@ -237,7 +237,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+Instrukce v [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributors
 
