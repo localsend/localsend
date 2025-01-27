@@ -3,7 +3,7 @@ mod util;
 mod webrtc;
 
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
-use crate::webrtc::webrtc::{RTCFile, RTCFileError, RTCStatus};
+use crate::webrtc::webrtc::{RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
 use anyhow::Result;
 use bytes::Bytes;
 use std::collections::HashSet;
@@ -37,12 +37,11 @@ async fn main() -> Result<()> {
         let stun_servers = vec!["stun:stun.l.google.com:19302".to_string()];
         match message {
             WsServerMessage::Joined { peer } => {
-                send_handler(managed_connection.clone(), stun_servers, peer).await;
-                return Ok(());
+                // send_handler(managed_connection.clone(), stun_servers, peer).await;
+                // return Ok(());
             }
             WsServerMessage::Offer(offer) => {
                 receive_handler(managed_connection.clone(), stun_servers, offer).await;
-                return Ok(());
             }
             _ => {}
         }
@@ -151,6 +150,7 @@ async fn receive_handler(
     let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
     let (error_tx, mut error_rx) = mpsc::channel::<RTCFileError>(1);
     let (receiving_tx, mut receiving_rx) = mpsc::channel::<RTCFile>(1);
+    let (user_error_tx, user_error_rx) = mpsc::channel::<RTCSendFileResponse>(1);
 
     let receive_task = tokio::spawn(async move {
         webrtc::webrtc::accept_offer(
@@ -162,6 +162,7 @@ async fn receive_handler(
             selected_rx,
             error_tx,
             receiving_tx,
+            user_error_rx,
         )
         .await
         .expect("Failed to accept offer");
@@ -197,10 +198,21 @@ async fn receive_handler(
         while let Some(file) = receiving_rx.recv().await {
             tracing::info!("Receiving file: {file:?}");
 
-            let file_path = "/Users/user/Downloads/test/test-received.mp4";
-            write_file_from_receiver(file_path, file.binary_rx)
+            let file_dto = files.iter().find(|f| f.id == file.file_id).unwrap();
+
+            let file_path = format!("/Users/user/Downloads/test/{}", file_dto.file_name);
+            write_file_from_receiver(file_path.as_ref(), file.binary_rx)
                 .await
                 .expect("Failed to write file");
+
+            user_error_tx
+                .send(RTCSendFileResponse {
+                    id: file.file_id,
+                    success: true,
+                    error: None,
+                })
+                .await
+                .expect("Failed to send response");
         }
 
         tracing::info!("Receiving files completed");

@@ -48,9 +48,17 @@ struct RTCFileState {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct RTCSendFileHeaderMessage {
+struct RTCSendFileHeaderRequest {
     pub id: String,
     pub token: String,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct RTCSendFileResponse {
+    pub id: String,
+    pub success: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
 }
 
 #[derive(Debug)]
@@ -197,7 +205,7 @@ pub async fn send_offer(
                     }
                 };
 
-                let header = RTCSendFileHeaderMessage {
+                let header = RTCSendFileHeaderRequest {
                     id: message.file_id.clone(),
                     token: file_token.clone(),
                 };
@@ -310,6 +318,7 @@ pub async fn accept_offer(
     selected_files_rx: oneshot::Receiver<HashSet<String>>,
     error_tx: mpsc::Sender<RTCFileError>,
     receiving_tx: mpsc::Sender<RTCFile>,
+    mut user_error_tx: mpsc::Receiver<RTCSendFileResponse>,
 ) -> Result<()> {
     let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
 
@@ -398,22 +407,42 @@ pub async fn accept_offer(
             let mut file_state: Option<RTCFileState> = None;
             while let Some(msg) = receive_rx.recv().await {
                 if msg.is_string {
+                    // End of last file
+                    let last_file_id = file_state.as_ref().map(|s| s.file_id.clone());
                     file_state = None;
 
-                    if is_delimiter(&msg) {
-                        // End of files
-                        send_delimiter(&data_channel).await?;
+                    if let Some(last_file_id) = last_file_id {
+                        let error = match user_error_tx.recv().await {
+                            Some(result) => {
+                                if result.success {
+                                    None
+                                } else {
+                                    Some(result.error.map_or("Unknown error".to_string(), |e| e))
+                                }
+                            }
+                            None => Some("Failed to receive file result".to_string()),
+                        };
 
-                        // Wait for the delimiter to be sent
-                        let _ = tokio::time::timeout(Duration::from_secs(5), async {
-                            wait_buffer_empty(&data_channel).await;
-                        })
-                        .await;
+                        data_channel.send_text(serde_json::to_string(&RTCSendFileResponse {
+                            id: last_file_id,
+                            success: error.is_none(),
+                            error,
+                        })?).await?;
 
-                        break;
+                        if is_delimiter(&msg) {
+                            // End of all files
+
+                            // Wait for the last status to be sent
+                            let _ = tokio::time::timeout(Duration::from_secs(5), async {
+                                wait_buffer_empty(&data_channel).await;
+                            })
+                                .await;
+
+                            break;
+                        }
                     }
 
-                    let header: RTCSendFileHeaderMessage = serde_json::from_slice(&msg.data)?;
+                    let header: RTCSendFileHeaderRequest = serde_json::from_slice(&msg.data)?;
                     match initial_response.files.get(&header.id) {
                         Some(entry) => {
                             if header.token != *entry {
