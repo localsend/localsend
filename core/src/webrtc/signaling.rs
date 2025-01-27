@@ -63,7 +63,7 @@ pub struct WsServerSdpMessage {
     pub session_id: String,
 
     /// The SDP string for the answer.
-    /// Compressed with Brotli, then encoded with base64 without padding.
+    /// Compressed with zlib, then encoded with base64 without padding.
     pub sdp: String,
 }
 
@@ -143,7 +143,7 @@ pub struct WsClientMessage {
     pub target: Uuid,
 
     /// The SDP offer.
-    /// Compressed with Brotli, then encoded with base64 without padding.
+    /// Compressed with zlib, then encoded with base64 without padding.
     pub sdp: String,
 }
 

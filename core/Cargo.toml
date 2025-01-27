@@ -6,8 +6,8 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.95"
 base64 = "0.22.1"
-brotli = { version = "7.0.0", optional = true }
 bytes = "1.9.0"
+flate2 = { version = "1.0.35", optional = true }
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.135"
 tokio = { version = "1.43.0", features = ["full"] }
@@ -22,5 +22,5 @@ futures-util = { version = "0.3.31", features = ["sink"] }
 [features]
 default = []
 webrtc-signaling = ["tokio-tungstenite"]
-webrtc-support = ["brotli", "webrtc", "webrtc-signaling"]
+webrtc-support = ["flate2", "webrtc", "webrtc-signaling"]
 full = ["webrtc-support"]

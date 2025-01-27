@@ -3,6 +3,8 @@ use crate::util::base64;
 use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
 use anyhow::Result;
 use bytes::{Bytes, BytesMut};
+use flate2::read::ZlibDecoder;
+use flate2::write::ZlibEncoder;
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::future::Future;
@@ -545,23 +547,24 @@ async fn create_peer_connection(
 }
 
 fn encode_sdp(s: &str) -> String {
-    let mut compressor = brotli::CompressorWriter::new(Vec::new(), 4096, 11, 24);
-    compressor
-        .write_all(s.as_bytes())
-        .expect("Compression of SDP failed");
-    base64::encode(&compressor.into_inner())
+    let mut e = ZlibEncoder::new(Vec::new(), flate2::Compression::best());
+    e.write_all(s.as_bytes())
+        .map_err(|e| anyhow::anyhow!("Failed to compress SDP: {e}"))
+        .unwrap();
+    let compressed = e
+        .finish()
+        .map_err(|e| anyhow::anyhow!("Failed to finish compression of SDP: {e}"))
+        .unwrap();
+    base64::encode(&compressed)
 }
 
 fn decode_sdp(s: &str) -> Result<String> {
     let decoded_data =
         base64::decode(s).map_err(|e| anyhow::anyhow!("Base64 decode of SDP failed: {e}"))?;
-    let mut decompressor = brotli::Decompressor::new(&decoded_data[..], 4096);
-    let mut decompressed = Vec::new();
-    decompressor
-        .read_to_end(&mut decompressed)
-        .map_err(|e| anyhow::anyhow!("Decompression of SDP failed: {e}"))?;
-    let result = String::from_utf8(decompressed)
-        .map_err(|e| anyhow::anyhow!("Decompressed SDP is not valid utf8: {e}"))?;
+    let mut d = ZlibDecoder::new(&*decoded_data);
+    let mut result = String::new();
+    d.read_to_string(&mut result)
+        .map_err(|e| anyhow::anyhow!("Failed to decompress SDP: {e}"))?;
     Ok(result)
 }
 
