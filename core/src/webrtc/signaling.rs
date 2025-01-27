@@ -451,7 +451,7 @@ mod tests {
   "sessionId": "456",
   "sdp": "my-sdp"
 }"#
-);
+        );
 
         let decoded: WsServerMessage = serde_json::from_str(&encoded).unwrap();
 

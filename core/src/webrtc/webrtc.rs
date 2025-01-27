@@ -1,9 +1,7 @@
 use crate::model::file::FileDto;
+use crate::util::base64;
 use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
 use anyhow::Result;
-use base64::engine::general_purpose::URL_SAFE_NO_PAD;
-use base64::engine::GeneralPurpose;
-use base64::Engine;
 use bytes::{Bytes, BytesMut};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
@@ -351,8 +349,12 @@ pub async fn accept_offer(
             }
 
             // Init: Deserialize and Publish for user selection
-            let initial_msg_str: String = String::from_utf8(initial_msg_buffer.to_vec())?;
-            let initial_msg: RTCInitialMessage = serde_json::from_str(&initial_msg_str)?;
+            let initial_msg_str: String =
+                String::from_utf8(initial_msg_buffer.to_vec()).map_err(|e| {
+                    anyhow::anyhow!("Failed to convert initial message to utf8 string: {e}")
+                })?;
+            let initial_msg: RTCInitialMessage = serde_json::from_str(&initial_msg_str)
+                .map_err(|e| anyhow::anyhow!("Failed to deserialize initial message: {e}"))?;
             if let Err(_) = files_tx.send(initial_msg.files.clone()) {
                 return Err(anyhow::anyhow!("Failed to send files"));
             }
@@ -515,7 +517,9 @@ pub async fn accept_offer(
     Ok(())
 }
 
-async fn create_peer_connection(stun: Vec<String>) -> Result<(Arc<RTCPeerConnection>, mpsc::Receiver<()>)> {
+async fn create_peer_connection(
+    stun: Vec<String>,
+) -> Result<(Arc<RTCPeerConnection>, mpsc::Receiver<()>)> {
     let api = APIBuilder::new().build();
 
     let config = RTCConfiguration {
@@ -540,24 +544,24 @@ async fn create_peer_connection(stun: Vec<String>) -> Result<(Arc<RTCPeerConnect
     Ok((Arc::new(peer_connection), done_rx))
 }
 
-const BASE_64_SDP: GeneralPurpose = URL_SAFE_NO_PAD;
-
 fn encode_sdp(s: &str) -> String {
     let mut compressor = brotli::CompressorWriter::new(Vec::new(), 4096, 11, 24);
     compressor
         .write_all(s.as_bytes())
         .expect("Compression of SDP failed");
-    BASE_64_SDP.encode(&compressor.into_inner())
+    base64::encode(&compressor.into_inner())
 }
 
 fn decode_sdp(s: &str) -> Result<String> {
-    let decoded_data = BASE_64_SDP.decode(s)?;
+    let decoded_data =
+        base64::decode(s).map_err(|e| anyhow::anyhow!("Base64 decode of SDP failed: {e}"))?;
     let mut decompressor = brotli::Decompressor::new(&decoded_data[..], 4096);
     let mut decompressed = Vec::new();
     decompressor
         .read_to_end(&mut decompressed)
-        .expect("Decompression failed");
-    let result = String::from_utf8(decompressed)?;
+        .map_err(|e| anyhow::anyhow!("Decompression of SDP failed: {e}"))?;
+    let result = String::from_utf8(decompressed)
+        .map_err(|e| anyhow::anyhow!("Decompressed SDP is not valid utf8: {e}"))?;
     Ok(result)
 }
 
