@@ -10,7 +10,9 @@ use std::collections::{HashMap, HashSet};
 use std::future::Future;
 use std::io::{Read, Write};
 use std::sync::Arc;
+use std::time::Duration;
 use tokio::sync::{mpsc, oneshot};
+use tungstenite::Message;
 use uuid::Uuid;
 use webrtc::api::APIBuilder;
 use webrtc::data_channel::data_channel_init::RTCDataChannelInit;
@@ -121,7 +123,7 @@ pub async fn send_offer(
                 return Err(e.into());
             }
 
-            wait_buffer_sent(&data_channel).await;
+            wait_buffer_empty(&data_channel).await;
 
             {
                 // send initial message
@@ -233,6 +235,8 @@ pub async fn send_offer(
                     continue;
                 }
             }
+
+            wait_buffer_empty(&data_channel).await;
 
             send_delimiter(&data_channel).await?;
 
@@ -396,8 +400,16 @@ pub async fn accept_offer(
                 if msg.is_string {
                     file_state = None;
 
-                    if msg.data.is_empty() {
+                    if is_delimiter(&msg) {
+                        // End of files
                         send_delimiter(&data_channel).await?;
+
+                        // Wait for the delimiter to be sent
+                        let _ = tokio::time::timeout(Duration::from_secs(5), async {
+                            wait_buffer_empty(&data_channel).await;
+                        })
+                        .await;
+
                         break;
                     }
 
@@ -506,14 +518,18 @@ pub async fn accept_offer(
     }
 
     tokio::select! {
-        _ = receive_task => {
-            tracing::debug!("Receiving done.");
+        result = receive_task => {
+            match result {
+                Ok(_) => tracing::debug!("Receiving done."),
+                Err(e) => tracing::error!("Receiving error: {e}")
+            }
         }
         _ = done_rx.recv() => {
-            let _ = status_tx.send(RTCStatus::Finished).await;
+            tracing::debug!("Peer connection remotely closed.");
         }
     }
 
+    let _ = status_tx.send(RTCStatus::Finished).await;
     peer_connection.close().await?;
 
     Ok(())
@@ -574,9 +590,13 @@ async fn send_delimiter(data_channel: &Arc<RTCDataChannel>) -> Result<()> {
     Ok(())
 }
 
-async fn wait_buffer_sent(data_channel: &Arc<RTCDataChannel>) {
+fn is_delimiter(msg: &DataChannelMessage) -> bool {
+    msg.is_string && msg.data.len() <= 1
+}
+
+async fn wait_buffer_empty(data_channel: &Arc<RTCDataChannel>) {
     while data_channel.buffered_amount().await != 0 {
-        tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+        tokio::time::sleep(Duration::from_millis(100)).await;
     }
 }
 
