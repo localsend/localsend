@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.7.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1101921588;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1974666931;
 
 // Section: executor
 
@@ -596,6 +596,67 @@ fn wire__crate__api__webrtc__RtcReceiveState_listen_status_impl(
         },
     )
 }
+fn wire__crate__api__webrtc__RtcReceiveState_send_file_status_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "RtcReceiveState_send_file_status",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>,
+            >>::sse_decode(&mut deserializer);
+            let api_status =
+                <crate::api::webrtc::RTCSendFileResponse>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::webrtc::RTCReceiveState::send_file_status(
+                            &*api_that_guard,
+                            api_status,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__crate__api__webrtc__RtcReceiveState_send_selection_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -998,6 +1059,12 @@ const _: fn() = || {
         let _: String = RTCFileError.file_id;
         let _: String = RTCFileError.error;
     }
+    {
+        let RTCSendFileResponse = None::<crate::api::webrtc::RTCSendFileResponse>.unwrap();
+        let _: String = RTCSendFileResponse.id;
+        let _: bool = RTCSendFileResponse.success;
+        let _: Option<String> = RTCSendFileResponse.error;
+    }
     match None::<crate::api::webrtc::RTCStatus>.unwrap() {
         crate::api::webrtc::RTCStatus::SdpExchanged => {}
         crate::api::webrtc::RTCStatus::Connected => {}
@@ -1278,6 +1345,13 @@ impl SseDecode for uuid::Uuid {
     }
 }
 
+impl SseDecode for bool {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_u8().unwrap() != 0
+    }
+}
+
 impl SseDecode for crate::api::webrtc::ClientInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1476,6 +1550,20 @@ impl SseDecode for crate::api::webrtc::RTCFileError {
     }
 }
 
+impl SseDecode for crate::api::webrtc::RTCSendFileResponse {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_success = <bool>::sse_decode(deserializer);
+        let mut var_error = <Option<String>>::sse_decode(deserializer);
+        return crate::api::webrtc::RTCSendFileResponse {
+            id: var_id,
+            success: var_success,
+            error: var_error,
+        };
+    }
+}
+
 impl SseDecode for crate::api::webrtc::RTCStatus {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1592,13 +1680,6 @@ impl SseDecode for crate::api::webrtc::WsServerSdpMessage {
     }
 }
 
-impl SseDecode for bool {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        deserializer.cursor.read_u8().unwrap() != 0
-    }
-}
-
 fn pde_ffi_dispatcher_primary_impl(
     func_id: i32,
     port: flutter_rust_bridge::for_generated::MessagePort,
@@ -1657,35 +1738,41 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        10 => wire__crate__api__webrtc__RtcReceiveState_send_selection_impl(
+        10 => wire__crate__api__webrtc__RtcReceiveState_send_file_status_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        11 => wire__crate__api__webrtc__RtcSendState_listen_error_impl(
+        11 => wire__crate__api__webrtc__RtcReceiveState_send_selection_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        12 => wire__crate__api__webrtc__RtcSendState_listen_selected_files_impl(
+        12 => wire__crate__api__webrtc__RtcSendState_listen_error_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        13 => wire__crate__api__webrtc__RtcSendState_listen_status_impl(
+        13 => wire__crate__api__webrtc__RtcSendState_listen_selected_files_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        14 => {
+        14 => wire__crate__api__webrtc__RtcSendState_listen_status_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        15 => {
             wire__crate__api__webrtc__RtcSendState_send_file_impl(port, ptr, rust_vec_len, data_len)
         }
-        15 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
-        16 => {
+        16 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
+        17 => {
             wire__crate__api__logging__enable_debug_logging_impl(port, ptr, rust_vec_len, data_len)
         }
         _ => unreachable!(),
@@ -1924,6 +2011,28 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::RTCFileErr
     for crate::api::webrtc::RTCFileError
 {
     fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::RTCFileError> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::RTCSendFileResponse> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.success.into_into_dart().into_dart(),
+            self.0.error.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::webrtc::RTCSendFileResponse>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::RTCSendFileResponse>>
+    for crate::api::webrtc::RTCSendFileResponse
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::RTCSendFileResponse> {
         self.into()
     }
 }
@@ -2195,6 +2304,13 @@ impl SseEncode for uuid::Uuid {
     }
 }
 
+impl SseEncode for bool {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_u8(self as _).unwrap();
+    }
+}
+
 impl SseEncode for crate::api::webrtc::ClientInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -2353,6 +2469,15 @@ impl SseEncode for crate::api::webrtc::RTCFileError {
     }
 }
 
+impl SseEncode for crate::api::webrtc::RTCSendFileResponse {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <bool>::sse_encode(self.success, serializer);
+        <Option<String>>::sse_encode(self.error, serializer);
+    }
+}
+
 impl SseEncode for crate::api::webrtc::RTCStatus {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -2455,13 +2580,6 @@ impl SseEncode for crate::api::webrtc::WsServerSdpMessage {
         <crate::api::webrtc::ClientInfo>::sse_encode(self.peer, serializer);
         <String>::sse_encode(self.session_id, serializer);
         <String>::sse_encode(self.sdp, serializer);
-    }
-}
-
-impl SseEncode for bool {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer.cursor.write_u8(self as _).unwrap();
     }
 }
 

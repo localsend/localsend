@@ -44,6 +44,8 @@ abstract class RtcReceiveState implements RustOpaqueInterface {
 
   Stream<RTCStatus> listenStatus();
 
+  Future<void> sendFileStatus({required RTCSendFileResponse status});
+
   Future<void> sendSelection({required Set<String> selection});
 }
 
@@ -145,6 +147,26 @@ class RTCFileError {
   @override
   bool operator ==(Object other) =>
       identical(this, other) || other is RTCFileError && runtimeType == other.runtimeType && fileId == other.fileId && error == other.error;
+}
+
+class RTCSendFileResponse {
+  final String id;
+  final bool success;
+  final String? error;
+
+  const RTCSendFileResponse({
+    required this.id,
+    required this.success,
+    this.error,
+  });
+
+  @override
+  int get hashCode => id.hashCode ^ success.hashCode ^ error.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RTCSendFileResponse && runtimeType == other.runtimeType && id == other.id && success == other.success && error == other.error;
 }
 
 @freezed

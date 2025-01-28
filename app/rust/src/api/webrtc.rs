@@ -6,9 +6,8 @@ pub use localsend::webrtc::signaling::{
     ClientInfo, ClientInfoWithoutId, ManagedSignalingConnection, PeerDeviceType,
     SignalingConnection, WsServerMessage, WsServerSdpMessage,
 };
-pub use localsend::webrtc::webrtc::{RTCFile, RTCFileError, RTCStatus};
+pub use localsend::webrtc::webrtc::{RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
 use std::collections::HashSet;
-use std::io::Read;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use uuid::Uuid;
@@ -84,6 +83,7 @@ impl LsSignalingConnection {
         let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
         let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(1);
         let (receiving_tx, receiving_rx) = mpsc::channel::<RTCFile>(1);
+        let (file_status_tx, file_status_rx) = mpsc::channel::<RTCSendFileResponse>(1);
 
         localsend::webrtc::webrtc::accept_offer(
             &self.inner,
@@ -94,6 +94,7 @@ impl LsSignalingConnection {
             selected_rx,
             error_tx,
             receiving_tx,
+            file_status_rx,
         )
         .await?;
 
@@ -103,6 +104,7 @@ impl LsSignalingConnection {
             selected_tx: Arc::new(Mutex::new(Some(selected_tx))),
             error_rx,
             receiving_rx,
+            file_status_tx,
         })
     }
 }
@@ -169,6 +171,7 @@ pub struct RTCReceiveState {
     selected_tx: Arc<Mutex<Option<oneshot::Sender<HashSet<String>>>>>,
     error_rx: mpsc::Receiver<RTCFileError>,
     receiving_rx: mpsc::Receiver<RTCFile>,
+    file_status_tx: mpsc::Sender<RTCSendFileResponse>,
 }
 
 impl RTCReceiveState {
@@ -215,6 +218,11 @@ impl RTCReceiveState {
                 binary_rx: Arc::new(Mutex::new(Some(file.binary_rx))),
             });
         }
+    }
+
+    pub async fn send_file_status(&self, status: RTCSendFileResponse) -> anyhow::Result<()> {
+        self.file_status_tx.send(status).await?;
+        Ok(())
     }
 }
 
@@ -309,4 +317,11 @@ pub enum _RTCStatus {
 pub struct _RTCFileError {
     pub file_id: String,
     pub error: String,
+}
+
+#[frb(mirror(RTCSendFileResponse))]
+pub struct _RTCSendFileResponse {
+    pub id: String,
+    pub success: bool,
+    pub error: Option<String>,
 }

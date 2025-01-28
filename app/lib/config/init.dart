@@ -111,6 +111,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
       answer: (a) {},
       error: (e) {},
     );
+  }, onDone: () {
+    print('Done!!!');
   });
 
   await Rhttp.init();

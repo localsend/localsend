@@ -125,6 +125,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   UuidValue dco_decode_Uuid(dynamic raw);
 
   @protected
+  bool dco_decode_bool(dynamic raw);
+
+  @protected
   ClientInfo dco_decode_box_autoadd_client_info(dynamic raw);
 
   @protected
@@ -135,6 +138,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PeerDeviceType dco_decode_box_autoadd_peer_device_type(dynamic raw);
+
+  @protected
+  RTCSendFileResponse dco_decode_box_autoadd_rtc_send_file_response(dynamic raw);
 
   @protected
   WsServerSdpMessage dco_decode_box_autoadd_ws_server_sdp_message(dynamic raw);
@@ -186,6 +192,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RTCFileError dco_decode_rtc_file_error(dynamic raw);
+
+  @protected
+  RTCSendFileResponse dco_decode_rtc_send_file_response(dynamic raw);
 
   @protected
   RTCStatus dco_decode_rtc_status(dynamic raw);
@@ -296,6 +305,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   UuidValue sse_decode_Uuid(SseDeserializer deserializer);
 
   @protected
+  bool sse_decode_bool(SseDeserializer deserializer);
+
+  @protected
   ClientInfo sse_decode_box_autoadd_client_info(SseDeserializer deserializer);
 
   @protected
@@ -306,6 +318,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PeerDeviceType sse_decode_box_autoadd_peer_device_type(SseDeserializer deserializer);
+
+  @protected
+  RTCSendFileResponse sse_decode_box_autoadd_rtc_send_file_response(SseDeserializer deserializer);
 
   @protected
   WsServerSdpMessage sse_decode_box_autoadd_ws_server_sdp_message(SseDeserializer deserializer);
@@ -359,6 +374,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RTCFileError sse_decode_rtc_file_error(SseDeserializer deserializer);
 
   @protected
+  RTCSendFileResponse sse_decode_rtc_send_file_response(SseDeserializer deserializer);
+
+  @protected
   RTCStatus sse_decode_rtc_status(SseDeserializer deserializer);
 
   @protected
@@ -381,9 +399,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   WsServerSdpMessage sse_decode_ws_server_sdp_message(SseDeserializer deserializer);
-
-  @protected
-  bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
   void sse_encode_AnyhowException(AnyhowException self, SseSerializer serializer);
@@ -482,6 +497,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_Uuid(UuidValue self, SseSerializer serializer);
 
   @protected
+  void sse_encode_bool(bool self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_client_info(ClientInfo self, SseSerializer serializer);
 
   @protected
@@ -492,6 +510,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_box_autoadd_peer_device_type(PeerDeviceType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rtc_send_file_response(RTCSendFileResponse self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer);
@@ -545,6 +566,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_rtc_file_error(RTCFileError self, SseSerializer serializer);
 
   @protected
+  void sse_encode_rtc_send_file_response(RTCSendFileResponse self, SseSerializer serializer);
+
+  @protected
   void sse_encode_rtc_status(RTCStatus self, SseSerializer serializer);
 
   @protected
@@ -567,9 +591,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_bool(bool self, SseSerializer serializer);
 }
 
 // Section: wire_class

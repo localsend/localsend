@@ -4,7 +4,9 @@ use tokio::sync::mpsc;
 /// Converts a stream of Bytes into a stream of Vec<u8>.
 /// Also buffers the incoming data to reduce the number of
 /// messages sent to the receiver.
-pub(crate) async fn buffer_receiver(mut rx_input: mpsc::Receiver<Bytes>) -> mpsc::Receiver<Vec<u8>> {
+pub(crate) async fn buffer_receiver(
+    mut rx_input: mpsc::Receiver<Bytes>,
+) -> mpsc::Receiver<Vec<u8>> {
     const BUFFER_SIZE: usize = 1024 * 1024; // 1 MB
     let mut buffer = BytesMut::with_capacity(BUFFER_SIZE);
 
