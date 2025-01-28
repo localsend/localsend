@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:common/api_route_builder.dart';
 import 'package:common/constants.dart';
+import 'package:common/model/device.dart';
 import 'package:common/model/dto/info_dto.dart';
 import 'package:common/model/dto/info_register_dto.dart';
 import 'package:common/model/dto/prepare_upload_request_dto.dart';
@@ -164,7 +165,9 @@ class ReceiveController {
     }
 
     // Save device information
-    await server.ref.redux(nearbyDevicesProvider).dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
+    await server.ref
+        .redux(nearbyDevicesProvider)
+        .dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https, HttpDiscovery(ip: request.ip))));
     server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
     final deviceInfo = server.ref.read(deviceInfoProvider);
@@ -229,7 +232,7 @@ class ReceiveController {
         session: ReceiveSessionState(
           sessionId: sessionId,
           status: SessionStatus.waiting,
-          sender: dto.info.toDevice(request.ip, port, https),
+          sender: dto.info.toDevice(request.ip, port, https, null),
           senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == dto.info.fingerprint)?.alias ?? dto.info.alias,
           files: {
             for (final file in dto.files.values)

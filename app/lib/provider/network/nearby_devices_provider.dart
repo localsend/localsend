@@ -40,6 +40,7 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
         runningFavoriteScan: false,
         runningIps: {},
         devices: {},
+        signalingDevices: {},
       );
 }
 
@@ -78,6 +79,8 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
 
   @override
   Future<NearbyDevicesState> reduce() async {
+    assert(device.ip?.isNotEmpty ?? false);
+
     final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
     if (favoriteDevice != null && !favoriteDevice.customAlias) {
       // Update existing favorite with new alias
@@ -86,7 +89,7 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
       await Future.microtask(() {});
     }
     return state.copyWith(
-      devices: {...state.devices}..update(device.ip, (_) => device, ifAbsent: () => device),
+      devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device),
     );
   }
 }

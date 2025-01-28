@@ -95,6 +95,46 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  List<String> getSignalingServers() => (super.noSuchMethod(
+        Invocation.method(
+          #getSignalingServers,
+          [],
+        ),
+        returnValue: <String>[],
+        returnValueForMissingStub: <String>[],
+      ) as List<String>);
+
+  @override
+  _i4.Future<void> setSignalingServers(List<String>? servers) => (super.noSuchMethod(
+        Invocation.method(
+          #setSignalingServers,
+          [servers],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  List<String> getStunServers() => (super.noSuchMethod(
+        Invocation.method(
+          #getStunServers,
+          [],
+        ),
+        returnValue: <String>[],
+        returnValueForMissingStub: <String>[],
+      ) as List<String>);
+
+  @override
+  _i4.Future<void> setStunServers(List<String>? servers) => (super.noSuchMethod(
+        Invocation.method(
+          #setStunServers,
+          [servers],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   List<_i5.ReceiveHistoryEntry> getReceiveHistory() => (super.noSuchMethod(
         Invocation.method(
           #getReceiveHistory,

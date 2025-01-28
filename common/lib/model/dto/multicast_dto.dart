@@ -48,6 +48,7 @@ extension MulticastDtoToDeviceExt on MulticastDto {
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
+      discoveryMethods: {MulticastDiscovery()},
     );
   }
 }

@@ -34,7 +34,7 @@ class InfoRegisterDto with InfoRegisterDtoMappable {
 }
 
 extension InfoRegisterDtoExt on InfoRegisterDto {
-  Device toDevice(String ip, int ownPort, bool ownHttps) {
+  Device toDevice(String ip, int ownPort, bool ownHttps, DiscoveryMethod? method) {
     return Device(
       ip: ip,
       version: version ?? fallbackProtocolVersion,
@@ -45,6 +45,7 @@ extension InfoRegisterDtoExt on InfoRegisterDto {
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
+      discoveryMethods: method == null ? const {} : {method},
     );
   }
 }

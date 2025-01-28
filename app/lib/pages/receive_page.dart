@@ -102,7 +102,10 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                       child: DeviceBadge(
                                         backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
                                         foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
-                                        label: vm.showFullIp ? vm.sender.ip : '#${vm.sender.ip.visualId}',
+                                        label: switch (vm.sender.ip) {
+                                          String ip => vm.showFullIp ? ip : '#${ip.visualId}',
+                                          null => 'WebRTC',
+                                        },
                                       ),
                                     ),
                                     if (vm.sender.deviceModel != null) ...[
