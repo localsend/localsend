@@ -55,9 +55,13 @@ class ReceiveTab extends StatelessWidget {
                             );
                           }),
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
+                        InitialFadeTransition(
+                          duration: const Duration(milliseconds: 300),
+                          delay: const Duration(milliseconds: 350),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
+                          ),
                         ),
                         InitialFadeTransition(
                           duration: const Duration(milliseconds: 300),
