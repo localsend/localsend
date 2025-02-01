@@ -30,6 +30,7 @@ extension InfoToDeviceExt on InfoDto {
   /// Since this HTTP request was successful, the [port] and [https] are known.
   Device toDevice(String ip, int port, bool https, DiscoveryMethod method) {
     return Device(
+      signalingId: null,
       ip: ip,
       version: version ?? fallbackProtocolVersion,
       port: port,

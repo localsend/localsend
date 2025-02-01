@@ -79,7 +79,7 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
 
   @override
   Future<NearbyDevicesState> reduce() async {
-    assert(device.ip?.isNotEmpty ?? false);
+    assert(device.ip?.isNotEmpty ?? false, 'IP must not be empty');
 
     final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
     if (favoriteDevice != null && !favoriteDevice.customAlias) {
@@ -90,6 +90,41 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     }
     return state.copyWith(
       devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device),
+    );
+  }
+}
+
+/// Registers a new device found via signaling.
+class RegisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  final Device device;
+
+  RegisterSignalingDeviceAction(this.device);
+
+  @override
+  NearbyDevicesState reduce() {
+    final Set<Device> existingDevices = state.signalingDevices[device.fingerprint] ?? {};
+    existingDevices.add(device);
+
+    return state.copyWith(
+      signalingDevices: {
+        ...state.signalingDevices,
+        device.fingerprint: existingDevices,
+      },
+    );
+  }
+}
+
+class UnregisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  final String signalingId;
+
+  UnregisterSignalingDeviceAction(this.signalingId);
+
+  @override
+  NearbyDevicesState reduce() {
+    return state.copyWith(
+      signalingDevices: {
+        for (final entry in state.signalingDevices.entries) entry.key: entry.value.where((e) => e.signalingId != signalingId).toSet(),
+      },
     );
   }
 }

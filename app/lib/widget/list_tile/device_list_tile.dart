@@ -59,7 +59,7 @@ class DeviceListTile extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
                 label: '#${device.ip!.visualId}',
               )
-              else
+            else
               DeviceBadge(
                 backgroundColor: badgeColor,
                 foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,

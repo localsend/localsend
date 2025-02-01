@@ -36,6 +36,7 @@ class InfoRegisterDto with InfoRegisterDtoMappable {
 extension InfoRegisterDtoExt on InfoRegisterDto {
   Device toDevice(String ip, int ownPort, bool ownHttps, DiscoveryMethod? method) {
     return Device(
+      signalingId: null,
       ip: ip,
       version: version ?? fallbackProtocolVersion,
       port: port ?? ownPort,

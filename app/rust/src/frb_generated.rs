@@ -1007,12 +1007,12 @@ fn wire__crate__api__logging__enable_debug_logging_impl(
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
             move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok({
-                        crate::api::logging::enable_debug_logging();
-                    })?;
-                    Ok(output_ok)
-                })())
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || {
+                        let output_ok = crate::api::logging::enable_debug_logging()?;
+                        Ok(output_ok)
+                    })(),
+                )
             }
         },
     )

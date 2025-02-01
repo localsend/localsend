@@ -212,10 +212,10 @@ class PersistenceService {
     await _prefs.setString(_securityContext, jsonEncode(context));
   }
 
-  List<String> getSignalingServers() {
+  List<String>? getSignalingServers() {
     final serversRaw = _prefs.getString(_signalingServers);
     if (serversRaw == null) {
-      return [];
+      return null;
     }
 
     return (jsonDecode(serversRaw) as List).cast<String>();
@@ -225,10 +225,10 @@ class PersistenceService {
     await _prefs.setString(_signalingServers, jsonEncode(servers));
   }
 
-  List<String> getStunServers() {
+  List<String>? getStunServers() {
     final serversRaw = _prefs.getString(_stunServers);
     if (serversRaw == null) {
-      return [];
+      return null;
     }
 
     return (jsonDecode(serversRaw) as List).cast<String>();

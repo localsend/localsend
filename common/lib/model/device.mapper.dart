@@ -399,6 +399,8 @@ class DeviceMapper extends ClassMapperBase<Device> {
   @override
   final String id = 'Device';
 
+  static String? _$signalingId(Device v) => v.signalingId;
+  static const Field<Device, String> _f$signalingId = Field('signalingId', _$signalingId);
   static String? _$ip(Device v) => v.ip;
   static const Field<Device, String> _f$ip = Field('ip', _$ip);
   static String _$version(Device v) => v.version;
@@ -422,6 +424,7 @@ class DeviceMapper extends ClassMapperBase<Device> {
 
   @override
   final MappableFields<Device> fields = const {
+    #signalingId: _f$signalingId,
     #ip: _f$ip,
     #version: _f$version,
     #port: _f$port,
@@ -436,6 +439,7 @@ class DeviceMapper extends ClassMapperBase<Device> {
 
   static Device _instantiate(DecodingData data) {
     return Device(
+        signalingId: data.dec(_f$signalingId),
         ip: data.dec(_f$ip),
         version: data.dec(_f$version),
         port: data.dec(_f$port),
@@ -492,7 +496,8 @@ extension DeviceValueCopy<$R, $Out> on ObjectCopyWith<$R, Device, $Out> {
 
 abstract class DeviceCopyWith<$R, $In extends Device, $Out> implements ClassCopyWith<$R, $In, $Out> {
   $R call(
-      {String? ip,
+      {String? signalingId,
+      String? ip,
       String? version,
       int? port,
       bool? https,
@@ -512,7 +517,8 @@ class _DeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Device, $Out> 
   late final ClassMapperBase<Device> $mapper = DeviceMapper.ensureInitialized();
   @override
   $R call(
-          {Object? ip = $none,
+          {Object? signalingId = $none,
+          Object? ip = $none,
           String? version,
           int? port,
           bool? https,
@@ -523,6 +529,7 @@ class _DeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Device, $Out> 
           bool? download,
           Set<DiscoveryMethod>? discoveryMethods}) =>
       $apply(FieldCopyWithData({
+        if (signalingId != $none) #signalingId: signalingId,
         if (ip != $none) #ip: ip,
         if (version != null) #version: version,
         if (port != null) #port: port,
@@ -536,6 +543,7 @@ class _DeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Device, $Out> 
       }));
   @override
   Device $make(CopyWithData data) => Device(
+      signalingId: data.get(#signalingId, or: $value.signalingId),
       ip: data.get(#ip, or: $value.ip),
       version: data.get(#version, or: $value.version),
       port: data.get(#port, or: $value.port),

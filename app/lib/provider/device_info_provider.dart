@@ -32,6 +32,7 @@ final deviceFullInfoProvider = ViewProvider((ref) {
   final rawInfo = ref.watch(deviceInfoProvider);
   final securityContext = ref.read(securityProvider);
   return Device(
+    signalingId: null,
     ip: networkInfo.localIps.firstOrNull ?? '-',
     version: protocolVersion,
     port: serverState?.port ?? -1,

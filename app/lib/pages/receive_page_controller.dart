@@ -62,6 +62,7 @@ class ReceivePageController extends ReduxNotifier<ReceivePageVm> {
     return ReceivePageVm(
       status: SessionStatus.waiting,
       sender: const Device(
+        signalingId: null,
         ip: '0.0.0.0',
         version: '1.0.0',
         port: 8080,
@@ -155,6 +156,7 @@ class InitReceivePageFromHistoryMessageAction extends ReduxAction<ReceivePageCon
   ReceivePageVm reduce() {
     return state.copyWith(
       sender: Device(
+        signalingId: null,
         ip: '0.0.0.0',
         version: '1.0.0',
         port: 8080,

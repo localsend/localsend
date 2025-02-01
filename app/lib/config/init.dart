@@ -21,6 +21,7 @@ import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
+import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 
 // [FOSS_REMOVE_START]
@@ -32,8 +33,6 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
-import 'package:localsend_app/rust/api/model.dart' as model;
-import 'package:localsend_app/rust/api/webrtc.dart' as webrtc;
 import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
@@ -65,55 +64,13 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   await RustLib.init();
 
-  await rust_logging.enableDebugLogging();
-
-  webrtc.LsSignalingConnection? connection;
-  final stream = webrtc.connect(
-    uri: 'wss://public.localsend.org/v1/ws',
-    info: webrtc.ClientInfoWithoutId(
-      alias: 'alias',
-      version: 'version',
-      deviceModel: 'deviceModel',
-      deviceType: webrtc.PeerDeviceType.mobile,
-      fingerprint: 'fingerprint',
-    ),
-    onConnection: (c) {
-      connection = c;
-      print('Got connection');
-    },
-  );
-
-  const stunServers = ['stun:stun.l.google.com:19302'];
-
-  stream.listen((message) async {
-    print('Got message: $message');
-    webrtc.WsServerMessage;
-    await message.when(
-      hello: (_, __) {},
-      joined: (j) async {
-        await connection?.sendOffer(
-          stunServers: stunServers,
-          target: j.id,
-          files: [
-            model.FileDto(
-              id: '1',
-              fileName: 'test.mp4',
-              size: BigInt.from(1),
-              fileType: 'fileType',
-            ),
-          ],
-        );
-      },
-      left: (l) {},
-      offer: (o) async {
-        await connection?.acceptOffer(stunServers: stunServers, offer: o);
-      },
-      answer: (a) {},
-      error: (e) {},
-    );
-  }, onDone: () {
-    print('Done!!!');
-  });
+  if (kDebugMode) {
+    try {
+      await rust_logging.enableDebugLogging();
+    } catch (e) {
+      _logger.warning('Enabling debug logging failed', e);
+    }
+  }
 
   await Rhttp.init();
 
@@ -258,6 +215,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   } catch (e) {
     _logger.warning('Starting multicast listener failed', e);
   }
+
+  ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {

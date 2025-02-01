@@ -20,4 +20,41 @@ class NearbyDevicesState with NearbyDevicesStateMappable {
     required this.devices,
     required this.signalingDevices,
   });
+
+  Map<String, Device> get allDevices {
+    final Map<String, Device> allDevices = {};
+    allDevices.addAll(devices);
+    for (final devices in signalingDevices.values) {
+      for (final device in devices) {
+        final currentDevice = allDevices[device.fingerprint];
+        if (currentDevice != null && currentDevice.alias == device.alias) {
+          allDevices[device.fingerprint] = currentDevice.merge(device);
+        } else {
+          allDevices[device.fingerprint] = device;
+        }
+      }
+    }
+    return allDevices;
+  }
+}
+
+extension on Device {
+  Device merge(Device other) {
+    return Device(
+      signalingId: signalingId ?? other.signalingId,
+      ip: ip ?? other.ip,
+      version: version,
+      port: port,
+      https: https,
+      fingerprint: fingerprint,
+      alias: alias,
+      deviceModel: deviceModel,
+      deviceType: deviceType,
+      download: download,
+      discoveryMethods: {
+        ...discoveryMethods,
+        ...other.discoveryMethods,
+      },
+    );
+  }
 }

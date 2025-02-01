@@ -24,6 +24,7 @@ class MulticastDiscovery extends DiscoveryMethod with MulticastDiscoveryMappable
 @MappableClass()
 class HttpDiscovery extends DiscoveryMethod with HttpDiscoveryMappable {
   final String ip;
+
   const HttpDiscovery({required this.ip});
 }
 
@@ -47,7 +48,13 @@ enum TransmissionMethod {
 /// It gets not serialized.
 @MappableClass()
 class Device with DeviceMappable {
+  /// A unique ID provided by the signaling server.
+  final String? signalingId;
+
+  /// The IP address of the device.
+  /// Is null when found via signaling.
   final String? ip;
+
   final String version;
   final int port;
   final bool https;
@@ -82,6 +89,7 @@ class Device with DeviceMappable {
   }
 
   const Device({
+    required this.signalingId,
     required this.ip,
     required this.version,
     required this.port,

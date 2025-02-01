@@ -52,6 +52,7 @@ void main() {
 
 Device _createDevice(String ip) {
   return Device(
+    signalingId: null,
     ip: ip,
     version: '1',
     port: 123,

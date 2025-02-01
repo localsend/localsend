@@ -39,6 +39,7 @@ class MulticastDto with MulticastDtoMappable {
 extension MulticastDtoToDeviceExt on MulticastDto {
   Device toDevice(String ip, int ownPort, bool ownHttps) {
     return Device(
+      signalingId: null,
       ip: ip,
       version: version ?? fallbackProtocolVersion,
       port: port ?? ownPort,
