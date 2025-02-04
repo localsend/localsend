@@ -17,7 +17,7 @@ Stream<WsServerMessage> connect(
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>
 abstract class LsSignalingConnection implements RustOpaqueInterface {
-  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer});
+  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin});
 
   Future<RtcSendState> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files});
 }
@@ -58,6 +58,8 @@ abstract class RtcSendState implements RustOpaqueInterface {
   Stream<RTCStatus> listenStatus();
 
   Future<RtcFileSender> sendFile({required String fileId});
+
+  Future<void> sendPin({required String pin});
 }
 
 class ClientInfo {
@@ -132,6 +134,23 @@ enum PeerDeviceType {
   ;
 }
 
+class PinConfig {
+  final String pin;
+  final int maxTries;
+
+  const PinConfig({
+    required this.pin,
+    required this.maxTries,
+  });
+
+  @override
+  int get hashCode => pin.hashCode ^ maxTries.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is PinConfig && runtimeType == other.runtimeType && pin == other.pin && maxTries == other.maxTries;
+}
+
 class RTCFileError {
   final String fileId;
   final String error;
@@ -175,6 +194,9 @@ sealed class RTCStatus with _$RTCStatus {
 
   const factory RTCStatus.sdpExchanged() = RTCStatus_SdpExchanged;
   const factory RTCStatus.connected() = RTCStatus_Connected;
+  const factory RTCStatus.pinRequired() = RTCStatus_PinRequired;
+  const factory RTCStatus.tooManyRequests() = RTCStatus_TooManyRequests;
+  const factory RTCStatus.sending() = RTCStatus_Sending;
   const factory RTCStatus.finished() = RTCStatus_Finished;
   const factory RTCStatus.error(
     String field0,

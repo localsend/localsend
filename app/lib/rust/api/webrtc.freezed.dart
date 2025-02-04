@@ -20,6 +20,9 @@ mixin _$RTCStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
   }) =>
@@ -28,6 +31,9 @@ mixin _$RTCStatus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
   }) =>
@@ -36,6 +42,9 @@ mixin _$RTCStatus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
     required TResult orElse(),
@@ -45,6 +54,9 @@ mixin _$RTCStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
   }) =>
@@ -53,6 +65,9 @@ mixin _$RTCStatus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
   }) =>
@@ -61,6 +76,9 @@ mixin _$RTCStatus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
     required TResult orElse(),
@@ -125,6 +143,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
   TResult when<TResult extends Object?>({
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
   }) {
@@ -136,6 +157,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
   }) {
@@ -147,6 +171,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
     required TResult orElse(),
@@ -162,6 +189,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
   TResult map<TResult extends Object?>({
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
   }) {
@@ -173,6 +203,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
   }) {
@@ -184,6 +217,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
     required TResult orElse(),
@@ -238,6 +274,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
   TResult when<TResult extends Object?>({
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
   }) {
@@ -249,6 +288,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
   }) {
@@ -260,6 +302,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
     required TResult orElse(),
@@ -275,6 +320,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
   TResult map<TResult extends Object?>({
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
   }) {
@@ -286,6 +334,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
   }) {
@@ -297,6 +348,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
     required TResult orElse(),
@@ -311,6 +365,401 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
 abstract class RTCStatus_Connected extends RTCStatus {
   const factory RTCStatus_Connected() = _$RTCStatus_ConnectedImpl;
   const RTCStatus_Connected._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_PinRequiredImplCopyWith<$Res> {
+  factory _$$RTCStatus_PinRequiredImplCopyWith(_$RTCStatus_PinRequiredImpl value, $Res Function(_$RTCStatus_PinRequiredImpl) then) =
+      __$$RTCStatus_PinRequiredImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_PinRequiredImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_PinRequiredImpl>
+    implements _$$RTCStatus_PinRequiredImplCopyWith<$Res> {
+  __$$RTCStatus_PinRequiredImplCopyWithImpl(_$RTCStatus_PinRequiredImpl _value, $Res Function(_$RTCStatus_PinRequiredImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
+  const _$RTCStatus_PinRequiredImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.pinRequired()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_PinRequiredImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return pinRequired();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return pinRequired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (pinRequired != null) {
+      return pinRequired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return pinRequired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return pinRequired?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (pinRequired != null) {
+      return pinRequired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_PinRequired extends RTCStatus {
+  const factory RTCStatus_PinRequired() = _$RTCStatus_PinRequiredImpl;
+  const RTCStatus_PinRequired._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_TooManyRequestsImplCopyWith<$Res> {
+  factory _$$RTCStatus_TooManyRequestsImplCopyWith(_$RTCStatus_TooManyRequestsImpl value, $Res Function(_$RTCStatus_TooManyRequestsImpl) then) =
+      __$$RTCStatus_TooManyRequestsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_TooManyRequestsImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_TooManyRequestsImpl>
+    implements _$$RTCStatus_TooManyRequestsImplCopyWith<$Res> {
+  __$$RTCStatus_TooManyRequestsImplCopyWithImpl(_$RTCStatus_TooManyRequestsImpl _value, $Res Function(_$RTCStatus_TooManyRequestsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
+  const _$RTCStatus_TooManyRequestsImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.tooManyRequests()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_TooManyRequestsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return tooManyRequests();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return tooManyRequests?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (tooManyRequests != null) {
+      return tooManyRequests();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return tooManyRequests(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return tooManyRequests?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (tooManyRequests != null) {
+      return tooManyRequests(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_TooManyRequests extends RTCStatus {
+  const factory RTCStatus_TooManyRequests() = _$RTCStatus_TooManyRequestsImpl;
+  const RTCStatus_TooManyRequests._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_SendingImplCopyWith<$Res> {
+  factory _$$RTCStatus_SendingImplCopyWith(_$RTCStatus_SendingImpl value, $Res Function(_$RTCStatus_SendingImpl) then) =
+      __$$RTCStatus_SendingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_SendingImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_SendingImpl>
+    implements _$$RTCStatus_SendingImplCopyWith<$Res> {
+  __$$RTCStatus_SendingImplCopyWithImpl(_$RTCStatus_SendingImpl _value, $Res Function(_$RTCStatus_SendingImpl) _then) : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
+  const _$RTCStatus_SendingImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.sending()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_SendingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return sending();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return sending?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (sending != null) {
+      return sending();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return sending(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return sending?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (sending != null) {
+      return sending(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_Sending extends RTCStatus {
+  const factory RTCStatus_Sending() = _$RTCStatus_SendingImpl;
+  const RTCStatus_Sending._() : super._();
 }
 
 /// @nodoc
@@ -351,6 +800,9 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
   TResult when<TResult extends Object?>({
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
   }) {
@@ -362,6 +814,9 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
   }) {
@@ -373,6 +828,9 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
     required TResult orElse(),
@@ -388,6 +846,9 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
   TResult map<TResult extends Object?>({
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
   }) {
@@ -399,6 +860,9 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
   }) {
@@ -410,6 +874,9 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
     required TResult orElse(),
@@ -489,6 +956,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   TResult when<TResult extends Object?>({
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyRequests,
+    required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
   }) {
@@ -500,6 +970,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
   }) {
@@ -511,6 +984,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyRequests,
+    TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
     required TResult orElse(),
@@ -526,6 +1002,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   TResult map<TResult extends Object?>({
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
   }) {
@@ -537,6 +1016,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
   }) {
@@ -548,6 +1030,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
     required TResult orElse(),

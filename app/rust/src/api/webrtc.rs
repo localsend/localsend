@@ -6,7 +6,9 @@ pub use localsend::webrtc::signaling::{
     ClientInfo, ClientInfoWithoutId, ManagedSignalingConnection, PeerDeviceType,
     SignalingConnection, WsServerMessage, WsServerSdpMessage,
 };
-pub use localsend::webrtc::webrtc::{RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
+pub use localsend::webrtc::webrtc::{
+    PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus,
+};
 use std::collections::HashSet;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
@@ -51,6 +53,7 @@ impl LsSignalingConnection {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
         let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
         let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(1);
+        let (pin_tx, pin_rx) = mpsc::channel::<String>(1);
         let (send_tx, send_rx) = mpsc::channel::<RTCFile>(1);
 
         localsend::webrtc::webrtc::send_offer(
@@ -61,6 +64,7 @@ impl LsSignalingConnection {
             status_tx,
             selected_tx,
             error_tx,
+            pin_rx,
             send_rx,
         )
         .await?;
@@ -69,6 +73,7 @@ impl LsSignalingConnection {
             status_rx,
             selected_rx: Arc::new(Mutex::new(Some(selected_rx))),
             error_rx,
+            pin_tx,
             send_tx,
         })
     }
@@ -77,6 +82,7 @@ impl LsSignalingConnection {
         &self,
         stun_servers: Vec<String>,
         offer: WsServerSdpMessage,
+        pin: Option<PinConfig>,
     ) -> anyhow::Result<RTCReceiveState> {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
         let (files_tx, files_rx) = oneshot::channel::<Vec<FileDto>>();
@@ -89,6 +95,7 @@ impl LsSignalingConnection {
             &self.inner,
             stun_servers,
             &offer,
+            pin,
             status_tx,
             files_tx,
             selected_rx,
@@ -113,6 +120,7 @@ pub struct RTCSendState {
     status_rx: mpsc::Receiver<RTCStatus>,
     selected_rx: Arc<Mutex<Option<oneshot::Receiver<HashSet<String>>>>>,
     error_rx: mpsc::Receiver<RTCFileError>,
+    pin_tx: mpsc::Sender<String>,
     send_tx: mpsc::Sender<RTCFile>,
 }
 
@@ -139,6 +147,11 @@ impl RTCSendState {
         while let Some(error) = self.error_rx.recv().await {
             let _ = sink.add(error);
         }
+    }
+
+    pub async fn send_pin(&self, pin: String) -> anyhow::Result<()> {
+        self.pin_tx.send(pin).await?;
+        Ok(())
     }
 
     pub async fn send_file(&self, file_id: String) -> anyhow::Result<RTCFileSender> {
@@ -251,6 +264,12 @@ impl RTCFileReceiver {
     }
 }
 
+#[frb(mirror(PinConfig))]
+pub struct _PinConfig {
+    pub pin: String,
+    pub max_tries: u8,
+}
+
 #[frb(mirror(WsServerMessage))]
 pub enum _WsServerMessage {
     Hello {
@@ -309,6 +328,9 @@ pub struct _WsServerSdpMessage {
 pub enum _RTCStatus {
     SdpExchanged,
     Connected,
+    PinRequired,
+    TooManyRequests,
+    Sending,
     Finished,
     Error(String),
 }

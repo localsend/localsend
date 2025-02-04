@@ -102,7 +102,7 @@ pub enum RTCStatus {
     Error(String),
 }
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct RTCFileError {
     pub file_id: String,
     pub error: String,
@@ -358,6 +358,7 @@ pub async fn send_offer(
     Ok(())
 }
 
+#[derive(Debug, Eq, PartialEq)]
 pub struct PinConfig {
     pub pin: String,
     pub max_tries: u8,

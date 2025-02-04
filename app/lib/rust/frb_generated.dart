@@ -66,7 +66,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.7.0';
 
   @override
-  int get rustContentHash => 1974666931;
+  int get rustContentHash => -1233216887;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -77,7 +77,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 
 abstract class RustLibApi extends BaseApi {
   Future<RtcReceiveState> crateApiWebrtcLsSignalingConnectionAcceptOffer(
-      {required LsSignalingConnection that, required List<String> stunServers, required WsServerSdpMessage offer});
+      {required LsSignalingConnection that, required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin});
 
   Future<RtcSendState> crateApiWebrtcLsSignalingConnectionSendOffer(
       {required LsSignalingConnection that, required List<String> stunServers, required UuidValue target, required List<FileDto> files});
@@ -107,6 +107,8 @@ abstract class RustLibApi extends BaseApi {
   Stream<RTCStatus> crateApiWebrtcRtcSendStateListenStatus({required RtcSendState that});
 
   Future<RtcFileSender> crateApiWebrtcRtcSendStateSendFile({required RtcSendState that, required String fileId});
+
+  Future<void> crateApiWebrtcRtcSendStateSendPin({required RtcSendState that, required String pin});
 
   Stream<WsServerMessage> crateApiWebrtcConnect(
       {required String uri, required ClientInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection});
@@ -154,13 +156,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @override
   Future<RtcReceiveState> crateApiWebrtcLsSignalingConnectionAcceptOffer(
-      {required LsSignalingConnection that, required List<String> stunServers, required WsServerSdpMessage offer}) {
+      {required LsSignalingConnection that, required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection(that, serializer);
         sse_encode_list_String(stunServers, serializer);
         sse_encode_box_autoadd_ws_server_sdp_message(offer, serializer);
+        sse_encode_opt_box_autoadd_pin_config(pin, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1, port: port_);
       },
       codec: SseCodec(
@@ -168,14 +171,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         decodeErrorData: sse_decode_AnyhowException,
       ),
       constMeta: kCrateApiWebrtcLsSignalingConnectionAcceptOfferConstMeta,
-      argValues: [that, stunServers, offer],
+      argValues: [that, stunServers, offer, pin],
       apiImpl: this,
     ));
   }
 
   TaskConstMeta get kCrateApiWebrtcLsSignalingConnectionAcceptOfferConstMeta => const TaskConstMeta(
         debugName: 'LsSignalingConnection_accept_offer',
-        argNames: ['that', 'stunServers', 'offer'],
+        argNames: ['that', 'stunServers', 'offer', 'pin'],
       );
 
   @override
@@ -527,6 +530,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<void> crateApiWebrtcRtcSendStateSendPin({required RtcSendState that, required String pin}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
+        sse_encode_String(pin, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcSendStateSendPinConstMeta,
+      argValues: [that, pin],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcSendStateSendPinConstMeta => const TaskConstMeta(
+        debugName: 'RtcSendState_send_pin',
+        argNames: ['that', 'pin'],
+      );
+
+  @override
   Stream<WsServerMessage> crateApiWebrtcConnect(
       {required String uri, required ClientInfoWithoutId info, required FutureOr<void> Function(LsSignalingConnection) onConnection}) {
     final sink = RustStreamSink<WsServerMessage>();
@@ -538,7 +565,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_box_autoadd_client_info_without_id(info, serializer);
         sse_encode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection_Output_unit_AnyhowException(
             onConnection, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -561,7 +588,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -839,6 +866,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PinConfig dco_decode_box_autoadd_pin_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_pin_config(raw);
+  }
+
+  @protected
   RTCSendFileResponse dco_decode_box_autoadd_rtc_send_file_response(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_rtc_send_file_response(raw);
@@ -967,9 +1000,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PinConfig? dco_decode_opt_box_autoadd_pin_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_pin_config(raw);
+  }
+
+  @protected
   PeerDeviceType dco_decode_peer_device_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return PeerDeviceType.values[raw as int];
+  }
+
+  @protected
+  PinConfig dco_decode_pin_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return PinConfig(
+      pin: dco_decode_String(arr[0]),
+      maxTries: dco_decode_u_8(arr[1]),
+    );
   }
 
   @protected
@@ -1004,8 +1054,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 1:
         return RTCStatus_Connected();
       case 2:
-        return RTCStatus_Finished();
+        return RTCStatus_PinRequired();
       case 3:
+        return RTCStatus_TooManyRequests();
+      case 4:
+        return RTCStatus_Sending();
+      case 5:
+        return RTCStatus_Finished();
+      case 6:
         return RTCStatus_Error(
           dco_decode_String(raw[1]),
         );
@@ -1291,6 +1347,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PinConfig sse_decode_box_autoadd_pin_config(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_pin_config(deserializer));
+  }
+
+  @protected
   RTCSendFileResponse sse_decode_box_autoadd_rtc_send_file_response(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_rtc_send_file_response(deserializer));
@@ -1445,10 +1507,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PinConfig? sse_decode_opt_box_autoadd_pin_config(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_pin_config(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   PeerDeviceType sse_decode_peer_device_type(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return PeerDeviceType.values[inner];
+  }
+
+  @protected
+  PinConfig sse_decode_pin_config(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_pin = sse_decode_String(deserializer);
+    var var_maxTries = sse_decode_u_8(deserializer);
+    return PinConfig(pin: var_pin, maxTries: var_maxTries);
   }
 
   @protected
@@ -1479,8 +1560,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 1:
         return RTCStatus_Connected();
       case 2:
-        return RTCStatus_Finished();
+        return RTCStatus_PinRequired();
       case 3:
+        return RTCStatus_TooManyRequests();
+      case 4:
+        return RTCStatus_Sending();
+      case 5:
+        return RTCStatus_Finished();
+      case 6:
         var var_field0 = sse_decode_String(deserializer);
         return RTCStatus_Error(var_field0);
       default:
@@ -1802,6 +1889,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_pin_config(PinConfig self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_pin_config(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_rtc_send_file_response(RTCSendFileResponse self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_rtc_send_file_response(self, serializer);
@@ -1937,9 +2030,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_pin_config(PinConfig? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_pin_config(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_peer_device_type(PeerDeviceType self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_pin_config(PinConfig self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.pin, serializer);
+    sse_encode_u_8(self.maxTries, serializer);
   }
 
   @protected
@@ -1965,10 +2075,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_i_32(0, serializer);
       case RTCStatus_Connected():
         sse_encode_i_32(1, serializer);
-      case RTCStatus_Finished():
+      case RTCStatus_PinRequired():
         sse_encode_i_32(2, serializer);
-      case RTCStatus_Error(field0: final field0):
+      case RTCStatus_TooManyRequests():
         sse_encode_i_32(3, serializer);
+      case RTCStatus_Sending():
+        sse_encode_i_32(4, serializer);
+      case RTCStatus_Finished():
+        sse_encode_i_32(5, serializer);
+      case RTCStatus_Error(field0: final field0):
+        sse_encode_i_32(6, serializer);
         sse_encode_String(field0, serializer);
     }
   }
@@ -2052,8 +2168,8 @@ class LsSignalingConnectionImpl extends RustOpaque implements LsSignalingConnect
     rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_LsSignalingConnectionPtr,
   );
 
-  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer}) =>
-      RustLib.instance.api.crateApiWebrtcLsSignalingConnectionAcceptOffer(that: this, stunServers: stunServers, offer: offer);
+  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin}) =>
+      RustLib.instance.api.crateApiWebrtcLsSignalingConnectionAcceptOffer(that: this, stunServers: stunServers, offer: offer, pin: pin);
 
   Future<RtcSendState> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files}) =>
       RustLib.instance.api.crateApiWebrtcLsSignalingConnectionSendOffer(that: this, stunServers: stunServers, target: target, files: files);
@@ -2165,4 +2281,6 @@ class RtcSendStateImpl extends RustOpaque implements RtcSendState {
       );
 
   Future<RtcFileSender> sendFile({required String fileId}) => RustLib.instance.api.crateApiWebrtcRtcSendStateSendFile(that: this, fileId: fileId);
+
+  Future<void> sendPin({required String pin}) => RustLib.instance.api.crateApiWebrtcRtcSendStateSendPin(that: this, pin: pin);
 }

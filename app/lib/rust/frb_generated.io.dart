@@ -140,6 +140,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PeerDeviceType dco_decode_box_autoadd_peer_device_type(dynamic raw);
 
   @protected
+  PinConfig dco_decode_box_autoadd_pin_config(dynamic raw);
+
+  @protected
   RTCSendFileResponse dco_decode_box_autoadd_rtc_send_file_response(dynamic raw);
 
   @protected
@@ -188,7 +191,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PeerDeviceType? dco_decode_opt_box_autoadd_peer_device_type(dynamic raw);
 
   @protected
+  PinConfig? dco_decode_opt_box_autoadd_pin_config(dynamic raw);
+
+  @protected
   PeerDeviceType dco_decode_peer_device_type(dynamic raw);
+
+  @protected
+  PinConfig dco_decode_pin_config(dynamic raw);
 
   @protected
   RTCFileError dco_decode_rtc_file_error(dynamic raw);
@@ -320,6 +329,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PeerDeviceType sse_decode_box_autoadd_peer_device_type(SseDeserializer deserializer);
 
   @protected
+  PinConfig sse_decode_box_autoadd_pin_config(SseDeserializer deserializer);
+
+  @protected
   RTCSendFileResponse sse_decode_box_autoadd_rtc_send_file_response(SseDeserializer deserializer);
 
   @protected
@@ -368,7 +380,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PeerDeviceType? sse_decode_opt_box_autoadd_peer_device_type(SseDeserializer deserializer);
 
   @protected
+  PinConfig? sse_decode_opt_box_autoadd_pin_config(SseDeserializer deserializer);
+
+  @protected
   PeerDeviceType sse_decode_peer_device_type(SseDeserializer deserializer);
+
+  @protected
+  PinConfig sse_decode_pin_config(SseDeserializer deserializer);
 
   @protected
   RTCFileError sse_decode_rtc_file_error(SseDeserializer deserializer);
@@ -512,6 +530,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_peer_device_type(PeerDeviceType self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_pin_config(PinConfig self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_rtc_send_file_response(RTCSendFileResponse self, SseSerializer serializer);
 
   @protected
@@ -560,7 +581,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_opt_box_autoadd_peer_device_type(PeerDeviceType? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_box_autoadd_pin_config(PinConfig? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_peer_device_type(PeerDeviceType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_pin_config(PinConfig self, SseSerializer serializer);
 
   @protected
   void sse_encode_rtc_file_error(RTCFileError self, SseSerializer serializer);
