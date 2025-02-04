@@ -24,12 +24,30 @@ use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
 use webrtc::peer_connection::RTCPeerConnection;
 
 #[derive(Debug, Deserialize, Serialize)]
-struct RTCInitialMessage {
+struct RTCInitResponse {
+    pub status: RTCInitStatus,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+enum RTCInitStatus {
+    Ok,
+    PinRequired,
+    TooManyRequests,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+struct RTCPinRequest {
+    pub pin: String,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+struct RTCFileListRequest {
     pub files: Vec<FileDto>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct RTCInitialResponse {
+struct RTCFileListResponse {
     pub files: HashMap<String, String>,
 }
 
@@ -60,13 +78,22 @@ pub struct RTCSendFileResponse {
     pub error: Option<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub enum RTCStatus {
     /// Received remote SDP offer/answer. Ready to start P2P connection.
     SdpExchanged,
 
-    /// Opened data channel. Ready to send/receive data.
+    /// Opened data channel. Ready to further communication.
     Connected,
+
+    /// PIN is required to proceed.
+    PinRequired,
+
+    /// Too many requests. Connection is closed.
+    TooManyRequests,
+
+    /// Files are being sent.
+    Sending,
 
     /// Data channel closed. Connection is closed.
     Finished,
@@ -91,6 +118,7 @@ pub async fn send_offer(
     status_tx: mpsc::Sender<RTCStatus>,
     selected_files_tx: oneshot::Sender<HashSet<String>>,
     error_tx: mpsc::Sender<RTCFileError>,
+    mut pin_rx: mpsc::Receiver<String>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
 ) -> Result<()> {
     let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
@@ -121,24 +149,51 @@ pub async fn send_offer(
         let data_channel = Arc::clone(&data_channel);
         let status_tx = status_tx.clone();
         tokio::spawn(async move {
-            let Some(_) = connected_rx.recv().await else {
-                return Err::<(), anyhow::Error>(anyhow::anyhow!("Data channel not opened"));
-            };
+            connected_rx
+                .recv()
+                .await
+                .ok_or_else(|| anyhow::anyhow!("Data channel not opened"))?;
 
-            if let Err(e) = status_tx.send(RTCStatus::Connected).await {
-                let _ = status_tx.try_send(RTCStatus::Error(e.to_string()));
-                return Err(e.into());
+            loop {
+                let Some(init_status) = receive_rx.recv().await else {
+                    return Err(anyhow::anyhow!("Failed to receive initial message"));
+                };
+
+                if !init_status.is_string {
+                    return Err(anyhow::anyhow!("Expected string message"));
+                }
+
+                let init: RTCInitResponse = serde_json::from_slice(&init_status.data)?;
+
+                match init.status {
+                    RTCInitStatus::Ok => {
+                        status_tx.send(RTCStatus::Connected).await?;
+                        break;
+                    }
+                    RTCInitStatus::PinRequired => {
+                        status_tx.send(RTCStatus::PinRequired).await?;
+                        let Some(pin) = pin_rx.recv().await else {
+                            return Err(anyhow::anyhow!("PIN required but not provided"));
+                        };
+
+                        data_channel
+                            .send_text(&serde_json::to_string(&RTCPinRequest { pin })?)
+                            .await?;
+                    }
+                    RTCInitStatus::TooManyRequests => {
+                        status_tx.send(RTCStatus::TooManyRequests).await?;
+                        return Err(anyhow::anyhow!("Too many requests"));
+                    }
+                }
             }
 
-            wait_buffer_empty(&data_channel).await;
-
             {
-                // send initial message
-                let initial_message = serde_json::to_string(&RTCInitialMessage { files })?;
+                // send file list message
+                let file_list_req = serde_json::to_string(&RTCFileListRequest { files })?;
 
                 let result = process_string_in_chunks(
                     Arc::clone(&data_channel),
-                    initial_message,
+                    file_list_req,
                     |data_channel, chunk| async move {
                         data_channel.send(&chunk).await?;
                         Ok(data_channel)
@@ -148,34 +203,29 @@ pub async fn send_offer(
 
                 if let Err(e) = result {
                     let _ = status_tx.try_send(RTCStatus::Error(format!(
-                        "Failed to send initial message: {e}"
+                        "Failed to send file list message: {e}"
                     )));
                     return Err(e.into());
                 }
 
                 if let Err(e) = send_delimiter(&data_channel).await {
                     let _ = status_tx.try_send(RTCStatus::Error(format!(
-                        "Failed to send initial message: {e}"
+                        "Failed to send file list message: {e}"
                     )));
                     return Err(e.into());
                 }
             }
 
-            tracing::debug!("Sent initial message. Waiting for file tokens...");
+            tracing::debug!("Sent file list message. Waiting for file tokens...");
 
             // Receive file tokens
-            let mut initial_msg_buffer = BytesMut::new();
-            while let Some(msg) = receive_rx.recv().await {
-                if msg.is_string {
-                    break;
-                }
-
-                initial_msg_buffer.extend_from_slice(&msg.data);
-            }
-
-            let initial_msg_str: String = String::from_utf8(initial_msg_buffer.to_vec())?;
-            let initial_msg: RTCInitialResponse = serde_json::from_str(&initial_msg_str)?;
-            let file_tokens = initial_msg.files;
+            let file_tokens = {
+                let bytes = receive_string_from_chunks(&mut receive_rx).await;
+                let parsed: RTCFileListResponse = serde_json::from_slice(&*bytes).map_err(|e| {
+                    anyhow::anyhow!("Failed to deserialize file list response: {e}")
+                })?;
+                parsed.files
+            };
 
             // Publish selected files
             if selected_files_tx
@@ -308,10 +358,16 @@ pub async fn send_offer(
     Ok(())
 }
 
+pub struct PinConfig {
+    pub pin: String,
+    pub max_tries: u8,
+}
+
 pub async fn accept_offer(
     signaling: &ManagedSignalingConnection,
     stun_servers: Vec<String>,
     offer: &WsServerSdpMessage,
+    pin: Option<PinConfig>,
     status_tx: mpsc::Sender<RTCStatus>,
     files_tx: oneshot::Sender<Vec<FileDto>>,
     selected_files_rx: oneshot::Receiver<HashSet<String>>,
@@ -346,32 +402,78 @@ pub async fn accept_offer(
                 return Err::<(), anyhow::Error>(anyhow::anyhow!("Data channel not found"));
             };
 
-            let _ = status_tx.try_send(RTCStatus::Connected);
-
             // We convert on_message to a stream of messages
             // to improve readability using a sequential implementation
             let mut receive_rx = to_receive_stream(&data_channel, 16);
 
-            // Init: Receive binary
-            let mut initial_msg_buffer = BytesMut::new();
-            while let Some(msg) = receive_rx.recv().await {
-                if msg.is_string {
-                    break;
+            wait_buffer_empty(&data_channel).await;
+
+            if let Some(pin_config) = &pin {
+                status_tx.send(RTCStatus::PinRequired).await?;
+
+                let mut remote_pin = "".to_string();
+                let mut pin_try = 0u8;
+
+                loop {
+                    if remote_pin == pin_config.pin {
+                        break;
+                    }
+
+                    if pin_try >= pin_config.max_tries {
+                        let _ = tokio::time::timeout(Duration::from_secs(5), async {
+                            let _ = data_channel
+                                .send_text(
+                                    serde_json::to_string(&RTCInitResponse {
+                                        status: RTCInitStatus::TooManyRequests,
+                                    })
+                                    .expect("Failed to serialize"),
+                                )
+                                .await;
+
+                            wait_buffer_empty(&data_channel).await;
+                        })
+                        .await;
+
+                        status_tx.send(RTCStatus::TooManyRequests).await?;
+
+                        return Ok(());
+                    }
+
+                    data_channel
+                        .send_text(serde_json::to_string(&RTCInitResponse {
+                            status: RTCInitStatus::PinRequired,
+                        })?)
+                        .await?;
+
+                    remote_pin = match receive_rx.recv().await {
+                        Some(msg) => {
+                            let pin_req: RTCPinRequest = serde_json::from_slice(&msg.data)?;
+                            pin_req.pin
+                        }
+                        None => {
+                            return Err(anyhow::anyhow!("Failed to receive pin"));
+                        }
+                    };
+
+                    pin_try += 1;
                 }
-
-                initial_msg_buffer.extend_from_slice(&msg.data);
             }
 
-            // Init: Deserialize and Publish for user selection
-            let initial_msg_str: String =
-                String::from_utf8(initial_msg_buffer.to_vec()).map_err(|e| {
-                    anyhow::anyhow!("Failed to convert initial message to utf8 string: {e}")
-                })?;
-            let initial_msg: RTCInitialMessage = serde_json::from_str(&initial_msg_str)
+            status_tx.send(RTCStatus::Connected).await?;
+
+            data_channel
+                .send_text(serde_json::to_string(&RTCInitResponse {
+                    status: RTCInitStatus::Ok,
+                })?)
+                .await?;
+
+            // Init: Receive binary
+            let file_list_bytes = receive_string_from_chunks(&mut receive_rx).await;
+            let file_list_req: RTCFileListRequest = serde_json::from_slice(&*file_list_bytes)
                 .map_err(|e| anyhow::anyhow!("Failed to deserialize initial message: {e}"))?;
-            if let Err(_) = files_tx.send(initial_msg.files.clone()) {
-                return Err(anyhow::anyhow!("Failed to send files"));
-            }
+            files_tx
+                .send(file_list_req.files.clone())
+                .map_err(|_| anyhow::anyhow!("Failed to send file list"))?;
 
             // Init: Receive user selection
             let Ok(selected_files) = selected_files_rx.await else {
@@ -386,10 +488,10 @@ pub async fn accept_offer(
                 })
                 .collect::<HashMap<String, String>>();
 
-            let initial_response = RTCInitialResponse { files: file_tokens };
+            let file_list_response = RTCFileListResponse { files: file_tokens };
             if let Err(e) = process_string_in_chunks(
                 Arc::clone(&data_channel),
-                serde_json::to_string(&initial_response)?,
+                serde_json::to_string(&file_list_response)?,
                 |data_channel, chunk| async move {
                     data_channel.send(&chunk).await?;
                     Ok(data_channel)
@@ -422,11 +524,13 @@ pub async fn accept_offer(
                             None => Some("Failed to receive file result".to_string()),
                         };
 
-                        data_channel.send_text(serde_json::to_string(&RTCSendFileResponse {
-                            id: last_file_id,
-                            success: error.is_none(),
-                            error,
-                        })?).await?;
+                        data_channel
+                            .send_text(serde_json::to_string(&RTCSendFileResponse {
+                                id: last_file_id,
+                                success: error.is_none(),
+                                error,
+                            })?)
+                            .await?;
 
                         if is_delimiter(&msg) {
                             // End of all files
@@ -435,14 +539,14 @@ pub async fn accept_offer(
                             let _ = tokio::time::timeout(Duration::from_secs(5), async {
                                 wait_buffer_empty(&data_channel).await;
                             })
-                                .await;
+                            .await;
 
                             break;
                         }
                     }
 
                     let header: RTCSendFileHeaderRequest = serde_json::from_slice(&msg.data)?;
-                    match initial_response.files.get(&header.id) {
+                    match file_list_response.files.get(&header.id) {
                         Some(entry) => {
                             if header.token != *entry {
                                 let _ = error_tx
@@ -468,7 +572,7 @@ pub async fn accept_offer(
                     let (tx, rx) = mpsc::channel::<Bytes>(4);
 
                     let size = {
-                        let entry = initial_msg.files.iter().find(|f| f.id == header.id);
+                        let entry = file_list_req.files.iter().find(|f| f.id == header.id);
                         match entry {
                             Some(file) => file.size,
                             None => {
@@ -679,6 +783,19 @@ where
     });
 
     process_in_chunks(data_channel, rx, callback).await
+}
+
+async fn receive_string_from_chunks(receive_rx: &mut mpsc::Receiver<DataChannelMessage>) -> Bytes {
+    let mut buffer = BytesMut::new();
+    while let Some(msg) = receive_rx.recv().await {
+        if msg.is_string {
+            break;
+        }
+
+        buffer.extend_from_slice(&msg.data);
+    }
+
+    buffer.freeze()
 }
 
 fn to_receive_stream(

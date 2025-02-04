@@ -3,7 +3,7 @@ mod util;
 mod webrtc;
 
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
-use crate::webrtc::webrtc::{RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
+use crate::webrtc::webrtc::{PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
 use anyhow::Result;
 use bytes::Bytes;
 use std::collections::HashSet;
@@ -37,8 +37,8 @@ async fn main() -> Result<()> {
         let stun_servers = vec!["stun:stun.l.google.com:19302".to_string()];
         match message {
             WsServerMessage::Joined { peer } => {
-                // send_handler(managed_connection.clone(), stun_servers, peer).await;
-                // return Ok(());
+                send_handler(managed_connection.clone(), stun_servers, peer).await;
+                return Ok(());
             }
             WsServerMessage::Offer(offer) => {
                 receive_handler(managed_connection.clone(), stun_servers, offer).await;
@@ -59,11 +59,12 @@ async fn send_handler(
     let (status_tx, mut status_rx) = mpsc::channel::<RTCStatus>(1);
     let (selected_tx, mut selected_rx) = oneshot::channel::<HashSet<String>>();
     let (error_tx, mut error_rx) = mpsc::channel::<RTCFileError>(1);
+    let (pin_tx, pin_rx) = mpsc::channel::<String>(1);
     let (send_tx, send_rx) = mpsc::channel::<RTCFile>(1);
 
     let files = vec![model::file::FileDto {
         id: "test-123-id".to_string(),
-        file_name: "test".to_string(),
+        file_name: "test.mp4".to_string(),
         size: 100,
         file_type: "video/mp4".to_string(),
         sha256: None,
@@ -82,6 +83,7 @@ async fn send_handler(
                 status_tx,
                 selected_tx,
                 error_tx,
+                pin_rx,
                 send_rx,
             )
             .await
@@ -92,8 +94,16 @@ async fn send_handler(
     });
 
     tokio::spawn(async move {
+        let mut pin_tries = vec!["1".to_string(), "2".to_string(), "123".to_string()].into_iter();
         while let Some(status) = status_rx.recv().await {
             tracing::info!("Status: {status:?}");
+
+            if status == RTCStatus::PinRequired {
+                let pin = pin_tries.next().expect("Failed to get pin");
+
+                tracing::info!("Sending pin: {pin}");
+                pin_tx.send(pin).await.expect("Failed to send pin");
+            }
         }
         tracing::info!("Closed channel: status");
     });
@@ -121,7 +131,7 @@ async fn send_handler(
             })
             .expect("Failed to send file");
 
-        let file_path = "/Users/user/Downloads/test/test.mp4";
+        let file_path = "/Users/user/Downloads/test/send/test.mp4";
         let start_time = std::time::Instant::now();
         read_file_to_sender(file_path, tx)
             .await
@@ -157,6 +167,10 @@ async fn receive_handler(
             &connection,
             stun_servers,
             &offer,
+            Some(PinConfig {
+                pin: "123".to_string(),
+                max_tries: 3,
+            }),
             status_tx,
             files_tx,
             selected_rx,
