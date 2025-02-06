@@ -37,15 +37,15 @@
     "start": "Mulai",
     "stop": "Berhenti",
     "save": "Simpan",
-    "unchanged": "Takberubah",
-    "unknown": "Takdikenal",
+    "unchanged": "Tidak berubah",
+    "unknown": "Tidak dikenal",
     "noItemInClipboard": "Tidak ada item di Papan Klip."
   },
   "receiveTab": {
     "title": "Terima",
     "infoBox": {
       "ip": "IP:",
-      "port": "Porta:",
+      "port": "Port:",
       "alias": "Nama perangkat:"
     },
     "quickSave": {
