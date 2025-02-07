@@ -33,7 +33,7 @@ struct RTCInitResponse {
 enum RTCInitStatus {
     Ok,
     PinRequired,
-    TooManyRequests,
+    TooManyAttempts,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -46,9 +46,17 @@ struct RTCFileListRequest {
     pub files: Vec<FileDto>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Eq, PartialEq, Deserialize, Serialize)]
 struct RTCFileListResponse {
+    pub status: RTCFileListStatus,
     pub files: HashMap<String, String>,
+}
+
+#[derive(Debug, Eq, PartialEq, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+enum RTCFileListStatus {
+    Ok,
+    Declined,
 }
 
 #[derive(Debug)]
@@ -89,8 +97,11 @@ pub enum RTCStatus {
     /// PIN is required to proceed.
     PinRequired,
 
-    /// Too many requests. Connection is closed.
-    TooManyRequests,
+    /// Too many attempts. Connection is closed.
+    TooManyAttempts,
+
+    /// Declined by the receiving peer.
+    Declined,
 
     /// Files are being sent.
     Sending,
@@ -180,8 +191,8 @@ pub async fn send_offer(
                             .send_text(&serde_json::to_string(&RTCPinRequest { pin })?)
                             .await?;
                     }
-                    RTCInitStatus::TooManyRequests => {
-                        status_tx.send(RTCStatus::TooManyRequests).await?;
+                    RTCInitStatus::TooManyAttempts => {
+                        status_tx.send(RTCStatus::TooManyAttempts).await?;
                         return Err(anyhow::anyhow!("Too many requests"));
                     }
                 }
@@ -219,17 +230,22 @@ pub async fn send_offer(
             tracing::debug!("Sent file list message. Waiting for file tokens...");
 
             // Receive file tokens
-            let file_tokens = {
+            let file_list_res = {
                 let bytes = receive_string_from_chunks(&mut receive_rx).await;
                 let parsed: RTCFileListResponse = serde_json::from_slice(&*bytes).map_err(|e| {
                     anyhow::anyhow!("Failed to deserialize file list response: {e}")
                 })?;
-                parsed.files
+                parsed
             };
+
+            if file_list_res.status == RTCFileListStatus::Declined {
+                let _ = status_tx.send(RTCStatus::Declined).await;
+                return Ok(());
+            }
 
             // Publish selected files
             if selected_files_tx
-                .send(file_tokens.keys().cloned().collect())
+                .send(file_list_res.files.keys().cloned().collect())
                 .is_err()
             {
                 let error = "Could not publish selection";
@@ -240,7 +256,7 @@ pub async fn send_offer(
             tracing::debug!("Received file tokens. Sending files...");
 
             while let Some(message) = sending_rx.recv().await {
-                let file_token = match file_tokens.get(&message.file_id) {
+                let file_token = match file_list_res.files.get(&message.file_id) {
                     Some(file_token) => file_token,
                     None => {
                         let _ = error_tx
@@ -371,7 +387,7 @@ pub async fn accept_offer(
     pin: Option<PinConfig>,
     status_tx: mpsc::Sender<RTCStatus>,
     files_tx: oneshot::Sender<Vec<FileDto>>,
-    selected_files_rx: oneshot::Receiver<HashSet<String>>,
+    selected_files_rx: oneshot::Receiver<Option<HashSet<String>>>,
     error_tx: mpsc::Sender<RTCFileError>,
     receiving_tx: mpsc::Sender<RTCFile>,
     mut user_error_tx: mpsc::Receiver<RTCSendFileResponse>,
@@ -425,7 +441,7 @@ pub async fn accept_offer(
                             let _ = data_channel
                                 .send_text(
                                     serde_json::to_string(&RTCInitResponse {
-                                        status: RTCInitStatus::TooManyRequests,
+                                        status: RTCInitStatus::TooManyAttempts,
                                     })
                                     .expect("Failed to serialize"),
                                 )
@@ -435,7 +451,7 @@ pub async fn accept_offer(
                         })
                         .await;
 
-                        status_tx.send(RTCStatus::TooManyRequests).await?;
+                        status_tx.send(RTCStatus::TooManyAttempts).await?;
 
                         return Ok(());
                     }
@@ -481,6 +497,26 @@ pub async fn accept_offer(
                 return Ok(());
             };
 
+            let Some(selected_files) = selected_files else {
+                // Declined by the user
+                process_string_in_chunks(
+                    Arc::clone(&data_channel),
+                    serde_json::to_string(&RTCFileListResponse {
+                        status: RTCFileListStatus::Declined,
+                        files: HashMap::new(),
+                    })?,
+                    |data_channel, chunk| async move {
+                        data_channel.send(&chunk).await?;
+                        Ok(data_channel)
+                    },
+                )
+                .await?;
+
+                send_delimiter(&data_channel).await?;
+
+                return Ok(());
+            };
+
             let file_tokens = selected_files
                 .into_iter()
                 .map(|file_id| {
@@ -489,7 +525,10 @@ pub async fn accept_offer(
                 })
                 .collect::<HashMap<String, String>>();
 
-            let file_list_response = RTCFileListResponse { files: file_tokens };
+            let file_list_response = RTCFileListResponse {
+                status: RTCFileListStatus::Ok,
+                files: file_tokens,
+            };
             if let Err(e) = process_string_in_chunks(
                 Arc::clone(&data_channel),
                 serde_json::to_string(&file_list_response)?,

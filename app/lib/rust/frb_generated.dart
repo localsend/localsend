@@ -66,7 +66,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.7.0';
 
   @override
-  int get rustContentHash => -1233216887;
+  int get rustContentHash => -1125520436;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -87,6 +87,8 @@ abstract class RustLibApi extends BaseApi {
   Stream<Uint8List> crateApiWebrtcRtcFileReceiverReceive({required RtcFileReceiver that});
 
   Future<void> crateApiWebrtcRtcFileSenderSend({required RtcFileSender that, required List<int> data});
+
+  Future<void> crateApiWebrtcRtcReceiveStateDecline({required RtcReceiveState that});
 
   Stream<RTCFileError> crateApiWebrtcRtcReceiveStateListenError({required RtcReceiveState that});
 
@@ -282,6 +284,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<void> crateApiWebrtcRtcReceiveStateDecline({required RtcReceiveState that}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_unit,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiWebrtcRtcReceiveStateDeclineConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWebrtcRtcReceiveStateDeclineConstMeta => const TaskConstMeta(
+        debugName: 'RtcReceiveState_decline',
+        argNames: ['that'],
+      );
+
+  @override
   Stream<RTCFileError> crateApiWebrtcRtcReceiveStateListenError({required RtcReceiveState that}) {
     final sink = RustStreamSink<RTCFileError>();
     unawaited(handler.executeNormal(NormalTask(
@@ -289,7 +314,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
         sse_encode_StreamSink_rtc_file_error_Sse(sink, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -313,7 +338,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_file_dto,
@@ -338,7 +363,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
         sse_encode_StreamSink_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileReceiver_Sse(sink, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -364,7 +389,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
         sse_encode_StreamSink_rtc_status_Sse(sink, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -389,7 +414,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
         sse_encode_box_autoadd_rtc_send_file_response(status, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -413,7 +438,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCReceiveState(that, serializer);
         sse_encode_Set_String(selection, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -438,7 +463,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
         sse_encode_StreamSink_rtc_file_error_Sse(sink, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -462,7 +487,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_Set_String,
@@ -487,7 +512,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
         sse_encode_StreamSink_rtc_status_Sse(sink, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -512,7 +537,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
         sse_encode_String(fileId, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCFileSender,
@@ -536,7 +561,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRTCSendState(that, serializer);
         sse_encode_String(pin, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -565,7 +590,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_box_autoadd_client_info_without_id(info, serializer);
         sse_encode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLsSignalingConnection_Output_unit_AnyhowException(
             onConnection, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -588,7 +613,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18, port: port_);
+        pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 19, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -1056,12 +1081,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 2:
         return RTCStatus_PinRequired();
       case 3:
-        return RTCStatus_TooManyRequests();
+        return RTCStatus_TooManyAttempts();
       case 4:
-        return RTCStatus_Sending();
+        return RTCStatus_Declined();
       case 5:
-        return RTCStatus_Finished();
+        return RTCStatus_Sending();
       case 6:
+        return RTCStatus_Finished();
+      case 7:
         return RTCStatus_Error(
           dco_decode_String(raw[1]),
         );
@@ -1562,12 +1589,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 2:
         return RTCStatus_PinRequired();
       case 3:
-        return RTCStatus_TooManyRequests();
+        return RTCStatus_TooManyAttempts();
       case 4:
-        return RTCStatus_Sending();
+        return RTCStatus_Declined();
       case 5:
-        return RTCStatus_Finished();
+        return RTCStatus_Sending();
       case 6:
+        return RTCStatus_Finished();
+      case 7:
         var var_field0 = sse_decode_String(deserializer);
         return RTCStatus_Error(var_field0);
       default:
@@ -2077,14 +2106,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_i_32(1, serializer);
       case RTCStatus_PinRequired():
         sse_encode_i_32(2, serializer);
-      case RTCStatus_TooManyRequests():
+      case RTCStatus_TooManyAttempts():
         sse_encode_i_32(3, serializer);
-      case RTCStatus_Sending():
+      case RTCStatus_Declined():
         sse_encode_i_32(4, serializer);
-      case RTCStatus_Finished():
+      case RTCStatus_Sending():
         sse_encode_i_32(5, serializer);
-      case RTCStatus_Error(field0: final field0):
+      case RTCStatus_Finished():
         sse_encode_i_32(6, serializer);
+      case RTCStatus_Error(field0: final field0):
+        sse_encode_i_32(7, serializer);
         sse_encode_String(field0, serializer);
     }
   }
@@ -2230,6 +2261,10 @@ class RtcReceiveStateImpl extends RustOpaque implements RtcReceiveState {
     rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RtcReceiveState,
     rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RtcReceiveStatePtr,
   );
+
+  Future<void> decline() => RustLib.instance.api.crateApiWebrtcRtcReceiveStateDecline(
+        that: this,
+      );
 
   Stream<RTCFileError> listenError() => RustLib.instance.api.crateApiWebrtcRtcReceiveStateListenError(
         that: this,

@@ -21,7 +21,8 @@ mixin _$RTCStatus {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -32,7 +33,8 @@ mixin _$RTCStatus {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -43,7 +45,8 @@ mixin _$RTCStatus {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -55,7 +58,8 @@ mixin _$RTCStatus {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -66,7 +70,8 @@ mixin _$RTCStatus {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -77,7 +82,8 @@ mixin _$RTCStatus {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
@@ -144,7 +150,8 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -158,7 +165,8 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -172,7 +180,8 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -190,7 +199,8 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -204,7 +214,8 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -218,7 +229,8 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
@@ -275,7 +287,8 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -289,7 +302,8 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -303,7 +317,8 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -321,7 +336,8 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -335,7 +351,8 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -349,7 +366,8 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
@@ -407,7 +425,8 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -421,7 +440,8 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -435,7 +455,8 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -453,7 +474,8 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -467,7 +489,8 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -481,7 +504,8 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
@@ -500,15 +524,15 @@ abstract class RTCStatus_PinRequired extends RTCStatus {
 }
 
 /// @nodoc
-abstract class _$$RTCStatus_TooManyRequestsImplCopyWith<$Res> {
-  factory _$$RTCStatus_TooManyRequestsImplCopyWith(_$RTCStatus_TooManyRequestsImpl value, $Res Function(_$RTCStatus_TooManyRequestsImpl) then) =
-      __$$RTCStatus_TooManyRequestsImplCopyWithImpl<$Res>;
+abstract class _$$RTCStatus_TooManyAttemptsImplCopyWith<$Res> {
+  factory _$$RTCStatus_TooManyAttemptsImplCopyWith(_$RTCStatus_TooManyAttemptsImpl value, $Res Function(_$RTCStatus_TooManyAttemptsImpl) then) =
+      __$$RTCStatus_TooManyAttemptsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_TooManyRequestsImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_TooManyRequestsImpl>
-    implements _$$RTCStatus_TooManyRequestsImplCopyWith<$Res> {
-  __$$RTCStatus_TooManyRequestsImplCopyWithImpl(_$RTCStatus_TooManyRequestsImpl _value, $Res Function(_$RTCStatus_TooManyRequestsImpl) _then)
+class __$$RTCStatus_TooManyAttemptsImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_TooManyAttemptsImpl>
+    implements _$$RTCStatus_TooManyAttemptsImplCopyWith<$Res> {
+  __$$RTCStatus_TooManyAttemptsImplCopyWithImpl(_$RTCStatus_TooManyAttemptsImpl _value, $Res Function(_$RTCStatus_TooManyAttemptsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of RTCStatus
@@ -517,17 +541,17 @@ class __$$RTCStatus_TooManyRequestsImplCopyWithImpl<$Res> extends _$RTCStatusCop
 
 /// @nodoc
 
-class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
-  const _$RTCStatus_TooManyRequestsImpl() : super._();
+class _$RTCStatus_TooManyAttemptsImpl extends RTCStatus_TooManyAttempts {
+  const _$RTCStatus_TooManyAttemptsImpl() : super._();
 
   @override
   String toString() {
-    return 'RTCStatus.tooManyRequests()';
+    return 'RTCStatus.tooManyAttempts()';
   }
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_TooManyRequestsImpl);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_TooManyAttemptsImpl);
   }
 
   @override
@@ -539,12 +563,13 @@ class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
   }) {
-    return tooManyRequests();
+    return tooManyAttempts();
   }
 
   @override
@@ -553,12 +578,13 @@ class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
   }) {
-    return tooManyRequests?.call();
+    return tooManyAttempts?.call();
   }
 
   @override
@@ -567,14 +593,15 @@ class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
     required TResult orElse(),
   }) {
-    if (tooManyRequests != null) {
-      return tooManyRequests();
+    if (tooManyAttempts != null) {
+      return tooManyAttempts();
     }
     return orElse();
   }
@@ -585,12 +612,13 @@ class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
   }) {
-    return tooManyRequests(this);
+    return tooManyAttempts(this);
   }
 
   @override
@@ -599,12 +627,13 @@ class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
   }) {
-    return tooManyRequests?.call(this);
+    return tooManyAttempts?.call(this);
   }
 
   @override
@@ -613,22 +642,160 @@ class _$RTCStatus_TooManyRequestsImpl extends RTCStatus_TooManyRequests {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
     required TResult orElse(),
   }) {
-    if (tooManyRequests != null) {
-      return tooManyRequests(this);
+    if (tooManyAttempts != null) {
+      return tooManyAttempts(this);
     }
     return orElse();
   }
 }
 
-abstract class RTCStatus_TooManyRequests extends RTCStatus {
-  const factory RTCStatus_TooManyRequests() = _$RTCStatus_TooManyRequestsImpl;
-  const RTCStatus_TooManyRequests._() : super._();
+abstract class RTCStatus_TooManyAttempts extends RTCStatus {
+  const factory RTCStatus_TooManyAttempts() = _$RTCStatus_TooManyAttemptsImpl;
+  const RTCStatus_TooManyAttempts._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RTCStatus_DeclinedImplCopyWith<$Res> {
+  factory _$$RTCStatus_DeclinedImplCopyWith(_$RTCStatus_DeclinedImpl value, $Res Function(_$RTCStatus_DeclinedImpl) then) =
+      __$$RTCStatus_DeclinedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RTCStatus_DeclinedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_DeclinedImpl>
+    implements _$$RTCStatus_DeclinedImplCopyWith<$Res> {
+  __$$RTCStatus_DeclinedImplCopyWithImpl(_$RTCStatus_DeclinedImpl _value, $Res Function(_$RTCStatus_DeclinedImpl) _then) : super(_value, _then);
+
+  /// Create a copy of RTCStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RTCStatus_DeclinedImpl extends RTCStatus_Declined {
+  const _$RTCStatus_DeclinedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'RTCStatus.declined()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_DeclinedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sdpExchanged,
+    required TResult Function() connected,
+    required TResult Function() pinRequired,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
+    required TResult Function() sending,
+    required TResult Function() finished,
+    required TResult Function(String field0) error,
+  }) {
+    return declined();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sdpExchanged,
+    TResult? Function()? connected,
+    TResult? Function()? pinRequired,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
+    TResult? Function()? sending,
+    TResult? Function()? finished,
+    TResult? Function(String field0)? error,
+  }) {
+    return declined?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sdpExchanged,
+    TResult Function()? connected,
+    TResult Function()? pinRequired,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
+    TResult Function()? sending,
+    TResult Function()? finished,
+    TResult Function(String field0)? error,
+    required TResult orElse(),
+  }) {
+    if (declined != null) {
+      return declined();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
+    required TResult Function(RTCStatus_Connected value) connected,
+    required TResult Function(RTCStatus_PinRequired value) pinRequired,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
+    required TResult Function(RTCStatus_Sending value) sending,
+    required TResult Function(RTCStatus_Finished value) finished,
+    required TResult Function(RTCStatus_Error value) error,
+  }) {
+    return declined(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult? Function(RTCStatus_Connected value)? connected,
+    TResult? Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
+    TResult? Function(RTCStatus_Sending value)? sending,
+    TResult? Function(RTCStatus_Finished value)? finished,
+    TResult? Function(RTCStatus_Error value)? error,
+  }) {
+    return declined?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
+    TResult Function(RTCStatus_Connected value)? connected,
+    TResult Function(RTCStatus_PinRequired value)? pinRequired,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
+    TResult Function(RTCStatus_Sending value)? sending,
+    TResult Function(RTCStatus_Finished value)? finished,
+    TResult Function(RTCStatus_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (declined != null) {
+      return declined(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RTCStatus_Declined extends RTCStatus {
+  const factory RTCStatus_Declined() = _$RTCStatus_DeclinedImpl;
+  const RTCStatus_Declined._() : super._();
 }
 
 /// @nodoc
@@ -670,7 +837,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -684,7 +852,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -698,7 +867,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -716,7 +886,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -730,7 +901,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -744,7 +916,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
@@ -801,7 +974,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -815,7 +989,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -829,7 +1004,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -847,7 +1023,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -861,7 +1038,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -875,7 +1053,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,
@@ -957,7 +1136,8 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
     required TResult Function() sdpExchanged,
     required TResult Function() connected,
     required TResult Function() pinRequired,
-    required TResult Function() tooManyRequests,
+    required TResult Function() tooManyAttempts,
+    required TResult Function() declined,
     required TResult Function() sending,
     required TResult Function() finished,
     required TResult Function(String field0) error,
@@ -971,7 +1151,8 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
     TResult? Function()? sdpExchanged,
     TResult? Function()? connected,
     TResult? Function()? pinRequired,
-    TResult? Function()? tooManyRequests,
+    TResult? Function()? tooManyAttempts,
+    TResult? Function()? declined,
     TResult? Function()? sending,
     TResult? Function()? finished,
     TResult? Function(String field0)? error,
@@ -985,7 +1166,8 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
     TResult Function()? sdpExchanged,
     TResult Function()? connected,
     TResult Function()? pinRequired,
-    TResult Function()? tooManyRequests,
+    TResult Function()? tooManyAttempts,
+    TResult Function()? declined,
     TResult Function()? sending,
     TResult Function()? finished,
     TResult Function(String field0)? error,
@@ -1003,7 +1185,8 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
     required TResult Function(RTCStatus_SdpExchanged value) sdpExchanged,
     required TResult Function(RTCStatus_Connected value) connected,
     required TResult Function(RTCStatus_PinRequired value) pinRequired,
-    required TResult Function(RTCStatus_TooManyRequests value) tooManyRequests,
+    required TResult Function(RTCStatus_TooManyAttempts value) tooManyAttempts,
+    required TResult Function(RTCStatus_Declined value) declined,
     required TResult Function(RTCStatus_Sending value) sending,
     required TResult Function(RTCStatus_Finished value) finished,
     required TResult Function(RTCStatus_Error value) error,
@@ -1017,7 +1200,8 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
     TResult? Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult? Function(RTCStatus_Connected value)? connected,
     TResult? Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult? Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult? Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult? Function(RTCStatus_Declined value)? declined,
     TResult? Function(RTCStatus_Sending value)? sending,
     TResult? Function(RTCStatus_Finished value)? finished,
     TResult? Function(RTCStatus_Error value)? error,
@@ -1031,7 +1215,8 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
     TResult Function(RTCStatus_SdpExchanged value)? sdpExchanged,
     TResult Function(RTCStatus_Connected value)? connected,
     TResult Function(RTCStatus_PinRequired value)? pinRequired,
-    TResult Function(RTCStatus_TooManyRequests value)? tooManyRequests,
+    TResult Function(RTCStatus_TooManyAttempts value)? tooManyAttempts,
+    TResult Function(RTCStatus_Declined value)? declined,
     TResult Function(RTCStatus_Sending value)? sending,
     TResult Function(RTCStatus_Finished value)? finished,
     TResult Function(RTCStatus_Error value)? error,

@@ -36,6 +36,8 @@ abstract class RtcFileSender implements RustOpaqueInterface {
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>
 abstract class RtcReceiveState implements RustOpaqueInterface {
+  Future<void> decline();
+
   Stream<RTCFileError> listenError();
 
   Future<List<FileDto>> listenFiles();
@@ -195,7 +197,8 @@ sealed class RTCStatus with _$RTCStatus {
   const factory RTCStatus.sdpExchanged() = RTCStatus_SdpExchanged;
   const factory RTCStatus.connected() = RTCStatus_Connected;
   const factory RTCStatus.pinRequired() = RTCStatus_PinRequired;
-  const factory RTCStatus.tooManyRequests() = RTCStatus_TooManyRequests;
+  const factory RTCStatus.tooManyAttempts() = RTCStatus_TooManyAttempts;
+  const factory RTCStatus.declined() = RTCStatus_Declined;
   const factory RTCStatus.sending() = RTCStatus_Sending;
   const factory RTCStatus.finished() = RTCStatus_Finished;
   const factory RTCStatus.error(

@@ -86,7 +86,7 @@ impl LsSignalingConnection {
     ) -> anyhow::Result<RTCReceiveState> {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
         let (files_tx, files_rx) = oneshot::channel::<Vec<FileDto>>();
-        let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
+        let (selected_tx, selected_rx) = oneshot::channel::<Option<HashSet<String>>>();
         let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(1);
         let (receiving_tx, receiving_rx) = mpsc::channel::<RTCFile>(1);
         let (file_status_tx, file_status_rx) = mpsc::channel::<RTCSendFileResponse>(1);
@@ -181,7 +181,7 @@ impl RTCFileSender {
 pub struct RTCReceiveState {
     status_rx: mpsc::Receiver<RTCStatus>,
     files_rx: Arc<Mutex<Option<oneshot::Receiver<Vec<FileDto>>>>>,
-    selected_tx: Arc<Mutex<Option<oneshot::Sender<HashSet<String>>>>>,
+    selected_tx: Arc<Mutex<Option<oneshot::Sender<Option<HashSet<String>>>>>>,
     error_rx: mpsc::Receiver<RTCFileError>,
     receiving_rx: mpsc::Receiver<RTCFile>,
     file_status_tx: mpsc::Sender<RTCSendFileResponse>,
@@ -211,9 +211,17 @@ impl RTCReceiveState {
             return Err(anyhow::anyhow!("Selected files already sent"));
         };
 
-        if selected_tx.send(selection).is_err() {
-            return Err(anyhow::anyhow!("Selected files channel closed"));
+        selected_tx.send(Some(selection)).map_err(|_| anyhow::anyhow!("Selected files channel closed"))?;
+
+        Ok(())
+    }
+
+    pub async fn decline(&self) -> anyhow::Result<()> {
+        let Some(selected_tx) = self.selected_tx.lock().await.take() else {
+            return Err(anyhow::anyhow!("Selected files already sent"));
         };
+
+        selected_tx.send(None).map_err(|_| anyhow::anyhow!("Selected files channel closed"))?;
 
         Ok(())
     }
@@ -329,7 +337,8 @@ pub enum _RTCStatus {
     SdpExchanged,
     Connected,
     PinRequired,
-    TooManyRequests,
+    TooManyAttempts,
+    Declined,
     Sending,
     Finished,
     Error(String),

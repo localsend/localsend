@@ -157,7 +157,7 @@ async fn receive_handler(
     tracing::info!("Offer: {offer:?}");
     let (status_tx, mut status_rx) = mpsc::channel::<RTCStatus>(1);
     let (files_tx, files_rx) = oneshot::channel::<Vec<model::file::FileDto>>();
-    let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
+    let (selected_tx, selected_rx) = oneshot::channel::<Option<HashSet<String>>>();
     let (error_tx, mut error_rx) = mpsc::channel::<RTCFileError>(1);
     let (receiving_tx, mut receiving_rx) = mpsc::channel::<RTCFile>(1);
     let (user_error_tx, user_error_rx) = mpsc::channel::<RTCSendFileResponse>(1);
@@ -206,7 +206,7 @@ async fn receive_handler(
         tracing::info!("Files: {files:?}");
 
         selected_tx
-            .send(files.iter().map(|file| file.id.clone()).collect())
+            .send(Some(files.iter().map(|file| file.id.clone()).collect()))
             .expect("Failed to send selected");
 
         while let Some(file) = receiving_rx.recv().await {
