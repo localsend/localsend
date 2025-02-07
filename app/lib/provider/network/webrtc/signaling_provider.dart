@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
-import 'package:common/model/device_info_result.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/webrtc/webrtc_receiver.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/rust/api/model.dart' as rust;
 import 'package:localsend_app/rust/api/webrtc.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -30,31 +32,15 @@ class SignalingState with SignalingStateMappable {
 final signalingProvider = ReduxProvider<SignalingService, SignalingState>((ref) {
   return SignalingService(
     persistence: ref.read(persistenceProvider),
-    nearbyDevices: ref.notifier(nearbyDevicesProvider),
-    settings: ref.notifier(settingsProvider),
-    deviceInfo: ref.accessor(deviceInfoProvider),
-    security: ref.notifier(securityProvider),
   );
 });
 
 class SignalingService extends ReduxNotifier<SignalingState> {
   final PersistenceService _persistence;
-  final NearbyDevicesService _nearbyDevices;
-  final SettingsService _settings;
-  final StateAccessor<DeviceInfoResult> _deviceInfo;
-  final SecurityService _security;
 
   SignalingService({
     required PersistenceService persistence,
-    required NearbyDevicesService nearbyDevices,
-    required SettingsService settings,
-    required StateAccessor<DeviceInfoResult> deviceInfo,
-    required SecurityService security,
-  })  : _persistence = persistence,
-        _nearbyDevices = nearbyDevices,
-        _settings = settings,
-        _deviceInfo = deviceInfo,
-        _security = security;
+  }) : _persistence = persistence;
 
   @override
   SignalingState init() {
@@ -66,42 +52,46 @@ class SignalingService extends ReduxNotifier<SignalingState> {
   }
 }
 
-class SetupSignalingConnection extends ReduxAction<SignalingService, SignalingState> {
+class SetupSignalingConnection extends ReduxAction<SignalingService, SignalingState> with GlobalActions {
   @override
   SignalingState reduce() {
     for (final signalingServer in state.signalingServers) {
       // ignore: discarded_futures
-      dispatchAsync(_SetupSignalingConnection(signalingServer: signalingServer));
+      global.dispatchAsync(_SetupSignalingConnection(signalingServer: signalingServer));
     }
     return state;
   }
 }
 
 /// Starts an endless running action.
-class _SetupSignalingConnection extends AsyncReduxAction<SignalingService, SignalingState> {
+class _SetupSignalingConnection extends AsyncGlobalAction {
   final String signalingServer;
 
   _SetupSignalingConnection({required this.signalingServer});
 
   @override
-  Future<SignalingState> reduce() async {
+  Future<void> reduce() async {
+    final settings = ref.read(settingsProvider);
+    final deviceInfo = ref.read(deviceInfoProvider);
+    final security = ref.read(securityProvider);
+
     LsSignalingConnection? connection;
     final stream = connect(
       uri: 'wss://public.localsend.org/v1/ws',
       info: ClientInfoWithoutId(
-        alias: notifier._settings.state.alias,
+        alias: settings.alias,
         version: protocolVersion,
-        deviceModel: notifier._deviceInfo.state.deviceModel,
-        deviceType: notifier._deviceInfo.state.deviceType.toPeerDeviceType(),
-        fingerprint: notifier._security.state.certificateHash,
+        deviceModel: deviceInfo.deviceModel,
+        deviceType: deviceInfo.deviceType.toRustDeviceType(),
+        fingerprint: security.certificateHash,
       ),
       onConnection: (c) {
         connection = c;
 
-        dispatch(_SetConnectionAction(
-          signalingServer: signalingServer,
-          connection: c,
-        ));
+        ref.redux(signalingProvider).dispatch(_SetConnectionAction(
+              signalingServer: signalingServer,
+              connection: c,
+            ));
       },
     );
 
@@ -110,28 +100,41 @@ class _SetupSignalingConnection extends AsyncReduxAction<SignalingService, Signa
         switch (message) {
           case WsServerMessage_Hello():
             for (final d in message.peers) {
-              external(notifier._nearbyDevices).dispatch(RegisterSignalingDeviceAction(
-                d.toDevice(signalingServer),
-              ));
+              ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
+                    d.toDevice(signalingServer),
+                  ));
             }
             break;
           case WsServerMessage_Joined():
-            external(notifier._nearbyDevices).dispatch(RegisterSignalingDeviceAction(
-              message.peer.toDevice(signalingServer),
-            ));
+            ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
+                  message.peer.toDevice(signalingServer),
+                ));
             break;
           case WsServerMessage_Left():
-            external(notifier._nearbyDevices).dispatch(UnregisterSignalingDeviceAction(
-              message.peerId.uuid,
-            ));
+            ref.redux(nearbyDevicesProvider).dispatch(UnregisterSignalingDeviceAction(
+                  message.peerId.uuid,
+                ));
             break;
           case WsServerMessage_Offer():
+            final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {
+              return WebRTCReceiveService(
+                signalingServer: signalingServer,
+                stunServers: ref.read(signalingProvider).stunServers,
+                connection: connection!,
+                offer: message.field0,
+                settings: ref.read(settingsProvider),
+                favorites: ref.read(favoritesProvider),
+              );
+            });
+
+            await ref.redux(provider).dispatchAsync(AcceptOfferAction());
+            break;
           case WsServerMessage_Answer():
           case WsServerMessage_Error():
         }
       }
     } finally {
-      dispatch(_RemoveConnectionAction(signalingServer: signalingServer));
+      ref.redux(signalingProvider).dispatch(_RemoveConnectionAction(signalingServer: signalingServer));
     }
 
     return state;
@@ -174,7 +177,7 @@ class _RemoveConnectionAction extends ReduxAction<SignalingService, SignalingSta
   }
 }
 
-extension on ClientInfo {
+extension ClientInfoExt on ClientInfo {
   Device toDevice(String signalingServer) {
     return Device(
       signalingId: id.uuid,
@@ -196,26 +199,26 @@ extension on ClientInfo {
   }
 }
 
-extension on PeerDeviceType {
+extension on rust.DeviceType {
   DeviceType toDeviceType() {
     return switch (this) {
-      PeerDeviceType.mobile => DeviceType.mobile,
-      PeerDeviceType.desktop => DeviceType.desktop,
-      PeerDeviceType.web => DeviceType.web,
-      PeerDeviceType.headless => DeviceType.headless,
-      PeerDeviceType.server => DeviceType.server,
+      rust.DeviceType.mobile => DeviceType.mobile,
+      rust.DeviceType.desktop => DeviceType.desktop,
+      rust.DeviceType.web => DeviceType.web,
+      rust.DeviceType.headless => DeviceType.headless,
+      rust.DeviceType.server => DeviceType.server,
     };
   }
 }
 
 extension on DeviceType {
-  PeerDeviceType toPeerDeviceType() {
+  rust.DeviceType toRustDeviceType() {
     return switch (this) {
-      DeviceType.mobile => PeerDeviceType.mobile,
-      DeviceType.desktop => PeerDeviceType.desktop,
-      DeviceType.web => PeerDeviceType.web,
-      DeviceType.headless => PeerDeviceType.headless,
-      DeviceType.server => PeerDeviceType.server,
+      DeviceType.mobile => rust.DeviceType.mobile,
+      DeviceType.desktop => rust.DeviceType.desktop,
+      DeviceType.web => rust.DeviceType.web,
+      DeviceType.headless => rust.DeviceType.headless,
+      DeviceType.server => rust.DeviceType.server,
     };
   }
 }

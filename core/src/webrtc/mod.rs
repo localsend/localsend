@@ -1,3 +1,3 @@
 pub mod signaling;
-#[cfg(feature = "webrtc-support")]
+#[cfg(feature = "webrtc")]
 pub mod webrtc;

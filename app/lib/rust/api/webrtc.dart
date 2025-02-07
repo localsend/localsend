@@ -17,9 +17,9 @@ Stream<WsServerMessage> connect(
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>
 abstract class LsSignalingConnection implements RustOpaqueInterface {
-  Future<RtcReceiveState> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin});
+  Future<RtcReceiveController> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin});
 
-  Future<RtcSendState> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files});
+  Future<RtcSendController> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files});
 }
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>
@@ -34,8 +34,8 @@ abstract class RtcFileSender implements RustOpaqueInterface {
   Future<void> send({required List<int> data});
 }
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveState>>
-abstract class RtcReceiveState implements RustOpaqueInterface {
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCReceiveController>>
+abstract class RtcReceiveController implements RustOpaqueInterface {
   Future<void> decline();
 
   Stream<RTCFileError> listenError();
@@ -51,8 +51,8 @@ abstract class RtcReceiveState implements RustOpaqueInterface {
   Future<void> sendSelection({required Set<String> selection});
 }
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendState>>
-abstract class RtcSendState implements RustOpaqueInterface {
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCSendController>>
+abstract class RtcSendController implements RustOpaqueInterface {
   Stream<RTCFileError> listenError();
 
   Future<Set<String>> listenSelectedFiles();
@@ -69,7 +69,7 @@ class ClientInfo {
   final String alias;
   final String version;
   final String? deviceModel;
-  final PeerDeviceType? deviceType;
+  final DeviceType? deviceType;
   final String fingerprint;
 
   const ClientInfo({
@@ -101,7 +101,7 @@ class ClientInfoWithoutId {
   final String alias;
   final String version;
   final String? deviceModel;
-  final PeerDeviceType? deviceType;
+  final DeviceType? deviceType;
   final String fingerprint;
 
   const ClientInfoWithoutId({
@@ -125,15 +125,6 @@ class ClientInfoWithoutId {
           deviceModel == other.deviceModel &&
           deviceType == other.deviceType &&
           fingerprint == other.fingerprint;
-}
-
-enum PeerDeviceType {
-  mobile,
-  desktop,
-  web,
-  headless,
-  server,
-  ;
 }
 
 class PinConfig {

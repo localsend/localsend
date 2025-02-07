@@ -1,4 +1,4 @@
-use crate::model::file::FileDto;
+use crate::model::transfer::FileDto;
 use crate::util::base64;
 use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
 use anyhow::Result;
@@ -23,9 +23,22 @@ use webrtc::peer_connection::peer_connection_state::RTCPeerConnectionState;
 use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
 use webrtc::peer_connection::RTCPeerConnection;
 
+// #[derive(Debug, Deserialize, Serialize)]
+// struct RTCInitRequest {
+//     /// The certificate of the sending peer.
+//     /// Unknown to the signaling server to secure the identity of the peers.
+//     pub cert: String,
+// }
+
 #[derive(Debug, Deserialize, Serialize)]
 struct RTCInitResponse {
     pub status: RTCInitStatus,
+    /*
+    /// The certificate of the receiving peer.
+    /// Unknown to the signaling server to secure the identity of the peers.
+    /// Only available if the status is `Ok`.
+    //pub cert: Option<String>,
+     */
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -483,6 +496,8 @@ pub async fn accept_offer(
                     status: RTCInitStatus::Ok,
                 })?)
                 .await?;
+
+            tracing::debug!("Sent OK. Waiting for file list...");
 
             // Init: Receive binary
             let file_list_bytes = receive_string_from_chunks(&mut receive_rx).await;

@@ -1,9 +1,10 @@
 use crate::frb_generated::StreamSink;
 use bytes::Bytes;
 use flutter_rust_bridge::{frb, DartFnFuture};
-pub use localsend::model::file::FileDto;
+use localsend::model::transfer::FileDto;
+use localsend::model::discovery::DeviceType;
 pub use localsend::webrtc::signaling::{
-    ClientInfo, ClientInfoWithoutId, ManagedSignalingConnection, PeerDeviceType,
+    ClientInfo, ClientInfoWithoutId, ManagedSignalingConnection,
     SignalingConnection, WsServerMessage, WsServerSdpMessage,
 };
 pub use localsend::webrtc::webrtc::{
@@ -30,7 +31,7 @@ pub async fn connect(
 
     let (managed_connection, mut rx) = connection.start_listener();
     on_connection(LsSignalingConnection {
-        inner: managed_connection,
+        inner: Arc::new(managed_connection),
     })
     .await;
 
@@ -40,7 +41,7 @@ pub async fn connect(
 }
 
 pub struct LsSignalingConnection {
-    inner: ManagedSignalingConnection,
+    inner: Arc<ManagedSignalingConnection>,
 }
 
 impl LsSignalingConnection {
@@ -49,27 +50,35 @@ impl LsSignalingConnection {
         stun_servers: Vec<String>,
         target: Uuid,
         files: Vec<FileDto>,
-    ) -> anyhow::Result<RTCSendState> {
+    ) -> anyhow::Result<RTCSendController> {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
         let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
         let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(1);
         let (pin_tx, pin_rx) = mpsc::channel::<String>(1);
         let (send_tx, send_rx) = mpsc::channel::<RTCFile>(1);
 
-        localsend::webrtc::webrtc::send_offer(
-            &self.inner,
-            stun_servers,
-            target,
-            files,
-            status_tx,
-            selected_tx,
-            error_tx,
-            pin_rx,
-            send_rx,
-        )
-        .await?;
+        let managed_connection = self.inner.clone();
 
-        Ok(RTCSendState {
+        tokio::spawn(async move {
+            let result = localsend::webrtc::webrtc::send_offer(
+                &managed_connection,
+                stun_servers,
+                target,
+                files,
+                status_tx.clone(),
+                selected_tx,
+                error_tx,
+                pin_rx,
+                send_rx,
+            )
+            .await;
+
+            if let Err(e) = result {
+                let _ = status_tx.send(RTCStatus::Error(e.to_string())).await;
+            }
+        });
+
+        Ok(RTCSendController {
             status_rx,
             selected_rx: Arc::new(Mutex::new(Some(selected_rx))),
             error_rx,
@@ -83,7 +92,7 @@ impl LsSignalingConnection {
         stun_servers: Vec<String>,
         offer: WsServerSdpMessage,
         pin: Option<PinConfig>,
-    ) -> anyhow::Result<RTCReceiveState> {
+    ) -> anyhow::Result<RTCReceiveController> {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
         let (files_tx, files_rx) = oneshot::channel::<Vec<FileDto>>();
         let (selected_tx, selected_rx) = oneshot::channel::<Option<HashSet<String>>>();
@@ -91,32 +100,40 @@ impl LsSignalingConnection {
         let (receiving_tx, receiving_rx) = mpsc::channel::<RTCFile>(1);
         let (file_status_tx, file_status_rx) = mpsc::channel::<RTCSendFileResponse>(1);
 
-        localsend::webrtc::webrtc::accept_offer(
-            &self.inner,
-            stun_servers,
-            &offer,
-            pin,
-            status_tx,
-            files_tx,
-            selected_rx,
-            error_tx,
-            receiving_tx,
-            file_status_rx,
-        )
-        .await?;
+        let managed_connection = self.inner.clone();
 
-        Ok(RTCReceiveState {
-            status_rx,
+        tokio::spawn(async move {
+            let result = localsend::webrtc::webrtc::accept_offer(
+                &managed_connection,
+                stun_servers,
+                &offer,
+                pin,
+                status_tx.clone(),
+                files_tx,
+                selected_rx,
+                error_tx,
+                receiving_tx,
+                file_status_rx,
+            )
+            .await;
+
+            if let Err(e) = result {
+                let _ = status_tx.send(RTCStatus::Error(e.to_string())).await;
+            }
+        });
+
+        Ok(RTCReceiveController {
+            status_rx: Arc::new(Mutex::new(Some(status_rx))),
             files_rx: Arc::new(Mutex::new(Some(files_rx))),
             selected_tx: Arc::new(Mutex::new(Some(selected_tx))),
-            error_rx,
-            receiving_rx,
+            error_rx: Arc::new(Mutex::new(Some(error_rx))),
+            receiving_rx: Arc::new(Mutex::new(Some(receiving_rx))),
             file_status_tx,
         })
     }
 }
 
-pub struct RTCSendState {
+pub struct RTCSendController {
     status_rx: mpsc::Receiver<RTCStatus>,
     selected_rx: Arc<Mutex<Option<oneshot::Receiver<HashSet<String>>>>>,
     error_rx: mpsc::Receiver<RTCFileError>,
@@ -124,7 +141,7 @@ pub struct RTCSendState {
     send_tx: mpsc::Sender<RTCFile>,
 }
 
-impl RTCSendState {
+impl RTCSendController {
     pub async fn listen_status(&mut self, sink: StreamSink<RTCStatus>) {
         while let Some(status) = self.status_rx.recv().await {
             let _ = sink.add(status);
@@ -178,18 +195,22 @@ impl RTCFileSender {
     }
 }
 
-pub struct RTCReceiveState {
-    status_rx: mpsc::Receiver<RTCStatus>,
+pub struct RTCReceiveController {
+    status_rx: Arc<Mutex<Option<mpsc::Receiver<RTCStatus>>>>,
     files_rx: Arc<Mutex<Option<oneshot::Receiver<Vec<FileDto>>>>>,
     selected_tx: Arc<Mutex<Option<oneshot::Sender<Option<HashSet<String>>>>>>,
-    error_rx: mpsc::Receiver<RTCFileError>,
-    receiving_rx: mpsc::Receiver<RTCFile>,
+    error_rx: Arc<Mutex<Option<mpsc::Receiver<RTCFileError>>>>,
+    receiving_rx: Arc<Mutex<Option<mpsc::Receiver<RTCFile>>>>,
     file_status_tx: mpsc::Sender<RTCSendFileResponse>,
 }
 
-impl RTCReceiveState {
-    pub async fn listen_status(&mut self, sink: StreamSink<RTCStatus>) {
-        while let Some(status) = self.status_rx.recv().await {
+impl RTCReceiveController {
+    pub async fn listen_status(&self, sink: StreamSink<RTCStatus>) {
+        let Some(mut status_rx) = self.status_rx.lock().await.take() else {
+            let _ = sink.add_error(anyhow::anyhow!("Status stream already listened to"));
+            return;
+        };
+        while let Some(status) = status_rx.recv().await {
             let _ = sink.add(status);
         }
     }
@@ -211,7 +232,9 @@ impl RTCReceiveState {
             return Err(anyhow::anyhow!("Selected files already sent"));
         };
 
-        selected_tx.send(Some(selection)).map_err(|_| anyhow::anyhow!("Selected files channel closed"))?;
+        selected_tx
+            .send(Some(selection))
+            .map_err(|_| anyhow::anyhow!("Selected files channel closed"))?;
 
         Ok(())
     }
@@ -221,19 +244,29 @@ impl RTCReceiveState {
             return Err(anyhow::anyhow!("Selected files already sent"));
         };
 
-        selected_tx.send(None).map_err(|_| anyhow::anyhow!("Selected files channel closed"))?;
+        selected_tx
+            .send(None)
+            .map_err(|_| anyhow::anyhow!("Selected files channel closed"))?;
 
         Ok(())
     }
 
-    pub async fn listen_error(&mut self, sink: StreamSink<RTCFileError>) {
-        while let Some(error) = self.error_rx.recv().await {
+    pub async fn listen_error(&self, sink: StreamSink<RTCFileError>) {
+        let Some(mut error_rx) = self.error_rx.lock().await.take() else {
+            let _ = sink.add_error(anyhow::anyhow!("Error stream already listened to"));
+            return;
+        };
+        while let Some(error) = error_rx.recv().await {
             let _ = sink.add(error);
         }
     }
 
-    pub async fn listen_receiving(&mut self, sink: StreamSink<RTCFileReceiver>) {
-        while let Some(file) = self.receiving_rx.recv().await {
+    pub async fn listen_receiving(&self, sink: StreamSink<RTCFileReceiver>) {
+        let Some(mut receiving_rx) = self.receiving_rx.lock().await.take() else {
+            let _ = sink.add_error(anyhow::anyhow!("Receiving stream already listened to"));
+            return;
+        };
+        while let Some(file) = receiving_rx.recv().await {
             let _ = sink.add(RTCFileReceiver {
                 file_id: file.file_id,
                 binary_rx: Arc::new(Mutex::new(Some(file.binary_rx))),
@@ -303,7 +336,7 @@ pub struct _ClientInfo {
     pub alias: String,
     pub version: String,
     pub device_model: Option<String>,
-    pub device_type: Option<PeerDeviceType>,
+    pub device_type: Option<DeviceType>,
     pub fingerprint: String,
 }
 
@@ -312,17 +345,8 @@ pub struct _ClientInfoWithoutId {
     pub alias: String,
     pub version: String,
     pub device_model: Option<String>,
-    pub device_type: Option<PeerDeviceType>,
+    pub device_type: Option<DeviceType>,
     pub fingerprint: String,
-}
-
-#[frb(mirror(PeerDeviceType))]
-pub enum _PeerDeviceType {
-    Mobile,
-    Desktop,
-    Web,
-    Headless,
-    Server,
 }
 
 #[frb(mirror(WsServerSdpMessage))]

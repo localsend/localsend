@@ -6,6 +6,17 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
+// These types are ignored because they are not used by any `pub` functions: `PrepareUploadRequestDto`, `PrepareUploadResponseDto`, `ProtocolType`, `RegisterDto`, `RegisterResponseDto`
+
+enum DeviceType {
+  mobile,
+  desktop,
+  web,
+  headless,
+  server,
+  ;
+}
+
 class FileDto {
   final String id;
   final String fileName;

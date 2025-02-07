@@ -1,6 +1,44 @@
+use std::collections::HashMap;
 use flutter_rust_bridge::frb;
-pub use localsend::model::file::FileDto;
-pub use localsend::model::file::FileMetadata;
+pub use localsend::model::discovery::{DeviceType, ProtocolType, RegisterDto, RegisterResponseDto};
+pub use localsend::model::transfer::{FileDto, FileMetadata, PrepareUploadRequestDto, PrepareUploadResponseDto};
+
+#[frb(mirror(RegisterDto))]
+pub struct _RegisterDto {
+    pub alias: String,
+    pub version: String,
+    pub device_model: Option<String>,
+    pub device_type: Option<DeviceType>,
+    pub fingerprint: String,
+    pub port: u16,
+    pub protocol: ProtocolType,
+    pub download: bool,
+}
+
+#[frb(mirror(RegisterResponseDto))]
+pub struct _RegisterResponseDto {
+    pub alias: String,
+    pub version: String,
+    pub device_model: Option<String>,
+    pub device_type: Option<DeviceType>,
+    pub fingerprint: String,
+    pub download: bool,
+}
+
+#[frb(mirror(DeviceType))]
+pub enum _DeviceType {
+    Mobile,
+    Desktop,
+    Web,
+    Headless,
+    Server,
+}
+
+#[frb(mirror(ProtocolType))]
+pub enum _ProtocolType {
+    Http,
+    Https,
+}
 
 #[frb(mirror(FileDto))]
 pub struct _FileDto {
@@ -17,4 +55,16 @@ pub struct _FileDto {
 pub struct _FileMetadata {
     pub modified: Option<String>,
     pub accessed: Option<String>,
+}
+
+#[frb(mirror(PrepareUploadRequestDto))]
+pub struct _PrepareUploadRequestDto {
+    pub info: RegisterDto,
+    pub files: HashMap<String, FileDto>,
+}
+
+#[frb(mirror(PrepareUploadResponseDto))]
+pub struct _PrepareUploadResponseDto {
+    pub session_id: String,
+    pub files: HashMap<String, String>,
 }

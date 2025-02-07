@@ -101,4 +101,18 @@ class Device with DeviceMappable {
     required this.download,
     required this.discoveryMethods,
   });
+
+  static const empty = Device(
+    signalingId: null,
+    ip: null,
+    version: '',
+    port: -1,
+    https: false,
+    fingerprint: '',
+    alias: '',
+    deviceModel: null,
+    deviceType: DeviceType.desktop,
+    download: false,
+    discoveryMethods: {},
+  );
 }

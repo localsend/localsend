@@ -1,12 +1,18 @@
+mod crypto;
+mod http;
 mod model;
 mod util;
 mod webrtc;
 
+use crate::http::client::LsHttpClient;
+use crate::http::server::TlsConfig;
+use crate::model::discovery::{DeviceType, ProtocolType, RegisterDto};
+use crate::model::transfer::PrepareUploadRequestDto;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
 use crate::webrtc::webrtc::{PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
 use anyhow::Result;
 use bytes::Bytes;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
 use tokio::fs::File;
 use tokio::io;
@@ -19,11 +25,139 @@ use tracing::Level;
 async fn main() -> Result<()> {
     tracing_subscriber::fmt().with_max_level(Level::INFO).init();
 
+    server_test().await?;
+
+    Ok(())
+}
+
+const PRIVATE_KEY: &str = "-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAqeusikjBGJ/mqG+RYPyNaP2M6/YafR5bVcEr0NirDntRaSI8
+SBVy6ezqGnpJJpez2rVcLfqPOZNW+yhiWmX/DFGAbKWNUjpAfEgQ0ySS3EKEfTGa
+kpbBgVmSgnJKu0cuFHk3LRQXZc9USWRtfZu/HLwrxeTy0ynKBjqctkcJmyEOleSE
+tWwx/sFUszI4j3QH7iAg+jJu07qCaBv1iOVoFLwtvtkHP4pIflPi4FR0nUn8VpTR
+8j3h1Z/Ea6j2nW/CfatfhOiwrlOgjpd1CFtU5OoUk0OiHYgUTLRvOR0ebmKLJZp9
+2x85h3ucuwzcNHXds6IrBsV7dcMeN9+nI2yYHwIDAQABAoIBAAYVzZEKN/gUyeLg
+U/mAMeQ/qEtO/fXbH3Q7vcD18XJMUkcMldITCpF8DYozNOlv513+vrVa0sRCFYxb
+DuKj4nVjedDqQNxf/60zu36EQconi60cGKgFRBrIxWlshGaejvTmvmYb4RahTShv
+s0gbSsXRq1Oj9lo/ld+RO8l/U8W9Y2KlHc14VbAHCxlBd70Ngpw/hKzt7jVwUt2O
+QMAgek5Ffbjoqk/GvwdYFtgLHLYKWNdaqt/dGCZcDWPNOv93Lb+XuI3orAcSr5T7
+V2fseLMrrQfKr4dK+DSxvB/McAahSY+6sxpm972D1MYBoDM/yCK/jcdV4T83ofIl
+tnavOyECgYEA077OpgXt798miVtybRgPv2cEZHnMZStHhNOO/3A2J0mnT5lCGT8M
+FnB45LE7NxP5yXLi1/cBSazwF/W2TKu4g42y9X0lPzik6uM4F7AZLCwO6zd4etwa
+NwKjCiPBGJkWBODQ2IeK6Gy9gnTAnGhzuPoTYEl2AH5REbM8btsRve8CgYEAzW8U
+8sztt1cLWKwAsf66KZOjU03UoAhgofhXeyCDW4tLZ/l7F2cEfRaRkIx40TU1tNSy
+R130DsiRmJ/7vSy00qaC7IZgFRnDXM8oWSvE31p3AiZEvMzh3cMl67u/TPFn/Zhr
+iDE2fxTmNf9a860IbYeGqbOj11fFsSMNZIYf+NECgYACR/Ht8+5mQR8nJ6cJ6dJx
+m2h+tJkxFdBFbAoEUm8i6TY2M050+yrkKv4CaK5cn4h3VReAgBaxdn13pJv8I3Vv
+ZV1iK6D1F2Ufaqc2Ch2bTjYy7nwLxsc5hHvBJjV0UGHeV5WoX31tl45LE3rntHBa
+s8b1qJTu2G2DJU0nXJDKXQKBgEhxvrpsp/u6d2baqRgb0vxscvEihjO1IJadpAPo
+kEoNEhdldBHpozyVY9nMn6JvGDRfuUrPiAxakHV5HWY1yMJsM8lDDckDH9CvwPPJ
+KpD1LviUFDNcMN5qPgomWCzDCL/2Kx2I9UXVUeWC2kkKIOm3HDbmAYYkDrQLv2JO
+piGxAoGAfbhVHgMhroI64t64NaVpXiHy2bd36q7hLVm2+bTDpPphHwn4kIsFvVr3
+uGPVsyoOa68s1eXnOnh5TzhTltsjyAYfiKo/7ZX6mHMctFlgt4njailDWOqHwj0c
+Uy/QlsvXsOcN/Y99HULigND8C49F5Sz9Ih9G1DGLvd0BUUI/+qg=
+-----END RSA PRIVATE KEY-----";
+
+const CERT: &str = "-----BEGIN CERTIFICATE-----
+MIIDGTCCAgGgAwIBAgIBATANBgkqhkiG9w0BAQsFADBQMRcwFQYDVQQDEw5Mb2Nh
+bFNlbmQgVXNlcjEJMAcGA1UEChMAMQkwBwYDVQQLEwAxCTAHBgNVBAcTADEJMAcG
+A1UECBMAMQkwBwYDVQQGEwAwHhcNMjUwMjEwMDE1ODM3WhcNMzUwMjA4MDE1ODM3
+WjBQMRcwFQYDVQQDEw5Mb2NhbFNlbmQgVXNlcjEJMAcGA1UEChMAMQkwBwYDVQQL
+EwAxCTAHBgNVBAcTADEJMAcGA1UECBMAMQkwBwYDVQQGEwAwggEiMA0GCSqGSIb3
+DQEBAQUAA4IBDwAwggEKAoIBAQCp66yKSMEYn+aob5Fg/I1o/Yzr9hp9HltVwSvQ
+2KsOe1FpIjxIFXLp7Ooaekkml7PatVwt+o85k1b7KGJaZf8MUYBspY1SOkB8SBDT
+JJLcQoR9MZqSlsGBWZKCckq7Ry4UeTctFBdlz1RJZG19m78cvCvF5PLTKcoGOpy2
+RwmbIQ6V5IS1bDH+wVSzMjiPdAfuICD6Mm7TuoJoG/WI5WgUvC2+2Qc/ikh+U+Lg
+VHSdSfxWlNHyPeHVn8RrqPadb8J9q1+E6LCuU6COl3UIW1Tk6hSTQ6IdiBRMtG85
+HR5uYoslmn3bHzmHe5y7DNw0dd2zoisGxXt1wx4336cjbJgfAgMBAAEwDQYJKoZI
+hvcNAQELBQADggEBAJ/bopM5NjK/Roi1bS+qAQ7EHeVNfLyPgAReyJESHsg3mBEE
+FhP729KlHcNCvaAnmxEaUH2XZTmP3s0m9IVabHhdFEyIibMQ/Qpid/JIDsG2IRw7
+oNJj8z0C7eDjC9eWR+wZ2d0nnyNpWghcqAqqZSBuNpJ9jDqmg4LzdNXZUvh9e1Cq
+qizxa3CQEHRYqdL/hA1N6eq7GkeiIeP+cbvWGmcSf8SS/ORMKvvDGzkGs2mFZnY/
+DZmiOOqkzvgZOgOVQ2vFuJIXyZ/tY0ez35dtQYLhKRljlXjckA/PFuTJDa2kq1Rv
+qqsPsY3pRq93zkKNx1xRtURBiJEvA/Js2+hHWrU=
+-----END CERTIFICATE-----";
+
+async fn server_test() -> Result<()> {
+    let server = http::server::LsHttpServer::start_with_port(
+        53317,
+        Some(TlsConfig {
+            cert: CERT.to_string(),
+            private_key: PRIVATE_KEY.to_string(),
+        }),
+    )
+    .await?;
+    tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
+    server.stop().await?;
+    Ok(())
+}
+
+async fn http_test() -> Result<()> {
+    let client = LsHttpClient::try_new(PRIVATE_KEY, CERT)?;
+
+    let register_dto = RegisterDto {
+        alias: "test 2".to_string(),
+        version: "2.3".to_string(),
+        device_model: Some("test".to_string()),
+        device_type: Some(crate::model::discovery::DeviceType::Headless),
+        fingerprint: "test".to_string(),
+        port: 53317,
+        protocol: ProtocolType::Https,
+        download: false,
+    };
+
+    let response = client
+        .register(
+            &ProtocolType::Https,
+            "localhost",
+            53317,
+            register_dto.clone(),
+        )
+        .await?;
+
+    println!("Public Key: {:?}", response.public_key);
+    println!("Body: {:?}", response.body);
+
+    let prepare_upload_dto = PrepareUploadRequestDto {
+        info: register_dto,
+        files: {
+            let mut map = HashMap::new();
+            let id = "test-123-id".to_string();
+            let file = crate::model::transfer::FileDto {
+                id: id.clone(),
+                file_name: "test.mp4".to_string(),
+                size: 1000,
+                file_type: "video/mp4".to_string(),
+                sha256: None,
+                preview: None,
+                metadata: None,
+            };
+            map.insert(id, file);
+            map
+        },
+    };
+
+    let prepare_upload_response = client
+        .prepare_upload(
+            &ProtocolType::Https,
+            "localhost",
+            53317,
+            response.public_key,
+            prepare_upload_dto,
+        )
+        .await?;
+
+    println!("Prepare Upload Response: {:?}", prepare_upload_response);
+
+    Ok(())
+}
+
+async fn webrtc_test() -> Result<()> {
     let info = webrtc::signaling::ClientInfoWithoutId {
         alias: "test".to_string(),
         version: "2.3".to_string(),
         device_model: Some("test".to_string()),
-        device_type: Some(webrtc::signaling::PeerDeviceType::Desktop),
+        device_type: Some(DeviceType::Desktop),
         fingerprint: "test".to_string(),
     };
     let connection =
@@ -62,7 +196,7 @@ async fn send_handler(
     let (pin_tx, pin_rx) = mpsc::channel::<String>(1);
     let (send_tx, send_rx) = mpsc::channel::<RTCFile>(1);
 
-    let files = vec![model::file::FileDto {
+    let files = vec![model::transfer::FileDto {
         id: "test-123-id".to_string(),
         file_name: "test.mp4".to_string(),
         size: 100,
@@ -156,7 +290,7 @@ async fn receive_handler(
 ) {
     tracing::info!("Offer: {offer:?}");
     let (status_tx, mut status_rx) = mpsc::channel::<RTCStatus>(1);
-    let (files_tx, files_rx) = oneshot::channel::<Vec<model::file::FileDto>>();
+    let (files_tx, files_rx) = oneshot::channel::<Vec<model::transfer::FileDto>>();
     let (selected_tx, selected_rx) = oneshot::channel::<Option<HashSet<String>>>();
     let (error_tx, mut error_rx) = mpsc::channel::<RTCFileError>(1);
     let (receiving_tx, mut receiving_rx) = mpsc::channel::<RTCFile>(1);
