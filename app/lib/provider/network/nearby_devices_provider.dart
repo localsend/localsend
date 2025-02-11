@@ -102,7 +102,11 @@ class RegisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, Ne
 
   @override
   NearbyDevicesState reduce() {
-    final Set<Device> existingDevices = state.signalingDevices[device.fingerprint] ?? {};
+    final Set<Device> existingDevices = state.signalingDevices[device.fingerprint]?.toSet() ?? {};
+    final existingDevice = existingDevices.firstWhereOrNull((e) => e.signalingId == device.signalingId);
+    if (existingDevice != null) {
+      existingDevices.remove(existingDevice);
+    }
     existingDevices.add(device);
 
     return state.copyWith(
