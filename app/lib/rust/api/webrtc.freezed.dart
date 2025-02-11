@@ -1246,7 +1246,8 @@ mixin _$WsServerMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
@@ -1256,7 +1257,8 @@ mixin _$WsServerMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
@@ -1266,7 +1268,8 @@ mixin _$WsServerMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
@@ -1277,7 +1280,8 @@ mixin _$WsServerMessage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
@@ -1287,7 +1291,8 @@ mixin _$WsServerMessage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
@@ -1297,7 +1302,8 @@ mixin _$WsServerMessage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,
@@ -1406,7 +1412,8 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
@@ -1419,7 +1426,8 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
@@ -1432,7 +1440,8 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
@@ -1449,7 +1458,8 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
@@ -1462,7 +1472,8 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
@@ -1475,7 +1486,8 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,
@@ -1503,18 +1515,17 @@ abstract class WsServerMessage_Hello extends WsServerMessage {
 }
 
 /// @nodoc
-abstract class _$$WsServerMessage_JoinedImplCopyWith<$Res> {
-  factory _$$WsServerMessage_JoinedImplCopyWith(_$WsServerMessage_JoinedImpl value, $Res Function(_$WsServerMessage_JoinedImpl) then) =
-      __$$WsServerMessage_JoinedImplCopyWithImpl<$Res>;
+abstract class _$$WsServerMessage_JoinImplCopyWith<$Res> {
+  factory _$$WsServerMessage_JoinImplCopyWith(_$WsServerMessage_JoinImpl value, $Res Function(_$WsServerMessage_JoinImpl) then) =
+      __$$WsServerMessage_JoinImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ClientInfo peer});
 }
 
 /// @nodoc
-class __$$WsServerMessage_JoinedImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_JoinedImpl>
-    implements _$$WsServerMessage_JoinedImplCopyWith<$Res> {
-  __$$WsServerMessage_JoinedImplCopyWithImpl(_$WsServerMessage_JoinedImpl _value, $Res Function(_$WsServerMessage_JoinedImpl) _then)
-      : super(_value, _then);
+class __$$WsServerMessage_JoinImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_JoinImpl>
+    implements _$$WsServerMessage_JoinImplCopyWith<$Res> {
+  __$$WsServerMessage_JoinImplCopyWithImpl(_$WsServerMessage_JoinImpl _value, $Res Function(_$WsServerMessage_JoinImpl) _then) : super(_value, _then);
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -1523,7 +1534,7 @@ class __$$WsServerMessage_JoinedImplCopyWithImpl<$Res> extends _$WsServerMessage
   $Res call({
     Object? peer = null,
   }) {
-    return _then(_$WsServerMessage_JoinedImpl(
+    return _then(_$WsServerMessage_JoinImpl(
       peer: null == peer
           ? _value.peer
           : peer // ignore: cast_nullable_to_non_nullable
@@ -1534,21 +1545,21 @@ class __$$WsServerMessage_JoinedImplCopyWithImpl<$Res> extends _$WsServerMessage
 
 /// @nodoc
 
-class _$WsServerMessage_JoinedImpl extends WsServerMessage_Joined {
-  const _$WsServerMessage_JoinedImpl({required this.peer}) : super._();
+class _$WsServerMessage_JoinImpl extends WsServerMessage_Join {
+  const _$WsServerMessage_JoinImpl({required this.peer}) : super._();
 
   @override
   final ClientInfo peer;
 
   @override
   String toString() {
-    return 'WsServerMessage.joined(peer: $peer)';
+    return 'WsServerMessage.join(peer: $peer)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_JoinedImpl && (identical(other.peer, peer) || other.peer == peer));
+        (other.runtimeType == runtimeType && other is _$WsServerMessage_JoinImpl && (identical(other.peer, peer) || other.peer == peer));
   }
 
   @override
@@ -1559,48 +1570,51 @@ class _$WsServerMessage_JoinedImpl extends WsServerMessage_Joined {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_JoinedImplCopyWith<_$WsServerMessage_JoinedImpl> get copyWith =>
-      __$$WsServerMessage_JoinedImplCopyWithImpl<_$WsServerMessage_JoinedImpl>(this, _$identity);
+  _$$WsServerMessage_JoinImplCopyWith<_$WsServerMessage_JoinImpl> get copyWith =>
+      __$$WsServerMessage_JoinImplCopyWithImpl<_$WsServerMessage_JoinImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
     required TResult Function(int code) error,
   }) {
-    return joined(peer);
+    return join(peer);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
     TResult? Function(int code)? error,
   }) {
-    return joined?.call(peer);
+    return join?.call(peer);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
     TResult Function(int code)? error,
     required TResult orElse(),
   }) {
-    if (joined != null) {
-      return joined(peer);
+    if (join != null) {
+      return join(peer);
     }
     return orElse();
   }
@@ -1609,56 +1623,224 @@ class _$WsServerMessage_JoinedImpl extends WsServerMessage_Joined {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
     required TResult Function(WsServerMessage_Error value) error,
   }) {
-    return joined(this);
+    return join(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
     TResult? Function(WsServerMessage_Error value)? error,
   }) {
-    return joined?.call(this);
+    return join?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,
     TResult Function(WsServerMessage_Error value)? error,
     required TResult orElse(),
   }) {
-    if (joined != null) {
-      return joined(this);
+    if (join != null) {
+      return join(this);
     }
     return orElse();
   }
 }
 
-abstract class WsServerMessage_Joined extends WsServerMessage {
-  const factory WsServerMessage_Joined({required final ClientInfo peer}) = _$WsServerMessage_JoinedImpl;
-  const WsServerMessage_Joined._() : super._();
+abstract class WsServerMessage_Join extends WsServerMessage {
+  const factory WsServerMessage_Join({required final ClientInfo peer}) = _$WsServerMessage_JoinImpl;
+  const WsServerMessage_Join._() : super._();
 
   ClientInfo get peer;
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_JoinedImplCopyWith<_$WsServerMessage_JoinedImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_JoinImplCopyWith<_$WsServerMessage_JoinImpl> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$WsServerMessage_UpdateImplCopyWith<$Res> {
+  factory _$$WsServerMessage_UpdateImplCopyWith(_$WsServerMessage_UpdateImpl value, $Res Function(_$WsServerMessage_UpdateImpl) then) =
+      __$$WsServerMessage_UpdateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ClientInfo peer});
+}
+
+/// @nodoc
+class __$$WsServerMessage_UpdateImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_UpdateImpl>
+    implements _$$WsServerMessage_UpdateImplCopyWith<$Res> {
+  __$$WsServerMessage_UpdateImplCopyWithImpl(_$WsServerMessage_UpdateImpl _value, $Res Function(_$WsServerMessage_UpdateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of WsServerMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? peer = null,
+  }) {
+    return _then(_$WsServerMessage_UpdateImpl(
+      peer: null == peer
+          ? _value.peer
+          : peer // ignore: cast_nullable_to_non_nullable
+              as ClientInfo,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$WsServerMessage_UpdateImpl extends WsServerMessage_Update {
+  const _$WsServerMessage_UpdateImpl({required this.peer}) : super._();
+
+  @override
+  final ClientInfo peer;
+
+  @override
+  String toString() {
+    return 'WsServerMessage.update(peer: $peer)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$WsServerMessage_UpdateImpl && (identical(other.peer, peer) || other.peer == peer));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, peer);
+
+  /// Create a copy of WsServerMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WsServerMessage_UpdateImplCopyWith<_$WsServerMessage_UpdateImpl> get copyWith =>
+      __$$WsServerMessage_UpdateImplCopyWithImpl<_$WsServerMessage_UpdateImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
+    required TResult Function(UuidValue peerId) left,
+    required TResult Function(WsServerSdpMessage field0) offer,
+    required TResult Function(WsServerSdpMessage field0) answer,
+    required TResult Function(int code) error,
+  }) {
+    return update(peer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
+    TResult? Function(UuidValue peerId)? left,
+    TResult? Function(WsServerSdpMessage field0)? offer,
+    TResult? Function(WsServerSdpMessage field0)? answer,
+    TResult? Function(int code)? error,
+  }) {
+    return update?.call(peer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
+    TResult Function(UuidValue peerId)? left,
+    TResult Function(WsServerSdpMessage field0)? offer,
+    TResult Function(WsServerSdpMessage field0)? answer,
+    TResult Function(int code)? error,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update(peer);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(WsServerMessage_Hello value) hello,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
+    required TResult Function(WsServerMessage_Left value) left,
+    required TResult Function(WsServerMessage_Offer value) offer,
+    required TResult Function(WsServerMessage_Answer value) answer,
+    required TResult Function(WsServerMessage_Error value) error,
+  }) {
+    return update(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(WsServerMessage_Hello value)? hello,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
+    TResult? Function(WsServerMessage_Left value)? left,
+    TResult? Function(WsServerMessage_Offer value)? offer,
+    TResult? Function(WsServerMessage_Answer value)? answer,
+    TResult? Function(WsServerMessage_Error value)? error,
+  }) {
+    return update?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(WsServerMessage_Hello value)? hello,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
+    TResult Function(WsServerMessage_Left value)? left,
+    TResult Function(WsServerMessage_Offer value)? offer,
+    TResult Function(WsServerMessage_Answer value)? answer,
+    TResult Function(WsServerMessage_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class WsServerMessage_Update extends WsServerMessage {
+  const factory WsServerMessage_Update({required final ClientInfo peer}) = _$WsServerMessage_UpdateImpl;
+  const WsServerMessage_Update._() : super._();
+
+  ClientInfo get peer;
+
+  /// Create a copy of WsServerMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WsServerMessage_UpdateImplCopyWith<_$WsServerMessage_UpdateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1724,7 +1906,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
@@ -1737,7 +1920,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
@@ -1750,7 +1934,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
@@ -1767,7 +1952,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
@@ -1780,7 +1966,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
@@ -1793,7 +1980,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,
@@ -1883,7 +2071,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
@@ -1896,7 +2085,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
@@ -1909,7 +2099,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
@@ -1926,7 +2117,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
@@ -1939,7 +2131,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
@@ -1952,7 +2145,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,
@@ -2042,7 +2236,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
@@ -2055,7 +2250,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
@@ -2068,7 +2264,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
@@ -2085,7 +2282,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
@@ -2098,7 +2296,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
@@ -2111,7 +2310,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,
@@ -2201,7 +2401,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ClientInfo client, List<ClientInfo> peers) hello,
-    required TResult Function(ClientInfo peer) joined,
+    required TResult Function(ClientInfo peer) join,
+    required TResult Function(ClientInfo peer) update,
     required TResult Function(UuidValue peerId) left,
     required TResult Function(WsServerSdpMessage field0) offer,
     required TResult Function(WsServerSdpMessage field0) answer,
@@ -2214,7 +2415,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult? Function(ClientInfo peer)? joined,
+    TResult? Function(ClientInfo peer)? join,
+    TResult? Function(ClientInfo peer)? update,
     TResult? Function(UuidValue peerId)? left,
     TResult? Function(WsServerSdpMessage field0)? offer,
     TResult? Function(WsServerSdpMessage field0)? answer,
@@ -2227,7 +2429,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ClientInfo client, List<ClientInfo> peers)? hello,
-    TResult Function(ClientInfo peer)? joined,
+    TResult Function(ClientInfo peer)? join,
+    TResult Function(ClientInfo peer)? update,
     TResult Function(UuidValue peerId)? left,
     TResult Function(WsServerSdpMessage field0)? offer,
     TResult Function(WsServerSdpMessage field0)? answer,
@@ -2244,7 +2447,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(WsServerMessage_Hello value) hello,
-    required TResult Function(WsServerMessage_Joined value) joined,
+    required TResult Function(WsServerMessage_Join value) join,
+    required TResult Function(WsServerMessage_Update value) update,
     required TResult Function(WsServerMessage_Left value) left,
     required TResult Function(WsServerMessage_Offer value) offer,
     required TResult Function(WsServerMessage_Answer value) answer,
@@ -2257,7 +2461,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(WsServerMessage_Hello value)? hello,
-    TResult? Function(WsServerMessage_Joined value)? joined,
+    TResult? Function(WsServerMessage_Join value)? join,
+    TResult? Function(WsServerMessage_Update value)? update,
     TResult? Function(WsServerMessage_Left value)? left,
     TResult? Function(WsServerMessage_Offer value)? offer,
     TResult? Function(WsServerMessage_Answer value)? answer,
@@ -2270,7 +2475,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(WsServerMessage_Hello value)? hello,
-    TResult Function(WsServerMessage_Joined value)? joined,
+    TResult Function(WsServerMessage_Join value)? join,
+    TResult Function(WsServerMessage_Update value)? update,
     TResult Function(WsServerMessage_Left value)? left,
     TResult Function(WsServerMessage_Offer value)? offer,
     TResult Function(WsServerMessage_Answer value)? answer,

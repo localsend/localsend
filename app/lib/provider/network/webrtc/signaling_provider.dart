@@ -105,9 +105,10 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
                   ));
             }
             break;
-          case WsServerMessage_Joined():
+          case WsServerMessage_Join(peer: final peer):
+          case WsServerMessage_Update(peer: final peer):
             ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
-                  message.peer.toDevice(signalingServer),
+                  peer.toDevice(signalingServer),
                 ));
             break;
           case WsServerMessage_Left():

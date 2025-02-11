@@ -1,5 +1,5 @@
 use crate::config::error::AppError;
-use crate::config::state::{AppState, IpRequestCountMap, ClientState, TxMap};
+use crate::config::state::{AppState, ClientState, IpRequestCountMap, TxMap};
 use crate::util;
 use crate::util::ip::get_ip_group;
 use axum::body::Body;
@@ -10,7 +10,7 @@ use axum::response::Response;
 use futures_util::stream::StreamExt;
 use futures_util::SinkExt;
 use localsend::webrtc::signaling::{
-    ClientInfo, ClientInfoWithoutId, WsClientMessage, WsClientMessageType, WsServerMessage,
+    ClientInfo, ClientInfoWithoutId, WsClientMessage, WsClientSdpMessage, WsServerMessage,
     WsServerSdpMessage,
 };
 use serde::Deserialize;
@@ -171,15 +171,16 @@ async fn handle_socket(
 
         for peer_tx in peers_tx {
             let _ = peer_tx
-                .send(WsServerMessage::Joined { peer: peer.clone() })
+                .send(WsServerMessage::Join { peer: peer.clone() })
                 .await;
         }
 
-        let _ = tx.send(WsServerMessage::Hello {
-            client: peer.clone(),
-            peers,
-        })
-        .await;
+        let _ = tx
+            .send(WsServerMessage::Hello {
+                client: peer.clone(),
+                peers,
+            })
+            .await;
     }
 
     let (mut sender, mut receiver) = socket.split();
@@ -213,7 +214,34 @@ async fn handle_socket(
                         return;
                     }
 
-                    send_to_peer_with_lock(&tx_map_clone, &ip_group_clone, peer.clone(), msg).await;
+                    match msg {
+                        WsClientMessage::Update(_) => {
+                            send_update_to_other_peers_with_lock(
+                                &tx_map_clone,
+                                &ip_group_clone,
+                                &peer,
+                            )
+                            .await
+                        }
+                        WsClientMessage::Offer(sdp) => {
+                            send_to_peer_with_lock(
+                                &tx_map_clone,
+                                &ip_group_clone,
+                                peer.clone(),
+                                WsClientSdpMessageWrapper::Offer(sdp),
+                            )
+                            .await
+                        }
+                        WsClientMessage::Answer(sdp) => {
+                            send_to_peer_with_lock(
+                                &tx_map_clone,
+                                &ip_group_clone,
+                                peer.clone(),
+                                WsClientSdpMessageWrapper::Answer(sdp),
+                            )
+                            .await
+                        }
+                    }
                 }
             }
         }
@@ -263,34 +291,74 @@ async fn handle_socket(
     }
 }
 
+async fn send_update_to_other_peers_with_lock(tx_map: &TxMap, ip_group: &str, info: &ClientInfo) {
+    // Tx of other peers in the IP group.
+    let mut peers_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
+    {
+        let tx_map = tx_map.lock().await;
+        if let Some(tx_local_map) = tx_map.get(ip_group) {
+            peers_tx = tx_local_map
+                .iter()
+                .filter(|(k, _)| *k != &info.id)
+                .map(|(_, v)| v.tx.clone())
+                .collect();
+        }
+    }
+
+    for peer_tx in peers_tx {
+        let _ = peer_tx
+            .send(WsServerMessage::Update { peer: info.clone() })
+            .await;
+    }
+}
+
+enum WsClientSdpMessageWrapper {
+    Offer(WsClientSdpMessage),
+    Answer(WsClientSdpMessage),
+}
+
 async fn send_to_peer_with_lock(
     tx_map: &TxMap,
     ip_group: &str,
     origin_peer: ClientInfo,
-    message: WsClientMessage,
+    message: WsClientSdpMessageWrapper,
 ) {
+    let target = match &message {
+        WsClientSdpMessageWrapper::Offer(inner) => inner.target,
+        WsClientSdpMessageWrapper::Answer(inner) => inner.target,
+    };
+
     let mut target_peer_tx: Option<mpsc::Sender<WsServerMessage>> = None;
     {
         let tx_map = tx_map.lock().await;
         if let Some(tx_local_map) = tx_map.get(ip_group) {
-            if let Some(peer_state) = tx_local_map.get(&message.target) {
+            if let Some(peer_state) = tx_local_map.get(&target) {
                 target_peer_tx = Some(peer_state.tx.clone());
             }
         }
     }
 
     if let Some(tx) = target_peer_tx {
-        let sdp_message = WsServerSdpMessage {
-            peer: origin_peer,
-            session_id: message.session_id,
-            sdp: message.sdp,
+        let server_message = match message {
+            WsClientSdpMessageWrapper::Offer(inner) => {
+                let sdp_message = WsServerSdpMessage {
+                    peer: origin_peer,
+                    session_id: inner.session_id,
+                    sdp: inner.sdp,
+                };
+                WsServerMessage::Offer(sdp_message)
+            }
+            WsClientSdpMessageWrapper::Answer(inner) => {
+                let sdp_message = WsServerSdpMessage {
+                    peer: origin_peer,
+                    session_id: inner.session_id,
+                    sdp: inner.sdp,
+                };
+                WsServerMessage::Answer(sdp_message)
+            }
         };
-        let _ = tx
-            .send(match message.ws_type {
-                WsClientMessageType::Offer => WsServerMessage::Offer(sdp_message),
-                WsClientMessageType::Answer => WsServerMessage::Answer(sdp_message),
-            })
-            .await;
+
+        let _ = tx.send(server_message).await;
     }
 }
 

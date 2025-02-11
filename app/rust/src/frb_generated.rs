@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.7.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -344511391;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1952448710;
 
 // Section: executor
 
@@ -164,6 +164,66 @@ fn wire__crate__api__webrtc__LsSignalingConnection_send_offer_impl(
                             api_stun_servers,
                             api_target,
                             api_files,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__webrtc__LsSignalingConnection_update_info_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LsSignalingConnection_update_info",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
+            >>::sse_decode(&mut deserializer);
+            let api_info = <crate::api::webrtc::ClientInfoWithoutId>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::webrtc::LsSignalingConnection::update_info(
+                            &*api_that_guard,
+                            api_info,
                         )
                         .await?;
                         Ok(output_ok)
@@ -1244,7 +1304,10 @@ const _: fn() = || {
             let _: crate::api::webrtc::ClientInfo = client;
             let _: Vec<crate::api::webrtc::ClientInfo> = peers;
         }
-        crate::api::webrtc::WsServerMessage::Joined { peer } => {
+        crate::api::webrtc::WsServerMessage::Join { peer } => {
+            let _: crate::api::webrtc::ClientInfo = peer;
+        }
+        crate::api::webrtc::WsServerMessage::Update { peer } => {
             let _: crate::api::webrtc::ClientInfo = peer;
         }
         crate::api::webrtc::WsServerMessage::Left { peer_id } => {
@@ -1834,25 +1897,29 @@ impl SseDecode for crate::api::webrtc::WsServerMessage {
             }
             1 => {
                 let mut var_peer = <crate::api::webrtc::ClientInfo>::sse_decode(deserializer);
-                return crate::api::webrtc::WsServerMessage::Joined { peer: var_peer };
+                return crate::api::webrtc::WsServerMessage::Join { peer: var_peer };
             }
             2 => {
+                let mut var_peer = <crate::api::webrtc::ClientInfo>::sse_decode(deserializer);
+                return crate::api::webrtc::WsServerMessage::Update { peer: var_peer };
+            }
+            3 => {
                 let mut var_peerId = <uuid::Uuid>::sse_decode(deserializer);
                 return crate::api::webrtc::WsServerMessage::Left {
                     peer_id: var_peerId,
                 };
             }
-            3 => {
+            4 => {
                 let mut var_field0 =
                     <crate::api::webrtc::WsServerSdpMessage>::sse_decode(deserializer);
                 return crate::api::webrtc::WsServerMessage::Offer(var_field0);
             }
-            4 => {
+            5 => {
                 let mut var_field0 =
                     <crate::api::webrtc::WsServerSdpMessage>::sse_decode(deserializer);
                 return crate::api::webrtc::WsServerMessage::Answer(var_field0);
             }
-            5 => {
+            6 => {
                 let mut var_code = <u16>::sse_decode(deserializer);
                 return crate::api::webrtc::WsServerMessage::Error { code: var_code };
             }
@@ -1898,96 +1965,102 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        3 => wire__crate__api__webrtc__RtcFileReceiver_get_file_id_impl(
+        3 => wire__crate__api__webrtc__LsSignalingConnection_update_info_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        4 => wire__crate__api__webrtc__RtcFileReceiver_receive_impl(
+        4 => wire__crate__api__webrtc__RtcFileReceiver_get_file_id_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        5 => wire__crate__api__webrtc__RtcFileSender_send_impl(port, ptr, rust_vec_len, data_len),
-        6 => wire__crate__api__webrtc__RtcReceiveController_decline_impl(
+        5 => wire__crate__api__webrtc__RtcFileReceiver_receive_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        7 => wire__crate__api__webrtc__RtcReceiveController_listen_error_impl(
+        6 => wire__crate__api__webrtc__RtcFileSender_send_impl(port, ptr, rust_vec_len, data_len),
+        7 => wire__crate__api__webrtc__RtcReceiveController_decline_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        8 => wire__crate__api__webrtc__RtcReceiveController_listen_files_impl(
+        8 => wire__crate__api__webrtc__RtcReceiveController_listen_error_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        9 => wire__crate__api__webrtc__RtcReceiveController_listen_receiving_impl(
+        9 => wire__crate__api__webrtc__RtcReceiveController_listen_files_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        10 => wire__crate__api__webrtc__RtcReceiveController_listen_status_impl(
+        10 => wire__crate__api__webrtc__RtcReceiveController_listen_receiving_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        11 => wire__crate__api__webrtc__RtcReceiveController_send_file_status_impl(
+        11 => wire__crate__api__webrtc__RtcReceiveController_listen_status_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        12 => wire__crate__api__webrtc__RtcReceiveController_send_selection_impl(
+        12 => wire__crate__api__webrtc__RtcReceiveController_send_file_status_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        13 => wire__crate__api__webrtc__RtcSendController_listen_error_impl(
+        13 => wire__crate__api__webrtc__RtcReceiveController_send_selection_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        14 => wire__crate__api__webrtc__RtcSendController_listen_selected_files_impl(
+        14 => wire__crate__api__webrtc__RtcSendController_listen_error_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        15 => wire__crate__api__webrtc__RtcSendController_listen_status_impl(
+        15 => wire__crate__api__webrtc__RtcSendController_listen_selected_files_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        16 => wire__crate__api__webrtc__RtcSendController_send_file_impl(
+        16 => wire__crate__api__webrtc__RtcSendController_listen_status_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        17 => wire__crate__api__webrtc__RtcSendController_send_pin_impl(
+        17 => wire__crate__api__webrtc__RtcSendController_send_file_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        18 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
-        19 => {
+        18 => wire__crate__api__webrtc__RtcSendController_send_pin_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        19 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
+        20 => {
             wire__crate__api__logging__enable_debug_logging_impl(port, ptr, rust_vec_len, data_len)
         }
-        20 => wire__crate__api__crypto__verify_cert_impl(port, ptr, rust_vec_len, data_len),
+        21 => wire__crate__api__crypto__verify_cert_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -2314,20 +2387,23 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::WsServerMe
                 peers.into_into_dart().into_dart(),
             ]
             .into_dart(),
-            crate::api::webrtc::WsServerMessage::Joined { peer } => {
+            crate::api::webrtc::WsServerMessage::Join { peer } => {
                 [1.into_dart(), peer.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::webrtc::WsServerMessage::Update { peer } => {
+                [2.into_dart(), peer.into_into_dart().into_dart()].into_dart()
+            }
             crate::api::webrtc::WsServerMessage::Left { peer_id } => {
-                [2.into_dart(), peer_id.into_into_dart().into_dart()].into_dart()
+                [3.into_dart(), peer_id.into_into_dart().into_dart()].into_dart()
             }
             crate::api::webrtc::WsServerMessage::Offer(field0) => {
-                [3.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::webrtc::WsServerMessage::Answer(field0) => {
                 [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::webrtc::WsServerMessage::Answer(field0) => {
+                [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
             crate::api::webrtc::WsServerMessage::Error { code } => {
-                [5.into_dart(), code.into_into_dart().into_dart()].into_dart()
+                [6.into_dart(), code.into_into_dart().into_dart()].into_dart()
             }
             _ => {
                 unimplemented!("");
@@ -2823,24 +2899,28 @@ impl SseEncode for crate::api::webrtc::WsServerMessage {
                 <crate::api::webrtc::ClientInfo>::sse_encode(client, serializer);
                 <Vec<crate::api::webrtc::ClientInfo>>::sse_encode(peers, serializer);
             }
-            crate::api::webrtc::WsServerMessage::Joined { peer } => {
+            crate::api::webrtc::WsServerMessage::Join { peer } => {
                 <i32>::sse_encode(1, serializer);
                 <crate::api::webrtc::ClientInfo>::sse_encode(peer, serializer);
             }
-            crate::api::webrtc::WsServerMessage::Left { peer_id } => {
+            crate::api::webrtc::WsServerMessage::Update { peer } => {
                 <i32>::sse_encode(2, serializer);
+                <crate::api::webrtc::ClientInfo>::sse_encode(peer, serializer);
+            }
+            crate::api::webrtc::WsServerMessage::Left { peer_id } => {
+                <i32>::sse_encode(3, serializer);
                 <uuid::Uuid>::sse_encode(peer_id, serializer);
             }
             crate::api::webrtc::WsServerMessage::Offer(field0) => {
-                <i32>::sse_encode(3, serializer);
-                <crate::api::webrtc::WsServerSdpMessage>::sse_encode(field0, serializer);
-            }
-            crate::api::webrtc::WsServerMessage::Answer(field0) => {
                 <i32>::sse_encode(4, serializer);
                 <crate::api::webrtc::WsServerSdpMessage>::sse_encode(field0, serializer);
             }
-            crate::api::webrtc::WsServerMessage::Error { code } => {
+            crate::api::webrtc::WsServerMessage::Answer(field0) => {
                 <i32>::sse_encode(5, serializer);
+                <crate::api::webrtc::WsServerSdpMessage>::sse_encode(field0, serializer);
+            }
+            crate::api::webrtc::WsServerMessage::Error { code } => {
+                <i32>::sse_encode(6, serializer);
                 <u16>::sse_encode(code, serializer);
             }
             _ => {

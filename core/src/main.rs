@@ -170,7 +170,7 @@ async fn webrtc_test() -> Result<()> {
     while let Some(message) = rx.recv().await {
         let stun_servers = vec!["stun:stun.l.google.com:19302".to_string()];
         match message {
-            WsServerMessage::Joined { peer } => {
+            WsServerMessage::Join { peer } => {
                 send_handler(managed_connection.clone(), stun_servers, peer).await;
                 return Ok(());
             }

@@ -20,6 +20,8 @@ abstract class LsSignalingConnection implements RustOpaqueInterface {
   Future<RtcReceiveController> acceptOffer({required List<String> stunServers, required WsServerSdpMessage offer, PinConfig? pin});
 
   Future<RtcSendController> sendOffer({required List<String> stunServers, required UuidValue target, required List<FileDto> files});
+
+  Future<void> updateInfo({required ClientInfoWithoutId info});
 }
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>
@@ -205,9 +207,12 @@ sealed class WsServerMessage with _$WsServerMessage {
     required ClientInfo client,
     required List<ClientInfo> peers,
   }) = WsServerMessage_Hello;
-  const factory WsServerMessage.joined({
+  const factory WsServerMessage.join({
     required ClientInfo peer,
-  }) = WsServerMessage_Joined;
+  }) = WsServerMessage_Join;
+  const factory WsServerMessage.update({
+    required ClientInfo peer,
+  }) = WsServerMessage_Update;
   const factory WsServerMessage.left({
     required UuidValue peerId,
   }) = WsServerMessage_Left;

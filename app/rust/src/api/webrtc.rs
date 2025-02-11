@@ -45,6 +45,11 @@ pub struct LsSignalingConnection {
 }
 
 impl LsSignalingConnection {
+    pub async fn update_info(&self, info: ClientInfoWithoutId) -> anyhow::Result<()> {
+        self.inner.send_update(info).await?;
+        Ok(())
+    }
+
     pub async fn send_offer(
         &self,
         stun_servers: Vec<String>,
@@ -317,7 +322,10 @@ pub enum _WsServerMessage {
         client: ClientInfo,
         peers: Vec<ClientInfo>,
     },
-    Joined {
+    Join {
+        peer: ClientInfo,
+    },
+    Update {
         peer: ClientInfo,
     },
     Left {
