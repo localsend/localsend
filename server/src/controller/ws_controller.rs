@@ -58,14 +58,7 @@ pub async fn ws_handler(
         let register_dto = serde_json::from_str::<ClientInfoWithoutId>(&base64_decoded)
             .map_err(|_| AppError::status(StatusCode::BAD_REQUEST, None))?;
 
-        ClientInfo {
-            id: Uuid::new_v4(),
-            alias: register_dto.alias,
-            version: register_dto.version,
-            device_model: register_dto.device_model,
-            device_type: register_dto.device_type,
-            fingerprint: register_dto.fingerprint,
-        }
+        ClientInfo::from(register_dto.clone(), Uuid::new_v4())
     };
 
     let ip = {
@@ -133,26 +126,13 @@ async fn handle_socket(
 
             peers = tx_local_map
                 .iter()
-                .map(|(k, v)| ClientInfo {
-                    id: *k,
-                    alias: v.client.alias.clone(),
-                    version: v.client.version.clone(),
-                    device_model: v.client.device_model.clone(),
-                    device_type: v.client.device_type.clone(),
-                    fingerprint: v.client.fingerprint.clone(),
-                })
+                .map(|(k, v)| ClientInfo::from(v.client.clone(), *k))
                 .collect();
 
             tx_local_map.insert(
                 peer_id,
                 ClientState {
-                    client: ClientInfoWithoutId {
-                        alias: peer.alias.clone(),
-                        version: peer.version.clone(),
-                        device_model: peer.device_model.clone(),
-                        device_type: peer.device_type.clone(),
-                        fingerprint: peer.fingerprint.clone(),
-                    },
+                    client: ClientInfoWithoutId::from(peer.clone()),
                     tx: tx.clone(),
                 },
             );
@@ -215,11 +195,12 @@ async fn handle_socket(
                     }
 
                     match msg {
-                        WsClientMessage::Update(_) => {
+                        WsClientMessage::Update(info) => {
                             send_update_to_other_peers_with_lock(
                                 &tx_map_clone,
                                 &ip_group_clone,
-                                &peer,
+                                peer_id,
+                                info,
                             )
                             .await
                         }
@@ -291,23 +272,35 @@ async fn handle_socket(
     }
 }
 
-async fn send_update_to_other_peers_with_lock(tx_map: &TxMap, ip_group: &str, info: &ClientInfo) {
+async fn send_update_to_other_peers_with_lock(
+    tx_map: &TxMap,
+    ip_group: &str,
+    peer_id: Uuid,
+    info: ClientInfoWithoutId,
+) {
     // Tx of other peers in the IP group.
     let mut peers_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
+    let response_info = ClientInfo::from(info.clone(), peer_id);
     {
-        let tx_map = tx_map.lock().await;
-        if let Some(tx_local_map) = tx_map.get(ip_group) {
-            peers_tx = tx_local_map
-                .iter()
-                .filter(|(k, _)| *k != &info.id)
-                .map(|(_, v)| v.tx.clone())
-                .collect();
+        let mut tx_map = tx_map.lock().await;
+        if let Some(tx_local_map) = tx_map.get_mut(ip_group) {
+            if let Some(peer_state) = tx_local_map.get_mut(&peer_id) {
+                peer_state.client = info;
+
+                peers_tx = tx_local_map
+                    .iter()
+                    .filter(|(k, _)| *k != &peer_id)
+                    .map(|(_, v)| v.tx.clone())
+                    .collect();
+            }
         }
     }
 
     for peer_tx in peers_tx {
         let _ = peer_tx
-            .send(WsServerMessage::Update { peer: info.clone() })
+            .send(WsServerMessage::Update {
+                peer: response_info.clone(),
+            })
             .await;
     }
 }
