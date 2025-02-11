@@ -1,0 +1,139 @@
+{
+  "receiveHistoryPage": {
+    "title": "Amazray",
+    "entryActions": {
+      "open": "Ldi afaylu",
+      "showInFolder": "Sken deg ukaram",
+      "info": "Talɣut"
+    },
+    "openFolder": "Ldi akaram"
+  },
+  "settingsTab": {
+    "general": {
+      "languageOptions": {
+        "system": "Anagraw"
+      },
+      "title": "Amatu",
+      "brightness": "Asentel",
+      "brightnessOptions": {
+        "dark": "Ubrik",
+        "light": "Aceεlal",
+        "system": "Anagraw"
+      },
+      "color": "Ini",
+      "colorOptions": {
+        "system": "Anagraw",
+        "oled": "OLED"
+      },
+      "language": "Tutlayt"
+    },
+    "title": "Iɣewwaṛen",
+    "receive": {
+      "downloads": "(Isadaren)",
+      "destination": "Sekles ɣer ukaram"
+    },
+    "send": {
+      "title": "Azen"
+    },
+    "network": {
+      "title": "Aẓeṭṭa",
+      "alias": "Isem n yibenk",
+      "deviceType": "Anaw n yibenk",
+      "port": "Tawwurt",
+      "network": "Aẓeṭṭa",
+      "networkOptions": {
+        "all": "Akk"
+      },
+      "encryption": "Awgelhen",
+      "server": "Aqeddac"
+    },
+    "other": {
+      "title": "Wayeḍ",
+      "support": "Ɛiwen LocalSend",
+      "donate": "Mudd tawsa",
+      "privacyPolicy": "Tasertit n tbaḍnit"
+    }
+  },
+  "general": {
+    "add": "Rnu",
+    "advanced": "Talqayt",
+    "cancel": "Semmet",
+    "continueStr": "Kemmel",
+    "copy": "Nɣel",
+    "copiedToClipboard": "Yettwanɣel ɣef afus",
+    "decline": "Agi",
+    "done": "Immed",
+    "delete": "Kkes",
+    "edit": "Ẓreg",
+    "error": "Tuccḍa",
+    "example": "Amedya",
+    "files": "Ifuyla",
+    "finished": "Ifukk",
+    "hide": "Seggelmes",
+    "offline": "War tuqqna",
+    "online": "Uqqin",
+    "open": "Ldi",
+    "restart": "Ales asekker",
+    "settings": "Iɣewwaṛen",
+    "skipped": "Yettwazgel",
+    "start": "Sekker",
+    "stop": "Seḥbes",
+    "save": "Sekles",
+    "unknown": "Arussin",
+    "close": "Mdel",
+    "confirm": "Sentem"
+  },
+  "receiveTab": {
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Tawwurt:",
+      "alias": "Isem n yibenk:"
+    },
+    "quickSave": {
+      "favorites": "Imenyafen"
+    }
+  },
+  "sendTab": {
+    "title": "Azen",
+    "selection": {
+      "title": "Tafrant",
+      "files": "Ifuyla: {files}"
+    },
+    "picker": {
+      "file": "Afaylu",
+      "media": "Amidya",
+      "text": "Aḍris",
+      "app": "Asnas",
+      "folder": "Akaram"
+    },
+    "thisDevice": "Ibenk-a",
+    "scan": "Nadi ibenkan",
+    "manualSending": "Tuzna s ufus",
+    "sendModes": {
+      "link": "Bḍu s useɣwen"
+    },
+    "sendModeHelp": "Asegzi",
+    "sendMode": "Askar n tuzna"
+  },
+  "troubleshootPage": {
+    "title": "Aqeεεed",
+    "solution": "Tifrat:",
+    "fixButton": "Ṣeggem s wudem awurman"
+  },
+  "networkInterfacesPage": {
+    "preview": "Taskant",
+    "title": "Igrudmawen n uzeṭṭa"
+  },
+  "apkPickerPage": {
+    "title": "Asnas (APK)",
+    "apps": "{n} n yesnasen"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Kkes-iten akk"
+  },
+  "receiveOptionsPage": {
+    "title": "Tixtiṛiyin"
+  },
+  "locale": "Taqbaylit",
+  "appName": "LocalSend"
+}

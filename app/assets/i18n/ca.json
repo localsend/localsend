@@ -37,7 +37,7 @@
     "start": "Iniciar",
     "stop": "Parar",
     "save": "Desar",
-    "unchanged": "Sense canvis",
+    "unchanged": "No canviat",
     "unknown": "Desconegut",
     "noItemInClipboard": "No hi ha elements al porta-papers."
   },
@@ -52,7 +52,7 @@
   "sendTab": {
     "title": "Enviar",
     "selection": {
-      "title": "Selección",
+      "title": "Selecció",
       "files": "Fitxers: {files}",
       "size": "Mida: {size}"
     },
@@ -71,8 +71,8 @@
     "manualSending": "Enviament manual",
     "sendMode": "Mode d'enviament",
     "sendModes": {
-      "single": "Destí únic",
-      "multiple": "Varis destins",
+      "single": "Destinatari únic",
+      "multiple": "Múltiple destinataris",
       "link": "Compartir via enllaç"
     },
     "sendModeHelp": "Explicació",
@@ -103,7 +103,7 @@
       "minimizeToTray": "Surt: Minimitzar a la safata",
       "launchAtStartup": "Inici automàtic després d'iniciar sessió",
       "launchMinimized": "Inici automàtic: Inici minimitzat",
-      "showInContextMenu": "Mostrar LocalSend al menu contextual",
+      "showInContextMenu": "Mostrar LocalSend al menú contextual",
       "animations": "Animacions"
     },
     "receive": {
@@ -234,7 +234,7 @@
       "other": "Obrir un d'aquests enllaços al navegador:"
     },
     "requests": "Peticions",
-    "noRequests": "Encar ano hi ha peticions.",
+    "noRequests": "Encara no hi ha peticions.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Acceptar peticions automàticament",
     "requirePin": "Requerir un PIN",

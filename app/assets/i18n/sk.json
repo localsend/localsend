@@ -140,7 +140,12 @@
       "portWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: {defaultPort})",
       "encryption": "Šifrovanie",
       "multicastGroup": "Multicast adresa",
-      "multicastGroupWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: {defaultMulticast})"
+      "multicastGroupWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: {defaultMulticast})",
+      "network": "Sieť",
+      "networkOptions": {
+        "all": "Všetky",
+        "filtered": "Filtrované"
+      }
     },
     "other": {
       "title": "Iné",
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "použiť fotoaparát",
     "sNameDurationLabel": "trvanie",
     "sUnitAssetCountLabel": "počet"
+  },
+  "networkInterfacesPage": {
+    "info": "V predvolenom nastavení LocalSend používa všetky dostupné sieťové rozhrania. Nežiaduce siete tu môžete vylúčiť. Na uplatnenie zmien je potrebné reštartovať server.",
+    "preview": "Náhľad",
+    "blacklist": "Zoznam zakázaných",
+    "title": "Sieťové rozhrania",
+    "whitelist": "Zoznam povolených"
   }
 }

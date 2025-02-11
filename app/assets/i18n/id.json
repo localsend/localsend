@@ -140,7 +140,12 @@
       "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan porta kustom. (bawaan: {defaultPort})",
       "encryption": "Enkripsi",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})"
+      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})",
+      "network": "Jaringan",
+      "networkOptions": {
+        "all": "Semua",
+        "filtered": "Tersaring"
+      }
     },
     "other": {
       "title": "Lainnya",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "Gunakan kamera",
     "sNameDurationLabel": "Durasi",
     "sUnitAssetCountLabel": "Jumlah"
+  },
+  "networkInterfacesPage": {
+    "title": "Antarmuka Jaringan",
+    "preview": "Pratinjau",
+    "whitelist": "Daftar putih",
+    "blacklist": "Daftar hitam",
+    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan."
   }
 }
