@@ -30,7 +30,7 @@
     "quickSave": "Guardado rápido",
     "quickSaveFromFavorites": "Guardado rápido en \"Favoritos\"",
     "renamed": "Renombrado",
-    "reset": "Resetear",
+    "reset": "Deshacer cambios",
     "restart": "Reiniciar",
     "settings": "Ajustes",
     "skipped": "Omitido",
@@ -81,8 +81,8 @@
       "link": "Compartir enlace"
     },
     "sendModeHelp": "Explicación",
-    "help": "Asegúrate que el destino elegido esté en la misma red Wi-Fi.",
-    "placeItems": "Selecciona items para compartir."
+    "help": "Por favor asegúrese que el destino elegido esté en la misma red Wi-Fi.",
+    "placeItems": "Selecciona elementos para compartir."
   },
   "settingsTab": {
     "title": "Ajustes",
@@ -117,7 +117,7 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Auto finalizar",
-      "destination": "Destino",
+      "destination": "Guardar en carpeta",
       "downloads": "(Descargas)",
       "saveToGallery": "Guardar media en la galería",
       "saveToHistory": "Guardar en el historial"
@@ -139,8 +139,13 @@
       "generateRandomAlias": "Generar alias aleatorio",
       "portWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando un puerto personalizado. (Puerto por defecto: {defaultPort})",
       "encryption": "Encriptación",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})"
+      "multicastGroup": "Direccion Multicast",
+      "multicastGroupWarning": "Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: {defaultMulticast})",
+      "network": "Red",
+      "networkOptions": {
+        "all": "Todo",
+        "filtered": "Filtrado"
+      }
     },
     "other": {
       "title": "Otros",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "usar cámara",
     "sNameDurationLabel": "duración",
     "sUnitAssetCountLabel": "conteo"
+  },
+  "networkInterfacesPage": {
+    "title": "Interfaces de red",
+    "info": "De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.",
+    "preview": "Vista previa",
+    "whitelist": "Lista de permitidos",
+    "blacklist": "Lista negra"
   }
 }

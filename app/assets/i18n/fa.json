@@ -140,7 +140,12 @@
       "portWarning": "ممکن است به دلیل استفاده از یک پورت سفارشی، دستگاه‌های دیگر شما را شناسایی نکنند (پیشفرض : {defaultPort})",
       "encryption": "رمزنگاری",
       "multicastGroup": "چندپخشی",
-      "multicastGroupWarning": "ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه‌های دیگر شما را شناسایی نکنند (پیشفرض: {defaultMulticast})"
+      "multicastGroupWarning": "ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه‌های دیگر شما را شناسایی نکنند (پیشفرض: {defaultMulticast})",
+      "network": "شبکه",
+      "networkOptions": {
+        "all": "همه",
+        "filtered": "فیلتر شده"
+      }
     },
     "other": {
       "title": "سایر",
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "از دوربین استفاده کنید",
     "sNameDurationLabel": "مدت زمان",
     "sUnitAssetCountLabel": "شمردن"
+  },
+  "networkInterfacesPage": {
+    "title": "رابط‌های شبکه",
+    "info": "به طور پیش فرض، LocalSend از تمام رابط های شبکه موجود استفاده می کند. در اینجا می توانید شبکه های ناخواسته را حذف کنید. برای اعمال تغییرات باید سرور را ریستارت کنید.",
+    "preview": "پیشنمایش",
+    "whitelist": "لیست سفید",
+    "blacklist": "لیست سیاه"
   }
 }

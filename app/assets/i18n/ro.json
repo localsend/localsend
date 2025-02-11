@@ -11,9 +11,9 @@
     "confirm": "Confirmă",
     "continueStr": "Continuă",
     "copy": "Copiază",
-    "copiedToClipboard": "Copiat pe Clipboard",
-    "decline": "Declină",
-    "done": "Gata",
+    "copiedToClipboard": "Copiat în Clipboard",
+    "decline": "Respinge",
+    "done": "Finalizat",
     "delete": "Șterge",
     "edit": "Editează",
     "error": "Eroare",
@@ -23,14 +23,14 @@
     "hide": "Ascunde",
     "off": "Oprit",
     "offline": "Offline",
-    "on": "Deschis",
+    "on": "Pornit",
     "online": "Online",
     "open": "Deschide",
     "queue": "Coadă",
-    "quickSave": "Salvare Rapidă",
-    "quickSaveFromFavorites": "Salvare rapidă din \"Favorite\"",
+    "quickSave": "Salvare rapidă",
+    "quickSaveFromFavorites": "Salvare rapidă pentru \"Favorite\"",
     "renamed": "Redenumit",
-    "reset": "Resetare",
+    "reset": "Anulează modificările",
     "restart": "Repornire",
     "settings": "Setări",
     "skipped": "Omis",
@@ -39,7 +39,7 @@
     "save": "Salvează",
     "unchanged": "Neschimbat",
     "unknown": "Necunoscut",
-    "noItemInClipboard": "Clipboard gol"
+    "noItemInClipboard": "Fără elemente în clipboard."
   },
   "receiveTab": {
     "title": "Primire",
@@ -55,34 +55,34 @@
     }
   },
   "sendTab": {
-    "title": "Trimitere",
+    "title": "Trimite",
     "selection": {
       "title": "Selecție",
       "files": "Fișiere: {files}",
-      "size": "Mărime: {size}"
+      "size": "Dimensiune: {size}"
     },
     "picker": {
       "file": "Fișier",
       "folder": "Dosar",
       "media": "Media",
       "text": "Text",
-      "app": "App",
+      "app": "Aplicație",
       "clipboard": "Lipește"
     },
-    "shareIntentInfo": "Pentru a selecta mai ușor fișierele, puteți utiliza funcția \"Partajare\" a dispozitivului telefonului.",
+    "shareIntentInfo": "Poți utiliza, de asemenea, funcția „Partajare” a dispozitivului pentru a selecta mai ușor fișierele.",
     "nearbyDevices": "Dispozitive din apropiere",
     "thisDevice": "Acest dispozitiv",
     "scan": "Caută dispozitive",
     "manualSending": "Trimitere manuală",
     "sendMode": "Mod de trimitere",
     "sendModes": {
-      "single": "Recipient unic",
-      "multiple": "Recipienți multipli",
+      "single": "Un singur destinatar",
+      "multiple": "Mai mulți destinatari",
       "link": "Partajează prin link"
     },
     "sendModeHelp": "Explicație",
-    "help": "Verificați dacă destinația se află în aceeași rețea Wi-Fi.",
-    "placeItems": "Adaugă lucruri de partajare."
+    "help": "Verifică dacă destinația se află în aceeași rețea Wi-Fi.",
+    "placeItems": "Adaugă elemente pentru a partaja."
   },
   "settingsTab": {
     "title": "Setări",
@@ -92,7 +92,7 @@
       "brightnessOptions": {
         "system": "Sistem",
         "dark": "Întuneric",
-        "light": "Lumină"
+        "light": "Luminoasă"
       },
       "color": "Culoare",
       "colorOptions": {
@@ -103,10 +103,10 @@
       "languageOptions": {
         "system": "Sistem"
       },
-      "saveWindowPlacement": "Închidere: Salvează plasarea ferestrei",
+      "saveWindowPlacement": "Reține locația ferestrei după ieșire",
       "saveWindowPlacementWindows": "Salvarea poziției ferestrei după închidere",
-      "minimizeToTray": "Închidere: Minimizează în Bara de Meniuri/Tray",
-      "launchAtStartup": "Autopornire după logare",
+      "minimizeToTray": "Minimizează în Bara de Meniuri/Tray la închidere",
+      "launchAtStartup": "Pornire automată după autentificare",
       "launchMinimized": "Autopornire: Pornire ascunsă",
       "showInContextMenu": "Afișează LocalSend în meniul contextual",
       "animations": "Animații"
@@ -117,36 +117,41 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Finisare automată",
-      "destination": "Destinație",
+      "destination": "Salvează în dosar",
       "downloads": "(Descărcări)",
       "saveToGallery": "Salvează media în galerie",
-      "saveToHistory": "Salvează în istorie"
+      "saveToHistory": "Salvează în istoric"
     },
     "send": {
-      "title": "Trimitere",
-      "shareViaLinkAutoAccept": "Partajează prin link: Acceptare automată"
+      "title": "Trimite",
+      "shareViaLinkAutoAccept": "Acceptă automat cererile în modul „Partajare prin link”"
     },
     "network": {
-      "title": "Rețeaua",
-      "needRestart": "Reporniți serverul pentru a aplica setările!",
+      "title": "Rețea",
+      "needRestart": "Repornește serverul pentru a aplica setările!",
       "server": "Server",
       "alias": "Nume dispozitiv",
       "deviceType": "Tip dispozitiv",
       "deviceModel": "Model dispozitiv",
       "port": "Port",
-      "discoveryTimeout": "Timp de așteptare pentru descoperire",
+      "discoveryTimeout": "Expirare descoperire",
       "useSystemName": "Folosește numele sistemului",
       "generateRandomAlias": "Generează alias aleatoriu",
-      "portWarning": "Este posibil să nu fii detectat de alte dispozitive pentru că folosești un port customizat. (implicit: {defaultPort})",
+      "portWarning": "Este posibil să nu fii detectat de alte dispozitive pentru că folosești un port personalizat. (implicit: {defaultPort})",
       "encryption": "Criptare",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Este posibil să nu fii detectat de alte dispozitive pentru că folosești o adresă multicast customizată. (implicit: {defaultMulticast})"
+      "multicastGroupWarning": "Este posibil să nu fii detectat de alte dispozitive pentru că folosești o adresă multicast personalizată. (implicit: {defaultMulticast})",
+      "networkOptions": {
+        "all": "Toate",
+        "filtered": "Filtrat"
+      },
+      "network": "Rețea"
     },
     "other": {
       "title": "Altele",
-      "support": "Susțineți LocalSend",
+      "support": "Susține LocalSend",
       "donate": "Donează",
-      "privacyPolicy": "Politică de confidențialitate",
+      "privacyPolicy": "Politica de confidențialitate",
       "termsOfUse": "Termeni de utilizare"
     },
     "advancedSettings": "Setări avansate"
@@ -155,7 +160,7 @@
     "title": "Depanare",
     "subTitle": "Aplicația nu funcționează așa cum trebuie? Aici poți găsi câteva soluții comune.",
     "solution": "Soluția:",
-    "fixButton": "Rezolvă automată",
+    "fixButton": "Repară automat",
     "firewall": {
       "symptom": "Această aplicație poate trimite fișiere la alte dispozitive, dar alte dispozitive nu pot trimite fișiere de pe acest dispozitiv.",
       "solution": "Cel mai probabil problema este de la firewall. Poți rezolva această problemă permițând conexiunile de intrare (UDP și TCP) pe portul {port}.",
@@ -198,7 +203,7 @@
     },
     "subTitleMessage": "ți-a trimis un mesaj:",
     "subTitleLink": "ți-a trimis un link:",
-    "canceled": "Trimitentul a anulat cererea."
+    "canceled": "Expeditorul a anulat cererea."
   },
   "receiveOptionsPage": {
     "title": "Opțiuni",
@@ -208,10 +213,10 @@
     "saveToGalleryOff": "Dezactivat automat deoarece există foldere."
   },
   "sendPage": {
-    "waiting": "Aștept răspuns...",
-    "rejected": "Recipientul a respins cererea.",
+    "waiting": "Așteptare răspuns…",
+    "rejected": "Destinatarul a respins cererea.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Recipientul este ocupat cu o altă cerere."
+    "busy": "Destinatarul este ocupat cu o altă cerere."
   },
   "progressPage": {
     "titleSending": "Trimitere fișiere",
@@ -221,18 +226,18 @@
       "title": {
         "sending": "Progres total ({time})",
         "finishedError": "Finalizat cu eroare",
-        "canceledSender": "Anulat de trimitent",
-        "canceledReceiver": "Anulat de receptor"
+        "canceledSender": "Anulat de expeditor",
+        "canceledReceiver": "Anulat de către destinatar"
       },
       "count": "Fișiere: {curr} / {n}",
-      "size": "Mărime: {curr} / {n}",
+      "size": "Dimensiune: {curr} / {n}",
       "speed": "Viteză: {speed}/s"
     }
   },
   "webSharePage": {
     "title": "Partajează prin link",
-    "loading": "Să pornim serverul...",
-    "stopping": "Să oprim serverul...",
+    "loading": "Pornirea serverului…",
+    "stopping": "Oprirea serverului…",
     "error": "A apărut o eroare la pornirea serverului.",
     "openLink": {
       "one": "Deschide acest link în browserul tău:",
@@ -245,7 +250,7 @@
     "requirePin": "Solicită PIN",
     "pinHint": "PIN-ul este \"{pin}\"",
     "encryptionHint": "LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.",
-    "pendingRequests": "Cererile în așteptare: {n}"
+    "pendingRequests": "Cereri în așteptare: {n}"
   },
   "aboutPage": {
     "title": "Despre LocalSend",
@@ -269,7 +274,7 @@
     "title": "Schimbări"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "Diferite localizări pot avea cuvinte diferite, este posibil să nu se potrivească cu 1: 1",
     "adjectives": [
       "Adorabilă",
       "Frumoasă",
@@ -355,8 +360,8 @@
       "recentlyUsed": "Folosit recent: "
     },
     "cancelSession": {
-      "title": "Anularea transferului",
-      "content": "Chiar vrei să anulezi transferul cu fișiere?"
+      "title": "Anulează trimiterea fișierelor",
+      "content": "Chiar vrei să anulezi transferul fișierelor?"
     },
     "cannotOpenFile": {
       "title": "Nu se poate deschide fișierul",
@@ -381,7 +386,7 @@
     "favoriteEditDialog": {
       "titleAdd": "Adaugă la favorite",
       "titleEdit": "Setări",
-      "name": "Nume dispozitivului",
+      "name": "Numele dispozitivului",
       "auto": "(auto)",
       "ip": "Adresă IP",
       "port": "Port"
@@ -390,8 +395,8 @@
       "title": "Informații despre fișier",
       "fileName": "Numele fișierului:",
       "path": "Calea:",
-      "size": "Mărime:",
-      "sender": "Recipientul:",
+      "size": "Dimensiune:",
+      "sender": "Expeditor:",
       "time": "Timp:"
     },
     "fileNameInput": {
@@ -404,12 +409,12 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend nu poate găsi alte dispozitive fără permisiunea de a scana rețeaua locală. Să acorzi această permisiune în setări.",
+      "description": "LocalSend nu poate găsi alte dispozitive fără permisiunea de a scana rețeaua locală. Acordă această permisiune în setări.",
       "gotoSettings": "Setări"
     },
     "messageInput": {
       "title": "Scrie un mesaj",
-      "multiline": "Multilinie"
+      "multiline": "Multi-linie"
     },
     "noFiles": {
       "title": "Niciun fișier selectat",
@@ -436,24 +441,24 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere."
+      "content": "Cererile de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere."
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Fișierele cu cereri sunt acum acceptate automat de dispozitivele din lista ta de favorite.",
+        "Cererile de fișiere sunt acum acceptate automat de la dispozitivele din lista dispozitivelor favorite.",
         "Atenție! În prezent, aceasta nu este complet securizată, deoarece un hacker care are amprente pe oricare dintre dispozitivele din lista ta de favorite poate trimite fișiere fără restricții.",
         "Oricum ar fi, această opțiune este mult mai sigură decât să permiți utilizatorilor din rețeaua locală să trimită fișiere fără restricții."
       ]
     },
     "pin": {
-      "title": "Introdu PIN-ul"
+      "title": "Introdu codul PIN"
     },
     "sendModeHelp": {
       "title": "Moduri de trimitere",
-      "single": "Trimite fișiere unui singur recipient. Selecția va fi golită după ce transferul este finalizat.",
-      "multiple": "Trimite fișiere la mai mulți recipienți. Selecția nu va fi golită.",
-      "link": "Recipienții care nu au LocalSend instalat pot descărca fișierele selectate accesând linkul în browser."
+      "single": "Trimite fișiere unui singur destinatar. Selecția va fi golită după ce transferul este finalizat.",
+      "multiple": "Trimite fișiere la mai mulți destinatari. Selecția nu va fi ștearsă după transferul de fișiere terminate.",
+      "link": "Destinatarii care nu au LocalSend instalat pot descărca fișierele selectate prin deschiderea linkului în browserul lor."
     },
     "zoom": {
       "title": "URL"
@@ -461,53 +466,60 @@
   },
   "sanitization": {
     "empty": "Numele fișierului nu poate fi gol",
-    "invalid": "Numele fișierului conține caractere invalide"
+    "invalid": "Numele fișierului conține caractere greșite"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
     "close": "Închide LocalSend",
-    "closeWindows": "Închide"
+    "closeWindows": "Ieșire"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "enterPin": "Introdu PIN-ul",
-    "invalidPin": "PIN-ul introdus este greșit",
+    "enterPin": "Introdu codul PIN",
+    "invalidPin": "Codul PIN introdus este greșit",
     "tooManyAttempts": "Prea multe încercări",
     "rejected": "Respins",
     "files": "Fișiere",
     "fileName": "Numele fișierului",
-    "size": "Mărime"
+    "size": "Dimensiune"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "Traduceri pentru instrumentul de selecție media pentru Android și iPhone",
     "confirm": "Confirmă",
     "cancel": "Anulează",
     "edit": "Editează",
     "gifIndicator": "GIF",
     "loadFailed": "Eroare la încărcare",
     "original": "Original",
-    "preview": "Vezi",
+    "preview": "Previzualizare",
     "select": "Selectează",
     "emptyList": "Listă goală",
     "unSupportedAssetType": "Tip de fișier neacceptat.",
     "unableToAccessAll": "Nu se pot accesa toate fișierele de pe dispozitiv",
-    "viewingLimitedAssetsTip": "Vezi doar fișierele și albumele accesibile aplicației.",
+    "viewingLimitedAssetsTip": "Aplicația poate vizualiza doar fișiere și albume la care are acces.",
     "changeAccessibleLimitedAssets": "Apasă pentru a actualiza fișierele accesibile",
-    "accessAllTip": "Aplicația poate accesa doar unele fișiere de pe dispozitiv. Mergi la setările sistemului și permite aplicația să acceseze toate mediile de pe dispozitiv.",
-    "goToSystemSettings": "Mergi la setările sistemului",
+    "accessAllTip": "Aplicația are acces doar la unele fișiere de pe dispozitiv. Accesează setările de sistem și permite aplicației să acceseze toate fișierele media de pe dispozitiv.",
+    "goToSystemSettings": "Accesează setările sistemului",
     "accessLimitedAssets": "Continuă cu acces limitat",
     "accessiblePathName": "Fișiere accesibile",
     "sTypeAudioLabel": "Audio",
     "sTypeImageLabel": "Imagini",
     "sTypeVideoLabel": "Video",
-    "sTypeOtherLabel": "Alte media",
+    "sTypeOtherLabel": "Alte fișiere media",
     "sActionPlayHint": "redare",
-    "sActionPreviewHint": "vezi",
-    "sActionSelectHint": "selectare",
+    "sActionPreviewHint": "previzualizare",
+    "sActionSelectHint": "selectează",
     "sActionSwitchPathLabel": "schimbă calea",
     "sActionUseCameraHint": "folosește camera",
     "sNameDurationLabel": "durată",
-    "sUnitAssetCountLabel": "număr"
+    "sUnitAssetCountLabel": "cantitate"
+  },
+  "networkInterfacesPage": {
+    "title": "Interfețe de rețea",
+    "info": "În mod implicit, LocalSend folosește toate interfețele de rețea disponibile. Poți exclude rețelele nedorite aici. Trebuie să repornești serverul pentru a aplica modificările.",
+    "preview": "Previzualizare",
+    "whitelist": "Lista albă",
+    "blacklist": "Lista neagră"
   }
 }

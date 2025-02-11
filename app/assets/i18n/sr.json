@@ -105,7 +105,7 @@
       },
       "saveWindowPlacement": "Sačuvaj položaj prozora nakon napuštanja",
       "saveWindowPlacementWindows": "Sačuvaj položaj prozora nakon izlaženja",
-      "minimizeToTray": "Minimirizaj na sistemsku traku/traku menija prilikom zatvaranja",
+      "minimizeToTray": "Minimiziraj na sistemsku traku/traku menija prilikom zatvaranja",
       "launchAtStartup": "Automatski pokreni nakon prijave",
       "launchMinimized": "Automatsko pokretanje: Pokretanje skriveno",
       "showInContextMenu": "Prikaži LocalSend u kontekstualnom meniju",
@@ -128,7 +128,7 @@
     },
     "network": {
       "title": "Mreža",
-      "needRestart": "Restartujte server da biste primenili podešavanja!",
+      "needRestart": "Restartujte server da bi se primenila podešavanja!",
       "server": "Server",
       "alias": "Naziv uređaja",
       "deviceType": "Tip uređaja",
@@ -140,7 +140,12 @@
       "portWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođeni port. (podrazumevani: {defaultPort})",
       "encryption": "Šifrovanje",
       "multicastGroup": "Adresa višesmernog emitovanja",
-      "multicastGroupWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: {defaultMulticast})"
+      "multicastGroupWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: {defaultMulticast})",
+      "network": "Mreža",
+      "networkOptions": {
+        "filtered": "Filtrirana",
+        "all": "Sve"
+      }
     },
     "other": {
       "title": "Ostalo",
@@ -184,8 +189,8 @@
   },
   "apkPickerPage": {
     "title": "Aplikacije (APK)",
-    "excludeSystemApps": "Izostavi sistemske aplikacije",
-    "excludeAppsWithoutLaunchIntent": "Izostavi aplikacije koje se ne pokreću",
+    "excludeSystemApps": "Izuzmi sistemske aplikacije",
+    "excludeAppsWithoutLaunchIntent": "Izuzmi aplikacije koje se ne pokreću",
     "apps": "{n} aplikacija"
   },
   "selectedFilesPage": {
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "koristi kameru",
     "sNameDurationLabel": "trajanje",
     "sUnitAssetCountLabel": "broj"
+  },
+  "networkInterfacesPage": {
+    "title": "Mrežni interfejsi",
+    "preview": "Pregled",
+    "whitelist": "Bela lista",
+    "blacklist": "Crna lista",
+    "info": "Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene."
   }
 }

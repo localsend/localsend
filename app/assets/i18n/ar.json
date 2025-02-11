@@ -32,14 +32,14 @@
     "renamed": "اعادة تسمية",
     "reset": "إعادة ضبط",
     "restart": "إعادة تشغيل",
-    "settings": "إعدادات",
+    "settings": "الإعدادات",
     "skipped": "تم تخطيه",
     "start": "ابدأ",
     "stop": "قف",
     "save": "احفظ",
     "unchanged": "دون تغيير",
     "unknown": "مجهول",
-    "noItemInClipboard": "لا توجد عناصر في الحافظة"
+    "noItemInClipboard": "لا توجد عناصر في الحافظة."
   },
   "receiveTab": {
     "title": "استلام",
@@ -85,7 +85,7 @@
     "placeItems": "ضع العناصر للمشاركة."
   },
   "settingsTab": {
-    "title": "إعدادات",
+    "title": "الإعدادات",
     "general": {
       "title": "عام",
       "brightness": "سمة",
@@ -140,7 +140,12 @@
       "portWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: {defaultPort})",
       "encryption": "التشفير",
       "multicastGroup": "فرق البث المتعدد",
-      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
+      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})",
+      "networkOptions": {
+        "filtered": "مُصفاة",
+        "all": "الكل"
+      },
+      "network": "الشبكة"
     },
     "other": {
       "title": "أخرى",
@@ -208,7 +213,7 @@
     "saveToGalleryOff": "تم إيقافه تلقائيًا لوجود دلائل."
   },
   "sendPage": {
-    "waiting": "بإنتظار الرد...",
+    "waiting": "بإنتظار الرد…",
     "rejected": "المستلم رفض الطلب.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "المستلم مشغول بطلب آخر."
@@ -231,8 +236,8 @@
   },
   "webSharePage": {
     "title": "مشاركة عبر الرابط",
-    "loading": "جاري بدء الخادم...",
-    "stopping": "جاري إيقاف الخادم...",
+    "loading": "جارِ بدء الخادم…",
+    "stopping": "جارِ إيقاف الخادم…",
     "error": "حدث خطأ أثناء بدء الخادم.",
     "openLink": {
       "one": "افتح هذا الرابط في المتصفح:",
@@ -492,7 +497,7 @@
     "preview": "معاينة",
     "select": "تحديد",
     "emptyList": "القائمة فارغة",
-    "unSupportedAssetType": "نوع غير مدعوم",
+    "unSupportedAssetType": "نوع ملف غير مدعوم.",
     "unableToAccessAll": "لا يمكن الوصول إلى جميع الملفات الموجودة على الجهاز",
     "viewingLimitedAssetsTip": "إظهار الملفات والألبومات التي يمكن للتطبيق الوصول إليها فقط.",
     "changeAccessibleLimitedAssets": "السماح بالوصول إلى ملفات إضافية",
@@ -504,12 +509,19 @@
     "sTypeImageLabel": "صورة",
     "sTypeVideoLabel": "فيديو",
     "sTypeOtherLabel": "آخر",
-    "sActionPlayHint": "تشغيل",
+    "sActionPlayHint": "شغّل",
     "sActionPreviewHint": "معاينة",
     "sActionSelectHint": "تحديد",
     "sActionSwitchPathLabel": "تبديل المسار",
     "sActionUseCameraHint": "استخدم الكاميرا",
     "sNameDurationLabel": "مدة",
     "sUnitAssetCountLabel": "عدد"
+  },
+  "networkInterfacesPage": {
+    "whitelist": "القائمة البيضاء",
+    "title": "واجهات الشبكة",
+    "blacklist": "القائمة السوداء",
+    "info": "بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.",
+    "preview": "معاينة"
   }
 }
