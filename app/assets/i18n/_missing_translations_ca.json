@@ -6,20 +6,20 @@
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "Preferits",
       "on": "@:general.on"
     }
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Obre el fitxer",
+      "content": "Voleu obrir el fitxer rebut?"
     },
     "quickSaveFromFavoritesNotice": {
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Les sol·licituds de recepció de fitxers dels dispositius de la llista de preferits s'acceptaran de manera automàtica.",
+        "Atenció! Actualment, això no és completament segur, ja que un pirata informàtic que tingués l'emprempta de qualsevol dispositiu de la llista de preferits podria enviar-vos fitxers sense cap restricció.",
+        "Tot i això, aquesta opció és més segura que permetre que qualsevol usuari de la xarxa local us enviï fitxers sense restrucció."
       ]
     }
   }
