@@ -12,7 +12,7 @@ dependencies:
   logging: ^1.2.0
   meta: ^1.9.1
   mime: ^1.0.4
-  refena: ^2.0.0
+  refena: ^3.1.0
 
 dev_dependencies:
   build_runner: ^2.4.7
