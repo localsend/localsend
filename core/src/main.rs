@@ -4,6 +4,7 @@ mod model;
 mod util;
 mod webrtc;
 
+use crate::crypto::key::{export_private_key, generate_key, parse_key};
 use crate::http::client::LsHttpClient;
 use crate::http::server::TlsConfig;
 use crate::model::discovery::{DeviceType, ProtocolType, RegisterDto};
@@ -25,7 +26,7 @@ use tracing::Level;
 async fn main() -> Result<()> {
     tracing_subscriber::fmt().with_max_level(Level::INFO).init();
 
-    server_test().await?;
+    crypto_test().await?;
 
     Ok(())
 }
@@ -77,6 +78,16 @@ qizxa3CQEHRYqdL/hA1N6eq7GkeiIeP+cbvWGmcSf8SS/ORMKvvDGzkGs2mFZnY/
 DZmiOOqkzvgZOgOVQ2vFuJIXyZ/tY0ez35dtQYLhKRljlXjckA/PFuTJDa2kq1Rv
 qqsPsY3pRq93zkKNx1xRtURBiJEvA/Js2+hHWrU=
 -----END CERTIFICATE-----";
+
+async fn crypto_test() -> Result<()> {
+    let key = generate_key();
+
+    let pem = export_private_key(&key)?;
+
+    println!("Pem: {}", pem.as_str());
+
+    Ok(())
+}
 
 async fn server_test() -> Result<()> {
     let server = http::server::LsHttpServer::start_with_port(

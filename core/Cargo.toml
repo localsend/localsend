@@ -7,6 +7,7 @@ edition = "2021"
 anyhow = "1.0.95"
 base64 = "0.22.1"
 bytes = "1.9.0"
+ed25519-dalek = { version = "2.1.1", features = ["pem", "rand_core"], optional = true }
 flate2 = { version = "1.0.35", optional = true }
 futures-util = { version = "0.3.31", features = ["sink"] }
 http-body-util = { version = "0.1.2", optional = true }
@@ -31,7 +32,8 @@ x509-parser = { version = "0.17.0", features = ["verify"], optional = true }
 
 [features]
 default = []
-http = ["http-body-util", "hyper", "hyper-util", "pem", "reqwest", "rustls", "tokio-rustls", "x509-parser"]
+crypto = ["ed25519-dalek"]
+http = ["crypto", "http-body-util", "hyper", "hyper-util", "pem", "reqwest", "rustls", "tokio-rustls", "x509-parser"]
 webrtc-signaling = ["tokio-tungstenite"]
-webrtc = ["flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
-full = ["http", "webrtc"]
+webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
+full = ["crypto", "http", "webrtc"]

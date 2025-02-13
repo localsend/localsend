@@ -1,3 +1,4 @@
+#[cfg(feature = "crypto")]
 pub mod crypto;
 #[cfg(feature = "http")]
 pub mod http;
