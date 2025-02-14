@@ -88,7 +88,11 @@ async fn start_server_with_addr(
         None => None,
     };
 
-    tracing::info!("Started server on {} (TLS: {})", socket_addr, tls_acceptor.is_some());
+    tracing::info!(
+        "Started server on {} (TLS: {})",
+        socket_addr,
+        tls_acceptor.is_some()
+    );
 
     loop {
         let (tcp_stream, _remote_addr) = incoming.accept().await?;
@@ -131,9 +135,7 @@ async fn start_server_with_addr(
                     Builder::new(TokioExecutor::new())
                         .serve_connection(
                             TokioIo::new(tcp_stream),
-                            hyper::service::service_fn(move |req: Request<Incoming>| {
-                                echo(req)
-                            }),
+                            hyper::service::service_fn(move |req: Request<Incoming>| echo(req)),
                         )
                         .await
                 }

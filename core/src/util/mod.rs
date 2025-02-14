@@ -1,1 +1,2 @@
-pub(crate) mod base64;
+pub mod base64;
+pub(crate) mod time;

@@ -370,12 +370,8 @@ impl ManagedSignalingConnection {
     }
 }
 
-async fn send_update(
-    tx: &mpsc::Sender<WsClientMessage>,
-    info: ClientInfoWithoutId,
-) -> Result<()> {
-    tx.send(WsClientMessage::Update(info))
-        .await?;
+async fn send_update(tx: &mpsc::Sender<WsClientMessage>, info: ClientInfoWithoutId) -> Result<()> {
+    tx.send(WsClientMessage::Update(info)).await?;
 
     tracing::debug!("Sent update to the server");
 
