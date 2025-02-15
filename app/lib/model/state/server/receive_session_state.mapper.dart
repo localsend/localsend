@@ -71,6 +71,11 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     'saveToGallery',
     _$saveToGallery,
   );
+  static bool _$saveAsLivePhoto(ReceiveSessionState v) => v.saveAsLivePhoto;
+  static const Field<ReceiveSessionState, bool> _f$saveAsLivePhoto = Field(
+    'saveAsLivePhoto',
+    _$saveAsLivePhoto,
+  );
   static Set<String> _$createdDirectories(ReceiveSessionState v) =>
       v.createdDirectories;
   static const Field<ReceiveSessionState, Set<String>> _f$createdDirectories =
@@ -88,6 +93,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #destinationDirectory: _f$destinationDirectory,
     #cacheDirectory: _f$cacheDirectory,
     #saveToGallery: _f$saveToGallery,
+    #saveAsLivePhoto: _f$saveAsLivePhoto,
     #createdDirectories: _f$createdDirectories,
   };
 
@@ -103,6 +109,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
       destinationDirectory: data.dec(_f$destinationDirectory),
       cacheDirectory: data.dec(_f$cacheDirectory),
       saveToGallery: data.dec(_f$saveToGallery),
+      saveAsLivePhoto: data.dec(_f$saveAsLivePhoto),
       createdDirectories: data.dec(_f$createdDirectories),
     );
   }
@@ -196,6 +203,7 @@ abstract class ReceiveSessionStateCopyWith<
     String? destinationDirectory,
     String? cacheDirectory,
     bool? saveToGallery,
+    bool? saveAsLivePhoto,
     Set<String>? createdDirectories,
   });
   ReceiveSessionStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
@@ -238,6 +246,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
     String? destinationDirectory,
     String? cacheDirectory,
     bool? saveToGallery,
+    bool? saveAsLivePhoto,
     Set<String>? createdDirectories,
   }) => $apply(
     FieldCopyWithData({
@@ -252,6 +261,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
         #destinationDirectory: destinationDirectory,
       if (cacheDirectory != null) #cacheDirectory: cacheDirectory,
       if (saveToGallery != null) #saveToGallery: saveToGallery,
+      if (saveAsLivePhoto != null) #saveAsLivePhoto: saveAsLivePhoto,
       if (createdDirectories != null) #createdDirectories: createdDirectories,
     }),
   );
@@ -270,6 +280,7 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
     ),
     cacheDirectory: data.get(#cacheDirectory, or: $value.cacheDirectory),
     saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
+    saveAsLivePhoto: data.get(#saveAsLivePhoto, or: $value.saveAsLivePhoto),
     createdDirectories: data.get(
       #createdDirectories,
       or: $value.createdDirectories,
