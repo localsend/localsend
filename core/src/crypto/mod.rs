@@ -1,3 +1,4 @@
 pub mod cert;
-pub mod ed25519;
+pub mod signature;
 pub mod hash;
+pub mod nonce;

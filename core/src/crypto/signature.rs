@@ -6,29 +6,39 @@ use ed25519_dalek::pkcs8::spki::der::zeroize::Zeroizing;
 use ed25519_dalek::pkcs8::{DecodePrivateKey, DecodePublicKey, EncodePrivateKey, EncodePublicKey};
 use ed25519_dalek::{Signer, Verifier};
 
-pub fn generate_key() -> ed25519_dalek::SigningKey {
+pub struct SigningKey {
+    inner: ed25519_dalek::SigningKey,
+}
+
+pub struct VerifyingKey {
+    inner: ed25519_dalek::VerifyingKey,
+}
+
+pub fn generate_key() -> SigningKey {
     let mut csprng = OsRng;
-    ed25519_dalek::SigningKey::generate(&mut csprng)
+    SigningKey {
+        inner: ed25519_dalek::SigningKey::generate(&mut csprng),
+    }
 }
 
-pub fn export_private_key(key: &ed25519_dalek::SigningKey) -> anyhow::Result<Zeroizing<String>> {
-    let pem = key.to_pkcs8_pem(LineEnding::LF)?;
+pub fn export_private_key(key: &SigningKey) -> anyhow::Result<Zeroizing<String>> {
+    let pem = key.inner.to_pkcs8_pem(LineEnding::LF)?;
     Ok(pem)
 }
 
-pub fn parse_private_key(private_key: &str) -> anyhow::Result<ed25519_dalek::SigningKey> {
+pub fn parse_private_key(private_key: &str) -> anyhow::Result<SigningKey> {
     let parsed = ed25519_dalek::SigningKey::from_pkcs8_pem(private_key)?;
-    Ok(parsed)
+    Ok(SigningKey { inner: parsed })
 }
 
-pub fn export_public_key(key: &ed25519_dalek::SigningKey) -> anyhow::Result<String> {
-    let pem = key.verifying_key().to_public_key_pem(LineEnding::LF)?;
+pub fn export_public_key(key: &SigningKey) -> anyhow::Result<String> {
+    let pem = key.inner.verifying_key().to_public_key_pem(LineEnding::LF)?;
     Ok(pem)
 }
 
-pub fn parse_public_key(public_key: &str) -> anyhow::Result<ed25519_dalek::VerifyingKey> {
+pub fn parse_public_key(public_key: &str) -> anyhow::Result<VerifyingKey> {
     let parsed = ed25519_dalek::VerifyingKey::from_public_key_pem(public_key)?;
-    Ok(parsed)
+    Ok(VerifyingKey { inner: parsed })
 }
 
 pub fn verify_signature(key: &ed25519_dalek::VerifyingKey, data: &[u8], signature: &[u8]) -> bool {
@@ -125,19 +135,17 @@ mod tests {
     #[test]
     fn test_generate_key() {
         let key = generate_key();
-        assert_eq!(key.to_bytes().len(), 32);
-
         let pem = export_private_key(&key).unwrap();
 
         let parsed = parse_private_key(&pem).unwrap();
-        assert_eq!(parsed.as_bytes(), key.as_bytes());
+        assert_eq!(parsed.inner.as_bytes(), key.inner.as_bytes());
     }
 
     #[test]
     fn test_sign_verify() {
         let key = generate_key();
         let data = b"hello world";
-        let signature = key.sign(data);
+        let signature = key.inner.sign(data);
         let verified = verify_signature(&key.verifying_key(), data, &signature.to_vec());
         assert!(verified);
     }

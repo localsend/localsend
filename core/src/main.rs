@@ -79,27 +79,27 @@ qqsPsY3pRq93zkKNx1xRtURBiJEvA/Js2+hHWrU=
 -----END CERTIFICATE-----";
 
 async fn crypto_test() -> Result<()> {
-    let key = crypto::ed25519::generate_key();
+    let key = crypto::signature::generate_key();
 
-    let pem = crypto::ed25519::export_private_key(&key)?;
+    let pem = crypto::signature::export_private_key(&key)?;
 
     println!("Pem: {}", pem.as_str());
 
-    let public_key = crypto::ed25519::export_public_key(&key)?;
+    let public_key = crypto::signature::export_public_key(&key)?;
 
     println!("Public Key: {}", public_key);
 
-    let fingerprint = crypto::ed25519::generate_fingerprint(&key)?;
+    let fingerprint = crypto::signature::generate_fingerprint(&key)?;
 
     println!("Fingerprint: {}", fingerprint);
 
-    let parsed_key = crypto::ed25519::parse_public_key(
+    let parsed_key = crypto::signature::parse_public_key(
         "-----BEGIN PUBLIC KEY-----
 MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 -----END PUBLIC KEY-----",
     )?;
 
-    let signature = crypto::ed25519::verify_fingerprint_with_result(
+    let signature = crypto::signature::verify_fingerprint_with_result(
         parsed_key,
         "sha256.RikOdJlAUTdMVFZjEk7Bft5G9cxnNBBLfgttPpyS2FY.hJCuZwAAAAA.ed25519.iNgHrRzX2Iel-Ozj47yn5o5v0cGY_BswK6JYqwY65j7Krpr43KanAaCrjUng7gHtc2pCcylUrKswR_rxyswhDA",
     );

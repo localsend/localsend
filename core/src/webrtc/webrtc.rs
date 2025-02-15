@@ -22,54 +22,91 @@ use webrtc::peer_connection::configuration::RTCConfiguration;
 use webrtc::peer_connection::peer_connection_state::RTCPeerConnectionState;
 use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
 use webrtc::peer_connection::RTCPeerConnection;
+use crate::crypto::signature;
 
-// #[derive(Debug, Deserialize, Serialize)]
-// struct RTCInitRequest {
-//     /// The certificate of the sending peer.
-//     /// Unknown to the signaling server to secure the identity of the peers.
-//     pub cert: String,
-// }
-
+/// Nonce message exchanged by both peers
+/// starting with the sending peer.
 #[derive(Debug, Deserialize, Serialize)]
-struct RTCInitResponse {
-    pub status: RTCInitStatus,
-    /*
-    /// The certificate of the receiving peer.
-    /// Unknown to the signaling server to secure the identity of the peers.
-    /// Only available if the status is `Ok`.
-    //pub cert: Option<String>,
-     */
+struct RTCNonceMessage {
+    /// Nonce to be used to hash in combination with the public key.
+    nonce: String,
 }
 
+/// Sending peer sends the token.
 #[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-enum RTCInitStatus {
+struct RTCTokenRequest {
+    /// Token using the received nonce and the public key.
+    /// HASH_METHOD.HASH.SIGN_METHOD.SIGN
+    token: String,
+}
+
+/// Receiving peer sends the token as well but
+/// also the status for the next step.
+/// After this step, the sending peer may close the connection due to `InvalidSignature`.
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(tag = "status", rename_all = "camelCase")]
+enum RTCTokenResponse {
+    Ok { token: String },
+    PinRequired { token: String },
+    InvalidSignature,
+}
+
+/// This struct is used by both sender and receiver.
+/// (1) The sender tries to resolve PIN first, waiting for `RTCPinReceivingResponse`.
+/// (2) The receiver tries to resolve PIN, waiting for `RTCPinSendingResponse`.
+///
+/// This step may be skipped by the sending peer if `RTCInitResponse` is `Ok`.
+/// In this case, the sending peer sends the `RTCPinSendingResponse` right away.
+#[derive(Debug, Deserialize, Serialize)]
+struct RTCPinMessage {
+    pin: String,
+}
+
+/// Response to the PIN message by the receiving peer.
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(tag = "status", rename_all = "camelCase")]
+enum RTCPinReceivingResponse {
     Ok,
     PinRequired,
     TooManyAttempts,
 }
 
+/// Response to the PIN message by the sending peer.
 #[derive(Debug, Deserialize, Serialize)]
-struct RTCPinRequest {
-    pub pin: String,
+#[serde(tag = "status", rename_all = "camelCase")]
+enum RTCPinSendingResponse {
+    Ok {
+        files: Vec<FileDto>,
+    },
+    PinRequired,
+    TooManyAttempts,
 }
 
+/// Sent by receiving peer after receiving `RTCPinSendingResponse::Ok`.
 #[derive(Debug, Deserialize, Serialize)]
-struct RTCFileListRequest {
-    pub files: Vec<FileDto>,
-}
-
-#[derive(Debug, Eq, PartialEq, Deserialize, Serialize)]
-struct RTCFileListResponse {
-    pub status: RTCFileListStatus,
-    pub files: HashMap<String, String>,
-}
-
-#[derive(Debug, Eq, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-enum RTCFileListStatus {
-    Ok,
+#[serde(tag = "status", rename_all = "camelCase")]
+enum RTCFileResponse {
+    Ok {
+        files: HashMap<String, String>
+    },
+    Pair {
+        #[serde(rename = "publicKey")]
+        public_key: String,
+    },
     Declined,
+    InvalidSignature,
+}
+
+/// Pair response by the sending peer.
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(tag = "status", rename_all = "camelCase")]
+enum RTCPairResponse {
+    Ok {
+        #[serde(rename = "publicKey")]
+        public_key: String,
+    },
+    PairDeclined,
+    InvalidSignature,
 }
 
 #[derive(Debug)]
@@ -138,9 +175,11 @@ pub async fn send_offer(
     signaling: &ManagedSignalingConnection,
     stun_servers: Vec<String>,
     target_id: Uuid,
+    expecting_public_key: Option<signature::VerifyingKey>,
     files: Vec<FileDto>,
     status_tx: mpsc::Sender<RTCStatus>,
     selected_files_tx: oneshot::Sender<HashSet<String>>,
+    pair
     error_tx: mpsc::Sender<RTCFileError>,
     mut pin_rx: mpsc::Receiver<String>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
@@ -201,7 +240,7 @@ pub async fn send_offer(
                         };
 
                         data_channel
-                            .send_text(&serde_json::to_string(&RTCPinRequest { pin })?)
+                            .send_text(&serde_json::to_string(&RTCPinMessage { pin })?)
                             .await?;
                     }
                     RTCInitStatus::TooManyAttempts => {
@@ -477,7 +516,7 @@ pub async fn accept_offer(
 
                     remote_pin = match receive_rx.recv().await {
                         Some(msg) => {
-                            let pin_req: RTCPinRequest = serde_json::from_slice(&msg.data)?;
+                            let pin_req: RTCPinMessage = serde_json::from_slice(&msg.data)?;
                             pin_req.pin
                         }
                         None => {
