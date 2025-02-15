@@ -129,7 +129,7 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 6. 运行 `flutter run` 启动应用程序。
 
 > [!NOTE]
-> LocalSend 目前需要老版本的 Flutter （具体见 [.fvmrc](../.fvmrc)）
+> LocalSend 目前需要老版本的 Flutter （具体见 [.fvmrc](/.fvmrc)）
 > 因而一些构建问题也许是系统安装的 Flutter 版本和 LocalSend 所需的 Flutter 版本不一致导致的。
 > 为了在开发过程中保持一致性，LocalSend 使用 [fvm](https://fvm.app) 来管理此项目的 Flutter 版本。
 > 安装 `fvm` 后，请运行 `fvm flutter` 而非 `flutter` 。
