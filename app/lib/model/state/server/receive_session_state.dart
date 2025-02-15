@@ -22,7 +22,10 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
   final int? endTime;
   final String destinationDirectory;
   final String cacheDirectory;
+  // 保存到相册的开关
   final bool saveToGallery;
+  // 按实况照片保存，如果可以的话
+  final bool saveAsLivePhoto;
 
   /// On Android, we need to manually create missing directories.
   /// To improve performance, we cache the created directories so we don't need to check them again.
@@ -42,6 +45,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
     required this.destinationDirectory,
     required this.cacheDirectory,
     required this.saveToGallery,
+    required this.saveAsLivePhoto,
     required this.createdDirectories,
     required this.responseHandler,
   });

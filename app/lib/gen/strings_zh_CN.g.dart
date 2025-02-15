@@ -868,6 +868,8 @@ class _TranslationsSendTabPickerZhCn extends TranslationsSendTabPickerEn {
   @override
   String get media => '媒体';
   @override
+  String get live => '实况';
+  @override
   String get text => '文本';
   @override
   String get app => '应用';
@@ -956,6 +958,8 @@ class _TranslationsSettingsTabReceiveZhCn extends TranslationsSettingsTabReceive
   String get downloads => '(下载)';
   @override
   String get saveToGallery => '保存到相册';
+  @override
+  String get saveAsLivePhoto => '保存为实况照片';
   @override
   String get saveToHistory => '保存到历史记录';
 }

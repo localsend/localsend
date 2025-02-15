@@ -113,6 +113,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     final originDevice = ref.read(deviceFullInfoProvider);
     final requestDto = PrepareUploadRequestDto(
       info: InfoRegisterDto(
+        // 对方名称
         alias: originDevice.alias,
         version: originDevice.version,
         deviceModel: originDevice.deviceModel,
@@ -122,6 +123,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         protocol: originDevice.https ? ProtocolType.https : ProtocolType.http,
         download: originDevice.download,
       ),
+      // 要发送的文件 
       files: {
         for (final entry in requestState.files.entries) entry.key: entry.value.file,
       },
@@ -147,6 +149,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     do {
       invalidPin = false;
       try {
+        // 请求目标设备
         response = await client.post(
           ApiRoute.prepareUpload.target(target),
           query: {
@@ -320,7 +323,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
     );
 
-    final queue = Queue<SendingFile>()..addAll(files.values);
+    // 按照名称排序
+    final filesList = files.values.toList()..sort((a, b) => a.file.fileName.compareTo(b.file.fileName));
+    final queue = Queue<SendingFile>()..addAll(filesList);
     final concurrency = ref.read(parentIsolateProvider).uploadIsolateCount;
     _logger.info('Sending files using $concurrency concurrent isolates');
 
@@ -335,6 +340,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           break;
         }
 
+        // 发送文件
         await sendFile(
           sessionId: sessionId,
           isolateIndex: index,

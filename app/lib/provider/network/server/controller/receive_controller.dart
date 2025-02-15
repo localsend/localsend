@@ -248,6 +248,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          saveAsLivePhoto:  checkPlatformWithGallery() && settings.saveAsLivePhoto && dto.files.values.every((f) => !f.fileName.contains('/')),
           createdDirectories: {},
           responseHandler: streamController,
         ),
@@ -446,6 +447,20 @@ class ReceiveController {
     );
     final fileType = receivingFile.file.fileType;
     final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+    final bool saveAsLivePhoto;
+    if (saveToGallery && receiveState.saveAsLivePhoto) {
+      if (receivingFile.file.fileType == FileType.image) {
+        // 如果当前文件是图片，寻找同名的视频
+        saveAsLivePhoto = receiveState.files.values.any((f) => f.file.fileType == FileType.video && f.file.fileName == receivingFile.file.fileName);
+      } else if (receivingFile.file.fileType == FileType.video) {
+        // 如果当前文件是视频，寻找同名的图片
+        saveAsLivePhoto = receiveState.files.values.any((f) => f.file.fileType == FileType.image && f.file.fileName == receivingFile.file.fileName);
+      } else {
+        saveAsLivePhoto = false;
+      }
+    } else {
+      saveAsLivePhoto = false;
+    }
 
     String? outerDestinationPath;
     try {
@@ -464,6 +479,7 @@ class ReceiveController {
         documentUri: documentUri,
         name: finalName,
         saveToGallery: saveToGallery,
+        saveAsLivePhoto: saveAsLivePhoto,
         isImage: fileType == FileType.image,
         stream: request,
         androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
@@ -728,6 +744,16 @@ class ReceiveController {
       (oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
           saveToGallery: saveToGallery,
+        ),
+      ),
+    );
+  }
+
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(
+          saveAsLivePhoto: saveAsLivePhoto,
         ),
       ),
     );

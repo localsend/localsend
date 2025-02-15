@@ -23,6 +23,7 @@ Future<void> saveFile({
   required String? documentUri,
   required String name,
   required bool saveToGallery,
+  required bool saveAsLivePhoto,
   required bool isImage,
   required Stream<Uint8List> stream,
   required int? androidSdkInt,
@@ -61,6 +62,7 @@ Future<void> saveFile({
       await _saveFile(
         destinationPath: destinationPath,
         saveToGallery: saveToGallery,
+        saveAsLivePhoto: saveAsLivePhoto,
         isImage: isImage,
         stream: stream,
         onProgress: onProgress,
@@ -82,6 +84,7 @@ Future<void> saveFile({
   await _saveFile(
     destinationPath: destinationPath,
     saveToGallery: saveToGallery,
+    saveAsLivePhoto: saveAsLivePhoto,
     isImage: isImage,
     stream: stream,
     onProgress: onProgress,
@@ -107,6 +110,7 @@ Future<void> saveFile({
 Future<void> _saveFile({
   required String destinationPath,
   required bool saveToGallery,
+  required bool saveAsLivePhoto,
   required bool isImage,
   required Stream<Uint8List> stream,
   required void Function(int savedBytes) onProgress,
@@ -142,9 +146,24 @@ Future<void> _saveFile({
     await flush?.call();
     await close();
 
+    // 保存到相册 
+    // receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
     if (saveToGallery) {
-      isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
-      await File(destinationPath).delete();
+      if (saveAsLivePhoto) {
+        // 调用live保存方法
+        // List<String> needDeletePaths = await _methodChannel.invokeMethod('saveLivePhoto', {
+        //   'path': destinationPath,
+        // });
+        // if (needDeletePaths.isNotEmpty) {
+        //   for (var needDeletePath in needDeletePaths) {
+        //     await File(needDeletePath).delete();
+        //   }
+        // }
+      } else {
+        // 原生方法
+        isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
+        await File(destinationPath).delete();
+      }
     }
 
     onProgress(savedBytes); // always emit final event

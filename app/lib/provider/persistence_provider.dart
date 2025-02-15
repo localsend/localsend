@@ -73,6 +73,7 @@ const _timeoutKey = 'ls_timeout';
 const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
+const _saveAsLivePhoto = 'ls_save_as_live_photo';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save';
 const _quickSaveFromFavorites = 'ls_quick_save_from_favorites';
@@ -363,6 +364,14 @@ class PersistenceService {
 
   Future<void> setSaveToGallery(bool saveToGallery) async {
     await _prefs.setBool(_saveToGallery, saveToGallery);
+  }
+
+  bool isSaveAsLivePhoto() {
+    return _prefs.getBool(_saveAsLivePhoto) ?? true;
+  }
+
+  Future<void> setSaveAsLivePhoto(bool saveAsLivePhoto) async {
+    await _prefs.setBool(_saveAsLivePhoto, saveAsLivePhoto);
   }
 
   bool isSaveToHistory() {

@@ -91,6 +91,37 @@ class ReceiveOptionsPage extends StatelessWidget {
                 ),
               ],
             ),
+          if (checkPlatformWithGallery() && receiveSession.saveToGallery)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text(t.receiveOptionsPage.saveAsLivePhoto, style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    CustomDropdownButton<bool>(
+                      value: receiveSession.saveAsLivePhoto,
+                      expanded: false,
+                      items: [false, true].map((b) {
+                        return DropdownMenuItem(
+                          value: b,
+                          alignment: Alignment.center,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minWidth: 80),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(b ? t.general.on : t.general.off),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (b) => ref.notifier(serverProvider).setSessionSaveAslivePhoto(b),
+                    )
+                  ],
+                ),
+              ],
+            ),
           const SizedBox(height: 20),
           Row(
             children: [
