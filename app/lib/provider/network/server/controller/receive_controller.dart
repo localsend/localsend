@@ -253,6 +253,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          saveAsLivePhoto: checkPlatformWithGallery() && settings.saveAsLivePhoto && dto.files.values.every((f) => !f.fileName.contains('/')),
           createdDirectories: {},
           responseHandler: streamController,
         ),
@@ -496,7 +497,19 @@ class ReceiveController {
       ),
     );
     final fileType = receivingFile.file.fileType;
-    final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+    final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+    final bool saveAsLivePhoto;
+    if (saveToGallery && receiveState.saveAsLivePhoto) {
+      if (receivingFile.file.fileType == FileType.image) {
+        saveAsLivePhoto = receiveState.files.values.any((f) => f.file.fileType == FileType.video && f.file.fileName == receivingFile.file.fileName);
+      } else if (receivingFile.file.fileType == FileType.video) {
+        saveAsLivePhoto = receiveState.files.values.any((f) => f.file.fileType == FileType.image && f.file.fileName == receivingFile.file.fileName);
+      } else {
+        saveAsLivePhoto = false;
+      }
+    } else {
+      saveAsLivePhoto = false;
+    }
 
     String? filePath;
     bool savedToGallery = false;
@@ -506,7 +519,8 @@ class ReceiveController {
       (savedToGallery, filePath) = await saveFile(
         destinationDirectory: receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
-        saveToGallery: shouldSaveToGallery,
+        saveToGallery: saveToGallery,
+        saveAsLivePhoto: saveAsLivePhoto,
         isImage: fileType == FileType.image,
         stream: request,
         onProgress: (savedBytes) {
@@ -783,6 +797,16 @@ class ReceiveController {
       (oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
           saveToGallery: saveToGallery,
+        ),
+      ),
+    );
+  }
+
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(
+          saveAsLivePhoto: saveAsLivePhoto,
         ),
       ),
     );

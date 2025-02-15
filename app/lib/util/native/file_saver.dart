@@ -35,6 +35,7 @@ Future<(bool, String?)> saveFile({
   required String destinationDirectory,
   required String fileName,
   required bool saveToGallery,
+  required bool saveAsLivePhoto,
   required bool isImage,
   required Stream<Uint8List> stream,
   required void Function(int) onProgress,
@@ -83,6 +84,7 @@ Future<(bool, String?)> saveFile({
         destinationDirectory: destinationDirectory,
         fileName: fileName,
         createdDirectories: createdDirectories,
+        saveAsLivePhoto: saveAsLivePhoto,
         isImage: isImage,
         stream: stream,
         onProgress: onProgress,
@@ -106,6 +108,7 @@ Future<(bool, String?)> saveFile({
     destinationDirectory: destinationDirectory,
     fileName: fileName,
     createdDirectories: createdDirectories,
+    saveAsLivePhoto: saveAsLivePhoto,
     isImage: isImage,
     stream: stream,
     onProgress: onProgress,
@@ -134,6 +137,7 @@ Future<(bool, String?)> _saveFile({
   required String destinationDirectory,
   required String fileName,
   required Set<String> createdDirectories,
+  required bool saveAsLivePhoto,
   required bool isImage,
   required Stream<Uint8List> stream,
   required void Function(int) onProgress,
@@ -171,10 +175,21 @@ Future<(bool, String?)> _saveFile({
 
     if (saveToGallery) {
       try {
-        isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
-        await File(destinationPath).delete();
+        if (saveAsLivePhoto) {
+          // List<String> needDeletePaths = await _methodChannel.invokeMethod('saveLivePhoto', {
+          //   'path': destinationPath,
+          // });
+          // if (needDeletePaths.isNotEmpty) {
+          //   for (var needDeletePath in needDeletePaths) {
+          //     await File(needDeletePath).delete();
+          //   }
+          // }
+        } else {
+          isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
+          await File(destinationPath).delete();
+        }
         onProgress(savedBytes);
-        return (true, null);
+        return saveAsLivePhoto ? (false, destinationPath) : (true, null);
       } on GalException catch (e) {
         if (e.type == GalExceptionType.notSupportedFormat) {
           _logger.info('File format not supported by gallery, moving to destination directory');

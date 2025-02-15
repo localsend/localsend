@@ -55,6 +55,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     multicastGroup: _persistence.getMulticastGroup(),
     destination: _persistence.getDestination(),
     saveToGallery: _persistence.isSaveToGallery(),
+    saveAsLivePhoto: _persistence.isSaveAsLivePhoto(),
     saveToHistory: _persistence.isSaveToHistory(),
     quickSave: _persistence.isQuickSave(),
     quickSaveFromFavorites: _persistence.isQuickSaveFromFavorites(),

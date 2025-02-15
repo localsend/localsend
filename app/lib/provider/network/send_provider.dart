@@ -317,7 +317,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
     );
 
-    final queue = Queue<SendingFile>()..addAll(files.values);
+    final filesList = files.values.toList()
+      ..sort((a, b) => a.file.fileName.compareTo(b.file.fileName));
+    final queue = Queue<SendingFile>()..addAll(filesList);
     final concurrency = ref.read(parentIsolateProvider).uploadIsolateCount;
     _logger.info('Sending files using $concurrency concurrent isolates');
 
