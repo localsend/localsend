@@ -115,7 +115,8 @@
       "title": "Qəbul et",
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "autoFinish": "Avtomatik Bitirmə"
+      "autoFinish": "Avtomatik Bitirmə",
+      "requirePin": "@:webSharePage.requirePin"
     }
   }
 }

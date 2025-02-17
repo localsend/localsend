@@ -140,7 +140,12 @@
       "portWarning": "Kuna kasutad endamääratud porti, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultPort})",
       "encryption": "Krüptimine",
       "multicastGroup": "Multiedastuse aadress",
-      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})"
+      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})",
+      "networkOptions": {
+        "filtered": "Filtreeritud",
+        "all": "Kõik"
+      },
+      "network": "Võrk"
     },
     "other": {
       "title": "Muu teave",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "kasuta kaamerat",
     "sNameDurationLabel": "kestus",
     "sUnitAssetCountLabel": "kogus"
+  },
+  "networkInterfacesPage": {
+    "title": "Võrguliidesed",
+    "preview": "Eelvaade",
+    "whitelist": "Lubatud loend",
+    "blacklist": "Keelatud loend",
+    "info": "Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist."
   }
 }

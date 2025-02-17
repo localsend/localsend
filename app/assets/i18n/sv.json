@@ -140,7 +140,12 @@
       "portWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad port. (standard: {defaultPort})",
       "encryption": "Kryptering",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad multicast-adress. (standard: {defaultMulticast})"
+      "multicastGroupWarning": "Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad multicast-adress. (standard: {defaultMulticast})",
+      "network": "Nätverk",
+      "networkOptions": {
+        "all": "Alla",
+        "filtered": "Filtrerad"
+      }
     },
     "other": {
       "title": "Annat",
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "använd kamera",
     "sNameDurationLabel": "längd",
     "sUnitAssetCountLabel": "antal"
+  },
+  "networkInterfacesPage": {
+    "title": "Nätverksgränssnitt",
+    "info": "Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Du måste starta om servern för att tillämpa ändringarna.",
+    "preview": "Förhandsvisning",
+    "whitelist": "Vitlista",
+    "blacklist": "Svartlista"
   }
 }

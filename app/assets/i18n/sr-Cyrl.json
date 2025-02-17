@@ -128,7 +128,7 @@
     },
     "network": {
       "title": "Мрежа",
-      "needRestart": "Рестартујте сервер да бисте применили подешавања!",
+      "needRestart": "Рестартујте сервер да би се применила подешавања!",
       "server": "Сервер",
       "alias": "Назив уређаја",
       "deviceType": "Тип уређаја",
@@ -140,7 +140,12 @@
       "portWarning": "Други уређаји вас можда неће открити, јер користите прилагођени порт. (подразумевани: {defaultPort})",
       "encryption": "Шифровање",
       "multicastGroup": "Адреса вишесмерног емитовања",
-      "multicastGroupWarning": "Други уређаји вас можда неће открити, јер користите прилагођену адресу вишесмерног емитовања. (подразумевана: {defaultMulticast})"
+      "multicastGroupWarning": "Други уређаји вас можда неће открити, јер користите прилагођену адресу вишесмерног емитовања. (подразумевана: {defaultMulticast})",
+      "network": "Мрежа",
+      "networkOptions": {
+        "all": "Све",
+        "filtered": "Филтрирана"
+      }
     },
     "other": {
       "title": "Остало",
@@ -184,8 +189,8 @@
   },
   "apkPickerPage": {
     "title": "Апликације (APK)",
-    "excludeSystemApps": "Изостави системске апликације",
-    "excludeAppsWithoutLaunchIntent": "Изостави апликације које се не покрећу",
+    "excludeSystemApps": "Изузми системске апликације",
+    "excludeAppsWithoutLaunchIntent": "Изузми апликације које се не покрећу",
     "apps": "{n} апликација"
   },
   "selectedFilesPage": {
@@ -344,15 +349,15 @@
   "dialogs": {
     "addFile": {
       "title": "Додајте у избор",
-      "content": "Шта желиш да додаш?"
+      "content": "Шта желите додати?"
     },
     "openFile": {
       "title": "Отвори фајл",
-      "content": "Да ли желите да отворите примљени фајл?"
+      "content": "Желите ли да отворите примљени фајл?"
     },
     "addressInput": {
       "title": "Унесите адресу",
-      "hashtag": "Hashtag",
+      "hashtag": "Хеш-ознака",
       "ip": "IP адреса",
       "recentlyUsed": "Недавно коришћено: "
     },
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "користи камеру",
     "sNameDurationLabel": "трајање",
     "sUnitAssetCountLabel": "број"
+  },
+  "networkInterfacesPage": {
+    "title": "Мрежни интерфејси",
+    "preview": "Преглед",
+    "whitelist": "Бела листа",
+    "blacklist": "Црна листа",
+    "info": "Подразумевано, LocalSend користи све доступне мрежне интерфејсе. Овде можете изузети нежељене мреже. Морате рестартовати сервер да би се примениле промене."
   }
 }

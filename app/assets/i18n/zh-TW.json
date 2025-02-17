@@ -39,7 +39,7 @@
     "save": "儲存",
     "unchanged": "未變更",
     "unknown": "未知",
-    "noItemInClipboard": "剪貼簿中沒有項目"
+    "noItemInClipboard": "剪貼簿中沒有內容。"
   },
   "receiveTab": {
     "title": "接收",
@@ -140,7 +140,12 @@
       "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
       "encryption": "加密",
       "multicastGroup": "多點傳送",
-      "multicastGroupWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：{defaultMulticast})"
+      "multicastGroupWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：{defaultMulticast})",
+      "network": "網路",
+      "networkOptions": {
+        "all": "全部",
+        "filtered": "已篩選"
+      }
     },
     "other": {
       "title": "其它",
@@ -193,8 +198,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "要傳送一個檔案給您。",
-      "other": "要傳送 {n} 個檔案給您。"
+      "one": "要傳送一個檔案給您",
+      "other": "要傳送 {n} 個檔案給您"
     },
     "subTitleMessage": "已傳送一則訊息給您：",
     "subTitleLink": "已傳送一個連結給您：",
@@ -392,8 +397,8 @@
     }
   },
   "sanitization": {
-    "empty": "檔案名稱不能為空。",
-    "invalid": "檔案名稱包含無效字元。"
+    "empty": "檔案名稱不能為空",
+    "invalid": "檔案名稱包含無效字元"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -404,8 +409,8 @@
   "web": {
     "waiting": "@:sendPage.waiting",
     "enterPin": "輸入 PIN 碼",
-    "invalidPin": "PIN 碼無效。",
-    "tooManyAttempts": "嘗試次數過多，請稍後再試。",
+    "invalidPin": "PIN 碼無效",
+    "tooManyAttempts": "嘗試次數過多，請稍後再試",
     "rejected": "遭到拒絕",
     "files": "檔案",
     "fileName": "檔案名稱",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "使用相機",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "計數"
+  },
+  "networkInterfacesPage": {
+    "info": "LocalSend 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。",
+    "title": "網路介面",
+    "preview": "預覽",
+    "whitelist": "允許清單",
+    "blacklist": "禁止清單"
   }
 }

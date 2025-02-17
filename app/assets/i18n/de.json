@@ -140,7 +140,12 @@
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
+      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})",
+      "network": "Netzwerk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Gefiltert"
+      }
     },
     "other": {
       "title": "Weitere",
@@ -441,5 +446,10 @@
     "sActionUseCameraHint": "Kamera benutzen",
     "sNameDurationLabel": "Dauer",
     "sUnitAssetCountLabel": "Anzahl"
+  },
+  "networkInterfacesPage": {
+    "title": "Netzwerkschnittstellen",
+    "preview": "Vorschau",
+    "info": "Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen."
   }
 }
