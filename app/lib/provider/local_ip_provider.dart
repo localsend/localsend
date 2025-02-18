@@ -48,9 +48,7 @@ class InitLocalIpAction extends ReduxAction<LocalIpService, NetworkState> {
 
       if (checkPlatform([TargetPlatform.windows])) {
         // https://github.com/localsend/localsend/issues/12
-        _subscription = Stream.periodic(const Duration(seconds: 5), (_) {}).listen((_) async {
-          await dispatchAsync(FetchLocalIpAction());
-        });
+        // https://github.com/localsend/localsend/issues/78
       } else {
         _subscription = Connectivity().onConnectivityChanged.listen((_) async {
           await dispatchAsync(FetchLocalIpAction());
