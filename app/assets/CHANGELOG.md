@@ -1,10 +1,12 @@
-## 1.17.0 (unreleased)
+## 1.16.3 (unreleased)
 
 - feat: add advanced setting to filter network interfaces (@Tienisto)
 - feat(windows): when pasting an image, automatically convert it to PNG (@BrianMwit)
 - feat(android): add option to open gallery when image/video was automatically saved (@Tienisto)
+- fix: path traversal vulnerability when saving files (@Tienisto)
 - fix: black screen when tapping on "Back" twice in "Share via link" (@Tienisto)
 - fix(macos): window disappears on command key when minimize to tray is enabled (@Tienisto)
+- fix(windows): do not poll local IP resulting in unwanted location permissions (@Tienisto)
 
 ## 1.16.2 (2024-11-06)
 
