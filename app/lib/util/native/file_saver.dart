@@ -189,10 +189,17 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
-  try {
-    Directory(dir).createSync(recursive: true);
-  } catch (e) {
-    _logger.warning('Could not create directory', e);
+  if (fileNameParts.length > 1) {
+    // Check path traversal
+    if (!p.isWithin(parentDirectory, dir)) {
+      throw 'Path traversal detected';
+    }
+
+    try {
+      Directory(dir).createSync(recursive: true);
+    } catch (e) {
+      _logger.warning('Could not create directory', e);
+    }
   }
 
   String destinationPath;
