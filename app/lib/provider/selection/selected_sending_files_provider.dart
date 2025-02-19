@@ -9,7 +9,7 @@ import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
-import 'package:localsend_app/util/native/send_ignore.dart';
+import 'package:localsend_app/util/send_ignore.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
@@ -153,12 +153,20 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     _logger.info('Reading files in $directoryPath');
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
-    final ignoreManager = IgnoreManager(directoryPath);
-    final globs = await ignoreManager.getGlobs();
+    final sendIgnore = SendIgnore();
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
-        final relative = '$directoryName/${p.relative(entity.path, from: directoryPath).replaceAll('\\', '/')}';
-        if (await checkIgnoreValidity(relative, globs)) {
+        final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+        final relative = '$directoryName/$innerRelative';
+        if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
+          sendIgnore.loadIgnoreContent(
+            parentPath: innerRelative.contains('/') ? p.dirname(innerRelative) : null,
+            ignoreContents: await entity.readAsLines(),
+          );
+          _logger.info('Loaded ignore file: $innerRelative');
+          continue;
+        } else if (sendIgnore.isIgnored(innerRelative)) {
+          _logger.info('Ignored: $innerRelative');
           continue;
         }
 
