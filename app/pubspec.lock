@@ -547,10 +547,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_rust_bridge
-      sha256: fb9d3c9395eae3c71d4fe3ec343b9f30636c9988150c8bb33b60047549b34e3d
+      sha256: "3292ad6085552987b8b3b9a7e5805567f4013372d302736b702801acb001ee00"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.7.1"
   flutter_test:
     dependency: transitive
     description: flutter
@@ -665,6 +665,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  http_profile:
+    dependency: transitive
+    description:
+      name: http_profile
+      sha256: "7e679e355b09aaee2ab5010915c932cce3f2d1c11c3b2dc177891687014ffa78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   image:
     dependency: "direct main"
     description:
@@ -1335,10 +1343,10 @@ packages:
     dependency: "direct main"
     description:
       name: rhttp
-      sha256: "24b784caf8cc7c5dac445a2d49545286e59697c11ee5a989a0a2f57f112a7a3e"
+      sha256: "3deabc6c3384b4efa252dfb4a5059acc6530117fdc1b10f5f67ff9768c9af75a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.2"
+    version: "0.10.0"
   routerino:
     dependency: "direct main"
     description:
@@ -1431,18 +1439,18 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: "95f9997ca1fb9799d494d0cb2a780fd7be075818d59f00c43832ed112b158a82"
+      sha256: "846849e3e9b68f3ef4b60c60cf4b3e02e9321bc7f4d8c4692cf87ffa82fc8a3a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "2.5.2"
   shared_preferences_android:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "3b9febd815c9ca29c9e3520d50ec32f49157711e143b7a4ca039eb87e8ade5ab"
+      sha256: a768fc8ede5f0c8e6150476e14f38e2417c0864ca36bb4582be8e21925a03c22
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "2.4.6"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -1932,10 +1940,10 @@ packages:
     dependency: "direct main"
     description:
       name: wechat_assets_picker
-      sha256: "9e0fd685eb624da897decb3ea71336325d2beeba1ac7706cd3cd42e2c1090b79"
+      sha256: "65104fff598394fcf1c9a75a8a65a7aa9687485534b44d6e85275774d015df45"
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.0"
+    version: "9.5.0"
   wechat_picker_library:
     dependency: transitive
     description:
