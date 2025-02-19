@@ -78,6 +78,8 @@ class TranslationsRo extends Translations {
   late final _TranslationsWebRo web = _TranslationsWebRo._(_root);
   @override
   late final _TranslationsAssetPickerRo assetPicker = _TranslationsAssetPickerRo._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageRo networkInterfacesPage = _TranslationsNetworkInterfacesPageRo._(_root);
 }
 
 // Path: general
@@ -108,11 +110,11 @@ class _TranslationsGeneralRo extends TranslationsGeneralEn {
   @override
   String get copy => 'Copiază';
   @override
-  String get copiedToClipboard => 'Copiat pe Clipboard';
+  String get copiedToClipboard => 'Copiat în Clipboard';
   @override
-  String get decline => 'Declină';
+  String get decline => 'Respinge';
   @override
-  String get done => 'Gata';
+  String get done => 'Finalizat';
   @override
   String get delete => 'Șterge';
   @override
@@ -132,7 +134,7 @@ class _TranslationsGeneralRo extends TranslationsGeneralEn {
   @override
   String get offline => 'Offline';
   @override
-  String get on => 'Deschis';
+  String get on => 'Pornit';
   @override
   String get online => 'Online';
   @override
@@ -140,13 +142,13 @@ class _TranslationsGeneralRo extends TranslationsGeneralEn {
   @override
   String get queue => 'Coadă';
   @override
-  String get quickSave => 'Salvare Rapidă';
+  String get quickSave => 'Salvare rapidă';
   @override
-  String get quickSaveFromFavorites => 'Salvare rapidă din "Favorite"';
+  String get quickSaveFromFavorites => 'Salvare rapidă pentru "Favorite"';
   @override
   String get renamed => 'Redenumit';
   @override
-  String get reset => 'Resetare';
+  String get reset => 'Anulează modificările';
   @override
   String get restart => 'Repornire';
   @override
@@ -164,7 +166,7 @@ class _TranslationsGeneralRo extends TranslationsGeneralEn {
   @override
   String get unknown => 'Necunoscut';
   @override
-  String get noItemInClipboard => 'Clipboard gol';
+  String get noItemInClipboard => 'Fără elemente în clipboard.';
 }
 
 // Path: receiveTab
@@ -194,13 +196,13 @@ class _TranslationsSendTabRo extends TranslationsSendTabEn {
 
   // Translations
   @override
-  String get title => 'Trimitere';
+  String get title => 'Trimite';
   @override
   late final _TranslationsSendTabSelectionRo selection = _TranslationsSendTabSelectionRo._(_root);
   @override
   late final _TranslationsSendTabPickerRo picker = _TranslationsSendTabPickerRo._(_root);
   @override
-  String get shareIntentInfo => 'Pentru a selecta mai ușor fișierele, puteți utiliza funcția "Partajare" a dispozitivului telefonului.';
+  String get shareIntentInfo => 'Poți utiliza, de asemenea, funcția „Partajare” a dispozitivului pentru a selecta mai ușor fișierele.';
   @override
   String get nearbyDevices => 'Dispozitive din apropiere';
   @override
@@ -216,9 +218,9 @@ class _TranslationsSendTabRo extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'Explicație';
   @override
-  String get help => 'Verificați dacă destinația se află în aceeași rețea Wi-Fi.';
+  String get help => 'Verifică dacă destinația se află în aceeași rețea Wi-Fi.';
   @override
-  String get placeItems => 'Adaugă lucruri de partajare.';
+  String get placeItems => 'Adaugă elemente pentru a partaja.';
 }
 
 // Path: settingsTab
@@ -262,7 +264,7 @@ class _TranslationsTroubleshootPageRo extends TranslationsTroubleshootPageEn {
   @override
   String get solution => 'Soluția:';
   @override
-  String get fixButton => 'Rezolvă automată';
+  String get fixButton => 'Repară automat';
   @override
   late final _TranslationsTroubleshootPageFirewallRo firewall = _TranslationsTroubleshootPageFirewallRo._(_root);
   @override
@@ -344,7 +346,7 @@ class _TranslationsReceivePageRo extends TranslationsReceivePageEn {
   @override
   String get subTitleLink => 'ți-a trimis un link:';
   @override
-  String get canceled => 'Trimitentul a anulat cererea.';
+  String get canceled => 'Expeditorul a anulat cererea.';
 }
 
 // Path: receiveOptionsPage
@@ -378,13 +380,13 @@ class _TranslationsSendPageRo extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Aștept răspuns...';
+  String get waiting => 'Așteptare răspuns…';
   @override
-  String get rejected => 'Recipientul a respins cererea.';
+  String get rejected => 'Destinatarul a respins cererea.';
   @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
-  String get busy => 'Recipientul este ocupat cu o altă cerere.';
+  String get busy => 'Destinatarul este ocupat cu o altă cerere.';
 }
 
 // Path: progressPage
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageRo extends TranslationsWebSharePageEn {
   @override
   String get title => 'Partajează prin link';
   @override
-  String get loading => 'Să pornim serverul...';
+  String get loading => 'Pornirea serverului…';
   @override
-  String get stopping => 'Să oprim serverul...';
+  String get stopping => 'Oprirea serverului…';
   @override
   String get error => 'A apărut o eroare la pornirea serverului.';
   @override
@@ -444,7 +446,7 @@ class _TranslationsWebSharePageRo extends TranslationsWebSharePageEn {
   @override
   String get encryptionHint => 'LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.';
   @override
-  String pendingRequests({required Object n}) => 'Cererile în așteptare: ${n}';
+  String pendingRequests({required Object n}) => 'Cereri în așteptare: ${n}';
 }
 
 // Path: aboutPage
@@ -664,7 +666,7 @@ class _TranslationsSanitizationRo extends TranslationsSanitizationEn {
   @override
   String get empty => 'Numele fișierului nu poate fi gol';
   @override
-  String get invalid => 'Numele fișierului conține caractere invalide';
+  String get invalid => 'Numele fișierului conține caractere greșite';
 }
 
 // Path: tray
@@ -681,7 +683,7 @@ class _TranslationsTrayRo extends TranslationsTrayEn {
   @override
   String get close => 'Închide LocalSend';
   @override
-  String get closeWindows => 'Închide';
+  String get closeWindows => 'Ieșire';
 }
 
 // Path: web
@@ -696,9 +698,9 @@ class _TranslationsWebRo extends TranslationsWebEn {
   @override
   String get waiting => _root.sendPage.waiting;
   @override
-  String get enterPin => 'Introdu PIN-ul';
+  String get enterPin => 'Introdu codul PIN';
   @override
-  String get invalidPin => 'PIN-ul introdus este greșit';
+  String get invalidPin => 'Codul PIN introdus este greșit';
   @override
   String get tooManyAttempts => 'Prea multe încercări';
   @override
@@ -708,7 +710,7 @@ class _TranslationsWebRo extends TranslationsWebEn {
   @override
   String get fileName => 'Numele fișierului';
   @override
-  String get size => 'Mărime';
+  String get size => 'Dimensiune';
 }
 
 // Path: assetPicker
@@ -733,7 +735,7 @@ class _TranslationsAssetPickerRo extends TranslationsAssetPickerEn {
   @override
   String get original => 'Original';
   @override
-  String get preview => 'Vezi';
+  String get preview => 'Previzualizare';
   @override
   String get select => 'Selectează';
   @override
@@ -743,14 +745,14 @@ class _TranslationsAssetPickerRo extends TranslationsAssetPickerEn {
   @override
   String get unableToAccessAll => 'Nu se pot accesa toate fișierele de pe dispozitiv';
   @override
-  String get viewingLimitedAssetsTip => 'Vezi doar fișierele și albumele accesibile aplicației.';
+  String get viewingLimitedAssetsTip => 'Aplicația poate vizualiza doar fișiere și albume la care are acces.';
   @override
   String get changeAccessibleLimitedAssets => 'Apasă pentru a actualiza fișierele accesibile';
   @override
   String get accessAllTip =>
-      'Aplicația poate accesa doar unele fișiere de pe dispozitiv. Mergi la setările sistemului și permite aplicația să acceseze toate mediile de pe dispozitiv.';
+      'Aplicația are acces doar la unele fișiere de pe dispozitiv. Accesează setările de sistem și permite aplicației să acceseze toate fișierele media de pe dispozitiv.';
   @override
-  String get goToSystemSettings => 'Mergi la setările sistemului';
+  String get goToSystemSettings => 'Accesează setările sistemului';
   @override
   String get accessLimitedAssets => 'Continuă cu acces limitat';
   @override
@@ -762,13 +764,13 @@ class _TranslationsAssetPickerRo extends TranslationsAssetPickerEn {
   @override
   String get sTypeVideoLabel => 'Video';
   @override
-  String get sTypeOtherLabel => 'Alte media';
+  String get sTypeOtherLabel => 'Alte fișiere media';
   @override
   String get sActionPlayHint => 'redare';
   @override
-  String get sActionPreviewHint => 'vezi';
+  String get sActionPreviewHint => 'previzualizare';
   @override
-  String get sActionSelectHint => 'selectare';
+  String get sActionSelectHint => 'selectează';
   @override
   String get sActionSwitchPathLabel => 'schimbă calea';
   @override
@@ -776,7 +778,29 @@ class _TranslationsAssetPickerRo extends TranslationsAssetPickerEn {
   @override
   String get sNameDurationLabel => 'durată';
   @override
-  String get sUnitAssetCountLabel => 'număr';
+  String get sUnitAssetCountLabel => 'cantitate';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageRo extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageRo._(TranslationsRo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfețe de rețea';
+  @override
+  String get info =>
+      'În mod implicit, LocalSend folosește toate interfețele de rețea disponibile. Poți exclude rețelele nedorite aici. Trebuie să repornești serverul pentru a aplica modificările.';
+  @override
+  String get preview => 'Previzualizare';
+  @override
+  String get whitelist => 'Lista albă';
+  @override
+  String get blacklist => 'Lista neagră';
 }
 
 // Path: receiveTab.infoBox
@@ -827,7 +851,7 @@ class _TranslationsSendTabSelectionRo extends TranslationsSendTabSelectionEn {
   @override
   String files({required Object files}) => 'Fișiere: ${files}';
   @override
-  String size({required Object size}) => 'Mărime: ${size}';
+  String size({required Object size}) => 'Dimensiune: ${size}';
 }
 
 // Path: sendTab.picker
@@ -848,7 +872,7 @@ class _TranslationsSendTabPickerRo extends TranslationsSendTabPickerEn {
   @override
   String get text => 'Text';
   @override
-  String get app => 'App';
+  String get app => 'Aplicație';
   @override
   String get clipboard => 'Lipește';
 }
@@ -863,9 +887,9 @@ class _TranslationsSendTabSendModesRo extends TranslationsSendTabSendModesEn {
 
   // Translations
   @override
-  String get single => 'Recipient unic';
+  String get single => 'Un singur destinatar';
   @override
-  String get multiple => 'Recipienți multipli';
+  String get multiple => 'Mai mulți destinatari';
   @override
   String get link => 'Partajează prin link';
 }
@@ -894,13 +918,13 @@ class _TranslationsSettingsTabGeneralRo extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsRo languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsRo._(_root);
   @override
-  String get saveWindowPlacement => 'Închidere: Salvează plasarea ferestrei';
+  String get saveWindowPlacement => 'Reține locația ferestrei după ieșire';
   @override
   String get saveWindowPlacementWindows => 'Salvarea poziției ferestrei după închidere';
   @override
-  String get minimizeToTray => 'Închidere: Minimizează în Bara de Meniuri/Tray';
+  String get minimizeToTray => 'Minimizează în Bara de Meniuri/Tray la închidere';
   @override
-  String get launchAtStartup => 'Autopornire după logare';
+  String get launchAtStartup => 'Pornire automată după autentificare';
   @override
   String get launchMinimized => 'Autopornire: Pornire ascunsă';
   @override
@@ -929,13 +953,13 @@ class _TranslationsSettingsTabReceiveRo extends TranslationsSettingsTabReceiveEn
   @override
   String get autoFinish => 'Finisare automată';
   @override
-  String get destination => 'Destinație';
+  String get destination => 'Salvează în dosar';
   @override
   String get downloads => '(Descărcări)';
   @override
   String get saveToGallery => 'Salvează media în galerie';
   @override
-  String get saveToHistory => 'Salvează în istorie';
+  String get saveToHistory => 'Salvează în istoric';
 }
 
 // Path: settingsTab.send
@@ -948,9 +972,9 @@ class _TranslationsSettingsTabSendRo extends TranslationsSettingsTabSendEn {
 
   // Translations
   @override
-  String get title => 'Trimitere';
+  String get title => 'Trimite';
   @override
-  String get shareViaLinkAutoAccept => 'Partajează prin link: Acceptare automată';
+  String get shareViaLinkAutoAccept => 'Acceptă automat cererile în modul „Partajare prin link”';
 }
 
 // Path: settingsTab.network
@@ -963,9 +987,9 @@ class _TranslationsSettingsTabNetworkRo extends TranslationsSettingsTabNetworkEn
 
   // Translations
   @override
-  String get title => 'Rețeaua';
+  String get title => 'Rețea';
   @override
-  String get needRestart => 'Reporniți serverul pentru a aplica setările!';
+  String get needRestart => 'Repornește serverul pentru a aplica setările!';
   @override
   String get server => 'Server';
   @override
@@ -977,21 +1001,25 @@ class _TranslationsSettingsTabNetworkRo extends TranslationsSettingsTabNetworkEn
   @override
   String get port => 'Port';
   @override
-  String get discoveryTimeout => 'Timp de așteptare pentru descoperire';
+  String get discoveryTimeout => 'Expirare descoperire';
   @override
   String get useSystemName => 'Folosește numele sistemului';
   @override
   String get generateRandomAlias => 'Generează alias aleatoriu';
   @override
   String portWarning({required Object defaultPort}) =>
-      'Este posibil să nu fii detectat de alte dispozitive pentru că folosești un port customizat. (implicit: ${defaultPort})';
+      'Este posibil să nu fii detectat de alte dispozitive pentru că folosești un port personalizat. (implicit: ${defaultPort})';
   @override
   String get encryption => 'Criptare';
   @override
   String get multicastGroup => 'Multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Este posibil să nu fii detectat de alte dispozitive pentru că folosești o adresă multicast customizată. (implicit: ${defaultMulticast})';
+      'Este posibil să nu fii detectat de alte dispozitive pentru că folosești o adresă multicast personalizată. (implicit: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsRo networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsRo._(_root);
+  @override
+  String get network => 'Rețea';
 }
 
 // Path: settingsTab.other
@@ -1006,11 +1034,11 @@ class _TranslationsSettingsTabOtherRo extends TranslationsSettingsTabOtherEn {
   @override
   String get title => 'Altele';
   @override
-  String get support => 'Susțineți LocalSend';
+  String get support => 'Susține LocalSend';
   @override
   String get donate => 'Donează';
   @override
-  String get privacyPolicy => 'Politică de confidențialitate';
+  String get privacyPolicy => 'Politica de confidențialitate';
   @override
   String get termsOfUse => 'Termeni de utilizare';
 }
@@ -1099,7 +1127,7 @@ class _TranslationsProgressPageTotalRo extends TranslationsProgressPageTotalEn {
   @override
   String count({required Object curr, required Object n}) => 'Fișiere: ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) => 'Mărime: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Dimensiune: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Viteză: ${speed}/s';
 }
@@ -1163,9 +1191,9 @@ class _TranslationsDialogsCancelSessionRo extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Anularea transferului';
+  String get title => 'Anulează trimiterea fișierelor';
   @override
-  String get content => 'Chiar vrei să anulezi transferul cu fișiere?';
+  String get content => 'Chiar vrei să anulezi transferul fișierelor?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1257,7 +1285,7 @@ class _TranslationsDialogsFavoriteEditDialogRo extends TranslationsDialogsFavori
   @override
   String get titleEdit => 'Setări';
   @override
-  String get name => 'Nume dispozitivului';
+  String get name => 'Numele dispozitivului';
   @override
   String get auto => '(auto)';
   @override
@@ -1282,9 +1310,9 @@ class _TranslationsDialogsFileInfoRo extends TranslationsDialogsFileInfoEn {
   @override
   String get path => 'Calea:';
   @override
-  String get size => 'Mărime:';
+  String get size => 'Dimensiune:';
   @override
-  String get sender => 'Recipientul:';
+  String get sender => 'Expeditor:';
   @override
   String get time => 'Timp:';
 }
@@ -1332,7 +1360,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedRo extends TranslationsDialogs
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend nu poate găsi alte dispozitive fără permisiunea de a scana rețeaua locală. Să acorzi această permisiune în setări.';
+      'LocalSend nu poate găsi alte dispozitive fără permisiunea de a scana rețeaua locală. Acordă această permisiune în setări.';
   @override
   String get gotoSettings => 'Setări';
 }
@@ -1349,7 +1377,7 @@ class _TranslationsDialogsMessageInputRo extends TranslationsDialogsMessageInput
   @override
   String get title => 'Scrie un mesaj';
   @override
-  String get multiline => 'Multilinie';
+  String get multiline => 'Multi-linie';
 }
 
 // Path: dialogs.noFiles
@@ -1445,7 +1473,7 @@ class _TranslationsDialogsQuickSaveNoticeRo extends TranslationsDialogsQuickSave
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => 'Cereri de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere.';
+  String get content => 'Cererile de fișiere sunt acceptate automat. Fii atent oricine din rețeaua locală îți poate trimite fișiere.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1461,7 +1489,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeRo extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-        'Fișierele cu cereri sunt acum acceptate automat de dispozitivele din lista ta de favorite.',
+        'Cererile de fișiere sunt acum acceptate automat de la dispozitivele din lista dispozitivelor favorite.',
         'Atenție! În prezent, aceasta nu este complet securizată, deoarece un hacker care are amprente pe oricare dintre dispozitivele din lista ta de favorite poate trimite fișiere fără restricții.',
         'Oricum ar fi, această opțiune este mult mai sigură decât să permiți utilizatorilor din rețeaua locală să trimită fișiere fără restricții.',
       ];
@@ -1477,7 +1505,7 @@ class _TranslationsDialogsPinRo extends TranslationsDialogsPinEn {
 
   // Translations
   @override
-  String get title => 'Introdu PIN-ul';
+  String get title => 'Introdu codul PIN';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1492,11 +1520,11 @@ class _TranslationsDialogsSendModeHelpRo extends TranslationsDialogsSendModeHelp
   @override
   String get title => 'Moduri de trimitere';
   @override
-  String get single => 'Trimite fișiere unui singur recipient. Selecția va fi golită după ce transferul este finalizat.';
+  String get single => 'Trimite fișiere unui singur destinatar. Selecția va fi golită după ce transferul este finalizat.';
   @override
-  String get multiple => 'Trimite fișiere la mai mulți recipienți. Selecția nu va fi golită.';
+  String get multiple => 'Trimite fișiere la mai mulți destinatari. Selecția nu va fi ștearsă după transferul de fișiere terminate.';
   @override
-  String get link => 'Recipienții care nu au LocalSend instalat pot descărca fișierele selectate accesând linkul în browser.';
+  String get link => 'Destinatarii care nu au LocalSend instalat pot descărca fișierele selectate prin deschiderea linkului în browserul lor.';
 }
 
 // Path: dialogs.zoom
@@ -1526,7 +1554,7 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsRo extends TranslationsSet
   @override
   String get dark => 'Întuneric';
   @override
-  String get light => 'Lumină';
+  String get light => 'Luminoasă';
 }
 
 // Path: settingsTab.general.colorOptions
@@ -1557,6 +1585,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsRo extends TranslationsSetti
   String get system => 'Sistem';
 }
 
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsRo extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsRo._(TranslationsRo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Toate';
+  @override
+  String get filtered => 'Filtrat';
+}
+
 // Path: progressPage.total.title
 class _TranslationsProgressPageTotalTitleRo extends TranslationsProgressPageTotalTitleEn {
   _TranslationsProgressPageTotalTitleRo._(TranslationsRo root)
@@ -1571,7 +1614,7 @@ class _TranslationsProgressPageTotalTitleRo extends TranslationsProgressPageTota
   @override
   String get finishedError => 'Finalizat cu eroare';
   @override
-  String get canceledSender => 'Anulat de trimitent';
+  String get canceledSender => 'Anulat de expeditor';
   @override
-  String get canceledReceiver => 'Anulat de receptor';
+  String get canceledReceiver => 'Anulat de către destinatar';
 }

@@ -78,6 +78,8 @@ class TranslationsEsEs extends Translations {
   late final _TranslationsWebEsEs web = _TranslationsWebEsEs._(_root);
   @override
   late final _TranslationsAssetPickerEsEs assetPicker = _TranslationsAssetPickerEsEs._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageEsEs networkInterfacesPage = _TranslationsNetworkInterfacesPageEsEs._(_root);
 }
 
 // Path: general
@@ -146,7 +148,7 @@ class _TranslationsGeneralEsEs extends TranslationsGeneralEn {
   @override
   String get renamed => 'Renombrado';
   @override
-  String get reset => 'Resetear';
+  String get reset => 'Deshacer cambios';
   @override
   String get restart => 'Reiniciar';
   @override
@@ -216,9 +218,9 @@ class _TranslationsSendTabEsEs extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'Explicación';
   @override
-  String get help => 'Asegúrate que el destino elegido esté en la misma red Wi-Fi.';
+  String get help => 'Por favor asegúrese que el destino elegido esté en la misma red Wi-Fi.';
   @override
-  String get placeItems => 'Selecciona items para compartir.';
+  String get placeItems => 'Selecciona elementos para compartir.';
 }
 
 // Path: settingsTab
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerEsEs extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'conteo';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageEsEs extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageEsEs._(TranslationsEsEs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces de red';
+  @override
+  String get info =>
+      'De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.';
+  @override
+  String get preview => 'Vista previa';
+  @override
+  String get whitelist => 'Lista de permitidos';
+  @override
+  String get blacklist => 'Lista negra';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxEsEs extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxEsEs._(TranslationsEsEs root)
@@ -858,7 +882,7 @@ class _TranslationsSettingsTabReceiveEsEs extends TranslationsSettingsTabReceive
   @override
   String get autoFinish => 'Auto finalizar';
   @override
-  String get destination => 'Destino';
+  String get destination => 'Guardar en carpeta';
   @override
   String get downloads => '(Descargas)';
   @override
@@ -917,10 +941,14 @@ class _TranslationsSettingsTabNetworkEsEs extends TranslationsSettingsTabNetwork
   @override
   String get encryption => 'Encriptación';
   @override
-  String get multicastGroup => 'Multicast';
+  String get multicastGroup => 'Direccion Multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: ${defaultMulticast})';
+  @override
+  String get network => 'Red';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsEsEs networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsEsEs._(_root);
 }
 
 // Path: settingsTab.other
@@ -1486,6 +1514,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsEsEs extends TranslationsSet
   // Translations
   @override
   String get system => 'Sistema';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsEsEs extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsEsEs._(TranslationsEsEs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Todo';
+  @override
+  String get filtered => 'Filtrado';
 }
 
 // Path: progressPage.total.title

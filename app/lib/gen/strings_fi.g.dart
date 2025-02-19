@@ -260,7 +260,7 @@ class _TranslationsTroubleshootPageFi extends TranslationsTroubleshootPageEn {
   @override
   String get subTitle => 'Eikö sovellus toimi odotetusti? Täältä löydät joitain yleisiä ratkaisuja.';
   @override
-  String get solution => 'Ratkaisu';
+  String get solution => 'Ratkaisu:';
   @override
   String get fixButton => 'Automaattinen korjaus';
   @override
@@ -965,7 +965,7 @@ class _TranslationsSettingsTabNetworkFi extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Verkko';
   @override
-  String get needRestart => 'Uudelleenkäynistä sovellus, jotta muutokset tallennetaan.';
+  String get needRestart => 'Uudelleenkäynnistä palvelin ottaaksesi asetukset käyttöön!';
   @override
   String get server => 'Palvelin';
   @override

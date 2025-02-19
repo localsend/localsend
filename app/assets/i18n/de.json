@@ -134,18 +134,18 @@
       "deviceType": "Gerätetyp",
       "deviceModel": "Gerätemodell",
       "port": "Port",
+      "network": "Netzwerk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Gefiltert"
+      },
       "discoveryTimeout": "Erkennungs-Timeout",
       "useSystemName": "Systemnamen verwenden",
       "generateRandomAlias": "Zufälligen Alias generieren",
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})",
-      "network": "Netzwerk",
-      "networkOptions": {
-        "all": "Alle",
-        "filtered": "Gefiltert"
-      }
+      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
     },
     "other": {
       "title": "Weitere",
@@ -174,6 +174,13 @@
       "symptom": "Beide Geräte können sich weder sehen noch können sie Dateien miteinander teilen.",
       "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Netzwerkschnittstellen",
+    "info": "Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen.",
+    "preview": "Vorschau",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   },
   "receiveHistoryPage": {
     "title": "Verlauf",
@@ -446,10 +453,5 @@
     "sActionUseCameraHint": "Kamera benutzen",
     "sNameDurationLabel": "Dauer",
     "sUnitAssetCountLabel": "Anzahl"
-  },
-  "networkInterfacesPage": {
-    "title": "Netzwerkschnittstellen",
-    "preview": "Vorschau",
-    "info": "Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen."
   }
 }

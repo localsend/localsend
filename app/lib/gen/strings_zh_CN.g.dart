@@ -78,6 +78,8 @@ class TranslationsZhCn extends Translations {
   late final _TranslationsWebZhCn web = _TranslationsWebZhCn._(_root);
   @override
   late final _TranslationsAssetPickerZhCn assetPicker = _TranslationsAssetPickerZhCn._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageZhCn networkInterfacesPage = _TranslationsNetworkInterfacesPageZhCn._(_root);
 }
 
 // Path: general
@@ -216,7 +218,7 @@ class _TranslationsSendTabZhCn extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => '提示';
   @override
-  String get help => '请确保目标连接的是同一个 Wi‑Fi 网络';
+  String get help => '请确保目标连接的是同一个 Wi‑Fi 网络。';
   @override
   String get placeItems => '列出要分享的项目';
 }
@@ -422,7 +424,7 @@ class _TranslationsWebSharePageZhCn extends TranslationsWebSharePageEn {
   @override
   String get stopping => '正在停止服务器……';
   @override
-  String get error => '在启动服务器过程中发生了错误';
+  String get error => '在启动服务器过程中发生了错误。';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
         n,
@@ -778,6 +780,27 @@ class _TranslationsAssetPickerZhCn extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => '计数';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageZhCn extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageZhCn._(TranslationsZhCn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '网络接口';
+  @override
+  String get info => '默认情况下，LocalSend使用所有可用的网络接口。您可以在此处排除不需要的网络。您需要重新启动服务器以应用更改。';
+  @override
+  String get preview => '预览';
+  @override
+  String get whitelist => '白名单';
+  @override
+  String get blacklist => '黑名单';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxZhCn extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxZhCn._(TranslationsZhCn root)
@@ -895,7 +918,7 @@ class _TranslationsSettingsTabGeneralZhCn extends TranslationsSettingsTabGeneral
   @override
   String get saveWindowPlacement => '退出时保存窗口位置';
   @override
-  String get saveWindowPlacementWindows => '离开时保存窗口位置';
+  String get saveWindowPlacementWindows => '退出时保存窗口位置';
   @override
   String get minimizeToTray => '关闭时最小化到系统托盘';
   @override
@@ -989,6 +1012,10 @@ class _TranslationsSettingsTabNetworkZhCn extends TranslationsSettingsTabNetwork
   String get multicastGroup => '多线程广播';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多线程广播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
+  @override
+  String get network => '网络';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsZhCn networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsZhCn._(_root);
 }
 
 // Path: settingsTab.other
@@ -1547,6 +1574,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsZhCn extends TranslationsSet
   // Translations
   @override
   String get system => '跟随系统';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsZhCn extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsZhCn._(TranslationsZhCn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => '所有';
+  @override
+  String get filtered => '已过滤';
 }
 
 // Path: progressPage.total.title

@@ -117,7 +117,6 @@
       "downloads": "(डाउनलोड)",
       "saveToGallery": "मिडियालाई ग्यालरीमा सेभ गर्नुहोस्",
       "saveToHistory": "इतिहासमा संचय गर्नुहोस्",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "स्वतः समाप्त"
     },
@@ -444,7 +443,6 @@
       "content": "के तपाईं साँच्चै सम्पूर्ण इतिहास मेटाउन चाहनुहुन्छ?"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
       "content": [
         "फाइल अनुरोधहरू अब तपाईंको मनपर्ने सूचीमा रहेका उपकरणहरूबाट स्वचालित रूपमा स्वीकार गरिन्छन्।",
         "चेतावनी! हाल, यो पूर्ण रूपमा सुरक्षित छैन, किनकि तपाईंको मनपर्ने सूचीबाट कुनै पनि उपकरणको फिंगरप्रिन्ट भएको ह्याकरले तपाईंलाई बिना प्रतिबन्ध फाइलहरू पठाउन सक्छ।",

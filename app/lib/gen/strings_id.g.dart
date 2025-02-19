@@ -78,6 +78,8 @@ class TranslationsId extends Translations {
   late final _TranslationsWebId web = _TranslationsWebId._(_root);
   @override
   late final _TranslationsAssetPickerId assetPicker = _TranslationsAssetPickerId._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageId networkInterfacesPage = _TranslationsNetworkInterfacesPageId._(_root);
 }
 
 // Path: general
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerId extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'Jumlah';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageId extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Antarmuka Jaringan';
+  @override
+  String get preview => 'Pratinjau';
+  @override
+  String get whitelist => 'Daftar putih';
+  @override
+  String get blacklist => 'Daftar hitam';
+  @override
+  String get info =>
+      'Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxId extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxId._(TranslationsId root)
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkId extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: ${defaultMulticast})';
+  @override
+  String get network => 'Jaringan';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsId networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsId._(_root);
 }
 
 // Path: settingsTab.other
@@ -1483,6 +1511,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsId extends TranslationsSetti
   // Translations
   @override
   String get system => 'Sistem';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsId extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Semua';
+  @override
+  String get filtered => 'Tersaring';
 }
 
 // Path: progressPage.total.title

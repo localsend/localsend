@@ -33,7 +33,7 @@ class TranslationsFa extends Translations {
   @override
   String get locale => 'فارسی';
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'لوکال‌سِند';
   @override
   late final _TranslationsGeneralFa general = _TranslationsGeneralFa._(_root);
   @override
@@ -78,6 +78,8 @@ class TranslationsFa extends Translations {
   late final _TranslationsWebFa web = _TranslationsWebFa._(_root);
   @override
   late final _TranslationsAssetPickerFa assetPicker = _TranslationsAssetPickerFa._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageFa networkInterfacesPage = _TranslationsNetworkInterfacesPageFa._(_root);
 }
 
 // Path: general
@@ -92,23 +94,23 @@ class _TranslationsGeneralFa extends TranslationsGeneralEn {
   @override
   String get accept => 'پذیرفتن';
   @override
-  String get accepted => 'پذیرفته شده';
+  String get accepted => 'پذیرفته‌شده';
   @override
   String get add => 'افزودن';
   @override
   String get advanced => 'پیشرفته';
   @override
-  String get cancel => 'لغو';
+  String get cancel => 'ردکردن';
   @override
   String get close => 'بستن';
   @override
-  String get confirm => 'تایید';
+  String get confirm => 'پذیرفتن';
   @override
   String get continueStr => 'ادامه';
   @override
   String get copy => 'کپی';
   @override
-  String get copiedToClipboard => 'در کلیپ بورد کپی شد';
+  String get copiedToClipboard => 'کپی شد';
   @override
   String get decline => 'نپذیرفتن';
   @override
@@ -120,11 +122,11 @@ class _TranslationsGeneralFa extends TranslationsGeneralEn {
   @override
   String get error => 'خطا';
   @override
-  String get example => 'مثال';
+  String get example => 'نمونه';
   @override
   String get files => 'فایل‌ها';
   @override
-  String get finished => 'پایان یافت';
+  String get finished => 'پایان‌یافت';
   @override
   String get hide => 'مخفی';
   @override
@@ -144,11 +146,11 @@ class _TranslationsGeneralFa extends TranslationsGeneralEn {
   @override
   String get quickSaveFromFavorites => 'ذخیره سریع برای "Favorites"';
   @override
-  String get renamed => 'تغییر نام یافت';
+  String get renamed => 'نام ویرایش‌شد';
   @override
   String get reset => 'بازنشانی';
   @override
-  String get restart => 'راه اندازی مجدد';
+  String get restart => 'راه‌اندازی دوباره';
   @override
   String get settings => 'تنظیمات';
   @override
@@ -164,7 +166,7 @@ class _TranslationsGeneralFa extends TranslationsGeneralEn {
   @override
   String get unknown => 'ناشناخته';
   @override
-  String get noItemInClipboard => 'هیچ موردی در کلیپ بورد وجود ندارد';
+  String get noItemInClipboard => 'چیزی در کلیپ‌بورد وجود ندارد';
 }
 
 // Path: receiveTab
@@ -200,7 +202,7 @@ class _TranslationsSendTabFa extends TranslationsSendTabEn {
   @override
   late final _TranslationsSendTabPickerFa picker = _TranslationsSendTabPickerFa._(_root);
   @override
-  String get shareIntentInfo => 'همچنین می‌توانید از ویژگی "اشتراک گذاری" دستگاه تلفن همراه خود برای انتخاب آسان‌تر فایل‌ها استفاده کنید';
+  String get shareIntentInfo => 'همچنین می‌توانید از ویژگی "اشتراک گذاری" دستگاه تلفن‌همراه خود برای انتخاب آسان‌تر فایل‌ها استفاده کنید';
   @override
   String get nearbyDevices => 'دستگاه‌های اطراف';
   @override
@@ -216,9 +218,9 @@ class _TranslationsSendTabFa extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'توضیح';
   @override
-  String get help => 'لطفاً مطمئن شوید که دستگاه مورد نظر به شبکه وای فای یکسانی متصل باشد';
+  String get help => 'لطفاً مطمئن شوید که دستگاه مورد نظر به شبکه وای‌فای یکسانی وصل باشد';
   @override
-  String get placeItems => 'موارد را برای اشتراک گذاری قرار دهید';
+  String get placeItems => 'موارد را برای اشتراک‌گذاری قرار دهید';
 }
 
 // Path: settingsTab
@@ -468,7 +470,7 @@ class _TranslationsAboutPageFa extends TranslationsAboutPageEn {
   @override
   String get contributors => 'مشارکت کنندگان';
   @override
-  String get packagers => 'بسته بندی‌ها';
+  String get packagers => 'بسته‌بندی‌ها';
   @override
   String get translators => 'مترجمان';
 }
@@ -529,9 +531,9 @@ class _TranslationsAliasGeneratorFa extends TranslationsAliasGeneratorEn {
         'بامزه',
         'کلک',
         'مصمم',
-        'پر انرژی',
+        'باانرژی',
         'چابک',
-        'شگفت انگیز',
+        'شگفت‌انگیز',
         'سریع',
         'شایسته',
         'سرحال',
@@ -541,19 +543,19 @@ class _TranslationsAliasGeneratorFa extends TranslationsAliasGeneratorEn {
         'خوشتیپ',
         'جذاب',
         'مهربون',
-        'دوست داشتنی',
-        'مرموز',
-        'معرکه',
-        'مودب',
+        'دوست‌داشتنی',
+        'مبهم',
+        'بی‌نظیر',
+        'باادب',
         'صبور',
-        'خوشگل',
+        'زیبا',
         'نیرومند',
-        'مایه دار',
-        'اسرار آمیز',
+        'مایه‌دار',
+        'اسرارآمیز',
         'باهوش',
         'سرسخت',
         'خاص',
-        'خوش فکر',
+        'خوش‌فکر',
         'قدرتمند',
         'منظم',
         'خردمند',
@@ -581,10 +583,10 @@ class _TranslationsAliasGeneratorFa extends TranslationsAliasGeneratorEn {
         'هلو',
         'گلابی',
         'آناناس',
-        'سیب زمینی',
-        'کدو تنبل',
+        'سیب‌زمینی',
+        'کدوتنبل',
         'تمشک',
-        'توت فرنگی',
+        'توت‌فرنگی',
         'گوجه',
       ];
 
@@ -701,9 +703,9 @@ class _TranslationsWebFa extends TranslationsWebEn {
   @override
   String get enterPin => 'پین را وارد کنید';
   @override
-  String get invalidPin => 'پین نامعتبر';
+  String get invalidPin => 'پین اشتباه است';
   @override
-  String get tooManyAttempts => 'تلاش‌های بیش از حد';
+  String get tooManyAttempts => 'تلاش‌های بیش از اندازه';
   @override
   String get rejected => 'پذیرفته نشد';
   @override
@@ -748,7 +750,7 @@ class _TranslationsAssetPickerFa extends TranslationsAssetPickerEn {
   @override
   String get viewingLimitedAssetsTip => 'فقط فایل‌ها و آلبوم‌های قابل دسترسی برنامه را مشاهده کنید';
   @override
-  String get changeAccessibleLimitedAssets => 'برای به روز رسانی فایل‌های در دسترس کلیک کنید';
+  String get changeAccessibleLimitedAssets => 'برای به‌روزرسانی فایل‌های در دسترس کلیک کنید';
   @override
   String get accessAllTip =>
       'برنامه فقط می‌تواند به برخی از فایل‌های دستگاه دسترسی داشته باشد. به تنظیمات سیستم بروید و به برنامه اجازه دهید به تمام رسانه‌های موجود در دستگاه دسترسی داشته باشد';
@@ -782,6 +784,28 @@ class _TranslationsAssetPickerFa extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'شمردن';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageFa extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageFa._(TranslationsFa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'رابط‌های شبکه';
+  @override
+  String get info =>
+      'به طور پیش فرض، LocalSend از تمام رابط های شبکه موجود استفاده می کند. در اینجا می توانید شبکه های ناخواسته را حذف کنید. برای اعمال تغییرات باید سرور را ریستارت کنید.';
+  @override
+  String get preview => 'پیشنمایش';
+  @override
+  String get whitelist => 'لیست سفید';
+  @override
+  String get blacklist => 'لیست سیاه';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxFa extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxFa._(TranslationsFa root)
@@ -792,11 +816,11 @@ class _TranslationsReceiveTabInfoBoxFa extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get ip => 'آی پی:';
+  String get ip => 'آی‌پی:';
   @override
   String get port => 'پورت:';
   @override
-  String get alias => 'نام مستعار:';
+  String get alias => 'نام کوتاه:';
 }
 
 // Path: receiveTab.quickSave
@@ -811,7 +835,7 @@ class _TranslationsReceiveTabQuickSaveFa extends TranslationsReceiveTabQuickSave
   @override
   String get off => _root.general.off;
   @override
-  String get favorites => 'علاقه‌مندی‌ها';
+  String get favorites => '‌موردعلاقه‌ها';
   @override
   String get on => _root.general.on;
 }
@@ -830,7 +854,7 @@ class _TranslationsSendTabSelectionFa extends TranslationsSendTabSelectionEn {
   @override
   String files({required Object files}) => 'فایل‌ها: ${files}';
   @override
-  String size({required Object size}) => 'حجم: ${size}';
+  String size({required Object size}) => 'اندازه: ${size}';
 }
 
 // Path: sendTab.picker
@@ -853,7 +877,7 @@ class _TranslationsSendTabPickerFa extends TranslationsSendTabPickerEn {
   @override
   String get app => 'برنامه';
   @override
-  String get clipboard => 'کلیپ بورد';
+  String get clipboard => 'کلیپ‌بورد';
 }
 
 // Path: sendTab.sendModes
@@ -953,7 +977,7 @@ class _TranslationsSettingsTabSendFa extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'ارسال';
   @override
-  String get shareViaLinkAutoAccept => 'اشتراک گذاری از طریق لینک: تایید خودکار';
+  String get shareViaLinkAutoAccept => 'اشتراک‌گذاری از طریق لینک: تایید خودکار';
 }
 
 // Path: settingsTab.network
@@ -972,7 +996,7 @@ class _TranslationsSettingsTabNetworkFa extends TranslationsSettingsTabNetworkEn
   @override
   String get server => 'سرور';
   @override
-  String get alias => 'نام مستعار';
+  String get alias => 'نام کوتاه';
   @override
   String get deviceType => 'نوع دستگاه';
   @override
@@ -995,6 +1019,10 @@ class _TranslationsSettingsTabNetworkFa extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه‌های دیگر شما را شناسایی نکنند (پیشفرض: ${defaultMulticast})';
+  @override
+  String get network => 'شبکه';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsFa networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsFa._(_root);
 }
 
 // Path: settingsTab.other
@@ -1032,9 +1060,9 @@ class _TranslationsTroubleshootPageFirewallFa extends TranslationsTroubleshootPa
       'این برنامه می‌تواند فایل‌ها را به دستگاه‌های دیگر ارسال کند اما دستگاه‌های دیگر نمی‌توانند فایل‌ها را به این دستگاه ارسال کنند';
   @override
   String solution({required Object port}) =>
-      'این مشکل به احتمال زیاد مربوط به فایروال است. شما می‌توانید با دادن مجوز به اتصالات ورودی این مشکل را حل کنید (UDP و TCP) در پورت ${port}';
+      'این مشکل به احتمال زیاد مربوط به تنظیمات فایروال است. شما می‌توانید با دادن مجوز به اتصالات ورودی این مشکل را حل کنید (UDP و TCP) در پورت ${port}';
   @override
-  String get openFirewall => 'باز کردن فایروال';
+  String get openFirewall => 'بازکردن فایروال';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1050,7 +1078,7 @@ class _TranslationsTroubleshootPageNoDiscoveryFa extends TranslationsTroubleshoo
   String get symptom => 'این دستگاه نمی‌تواند دستگاه‌های دیگر را پیدا کند';
   @override
   String get solution =>
-      'مطمئن شوید که هر دو دستگاه به یک شبکه وای فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد دلخواه اضافه کنید تا در آینده به طور خودکار کشف شود';
+      'مطمئن شوید که هر دو دستگاه به یک شبکه وای‌فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد موردعلاقه اضافه کنید تا در آینده به طور خودکار کشف شود';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1151,7 +1179,7 @@ class _TranslationsDialogsAddressInputFa extends TranslationsDialogsAddressInput
   @override
   String get hashtag => 'هشتگ';
   @override
-  String get ip => 'آدرس آی پی';
+  String get ip => 'آدرس آی‌پی';
   @override
   String get recentlyUsed => 'اخیرا استفاده شده: ';
 }
@@ -1166,7 +1194,7 @@ class _TranslationsDialogsCancelSessionFa extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'لغو کردن انتقال فایل';
+  String get title => '‌‌لغو انتقال فایل';
   @override
   String get content => 'واقعاً می‌خواهید انتقال فایل را لغو کنید؟';
 }
@@ -1350,7 +1378,7 @@ class _TranslationsDialogsMessageInputFa extends TranslationsDialogsMessageInput
 
   // Translations
   @override
-  String get title => 'پیام را تایپ کنید';
+  String get title => 'پیام را بنویسید';
   @override
   String get multiline => 'چند خطی';
 }
@@ -1464,9 +1492,9 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFa extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-        'درخواست‌ها به طور خودکار از دستگاه‌های موجود در لیست علاقه‌مندی‌ها پذیرفته می‌شود',
-        'هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکر به دستگاه‌های موجود در لیست علاقه‌مندی‌ها، می‌تواند برای شما فایل ارسال کند',
-        'با این حال، این گزینه از اجازه دادن به هر دستگاهی ایمن‌تر است',
+        'درخواست‌ها به طور خودکار از دستگاه‌های موجود در لیست موردعلاقه‌ها پذیرفته می‌شود',
+        'هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکر به دستگاه‌های موجود در لیست موردعلاقه‌ها، می‌تواند برای شما فایل ارسال کند',
+        'با این حال، این گزینه از اجازه‌دادن به هر دستگاهی ایمن‌تر است',
       ];
 }
 
@@ -1558,6 +1586,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsFa extends TranslationsSetti
   // Translations
   @override
   String get system => 'سیستم';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsFa extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsFa._(TranslationsFa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'همه';
+  @override
+  String get filtered => 'فیلتر شده';
 }
 
 // Path: progressPage.total.title

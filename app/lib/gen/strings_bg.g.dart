@@ -78,6 +78,8 @@ class TranslationsBg extends Translations {
   late final _TranslationsWebBg web = _TranslationsWebBg._(_root);
   @override
   late final _TranslationsAssetPickerBg assetPicker = _TranslationsAssetPickerBg._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageBg networkInterfacesPage = _TranslationsNetworkInterfacesPageBg._(_root);
 }
 
 // Path: general
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerBg extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'брой';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageBg extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get preview => 'Преглед';
+  @override
+  String get whitelist => 'Бял списък';
+  @override
+  String get blacklist => 'Черен списък';
+  @override
+  String get title => 'Мрежови интерфейси';
+  @override
+  String get info =>
+      'По подразбиране, LocalSend използва всички налични мрежови интерфейси. Тук можете да изключите нежелани мрежи. Трябва да рестартирате сървъра, за да приложите промените.';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxBg extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxBg._(TranslationsBg root)
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkBg extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Възможно е да не бъдете открити от други устройства, защото използвате персонализиран адрес за множествено предаване. (default: ${defaultMulticast})';
+  @override
+  String get network => 'Мрежа';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsBg networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsBg._(_root);
 }
 
 // Path: settingsTab.other
@@ -1485,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsBg extends TranslationsSetti
   // Translations
   @override
   String get system => 'Система';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsBg extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsBg._(TranslationsBg root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Всички';
+  @override
+  String get filtered => 'Филтриране';
 }
 
 // Path: progressPage.total.title

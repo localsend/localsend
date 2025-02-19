@@ -78,6 +78,8 @@ class TranslationsSrCyrl extends Translations {
   late final _TranslationsWebSrCyrl web = _TranslationsWebSrCyrl._(_root);
   @override
   late final _TranslationsAssetPickerSrCyrl assetPicker = _TranslationsAssetPickerSrCyrl._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageSrCyrl networkInterfacesPage = _TranslationsNetworkInterfacesPageSrCyrl._(_root);
 }
 
 // Path: general
@@ -304,9 +306,9 @@ class _TranslationsApkPickerPageSrCyrl extends TranslationsApkPickerPageEn {
   @override
   String get title => 'Апликације (APK)';
   @override
-  String get excludeSystemApps => 'Изостави системске апликације';
+  String get excludeSystemApps => 'Изузми системске апликације';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'Изостави апликације које се не покрећу';
+  String get excludeAppsWithoutLaunchIntent => 'Изузми апликације које се не покрећу';
   @override
   String apps({required Object n}) => '${n} апликација';
 }
@@ -783,6 +785,28 @@ class _TranslationsAssetPickerSrCyrl extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'број';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageSrCyrl extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageSrCyrl._(TranslationsSrCyrl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSrCyrl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мрежни интерфејси';
+  @override
+  String get preview => 'Преглед';
+  @override
+  String get whitelist => 'Бела листа';
+  @override
+  String get blacklist => 'Црна листа';
+  @override
+  String get info =>
+      'Подразумевано, LocalSend користи све доступне мрежне интерфејсе. Овде можете изузети нежељене мреже. Морате рестартовати сервер да би се примениле промене.';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxSrCyrl extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxSrCyrl._(TranslationsSrCyrl root)
@@ -970,7 +994,7 @@ class _TranslationsSettingsTabNetworkSrCyrl extends TranslationsSettingsTabNetwo
   @override
   String get title => 'Мрежа';
   @override
-  String get needRestart => 'Рестартујте сервер да бисте применили подешавања!';
+  String get needRestart => 'Рестартујте сервер да би се применила подешавања!';
   @override
   String get server => 'Сервер';
   @override
@@ -997,6 +1021,10 @@ class _TranslationsSettingsTabNetworkSrCyrl extends TranslationsSettingsTabNetwo
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Други уређаји вас можда неће открити, јер користите прилагођену адресу вишесмерног емитовања. (подразумевана: ${defaultMulticast})';
+  @override
+  String get network => 'Мрежа';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl._(_root);
 }
 
 // Path: settingsTab.other
@@ -1120,7 +1148,7 @@ class _TranslationsDialogsAddFileSrCyrl extends TranslationsDialogsAddFileEn {
   @override
   String get title => 'Додајте у избор';
   @override
-  String get content => 'Шта желиш да додаш?';
+  String get content => 'Шта желите додати?';
 }
 
 // Path: dialogs.openFile
@@ -1135,7 +1163,7 @@ class _TranslationsDialogsOpenFileSrCyrl extends TranslationsDialogsOpenFileEn {
   @override
   String get title => 'Отвори фајл';
   @override
-  String get content => 'Да ли желите да отворите примљени фајл?';
+  String get content => 'Желите ли да отворите примљени фајл?';
 }
 
 // Path: dialogs.addressInput
@@ -1150,7 +1178,7 @@ class _TranslationsDialogsAddressInputSrCyrl extends TranslationsDialogsAddressI
   @override
   String get title => 'Унесите адресу';
   @override
-  String get hashtag => 'Hashtag';
+  String get hashtag => 'Хеш-ознака';
   @override
   String get ip => 'IP адреса';
   @override
@@ -1559,6 +1587,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsSrCyrl extends TranslationsS
   // Translations
   @override
   String get system => 'Системски';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl._(TranslationsSrCyrl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSrCyrl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Све';
+  @override
+  String get filtered => 'Филтрирана';
 }
 
 // Path: progressPage.total.title

@@ -74,6 +74,12 @@ class TranslationsNe extends Translations {
   late final _TranslationsWebNe web = _TranslationsWebNe._(_root);
   @override
   late final _TranslationsAssetPickerNe assetPicker = _TranslationsAssetPickerNe._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageNe networkInterfacesPage = _TranslationsNetworkInterfacesPageNe._(_root);
+  @override
+  late final _TranslationsDonationPageNe donationPage = _TranslationsDonationPageNe._(_root);
+  @override
+  late final _TranslationsSanitizationNe sanitization = _TranslationsSanitizationNe._(_root);
 }
 
 // Path: general
@@ -134,13 +140,13 @@ class _TranslationsGeneralNe extends TranslationsGeneralEn {
   @override
   String get queue => 'लाम';
   @override
-  String get quickSave => 'छिटो सेव गर्नुहोस्  ';
+  String get quickSave => 'छिटो सेव गर्नुहोस्';
   @override
   String get renamed => 'पुन: नामाकरण गरियो';
   @override
-  String get reset => 'रिसेट गर्नुहोस्';
+  String get reset => 'परिवर्तनहरू पूर्ववत गर्नुहोस्';
   @override
-  String get restart => 'फेरि शुरु गर्नु';
+  String get restart => 'पुनः सुरु गर्नुहोस्';
   @override
   String get settings => 'सेटिङहरू';
   @override
@@ -150,11 +156,15 @@ class _TranslationsGeneralNe extends TranslationsGeneralEn {
   @override
   String get stop => 'रोक';
   @override
-  String get save => 'सेव  गर्नुहोस्';
+  String get save => 'सेव गर्नुहोस्';
   @override
   String get unchanged => 'अपरिवर्तित';
   @override
   String get unknown => 'अज्ञात';
+  @override
+  String get delete => 'मेट्नुहोस्';
+  @override
+  String get noItemInClipboard => 'क्लिपबोर्डमा कुनै वस्तुहरू छैनन्।';
 }
 
 // Path: receiveTab
@@ -170,6 +180,8 @@ class _TranslationsReceiveTabNe extends TranslationsReceiveTabEn {
   String get title => 'प्राप्त गर्नुहोस्';
   @override
   late final _TranslationsReceiveTabInfoBoxNe infoBox = _TranslationsReceiveTabInfoBoxNe._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveNe quickSave = _TranslationsReceiveTabQuickSaveNe._(_root);
 }
 
 // Path: sendTab
@@ -192,11 +204,11 @@ class _TranslationsSendTabNe extends TranslationsSendTabEn {
   @override
   String get nearbyDevices => 'नजिकैका उपकरणहरू';
   @override
-  String get thisDevice => 'यो डिभाईस';
+  String get thisDevice => 'यो उपकरण';
   @override
-  String get scan => 'डिभाईसहरू खोज्नुहोस्';
+  String get scan => 'उपकरणहरू खोज्नुहोस्';
   @override
-  String get sendMode => 'मोड भेजें';
+  String get sendMode => 'पठाउने मोड';
   @override
   late final _TranslationsSendTabSendModesNe sendModes = _TranslationsSendTabSendModesNe._(_root);
   @override
@@ -205,6 +217,8 @@ class _TranslationsSendTabNe extends TranslationsSendTabEn {
   String get help => 'कृपया सुनिश्चित गर्नुहोस् कि इच्छित लक्ष्य पनि उही वाइफाइ नेटवर्कमा छ।';
   @override
   String get placeItems => 'साझेदारी गर्न वस्तुहरू राख्नुहोस्।';
+  @override
+  String get manualSending => 'म्यानुअल पठाउने';
 }
 
 // Path: settingsTab
@@ -226,6 +240,10 @@ class _TranslationsSettingsTabNe extends TranslationsSettingsTabEn {
   late final _TranslationsSettingsTabNetworkNe network = _TranslationsSettingsTabNetworkNe._(_root);
   @override
   String get advancedSettings => 'उन्नत सेटिङहरू';
+  @override
+  late final _TranslationsSettingsTabSendNe send = _TranslationsSettingsTabSendNe._(_root);
+  @override
+  late final _TranslationsSettingsTabOtherNe other = _TranslationsSettingsTabOtherNe._(_root);
 }
 
 // Path: troubleshootPage
@@ -238,17 +256,19 @@ class _TranslationsTroubleshootPageNe extends TranslationsTroubleshootPageEn {
 
   // Translations
   @override
-  String get title => 'समस्या निवारण करें';
+  String get title => 'समस्या निवारण गर्नुहोस्';
   @override
-  String get subTitle => 'इस अनुप्रयोग का अपेक्षित रूप से काम नहीं कर रहा है क्या? यहाँ आप आम समाधान प्राप्त कर सकते हैं।';
+  String get subTitle => 'के एपले अपेक्षा गरेअनुसार काम गर्दैन? यहाँ तपाईंले समस्याहरूको केही सामान्य समाधानहरू फेला पार्न सक्नुहुन्छ।';
   @override
   String get solution => 'समाधान:';
   @override
-  String get fixButton => 'स्वचालित ठीक करें';
+  String get fixButton => 'स्वतः समाधान गर्नुहोस्';
   @override
   late final _TranslationsTroubleshootPageFirewallNe firewall = _TranslationsTroubleshootPageFirewallNe._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionNe noConnection = _TranslationsTroubleshootPageNoConnectionNe._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryNe noDiscovery = _TranslationsTroubleshootPageNoDiscoveryNe._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -263,11 +283,11 @@ class _TranslationsReceiveHistoryPageNe extends TranslationsReceiveHistoryPageEn
   @override
   String get title => 'इतिहास';
   @override
-  String get openFolder => 'फ़ोल्डर खोलें';
+  String get openFolder => 'फोल्डर खोल्नुहोस्';
   @override
-  String get deleteHistory => 'इतिहास को हटाएँ';
+  String get deleteHistory => 'इतिहास मेटाउनुहोस्';
   @override
-  String get empty => 'इतिहास खाली है।';
+  String get empty => 'इतिहास खाली छ।';
   @override
   late final _TranslationsReceiveHistoryPageEntryActionsNe entryActions = _TranslationsReceiveHistoryPageEntryActionsNe._(_root);
 }
@@ -284,9 +304,9 @@ class _TranslationsApkPickerPageNe extends TranslationsApkPickerPageEn {
   @override
   String get title => 'अनुप्रयोग (APK)';
   @override
-  String get excludeSystemApps => 'सिस्टम ऐप्स को छोड़ें';
+  String get excludeSystemApps => 'प्रणाली एपहरू समावेश नगर्नुहोस्';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'लौंच के लिए उपयोग न करने योग्य ऐप्स को छोड़ें';
+  String get excludeAppsWithoutLaunchIntent => 'सुरु गर्न नसकिने एपहरू बहिष्कार गर्नुहोस्';
   @override
   String apps({required Object n}) => '${n} अनुप्रयोग';
 }
@@ -316,11 +336,11 @@ class _TranslationsReceivePageNe extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ne'))(
         n,
-        one: 'तपाईंलाई एउटा फाइल पठाउन चाहन्छ।',
-        other: 'तपाईलाई ${n} फाइलहरू पठाउन चाहन्छ।',
+        one: 'तपाईंलाई एउटा फाइल पठाउन चाहन्छ',
+        other: 'तपाईलाई ${n} फाइलहरू पठाउन चाहन्छ',
       );
   @override
-  String get subTitleMessage => 'तपाईलाई सन्देश पठाउनुभयो:';
+  String get subTitleMessage => 'तपाईलाई सन्देश पठाइयो:';
   @override
   String get subTitleLink => 'तपाईंलाई लिङ्क पठाइयो:';
   @override
@@ -345,7 +365,7 @@ class _TranslationsReceiveOptionsPageNe extends TranslationsReceiveOptionsPageEn
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => 'निर्दिष्ट की यह नहीं की जा सकती है क्योंकि डायरेक्टरियाँ हैं।';
+  String get saveToGalleryOff => 'फोल्डरहरू भएकाले स्वतः बन्द भयो।';
 }
 
 // Path: sendPage
@@ -358,11 +378,13 @@ class _TranslationsSendPageNe extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'प्रतिक्रियाको प्रतीक्षा गर्दै...';
+  String get waiting => 'प्रतिक्रियाको प्रतीक्षा गर्दै…';
   @override
   String get rejected => 'प्राप्तकर्ताले अनुरोध अस्वीकार गरेको छ।';
   @override
-  String get busy => 'ग्राहक दूसरे अनुरोध के साथ व्यस्त हैं।';
+  String get busy => 'प्राप्तकर्ता अर्को अनुरोधमा व्यस्त छ।';
+  @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
 }
 
 // Path: progressPage
@@ -394,29 +416,35 @@ class _TranslationsWebSharePageNe extends TranslationsWebSharePageEn {
 
   // Translations
   @override
-  String get title => 'लिंक के माध्यम से साझा करें';
+  String get title => 'लिङ्क मार्फत सेयर गर्नुहोस्';
   @override
-  String get loading => 'सर्वर प्रारंभ हो रहा है...';
+  String get loading => 'सर्भर सुरु गर्दै…';
   @override
-  String get stopping => 'सर्वर को बंद कर रहा है...';
+  String get stopping => 'सर्भर रोकिँदै…';
   @override
-  String get error => 'सर्वर को शुरू करने के दौरान एक त्रुटि हुई है।';
+  String get error => 'सर्भर सुरु गर्दा एउटा त्रुटि भयो।';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ne'))(
         n,
-        one: 'ब्राउज़र में इस लिंक को खोलें:',
-        other: 'इनमें से लिंक्स में से एक ब्राउज़र में खोलें:',
+        one: 'यो लिङ्क आफ्नो ब्राउजरमा खोल्नुहोस्:',
+        other: 'आफ्नो ब्राउजरमा यी मध्ये एउटा लिङ्क खोल्नुहोस्:',
       );
   @override
   String get requests => 'अनुरोध';
   @override
-  String get noRequests => 'अबतक कोई अनुरोध नहीं हैं।';
+  String get noRequests => 'अहिलेसम्म कुनै अनुरोध छैन।';
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
   String get encryptionHint => 'LocalSend एक स्वयंसिग्ध प्रमाणपत्र प्रयोग गर्दछ। तपाईंले ब्राउजरमा यसलाई स्वीकार्नु पर्दछ।';
   @override
   String pendingRequests({required Object n}) => 'लंबित अनुरोध: ${n}';
+  @override
+  String pinHint({required Object pin}) => 'पिन "${pin}" हो';
+  @override
+  String get autoAccept => 'स्वचालित रूपमा अनुरोधहरू स्वीकार गर्नुहोस्';
+  @override
+  String get requirePin => 'पिन आवश्यक छ';
 }
 
 // Path: aboutPage
@@ -430,6 +458,19 @@ class _TranslationsAboutPageNe extends TranslationsAboutPageEn {
   // Translations
   @override
   String get title => 'LocalSend को बारेमा';
+  @override
+  List<String> get description => [
+        'LocalSend एउटा नि:शुल्क, खुला स्रोत एप हो जसले तपाईंलाई इन्टरनेट जडानको आवश्यकता बिना नै आफ्नो स्थानीय नेटवर्कमा नजिकैका उपकरणहरूसँग फाइलहरू र सन्देशहरू सुरक्षित रूपमा साझेदारी गर्न अनुमति दिन्छ।',
+        'यो एप एन्ड्रोइड, आईओएस, म्याकओएस, विन्डोज र लिनक्समा उपलब्ध छ। तपाईंले आधिकारिक होमपेजमा सबै डाउनलोड विकल्पहरू फेला पार्न सक्नुहुन्छ।',
+      ];
+  @override
+  String get author => 'लेखक';
+  @override
+  String get contributors => 'योगदानकर्ताहरू';
+  @override
+  String get packagers => 'प्याकेजरहरू';
+  @override
+  String get translators => 'अनुवादकहरू';
 }
 
 // Path: changelogPage
@@ -442,7 +483,7 @@ class _TranslationsChangelogPageNe extends TranslationsChangelogPageEn {
 
   // Translations
   @override
-  String get title => 'Changelog';
+  String get title => 'परिवर्तन लग';
 }
 
 // Path: aliasGenerator
@@ -573,6 +614,23 @@ class _TranslationsDialogsNe extends TranslationsDialogsEn {
   late final _TranslationsDialogsQuickSaveNoticeNe quickSaveNotice = _TranslationsDialogsQuickSaveNoticeNe._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpNe sendModeHelp = _TranslationsDialogsSendModeHelpNe._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileNe openFile = _TranslationsDialogsOpenFileNe._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDeleteDialogNe favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogNe._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDialogNe favoriteDialog = _TranslationsDialogsFavoriteDialogNe._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteEditDialogNe favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogNe._(_root);
+  @override
+  late final _TranslationsDialogsHistoryClearDialogNe historyClearDialog = _TranslationsDialogsHistoryClearDialogNe._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeNe quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeNe._(_root);
+  @override
+  late final _TranslationsDialogsPinNe pin = _TranslationsDialogsPinNe._(_root);
+  @override
+  late final _TranslationsDialogsZoomNe zoom = _TranslationsDialogsZoomNe._(_root);
 }
 
 // Path: tray
@@ -587,7 +645,9 @@ class _TranslationsTrayNe extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'LocalSend छोड्नुहोस्';
+  String get close => 'LocalSend बन्द गर्नुहोस्';
+  @override
+  String get closeWindows => 'बाहिर निस्कनुहोस्';
 }
 
 // Path: web
@@ -602,13 +662,19 @@ class _TranslationsWebNe extends TranslationsWebEn {
   @override
   String get waiting => _root.sendPage.waiting;
   @override
-  String get rejected => 'मना कर दिया';
+  String get rejected => 'अस्वीकृत';
   @override
-  String get files => 'फ़ाइलें';
+  String get files => 'फाइलहरू';
   @override
-  String get fileName => 'फ़ाइल का नाम';
+  String get fileName => 'फाइलको नाम';
   @override
   String get size => 'आकार';
+  @override
+  String get enterPin => 'पिन प्रविष्ट गर्नुहोस्';
+  @override
+  String get invalidPin => 'अमान्य पिन';
+  @override
+  String get tooManyAttempts => 'धेरै प्रयासहरू';
 }
 
 // Path: assetPicker
@@ -641,7 +707,7 @@ class _TranslationsAssetPickerNe extends TranslationsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'असमर्थित फाईल प्रकार।';
   @override
-  String get unableToAccessAll => 'यस उपकरणमा सबै फाईलहरूमा पहुँच प्राप्त गर्न सकिएन।';
+  String get unableToAccessAll => 'यस उपकरणमा सबै फाईलहरूमा पहुँच प्राप्त गर्न सकिएन';
   @override
   String get viewingLimitedAssetsTip => 'केवल फाईलहरू र एल्बमहरूलाई अनुप्रयोगको लागि पहुँचयोग्य हेर्नुहोस्।';
   @override
@@ -652,7 +718,7 @@ class _TranslationsAssetPickerNe extends TranslationsAssetPickerEn {
   @override
   String get goToSystemSettings => 'प्रणाली सेटिंग्समा जानुहोस्';
   @override
-  String get accessLimitedAssets => 'अधिकृताद्वारा पहुँचले जारी राख्नुहोस्';
+  String get accessLimitedAssets => 'सीमित पहुँचको साथ जारी राख्नुहोस्';
   @override
   String get accessiblePathName => 'पहुँचीने फाईलहरू';
   @override
@@ -664,7 +730,7 @@ class _TranslationsAssetPickerNe extends TranslationsAssetPickerEn {
   @override
   String get sTypeOtherLabel => 'अन्य मिडिया';
   @override
-  String get sActionPlayHint => 'खेल्नुहोस्';
+  String get sActionPlayHint => 'प्ले गर्नुहोस्';
   @override
   String get sActionPreviewHint => 'अग्रिम पूर्वावलोकन गर्नुहोस्';
   @override
@@ -677,6 +743,65 @@ class _TranslationsAssetPickerNe extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'समय अवधि';
   @override
   String get sUnitAssetCountLabel => 'गणना';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageNe extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'नेटवर्क इन्टरफेसहरू';
+  @override
+  String get preview => 'पूर्वावलोकन';
+  @override
+  String get blacklist => 'कालोसूची';
+  @override
+  String get whitelist => 'श्वेतसूची';
+  @override
+  String get info =>
+      'पूर्वनिर्धारित रूपमा, LocalSend ले सबै उपलब्ध नेटवर्क इन्टरफेसहरू प्रयोग गर्दछ। तपाईं यहाँ अनावश्यक नेटवर्कहरू बहिष्कार गर्न सक्नुहुन्छ। परिवर्तनहरू लागू गर्न तपाईंले सर्भर पुन: सुरु गर्न आवश्यक छ।';
+}
+
+// Path: donationPage
+class _TranslationsDonationPageNe extends TranslationsDonationPageEn {
+  _TranslationsDonationPageNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'दान गर्नुहोस्';
+  @override
+  String get info =>
+      'LocalSend नि:शुल्क, खुला स्रोत र कुनै पनि विज्ञापन बिनाको एप हो। यदि तपाईंलाई एप मनपर्छ भने, तपाईंले दान दिएर विकासलाई समर्थन गर्न सक्नुहुन्छ।';
+  @override
+  String donate({required Object amount}) => '${amount} दान गर्नुहोस्';
+  @override
+  String get thanks => 'धेरै धन्यवाद!';
+  @override
+  String get restore => 'खरिद पुनर्स्थापित गर्नुहोस्';
+}
+
+// Path: sanitization
+class _TranslationsSanitizationNe extends TranslationsSanitizationEn {
+  _TranslationsSanitizationNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'फाइलको नाम खाली हुन सक्दैन';
+  @override
+  String get invalid => 'फाइलको नाममा अवैध वर्णहरू छन्';
 }
 
 // Path: receiveTab.infoBox
@@ -693,7 +818,24 @@ class _TranslationsReceiveTabInfoBoxNe extends TranslationsReceiveTabInfoBoxEn {
   @override
   String get port => 'पोर्ट:';
   @override
-  String get alias => 'उपनाम:';
+  String get alias => 'उपकरणको नाम:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveNe extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get favorites => 'मनपर्नेहरू';
+  @override
+  String get on => _root.general.on;
+  @override
+  String get off => _root.general.off;
 }
 
 // Path: sendTab.selection
@@ -732,6 +874,8 @@ class _TranslationsSendTabPickerNe extends TranslationsSendTabPickerEn {
   String get text => 'पाठ';
   @override
   String get app => 'अनुप्रयोग';
+  @override
+  String get clipboard => 'पेस्ट गर्नुहोस्';
 }
 
 // Path: sendTab.sendModes
@@ -748,7 +892,7 @@ class _TranslationsSendTabSendModesNe extends TranslationsSendTabSendModesEn {
   @override
   String get multiple => 'एकाधिक प्राप्तकर्ता';
   @override
-  String get link => 'लिंक के माध्यम से साझा करें';
+  String get link => 'लिङ्क मार्फत सेयर गर्नुहोस्';
 }
 
 // Path: settingsTab.general
@@ -775,7 +919,7 @@ class _TranslationsSettingsTabGeneralNe extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsNe languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsNe._(_root);
   @override
-  String get saveWindowPlacement => 'बंद करें: विंडो स्थानन प्लेसमेंट सहेजें';
+  String get saveWindowPlacement => 'बन्द गरेपछि विन्डोको स्थिति सुरक्षित गर्नुहोस्';
   @override
   String get minimizeToTray => 'छोड्नुहोस्: ट्रेमा न्यूनतम गर्नुहोस्';
   @override
@@ -784,6 +928,10 @@ class _TranslationsSettingsTabGeneralNe extends TranslationsSettingsTabGeneralEn
   String get launchMinimized => 'स्वतः सुरु गर्नुहोस्: लुकेको सुरु गर्नुहोस्';
   @override
   String get animations => 'एनिमेसनहरू';
+  @override
+  String get saveWindowPlacementWindows => 'बाहिर निस्किएपछि विन्डोको स्थिति सुरक्षित गर्नुहोस्';
+  @override
+  String get showInContextMenu => 'कन्टेक्स्ट मेनुमा LocalSend देखाउनुहोस्';
 }
 
 // Path: settingsTab.receive
@@ -804,9 +952,13 @@ class _TranslationsSettingsTabReceiveNe extends TranslationsSettingsTabReceiveEn
   @override
   String get downloads => '(डाउनलोड)';
   @override
-  String get saveToGallery => 'ग्यालरीमा मिडिया सेव  गर्नुहोस्';
+  String get saveToGallery => 'मिडियालाई ग्यालरीमा सेभ गर्नुहोस्';
   @override
   String get saveToHistory => 'इतिहासमा संचय गर्नुहोस्';
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
+  @override
+  String get autoFinish => 'स्वतः समाप्त';
 }
 
 // Path: settingsTab.network
@@ -825,11 +977,11 @@ class _TranslationsSettingsTabNetworkNe extends TranslationsSettingsTabNetworkEn
   @override
   String get server => 'सर्भर';
   @override
-  String get alias => 'उपनाम';
+  String get alias => 'उपकरणको नाम';
   @override
-  String get deviceType => 'यन्त्रको प्रकार';
+  String get deviceType => 'उपकरणको प्रकार';
   @override
-  String get deviceModel => 'यन्त्र मोडेल';
+  String get deviceModel => 'उपकरण मोडेल';
   @override
   String get port => 'पोर्ट';
   @override
@@ -842,6 +994,52 @@ class _TranslationsSettingsTabNetworkNe extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'आप अन्य उपकर्णों द्वारा पहचाना नहीं जा सकता है क्योंकि आप कस्टम मल्टीकास्ट पता का उपयोग कर रहे हैं। (डिफ़ॉल्ट: ${defaultMulticast})';
+  @override
+  String get generateRandomAlias => 'अनियमित उपनाम उत्पन्न गर्नुहोस्';
+  @override
+  String get useSystemName => 'प्रणालीको नाम प्रयोग गर्नुहोस्';
+  @override
+  String get discoveryTimeout => 'डिस्कभरी टाइमआउट';
+  @override
+  String get network => 'नेटवर्क';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsNe networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsNe._(_root);
+}
+
+// Path: settingsTab.send
+class _TranslationsSettingsTabSendNe extends TranslationsSettingsTabSendEn {
+  _TranslationsSettingsTabSendNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'पठाउनुहोस्';
+  @override
+  String get shareViaLinkAutoAccept => '"लिङ्क मार्फत साझेदारी" मोडमा स्वचालित रूपमा अनुरोधहरू स्वीकार गर्नुहोस्';
+}
+
+// Path: settingsTab.other
+class _TranslationsSettingsTabOtherNe extends TranslationsSettingsTabOtherEn {
+  _TranslationsSettingsTabOtherNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get donate => 'दान गर्नुहोस्';
+  @override
+  String get title => 'अन्य';
+  @override
+  String get privacyPolicy => 'गोपनीयता नीति';
+  @override
+  String get termsOfUse => 'प्रयोगका सर्तहरू';
+  @override
+  String get support => 'LocalSend लाई समर्थन गर्नुहोस्';
 }
 
 // Path: troubleshootPage.firewall
@@ -854,12 +1052,12 @@ class _TranslationsTroubleshootPageFirewallNe extends TranslationsTroubleshootPa
 
   // Translations
   @override
-  String get symptom => 'यह अनुप्रयोग फ़ाइलें अन्य उपकर्णों को भेज सकता है, लेकिन अन्य उपकरण इस उपकरण को फ़ाइलें नहीं भेज सकते हैं।';
+  String get symptom => 'यो यन्त्रले अन्य यन्त्रहरूमा फाइलहरू पठाउन सक्छ तर अन्य यन्त्रहरूले यस यन्त्रमा फाइलहरू पठाउन सक्दैनन्।';
   @override
   String solution({required Object port}) =>
-      'यह शायद एक फ़यरवॉल मुद्दा है। आप इसे पोर्ट ${port} पर आने वाली कनेक्शन्स की अनुमति देकर इसे हल कर सकते हैं।';
+      'यो सम्भवतः फायरवाल समस्या हो। तपाईंले पोर्ट ${port} मा आगमन जडानहरू (UDP र TCP) लाई अनुमति दिएर यो समाधान गर्न सक्नुहुन्छ।';
   @override
-  String get openFirewall => 'फ़ायरवॉल खोलें';
+  String get openFirewall => 'फायरवाल खोल्नुहोस्';
 }
 
 // Path: troubleshootPage.noConnection
@@ -872,10 +1070,26 @@ class _TranslationsTroubleshootPageNoConnectionNe extends TranslationsTroublesho
 
   // Translations
   @override
-  String get symptom => 'दोनों उपकरण एक दूसरे को खोज नहीं सकते हैं और वे फ़ाइलें साझा नहीं कर सकते हैं।';
+  String get symptom => 'दुबै उपकरणहरूले एकअर्कालाई पत्ता लगाउन सक्दैनन् न त फाइलहरू साझेदारी गर्न सक्छन्।';
   @override
   String get solution =>
-      'समस्या दोनों ओर है? तो आपको सुनिश्चित करना होगा कि दोनों उपकरण एक ही Wifi नेटवर्क में हैं और वे एक ही कॉन्फ़िगरेशन (पोर्ट, मल्टीकास्ट पता, एन्क्रिप्शन) साझा करते हैं। Wifi कम संचार करने की अनुमति नहीं दे सकता है। इस मामले में, इस विकल्प को राउटर पर सक्षम किया जाना चाहिए।';
+      'के समस्या दुवै तर्फ छ? यदि त्यसो हो भने, तपाईंले दुवै यन्त्रहरू एउटै Wi-Fi नेटवर्कमा छन् र एउटै कन्फिगरेसन (पोर्ट, मल्टिकास्ट ठेगाना, इन्क्रिप्शन) साझा गर्छन् भनी सुनिश्चित गर्नुपर्छ। पहुँच बिन्दु (AP) आइसोलेसनको कारणले Wi-Fi नेटवर्कले सहभागीहरू बीच सञ्चारलाई अनुमति नदिन सक्छ। यस अवस्थामा, यो विकल्प राउटरमा असक्षम पारिएको हुनुपर्छ।';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryNe extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'यो उपकरणले अन्य उपकरणहरू पत्ता लगाउन सक्दैन।';
+  @override
+  String get solution =>
+      'कृपया सबै उपकरणहरू एउटै Wi-Fi नेटवर्कमा छन् र एउटै कन्फिगरेसन (पोर्ट, मल्टिकास्ट ठेगाना, इन्क्रिप्शन) साझा गर्छन् भनी सुनिश्चित गर्नुहोस्। तपाईं लक्षित उपकरणको IP ठेगाना म्यानुअल रूपमा टाइप गर्ने प्रयास गर्न सक्नुहुन्छ। यदि यसले काम गर्छ भने, यो उपकरणलाई मनपर्नेहरूमा थप्ने विचार गर्नुहोस् ताकि भविष्यमा यसलाई स्वचालित रूपमा पत्ता लगाउन सकियोस्।';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -888,11 +1102,13 @@ class _TranslationsReceiveHistoryPageEntryActionsNe extends TranslationsReceiveH
 
   // Translations
   @override
-  String get open => 'फ़ाइल खोलें';
+  String get open => 'फाइल खोल्नुहोस्';
   @override
   String get info => 'सूचना';
   @override
-  String get deleteFromHistory => 'इतिहास से हटाएँ';
+  String get deleteFromHistory => 'इतिहासबाट मेटाउनुहोस्';
+  @override
+  String get showInFolder => 'फोल्डरमा हर्नुहोस';
 }
 
 // Path: progressPage.total
@@ -943,9 +1159,9 @@ class _TranslationsDialogsAddressInputNe extends TranslationsDialogsAddressInput
   @override
   String get hashtag => 'ह्यासट्याग';
   @override
-  String get ip => 'आईपी ​​ठेगाना';
+  String get ip => 'IP ठेगाना';
   @override
-  String get recentlyUsed => 'हाल में इस्तेमाल हुआ: ';
+  String get recentlyUsed => 'हालसालै प्रयोग गरिएको: ';
 }
 
 // Path: dialogs.cancelSession
@@ -1059,7 +1275,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedNe extends TranslationsDialogs
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      ' LocalSend बिना निजी नेटवर्क स्कैन की अनुमति के बिना अन्य उपकरणों को नहीं खोज सकता है। कृपया सेटिंग्स में इस अनुमति को प्रदान करें।';
+      'LocalSend ले स्थानीय नेटवर्क स्क्यान गर्ने अनुमति बिना अन्य उपकरणहरू फेला पार्न सक्दैन। कृपया सेटिङहरूमा यो अनुमति दिनुहोस्।';
   @override
   String get gotoSettings => 'सेटिंग्स';
 }
@@ -1119,9 +1335,9 @@ class _TranslationsDialogsNotAvailableOnPlatformNe extends TranslationsDialogsNo
 
   // Translations
   @override
-  String get title => 'उपलब्ध नहीं है';
+  String get title => 'उपलब्ध छैन';
   @override
-  String get content => 'यह सुविधा केवल निम्नलिखित में उपलब्ध है:';
+  String get content => 'यो सुविधा निम्नमा मात्र उपलब्ध छ:';
 }
 
 // Path: dialogs.qr
@@ -1134,7 +1350,7 @@ class _TranslationsDialogsQrNe extends TranslationsDialogsQrEn {
 
   // Translations
   @override
-  String get title => 'क्यूआर कोड';
+  String get title => 'QR कोड';
 }
 
 // Path: dialogs.quickActions
@@ -1172,7 +1388,8 @@ class _TranslationsDialogsQuickSaveNoticeNe extends TranslationsDialogsQuickSave
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => 'फाइल अनुरोधहरू स्वचालित रूपमा स्वीकार गरिन्छ। ';
+  String get content =>
+      'फाइल अनुरोधहरू अब स्वचालित रूपमा स्वीकार गरिन्छन्। स्थानीय नेटवर्कमा भएका सबैले तपाईंलाई फाइलहरू पठाउन सक्छन् भन्ने कुरामा सचेत रहनुहोस्।';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1185,13 +1402,141 @@ class _TranslationsDialogsSendModeHelpNe extends TranslationsDialogsSendModeHelp
 
   // Translations
   @override
-  String get title => 'मोड भेजें';
+  String get title => 'पठाउने मोडहरू';
   @override
-  String get single => 'एकांत प्राप्तकर्ताओं को फ़ाइलें भेजता है। चयन फ़ाइल संचरण के बाद साफ़ हो जाएगा।';
+  String get single => 'एउटा प्राप्तकर्तालाई फाइलहरू पठाउँछ। फाइलहरू स्थानान्तरण सम्पन्न भएपछि चयन खाली गरिनेछ।';
   @override
-  String get multiple => 'एकाधिक प्राप्तकर्ताओं को फ़ाइलें भेजता है। चयन साफ़ नहीं होगा।';
+  String get multiple => 'धेरै प्राप्तकर्ताहरूलाई फाइलहरू पठाउँछ। फाइलहरू स्थानान्तरण समाप्त भएपछि चयन खाली गरिने छैन।';
   @override
-  String get link => 'LocalSend इंस्टॉल न करने वाले प्राप्तकर्ता चयनित फ़ाइलें डाउनलोड कर सकते हैं जब वह ब्राउज़र में लिंक खोलते हैं।';
+  String get link => 'LocalSend इन्स्टल नगरेका प्राप्तकर्ताहरूले आफ्नो ब्राउजरमा लिङ्क खोलेर चयन गरिएका फाइलहरू डाउनलोड गर्न सक्छन्।';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileNe extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'फाइल खोल्नुहोस्';
+  @override
+  String get content => 'के तपाईं प्राप्त फाइल खोल्न चाहनुहुन्छ?';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _TranslationsDialogsFavoriteDeleteDialogNe extends TranslationsDialogsFavoriteDeleteDialogEn {
+  _TranslationsDialogsFavoriteDeleteDialogNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String content({required Object name}) => 'के तपाईं साँच्चै मनपर्ने "${name}" बाट मेटाउन चाहनुहुन्छ?';
+  @override
+  String get title => 'मनपर्नेहरूबाट हटाउनुहोस्';
+}
+
+// Path: dialogs.favoriteDialog
+class _TranslationsDialogsFavoriteDialogNe extends TranslationsDialogsFavoriteDialogEn {
+  _TranslationsDialogsFavoriteDialogNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get addFavorite => 'थप्नुहोस्';
+  @override
+  String get title => 'मनपर्नेहरू';
+  @override
+  String get noFavorites => 'अहिलेसम्म कुनै पनि मनपर्ने उपकरणहरू छैनन्।';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _TranslationsDialogsFavoriteEditDialogNe extends TranslationsDialogsFavoriteEditDialogEn {
+  _TranslationsDialogsFavoriteEditDialogNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get titleAdd => 'मनपर्नेमा थप्नुहोस्';
+  @override
+  String get titleEdit => 'सेटिङहरू';
+  @override
+  String get name => 'उपकरणको नाम';
+  @override
+  String get auto => '(स्वचालित)';
+  @override
+  String get ip => 'IP ठेगाना';
+  @override
+  String get port => 'पोर्ट';
+}
+
+// Path: dialogs.historyClearDialog
+class _TranslationsDialogsHistoryClearDialogNe extends TranslationsDialogsHistoryClearDialogEn {
+  _TranslationsDialogsHistoryClearDialogNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'इतिहास खाली गर्नुहोस्';
+  @override
+  String get content => 'के तपाईं साँच्चै सम्पूर्ण इतिहास मेटाउन चाहनुहुन्छ?';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeNe extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get content => [
+        'फाइल अनुरोधहरू अब तपाईंको मनपर्ने सूचीमा रहेका उपकरणहरूबाट स्वचालित रूपमा स्वीकार गरिन्छन्।',
+        'चेतावनी! हाल, यो पूर्ण रूपमा सुरक्षित छैन, किनकि तपाईंको मनपर्ने सूचीबाट कुनै पनि उपकरणको फिंगरप्रिन्ट भएको ह्याकरले तपाईंलाई बिना प्रतिबन्ध फाइलहरू पठाउन सक्छ।',
+        'यद्यपि, यो विकल्प स्थानीय नेटवर्कमा रहेका सबै प्रयोगकर्ताहरूलाई तपाईंलाई कुनै प्रतिबन्ध बिना फाइलहरू पठाउन अनुमति दिनु भन्दा अझै सुरक्षित छ।',
+      ];
+}
+
+// Path: dialogs.pin
+class _TranslationsDialogsPinNe extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'पिन प्रविष्ट गर्नुहोस्';
+}
+
+// Path: dialogs.zoom
+class _TranslationsDialogsZoomNe extends TranslationsDialogsZoomEn {
+  _TranslationsDialogsZoomNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -1222,6 +1567,8 @@ class _TranslationsSettingsTabGeneralColorOptionsNe extends TranslationsSettings
   // Translations
   @override
   String get system => 'सिस्टम';
+  @override
+  String get oled => 'ओ एल ई डी';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1235,6 +1582,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsNe extends TranslationsSetti
   // Translations
   @override
   String get system => 'सिस्टम';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsNe extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsNe._(TranslationsNe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'सबै';
+  @override
+  String get filtered => 'फिल्टर गरिएको';
 }
 
 // Path: progressPage.total.title

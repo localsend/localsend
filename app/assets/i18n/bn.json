@@ -119,7 +119,7 @@
       "downloads": "(Downloads)",
       "saveToGallery": "গ্যালারিতে মিডিয়া সেভ করুন",
       "saveToHistory": "ইতিহাসে সংরক্ষণ করুন",
-      "quickSaveFromFavorites": "@:general.quickপ্রিয় থেকে সংরক্ষণ করুন"
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
       "title": "নেটওয়ার্ক",

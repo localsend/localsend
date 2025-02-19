@@ -78,6 +78,8 @@ class TranslationsZhTw extends Translations {
   late final _TranslationsWebZhTw web = _TranslationsWebZhTw._(_root);
   @override
   late final _TranslationsAssetPickerZhTw assetPicker = _TranslationsAssetPickerZhTw._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageZhTw networkInterfacesPage = _TranslationsNetworkInterfacesPageZhTw._(_root);
 }
 
 // Path: general
@@ -164,7 +166,7 @@ class _TranslationsGeneralZhTw extends TranslationsGeneralEn {
   @override
   String get unknown => '未知';
   @override
-  String get noItemInClipboard => '剪貼簿中沒有項目';
+  String get noItemInClipboard => '剪貼簿中沒有內容。';
 }
 
 // Path: receiveTab
@@ -336,8 +338,8 @@ class _TranslationsReceivePageZhTw extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
         n,
-        one: '要傳送一個檔案給您。',
-        other: '要傳送 ${n} 個檔案給您。',
+        one: '要傳送一個檔案給您',
+        other: '要傳送 ${n} 個檔案給您',
       );
   @override
   String get subTitleMessage => '已傳送一則訊息給您：';
@@ -590,9 +592,9 @@ class _TranslationsSanitizationZhTw extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get empty => '檔案名稱不能為空。';
+  String get empty => '檔案名稱不能為空';
   @override
-  String get invalid => '檔案名稱包含無效字元。';
+  String get invalid => '檔案名稱包含無效字元';
 }
 
 // Path: tray
@@ -626,9 +628,9 @@ class _TranslationsWebZhTw extends TranslationsWebEn {
   @override
   String get enterPin => '輸入 PIN 碼';
   @override
-  String get invalidPin => 'PIN 碼無效。';
+  String get invalidPin => 'PIN 碼無效';
   @override
-  String get tooManyAttempts => '嘗試次數過多，請稍後再試。';
+  String get tooManyAttempts => '嘗試次數過多，請稍後再試';
   @override
   String get rejected => '遭到拒絕';
   @override
@@ -704,6 +706,27 @@ class _TranslationsAssetPickerZhTw extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => '持續時間';
   @override
   String get sUnitAssetCountLabel => '計數';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageZhTw extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageZhTw._(TranslationsZhTw root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get info => 'LocalSend 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。';
+  @override
+  String get title => '網路介面';
+  @override
+  String get preview => '預覽';
+  @override
+  String get whitelist => '允許清單';
+  @override
+  String get blacklist => '禁止清單';
 }
 
 // Path: receiveTab.infoBox
@@ -917,6 +940,10 @@ class _TranslationsSettingsTabNetworkZhTw extends TranslationsSettingsTabNetwork
   String get multicastGroup => '多點傳送';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) => '您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：${defaultMulticast})';
+  @override
+  String get network => '網路';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsZhTw networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsZhTw._(_root);
 }
 
 // Path: settingsTab.other
@@ -1475,6 +1502,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsZhTw extends TranslationsSet
   // Translations
   @override
   String get system => '系統';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsZhTw extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsZhTw._(TranslationsZhTw root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => '全部';
+  @override
+  String get filtered => '已篩選';
 }
 
 // Path: progressPage.total.title

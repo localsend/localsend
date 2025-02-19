@@ -78,6 +78,8 @@ class TranslationsEt extends Translations {
   late final _TranslationsWebEt web = _TranslationsWebEt._(_root);
   @override
   late final _TranslationsAssetPickerEt assetPicker = _TranslationsAssetPickerEt._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageEt networkInterfacesPage = _TranslationsNetworkInterfacesPageEt._(_root);
 }
 
 // Path: general
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerEt extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'kogus';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageEt extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Võrguliidesed';
+  @override
+  String get preview => 'Eelvaade';
+  @override
+  String get whitelist => 'Lubatud loend';
+  @override
+  String get blacklist => 'Keelatud loend';
+  @override
+  String get info =>
+      'Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxEt extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxEt._(TranslationsEt root)
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkEt extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsEt networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsEt._(_root);
+  @override
+  String get network => 'Võrk';
 }
 
 // Path: settingsTab.other
@@ -1485,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsEt extends TranslationsSetti
   // Translations
   @override
   String get system => 'Süsteemi keel';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsEt extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsEt._(TranslationsEt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get filtered => 'Filtreeritud';
+  @override
+  String get all => 'Kõik';
 }
 
 // Path: progressPage.total.title

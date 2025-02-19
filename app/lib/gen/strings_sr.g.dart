@@ -78,6 +78,8 @@ class TranslationsSr extends Translations {
   late final _TranslationsWebSr web = _TranslationsWebSr._(_root);
   @override
   late final _TranslationsAssetPickerSr assetPicker = _TranslationsAssetPickerSr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageSr networkInterfacesPage = _TranslationsNetworkInterfacesPageSr._(_root);
 }
 
 // Path: general
@@ -304,9 +306,9 @@ class _TranslationsApkPickerPageSr extends TranslationsApkPickerPageEn {
   @override
   String get title => 'Aplikacije (APK)';
   @override
-  String get excludeSystemApps => 'Izostavi sistemske aplikacije';
+  String get excludeSystemApps => 'Izuzmi sistemske aplikacije';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'Izostavi aplikacije koje se ne pokreću';
+  String get excludeAppsWithoutLaunchIntent => 'Izuzmi aplikacije koje se ne pokreću';
   @override
   String apps({required Object n}) => '${n} aplikacija';
 }
@@ -781,6 +783,28 @@ class _TranslationsAssetPickerSr extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'broj';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageSr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageSr._(TranslationsSr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mrežni interfejsi';
+  @override
+  String get preview => 'Pregled';
+  @override
+  String get whitelist => 'Bela lista';
+  @override
+  String get blacklist => 'Crna lista';
+  @override
+  String get info =>
+      'Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxSr extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxSr._(TranslationsSr root)
@@ -900,7 +924,7 @@ class _TranslationsSettingsTabGeneralSr extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacementWindows => 'Sačuvaj položaj prozora nakon izlaženja';
   @override
-  String get minimizeToTray => 'Minimirizaj na sistemsku traku/traku menija prilikom zatvaranja';
+  String get minimizeToTray => 'Minimiziraj na sistemsku traku/traku menija prilikom zatvaranja';
   @override
   String get launchAtStartup => 'Automatski pokreni nakon prijave';
   @override
@@ -967,7 +991,7 @@ class _TranslationsSettingsTabNetworkSr extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Mreža';
   @override
-  String get needRestart => 'Restartujte server da biste primenili podešavanja!';
+  String get needRestart => 'Restartujte server da bi se primenila podešavanja!';
   @override
   String get server => 'Server';
   @override
@@ -994,6 +1018,10 @@ class _TranslationsSettingsTabNetworkSr extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: ${defaultMulticast})';
+  @override
+  String get network => 'Mreža';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsSr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsSr._(_root);
 }
 
 // Path: settingsTab.other
@@ -1556,6 +1584,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsSr extends TranslationsSetti
   // Translations
   @override
   String get system => 'Sistemski';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsSr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsSr._(TranslationsSr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get filtered => 'Filtrirana';
+  @override
+  String get all => 'Sve';
 }
 
 // Path: progressPage.total.title
