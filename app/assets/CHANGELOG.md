@@ -1,7 +1,7 @@
 ## 1.17.0 (2025-02-19)
 
 - feat: add advanced setting to filter network interfaces (@Tienisto)
-- feat(mobile): swipe gesture to select multiple files (@Tienisto)
+- feat(mobile): swipe gesture to select multiple media files (@Tienisto)
 - feat(windows): when pasting an image, automatically convert it to PNG (@BrianMwit)
 - feat(android): add option to open gallery when image/video was automatically saved (@Tienisto)
 - fix: path traversal vulnerability when saving files (@Tienisto)
