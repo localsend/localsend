@@ -113,7 +113,7 @@ jobs:
           override: ${{ env.RUST_VERSION }}
 
       - name: Check rust-toolchain.toml
-        working-directory: ${{ env.APK_BUILD_DIR }}/app
+        working-directory: app
         run: rustup show
 
       - name: Dependencies
@@ -192,7 +192,7 @@ jobs:
           override: ${{ env.RUST_VERSION }}
 
       - name: Check rust-toolchain.toml
-        working-directory: ${{ env.APK_BUILD_DIR }}/app
+        working-directory: app
         run: rustup show
 
       - name: Enable dart_distributor
@@ -292,7 +292,7 @@ jobs:
           override: ${{ env.RUST_VERSION }}
 
       - name: Check rust-toolchain.toml
-        working-directory: ${{ env.APK_BUILD_DIR }}/app
+        working-directory: app
         run: rustup show
 
       - name: Dependencies
