@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/api_route_builder.dart';
@@ -7,7 +6,6 @@ import 'package:common/constants.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/dto/file_dto.dart';
 import 'package:common/model/dto/multicast_dto.dart';
-import 'package:common/util/dio.dart';
 import 'package:common/util/logger.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
@@ -43,10 +41,12 @@ import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/rhttp.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:rhttp/rhttp.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -58,6 +58,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
+
+  await Rhttp.init();
 
   final dynamicColors = await getDynamicColors();
 
@@ -76,20 +78,20 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final dio = createDio(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
+    final client = createRhttpClient(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
 
     try {
-      await dio.post(
+      await client.post(
         ApiRoute.show.targetRaw(
           '127.0.0.1',
           persistenceService.getPort(),
           persistenceService.isHttps(),
           peerProtocolVersion,
         ),
-        queryParameters: {
+        query: {
           'token': persistenceService.getShowToken(),
         },
-        data: jsonEncode({
+        body: HttpBody.json({
           'args': args,
         }),
       );
@@ -145,11 +147,17 @@ Future<RefenaContainer> preInit(List<String> args) async {
     return IsolateController(
       initialState: ParentIsolateState.initial(
         SyncState(
+          init: () async {
+            await Rhttp.init();
+          },
           rootIsolateToken: RootIsolateToken.instance!,
+          httpClientFactory: RhttpWrapper.create,
           securityContext: persistenceService.getSecurityContext(),
           deviceInfo: ref.read(deviceInfoProvider),
           alias: settings.alias,
           port: settings.port,
+          networkWhitelist: settings.networkWhitelist,
+          networkBlacklist: settings.networkBlacklist,
           protocol: settings.https ? ProtocolType.https : ProtocolType.http,
           multicastGroup: settings.multicastGroup,
           discoveryTimeout: settings.discoveryTimeout,

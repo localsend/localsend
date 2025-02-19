@@ -78,6 +78,8 @@ class TranslationsCs extends Translations {
   late final _TranslationsWebCs web = _TranslationsWebCs._(_root);
   @override
   late final _TranslationsAssetPickerCs assetPicker = _TranslationsAssetPickerCs._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageCs networkInterfacesPage = _TranslationsNetworkInterfacesPageCs._(_root);
 }
 
 // Path: general
@@ -707,6 +709,19 @@ class _TranslationsAssetPickerCs extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'počet';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageCs extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageCs._(TranslationsCs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Síťová rozhraní';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxCs extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxCs._(TranslationsCs root)
@@ -920,6 +935,8 @@ class _TranslationsSettingsTabNetworkCs extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsCs networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsCs._(_root);
 }
 
 // Path: settingsTab.other
@@ -1482,6 +1499,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsCs extends TranslationsSetti
   // Translations
   @override
   String get system => 'Systém';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsCs extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsCs._(TranslationsCs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Vše';
 }
 
 // Path: progressPage.total.title

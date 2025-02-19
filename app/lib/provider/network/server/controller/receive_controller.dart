@@ -25,8 +25,8 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/pages/receive_page_controller.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/dio_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
+import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
@@ -447,12 +447,16 @@ class ReceiveController {
     final fileType = receivingFile.file.fileType;
     final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
-    final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
-      parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
-      fileName: receivingFile.desiredName!,
-      createdDirectories: receiveState.createdDirectories,
-    );
+    String? outerDestinationPath;
     try {
+      final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
+        parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
+        fileName: receivingFile.desiredName!,
+        createdDirectories: receiveState.createdDirectories,
+      );
+
+      outerDestinationPath = destinationPath;
+
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
 
       await saveFile(
@@ -559,14 +563,14 @@ class ReceiveController {
           // ignore: use_build_context_synchronously
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
 
-          /* open the dialog to open file instantly*/
-          if (destinationPath.isNotEmpty) {
+          // open the dialog to open file instantly
+          if (outerDestinationPath != null && outerDestinationPath.isNotEmpty) {
             OpenFileDialog.open(
-                // ignore: use_build_context_synchronously
-                Routerino.context,
-                filePath: destinationPath,
-                fileName: receivingFile.desiredName!,
-                fileType: fileType);
+              Routerino.context, // ignore: use_build_context_synchronously
+              filePath: outerDestinationPath,
+              fileType: fileType,
+              openGallery: saveToGallery,
+            );
           }
         });
       }
@@ -742,7 +746,7 @@ class ReceiveController {
     // notify sender
     try {
       // ignore: unawaited_futures
-      server.ref.read(dioProvider).discovery.post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
+      server.ref.read(httpProvider).discovery.post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
     } catch (e) {
       _logger.warning('Failed to notify sender', e);
     }

@@ -1,0 +1,269 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <ml>.",
+    "After editing this file, you can run 'dart run slang apply --locale=ml' to quickly apply the newly added translations."
+  ],
+  "receiveTab": {
+    "quickSave": {
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "selection": {
+      "files": "Files: {files}",
+      "size": "Size: {size}"
+    }
+  },
+  "settingsTab": {
+    "receive": {
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin"
+    },
+    "network": {
+      "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+      "encryption": "Encryption",
+      "multicastGroup": "Multicast address",
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Other",
+      "support": "Support LocalSend",
+      "donate": "Donate",
+      "termsOfUse": "Terms of Use"
+    },
+    "advancedSettings": "Advanced settings"
+  },
+  "troubleshootPage": {
+    "title": "Troubleshoot",
+    "subTitle": "Does the app not work as expected? Here you can find some common solutions to problems.",
+    "solution": "Solution:",
+    "fixButton": "Fix automatically",
+    "firewall": {
+      "symptom": "This device can send files to other devices but other devices cannot send files to this device.",
+      "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
+      "openFirewall": "Open Firewall"
+    },
+    "noDiscovery": {
+      "symptom": "This device cannot discover other devices.",
+      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+    },
+    "noConnection": {
+      "symptom": "Both devices cannot discover each other nor can they share files.",
+      "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The Wi-Fi network may not allow communication between participants due to Access Point (AP) Isolation. In this case, this option must be disabled on the router."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Network Interfaces",
+    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
+  },
+  "receiveHistoryPage": {
+    "title": "History",
+    "openFolder": "Open folder",
+    "deleteHistory": "Delete history",
+    "empty": "The history is empty.",
+    "entryActions": {
+      "open": "Open file",
+      "showInFolder": "Show in folder",
+      "info": "Information",
+      "deleteFromHistory": "Delete from history"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Exclude system apps",
+    "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
+    "apps": "{n} Apps"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Delete all"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "wants to send you a file",
+      "other": "wants to send you {n} files"
+    },
+    "subTitleMessage": "sent you a message:",
+    "subTitleLink": "sent you a link:",
+    "canceled": "The sender has canceled the request."
+  },
+  "receiveOptionsPage": {
+    "title": "Options",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Turned off automatically because there are folders."
+  },
+  "sendPage": {
+    "waiting": "Waiting for response…",
+    "rejected": "The recipient has rejected the request.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "The recipient is busy with another request."
+  },
+  "progressPage": {
+    "titleSending": "Sending files",
+    "titleReceiving": "Receiving files",
+    "savedToGallery": "Saved in Photos",
+    "total": {
+      "title": {
+        "sending": "Total progress ({time})",
+        "finishedError": "Finished with error",
+        "canceledSender": "Canceled by sender",
+        "canceledReceiver": "Canceled by receiver"
+      },
+      "count": "Files: {curr} / {n}",
+      "size": "Size: {curr} / {n}",
+      "speed": "Speed: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Share via link",
+    "loading": "Starting server…",
+    "stopping": "Stopping server…",
+    "error": "An error occurred while starting the server.",
+    "openLink": {
+      "one": "Open this link in your browser:",
+      "other": "Open one of these links in your browser:"
+    },
+    "requests": "Requests",
+    "noRequests": "No requests yet.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automatically accept requests",
+    "requirePin": "Require PIN",
+    "pinHint": "The PIN is \"{pin}\"",
+    "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
+    "pendingRequests": "Pending requests: {n}"
+  },
+  "aboutPage": {
+    "title": "About LocalSend",
+    "description": [
+      "LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.",
+      "This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage."
+    ],
+    "author": "Author",
+    "contributors": "Contributors",
+    "packagers": "Packagers",
+    "translators": "Translators"
+  },
+  "donationPage": {
+    "title": "Donate",
+    "info": "LocalSend is free, open-source and without any ads. If you like the app, you can support the development with a donation.",
+    "donate": "Donate {amount}",
+    "thanks": "Thank you very much!",
+    "restore": "Restore purchase"
+  },
+  "changelogPage": {
+    "title": "Changelog"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Add to selection",
+      "content": "What do you want to add?"
+    },
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
+    },
+    "addressInput": {
+      "title": "Enter address",
+      "hashtag": "Hashtag",
+      "ip": "IP Address",
+      "recentlyUsed": "Recently used: "
+    },
+    "cancelSession": {
+      "title": "Cancel files transfer",
+      "content": "Do you really want to cancel the files transfer?"
+    },
+    "cannotOpenFile": {
+      "title": "Cannot open file",
+      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption disabled",
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorites",
+      "noFavorites": "No favorite devices yet.",
+      "addFavorite": "Add"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Delete from favorites",
+      "content": "Do you really want to delete from favorites \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Add to favorites",
+      "titleEdit": "Settings",
+      "name": "Device name",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "File information",
+      "fileName": "File name:",
+      "path": "Path:",
+      "size": "Size:",
+      "sender": "Sender:",
+      "time": "Time:"
+    },
+    "fileNameInput": {
+      "title": "Enter file name",
+      "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
+    "messageInput": {
+      "title": "Type message",
+      "multiline": "Multiline"
+    },
+    "noFiles": {
+      "title": "No files selected",
+      "content": "Please select at least one file."
+    },
+    "noPermission": {
+      "title": "No permission",
+      "content": "You have not granted the necessary permissions. Please grant them in the settings."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Counter",
+      "prefix": "Prefix",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "Sort alphabetically beforehand (A-Z)",
+      "random": "Random"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "File requests are now accepted automatically. Be aware that everyone on the local network can send you files."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites"
+    }
+  },
+  "tray": {
+    "open": "@:general.open"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting"
+  }
+}

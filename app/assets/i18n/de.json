@@ -1,0 +1,457 @@
+{
+  "locale": "Deutsch",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Akzeptieren",
+    "accepted": "Akzeptiert",
+    "add": "Hinzufügen",
+    "advanced": "Erweitert",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "continueStr": "Weiter",
+    "copy": "Kopieren",
+    "copiedToClipboard": "In die Zwischenablage kopiert",
+    "decline": "Ablehnen",
+    "done": "Fertig",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "error": "Fehler",
+    "example": "Beispiel",
+    "files": "Dateien",
+    "finished": "Abgeschlossen",
+    "hide": "Verstecken",
+    "off": "Aus",
+    "offline": "Offline",
+    "on": "An",
+    "online": "Online",
+    "open": "Öffnen",
+    "queue": "Warteschlange",
+    "quickSave": "Quick Save",
+    "quickSaveFromFavorites": "Quick Save für \"Favoriten\"",
+    "renamed": "Umbenannt",
+    "reset": "Zurücksetzen",
+    "restart": "Neustarten",
+    "settings": "Einstellungen",
+    "skipped": "Übersprungen",
+    "start": "Start",
+    "stop": "Stop",
+    "save": "Speichern",
+    "unchanged": "Unverändert",
+    "unknown": "Unbekannt",
+    "noItemInClipboard": "Kein Element in der Zwischenablage gefunden."
+  },
+  "receiveTab": {
+    "title": "Empfangen",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoriten",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Senden",
+    "selection": {
+      "title": "Auswahl",
+      "files": "Dateien: {files}",
+      "size": "Größe: {size}"
+    },
+    "picker": {
+      "file": "Datei",
+      "folder": "Ordner",
+      "media": "Medien",
+      "text": "Text",
+      "app": "App",
+      "clipboard": "Ablage"
+    },
+    "shareIntentInfo": "Du kannst auch die \"Teilen\"-Funktion deines mobilen Geräts nutzen, um Dateien einfacher auszuwählen.",
+    "nearbyDevices": "Geräte in der Nähe",
+    "thisDevice": "Dieses Gerät",
+    "scan": "Geräte suchen",
+    "manualSending": "Manuelles Senden",
+    "sendMode": "Sendemodus",
+    "sendModes": {
+      "single": "Einzelner Empfänger",
+      "multiple": "Mehrere Empfänger",
+      "link": "Per Link teilen"
+    },
+    "sendModeHelp": "Erklärung",
+    "help": "Bitte stelle sicher, dass sich das gewünschte Ziel auch im selben WLAN-Netzwerk befindet.",
+    "placeItems": "Dateien ablegen, um zu teilen."
+  },
+  "settingsTab": {
+    "title": "Einstellungen",
+    "general": {
+      "title": "Allgemein",
+      "brightness": "Helligkeit",
+      "brightnessOptions": {
+        "system": "System",
+        "dark": "Dunkel",
+        "light": "Hell"
+      },
+      "color": "Farbe",
+      "colorOptions": {
+        "system": "System",
+        "oled": "OLED"
+      },
+      "language": "Sprache",
+      "languageOptions": {
+        "system": "System"
+      },
+      "saveWindowPlacement": "Beenden: Fensterposition speichern",
+      "saveWindowPlacementWindows": "Beenden: Fensterposition speichern",
+      "minimizeToTray": "Beenden: in Symbolleiste minimieren",
+      "launchAtStartup": "Autostart nach Login",
+      "launchMinimized": "Autostart: versteckt starten",
+      "showInContextMenu": "LocalSend im Kontextmenü anzeigen",
+      "animations": "Animationen"
+    },
+    "receive": {
+      "title": "Empfangen",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Autom. beenden",
+      "destination": "Ziel-Ordner",
+      "downloads": "(Downloads)",
+      "saveToGallery": "Medien in die Galerie speichern",
+      "saveToHistory": "In Verlauf speichern"
+    },
+    "send": {
+      "title": "Senden",
+      "shareViaLinkAutoAccept": "Link teilen: Autom. akzeptieren"
+    },
+    "network": {
+      "title": "Netzwerk",
+      "needRestart": "Starte den Server neu, um die Änderungen zu übernehmen!",
+      "server": "Server",
+      "alias": "Alias",
+      "deviceType": "Gerätetyp",
+      "deviceModel": "Gerätemodell",
+      "port": "Port",
+      "network": "Netzwerk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Gefiltert"
+      },
+      "discoveryTimeout": "Erkennungs-Timeout",
+      "useSystemName": "Systemnamen verwenden",
+      "generateRandomAlias": "Zufälligen Alias generieren",
+      "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
+      "encryption": "Verschlüsselung",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Weitere",
+      "support": "LocalSend unterstützen",
+      "donate": "Spenden",
+      "privacyPolicy": "Datenschutzerklärung",
+      "termsOfUse": "Nutzungsbedingungen"
+    },
+    "advancedSettings": "Erweiterte Einstellungen"
+  },
+  "troubleshootPage": {
+    "title": "Fehlerbehebung",
+    "subTitle": "Diese App funktioniert nicht wie erwartet? Hier findest du häufige Lösungsansätze.",
+    "solution": "Lösung:",
+    "fixButton": "Automatisch beheben",
+    "firewall": {
+      "symptom": "Diese App kann Dateien an andere Geräte senden, aber nicht umgekehrt.",
+      "solution": "Dies ist höchstwahrscheinlich ein Firewall-Problem. Du kannst es lösen, indem du eingehende Verbindungen (UDP und TCP) auf Port {port} zulässt.",
+      "openFirewall": "Firewall öffnen"
+    },
+    "noDiscovery": {
+      "symptom": "Dieses Gerät kann keine anderen Geräte entdecken.",
+      "solution": "Stelle sicher, dass alle Geräte im selben Wi-Fi-Netzwerk sind und die gleiche Konfiguration teilen (Port, Multicast-Adresse, Verschlüsselung). Du kannst versuchen, die IP-Adresse des Zielgeräts manuell einzugeben. Wenn dies funktioniert, füge dieses Gerät zu den Favoriten hinzu, damit es in Zukunft automatisch entdeckt werden kann."
+    },
+    "noConnection": {
+      "symptom": "Beide Geräte können sich weder sehen noch können sie Dateien miteinander teilen.",
+      "solution": "Das Problem tritt auf beiden Seiten auf? Dann stelle sicher, dass beide Geräte im selben WLAN sind sowie dieselbe Konfiguration (Port, Multicast-Adresse, Verschlüsselung) haben. Es kann sein, dass das WLAN keine Kommunikation zwischen Teilnehmern erlaubt (AP-Isolation). In diesem Fall muss am Router diese Option aktiviert werden."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Netzwerkschnittstellen",
+    "info": "Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen.",
+    "preview": "Vorschau",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
+  },
+  "receiveHistoryPage": {
+    "title": "Verlauf",
+    "openFolder": "Ordner öffnen",
+    "deleteHistory": "Verlauf löschen",
+    "empty": "Der Verlauf ist leer.",
+    "entryActions": {
+      "open": "Datei öffnen",
+      "showInFolder": "Im Ordner anzeigen",
+      "info": "Information",
+      "deleteFromHistory": "Vom Verlauf entfernen"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "System-Apps ausschließen",
+    "excludeAppsWithoutLaunchIntent": "Nicht-startbare Apps ausschließen",
+    "apps": "{n} Apps"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Alle löschen"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "möchte dir eine Datei senden",
+      "other": "möchte dir {n} Dateien senden"
+    },
+    "subTitleMessage": "sendet dir eine Nachricht:",
+    "subTitleLink": "sendet dir einen Link:",
+    "canceled": "Der Absender hat die Anfrage abgebrochen."
+  },
+  "receiveOptionsPage": {
+    "title": "Optionen",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend-Ordner)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
+  },
+  "sendPage": {
+    "waiting": "Warte auf Antwort…",
+    "rejected": "Der Empfänger hat die Anfrage abgelehnt.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Der Empfänger ist mit einer anderen Anfrage beschäftigt."
+  },
+  "progressPage": {
+    "titleSending": "Sende Dateien",
+    "titleReceiving": "Empfange Dateien",
+    "savedToGallery": "in Fotos gespeichert",
+    "total": {
+      "title": {
+        "sending": "Gesamtfortschritt ({time})",
+        "finishedError": "Abgeschlossen mit Fehler",
+        "canceledSender": "Abgebrochen durch Absender",
+        "canceledReceiver": "Abgebrochen durch Empfänger"
+      },
+      "count": "Dateien: {curr} / {n}",
+      "size": "Größe: {curr} / {n}",
+      "speed": "Geschwindigkeit: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Per Link teilen",
+    "loading": "Starte Server…",
+    "stopping": "Stoppe server…",
+    "error": "Ein Fehler ist beim Starten des Servers aufgetreten.",
+    "openLink": {
+      "one": "Öffne diesen Link im Browser:",
+      "other": "Öffne einer dieser Links im Browser:"
+    },
+    "requests": "Anfragen",
+    "noRequests": "Bisher keine Anfragen erhalten.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Anfragen automatisch akzeptieren",
+    "requirePin": "PIN erforderlich",
+    "pinHint": "Die PIN lautet \"{pin}\"",
+    "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.",
+    "pendingRequests": "Offene Anfragen: {n}"
+  },
+  "aboutPage": {
+    "title": "Über LocalSend",
+    "description": [
+      "LocalSend ist eine kostenlose Open-Source-App, mit der du Dateien und Nachrichten sicher über dein lokales Netzwerk mit Geräten in der Nähe teilen kannst, ohne dass eine Internetverbindung erforderlich ist.",
+      "Diese App ist für Android, iOS, macOS, Windows und Linux verfügbar. Alle Downloadmöglichkeiten findest du auf der offiziellen Homepage."
+    ],
+    "author": "Autor",
+    "contributors": "Mitwirkende",
+    "packagers": "Paketierende",
+    "translators": "Übersetzende"
+  },
+  "donationPage": {
+    "title": "Spenden",
+    "info": "LocalSend ist kostenlos, quelloffen und frei von Werbung. Wenn dir diese App gefällt, kannst du die Entwicklung mit einer Spende unterstützen.",
+    "donate": "Spende {amount}",
+    "thanks": "Vielen Dank für deine Unterstützung!",
+    "restore": "Käufe wiederherstellen"
+  },
+  "changelogPage": {
+    "title": "Änderungsprotokoll"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Zur Auswahl hinzufügen",
+      "content": "Was möchtest du zum Senden hinzufügen?"
+    },
+    "openFile": {
+      "title": "Datei öffnen",
+      "content": "Möchtest du die empfangene Datei öffnen?"
+    },
+    "addressInput": {
+      "title": "Adresse eingeben",
+      "hashtag": "Hashtag",
+      "ip": "IP-Adresse",
+      "recentlyUsed": "Zuletzt verwendet: "
+    },
+    "cancelSession": {
+      "title": "Dateiübertragung abbrechen",
+      "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
+    },
+    "cannotOpenFile": {
+      "title": "Öffnen fehlgeschlagen",
+      "content": "Die Datei \"{file}\" konnte nicht geöffnet werden. Wurde diese Datei verschoben, umbenannt oder gelöscht?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Verschlüsselung deaktiviert",
+      "content": "Die Kommunikation erfolgt nun über das unverschlüsselte HTTP-Protokoll. Um HTTPS zu verwenden, aktiviere wieder die Verschlüsselung."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoriten",
+      "noFavorites": "Keine Favoriten konfiguriert.",
+      "addFavorite": "Neu"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Favorit löschen",
+      "content": "Möchtest du wirklich \"{name}\" löschen?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Favorit hinzufügen",
+      "titleEdit": "Favorit bearbeiten",
+      "name": "Name",
+      "auto": "(auto)",
+      "ip": "IP-Adresse",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Datei-Information",
+      "fileName": "Dateiname:",
+      "path": "Pfad:",
+      "size": "Größe:",
+      "sender": "Absender:",
+      "time": "Zeit:"
+    },
+    "fileNameInput": {
+      "title": "Dateiname eingeben",
+      "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Verlauf löschen",
+      "content": "Möchtest du wirklich den gesamten Verlauf löschen?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend kann nicht auf das lokale Netzwerk zugreifen. Bitte erlaube LocalSend den Zugriff auf das lokale Netzwerk in den Einstellungen.",
+      "gotoSettings": "Einstellungen"
+    },
+    "messageInput": {
+      "title": "Nachricht eingeben",
+      "multiline": "Mehrzeilig"
+    },
+    "noFiles": {
+      "title": "Keine Datei ausgewählt",
+      "content": "Bitte wähle mindestens eine Datei aus."
+    },
+    "noPermission": {
+      "title": "Keine Berechtigung",
+      "content": "Du hast die erforderlichen Berechtigungen nicht gewährt. Bitte gewähre sie in den Einstellungen."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Nicht verfügbar",
+      "content": "Diese Funktion ist nur verfügbar auf:"
+    },
+    "qr": {
+      "title": "QR-Code"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Zähler",
+      "prefix": "Prefix",
+      "padZero": "Mit Nullen auffüllen",
+      "sortBeforeCount": "Vorher alphabetisch sortieren",
+      "random": "Zufall"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Dateianfragen werden automatisch akzeptiert. Beachte, dass jeder im lokalen Netzwerk dir Dateien senden kann."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.",
+        "Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.",
+        "Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät."
+      ]
+    },
+    "pin": {
+      "title": "PIN eingeben"
+    },
+    "sendModeHelp": {
+      "title": "Sendemodus",
+      "single": "Sende Dateien an einen Empfänger. Die Auswahl wird nach Abschluss der Dateiübertragung gelöscht.",
+      "multiple": "Sende Dateien an mehrere Empfänger. Die Auswahl bleibt erhalten.",
+      "link": "Empfänger, die LocalSend nicht installiert haben, können die ausgewählten Dateien herunterladen, in dem sie den Link im Browser öffnen."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Dateiname darf nicht leer sein",
+    "invalid": "Dateiname enthält ungültige Zeichen"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
+    "open": "@:general.open",
+    "close": "LocalSend beenden",
+    "closeWindows": "Beenden"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN eingeben",
+    "invalidPin": "Ungültige PIN",
+    "tooManyAttempts": "Zu viele Versuche",
+    "rejected": "Abgelehnt",
+    "files": "Dateien",
+    "fileName": "Dateiname",
+    "size": "Größe"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "gifIndicator": "GIF",
+    "loadFailed": "Ladevorgang ist fehlgeschlagen",
+    "original": "Ursprung",
+    "preview": "Vorschau",
+    "select": "Auswählen",
+    "emptyList": "Leere Liste",
+    "unSupportedAssetType": "Format ist nicht unterstützt.",
+    "unableToAccessAll": "Zugriff nicht möglich",
+    "viewingLimitedAssetsTip": "Zeige nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
+    "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlaube der App, auf alle Dateien auf dem Gerät zuzugreifen.",
+    "goToSystemSettings": "Gehe zu den Systemeinstellungen",
+    "accessLimitedAssets": "Fahre mit eingeschränktem Zugriff fort",
+    "accessiblePathName": "Verfügbare Assets",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Bild",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Andere Medien",
+    "sActionPlayHint": "Abspielen",
+    "sActionPreviewHint": "Vorschau",
+    "sActionSelectHint": "Auswählen",
+    "sActionSwitchPathLabel": "Dateipfad ändern",
+    "sActionUseCameraHint": "Kamera benutzen",
+    "sNameDurationLabel": "Dauer",
+    "sUnitAssetCountLabel": "Anzahl"
+  }
+}

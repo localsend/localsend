@@ -1,17 +1,33 @@
 import 'package:common/src/isolate/dto/isolate_task.dart';
 
 /// The response data structure from an [IsolateTask].
-class IsolateTaskResult<T> {
+sealed class IsolateTaskResult<T> {
   /// The id of the task to be matched with [IsolateTask.id].
   final int id;
 
+  IsolateTaskResult._({
+    required this.id,
+  });
+}
+
+class IsolateTaskSuccessResult<T> extends IsolateTaskResult<T> {
   /// The payload of the response.
   final T data;
 
-  IsolateTaskResult({
-    required this.id,
+  IsolateTaskSuccessResult({
+    required int id,
     required this.data,
-  });
+  }) : super._(id: id);
+}
+
+class IsolateTaskErrorResult<T> extends IsolateTaskResult<T> {
+  /// The error.
+  final String error;
+
+  IsolateTaskErrorResult({
+    required int id,
+    required this.error,
+  }) : super._(id: id);
 }
 
 /// Stream version of [IsolateTaskResult].

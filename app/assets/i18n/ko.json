@@ -1,0 +1,445 @@
+{
+  "locale": "한국어",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "수락",
+    "accepted": "수락됨",
+    "add": "추가",
+    "advanced": "상세",
+    "cancel": "취소",
+    "close": "닫기",
+    "confirm": "확인",
+    "continueStr": "계속",
+    "copy": "복사",
+    "copiedToClipboard": "클립보드에 복사했습니다",
+    "decline": "거부",
+    "done": "완료",
+    "delete": "삭제",
+    "edit": "편집",
+    "error": "에러",
+    "example": "예시",
+    "files": "파일",
+    "finished": "완료",
+    "hide": "숨김",
+    "off": "꺼짐",
+    "offline": "오프라인",
+    "on": "켜짐",
+    "online": "온라인",
+    "open": "열기",
+    "queue": "대기 중",
+    "quickSave": "빠른 저장",
+    "quickSaveFromFavorites": "\"즐겨찾기\"를 위한 빠른 저장",
+    "renamed": "이름 변경됨",
+    "reset": "리셋",
+    "restart": "재시작",
+    "settings": "설정",
+    "skipped": "건너뜀",
+    "start": "시작",
+    "stop": "정지",
+    "save": "저장",
+    "unchanged": "변경 안 됨",
+    "unknown": "알 수 없음",
+    "noItemInClipboard": "클립보드가 비어있습니다"
+  },
+  "receiveTab": {
+    "title": "받기",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "포트:",
+      "alias": "별명:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "즐겨찾기",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "보내기",
+    "selection": {
+      "title": "선택",
+      "files": "파일 수: {files}",
+      "size": "크기: {size}"
+    },
+    "picker": {
+      "file": "파일",
+      "folder": "폴더",
+      "media": "미디어",
+      "text": "텍스트",
+      "app": "앱",
+      "clipboard": "붙여넣기"
+    },
+    "shareIntentInfo": "휴대전화의 '공유' 기능을 사용하면 보다 편리하게 파일을 선택할 수 있습니다",
+    "nearbyDevices": "근처 기기",
+    "thisDevice": "이 기기",
+    "scan": "기기를 검색하는 중",
+    "manualSending": "수동 전송",
+    "sendMode": "전송 모드",
+    "sendModes": {
+      "single": "하나의 기기에 보내기",
+      "multiple": "여러 기기에 보내기",
+      "link": "링크로 공유하기"
+    },
+    "sendModeHelp": "설명",
+    "help": "보내려는 기기가 동일한 Wi-Fi 네트워크에 연결되어 있는지 확인해 주세요",
+    "placeItems": "드롭하여 공유하기"
+  },
+  "settingsTab": {
+    "title": "설정",
+    "general": {
+      "title": "일반",
+      "brightness": "테마",
+      "brightnessOptions": {
+        "system": "시스템",
+        "dark": "다크",
+        "light": "라이트"
+      },
+      "color": "색상",
+      "colorOptions": {
+        "system": "시스템",
+        "oled": "OLED"
+      },
+      "language": "언어",
+      "languageOptions": {
+        "system": "시스템"
+      },
+      "saveWindowPlacement": "종료 후 창 위치 기억",
+      "saveWindowPlacementWindows": "종료 후 창 위치 기억",
+      "minimizeToTray": "종료 시 시스템 트레이로 최소화",
+      "launchAtStartup": "로그인 시 자동으로 시작",
+      "launchMinimized": "최소화된 상태로 시작",
+      "showInContextMenu": "컨텍스트 메뉴에 LocalSend 표시",
+      "animations": "애니메이션"
+    },
+    "receive": {
+      "title": "받기",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "자동 완료",
+      "destination": "저장 위치",
+      "downloads": "(다운로드 폴더)",
+      "saveToGallery": "갤러리에 미디어 저장",
+      "saveToHistory": "전송 기록 보관"
+    },
+    "send": {
+      "title": "보내기",
+      "shareViaLinkAutoAccept": "\"링크로 공유하기\" 요청 자동 수락"
+    },
+    "network": {
+      "title": "네트워크",
+      "needRestart": "변경 사항을 적용하려면 서버를 다시 시작하세요!",
+      "server": "서버",
+      "alias": "별명",
+      "deviceType": "기기 유형",
+      "deviceModel": "기기 모델",
+      "port": "포트",
+      "discoveryTimeout": "탐색 제한시간",
+      "useSystemName": "시스템 이름 사용",
+      "generateRandomAlias": "무작위 별명 생성",
+      "portWarning": "사용자 지정 포트를 사용하면 다른 장치에서 기기가 감지되지 않을 수 있습니다. (기본값: {defaultPort})",
+      "encryption": "암호화",
+      "multicastGroup": "멀티캐스트",
+      "multicastGroupWarning": "사용자 지정 멀티캐스트 주소를 사용하면 다른 장치에서 기기가 감지되지 않을 수 있습니다. (기본값: {defaultMulticast})"
+    },
+    "other": {
+      "title": "기타",
+      "support": "LocalSend 후원하기",
+      "donate": "기부",
+      "privacyPolicy": "개인정보 처리 방침",
+      "termsOfUse": "이용 약관"
+    },
+    "advancedSettings": "고급 설정"
+  },
+  "troubleshootPage": {
+    "title": "문제 해결",
+    "subTitle": "앱이 제대로 작동하지 않나요? 이 곳에서 일반적인 문제들에 대한 도움말을 찾을 수 있습니다.",
+    "solution": "도움말:",
+    "fixButton": "자동으로 해결하기",
+    "firewall": {
+      "symptom": "파일을 다른 기기로 보내는 데에는 문제가 없으나, 다른 기기로부터 파일을 받을 수 없는 경우",
+      "solution": "방화벽 설정으로 인한 문제일 가능성이 높습니다. {port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.",
+      "openFirewall": "방화벽 열기"
+    },
+    "noDiscovery": {
+      "symptom": "현재 사용 중인 기기에서 다른 기기들이 감지되지 않는 경우",
+      "solution": "사용하려는 모든 기기가 동일한 Wi-Fi 네트워크에 연결되어 있고, 동일한 설정(포트, 멀티캐스트 주소, 암호화)이 적용되어 있는지 확인해보세요. 직접 상대의 IP 주소를 입력하여 기기를 추가할 수도 있습니다. 즐겨찾기에 등록하면 다음부터 자동으로 감지될 수 있습니다."
+    },
+    "noConnection": {
+      "symptom": "양쪽 기기 모두 서로를 감지하지 못하거나, 파일을 전송할 수 없는 경우",
+      "solution": "양쪽 모두에 문제가 있는 경우, 두 기기가 동일한 Wi-Fi 네트워크에 연결되어 있고 동일한 설정(포트, 멀티캐스트 주소, 암호화)이 적용되어 있는지 확인해야 합니다. Wi-Fi 네트워크가 기기 간 통신을 허용하지 않는 경우일 수도 있습니다. 이 경우 라우터에서 관련 옵션을 수정해야 합니다."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "전송 기록",
+    "openFolder": "폴더 열기",
+    "deleteHistory": "기록 삭제",
+    "empty": "전송 기록이 비어 있습니다.",
+    "entryActions": {
+      "open": "파일 열기",
+      "showInFolder": "폴더에서 보기",
+      "info": "정보",
+      "deleteFromHistory": "기록에서 삭제"
+    }
+  },
+  "apkPickerPage": {
+    "title": "앱 (APK)",
+    "excludeSystemApps": "시스템 앱 제외",
+    "excludeAppsWithoutLaunchIntent": "실행할 수 없는 앱 제외",
+    "apps": "{n} 개의 앱"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "모두 삭제"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "에서 파일을 보내려고 합니다",
+      "other": "에서 {n}개의 파일을 보내려고 합니다"
+    },
+    "subTitleMessage": "에서 메시지를 보냈습니다:",
+    "subTitleLink": "에서 링크를 보냈습니다:",
+    "canceled": "보내는 사람이 요청을 취소했습니다."
+  },
+  "receiveOptionsPage": {
+    "title": "설정",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend 폴더)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "폴더가 있어 자동으로 비활성화되었습니다."
+  },
+  "sendPage": {
+    "waiting": "응답 대기 중…",
+    "rejected": "받는 사람이 요청을 거부했습니다",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "받는 사람이 다른 요청을 처리하는 중입니다."
+  },
+  "progressPage": {
+    "titleSending": "파일 보내는 중",
+    "titleReceiving": "파일 받는 중",
+    "savedToGallery": "갤러리에 저장했습니다.",
+    "total": {
+      "title": {
+        "sending": "진행 시간 ({time})",
+        "finishedError": "에러와 함께 종료되었습니다",
+        "canceledSender": "보내는 사람에 의해 취소되었습니다",
+        "canceledReceiver": "받는 사람에 의해 취소되었습니다"
+      },
+      "count": "파일: {curr} / {n}",
+      "size": "크기: {curr} / {n}",
+      "speed": "속도: {speed}/초"
+    }
+  },
+  "webSharePage": {
+    "title": "링크로 공유하기",
+    "loading": "서버 시작 중...",
+    "stopping": "서버 중지 중...",
+    "error": "서버를 시작하는 도중 오류가 발생했습니다.",
+    "openLink": {
+      "one": "해당 링크를 브라우저에서 여세요:",
+      "other": "해당 링크들 중 하나를 브라우저에서 여세요:"
+    },
+    "requests": "요청",
+    "noRequests": "아직 요청이 없습니다.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "요청 자동 수락",
+    "requirePin": "PIN 번호 사용",
+    "pinHint": "PIN 번호는 \"{pin}\" 입니다",
+    "encryptionHint": "LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 이를 허용해야 합니다.",
+    "pendingRequests": "대기 중인 요청: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend 정보",
+    "description": [
+      "LocalSend는 인터넷에 연결하지 않고도 로컬 네트워크를 통해 주변 기기들과 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 앱입니다.",
+      "이 앱은 Android, iOS, macOS, Windows 및 Linux에서 사용할 수 있습니다. 모든 다운로드 옵션은 공식 홈페이지에서 확인할 수 있습니다."
+    ],
+    "author": "작성자",
+    "contributors": "기여자",
+    "packagers": "패키지 관리자",
+    "translators": "번역가"
+  },
+  "donationPage": {
+    "title": "기부",
+    "info": "LocalSend는 광고없이 무료로 제공되는 오픈소스 프로젝트입니다. 앱이 마음에 드신다면 후원을 통해 프로젝트 개발을 지원해주세요.",
+    "donate": "{amount} 기부하기",
+    "thanks": "진심으로 감사드립니다!",
+    "restore": "구매 복원"
+  },
+  "changelogPage": {
+    "title": "변경사항"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "선택 파일 추가",
+      "content": "어떤 파일을 추가할까요?"
+    },
+    "openFile": {
+      "title": "파일 열기",
+      "content": "수신받은 파일을 여시겠습니까?"
+    },
+    "addressInput": {
+      "title": "주소 입력",
+      "hashtag": "해시태그",
+      "ip": "IP 주소",
+      "recentlyUsed": "최근 사용된 주소: "
+    },
+    "cancelSession": {
+      "title": "파일 전송 취소",
+      "content": "정말로 파일 전송을 취소할까요?"
+    },
+    "cannotOpenFile": {
+      "title": "열 수 없는 파일",
+      "content": "\"{file}\" 파일을 열 수 없습니다. 파일의 이름이 변경되었거나 이동 또는 삭제되었는지 확인해주세요."
+    },
+    "encryptionDisabledNotice": {
+      "title": "암호화 비활성화",
+      "content": "이제부터 암호화되지 않은 HTTP 프로토콜로 통신이 이루어집니다. HTTPS 프로토콜을 사용하려면 암호화를 다시 활성화해주세요."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "즐겨찾기",
+      "noFavorites": "즐겨찾기한 기기가 없습니다.",
+      "addFavorite": "추가"
+    },
+    "favoriteDeleteDialog": {
+      "title": "즐겨찾기 삭제",
+      "content": "정말로 \"{name}\" 기기를 즐겨찾기에서 삭제하시겠습니까?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "즐겨찾기 추가",
+      "titleEdit": "편집",
+      "name": "별명",
+      "auto": "(자동)",
+      "ip": "IP 주소",
+      "port": "포트"
+    },
+    "fileInfo": {
+      "title": "파일 정보",
+      "fileName": "파일 이름:",
+      "path": "경로:",
+      "size": "크기:",
+      "sender": "보낸 사람:",
+      "time": "시간:"
+    },
+    "fileNameInput": {
+      "title": "파일 이름 입력",
+      "original": "기존 이름: {original}"
+    },
+    "historyClearDialog": {
+      "title": "기록 삭제",
+      "content": "정말 모든 기록을 삭제하시겠습니까?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend가 다른 기기를 감지하려면 로컬 네트워크 탐색을 위한 권한이 필요합니다. 설정에서 권한을 허용해주세요.",
+      "gotoSettings": "설정"
+    },
+    "messageInput": {
+      "title": "메시지 입력",
+      "multiline": "여러 줄"
+    },
+    "noFiles": {
+      "title": "선택된 파일 없음",
+      "content": "적어도 하나 이상의 파일을 선택해주세요."
+    },
+    "noPermission": {
+      "title": "권한 없음",
+      "content": "필요한 권한이 부여되지 않았습니다. 설정에서 권한을 허용해주세요."
+    },
+    "notAvailableOnPlatform": {
+      "title": "사용 불가",
+      "content": "해당 기능은 다음 플랫폼에서만 사용할 수 있습니다:"
+    },
+    "qr": {
+      "title": "QR 코드"
+    },
+    "quickActions": {
+      "title": "퀵 액션",
+      "counter": "카운터",
+      "prefix": "접두어",
+      "padZero": "0으로 채우기",
+      "sortBeforeCount": "미리 알파벳순으로 정렬",
+      "random": "무작위"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "파일 요청이 자동으로 수락됩니다. 로컬 네트워크 상에 존재하는 모두가 파일을 보낼 수 있다는 점을 명심하세요."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "이제 당신의 즐겨찾기 목록에 포함된 기기로부터 파일을 자동으로 전송받을 수 있습니다.",
+        "경고! 해당 기능은 아직 보안 측면에 있어서 완전하지 않습니다. 즐겨찾기 목록에 포함된 기기의 식별 정보를 가지고 있는 해커라면 아무런 제약없이 당신의 기기로 파일을 전송할 수 있습니다.",
+        "그러나, 로컬 네트워크 상에 존재하는 모든 사용자들로부터 파일을 전송할 수 있도록 허용하는 것보다는 여전히 안전합니다."
+      ]
+    },
+    "pin": {
+      "title": "PIN 번호 입력"
+    },
+    "sendModeHelp": {
+      "title": "전송 모드",
+      "single": "파일을 하나의 기기에 보냅니다. 파일 전송이 완료된 후 선택 항목이 초기화됩니다.",
+      "multiple": "파일을 여러 기기에 보냅니다. 파일 전송이 완료된 뒤에도 선택 항목이 유지됩니다.",
+      "link": "LocalSend가 설치되지 않은 기기에서도 브라우저를 통해 링크에 접속하여 파일을 다운로드 받을 수 있습니다."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "파일 이름은 비워 둘 수 없습니다",
+    "invalid": "파일 이름에 잘못된 문자가 포함되어 있습니다"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "LocalSend 종료하기",
+    "closeWindows": "나가기"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN 번호 입력",
+    "invalidPin": "PIN 번호가 올바르지 않습니다",
+    "tooManyAttempts": "시도 횟수를 초과했습니다",
+    "rejected": "거부됨",
+    "files": "파일",
+    "fileName": "파일 이름",
+    "size": "크기"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "확인",
+    "cancel": "취소",
+    "edit": "편집",
+    "gifIndicator": "GIF",
+    "loadFailed": "불러오기 실패",
+    "original": "원본",
+    "preview": "미리보기",
+    "select": "선택",
+    "emptyList": "목록이 비어있음",
+    "unSupportedAssetType": "지원하지 않는 파일 유형입니다.",
+    "unableToAccessAll": "기기의 모든 파일에 접근할 수 없습니다.",
+    "viewingLimitedAssetsTip": "앱에서 접근할 수 있는 파일과 앨범만 볼 수 있습니다.",
+    "changeAccessibleLimitedAssets": "접근이 허용된 파일 목록을 갱신하려면 클릭하세요.",
+    "accessAllTip": "앱은 기기의 일부 파일에만 접근할 수 있습니다. 설정으로 이동하여 앱이 모든 미디어에 접근할 수 있도록 허용해주세요.",
+    "goToSystemSettings": "설정으로 이동",
+    "accessLimitedAssets": "제한된 접근으로 계속하기",
+    "accessiblePathName": "접근 가능한 파일",
+    "sTypeAudioLabel": "오디오",
+    "sTypeImageLabel": "이미지",
+    "sTypeVideoLabel": "비디오",
+    "sTypeOtherLabel": "기타 미디어",
+    "sActionPlayHint": "재생",
+    "sActionPreviewHint": "미리보기",
+    "sActionSelectHint": "선택",
+    "sActionSwitchPathLabel": "경로 변경",
+    "sActionUseCameraHint": "카메라 사용",
+    "sNameDurationLabel": "길이",
+    "sUnitAssetCountLabel": "개수"
+  }
+}

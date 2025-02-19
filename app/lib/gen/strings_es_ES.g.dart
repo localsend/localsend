@@ -78,6 +78,8 @@ class TranslationsEsEs extends Translations {
   late final _TranslationsWebEsEs web = _TranslationsWebEsEs._(_root);
   @override
   late final _TranslationsAssetPickerEsEs assetPicker = _TranslationsAssetPickerEsEs._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageEsEs networkInterfacesPage = _TranslationsNetworkInterfacesPageEsEs._(_root);
 }
 
 // Path: general
@@ -146,7 +148,7 @@ class _TranslationsGeneralEsEs extends TranslationsGeneralEn {
   @override
   String get renamed => 'Renombrado';
   @override
-  String get reset => 'Resetear';
+  String get reset => 'Deshacer cambios';
   @override
   String get restart => 'Reiniciar';
   @override
@@ -164,7 +166,7 @@ class _TranslationsGeneralEsEs extends TranslationsGeneralEn {
   @override
   String get unknown => 'Desconocido';
   @override
-  String get noItemInClipboard => 'No hay ningún elemento en el portapapeles';
+  String get noItemInClipboard => 'No hay ningún elemento en el portapapeles.';
 }
 
 // Path: receiveTab
@@ -216,9 +218,9 @@ class _TranslationsSendTabEsEs extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'Explicación';
   @override
-  String get help => 'Asegúrate que el destino elegido esté en la misma red Wi-Fi.';
+  String get help => 'Por favor asegúrese que el destino elegido esté en la misma red Wi-Fi.';
   @override
-  String get placeItems => 'Selecciona items para compartir.';
+  String get placeItems => 'Selecciona elementos para compartir.';
 }
 
 // Path: settingsTab
@@ -378,7 +380,7 @@ class _TranslationsSendPageEsEs extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Esperando respuesta...';
+  String get waiting => 'Esperando respuesta…';
   @override
   String get rejected => 'El destino ha rechazado la petición.';
   @override
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageEsEs extends TranslationsWebSharePageEn {
   @override
   String get title => 'Compartir mediante enlace';
   @override
-  String get loading => 'Iniciando servidor...';
+  String get loading => 'Iniciando servidor…';
   @override
-  String get stopping => 'Deteniendo servidor...';
+  String get stopping => 'Deteniendo servidor…';
   @override
   String get error => 'Se ha producido un error al iniciar el servidor.';
   @override
@@ -670,14 +672,14 @@ class _TranslationsAssetPickerEsEs extends TranslationsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'Tipo de archivo no soportado.';
   @override
-  String get unableToAccessAll => 'No se puede acceder a los archivos del dispositivo.';
+  String get unableToAccessAll => 'No se puede acceder a todos los archivos del dispositivo';
   @override
-  String get viewingLimitedAssetsTip => 'Ver sólo los archivos y álbumes accesibles para la aplicación.';
+  String get viewingLimitedAssetsTip => 'Ver solo los archivos y álbumes accesibles para la aplicación.';
   @override
   String get changeAccessibleLimitedAssets => 'Haga clic para actualizar los archivos accesibles';
   @override
   String get accessAllTip =>
-      'La aplicación sólo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.';
+      'La aplicación solo puede acceder a algunos archivos del dispositivo. Ve a la configuración del sistema y permite que la aplicación acceda a todos los archivos multimedia del dispositivo.';
   @override
   String get goToSystemSettings => 'Ir a los ajustes del sistema';
   @override
@@ -706,6 +708,28 @@ class _TranslationsAssetPickerEsEs extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'duración';
   @override
   String get sUnitAssetCountLabel => 'conteo';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageEsEs extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageEsEs._(TranslationsEsEs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces de red';
+  @override
+  String get info =>
+      'De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.';
+  @override
+  String get preview => 'Vista previa';
+  @override
+  String get whitelist => 'Lista de permitidos';
+  @override
+  String get blacklist => 'Lista negra';
 }
 
 // Path: receiveTab.infoBox
@@ -858,7 +882,7 @@ class _TranslationsSettingsTabReceiveEsEs extends TranslationsSettingsTabReceive
   @override
   String get autoFinish => 'Auto finalizar';
   @override
-  String get destination => 'Destino';
+  String get destination => 'Guardar en carpeta';
   @override
   String get downloads => '(Descargas)';
   @override
@@ -894,7 +918,7 @@ class _TranslationsSettingsTabNetworkEsEs extends TranslationsSettingsTabNetwork
   @override
   String get title => 'Red';
   @override
-  String get needRestart => 'Reiniciar el servidor para aplicar los ajustes.';
+  String get needRestart => '¡Reinicia el servidor para aplicar los ajustes!';
   @override
   String get server => 'Servidor';
   @override
@@ -917,10 +941,14 @@ class _TranslationsSettingsTabNetworkEsEs extends TranslationsSettingsTabNetwork
   @override
   String get encryption => 'Encriptación';
   @override
-  String get multicastGroup => 'Multicast';
+  String get multicastGroup => 'Direccion Multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: ${defaultMulticast})';
+  @override
+  String get network => 'Red';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsEsEs networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsEsEs._(_root);
 }
 
 // Path: settingsTab.other
@@ -1393,7 +1421,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeEsEs extends TranslationsD
   List<String> get content => [
         'Se aceptarán automáticamente los archivos recibidos de los dispositivos incluidos en su lista de favoritos.',
         'Advertencia: esta opción no es completamente segura, cualquiera que conozca la huella digital de sus dispositivos favoritos aún puede enviarle archivos.',
-        'Sin embargo, esta opción sigue siendo más segura que permitir cualquier dispositivo',
+        'Sin embargo, esta opción sigue siendo más segura que permitir que todos los usuarios en la red local te envíen archivos sin restricción.',
       ];
 }
 
@@ -1486,6 +1514,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsEsEs extends TranslationsSet
   // Translations
   @override
   String get system => 'Sistema';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsEsEs extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsEsEs._(TranslationsEsEs root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Todo';
+  @override
+  String get filtered => 'Filtrado';
 }
 
 // Path: progressPage.total.title

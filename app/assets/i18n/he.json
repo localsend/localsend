@@ -1,0 +1,457 @@
+{
+  "locale": "עברית",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "אישור",
+    "accepted": "התקבל",
+    "add": "הוספה",
+    "advanced": "מידע נוסף",
+    "cancel": "ביטול",
+    "close": "סגור",
+    "confirm": "אישור",
+    "continueStr": "המשך",
+    "copy": "העתקה",
+    "copiedToClipboard": "הועתק ללוח",
+    "decline": "דחיה",
+    "done": "אישור",
+    "delete": "מחיקה",
+    "edit": "עריכה",
+    "error": "שגיאה",
+    "example": "דוגמא",
+    "files": "קבצים",
+    "finished": "הסתיים",
+    "hide": "הסתרה",
+    "off": "כבויה",
+    "offline": "כבוי",
+    "on": "פעילה",
+    "online": "מקוון",
+    "open": "פתח",
+    "queue": "תור",
+    "quickSave": "שמירה מהירה",
+    "quickSaveFromFavorites": "שמירה מהירה מהמועדפים",
+    "renamed": "שונה שם",
+    "reset": "איפוס",
+    "restart": "הפעל מחדש",
+    "settings": "הגדרות",
+    "skipped": "דילג",
+    "start": "התחל",
+    "stop": "עצור",
+    "save": "שמור",
+    "unchanged": "ללא שינוי",
+    "unknown": "לא ידוע",
+    "noItemInClipboard": "לוח ההעתקה ריק."
+  },
+  "receiveTab": {
+    "title": "קבלה",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "יציאה:",
+      "alias": "כינוי:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "מועדפים",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "שליחה",
+    "selection": {
+      "title": "בחירה",
+      "files": "קבצים: {files}",
+      "size": "גודל: {size}"
+    },
+    "picker": {
+      "file": "קובץ",
+      "folder": "תיקייה",
+      "media": "מדיה",
+      "text": "טקסט",
+      "app": "אפליקציה",
+      "clipboard": "לוח ההעתקה"
+    },
+    "shareIntentInfo": "תוכל גם להשתמש בתכונת \"שתף\" של המכשיר הנייד שלך כדי לבחור קבצים בקלות.",
+    "nearbyDevices": "מכשירים בקרבת מקום",
+    "thisDevice": "המכשיר הזה",
+    "scan": "חפש מכשירים",
+    "manualSending": "שליחה ידנית",
+    "sendMode": "מצב שליחה",
+    "sendModes": {
+      "single": "שליחה למקבל בודד",
+      "multiple": "שליחה למקבלים מרובים",
+      "link": "שיתוף באמצעות קישור"
+    },
+    "sendModeHelp": "עזרה",
+    "help": "אנא ודא שאתה ומכשיר היעד נמצאים באותה רשת WiFi.",
+    "placeItems": "הצב פריטים לשיתוף."
+  },
+  "settingsTab": {
+    "title": "הגדרות",
+    "general": {
+      "title": "כללי",
+      "brightness": "ערכת נושא",
+      "brightnessOptions": {
+        "system": "מערכת",
+        "dark": "כהה",
+        "light": "בהירה"
+      },
+      "color": "צבע",
+      "colorOptions": {
+        "system": "מערכת",
+        "oled": "OLED"
+      },
+      "language": "שפה",
+      "languageOptions": {
+        "system": "מערכת"
+      },
+      "saveWindowPlacement": "יציאה: שמירת מיקום החלון",
+      "saveWindowPlacementWindows": "שמור את מיקום החלון בעת יציאה",
+      "minimizeToTray": "יציאה: מזעור למגש",
+      "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
+      "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
+      "showInContextMenu": "הצג את LocalSend בתפריט ההקשר",
+      "animations": "אנימציות"
+    },
+    "receive": {
+      "title": "קבלה",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "סיום אוטומטי",
+      "destination": "יעד",
+      "downloads": "(הורדות)",
+      "saveToGallery": "שמור מדיה לגלריה",
+      "saveToHistory": "שמור בהיסטוריה"
+    },
+    "send": {
+      "title": "שליחה",
+      "shareViaLinkAutoAccept": "שיתוף באמצעות קישור: אישור אוטומטי"
+    },
+    "network": {
+      "title": "רשת",
+      "needRestart": "הפעל מחדש את השרת כדי להחיל את ההגדרות!",
+      "server": "שרת",
+      "alias": "כינוי",
+      "deviceType": "סוג המכשיר",
+      "deviceModel": "דגם המכשיר",
+      "port": "יציאה",
+      "discoveryTimeout": "זמן קצוב לגילוי",
+      "useSystemName": "השתמש בשם מערכת",
+      "generateRandomAlias": "צור כינוי אקראי",
+      "portWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: {defaultPort})",
+      "encryption": "הצפנה",
+      "multicastGroup": "מולטיקאסט",
+      "multicastGroupWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: {defaultMulticast})",
+      "networkOptions": {
+        "filtered": "מסונן",
+        "all": "הכל"
+      },
+      "network": "רשת"
+    },
+    "other": {
+      "title": "אחר",
+      "support": "תמיכה ב-LocalSend",
+      "donate": "תרומה",
+      "privacyPolicy": "מדיניות פרטיות",
+      "termsOfUse": "תנאי השימוש"
+    },
+    "advancedSettings": "הגדרות מתקדמות"
+  },
+  "troubleshootPage": {
+    "title": "פתרון תקלות",
+    "subTitle": "האפליקציה לא פועלת כראוי? כאן תוכל למצוא פתרונות לבעיות נפוצות.",
+    "solution": "פתרון:",
+    "fixButton": "תקן אוטומטית",
+    "firewall": {
+      "symptom": "האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה.",
+      "solution": "כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה {port}.",
+      "openFirewall": "פתח את חומת האש"
+    },
+    "noDiscovery": {
+      "symptom": "המכשיר הזה לא מצליח לגלות מכשירים אחרים.",
+      "solution": "אנא ודא שכל המכשירים נמצאים באותה רשת Wi-Fi וחולקים את אותה תצורה (יציאה, כתובת ריבוי שידור, הצפנה). אתה יכול לנסות להקליד את כתובת ה-IP של מכשיר היעד באופן ידני. אם זה יעבוד, שקול להוסיף את המכשיר למועדפים כדי שניתן יהיה לגלות אותו אוטומטית בעתיד."
+    },
+    "noConnection": {
+      "symptom": "שני המכשירים לא מצליחים לגלות אחד את השני כדי לשתף קבצים.",
+      "solution": "הבעיה קיימת בשני הצדדים? עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים את אותה תצורה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בראוטר."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "היסטוריה",
+    "openFolder": "פתח תיקייה",
+    "deleteHistory": "מחק היסטוריה",
+    "empty": "ההיסטוריה ריקה.",
+    "entryActions": {
+      "open": "פתח קובץ",
+      "showInFolder": "הצג בתיקייה",
+      "info": "מידע",
+      "deleteFromHistory": "מחק מההיסטוריה"
+    }
+  },
+  "apkPickerPage": {
+    "title": "אפליקציות (APK)",
+    "excludeSystemApps": "אל תכלול אפליקציות מערכת",
+    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות להפעלה",
+    "apps": "{n} אפליקציות"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "מחק הכל"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "רוצה לשלוח לך קובץ",
+      "other": "רוצה לשלוח לך {n} קבצים"
+    },
+    "subTitleMessage": "שלח לך הודעה:",
+    "subTitleLink": "שלח לך קישור:",
+    "canceled": "השולח ביטל את הבקשה."
+  },
+  "receiveOptionsPage": {
+    "title": "אפשרויות",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(תיקיית LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "כבוי באופן אוטומטי בשל קיום ספריות."
+  },
+  "sendPage": {
+    "waiting": "ממתין לתגובה…",
+    "rejected": "הנמען דחה את הבקשה.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "הנמען תפוס בבקשה אחרת."
+  },
+  "progressPage": {
+    "titleSending": "שולח קבצים",
+    "titleReceiving": "מקבל קבצים",
+    "savedToGallery": "נשמר בתמונות",
+    "total": {
+      "title": {
+        "sending": "סה\"כ התקדמות ({time})",
+        "finishedError": "הסתיים עם שגיאה",
+        "canceledSender": "בוטל על ידי השולח",
+        "canceledReceiver": "בוטל על ידי הצד המקבל"
+      },
+      "count": "קבצים: {curr}/{n}",
+      "size": "גודל: {curr}/{n}",
+      "speed": "מהירות: {speed}/שניה"
+    }
+  },
+  "webSharePage": {
+    "title": "שיתוף באמצעות קישור",
+    "loading": "מפעיל את השרת…",
+    "stopping": "עוצר את השרת…",
+    "error": "אירעה שגיאה בזמן הפעלת השרת.",
+    "openLink": {
+      "one": "פתח את הקישור בדפדפן:",
+      "other": "פתח את אחד מהקישורים האלו בדפדפן:"
+    },
+    "requests": "בקשות",
+    "noRequests": "אין כרגע בקשות.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "אישור בקשות באופן אוטומטי",
+    "requirePin": "דרוש סיסמה",
+    "pinHint": "הסיסמה היא \"{pin}\"",
+    "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
+    "pendingRequests": "בקשות בהמתנה: {n}"
+  },
+  "aboutPage": {
+    "title": "אודות LocalSend",
+    "description": [
+      "LocalSend היא אפליקציית קוד פתוח חינמית המאפשרת לשתף קבצים והודעות בצורה מאובטחת עם מכשירים קרובים דרך הרשת המקומית מבלי להזדקק לחיבור לאינטרנט.",
+      "אפליקציה זו זמינה באנדרואיד, iOS, macOS, Windows ו-Linux. אתה יכול למצוא את כל אפשרויות ההורדה בדף הבית הרשמי."
+    ],
+    "author": "יוצר",
+    "contributors": "תורמים",
+    "packagers": "אורזים",
+    "translators": "מתרגמים"
+  },
+  "donationPage": {
+    "title": "תרומה",
+    "info": "אפליקציית LocalSend היא חינמית, קוד פתוח וללא פרסומות. אם אתה אוהב את האפליקציה, אתה יכול לתמוך בפיתוח באמצעות תרומה.",
+    "donate": "תרומת {amount}",
+    "thanks": "תודה רבה!",
+    "restore": "שחזור רכישה"
+  },
+  "changelogPage": {
+    "title": "יומן שינויים"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "הוסף לבחירה",
+      "content": "מה אתה רוצה להוסיף?"
+    },
+    "openFile": {
+      "title": "פתח קובץ",
+      "content": "האם ברצונך לפתוח את הקובץ שהתקבל?"
+    },
+    "addressInput": {
+      "title": "הכנס כתובת",
+      "hashtag": "סולמית",
+      "ip": "כתובת ה-IP",
+      "recentlyUsed": "בשימוש לאחרונה: "
+    },
+    "cancelSession": {
+      "title": "בטל את העברת הקבצים",
+      "content": "האם אתה באמת רוצה לבטל את העברת הקבצים?"
+    },
+    "cannotOpenFile": {
+      "title": "לא ניתן לפתוח את הקובץ",
+      "content": "לא ניתן לפתוח את \"{file}\". האם הקובץ הועבר, הועתק או נמחק?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "ההצפנה מנוטרלת",
+      "content": "התקשורת כעת מתבצעת בפרוטוקול HTTP שאינו מוצפן. כדי להשתמש ב-HTTPS, יש להפעיל שוב את ההצפנה."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "מועדפים",
+      "noFavorites": "עדיין אין מכשירים מועדפים.",
+      "addFavorite": "הוספה"
+    },
+    "favoriteDeleteDialog": {
+      "title": "הסרה מהמועדפים",
+      "content": "האם אתה באמת רוצה להסיר מהמועדפים \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "הוסף למועדפים",
+      "titleEdit": "עריכה",
+      "name": "כינוי",
+      "auto": "(אוטומטי)",
+      "ip": "כתובת IP",
+      "port": "יציאה"
+    },
+    "fileInfo": {
+      "title": "מידע על הקובץ",
+      "fileName": "שם הקובץ:",
+      "path": "נתיב:",
+      "size": "גודל:",
+      "sender": "שולח:",
+      "time": "זמן:"
+    },
+    "fileNameInput": {
+      "title": "הזן את שם הקובץ",
+      "original": "מקורי: {original}"
+    },
+    "historyClearDialog": {
+      "title": "ניקוי היסטוריה",
+      "content": "האם אתה באמת רוצה למחוק את כל ההיסטוריה?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "ל־LocalSend אין אפשרות למצוא מכשירים אחרים ללא הרשאה לסריקת הרשת המקומית. אנא הענק את ההרשאה הזו בהגדרות.",
+      "gotoSettings": "הגדרות"
+    },
+    "messageInput": {
+      "title": "הקלד הודעה",
+      "multiline": "מרובה שורות"
+    },
+    "noFiles": {
+      "title": "לא נבחר אף קובץ",
+      "content": "אנא בחר קובץ אחד לפחות."
+    },
+    "noPermission": {
+      "title": "אין הרשאה",
+      "content": "לא הענקת את ההרשאות הנדרשות. אנא הענק את ההרשאות בהגדרות."
+    },
+    "notAvailableOnPlatform": {
+      "title": "לא זמין",
+      "content": "תכונה זו זמינה רק במערכות הבאות:"
+    },
+    "qr": {
+      "title": "קוד QR"
+    },
+    "quickActions": {
+      "title": "פעולות מהירות",
+      "counter": "מונה",
+      "prefix": "קידומת",
+      "padZero": "ריפוד באפסים",
+      "sortBeforeCount": "מיין תחילה בסדר אלפביתי",
+      "random": "אקראי"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "בקשות שליחה מתקבלות אוטומטית. שים לב שכל אחד ברשת המקומית יוכל לשלוח לך קבצים."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "כעת בקשות לקבצים ייתקבלו אוטומטית ממכשירים ברשימת המועדפים שלך.",
+        "אזהרה: כרגע זה לא לגמרי מאובטח מכיוון שהאקר שנמצא ברשת שלך ויודע את טביעת האצבע של המכשירים האהובים עליך עדיין יכול לשלוח לך קבצים ללא אישור.",
+        "עם זאת, אפשרות זו עדיין מאובטחת יותר מאשר לאפשר קבלה אוטומטית מכל מכשיר."
+      ]
+    },
+    "pin": {
+      "title": "הזן סיסמה"
+    },
+    "sendModeHelp": {
+      "title": "מצבי שליחה",
+      "single": "שליחת קבצים למקבל בודד. בחירת הקבצים תתאפס לאחר השליחה.",
+      "multiple": "שליחת קבצים למקבלים מרובים. בחירת הקבצים לא תתאפס.",
+      "link": "מקבלים ש-LocalSend לא מותקן אצלם יוכלו להוריד את הקבצים שנבחרו על ידי פתיחת הקישור בדפדפן שלהם."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "שם הקובץ לא יכול להיות ריק",
+    "invalid": "שם הקובץ מכיל תווים לא חוקיים"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "צא מ-LocalSend",
+    "closeWindows": "יציאה"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "הזן סיסמה",
+    "invalidPin": "סיסמה לא חוקית",
+    "tooManyAttempts": "בוצעו יותר מידי ניסיונות כושלים",
+    "rejected": "נדחה",
+    "files": "קבצים",
+    "fileName": "שם קובץ",
+    "size": "גודל"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "אישור",
+    "cancel": "ביטול",
+    "edit": "עריכה",
+    "gifIndicator": "GIF",
+    "loadFailed": "טעינת הקובץ נכשלה",
+    "original": "מקור",
+    "preview": "תצוגה מקדימה",
+    "select": "בחירה",
+    "emptyList": "רשימה ריקה",
+    "unSupportedAssetType": "סוג קובץ לא נתמך.",
+    "unableToAccessAll": "לא ניתן לגשת לכל הקבצים במכשיר",
+    "viewingLimitedAssetsTip": "ניתן להציג רק קבצים ואלבומים שנגישים לאפליקציה.",
+    "changeAccessibleLimitedAssets": "לחץ כדי לעדכן את הקבצים הנגישים",
+    "accessAllTip": "האפליקציה יכולה לגשת רק לקבצים מסוימים במכשיר. עבור להגדרות המערכת ואפשר לאפליקציה לגשת לכל הקבצים שבמכשיר.",
+    "goToSystemSettings": "מעבר להגדרות המערכת",
+    "accessLimitedAssets": "המשך עם גישה מוגבלת",
+    "accessiblePathName": "קבצים שנגישים",
+    "sTypeAudioLabel": "שמע",
+    "sTypeImageLabel": "תמונה",
+    "sTypeVideoLabel": "סרטון",
+    "sTypeOtherLabel": "סוגים אחרים",
+    "sActionPlayHint": "הפעלה",
+    "sActionPreviewHint": "תצוגה מקדימה",
+    "sActionSelectHint": "בחירה",
+    "sActionSwitchPathLabel": "שינוי נתיב",
+    "sActionUseCameraHint": "שימוש במצלמה",
+    "sNameDurationLabel": "אורך",
+    "sUnitAssetCountLabel": "מספר"
+  },
+  "networkInterfacesPage": {
+    "title": "ממשקי רשת",
+    "info": "כברירת מחדל, LocalSend משתמש בכל ממשקי הרשת הזמינים. באפשרותך להסיר רשתות שאינן רצויות כאן. עליך להפעיל מחדש את השרת כדי להחיל את השינויים.",
+    "preview": "תצוגה מקדימה",
+    "whitelist": "רשימה לבנה",
+    "blacklist": "רשימה שחורה"
+  }
+}

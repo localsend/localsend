@@ -1,0 +1,446 @@
+{
+  "locale": "Türkçe",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Kabul et",
+    "accepted": "Kabul edildi",
+    "add": "Ekle",
+    "advanced": "Gelişmiş",
+    "cancel": "İptal et",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "continueStr": "Devam et",
+    "copy": "Kopyala",
+    "copiedToClipboard": "Panoya kopyalandı",
+    "decline": "Reddet",
+    "done": "Bitir",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "error": "Hata",
+    "example": "Örnek",
+    "files": "Dosyalar",
+    "finished": "Sonlandırıldı",
+    "hide": "Gizle",
+    "off": "Kapalı",
+    "offline": "Çevrim dışı",
+    "on": "Açık",
+    "online": "Çevrim içi",
+    "open": "Aç",
+    "queue": "Sıra",
+    "quickSave": "Hızlı kaydetme",
+    "quickSaveFromFavorites": "Favoriler",
+    "renamed": "Yeniden adlandırıldı",
+    "reset": "Sıfırla",
+    "restart": "Yeniden başlat",
+    "settings": "Ayarlar",
+    "skipped": "Geçildi",
+    "start": "Başlat",
+    "stop": "Durdur",
+    "save": "Kaydet",
+    "unchanged": "Değiştirilmemiş",
+    "unknown": "Bilinmiyor",
+    "noItemInClipboard": "Panoda öğe yok."
+  },
+  "receiveTab": {
+    "title": "Alım",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Takma isminiz:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoriler",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Gönder",
+    "selection": {
+      "title": "Seçiminiz",
+      "files": "Dosyalar: {files}",
+      "size": "Boyut: {size}"
+    },
+    "picker": {
+      "file": "Dosya",
+      "folder": "Klasör",
+      "media": "Medya",
+      "text": "Metin",
+      "app": "Uygulama",
+      "clipboard": "Yapıştır"
+    },
+    "shareIntentInfo": "Dosyalarınızı daha kolay seçmek için cihazınızın \"Paylaş\" özelliğini kullanabilirsiniz.",
+    "nearbyDevices": "Yakınınızdaki cihazlar",
+    "thisDevice": "Cihazınız",
+    "scan": "Cihazları tara",
+    "manualSending": "Manuel Gönderme",
+    "sendMode": "Gönderme Modu",
+    "sendModes": {
+      "single": "Tek alıcı",
+      "multiple": "Birden fazla alıcı",
+      "link": "Link üzerinden paylaşın"
+    },
+    "sendModeHelp": "Açıklama",
+    "help": "Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.",
+    "placeItems": "Paylaşmak istediğiniz dosyayı yerleştiriniz."
+  },
+  "settingsTab": {
+    "title": "Ayarlar",
+    "general": {
+      "title": "Genel",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistem teması",
+        "dark": "Koyu",
+        "light": "Açık"
+      },
+      "color": "Renk",
+      "colorOptions": {
+        "system": "Sistem",
+        "oled": "OLED"
+      },
+      "language": "Dil",
+      "languageOptions": {
+        "system": "Sistem dili"
+      },
+      "saveWindowPlacement": "Çıkış: Burayı Kaydet",
+      "saveWindowPlacementWindows": "Çıkıştan sonra pencere konumunu kaydet",
+      "minimizeToTray": "Çıkış: Simge durumuna küçült",
+      "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
+      "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
+      "showInContextMenu": "LocalSend'i bağlam menüsünde göster",
+      "animations": "Animasyonlar"
+    },
+    "receive": {
+      "title": "Alım",
+      "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Otomatik bitir",
+      "destination": "Hedef klasör",
+      "downloads": "(İndirilenler)",
+      "saveToGallery": "Medyayı galeriye kaydet",
+      "saveToHistory": "Geçmişe kaydet"
+    },
+    "send": {
+      "title": "Gönder",
+      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et"
+    },
+    "network": {
+      "title": "Ağ",
+      "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
+      "server": "Sunucu",
+      "alias": "Takma isminiz",
+      "deviceType": "Cihaz tipi",
+      "deviceModel": "Cihaz modeli",
+      "port": "Port",
+      "discoveryTimeout": "Arama zaman aşımına uğradı",
+      "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
+      "encryption": "Şifreleme",
+      "multicastGroup": "Çoklu yayın",
+      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})",
+      "network": "Ağ",
+      "networkOptions": {
+        "all": "Tümü"
+      },
+      "useSystemName": "Sistem adını kullan",
+      "generateRandomAlias": "Rastgele takma ad oluştur"
+    },
+    "other": {
+      "title": "Diğer",
+      "support": "LocalSend'i destekle",
+      "donate": "Bağış yap",
+      "privacyPolicy": "Gizlilik politikası",
+      "termsOfUse": "Kullanım koşulları"
+    },
+    "advancedSettings": "Gelişmiş ayarlar"
+  },
+  "troubleshootPage": {
+    "title": "Sorun Giderme",
+    "subTitle": "Bu uygulama beklendiği gibi çalışmıyor mu? Burada ortak çözümler bulabilirsiniz.",
+    "solution": "Çözüm:",
+    "fixButton": "Otomatik olarak düzelt",
+    "firewall": {
+      "symptom": "Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.",
+      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
+      "openFirewall": "Güvenlik Duvarını Aç"
+    },
+    "noDiscovery": {
+      "symptom": "Bu cihaz diğer cihazları keşfedemez.",
+      "solution": "Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün."
+    },
+    "noConnection": {
+      "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
+      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Geçmiş",
+    "openFolder": "Dosyayı aç",
+    "deleteHistory": "Geçmişi sil",
+    "empty": "Geçmiş yok.",
+    "entryActions": {
+      "open": "Dosya aç",
+      "showInFolder": "Klasörde göster",
+      "info": "Bilgi",
+      "deleteFromHistory": "Geçmişten sil"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Uygulamalar (APK)",
+    "excludeSystemApps": "Sistem uygulamalarını hariç tut",
+    "excludeAppsWithoutLaunchIntent": "Başlatılamayan uygulamaları hariç tut",
+    "apps": "{n} Uygulamalar"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Hepsini sil"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "sana bir dosya göndermek istiyor",
+      "other": "sana {n} tane dosya göndermek istiyor"
+    },
+    "subTitleMessage": "bir mesaj gönderdi:",
+    "subTitleLink": "bir bağlantı gönderdi:",
+    "canceled": "Gönderici isteği iptal etti."
+  },
+  "receiveOptionsPage": {
+    "title": "Seçenekler",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend klasörü)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
+  },
+  "sendPage": {
+    "waiting": "Alıcıdan cevap bekleniyor…",
+    "rejected": "Alıcı isteği reddetti.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Alıcı başka bir istekle meşgul."
+  },
+  "progressPage": {
+    "titleSending": "Dosyalar gönderiliyor",
+    "titleReceiving": "Dosyalar alınıyor",
+    "savedToGallery": "Galeriye kaydedildi",
+    "total": {
+      "title": {
+        "sending": "Toplam ilerleme ({time})",
+        "finishedError": "İşlem hatayla sonuçlandı",
+        "canceledSender": "Gönderici tarafından iptal edildi",
+        "canceledReceiver": "Alıcı tarafından iptal edildi"
+      },
+      "count": "Dosyalar: {curr} / {n}",
+      "size": "Boyut: {curr} / {n}",
+      "speed": "Hız: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Link üzerinden paylaşın",
+    "loading": "Sunucu başlıyor…",
+    "stopping": "Sunucu durduruluyor…",
+    "error": "Sunucuyu başlatırken bir hata oluştu.",
+    "openLink": {
+      "one": "Bu bağlantıyı tarayıcıda açın:",
+      "other": "Bu bağlantılardan birini tarayıcıda açın:"
+    },
+    "requests": "İstekler",
+    "noRequests": "Henüz istek yok.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "İstekleri otomatik olarak kabul et",
+    "requirePin": "PIN gerektir",
+    "pinHint": "PIN \"{pin}\"",
+    "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
+    "pendingRequests": "Bekleyen istekler: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend hakkında",
+    "description": [
+      "LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.",
+      "Bu uygulama Android, iOS, macOS, Windows ve Linux'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz."
+    ],
+    "author": "Yazar",
+    "contributors": "Katkıda bulunanlar",
+    "packagers": "Paketleyiciler",
+    "translators": "Çevirmenler"
+  },
+  "donationPage": {
+    "title": "Bağış yap",
+    "info": "LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Eğer uygulamayı beğendiyseniz, bağış yaparak uygulamanın gelişimine katkıda bulunabilirsiniz.",
+    "donate": "Bağışta bulun {amount}",
+    "thanks": "Çok teşekkür ederim!",
+    "restore": "Satın alınanları geri yükle"
+  },
+  "changelogPage": {
+    "title": "Değişiklik günlüğü"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Seçime ekle",
+      "content": "Ne eklemek istiyorsunuz ?"
+    },
+    "addressInput": {
+      "title": "Adresi giriniz",
+      "hashtag": "Hashtag",
+      "ip": "IP adresi",
+      "recentlyUsed": "Daha önce kullanılmış: "
+    },
+    "cancelSession": {
+      "title": "Dosya transferini iptal et",
+      "content": "Gerçekten dosya transferini iptal etmek istiyor musunuz?"
+    },
+    "cannotOpenFile": {
+      "title": "Dosya açılamadı",
+      "content": "\"{file}\" dosyası açılamadı. Dosya taşınmış, silinmiş veya ismi değiştirilmiş olabilir mi?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Şifreleme devre dışı bırakıldı",
+      "content": "Artık iletişim şifrelenmemiş HTTP protokolü aracılığıyla gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi yeniden aktif edin."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favoriler",
+      "noFavorites": "Henüz favori cihaz yok.",
+      "addFavorite": "Ekle"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Favorilerden sil",
+      "content": "Favorilerden \"{name}\" öğesini gerçekten silmek istiyor musunuz?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Favorilere ekle",
+      "titleEdit": "Düzenle",
+      "name": "Takma ad",
+      "auto": "(otomatik)",
+      "ip": "IP Adresi",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Dosya bilgileri",
+      "fileName": "Dosya adı:",
+      "path": "Yolu:",
+      "size": "Boyutu:",
+      "sender": "Gönderen:",
+      "time": "Zaman:"
+    },
+    "fileNameInput": {
+      "title": "Dosya adını giriniz",
+      "original": "Orijinal: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Geçmişi temizle",
+      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
+      "gotoSettings": "Ayarlar"
+    },
+    "messageInput": {
+      "title": "Mesaj yazınız",
+      "multiline": "Çok satırlı mesaj"
+    },
+    "noFiles": {
+      "title": "Herhangi bir dosya seçilmedi",
+      "content": "Lütfen bir dosya seçiniz."
+    },
+    "noPermission": {
+      "title": "İzin yok",
+      "content": "Gerekli izinleri vermediniz. Lütfen ayarlardan izinleri verin."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Müsait değil",
+      "content": "Bu özellik yalnızca şurada mevcuttur:"
+    },
+    "qr": {
+      "title": "QR Kod"
+    },
+    "quickActions": {
+      "title": "Hızlı eylemler",
+      "counter": "Sayaç",
+      "prefix": "Ön ek",
+      "padZero": "Sıfırlar ile doldurun",
+      "sortBeforeCount": "Önceden alfabetik olarak sırala",
+      "random": "Rastgele"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
+    },
+    "pin": {
+      "title": "PIN girin"
+    },
+    "sendModeHelp": {
+      "title": "Gönderme Modu",
+      "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
+      "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
+      "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
+    },
+    "zoom": {
+      "title": "URL"
+    },
+    "openFile": {
+      "title": "Dosya Aç",
+      "content": "Alınan dosyayı açmak istiyor musunuz?"
+    }
+  },
+  "sanitization": {
+    "empty": "Dosya ismi boş olamaz",
+    "invalid": "Dosya ismi geçersiz karakter bulunduruyor"
+  },
+  "tray": {
+    "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
+    "open": "@:general.open",
+    "close": "LocalSend'den çık",
+    "closeWindows": "Çıkış"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN girin",
+    "invalidPin": "Geçersiz PIN",
+    "tooManyAttempts": "Çok fazla deneme",
+    "rejected": "Reddedildi",
+    "files": "Dosyalar",
+    "fileName": "Dosya adı",
+    "size": "Boyut"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Onay",
+    "cancel": "İptal",
+    "edit": "Düzenle",
+    "gifIndicator": "GIF",
+    "loadFailed": "Yükleme başarısız",
+    "original": "Orijinal",
+    "preview": "Ön izleme",
+    "select": "Seç",
+    "emptyList": "Boş liste",
+    "unSupportedAssetType": "Desteklenmeyen dosya türü.",
+    "unableToAccessAll": "Cihazdaki tüm dosyalara erişilemiyor",
+    "viewingLimitedAssetsTip": "Yalnızca uygulamanın erişilebilir dosyalarını ve albümlerini görüntüleyin.",
+    "changeAccessibleLimitedAssets": "Erişilebilir dosyaları güncellemek için tıklayın",
+    "accessAllTip": "Uygulama yalnızca cihazdaki bazı dosyalara erişebilir. Sistem ayarlarına gidin ve uygulamanın cihazdaki tüm medyalara erişmesine izin verin.",
+    "goToSystemSettings": "Sistem ayarlarına gidin",
+    "accessLimitedAssets": "Sınırlı Erişimle Devam Et",
+    "accessiblePathName": "Erişilebilir dosyalar",
+    "sTypeAudioLabel": "Ses",
+    "sTypeImageLabel": "Görüntü",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Diğer medya",
+    "sActionPlayHint": "oynat",
+    "sActionPreviewHint": "Ön izleme",
+    "sActionSelectHint": "seç",
+    "sActionSwitchPathLabel": "dosya uzantısını değiştir",
+    "sActionUseCameraHint": "Kamera kullan",
+    "sNameDurationLabel": "süre",
+    "sUnitAssetCountLabel": "sayım"
+  },
+  "networkInterfacesPage": {
+    "title": "Ağ Arayüzleri",
+    "preview": "Önizle",
+    "whitelist": "Beyaz liste",
+    "blacklist": "Kara liste"
+  }
+}

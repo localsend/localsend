@@ -180,6 +180,8 @@ class _TranslationsReceiveTabNl extends TranslationsReceiveTabEn {
   String get title => 'Ontvangen';
   @override
   late final _TranslationsReceiveTabInfoBoxNl infoBox = _TranslationsReceiveTabInfoBoxNl._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveNl quickSave = _TranslationsReceiveTabQuickSaveNl._(_root);
 }
 
 // Path: sendTab
@@ -529,6 +531,8 @@ class _TranslationsDialogsNl extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileNl addFile = _TranslationsDialogsAddFileNl._(_root);
   @override
+  late final _TranslationsDialogsOpenFileNl openFile = _TranslationsDialogsOpenFileNl._(_root);
+  @override
   late final _TranslationsDialogsAddressInputNl addressInput = _TranslationsDialogsAddressInputNl._(_root);
   @override
   late final _TranslationsDialogsCancelSessionNl cancelSession = _TranslationsDialogsCancelSessionNl._(_root);
@@ -719,6 +723,23 @@ class _TranslationsReceiveTabInfoBoxNl extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Poort:';
   @override
   String get alias => 'Apparaatnaam:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveNl extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveNl._(TranslationsNl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favorieten';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -1025,6 +1046,21 @@ class _TranslationsDialogsAddFileNl extends TranslationsDialogsAddFileEn {
   String get title => 'Toevoegen aan selectie';
   @override
   String get content => 'Wat wil je toevoegen?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileNl extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileNl._(TranslationsNl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Bestand openen';
+  @override
+  String get content => 'Wil je het ontvangen bestand openen?';
 }
 
 // Path: dialogs.addressInput
@@ -1354,6 +1390,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeNl extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.',
+        'Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.',
+        'Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden.',
+      ];
 }
 
 // Path: dialogs.pin

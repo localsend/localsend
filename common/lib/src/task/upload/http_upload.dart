@@ -1,18 +1,17 @@
 import 'package:common/api_route_builder.dart';
 import 'package:common/model/device.dart';
-import 'package:common/src/isolate/child/dio_provider.dart';
-import 'package:dio/dio.dart';
+import 'package:common/src/isolate/child/http_provider.dart';
 import 'package:refena/refena.dart';
 
 final httpUploadProvider = ViewProvider((ref) {
-  final dio = ref.watch(dioProvider).longLiving;
-  return HttpUploadService(dio);
+  final client = ref.watch(httpProvider).longLiving;
+  return HttpUploadService(client);
 });
 
 class HttpUploadService {
-  final Dio _dio;
+  final CustomHttpClient _client;
 
-  HttpUploadService(this._dio);
+  HttpUploadService(this._client);
 
   Future<void> upload({
     required Stream<List<int>> stream,
@@ -23,28 +22,21 @@ class HttpUploadService {
     required String fileId,
     required String token,
     required void Function(double) onSendProgress,
-    required CancelToken cancelToken,
+    required CustomCancelToken cancelToken,
   }) async {
-    final stopwatch = Stopwatch()..start();
-    await _dio.post(
-      ApiRoute.upload.target(target, query: {
+    await _client.postStream(
+      uri: ApiRoute.upload.target(target),
+      query: {
         if (remoteSessionId != null) 'sessionId': remoteSessionId,
         'fileId': fileId,
         'token': token,
-      }),
-      options: Options(
-        headers: {
-          'Content-Length': contentLength,
-          'Content-Type': contentType,
-        },
-      ),
-      data: stream,
-      onSendProgress: (curr, total) {
-        if (stopwatch.elapsedMilliseconds >= 100) {
-          stopwatch.reset();
-          onSendProgress(curr / total);
-        }
       },
+      headers: {
+        'Content-Length': contentLength.toString(),
+        'Content-Type': contentType,
+      },
+      stream: stream,
+      onSendProgress: onSendProgress,
       cancelToken: cancelToken,
     );
   }

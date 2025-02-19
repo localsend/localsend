@@ -1,0 +1,527 @@
+{
+  "locale": "Hindi",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "स्वीकार करें",
+    "accepted": "स्वीकृत",
+    "add": "जोड़ें",
+    "advanced": "उन्नत",
+    "cancel": "रद्द करें",
+    "close": "बंद करें",
+    "confirm": "पुष्टि करें",
+    "continueStr": "जारी रखें",
+    "copy": "नकल करें",
+    "copiedToClipboard": "क्लिपबोर्ड पर कॉपी किया गया",
+    "decline": "अस्वीकार करें",
+    "done": "हो गया",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "error": "त्रुटि",
+    "example": "उदाहरण",
+    "files": "फाइलें",
+    "finished": "समाप्त",
+    "hide": "छुपाएं",
+    "off": "बंद",
+    "offline": "ऑफ़लाइन",
+    "on": "चालू",
+    "online": "ऑनलाइन",
+    "open": "खोलें",
+    "queue": "कतार",
+    "quickSave": "त्वरित सहेजें",
+    "quickSaveFromFavorites": "\"पसंदीदा\" के लिए त्वरित सहेजें।",
+    "renamed": "नाम बदला गया",
+    "reset": "रीसेट करें",
+    "restart": "पुनः प्रारंभ करें",
+    "settings": "सेटिंग्स",
+    "skipped": "छोड़ा गया",
+    "start": "प्रारंभ करें",
+    "stop": "रोकें",
+    "save": "सहेजें",
+    "unchanged": "अपरिवर्तित",
+    "unknown": "अज्ञात",
+    "noItemInClipboard": "क्लिपबोर्ड में कोई आइटम नहीं"
+  },
+  "receiveTab": {
+    "title": "प्राप्त करें",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "पोर्ट:",
+      "alias": "डिवाइस का नाम:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "पसंदीदा",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "भेजें",
+    "selection": {
+      "title": "चयन",
+      "files": "फाइलें: {files}",
+      "size": "साइज़: {size}"
+    },
+    "picker": {
+      "file": "फाइल",
+      "folder": "फ़ोल्डर",
+      "media": "मीडिया",
+      "text": "पाठ",
+      "app": "एप",
+      "clipboard": "पेस्ट"
+    },
+    "shareIntentInfo": "आप अपने मोबाइल डिवाइस की \"शेयर\" सुविधा का उपयोग करके फाइलें अधिक आसानी से चुन सकते हैं।",
+    "nearbyDevices": "निकटवर्ती उपकरण",
+    "thisDevice": "यह डिवाइस",
+    "scan": "उपकरणों को खोजें",
+    "manualSending": "मैन्युअल भेजना",
+    "sendMode": "भेजने का मोड",
+    "sendModes": {
+      "single": "एकल प्राप्तकर्ता",
+      "multiple": "एकाधिक प्राप्तकर्ता",
+      "link": "लिंक के माध्यम से साझा करें"
+    },
+    "sendModeHelp": "व्याख्या",
+    "help": "कृपया सुनिश्चित करें कि वांछित लक्ष्य भी उसी वाई-फाई नेटवर्क पर हो।",
+    "placeItems": "साझा करने के लिए आइटम रखें।"
+  },
+  "settingsTab": {
+    "title": "सेटिंग्स",
+    "general": {
+      "title": "सामान्य",
+      "brightness": "थीम",
+      "brightnessOptions": {
+        "system": "सिस्टम",
+        "dark": "डार्क",
+        "light": "लाइट"
+      },
+      "color": "रंग",
+      "colorOptions": {
+        "system": "सिस्टम",
+        "oled": "OLED"
+      },
+      "language": "भाषा",
+      "languageOptions": {
+        "system": "सिस्टम"
+      },
+      "saveWindowPlacement": "बंद करें: विंडो प्लेसमेंट सहेजें",
+      "saveWindowPlacementWindows": "बाहर निकलने के बाद विंडो की स्थिति सहेजें।",
+      "minimizeToTray": "बंद करें: ट्रे/मेनू बार में मिनिमाइज करें",
+      "launchAtStartup": "लॉगिन के बाद ऑटोस्टार्ट",
+      "launchMinimized": "ऑटोस्टार्ट: छुपा हुआ प्रारंभ करें",
+      "showInContextMenu": "कॉन्टेक्स्ट मेनू में LocalSend दिखाएं",
+      "animations": "एनिमेशन"
+    },
+    "receive": {
+      "title": "प्राप्त करें",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "स्वतः समाप्त",
+      "destination": "गंतव्य",
+      "downloads": "(डाउनलोड्स)",
+      "saveToGallery": "मीडिया को गैलरी में सहेजें",
+      "saveToHistory": "इतिहास में सहेजें"
+    },
+    "send": {
+      "title": "भेजें",
+      "shareViaLinkAutoAccept": "लिंक के माध्यम से साझा करें: स्वतः स्वीकार"
+    },
+    "network": {
+      "title": "नेटवर्क",
+      "needRestart": "सेटिंग्स लागू करने के लिए सर्वर को पुनः प्रारंभ करें!",
+      "server": "सर्वर",
+      "alias": "डिवाइस का नाम",
+      "deviceType": "डिवाइस का प्रकार",
+      "deviceModel": "डिवाइस का मॉडल",
+      "port": "पोर्ट",
+      "discoveryTimeout": "खोज का समय समाप्त",
+      "useSystemName": "सिस्टम नाम का उपयोग करें",
+      "generateRandomAlias": "रैंडम उपनाम जनरेट करें",
+      "portWarning": "आप कस्टम पोर्ट का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultPort})",
+      "encryption": "एन्क्रिप्शन",
+      "multicastGroup": "मल्टीकास्ट",
+      "multicastGroupWarning": "आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultMulticast})",
+      "network": "नेटवर्क",
+      "networkOptions": {
+        "all": "सब",
+        "filtered": "परिष्कृत"
+      }
+    },
+    "other": {
+      "title": "अन्य",
+      "support": "LocalSend का समर्थन करें",
+      "donate": "दान करें",
+      "privacyPolicy": "गोपनीयता नीति",
+      "termsOfUse": "उपयोग की शर्तें"
+    },
+    "advancedSettings": "उन्नत सेटिंग्स"
+  },
+  "troubleshootPage": {
+    "title": "समस्या निवारण",
+    "subTitle": "क्या ऐप उम्मीद के मुताबिक काम नहीं कर रहा है? यहाँ आप कुछ सामान्य समाधान पा सकते हैं।",
+    "solution": "समाधान:",
+    "fixButton": "स्वतः ठीक करें",
+    "firewall": {
+      "symptom": "यह ऐप अन्य उपकरणों को फाइल भेज सकता है; लेकिन अन्य उपकरण इस डिवाइस को फाइल नहीं भेज सकते।",
+      "solution": "यह संभवतः फ़ायरवॉल समस्या है। आप इसे पोर्ट {port} पर आने वाले कनेक्शनों (UDP और TCP) को अनुमति देकर हल कर सकते हैं।",
+      "openFirewall": "फायरवॉल खोलें"
+    },
+    "noDiscovery": {
+      "symptom": "यह डिवाइस अन्य डिवाइसों को ढूंढ नहीं सकता।",
+      "solution": "सुनिश्चित करें कि सभी डिवाइस एक ही वाई-फाई नेटवर्क से जुड़े हों। पोर्ट, मल्टीकास्ट पता और एन्क्रिप्शन की सेटिंग्स समान होनी चाहिए। यदि डिवाइस नहीं मिलता है, तो लक्ष्य डिवाइस का आईपी पता स्वयं दर्ज करें। अगर यह काम करता है, तो डिवाइस को पसंदीदा में सहेजें ताकि भविष्य में स्वचालित रूप से मिल सके।"
+    },
+    "noConnection": {
+      "symptom": "दोनों उपकरण एक दूसरे को खोज नहीं सकते और न ही वे फाइल साझा कर सकते हैं।",
+      "solution": "क्या समस्या दोनों तरफ मौजूद है? अगर हाँ, तो आपको यह सुनिश्चित करना होगा कि दोनों डिवाइस एक ही वाई-फ़ाई नेटवर्क पर हैं और एक ही कॉन्फ़िगरेशन (पोर्ट, मल्टीकास्ट पता, एन्क्रिप्शन) साझा करते हैं। नेटवर्क प्रतिभागियों के बीच संचार की अनुमति नहीं दे सकता है। इस मामले में, यह विकल्प राउटर पर सक्षम होना चाहिए।"
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "इतिहास",
+    "openFolder": "फ़ोल्डर खोलें",
+    "deleteHistory": "इतिहास हटाएं",
+    "empty": "इतिहास खाली है।",
+    "entryActions": {
+      "open": "फाइल खोलें",
+      "showInFolder": "फ़ोल्डर में दिखाएं",
+      "info": "जानकारी",
+      "deleteFromHistory": "इतिहास से हटाएं"
+    }
+  },
+  "apkPickerPage": {
+    "title": "ऐप्स (APK)",
+    "excludeSystemApps": "सिस्टम ऐप्स को बाहर रखें",
+    "excludeAppsWithoutLaunchIntent": "लॉन्च न किए जा सकने वाले ऐप्स को बाहर रखें",
+    "apps": "{n} ऐप्स"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "सभी हटाएं"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "आपको एक फाइल भेजना चाहता है",
+      "other": "आपको {n} फाइलें भेजना चाहता है"
+    },
+    "subTitleMessage": "ने आपको एक संदेश भेजा:",
+    "subTitleLink": "ने आपको एक लिंक भेजा:",
+    "canceled": "प्रेषक ने अनुरोध रद्द कर दिया है।"
+  },
+  "receiveOptionsPage": {
+    "title": "विकल्प",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend फ़ोल्डर)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "स्वचालित रूप से बंद कर दिया गया क्योंकि वहाँ निर्देशिकाएँ हैं।"
+  },
+  "sendPage": {
+    "waiting": "प्रतिक्रिया का इंतजार कर रहे हैं...",
+    "rejected": "प्राप्तकर्ता ने अनुरोध अस्वीकार कर दिया।",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "प्राप्तकर्ता किसी अन्य अनुरोध में व्यस्त है।"
+  },
+  "progressPage": {
+    "titleSending": "फ़ाइलें भेजी जा रही",
+    "titleReceiving": "फ़ाइलें प्राप्त की जा रही",
+    "savedToGallery": "गैलरी में सहेजा गया",
+    "total": {
+      "title": {
+        "sending": "कुल प्रगति ({time})",
+        "finishedError": "त्रुटि के साथ समाप्त हुआ",
+        "canceledSender": "प्रेषक द्वारा रद्द किया गया",
+        "canceledReceiver": "प्राप्तकर्ता द्वारा रद्द किया गया"
+      },
+      "count": "फाइलें: {curr}/{n}",
+      "size": "आकार: {curr}/{n}",
+      "speed": "गति: {speed}/सेकंड"
+    }
+  },
+  "webSharePage": {
+    "title": "लिंक के माध्यम से साझा करें",
+    "loading": "सर्वर शुरू हो रहा है...",
+    "stopping": "सर्वर बंद हो रहा है...",
+    "error": "सर्वर शुरू करते समय एक त्रुटि हुई।",
+    "openLink": {
+      "one": "अपने ब्राउज़र में इस लिंक को खोलें:",
+      "other": "अपने ब्राउज़र में इन लिंक में से एक को खोलें:"
+    },
+    "requests": "अनुरोध",
+    "noRequests": "अभी तक कोई अनुरोध नहीं।",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "अनुरोधों को स्वचालित रूप से स्वीकार करें",
+    "requirePin": "पिन आवश्यक है",
+    "pinHint": "पिन \"{pin}\" है",
+    "encryptionHint": "LocalSend एक स्व-हस्ताक्षरित प्रमाणपत्र का उपयोग करता है। आपको इसे अपने ब्राउज़र में स्वीकार करना होगा।",
+    "pendingRequests": "लंबित अनुरोध: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend के बारे में",
+    "description": [
+      "LocalSend एक मुफ्त, ओपन-सोर्स ऐप है जो आपको अपने स्थानीय नेटवर्क पर पास के डिवाइसों के साथ इंटरनेट कनेक्शन की आवश्यकता के बिना सुरक्षित रूप से फाइलें और संदेश साझा करने की अनुमति देता है।",
+      "यह ऐप Android, iOS, macOS, Windows और Linux पर उपलब्ध है। आप सभी डाउनलोड विकल्पों को आधिकारिक होमपेज पर पा सकते हैं।"
+    ],
+    "author": "लेखक",
+    "contributors": "योगदानकर्ताओं",
+    "packagers": "पैकेजर्स",
+    "translators": "अनुवादकों"
+  },
+  "donationPage": {
+    "title": "दान करें",
+    "info": "LocalSend मुफ्त, ओपन-सोर्स और बिना किसी विज्ञापन के है। यदि आपको ऐप पसंद है, तो आप विकास का समर्थन दान करके कर सकते हैं।",
+    "donate": "दान करें {amount}",
+    "thanks": "बहुत बहुत धन्यवाद!",
+    "restore": "खरीदारी पुनर्स्थापित करें"
+  },
+  "changelogPage": {
+    "title": "परिवर्तन सूची"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "प्यारा",
+      "सुंदर",
+      "बड़ा",
+      "उज्ज्वल",
+      "स्वच्छ",
+      "चतुर",
+      "शांत",
+      "प्यारा",
+      "चालाक",
+      "दृढ़निश्चयी",
+      "ऊर्जावान",
+      "कुशल",
+      "शानदार",
+      "तेज",
+      "अच्छा",
+      "ताजा",
+      "अच्छा",
+      "गजब का",
+      "महान",
+      "सुडौल",
+      "गर्म",
+      "दयालु",
+      "सुंदर",
+      "रहस्यमय",
+      "साफ-सुथरा",
+      "अच्छा",
+      "धैर्यवान",
+      "सुंदर",
+      "शक्तिशाली",
+      "धनी",
+      "गुप्त",
+      "स्मार्ट",
+      "ठोस",
+      "विशेष",
+      "रणनीतिक",
+      "मजबूत",
+      "साफ-सुथरा",
+      "बुद्धिमान"
+    ],
+    "fruits": [
+      "सेब",
+      "एवोकाडो",
+      "केला",
+      "ब्लैकबेरी",
+      "ब्लूबेरी",
+      "ब्रोकली",
+      "गाजर",
+      "चेरी",
+      "नारियल",
+      "अंगूर",
+      "नींबू",
+      "सलाद पत्ता",
+      "आम",
+      "खरबूजा",
+      "मशरूम",
+      "प्याज",
+      "संतरा",
+      "पपीता",
+      "आड़ू",
+      "नाशपाती",
+      "अनानास",
+      "आलू",
+      "कद्दू",
+      "रसभरी",
+      "स्ट्रॉबेरी",
+      "टमाटर"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "फाइल जोड़ें",
+      "content": "आप क्या जोड़ना चाहते हैं?"
+    },
+    "openFile": {
+      "title": "फ़ाइल खोलें",
+      "content": "क्या आप प्राप्त फ़ाइल खोलना चाहते हैं?"
+    },
+    "addressInput": {
+      "title": "पता दर्ज करें",
+      "hashtag": "हैशटैग",
+      "ip": "IP पता",
+      "recentlyUsed": "हाल ही में उपयोग किया गया: "
+    },
+    "cancelSession": {
+      "title": "फ़ाइल स्थानांतरण रद्द करें",
+      "content": "क्या आप वास्तव में फ़ाइल स्थानांतरण रद्द करना चाहते हैं?"
+    },
+    "cannotOpenFile": {
+      "title": "फ़ाइल नहीं खोल सकते",
+      "content": "\"{file}\" खोल नहीं सके। क्या यह फ़ाइल स्थानांतरित कर दी गई या नाम बदला या हटा दिया गया है?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "एन्क्रिप्शन अक्षम",
+      "content": "अब संचार बिना एन्क्रिप्ट किए हुए HTTP प्रोटोकॉल के माध्यम से होता है। HTTPS का उपयोग करने के लिए, एन्क्रिप्शन को फिर से सक्षम करें।"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "पसंदीदा",
+      "noFavorites": "अभी तक कोई पसंदीदा डिवाइस नहीं है।",
+      "addFavorite": "जोड़ें"
+    },
+    "favoriteDeleteDialog": {
+      "title": "पसंदीदा से हटाएँ",
+      "content": "क्या आप वास्तव में \"{name}\" को पसंदीदा से हटाना चाहते हैं?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "पसंदीदा में जोड़ें",
+      "titleEdit": "सेटिंग्स",
+      "name": "डिवाइस नाम",
+      "auto": "(auto)",
+      "ip": "IP पता",
+      "port": "पोर्ट"
+    },
+    "fileInfo": {
+      "title": "फ़ाइल की जानकारी",
+      "fileName": "फ़ाइल का नाम:",
+      "path": "पथ:",
+      "size": "आकार:",
+      "sender": "प्रेषक:",
+      "time": "समय:"
+    },
+    "fileNameInput": {
+      "title": "फ़ाइल का नाम दर्ज करें",
+      "original": "मूल: {original}"
+    },
+    "historyClearDialog": {
+      "title": "इतिहास साफ करें",
+      "content": "क्या आप वास्तव में पूरे इतिहास को हटाना चाहते हैं?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend स्थानीय नेटवर्क को स्कैन करने की अनुमति के बिना अन्य डिवाइसों को नहीं ढूंढ सकता। कृपया सेटिंग्स में यह अनुमति दें।",
+      "gotoSettings": "सेटिंग्स"
+    },
+    "messageInput": {
+      "title": "संदेश टाइप करें",
+      "multiline": "मल्टीलाइन"
+    },
+    "noFiles": {
+      "title": "कोई फ़ाइल चयनित नहीं",
+      "content": "कृपया कम से कम एक फ़ाइल का चयन करें।"
+    },
+    "noPermission": {
+      "title": "अनुमति नहीं",
+      "content": "आपने आवश्यक अनुमतियाँ नहीं दी हैं। कृपया सेटिंग्स में उन्हें अनुमति दें।"
+    },
+    "notAvailableOnPlatform": {
+      "title": "उपलब्ध नहीं",
+      "content": "यह सुविधा केवल यहां उपलब्ध है:"
+    },
+    "qr": {
+      "title": "QR कोड"
+    },
+    "quickActions": {
+      "title": "त्वरित क्रियाएँ",
+      "counter": "काउंटर",
+      "prefix": "प्रिफिक्स",
+      "padZero": "शून्य के साथ पैड करें",
+      "sortBeforeCount": "पहले वर्णानुक्रम में क्रमबद्ध करें",
+      "random": "यादृच्छिक"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "फ़ाइल अनुरोध स्वचालित रूप से स्वीकार कर लिए जाते हैं। ध्यान दें कि स्थानीय नेटवर्क पर सभी लोग आपको फ़ाइलें भेज सकते हैं।"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "अब आपके पसंदीदा सूची में शामिल डिवाइसों से फ़ाइल अनुरोध स्वतः स्वीकार किए जाएंगे।",
+        "चेतावनी! वर्तमान में, यह पूरी तरह से सुरक्षित नहीं है, क्योंकि कोई हैकर जो आपकी पसंदीदा सूची में शामिल किसी भी डिवाइस का फ़िंगरप्रिंट प्राप्त कर लेता है, वह बिना किसी प्रतिबंध के आपको फ़ाइलें भेज सकता है।",
+        "हालांकि, यह विकल्प अभी भी उन सभी उपयोगकर्ताओं को बिना प्रतिबंध फ़ाइलें भेजने की अनुमति देने की तुलना में सुरक्षित है, जो स्थानीय नेटवर्क पर हैं।"
+      ]
+    },
+    "pin": {
+      "title": "PIN दर्ज करें"
+    },
+    "sendModeHelp": {
+      "title": "भेजने के मोड",
+      "single": "एक प्राप्तकर्ता को फ़ाइलें भेजता है। फ़ाइल ट्रांसफर समाप्त होने के बाद चयन हटा दिया जाएगा।",
+      "multiple": "कई प्राप्तकर्ताओं को फ़ाइलें भेजता है। चयन हटाया नहीं जाएगा।",
+      "link": "जिन प्राप्तकर्ताओं के पास LocalSend इंस्टॉल नहीं है, वे अपने ब्राउज़र में लिंक खोलकर चयनित फ़ाइलें डाउनलोड कर सकते हैं।"
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "फ़ाइल नाम खाली नहीं हो सकता",
+    "invalid": "फ़ाइल नाम में अमान्य वर्ण हैं"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "LocalSend बंद करें",
+    "closeWindows": "बाहर जाएं।"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN दर्ज करें",
+    "invalidPin": "अमान्य PIN",
+    "tooManyAttempts": "बहुत अधिक प्रयास",
+    "rejected": "अस्वीकृत",
+    "files": "फ़ाइलें",
+    "fileName": "फ़ाइल नाम",
+    "size": "आकार"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "confirm": "पुष्ट करें",
+    "cancel": "रद्द करें",
+    "edit": "संपादित करें",
+    "gifIndicator": "GIF",
+    "loadFailed": "लोड विफल",
+    "original": "मूल",
+    "preview": "पूर्वावलोकन",
+    "select": "चुनें",
+    "emptyList": "खाली सूची",
+    "unSupportedAssetType": "असमर्थित फ़ाइल प्रकार।",
+    "unableToAccessAll": "डिवाइस पर सभी फ़ाइलों तक पहुंच असमर्थ",
+    "viewingLimitedAssetsTip": "केवल उन फ़ाइलों और एलबमों को देखें जो ऐप तक पहुंच योग्य हैं।",
+    "changeAccessibleLimitedAssets": "पहुंच योग्य फ़ाइलों को अपडेट करने के लिए क्लिक करें",
+    "accessAllTip": "ऐप डिवाइस पर केवल कुछ फ़ाइलों तक पहुंच सकता है। सिस्टम सेटिंग्स पर जाएं और ऐप को डिवाइस पर सभी मीडिया तक पहुंच की अनुमति दें।",
+    "goToSystemSettings": "सिस्टम सेटिंग्स पर जाएं",
+    "accessLimitedAssets": "सीमित पहुंच के साथ जारी रखें",
+    "accessiblePathName": "पहुंच योग्य फ़ाइलें",
+    "sTypeAudioLabel": "ऑडियो",
+    "sTypeImageLabel": "फोटो",
+    "sTypeVideoLabel": "वीडियो",
+    "sTypeOtherLabel": "अन्य मीडिया",
+    "sActionPlayHint": "चलाएँ",
+    "sActionPreviewHint": "पूर्वावलोकन",
+    "sActionSelectHint": "चुनें",
+    "sActionSwitchPathLabel": "मार्ग बदलें",
+    "sActionUseCameraHint": "कैमरा का उपयोग करें",
+    "sNameDurationLabel": "अवधि",
+    "sUnitAssetCountLabel": "गणना"
+  },
+  "networkInterfacesPage": {
+    "title": "नेटवर्क इंटरफेस",
+    "info": "डिफ़ॉल्ट रूप से, LocalSend सभी उपलब्ध नेटवर्क इंटरफेस का उपयोग करता है। आप यहां अवांछित नेटवर्क को बाहर कर सकते हैं। परिवर्तनों को लागू करने के लिए आपको सर्वर को पुनः आरंभ करना होगा।",
+    "preview": "पूर्वावलोकन",
+    "whitelist": "श्वेतसूची",
+    "blacklist": "काले सूची"
+  }
+}

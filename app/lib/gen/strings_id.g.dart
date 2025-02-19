@@ -67,6 +67,8 @@ class TranslationsId extends Translations {
   @override
   late final _TranslationsChangelogPageId changelogPage = _TranslationsChangelogPageId._(_root);
   @override
+  late final _TranslationsAliasGeneratorId aliasGenerator = _TranslationsAliasGeneratorId._(_root);
+  @override
   late final _TranslationsDialogsId dialogs = _TranslationsDialogsId._(_root);
   @override
   late final _TranslationsSanitizationId sanitization = _TranslationsSanitizationId._(_root);
@@ -77,7 +79,7 @@ class TranslationsId extends Translations {
   @override
   late final _TranslationsAssetPickerId assetPicker = _TranslationsAssetPickerId._(_root);
   @override
-  late final _TranslationsAliasGeneratorId aliasGenerator = _TranslationsAliasGeneratorId._(_root);
+  late final _TranslationsNetworkInterfacesPageId networkInterfacesPage = _TranslationsNetworkInterfacesPageId._(_root);
 }
 
 // Path: general
@@ -108,7 +110,7 @@ class _TranslationsGeneralId extends TranslationsGeneralEn {
   @override
   String get copy => 'Salin';
   @override
-  String get copiedToClipboard => 'Disalin ke Papan klip';
+  String get copiedToClipboard => 'Disalin ke Papan Klip';
   @override
   String get decline => 'Tolak';
   @override
@@ -116,9 +118,9 @@ class _TranslationsGeneralId extends TranslationsGeneralEn {
   @override
   String get delete => 'Hapus';
   @override
-  String get edit => 'Ubah';
+  String get edit => 'Sunting';
   @override
-  String get error => 'Kesalahan';
+  String get error => 'Galat';
   @override
   String get example => 'Contoh';
   @override
@@ -142,11 +144,11 @@ class _TranslationsGeneralId extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Penyimpanan Cepat';
   @override
-  String get quickSaveFromFavorites => 'Simpan Cepat untuk "Favorites"';
+  String get quickSaveFromFavorites => 'Simpan Cepat di “Favorit”';
   @override
-  String get renamed => 'Berganti nama';
+  String get renamed => 'Ganti nama';
   @override
-  String get reset => 'Atur Ulang';
+  String get reset => 'Batalkan perubahan';
   @override
   String get restart => 'Mengulang Kembali';
   @override
@@ -160,11 +162,11 @@ class _TranslationsGeneralId extends TranslationsGeneralEn {
   @override
   String get save => 'Simpan';
   @override
-  String get unchanged => 'Tidak berubah';
+  String get unchanged => 'Takberubah';
   @override
-  String get unknown => 'Tidak dikenal';
+  String get unknown => 'Takdikenal';
   @override
-  String get noItemInClipboard => 'Tidak ada butir di Papan klip';
+  String get noItemInClipboard => 'Tidak ada item di Papan Klip.';
 }
 
 // Path: receiveTab
@@ -180,6 +182,8 @@ class _TranslationsReceiveTabId extends TranslationsReceiveTabEn {
   String get title => 'Terima';
   @override
   late final _TranslationsReceiveTabInfoBoxId infoBox = _TranslationsReceiveTabInfoBoxId._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveId quickSave = _TranslationsReceiveTabQuickSaveId._(_root);
 }
 
 // Path: sendTab
@@ -198,15 +202,15 @@ class _TranslationsSendTabId extends TranslationsSendTabEn {
   @override
   late final _TranslationsSendTabPickerId picker = _TranslationsSendTabPickerId._(_root);
   @override
-  String get shareIntentInfo => 'Anda juga dapat menggunakan fitur "Berbagi" untuk memilih berkas dengan lebih mudah.';
+  String get shareIntentInfo => 'Anda juga dapat menggunakan fitur "Berbagi" agar dapat memilih berkas dengan lebih mudah.';
   @override
   String get nearbyDevices => 'Perangkat Terdekat';
   @override
-  String get thisDevice => 'Perangkat ini';
+  String get thisDevice => 'Perangkat Ini';
   @override
   String get scan => 'Cari perangkat';
   @override
-  String get manualSending => 'Kirim Manual';
+  String get manualSending => 'Kirim secara manual';
   @override
   String get sendMode => 'Mode Pengiriman';
   @override
@@ -214,7 +218,7 @@ class _TranslationsSendTabId extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'Penjelasan';
   @override
-  String get help => 'Pastikan perangkat terkoneksi pada jaringan yang sama.';
+  String get help => 'Pastikan perangkat tujuan juga terkoneksi pada jaringan Wi-Fi yang sama.';
   @override
   String get placeItems => 'Letakkan item untuk dibagikan.';
 }
@@ -256,9 +260,9 @@ class _TranslationsTroubleshootPageId extends TranslationsTroubleshootPageEn {
   @override
   String get title => 'Perbaikan Masalah';
   @override
-  String get subTitle => 'Aplikasi ini tidak berfungsi seperti yang diharapkan? Di sini Anda dapat menemukan solusi umum.';
+  String get subTitle => 'Aplikasi ini tidak berfungsi seperti yang diharapkan? Temukan penyelesaian masalah umum di sini.';
   @override
-  String get solution => 'Solusi:';
+  String get solution => 'Penyelesaian:';
   @override
   String get fixButton => 'Perbaiki secara otomatis';
   @override
@@ -334,13 +338,13 @@ class _TranslationsReceivePageId extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('id'))(
         n,
-        one: 'ingin mengirim berkas',
-        other: 'ingin mengirim ${n} berkas',
+        one: 'ingin mengirimi Anda sebuah berkas',
+        other: 'ingin mengirimi Anda ${n} berkas',
       );
   @override
-  String get subTitleMessage => 'mengirim pesan:';
+  String get subTitleMessage => 'mengirimi Anda pesan sbb.:';
   @override
-  String get subTitleLink => 'mengirim tautan:';
+  String get subTitleLink => 'mengirimi Anda tautan sbb.:';
   @override
   String get canceled => 'Pengirim membatalkan permintaan.';
 }
@@ -355,7 +359,7 @@ class _TranslationsReceiveOptionsPageId extends TranslationsReceiveOptionsPageEn
 
   // Translations
   @override
-  String get title => 'Opsi';
+  String get title => 'Pilihan';
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
@@ -376,7 +380,7 @@ class _TranslationsSendPageId extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Menunggu respons...';
+  String get waiting => 'Menunggu tanggapan…';
   @override
   String get rejected => 'Penerima menolak permintaan.';
   @override
@@ -399,7 +403,7 @@ class _TranslationsProgressPageId extends TranslationsProgressPageEn {
   @override
   String get titleReceiving => 'Menerima Berkas';
   @override
-  String get savedToGallery => 'Simpan ke galeri';
+  String get savedToGallery => 'Simpan di galeri';
   @override
   late final _TranslationsProgressPageTotalId total = _TranslationsProgressPageTotalId._(_root);
 }
@@ -416,11 +420,11 @@ class _TranslationsWebSharePageId extends TranslationsWebSharePageEn {
   @override
   String get title => 'Bagikan melalui Tautan';
   @override
-  String get loading => 'Memulai server...';
+  String get loading => 'Memulai peladen…';
   @override
-  String get stopping => 'Menghentikan server...';
+  String get stopping => 'Menghentikan peladen…';
   @override
-  String get error => 'Terjadi kesalahan saat memulai server.';
+  String get error => 'Ada galat saat menjalankan peladen.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('id'))(
         n,
@@ -442,7 +446,7 @@ class _TranslationsWebSharePageId extends TranslationsWebSharePageEn {
   @override
   String get encryptionHint => 'LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.';
   @override
-  String pendingRequests({required Object n}) => 'Permintaan tertunda: ${n}';
+  String pendingRequests({required Object n}) => 'Banyaknya permintaan yang tertunda: ${n}';
 }
 
 // Path: aboutPage
@@ -458,8 +462,8 @@ class _TranslationsAboutPageId extends TranslationsAboutPageEn {
   String get title => 'Tentang LocalSend';
   @override
   List<String> get description => [
-        'LocalSend adalah aplikasi gratis, open-source yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.',
-        'Aplikasi ini tersedia untuk Android, iOS, macOS, Windows, dan Linux. Semua opsi unduhan dapat ditemukan di situs resmi kami.',
+        'LocalSend adalah aplikasi gratis dan bersumber terbuka yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.',
+        'Aplikasi ini tersedia untuk platform Android, iOS, macOS, Windows, dan Linux. Semua pilihan pengunduhan dapat ditemukan di laman situs resmi kami.',
       ];
   @override
   String get author => 'Pembuat';
@@ -484,7 +488,7 @@ class _TranslationsDonationPageId extends TranslationsDonationPageEn {
   String get title => 'Donasi';
   @override
   String get info =>
-      'LocalSend adalah aplikasi gratis, terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, Anda bisa mendukung kami dengan memberikan donasi.';
+      'LocalSend adalah aplikasi gratis, bersumber terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, mohon berikan kami dukungan dengan cara memberikan donasi.';
   @override
   String donate({required Object amount}) => 'Donasi ${amount}';
   @override
@@ -506,6 +510,17 @@ class _TranslationsChangelogPageId extends TranslationsChangelogPageEn {
   String get title => 'Catatan Perubahan';
 }
 
+// Path: aliasGenerator
+class _TranslationsAliasGeneratorId extends TranslationsAliasGeneratorEn {
+  _TranslationsAliasGeneratorId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+}
+
 // Path: dialogs
 class _TranslationsDialogsId extends TranslationsDialogsEn {
   _TranslationsDialogsId._(TranslationsId root)
@@ -517,6 +532,8 @@ class _TranslationsDialogsId extends TranslationsDialogsEn {
   // Translations
   @override
   late final _TranslationsDialogsAddFileId addFile = _TranslationsDialogsAddFileId._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileId openFile = _TranslationsDialogsOpenFileId._(_root);
   @override
   late final _TranslationsDialogsAddressInputId addressInput = _TranslationsDialogsAddressInputId._(_root);
   @override
@@ -578,7 +595,7 @@ class _TranslationsSanitizationId extends TranslationsSanitizationEn {
   @override
   String get empty => 'Nama berkas tidak boleh kosong';
   @override
-  String get invalid => 'Nama berkas mengandung karakter yang tidak valid';
+  String get invalid => 'Nama berkas mengandung karakter yang takvalid';
 }
 
 // Path: tray
@@ -635,11 +652,11 @@ class _TranslationsAssetPickerId extends TranslationsAssetPickerEn {
 
   // Translations
   @override
-  String get confirm => 'Konfirmasi';
+  String get confirm => 'Konfirmasikan';
   @override
-  String get cancel => 'Batal';
+  String get cancel => 'Batalkan';
   @override
-  String get edit => 'Ubah';
+  String get edit => 'Sunting';
   @override
   String get gifIndicator => 'GIF';
   @override
@@ -659,7 +676,7 @@ class _TranslationsAssetPickerId extends TranslationsAssetPickerEn {
   @override
   String get viewingLimitedAssetsTip => 'Hanya melihat berkas dan album yang dapat diakses oleh aplikasi.';
   @override
-  String get changeAccessibleLimitedAssets => 'Klik untuk memperbarui berkas yang dapat diakses';
+  String get changeAccessibleLimitedAssets => 'Klik untuk memutakhirkan berkas yang dapat diakses';
   @override
   String get accessAllTip =>
       'Aplikasi hanya dapat mengakses beberapa berkas di perangkat. Pergi ke pengaturan sistem dan izinkan aplikasi untuk mengakses semua media di perangkat.';
@@ -668,7 +685,7 @@ class _TranslationsAssetPickerId extends TranslationsAssetPickerEn {
   @override
   String get accessLimitedAssets => 'Lanjutkan dengan akses terbatas';
   @override
-  String get accessiblePathName => 'berkas yang dapat diakses';
+  String get accessiblePathName => 'Berkas yang dapat diakses';
   @override
   String get sTypeAudioLabel => 'Audio';
   @override
@@ -690,12 +707,12 @@ class _TranslationsAssetPickerId extends TranslationsAssetPickerEn {
   @override
   String get sNameDurationLabel => 'Durasi';
   @override
-  String get sUnitAssetCountLabel => 'jumlah';
+  String get sUnitAssetCountLabel => 'Jumlah';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorId extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorId._(TranslationsId root)
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageId extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageId._(TranslationsId root)
       : this._root = root,
         super.internal(root);
 
@@ -703,79 +720,16 @@ class _TranslationsAliasGeneratorId extends TranslationsAliasGeneratorEn {
 
   // Translations
   @override
-  List<String> get adjectives => [
-        'Menarik',
-        'Cantik',
-        'Besar',
-        'Cerah',
-        'Bersih',
-        'Cerdik',
-        'Keren',
-        'Imut',
-        'Licik',
-        'Tekun',
-        'Giat',
-        'Efisien',
-        'Luar biasa',
-        'Cepat',
-        'Baik',
-        'Segar',
-        'Bagus',
-        'Menawan',
-        'Sangat Bagus',
-        'Tampan',
-        'Panas',
-        'Baik',
-        'Menyenangkan',
-        'Mistik',
-        'Rapi',
-        'Bagus',
-        'Sabar',
-        'Cantik',
-        'Kuat',
-        'Kaya',
-        'Rahasia',
-        'Cerdas',
-        'Kukuh',
-        'Khusus',
-        'Strategis',
-        'Tangguh',
-        'Rapi',
-        'Bijak',
-      ];
+  String get title => 'Antarmuka Jaringan';
   @override
-  List<String> get fruits => [
-        'Apel',
-        'Alpukat',
-        'Pisang',
-        'Blackberry',
-        'Bluberi',
-        'Brokoli',
-        'Wortel',
-        'Ceri',
-        'Kelapa',
-        'Anggur',
-        'Lemon',
-        'Selada',
-        'Mangga',
-        'Melon',
-        'Jamur',
-        'Bawang',
-        'Jeruk',
-        'Pepaya',
-        'Persik',
-        'Pir',
-        'Nanas',
-        'Kentang',
-        'Labu',
-        'Rasberi',
-        'Stroberi',
-        'Tomat',
-      ];
-
-  /// Pada beberapa bahasa, kata sifat harus diletakkan terakhir.
+  String get preview => 'Pratinjau';
   @override
-  String combination({required Object fruit, required Object adjective}) => '${fruit} ${adjective}';
+  String get whitelist => 'Daftar putih';
+  @override
+  String get blacklist => 'Daftar hitam';
+  @override
+  String get info =>
+      'Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.';
 }
 
 // Path: receiveTab.infoBox
@@ -792,7 +746,24 @@ class _TranslationsReceiveTabInfoBoxId extends TranslationsReceiveTabInfoBoxEn {
   @override
   String get port => 'Porta:';
   @override
-  String get alias => 'Alias:';
+  String get alias => 'Nama perangkat:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveId extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favorit';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -824,7 +795,7 @@ class _TranslationsSendTabPickerId extends TranslationsSendTabPickerEn {
   @override
   String get file => 'Berkas';
   @override
-  String get folder => 'Folder';
+  String get folder => 'Direktori';
   @override
   String get media => 'Media';
   @override
@@ -847,9 +818,9 @@ class _TranslationsSendTabSendModesId extends TranslationsSendTabSendModesEn {
   @override
   String get single => 'Penerima tunggal';
   @override
-  String get multiple => 'Penerima ganda';
+  String get multiple => 'Banyak penerima';
   @override
-  String get link => 'Bagikan melalui Tautan';
+  String get link => 'Bagikan melalui tautan';
 }
 
 // Path: settingsTab.general
@@ -884,7 +855,7 @@ class _TranslationsSettingsTabGeneralId extends TranslationsSettingsTabGeneralEn
   @override
   String get launchAtStartup => 'Mulai otomatis setelah masuk';
   @override
-  String get launchMinimized => 'Mulai otomatis: Berjalan di latar belakang';
+  String get launchMinimized => 'Mulai otomatis: Berjalan di latar';
   @override
   String get showInContextMenu => 'Tampilkan LocalSend di menu konteks';
   @override
@@ -947,9 +918,9 @@ class _TranslationsSettingsTabNetworkId extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Jaringan';
   @override
-  String get needRestart => 'Mulai ulang untuk menerapkan!';
+  String get needRestart => 'Mulai ulang agar dapat menerapkan pengaturan!';
   @override
-  String get server => 'Server';
+  String get server => 'Peladen';
   @override
   String get alias => 'Alias';
   @override
@@ -966,7 +937,7 @@ class _TranslationsSettingsTabNetworkId extends TranslationsSettingsTabNetworkEn
   String get generateRandomAlias => 'Hasilkan alias acak';
   @override
   String portWarning({required Object defaultPort}) =>
-      'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan port kustom. (bawaan: ${defaultPort})';
+      'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan porta kustom. (bawaan: ${defaultPort})';
   @override
   String get encryption => 'Enkripsi';
   @override
@@ -974,6 +945,10 @@ class _TranslationsSettingsTabNetworkId extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: ${defaultMulticast})';
+  @override
+  String get network => 'Jaringan';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsId networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsId._(_root);
 }
 
 // Path: settingsTab.other
@@ -1007,10 +982,10 @@ class _TranslationsTroubleshootPageFirewallId extends TranslationsTroubleshootPa
 
   // Translations
   @override
-  String get symptom => 'Aplikasi ini dapat mengirim berkas ke perangkat lain tetapi perangkat lain tidak dapat mengirim berkas ke perangkat ini.';
+  String get symptom => 'Aplikasi ini dapat mengirim berkas ke perangkat lain, tetapi tidak sebaliknya.';
   @override
   String solution({required Object port}) =>
-      'Ini kemungkinan masalah firewall. Anda dapat memperbaikinya dengan memperbolehkan koneksi masuk (UDP dan TCP) pada port ${port}.';
+      'Hal ini kemungkinan merupakan masalah tembok api (firewall). Anda dapat memperbaiki masalah ini dengan memperbolehkan koneksi masuk (UDP dan TCP) pada porta ${port}.';
   @override
   String get openFirewall => 'Buka Tembok Api';
 }
@@ -1028,7 +1003,7 @@ class _TranslationsTroubleshootPageNoDiscoveryId extends TranslationsTroubleshoo
   String get symptom => 'Perangkat ini tidak dapat menemukan perangkat lain.';
   @override
   String get solution =>
-      'Pastikan semua perangkat berada di jaringan Wi-Fi yang sama dan menggunakan konfigurasi yang sama (port, alamat multicast, enkripsi). Anda dapat mencoba mengetik alamat IP perangkat target secara manual. Jika ini berhasil, pertimbangkan untuk menambahkan perangkat ini ke daftar favorit sehingga bisa ditemukan secara otomatis di masa depan.';
+      'Pastikan semua perangkat berada pada jaringan Wi-Fi yang sama dan menggunakan konfigurasi yang sama (porta, alamat multicast, dan enkripsi). Anda dapat mencoba mengetik alamat IP perangkat target secara manual. Jika cara ini berhasil, pertimbangkan menambahkan perangkat ini ke daftar favorit sehingga perangkat dapat ditemukan secara otomatis pada lain waktu.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1041,10 +1016,10 @@ class _TranslationsTroubleshootPageNoConnectionId extends TranslationsTroublesho
 
   // Translations
   @override
-  String get symptom => 'Kedua perangkat tidak dapat saling menemukan atau berbagi berkas.';
+  String get symptom => 'Kedua perangkat tidak dapat saling menemukan dan berbagi berkas.';
   @override
   String get solution =>
-      'Pastikan kedua perangkat berada dalam jaringan wifi yang sama dan berbagi konfigurasi yang sama (port, alamat multicast, enkripsi). Jika wifi tidak memperbolehkan komunikasi, aktifkan opsi ini pada ruter.';
+      'Pastikan kedua perangkat berada pada jaringan Wi-Fi yang sama dan berbagi konfigurasi yang sama (porta, alamat multicast, enkripsi). Jika Wi-Fi tidak mengizinkan komunikasi, aktifkan pilihan ini pada ruter.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1097,7 +1072,22 @@ class _TranslationsDialogsAddFileId extends TranslationsDialogsAddFileEn {
   @override
   String get title => 'Tambahkan dalam pilihan';
   @override
-  String get content => 'Apa yang ingin ditambahkan?';
+  String get content => 'Apa yang ingin Anda tambahkan?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileId extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Buka berkas';
+  @override
+  String get content => 'Anda ingin membuka berkas yang diterima?';
 }
 
 // Path: dialogs.addressInput
@@ -1116,7 +1106,7 @@ class _TranslationsDialogsAddressInputId extends TranslationsDialogsAddressInput
   @override
   String get ip => 'Alamat IP';
   @override
-  String get recentlyUsed => 'Baru saja digunakan:';
+  String get recentlyUsed => 'Baru saja digunakan: ';
 }
 
 // Path: dialogs.cancelSession
@@ -1129,9 +1119,9 @@ class _TranslationsDialogsCancelSessionId extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Batalkan transfer berkas';
+  String get title => 'Batalkan pentransferan berkas';
   @override
-  String get content => 'Apakah Anda yakin untuk membatalkan pengiriman berkas?';
+  String get content => 'Anda yakin ingin membatalkan pengiriman berkas?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1161,8 +1151,7 @@ class _TranslationsDialogsEncryptionDisabledNoticeId extends TranslationsDialogs
   @override
   String get title => 'Enkripsi dinonaktifkan';
   @override
-  String get content =>
-      'Komunikasi sekarang terjadi melalui protokol HTTP yang tidak terenkripsi. Untuk menggunakan HTTPS, aktifkan kembali enkripsi.';
+  String get content => 'Komunikasi sekarang terjadi melalui protokol HTTP yang takterenkripsi. Untuk menggunakan HTTPS, aktifkan kembali enkripsi.';
 }
 
 // Path: dialogs.errorDialog
@@ -1190,7 +1179,7 @@ class _TranslationsDialogsFavoriteDialogId extends TranslationsDialogsFavoriteDi
   @override
   String get title => 'Favorit';
   @override
-  String get noFavorites => 'Tidak ada perangkat difavoritkan.';
+  String get noFavorites => 'Tidak ada perangkat favorit.';
   @override
   String get addFavorite => 'Tambah';
 }
@@ -1426,6 +1415,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeId extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.',
+        'Peringatan! Saat ini, pilihan ini tidak sepenuhnya aman karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda berkas tanpa pembatasan.',
+        'Akan tetapi, pilihan ini masih lebih aman daripada mengizinkan semua pengguna di jaringan lokal mengirimkan berkas kepada Anda tanpa pembatasan.',
+      ];
 }
 
 // Path: dialogs.pin
@@ -1453,11 +1448,11 @@ class _TranslationsDialogsSendModeHelpId extends TranslationsDialogsSendModeHelp
   @override
   String get title => 'Mode Pengiriman';
   @override
-  String get single => 'Mengirim berkas ke satu penerima. Pilihan akan dihapus setelah selesai membagikan berkas.';
+  String get single => 'Mengirim berkas ke satu penerima. Pilihan penerima akan dihapus setelah selesai membagikan berkas.';
   @override
-  String get multiple => 'Mengirim berkas ke beberapa penerima. Pilihan tidak akan dihapus.';
+  String get multiple => 'Mengirim berkas ke beberapa penerima. Pilihan penerima tidak akan dihapus.';
   @override
-  String get link => 'Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban mereka.';
+  String get link => 'Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban.';
 }
 
 // Path: dialogs.zoom
@@ -1518,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsId extends TranslationsSetti
   String get system => 'Sistem';
 }
 
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsId extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsId._(TranslationsId root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Semua';
+  @override
+  String get filtered => 'Tersaring';
+}
+
 // Path: progressPage.total.title
 class _TranslationsProgressPageTotalTitleId extends TranslationsProgressPageTotalTitleEn {
   _TranslationsProgressPageTotalTitleId._(TranslationsId root)
@@ -1530,9 +1540,9 @@ class _TranslationsProgressPageTotalTitleId extends TranslationsProgressPageTota
   @override
   String sending({required Object time}) => 'Total proses (${time})';
   @override
-  String get finishedError => 'Selesai dengan kesalahan';
+  String get finishedError => 'Selesai, tetapi ada galat';
   @override
-  String get canceledSender => 'Dibatalkan oleh pengirim';
+  String get canceledSender => 'Dibatalkan pengirim';
   @override
-  String get canceledReceiver => 'Dibatalkan oleh penerima';
+  String get canceledReceiver => 'Dibatalkan penerima';
 }

@@ -15,6 +15,8 @@ class SettingsState with SettingsStateMappable {
   final ColorMode colorMode;
   final AppLocale? locale;
   final int port;
+  final List<String>? networkWhitelist; // null = disabled
+  final List<String>? networkBlacklist; // null = disabled
   final String multicastGroup;
   final String? destination; // null = default
   final bool saveToGallery; // only Android, iOS
@@ -41,6 +43,8 @@ class SettingsState with SettingsStateMappable {
     required this.colorMode,
     required this.locale,
     required this.port,
+    required this.networkWhitelist,
+    required this.networkBlacklist,
     required this.multicastGroup,
     required this.destination,
     required this.saveToGallery,

@@ -1,0 +1,451 @@
+{
+  "locale": "Česky",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Přijmout",
+    "accepted": "Přijato",
+    "add": "Přidat",
+    "advanced": "Pokročilé",
+    "cancel": "Zrušit",
+    "close": "Zavřít",
+    "confirm": "Potvrdit",
+    "continueStr": "Pokračovat",
+    "copy": "Kopírovat",
+    "copiedToClipboard": "Zkopírováno do schránky",
+    "decline": "Odmítnout",
+    "done": "Hotovo",
+    "delete": "Vymazat",
+    "edit": "Upravit",
+    "error": "Chyba",
+    "example": "Příklad",
+    "files": "Soubory",
+    "finished": "Hotovo",
+    "hide": "Skrýt",
+    "off": "Vypnuto",
+    "offline": "Offline",
+    "on": "Zapnuto",
+    "online": "Online",
+    "open": "Otevřít",
+    "queue": "Fronta",
+    "quickSave": "Rychlé uložení",
+    "quickSaveFromFavorites": "Rychlé uložení pro \"Oblíbené\"",
+    "renamed": "Přejmenováno",
+    "reset": "Resetovat",
+    "restart": "Restartovat",
+    "settings": "Nastavení",
+    "skipped": "Přeskočeno",
+    "start": "Spustit",
+    "stop": "Zastavit",
+    "save": "Uložit",
+    "unchanged": "Nezměněno",
+    "unknown": "Neznámý",
+    "noItemInClipboard": "Žádná položka ve schránce"
+  },
+  "receiveTab": {
+    "title": "Příjmout",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Alias:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Oblíbené",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Odeslat",
+    "selection": {
+      "title": "Vybrat",
+      "files": "Soubory: {files}",
+      "size": "Velikost: {size}"
+    },
+    "picker": {
+      "file": "Soubor",
+      "folder": "Složka",
+      "media": "Média",
+      "text": "Text",
+      "app": "Aplikace",
+      "clipboard": "Vložit"
+    },
+    "shareIntentInfo": "Pro snazší výběr souborů můžete také použít funkci \"Sdílet\" svého mobilního zařízení.",
+    "nearbyDevices": "Zařízení v okolí",
+    "thisDevice": "Toto zařízení",
+    "scan": "Hledat zařízení",
+    "manualSending": "Manuální odeslání",
+    "sendMode": "Režim odesílání",
+    "sendModes": {
+      "single": "Jediný příjemce",
+      "multiple": "Více příjemců",
+      "link": "Sdílet pomocí odkazu"
+    },
+    "sendModeHelp": "Vysvětlení",
+    "help": "Ujistěte se, že se požadovaný cíl nachází ve stejné síti Wi-Fi.",
+    "placeItems": "Vložte položky, které chcete sdílet."
+  },
+  "settingsTab": {
+    "title": "Nastavení",
+    "general": {
+      "title": "Všeobecné",
+      "brightness": "Motiv",
+      "brightnessOptions": {
+        "system": "Systém",
+        "dark": "Tmavý",
+        "light": "Světlý"
+      },
+      "color": "Barva",
+      "colorOptions": {
+        "system": "Systém",
+        "oled": "OLED"
+      },
+      "language": "Jazyk",
+      "languageOptions": {
+        "system": "Systém"
+      },
+      "saveWindowPlacement": "Při ukončení uložit umístění okna",
+      "saveWindowPlacementWindows": "Uložit polohu okna po ukončení",
+      "minimizeToTray": "Při ukončení minimalizovat do lišty",
+      "launchAtStartup": "Automatické spuštění po přihlášení",
+      "launchMinimized": "Automatické spuštění: skrytý start",
+      "showInContextMenu": "Zobrazit LocalSend v kontextové nabídce",
+      "animations": "Animace"
+    },
+    "receive": {
+      "title": "Soubory",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automatické dokončování",
+      "destination": "Uložit do",
+      "downloads": "(Downloads)",
+      "saveToGallery": "Uložit média do galerie",
+      "saveToHistory": "Uložit do historie"
+    },
+    "send": {
+      "title": "Poslat",
+      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\"."
+    },
+    "network": {
+      "title": "Síť",
+      "needRestart": "Chcete-li použít nastavení, restartujte server!",
+      "server": "Server",
+      "alias": "Alias",
+      "deviceType": "Typ zařízení",
+      "deviceModel": "Model zařízení",
+      "port": "Port",
+      "discoveryTimeout": "Časový limit zjišťování",
+      "useSystemName": "Použít název systému",
+      "generateRandomAlias": "Generovat náhodný alias",
+      "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
+      "encryption": "Šifrování",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: {defaultMulticast})",
+      "networkOptions": {
+        "all": "Vše"
+      }
+    },
+    "other": {
+      "title": "Ostatní",
+      "support": "Podpora LocalSend",
+      "donate": "Darovat",
+      "privacyPolicy": "Zásady ochrany osobních údajů",
+      "termsOfUse": "Podmínky použití"
+    },
+    "advancedSettings": "Pokročilá nastavení"
+  },
+  "troubleshootPage": {
+    "title": "Odstraňování problémů",
+    "subTitle": "Tato aplikace nefunguje podle očekávání? Zde najdete častá řešení.",
+    "solution": "Řešení:",
+    "fixButton": "Opravit automaticky",
+    "firewall": {
+      "symptom": "Tato aplikace může odesílat soubory do jiných zařízení, ale jiná zařízení nemohou odesílat soubory do tohoto zařízení.",
+      "solution": "S největší pravděpodobností se jedná o problém s firewallem. Můžete to vyřešit povolením příchozích připojení (UDP a TCP) na portu {port}.",
+      "openFirewall": "Otevřít bránu firewall"
+    },
+    "noDiscovery": {
+      "symptom": "Toto zařízení nemůže zjistit jiná zařízení.",
+      "solution": "Ujistěte se, že jsou všechna zařízení ve stejné síti Wi-Fi a sdílejí stejnou konfiguraci (port, adresa vícesměrového vysílání, šifrování). Můžete zkusit zadat IP adresu cílového zařízení ručně. Pokud to funguje, zvažte přidání tohoto zařízení do oblíbených, aby mohlo být v budoucnu automaticky objeveno."
+    },
+    "noConnection": {
+      "symptom": "Obě zařízení se nemohou navzájem objevit ani nemohou sdílet soubory.",
+      "solution": "Problém je na obou stranách? Pak se musíte ujistit, že jsou obě zařízení ve stejné wifi síti a sdílejí stejnou konfiguraci (port, multicastová adresa, šifrování). Wifi nemusí umožňovat komunikaci mezi účastníky. V takovém případě musí být tato možnost povolena na routeru."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Historie",
+    "openFolder": "Otevřít složku",
+    "deleteHistory": "Smazat historii",
+    "empty": "Historie je prázdná.",
+    "entryActions": {
+      "open": "Otevřít soubor",
+      "showInFolder": "Zobrazit ve složce",
+      "info": "Informace",
+      "deleteFromHistory": "Smazat z historie"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aplikace (APK)",
+    "excludeSystemApps": "Vyloučit systémové aplikace",
+    "excludeAppsWithoutLaunchIntent": "Vyloučit aplikace, které nelze spustit",
+    "apps": "{n} Aplikace"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Smazat vše"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "vám chce poslat soubor",
+      "other": "vám chce poslat několik souborů: {n}"
+    },
+    "subTitleMessage": "vám poslal zprávu:",
+    "subTitleLink": "vám poslal odkaz:",
+    "canceled": "Odesílatel zrušil požadavek."
+  },
+  "receiveOptionsPage": {
+    "title": "Možnosti",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Automaticky vypnuto, protože existují adresáře."
+  },
+  "sendPage": {
+    "waiting": "Čekání na odpověď...",
+    "rejected": "Příjemce žádost odmítl.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Příjemce je zaneprázdněn dalším požadavkem."
+  },
+  "progressPage": {
+    "titleSending": "Odesílání souborů",
+    "titleReceiving": "Přijímání souborů",
+    "savedToGallery": "Uloženo ve Fotkách",
+    "total": {
+      "title": {
+        "sending": "Celkový průběh ({time})",
+        "finishedError": "Dokončeno s chybou",
+        "canceledSender": "Zrušeno odesílatelem",
+        "canceledReceiver": "Zrušeno příjemcem"
+      },
+      "count": "Soubory: {curr} / {n}",
+      "size": "Velikost: {curr} / {n}",
+      "speed": "Rychlost: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Sdílet pomocí odkazu",
+    "loading": "Spouštění serveru...",
+    "stopping": "Zastavování serveru...",
+    "error": "Při spouštění serveru došlo k chybě.",
+    "openLink": {
+      "one": "Otevřete tento odkaz v prohlížeči:",
+      "other": "Otevřete v prohlížeči jeden z těchto odkazů:"
+    },
+    "requests": "Žádosti",
+    "noRequests": "Zatím žádné žádosti.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automaticky přijímat žádosti",
+    "requirePin": "Vyžadovat PIN",
+    "pinHint": "PIN je \"{pin}\"",
+    "encryptionHint": "LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.",
+    "pendingRequests": "Čekající žádosti: {n}"
+  },
+  "aboutPage": {
+    "title": "O aplikaci LocalSend",
+    "description": [
+      "LocalSend je bezplatná aplikace s otevřeným zdrojovým kódem, která vám umožňuje bezpečně sdílet soubory a zprávy s okolními zařízeními přes vaši místní síť, aniž byste potřebovali připojení k internetu.",
+      "Tato aplikace je dostupná pro Android, iOS, macOS, Windows a Linux. Všechny možnosti stahování najdete na oficiální domovské stránce."
+    ],
+    "author": "Autor",
+    "contributors": "Přispěvatelé",
+    "packagers": "Baliči",
+    "translators": "Překladatelé"
+  },
+  "donationPage": {
+    "title": "Darovat",
+    "info": "LocalSend je zdarma, open source a bez reklam. Pokud se vám aplikace líbí, můžete její vývoj podpořit darem.",
+    "donate": "Darovat {amount}",
+    "thanks": "Děkuji mnohokrát!",
+    "restore": "Obnovit"
+  },
+  "changelogPage": {
+    "title": "Seznam změn"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Přidat do výběru",
+      "content": "Co chcete přidat?"
+    },
+    "openFile": {
+      "title": "Otevřít soubor",
+      "content": "Chcete otevřít přijatý soubor?"
+    },
+    "addressInput": {
+      "title": "Zadat adresu",
+      "hashtag": "Hashtag",
+      "ip": "IP Adresa",
+      "recentlyUsed": "Nedávno použité: "
+    },
+    "cancelSession": {
+      "title": "Zrušit přenos souborů",
+      "content": "Opravdu chcete zrušit přenos souborů?"
+    },
+    "cannotOpenFile": {
+      "title": "Nelze otevřít soubor",
+      "content": "Nelze otevřít \"{file}\". Byl tento soubor přesunut, přejmenován nebo smazán?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Šifrování zakázáno",
+      "content": "Komunikace nyní probíhá prostřednictvím nešifrovaného protokolu HTTP. Chcete-li použít HTTPS, znovu povolte šifrování."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Oblíbené",
+      "noFavorites": "Zatím nemáte žádná oblíbená zařízení.",
+      "addFavorite": "Přidat"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Smazat z oblíbených",
+      "content": "Opravdu chcete smazat \"{name}\" z oblíbených?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Přidat k oblíbeným",
+      "titleEdit": "Upravit",
+      "name": "Název zařízení",
+      "auto": "(auto)",
+      "ip": "IP adresa",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Informace o souboru",
+      "fileName": "Název souboru:",
+      "path": "Cesta:",
+      "size": "Velikost:",
+      "sender": "Odesílatel:",
+      "time": "Čas:"
+    },
+    "fileNameInput": {
+      "title": "Zadejte název souboru",
+      "original": "Původní: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Smazat historii",
+      "content": "Opravdu chcete smazat celou historii?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend nemůže najít jiná zařízení, aniž by měl oprávnění skenovat místní síť. Udělte prosím toto oprávnění v nastavení.",
+      "gotoSettings": "Nastavení"
+    },
+    "messageInput": {
+      "title": "Napište zprávu",
+      "multiline": "Více řádků"
+    },
+    "noFiles": {
+      "title": "Žádný soubor nevybrán",
+      "content": "Vyberte prosím alespoň jeden soubor."
+    },
+    "noPermission": {
+      "title": "Žádné oprávnění",
+      "content": "Neposkytli jste potřebná oprávnění. Prosím, udělte je v nastavení."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Není k dispozici",
+      "content": "Tato funkce je dostupná pouze na:"
+    },
+    "qr": {
+      "title": "QR kód"
+    },
+    "quickActions": {
+      "title": "Rychlé akce",
+      "counter": "Číslo",
+      "prefix": "Předpona",
+      "padZero": "Přidat nuly",
+      "sortBeforeCount": "Nejprve seřadit abecedně",
+      "random": "Náhodné jméno"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Požadavky na soubor jsou automaticky přijímány. Uvědomte si, že každý v místní síti vám může posílat soubory."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Žádosti o soubory jsou nyní přijímány automaticky ze zařízení ve vašem seznamu oblíbených.",
+        "Upozornění: V současné době to není zcela bezpečné, protože hacker, který zná vaše oblíbené zařízení, vám stále může posílat soubory.",
+        "Tato možnost je však stále bezpečnější než povolení libovolného zařízení."
+      ]
+    },
+    "pin": {
+      "title": "Vložit PIN"
+    },
+    "sendModeHelp": {
+      "title": "Režimy odesílání",
+      "single": "Odešle soubory jednomu příjemci. Po dokončení přenosu souboru bude výběr vymazán.",
+      "multiple": "Odešle soubory více příjemcům. Výběr nebude vymazán.",
+      "link": "Příjemci, kteří nemají nainstalovaný LocalSend, si mohou vybrané soubory stáhnout otevřením odkazu ve svém prohlížeči."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Název souboru nemůže být prázdný",
+    "invalid": "Název souboru obsahuje neplatné znaky"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "Ukončit LocalSend",
+    "closeWindows": "Konec"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Vložit PIN",
+    "invalidPin": "Neplatný PIN",
+    "tooManyAttempts": "Příliš mnoho pokusů",
+    "rejected": "Odmítnuto",
+    "files": "Soubory",
+    "fileName": "Název souboru",
+    "size": "Velikost"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "Potvrdit",
+    "cancel": "Zrušit",
+    "edit": "Editovat",
+    "gifIndicator": "GIF",
+    "loadFailed": "Načtení se nezdařilo",
+    "original": "Původ",
+    "preview": "Náhled",
+    "select": "Vybrat",
+    "emptyList": "Prázdný seznam",
+    "unSupportedAssetType": "Nepodporovaný typ souboru.",
+    "unableToAccessAll": "Nelze získat přístup ke všem souborům v zařízení",
+    "viewingLimitedAssetsTip": "Zobrazit pouze soubory a alba, ke kterým má aplikace přístup.",
+    "changeAccessibleLimitedAssets": "Kliknutím aktualizujete přístupné soubory",
+    "accessAllTip": "Aplikace má přístup pouze k některým souborům v zařízení. Přejděte do nastavení systému a povolte aplikaci přístup ke všem médiím v zařízení.",
+    "goToSystemSettings": "Přejít do nastavení systému",
+    "accessLimitedAssets": "Pokračovat s omezeným přístupem",
+    "accessiblePathName": "Přístupné soubory",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Obrázek",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Ostatní média",
+    "sActionPlayHint": "přehrát",
+    "sActionPreviewHint": "náhled",
+    "sActionSelectHint": "vybrat",
+    "sActionSwitchPathLabel": "změnit cestu",
+    "sActionUseCameraHint": "použít kameru",
+    "sNameDurationLabel": "doba trvání",
+    "sUnitAssetCountLabel": "počet"
+  },
+  "networkInterfacesPage": {
+    "title": "Síťová rozhraní"
+  }
+}

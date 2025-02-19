@@ -78,6 +78,8 @@ class TranslationsUk extends Translations {
   late final _TranslationsWebUk web = _TranslationsWebUk._(_root);
   @override
   late final _TranslationsAssetPickerUk assetPicker = _TranslationsAssetPickerUk._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageUk networkInterfacesPage = _TranslationsNetworkInterfacesPageUk._(_root);
 }
 
 // Path: general
@@ -142,7 +144,7 @@ class _TranslationsGeneralUk extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Швидке збереження';
   @override
-  String get quickSaveFromFavorites => 'Швидке збереження для "Улюблених"';
+  String get quickSaveFromFavorites => 'Швидке збереження для «Улюблених»';
   @override
   String get renamed => 'Перейменовано';
   @override
@@ -200,7 +202,7 @@ class _TranslationsSendTabUk extends TranslationsSendTabEn {
   @override
   late final _TranslationsSendTabPickerUk picker = _TranslationsSendTabPickerUk._(_root);
   @override
-  String get shareIntentInfo => 'Ви також можете скористатися функцією "Поділитися" на своєму мобільному пристрої, щоб швидше вибирати файли.';
+  String get shareIntentInfo => 'Ви також можете скористатися функцією «Поділитися» на своєму мобільному пристрої, щоб швидше вибирати файли.';
   @override
   String get nearbyDevices => 'Пристрої поблизу';
   @override
@@ -285,7 +287,7 @@ class _TranslationsReceiveHistoryPageUk extends TranslationsReceiveHistoryPageEn
   @override
   String get openFolder => 'Відкрити папку';
   @override
-  String get deleteHistory => 'Очистити історію';
+  String get deleteHistory => 'Видалити історію';
   @override
   String get empty => 'Історія порожня.';
   @override
@@ -378,7 +380,7 @@ class _TranslationsSendPageUk extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Очікування відповіді...';
+  String get waiting => 'Очікування відповіді…';
   @override
   String get rejected => 'Отримувач відхилив запит.';
   @override
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageUk extends TranslationsWebSharePageEn {
   @override
   String get title => 'Поділитися через посилання';
   @override
-  String get loading => 'Запуск сервера...';
+  String get loading => 'Запуск сервера…';
   @override
-  String get stopping => 'Зупинка сервера...';
+  String get stopping => 'Зупинка сервера…';
   @override
   String get error => 'Під час запуску сервера сталася помилка.';
   @override
@@ -440,7 +442,7 @@ class _TranslationsWebSharePageUk extends TranslationsWebSharePageEn {
   @override
   String get requirePin => 'Вимагати PIN-код';
   @override
-  String pinHint({required Object pin}) => 'PIN-код: "${pin}"';
+  String pinHint({required Object pin}) => 'PIN-код: «${pin}»';
   @override
   String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
   @override
@@ -591,9 +593,9 @@ class _TranslationsSanitizationUk extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get empty => 'Ім\'я файлу не може бути порожнім';
+  String get empty => 'Назва файлу не може бути порожнім';
   @override
-  String get invalid => 'Ім\'я файлу містить недопустимі символи';
+  String get invalid => 'Назва файлу містить недопустимі символи';
 }
 
 // Path: tray
@@ -635,7 +637,7 @@ class _TranslationsWebUk extends TranslationsWebEn {
   @override
   String get files => 'Файлів';
   @override
-  String get fileName => 'Ім\'я файлу';
+  String get fileName => 'Назва файлу';
   @override
   String get size => 'Розмір';
 }
@@ -706,6 +708,28 @@ class _TranslationsAssetPickerUk extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'тривалість';
   @override
   String get sUnitAssetCountLabel => 'кількість';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageUk extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageUk._(TranslationsUk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мережевий інтерфейс';
+  @override
+  String get preview => 'Передперегляд';
+  @override
+  String get whitelist => 'Білий список';
+  @override
+  String get blacklist => 'Чорний список';
+  @override
+  String get info =>
+      'Типово LocalSend використовує всі доступні мережеві інтерфейси. Ви можете виключити небажані мережі тут. Щоб застосувати зміни, потрібно перезапустити сервер.';
 }
 
 // Path: receiveTab.infoBox
@@ -879,7 +903,7 @@ class _TranslationsSettingsTabSendUk extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'Надсилання';
   @override
-  String get shareViaLinkAutoAccept => 'Автоматично приймати запити в режимі "Поділитися через посилання"';
+  String get shareViaLinkAutoAccept => 'Автоматично приймати запити в режимі «Поділитися через посилання»';
 }
 
 // Path: settingsTab.network
@@ -898,7 +922,7 @@ class _TranslationsSettingsTabNetworkUk extends TranslationsSettingsTabNetworkEn
   @override
   String get server => 'Сервер';
   @override
-  String get alias => 'Ім\'я пристрою';
+  String get alias => 'Назва пристрою';
   @override
   String get deviceType => 'Тип пристрою';
   @override
@@ -906,9 +930,9 @@ class _TranslationsSettingsTabNetworkUk extends TranslationsSettingsTabNetworkEn
   @override
   String get port => 'Порт';
   @override
-  String get discoveryTimeout => 'Тайм-аут пошуку';
+  String get discoveryTimeout => 'Час пошуку вийшов';
   @override
-  String get useSystemName => 'Використати системне ім\'я';
+  String get useSystemName => 'Використати системну назву';
   @override
   String get generateRandomAlias => 'Згенерувати випадковий псевдонім';
   @override
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkUk extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Інші пристрої можуть вас не знайти, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: ${defaultMulticast})';
+  @override
+  String get network => 'Мережа';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsUk networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsUk._(_root);
 }
 
 // Path: settingsTab.other
@@ -1108,7 +1136,7 @@ class _TranslationsDialogsCannotOpenFileUk extends TranslationsDialogsCannotOpen
   @override
   String get title => 'Не вдалося відкрити файл';
   @override
-  String content({required Object file}) => 'Не вдалося відкрити "${file}". Можливо, цей файл було переміщено, перейменовано або видалено?';
+  String content({required Object file}) => 'Не вдалося відкрити «${file}». Можливо, цей файл було переміщено, перейменовано або видалено?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1169,7 +1197,7 @@ class _TranslationsDialogsFavoriteDeleteDialogUk extends TranslationsDialogsFavo
   @override
   String get title => 'Видалити з улюблених';
   @override
-  String content({required Object name}) => 'Ви справді хочете видалити з улюблених "${name}"?';
+  String content({required Object name}) => 'Ви справді хочете видалити з улюблених «${name}»?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1207,7 +1235,7 @@ class _TranslationsDialogsFileInfoUk extends TranslationsDialogsFileInfoEn {
   @override
   String get title => 'Інформація про файл';
   @override
-  String get fileName => 'Ім\'я файлу:';
+  String get fileName => 'Назва файлу:';
   @override
   String get path => 'Шлях:';
   @override
@@ -1485,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsUk extends TranslationsSetti
   // Translations
   @override
   String get system => 'Системна';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsUk extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsUk._(TranslationsUk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Все';
+  @override
+  String get filtered => 'Фільтроване';
 }
 
 // Path: progressPage.total.title

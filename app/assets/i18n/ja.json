@@ -1,0 +1,445 @@
+{
+  "locale": "日本語",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "承諾",
+    "accepted": "承諾済み",
+    "add": "追加",
+    "advanced": "詳細",
+    "cancel": "キャンセル",
+    "close": "閉じる",
+    "confirm": "確認",
+    "continueStr": "続行",
+    "copy": "コピー",
+    "copiedToClipboard": "クリップボードにコピーしました",
+    "decline": "拒否",
+    "done": "完了",
+    "delete": "削除",
+    "edit": "編集",
+    "error": "エラー",
+    "example": "例",
+    "files": "ファイル",
+    "finished": "完了しました",
+    "hide": "隠す",
+    "off": "オフ",
+    "offline": "オフライン",
+    "on": "オン",
+    "online": "オンライン",
+    "open": "開く",
+    "queue": "順番待ち",
+    "quickSave": "クイックセーブ",
+    "quickSaveFromFavorites": "「お気に入り」からクイックセーブ",
+    "renamed": "改名済み",
+    "reset": "リセット",
+    "restart": "再起動",
+    "settings": "設定",
+    "skipped": "スキップ済み",
+    "start": "開始",
+    "stop": "停止",
+    "save": "保存",
+    "unchanged": "変更なし",
+    "unknown": "不明",
+    "noItemInClipboard": "クリップボードにアイテムがありません"
+  },
+  "receiveTab": {
+    "title": "受信",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "ポート:",
+      "alias": "別名:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "お気に入り",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "送信",
+    "selection": {
+      "title": "選択",
+      "files": "ファイル数: {files}",
+      "size": "サイズ: {size}"
+    },
+    "picker": {
+      "file": "ファイル",
+      "folder": "フォルダー",
+      "media": "メディア",
+      "text": "テキスト",
+      "app": "アプリ",
+      "clipboard": "ペースト"
+    },
+    "shareIntentInfo": "モバイルデバイスの「共有」機能を使うと、より簡単にファイルを選択できます。",
+    "nearbyDevices": "近くのデバイス",
+    "thisDevice": "このデバイス",
+    "scan": "デバイスを検索",
+    "manualSending": "手動送信",
+    "sendMode": "送信モード",
+    "sendModes": {
+      "single": "一対一送信",
+      "multiple": "一対多送信",
+      "link": "リンク経由で共有"
+    },
+    "sendModeHelp": "説明",
+    "help": "目標のデバイスが同じWi-Fiネットワーク内にあることを確認してください。",
+    "placeItems": "共有するアイテムを配置してください。"
+  },
+  "settingsTab": {
+    "title": "設定",
+    "general": {
+      "title": "一般",
+      "brightness": "明るさ",
+      "brightnessOptions": {
+        "system": "システム",
+        "dark": "ダーク",
+        "light": "ライト"
+      },
+      "color": "カラー",
+      "colorOptions": {
+        "system": "システム",
+        "oled": "OLED"
+      },
+      "language": "言語",
+      "languageOptions": {
+        "system": "システム"
+      },
+      "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
+      "saveWindowPlacementWindows": "終了時にウィンドウ配置を記憶",
+      "minimizeToTray": "終了時: トレイに最小化",
+      "launchAtStartup": "ログイン時に自動で起動",
+      "launchMinimized": "自動起動時: 隠れた状態で開始",
+      "showInContextMenu": "コンテキストメニューにLocalSendを表示",
+      "animations": "アニメーション"
+    },
+    "receive": {
+      "title": "受信",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "自動で完了",
+      "destination": "保存先",
+      "downloads": "(ダウンロード)",
+      "saveToGallery": "メディアをギャラリーに保存",
+      "saveToHistory": "履歴に保存"
+    },
+    "send": {
+      "title": "送信",
+      "shareViaLinkAutoAccept": "リンク経由で共有時: 自動で承諾"
+    },
+    "network": {
+      "title": "ネットワーク",
+      "needRestart": "設定を反映するにはサーバーを再起動してください！",
+      "server": "サーバー",
+      "alias": "別名",
+      "deviceType": "デバイスタイプ",
+      "deviceModel": "デバイスモデル",
+      "port": "ポート",
+      "discoveryTimeout": "探索がタイムアウトしました",
+      "useSystemName": "システム名を使用",
+      "generateRandomAlias": "ランダムな別名を生成",
+      "portWarning": "ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultPort})",
+      "encryption": "暗号化",
+      "multicastGroup": "マルチキャスト",
+      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})"
+    },
+    "other": {
+      "title": "その他",
+      "support": "LocalSendを支援",
+      "donate": "寄付",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfUse": "利用規約"
+    },
+    "advancedSettings": "詳細設定"
+  },
+  "troubleshootPage": {
+    "title": "トラブルシューティング",
+    "subTitle": "アプリが期待通りに動作しませんか？ここでは一般的な解決策を紹介します。",
+    "solution": "解決策:",
+    "fixButton": "自動で修正する",
+    "firewall": {
+      "symptom": "このアプリから他のデバイスへはファイルを送信できるのに、他のデバイスからこのデバイスへはファイルが送信できない。",
+      "solution": "ファイアウォールに問題があると思われます。ポート {port} の受け入れ (UDPとTCP) を許可することでこの問題を解決できます。",
+      "openFirewall": "ファイアウォールを開く"
+    },
+    "noDiscovery": {
+      "symptom": "このデバイスで他のデバイスを見つけられない。",
+      "solution": "すべてのデバイスが同じWi-Fiネットワーク上にあり、各種設定(ポート、マルチキャストアドレス、暗号化)が一致していることを確認してください。もしくは、送信先デバイスのIPアドレスを手動で入力することもできます。これでうまくいく場合は、そのデバイスをお気に入りに追加して、今後自動的に検出できるようにすることもご検討ください。"
+    },
+    "noConnection": {
+      "symptom": "どちらのデバイスも互いに表示されず、ファイルも共有できない。",
+      "solution": "双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、ポート・マルチキャストアドレス・暗号化の設定が一致していることを確認してください。Wi-Fiネットワークが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。"
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "履歴",
+    "openFolder": "フォルダを開く",
+    "deleteHistory": "履歴を消去",
+    "empty": "履歴には何もありません。",
+    "entryActions": {
+      "open": "ファイルを開く",
+      "showInFolder": "フォルダーに表示",
+      "info": "情報",
+      "deleteFromHistory": "履歴から削除"
+    }
+  },
+  "apkPickerPage": {
+    "title": "アプリ (APK)",
+    "excludeSystemApps": "システムアプリを除外",
+    "excludeAppsWithoutLaunchIntent": "起動できないアプリを除外",
+    "apps": "{n} 個"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "すべて削除"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "がファイルを送信しようとしています。",
+      "other": "が {n} 件のファイルを送信しようとしています。"
+    },
+    "subTitleMessage": "がメッセージを送信しました:",
+    "subTitleLink": "がリンクを送信しました:",
+    "canceled": "送信者がリクエストをキャンセルしました。"
+  },
+  "receiveOptionsPage": {
+    "title": "オプション",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend フォルダー)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "ディレクトリーがあるため自動で無効になっています。"
+  },
+  "sendPage": {
+    "waiting": "返答を待っています...",
+    "rejected": "受信者がリクエストを拒否しました。",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "受信者は他のリクエストの処理中です。"
+  },
+  "progressPage": {
+    "titleSending": "ファイルを送信中",
+    "titleReceiving": "ファイルを受信中",
+    "savedToGallery": "写真に保存しました",
+    "total": {
+      "title": {
+        "sending": "総進捗 ({time})",
+        "finishedError": "エラーで終了しました",
+        "canceledSender": "送信者によりキャンセルされました",
+        "canceledReceiver": "受信者よりキャンセルされました"
+      },
+      "count": "ファイル: {curr} / {n}",
+      "size": "サイズ: {curr} / {n}",
+      "speed": "速度: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "リンク経由で共有",
+    "loading": "サーバーを起動中...",
+    "stopping": "サーバーを停止中...",
+    "error": "サーバーの起動中にエラーが発生しました。",
+    "openLink": {
+      "one": "このリンクをブラウザーで開いてください:",
+      "other": "これらのリンクのいずれかをブラウザーで開いてください:"
+    },
+    "requests": "リクエスト",
+    "noRequests": "リクエストはまだありません。",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "自動でリクエストを承諾する",
+    "requirePin": "PINコードを要求",
+    "pinHint": "PINコードは \"{pin}\" です",
+    "encryptionHint": "LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。",
+    "pendingRequests": "保留中のリクエスト数: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSendについて",
+    "description": [
+      "LocalSendは無料のオープンソースアプリで、インターネットに接続することなく、ローカルネットワーク経由で近くにあるデバイスとファイルやメッセージを安全に共有することができます。",
+      "本アプリはAndroid、iOS、macOS、Windows、Linuxで利用でき、公式ホームページからダウンロードすることができます。"
+    ],
+    "author": "制作者",
+    "contributors": "貢献者",
+    "packagers": "パッケージ協力者",
+    "translators": "翻訳者"
+  },
+  "donationPage": {
+    "title": "寄付",
+    "info": "LocalSendは無料かつオープンソースで、広告を一切含みません。もしアプリを気に入っていただけたら、寄付で開発を支援することができます。",
+    "donate": "{amount} 寄付する",
+    "thanks": "ありがとうございます！",
+    "restore": "購入を復元する"
+  },
+  "changelogPage": {
+    "title": "更新履歴"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "選択に追加",
+      "content": "何を追加しますか？"
+    },
+    "openFile": {
+      "title": "ファイルを開く",
+      "content": "受信したファイルを開きますか？"
+    },
+    "addressInput": {
+      "title": "アドレスを入力",
+      "hashtag": "ハッシュタグ",
+      "ip": "IPアドレス",
+      "recentlyUsed": "最近使用したアドレス: "
+    },
+    "cancelSession": {
+      "title": "ファイル転送をキャンセル",
+      "content": "本当にファイル転送をキャンセルしますか？"
+    },
+    "cannotOpenFile": {
+      "title": "ファイルを開けません",
+      "content": "\"{file}\"を開けませんでした。ファイルが移動、改名、削除された可能性があります。"
+    },
+    "encryptionDisabledNotice": {
+      "title": "暗号化は無効です",
+      "content": "これより、通信は暗号化されていないHTTPプロトコルで行われます。HTTPSを使用するには、暗号化を再度有効にしてください。"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "お気に入り",
+      "noFavorites": "お気に入りしたデバイスがありません。",
+      "addFavorite": "追加"
+    },
+    "favoriteDeleteDialog": {
+      "title": "お気に入りから削除",
+      "content": "本当に\"{name}\"をお気に入りから削除しますか？"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "お気に入りに追加",
+      "titleEdit": "編集",
+      "name": "別名",
+      "auto": "(自動)",
+      "ip": "IPアドレス",
+      "port": "ポート"
+    },
+    "fileInfo": {
+      "title": "ファイルの情報",
+      "fileName": "ファイル名:",
+      "path": "ファイルパス:",
+      "size": "サイズ:",
+      "sender": "送信者:",
+      "time": "時間:"
+    },
+    "fileNameInput": {
+      "title": "ファイル名を入力",
+      "original": "元の名前: {original}"
+    },
+    "historyClearDialog": {
+      "title": "履歴をクリア",
+      "content": "本当にすべての履歴を削除しますか？"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "ローカルネットワークをスキャンする権限がないと、LocalSendは他のデバイスを見つけることができません。設定よりこの権限を付与してください。",
+      "gotoSettings": "設定"
+    },
+    "messageInput": {
+      "title": "メッセージを入力",
+      "multiline": "複数行"
+    },
+    "noFiles": {
+      "title": "ファイルが選択されていません",
+      "content": "少なくとも1つのファイルを選択してください。"
+    },
+    "noPermission": {
+      "title": "権限がありません",
+      "content": "必要な権限を許可していません。設定で許可してください。"
+    },
+    "notAvailableOnPlatform": {
+      "title": "利用不可",
+      "content": "この機能は次のプラットフォームでのみ利用できます:"
+    },
+    "qr": {
+      "title": "QRコード"
+    },
+    "quickActions": {
+      "title": "クイックアクション",
+      "counter": "カウンター",
+      "prefix": "接頭辞",
+      "padZero": "先頭をゼロで埋める",
+      "sortBeforeCount": "事前にアルファベット順で並べる",
+      "random": "ランダム"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "ファイルリクエストが自動で承諾されます。ローカルネットワーク内の全員がファイルを送信できるので注意してください。"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。",
+        "警告 現時点では、お気に入りリストのデバイスと一致するフィンガープリントがあればハッカーが無制限にファイルを送信できてしまうため、この設定は完全に安全とは言えません。",
+        "ですが、この設定はローカルネットワーク上のすべてのユーザーに無制限のファイル送信を許可するよりはまだ安全です。"
+      ]
+    },
+    "pin": {
+      "title": "PINコードを入力"
+    },
+    "sendModeHelp": {
+      "title": "送信モード",
+      "single": "単一の受信者にファイルを送信します。ファイルの転送完了後、選択は解除されます。",
+      "multiple": "複数の受信者にファイルを送信します。ファイルの選択は解除されません。",
+      "link": "LocalSendをインストールしていない受信者でも、ブラウザでリンクを開くことで選択したファイルをダウンロードできます。"
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "ファイル名は空にできません",
+    "invalid": "ファイル名に無効な文字が含まれています"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "open": "@:general.open",
+    "close": "LocalSendを終了",
+    "closeWindows": "終了"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PINコードを入力",
+    "invalidPin": "PINコードが無効です",
+    "tooManyAttempts": "試行回数が多すぎます",
+    "rejected": "拒否済み",
+    "files": "ファイル",
+    "fileName": "ファイル名",
+    "size": "サイズ"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "edit": "編集",
+    "gifIndicator": "GIF",
+    "loadFailed": "読み込みに失敗しました",
+    "original": "元の画像",
+    "preview": "プレビュー",
+    "select": "選択",
+    "emptyList": "リストが空です",
+    "unSupportedAssetType": "未対応のファイル形式です。",
+    "unableToAccessAll": "デバイス上のすべてのファイルにアクセスできません",
+    "viewingLimitedAssetsTip": "アプリからアクセス可能なファイルやアルバムのみを表示します。",
+    "changeAccessibleLimitedAssets": "クリックしてアクセス可能なファイルを設定する",
+    "accessAllTip": "アプリが端末の一部のファイルにしかアクセスできません。システム設定を開き、アプリがデバイス上のすべてのメディアにアクセスすることを許可してください。",
+    "goToSystemSettings": "システム設定に移動",
+    "accessLimitedAssets": "限定されたアクセスで続ける",
+    "accessiblePathName": "アクセス可能なファイル",
+    "sTypeAudioLabel": "音声",
+    "sTypeImageLabel": "画像",
+    "sTypeVideoLabel": "動画",
+    "sTypeOtherLabel": "その他のメディア",
+    "sActionPlayHint": "再生",
+    "sActionPreviewHint": "プレビュー",
+    "sActionSelectHint": "選択",
+    "sActionSwitchPathLabel": "パスを切り替え",
+    "sActionUseCameraHint": "カメラを使う",
+    "sNameDurationLabel": "長さ",
+    "sUnitAssetCountLabel": "個数"
+  }
+}

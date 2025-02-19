@@ -1,0 +1,22 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <si>.",
+    "After editing this file, you can run 'dart run slang apply --locale=si' to quickly apply the newly added translations."
+  ],
+  "settingsTab": {
+    "network": {
+      "network": "Network",
+      "networkOptions": {
+        "all": "All",
+        "filtered": "Filtered"
+      }
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Network Interfaces",
+    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
+    "preview": "Preview",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
+  }
+}

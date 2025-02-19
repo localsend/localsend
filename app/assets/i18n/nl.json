@@ -1,0 +1,445 @@
+{
+  "locale": "Nederlands",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Accepteren",
+    "accepted": "Geaccepteerd",
+    "add": "Toevoegen",
+    "advanced": "Geavanceerd",
+    "cancel": "Annuleren",
+    "close": "Sluiten",
+    "confirm": "Bevestigen",
+    "continueStr": "Doorgaan",
+    "copy": "Kopiëren",
+    "copiedToClipboard": "Gekopieerd naar klembord",
+    "decline": "Weigeren",
+    "done": "Gereed",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "error": "Fout",
+    "example": "Voorbeeld",
+    "files": "Bestanden",
+    "finished": "Voltooid",
+    "hide": "Verbergen",
+    "off": "Uit",
+    "offline": "Offline",
+    "on": "Aan",
+    "online": "Online",
+    "open": "Openen",
+    "queue": "Wachtrij",
+    "quickSave": "Snel opslaan",
+    "quickSaveFromFavorites": "Snel opslaan voor 'Favorieten'",
+    "renamed": "Hernoemd",
+    "reset": "Herstellen",
+    "restart": "Opnieuw starten",
+    "settings": "Instellingen",
+    "skipped": "Overgeslagen",
+    "start": "Starten",
+    "stop": "Stoppen",
+    "save": "Opslaan",
+    "unchanged": "Ongewijzigd",
+    "unknown": "Onbekend",
+    "noItemInClipboard": "Het klembord is leeg."
+  },
+  "receiveTab": {
+    "title": "Ontvangen",
+    "infoBox": {
+      "ip": "IP-adres:",
+      "port": "Poort:",
+      "alias": "Apparaatnaam:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorieten",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Verzenden",
+    "selection": {
+      "title": "Selectie",
+      "files": "Bestanden: {files}",
+      "size": "Grootte: {size}"
+    },
+    "picker": {
+      "file": "Bestand",
+      "folder": "Map",
+      "media": "Media",
+      "text": "Tekst",
+      "app": "App",
+      "clipboard": "Plakken"
+    },
+    "shareIntentInfo": "Je kunt ook de functie 'Delen' van je mobiele apparaat gebruiken om gemakkelijker bestanden te selecteren.",
+    "nearbyDevices": "Apparaten in de buurt",
+    "thisDevice": "Dit apparaat",
+    "scan": "Apparaten zoeken",
+    "manualSending": "Handmatig verzenden",
+    "sendMode": "Verzendmodus",
+    "sendModes": {
+      "single": "Eén ontvanger",
+      "multiple": "Meerdere ontvangers",
+      "link": "Delen via link"
+    },
+    "sendModeHelp": "Informatie",
+    "help": "Zorg ervoor dat de ontvanger is verbonden met hetzelfde wifi-netwerk.",
+    "placeItems": "Zet items neer om te delen."
+  },
+  "settingsTab": {
+    "title": "Instellingen",
+    "general": {
+      "title": "Algemeen",
+      "brightness": "Thema",
+      "brightnessOptions": {
+        "system": "Systeem",
+        "dark": "Donker",
+        "light": "Licht"
+      },
+      "color": "Kleur",
+      "colorOptions": {
+        "system": "Systeem",
+        "oled": "OLED"
+      },
+      "language": "Taal",
+      "languageOptions": {
+        "system": "Systeem"
+      },
+      "saveWindowPlacement": "Afsluiten: vensterindeling behouden",
+      "saveWindowPlacementWindows": "Afsluiten: vensterindeling behouden",
+      "minimizeToTray": "Sluiten: minimaliseren naar systeemvak/menubalk",
+      "launchAtStartup": "Automatisch starten na aanmelden",
+      "launchMinimized": "Automatisch starten: verborgen",
+      "showInContextMenu": "LocalSend weergeven in contextmenu",
+      "animations": "Animaties"
+    },
+    "receive": {
+      "title": "Ontvangen",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automatisch voltooien",
+      "destination": "Opslaan in map",
+      "downloads": "(Downloads)",
+      "saveToGallery": "Media opslaan in galerij",
+      "saveToHistory": "Opslaan in geschiedenis"
+    },
+    "send": {
+      "title": "Verzenden",
+      "shareViaLinkAutoAccept": "Automatisch verzoeken goedkeuren in modus 'Delen via link'"
+    },
+    "network": {
+      "title": "Netwerk",
+      "needRestart": "Start de server opnieuw op om de instellingen toe te passen.",
+      "server": "Server",
+      "alias": "Apparaatnaam",
+      "deviceType": "Apparaattype",
+      "deviceModel": "Apparaatmodel",
+      "port": "Poort",
+      "discoveryTimeout": "Time-out voor scannen",
+      "useSystemName": "Systeemnaam gebruiken",
+      "generateRandomAlias": "Willekeurige naam genereren",
+      "portWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepaste poort gebruikt. (Standaard: {defaultPort})",
+      "encryption": "Versleuteling",
+      "multicastGroup": "Multicast-adres",
+      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Overig",
+      "support": "LocalSend steunen",
+      "donate": "Doneren",
+      "privacyPolicy": "Privacybeleid",
+      "termsOfUse": "Gebruiksvoorwaarden"
+    },
+    "advancedSettings": "Geavanceerde instellingen"
+  },
+  "troubleshootPage": {
+    "title": "Problemen oplossen",
+    "subTitle": "Werkt de app niet zoals verwacht? Op deze pagina vind je oplossingen voor veelvoorkomende problemen.",
+    "solution": "Oplossing:",
+    "fixButton": "Automatisch oplossen",
+    "firewall": {
+      "symptom": "Dit apparaat kan bestanden naar andere apparaten verzenden, maar andere apparaten kunnen geen bestanden naar dit apparaat verzenden.",
+      "solution": "Dit is hoogstwaarschijnlijk een firewallprobleem. Je kunt dit oplossen door inkomende verbindingen (UDP en TCP) op poort {port} toe te staan.",
+      "openFirewall": "Firewall openen"
+    },
+    "noDiscovery": {
+      "symptom": "Dit apparaat vindt geen andere apparaten.",
+      "solution": "Zorg ervoor dat alle apparaten met hetzelfde wifi-netwerk zijn verbonden en dat ze dezelfde configuratie hebben (poort, multicast-adres, versleuteling). Je kunt proberen het IP-adres van het apparaat handmatig in te vullen. Als dat werkt, kun je het apparaat toevoegen aan je favorieten, zodat het voortaan automatisch kan worden gevonden."
+    },
+    "noConnection": {
+      "symptom": "Beide apparaten kunnen elkaar niet vinden en kunnen ook geen bestanden delen.",
+      "solution": "Doet het probleem zich aan beide kanten voor? Zorg er dan voor dat beide apparaten met hetzelfde wifi-netwerk zijn verbonden en dat ze dezelfde configuratie hebben (poort, multicast-address, versleuteling). Mogelijk is onderlinge communicatie tussen apparaten op het wifi-netwerk geblokkeerd (AP-isolatie). Dit moet je dan toestaan in de instellingen van je router."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Geschiedenis",
+    "openFolder": "Map openen",
+    "deleteHistory": "Geschiedenis verwijderen",
+    "empty": "De geschiedenis is leeg.",
+    "entryActions": {
+      "open": "Bestand openen",
+      "showInFolder": "Weergeven in map",
+      "info": "Informatie",
+      "deleteFromHistory": "Verwijderen uit geschiedenis"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Apps (APK)",
+    "excludeSystemApps": "Systeemapps uitsluiten",
+    "excludeAppsWithoutLaunchIntent": "Niet-startbare apps uitsluiten",
+    "apps": "{n} apps"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Alles verwijderen"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "wil een bestand naar je verzenden",
+      "other": "wil {n} bestanden naar je verzenden"
+    },
+    "subTitleMessage": "heeft een bericht naar je verzonden:",
+    "subTitleLink": "heeft een link naar je verzonden:",
+    "canceled": "De verzender heeft het verzoek geannuleerd."
+  },
+  "receiveOptionsPage": {
+    "title": "Opties",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend-map)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Automatisch uitgezet omdat er mappen bij zitten."
+  },
+  "sendPage": {
+    "waiting": "Wachten op antwoord...",
+    "rejected": "De ontvanger heeft het verzoek geweigerd.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "De ontvanger is bezig met een ander verzoek."
+  },
+  "progressPage": {
+    "titleSending": "Bestanden verzenden",
+    "titleReceiving": "Bestanden ontvangen",
+    "savedToGallery": "Opgeslagen in galerij",
+    "total": {
+      "title": {
+        "sending": "Totale voortgang ({time})",
+        "finishedError": "Voltooid met fouten",
+        "canceledSender": "Geannuleerd door verzender",
+        "canceledReceiver": "Geannuleerd door ontvanger"
+      },
+      "count": "Bestanden: {curr} / {n}",
+      "size": "Grootte: {curr} / {n}",
+      "speed": "Snelheid: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Delen via link",
+    "loading": "Server starten...",
+    "stopping": "Server stoppen...",
+    "error": "Er is een fout opgetreden bij het starten van de server.",
+    "openLink": {
+      "one": "Open deze link in je browser:",
+      "other": "Open een van deze links in je browser:"
+    },
+    "requests": "Verzoeken",
+    "noRequests": "Nog geen verzoeken.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Verzoeken automatisch accepteren",
+    "requirePin": "Code vereisen",
+    "pinHint": "De code is '{pin}'.",
+    "encryptionHint": "LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.",
+    "pendingRequests": "Openstaande verzoeken: {n}"
+  },
+  "aboutPage": {
+    "title": "Over LocalSend",
+    "description": [
+      "LocalSend is een gratis en opensource app waarmee je veilig bestanden en berichten met apparaten op je lokale netwerk kunt delen, zonder internetverbinding.",
+      "De app is beschikbaar voor Android, iOS, macOS, Windows en Linux. Je vindt alle downloadopties op de officiële website."
+    ],
+    "author": "Auteur",
+    "contributors": "Bijdragers",
+    "packagers": "Distributeurs",
+    "translators": "Vertalers"
+  },
+  "donationPage": {
+    "title": "Doneren",
+    "info": "LocalSend is gratis, opensource en advertentievrij. Als je de app graag gebruikt, kun je de ontwikkeling steunen middels een donatie.",
+    "donate": "{amount} doneren",
+    "thanks": "Ontzettend bedankt!",
+    "restore": "Aankoop herstellen"
+  },
+  "changelogPage": {
+    "title": "Wijzigingenoverzicht"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Toevoegen aan selectie",
+      "content": "Wat wil je toevoegen?"
+    },
+    "openFile": {
+      "title": "Bestand openen",
+      "content": "Wil je het ontvangen bestand openen?"
+    },
+    "addressInput": {
+      "title": "Vul een adres in",
+      "hashtag": "Hashtag",
+      "ip": "IP-adres",
+      "recentlyUsed": "Onlangs gebruikt: "
+    },
+    "cancelSession": {
+      "title": "Bestandsoverdracht annuleren",
+      "content": "Wil je de bestandsoverdracht annuleren?"
+    },
+    "cannotOpenFile": {
+      "title": "Kan bestand niet openen",
+      "content": "Het bestand '{file}' kan niet worden geopend. Het is mogelijk verplaatst, hernoemd of verwijderd."
+    },
+    "encryptionDisabledNotice": {
+      "title": "Versleuteling uitgeschakeld",
+      "content": "Communicatie verloopt nu via het onversleutelde HTTP-protocol. Schakel versleuteling weer in om het HTTPS-protocol te gebruiken."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorieten",
+      "noFavorites": "Nog geen favoriete apparaten.",
+      "addFavorite": "Toevoegen"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Verwijderen uit favorieten",
+      "content": "Wil je '{name}' uit je favorieten verwijderen?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Toevoegen aan favorieten",
+      "titleEdit": "Instellingen",
+      "name": "Apparaatnaam",
+      "auto": "(automatisch)",
+      "ip": "IP-adres",
+      "port": "Poort"
+    },
+    "fileInfo": {
+      "title": "Bestandsinformatie",
+      "fileName": "Bestandsnaam:",
+      "path": "Locatie:",
+      "size": "Grootte:",
+      "sender": "Afzender:",
+      "time": "Tijd:"
+    },
+    "fileNameInput": {
+      "title": "Vul een bestandsnaam in",
+      "original": "Origineel: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Geschiedenis wissen",
+      "content": "Wil je de volledige geschiedenis verwijderen?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend heeft rechten nodig om op het lokale netwerk naar andere apparaten te kunnen zoeken. Verleen deze rechten in de instellingen.",
+      "gotoSettings": "Instellingen"
+    },
+    "messageInput": {
+      "title": "Typ een bericht",
+      "multiline": "Meerdere regels"
+    },
+    "noFiles": {
+      "title": "Geen bestanden geselecteerd",
+      "content": "Selecteer ten minste één bestand."
+    },
+    "noPermission": {
+      "title": "Geen rechten",
+      "content": "Je hebt de benodigde rechten niet verleend. Verleen deze in de instellingen."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Niet beschikbaar",
+      "content": "Deze functie is alleen beschikbaar op:"
+    },
+    "qr": {
+      "title": "QR-code"
+    },
+    "quickActions": {
+      "title": "Snelle acties",
+      "counter": "Teller",
+      "prefix": "Voorvoegsel",
+      "padZero": "Aanvullen met nullen",
+      "sortBeforeCount": "Vooraf alfabetisch sorteren (A-Z)",
+      "random": "Willekeurig"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Bestandsverzoeken worden nu automatisch geaccepteerd. Iedereen op het lokale netwerk kan nu dus bestanden naar je verzenden."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.",
+        "Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.",
+        "Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden."
+      ]
+    },
+    "pin": {
+      "title": "Vul de code in"
+    },
+    "sendModeHelp": {
+      "title": "Verzendmodi",
+      "single": "Bestanden naar één ontvanger verzenden. De selectie wordt na de bestandsoverdracht gewist.",
+      "multiple": "Bestanden naar meerdere ontvangers verzenden. De selectie blijft na de bestandsoverdracht behouden.",
+      "link": "Ontvangers die LocalSend niet hebben geïnstalleerd kunnen de bestanden downloaden door de link in hun browser te openen."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Bestandsnaam mag niet leeg zijn",
+    "invalid": "Bestandsnaam bevat ongeldige tekens"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
+    "open": "@:general.open",
+    "close": "LocalSend afsluiten",
+    "closeWindows": "Sluiten"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Vul de code in",
+    "invalidPin": "Ongeldige code",
+    "tooManyAttempts": "Te veel pogingen",
+    "rejected": "Geweigerd",
+    "files": "Bestanden",
+    "fileName": "Bestandsnaam",
+    "size": "Grootte"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "confirm": "Bevestigen",
+    "cancel": "Annuleren",
+    "edit": "Bewerken",
+    "gifIndicator": "GIF",
+    "loadFailed": "Laden mislukt",
+    "original": "Herkomst",
+    "preview": "Voorbeeld",
+    "select": "Selecteren",
+    "emptyList": "Lege lijst",
+    "unSupportedAssetType": "Niet-ondersteund bestandstype.",
+    "unableToAccessAll": "Geen toegang tot alle bestanden op het apparaat",
+    "viewingLimitedAssetsTip": "De app heeft beperkte toegang tot bestanden.",
+    "changeAccessibleLimitedAssets": "Toegankelijke bestanden aanpassen",
+    "accessAllTip": "De app heeft slechts beperkte toegang tot je bestanden. Ga naar de systeeminstellingen om de toegangsrechten aan te passen.",
+    "goToSystemSettings": "Naar systeeminstellingen",
+    "accessLimitedAssets": "Doorgaan met beperkte toegang",
+    "accessiblePathName": "Toegankelijke bestanden",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Foto's",
+    "sTypeVideoLabel": "Video's",
+    "sTypeOtherLabel": "Andere media",
+    "sActionPlayHint": "afspelen",
+    "sActionPreviewHint": "voorbeeld",
+    "sActionSelectHint": "selecteren",
+    "sActionSwitchPathLabel": "pad wijzigen",
+    "sActionUseCameraHint": "camera gebruiken",
+    "sNameDurationLabel": "duur",
+    "sUnitAssetCountLabel": "aantal"
+  }
+}

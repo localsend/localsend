@@ -1,0 +1,266 @@
+{
+  "locale": "Mongolian",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Зөвшөөрөх",
+    "accepted": "Зөвшөөрсөн",
+    "add": "Нэмэх",
+    "advanced": "Нэмэлт үйлчилгээ",
+    "cancel": "Цуцлах",
+    "close": "Хаах",
+    "confirm": "Баталгаажуулах",
+    "continueStr": "Үргэлжлүүлэх",
+    "copy": "Хуулах",
+    "copiedToClipboard": "Амжилттай хууллаа",
+    "decline": "Татгалзах",
+    "done": "Болсон",
+    "delete": "Устгах",
+    "edit": "Өөрчлөх",
+    "error": "Алдаа",
+    "example": "Жишээ",
+    "files": "Файлууд",
+    "finished": "Дууссан",
+    "hide": "Нуух",
+    "off": "Унтраах",
+    "offline": "Оффлайн",
+    "on": "Асаах",
+    "online": "Онлайн",
+    "open": "Нээх",
+    "queue": "Хүлээгдэж байгаа",
+    "quickSave": "Шууд хадгалах",
+    "renamed": "Дахин нэрлэсэн",
+    "reset": "Өөрчлөлтүүдийг буцаах",
+    "restart": "Дахин ачаалах",
+    "settings": "Тохиргоо",
+    "skipped": "Алгассан",
+    "start": "Эхлэх",
+    "stop": "Зогсоох",
+    "save": "Хадгалах",
+    "unchanged": "Өөрчлөгдөөгүй",
+    "unknown": "Үл мэдэгдэх",
+    "noItemInClipboard": "Санах ой хоосон байна."
+  },
+  "receiveTab": {
+    "title": "Авах",
+    "infoBox": {
+      "ip": "IP хаяг:",
+      "port": "Порт:",
+      "alias": "Төхөөрөмжийн нэр:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Хадгалсан",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Илгээх",
+    "selection": {
+      "title": "Сонголт",
+      "files": "Файлууд: {files}",
+      "size": "Хэмжээ: {size}"
+    },
+    "picker": {
+      "file": "Файл",
+      "folder": "Хавтас",
+      "media": "Медиа",
+      "text": "Бичвэр",
+      "app": "Апп",
+      "clipboard": "Санах ойгоос буулгах"
+    },
+    "shareIntentInfo": "Та өөрийн төхөөрөмжийн \"Хуваалцах\" цэсийг ашиглан файлуудаа хялбар сонгох боломжтой.",
+    "nearbyDevices": "Ойролцоо төхөөрөмжүүд",
+    "thisDevice": "Энэ төхөөрөмж",
+    "scan": "Төхөөрөмжүүд хайх",
+    "manualSending": "Гар аргаар хайх",
+    "sendMode": "Илгээх горим",
+    "sendModes": {
+      "single": "Ганц хүлээн авагч",
+      "multiple": "Олон хүлээн авагч",
+      "link": "Холбоосоор хуваалцах"
+    },
+    "sendModeHelp": "Тайлбар",
+    "help": "Хүлээн авах төхөөрөмжийг адилхан Wi-Fi сүлжээнд байгаа эсэхийг шалгана уу.",
+    "placeItems": "Хуваалцах зүйлсээ орулна уу."
+  },
+  "settingsTab": {
+    "title": "Тохиргоо",
+    "general": {
+      "title": "Ерөнхий",
+      "brightness": "Үзэмж",
+      "brightnessOptions": {
+        "system": "Систем",
+        "dark": "Харанхуй",
+        "light": "Гэгээлэг"
+      },
+      "color": "Өнгө",
+      "colorOptions": {
+        "system": "Систем",
+        "oled": "OLED"
+      },
+      "language": "Хэл",
+      "languageOptions": {
+        "system": "Систем"
+      },
+      "saveWindowPlacement": "Гарсаны дараа цонхны байрлал хадгалах",
+      "saveWindowPlacementWindows": "Гарсаны дараа цонхны байрлал хадгалах",
+      "minimizeToTray": "Цонх хаах үед програмыг нуух",
+      "launchAtStartup": "Нэвтрэх үед хамт нээх",
+      "launchMinimized": "Авто эхлүүлэх: Нуугдсан эхлэх",
+      "showInContextMenu": "Системийн цэсэнд LocalSend-д харуулах",
+      "animations": "Анимэйшн"
+    },
+    "receive": {
+      "title": "Авах",
+      "quickSave": "@:general.quickSave",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Авто-дуусгах",
+      "destination": "Хавтаст хадгалах",
+      "downloads": "(Татсан файлууд)",
+      "saveToGallery": "Зургийн санд хадгалах",
+      "saveToHistory": "Түүхэнд хадгалах"
+    },
+    "send": {
+      "title": "Илгээх",
+      "shareViaLinkAutoAccept": "\"Холбоосоор илгээх\" горимын хүсэлтүүдийн шууд зөвшөөрөх"
+    },
+    "network": {
+      "title": "Сүлжээ",
+      "needRestart": "Серверийг дахин ачаалж тохиргоог идэвхжүүлнэ үү!",
+      "server": "Сервер",
+      "alias": "Төхөөрөмжийн нэр",
+      "deviceType": "Төхөөрөмжийн төрөл",
+      "deviceModel": "Төхөөрөмжийг модел",
+      "port": "Порт",
+      "discoveryTimeout": "Хайх хүчинтэй хугацаа",
+      "useSystemName": "Системийн нэр ашиглах",
+      "portWarning": "Та өөр порт ашиглаж байгаа тул бусад төхөөрөмжинд олдохгүй байж магадгүй . (өгөгдмөл: {defaultPort})",
+      "encryption": "Нууцлал",
+      "multicastGroup": "Мультикаст хаяг",
+      "multicastGroupWarning": "Хувийн multicast хаяг ашиглаж үед бусад төхөөрөмжид илрэхгүй байх магадлалтай. (default: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Бусад",
+      "support": "LocalSend-г дэмжих",
+      "donate": "Хандив өгөх",
+      "privacyPolicy": "Нууцлалын бодлого",
+      "termsOfUse": "Ашиглах нөхцөл"
+    },
+    "advancedSettings": "Нэмэлт тохиргоо"
+  },
+  "troubleshootPage": {
+    "title": "Асуудал илрүүлэх",
+    "subTitle": "Апп нь санаснаар ажиллахгүй байна уу? Эндээс асуудлыг нийтлэг асуудалуудыг олох боломжтой.",
+    "solution": "Шийдэл:",
+    "fixButton": "Автоматаар засварлах",
+    "firewall": {
+      "symptom": "Энэ төрөөрөмж бусадруу файл илгээж чадаж байгаа ч бусад төхөөрөмж энэ төхөөрөмжрүү илгээж чадахгүй байна.",
+      "solution": "Энэ нь ихэвчлэн firewall-н асуудл байдаг. Та {port} дээр ирж буй холболтыг (UDP ба TCP) зөвшөөрч шийдвэрлэх боломжтой.",
+      "openFirewall": "Firewall-г нээх"
+    },
+    "noDiscovery": {
+      "symptom": "Энэ төхөөрөмж бусад төхөөрөмжийг илрүүлж чадахгүй байна.",
+      "solution": "Бүх төхөөрөмж адилхан Wi-Fi сүлжээнд орсон, адилхан тохиргоотой (порт, мультикаст хаяг, нууцлал) эсэхийг шалгана уу. Мөн төхөөрөмжийн IP хаягийг гараар оруулж үзнэ үү. Хэрэв болж байвал тухайн төхөөрөмжийг \"Хадгалсан\" хэсэгт нэмж дараа нь автоматаар таниулаарай."
+    },
+    "noConnection": {
+      "symptom": "Төхөөрөмжүүд бие биенийгээ танихгүй, файл хуваалцаж чадахгүй байна.",
+      "solution": "Хоёр талдаа ажиллахгүй байна уу? Хэрэв тийм бол хоёр төхөөрөмж ижил Wi-Fi сүлжээнд байгаа эсэхийг эсвэл ижил тохиргоотой (порт, multicast хаяг, шифрлэлт) байгаа эсэхийг шалгана уу. Wi-Fi сүлжээ эсвэл Acess Point (AP) төхөөрөмж хоорондын харилцааг хаасан байж магадгүй. Энэ тохиолдолд Wi-Fi төхөөрөмжийн тохиргоог өөрчлөнө үү."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Түүх",
+    "openFolder": "Хавтас нээх",
+    "deleteHistory": "Түүх устгах",
+    "empty": "Түүх хоосон байна.",
+    "entryActions": {
+      "open": "Файл нээх",
+      "showInFolder": "Хавтаст харуулах",
+      "info": "Мэдээлэл",
+      "deleteFromHistory": "Түүхээс устгах"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Аппууд (APK)",
+    "excludeSystemApps": "Системийн аппуудыг хасах",
+    "excludeAppsWithoutLaunchIntent": "Нээх боломжгүй аппуудыг хасах",
+    "apps": "{n} апп"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Бүгдийг устгах"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "танруу файл явуулахыг хүсэж байна",
+      "other": "танруу {n} файл явуулахыг хүсэж байна"
+    },
+    "subTitleMessage": "танруу зурвас илгээлээ:",
+    "subTitleLink": "танруу холбоос илгээлээ:",
+    "canceled": "Илгээгч хүсэлтийг цуцалсан байна."
+  },
+  "receiveOptionsPage": {
+    "title": "Сонголтын тохиргоо",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend-н хавтас)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Хавтсууд байгаа учир автоматаар унтраалаа."
+  },
+  "sendPage": {
+    "waiting": "Хариу хүлээж байна…",
+    "rejected": "Хүлээн авагч хүсэлтйиг татгалзлаа.",
+    "busy": "Хүлээн авагч өөр хүсэлт авсан тул завгүй байна."
+  },
+  "progressPage": {
+    "titleSending": "Файлууд илгээж байна",
+    "titleReceiving": "Файлыг татаж байна",
+    "savedToGallery": "Photos дээр амжилттай хадгаллаа",
+    "total": {
+      "title": {
+        "sending": "Нийт хугацаа ({time})",
+        "finishedError": "Амжилтгүй болсон",
+        "canceledSender": "Явуулж байгаа хүн цуцаллаа",
+        "canceledReceiver": "Хүлээн авагчийн хүсэлтээр цуцалсан"
+      },
+      "count": "Файл: {curr} / {n}",
+      "size": "Хэмжээ: {curr} / {n}",
+      "speed": "Хурд: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Линкээр хуваалцах",
+    "error": "Сервер асаахад алдаа гарлаа.",
+    "openLink": {
+      "one": "Энэ холбоосыг browser дээрээ нээнэ үү:",
+      "other": "Уг линкийн аль нэгрүү орно уу:"
+    },
+    "requests": "Хүсэлтүүд",
+    "noRequests": "Одоогоор хүсэлт байхгүй байна.",
+    "autoAccept": "Хүсэлтийг автоматаар авах",
+    "requirePin": "PIN код ашиглах",
+    "pinHint": "PIN код: \"{pin}\"",
+    "encryptionHint": "LocalSend нь өөрийн гарын үсэг ашигладаг тул үүнийг browser дээрээ хүлээн зөвшөөрнө үү.",
+    "pendingRequests": "Хүлээгдэж буй хүсэлт: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend танилцуулга",
+    "description": [
+      "LocalSend нь үнэгүй, нээлттэй эхийн програм бөгөөд танд интернет холболт шаардлагагүйгээр өөрийн дотоод сүлжээгээр ойролцоох төхөөрөмжүүдтэй файл, мессежийг аюулгүйгээр хуваалцах боломтой.",
+      "Энэ програмыг Android, iOS, macOS, Windows болон Linux дээр ашиглах боломжтой. Та албан ёсны веб сайтнаас татах боломжтой."
+    ],
+    "author": "Эзэмшигч",
+    "contributors": "Хамт тусалсан",
+    "translators": "Орчуулагч нар"
+  },
+  "donationPage": {
+    "title": "Хандив",
+    "info": "LocalSend нь үнэ төлбөргүй, нээлттэй эх сурвалжтай бөгөөд ямар ч зар сурталчилгаагүй. Хэрэв энэ програм таалагдсан бол хандивын мөнгөөр хөгжлийг дэмжих боломжтой.",
+    "donate": "{amount} аар хандивлах",
+    "thanks": "Маш их баярлалаа!",
+    "restore": "Буцаах"
+  },
+  "changelogPage": {
+    "title": "Шинэчлэлт"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  }
+}

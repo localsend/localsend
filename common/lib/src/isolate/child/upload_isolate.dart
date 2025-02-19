@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/main.dart';
-import 'package:common/src/isolate/child/sync_provider.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/task/upload/http_upload.dart';
 import 'package:common/util/stream.dart';
-import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:refena/refena.dart';
 
@@ -53,7 +52,7 @@ class HttpUploadCancelTask implements BaseHttpUploadTask {
 
 /// Map of cancel tokens for each task.
 /// Task ID -> CancelToken
-final _cancelTokenProvider = Provider((ref) => <int, CancelToken>{});
+final _cancelTokenProvider = Provider((ref) => <int, CustomCancelToken>{});
 
 abstract class UriContentStreamResolver {
   /// Separate initialization method to create instance in the child isolate.
@@ -106,7 +105,7 @@ Future<void> setupHttpUploadIsolate(
       final (streamController, subscription) = fileStream?.digested() ?? (null, null);
 
       try {
-        final cancelToken = CancelToken();
+        final cancelToken = CustomCancelToken();
         ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
 
         await ref.read(httpUploadProvider).upload(

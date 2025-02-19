@@ -220,7 +220,10 @@ class SendController {
         });
       } else {
         final path = file.path!;
-        final fileStream = path.startsWith('content://') ? UriContent().getContentStream(Uri.parse(file.path!)) : File(file.path!).openRead();
+        final tmpfile = File(file.path!);
+        request.response.headers.set('content-length', '${tmpfile.lengthSync()}');
+
+        final fileStream = path.startsWith('content://') ? UriContent().getContentStream(Uri.parse(file.path!)) : tmpfile.openRead();
         final (streamController, subscription) = fileStream.digested();
 
         await request.response.addStream(streamController.stream).then((_) {

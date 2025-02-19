@@ -78,6 +78,8 @@ class TranslationsPtBr extends Translations {
   late final _TranslationsWebPtBr web = _TranslationsWebPtBr._(_root);
   @override
   late final _TranslationsAssetPickerPtBr assetPicker = _TranslationsAssetPickerPtBr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPagePtBr networkInterfacesPage = _TranslationsNetworkInterfacesPagePtBr._(_root);
 }
 
 // Path: general
@@ -379,7 +381,7 @@ class _TranslationsSendPagePtBr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Aguardando resposta...';
+  String get waiting => 'Aguardando resposta…';
   @override
   String get rejected => 'O destinatário rejeitou a solicitação.';
   @override
@@ -419,9 +421,9 @@ class _TranslationsWebSharePagePtBr extends TranslationsWebSharePageEn {
   @override
   String get title => 'Compartilhe via link';
   @override
-  String get loading => 'Iniciando o servidor...';
+  String get loading => 'Iniciando o servidor…';
   @override
-  String get stopping => 'Parando o servidor...';
+  String get stopping => 'Parando o servidor…';
   @override
   String get error => 'Um erro ocorreu enquanto o servidor tentava iniciar.';
   @override
@@ -487,7 +489,7 @@ class _TranslationsDonationPagePtBr extends TranslationsDonationPageEn {
   String get title => 'Doar';
   @override
   String get info =>
-      'LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação!';
+      'LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação.';
   @override
   String donate({required Object amount}) => 'Doar ${amount}';
   @override
@@ -773,6 +775,28 @@ class _TranslationsAssetPickerPtBr extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'Total';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPagePtBr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPagePtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get whitelist => 'Lista branca';
+  @override
+  String get blacklist => 'Lista negra';
+  @override
+  String get info =>
+      'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
+  @override
+  String get preview => 'Anterior';
+  @override
+  String get title => 'Interfaces de rede';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxPtBr extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxPtBr._(TranslationsPtBr root)
@@ -986,6 +1010,10 @@ class _TranslationsSettingsTabNetworkPtBr extends TranslationsSettingsTabNetwork
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: ${defaultMulticast})';
+  @override
+  String get network => 'Rede';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsPtBr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsPtBr._(_root);
 }
 
 // Path: settingsTab.other
@@ -1217,7 +1245,7 @@ class _TranslationsDialogsFavoriteDialogPtBr extends TranslationsDialogsFavorite
   @override
   String get title => 'Favoritos';
   @override
-  String get noFavorites => 'Sem favoritos ainda :(';
+  String get noFavorites => 'Nenhum dispositivo favorito ainda.';
   @override
   String get addFavorite => 'Adicionar';
 }
@@ -1388,7 +1416,7 @@ class _TranslationsDialogsNotAvailableOnPlatformPtBr extends TranslationsDialogs
   @override
   String get title => 'Indisponível';
   @override
-  String get content => 'Essa função está disponível somente no: ';
+  String get content => 'Essa função está disponível somente no:';
 }
 
 // Path: dialogs.qr
@@ -1457,7 +1485,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr extends TranslationsD
   @override
   List<String> get content => [
         'Requisições de arquivo agora são aceitas automaticamente de dispositivos da sua lista de favoritos.',
-        'Atenção: Essa opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos',
+        'Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos sem restrições.',
         'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo.',
       ];
 }
@@ -1551,6 +1579,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsPtBr extends TranslationsSet
   // Translations
   @override
   String get system => 'Sistema';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsPtBr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsPtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Todos';
+  @override
+  String get filtered => 'Filtrado';
 }
 
 // Path: progressPage.total.title

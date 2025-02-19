@@ -41,6 +41,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   late final TranslationsSendTabEn sendTab = TranslationsSendTabEn.internal(_root);
   late final TranslationsSettingsTabEn settingsTab = TranslationsSettingsTabEn.internal(_root);
   late final TranslationsTroubleshootPageEn troubleshootPage = TranslationsTroubleshootPageEn.internal(_root);
+  late final TranslationsNetworkInterfacesPageEn networkInterfacesPage = TranslationsNetworkInterfacesPageEn.internal(_root);
   late final TranslationsReceiveHistoryPageEn receiveHistoryPage = TranslationsReceiveHistoryPageEn.internal(_root);
   late final TranslationsApkPickerPageEn apkPickerPage = TranslationsApkPickerPageEn.internal(_root);
   late final TranslationsSelectedFilesPageEn selectedFilesPage = TranslationsSelectedFilesPageEn.internal(_root);
@@ -173,6 +174,21 @@ class TranslationsTroubleshootPageEn {
   late final TranslationsTroubleshootPageNoConnectionEn noConnection = TranslationsTroubleshootPageNoConnectionEn.internal(_root);
 }
 
+// Path: networkInterfacesPage
+class TranslationsNetworkInterfacesPageEn {
+  TranslationsNetworkInterfacesPageEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get title => 'Network Interfaces';
+  String get info =>
+      'By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.';
+  String get preview => 'Preview';
+  String get whitelist => 'Whitelist';
+  String get blacklist => 'Blacklist';
+}
+
 // Path: receiveHistoryPage
 class TranslationsReceiveHistoryPageEn {
   TranslationsReceiveHistoryPageEn.internal(this._root);
@@ -248,7 +264,7 @@ class TranslationsSendPageEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String get waiting => 'Waiting for response...';
+  String get waiting => 'Waiting for response…';
   String get rejected => 'The recipient has rejected the request.';
   String get tooManyAttempts => _root.web.tooManyAttempts;
   String get busy => 'The recipient is busy with another request.';
@@ -275,8 +291,8 @@ class TranslationsWebSharePageEn {
 
   // Translations
   String get title => 'Share via link';
-  String get loading => 'Starting server...';
-  String get stopping => 'Stopping server...';
+  String get loading => 'Starting server…';
+  String get stopping => 'Stopping server…';
   String get error => 'An error occurred while starting the server.';
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
         n,
@@ -657,6 +673,8 @@ class TranslationsSettingsTabNetworkEn {
   String get deviceType => 'Device type';
   String get deviceModel => 'Device model';
   String get port => 'Port';
+  String get network => 'Network';
+  late final TranslationsSettingsTabNetworkNetworkOptionsEn networkOptions = TranslationsSettingsTabNetworkNetworkOptionsEn.internal(_root);
   String get discoveryTimeout => 'Discovery Timeout';
   String get useSystemName => 'Use system name';
   String get generateRandomAlias => 'Generate random alias';
@@ -1070,6 +1088,17 @@ class TranslationsSettingsTabGeneralLanguageOptionsEn {
 
   // Translations
   String get system => 'System';
+}
+
+// Path: settingsTab.network.networkOptions
+class TranslationsSettingsTabNetworkNetworkOptionsEn {
+  TranslationsSettingsTabNetworkNetworkOptionsEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get all => 'All';
+  String get filtered => 'Filtered';
 }
 
 // Path: progressPage.total.title

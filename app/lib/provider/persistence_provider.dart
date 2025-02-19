@@ -66,6 +66,8 @@ const _themeKey = 'ls_theme'; // now called brightness
 const _colorKey = 'ls_color';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
+const _networkWhitelistKey = 'ls_network_whitelist';
+const _networkBlacklistKey = 'ls_network_blacklist';
 const _timeoutKey = 'ls_timeout';
 const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
@@ -284,6 +286,30 @@ class PersistenceService {
 
   Future<void> setPort(int port) async {
     await _prefs.setInt(_portKey, port);
+  }
+
+  List<String>? getNetworkWhitelist() {
+    return _prefs.getStringList(_networkWhitelistKey);
+  }
+
+  Future<void> setNetworkWhitelist(List<String>? whitelist) async {
+    if (whitelist == null) {
+      await _prefs.remove(_networkWhitelistKey);
+    } else {
+      await _prefs.setStringList(_networkWhitelistKey, whitelist);
+    }
+  }
+
+  List<String>? getNetworkBlacklist() {
+    return _prefs.getStringList(_networkBlacklistKey);
+  }
+
+  Future<void> setNetworkBlacklist(List<String>? blacklist) async {
+    if (blacklist == null) {
+      await _prefs.remove(_networkBlacklistKey);
+    } else {
+      await _prefs.setStringList(_networkBlacklistKey, blacklist);
+    }
   }
 
   int getDiscoveryTimeout() {

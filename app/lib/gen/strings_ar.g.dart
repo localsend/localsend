@@ -78,6 +78,8 @@ class TranslationsAr extends Translations {
   late final _TranslationsWebAr web = _TranslationsWebAr._(_root);
   @override
   late final _TranslationsAssetPickerAr assetPicker = _TranslationsAssetPickerAr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageAr networkInterfacesPage = _TranslationsNetworkInterfacesPageAr._(_root);
 }
 
 // Path: general
@@ -92,7 +94,7 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get accept => 'قبول';
   @override
-  String get accepted => 'تم قبولها';
+  String get accepted => 'قُبلت';
   @override
   String get add => 'إضافة';
   @override
@@ -150,7 +152,7 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get restart => 'إعادة تشغيل';
   @override
-  String get settings => 'إعدادات';
+  String get settings => 'الإعدادات';
   @override
   String get skipped => 'تم تخطيه';
   @override
@@ -164,7 +166,7 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get unknown => 'مجهول';
   @override
-  String get noItemInClipboard => 'لا توجد عناصر في الحافظة';
+  String get noItemInClipboard => 'لا توجد عناصر في الحافظة.';
 }
 
 // Path: receiveTab
@@ -180,6 +182,8 @@ class _TranslationsReceiveTabAr extends TranslationsReceiveTabEn {
   String get title => 'استلام';
   @override
   late final _TranslationsReceiveTabInfoBoxAr infoBox = _TranslationsReceiveTabInfoBoxAr._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveAr quickSave = _TranslationsReceiveTabQuickSaveAr._(_root);
 }
 
 // Path: sendTab
@@ -229,7 +233,7 @@ class _TranslationsSettingsTabAr extends TranslationsSettingsTabEn {
 
   // Translations
   @override
-  String get title => 'إعدادات';
+  String get title => 'الإعدادات';
   @override
   late final _TranslationsSettingsTabGeneralAr general = _TranslationsSettingsTabGeneralAr._(_root);
   @override
@@ -376,7 +380,7 @@ class _TranslationsSendPageAr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'بإنتظار الرد...';
+  String get waiting => 'بإنتظار الرد…';
   @override
   String get rejected => 'المستلم رفض الطلب.';
   @override
@@ -416,9 +420,9 @@ class _TranslationsWebSharePageAr extends TranslationsWebSharePageEn {
   @override
   String get title => 'مشاركة عبر الرابط';
   @override
-  String get loading => 'جاري بدء الخادم...';
+  String get loading => 'جارِ بدء الخادم…';
   @override
-  String get stopping => 'جاري إيقاف الخادم...';
+  String get stopping => 'جارِ إيقاف الخادم…';
   @override
   String get error => 'حدث خطأ أثناء بدء الخادم.';
   @override
@@ -602,6 +606,8 @@ class _TranslationsDialogsAr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileAr addFile = _TranslationsDialogsAddFileAr._(_root);
   @override
+  late final _TranslationsDialogsOpenFileAr openFile = _TranslationsDialogsOpenFileAr._(_root);
+  @override
   late final _TranslationsDialogsAddressInputAr addressInput = _TranslationsDialogsAddressInputAr._(_root);
   @override
   late final _TranslationsDialogsCancelSessionAr cancelSession = _TranslationsDialogsCancelSessionAr._(_root);
@@ -737,7 +743,7 @@ class _TranslationsAssetPickerAr extends TranslationsAssetPickerEn {
   @override
   String get emptyList => 'القائمة فارغة';
   @override
-  String get unSupportedAssetType => 'نوع غير مدعوم';
+  String get unSupportedAssetType => 'نوع ملف غير مدعوم.';
   @override
   String get unableToAccessAll => 'لا يمكن الوصول إلى جميع الملفات الموجودة على الجهاز';
   @override
@@ -762,7 +768,7 @@ class _TranslationsAssetPickerAr extends TranslationsAssetPickerEn {
   @override
   String get sTypeOtherLabel => 'آخر';
   @override
-  String get sActionPlayHint => 'تشغيل';
+  String get sActionPlayHint => 'شغّل';
   @override
   String get sActionPreviewHint => 'معاينة';
   @override
@@ -775,6 +781,28 @@ class _TranslationsAssetPickerAr extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'مدة';
   @override
   String get sUnitAssetCountLabel => 'عدد';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageAr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageAr._(TranslationsAr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get whitelist => 'القائمة البيضاء';
+  @override
+  String get title => 'واجهات الشبكة';
+  @override
+  String get blacklist => 'القائمة السوداء';
+  @override
+  String get info =>
+      'بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.';
+  @override
+  String get preview => 'معاينة';
 }
 
 // Path: receiveTab.infoBox
@@ -791,7 +819,24 @@ class _TranslationsReceiveTabInfoBoxAr extends TranslationsReceiveTabInfoBoxEn {
   @override
   String get port => 'منفذ:';
   @override
-  String get alias => 'اسم مستعار:';
+  String get alias => 'اسم الجهاز:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveAr extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveAr._(TranslationsAr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'المفضلات';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -960,6 +1005,10 @@ class _TranslationsSettingsTabNetworkAr extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => 'مهلة الاكتشاف';
   @override
+  String get useSystemName => 'استخدم اسم النظام';
+  @override
+  String get generateRandomAlias => 'ولّد كنية عشوائية';
+  @override
   String portWarning({required Object defaultPort}) =>
       'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: ${defaultPort})';
   @override
@@ -969,6 +1018,10 @@ class _TranslationsSettingsTabNetworkAr extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsAr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsAr._(_root);
+  @override
+  String get network => 'الشبكة';
 }
 
 // Path: settingsTab.other
@@ -1093,6 +1146,21 @@ class _TranslationsDialogsAddFileAr extends TranslationsDialogsAddFileEn {
   String get title => 'أضف إلى الاختيار';
   @override
   String get content => 'ماذا تريد أن تضيف؟';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileAr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileAr._(TranslationsAr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'افتح الملف';
+  @override
+  String get content => 'هل تريد فتح الملف المستلم؟';
 }
 
 // Path: dialogs.addressInput
@@ -1419,6 +1487,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeAr extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك.',
+        'تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلة لديك أن يرسل لك ملفات دون قيود.',
+        'ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود.',
+      ];
 }
 
 // Path: dialogs.pin
@@ -1509,6 +1583,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsAr extends TranslationsSetti
   // Translations
   @override
   String get system => 'نظام';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsAr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsAr._(TranslationsAr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get filtered => 'مُصفاة';
+  @override
+  String get all => 'الكل';
 }
 
 // Path: progressPage.total.title

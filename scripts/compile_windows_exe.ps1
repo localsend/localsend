@@ -6,7 +6,7 @@ fvm flutter build windows
 
 Remove-Item "D:\inno" -Force  -Recurse -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path "D:\inno"
-Copy-Item -Path "build\windows\runner\Release\*" -Destination "D:\inno" -Recurse
+Copy-Item -Path "build\windows\x64\runner\Release\*" -Destination "D:\inno" -Recurse
 Copy-Item -Path "assets\packaging\logo.ico" -Destination "D:\inno"
 
 cd ..

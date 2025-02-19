@@ -1,5 +1,27 @@
-## 1.16.0 (unreleased)
+## 1.17.0 (2025-02-19)
 
+- feat: add advanced setting to filter network interfaces (@Tienisto)
+- feat(mobile): swipe gesture to select multiple media files (@Tienisto)
+- feat(windows): when pasting an image, automatically convert it to PNG (@BrianMwit)
+- feat(android): add option to open gallery when image/video was automatically saved (@Tienisto)
+- fix: path traversal vulnerability when saving files (@Tienisto)
+- fix: black screen when tapping on "Back" twice in "Share via link" (@Tienisto)
+- fix(macos): window disappears on command key when minimize to tray is enabled (@Tienisto)
+- fix(windows): do not poll local IP resulting in unwanted location permissions (@Tienisto)
+
+## 1.16.2 (2024-11-06)
+
+- fix(ios): share from other apps to LocalSend doesn't work in iOS 18 (@Tienisto)
+
+## 1.16.1 (2024-11-05)
+
+- feat: show exact error message when using IP address dialog or favorite dialog (@Tienisto)
+- feat(desktop): highlight file when tapping "Show in folder" (@Tienisto)
+- fix(android): properly close app on back gesture (@Tienisto)
+
+## 1.16.0 (2024-11-03)
+
+- feat: improve transfer speed if the sending device is the bottleneck by using Rust as HTTP client and multithreading (@Tienisto)
 - feat: add option to automatically receive files only from favorites (@Davte)
 - feat: only automatically finish when files are either successfully received or skipped (@Tienisto)
 - feat: improve various padding and spacing issues in RTL languages (@ShlomoCode)
@@ -11,9 +33,11 @@
 - feat(macos): starts hidden in menu bar instead of being minimized when autostart is enabled (@ShlomoCode)
 - feat(macos): show error and success state in the app icon (@ShlomoCode, @Tienisto)
 - feat(macos): also have autostart option in sandboxed version (App Store) (@ShlomoCode)
+- feat(macos): LocalSend installed via dmg installer is sandboxed (@Tienisto)
 - feat(android): enable clipboard button (@Seidko)
 - feat(ios): enable clipboard button (@AnessZurba)
 - fix(macos): reopen app from launchpad after minimizing to menu bar should make window visible (@ShlomoCode)
+- fix(macos): persist write access to download location after app restart (@ShlomoCode)
 - i18n: add Malaysian (@Gloridust), Slovak (@dodog)
 
 ## 1.15.4 (2024-08-20)

@@ -1,0 +1,209 @@
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <mn>.",
+    "After editing this file, you can run 'dart run slang apply --locale=mn' to quickly apply the newly added translations."
+  ],
+  "general": {
+    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+  },
+  "settingsTab": {
+    "receive": {
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+    },
+    "network": {
+      "network": "Network",
+      "networkOptions": {
+        "all": "All",
+        "filtered": "Filtered"
+      },
+      "generateRandomAlias": "Generate random alias"
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Network Interfaces",
+    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
+    "preview": "Preview",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
+  },
+  "sendPage": {
+    "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "webSharePage": {
+    "loading": "Starting server…",
+    "stopping": "Stopping server…",
+    "encryption": "@:settingsTab.network.encryption"
+  },
+  "aboutPage": {
+    "packagers": "Packagers"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Add to selection",
+      "content": "What do you want to add?"
+    },
+    "openFile": {
+      "title": "Open file",
+      "content": "Do you want to open the received file?"
+    },
+    "addressInput": {
+      "title": "Enter address",
+      "hashtag": "Hashtag",
+      "ip": "IP Address",
+      "recentlyUsed": "Recently used: "
+    },
+    "cancelSession": {
+      "title": "Cancel files transfer",
+      "content": "Do you really want to cancel the files transfer?"
+    },
+    "cannotOpenFile": {
+      "title": "Cannot open file",
+      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Encryption disabled",
+      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorites",
+      "noFavorites": "No favorite devices yet.",
+      "addFavorite": "Add"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Delete from favorites",
+      "content": "Do you really want to delete from favorites \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Add to favorites",
+      "titleEdit": "Settings",
+      "name": "Device name",
+      "auto": "(auto)",
+      "ip": "IP Address",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "File information",
+      "fileName": "File name:",
+      "path": "Path:",
+      "size": "Size:",
+      "sender": "Sender:",
+      "time": "Time:"
+    },
+    "fileNameInput": {
+      "title": "Enter file name",
+      "original": "Original: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Clear history",
+      "content": "Do you really want to delete the entire history?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "gotoSettings": "Settings"
+    },
+    "messageInput": {
+      "title": "Type message",
+      "multiline": "Multiline"
+    },
+    "noFiles": {
+      "title": "No files selected",
+      "content": "Please select at least one file."
+    },
+    "noPermission": {
+      "title": "No permission",
+      "content": "You have not granted the necessary permissions. Please grant them in the settings."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Not available",
+      "content": "This feature is only available on:"
+    },
+    "qr": {
+      "title": "QR Code"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "counter": "Counter",
+      "prefix": "Prefix",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "Sort alphabetically beforehand (A-Z)",
+      "random": "Random"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "File requests are now accepted automatically. Be aware that everyone on the local network can send you files."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "File requests are now accepted automatically from devices in your favorites list.",
+        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
+        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+      ]
+    },
+    "pin": {
+      "title": "Enter PIN"
+    },
+    "sendModeHelp": {
+      "title": "Send modes",
+      "single": "Sends files to one recipient. Selection will be cleared after finished files transfer.",
+      "multiple": "Sends files to multiple recipients. Selection will not be cleared after finished files transfer.",
+      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Filename cannot be empty",
+    "invalid": "Filename contains invalid characters"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "Quit LocalSend",
+    "closeWindows": "Exit"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Enter PIN",
+    "invalidPin": "Invalid PIN",
+    "tooManyAttempts": "Too many attempts",
+    "rejected": "Rejected",
+    "files": "Files",
+    "fileName": "File name",
+    "size": "Size"
+  },
+  "assetPicker": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "gifIndicator": "GIF",
+    "loadFailed": "Load failed",
+    "original": "Origin",
+    "preview": "Preview",
+    "select": "Select",
+    "emptyList": "Empty list",
+    "unSupportedAssetType": "Unsupported file type.",
+    "unableToAccessAll": "Unable to access all files on the device",
+    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
+    "changeAccessibleLimitedAssets": "Click to update accessible files",
+    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
+    "goToSystemSettings": "Go to system settings",
+    "accessLimitedAssets": "Continue with limited access",
+    "accessiblePathName": "Accessible files",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Image",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Other media",
+    "sActionPlayHint": "play",
+    "sActionPreviewHint": "preview",
+    "sActionSelectHint": "select",
+    "sActionSwitchPathLabel": "change path",
+    "sActionUseCameraHint": "use camera",
+    "sNameDurationLabel": "duration",
+    "sUnitAssetCountLabel": "count"
+  }
+}

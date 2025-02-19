@@ -108,7 +108,7 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get copy => '복사';
   @override
-  String get copiedToClipboard => '클립보드에 복사하였습니다';
+  String get copiedToClipboard => '클립보드에 복사했습니다';
   @override
   String get decline => '거부';
   @override
@@ -124,9 +124,9 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get files => '파일';
   @override
-  String get finished => '완료되었습니다';
+  String get finished => '완료';
   @override
-  String get hide => '숨기기';
+  String get hide => '숨김';
   @override
   String get off => '꺼짐';
   @override
@@ -142,6 +142,8 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get quickSave => '빠른 저장';
   @override
+  String get quickSaveFromFavorites => '"즐겨찾기"를 위한 빠른 저장';
+  @override
   String get renamed => '이름 변경됨';
   @override
   String get reset => '리셋';
@@ -150,7 +152,7 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get settings => '설정';
   @override
-  String get skipped => '스킵됨';
+  String get skipped => '건너뜀';
   @override
   String get start => '시작';
   @override
@@ -158,11 +160,11 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get save => '저장';
   @override
-  String get unchanged => '변경 안됨';
+  String get unchanged => '변경 안 됨';
   @override
   String get unknown => '알 수 없음';
   @override
-  String get noItemInClipboard => '클립보드에 항목이 없습니다';
+  String get noItemInClipboard => '클립보드가 비어있습니다';
 }
 
 // Path: receiveTab
@@ -175,9 +177,11 @@ class _TranslationsReceiveTabKo extends TranslationsReceiveTabEn {
 
   // Translations
   @override
-  String get title => '수신';
+  String get title => '받기';
   @override
   late final _TranslationsReceiveTabInfoBoxKo infoBox = _TranslationsReceiveTabInfoBoxKo._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveKo quickSave = _TranslationsReceiveTabQuickSaveKo._(_root);
 }
 
 // Path: sendTab
@@ -190,7 +194,7 @@ class _TranslationsSendTabKo extends TranslationsSendTabEn {
 
   // Translations
   @override
-  String get title => '송신';
+  String get title => '보내기';
   @override
   late final _TranslationsSendTabSelectionKo selection = _TranslationsSendTabSelectionKo._(_root);
   @override
@@ -198,11 +202,13 @@ class _TranslationsSendTabKo extends TranslationsSendTabEn {
   @override
   String get shareIntentInfo => '휴대전화의 \'공유\' 기능을 사용하면 보다 편리하게 파일을 선택할 수 있습니다';
   @override
-  String get nearbyDevices => '근처의 기기';
+  String get nearbyDevices => '근처 기기';
   @override
   String get thisDevice => '이 기기';
   @override
   String get scan => '기기를 검색하는 중';
+  @override
+  String get manualSending => '수동 전송';
   @override
   String get sendMode => '전송 모드';
   @override
@@ -212,7 +218,7 @@ class _TranslationsSendTabKo extends TranslationsSendTabEn {
   @override
   String get help => '보내려는 기기가 동일한 Wi-Fi 네트워크에 연결되어 있는지 확인해 주세요';
   @override
-  String get placeItems => '드롭해서 공유';
+  String get placeItems => '드롭하여 공유하기';
 }
 
 // Path: settingsTab
@@ -252,11 +258,11 @@ class _TranslationsTroubleshootPageKo extends TranslationsTroubleshootPageEn {
   @override
   String get title => '문제 해결';
   @override
-  String get subTitle => '이 앱이 예상대로 작동하지 않나요? 여기에서 일반적인 해결 방법을 찾을 수 있습니다.';
+  String get subTitle => '앱이 제대로 작동하지 않나요? 이 곳에서 일반적인 문제들에 대한 도움말을 찾을 수 있습니다.';
   @override
-  String get solution => '해결 방법:';
+  String get solution => '도움말:';
   @override
-  String get fixButton => '자동으로 수정하기';
+  String get fixButton => '자동으로 해결하기';
   @override
   late final _TranslationsTroubleshootPageFirewallKo firewall = _TranslationsTroubleshootPageFirewallKo._(_root);
   @override
@@ -338,7 +344,7 @@ class _TranslationsReceivePageKo extends TranslationsReceivePageEn {
   @override
   String get subTitleLink => '에서 링크를 보냈습니다:';
   @override
-  String get canceled => '보내는 사람이 요청을 취소했습니다';
+  String get canceled => '보내는 사람이 요청을 취소했습니다.';
 }
 
 // Path: receiveOptionsPage
@@ -351,7 +357,7 @@ class _TranslationsReceiveOptionsPageKo extends TranslationsReceiveOptionsPageEn
 
   // Translations
   @override
-  String get title => '옵션';
+  String get title => '설정';
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
@@ -359,7 +365,7 @@ class _TranslationsReceiveOptionsPageKo extends TranslationsReceiveOptionsPageEn
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => '디렉토리가 있어 자동으로 꺼집니다.';
+  String get saveToGalleryOff => '폴더가 있어 자동으로 비활성화되었습니다.';
 }
 
 // Path: sendPage
@@ -372,13 +378,13 @@ class _TranslationsSendPageKo extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => '답변을 기다리는 중…';
+  String get waiting => '응답 대기 중…';
   @override
   String get rejected => '받는 사람이 요청을 거부했습니다';
   @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
-  String get busy => '수신자가 다른 요청으로 바쁩니다.';
+  String get busy => '받는 사람이 다른 요청을 처리하는 중입니다.';
 }
 
 // Path: progressPage
@@ -391,9 +397,9 @@ class _TranslationsProgressPageKo extends TranslationsProgressPageEn {
 
   // Translations
   @override
-  String get titleSending => '파일을 보내는 중';
+  String get titleSending => '파일 보내는 중';
   @override
-  String get titleReceiving => '파일을 받는 중';
+  String get titleReceiving => '파일 받는 중';
   @override
   String get savedToGallery => '갤러리에 저장했습니다.';
   @override
@@ -416,12 +422,12 @@ class _TranslationsWebSharePageKo extends TranslationsWebSharePageEn {
   @override
   String get stopping => '서버 중지 중...';
   @override
-  String get error => '서버 시작 중 오류가 발생했습니다.';
+  String get error => '서버를 시작하는 도중 오류가 발생했습니다.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
         n,
-        one: '이 링크를 브라우저에서 열기:',
-        other: '이 중 하나의 링크를 브라우저에서 열기:',
+        one: '해당 링크를 브라우저에서 여세요:',
+        other: '해당 링크들 중 하나를 브라우저에서 여세요:',
       );
   @override
   String get requests => '요청';
@@ -436,9 +442,9 @@ class _TranslationsWebSharePageKo extends TranslationsWebSharePageEn {
   @override
   String pinHint({required Object pin}) => 'PIN 번호는 "${pin}" 입니다';
   @override
-  String get encryptionHint => 'LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 수락해야 합니다.';
+  String get encryptionHint => 'LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 이를 허용해야 합니다.';
   @override
-  String pendingRequests({required Object n}) => '대기중인 요청: ${n}';
+  String pendingRequests({required Object n}) => '대기 중인 요청: ${n}';
 }
 
 // Path: aboutPage
@@ -451,10 +457,10 @@ class _TranslationsAboutPageKo extends TranslationsAboutPageEn {
 
   // Translations
   @override
-  String get title => 'LocalSend에 대해';
+  String get title => 'LocalSend 정보';
   @override
   List<String> get description => [
-        'LocalSend는 인터넷 연결이 필요 없이 로컬 네트워크를 통해 주변 기기와 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 앱입니다.',
+        'LocalSend는 인터넷에 연결하지 않고도 로컬 네트워크를 통해 주변 기기들과 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 앱입니다.',
         '이 앱은 Android, iOS, macOS, Windows 및 Linux에서 사용할 수 있습니다. 모든 다운로드 옵션은 공식 홈페이지에서 확인할 수 있습니다.',
       ];
   @override
@@ -464,7 +470,7 @@ class _TranslationsAboutPageKo extends TranslationsAboutPageEn {
   @override
   String get packagers => '패키지 관리자';
   @override
-  String get translators => '번역자';
+  String get translators => '번역가';
 }
 
 // Path: donationPage
@@ -479,11 +485,11 @@ class _TranslationsDonationPageKo extends TranslationsDonationPageEn {
   @override
   String get title => '기부';
   @override
-  String get info => 'LocalSend는 광고 없이 무료이며 오픈소스입니다. 앱을 좋아하신다면 개발을 후원하는 기부를 해주세요.';
+  String get info => 'LocalSend는 광고없이 무료로 제공되는 오픈소스 프로젝트입니다. 앱이 마음에 드신다면 후원을 통해 프로젝트 개발을 지원해주세요.';
   @override
   String donate({required Object amount}) => '${amount} 기부하기';
   @override
-  String get thanks => '정말 감사합니다!';
+  String get thanks => '진심으로 감사드립니다!';
   @override
   String get restore => '구매 복원';
 }
@@ -498,7 +504,7 @@ class _TranslationsChangelogPageKo extends TranslationsChangelogPageEn {
 
   // Translations
   @override
-  String get title => '업데이트 이력';
+  String get title => '변경사항';
 }
 
 // Path: aliasGenerator
@@ -523,6 +529,8 @@ class _TranslationsDialogsKo extends TranslationsDialogsEn {
   // Translations
   @override
   late final _TranslationsDialogsAddFileKo addFile = _TranslationsDialogsAddFileKo._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileKo openFile = _TranslationsDialogsOpenFileKo._(_root);
   @override
   late final _TranslationsDialogsAddressInputKo addressInput = _TranslationsDialogsAddressInputKo._(_root);
   @override
@@ -562,6 +570,9 @@ class _TranslationsDialogsKo extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsQuickSaveNoticeKo quickSaveNotice = _TranslationsDialogsQuickSaveNoticeKo._(_root);
   @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeKo quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeKo._(_root);
+  @override
   late final _TranslationsDialogsPinKo pin = _TranslationsDialogsPinKo._(_root);
   @override
   late final _TranslationsDialogsSendModeHelpKo sendModeHelp = _TranslationsDialogsSendModeHelpKo._(_root);
@@ -596,7 +607,9 @@ class _TranslationsTrayKo extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'LocalSend 종료';
+  String get close => 'LocalSend 종료하기';
+  @override
+  String get closeWindows => '나가기';
 }
 
 // Path: web
@@ -644,7 +657,7 @@ class _TranslationsAssetPickerKo extends TranslationsAssetPickerEn {
   @override
   String get gifIndicator => 'GIF';
   @override
-  String get loadFailed => '로드 실패';
+  String get loadFailed => '불러오기 실패';
   @override
   String get original => '원본';
   @override
@@ -658,13 +671,13 @@ class _TranslationsAssetPickerKo extends TranslationsAssetPickerEn {
   @override
   String get unableToAccessAll => '기기의 모든 파일에 접근할 수 없습니다.';
   @override
-  String get viewingLimitedAssetsTip => '앱에서 접근 가능한 파일과 앨범만 볼 수 있습니다.';
+  String get viewingLimitedAssetsTip => '앱에서 접근할 수 있는 파일과 앨범만 볼 수 있습니다.';
   @override
-  String get changeAccessibleLimitedAssets => '접근 가능한 파일을 업데이트하려면 클릭하세요.';
+  String get changeAccessibleLimitedAssets => '접근이 허용된 파일 목록을 갱신하려면 클릭하세요.';
   @override
-  String get accessAllTip => '앱은 기기의 일부 파일에만 접근할 수 있습니다. 시스템 설정으로 이동하여 앱이 기기의 모든 미디어에 액세스할 수 있도록 허용하세요.';
+  String get accessAllTip => '앱은 기기의 일부 파일에만 접근할 수 있습니다. 설정으로 이동하여 앱이 모든 미디어에 접근할 수 있도록 허용해주세요.';
   @override
-  String get goToSystemSettings => '시스템 설정으로 이동';
+  String get goToSystemSettings => '설정으로 이동';
   @override
   String get accessLimitedAssets => '제한된 접근으로 계속하기';
   @override
@@ -708,6 +721,23 @@ class _TranslationsReceiveTabInfoBoxKo extends TranslationsReceiveTabInfoBoxEn {
   String get port => '포트:';
   @override
   String get alias => '별명:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveKo extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveKo._(TranslationsKo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => '즐겨찾기';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -760,9 +790,9 @@ class _TranslationsSendTabSendModesKo extends TranslationsSendTabSendModesEn {
 
   // Translations
   @override
-  String get single => '단일 수신자';
+  String get single => '하나의 기기에 보내기';
   @override
-  String get multiple => '다중 수신자';
+  String get multiple => '여러 기기에 보내기';
   @override
   String get link => '링크로 공유하기';
 }
@@ -779,7 +809,7 @@ class _TranslationsSettingsTabGeneralKo extends TranslationsSettingsTabGeneralEn
   @override
   String get title => '일반';
   @override
-  String get brightness => '밝기';
+  String get brightness => '테마';
   @override
   late final _TranslationsSettingsTabGeneralBrightnessOptionsKo brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsKo._(_root);
   @override
@@ -791,7 +821,9 @@ class _TranslationsSettingsTabGeneralKo extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsKo languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsKo._(_root);
   @override
-  String get saveWindowPlacement => '종료: 화면 위치 저장하기';
+  String get saveWindowPlacement => '종료 후 창 위치 기억';
+  @override
+  String get saveWindowPlacementWindows => '종료 후 창 위치 기억';
   @override
   String get minimizeToTray => '종료 시 시스템 트레이로 최소화';
   @override
@@ -814,9 +846,11 @@ class _TranslationsSettingsTabReceiveKo extends TranslationsSettingsTabReceiveEn
 
   // Translations
   @override
-  String get title => '수신';
+  String get title => '받기';
   @override
   String get quickSave => _root.general.quickSave;
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
@@ -826,9 +860,9 @@ class _TranslationsSettingsTabReceiveKo extends TranslationsSettingsTabReceiveEn
   @override
   String get downloads => '(다운로드 폴더)';
   @override
-  String get saveToGallery => '미디어를 갤러리에 저장';
+  String get saveToGallery => '갤러리에 미디어 저장';
   @override
-  String get saveToHistory => '히스토리에 저장';
+  String get saveToHistory => '전송 기록 보관';
 }
 
 // Path: settingsTab.send
@@ -841,9 +875,9 @@ class _TranslationsSettingsTabSendKo extends TranslationsSettingsTabSendEn {
 
   // Translations
   @override
-  String get title => '전송';
+  String get title => '보내기';
   @override
-  String get shareViaLinkAutoAccept => '링크 공유: 자동 수락';
+  String get shareViaLinkAutoAccept => '"링크로 공유하기" 요청 자동 수락';
 }
 
 // Path: settingsTab.network
@@ -858,7 +892,7 @@ class _TranslationsSettingsTabNetworkKo extends TranslationsSettingsTabNetworkEn
   @override
   String get title => '네트워크';
   @override
-  String get needRestart => '서버를 재시작해야 변경된 설정이 반영됩니다';
+  String get needRestart => '변경 사항을 적용하려면 서버를 다시 시작하세요!';
   @override
   String get server => '서버';
   @override
@@ -872,14 +906,17 @@ class _TranslationsSettingsTabNetworkKo extends TranslationsSettingsTabNetworkEn
   @override
   String get discoveryTimeout => '탐색 제한시간';
   @override
-  String portWarning({required Object defaultPort}) => '커스텀 포트를 사용하면 이 디바이스가 다른 장치에서 감지되지 않을 수 있습니다. (기본값: ${defaultPort})';
+  String get useSystemName => '시스템 이름 사용';
+  @override
+  String get generateRandomAlias => '무작위 별명 생성';
+  @override
+  String portWarning({required Object defaultPort}) => '사용자 지정 포트를 사용하면 다른 장치에서 기기가 감지되지 않을 수 있습니다. (기본값: ${defaultPort})';
   @override
   String get encryption => '암호화';
   @override
   String get multicastGroup => '멀티캐스트';
   @override
-  String multicastGroupWarning({required Object defaultMulticast}) =>
-      '사용자 지정 멀티캐스트 주소를 사용하고 있기 때문에 다른 기기에서 감지되지 않을 수 있습니다. (기본값: ${defaultMulticast})';
+  String multicastGroupWarning({required Object defaultMulticast}) => '사용자 지정 멀티캐스트 주소를 사용하면 다른 장치에서 기기가 감지되지 않을 수 있습니다. (기본값: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -894,7 +931,7 @@ class _TranslationsSettingsTabOtherKo extends TranslationsSettingsTabOtherEn {
   @override
   String get title => '기타';
   @override
-  String get support => 'LocalSend 지원';
+  String get support => 'LocalSend 후원하기';
   @override
   String get donate => '기부';
   @override
@@ -913,9 +950,9 @@ class _TranslationsTroubleshootPageFirewallKo extends TranslationsTroubleshootPa
 
   // Translations
   @override
-  String get symptom => '이 앱은 다른 기기로 파일을 보낼 수 있지만, 다른 기기에서 이 기기로 파일을 보낼 수 없습니다.';
+  String get symptom => '파일을 다른 기기로 보내는 데에는 문제가 없으나, 다른 기기로부터 파일을 받을 수 없는 경우';
   @override
-  String solution({required Object port}) => '방화벽 설정 때문일 가능성이 높습니다. ${port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.';
+  String solution({required Object port}) => '방화벽 설정으로 인한 문제일 가능성이 높습니다. ${port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.';
   @override
   String get openFirewall => '방화벽 열기';
 }
@@ -930,10 +967,10 @@ class _TranslationsTroubleshootPageNoDiscoveryKo extends TranslationsTroubleshoo
 
   // Translations
   @override
-  String get symptom => '현재 기기에서 다른 기기를 찾을 수 없습니다.';
+  String get symptom => '현재 사용 중인 기기에서 다른 기기들이 감지되지 않는 경우';
   @override
   String get solution =>
-      '모든 장치가 동일한 Wi-Fi 네트워크에 연결되어 있고 동일한 설정(포트, 멀티캐스트 주소, 암호화)을 공유하는지 확인하세요. 기기의 IP 주소를 수동으로 입력해 볼 수도 있습니다. 이 방법이 작동하면, 해당 기기를 즐겨찾기에 추가하여 앞으로 자동으로 검색될 수 있도록 해 보세요.';
+      '사용하려는 모든 기기가 동일한 Wi-Fi 네트워크에 연결되어 있고, 동일한 설정(포트, 멀티캐스트 주소, 암호화)이 적용되어 있는지 확인해보세요. 직접 상대의 IP 주소를 입력하여 기기를 추가할 수도 있습니다. 즐겨찾기에 등록하면 다음부터 자동으로 감지될 수 있습니다.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -946,10 +983,10 @@ class _TranslationsTroubleshootPageNoConnectionKo extends TranslationsTroublesho
 
   // Translations
   @override
-  String get symptom => '두 기기 모두 서로를 검색하거나 파일을 공유할 수 없습니다.';
+  String get symptom => '양쪽 기기 모두 서로를 감지하지 못하거나, 파일을 전송할 수 없는 경우';
   @override
   String get solution =>
-      '양쪽 모두에 문제가 있나요? 두 기기가 동일한 Wi-Fi 네트워크에 연결되어 있고 동일한 구성 (포트, 멀티캐스트 주소, 암호화)를 공유하는지 확인해야 합니다. Wi-Fi가 참가자 간 통신을 허용하지 않을 수도 있습니다. 이 경우 라우터에서 해당 옵션을 활성화해야 합니다.';
+      '양쪽 모두에 문제가 있는 경우, 두 기기가 동일한 Wi-Fi 네트워크에 연결되어 있고 동일한 설정(포트, 멀티캐스트 주소, 암호화)이 적용되어 있는지 확인해야 합니다. Wi-Fi 네트워크가 기기 간 통신을 허용하지 않는 경우일 수도 있습니다. 이 경우 라우터에서 관련 옵션을 수정해야 합니다.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -987,7 +1024,7 @@ class _TranslationsProgressPageTotalKo extends TranslationsProgressPageTotalEn {
   @override
   String size({required Object curr, required Object n}) => '크기: ${curr} / ${n}';
   @override
-  String speed({required Object speed}) => '속도: ${speed}/s';
+  String speed({required Object speed}) => '속도: ${speed}/초';
 }
 
 // Path: dialogs.addFile
@@ -1000,9 +1037,24 @@ class _TranslationsDialogsAddFileKo extends TranslationsDialogsAddFileEn {
 
   // Translations
   @override
-  String get title => '선택 목록에 추가';
+  String get title => '선택 파일 추가';
   @override
-  String get content => '무엇을 추가할까요?';
+  String get content => '어떤 파일을 추가할까요?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileKo extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileKo._(TranslationsKo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '파일 열기';
+  @override
+  String get content => '수신받은 파일을 여시겠습니까?';
 }
 
 // Path: dialogs.addressInput
@@ -1015,7 +1067,7 @@ class _TranslationsDialogsAddressInputKo extends TranslationsDialogsAddressInput
 
   // Translations
   @override
-  String get title => '주소를 입력';
+  String get title => '주소 입력';
   @override
   String get hashtag => '해시태그';
   @override
@@ -1034,7 +1086,7 @@ class _TranslationsDialogsCancelSessionKo extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => '파일 전송을 취소';
+  String get title => '파일 전송 취소';
   @override
   String get content => '정말로 파일 전송을 취소할까요?';
 }
@@ -1049,9 +1101,9 @@ class _TranslationsDialogsCannotOpenFileKo extends TranslationsDialogsCannotOpen
 
   // Translations
   @override
-  String get title => '파일을 열 수 없음';
+  String get title => '열 수 없는 파일';
   @override
-  String content({required Object file}) => '"${file}"을 열 수 없습니다. 파일이 이동, 이름 변경 또는 삭제 되었는지 확인해주세요.';
+  String content({required Object file}) => '"${file}" 파일을 열 수 없습니다. 파일의 이름이 변경되었거나 이동 또는 삭제되었는지 확인해주세요.';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1064,9 +1116,9 @@ class _TranslationsDialogsEncryptionDisabledNoticeKo extends TranslationsDialogs
 
   // Translations
   @override
-  String get title => '암호화가 비활성화되었습니다';
+  String get title => '암호화 비활성화';
   @override
-  String get content => '이제부터 암호화되지 않은 HTTP 프로토콜로 통신이 이루어집니다. HTTPS를 사용하려면 암호화를 다시 활성화해주세요.';
+  String get content => '이제부터 암호화되지 않은 HTTP 프로토콜로 통신이 이루어집니다. HTTPS 프로토콜을 사용하려면 암호화를 다시 활성화해주세요.';
 }
 
 // Path: dialogs.errorDialog
@@ -1109,9 +1161,9 @@ class _TranslationsDialogsFavoriteDeleteDialogKo extends TranslationsDialogsFavo
 
   // Translations
   @override
-  String get title => '즐겨찾기에서 삭제';
+  String get title => '즐겨찾기 삭제';
   @override
-  String content({required Object name}) => '정말 "${name}" 즐겨찾기에서 삭제할까요?';
+  String content({required Object name}) => '정말로 "${name}" 기기를 즐겨찾기에서 삭제하시겠습니까?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1124,7 +1176,7 @@ class _TranslationsDialogsFavoriteEditDialogKo extends TranslationsDialogsFavori
 
   // Translations
   @override
-  String get titleAdd => '즐겨찾기에 추가';
+  String get titleAdd => '즐겨찾기 추가';
   @override
   String get titleEdit => '편집';
   @override
@@ -1170,7 +1222,7 @@ class _TranslationsDialogsFileNameInputKo extends TranslationsDialogsFileNameInp
 
   // Translations
   @override
-  String get title => '파일 이름을 입력하세요';
+  String get title => '파일 이름 입력';
   @override
   String original({required Object original}) => '기존 이름: ${original}';
 }
@@ -1185,7 +1237,7 @@ class _TranslationsDialogsHistoryClearDialogKo extends TranslationsDialogsHistor
 
   // Translations
   @override
-  String get title => '기록 지우기';
+  String get title => '기록 삭제';
   @override
   String get content => '정말 모든 기록을 삭제하시겠습니까?';
 }
@@ -1202,7 +1254,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedKo extends TranslationsDialogs
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => '로컬 네트워크를 스캔할 권한이 없어 LocalSend가 다른 기기를 찾을 수 없습니다. 설정에서 권한을 부여해주세요.';
+  String get description => 'LocalSend가 다른 기기를 감지하려면 로컬 네트워크 탐색을 위한 권한이 필요합니다. 설정에서 권한을 허용해주세요.';
   @override
   String get gotoSettings => '설정';
 }
@@ -1217,9 +1269,9 @@ class _TranslationsDialogsMessageInputKo extends TranslationsDialogsMessageInput
 
   // Translations
   @override
-  String get title => '메시지를 입력하세요';
+  String get title => '메시지 입력';
   @override
-  String get multiline => '여러줄';
+  String get multiline => '여러 줄';
 }
 
 // Path: dialogs.noFiles
@@ -1232,9 +1284,9 @@ class _TranslationsDialogsNoFilesKo extends TranslationsDialogsNoFilesEn {
 
   // Translations
   @override
-  String get title => '파일이 선택되지 않았습니다';
+  String get title => '선택된 파일 없음';
   @override
-  String get content => '적어도 하나 이상의 파일을 선택해주세요';
+  String get content => '적어도 하나 이상의 파일을 선택해주세요.';
 }
 
 // Path: dialogs.noPermission
@@ -1249,7 +1301,7 @@ class _TranslationsDialogsNoPermissionKo extends TranslationsDialogsNoPermission
   @override
   String get title => '권한 없음';
   @override
-  String get content => '필요한 권한을 허용하지 않았습니다. 설정에서 허용해주세요.';
+  String get content => '필요한 권한이 부여되지 않았습니다. 설정에서 권한을 허용해주세요.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1264,7 +1316,7 @@ class _TranslationsDialogsNotAvailableOnPlatformKo extends TranslationsDialogsNo
   @override
   String get title => '사용 불가';
   @override
-  String get content => '이 기능은 다음 플랫폼에서만 사용 가능합니다:';
+  String get content => '해당 기능은 다음 플랫폼에서만 사용할 수 있습니다:';
 }
 
 // Path: dialogs.qr
@@ -1315,7 +1367,26 @@ class _TranslationsDialogsQuickSaveNoticeKo extends TranslationsDialogsQuickSave
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => '파일 요청이 자동으로 수락됩니다. 로컬 네트워크의 누구나 파일을 보낼 수 있게되므로 주의해 주세요.';
+  String get content => '파일 요청이 자동으로 수락됩니다. 로컬 네트워크 상에 존재하는 모두가 파일을 보낼 수 있다는 점을 명심하세요.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeKo extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeKo._(TranslationsKo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        '이제 당신의 즐겨찾기 목록에 포함된 기기로부터 파일을 자동으로 전송받을 수 있습니다.',
+        '경고! 해당 기능은 아직 보안 측면에 있어서 완전하지 않습니다. 즐겨찾기 목록에 포함된 기기의 식별 정보를 가지고 있는 해커라면 아무런 제약없이 당신의 기기로 파일을 전송할 수 있습니다.',
+        '그러나, 로컬 네트워크 상에 존재하는 모든 사용자들로부터 파일을 전송할 수 있도록 허용하는 것보다는 여전히 안전합니다.',
+      ];
 }
 
 // Path: dialogs.pin
@@ -1343,11 +1414,11 @@ class _TranslationsDialogsSendModeHelpKo extends TranslationsDialogsSendModeHelp
   @override
   String get title => '전송 모드';
   @override
-  String get single => '파일을 한 명의 수신자에게 보냅니다. 파일 전송이 완료되면 선택이 지워집니다.';
+  String get single => '파일을 하나의 기기에 보냅니다. 파일 전송이 완료된 후 선택 항목이 초기화됩니다.';
   @override
-  String get multiple => '파일을 여러 명의 수신자에게 보냅니다. 선택이 지워지지 않습니다.';
+  String get multiple => '파일을 여러 기기에 보냅니다. 파일 전송이 완료된 뒤에도 선택 항목이 유지됩니다.';
   @override
-  String get link => 'LocalSend를 설치하지 않은 수신자는 브라우저에서 링크를 열어 선택한 파일을 다운로드할 수 있습니다.';
+  String get link => 'LocalSend가 설치되지 않은 기기에서도 브라우저를 통해 링크에 접속하여 파일을 다운로드 받을 수 있습니다.';
 }
 
 // Path: dialogs.zoom
@@ -1375,9 +1446,9 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsKo extends TranslationsSet
   @override
   String get system => '시스템';
   @override
-  String get dark => '어두움';
+  String get dark => '다크';
   @override
-  String get light => '밝음';
+  String get light => '라이트';
 }
 
 // Path: settingsTab.general.colorOptions
@@ -1420,9 +1491,9 @@ class _TranslationsProgressPageTotalTitleKo extends TranslationsProgressPageTota
   @override
   String sending({required Object time}) => '진행 시간 (${time})';
   @override
-  String get finishedError => '에러로 인해 종료되었습니다';
+  String get finishedError => '에러와 함께 종료되었습니다';
   @override
-  String get canceledSender => '보내는 사람이 취소했습니다';
+  String get canceledSender => '보내는 사람에 의해 취소되었습니다';
   @override
-  String get canceledReceiver => '받는 사람이 취소했습니다';
+  String get canceledReceiver => '받는 사람에 의해 취소되었습니다';
 }

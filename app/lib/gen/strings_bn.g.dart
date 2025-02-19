@@ -161,6 +161,8 @@ class _TranslationsGeneralBn extends TranslationsGeneralEn {
   String get unknown => 'অজানা';
   @override
   String get noItemInClipboard => 'ক্লিপবোর্ডে কোনো আইটেম নেই';
+  @override
+  String get quickSaveFromFavorites => '"প্রিয়"দের জন্য দ্রুত সংরক্ষণ করুন';
 }
 
 // Path: receiveTab
@@ -176,6 +178,8 @@ class _TranslationsReceiveTabBn extends TranslationsReceiveTabEn {
   String get title => 'গ্রহণ';
   @override
   late final _TranslationsReceiveTabInfoBoxBn infoBox = _TranslationsReceiveTabInfoBoxBn._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveBn quickSave = _TranslationsReceiveTabQuickSaveBn._(_root);
 }
 
 // Path: sendTab
@@ -211,6 +215,8 @@ class _TranslationsSendTabBn extends TranslationsSendTabEn {
   String get help => 'অনুগ্রহ করে নিশ্চিত করুন যে পছন্দসই লক্ষ্যটিও একই ওয়াইফাই নেটওয়ার্কে রয়েছে।';
   @override
   String get placeItems => 'শেয়ার করার জন্য আইটেম রাখুন।';
+  @override
+  String get manualSending => 'নিজে পাঠানো';
 }
 
 // Path: settingsTab
@@ -745,6 +751,23 @@ class _TranslationsReceiveTabInfoBoxBn extends TranslationsReceiveTabInfoBoxEn {
   String get alias => 'উপনাম:';
 }
 
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveBn extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveBn._(TranslationsBn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => '@:সাধারণ.বন্ধ';
+  @override
+  String get favorites => 'প্রিয়';
+  @override
+  String get on => '@:সাধারণ.চালু';
+}
+
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionBn extends TranslationsSendTabSelectionEn {
   _TranslationsSendTabSelectionBn._(TranslationsBn root)
@@ -835,6 +858,10 @@ class _TranslationsSettingsTabGeneralBn extends TranslationsSettingsTabGeneralEn
   String get launchMinimized => 'অটোস্টার্ট: হিডেন থেকে শুরু করুন';
   @override
   String get animations => 'অ্যানিমেশন';
+  @override
+  String get saveWindowPlacementWindows => 'প্রস্থানের পরে উইন্ডোর অবস্থান সংরক্ষণ করুন';
+  @override
+  String get showInContextMenu => 'প্রসঙ্গ মেনুতে LocalSend দেখান';
 }
 
 // Path: settingsTab.receive
@@ -860,6 +887,8 @@ class _TranslationsSettingsTabReceiveBn extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'গ্যালারিতে মিডিয়া সেভ করুন';
   @override
   String get saveToHistory => 'ইতিহাসে সংরক্ষণ করুন';
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 }
 
 // Path: settingsTab.network

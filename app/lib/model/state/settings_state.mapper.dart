@@ -33,6 +33,10 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, AppLocale> _f$locale = Field('locale', _$locale);
   static int _$port(SettingsState v) => v.port;
   static const Field<SettingsState, int> _f$port = Field('port', _$port);
+  static List<String>? _$networkWhitelist(SettingsState v) => v.networkWhitelist;
+  static const Field<SettingsState, List<String>> _f$networkWhitelist = Field('networkWhitelist', _$networkWhitelist);
+  static List<String>? _$networkBlacklist(SettingsState v) => v.networkBlacklist;
+  static const Field<SettingsState, List<String>> _f$networkBlacklist = Field('networkBlacklist', _$networkBlacklist);
   static String _$multicastGroup(SettingsState v) => v.multicastGroup;
   static const Field<SettingsState, String> _f$multicastGroup = Field('multicastGroup', _$multicastGroup);
   static String? _$destination(SettingsState v) => v.destination;
@@ -78,6 +82,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #colorMode: _f$colorMode,
     #locale: _f$locale,
     #port: _f$port,
+    #networkWhitelist: _f$networkWhitelist,
+    #networkBlacklist: _f$networkBlacklist,
     #multicastGroup: _f$multicastGroup,
     #destination: _f$destination,
     #saveToGallery: _f$saveToGallery,
@@ -106,6 +112,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
         colorMode: data.dec(_f$colorMode),
         locale: data.dec(_f$locale),
         port: data.dec(_f$port),
+        networkWhitelist: data.dec(_f$networkWhitelist),
+        networkBlacklist: data.dec(_f$networkBlacklist),
         multicastGroup: data.dec(_f$multicastGroup),
         destination: data.dec(_f$destination),
         saveToGallery: data.dec(_f$saveToGallery),
@@ -170,6 +178,8 @@ extension SettingsStateValueCopy<$R, $Out> on ObjectCopyWith<$R, SettingsState, 
 }
 
 abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>? get networkWhitelist;
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>? get networkBlacklist;
   $R call(
       {String? showToken,
       String? alias,
@@ -177,6 +187,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       ColorMode? colorMode,
       AppLocale? locale,
       int? port,
+      List<String>? networkWhitelist,
+      List<String>? networkBlacklist,
       String? multicastGroup,
       String? destination,
       bool? saveToGallery,
@@ -205,6 +217,14 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
   @override
   late final ClassMapperBase<SettingsState> $mapper = SettingsStateMapper.ensureInitialized();
   @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>? get networkWhitelist => $value.networkWhitelist != null
+      ? ListCopyWith($value.networkWhitelist!, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(networkWhitelist: v))
+      : null;
+  @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>? get networkBlacklist => $value.networkBlacklist != null
+      ? ListCopyWith($value.networkBlacklist!, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(networkBlacklist: v))
+      : null;
+  @override
   $R call(
           {String? showToken,
           String? alias,
@@ -212,6 +232,8 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           ColorMode? colorMode,
           Object? locale = $none,
           int? port,
+          Object? networkWhitelist = $none,
+          Object? networkBlacklist = $none,
           String? multicastGroup,
           Object? destination = $none,
           bool? saveToGallery,
@@ -237,6 +259,8 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (colorMode != null) #colorMode: colorMode,
         if (locale != $none) #locale: locale,
         if (port != null) #port: port,
+        if (networkWhitelist != $none) #networkWhitelist: networkWhitelist,
+        if (networkBlacklist != $none) #networkBlacklist: networkBlacklist,
         if (multicastGroup != null) #multicastGroup: multicastGroup,
         if (destination != $none) #destination: destination,
         if (saveToGallery != null) #saveToGallery: saveToGallery,
@@ -264,6 +288,8 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       colorMode: data.get(#colorMode, or: $value.colorMode),
       locale: data.get(#locale, or: $value.locale),
       port: data.get(#port, or: $value.port),
+      networkWhitelist: data.get(#networkWhitelist, or: $value.networkWhitelist),
+      networkBlacklist: data.get(#networkBlacklist, or: $value.networkBlacklist),
       multicastGroup: data.get(#multicastGroup, or: $value.multicastGroup),
       destination: data.get(#destination, or: $value.destination),
       saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),

@@ -3,26 +3,8 @@
     "Here are translations that exist in <en> but not in <bn>.",
     "After editing this file, you can run 'dart run slang apply --locale=bn' to quickly apply the newly added translations."
   ],
-  "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
-  },
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favorites",
-      "on": "@:general.on"
-    }
-  },
-  "sendTab": {
-    "manualSending": "Manual sending"
-  },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
-    },
     "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin"
     },
     "send": {
@@ -30,6 +12,11 @@
       "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
     },
     "network": {
+      "network": "Network",
+      "networkOptions": {
+        "all": "All",
+        "filtered": "Filtered"
+      },
       "discoveryTimeout": "Discovery Timeout",
       "useSystemName": "Use system name",
       "generateRandomAlias": "Generate random alias"
@@ -40,6 +27,13 @@
       "symptom": "This device cannot discover other devices.",
       "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Network Interfaces",
+    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
+    "preview": "Preview",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   },
   "receiveHistoryPage": {
     "entryActions": {

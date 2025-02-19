@@ -78,6 +78,8 @@ class TranslationsSk extends Translations {
   late final _TranslationsWebSk web = _TranslationsWebSk._(_root);
   @override
   late final _TranslationsAssetPickerSk assetPicker = _TranslationsAssetPickerSk._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageSk networkInterfacesPage = _TranslationsNetworkInterfacesPageSk._(_root);
 }
 
 // Path: general
@@ -378,7 +380,7 @@ class _TranslationsSendPageSk extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Čaká sa na odpoveď...';
+  String get waiting => 'Čaká sa na odpoveď…';
   @override
   String get rejected => 'Príjemca zamietol žiadosť.';
   @override
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageSk extends TranslationsWebSharePageEn {
   @override
   String get title => 'Zdieľať cez odkaz';
   @override
-  String get loading => 'Spúšťa sa server...';
+  String get loading => 'Spúšťa sa server…';
   @override
-  String get stopping => 'Zastavuje sa server...';
+  String get stopping => 'Zastavuje sa server…';
   @override
   String get error => 'Pri spúšťaní servera sa vyskytla chyba.';
   @override
@@ -781,6 +783,28 @@ class _TranslationsAssetPickerSk extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'počet';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageSk extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageSk._(TranslationsSk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get info =>
+      'V predvolenom nastavení LocalSend používa všetky dostupné sieťové rozhrania. Nežiaduce siete tu môžete vylúčiť. Na uplatnenie zmien je potrebné reštartovať server.';
+  @override
+  String get preview => 'Náhľad';
+  @override
+  String get blacklist => 'Zoznam zakázaných';
+  @override
+  String get title => 'Sieťové rozhrania';
+  @override
+  String get whitelist => 'Zoznam povolených';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxSk extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxSk._(TranslationsSk root)
@@ -952,7 +976,7 @@ class _TranslationsSettingsTabSendSk extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'Odoslať';
   @override
-  String get shareViaLinkAutoAccept => 'Automaticky prijímať žiadosti v režime "Zdieľať cez odkaz".';
+  String get shareViaLinkAutoAccept => 'Automaticky prijímať žiadosti v režime "Zdieľať cez odkaz"';
 }
 
 // Path: settingsTab.network
@@ -994,6 +1018,10 @@ class _TranslationsSettingsTabNetworkSk extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: ${defaultMulticast})';
+  @override
+  String get network => 'Sieť';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsSk networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsSk._(_root);
 }
 
 // Path: settingsTab.other
@@ -1464,7 +1492,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSk extends TranslationsDia
   List<String> get content => [
         'Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.',
         'Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.',
-        'Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia. ',
+        'Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia.',
       ];
 }
 
@@ -1556,6 +1584,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsSk extends TranslationsSetti
   // Translations
   @override
   String get system => 'Systémový';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsSk extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsSk._(TranslationsSk root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Všetky';
+  @override
+  String get filtered => 'Filtrované';
 }
 
 // Path: progressPage.total.title

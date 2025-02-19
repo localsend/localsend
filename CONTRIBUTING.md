@@ -75,7 +75,7 @@ Git based distribution:
 [chocolatey]: https://community.chocolatey.org/packages/localsend
 [chocolatey repo]: https://github.com/brogers5/chocolatey-package-localsend/tree/main
 [homebrew]: https://formulae.brew.sh/cask/localsend
-[homebrew repo]: https://formulae.brew.sh/cask/localsend
+[homebrew repo]: https://github.com/Homebrew/homebrew-cask/blob/master/Casks/l/localsend.rb
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [flathub repo]: https://github.com/flathub/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin

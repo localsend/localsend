@@ -13,11 +13,12 @@ import file_selector_macos
 import gal
 import in_app_purchase_storekit
 import network_info_plus
+import open_dir_macos
 import package_info_plus
 import pasteboard
 import path_provider_foundation
 import photo_manager
-import screen_retriever
+import screen_retriever_macos
 import shared_preferences_foundation
 import tray_manager
 import uri_content
@@ -35,11 +36,12 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   GalPlugin.register(with: registry.registrar(forPlugin: "GalPlugin"))
   InAppPurchasePlugin.register(with: registry.registrar(forPlugin: "InAppPurchasePlugin"))
   NetworkInfoPlusPlugin.register(with: registry.registrar(forPlugin: "NetworkInfoPlusPlugin"))
+  OpenDirMacosPlugin.register(with: registry.registrar(forPlugin: "OpenDirMacosPlugin"))
   FPPPackageInfoPlusPlugin.register(with: registry.registrar(forPlugin: "FPPPackageInfoPlusPlugin"))
   PasteboardPlugin.register(with: registry.registrar(forPlugin: "PasteboardPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   PhotoManagerPlugin.register(with: registry.registrar(forPlugin: "PhotoManagerPlugin"))
-  ScreenRetrieverPlugin.register(with: registry.registrar(forPlugin: "ScreenRetrieverPlugin"))
+  ScreenRetrieverMacosPlugin.register(with: registry.registrar(forPlugin: "ScreenRetrieverMacosPlugin"))
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
   TrayManagerPlugin.register(with: registry.registrar(forPlugin: "TrayManagerPlugin"))
   UriContentPlugin.register(with: registry.registrar(forPlugin: "UriContentPlugin"))

@@ -1,0 +1,457 @@
+{
+  "locale": "Indonesian",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Terima",
+    "accepted": "Diterima",
+    "add": "Tambah",
+    "advanced": "Lanjutan",
+    "cancel": "Batal",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "continueStr": "Lanjut",
+    "copy": "Salin",
+    "copiedToClipboard": "Disalin ke Papan Klip",
+    "decline": "Tolak",
+    "done": "Selesai",
+    "delete": "Hapus",
+    "edit": "Sunting",
+    "error": "Galat",
+    "example": "Contoh",
+    "files": "Berkas",
+    "finished": "Selesai",
+    "hide": "Sembunyikan",
+    "off": "Mati",
+    "offline": "Luring",
+    "on": "Hidup",
+    "online": "Daring",
+    "open": "Buka",
+    "queue": "Antrean",
+    "quickSave": "Penyimpanan Cepat",
+    "quickSaveFromFavorites": "Simpan Cepat di “Favorit”",
+    "renamed": "Ganti nama",
+    "reset": "Batalkan perubahan",
+    "restart": "Mengulang Kembali",
+    "settings": "Pengaturan",
+    "skipped": "Dilewati",
+    "start": "Mulai",
+    "stop": "Berhenti",
+    "save": "Simpan",
+    "unchanged": "Takberubah",
+    "unknown": "Takdikenal",
+    "noItemInClipboard": "Tidak ada item di Papan Klip."
+  },
+  "receiveTab": {
+    "title": "Terima",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Porta:",
+      "alias": "Nama perangkat:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favorit",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Kirim",
+    "selection": {
+      "title": "Pilihan",
+      "files": "Berkas: {files}",
+      "size": "Ukuran: {size}"
+    },
+    "picker": {
+      "file": "Berkas",
+      "folder": "Direktori",
+      "media": "Media",
+      "text": "Teks",
+      "app": "Aplikasi",
+      "clipboard": "Tempel"
+    },
+    "shareIntentInfo": "Anda juga dapat menggunakan fitur \"Berbagi\" agar dapat memilih berkas dengan lebih mudah.",
+    "nearbyDevices": "Perangkat Terdekat",
+    "thisDevice": "Perangkat Ini",
+    "scan": "Cari perangkat",
+    "manualSending": "Kirim secara manual",
+    "sendMode": "Mode Pengiriman",
+    "sendModes": {
+      "single": "Penerima tunggal",
+      "multiple": "Banyak penerima",
+      "link": "Bagikan melalui tautan"
+    },
+    "sendModeHelp": "Penjelasan",
+    "help": "Pastikan perangkat tujuan juga terkoneksi pada jaringan Wi-Fi yang sama.",
+    "placeItems": "Letakkan item untuk dibagikan."
+  },
+  "settingsTab": {
+    "title": "Pengaturan",
+    "general": {
+      "title": "Umum",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistem",
+        "dark": "Gelap",
+        "light": "Terang"
+      },
+      "color": "Warna",
+      "colorOptions": {
+        "system": "Sistem",
+        "oled": "OLED"
+      },
+      "language": "Bahasa",
+      "languageOptions": {
+        "system": "Sistem"
+      },
+      "saveWindowPlacement": "Keluar: Simpan posisi jendela",
+      "saveWindowPlacementWindows": "Simpan posisi jendela setelah keluar",
+      "minimizeToTray": "Keluar: Perkecil ke pojok bawah",
+      "launchAtStartup": "Mulai otomatis setelah masuk",
+      "launchMinimized": "Mulai otomatis: Berjalan di latar",
+      "showInContextMenu": "Tampilkan LocalSend di menu konteks",
+      "animations": "Animasi"
+    },
+    "receive": {
+      "title": "Menerima",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Selesai Otomatis",
+      "destination": "Tujuan",
+      "downloads": "(Unduhan)",
+      "saveToGallery": "Simpan media ke galeri",
+      "saveToHistory": "Simpan ke riwayat"
+    },
+    "send": {
+      "title": "Kirim",
+      "shareViaLinkAutoAccept": "Bagikan melalui tautan: Terima otomatis"
+    },
+    "network": {
+      "title": "Jaringan",
+      "needRestart": "Mulai ulang agar dapat menerapkan pengaturan!",
+      "server": "Peladen",
+      "alias": "Alias",
+      "deviceType": "Tipe Perangkat",
+      "deviceModel": "Model Perangkat",
+      "port": "Porta",
+      "discoveryTimeout": "Waktu penemuan habis",
+      "useSystemName": "Gunakan nama sistem",
+      "generateRandomAlias": "Hasilkan alias acak",
+      "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan porta kustom. (bawaan: {defaultPort})",
+      "encryption": "Enkripsi",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})",
+      "network": "Jaringan",
+      "networkOptions": {
+        "all": "Semua",
+        "filtered": "Tersaring"
+      }
+    },
+    "other": {
+      "title": "Lainnya",
+      "support": "Dukung LocalSend",
+      "donate": "Donasi",
+      "privacyPolicy": "Kebijakan Privasi",
+      "termsOfUse": "Syarat dan Ketentuan Penggunaan"
+    },
+    "advancedSettings": "Pengaturan Lanjutan"
+  },
+  "troubleshootPage": {
+    "title": "Perbaikan Masalah",
+    "subTitle": "Aplikasi ini tidak berfungsi seperti yang diharapkan? Temukan penyelesaian masalah umum di sini.",
+    "solution": "Penyelesaian:",
+    "fixButton": "Perbaiki secara otomatis",
+    "firewall": {
+      "symptom": "Aplikasi ini dapat mengirim berkas ke perangkat lain, tetapi tidak sebaliknya.",
+      "solution": "Hal ini kemungkinan merupakan masalah tembok api (firewall). Anda dapat memperbaiki masalah ini dengan memperbolehkan koneksi masuk (UDP dan TCP) pada porta {port}.",
+      "openFirewall": "Buka Tembok Api"
+    },
+    "noDiscovery": {
+      "symptom": "Perangkat ini tidak dapat menemukan perangkat lain.",
+      "solution": "Pastikan semua perangkat berada pada jaringan Wi-Fi yang sama dan menggunakan konfigurasi yang sama (porta, alamat multicast, dan enkripsi). Anda dapat mencoba mengetik alamat IP perangkat target secara manual. Jika cara ini berhasil, pertimbangkan menambahkan perangkat ini ke daftar favorit sehingga perangkat dapat ditemukan secara otomatis pada lain waktu."
+    },
+    "noConnection": {
+      "symptom": "Kedua perangkat tidak dapat saling menemukan dan berbagi berkas.",
+      "solution": "Pastikan kedua perangkat berada pada jaringan Wi-Fi yang sama dan berbagi konfigurasi yang sama (porta, alamat multicast, enkripsi). Jika Wi-Fi tidak mengizinkan komunikasi, aktifkan pilihan ini pada ruter."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Riwayat",
+    "openFolder": "Buka folder",
+    "deleteHistory": "Hapus riwayat",
+    "empty": "Riwayat kosong.",
+    "entryActions": {
+      "open": "Buka berkas",
+      "showInFolder": "Tampilkan di folder",
+      "info": "Informasi",
+      "deleteFromHistory": "Hapus dari riwayat"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aplikasi (APK)",
+    "excludeSystemApps": "Kecualikan aplikasi sistem",
+    "excludeAppsWithoutLaunchIntent": "Kecualikan aplikasi yang tidak dapat diluncurkan",
+    "apps": "{n} Aplikasi"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Hapus semua"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ingin mengirimi Anda sebuah berkas",
+      "other": "ingin mengirimi Anda {n} berkas"
+    },
+    "subTitleMessage": "mengirimi Anda pesan sbb.:",
+    "subTitleLink": "mengirimi Anda tautan sbb.:",
+    "canceled": "Pengirim membatalkan permintaan."
+  },
+  "receiveOptionsPage": {
+    "title": "Pilihan",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(folder LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
+  },
+  "sendPage": {
+    "waiting": "Menunggu tanggapan…",
+    "rejected": "Penerima menolak permintaan.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Penerima sedang sibuk dengan permintaan lain."
+  },
+  "progressPage": {
+    "titleSending": "Mengirim Berkas",
+    "titleReceiving": "Menerima Berkas",
+    "savedToGallery": "Simpan di galeri",
+    "total": {
+      "title": {
+        "sending": "Total proses ({time})",
+        "finishedError": "Selesai, tetapi ada galat",
+        "canceledSender": "Dibatalkan pengirim",
+        "canceledReceiver": "Dibatalkan penerima"
+      },
+      "count": "Berkas: {curr} / {n}",
+      "size": "Ukuran: {curr} / {n}",
+      "speed": "Kecepatan: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Bagikan melalui Tautan",
+    "loading": "Memulai peladen…",
+    "stopping": "Menghentikan peladen…",
+    "error": "Ada galat saat menjalankan peladen.",
+    "openLink": {
+      "one": "Buka tautan ini di peramban:",
+      "other": "Buka salah satu tautan ini di peramban:"
+    },
+    "requests": "Permintaan",
+    "noRequests": "Belum ada permintaan.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Terima permintaan secara otomatis",
+    "requirePin": "Memerlukan PIN",
+    "pinHint": "PIN-nya adalah \"{pin}\"",
+    "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
+    "pendingRequests": "Banyaknya permintaan yang tertunda: {n}"
+  },
+  "aboutPage": {
+    "title": "Tentang LocalSend",
+    "description": [
+      "LocalSend adalah aplikasi gratis dan bersumber terbuka yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.",
+      "Aplikasi ini tersedia untuk platform Android, iOS, macOS, Windows, dan Linux. Semua pilihan pengunduhan dapat ditemukan di laman situs resmi kami."
+    ],
+    "author": "Pembuat",
+    "contributors": "Daftar Kontributor",
+    "packagers": "Pengemas",
+    "translators": "Daftar Penerjemah"
+  },
+  "donationPage": {
+    "title": "Donasi",
+    "info": "LocalSend adalah aplikasi gratis, bersumber terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, mohon berikan kami dukungan dengan cara memberikan donasi.",
+    "donate": "Donasi {amount}",
+    "thanks": "Terima kasih banyak!",
+    "restore": "Kembalikan dana"
+  },
+  "changelogPage": {
+    "title": "Catatan Perubahan"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Bahasa lokal yang berbeda mungkin memiliki kata-kata yang berbeda, mungkin tidak sama persis 1:1"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Tambahkan dalam pilihan",
+      "content": "Apa yang ingin Anda tambahkan?"
+    },
+    "openFile": {
+      "title": "Buka berkas",
+      "content": "Anda ingin membuka berkas yang diterima?"
+    },
+    "addressInput": {
+      "title": "Masukkan Alamat",
+      "hashtag": "Tagar",
+      "ip": "Alamat IP",
+      "recentlyUsed": "Baru saja digunakan: "
+    },
+    "cancelSession": {
+      "title": "Batalkan pentransferan berkas",
+      "content": "Anda yakin ingin membatalkan pengiriman berkas?"
+    },
+    "cannotOpenFile": {
+      "title": "Tidak dapat membuka berkas",
+      "content": "Tidak dapat membuka \"{file}\". Apakah berkas ini telah dipindahkan, berganti nama, atau dihapus?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Enkripsi dinonaktifkan",
+      "content": "Komunikasi sekarang terjadi melalui protokol HTTP yang takterenkripsi. Untuk menggunakan HTTPS, aktifkan kembali enkripsi."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Favorit",
+      "noFavorites": "Tidak ada perangkat favorit.",
+      "addFavorite": "Tambah"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Hapus dari daftar favorit",
+      "content": "Anda yakin ingin menghapus ini dari daftar favorit? \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Tambah ke daftar favorit",
+      "titleEdit": "Pengaturan",
+      "name": "Nama perangkat",
+      "auto": "(otomatis)",
+      "ip": "Alamat IP",
+      "port": "Porta"
+    },
+    "fileInfo": {
+      "title": "Informasi Berkas",
+      "fileName": "Nama Berkas:",
+      "path": "Lokasi:",
+      "size": "Ukuran:",
+      "sender": "Pengirim:",
+      "time": "Waktu:"
+    },
+    "fileNameInput": {
+      "title": "Masukkan nama berkas",
+      "original": "Asli: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Hapus Riwayat",
+      "content": "Anda yakin ingin menghapus seluruh riwayat?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.",
+      "gotoSettings": "Pengaturan"
+    },
+    "messageInput": {
+      "title": "Ketik pesan",
+      "multiline": "Baris Ganda"
+    },
+    "noFiles": {
+      "title": "Tidak ada berkas yang dipilih",
+      "content": "Pilih setidaknya satu berkas."
+    },
+    "noPermission": {
+      "title": "Tidak ada izin",
+      "content": "Anda belum memberikan izin yang diperlukan. Harap berikan izin tersebut di pengaturan."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Tidak tersedia",
+      "content": "Fitur ini hanya tersedia di:"
+    },
+    "qr": {
+      "title": "Kode QR"
+    },
+    "quickActions": {
+      "title": "Aksi Cepat",
+      "counter": "Penghitung",
+      "prefix": "Awalan",
+      "padZero": "Isi dengan nol",
+      "sortBeforeCount": "Urutkan berdasarkan abjad sebelumnya",
+      "random": "Acak"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim berkas."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.",
+        "Peringatan! Saat ini, pilihan ini tidak sepenuhnya aman karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda berkas tanpa pembatasan.",
+        "Akan tetapi, pilihan ini masih lebih aman daripada mengizinkan semua pengguna di jaringan lokal mengirimkan berkas kepada Anda tanpa pembatasan."
+      ]
+    },
+    "pin": {
+      "title": "Masukkan PIN"
+    },
+    "sendModeHelp": {
+      "title": "Mode Pengiriman",
+      "single": "Mengirim berkas ke satu penerima. Pilihan penerima akan dihapus setelah selesai membagikan berkas.",
+      "multiple": "Mengirim berkas ke beberapa penerima. Pilihan penerima tidak akan dihapus.",
+      "link": "Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Nama berkas tidak boleh kosong",
+    "invalid": "Nama berkas mengandung karakter yang takvalid"
+  },
+  "tray": {
+    "@info": "Pedoman Apple sangat ketat mengenai kata-kata 'tutup'.",
+    "open": "@:general.open",
+    "close": "Tutup LocalSend",
+    "closeWindows": "Keluar"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Masukkan PIN",
+    "invalidPin": "PIN Salah",
+    "tooManyAttempts": "Terlalu banyak percobaan",
+    "rejected": "Ditolak",
+    "files": "Berkas",
+    "fileName": "Nama Berkas",
+    "size": "Ukuran"
+  },
+  "assetPicker": {
+    "@info": "Penerjemahan untuk Alat pemilihan media Android dan iPhone",
+    "confirm": "Konfirmasikan",
+    "cancel": "Batalkan",
+    "edit": "Sunting",
+    "gifIndicator": "GIF",
+    "loadFailed": "Gagal memuat",
+    "original": "Asli",
+    "preview": "Pratinjau",
+    "select": "Pilih",
+    "emptyList": "Daftar kosong",
+    "unSupportedAssetType": "Jenis berkas tidak didukung.",
+    "unableToAccessAll": "Tidak dapat mengakses semua berkas di perangkat",
+    "viewingLimitedAssetsTip": "Hanya melihat berkas dan album yang dapat diakses oleh aplikasi.",
+    "changeAccessibleLimitedAssets": "Klik untuk memutakhirkan berkas yang dapat diakses",
+    "accessAllTip": "Aplikasi hanya dapat mengakses beberapa berkas di perangkat. Pergi ke pengaturan sistem dan izinkan aplikasi untuk mengakses semua media di perangkat.",
+    "goToSystemSettings": "Ke pengaturan sistem",
+    "accessLimitedAssets": "Lanjutkan dengan akses terbatas",
+    "accessiblePathName": "Berkas yang dapat diakses",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Gambar",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Media lainnya",
+    "sActionPlayHint": "Putar",
+    "sActionPreviewHint": "Pratinjau",
+    "sActionSelectHint": "Pilih",
+    "sActionSwitchPathLabel": "Ubah jalur",
+    "sActionUseCameraHint": "Gunakan kamera",
+    "sNameDurationLabel": "Durasi",
+    "sUnitAssetCountLabel": "Jumlah"
+  },
+  "networkInterfacesPage": {
+    "title": "Antarmuka Jaringan",
+    "preview": "Pratinjau",
+    "whitelist": "Daftar putih",
+    "blacklist": "Daftar hitam",
+    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan."
+  }
+}

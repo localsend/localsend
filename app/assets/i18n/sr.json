@@ -1,0 +1,527 @@
+{
+  "locale": "Srpski (latinica)",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Prihvati",
+    "accepted": "Prihvaćeno",
+    "add": "Dodaj",
+    "advanced": "Napredno",
+    "cancel": "Otkaži",
+    "close": "Zatvori",
+    "confirm": "Potvrdi",
+    "continueStr": "Nastavi",
+    "copy": "Kopiraj",
+    "copiedToClipboard": "Kopirano u privremenu memoriju",
+    "decline": "Odbij",
+    "done": "Gotovo",
+    "delete": "Izbriši",
+    "edit": "Izmeni",
+    "error": "Greška",
+    "example": "Primer",
+    "files": "Fajlovi",
+    "finished": "Završeno",
+    "hide": "Sakrij",
+    "off": "Isključeno",
+    "offline": "Oflajn",
+    "on": "Uključeno",
+    "online": "Onlajn",
+    "open": "Otvori",
+    "queue": "Redosled",
+    "quickSave": "Brzo čuvanje",
+    "quickSaveFromFavorites": "Brzo čuvanje u „Omiljeno“",
+    "renamed": "Preimenovano",
+    "reset": "Poništi promene",
+    "restart": "Restartuj",
+    "settings": "Podešavanja",
+    "skipped": "Preskočeno",
+    "start": "Pokreni",
+    "stop": "Zaustavi",
+    "save": "Sačuvaj",
+    "unchanged": "Nepromenjeno",
+    "unknown": "Nepoznato",
+    "noItemInClipboard": "Nema predmeta u privremenoj memoriji."
+  },
+  "receiveTab": {
+    "title": "Primanje",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Naziv uređaja:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Omiljeno",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Slanje",
+    "selection": {
+      "title": "Izbor",
+      "files": "Fajlovi: {files}",
+      "size": "Veličina: {size}"
+    },
+    "picker": {
+      "file": "Fajl",
+      "folder": "Folder",
+      "media": "Mediji",
+      "text": "Tekst",
+      "app": "Aplikacija",
+      "clipboard": "Nalepi"
+    },
+    "shareIntentInfo": "Takođe, možete da koristite funkciju „Deli“ na svom mobilnom uređaju da biste lakše birali fajlove.",
+    "nearbyDevices": "Uređaji u blizini",
+    "thisDevice": "Ovaj uređaj",
+    "scan": "Pretraga uređaja",
+    "manualSending": "Ručno slanje",
+    "sendMode": "Režim slanja",
+    "sendModes": {
+      "single": "Jedan primalac",
+      "multiple": "Više primalaca",
+      "link": "Deljenje putem linka"
+    },
+    "sendModeHelp": "Objašnjenje",
+    "help": "Uverite se da je primalac takođe na istoj Wi-Fi mreži.",
+    "placeItems": "Postavite predmete za deljenje."
+  },
+  "settingsTab": {
+    "title": "Podešavanja",
+    "general": {
+      "title": "Opšte",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistemska",
+        "dark": "Tamna",
+        "light": "Svetla"
+      },
+      "color": "Boja",
+      "colorOptions": {
+        "system": "Sistemska",
+        "oled": "OLED"
+      },
+      "language": "Jezik",
+      "languageOptions": {
+        "system": "Sistemski"
+      },
+      "saveWindowPlacement": "Sačuvaj položaj prozora nakon napuštanja",
+      "saveWindowPlacementWindows": "Sačuvaj položaj prozora nakon izlaženja",
+      "minimizeToTray": "Minimiziraj na sistemsku traku/traku menija prilikom zatvaranja",
+      "launchAtStartup": "Automatski pokreni nakon prijave",
+      "launchMinimized": "Automatsko pokretanje: Pokretanje skriveno",
+      "showInContextMenu": "Prikaži LocalSend u kontekstualnom meniju",
+      "animations": "Animacije"
+    },
+    "receive": {
+      "title": "Primanje",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automatski završi",
+      "destination": "Čuvanje u folder",
+      "downloads": "(Downloads)",
+      "saveToGallery": "Sačuvaj medije u galeriju",
+      "saveToHistory": "Sačuvaj u istoriji"
+    },
+    "send": {
+      "title": "Slanje",
+      "shareViaLinkAutoAccept": "Automatski prihvati zahteve u režimu „Deljenje putem linka“"
+    },
+    "network": {
+      "title": "Mreža",
+      "needRestart": "Restartujte server da bi se primenila podešavanja!",
+      "server": "Server",
+      "alias": "Naziv uređaja",
+      "deviceType": "Tip uređaja",
+      "deviceModel": "Model uređaja",
+      "port": "Port",
+      "discoveryTimeout": "Otkrivanje je isteklo",
+      "useSystemName": "Koristi sistemski naziv",
+      "generateRandomAlias": "Generiši nasumični pseudonim",
+      "portWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođeni port. (podrazumevani: {defaultPort})",
+      "encryption": "Šifrovanje",
+      "multicastGroup": "Adresa višesmernog emitovanja",
+      "multicastGroupWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: {defaultMulticast})",
+      "network": "Mreža",
+      "networkOptions": {
+        "filtered": "Filtrirana",
+        "all": "Sve"
+      }
+    },
+    "other": {
+      "title": "Ostalo",
+      "support": "Podržite LocalSend",
+      "donate": "Doniraj",
+      "privacyPolicy": "Politika privatnosti",
+      "termsOfUse": "Uslovi korišćenja"
+    },
+    "advancedSettings": "Napredna podešavanja"
+  },
+  "troubleshootPage": {
+    "title": "Otklanjanje grešaka",
+    "subTitle": "Da li aplikacija radi kako treba? Ovde možete pronaći neka uobičajena rešenja problema.",
+    "solution": "Rešenje:",
+    "fixButton": "Popravi automatski",
+    "firewall": {
+      "symptom": "Ovaj uređaj može slati fajlove drugim uređajima, ali drugi uređaji ne mogu slati fajlove ovom uređaju.",
+      "solution": "Ovo je najverovatnije problem sa zaštitnim zidom. Ovo možete rešiti tako što ćete dozvoliti dolazne veze (UDP i TCP) na portu {port}.",
+      "openFirewall": "Otvori zaštitni zid"
+    },
+    "noDiscovery": {
+      "symptom": "Ovaj uređaj ne može da otkrije druge uređaje.",
+      "solution": "Uverite se da su svi uređaji na istoj Wi-Fi mreži i da imaju istu konfiguraciju (port, adresa višesmernog emitovanja, šifrovanje). Možete pokušati da ručno unesete IP adresu ciljnog uređaja. Ako ovo funkcioniše, razmislite o dodavanju ovog uređaja u omiljene kako bi se mogao automatski otkriti u budućnosti."
+    },
+    "noConnection": {
+      "symptom": "Oba uređaja ne mogu da otkriju jedan drugog niti mogu da dele fajlove.",
+      "solution": "Da li problem postoji na obe strane? Ako je tako, potrebno je da se uverite da su oba uređaja na istoj Wi-Fi mreži i da imaju istu konfiguraciju (port, adresa višesmernog emitovanja, šifrovanje). Wi-Fi mreža možda neće dozvoliti komunikaciju između učesnika zbog izolacije pristupne tačke (AP). U ovom slučaju, ova opcija mora biti onemogućena na ruteru."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Istorija",
+    "openFolder": "Otvori folder",
+    "deleteHistory": "Izbriši istoriju",
+    "empty": "Istorija je prazna.",
+    "entryActions": {
+      "open": "Otvori fajl",
+      "showInFolder": "Prikaži u folderu",
+      "info": "Informacije",
+      "deleteFromHistory": "Izbriši iz istorije"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aplikacije (APK)",
+    "excludeSystemApps": "Izuzmi sistemske aplikacije",
+    "excludeAppsWithoutLaunchIntent": "Izuzmi aplikacije koje se ne pokreću",
+    "apps": "{n} aplikacija"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Izbriši sve"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "želi da vam pošalje fajl",
+      "other": "želi da vam pošalje {n} fajlova"
+    },
+    "subTitleMessage": "poslao vam je poruku:",
+    "subTitleLink": "poslao vam je link:",
+    "canceled": "Pošiljalac je otkazao zahtev."
+  },
+  "receiveOptionsPage": {
+    "title": "Opcije",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Automatski isključeno jer postoje folderi."
+  },
+  "sendPage": {
+    "waiting": "Čekanje odgovora…",
+    "rejected": "Primalac je odbio zahtev.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Primalac je zauzet drugim zahtevom."
+  },
+  "progressPage": {
+    "titleSending": "Slanje fajlova",
+    "titleReceiving": "Primanje fajlova",
+    "savedToGallery": "Sačuvano u galeriji",
+    "total": {
+      "title": {
+        "sending": "Ukupan napredak ({time})",
+        "finishedError": "Završeno sa greškom",
+        "canceledSender": "Pošiljalac je otkazao",
+        "canceledReceiver": "Primalac je otkazao"
+      },
+      "count": "Fajlova: {curr} / {n}",
+      "size": "Veličina: {curr} / {n}",
+      "speed": "Brzina: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Deljenje putem linka",
+    "loading": "Pokretanje servera…",
+    "stopping": "Zaustavljanje servera…",
+    "error": "Došlo je do greške prilikom pokretanja servera.",
+    "openLink": {
+      "one": "Otvorite ovaj link u vašem pregledaču:",
+      "other": "Otvorite jedan od ovih linkova u vašem pregledaču:"
+    },
+    "requests": "Zahtevi",
+    "noRequests": "Još uvek nema zahteva.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automatski prihvati zahteve",
+    "requirePin": "Zahtevaj PIN",
+    "pinHint": "PIN je „{pin}“",
+    "encryptionHint": "LocalSend koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.",
+    "pendingRequests": "Zahtevi na čekanju: {n}"
+  },
+  "aboutPage": {
+    "title": "O LocalSend-u",
+    "description": [
+      "LocalSend je besplatna aplikacija otvorenog koda koja vam omogućava da bezbedno delite fajlove i poruke sa uređajima u blizini preko vaše lokalne mreže, bez potrebe za internet vezom.",
+      "Ova aplikacije je dostupna za Android, iOS, macOS, Windows i Linux. Možete pronaći sve opcije za preuzimanje na zvaničnoj početnoj stranici."
+    ],
+    "author": "Autor",
+    "contributors": "Saradnici",
+    "packagers": "Pakeri",
+    "translators": "Prevodioci"
+  },
+  "donationPage": {
+    "title": "Donacija",
+    "info": "LocalSend je besplatan, otvorenog koda i bez ikakvih oglasa. Ako vam se sviđa aplikacija, možete podržati razvoj donacijom.",
+    "donate": "Doniraj {amount}",
+    "thanks": "Hvala vam puno!",
+    "restore": "Vrati kupovinu"
+  },
+  "changelogPage": {
+    "title": "Evidencija promena"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Različiti prevodi mogu imati različite reči, možda se ne podudaraju 1:1",
+    "adjectives": [
+      "Neodoljiva",
+      "Prelepa",
+      "Velika",
+      "Bistra",
+      "Čista",
+      "Pametna",
+      "Hladnjikava",
+      "Slatka",
+      "Lukava",
+      "Odlučna",
+      "Energetska",
+      "Efikasna",
+      "Fantastična",
+      "Brza",
+      "Fina",
+      "Sveža",
+      "Dobra",
+      "Divna",
+      "Velika",
+      "Zgodna",
+      "Vruća",
+      "Nežna",
+      "Ljubazna",
+      "Mistična",
+      "Uredna",
+      "Lepa",
+      "Strpljiva",
+      "Prelepa",
+      "Moćna",
+      "Bogata",
+      "Tajnovita",
+      "Pametna",
+      "Čvrsta",
+      "Specijalna",
+      "Budjava",
+      "Jaka",
+      "Uredna",
+      "Mudra"
+    ],
+    "fruits": [
+      "Jabuka",
+      "Šljiva",
+      "Banana",
+      "Borovnica",
+      "Ribizla",
+      "Kajsija",
+      "Šargarepa",
+      "Trešnja",
+      "Paprika",
+      "Papričica",
+      "Krompiruša",
+      "Kupusara",
+      "Rotkvica",
+      "Lubenica",
+      "Pečurka",
+      "Mandarina",
+      "Pomorandža",
+      "Papaja",
+      "Breskva",
+      "Kruška",
+      "Šišarka",
+      "Dinja",
+      "Bundeva",
+      "Višnja",
+      "Jagoda",
+      "Dunja"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last. Not the case in Serbian, but serbian adjectives must have endings which depend on the gender of the noun. That's why we put all the Fruits with the female form and corresponding adjective endings in female form for this translation."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Dodajte u izbor",
+      "content": "Šta želite dodati?"
+    },
+    "openFile": {
+      "title": "Otvori fajl",
+      "content": "Želite li da otvorite primljeni fajl?"
+    },
+    "addressInput": {
+      "title": "Unesite adresu",
+      "hashtag": "Heš-oznaka",
+      "ip": "IP adresa",
+      "recentlyUsed": "Nedavno korišćeno: "
+    },
+    "cancelSession": {
+      "title": "Otkažite prenos fajlova",
+      "content": "Želite li zaista da otkažete prenos fajlova?"
+    },
+    "cannotOpenFile": {
+      "title": "Nije moguće otvoriti fajl",
+      "content": "Nije moguće otvoriti „{file}“. Da li je ovaj fajl premešten, preimenovan ili izbrisan?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Šifrovanje onemogućeno",
+      "content": "Komunikacija se sada odvija preko nešifrovanog HTTP protokola. Da biste koristili HTTPS protokol, ponovo omogućite šifrovanje."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Omiljeno",
+      "noFavorites": "Još uvek nema omiljenih uređaja.",
+      "addFavorite": "Dodaj"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Izbriši iz omiljenih",
+      "content": "Želite li zaista da izbrišete „{name}“ iz omiljenih?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Dodajte u omiljene",
+      "titleEdit": "Podešavanja",
+      "name": "Naziv uređaja",
+      "auto": "(automatski)",
+      "ip": "IP adresa",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Informacije o fajlu",
+      "fileName": "Naziv fajla:",
+      "path": "Putanja:",
+      "size": "Veličina:",
+      "sender": "Pošiljalac:",
+      "time": "Vreme:"
+    },
+    "fileNameInput": {
+      "title": "Unesite naziv fajla",
+      "original": "Originalni naziv fajla: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Očistite istoriju",
+      "content": "Želite li zaista da očistite čitavu istoriju?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend ne može da pronađe druge uređaje bez dozvole za skeniranje lokalne mreže. Dajte ovu dozvolu u podešavanjima.",
+      "gotoSettings": "Podešavanja"
+    },
+    "messageInput": {
+      "title": "Napišite poruku",
+      "multiline": "Više redova"
+    },
+    "noFiles": {
+      "title": "Nije izabran nijedan fajl",
+      "content": "Izaberite bar jedan fajl."
+    },
+    "noPermission": {
+      "title": "Nema dozvole",
+      "content": "Niste dali neophodne dozvole. Dajte ih u podešavanjima."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Nije dostupno",
+      "content": "Ova funkcija je dostupna samo na:"
+    },
+    "qr": {
+      "title": "QR kôd"
+    },
+    "quickActions": {
+      "title": "Brze radnje",
+      "counter": "Brojač",
+      "prefix": "Prefiks",
+      "padZero": "Dopuna nulama",
+      "sortBeforeCount": "Sortiraj unapred po abecedi (A-Z)",
+      "random": "Nasumično"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Zahtevi za fajlove se sada automatski prihvataju. Imajte na umu da svi na lokalnoj mreži mogu da vam šalju fajlove."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Zahtevi za fajlove se sada automatski prihvataju sa uređaja koji su na vašoj listi omiljenih.",
+        "Upozorenje! Trenutno, ovo nije potpuno bezbedno, jer haker koji ima otisak prsta bilo kog uređaja sa vaše liste omiljenih može da vam šalje fajlove bez ograničenja.",
+        "Ipak, ova opcija je i dalje bezbednija od dopuštanja svim korisnicima na lokalnoj mreži da vam šalju fajlove bez ograničenja."
+      ]
+    },
+    "pin": {
+      "title": "Unesite PIN"
+    },
+    "sendModeHelp": {
+      "title": "Režimi slanja",
+      "single": "Slanje fajlova jednom primaocu. Izbor će biti očišćen nakon završenog prenosa fajlova.",
+      "multiple": "Slanje fajlova više primalaca. Izbor neće biti očišćen nakon završenog prenosa fajlova.",
+      "link": "Primaoci koji nemaju instaliran LocalSend mogu preuzeti izabrane fajlove otvaranjem linka u svom pregledaču."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Naziv fajla ne može biti prazan",
+    "invalid": "Naziv fajla sadrži nevažeće znakove"
+  },
+  "tray": {
+    "@info": "Apple smernice su veoma stroge u vezi sa „sličnim“ formulacijama.",
+    "open": "@:general.open",
+    "close": "Napusti LocalSend",
+    "closeWindows": "Izađi"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Unesite PIN",
+    "invalidPin": "Neispravan PIN",
+    "tooManyAttempts": "Previše pokušaja",
+    "rejected": "Odbijeno",
+    "files": "Fajlovi",
+    "fileName": "Naziv fajla",
+    "size": "Veličina"
+  },
+  "assetPicker": {
+    "@info": "Prevodi za alatku za izbor medija za Android i iPhone",
+    "confirm": "Potvrdi",
+    "cancel": "Otkaži",
+    "edit": "Izmeni",
+    "gifIndicator": "GIF",
+    "loadFailed": "Učitavanje neuspešno",
+    "original": "Poreklo",
+    "preview": "Pregled",
+    "select": "Izaberi",
+    "emptyList": "Očisti listu",
+    "unSupportedAssetType": "Nepodržan tip fajla.",
+    "unableToAccessAll": "Nije moguće pristupiti svim fajlovima na uređaju",
+    "viewingLimitedAssetsTip": "Samo fajlovi za gledanje i albumi dostupni aplikaciji.",
+    "changeAccessibleLimitedAssets": "Dodirnite da ažurirate dostupne fajlove",
+    "accessAllTip": "Aplikacija može da pristupi samo nekim fajlovima na uređaju. Idite u sistemska podešavanja i dozvolite aplikaciji pristup svim medijima na uređaju.",
+    "goToSystemSettings": "Idi u sistemska podešavanja",
+    "accessLimitedAssets": "Nastavi sa ograničenim pristupom",
+    "accessiblePathName": "Dostupni fajlovi",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Slika",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Ostali mediji",
+    "sActionPlayHint": "pusti",
+    "sActionPreviewHint": "pregled",
+    "sActionSelectHint": "izaberi",
+    "sActionSwitchPathLabel": "promeni putanju",
+    "sActionUseCameraHint": "koristi kameru",
+    "sNameDurationLabel": "trajanje",
+    "sUnitAssetCountLabel": "broj"
+  },
+  "networkInterfacesPage": {
+    "title": "Mrežni interfejsi",
+    "preview": "Pregled",
+    "whitelist": "Bela lista",
+    "blacklist": "Crna lista",
+    "info": "Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene."
+  }
+}

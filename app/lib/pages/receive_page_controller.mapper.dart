@@ -35,12 +35,15 @@ class ReceivePageVmMapper extends ClassMapperBase<ReceivePageVm> {
   static const Field<ReceivePageVm, bool> _f$isLink = Field('isLink', _$isLink);
   static bool _$showFullIp(ReceivePageVm v) => v.showFullIp;
   static const Field<ReceivePageVm, bool> _f$showFullIp = Field('showFullIp', _$showFullIp);
-  static void Function() _$onAccept(ReceivePageVm v) => v.onAccept;
-  static const Field<ReceivePageVm, void Function()> _f$onAccept = Field('onAccept', _$onAccept);
-  static void Function() _$onDecline(ReceivePageVm v) => v.onDecline;
-  static const Field<ReceivePageVm, void Function()> _f$onDecline = Field('onDecline', _$onDecline);
-  static void Function() _$onClose(ReceivePageVm v) => v.onClose;
-  static const Field<ReceivePageVm, void Function()> _f$onClose = Field('onClose', _$onClose);
+  static Function _$onAccept(ReceivePageVm v) => (v as dynamic).onAccept as Function;
+  static dynamic _arg$onAccept(f) => f<void Function()>();
+  static const Field<ReceivePageVm, Function> _f$onAccept = Field('onAccept', _$onAccept, arg: _arg$onAccept);
+  static Function _$onDecline(ReceivePageVm v) => (v as dynamic).onDecline as Function;
+  static dynamic _arg$onDecline(f) => f<void Function()>();
+  static const Field<ReceivePageVm, Function> _f$onDecline = Field('onDecline', _$onDecline, arg: _arg$onDecline);
+  static Function _$onClose(ReceivePageVm v) => (v as dynamic).onClose as Function;
+  static dynamic _arg$onClose(f) => f<void Function()>();
+  static const Field<ReceivePageVm, Function> _f$onClose = Field('onClose', _$onClose, arg: _arg$onClose);
 
   @override
   final MappableFields<ReceivePageVm> fields = const {

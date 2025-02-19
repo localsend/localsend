@@ -5,6 +5,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -19,7 +20,7 @@ class FavoritesDialog extends StatefulWidget {
 
 class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
   bool _fetching = false;
-  bool _failed = false;
+  String? _error;
 
   /// Checks if the device is reachable and pops the dialog with the result if it is.
   Future<void> _checkConnectionToDevice(FavoriteDevice favorite) async {
@@ -29,24 +30,22 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
 
     final https = ref.read(settingsProvider).https;
 
-    final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-          ip: favorite.ip,
-          port: favorite.port,
-          https: https,
-        ));
-    if (result == null) {
+    try {
+      final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
+            ip: favorite.ip,
+            port: favorite.port,
+            https: https,
+          ));
+
+      if (mounted) {
+        context.pop(result);
+      }
+    } catch (e) {
       setState(() {
         _fetching = false;
-        _failed = true;
+        _error = e.toString();
       });
-      return;
     }
-
-    if (!mounted) {
-      return;
-    }
-
-    context.pop(result);
   }
 
   Future<void> _showDeviceDialog([FavoriteDevice? favorite]) async {
@@ -88,10 +87,29 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                 ),
               ],
             ),
-          if (_failed)
+          if (_error != null)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+              child: Row(
+                children: [
+                  Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                  if (_error != null) ...[
+                    const SizedBox(width: 5),
+                    InkWell(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (_) => ErrorDialog(error: _error!),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
         ],
       ),

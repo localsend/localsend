@@ -1,0 +1,111 @@
+{
+  "locale": "Inglés",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Aceptar",
+    "accepted": "Aceptado",
+    "add": "Engadir",
+    "advanced": "Avanzado",
+    "cancel": "Cancelar",
+    "close": "Pechar",
+    "confirm": "Confirmar",
+    "continueStr": "Continuar",
+    "copy": "Copiar",
+    "copiedToClipboard": "Copiouse no Portapapeis",
+    "decline": "Declinar",
+    "done": "Feito",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "error": "Erro",
+    "example": "Exemplo",
+    "files": "Arquivos",
+    "finished": "Rematou",
+    "hide": "Ocultar",
+    "off": "Apagado",
+    "offline": "Sen Conexión",
+    "on": "Activado",
+    "online": "En Liña",
+    "open": "Aberto",
+    "queue": "Fila",
+    "quickSave": "Gardar Rápido",
+    "quickSaveFromFavorites": "Gardar rápido para \"Favoritos\"",
+    "renamed": "Renomeado",
+    "reset": "Desfacer os cambios",
+    "restart": "Reiniciar",
+    "settings": "Configuración",
+    "skipped": "Omitido",
+    "start": "Comeza",
+    "stop": "Parar",
+    "save": "Gardar",
+    "unchanged": "Sen Cambios",
+    "unknown": "Descoñecido",
+    "noItemInClipboard": "Non hai elementos no Portapapeis."
+  },
+  "receiveTab": {
+    "title": "Recibir",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Porto:",
+      "alias": "Nome do Dispositivo:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Favoritos",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Enviar",
+    "selection": {
+      "title": "Selección",
+      "files": "Ficheiros: {files}",
+      "size": "Tamaño: {size}"
+    },
+    "picker": {
+      "file": "Arquivo",
+      "folder": "Cartafol",
+      "media": "Medios",
+      "text": "Texto",
+      "app": "App",
+      "clipboard": "Pegar"
+    },
+    "shareIntentInfo": "Tamén podes usar a función \"Compartir\" do teu dispositivo móbil para seleccionar ficheiros máis facilmente.",
+    "nearbyDevices": "Dispositivos Próximos",
+    "thisDevice": "Este Dispositivo",
+    "scan": "Busca Dispositivos",
+    "manualSending": "Envío Manual",
+    "sendMode": "Modo de Envío",
+    "sendModes": {
+      "single": "Destinatario Único",
+      "multiple": "Múltiples Destinatarios",
+      "link": "Comparte via ligazón"
+    },
+    "sendModeHelp": "Explicación",
+    "help": "Asegúrate de que o obxectivo desexado tamén estea na mesma rede wifi.",
+    "placeItems": "Coloca elementos para compartir."
+  },
+  "settingsTab": {
+    "title": "Configuración",
+    "general": {
+      "title": "Xeral",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistema",
+        "dark": "Escuro",
+        "light": "Luz"
+      },
+      "color": "Cor",
+      "colorOptions": {
+        "system": "Sistema",
+        "oled": "OLED"
+      },
+      "language": "Linguaxe",
+      "languageOptions": {
+        "system": "Sistema"
+      },
+      "saveWindowPlacement": "Garda a posición da xanela despois de saír",
+      "saveWindowPlacementWindows": "Garda a posición da xanela despois da saída",
+      "minimizeToTray": "Minimizar á Bandexa do Sistema/Barra de Menú ao Pechar"
+    }
+  }
+}

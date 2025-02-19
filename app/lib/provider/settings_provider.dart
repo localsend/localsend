@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +9,22 @@ import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
+final _listEq = const ListEquality().equals;
+
 final settingsProvider = NotifierProvider<SettingsService, SettingsState>((ref) {
   return SettingsService(ref.read(persistenceProvider));
 }, onChanged: (_, next, ref) {
   final syncState = ref.read(parentIsolateProvider).syncState;
-  if (syncState.multicastGroup == next.multicastGroup && syncState.discoveryTimeout == next.discoveryTimeout) {
+  if (_listEq(syncState.networkWhitelist, next.networkWhitelist) &&
+      _listEq(syncState.networkBlacklist, next.networkBlacklist) &&
+      syncState.multicastGroup == next.multicastGroup &&
+      syncState.discoveryTimeout == next.discoveryTimeout) {
     return;
   }
 
   ref.redux(parentIsolateProvider).dispatch(IsolateSyncSettingsAction(
+        networkWhitelist: next.networkWhitelist,
+        networkBlacklist: next.networkBlacklist,
         multicastGroup: next.multicastGroup,
         discoveryTimeout: next.discoveryTimeout,
       ));
@@ -35,6 +43,8 @@ class SettingsService extends PureNotifier<SettingsState> {
         colorMode: _persistence.getColorMode(),
         locale: _persistence.getLocale(),
         port: _persistence.getPort(),
+        networkWhitelist: _persistence.getNetworkWhitelist(),
+        networkBlacklist: _persistence.getNetworkBlacklist(),
         multicastGroup: _persistence.getMulticastGroup(),
         destination: _persistence.getDestination(),
         saveToGallery: _persistence.isSaveToGallery(),
@@ -94,6 +104,20 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setPort(port);
     state = state.copyWith(
       port: port,
+    );
+  }
+
+  Future<void> setNetworkWhitelist(List<String>? whitelist) async {
+    await _persistence.setNetworkWhitelist(whitelist);
+    state = state.copyWith(
+      networkWhitelist: whitelist,
+    );
+  }
+
+  Future<void> setNetworkBlacklist(List<String>? blacklist) async {
+    await _persistence.setNetworkBlacklist(blacklist);
+    state = state.copyWith(
+      networkBlacklist: blacklist,
     );
   }
 

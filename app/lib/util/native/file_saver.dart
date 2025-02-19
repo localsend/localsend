@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/android_saf.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
@@ -24,7 +24,7 @@ Future<void> saveFile({
   required String name,
   required bool saveToGallery,
   required bool isImage,
-  required Stream<List<int>> stream,
+  required Stream<Uint8List> stream,
   required int? androidSdkInt,
   required DateTime? lastModified,
   required DateTime? lastAccessed,
@@ -38,7 +38,7 @@ Future<void> saveFile({
     if (documentUri != null || destinationPath.startsWith('content://')) {
       _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
       safInfo = await _saf.startWriteStream(
-        Uri.parse(documentUri ?? destinationPath),
+        documentUri ?? destinationPath,
         name,
         lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
       );
@@ -49,7 +49,7 @@ Future<void> saveFile({
         final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
         _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
-          Uri.parse('content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString'),
+          'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString',
           name,
           lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
         );
@@ -66,7 +66,7 @@ Future<void> saveFile({
         onProgress: onProgress,
         write: null,
         writeAsync: (data) async {
-          await _saf.writeChunk(sessionID, Uint8List.fromList(data));
+          await _saf.writeChunk(sessionID, data);
         },
         flush: null,
         close: () async {
@@ -108,10 +108,10 @@ Future<void> _saveFile({
   required String destinationPath,
   required bool saveToGallery,
   required bool isImage,
-  required Stream<List<int>> stream,
+  required Stream<Uint8List> stream,
   required void Function(int savedBytes) onProgress,
-  required void Function(List<int> data)? write,
-  required Future<void> Function(List<int> data)? writeAsync,
+  required void Function(Uint8List data)? write,
+  required Future<void> Function(Uint8List data)? writeAsync,
   required Future<void> Function()? flush,
   required Future<void> Function() close,
 }) async {
@@ -169,7 +169,7 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     final String documentUri;
     if (fileName.contains('/')) {
       try {
-        await createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
+        await android_channel.createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
       } catch (e) {
         _logger.warning('Could not create missing directories', e);
       }
@@ -189,10 +189,17 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
-  try {
-    Directory(dir).createSync(recursive: true);
-  } catch (e) {
-    _logger.warning('Could not create directory', e);
+  if (fileNameParts.length > 1) {
+    // Check path traversal
+    if (!p.isWithin(parentDirectory, dir)) {
+      throw 'Path traversal detected';
+    }
+
+    try {
+      Directory(dir).createSync(recursive: true);
+    } catch (e) {
+      _logger.warning('Could not create directory', e);
+    }
   }
 
   String destinationPath;

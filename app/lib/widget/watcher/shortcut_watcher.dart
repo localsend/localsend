@@ -47,6 +47,10 @@ class ShortcutWatcher extends StatelessWidget {
           }),
           _CloseWindowIntent: CallbackAction<_CloseWindowIntent>(
             onInvoke: (_) async {
+              if (_isFakeMetaKey()) {
+                return null;
+              }
+
               await WindowWatcher.closeWindow(context);
               return null;
             },
@@ -65,3 +69,28 @@ class _PopPageIntent extends Intent {}
 class _PasteIntent extends Intent {}
 
 class _CloseWindowIntent extends Intent {}
+
+bool _ignoreMetaLast = false;
+bool _isFakeMetaKey() {
+  // https://github.com/localsend/localsend/issues/2037
+  // We can detect the "fake" meta key by checking if the last key was a meta key
+  // because the real meta key should be the first key pressed.
+  if (_ignoreMetaLast) {
+    final lastKey = HardwareKeyboard.instance.logicalKeysPressed.lastOrNull;
+    if (lastKey?.isMeta ?? false) {
+      return true;
+    }
+  } else {
+    final firstKey = HardwareKeyboard.instance.logicalKeysPressed.firstOrNull;
+
+    if (firstKey?.isMeta ?? false) {
+      _ignoreMetaLast = true;
+    }
+  }
+
+  return false;
+}
+
+extension on LogicalKeyboardKey {
+  bool get isMeta => this == LogicalKeyboardKey.meta || this == LogicalKeyboardKey.metaLeft || this == LogicalKeyboardKey.metaRight;
+}

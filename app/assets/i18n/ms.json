@@ -1,0 +1,488 @@
+{
+  "locale": "Bahasa Melayu",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Terima",
+    "accepted": "Diterima",
+    "add": "Tambah",
+    "advanced": "Lanjutan",
+    "cancel": "Batal",
+    "close": "Tutup",
+    "confirm": "Sahkan",
+    "continueStr": "Teruskan",
+    "copy": "Salin",
+    "copiedToClipboard": "Disalin ke papan keratan",
+    "decline": "Tolak",
+    "done": "Selesai",
+    "delete": "Padam",
+    "edit": "Edit",
+    "error": "Ralat",
+    "example": "Contoh",
+    "files": "Fail",
+    "finished": "Selesai",
+    "hide": "Sembunyi",
+    "off": "Mati",
+    "offline": "Luar talian",
+    "on": "Hidup",
+    "online": "Dalam talian",
+    "open": "Buka",
+    "queue": "Baris gilir",
+    "quickSave": "Simpan Cepat",
+    "quickSaveFromFavorites": "Simpan Cepat dari \"Kegemaran\"",
+    "renamed": "Dinamakan semula",
+    "reset": "Set semula",
+    "restart": "Mula semula",
+    "settings": "Tetapan",
+    "skipped": "Dilangkau",
+    "start": "Mula",
+    "stop": "Berhenti",
+    "save": "Simpan",
+    "unchanged": "Tidak berubah",
+    "unknown": "Tidak diketahui",
+    "noItemInClipboard": "Tiada item dalam papan keratan."
+  },
+  "receiveTab": {
+    "title": "Terima",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Nama peranti:"
+    }
+  },
+  "sendTab": {
+    "title": "Hantar",
+    "selection": {
+      "title": "Pilihan",
+      "files": "Fail: {files}",
+      "size": "Saiz: {size}"
+    },
+    "picker": {
+      "file": "Fail",
+      "folder": "Folder",
+      "media": "Media",
+      "text": "Teks",
+      "app": "Aplikasi",
+      "clipboard": "Tampal"
+    },
+    "shareIntentInfo": "Anda juga boleh menggunakan ciri \"Kongsi\" peranti mudah alih anda untuk memilih fail dengan lebih mudah.",
+    "nearbyDevices": "Peranti berdekatan",
+    "thisDevice": "Peranti Ini",
+    "scan": "Cari peranti",
+    "manualSending": "Penghantaran manual",
+    "sendMode": "Mod penghantaran",
+    "sendModes": {
+      "single": "Satu penerima",
+      "multiple": "Pelbagai penerima",
+      "link": "Kongsi melalui pautan"
+    },
+    "sendModeHelp": "Penerangan",
+    "help": "Sila pastikan sasaran yang diingini juga berada dalam rangkaian Wi-Fi yang sama.",
+    "placeItems": "Letakkan item untuk dikongsi."
+  },
+  "settingsTab": {
+    "title": "Tetapan",
+    "general": {
+      "title": "Umum",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Sistem",
+        "dark": "Gelap",
+        "light": "Cerah"
+      },
+      "color": "Warna",
+      "colorOptions": {
+        "system": "Sistem",
+        "oled": "OLED"
+      },
+      "language": "Bahasa",
+      "languageOptions": {
+        "system": "Sistem"
+      },
+      "saveWindowPlacement": "Simpan kedudukan tetingkap selepas keluar",
+      "minimizeToTray": "Minimumkan ke dulang sistem/menu bar apabila menutup",
+      "launchAtStartup": "Mula automatik selepas log masuk",
+      "launchMinimized": "Mula automatik: Mula tersembunyi",
+      "showInContextMenu": "Tunjukkan LocalSend dalam menu konteks",
+      "animations": "Animasi"
+    },
+    "receive": {
+      "title": "Terima",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "Memerlukan PIN",
+      "autoFinish": "Selesai Automatik",
+      "destination": "Simpan ke folder",
+      "downloads": "(Muat turun)",
+      "saveToGallery": "Simpan media ke galeri",
+      "saveToHistory": "Simpan ke sejarah"
+    },
+    "send": {
+      "title": "Hantar",
+      "shareViaLinkAutoAccept": "Terima permintaan secara automatik dalam mod \"Kongsi melalui pautan\""
+    },
+    "network": {
+      "title": "Rangkaian",
+      "needRestart": "Mulakan semula pelayan untuk menggunakan tetapan!",
+      "server": "Pelayan",
+      "alias": "Nama peranti",
+      "deviceType": "Jenis peranti",
+      "deviceModel": "Model peranti",
+      "port": "Port",
+      "discoveryTimeout": "Tamat Masa Penemuan",
+      "useSystemName": "Gunakan nama sistem",
+      "generateRandomAlias": "Jana alias rawak",
+      "portWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan port tersuai. (lalai: {defaultPort})",
+      "encryption": "Penyulitan",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Lain-lain",
+      "support": "Sokong LocalSend",
+      "donate": "Derma",
+      "privacyPolicy": "Dasar Privasi",
+      "termsOfUse": "Syarat Penggunaan"
+    },
+    "advancedSettings": "Tetapan lanjutan"
+  },
+  "troubleshootPage": {
+    "title": "Penyelesaian masalah",
+    "subTitle": "Aplikasi ini tidak berfungsi seperti yang diharapkan? Di sini anda boleh mencari penyelesaian umum.",
+    "solution": "Penyelesaian:",
+    "fixButton": "Baiki secara automatik",
+    "firewall": {
+      "symptom": "Peranti ini boleh menghantar fail ke peranti lain tetapi peranti lain tidak boleh menghantar fail ke peranti ini.",
+      "solution": "Ini kemungkinan besar adalah masalah firewall. Anda boleh menyelesaikannya dengan membenarkan sambungan masuk (UDP dan TCP) pada port {port}.",
+      "openFirewall": "Buka Firewall"
+    },
+    "noDiscovery": {
+      "symptom": "Peranti ini tidak dapat menemui peranti lain.",
+      "solution": "Sila pastikan semua peranti berada dalam rangkaian Wi-Fi yang sama dan berkongsi konfigurasi yang sama (port, alamat multicast, penyulitan). Anda boleh cuba menaip alamat IP peranti sasaran secara manual. Jika ini berhasil, pertimbangkan untuk menambahkan peranti ini ke kegemaran agar ia dapat ditemui secara automatik pada masa hadapan."
+    },
+    "noConnection": {
+      "symptom": "Kedua-dua peranti tidak dapat menemui satu sama lain atau tidak dapat berkongsi fail.",
+      "solution": "Adakah masalah wujud di kedua-dua belah pihak? Jika ya, anda perlu memastikan bahawa kedua-dua peranti berada dalam rangkaian Wi-Fi yang sama dan berkongsi konfigurasi yang sama (port, alamat multicast, penyulitan). Rangkaian Wi-Fi mungkin tidak membenarkan komunikasi antara peserta (pengasingan AP). Dalam kes ini, pilihan ini mesti diaktifkan pada penghala."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "Sejarah",
+    "openFolder": "Buka folder",
+    "deleteHistory": "Padam sejarah",
+    "empty": "Sejarah kosong.",
+    "entryActions": {
+      "open": "Buka fail",
+      "showInFolder": "Tunjukkan dalam folder",
+      "info": "Maklumat",
+      "deleteFromHistory": "Padam dari sejarah"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aplikasi (APK)",
+    "excludeSystemApps": "Kecualikan aplikasi sistem",
+    "excludeAppsWithoutLaunchIntent": "Kecualikan aplikasi yang tidak boleh dilancarkan",
+    "apps": "{n} Aplikasi"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Padam semua"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ingin menghantar fail kepada anda",
+      "other": "ingin menghantar {n} fail kepada anda"
+    },
+    "subTitleMessage": "menghantar mesej kepada anda:",
+    "subTitleLink": "menghantar pautan kepada anda:",
+    "canceled": "Penghantar telah membatalkan permintaan."
+  },
+  "receiveOptionsPage": {
+    "title": "Pilihan",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(folder LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Dimatikan secara automatik kerana terdapat folder."
+  },
+  "sendPage": {
+    "waiting": "Menunggu respons...",
+    "rejected": "Penerima telah menolak permintaan.",
+    "busy": "Penerima sibuk dengan permintaan lain."
+  },
+  "progressPage": {
+    "titleSending": "Menghantar fail",
+    "titleReceiving": "Menerima fail",
+    "savedToGallery": "Disimpan dalam Foto",
+    "total": {
+      "title": {
+        "sending": "Kemajuan keseluruhan ({time})",
+        "finishedError": "Selesai dengan ralat",
+        "canceledSender": "Dibatalkan oleh penghantar",
+        "canceledReceiver": "Dibatalkan oleh penerima"
+      },
+      "count": "Fail: {curr} / {n}",
+      "size": "Saiz: {curr} / {n}",
+      "speed": "Kelajuan: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Kongsi melalui pautan",
+    "loading": "Memulakan pelayan...",
+    "stopping": "Menghentikan pelayan...",
+    "error": "Ralat berlaku semasa memulakan pelayan.",
+    "openLink": {
+      "one": "Buka pautan ini dalam pelayar anda:",
+      "other": "Buka salah satu pautan ini dalam pelayar anda:"
+    },
+    "requests": "Permintaan",
+    "noRequests": "Tiada permintaan lagi.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Terima permintaan secara automatik",
+    "requirePin": "Memerlukan PIN",
+    "pinHint": "PIN ialah \"{pin}\"",
+    "pendingRequests": "Permintaan menunggu: {n}"
+  },
+  "aboutPage": {
+    "title": "Mengenai LocalSend",
+    "description": [
+      "LocalSend adalah aplikasi percuma dan sumber terbuka yang membolehkan anda berkongsi fail dan mesej dengan selamat dengan peranti berdekatan melalui rangkaian tempatan anda tanpa memerlukan sambungan internet.",
+      "Aplikasi ini tersedia di Android, iOS, macOS, Windows dan Linux. Anda boleh mencari semua pilihan muat turun di laman web rasmi."
+    ],
+    "author": "Pengarang",
+    "contributors": "Penyumbang",
+    "translators": "Penterjemah"
+  },
+  "donationPage": {
+    "title": "Derma",
+    "info": "LocalSend adalah percuma, sumber terbuka dan tanpa iklan. Jika anda menyukai aplikasi ini, anda boleh menyokong pembangunannya dengan derma.",
+    "donate": "Derma {amount}",
+    "thanks": "Terima kasih banyak!",
+    "restore": "Pulihkan pembelian"
+  },
+  "changelogPage": {
+    "title": "Log perubahan"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "adjectives": [
+      "Comel",
+      "Cantik",
+      "Besar",
+      "Terang",
+      "Bersih",
+      "Bijak",
+      "Keren",
+      "Menarik",
+      "Licik",
+      "Bersemangat",
+      "Cekap",
+      "Hebat",
+      "Pantas",
+      "Baik",
+      "Segar",
+      "Bagus",
+      "Menakjubkan",
+      "Hebat",
+      "Tampan",
+      "Panas",
+      "Baik hati",
+      "Misteri",
+      "Kemas",
+      "Sabar",
+      "Cantik",
+      "Berkuasa",
+      "Kaya",
+      "Rahsia",
+      "Pintar",
+      "Kukuh",
+      "Istimewa",
+      "Strategik",
+      "Kuat",
+      "Kemas",
+      "Bijaksana"
+    ],
+    "fruits": [
+      "Epal",
+      "Avokado",
+      "Pisang",
+      "Blackberi",
+      "Bluberi",
+      "Brokoli",
+      "Lobak merah",
+      "Ceri",
+      "Kelapa",
+      "Anggur",
+      "Lemon",
+      "Salad",
+      "Mangga",
+      "Tembikai",
+      "Cendawan",
+      "Bawang",
+      "Oren",
+      "Betik",
+      "Pic",
+      "Pir",
+      "Nanas",
+      "Kentang",
+      "Labu",
+      "Rasberi",
+      "Strawberi",
+      "Tomato"
+    ],
+    "combination": "{fruit} yang {adjective}",
+    "@combination": "Dalam bahasa Melayu, kata sifat biasanya diletakkan selepas kata nama."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Tambah ke pilihan",
+      "content": "Apa yang anda ingin tambah?"
+    },
+    "addressInput": {
+      "title": "Masukkan alamat",
+      "hashtag": "Tanda pagar",
+      "ip": "Alamat IP",
+      "recentlyUsed": "Digunakan baru-baru ini: "
+    },
+    "cancelSession": {
+      "title": "Batalkan pemindahan fail",
+      "content": "Adakah anda benar-benar mahu membatalkan pemindahan fail?"
+    },
+    "cannotOpenFile": {
+      "title": "Tidak dapat membuka fail",
+      "content": "Tidak dapat membuka \"{file}\". Adakah fail ini telah dipindahkan, dinamakan semula atau dipadamkan?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Penyulitan dimatikan",
+      "content": "Komunikasi kini berlaku melalui protokol HTTP yang tidak disulitkan. Untuk menggunakan protokol HTTPS, aktifkan penyulitan semula."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Kegemaran",
+      "noFavorites": "Tiada peranti kegemaran lagi.",
+      "addFavorite": "Tambah"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Padam dari kegemaran",
+      "content": "Adakah anda benar-benar mahu memadam \"{name}\" dari kegemaran?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Tambah ke kegemaran",
+      "titleEdit": "Tetapan",
+      "name": "Nama peranti",
+      "auto": "(auto)",
+      "ip": "Alamat IP",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Maklumat fail",
+      "fileName": "Nama fail:",
+      "path": "Laluan:",
+      "size": "Saiz:",
+      "sender": "Penghantar:",
+      "time": "Masa:"
+    },
+    "fileNameInput": {
+      "title": "Masukkan nama fail",
+      "original": "Asal: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Kosongkan sejarah",
+      "content": "Adakah anda benar-benar mahu memadamkan keseluruhan sejarah?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend tidak dapat mencari peranti lain tanpa mempunyai kebenaran untuk mengimbas rangkaian tempatan. Sila berikan kebenaran ini dalam tetapan.",
+      "gotoSettings": "Tetapan"
+    },
+    "messageInput": {
+      "title": "Taip mesej",
+      "multiline": "Pelbagai baris"
+    },
+    "noFiles": {
+      "title": "Tiada fail dipilih",
+      "content": "Sila pilih sekurang-kurangnya satu fail."
+    },
+    "noPermission": {
+      "title": "Tiada kebenaran",
+      "content": "Anda belum memberikan kebenaran yang diperlukan. Sila berikan kebenaran dalam tetapan."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Tidak tersedia",
+      "content": "Ciri ini hanya tersedia di:"
+    },
+    "qr": {
+      "title": "Kod QR"
+    },
+    "quickActions": {
+      "title": "Tindakan Pantas",
+      "counter": "Kaunter",
+      "prefix": "Awalan",
+      "padZero": "Isi dengan sifar",
+      "sortBeforeCount": "Susun mengikut abjad terlebih dahulu",
+      "random": "Rawak"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Permintaan fail kini diterima secara automatik. Sila ambil perhatian bahawa semua orang dalam rangkaian tempatan boleh menghantar fail kepada anda."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites"
+    },
+    "pin": {
+      "title": "Masukkan PIN"
+    },
+    "sendModeHelp": {
+      "title": "Mod penghantaran",
+      "single": "Menghantar fail kepada satu penerima. Pilihan akan dibersihkan selepas pemindahan fail selesai.",
+      "multiple": "Menghantar fail kepada beberapa penerima. Pilihan tidak akan dibersihkan.",
+      "link": "Penerima yang tidak mempunyai LocalSend dipasang boleh memuat turun fail yang dipilih dengan membuka pautan dalam pelayar mereka."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Nama fail tidak boleh kosong",
+    "invalid": "Nama fail mengandungi aksara yang tidak sah"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "Keluar LocalSend",
+    "closeWindows": "Keluar"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "rejected": "Ditolak",
+    "files": "Fail",
+    "fileName": "Nama fail",
+    "size": "Saiz"
+  },
+  "assetPicker": {
+    "confirm": "Sahkan",
+    "cancel": "Batal",
+    "edit": "Edit",
+    "gifIndicator": "GIF",
+    "loadFailed": "Gagal dimuat",
+    "original": "Asal",
+    "preview": "Pratonton",
+    "select": "Pilih",
+    "emptyList": "Senarai kosong",
+    "unSupportedAssetType": "Jenis fail tidak disokong.",
+    "unableToAccessAll": "Tidak dapat mengakses semua fail pada peranti",
+    "viewingLimitedAssetsTip": "Hanya lihat fail dan album yang boleh diakses oleh aplikasi.",
+    "changeAccessibleLimitedAssets": "Klik untuk mengemas kini fail yang boleh diakses",
+    "accessAllTip": "Aplikasi hanya dapat mengakses beberapa fail pada peranti. Pergi ke tetapan sistem dan benarkan aplikasi mengakses semua media pada peranti.",
+    "goToSystemSettings": "Pergi ke tetapan sistem",
+    "accessLimitedAssets": "Teruskan dengan akses terhad",
+    "accessiblePathName": "Fail yang boleh diakses",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Imej",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Media lain",
+    "sActionPlayHint": "main",
+    "sActionPreviewHint": "pratonton",
+    "sActionSelectHint": "pilih",
+    "sActionSwitchPathLabel": "tukar laluan",
+    "sActionUseCameraHint": "guna kamera",
+    "sNameDurationLabel": "tempoh",
+    "sUnitAssetCountLabel": "kiraan"
+  }
+}

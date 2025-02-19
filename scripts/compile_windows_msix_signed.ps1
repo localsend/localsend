@@ -12,7 +12,7 @@ fvm flutter clean
 fvm flutter pub get
 fvm dart run msix:create --certificate-path ../secrets/windows-tienisto.pfx --certificate-password $CERTIFICATE_PASSWORD
 
-Move-Item -Path build/windows/runner/Release/localsend_app.msix -Destination LocalSend-XXX-windows-x86-64.msix
+Move-Item -Path build/windows/x64/runner/Release/localsend_app.msix -Destination LocalSend-XXX-windows-x86-64.msix
 
 cd ..
 

@@ -49,6 +49,8 @@ Future<void> setupChildIsolateHelper<S, R>({
     ),
   );
 
+  await initialData.syncState.init();
+
   if (init != null) {
     await init(_isolateContainer);
   }

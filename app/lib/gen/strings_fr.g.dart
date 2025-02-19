@@ -78,6 +78,8 @@ class TranslationsFr extends Translations {
   late final _TranslationsWebFr web = _TranslationsWebFr._(_root);
   @override
   late final _TranslationsAssetPickerFr assetPicker = _TranslationsAssetPickerFr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageFr networkInterfacesPage = _TranslationsNetworkInterfacesPageFr._(_root);
 }
 
 // Path: general
@@ -164,7 +166,7 @@ class _TranslationsGeneralFr extends TranslationsGeneralEn {
   @override
   String get unknown => 'Inconnu';
   @override
-  String get noItemInClipboard => 'Aucun élément dans le presse-papiers';
+  String get noItemInClipboard => 'Aucun élément dans le presse-papiers.';
 }
 
 // Path: receiveTab
@@ -261,7 +263,7 @@ class _TranslationsTroubleshootPageFr extends TranslationsTroubleshootPageEn {
   @override
   String get subTitle => 'Cette application ne fonctionne pas comme vous l\'espérez ? Vous trouverez ici des solutions aux problèmes communs.';
   @override
-  String get solution => 'Solution:';
+  String get solution => 'Solution :';
   @override
   String get fixButton => 'Corriger automatiquement';
   @override
@@ -379,7 +381,7 @@ class _TranslationsSendPageFr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'En attente d\'une réponse...';
+  String get waiting => 'En attente d\'une réponse …';
   @override
   String get rejected => 'Le destinataire a rejeté la demande.';
   @override
@@ -419,9 +421,9 @@ class _TranslationsWebSharePageFr extends TranslationsWebSharePageEn {
   @override
   String get title => 'Partager via un lien';
   @override
-  String get loading => 'Démarrage du serveur...';
+  String get loading => 'Démarrage du serveur …';
   @override
-  String get stopping => 'Arrêt du serveur...';
+  String get stopping => 'Arrêt du serveur …';
   @override
   String get error => 'Une erreur est survenue lors du démarrage du serveur.';
   @override
@@ -445,7 +447,7 @@ class _TranslationsWebSharePageFr extends TranslationsWebSharePageEn {
   @override
   String get encryptionHint => 'LocalSend utilise un certificat auto-signé. Vous devez l\'accepter dans le navigateur.';
   @override
-  String pendingRequests({required Object n}) => 'Requêtes en attente: ${n}';
+  String pendingRequests({required Object n}) => 'Requêtes en attente : ${n}';
 }
 
 // Path: aboutPage
@@ -532,6 +534,8 @@ class _TranslationsDialogsFr extends TranslationsDialogsEn {
   @override
   late final _TranslationsDialogsAddFileFr addFile = _TranslationsDialogsAddFileFr._(_root);
   @override
+  late final _TranslationsDialogsOpenFileFr openFile = _TranslationsDialogsOpenFileFr._(_root);
+  @override
   late final _TranslationsDialogsAddressInputFr addressInput = _TranslationsDialogsAddressInputFr._(_root);
   @override
   late final _TranslationsDialogsCancelSessionFr cancelSession = _TranslationsDialogsCancelSessionFr._(_root);
@@ -563,8 +567,6 @@ class _TranslationsDialogsFr extends TranslationsDialogsEn {
   late final _TranslationsDialogsNoPermissionFr noPermission = _TranslationsDialogsNoPermissionFr._(_root);
   @override
   late final _TranslationsDialogsNotAvailableOnPlatformFr notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformFr._(_root);
-  @override
-  late final _TranslationsDialogsOpenFileFr openFile = _TranslationsDialogsOpenFileFr._(_root);
   @override
   late final _TranslationsDialogsQrFr qr = _TranslationsDialogsQrFr._(_root);
   @override
@@ -709,6 +711,28 @@ class _TranslationsAssetPickerFr extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'quantité';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageFr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces réseau';
+  @override
+  String get info =>
+      'Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.';
+  @override
+  String get preview => 'Aperçu';
+  @override
+  String get whitelist => 'Liste blanche';
+  @override
+  String get blacklist => 'Liste noire';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxFr extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxFr._(TranslationsFr root)
@@ -719,11 +743,11 @@ class _TranslationsReceiveTabInfoBoxFr extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get ip => 'IP:';
+  String get ip => 'IP :';
   @override
-  String get port => 'Port:';
+  String get port => 'Port :';
   @override
-  String get alias => 'Alias:';
+  String get alias => 'Nom du périphérique :';
 }
 
 // Path: receiveTab.quickSave
@@ -755,9 +779,9 @@ class _TranslationsSendTabSelectionFr extends TranslationsSendTabSelectionEn {
   @override
   String get title => 'Sélection';
   @override
-  String files({required Object files}) => 'Fichiers: ${files}';
+  String files({required Object files}) => 'Fichiers : ${files}';
   @override
-  String size({required Object size}) => 'Taille: ${size}';
+  String size({required Object size}) => 'Taille : ${size}';
 }
 
 // Path: sendTab.picker
@@ -793,9 +817,9 @@ class _TranslationsSendTabSendModesFr extends TranslationsSendTabSendModesEn {
 
   // Translations
   @override
-  String get single => 'Récipient unique';
+  String get single => 'Destinataire unique';
   @override
-  String get multiple => 'Récipients multiples';
+  String get multiple => 'Destinataires multiples';
   @override
   String get link => 'Partager via un lien';
 }
@@ -880,7 +904,7 @@ class _TranslationsSettingsTabSendFr extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'Envoyer';
   @override
-  String get shareViaLinkAutoAccept => 'Envoyer via un lien: Accepter automatiquement';
+  String get shareViaLinkAutoAccept => 'Accepter automatiquement les demandes de téléchargement d\'un partage par lien';
 }
 
 // Path: settingsTab.network
@@ -921,7 +945,11 @@ class _TranslationsSettingsTabNetworkFr extends TranslationsSettingsTabNetworkEn
   String get multicastGroup => 'Multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Il est possible que vous ne soyez pas détecté par d\'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: ${defaultMulticast})';
+      'Il est possible que vous ne soyez pas détecté par d\'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : ${defaultMulticast})';
+  @override
+  String get network => 'Réseau';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsFr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsFr._(_root);
 }
 
 // Path: settingsTab.other
@@ -992,7 +1020,7 @@ class _TranslationsTroubleshootPageNoConnectionFr extends TranslationsTroublesho
   String get symptom => 'Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.';
   @override
   String get solution =>
-      'Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l\'option "Isolement du point d\'accès" ou "AP Isolation".';
+      'Le problème existe-il des deux côtés ? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l\'option "Isolement du point d\'accès" ou "AP Isolation".';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1026,11 +1054,11 @@ class _TranslationsProgressPageTotalFr extends TranslationsProgressPageTotalEn {
   @override
   late final _TranslationsProgressPageTotalTitleFr title = _TranslationsProgressPageTotalTitleFr._(_root);
   @override
-  String count({required Object curr, required Object n}) => 'Fichiers: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Fichiers : ${curr} / ${n}';
   @override
-  String size({required Object curr, required Object n}) => 'Taille: ${curr} / ${n}';
+  String size({required Object curr, required Object n}) => 'Taille : ${curr} / ${n}';
   @override
-  String speed({required Object speed}) => 'Vitesse: ${speed}/s';
+  String speed({required Object speed}) => 'Vitesse : ${speed}/s';
 }
 
 // Path: dialogs.addFile
@@ -1046,6 +1074,21 @@ class _TranslationsDialogsAddFileFr extends TranslationsDialogsAddFileEn {
   String get title => 'Ajouter à la sélection';
   @override
   String get content => 'Que voulez-vous ajouter ?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileFr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ouvrir le fichier';
+  @override
+  String get content => 'Voulez-vous ouvrir le fichier reçu ?';
 }
 
 // Path: dialogs.addressInput
@@ -1064,7 +1107,7 @@ class _TranslationsDialogsAddressInputFr extends TranslationsDialogsAddressInput
   @override
   String get ip => 'Adresse IP';
   @override
-  String get recentlyUsed => 'Récemment utilisé :';
+  String get recentlyUsed => 'Récemment utilisé : ';
 }
 
 // Path: dialogs.cancelSession
@@ -1215,7 +1258,7 @@ class _TranslationsDialogsFileNameInputFr extends TranslationsDialogsFileNameInp
   @override
   String get title => 'Entrez le nom du fichier';
   @override
-  String original({required Object original}) => 'Original: ${original}';
+  String original({required Object original}) => 'Original : ${original}';
 }
 
 // Path: dialogs.historyClearDialog
@@ -1308,22 +1351,7 @@ class _TranslationsDialogsNotAvailableOnPlatformFr extends TranslationsDialogsNo
   @override
   String get title => 'Non disponible';
   @override
-  String get content => 'Cette fonctionalité est disponible uniquement sur:';
-}
-
-// Path: dialogs.openFile
-class _TranslationsDialogsOpenFileFr extends TranslationsDialogsOpenFileEn {
-  _TranslationsDialogsOpenFileFr._(TranslationsFr root)
-      : this._root = root,
-        super.internal(root);
-
-  final TranslationsFr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Ouvrir le fichier';
-  @override
-  String get content => 'Voulez-vous ouvrir le fichier reçu ?';
+  String get content => 'Cette fonctionnalité est disponible uniquement sur :';
 }
 
 // Path: dialogs.qr
@@ -1422,12 +1450,12 @@ class _TranslationsDialogsSendModeHelpFr extends TranslationsDialogsSendModeHelp
   @override
   String get title => 'Modes d\'envoi';
   @override
-  String get single => 'Envoyer des fichiers à un récipient. La sélection sera effacée une fois l\'envoi du fichier terminé.';
+  String get single => 'Envoyer des fichiers à un destinataire. La sélection sera effacée une fois l\'envoi du fichier terminé.';
   @override
-  String get multiple => 'Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.';
+  String get multiple => 'Envoyer des fichiers à plusieurs destinataires. La sélection ne sera pas effacée.';
   @override
   String get link =>
-      'Les récipients n\'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur.';
+      'Les destinataires n\'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur.';
 }
 
 // Path: dialogs.zoom
@@ -1486,6 +1514,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsFr extends TranslationsSetti
   // Translations
   @override
   String get system => 'Système';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsFr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get filtered => 'Filtré';
+  @override
+  String get all => 'Tout';
 }
 
 // Path: progressPage.total.title

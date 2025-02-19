@@ -18,9 +18,21 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
+      "network": "Network",
+      "networkOptions": {
+        "all": "All",
+        "filtered": "Filtered"
+      },
       "useSystemName": "Use system name",
       "generateRandomAlias": "Generate random alias"
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Network Interfaces",
+    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
+    "preview": "Preview",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   },
   "dialogs": {
     "openFile": {

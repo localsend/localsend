@@ -1,0 +1,445 @@
+{
+  "locale": "සිංහල",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "පිළිගන්න",
+    "accepted": "පිළිගත්",
+    "add": "ඇඩ් කරන්න",
+    "advanced": "ගැඹුරු",
+    "cancel": "අවලංගු කරන්න",
+    "close": "වසා දමන්න",
+    "confirm": "තහවුරු කරන්න",
+    "continueStr": "ඉදිරියට",
+    "copy": "කොපි කරන්න",
+    "copiedToClipboard": "Clipboard වෙත කොපි කරන ලදි",
+    "decline": "ප්‍රතික්ෂේප කරන්න",
+    "done": "සම්පූර්ණයි",
+    "delete": "මකන්න",
+    "edit": "සංස්කරණය",
+    "error": "දෝෂය",
+    "example": "උදාහරණය",
+    "files": "ගොනු",
+    "finished": "අවසන්",
+    "hide": "සඟවන්න",
+    "off": "ඕෆ් (Off)",
+    "offline": "ඕෆ්ලයින්",
+    "on": "ඔන් (On)",
+    "online": "ඔන්ලයින්",
+    "open": "විවෘත කරන්න",
+    "queue": "පෝලිම",
+    "quickSave": "Quick සේව්",
+    "quickSaveFromFavorites": "\"ප්‍රියතම\" සඳහා Quick සේව් කරන්න",
+    "renamed": "නම වෙනස් කරන ලදි",
+    "reset": "වෙනස්කම් අහෝසි කරන්න",
+    "restart": "නැවත ආරම්භ කරන්න",
+    "settings": "සැකසුම්",
+    "skipped": "මග හරින ලදි",
+    "start": "ආරම්භ කරන්න",
+    "stop": "නවත්වන්න",
+    "save": "සේව් කරන්න",
+    "unchanged": "නොවෙනස්",
+    "unknown": "නොදන්නා",
+    "noItemInClipboard": "Clipboard හි අයිතම නැත."
+  },
+  "receiveTab": {
+    "title": "ලබාගන්න",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "උපාංගයේ නම:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "ප්‍රියතම",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "යවන්න",
+    "selection": {
+      "title": "තේරීම",
+      "files": "ගොනු: {files}",
+      "size": "ප්‍රමාණය: {size}"
+    },
+    "picker": {
+      "file": "ගොනුව",
+      "folder": "ෆෝල්ඩරය",
+      "media": "මාධ්‍ය",
+      "text": "පේළි (Text)",
+      "app": "ඇප්",
+      "clipboard": "පේස්ට් කරන්න"
+    },
+    "shareIntentInfo": "ඔබට වඩාත් පහසුවෙන් ගොනු තේරීමට ඔබගේ ජංගම උපාංගයේ \"Share\" විශේෂාංගය භාවිතා කළ හැක.",
+    "nearbyDevices": "ආසන්න උපාංග",
+    "thisDevice": "මෙම උපාංගය",
+    "scan": "උපාංග සොයන්න",
+    "manualSending": "Manual යැවීම",
+    "sendMode": "යැවීමේ ක්‍රමය",
+    "sendModes": {
+      "single": "තනි ලබන්නා",
+      "multiple": "බහු ලබන්නන්",
+      "link": "ලින්ක් (Link) ඔස්සේ බෙදාගන්න (Share)"
+    },
+    "sendModeHelp": "පැහැදිලි කිරීම",
+    "help": "කරුණාකර ලබන්නාගේ උපාංගය හා ඔබේ උපාංගය එකම Wi-Fi ජාලයේ ඇති බව සහතික කර ගන්න.",
+    "placeItems": "බෙදා (Share) ගැනීමට අවශ්‍ය දේ තබන්න."
+  },
+  "settingsTab": {
+    "title": "සැකසුම්",
+    "general": {
+      "title": "සාමාන්‍ය",
+      "brightness": "තේමාව",
+      "brightnessOptions": {
+        "system": "පද්ධතිය",
+        "dark": "අඳුරු",
+        "light": "එළිය"
+      },
+      "color": "පාට",
+      "colorOptions": {
+        "system": "පද්ධතිය",
+        "oled": "OLED"
+      },
+      "language": "භාෂාව",
+      "languageOptions": {
+        "system": "පද්ධතිය"
+      },
+      "saveWindowPlacement": "ඉවත් වූ පසු කවුළුවේ පිහිටීම සුරකින්න",
+      "saveWindowPlacementWindows": "පිටවීමෙන් පසු කවුළුවේ පිහිටීම සුරකින්න",
+      "minimizeToTray": "වසා දැමීමේදී System Tray/Menu Bar වෙත අවම කරන්න",
+      "launchAtStartup": "පුරනය වීමෙන් පසු ස්වයංක්‍රීයව ආරම්භ කරන්න",
+      "launchMinimized": "ස්වයංක්‍රීය ආරම්භය: සඟවා ආරම්භ කරන්න",
+      "showInContextMenu": "Context මෙනුව තුළ LocalSend පෙන්වන්න",
+      "animations": "ඇනිමේශන්"
+    },
+    "receive": {
+      "title": "ලබාගන්න",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "ස්වයංක්‍රීය අවසන් කිරීම",
+      "destination": "ෆෝල්ඩරය වෙත සුරකින්න",
+      "downloads": "(බාගත කිරීම්)",
+      "saveToGallery": "මාධ්‍ය ගැලරියට සුරකින්න",
+      "saveToHistory": "ඉතිහාසයට සුරකින්න"
+    },
+    "send": {
+      "title": "යවන්න",
+      "shareViaLinkAutoAccept": "\"ලින්ක් (Link) ඔස්සේ බෙදාගන්න (Share)\" මාදිලියේ ඉල්ලීම් ස්වයංක්‍රීයව පිළිගන්න"
+    },
+    "network": {
+      "title": "ජාලය",
+      "needRestart": "සැකසුම් යෙදීමට සේවාදායකය නැවත අරඹන්න!",
+      "server": "සේවාදායකය",
+      "alias": "උපාංගයේ නම",
+      "deviceType": "උපාංගයේ වර් ගය",
+      "deviceModel": "උපාංගයේ ආකෘතිය",
+      "port": "Port",
+      "discoveryTimeout": "සොයා ගැනීමේ කාලසීමාව",
+      "useSystemName": "පද්ධති නම භාවිතා කරන්න",
+      "generateRandomAlias": "අහඹු නමක් ජනනය කරන්න",
+      "portWarning": "ඔබ custom port එකක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultPort})",
+      "encryption": "කේතනය",
+      "multicastGroup": "Multicast ලිපිනය",
+      "multicastGroupWarning": "ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultMulticast})"
+    },
+    "other": {
+      "title": "වෙනත්",
+      "support": "LocalSend සඳහා සහය දක්වන්න",
+      "donate": "ආධාර කරන්න",
+      "privacyPolicy": "පුද්ගලික තොරතුරු ප්‍රතිපත්තිය",
+      "termsOfUse": "භාවිතා කිරීමේ කොන්දේසි"
+    },
+    "advancedSettings": "ගැඹුරු සැකසුම්"
+  },
+  "troubleshootPage": {
+    "title": "ගැටලු විසඳන්න",
+    "subTitle": "යෙදුම අපේක්ෂිත පරිදි ක්‍රියා නොකරන්නේද? මෙහි පොදු ගැටලු සඳහා විසඳුම් සොයා ගත හැක.",
+    "solution": "විසඳුම:",
+    "fixButton": "ස්වයංක්‍රීයව නිවැරදි කරන්න",
+    "firewall": {
+      "symptom": "මෙම උපාංගය මගින් වෙනත් උපාංගවලට ගොනු යැවිය හැක, නමුත් වෙනත් උපාංගවලින් මෙම උපාංගයට ගොනු යැවිය නොහැක.",
+      "solution": "මෙය බොහෝවිට firewall සම්බන්ධ ගැටලුවක් විය හැක. විසඳීමට port {port} එක සඳහා 'Allow Incoming Connections\" (TCP සහ UDP) ලබා දෙන්න.",
+      "openFirewall": "Firewall විවෘත කරන්න"
+    },
+    "noDiscovery": {
+      "symptom": "මෙම උපාංගයට වෙනත් උපාංග සොයාගත නොහැක.",
+      "solution": "කරුණාකර සියලුම උපාංග එකම Wi-Fi ජාලයක ඇති බවත්, එකම configuration (port, multicast address, encryption) එකක් ඇති බවත් තහවුරු කරගන්න. ඔබට ඉලක්කගත උපාංගයේ IP ලිපිනය අතින් ටයිප් කිරීමට උත්සාහ කළ හැකිය. මෙය ක්‍රියාත්මක නම්, මෙම උපාංගය ප්‍රියතමයන් අතරට එක් කිරීමට සලකා බලන්න, එවිට අනාගතයේදී එය ස්වයංක්‍රීයව සොයාගත හැක."
+    },
+    "noConnection": {
+      "symptom": "දෙපාර්ශ්වයටම එකිනෙකාගේ උපාංග හඳුනාගැනීම හෝ ගොනු බෙදාගැනීම කළ නොහැක.",
+      "solution": "ගැටලුව දෙපාර්ශවයේම තිබේ ද? එසේ නම්, දෙපාර්ශවයේම උපාංග එකම Wi-Fi ජාලයක ඇති බවත්, එකම configuration (port, multicast address, encryption) එකක් ඇති බවත් තහවුරු කරගන්න. Access Point (AP) Isolation මඟින් Wi-Fi ජාලය තුළ සහභාගීවන්නන් අතර සන්නිවේදනය වාරණය විය හැක. එවැනි අවස්තාවක, මෙම විකල්පය (AP Isolation) රවුටරයේ අක්‍රීය කළ යුතුය."
+    }
+  },
+  "receiveHistoryPage": {
+    "title": "ඉතිහාසය",
+    "openFolder": "ෆෝල්ඩරය විවෘත කරන්න",
+    "deleteHistory": "ඉතිහාසය මකන්න",
+    "empty": "ඉතිහාසයේ කිසිවක් නැත.",
+    "entryActions": {
+      "open": "ගොනුව විවෘත කරන්න",
+      "showInFolder": "ෆෝල්ඩරය තුළ පෙන්වන්න",
+      "info": "තොරතුරු",
+      "deleteFromHistory": "ඉතිහාසයෙන් මකන්න"
+    }
+  },
+  "apkPickerPage": {
+    "title": "ඇප් (APK)",
+    "excludeSystemApps": "පද්ධති යෙදුම් (System Apps) බැහැර කරන්න",
+    "excludeAppsWithoutLaunchIntent": "ක්‍රියාත්මක කිරීමට නොහැකි ඇප් බැහැර කරන්න",
+    "apps": "ඇප් {n}"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "සියල්ල මකන්න"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ඔබට ගොනුවක් එවීමට කැමතියි",
+      "other": "ඔබට ගොනු {n} එවීමට කැමතියි"
+    },
+    "subTitleMessage": "ඔබට පණිවිඩයක් එවා ඇත:",
+    "subTitleLink": "ඔබට ලින්ක් (Link) එකක් එවා ඇත:",
+    "canceled": "යවන්නා ඉල්ලීම අවලංගු කර ඇත."
+  },
+  "receiveOptionsPage": {
+    "title": "විකල්ප",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend ෆෝල්ඩරය)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "ෆෝල්ඩර් නොමැති බැවින් ස්වයංක්‍රීයව ක්‍රියා විරහිත කරන ලදි."
+  },
+  "sendPage": {
+    "waiting": "ප්‍රතිචාරයක් බලාපොරොත්තු වෙමින්…",
+    "rejected": "ලැබුම්කරු ඉල්ලීම ප්‍රතික්ෂේප කර ඇත.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "ලැබුම්කරු වෙනත් ඉල්ලීමක් නිසා කාර්‍යබහුලව ඇත."
+  },
+  "progressPage": {
+    "titleSending": "ගොනු යවමින්",
+    "titleReceiving": "ගොනු ලබා ගනිමින්",
+    "savedToGallery": "Photos තුළ සේව් කරන ලදි",
+    "total": {
+      "title": {
+        "sending": "සම්පූර්ණ ප්‍රගතිය ({time})",
+        "finishedError": "දෝෂයක් සමඟ අවසන් විය",
+        "canceledSender": "යවන්නා විසින් අවලංගු කරන ලදී",
+        "canceledReceiver": "ලැබුම්කරු විසින් අවලංගු කරන ලදී"
+      },
+      "count": "ගොනු: {curr} / {n}",
+      "size": "විශාලත්වය: {curr} / {n}",
+      "speed": "වේගය: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "ලින්ක් (Link) ඔස්සේ බෙදාගන්න (Share)",
+    "loading": "සේවාදායකය ආරම්භ කරමින්…",
+    "stopping": "සේවාදායකය නවතමින්…",
+    "error": "සේවාදායකය ආරම්භ කිරීමේදී දෝෂයක් සිදු විය.",
+    "openLink": {
+      "one": "මෙම ලින්ක් (Link) එක ඔබේ බ්‍රවුසරය (Browser) මගින් විවෘත කරන්න:",
+      "other": "මෙම ලින්ක් (Link) වලින් එකක් ඔබේ බ්‍රවුසරය (Browser) මගින් විවෘත කරන්න:"
+    },
+    "requests": "ඉල්ලීම්",
+    "noRequests": "තවමත් කිසිදු ඉල්ලීමක් නැත.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "ඉල්ලීම් ස්වයංක්‍රීයව පිළිගන්න",
+    "requirePin": "PIN අවශ්‍යයි",
+    "pinHint": "PIN එක \"{pin}\"",
+    "encryptionHint": "LocalSend self-signed certificate එකක් භාවිතා කරයි. ඔබ විසින් එය බ්‍රවුසරය (browser) තුළ දි පිළිගැනීම (accept) අවශ්‍ය වේ.",
+    "pendingRequests": "Pending වන ඉල්ලීම්: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend පිළිබඳව",
+    "description": [
+      "LocalSend යනු ඔබට අන්තර්ජාල සම්බන්ධතාවයක අවශ්‍යතාවයකින් තොරව, local ජාලයක් තුළ, සමීප උපාංග සමඟ ගොනු සහ පණිවිඩ ආරක්ෂිතව බෙදා ගත හැකි නිදහස්, විවෘත-මූලාශ්‍රය (Free and open-source) ඇප් එකකි.",
+      "මෙම ඇප් එක Android, iOS, macOS, Windows සහ Linux සඳහා පවතියි. එය ඩවුන්ලෝඩ් (Download) කරගත හැකි ආකාර අපේ අඩවියේ මුල් පිටුවෙන් සොයාගත හැක."
+    ],
+    "author": "කතෲ",
+    "contributors": "සහය දැක්වූවන්",
+    "packagers": "පැකේජ්ර්ස්",
+    "translators": "පරිවර්තකයන්"
+  },
+  "donationPage": {
+    "title": "ආධාර කරන්න",
+    "info": "LocalSend නිදහස්, විවෘත-මූලාශ්‍ර වන අතර කිසිදු වෙළඳ දැන්වීමකින් තොර වේ. ඔබ මෙම ඇප් එකට කැමැති නම්, මෙහි සංවර්ධනය සඳහා මූල්‍යමය දායකත්වයක් ලබා දී සහය ලබා දීමට හැක.",
+    "donate": "දායකත්වය {amount}",
+    "thanks": "ඔබට බොහොම ස්තූතියි!",
+    "restore": "මිලදී ගැනීම ප්‍රතිස්ථාපනය (Restore) කරන්න"
+  },
+  "changelogPage": {
+    "title": "වෙනස්කම් ලේඛනය"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "විවිධ භාෂා වල වෙනස් වචන තිබිය හැකි අතර, එය සෑමව්ටිම 1:1 අනුපාතයේ නොතිබීමට හැකියාව ඇත"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "තේරීමට ඇඩ් කරන්න",
+      "content": "ඔබට ඇඩ් කිරීමට අවශ්‍ය මොනවා ද?"
+    },
+    "openFile": {
+      "title": "ගොනුව විවෘත කරන්න",
+      "content": "ලබාගත් ගොනුව විවෘත කිරීමට කැමතිද?"
+    },
+    "addressInput": {
+      "title": "ලිපිනය ඇතුලත් කරන්න",
+      "hashtag": "හැශ්ටැග්",
+      "ip": "IP ලිපිනය",
+      "recentlyUsed": "පෙර භාවිතා කළ: "
+    },
+    "cancelSession": {
+      "title": "ගොනු මාරු අවලංගු කරන්න",
+      "content": "ඔබට ඇත්තටම ගොනු හුවමාරුව අවලංගු කිරීමට අවශ්‍යද?"
+    },
+    "cannotOpenFile": {
+      "title": "ගොනුව විවෘත කළ නොහැක",
+      "content": "\"{file}\" විවෘත කිරීමට නොහැකි විය. මෙම ගොනුව වෙනත් තැනකට ගෙන ගොස් (moved) හෝ නැවත නම් කර (renamed) හෝ මකා දමා (deleted) තිබේද?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "කේතනය අක්‍රිය කර ඇත",
+      "content": "දැන් සන්නිවේදනය අනාරක්ශිත HTTP protocol හරහා සිදු වේ. HTTPS protocol භාවිතා කිරීමට, කේතනය නැවත සක්‍රීය කරන්න."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "ප්‍රියතම",
+      "noFavorites": "තවමත් ප්‍රියතම උපාංග නැත.",
+      "addFavorite": "ඇඩ් කරන්න"
+    },
+    "favoriteDeleteDialog": {
+      "title": "ප්‍රියතම වලින් මකන්න",
+      "content": "ඔබට ඇත්තටම \"{name}\" ප්‍රියතම වෙතින් මැකීමට අවශ්‍යද?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "ප්‍රියතම වෙත එක් කරන්න",
+      "titleEdit": "සැකසුම්",
+      "name": "උපාංගයේ නම",
+      "auto": "(ස්වයංක්‍රීය)",
+      "ip": "IP ලිපිනය",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "ගොනු විස්තර",
+      "fileName": "ගොනු විස්තර:",
+      "path": "පාත් (Path):",
+      "size": "ප්‍රමාණය:",
+      "sender": "යවන්නා:",
+      "time": "වේලාව:"
+    },
+    "fileNameInput": {
+      "title": "ගොනුවේ නම ඇතුලත් කරන්න",
+      "original": "මුල්: {original}"
+    },
+    "historyClearDialog": {
+      "title": "ඉතිහාසය ඉවත් කරන්න",
+      "content": "ඔබට ඇත්තටම ඉතිහාසය සම්පූර්ණයෙන් මකා දැමීමට අවශ්‍යද?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "ජාලය ස්කෑන් (Scan) කිරීමට අවසරයක් නොමැතිව, LocalSend හට අනෙකුත් උපාංග සොයාගත නොහැක. කාරුණිකව මෙම අවසරය සැකසුම් (Settings) තුළ ලබා දෙන්න.",
+      "gotoSettings": "සැකසුම්"
+    },
+    "messageInput": {
+      "title": "පණිවිඩය ටයිප් කරන්න",
+      "multiline": "බහු පේලි"
+    },
+    "noFiles": {
+      "title": "කිසිදු ගොනුවක් තෝරා නැත",
+      "content": "කරුණාකර අවම වශයෙන් එක් ගොනුවක්වත් තෝරන්න."
+    },
+    "noPermission": {
+      "title": "අවසර නැත",
+      "content": "අවශ්‍ය අවසර ලබා නොදී ඇත. මෙම අවසර සැකසුම් (Settings) තුළ ලබා දෙන්න."
+    },
+    "notAvailableOnPlatform": {
+      "title": "ලබා ගත නොහැක",
+      "content": "මෙම විශේෂාංගය ලබා ගත හැක්කේ පහත ක්‍රමවේද තුල පමණි:"
+    },
+    "qr": {
+      "title": "QR කේතය"
+    },
+    "quickActions": {
+      "title": "Quick යෙදුම්",
+      "counter": "කවුන්ටරය",
+      "prefix": "Prefix",
+      "padZero": "Pad with zeros",
+      "sortBeforeCount": "අකාරාදී පිළිවෙලට සකසන්න (A-Z)",
+      "random": "අහඹු"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "ගොනු ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ. ජාලයේ සිටින සෑම කෙනෙකුටම ඔබට ගොනු එවිය හැකි බව මතක තබා ගන්න."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "ඔබගේ ප්‍රියතම ලැයිස්තුවේ ඇති උපාංගවලින් ලැබෙන ගොනු ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ.",
+        "අවවාදයයි! දැනට, මෙය සම්පූර්ණයෙන්ම ආරක්ෂිත නැත, ඔබේ ප්‍රියතම ලැයිස්තුවේ ඇති ඕනෑම උපාංගයක ඇඟිලි සලකුණක් සහිත හැකර්වරයෙකුට (Hacker) කිසිඳු සීමාවකින් තොරව ඔබ වෙත ගොනු එවිය හැක.",
+        "කෙසේ වෙතත්, මෙම විකල්පය ජාලයේ සියලුම පරිශීලකයින්ට කිසිඳු සීමාවකින් තොරව ගොනු එවීමට ඉඩ දීමට වඩා ආරක්ෂිත වේ."
+      ]
+    },
+    "pin": {
+      "title": "PIN ඇතුල් කරන්න"
+    },
+    "sendModeHelp": {
+      "title": "යැවීමේ ක්‍රම",
+      "single": "එක් ලබන්නෙකුට පමණක් ගොනු යැවීම කරයි. ගොනු හුවමාරු කිරීමෙන් පසුව, තේරීම මකා දමනු ලැබේ.",
+      "multiple": "ලබන්නන් කිහිපදෙනෙකු වෙත ගොනු යැවීම කරයි. ගොනු හුවමාරු කිරීමෙන් පසුව ද තේරීම මකා දමන්නේ නැත.",
+      "link": "ලබන්නන් LocalSend ස්ථාපනය කර නොමැති නම්, ඔව්න්ගේ බ්‍රවුසර් (Browser) තුළ අදාල ලින්ක් (Link) එක විවෘත කර, ගොනු බාගත (Download) කළ හැක."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "ගොනුවේ නම හිස් විය නොහැක",
+    "invalid": "ගොනු නාමයේ වලංගු නොවන අක්ෂර අඩංගු වේ"
+  },
+  "tray": {
+    "@info": "\"close\" වචනය සම්බන්ධයෙන් Apple මාර්ගෝපදේශ ඉතා දැඩි ය.",
+    "open": "@:general.open",
+    "close": "LocalSend වෙතින් ඉවත් වෙන්න",
+    "closeWindows": "පිටවීම"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN ඇතුල් කරන්න",
+    "invalidPin": "වැරදි PIN",
+    "tooManyAttempts": "මේ සඳහා පමණට වඩා උත්සාහ කර ඇත",
+    "rejected": "ප්‍රතික්ෂේප කරන ලදී",
+    "files": "ගොනු",
+    "fileName": "ගොනුවේ නම",
+    "size": "ප්‍රමාණය"
+  },
+  "assetPicker": {
+    "@info": "Android සහ iPhone සඳහා මාධ්‍ය තේරීමේ මෙවලම සඳහා වූ භාෂා පරිවර්තන",
+    "confirm": "තහවුරු කරන්න",
+    "cancel": "අවලංගු කරන්න",
+    "edit": "සංස්කරණය",
+    "gifIndicator": "GIF",
+    "loadFailed": "Load කිරීම අසාර්ථක විය",
+    "original": "මූලාශ්‍රය",
+    "preview": "පෙරදසුන",
+    "select": "තෝරන්න",
+    "emptyList": "හිස් ලැයිස්තුව",
+    "unSupportedAssetType": "සහය නොමැති ගොනු වර්ගයකි.",
+    "unableToAccessAll": "උපාංගයේ ඇති සියලුම ගොනු වෙත පිවිසීමට නොහැක",
+    "viewingLimitedAssetsTip": "ඇප් එකට ප්‍රවේශ විය හැකි ගොනු සහ ඇල්බම් පමණක් බලන්න.",
+    "changeAccessibleLimitedAssets": "ප්‍රවේශ කළ හැකි ගොනු යාවත්කාලීන (Update) කිරීමට ක්ලික් කරන්න",
+    "accessAllTip": "ඇප් එකට ප්‍රවේශ විය හැක්කේ උපාංගයේ ඇති සමහර ගොනුවලට පමණි. පද්ධති සැකසීම් (Settings) වෙත ගොස් උපාංගයේ සියලුම මාධ්‍ය වෙත ප්‍රවේශ වීමට ඇප් එකට අවසර ලබා දෙන්න.",
+    "goToSystemSettings": "පද්ධති සැකසුම් වෙත යන්න",
+    "accessLimitedAssets": "සීමිත ප්‍රවේශය සමඟ කරගෙන යන්න",
+    "accessiblePathName": "ප්‍රවේශ කළ හැකි ගොනු",
+    "sTypeAudioLabel": "හඬ",
+    "sTypeImageLabel": "චායාරූප",
+    "sTypeVideoLabel": "වීඩියෝ",
+    "sTypeOtherLabel": "වෙනත් මාධ්‍ය",
+    "sActionPlayHint": "වාදනය කරන්න",
+    "sActionPreviewHint": "පෙරදසුන",
+    "sActionSelectHint": "තෝරන්න",
+    "sActionSwitchPathLabel": "පාත් (Path) එක වෙනස් කරන්න",
+    "sActionUseCameraHint": "කැමරාව භාවිතා කරන්න",
+    "sNameDurationLabel": "කාලසීමාව",
+    "sUnitAssetCountLabel": "ගණන"
+  }
+}

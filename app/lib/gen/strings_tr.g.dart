@@ -78,6 +78,8 @@ class TranslationsTr extends Translations {
   late final _TranslationsWebTr web = _TranslationsWebTr._(_root);
   @override
   late final _TranslationsAssetPickerTr assetPicker = _TranslationsAssetPickerTr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageTr networkInterfacesPage = _TranslationsNetworkInterfacesPageTr._(_root);
 }
 
 // Path: general
@@ -142,6 +144,8 @@ class _TranslationsGeneralTr extends TranslationsGeneralEn {
   @override
   String get quickSave => 'Hızlı kaydetme';
   @override
+  String get quickSaveFromFavorites => 'Favoriler';
+  @override
   String get renamed => 'Yeniden adlandırıldı';
   @override
   String get reset => 'Sıfırla';
@@ -162,7 +166,7 @@ class _TranslationsGeneralTr extends TranslationsGeneralEn {
   @override
   String get unknown => 'Bilinmiyor';
   @override
-  String get noItemInClipboard => 'Panoda öğe yok';
+  String get noItemInClipboard => 'Panoda öğe yok.';
 }
 
 // Path: receiveTab
@@ -178,6 +182,8 @@ class _TranslationsReceiveTabTr extends TranslationsReceiveTabEn {
   String get title => 'Alım';
   @override
   late final _TranslationsReceiveTabInfoBoxTr infoBox = _TranslationsReceiveTabInfoBoxTr._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveTr quickSave = _TranslationsReceiveTabQuickSaveTr._(_root);
 }
 
 // Path: sendTab
@@ -374,7 +380,7 @@ class _TranslationsSendPageTr extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Alıcıdan cevap bekleniyor...';
+  String get waiting => 'Alıcıdan cevap bekleniyor…';
   @override
   String get rejected => 'Alıcı isteği reddetti.';
   @override
@@ -414,9 +420,9 @@ class _TranslationsWebSharePageTr extends TranslationsWebSharePageEn {
   @override
   String get title => 'Link üzerinden paylaşın';
   @override
-  String get loading => 'Sunucu başlıyor...';
+  String get loading => 'Sunucu başlıyor…';
   @override
-  String get stopping => 'Sunucu durduruluyor ...';
+  String get stopping => 'Sunucu durduruluyor…';
   @override
   String get error => 'Sunucuyu başlatırken bir hata oluştu.';
   @override
@@ -570,6 +576,8 @@ class _TranslationsDialogsTr extends TranslationsDialogsEn {
   late final _TranslationsDialogsSendModeHelpTr sendModeHelp = _TranslationsDialogsSendModeHelpTr._(_root);
   @override
   late final _TranslationsDialogsZoomTr zoom = _TranslationsDialogsZoomTr._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileTr openFile = _TranslationsDialogsOpenFileTr._(_root);
 }
 
 // Path: sanitization
@@ -699,6 +707,25 @@ class _TranslationsAssetPickerTr extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'sayım';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageTr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageTr._(TranslationsTr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ağ Arayüzleri';
+  @override
+  String get preview => 'Önizle';
+  @override
+  String get whitelist => 'Beyaz liste';
+  @override
+  String get blacklist => 'Kara liste';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxTr extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxTr._(TranslationsTr root)
@@ -714,6 +741,23 @@ class _TranslationsReceiveTabInfoBoxTr extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Port:';
   @override
   String get alias => 'Takma isminiz:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveTr extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveTr._(TranslationsTr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Favoriler';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -889,6 +933,14 @@ class _TranslationsSettingsTabNetworkTr extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: ${defaultMulticast})';
+  @override
+  String get network => 'Ağ';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsTr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsTr._(_root);
+  @override
+  String get useSystemName => 'Sistem adını kullan';
+  @override
+  String get generateRandomAlias => 'Rastgele takma ad oluştur';
 }
 
 // Path: settingsTab.other
@@ -959,7 +1011,7 @@ class _TranslationsTroubleshootPageNoConnectionTr extends TranslationsTroublesho
   String get symptom => 'Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.';
   @override
   String get solution =>
-      'Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir. ';
+      'Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1375,6 +1427,21 @@ class _TranslationsDialogsZoomTr extends TranslationsDialogsZoomEn {
   String get title => 'URL';
 }
 
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileTr extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileTr._(TranslationsTr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Dosya Aç';
+  @override
+  String get content => 'Alınan dosyayı açmak istiyor musunuz?';
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsTr extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
   _TranslationsSettingsTabGeneralBrightnessOptionsTr._(TranslationsTr root)
@@ -1418,6 +1485,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsTr extends TranslationsSetti
   // Translations
   @override
   String get system => 'Sistem dili';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsTr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsTr._(TranslationsTr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Tümü';
 }
 
 // Path: progressPage.total.title

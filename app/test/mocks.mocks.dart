@@ -259,6 +259,26 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
       ) as _i4.Future<void>);
 
   @override
+  _i4.Future<void> setNetworkWhitelist(List<String>? whitelist) => (super.noSuchMethod(
+        Invocation.method(
+          #setNetworkWhitelist,
+          [whitelist],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> setNetworkBlacklist(List<String>? blacklist) => (super.noSuchMethod(
+        Invocation.method(
+          #setNetworkBlacklist,
+          [blacklist],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   int getDiscoveryTimeout() => (super.noSuchMethod(
         Invocation.method(
           #getDiscoveryTimeout,
