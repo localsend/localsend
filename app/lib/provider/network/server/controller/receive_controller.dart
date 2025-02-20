@@ -48,6 +48,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
+import 'dart:convert';
 
 const _uuid = Uuid();
 
@@ -283,7 +284,7 @@ class ReceiveController {
               path: null,
               savedToGallery: false,
               isMessage: true,
-              fileSize: message.length,
+              fileSize: utf8.encode(message).length,
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
             ));
