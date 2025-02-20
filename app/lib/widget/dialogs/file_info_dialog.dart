@@ -70,7 +70,7 @@ class FileInfoDialog extends StatelessWidget {
               if (entry.isMessage)
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: SelectableText(entry.fileName + entry.fileName + entry.fileName),
+                  child: SelectableText(entry.fileName),
                 ),
             ],
           ),
