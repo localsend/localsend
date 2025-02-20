@@ -45,6 +45,8 @@ class TranslationsDe extends Translations {
   @override
   late final _TranslationsTroubleshootPageDe troubleshootPage = _TranslationsTroubleshootPageDe._(_root);
   @override
+  late final _TranslationsNetworkInterfacesPageDe networkInterfacesPage = _TranslationsNetworkInterfacesPageDe._(_root);
+  @override
   late final _TranslationsReceiveHistoryPageDe receiveHistoryPage = _TranslationsReceiveHistoryPageDe._(_root);
   @override
   late final _TranslationsApkPickerPageDe apkPickerPage = _TranslationsApkPickerPageDe._(_root);
@@ -269,6 +271,28 @@ class _TranslationsTroubleshootPageDe extends TranslationsTroubleshootPageEn {
   late final _TranslationsTroubleshootPageNoDiscoveryDe noDiscovery = _TranslationsTroubleshootPageNoDiscoveryDe._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionDe noConnection = _TranslationsTroubleshootPageNoConnectionDe._(_root);
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageDe extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageDe._(TranslationsDe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Netzwerkschnittstellen';
+  @override
+  String get info =>
+      'Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen.';
+  @override
+  String get preview => 'Vorschau';
+  @override
+  String get whitelist => 'Whitelist';
+  @override
+  String get blacklist => 'Blacklist';
 }
 
 // Path: receiveHistoryPage
@@ -906,6 +930,10 @@ class _TranslationsSettingsTabNetworkDe extends TranslationsSettingsTabNetworkEn
   @override
   String get port => 'Port';
   @override
+  String get network => 'Netzwerk';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsDe networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsDe._(_root);
+  @override
   String get discoveryTimeout => 'Erkennungs-Timeout';
   @override
   String get useSystemName => 'Systemnamen verwenden';
@@ -1486,6 +1514,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsDe extends TranslationsSetti
   // Translations
   @override
   String get system => 'System';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsDe extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsDe._(TranslationsDe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Alle';
+  @override
+  String get filtered => 'Gefiltert';
 }
 
 // Path: progressPage.total.title

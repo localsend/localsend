@@ -124,7 +124,7 @@
     },
     "network": {
       "title": "Verkko",
-      "needRestart": "Uudelleenkäynistä sovellus, jotta muutokset tallennetaan.",
+      "needRestart": "Uudelleenkäynnistä palvelin ottaaksesi asetukset käyttöön!",
       "server": "Palvelin",
       "alias": "Laitteen nimi",
       "deviceType": "Laitteen tyyppi",
@@ -150,7 +150,7 @@
   "troubleshootPage": {
     "title": "Ongelmanratkaisu",
     "subTitle": "Eikö sovellus toimi odotetusti? Täältä löydät joitain yleisiä ratkaisuja.",
-    "solution": "Ratkaisu",
+    "solution": "Ratkaisu:",
     "fixButton": "Automaattinen korjaus",
     "firewall": {
       "symptom": "Tämä sovellus voi lähettää tiedostoja muihin laitteisiin; mutta muut laitteet eivät voi lähettää tiedostoja tähän laitteeseen.",

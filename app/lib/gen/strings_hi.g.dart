@@ -78,6 +78,8 @@ class TranslationsHi extends Translations {
   late final _TranslationsWebHi web = _TranslationsWebHi._(_root);
   @override
   late final _TranslationsAssetPickerHi assetPicker = _TranslationsAssetPickerHi._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageHi networkInterfacesPage = _TranslationsNetworkInterfacesPageHi._(_root);
 }
 
 // Path: general
@@ -96,7 +98,7 @@ class _TranslationsGeneralHi extends TranslationsGeneralEn {
   @override
   String get add => 'जोड़ें';
   @override
-  String get advanced => 'एडवांस्ड';
+  String get advanced => 'उन्नत';
   @override
   String get cancel => 'रद्द करें';
   @override
@@ -106,7 +108,7 @@ class _TranslationsGeneralHi extends TranslationsGeneralEn {
   @override
   String get continueStr => 'जारी रखें';
   @override
-  String get copy => 'कॉपी करें';
+  String get copy => 'नकल करें';
   @override
   String get copiedToClipboard => 'क्लिपबोर्ड पर कॉपी किया गया';
   @override
@@ -781,6 +783,28 @@ class _TranslationsAssetPickerHi extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'गणना';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageHi extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageHi._(TranslationsHi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'नेटवर्क इंटरफेस';
+  @override
+  String get info =>
+      'डिफ़ॉल्ट रूप से, LocalSend सभी उपलब्ध नेटवर्क इंटरफेस का उपयोग करता है। आप यहां अवांछित नेटवर्क को बाहर कर सकते हैं। परिवर्तनों को लागू करने के लिए आपको सर्वर को पुनः आरंभ करना होगा।';
+  @override
+  String get preview => 'पूर्वावलोकन';
+  @override
+  String get whitelist => 'श्वेतसूची';
+  @override
+  String get blacklist => 'काले सूची';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxHi extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxHi._(TranslationsHi root)
@@ -994,6 +1018,10 @@ class _TranslationsSettingsTabNetworkHi extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: ${defaultMulticast})';
+  @override
+  String get network => 'नेटवर्क';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsHi networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsHi._(_root);
 }
 
 // Path: settingsTab.other
@@ -1557,6 +1585,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsHi extends TranslationsSetti
   // Translations
   @override
   String get system => 'सिस्टम';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsHi extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsHi._(TranslationsHi root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'सब';
+  @override
+  String get filtered => 'परिष्कृत';
 }
 
 // Path: progressPage.total.title

@@ -78,6 +78,8 @@ class TranslationsHe extends Translations {
   late final _TranslationsWebHe web = _TranslationsWebHe._(_root);
   @override
   late final _TranslationsAssetPickerHe assetPicker = _TranslationsAssetPickerHe._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageHe networkInterfacesPage = _TranslationsNetworkInterfacesPageHe._(_root);
 }
 
 // Path: general
@@ -164,7 +166,7 @@ class _TranslationsGeneralHe extends TranslationsGeneralEn {
   @override
   String get unknown => 'לא ידוע';
   @override
-  String get noItemInClipboard => 'לוח ההעתקה ריק';
+  String get noItemInClipboard => 'לוח ההעתקה ריק.';
 }
 
 // Path: receiveTab
@@ -378,7 +380,7 @@ class _TranslationsSendPageHe extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'ממתין לתגובה...';
+  String get waiting => 'ממתין לתגובה…';
   @override
   String get rejected => 'הנמען דחה את הבקשה.';
   @override
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageHe extends TranslationsWebSharePageEn {
   @override
   String get title => 'שיתוף באמצעות קישור';
   @override
-  String get loading => 'מפעיל את השרת...';
+  String get loading => 'מפעיל את השרת…';
   @override
-  String get stopping => 'עוצר את השרת...';
+  String get stopping => 'עוצר את השרת…';
   @override
   String get error => 'אירעה שגיאה בזמן הפעלת השרת.';
   @override
@@ -667,7 +669,7 @@ class _TranslationsAssetPickerHe extends TranslationsAssetPickerEn {
   @override
   String get emptyList => 'רשימה ריקה';
   @override
-  String get unSupportedAssetType => 'סוג קובץ לא נתמך';
+  String get unSupportedAssetType => 'סוג קובץ לא נתמך.';
   @override
   String get unableToAccessAll => 'לא ניתן לגשת לכל הקבצים במכשיר';
   @override
@@ -704,6 +706,28 @@ class _TranslationsAssetPickerHe extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'אורך';
   @override
   String get sUnitAssetCountLabel => 'מספר';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageHe extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageHe._(TranslationsHe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ממשקי רשת';
+  @override
+  String get info =>
+      'כברירת מחדל, LocalSend משתמש בכל ממשקי הרשת הזמינים. באפשרותך להסיר רשתות שאינן רצויות כאן. עליך להפעיל מחדש את השרת כדי להחיל את השינויים.';
+  @override
+  String get preview => 'תצוגה מקדימה';
+  @override
+  String get whitelist => 'רשימה לבנה';
+  @override
+  String get blacklist => 'רשימה שחורה';
 }
 
 // Path: receiveTab.infoBox
@@ -919,6 +943,10 @@ class _TranslationsSettingsTabNetworkHe extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsHe networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsHe._(_root);
+  @override
+  String get network => 'רשת';
 }
 
 // Path: settingsTab.other
@@ -952,7 +980,7 @@ class _TranslationsTroubleshootPageFirewallHe extends TranslationsTroubleshootPa
 
   // Translations
   @override
-  String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה';
+  String get symptom => 'האפליקציה יכולה לשלוח קבצים למכשירים אחרים, אך מכשירים אחרים אינם יכולים לשלוח קבצים למכשיר זה.';
   @override
   String solution({required Object port}) =>
       'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
@@ -986,7 +1014,7 @@ class _TranslationsTroubleshootPageNoConnectionHe extends TranslationsTroublesho
 
   // Translations
   @override
-  String get symptom => 'שני המכשירים לא מצליחים לגלות אחד את השני כדי לשתף קבצים';
+  String get symptom => 'שני המכשירים לא מצליחים לגלות אחד את השני כדי לשתף קבצים.';
   @override
   String get solution =>
       'הבעיה קיימת בשני הצדדים? עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים את אותה תצורה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בראוטר.';
@@ -1480,6 +1508,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsHe extends TranslationsSetti
   // Translations
   @override
   String get system => 'מערכת';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsHe extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsHe._(TranslationsHe root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get filtered => 'מסונן';
+  @override
+  String get all => 'הכל';
 }
 
 // Path: progressPage.total.title

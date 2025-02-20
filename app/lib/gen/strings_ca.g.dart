@@ -160,7 +160,7 @@ class _TranslationsGeneralCa extends TranslationsGeneralEn {
   @override
   String get save => 'Desar';
   @override
-  String get unchanged => 'Sense canvis';
+  String get unchanged => 'No canviat';
   @override
   String get unknown => 'Desconegut';
   @override
@@ -431,7 +431,7 @@ class _TranslationsWebSharePageCa extends TranslationsWebSharePageEn {
   @override
   String get requests => 'Peticions';
   @override
-  String get noRequests => 'Encar ano hi ha peticions.';
+  String get noRequests => 'Encara no hi ha peticions.';
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
@@ -806,7 +806,7 @@ class _TranslationsSendTabSelectionCa extends TranslationsSendTabSelectionEn {
 
   // Translations
   @override
-  String get title => 'Selección';
+  String get title => 'Selecció';
   @override
   String files({required Object files}) => 'Fitxers: ${files}';
   @override
@@ -846,9 +846,9 @@ class _TranslationsSendTabSendModesCa extends TranslationsSendTabSendModesEn {
 
   // Translations
   @override
-  String get single => 'Destí únic';
+  String get single => 'Destinatari únic';
   @override
-  String get multiple => 'Varis destins';
+  String get multiple => 'Múltiple destinataris';
   @override
   String get link => 'Compartir via enllaç';
 }
@@ -887,7 +887,7 @@ class _TranslationsSettingsTabGeneralCa extends TranslationsSettingsTabGeneralEn
   @override
   String get launchMinimized => 'Inici automàtic: Inici minimitzat';
   @override
-  String get showInContextMenu => 'Mostrar LocalSend al menu contextual';
+  String get showInContextMenu => 'Mostrar LocalSend al menú contextual';
   @override
   String get animations => 'Animacions';
 }

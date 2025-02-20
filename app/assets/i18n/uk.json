@@ -28,7 +28,7 @@
     "open": "Відкрити",
     "queue": "Черга",
     "quickSave": "Швидке збереження",
-    "quickSaveFromFavorites": "Швидке збереження для \"Улюблених\"",
+    "quickSaveFromFavorites": "Швидке збереження для «Улюблених»",
     "renamed": "Перейменовано",
     "reset": "Скасувати зміни",
     "restart": "Перезапустити",
@@ -69,7 +69,7 @@
       "app": "Програма",
       "clipboard": "Вставити"
     },
-    "shareIntentInfo": "Ви також можете скористатися функцією \"Поділитися\" на своєму мобільному пристрої, щоб швидше вибирати файли.",
+    "shareIntentInfo": "Ви також можете скористатися функцією «Поділитися» на своєму мобільному пристрої, щоб швидше вибирати файли.",
     "nearbyDevices": "Пристрої поблизу",
     "thisDevice": "Цей пристрій",
     "scan": "Пошук пристроїв",
@@ -124,23 +124,28 @@
     },
     "send": {
       "title": "Надсилання",
-      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі \"Поділитися через посилання\""
+      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі «Поділитися через посилання»"
     },
     "network": {
       "title": "Мережа",
       "needRestart": "Для застосування змін необхідно перезапустити сервер!",
       "server": "Сервер",
-      "alias": "Ім'я пристрою",
+      "alias": "Назва пристрою",
       "deviceType": "Тип пристрою",
       "deviceModel": "Модель пристрою",
       "port": "Порт",
-      "discoveryTimeout": "Тайм-аут пошуку",
-      "useSystemName": "Використати системне ім'я",
+      "discoveryTimeout": "Час пошуку вийшов",
+      "useSystemName": "Використати системну назву",
       "generateRandomAlias": "Згенерувати випадковий псевдонім",
       "portWarning": "Інші пристрої можуть вас не знайти, оскільки ви використовуєте інший, власний порт. (default: {defaultPort})",
       "encryption": "Шифрування",
       "multicastGroup": "Адреса групової передачі",
-      "multicastGroupWarning": "Інші пристрої можуть вас не знайти, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: {defaultMulticast})"
+      "multicastGroupWarning": "Інші пристрої можуть вас не знайти, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: {defaultMulticast})",
+      "network": "Мережа",
+      "networkOptions": {
+        "all": "Все",
+        "filtered": "Фільтроване"
+      }
     },
     "other": {
       "title": "Інше",
@@ -173,7 +178,7 @@
   "receiveHistoryPage": {
     "title": "Історія",
     "openFolder": "Відкрити папку",
-    "deleteHistory": "Очистити історію",
+    "deleteHistory": "Видалити історію",
     "empty": "Історія порожня.",
     "entryActions": {
       "open": "Відкрити файл",
@@ -208,7 +213,7 @@
     "saveToGalleryOff": "Вимкнено автоматично, оскільки є папки."
   },
   "sendPage": {
-    "waiting": "Очікування відповіді...",
+    "waiting": "Очікування відповіді…",
     "rejected": "Отримувач відхилив запит.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Отримувач зайнятий іншим запитом."
@@ -231,8 +236,8 @@
   },
   "webSharePage": {
     "title": "Поділитися через посилання",
-    "loading": "Запуск сервера...",
-    "stopping": "Зупинка сервера...",
+    "loading": "Запуск сервера…",
+    "stopping": "Зупинка сервера…",
     "error": "Під час запуску сервера сталася помилка.",
     "openLink": {
       "one": "Відкрийте це посилання в браузері:",
@@ -243,7 +248,7 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Автоматично приймати запити",
     "requirePin": "Вимагати PIN-код",
-    "pinHint": "PIN-код: \"{pin}\"",
+    "pinHint": "PIN-код: «{pin}»",
     "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
   },
@@ -269,7 +274,7 @@
     "title": "Історія змін"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1"
+    "@info": "У різних місцевостях можуть бути різні слова, вони можуть не збігатися 1 в 1"
   },
   "dialogs": {
     "addFile": {
@@ -292,7 +297,7 @@
     },
     "cannotOpenFile": {
       "title": "Не вдалося відкрити файл",
-      "content": "Не вдалося відкрити \"{file}\". Можливо, цей файл було переміщено, перейменовано або видалено?"
+      "content": "Не вдалося відкрити «{file}». Можливо, цей файл було переміщено, перейменовано або видалено?"
     },
     "encryptionDisabledNotice": {
       "title": "Шифрування вимкнено",
@@ -308,7 +313,7 @@
     },
     "favoriteDeleteDialog": {
       "title": "Видалити з улюблених",
-      "content": "Ви справді хочете видалити з улюблених \"{name}\"?"
+      "content": "Ви справді хочете видалити з улюблених «{name}»?"
     },
     "favoriteEditDialog": {
       "titleAdd": "Додати до улюблених",
@@ -320,7 +325,7 @@
     },
     "fileInfo": {
       "title": "Інформація про файл",
-      "fileName": "Ім'я файлу:",
+      "fileName": "Назва файлу:",
       "path": "Шлях:",
       "size": "Розмір:",
       "sender": "Відправник:",
@@ -392,11 +397,11 @@
     }
   },
   "sanitization": {
-    "empty": "Ім'я файлу не може бути порожнім",
-    "invalid": "Ім'я файлу містить недопустимі символи"
+    "empty": "Назва файлу не може бути порожнім",
+    "invalid": "Назва файлу містить недопустимі символи"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
+    "@info": "Керівництво Apple дуже суворо ставиться до формулювання «близький».",
     "open": "@:general.open",
     "close": "Вийти з LocalSend",
     "closeWindows": "Вийти"
@@ -408,11 +413,11 @@
     "tooManyAttempts": "Забагато спроб",
     "rejected": "Відхилено",
     "files": "Файлів",
-    "fileName": "Ім'я файлу",
+    "fileName": "Назва файлу",
     "size": "Розмір"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "Переклади для інструменту вибору медіа на Android та iPhone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "використати камеру",
     "sNameDurationLabel": "тривалість",
     "sUnitAssetCountLabel": "кількість"
+  },
+  "networkInterfacesPage": {
+    "title": "Мережевий інтерфейс",
+    "preview": "Передперегляд",
+    "whitelist": "Білий список",
+    "blacklist": "Чорний список",
+    "info": "Типово LocalSend використовує всі доступні мережеві інтерфейси. Ви можете виключити небажані мережі тут. Щоб застосувати зміни, потрібно перезапустити сервер."
   }
 }

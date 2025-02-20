@@ -140,7 +140,12 @@
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})"
+      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: {defaultMulticast})",
+      "network": "Rede",
+      "networkOptions": {
+        "all": "Todos",
+        "filtered": "Filtrado"
+      }
     },
     "other": {
       "title": "Outros",
@@ -501,5 +506,12 @@
     "sActionUseCameraHint": "use a câmera",
     "sNameDurationLabel": "duração",
     "sUnitAssetCountLabel": "Total"
+  },
+  "networkInterfacesPage": {
+    "whitelist": "Lista branca",
+    "blacklist": "Lista negra",
+    "info": "Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.",
+    "preview": "Anterior",
+    "title": "Interfaces de rede"
   }
 }

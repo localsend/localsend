@@ -78,6 +78,8 @@ class TranslationsSv extends Translations {
   late final _TranslationsWebSv web = _TranslationsWebSv._(_root);
   @override
   late final _TranslationsAssetPickerSv assetPicker = _TranslationsAssetPickerSv._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageSv networkInterfacesPage = _TranslationsNetworkInterfacesPageSv._(_root);
 }
 
 // Path: general
@@ -782,6 +784,28 @@ class _TranslationsAssetPickerSv extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'antal';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageSv extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageSv._(TranslationsSv root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Nätverksgränssnitt';
+  @override
+  String get info =>
+      'Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Du måste starta om servern för att tillämpa ändringarna.';
+  @override
+  String get preview => 'Förhandsvisning';
+  @override
+  String get whitelist => 'Vitlista';
+  @override
+  String get blacklist => 'Svartlista';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxSv extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxSv._(TranslationsSv root)
@@ -995,6 +1019,10 @@ class _TranslationsSettingsTabNetworkSv extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad multicast-adress. (standard: ${defaultMulticast})';
+  @override
+  String get network => 'Nätverk';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsSv networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsSv._(_root);
 }
 
 // Path: settingsTab.other
@@ -1557,6 +1585,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsSv extends TranslationsSetti
   // Translations
   @override
   String get system => 'System';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsSv extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsSv._(TranslationsSv root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Alla';
+  @override
+  String get filtered => 'Filtrerad';
 }
 
 // Path: progressPage.total.title

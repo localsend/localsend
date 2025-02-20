@@ -5,7 +5,7 @@ on:
 
 env:
   FLUTTER_VERSION: "3.24.5"
-  RUST_VERSION: "1.83.0"
+  RUST_VERSION: "1.84.1"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:
@@ -68,6 +68,10 @@ jobs:
           toolchain: stable
           override: ${{ env.RUST_VERSION }}
 
+      - name: Check rust-toolchain.toml
+        working-directory: ${{ env.APK_BUILD_DIR }}/app
+        run: rustup show
+
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter pub get
@@ -101,6 +105,16 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: ${{ env.RUST_VERSION }}
+
+      - name: Check rust-toolchain.toml
+        working-directory: app
+        run: rustup show
 
       - name: Dependencies
         working-directory: app
@@ -170,6 +184,16 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: ${{ env.RUST_VERSION }}
+
+      - name: Check rust-toolchain.toml
+        working-directory: app
+        run: rustup show
 
       - name: Enable dart_distributor
         run: dart pub global activate flutter_distributor
@@ -260,6 +284,16 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: ${{ env.RUST_VERSION }}
+
+      - name: Check rust-toolchain.toml
+        working-directory: app
+        run: rustup show
 
       - name: Dependencies
         working-directory: app

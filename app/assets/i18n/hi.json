@@ -5,12 +5,12 @@
     "accept": "स्वीकार करें",
     "accepted": "स्वीकृत",
     "add": "जोड़ें",
-    "advanced": "एडवांस्ड",
+    "advanced": "उन्नत",
     "cancel": "रद्द करें",
     "close": "बंद करें",
     "confirm": "पुष्टि करें",
     "continueStr": "जारी रखें",
-    "copy": "कॉपी करें",
+    "copy": "नकल करें",
     "copiedToClipboard": "क्लिपबोर्ड पर कॉपी किया गया",
     "decline": "अस्वीकार करें",
     "done": "हो गया",
@@ -140,7 +140,12 @@
       "portWarning": "आप कस्टम पोर्ट का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultPort})",
       "encryption": "एन्क्रिप्शन",
       "multicastGroup": "मल्टीकास्ट",
-      "multicastGroupWarning": "आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultMulticast})"
+      "multicastGroupWarning": "आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: {defaultMulticast})",
+      "network": "नेटवर्क",
+      "networkOptions": {
+        "all": "सब",
+        "filtered": "परिष्कृत"
+      }
     },
     "other": {
       "title": "अन्य",
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "कैमरा का उपयोग करें",
     "sNameDurationLabel": "अवधि",
     "sUnitAssetCountLabel": "गणना"
+  },
+  "networkInterfacesPage": {
+    "title": "नेटवर्क इंटरफेस",
+    "info": "डिफ़ॉल्ट रूप से, LocalSend सभी उपलब्ध नेटवर्क इंटरफेस का उपयोग करता है। आप यहां अवांछित नेटवर्क को बाहर कर सकते हैं। परिवर्तनों को लागू करने के लिए आपको सर्वर को पुनः आरंभ करना होगा।",
+    "preview": "पूर्वावलोकन",
+    "whitelist": "श्वेतसूची",
+    "blacklist": "काले सूची"
   }
 }

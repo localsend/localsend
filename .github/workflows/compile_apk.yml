@@ -5,7 +5,7 @@ on:
 
 env:
   FLUTTER_VERSION: "3.24.5"
-  RUST_VERSION: "1.83.0"
+  RUST_VERSION: "1.84.1"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:

@@ -140,7 +140,10 @@
       "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
       "encryption": "Šifrování",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: {defaultMulticast})"
+      "multicastGroupWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: {defaultMulticast})",
+      "networkOptions": {
+        "all": "Vše"
+      }
     },
     "other": {
       "title": "Ostatní",
@@ -441,5 +444,8 @@
     "sActionUseCameraHint": "použít kameru",
     "sNameDurationLabel": "doba trvání",
     "sUnitAssetCountLabel": "počet"
+  },
+  "networkInterfacesPage": {
+    "title": "Síťová rozhraní"
   }
 }

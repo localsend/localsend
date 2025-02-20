@@ -78,6 +78,8 @@ class TranslationsPtBr extends Translations {
   late final _TranslationsWebPtBr web = _TranslationsWebPtBr._(_root);
   @override
   late final _TranslationsAssetPickerPtBr assetPicker = _TranslationsAssetPickerPtBr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPagePtBr networkInterfacesPage = _TranslationsNetworkInterfacesPagePtBr._(_root);
 }
 
 // Path: general
@@ -773,6 +775,28 @@ class _TranslationsAssetPickerPtBr extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'Total';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPagePtBr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPagePtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get whitelist => 'Lista branca';
+  @override
+  String get blacklist => 'Lista negra';
+  @override
+  String get info =>
+      'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
+  @override
+  String get preview => 'Anterior';
+  @override
+  String get title => 'Interfaces de rede';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxPtBr extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxPtBr._(TranslationsPtBr root)
@@ -986,6 +1010,10 @@ class _TranslationsSettingsTabNetworkPtBr extends TranslationsSettingsTabNetwork
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: ${defaultMulticast})';
+  @override
+  String get network => 'Rede';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsPtBr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsPtBr._(_root);
 }
 
 // Path: settingsTab.other
@@ -1551,6 +1579,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsPtBr extends TranslationsSet
   // Translations
   @override
   String get system => 'Sistema';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsPtBr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsPtBr._(TranslationsPtBr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Todos';
+  @override
+  String get filtered => 'Filtrado';
 }
 
 // Path: progressPage.total.title

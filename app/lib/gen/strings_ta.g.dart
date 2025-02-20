@@ -33,7 +33,7 @@ class TranslationsTa extends Translations {
   @override
   String get locale => 'தமிழ்';
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'உள்ளக';
   @override
   late final _TranslationsGeneralTa general = _TranslationsGeneralTa._(_root);
   @override
@@ -78,6 +78,8 @@ class TranslationsTa extends Translations {
   late final _TranslationsWebTa web = _TranslationsWebTa._(_root);
   @override
   late final _TranslationsAssetPickerTa assetPicker = _TranslationsAssetPickerTa._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageTa networkInterfacesPage = _TranslationsNetworkInterfacesPageTa._(_root);
 }
 
 // Path: general
@@ -359,11 +361,11 @@ class _TranslationsReceiveOptionsPageTa extends TranslationsReceiveOptionsPageEn
   @override
   String get title => 'விருப்பங்கள்';
   @override
-  String get destination => _root.settingsTab.receive.destination;
+  String get destination => '@: setsionStab.receive.destination';
   @override
   String get appDirectory => '(LocalSend கோப்புறை)';
   @override
-  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
+  String get saveToGallery => '@: settionstab.receive.savetogallery';
   @override
   String get saveToGalleryOff => 'கோப்புறைகள் இருப்பதால் தானாகவே முடக்கப்பட்டது.';
 }
@@ -382,7 +384,7 @@ class _TranslationsSendPageTa extends TranslationsSendPageEn {
   @override
   String get rejected => 'பெறுநர் கோரிக்கையை நிராகரித்துள்ளார்.';
   @override
-  String get tooManyAttempts => _root.web.tooManyAttempts;
+  String get tooManyAttempts => '@: web.doomanyattempts';
   @override
   String get busy => 'பெறுநர் மற்றொரு கோரிக்கையுடன் ব্যস্তமாக உள்ளார்.';
 }
@@ -434,7 +436,7 @@ class _TranslationsWebSharePageTa extends TranslationsWebSharePageEn {
   @override
   String get noRequests => 'இன்னும் கோரிக்கைகள் இல்லை.';
   @override
-  String get encryption => _root.settingsTab.network.encryption;
+  String get encryption => '@: settionstab.network.encryption';
   @override
   String get autoAccept => 'கோரிக்கைகளை தானாகவே ஏற்கவும்';
   @override
@@ -680,7 +682,7 @@ class _TranslationsTrayTa extends TranslationsTrayEn {
 
   // Translations
   @override
-  String get open => _root.general.open;
+  String get open => '@: general.open';
   @override
   String get close => 'LocalSend-ஐ நிறுத்து';
   @override
@@ -697,7 +699,7 @@ class _TranslationsWebTa extends TranslationsWebEn {
 
   // Translations
   @override
-  String get waiting => _root.sendPage.waiting;
+  String get waiting => '@: sendPage.wainging';
   @override
   String get enterPin => 'PIN-ஐ உள்ளிடவும்';
   @override
@@ -730,7 +732,7 @@ class _TranslationsAssetPickerTa extends TranslationsAssetPickerEn {
   @override
   String get edit => 'தொகு';
   @override
-  String get gifIndicator => 'GIF';
+  String get gifIndicator => 'Gif';
   @override
   String get loadFailed => 'ஏற்றுதல் தோல்வியடைந்தது';
   @override
@@ -782,6 +784,28 @@ class _TranslationsAssetPickerTa extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'எண்ணிக்கை';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageTa extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageTa._(TranslationsTa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'பிணைய இடைமுகங்கள்';
+  @override
+  String get info =>
+      'இயல்பாக, லோக்கல்சென்ட் கிடைக்கக்கூடிய அனைத்து பிணைய இடைமுகங்களையும் பயன்படுத்துகிறது. தேவையற்ற நெட்வொர்க்குகளை இங்கே விலக்கலாம். மாற்றங்களைப் பயன்படுத்த நீங்கள் சேவையகத்தை மறுதொடக்கம் செய்ய வேண்டும்.';
+  @override
+  String get preview => 'முன்னோட்டம்';
+  @override
+  String get whitelist => 'அனுமதிப்பட்டியலாளர்';
+  @override
+  String get blacklist => 'தடுப்புப்பட்டியல்';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxTa extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxTa._(TranslationsTa root)
@@ -809,11 +833,11 @@ class _TranslationsReceiveTabQuickSaveTa extends TranslationsReceiveTabQuickSave
 
   // Translations
   @override
-  String get off => _root.general.off;
+  String get off => '@: செனரல்';
   @override
-  String get favorites => 'Favorites';
+  String get favorites => 'பிடித்தவை';
   @override
-  String get on => _root.general.on;
+  String get on => '@: செனரல்';
 }
 
 // Path: sendTab.selection
@@ -924,17 +948,17 @@ class _TranslationsSettingsTabReceiveTa extends TranslationsSettingsTabReceiveEn
   @override
   String get title => 'பெறு';
   @override
-  String get quickSave => _root.general.quickSave;
+  String get quickSave => '@: general.quicksave';
   @override
-  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  String get quickSaveFromFavorites => '@: general.quick பிடித்தவைகளிலிருந்து சேமிக்கவும்';
   @override
-  String get requirePin => _root.webSharePage.requirePin;
+  String get requirePin => '@: websharepage.requirepin';
   @override
   String get autoFinish => 'ஆட்டோ பினிஷ்';
   @override
   String get destination => 'கோப்புறையில் சேமிக்கவும்';
   @override
-  String get downloads => '(Downloads)';
+  String get downloads => '(பதிவிறக்கங்கள்)';
   @override
   String get saveToGallery => 'மீடியாவை கேலரியில் சேமிக்கவும்';
   @override
@@ -995,6 +1019,10 @@ class _TranslationsSettingsTabNetworkTa extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'நீங்கள் தனிப்பயன் மல்டிகாஸ்ட் முகவரியைப் பயன்படுத்துவதால் பிற சாதனங்களால் உங்களைக் கண்டறிய முடியாமல் போகலாம். (இயல்புநிலை: ${defaultMulticast})';
+  @override
+  String get network => 'பிணையம்';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsTa networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsTa._(_root);
 }
 
 // Path: settingsTab.other
@@ -1211,7 +1239,7 @@ class _TranslationsDialogsErrorDialogTa extends TranslationsDialogsErrorDialogEn
 
   // Translations
   @override
-  String get title => _root.general.error;
+  String get title => '@: general.error';
 }
 
 // Path: dialogs.favoriteDialog
@@ -1332,7 +1360,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedTa extends TranslationsDialogs
 
   // Translations
   @override
-  String get title => _root.dialogs.noPermission.title;
+  String get title => '@: உரையாடல்.நோபர்மிசன்.டிடில்';
   @override
   String get description =>
       'LocalSend உள்நாட்டு நெட்வொர்க்கை ஸ்கேன் செய்ய அனுமதியின்றி சாதனங்களை கண்டறிய முடியாது. தயவுசெய்து அமைப்புகளில் இந்த அனுமதியை வழங்கவும்.';
@@ -1446,7 +1474,7 @@ class _TranslationsDialogsQuickSaveNoticeTa extends TranslationsDialogsQuickSave
 
   // Translations
   @override
-  String get title => _root.general.quickSave;
+  String get title => '@: general.quicksave';
   @override
   String get content =>
       'கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும். உள்ளூர் நெட்வொர்க்கில் உள்ள அனைவரும் உங்களுக்கு கோப்புகளை அனுப்ப முடியும் என்பதை கவனிக்கவும்.';
@@ -1462,7 +1490,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeTa extends TranslationsDia
 
   // Translations
   @override
-  String get title => _root.general.quickSaveFromFavorites;
+  String get title => '@: general.quick பிடித்தவைகளிலிருந்து சேமிக்கவும்';
   @override
   List<String> get content => [
         'உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களில் இருந்து கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும்.',
@@ -1514,7 +1542,7 @@ class _TranslationsDialogsZoomTa extends TranslationsDialogsZoomEn {
 
   // Translations
   @override
-  String get title => 'URL';
+  String get title => 'முகவரி';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -1560,6 +1588,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsTa extends TranslationsSetti
   // Translations
   @override
   String get system => 'கணினி மொழி';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsTa extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsTa._(TranslationsTa root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'அனைத்தும்';
+  @override
+  String get filtered => 'வடிகட்டப்பட்டது';
 }
 
 // Path: progressPage.total.title

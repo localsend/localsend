@@ -3,7 +3,7 @@ description: An open source cross-platform alternative to AirDrop
 homepage: https://localsend.org/
 publish_to: "none"
 
-version: 1.16.2+57
+version: 1.17.0+58
 
 environment:
   flutter: ">=3.24.0"
@@ -57,14 +57,14 @@ dependencies:
   pretty_qr_code: 3.3.0
   refena_flutter: 3.1.0
   refena_inspector_client: 2.1.0
-  rhttp: 0.9.8
+  rhttp: 0.10.0
   routerino: 0.8.0
   rust_lib_localsend_app:
     path: rust_builder
   saf_stream: 0.10.0
   screen_retriever: 0.2.0
   share_handler: 0.0.22
-  shared_preferences: 2.3.3
+  shared_preferences: 2.5.2
   shared_preferences_platform_interface: any
   shared_storage: 0.8.1
   slang: 4.4.0
@@ -75,7 +75,7 @@ dependencies:
   url_launcher: 6.3.1
   uuid: 4.5.1
   wakelock_plus: 1.2.8
-  wechat_assets_picker: 9.4.0
+  wechat_assets_picker: 9.5.0
   win32_registry: 1.1.5
   window_manager: 0.4.3
   windows_taskbar: 1.1.2

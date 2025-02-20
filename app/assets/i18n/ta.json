@@ -1,6 +1,6 @@
 {
   "locale": "தமிழ்",
-  "appName": "LocalSend",
+  "appName": "உள்ளக",
   "general": {
     "accept": "ஏற்றுக்கொள்",
     "accepted": "ஏற்றுக்கொள்ளப்பட்டது",
@@ -49,9 +49,9 @@
       "alias": "சாதனத்தின் பெயர்:"
     },
     "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favorites",
-      "on": "@:general.on"
+      "off": "@: செனரல்",
+      "favorites": "பிடித்தவை",
+      "on": "@: செனரல்"
     }
   },
   "sendTab": {
@@ -113,12 +113,12 @@
     },
     "receive": {
       "title": "பெறு",
-      "quickSave": "@:general.quickSave",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "requirePin": "@:webSharePage.requirePin",
+      "quickSave": "@: general.quicksave",
+      "quickSaveFromFavorites": "@: general.quick பிடித்தவைகளிலிருந்து சேமிக்கவும்",
+      "requirePin": "@: websharepage.requirepin",
       "autoFinish": "ஆட்டோ பினிஷ்",
       "destination": "கோப்புறையில் சேமிக்கவும்",
-      "downloads": "(Downloads)",
+      "downloads": "(பதிவிறக்கங்கள்)",
       "saveToGallery": "மீடியாவை கேலரியில் சேமிக்கவும்",
       "saveToHistory": "வரலாற்றில் சேமிக்கவும்"
     },
@@ -140,7 +140,12 @@
       "portWarning": "நீங்கள் தனிப்பயன் போர்ட்டைப் பயன்படுத்துவதால், பிற சாதனங்களால் உங்களைக் கண்டறிய முடியாமல் போகலாம். (இயல்புநிலை: {defaultPort})",
       "encryption": "மறையாக்கம்",
       "multicastGroup": "மல்டிகாஸ்ட் முகவரி",
-      "multicastGroupWarning": "நீங்கள் தனிப்பயன் மல்டிகாஸ்ட் முகவரியைப் பயன்படுத்துவதால் பிற சாதனங்களால் உங்களைக் கண்டறிய முடியாமல் போகலாம். (இயல்புநிலை: {defaultMulticast})"
+      "multicastGroupWarning": "நீங்கள் தனிப்பயன் மல்டிகாஸ்ட் முகவரியைப் பயன்படுத்துவதால் பிற சாதனங்களால் உங்களைக் கண்டறிய முடியாமல் போகலாம். (இயல்புநிலை: {defaultMulticast})",
+      "network": "பிணையம்",
+      "networkOptions": {
+        "all": "அனைத்தும்",
+        "filtered": "வடிகட்டப்பட்டது"
+      }
     },
     "other": {
       "title": "மற்றவை",
@@ -202,15 +207,15 @@
   },
   "receiveOptionsPage": {
     "title": "விருப்பங்கள்",
-    "destination": "@:settingsTab.receive.destination",
+    "destination": "@: setsionStab.receive.destination",
     "appDirectory": "(LocalSend கோப்புறை)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGallery": "@: settionstab.receive.savetogallery",
     "saveToGalleryOff": "கோப்புறைகள் இருப்பதால் தானாகவே முடக்கப்பட்டது."
   },
   "sendPage": {
     "waiting": "பதில் வரும் வரை காத்திருக்கிறது…",
     "rejected": "பெறுநர் கோரிக்கையை நிராகரித்துள்ளார்.",
-    "tooManyAttempts": "@:web.tooManyAttempts",
+    "tooManyAttempts": "@: web.doomanyattempts",
     "busy": "பெறுநர் மற்றொரு கோரிக்கையுடன் ব্যস্তமாக உள்ளார்."
   },
   "progressPage": {
@@ -240,7 +245,7 @@
     },
     "requests": "கோரிக்கைகள்",
     "noRequests": "இன்னும் கோரிக்கைகள் இல்லை.",
-    "encryption": "@:settingsTab.network.encryption",
+    "encryption": "@: settionstab.network.encryption",
     "autoAccept": "கோரிக்கைகளை தானாகவே ஏற்கவும்",
     "requirePin": "PIN தேவை",
     "pinHint": "PIN \"{pin}\" ஆகும்",
@@ -269,7 +274,7 @@
     "title": "மாற்றம் பதிவு"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "வெவ்வேறு இடங்களுக்கு வெவ்வேறு சொற்கள் இருக்கலாம், அது 1: 1 உடன் பொருந்தாது",
     "adjectives": [
       "அருமையான",
       "அழகான",
@@ -369,7 +374,7 @@
       "content": "இப்போது தகவல்தொடர்பு குறியாக்கமில்லாத HTTP நெறிமுறையின் மூலம் நடக்கிறது. HTTPS நெறிமுறையை பயன்படுத்த, குறியாக்கத்தை மீண்டும் இயக்கவும்."
     },
     "errorDialog": {
-      "title": "@:general.error"
+      "title": "@: general.error"
     },
     "favoriteDialog": {
       "title": "பிடித்தவை",
@@ -405,7 +410,7 @@
       "content": "மொத்த வரலாற்றையும் உண்மையிலேயே நீக்க விரும்புகிறீர்களா?"
     },
     "localNetworkUnauthorized": {
-      "title": "@:dialogs.noPermission.title",
+      "title": "@: உரையாடல்.நோபர்மிசன்.டிடில்",
       "description": "LocalSend உள்நாட்டு நெட்வொர்க்கை ஸ்கேன் செய்ய அனுமதியின்றி சாதனங்களை கண்டறிய முடியாது. தயவுசெய்து அமைப்புகளில் இந்த அனுமதியை வழங்கவும்.",
       "gotoSettings": "அமைப்புகள்"
     },
@@ -437,11 +442,11 @@
       "random": "சீரற்ற"
     },
     "quickSaveNotice": {
-      "title": "@:general.quickSave",
+      "title": "@: general.quicksave",
       "content": "கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும். உள்ளூர் நெட்வொர்க்கில் உள்ள அனைவரும் உங்களுக்கு கோப்புகளை அனுப்ப முடியும் என்பதை கவனிக்கவும்."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
+      "title": "@: general.quick பிடித்தவைகளிலிருந்து சேமிக்கவும்",
       "content": [
         "உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களில் இருந்து கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும்.",
         "எச்சரிக்கை! தற்போது, இது முழுமையாக பாதுகாப்பாக இல்லை, ஏனெனில் உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களின் விரலடிகளை வைத்துள்ள ஒரு ஹேக்கர் எந்த கட்டுப்பாடுகளும் இல்லாமல் உங்களுக்கு கோப்புகளை அனுப்ப முடியும்.",
@@ -458,7 +463,7 @@
       "link": "LocalSend நிறுவப்படாத பெறுநர்கள் தங்கள் உலாவியில் இணைப்பைத் திறக்க மூலம் தேர்ந்தெடுக்கப்பட்ட கோப்புகளை பதிவிறக்கம் செய்ய முடியும்."
     },
     "zoom": {
-      "title": "URL"
+      "title": "முகவரி"
     }
   },
   "sanitization": {
@@ -467,12 +472,12 @@
   },
   "tray": {
     "@info": "ஆப்பிள் வழிகாட்டுதல்கள் \"மூடு\" வார்த்தையில் மிக கடுமையாக உள்ளன.",
-    "open": "@:general.open",
+    "open": "@: general.open",
     "close": "LocalSend-ஐ நிறுத்து",
     "closeWindows": "வெளியேறு"
   },
   "web": {
-    "waiting": "@:sendPage.waiting",
+    "waiting": "@: sendPage.wainging",
     "enterPin": "PIN-ஐ உள்ளிடவும்",
     "invalidPin": "தவறான PIN",
     "tooManyAttempts": "மிக அதிகமான முயற்சிகள்",
@@ -486,7 +491,7 @@
     "confirm": "உறுதிசெய்",
     "cancel": "ரத்து செய்",
     "edit": "தொகு",
-    "gifIndicator": "GIF",
+    "gifIndicator": "Gif",
     "loadFailed": "ஏற்றுதல் தோல்வியடைந்தது",
     "original": "மூல",
     "preview": "முன்னோட்டம்",
@@ -511,5 +516,12 @@
     "sActionUseCameraHint": "கேமராவை பயன்படுத்தவும்",
     "sNameDurationLabel": "நேர அளவு",
     "sUnitAssetCountLabel": "எண்ணிக்கை"
+  },
+  "networkInterfacesPage": {
+    "title": "பிணைய இடைமுகங்கள்",
+    "info": "இயல்பாக, லோக்கல்சென்ட் கிடைக்கக்கூடிய அனைத்து பிணைய இடைமுகங்களையும் பயன்படுத்துகிறது. தேவையற்ற நெட்வொர்க்குகளை இங்கே விலக்கலாம். மாற்றங்களைப் பயன்படுத்த நீங்கள் சேவையகத்தை மறுதொடக்கம் செய்ய வேண்டும்.",
+    "preview": "முன்னோட்டம்",
+    "whitelist": "அனுமதிப்பட்டியலாளர்",
+    "blacklist": "தடுப்புப்பட்டியல்"
   }
 }

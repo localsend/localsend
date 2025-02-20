@@ -78,6 +78,8 @@ class TranslationsFr extends Translations {
   late final _TranslationsWebFr web = _TranslationsWebFr._(_root);
   @override
   late final _TranslationsAssetPickerFr assetPicker = _TranslationsAssetPickerFr._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageFr networkInterfacesPage = _TranslationsNetworkInterfacesPageFr._(_root);
 }
 
 // Path: general
@@ -709,6 +711,28 @@ class _TranslationsAssetPickerFr extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'quantité';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageFr extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces réseau';
+  @override
+  String get info =>
+      'Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.';
+  @override
+  String get preview => 'Aperçu';
+  @override
+  String get whitelist => 'Liste blanche';
+  @override
+  String get blacklist => 'Liste noire';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxFr extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxFr._(TranslationsFr root)
@@ -793,9 +817,9 @@ class _TranslationsSendTabSendModesFr extends TranslationsSendTabSendModesEn {
 
   // Translations
   @override
-  String get single => 'Récipient unique';
+  String get single => 'Destinataire unique';
   @override
-  String get multiple => 'Récipients multiples';
+  String get multiple => 'Destinataires multiples';
   @override
   String get link => 'Partager via un lien';
 }
@@ -880,7 +904,7 @@ class _TranslationsSettingsTabSendFr extends TranslationsSettingsTabSendEn {
   @override
   String get title => 'Envoyer';
   @override
-  String get shareViaLinkAutoAccept => 'Envoyer via un lien: Accepter automatiquement';
+  String get shareViaLinkAutoAccept => 'Accepter automatiquement les demandes de téléchargement d\'un partage par lien';
 }
 
 // Path: settingsTab.network
@@ -921,7 +945,11 @@ class _TranslationsSettingsTabNetworkFr extends TranslationsSettingsTabNetworkEn
   String get multicastGroup => 'Multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Il est possible que vous ne soyez pas détecté par d\'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut: ${defaultMulticast})';
+      'Il est possible que vous ne soyez pas détecté par d\'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : ${defaultMulticast})';
+  @override
+  String get network => 'Réseau';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsFr networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsFr._(_root);
 }
 
 // Path: settingsTab.other
@@ -992,7 +1020,7 @@ class _TranslationsTroubleshootPageNoConnectionFr extends TranslationsTroublesho
   String get symptom => 'Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.';
   @override
   String get solution =>
-      'Le problème existe-il des deux côtés? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l\'option "Isolement du point d\'accès" ou "AP Isolation".';
+      'Le problème existe-il des deux côtés ? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu\'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l\'option "Isolement du point d\'accès" ou "AP Isolation".';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1422,12 +1450,12 @@ class _TranslationsDialogsSendModeHelpFr extends TranslationsDialogsSendModeHelp
   @override
   String get title => 'Modes d\'envoi';
   @override
-  String get single => 'Envoyer des fichiers à un récipient. La sélection sera effacée une fois l\'envoi du fichier terminé.';
+  String get single => 'Envoyer des fichiers à un destinataire. La sélection sera effacée une fois l\'envoi du fichier terminé.';
   @override
-  String get multiple => 'Envoyer des fichiers à plusieurs récipients. La sélection ne sera pas effacée.';
+  String get multiple => 'Envoyer des fichiers à plusieurs destinataires. La sélection ne sera pas effacée.';
   @override
   String get link =>
-      'Les récipients n\'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur.';
+      'Les destinataires n\'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur.';
 }
 
 // Path: dialogs.zoom
@@ -1486,6 +1514,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsFr extends TranslationsSetti
   // Translations
   @override
   String get system => 'Système';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsFr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsFr._(TranslationsFr root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get filtered => 'Filtré';
+  @override
+  String get all => 'Tout';
 }
 
 // Path: progressPage.total.title

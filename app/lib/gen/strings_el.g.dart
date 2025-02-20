@@ -78,6 +78,8 @@ class TranslationsEl extends Translations {
   late final _TranslationsWebEl web = _TranslationsWebEl._(_root);
   @override
   late final _TranslationsAssetPickerEl assetPicker = _TranslationsAssetPickerEl._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageEl networkInterfacesPage = _TranslationsNetworkInterfacesPageEl._(_root);
 }
 
 // Path: general
@@ -164,7 +166,7 @@ class _TranslationsGeneralEl extends TranslationsGeneralEn {
   @override
   String get unknown => 'Αγνωστο';
   @override
-  String get noItemInClipboard => 'Κανένα στοιχείο στο Πρόχειρο';
+  String get noItemInClipboard => 'Κανένα στοιχείο στο Πρόχειρο.';
 }
 
 // Path: receiveTab
@@ -379,7 +381,7 @@ class _TranslationsSendPageEl extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Αναμονή για απάντηση...';
+  String get waiting => 'Αναμονή για απάντηση…';
   @override
   String get rejected => 'Ο παραλήπτης απέρριψε το αίτημα.';
   @override
@@ -419,9 +421,9 @@ class _TranslationsWebSharePageEl extends TranslationsWebSharePageEn {
   @override
   String get title => 'Διαμοιρασμός μέσω συνδέσμου';
   @override
-  String get loading => 'Εκκίνηση διακομιστή...';
+  String get loading => 'Εκκίνηση διακομιστή…';
   @override
-  String get stopping => 'Σταμάτημα διακομιστή...';
+  String get stopping => 'Σταμάτημα διακομιστή…';
   @override
   String get error => 'Ένα σφάλμα προέκυψε κατά την εκκίνηση του διακομιστή.';
   @override
@@ -783,6 +785,28 @@ class _TranslationsAssetPickerEl extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'μετρητής';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageEl extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get info =>
+      'Από προεπιλογή, το LocalSend χρησιμοποιεί όλες τις διαθέσιμες διεπαφές δικτύου. Μπορείτε να εξαιρέσετε τα ανεπιθύμητα δίκτυα εδώ. Πρέπει να κάνετε επανεκκίνηση του διακομιστή για να εφαρμόσετε τις αλλαγές.';
+  @override
+  String get title => 'Διεπαφές δικτύου';
+  @override
+  String get preview => 'Προεπισκόπηση';
+  @override
+  String get whitelist => 'Λευκή λίστα';
+  @override
+  String get blacklist => 'Μαύρη λίστα';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxEl extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxEl._(TranslationsEl root)
@@ -996,6 +1020,10 @@ class _TranslationsSettingsTabNetworkEl extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Ενδέχεται να μην εντοπιστείτε από άλλες συσκευές επειδή χρησιμοποιείτε μια προσαρμοσμένη διεύθυνση αναμετάδοσης. (προεπιλογή: ${defaultMulticast})';
+  @override
+  String get network => 'Δίκτυο';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsEl networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsEl._(_root);
 }
 
 // Path: settingsTab.other
@@ -1561,6 +1589,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsEl extends TranslationsSetti
   // Translations
   @override
   String get system => 'Σύστημα';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsEl extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsEl._(TranslationsEl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Όλα';
+  @override
+  String get filtered => 'Περιορισμένο';
 }
 
 // Path: progressPage.total.title

@@ -1,9 +1,12 @@
 # LocalSend
 
 [![CI status][ci-badge]][ci-workflow]
+[![Translations][translate-badge]][translate-link]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
+[translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
+[translate-link]: https://hosted.weblate.org/engage/localsend/
 
 [Página de inicio][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
@@ -24,6 +27,7 @@ LocalSend es una aplicación gratuita y de código abierto que te permite compar
 - [Contribuir](#contribuir)
   - [Traducción](#traducción)
   - [Corrección de Errores y Mejoras](#corrección-de-errores-y-mejoras)
+- [Solución de problemas](#solución-de-problemas)
 - [Compilación](#compilación)
   - [Android](#android)
   - [iOS](#ios)
@@ -71,6 +75,16 @@ Lee más sobre los [canales de distribución][distribution channels].
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
+**Compatibilidad**
+
+| Plataforma | Versión Mínima   | Nota                                                                                                                      |
+|------------|------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Android    | 5.0              | -                                                                                                                         |
+| iOS        | 12.0             | -                                                                                                                         |
+| macOS      | 11 Big Sur       | Usa OpenCore Legacy Patcher 2.0.2 (Ver [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows    | 10               | La última versión compatible con Windows 7 es la v1.15.4. Es posible que haya backports de versiones más nuevas para Windows 7 en el futuro. |
+| Linux      | N.A.             | -                                                                                                                         |
+
 ## Configuración
 
 En la mayoría de los casos, LocalSend debería funcionar sin configuraciones adicionales. Sin embargo, si tienes problemas para enviar o recibir archivos, es posible que necesites configurar tu firewall para permitir que LocalSend se comunique a través de tu red local.
@@ -107,10 +121,11 @@ Para más información sobre el protocolo LocalSend, consulta la [documentación
 Para compilar LocalSend desde el código fuente, sigue estos pasos:
 
 1. Instala Flutter [directamente](https://flutter.dev) o utilizando [fvm](https://fvm.app) (ver [versión requerida](.fvmrc))
-2. Clona el repositorio de `LocalSend`
-3. Ejecuta `cd app` para entrar en el directorio de la aplicación
-4. Ejecuta `flutter pub get` para descargar las dependencias
-5. Ejecuta `flutter run` para iniciar la aplicación
+2. Instala [Rust](https://www.rust-lang.org/tools/install)
+3. Clona el repositorio de `LocalSend`
+4. Ejecuta `cd app` para entrar en el directorio de la aplicación
+5. Ejecuta `flutter pub get` para descargar las dependencias
+6. Ejecuta `flutter run` para iniciar la aplicación
 
 > [!NOTA]
 > LocalSend actualmente requiere una versión más antigua de Flutter (especificada en [.fvmrc](.fvmrc))
@@ -124,22 +139,15 @@ Damos la bienvenida a contribuciones de cualquier persona interesada en mejorar 
 
 ### Traducción
 
-¡Puedes ayudar a traducir esta aplicación a otros idiomas!
+Puedes ayudar a traducir LocalSend a otros idiomas. Usamos la plataforma [Weblate](https://hosted.weblate.org/projects/localsend/app) para gestionar las traducciones.
 
-1. Haz un fork de este repositorio
-2. Elige una opción:
-   - Añadir traducciones faltantes en idiomas existentes: Solo actualiza `_missing_translations_<locale>.json` en [app/assets/i18n][i18n]
-   - Corregir traducciones existentes: Actualiza `strings_<locale>.i18n.json` en [app/assets/i18n][i18n]
-   - Añadir nuevos idiomas: Crea un nuevo archivo; consulta también: [códigos de locales][].
-3. Opcional: Vuelve a ejecutar esta aplicación
-   1. Ejecuta `cd app` para entrar al directorio de la aplicación.
-   2. Asegúrate de haber [ejecutado](#getting-started) esta aplicación al menos una vez.
-   3. Actualiza las traducciones mediante `flutter pub run slang`
-   4. Ejecuta la aplicación mediante `flutter run`
-   5. Abre una pull request
+Alternativamente, también puedes contribuir haciendo un fork a este repositorio y añadiendo traducciones manualmente.
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[códigos de locales]: https://saimana.com/list-of-country-locale-code/
+Las traducciones se encuentran en el directorio [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Edita el archivo `_missing_translations_<locale>.json` o `strings_<locale>.i18n.json` para añadir o actualizar traducciones.
+
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Estado de traducción" />
+</a>
 
 **_Ten en cuenta:_ Los campos decorados con `@` no están destinados a ser traducidos; no son utilizados en la aplicación de ninguna manera, solo son texto informativo sobre el archivo o para dar contexto al traductor.**
 
@@ -150,6 +158,15 @@ Damos la bienvenida a contribuciones de cualquier persona interesada en mejorar 
 
 Para más información, consulta la [guía de contribuciones](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
+## Solución de Problemas
+
+| Problema            | Plataforma (Emisor) | Plataforma (Receptor) | Solución                                                                                                                                |
+|---------------------|---------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Dispositivo no visible | Cualquiera         | Cualquiera             | Asegúrate de desactivar la *AP-Isolation* en tu router. Si está activada, las conexiones entre dispositivos están prohibidas.            |
+| Dispositivo no visible | Cualquiera         | Windows                | Configura tu red como una red "privada". Windows puede ser más restrictivo cuando la red está configurada como pública.                  |
+| Dispositivo no visible | macOS, iOS         | Cualquiera             | Intenta alternar el permiso de "Red Local" en la sección de "Privacidad" de la configuración del sistema operativo.                      |
+| Velocidad muy lenta  | Cualquiera         | Cualquiera             | Usa 5 GHz; Desactiva la encriptación en ambos dispositivos                                                                               |
+| Velocidad muy lenta  | Cualquiera         | Android                | Problema conocido. [https://github.com/flutter-cavalry/saf_stream/issues/4](https://github.com/flutter-cavalry/saf_stream/issues/4)      |
 ## Compilación
 
 Estos comandos están destinados solo para los mantenedores.
