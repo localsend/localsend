@@ -89,7 +89,7 @@ async fn crypto_test() -> Result<()> {
 
     println!("Public Key: {}", public_key);
 
-    let fingerprint = crypto::signature::generate_fingerprint(&key)?;
+    let fingerprint = crypto::signature::generate_token_nonce(&key)?;
 
     println!("Fingerprint: {}", fingerprint);
 
@@ -99,7 +99,7 @@ MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 -----END PUBLIC KEY-----",
     )?;
 
-    let signature = crypto::signature::verify_fingerprint_with_result(
+    let signature = crypto::signature::verify_token_with_result(
         parsed_key,
         "sha256.RikOdJlAUTdMVFZjEk7Bft5G9cxnNBBLfgttPpyS2FY.hJCuZwAAAAA.ed25519.iNgHrRzX2Iel-Ozj47yn5o5v0cGY_BswK6JYqwY65j7Krpr43KanAaCrjUng7gHtc2pCcylUrKswR_rxyswhDA",
     );

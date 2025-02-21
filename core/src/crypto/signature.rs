@@ -10,6 +10,14 @@ pub struct SigningKey {
     inner: ed25519_dalek::SigningKey,
 }
 
+impl SigningKey {
+    pub fn as_verifying_key(&self) -> VerifyingKey {
+        VerifyingKey {
+            inner: self.inner.verifying_key(),
+        }
+    }
+}
+
 pub struct VerifyingKey {
     inner: ed25519_dalek::VerifyingKey,
 }
@@ -41,21 +49,26 @@ pub fn parse_public_key(public_key: &str) -> anyhow::Result<VerifyingKey> {
     Ok(VerifyingKey { inner: parsed })
 }
 
-pub fn verify_signature(key: &ed25519_dalek::VerifyingKey, data: &[u8], signature: &[u8]) -> bool {
+pub fn verify_signature(key: &VerifyingKey, data: &[u8], signature: &[u8]) -> bool {
     match ed25519_dalek::Signature::from_slice(signature) {
-        Ok(signature) => key.verify(data, &signature).is_ok(),
+        Ok(signature) => key.inner.verify(data, &signature).is_ok(),
         Err(_) => false,
     }
 }
 
-pub fn generate_fingerprint(key: &ed25519_dalek::SigningKey) -> anyhow::Result<String> {
+pub fn generate_token_timestamp(key: &SigningKey) -> anyhow::Result<String> {
     let salt = util::time::unix_timestamp_u64()?.to_le_bytes();
+    let result = generate_token_nonce(key, &salt)?;
+    Ok(result)
+}
+
+pub fn generate_token_nonce(key: &SigningKey, salt: &[u8]) -> anyhow::Result<String> {
     let digest = {
-        let public_key = key.verifying_key().to_public_key_der()?;
+        let public_key = key.inner.verifying_key().to_public_key_der()?;
         let hash_input = [public_key.as_bytes(), &salt].concat();
         hash::sha256(&hash_input)
     };
-    let signature = key.sign(&digest);
+    let signature = key.inner.sign(&digest);
 
     let hash_method = "sha256";
     let hash_base64 = util::base64::encode(&digest);
@@ -69,15 +82,45 @@ pub fn generate_fingerprint(key: &ed25519_dalek::SigningKey) -> anyhow::Result<S
     Ok(result)
 }
 
-pub fn verify_fingerprint(public_key: ed25519_dalek::VerifyingKey, fingerprint: &str) -> bool {
-    verify_fingerprint_with_result(public_key, fingerprint).is_ok()
+pub fn verify_token_timestamp(public_key: &VerifyingKey, token: &str) -> bool {
+    verify_token_with_result(public_key, token, |salt| {
+        let salt = {
+            if salt.len() != 8 {
+                return Err(anyhow::anyhow!("Invalid salt length"));
+            }
+            u64::from_le_bytes(
+                salt
+                    .try_into()
+                    .map_err(|_| anyhow::anyhow!("Invalid salt"))?,
+            )
+        };
+
+        let now_seconds = util::time::unix_timestamp_u64()?;
+        if now_seconds - salt > 60 * 60 {
+            // Fingerprint is older than 1h, reject
+            return Err(anyhow::anyhow!("Fingerprint timestamp expired"));
+        }
+
+        Ok(())
+    }).is_ok()
 }
 
-pub fn verify_fingerprint_with_result(
-    public_key: ed25519_dalek::VerifyingKey,
-    fingerprint: &str,
+pub fn verify_token_nonce(public_key: &VerifyingKey, token: &str, nonce: &[u8]) -> bool {
+    verify_token_with_result(public_key, token, |salt| {
+        if salt != nonce {
+            return Err(anyhow::anyhow!("Invalid nonce"));
+        }
+
+        Ok(())
+    }).is_ok()
+}
+
+pub fn verify_token_with_result(
+    public_key: &VerifyingKey,
+    token: &str,
+    verify_salt: fn(&[u8]) -> anyhow::Result<()>,
 ) -> anyhow::Result<()> {
-    let parts: Vec<&str> = fingerprint.split('.').collect();
+    let parts: Vec<&str> = token.split('.').collect();
     let [hash_method, hash_base64, salt_base64, sign_method, signature_base64] = parts[0..5] else {
         return Err(anyhow::anyhow!("Invalid structure"));
     };
@@ -92,25 +135,13 @@ pub fn verify_fingerprint_with_result(
 
     let salt = {
         let salt_bytes = util::base64::decode(salt_base64)?;
-        if salt_bytes.len() != 8 {
-            return Err(anyhow::anyhow!("Invalid salt length"));
-        }
-        u64::from_le_bytes(
-            salt_bytes
-                .try_into()
-                .map_err(|_| anyhow::anyhow!("Invalid salt"))?,
-        )
+        verify_salt(&salt_bytes)?;
+        salt_bytes
     };
 
-    let now_seconds = util::time::unix_timestamp_u64()?;
-    if now_seconds - salt > 60 * 60 {
-        // Fingerprint is older than 1h, reject
-        return Err(anyhow::anyhow!("Fingerprint timestamp expired"));
-    }
-
-    let public_key_der = public_key.to_public_key_der()?;
     let digest = {
-        let hash_input = [public_key_der.as_bytes(), &salt.to_le_bytes()].concat();
+        let public_key_der = public_key.inner.to_public_key_der()?;
+        let hash_input = [public_key_der.as_bytes(), &salt].concat();
         hash::sha256(&hash_input)
     };
 
@@ -146,15 +177,15 @@ mod tests {
         let key = generate_key();
         let data = b"hello world";
         let signature = key.inner.sign(data);
-        let verified = verify_signature(&key.verifying_key(), data, &signature.to_vec());
+        let verified = verify_signature(&key.as_verifying_key(), data, &signature.to_vec());
         assert!(verified);
     }
 
     #[test]
     fn test_fingerprint() {
         let key = generate_key();
-        let fingerprint = generate_fingerprint(&key).unwrap();
-        let verified = verify_fingerprint(key.verifying_key(), &fingerprint);
+        let fingerprint = generate_token_timestamp(&key).unwrap();
+        let verified = verify_token_timestamp(&key.as_verifying_key(), &fingerprint);
         assert!(verified);
     }
 }

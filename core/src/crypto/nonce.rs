@@ -7,6 +7,6 @@ pub fn generate_nonce() -> Vec<u8> {
     nonce
 }
 
-pub fn verify_nonce(nonce: &[u8]) -> bool {
+pub fn validate_nonce(nonce: &[u8]) -> bool {
     nonce.len() >= 16 && nonce.len() <= 128
 }
