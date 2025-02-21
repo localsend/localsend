@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:common/api_route_builder.dart';
 import 'package:common/constants.dart';
+import 'package:common/model/device.dart';
 import 'package:common/model/dto/info_dto.dart';
 import 'package:common/model/dto/info_register_dto.dart';
 import 'package:common/model/dto/prepare_upload_request_dto.dart';
@@ -23,7 +24,6 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
-import 'package:localsend_app/pages/receive_page_controller.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
@@ -31,6 +31,7 @@ import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/controller/common.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
@@ -45,6 +46,7 @@ import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
@@ -164,7 +166,9 @@ class ReceiveController {
     }
 
     // Save device information
-    await server.ref.redux(nearbyDevicesProvider).dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https)));
+    await server.ref
+        .redux(nearbyDevicesProvider)
+        .dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https, HttpDiscovery(ip: request.ip))));
     server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
 
     final deviceInfo = server.ref.read(deviceInfoProvider);
@@ -229,7 +233,7 @@ class ReceiveController {
         session: ReceiveSessionState(
           sessionId: sessionId,
           status: SessionStatus.waiting,
-          sender: dto.info.toDevice(request.ip, port, https),
+          sender: dto.info.toDevice(request.ip, port, https, null),
           senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == dto.info.fingerprint)?.alias ?? dto.info.alias,
           files: {
             for (final file in dto.files.values)
@@ -287,14 +291,51 @@ class ReceiveController {
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
             ));
-      } else {
-        server.ref.notifier(selectedReceivingFilesProvider).setFiles(server.getState().session!.files.values.map((f) => f.file).toList());
       }
 
-      server.ref.redux(receivePageControllerProvider).dispatch(InitReceivePageAction());
+      final receiveProvider = ViewProvider((ref) {
+        final session = ref.watch(serverProvider.select((state) => state?.session));
+        return ReceivePageVm(
+          status: session?.status,
+          sender: session?.sender ?? Device.empty,
+          showSenderInfo: true,
+          files: session?.files.values.map((f) => f.file).toList() ?? [],
+          message: message,
+          onAccept: () async {
+            if (message != null) {
+              // accept nothing
+              ref.notifier(serverProvider).acceptFileRequest({});
+              return;
+            }
+
+            final sessionId = ref.read(serverProvider)?.session?.sessionId;
+            if (sessionId == null) {
+              return;
+            }
+
+            final selectedFiles = ref.read(selectedReceivingFilesProvider);
+            ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
+
+            await Routerino.context.pushAndRemoveUntilImmediately(
+              removeUntil: ReceivePage,
+              builder: () => ProgressPage(
+                showAppBar: false,
+                closeSessionOnClose: true,
+                sessionId: sessionId,
+              ),
+            );
+          },
+          onDecline: () {
+            ref.notifier(serverProvider).declineFileRequest();
+          },
+          onClose: () {
+            ref.notifier(serverProvider).closeSession();
+          },
+        );
+      });
 
       // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.push(() => const ReceivePage());
+      Routerino.context.push(() => ReceivePage(receiveProvider));
 
       // Delayed response (waiting for user's decision)
       selection = await streamController.stream.first;
