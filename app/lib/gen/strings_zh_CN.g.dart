@@ -1016,6 +1016,12 @@ class _TranslationsSettingsTabNetworkZhCn extends TranslationsSettingsTabNetwork
   String get network => '网络';
   @override
   late final _TranslationsSettingsTabNetworkNetworkOptionsZhCn networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsZhCn._(_root);
+  @override
+  String get proxy => '代理';
+  @override
+  late final _TranslationsSettingsTabNetworkProxyOptionsZhCn proxyOptions = _TranslationsSettingsTabNetworkProxyOptionsZhCn._(_root);
+  @override
+  String get proxyServer => '代理服务器';
 }
 
 // Path: settingsTab.other
@@ -1589,6 +1595,23 @@ class _TranslationsSettingsTabNetworkNetworkOptionsZhCn extends TranslationsSett
   String get all => '所有';
   @override
   String get filtered => '已过滤';
+}
+
+// Path: settingsTab.network.proxyOptions
+class _TranslationsSettingsTabNetworkProxyOptionsZhCn extends TranslationsSettingsTabNetworkProxyOptionsEn {
+  _TranslationsSettingsTabNetworkProxyOptionsZhCn._(TranslationsZhCn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get none => '无';
+  @override
+  String get system => '系统';
+  @override
+  String get manual => '手动';
 }
 
 // Path: progressPage.total.title

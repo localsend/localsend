@@ -450,6 +450,44 @@ class SettingsTab extends StatelessWidget {
                       },
                     ),
                   ),
+                if (vm.advanced)
+                  _SettingsEntry(
+                    label: t.settingsTab.network.proxy,
+                    child: CustomDropdownButton<String>(
+                      value: vm.settings.useProxy,
+                      items: [
+                        DropdownMenuItem(
+                          value: 'none',
+                          alignment: Alignment.center,
+                          child: Text(t.settingsTab.network.proxyOptions.none),
+                        ),
+                        DropdownMenuItem(
+                          value: 'system',
+                          alignment: Alignment.center,
+                          child: Text(t.settingsTab.network.proxyOptions.system),
+                        ),
+                        DropdownMenuItem(
+                          value: 'manual',
+                          alignment: Alignment.center,
+                          child: Text(t.settingsTab.network.proxyOptions.manual),
+                        ),
+                      ],
+                      onChanged: (mode) async {
+                        await ref.notifier(settingsProvider).setUseProxy(mode);
+                      },
+                    ),
+                  ),
+                if (vm.advanced && vm.settings.useProxy == 'manual')
+                  _SettingsEntry(
+                    label: t.settingsTab.network.proxyServer,
+                    child: TextFieldTv(
+                      name: t.settingsTab.network.proxyServer,
+                      controller: vm.proxyServerController,
+                      onChanged: (s) async {
+                        await ref.notifier(settingsProvider).setProxyServer(s);
+                      },
+                    ),
+                  ),
                 AnimatedCrossFade(
                   crossFadeState: vm.settings.port != defaultPort ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                   duration: const Duration(milliseconds: 200),

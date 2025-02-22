@@ -34,6 +34,8 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   static const Field<SettingsTabVm, TextEditingController> _f$timeoutController = Field('timeoutController', _$timeoutController);
   static TextEditingController _$multicastController(SettingsTabVm v) => v.multicastController;
   static const Field<SettingsTabVm, TextEditingController> _f$multicastController = Field('multicastController', _$multicastController);
+  static TextEditingController _$proxyServerController(SettingsTabVm v) => v.proxyServerController;
+  static const Field<SettingsTabVm, TextEditingController> _f$proxyServerController = Field('proxyServerController', _$proxyServerController);
   static SettingsState _$settings(SettingsTabVm v) => v.settings;
   static const Field<SettingsTabVm, SettingsState> _f$settings = Field('settings', _$settings);
   static ServerState? _$serverState(SettingsTabVm v) => v.serverState;
@@ -91,6 +93,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     #portController: _f$portController,
     #timeoutController: _f$timeoutController,
     #multicastController: _f$multicastController,
+    #proxyServerController: _f$proxyServerController,
     #settings: _f$settings,
     #serverState: _f$serverState,
     #deviceInfo: _f$deviceInfo,
@@ -119,6 +122,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
         portController: data.dec(_f$portController),
         timeoutController: data.dec(_f$timeoutController),
         multicastController: data.dec(_f$multicastController),
+        proxyServerController: data.dec(_f$proxyServerController),
         settings: data.dec(_f$settings),
         serverState: data.dec(_f$serverState),
         deviceInfo: data.dec(_f$deviceInfo),
@@ -192,6 +196,7 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out> implem
       TextEditingController? portController,
       TextEditingController? timeoutController,
       TextEditingController? multicastController,
+      TextEditingController? proxyServerController,
       SettingsState? settings,
       ServerState? serverState,
       DeviceInfoResult? deviceInfo,
@@ -233,6 +238,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           TextEditingController? portController,
           TextEditingController? timeoutController,
           TextEditingController? multicastController,
+          TextEditingController? proxyServerController,
           SettingsState? settings,
           Object? serverState = $none,
           DeviceInfoResult? deviceInfo,
@@ -257,6 +263,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (portController != null) #portController: portController,
         if (timeoutController != null) #timeoutController: timeoutController,
         if (multicastController != null) #multicastController: multicastController,
+        if (proxyServerController != null) #proxyServerController: proxyServerController,
         if (settings != null) #settings: settings,
         if (serverState != $none) #serverState: serverState,
         if (deviceInfo != null) #deviceInfo: deviceInfo,
@@ -283,6 +290,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       portController: data.get(#portController, or: $value.portController),
       timeoutController: data.get(#timeoutController, or: $value.timeoutController),
       multicastController: data.get(#multicastController, or: $value.multicastController),
+      proxyServerController: data.get(#proxyServerController, or: $value.proxyServerController),
       settings: data.get(#settings, or: $value.settings),
       serverState: data.get(#serverState, or: $value.serverState),
       deviceInfo: data.get(#deviceInfo, or: $value.deviceInfo),

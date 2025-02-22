@@ -145,7 +145,14 @@
       "networkOptions": {
         "all": "所有",
         "filtered": "已过滤"
-      }
+      },
+      "proxy": "代理",
+      "proxyOptions": {
+        "none": "无",
+        "system": "系统",
+        "manual": "手动"
+      },
+      "proxyServer": "代理服务器"
     },
     "other": {
       "title": "其他",

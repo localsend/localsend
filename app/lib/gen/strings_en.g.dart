@@ -684,6 +684,9 @@ class TranslationsSettingsTabNetworkEn {
   String get multicastGroup => 'Multicast address';
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'You might not be detected by other devices because you are using a custom multicast address. (default: ${defaultMulticast})';
+  String get proxy => 'Proxy';
+  late final TranslationsSettingsTabNetworkProxyOptionsEn proxyOptions = TranslationsSettingsTabNetworkProxyOptionsEn.internal(_root);
+  String get proxyServer => 'Proxy server';
 }
 
 // Path: settingsTab.other
@@ -1099,6 +1102,18 @@ class TranslationsSettingsTabNetworkNetworkOptionsEn {
   // Translations
   String get all => 'All';
   String get filtered => 'Filtered';
+}
+
+// Path: settingsTab.network.proxyOptions
+class TranslationsSettingsTabNetworkProxyOptionsEn {
+  TranslationsSettingsTabNetworkProxyOptionsEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String get none => 'None';
+  String get system => 'System';
+  String get manual => 'Manual';
 }
 
 // Path: progressPage.total.title

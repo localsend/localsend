@@ -63,6 +63,8 @@ class SettingsService extends PureNotifier<SettingsState> {
         shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
         discoveryTimeout: _persistence.getDiscoveryTimeout(),
         advancedSettings: _persistence.getAdvancedSettingsEnabled(),
+        useProxy: _persistence.getUseProxy(),
+        proxyServer: _persistence.getProxyServer(),
       );
 
   Future<void> setAlias(String alias) async {
@@ -238,6 +240,20 @@ class SettingsService extends PureNotifier<SettingsState> {
 
     state = state.copyWith(
       shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+    );
+  }
+
+  Future<void> setUseProxy(String useProxy) async {
+    await _persistence.setUseProxy(useProxy);
+    state = state.copyWith(
+      useProxy: useProxy,
+    );
+  }
+
+  Future<void> setProxyServer(String proxyServer) async {
+    await _persistence.setProxyServer(proxyServer);
+    state = state.copyWith(
+      proxyServer: proxyServer,
     );
   }
 }

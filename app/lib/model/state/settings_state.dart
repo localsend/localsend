@@ -35,6 +35,8 @@ class SettingsState with SettingsStateMappable {
   final bool shareViaLinkAutoAccept;
   final int discoveryTimeout;
   final bool advancedSettings;
+  final String useProxy;
+  final String proxyServer;
 
   const SettingsState({
     required this.showToken,
@@ -63,5 +65,7 @@ class SettingsState with SettingsStateMappable {
     required this.shareViaLinkAutoAccept,
     required this.discoveryTimeout,
     required this.advancedSettings,
+    required this.useProxy,
+    required this.proxyServer,
   });
 }
