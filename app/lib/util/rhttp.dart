@@ -70,6 +70,7 @@ class RhttpWrapper implements CustomHttpClient {
 RhttpClient createRhttpClient(Duration timeout, StoredSecurityContext securityContext, {Interceptor? interceptor}) {
   return RhttpClient.createSync(
     settings: ClientSettings(
+      proxySettings: ProxySettings.noProxy(),
       timeoutSettings: TimeoutSettings(
         timeout: timeout,
       ),
