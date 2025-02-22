@@ -2,11 +2,14 @@
 
 [![CI status][ci-badge]][ci-workflow]
 [![Translations][translate-badge]][translate-link]
+[![Packaging status][packaging-badge]][packaging-link]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 [translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
 [translate-link]: https://hosted.weblate.org/engage/localsend/
+[packaging-badge]: https://repology.org/badge/tiny-repos/localsend.svg
+[packaging-link]: https://repology.org/project/localsend/versions
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
@@ -44,6 +47,8 @@ LocalSend is a cross-platform app that enables secure communication between devi
 <img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
 ## Download
+
+[![Packaging status](https://repology.org/badge/tiny-repos/localsend.svg)](https://repology.org/project/localsend/versions)
 
 It is recommended to download the app either from an app store or from a package manager because the app does not have an auto-update.
 
