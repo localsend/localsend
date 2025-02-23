@@ -4,6 +4,7 @@ mod model;
 mod util;
 mod webrtc;
 
+use crate::crypto::signature;
 use crate::http::client::LsHttpClient;
 use crate::http::server::TlsConfig;
 use crate::model::discovery::{DeviceType, ProtocolType, RegisterDto};
@@ -23,9 +24,11 @@ use tracing::Level;
 #[tokio::main]
 #[cfg(feature = "full")]
 async fn main() -> Result<()> {
-    tracing_subscriber::fmt().with_max_level(Level::INFO).init();
+    tracing_subscriber::fmt()
+        .with_max_level(Level::DEBUG)
+        .init();
 
-    crypto_test().await?;
+    webrtc_test().await?;
 
     Ok(())
 }
@@ -79,29 +82,30 @@ qqsPsY3pRq93zkKNx1xRtURBiJEvA/Js2+hHWrU=
 -----END CERTIFICATE-----";
 
 async fn crypto_test() -> Result<()> {
-    let key = crypto::signature::generate_key();
+    let key = signature::generate_key();
 
-    let pem = crypto::signature::export_private_key(&key)?;
+    let pem = signature::export_private_key(&key)?;
 
     println!("Pem: {}", pem.as_str());
 
-    let public_key = crypto::signature::export_public_key(&key)?;
+    let public_key = signature::export_public_key(&key)?;
 
     println!("Public Key: {}", public_key);
 
-    let fingerprint = crypto::signature::generate_token_nonce(&key)?;
+    let fingerprint = signature::generate_token_timestamp(&key)?;
 
     println!("Fingerprint: {}", fingerprint);
 
-    let parsed_key = crypto::signature::parse_public_key(
+    let parsed_key = signature::parse_public_key(
         "-----BEGIN PUBLIC KEY-----
 MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 -----END PUBLIC KEY-----",
     )?;
 
-    let signature = crypto::signature::verify_token_with_result(
-        parsed_key,
+    let signature = signature::verify_token_with_result(
+        &parsed_key,
         "sha256.RikOdJlAUTdMVFZjEk7Bft5G9cxnNBBLfgttPpyS2FY.hJCuZwAAAAA.ed25519.iNgHrRzX2Iel-Ozj47yn5o5v0cGY_BswK6JYqwY65j7Krpr43KanAaCrjUng7gHtc2pCcylUrKswR_rxyswhDA",
+        |_| Ok(()),
     );
 
     println!("Signature Verification: {:?}", signature);
@@ -224,7 +228,8 @@ async fn send_handler(
     let (status_tx, mut status_rx) = mpsc::channel::<RTCStatus>(1);
     let (selected_tx, mut selected_rx) = oneshot::channel::<HashSet<String>>();
     let (error_tx, mut error_rx) = mpsc::channel::<RTCFileError>(1);
-    let (pin_tx, pin_rx) = mpsc::channel::<String>(1);
+    let (pin_tx, mut pin_rx) = mpsc::channel::<oneshot::Sender<String>>(1);
+    let (pair_tx, mut pair_rx) = oneshot::channel::<oneshot::Sender<bool>>();
     let (send_tx, send_rx) = mpsc::channel::<RTCFile>(1);
 
     let files = vec![model::transfer::FileDto {
@@ -244,11 +249,18 @@ async fn send_handler(
                 &connection,
                 stun_servers,
                 peer.id,
+                signature::generate_key(),
+                None,
+                Some(PinConfig {
+                    pin: "456".to_string(),
+                    max_tries: 3,
+                }),
                 files,
                 status_tx,
                 selected_tx,
                 error_tx,
-                pin_rx,
+                pin_tx,
+                pair_tx,
                 send_rx,
             )
             .await
@@ -259,16 +271,8 @@ async fn send_handler(
     });
 
     tokio::spawn(async move {
-        let mut pin_tries = vec!["1".to_string(), "2".to_string(), "123".to_string()].into_iter();
         while let Some(status) = status_rx.recv().await {
             tracing::info!("Status: {status:?}");
-
-            if status == RTCStatus::PinRequired {
-                let pin = pin_tries.next().expect("Failed to get pin");
-
-                tracing::info!("Sending pin: {pin}");
-                pin_tx.send(pin).await.expect("Failed to send pin");
-            }
         }
         tracing::info!("Closed channel: status");
     });
@@ -278,6 +282,27 @@ async fn send_handler(
             tracing::info!("Error: {error:?}");
         }
         tracing::info!("Closed channel: error");
+    });
+
+    tokio::spawn(async move {
+        let mut pin_tries = vec!["1".to_string(), "2".to_string(), "123".to_string()].into_iter();
+        while let Some(send_pin) = pin_rx.recv().await {
+            let pin = pin_tries.next().expect("Failed to get pin");
+
+            tracing::info!("Sending pin: {pin}");
+            send_pin.send(pin).expect("Failed to send pin");
+        }
+        tracing::info!("Closed channel: status");
+    });
+
+    tokio::spawn(async move {
+        let Ok(send_pair) = pair_rx.await else {
+            return;
+        };
+
+        tracing::info!("Declining Pair");
+        send_pair.send(false).expect("Failed to send pair");
+        tracing::info!("Closed channel: status");
     });
 
     tokio::spawn(async move {
@@ -324,6 +349,7 @@ async fn receive_handler(
     let (files_tx, files_rx) = oneshot::channel::<Vec<model::transfer::FileDto>>();
     let (selected_tx, selected_rx) = oneshot::channel::<Option<HashSet<String>>>();
     let (error_tx, mut error_rx) = mpsc::channel::<RTCFileError>(1);
+    let (pin_tx, mut pin_rx) = mpsc::channel::<oneshot::Sender<String>>(1);
     let (receiving_tx, mut receiving_rx) = mpsc::channel::<RTCFile>(1);
     let (user_error_tx, user_error_rx) = mpsc::channel::<RTCSendFileResponse>(1);
 
@@ -332,6 +358,8 @@ async fn receive_handler(
             &connection,
             stun_servers,
             &offer,
+            signature::generate_key(),
+            None,
             Some(PinConfig {
                 pin: "123".to_string(),
                 max_tries: 3,
@@ -340,6 +368,7 @@ async fn receive_handler(
             files_tx,
             selected_rx,
             error_tx,
+            pin_tx,
             receiving_tx,
             user_error_rx,
         )
@@ -361,6 +390,17 @@ async fn receive_handler(
             tracing::info!("Error: {error:?}");
         }
         tracing::info!("Closed channel: error");
+    });
+
+    tokio::spawn(async move {
+        let mut pin_tries = vec!["1".to_string(), "2".to_string(), "456".to_string()].into_iter();
+        while let Some(send_pin) = pin_rx.recv().await {
+            let pin = pin_tries.next().expect("Failed to get pin");
+
+            tracing::info!("Sending pin: {pin}");
+            send_pin.send(pin).expect("Failed to send pin");
+        }
+        tracing::info!("Closed channel: status");
     });
 
     tokio::spawn(async move {

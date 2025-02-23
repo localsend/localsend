@@ -40,7 +40,10 @@ pub fn parse_private_key(private_key: &str) -> anyhow::Result<SigningKey> {
 }
 
 pub fn export_public_key(key: &SigningKey) -> anyhow::Result<String> {
-    let pem = key.inner.verifying_key().to_public_key_pem(LineEnding::LF)?;
+    let pem = key
+        .inner
+        .verifying_key()
+        .to_public_key_pem(LineEnding::LF)?;
     Ok(pem)
 }
 
@@ -89,8 +92,7 @@ pub fn verify_token_timestamp(public_key: &VerifyingKey, token: &str) -> bool {
                 return Err(anyhow::anyhow!("Invalid salt length"));
             }
             u64::from_le_bytes(
-                salt
-                    .try_into()
+                salt.try_into()
                     .map_err(|_| anyhow::anyhow!("Invalid salt"))?,
             )
         };
@@ -102,7 +104,8 @@ pub fn verify_token_timestamp(public_key: &VerifyingKey, token: &str) -> bool {
         }
 
         Ok(())
-    }).is_ok()
+    })
+    .is_ok()
 }
 
 pub fn verify_token_nonce(public_key: &VerifyingKey, token: &str, nonce: &[u8]) -> bool {
@@ -112,13 +115,14 @@ pub fn verify_token_nonce(public_key: &VerifyingKey, token: &str, nonce: &[u8]) 
         }
 
         Ok(())
-    }).is_ok()
+    })
+    .is_ok()
 }
 
 pub fn verify_token_with_result(
     public_key: &VerifyingKey,
     token: &str,
-    verify_salt: fn(&[u8]) -> anyhow::Result<()>,
+    verify_salt: impl Fn(&[u8]) -> anyhow::Result<()>,
 ) -> anyhow::Result<()> {
     let parts: Vec<&str> = token.split('.').collect();
     let [hash_method, hash_base64, salt_base64, sign_method, signature_base64] = parts[0..5] else {

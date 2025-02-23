@@ -1,3 +1,6 @@
+use crate::crypto::nonce::{generate_nonce, validate_nonce};
+use crate::crypto::signature;
+use crate::crypto::signature::{generate_token_nonce, SigningKey};
 use crate::model::transfer::FileDto;
 use crate::util::base64;
 use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
@@ -22,9 +25,6 @@ use webrtc::peer_connection::configuration::RTCConfiguration;
 use webrtc::peer_connection::peer_connection_state::RTCPeerConnectionState;
 use webrtc::peer_connection::sdp::session_description::RTCSessionDescription;
 use webrtc::peer_connection::RTCPeerConnection;
-use crate::crypto::nonce::{generate_nonce, validate_nonce};
-use crate::crypto::signature;
-use crate::crypto::signature::{generate_token_nonce, SigningKey};
 
 /// Nonce message exchanged by both peers
 /// starting with the sending peer.
@@ -78,9 +78,7 @@ enum RTCPinReceivingResponse {
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(tag = "status", rename_all = "camelCase")]
 enum RTCPinSendingResponse {
-    Ok {
-        files: Vec<FileDto>,
-    },
+    Ok { files: Vec<FileDto> },
     PinRequired,
     TooManyAttempts,
 }
@@ -90,7 +88,7 @@ enum RTCPinSendingResponse {
 #[serde(tag = "status", rename_all = "camelCase")]
 enum RTCFileListResponse {
     Ok {
-        files: HashMap<String, String>
+        files: HashMap<String, String>,
     },
     Pair {
         #[serde(rename = "publicKey")]
@@ -192,7 +190,7 @@ pub async fn send_offer(
     selected_files_tx: oneshot::Sender<HashSet<String>>,
     error_tx: mpsc::Sender<RTCFileError>,
     pin_tx: mpsc::Sender<oneshot::Sender<String>>,
-    mut pair_tx: oneshot::Sender<oneshot::Sender<bool>>,
+    pair_tx: oneshot::Sender<oneshot::Sender<bool>>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
 ) -> Result<()> {
     let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
@@ -230,6 +228,8 @@ pub async fn send_offer(
 
             wait_buffer_empty(&data_channel).await;
 
+            tracing::debug!("Data channel opened. Exchanging nonce...");
+
             // Nonce exchange
             let nonce = {
                 let mut local_nonce = generate_nonce();
@@ -239,37 +239,19 @@ pub async fn send_offer(
                     })?)
                     .await
                     .map_err(|e| anyhow::anyhow!("Failed to send nonce: {e}"))?;
-                let mut remote_nonce = match receive_rx.recv().await {
-                    Some(msg) => {
-                        if !msg.is_string {
-                            return Err(anyhow::anyhow!("Expected string message"));
-                        }
 
-                        let nonce_msg: RTCNonceMessage = serde_json::from_slice(&msg.data)?;
-                        let remote_nonce = base64::decode(&nonce_msg.nonce).map_err(|e| {
-                            anyhow::anyhow!("Failed to decode remote nonce: {e}")
-                        })?;
-
-                        if !validate_nonce(&remote_nonce) {
-                            return Err(anyhow::anyhow!("Invalid remote nonce"));
-                        }
-
-                        remote_nonce
-                    }
-                    None => {
-                        return Err(anyhow::anyhow!("Failed to receive nonce"));
-                    }
-                };
+                let mut remote_nonce = receive_nonce(&mut receive_rx).await?;
 
                 // Final nonce: sender_nonce || receiver_nonce
                 local_nonce.append(&mut remote_nonce);
                 local_nonce
             };
 
+            tracing::debug!("Nonce exchanged. Exchanging token...");
+
             // Token exchange
-            let local_token = generate_token_nonce(&signing_key, &nonce).map_err(|e| {
-                anyhow::anyhow!("Failed to generate token: {e}")
-            })?;
+            let local_token = generate_token_nonce(&signing_key, &nonce)
+                .map_err(|e| anyhow::anyhow!("Failed to generate token: {e}"))?;
 
             data_channel
                 .send_text(&serde_json::to_string(&RTCTokenRequest {
@@ -301,52 +283,80 @@ pub async fn send_offer(
                     token.to_owned()
                 }
                 RTCTokenResponse::InvalidSignature => {
-                    return Err(anyhow::anyhow!("Invalid token signature from receiving peer"));
+                    return Err(anyhow::anyhow!(
+                        "Invalid token signature from receiving peer"
+                    ));
                 }
             };
 
-            if let RTCTokenResponse::PinRequired {..} = token_response {
-                loop {
-                    status_tx.send(RTCStatus::PinRequired).await?;
-                    let (new_pin_tx, new_pin_rx) = oneshot::channel::<String>();
+            tracing::debug!("Tokens exchanged.");
 
-                    if pin_tx.send(new_pin_tx).await.is_err() {
-                        return Err(anyhow::anyhow!("Failed to send PIN request"));
-                    }
+            if let RTCTokenResponse::PinRequired { .. } = token_response {
+                tracing::debug!("PIN challenge by receiver... (I need to send correct PIN)");
+                handle_pin::<()>(
+                    &data_channel,
+                    &status_tx,
+                    &pin_tx,
+                    &mut receive_rx,
+                    false,
+                    |data| {
+                        let Ok(pin_res) = serde_json::from_slice::<RTCPinReceivingResponse>(&data)
+                        else {
+                            return ChallengePinResult::ParseError(anyhow::anyhow!(
+                                "Failed to parse pin response"
+                            ));
+                        };
 
-                    let Ok(pin) = new_pin_rx.await else {
-                        return Err(anyhow::anyhow!("PIN required but not provided"));
-                    };
-
-                    data_channel
-                        .send_text(&serde_json::to_string(&RTCPinMessage { pin })?)
-                        .await?;
-
-                    let Some(init_status) = receive_rx.recv().await else {
-                        return Err(anyhow::anyhow!("Failed to receive initial message"));
-                    };
-
-                    if !init_status.is_string {
-                        return Err(anyhow::anyhow!("Expected string message"));
-                    }
-
-                    let pin_res: RTCPinReceivingResponse = serde_json::from_slice(&init_status.data)?;
-                    match pin_res {
-                        RTCPinReceivingResponse::Ok => {
-                            break;
+                        match pin_res {
+                            RTCPinReceivingResponse::Ok => ChallengePinResult::Ok(()),
+                            RTCPinReceivingResponse::PinRequired => ChallengePinResult::PinRequired,
+                            RTCPinReceivingResponse::TooManyAttempts => {
+                                ChallengePinResult::TooManyAttempts
+                            }
                         }
-                        RTCPinReceivingResponse::PinRequired => {
-                            continue;
-                        }
-                        RTCPinReceivingResponse::TooManyAttempts => {
-                            status_tx.send(RTCStatus::TooManyAttempts).await?;
-                            return Err(anyhow::anyhow!("Too many requests"));
-                        }
-                    }
-                }
+                    },
+                )
+                .await?;
+
+                tracing::debug!("PIN challenge done.");
             }
 
-            handle_pin(pin, &data_channel, &status_tx, &mut receive_rx).await?;
+            if let Some(pin) = &pin {
+                tracing::debug!("PIN challenge by sender... (I need to verify the correct PIN)");
+                verify_pin(
+                    pin,
+                    &data_channel,
+                    &status_tx,
+                    &mut receive_rx,
+                    true,
+                    |data_channel, result| {
+                        let data_channel = Arc::clone(&data_channel);
+                        async move {
+                            process_string_in_chunks(
+                                &data_channel,
+                                serde_json::to_string(&match result {
+                                    VerifyPinResult::PinRequired => {
+                                        RTCPinSendingResponse::PinRequired
+                                    }
+                                    VerifyPinResult::TooManyAttempts => {
+                                        RTCPinSendingResponse::TooManyAttempts
+                                    }
+                                })?,
+                                |data_channel, chunk| async move {
+                                    data_channel.send(&chunk).await?;
+                                    Ok(data_channel)
+                                },
+                            )
+                            .await?;
+
+                            send_delimiter(&data_channel).await?;
+
+                            Ok(())
+                        }
+                    },
+                )
+                .await?;
+            }
 
             status_tx.send(RTCStatus::Connected).await?;
 
@@ -393,57 +403,77 @@ pub async fn send_offer(
             let file_map = match file_list_res {
                 RTCFileListResponse::Ok { files } => files,
                 RTCFileListResponse::Pair { public_key } => {
+                    tracing::debug!("Pair request received. Sending pair response...");
                     let parsed_key = signature::parse_public_key(&public_key)?;
                     if !signature::verify_token_nonce(&parsed_key, &remote_token, &nonce) {
                         wait_buffer_empty(&data_channel).await;
-                        data_channel.send_text(&serde_json::to_string(&RTCPairResponse::InvalidSignature)?).await?;
+                        data_channel
+                            .send_text(&serde_json::to_string(&RTCPairResponse::InvalidSignature)?)
+                            .await?;
                         return Err(anyhow::anyhow!("Invalid token signature or nonce"));
                     }
 
                     let (pair_res_tx, pair_res_rx) = oneshot::channel::<bool>();
-                    if pair_tx.send(pair_res_tx).await.is_err() {
+                    if pair_tx.send(pair_res_tx).is_err() {
                         return Err(anyhow::anyhow!("Failed to send pair response"));
                     }
 
                     let pair_user_response = pair_res_rx.await?;
                     if pair_user_response {
-                        data_channel.send_text(&serde_json::to_string(&RTCPairResponse::Ok { public_key })?).await?;
+                        data_channel
+                            .send_text(&serde_json::to_string(&RTCPairResponse::Ok { public_key })?)
+                            .await?;
                     } else {
-                        data_channel.send_text(&serde_json::to_string(&RTCPairResponse::PairDeclined)?).await?;
+                        data_channel
+                            .send_text(&serde_json::to_string(&RTCPairResponse::PairDeclined)?)
+                            .await?;
                     }
 
                     let file_list_res = {
                         let bytes = receive_string_from_chunks(&mut receive_rx).await;
-                        let parsed: RTCFileListResponse = serde_json::from_slice(&*bytes).map_err(|e| {
-                            anyhow::anyhow!("Failed to deserialize file list response: {e}")
-                        })?;
+                        let parsed: RTCFileListResponse =
+                            serde_json::from_slice(&*bytes).map_err(|e| {
+                                anyhow::anyhow!("Failed to deserialize file list response: {e}")
+                            })?;
                         parsed
                     };
 
                     match file_list_res {
                         RTCFileListResponse::Ok { files } => files,
                         RTCFileListResponse::Declined => {
+                            tracing::debug!("Declined by the receiving peer.");
                             let _ = status_tx.send(RTCStatus::Declined).await;
                             return Ok(());
                         }
                         RTCFileListResponse::InvalidSignature => {
-                            let _ = status_tx.send(RTCStatus::Error("Invalid signature (not expected)".to_owned())).await;
+                            let _ = status_tx
+                                .send(RTCStatus::Error(
+                                    "Invalid signature (not expected)".to_owned(),
+                                ))
+                                .await;
                             return Err(anyhow::anyhow!("Invalid signature (not expected)"));
                         }
                         RTCFileListResponse::Pair { .. } => {
-                            let _ = status_tx.send(RTCStatus::Error("Unexpected pair response".to_owned())).await;
+                            let _ = status_tx
+                                .send(RTCStatus::Error("Unexpected pair response".to_owned()))
+                                .await;
                             return Err(anyhow::anyhow!("Unexpected pair response"));
                         }
                     }
                 }
                 RTCFileListResponse::Declined => {
+                    tracing::debug!("Declined by the receiving peer.");
                     let _ = status_tx.send(RTCStatus::Declined).await;
                     return Ok(());
                 }
                 RTCFileListResponse::InvalidSignature => {
                     // This is not expected because the public key is not sent yet.
                     // Likely a bug in the implementation on the receiving side.
-                    let _ = status_tx.send(RTCStatus::Error("Invalid signature (not expected)".to_owned())).await;
+                    let _ = status_tx
+                        .send(RTCStatus::Error(
+                            "Invalid signature (not expected)".to_owned(),
+                        ))
+                        .await;
                     return Err(anyhow::anyhow!("Invalid signature (not expected)"));
                 }
             };
@@ -563,8 +593,17 @@ pub async fn send_offer(
     peer_connection.set_remote_description(answer).await?;
 
     tokio::select! {
-        _ = send_task => {
-            tracing::debug!("Sending done.");
+        result = send_task => {
+            match result {
+                Ok(Ok(_)) => tracing::debug!("Sending done."),
+                Ok(Err(result)) => {
+                    return Err(result);
+                },
+                Err(e) => {
+                    tracing::error!("Sending error: {e}");
+                    return Err(anyhow::anyhow!("Sending error: {e}"));
+                }
+            }
         }
         _ = done_rx.recv() => {}
     }
@@ -583,11 +622,14 @@ pub async fn accept_offer(
     signaling: &ManagedSignalingConnection,
     stun_servers: Vec<String>,
     offer: &WsServerSdpMessage,
+    signing_key: SigningKey,
+    expecting_public_key: Option<signature::VerifyingKey>,
     pin: Option<PinConfig>,
     status_tx: mpsc::Sender<RTCStatus>,
     files_tx: oneshot::Sender<Vec<FileDto>>,
     selected_files_rx: oneshot::Receiver<Option<HashSet<String>>>,
     error_tx: mpsc::Sender<RTCFileError>,
+    pin_tx: mpsc::Sender<oneshot::Sender<String>>,
     receiving_tx: mpsc::Sender<RTCFile>,
     mut user_error_tx: mpsc::Receiver<RTCSendFileResponse>,
 ) -> Result<()> {
@@ -622,75 +664,164 @@ pub async fn accept_offer(
             // to improve readability using a sequential implementation
             let mut receive_rx = to_receive_stream(&data_channel, 16);
 
-            wait_buffer_empty(&data_channel).await;
+            tracing::debug!("Data channel opened. Exchanging nonce...");
 
-            if let Some(pin_config) = &pin {
-                status_tx.send(RTCStatus::PinRequired).await?;
+            // Nonce exchange
+            let nonce = {
+                let mut remote_nonce = receive_nonce(&mut receive_rx).await?;
 
-                let mut remote_pin = "".to_string();
-                let mut pin_try = 0u8;
+                let mut local_nonce = generate_nonce();
+                data_channel
+                    .send_text(&serde_json::to_string(&RTCNonceMessage {
+                        nonce: base64::encode(&local_nonce),
+                    })?)
+                    .await
+                    .map_err(|e| anyhow::anyhow!("Failed to send nonce: {e}"))?;
 
-                loop {
-                    if remote_pin == pin_config.pin {
-                        break;
+                // Final nonce: sender_nonce || receiver_nonce
+                remote_nonce.append(&mut local_nonce);
+                remote_nonce
+            };
+
+            tracing::debug!("Nonce exchanged. Exchanging token...");
+
+            // Token exchange
+            let remote_token = match receive_rx.recv().await {
+                Some(msg) => {
+                    if !msg.is_string {
+                        return Err(anyhow::anyhow!("Expected string message"));
                     }
 
-                    if pin_try >= pin_config.max_tries {
-                        let _ = tokio::time::timeout(Duration::from_secs(5), async {
-                            let _ = data_channel
-                                .send_text(
-                                    serde_json::to_string(&RTCInitResponse {
-                                        status: RTCInitStatus::TooManyAttempts,
-                                    })
-                                    .expect("Failed to serialize"),
-                                )
-                                .await;
+                    serde_json::from_slice::<RTCTokenRequest>(&msg.data)?.token
+                }
+                None => {
+                    return Err(anyhow::anyhow!("Failed to receive token"));
+                }
+            };
 
-                            wait_buffer_empty(&data_channel).await;
-                        })
-                        .await;
-
-                        status_tx.send(RTCStatus::TooManyAttempts).await?;
-
-                        return Ok(());
-                    }
-
+            if let Some(expecting_public_key) = expecting_public_key {
+                // Optionally, verify the token signature
+                if !signature::verify_token_nonce(&expecting_public_key, &remote_token, &nonce) {
                     data_channel
-                        .send_text(serde_json::to_string(&RTCInitResponse {
-                            status: RTCInitStatus::PinRequired,
-                        })?)
+                        .send_text(&serde_json::to_string(&RTCTokenResponse::InvalidSignature)?)
                         .await?;
-
-                    remote_pin = match receive_rx.recv().await {
-                        Some(msg) => {
-                            let pin_req: RTCPinMessage = serde_json::from_slice(&msg.data)?;
-                            pin_req.pin
-                        }
-                        None => {
-                            return Err(anyhow::anyhow!("Failed to receive pin"));
-                        }
-                    };
-
-                    pin_try += 1;
+                    wait_buffer_empty(&data_channel).await;
+                    return Err(anyhow::anyhow!("Invalid token signature or nonce"));
                 }
             }
 
-            status_tx.send(RTCStatus::Connected).await?;
+            {
+                let local_token = generate_token_nonce(&signing_key, &nonce)
+                    .map_err(|e| anyhow::anyhow!("Failed to generate token: {e}"))?;
 
-            data_channel
-                .send_text(serde_json::to_string(&RTCInitResponse {
-                    status: RTCInitStatus::Ok,
-                })?)
+                data_channel
+                    .send_text(&serde_json::to_string(&match pin {
+                        Some(_) => RTCTokenResponse::PinRequired { token: local_token },
+                        None => RTCTokenResponse::Ok { token: local_token },
+                    })?)
+                    .await
+                    .map_err(|e| anyhow::anyhow!("Failed to send token: {e}"))?;
+            }
+
+            if let Some(pin) = &pin {
+                tracing::debug!("PIN required. Challenging...");
+                verify_pin(
+                    pin,
+                    &data_channel,
+                    &status_tx,
+                    &mut receive_rx,
+                    false,
+                    |data_channel, result| {
+                        let data_channel = Arc::clone(&data_channel);
+                        async move {
+                            data_channel
+                                .send_text(&serde_json::to_string(&match result {
+                                    VerifyPinResult::PinRequired => {
+                                        RTCPinReceivingResponse::PinRequired
+                                    }
+                                    VerifyPinResult::TooManyAttempts => {
+                                        RTCPinReceivingResponse::TooManyAttempts
+                                    }
+                                })?)
+                                .await?;
+                            Ok(())
+                        }
+                    },
+                )
                 .await?;
 
-            tracing::debug!("Sent OK. Waiting for file list...");
+                tracing::debug!("PIN challenge done.");
+            }
 
-            // Init: Receive binary
-            let file_list_bytes = receive_string_from_chunks(&mut receive_rx).await;
-            let file_list_req: RTCFileListRequest = serde_json::from_slice(&*file_list_bytes)
-                .map_err(|e| anyhow::anyhow!("Failed to deserialize initial message: {e}"))?;
+            data_channel
+                .send_text(
+                    serde_json::to_string(&RTCPinReceivingResponse::Ok)
+                        .expect("Failed to serialize"),
+                )
+                .await?;
+
+            tracing::debug!("Waiting for sender PIN status...");
+
+            let pin_response = {
+                let bytes = receive_string_from_chunks(&mut receive_rx).await;
+                let parsed: RTCPinSendingResponse =
+                    serde_json::from_slice(&*bytes).map_err(|e| {
+                        anyhow::anyhow!("Failed to deserialize file list response: {e}")
+                    })?;
+                parsed
+            };
+
+            let file_list = match pin_response {
+                RTCPinSendingResponse::Ok { files } => files,
+                RTCPinSendingResponse::PinRequired => {
+                    tracing::debug!("PIN challenge by sender... (I need to send correct PIN)");
+                    let result = handle_pin::<Vec<FileDto>>(
+                        &data_channel,
+                        &status_tx,
+                        &pin_tx,
+                        &mut receive_rx,
+                        true,
+                        |data| {
+                            let Ok(pin_res) =
+                                serde_json::from_slice::<RTCPinSendingResponse>(&data)
+                            else {
+                                return ChallengePinResult::ParseError(anyhow::anyhow!(
+                                    "Failed to parse pin response"
+                                ));
+                            };
+                            match pin_res {
+                                RTCPinSendingResponse::Ok { files } => {
+                                    ChallengePinResult::Ok(files)
+                                }
+                                RTCPinSendingResponse::PinRequired => {
+                                    ChallengePinResult::PinRequired
+                                }
+                                RTCPinSendingResponse::TooManyAttempts => {
+                                    ChallengePinResult::TooManyAttempts
+                                }
+                            }
+                        },
+                    )
+                    .await?;
+
+                    result
+                }
+                RTCPinSendingResponse::TooManyAttempts => {
+                    let _ = status_tx
+                        .send(RTCStatus::Error(
+                            "Unexpected TooManyAttempts response".to_owned(),
+                        ))
+                        .await;
+                    return Err(anyhow::anyhow!("Unexpected TooManyAttempts response"));
+                }
+            };
+
+            status_tx.send(RTCStatus::Connected).await?;
+
+            tracing::debug!("Received file list.");
+
             files_tx
-                .send(file_list_req.files.clone())
+                .send(file_list.clone())
                 .map_err(|_| anyhow::anyhow!("Failed to send file list"))?;
 
             // Init: Receive user selection
@@ -702,10 +833,7 @@ pub async fn accept_offer(
                 // Declined by the user
                 process_string_in_chunks(
                     Arc::clone(&data_channel),
-                    serde_json::to_string(&RTCFileListResponse {
-                        status: RTCFileListStatus::Declined,
-                        files: HashMap::new(),
-                    })?,
+                    serde_json::to_string(&RTCFileListResponse::Declined)?,
                     |data_channel, chunk| async move {
                         data_channel.send(&chunk).await?;
                         Ok(data_channel)
@@ -726,24 +854,21 @@ pub async fn accept_offer(
                 })
                 .collect::<HashMap<String, String>>();
 
-            let file_list_response = RTCFileListResponse {
-                status: RTCFileListStatus::Ok,
-                files: file_tokens,
-            };
-            if let Err(e) = process_string_in_chunks(
+            process_string_in_chunks(
                 Arc::clone(&data_channel),
-                serde_json::to_string(&file_list_response)?,
+                serde_json::to_string(&RTCFileListResponse::Ok {
+                    files: file_tokens.clone(),
+                })?,
                 |data_channel, chunk| async move {
                     data_channel.send(&chunk).await?;
                     Ok(data_channel)
                 },
             )
-            .await
-            {
-                return Err(e);
-            }
+            .await?;
 
             send_delimiter(&data_channel).await?;
+
+            tracing::debug!("Sent file tokens.");
 
             // Receive files
             let mut file_state: Option<RTCFileState> = None;
@@ -787,7 +912,7 @@ pub async fn accept_offer(
                     }
 
                     let header: RTCSendFileHeaderRequest = serde_json::from_slice(&msg.data)?;
-                    match file_list_response.files.get(&header.id) {
+                    match file_tokens.get(&header.id) {
                         Some(entry) => {
                             if header.token != *entry {
                                 let _ = error_tx
@@ -813,7 +938,7 @@ pub async fn accept_offer(
                     let (tx, rx) = mpsc::channel::<Bytes>(4);
 
                     let size = {
-                        let entry = file_list_req.files.iter().find(|f| f.id == header.id);
+                        let entry = file_list.iter().find(|f| f.id == header.id);
                         match entry {
                             Some(file) => file.size,
                             None => {
@@ -893,8 +1018,14 @@ pub async fn accept_offer(
     tokio::select! {
         result = receive_task => {
             match result {
-                Ok(_) => tracing::debug!("Receiving done."),
-                Err(e) => tracing::error!("Receiving error: {e}")
+                Ok(Ok(_)) => tracing::debug!("Receiving done."),
+                Ok(Err(result)) => {
+                    return Err(result);
+                },
+                Err(e) => {
+                    tracing::error!("Receiving error: {e}");
+                    return Err(anyhow::anyhow!("Receiving error: {e}"));
+                }
             }
         }
         _ = done_rx.recv() => {
@@ -935,59 +1066,154 @@ async fn create_peer_connection(
     Ok((Arc::new(peer_connection), done_rx))
 }
 
-async fn handle_pin(pin: Option<PinConfig>, data_channel: &Arc<RTCDataChannel>, status_tx: &mpsc::Sender<RTCStatus>, mut receive_rx: &mut mpsc::Receiver<DataChannelMessage>) -> Result<()> {
-    if let Some(pin_config) = &pin {
-        status_tx.send(RTCStatus::PinRequired).await?;
-
-        let mut remote_pin = "".to_string();
-        let mut pin_try = 0u8;
-
-        loop {
-            if remote_pin == pin_config.pin {
-                return Ok(());
+async fn receive_nonce(receive_rx: &mut mpsc::Receiver<DataChannelMessage>) -> Result<Vec<u8>> {
+    let remote_nonce = match receive_rx.recv().await {
+        Some(msg) => {
+            if !msg.is_string {
+                return Err(anyhow::anyhow!("Expected string message"));
             }
 
-            if pin_try >= pin_config.max_tries {
-                let _ = tokio::time::timeout(Duration::from_secs(5), async {
-                    let _ = data_channel
-                        .send_text(
-                            serde_json::to_string(&RTCPinSendingResponse {
-                                status: RTCPinSendingResponse::TooManyAttempts,
-                            })
-                                .expect("Failed to serialize"),
-                        )
-                        .await;
+            let nonce_msg: RTCNonceMessage = serde_json::from_slice(&msg.data)?;
+            let remote_nonce = base64::decode(&nonce_msg.nonce)
+                .map_err(|e| anyhow::anyhow!("Failed to decode remote nonce: {e}"))?;
 
-                    wait_buffer_empty(&data_channel).await;
-                })
-                    .await;
+            if !validate_nonce(&remote_nonce) {
+                return Err(anyhow::anyhow!("Invalid remote nonce"));
+            }
 
+            remote_nonce
+        }
+        None => {
+            return Err(anyhow::anyhow!("Failed to receive nonce"));
+        }
+    };
+
+    Ok(remote_nonce)
+}
+
+enum ChallengePinResult<T> {
+    Ok(T),
+    PinRequired,
+    TooManyAttempts,
+    ParseError(anyhow::Error),
+}
+
+async fn handle_pin<T>(
+    data_channel: &Arc<RTCDataChannel>,
+    status_tx: &mpsc::Sender<RTCStatus>,
+    pin_tx: &mpsc::Sender<oneshot::Sender<String>>,
+    receive_rx: &mut mpsc::Receiver<DataChannelMessage>,
+    receive_in_chunks: bool,
+    parse_response: fn(Bytes) -> ChallengePinResult<T>,
+) -> Result<T> {
+    loop {
+        status_tx.send(RTCStatus::PinRequired).await?;
+        let (new_pin_tx, new_pin_rx) = oneshot::channel::<String>();
+
+        if pin_tx.send(new_pin_tx).await.is_err() {
+            return Err(anyhow::anyhow!("Failed to send PIN request"));
+        }
+
+        let Ok(pin) = new_pin_rx.await else {
+            return Err(anyhow::anyhow!("PIN required but not provided"));
+        };
+
+        data_channel
+            .send_text(&serde_json::to_string(&RTCPinMessage { pin })?)
+            .await?;
+
+        let bytes = match receive_in_chunks {
+            true => receive_string_from_chunks(receive_rx).await,
+            false => {
+                let Some(init_status) = receive_rx.recv().await else {
+                    return Err(anyhow::anyhow!("Failed to receive initial message"));
+                };
+
+                if !init_status.is_string {
+                    return Err(anyhow::anyhow!("Expected string message"));
+                }
+
+                init_status.data
+            }
+        };
+
+        let pin_res = parse_response(bytes);
+        match pin_res {
+            ChallengePinResult::Ok(result) => {
+                return Ok(result);
+            }
+            ChallengePinResult::PinRequired => {
+                continue;
+            }
+            ChallengePinResult::TooManyAttempts => {
                 status_tx.send(RTCStatus::TooManyAttempts).await?;
-
                 return Err(anyhow::anyhow!("Too many requests"));
             }
-
-            data_channel
-                .send_text(serde_json::to_string(&RTCPinSendingResponse {
-                    status: RTCPinSendingResponse::PinRequired,
-                })?)
-                .await?;
-
-            remote_pin = match receive_rx.recv().await {
-                Some(msg) => {
-                    let pin_req: RTCPinMessage = serde_json::from_slice(&msg.data)?;
-                    pin_req.pin
-                }
-                None => {
-                    return Err(anyhow::anyhow!("Failed to receive pin"));
-                }
-            };
-
-            pin_try += 1;
+            ChallengePinResult::ParseError(e) => {
+                return Err(e);
+            }
         }
     }
+}
 
-    Ok(())
+#[derive(Debug)]
+enum VerifyPinResult {
+    PinRequired,
+    TooManyAttempts,
+}
+
+async fn verify_pin<F, Fut>(
+    pin_config: &PinConfig,
+    data_channel: &Arc<RTCDataChannel>,
+    status_tx: &mpsc::Sender<RTCStatus>,
+    receive_rx: &mut mpsc::Receiver<DataChannelMessage>,
+    mut send_initial_notice: bool,
+    send_result: F,
+) -> Result<()>
+where
+    F: Fn(&Arc<RTCDataChannel>, VerifyPinResult) -> Fut,
+    Fut: Future<Output = Result<()>>,
+{
+    status_tx.send(RTCStatus::PinRequired).await?;
+
+    let mut remote_pin = "".to_string();
+    let mut pin_try = 0u8;
+
+    loop {
+        if remote_pin == pin_config.pin {
+            return Ok(());
+        }
+
+        if pin_try >= pin_config.max_tries {
+            let _ = tokio::time::timeout(Duration::from_secs(5), async {
+                let _ = send_result(&data_channel, VerifyPinResult::TooManyAttempts).await;
+
+                wait_buffer_empty(&data_channel).await;
+            })
+            .await;
+
+            status_tx.send(RTCStatus::TooManyAttempts).await?;
+
+            return Err(anyhow::anyhow!("Too many requests"));
+        }
+
+        if send_initial_notice || pin_try > 0 {
+            send_initial_notice = false;
+            send_result(&data_channel, VerifyPinResult::PinRequired).await?;
+        }
+
+        remote_pin = match receive_rx.recv().await {
+            Some(msg) => {
+                let pin_req: RTCPinMessage = serde_json::from_slice(&msg.data)?;
+                pin_req.pin
+            }
+            None => {
+                return Err(anyhow::anyhow!("Failed to receive pin"));
+            }
+        };
+
+        pin_try += 1;
+    }
 }
 
 fn encode_sdp(s: &str) -> String {
@@ -1032,6 +1258,7 @@ const CHUNK_SIZE: usize = 16 * 1024; // 16 KiB
 
 /// Process incoming data in chunks of CHUNK_SIZE
 /// The callback returns the same data_channel to avoid re-creating or lifetime issues.
+/// Note: You need to send the delimiter (or any other string) after the last chunk.
 pub async fn process_in_chunks<T, F, Fut>(
     mut data_channel: T,
     mut rx: mpsc::Receiver<Bytes>,
@@ -1063,6 +1290,7 @@ where
 }
 
 /// Convenience function for `process_in_chunks` that processes a string in chunks.
+/// Note: You need to send the delimiter (or any other string) after the last chunk.
 pub async fn process_string_in_chunks<T, F, Fut>(
     data_channel: T,
     string: String,
