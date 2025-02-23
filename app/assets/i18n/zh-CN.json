@@ -46,7 +46,7 @@
     "infoBox": {
       "ip": "IP：",
       "port": "端口：",
-      "alias": "别名（设备名称）："
+      "alias": "设备名称："
     },
     "quickSave": {
       "off": "@:general.off",
@@ -81,8 +81,8 @@
       "link": "通过链接分享"
     },
     "sendModeHelp": "提示",
-    "help": "请确保目标连接的是同一个 Wi‑Fi 网络。",
-    "placeItems": "列出要分享的项目"
+    "help": "请确保目标连接到同一个 Wi‑Fi 网络。",
+    "placeItems": "列出要分享的项目。"
   },
   "settingsTab": {
     "title": "设置",
@@ -91,8 +91,8 @@
       "brightness": "主题",
       "brightnessOptions": {
         "system": "跟随系统",
-        "dark": "暗色",
-        "light": "亮色"
+        "dark": "深色",
+        "light": "浅色"
       },
       "color": "颜色",
       "colorOptions": {
@@ -116,7 +116,7 @@
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "自动完成",
+      "autoFinish": "自动完成传输任务",
       "destination": "保存目录",
       "downloads": "(下载)",
       "saveToGallery": "保存到相册",
@@ -124,13 +124,13 @@
     },
     "send": {
       "title": "发送",
-      "shareViaLinkAutoAccept": "通过链接分享：自动接受"
+      "shareViaLinkAutoAccept": "通过链接分享：自动同意接收请求"
     },
     "network": {
       "title": "网络",
       "needRestart": "重启服务器后生效！",
       "server": "服务器",
-      "alias": "别名",
+      "alias": "设备名称",
       "deviceType": "设备类型",
       "deviceModel": "设备型号",
       "port": "端口",
@@ -139,8 +139,8 @@
       "generateRandomAlias": "生成随机昵称",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
-      "multicastGroup": "多线程广播",
-      "multicastGroupWarning": "由于正在使用自定义多线程广播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）",
+      "multicastGroup": "多播",
+      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）",
       "network": "网络",
       "networkOptions": {
         "all": "所有",
@@ -163,22 +163,22 @@
     "fixButton": "自动修复",
     "firewall": {
       "symptom": "此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。",
-      "solution": "这最可能是由防火墙规则设定引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。",
+      "solution": "这最可能是由防火墙规则设定引起的。你可以通过在端口 {port} 上允许（UDP 和 TCP 的）传入请求来解决这个问题。",
       "openFirewall": "打开防火墙"
     },
     "noDiscovery": {
       "symptom": "此设备未能发现其他设备。",
-      "solution": "确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多线程广播地址、加密选项）。您可以尝试手动输入目标设备的 IP 地址。如果起到了效果，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
+      "solution": "确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。您可以尝试手动输入目标设备的 IP 地址。如果起到了效果，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。"
     },
     "noConnection": {
       "symptom": "双方设备均无法发现对方或者分享文件。",
-      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多线程广播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点 (AP) 隔离”选项。"
+      "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点(AP)隔离”选项。"
     }
   },
   "receiveHistoryPage": {
     "title": "历史",
     "openFolder": "打开目录",
-    "deleteHistory": "删除历史",
+    "deleteHistory": "删除历史记录",
     "empty": "无历史记录。",
     "entryActions": {
       "open": "打开文件",
@@ -210,7 +210,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend 文件夹)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "由于存在目录，已自动关闭。"
+    "saveToGalleryOff": "由于分享内容中存在文件夹，已自动关闭。"
   },
   "sendPage": {
     "waiting": "等待响应中……",
@@ -247,7 +247,7 @@
     "noRequests": "尚无请求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自动接受请求",
-    "requirePin": "需要一个 PIN",
+    "requirePin": "启用 PIN 密码",
     "pinHint": "PIN 为 “{pin}”",
     "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中允许它。",
     "pendingRequests": "待处理请求：{n}"
@@ -347,8 +347,8 @@
   },
   "dialogs": {
     "addFile": {
-      "title": "加入文件",
-      "content": "你想加入什么文件？"
+      "title": "添加文件",
+      "content": "你想添加什么文件？"
     },
     "openFile": {
       "title": "打开文件",
@@ -406,7 +406,7 @@
     },
     "historyClearDialog": {
       "title": "清空历史记录",
-      "content": "要清空全部历史记录吗？"
+      "content": "确定要清空全部历史记录吗？"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -473,7 +473,7 @@
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "退出 LocalSend",
-    "closeWindows": "离开"
+    "closeWindows": "退出"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -498,8 +498,8 @@
     "emptyList": "清空列表",
     "unSupportedAssetType": "不支持该文件格式",
     "unableToAccessAll": "无法访问设备上的所有文件",
-    "viewingLimitedAssetsTip": "应用程序仅能查看可访问的文件和相册。",
-    "changeAccessibleLimitedAssets": "单击以更新可访问文件",
+    "viewingLimitedAssetsTip": "应用程序仅能查看您允许的文件和相册。",
+    "changeAccessibleLimitedAssets": "点击以更改可访问文件范围",
     "accessAllTip": "应用程序只能访问设备上的部分文件，请转到系统设置并允许该应用访问设备上的所有媒体文件。",
     "goToSystemSettings": "转到系统设置",
     "accessLimitedAssets": "继续受限访问",
@@ -518,7 +518,7 @@
   },
   "networkInterfacesPage": {
     "title": "网络接口",
-    "info": "默认情况下，LocalSend使用所有可用的网络接口。您可以在此处排除不需要的网络。您需要重新启动服务器以应用更改。",
+    "info": "默认情况下，LocalSend 使用所有可用的网络接口。您可以在此处排除不需要的网络接口。您需要重新启动服务器以应用更改。",
     "preview": "预览",
     "whitelist": "白名单",
     "blacklist": "黑名单"
