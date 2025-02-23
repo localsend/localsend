@@ -13,6 +13,9 @@ import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
 import 'package:saf_stream/saf_stream_platform_interface.dart';
 
+import 'live_photo_cache.dart';
+import 'live_photo_saver.dart';
+
 final _logger = Logger('FileSaver');
 
 final _saf = SafStream();
@@ -176,14 +179,31 @@ Future<(bool, String?)> _saveFile({
     if (saveToGallery) {
       try {
         if (saveAsLivePhoto) {
-          // List<String> needDeletePaths = await _methodChannel.invokeMethod('saveLivePhoto', {
-          //   'path': destinationPath,
-          // });
-          // if (needDeletePaths.isNotEmpty) {
-          //   for (var needDeletePath in needDeletePaths) {
-          //     await File(needDeletePath).delete();
-          //   }
-          // }
+          await LivePhotoCache().addFile(destinationPath);
+          final pair = await LivePhotoCache().waitForPair(destinationPath);
+
+          if (pair != null) {
+            try {
+              await LivePhotoSaver.putLivePhoto(
+                imagePath: pair.cachedImagePath,
+                videoPath: pair.cachedVideoPath,
+              );
+              onProgress(savedBytes);
+              return (true, null);
+            } finally {
+              await Future.wait([
+                File(pair.imagePath).delete().catchError(
+                  (e) => _logger.warning('Failed to delete original image', e),
+                ),
+                File(pair.videoPath).delete().catchError(
+                  (e) => _logger.warning('Failed to delete original video', e),
+                ),
+              ]);
+              await LivePhotoCache().clearCache(
+                p.basenameWithoutExtension(destinationPath),
+              );
+            }
+          }
         } else {
           isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
           await File(destinationPath).delete();
@@ -215,8 +235,9 @@ Future<(bool, String?)> _saveFile({
     try {
       await close();
       await File(destinationPath).delete();
+      await LivePhotoCache().clearCache(p.basenameWithoutExtension(destinationPath));
     } catch (e) {
-      _logger.warning('Could not delete file', e);
+      _logger.warning('Could not delete file or clear cache', e);
     }
     rethrow;
   }
