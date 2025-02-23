@@ -59,6 +59,24 @@ class MainActivity : FlutterActivity() {
                     result.success(isAnimationsEnabled())
                 }
 
+                "putLivePhoto" -> {
+                    val imagePath = call.argument<String>("imagePath")
+                    val videoPath = call.argument<String>("videoPath")
+                    val album = call.argument<String?>("album")
+
+                    if (imagePath == null || videoPath == null) {
+                        result.error("INVALID_ARGUMENTS", "Image path and video path must not be null", null)
+                        return@setMethodCallHandler
+                    }
+
+                    try {
+                        LivePhotoHandler(this).saveLivePhoto(imagePath, videoPath, album)
+                        result.success(null)
+                    } catch (e: Exception) {
+                        result.error("SAVE_FAILED", "Failed to save live photo", e.message)
+                    }
+                }
+
                 else -> result.notImplemented()
             }
         }
