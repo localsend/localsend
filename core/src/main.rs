@@ -194,7 +194,7 @@ async fn webrtc_test() -> Result<()> {
         version: "2.3".to_string(),
         device_model: Some("test".to_string()),
         device_type: Some(DeviceType::Desktop),
-        fingerprint: "test".to_string(),
+        token: "test".to_string(),
     };
     let connection =
         webrtc::signaling::SignalingConnection::connect("wss://public.localsend.org/v1/ws", &info)
