@@ -4,7 +4,7 @@ mod model;
 mod util;
 mod webrtc;
 
-use crate::crypto::signature;
+use crate::crypto::token;
 use crate::http::client::LsHttpClient;
 use crate::http::server::TlsConfig;
 use crate::model::discovery::{DeviceType, ProtocolType, RegisterDto};
@@ -82,28 +82,29 @@ qqsPsY3pRq93zkKNx1xRtURBiJEvA/Js2+hHWrU=
 -----END CERTIFICATE-----";
 
 async fn crypto_test() -> Result<()> {
-    let key = signature::generate_key();
+    let key = token::generate_key();
 
-    let pem = signature::export_private_key(&key)?;
+    let pem = token::export_private_key(&key)?;
 
     println!("Pem: {}", pem.as_str());
 
-    let public_key = signature::export_public_key(&key)?;
+    let public_key = token::export_public_key(&key)?;
 
     println!("Public Key: {}", public_key);
 
-    let fingerprint = signature::generate_token_timestamp(&key)?;
+    let fingerprint = token::generate_token_timestamp(&key)?;
 
     println!("Fingerprint: {}", fingerprint);
 
-    let parsed_key = signature::parse_public_key(
+    let parsed_key = token::parse_public_key(
         "-----BEGIN PUBLIC KEY-----
 MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 -----END PUBLIC KEY-----",
+        "ed25519",
     )?;
 
-    let signature = signature::verify_token_with_result(
-        &parsed_key,
+    let signature = token::verify_token_with_result(
+        &*parsed_key,
         "sha256.RikOdJlAUTdMVFZjEk7Bft5G9cxnNBBLfgttPpyS2FY.hJCuZwAAAAA.ed25519.iNgHrRzX2Iel-Ozj47yn5o5v0cGY_BswK6JYqwY65j7Krpr43KanAaCrjUng7gHtc2pCcylUrKswR_rxyswhDA",
         |_| Ok(()),
     );
@@ -249,7 +250,7 @@ async fn send_handler(
                 &connection,
                 stun_servers,
                 peer.id,
-                signature::generate_key(),
+                token::generate_key(),
                 None,
                 Some(PinConfig {
                     pin: "456".to_string(),
@@ -358,7 +359,7 @@ async fn receive_handler(
             &connection,
             stun_servers,
             &offer,
-            signature::generate_key(),
+            token::generate_key(),
             None,
             Some(PinConfig {
                 pin: "123".to_string(),

@@ -6,40 +6,74 @@ use ed25519_dalek::pkcs8::spki::der::zeroize::Zeroizing;
 use ed25519_dalek::pkcs8::{DecodePrivateKey, DecodePublicKey, EncodePrivateKey, EncodePublicKey};
 use ed25519_dalek::{Signer, Verifier};
 
-pub struct SigningKey {
+pub struct SigningTokenKey {
     inner: ed25519_dalek::SigningKey,
 }
 
-impl SigningKey {
-    pub fn as_verifying_key(&self) -> VerifyingKey {
-        VerifyingKey {
+impl SigningTokenKey {
+    pub fn to_verifying_key(&self) -> Box<dyn VerifyingTokenKey> {
+        Box::new(Ed25519VerifyingKey {
             inner: self.inner.verifying_key(),
-        }
+        })
     }
 }
 
-pub struct VerifyingKey {
+pub trait VerifyingTokenKey {
+    fn verify(&self, msg: &[u8], signature: &[u8]) -> anyhow::Result<()>;
+
+    fn to_der(&self) -> anyhow::Result<Vec<u8>>;
+}
+
+struct Ed25519VerifyingKey {
     inner: ed25519_dalek::VerifyingKey,
 }
 
-pub fn generate_key() -> SigningKey {
+struct RsaPssVerifyingKey {
+    inner: rsa::pss::VerifyingKey<sha2::Sha256>,
+}
+
+impl VerifyingTokenKey for Ed25519VerifyingKey {
+    fn verify(&self, msg: &[u8], signature: &[u8]) -> anyhow::Result<()> {
+        let signature = ed25519_dalek::Signature::from_slice(signature)?;
+        self.inner.verify(msg, &signature)?;
+        Ok(())
+    }
+
+    fn to_der(&self) -> anyhow::Result<Vec<u8>> {
+        Ok(self.inner.to_public_key_der()?.into_vec())
+    }
+}
+
+impl VerifyingTokenKey for RsaPssVerifyingKey {
+    fn verify(&self, msg: &[u8], signature: &[u8]) -> anyhow::Result<()> {
+        let signature = rsa::pss::Signature::try_from(signature)?;
+        self.inner.verify(msg, &signature)?;
+        Ok(())
+    }
+
+    fn to_der(&self) -> anyhow::Result<Vec<u8>> {
+        Ok(self.inner.to_public_key_der()?.into_vec())
+    }
+}
+
+pub fn generate_key() -> SigningTokenKey {
     let mut csprng = OsRng;
-    SigningKey {
+    SigningTokenKey {
         inner: ed25519_dalek::SigningKey::generate(&mut csprng),
     }
 }
 
-pub fn export_private_key(key: &SigningKey) -> anyhow::Result<Zeroizing<String>> {
+pub fn export_private_key(key: &SigningTokenKey) -> anyhow::Result<Zeroizing<String>> {
     let pem = key.inner.to_pkcs8_pem(LineEnding::LF)?;
     Ok(pem)
 }
 
-pub fn parse_private_key(private_key: &str) -> anyhow::Result<SigningKey> {
+pub fn parse_private_key(private_key: &str) -> anyhow::Result<SigningTokenKey> {
     let parsed = ed25519_dalek::SigningKey::from_pkcs8_pem(private_key)?;
-    Ok(SigningKey { inner: parsed })
+    Ok(SigningTokenKey { inner: parsed })
 }
 
-pub fn export_public_key(key: &SigningKey) -> anyhow::Result<String> {
+pub fn export_public_key(key: &SigningTokenKey) -> anyhow::Result<String> {
     let pem = key
         .inner
         .verifying_key()
@@ -47,25 +81,31 @@ pub fn export_public_key(key: &SigningKey) -> anyhow::Result<String> {
     Ok(pem)
 }
 
-pub fn parse_public_key(public_key: &str) -> anyhow::Result<VerifyingKey> {
-    let parsed = ed25519_dalek::VerifyingKey::from_public_key_pem(public_key)?;
-    Ok(VerifyingKey { inner: parsed })
+pub fn parse_public_key(
+    public_key: &str,
+    identifier: &str,
+) -> anyhow::Result<Box<dyn VerifyingTokenKey + Send>> {
+    Ok(match identifier {
+        "ed25519" => Box::new(Ed25519VerifyingKey {
+            inner: ed25519_dalek::VerifyingKey::from_public_key_pem(public_key)?,
+        }),
+        "rsa-pss" => Box::new(RsaPssVerifyingKey {
+            inner: {
+                let public_key = rsa::RsaPublicKey::from_public_key_pem(public_key)?;
+                rsa::pss::VerifyingKey::new(public_key)
+            },
+        }),
+        _ => return Err(anyhow::anyhow!("Unsupported key type")),
+    })
 }
 
-pub fn verify_signature(key: &VerifyingKey, data: &[u8], signature: &[u8]) -> bool {
-    match ed25519_dalek::Signature::from_slice(signature) {
-        Ok(signature) => key.inner.verify(data, &signature).is_ok(),
-        Err(_) => false,
-    }
-}
-
-pub fn generate_token_timestamp(key: &SigningKey) -> anyhow::Result<String> {
+pub fn generate_token_timestamp(key: &SigningTokenKey) -> anyhow::Result<String> {
     let salt = util::time::unix_timestamp_u64()?.to_le_bytes();
     let result = generate_token_nonce(key, &salt)?;
     Ok(result)
 }
 
-pub fn generate_token_nonce(key: &SigningKey, salt: &[u8]) -> anyhow::Result<String> {
+pub fn generate_token_nonce(key: &SigningTokenKey, salt: &[u8]) -> anyhow::Result<String> {
     let digest = {
         let public_key = key.inner.verifying_key().to_public_key_der()?;
         let hash_input = [public_key.as_bytes(), &salt].concat();
@@ -85,7 +125,12 @@ pub fn generate_token_nonce(key: &SigningKey, salt: &[u8]) -> anyhow::Result<Str
     Ok(result)
 }
 
-pub fn verify_token_timestamp(public_key: &VerifyingKey, token: &str) -> bool {
+pub fn extract_signature_identifier(token: &str) -> Option<&str> {
+    let parts: Vec<&str> = token.split('.').collect();
+    parts.get(3).copied()
+}
+
+pub fn verify_token_timestamp(public_key: &dyn VerifyingTokenKey, token: &str) -> bool {
     verify_token_with_result(public_key, token, |salt| {
         let salt = {
             if salt.len() != 8 {
@@ -108,7 +153,7 @@ pub fn verify_token_timestamp(public_key: &VerifyingKey, token: &str) -> bool {
     .is_ok()
 }
 
-pub fn verify_token_nonce(public_key: &VerifyingKey, token: &str, nonce: &[u8]) -> bool {
+pub fn verify_token_nonce(public_key: &dyn VerifyingTokenKey, token: &str, nonce: &[u8]) -> bool {
     verify_token_with_result(public_key, token, |salt| {
         if salt != nonce {
             return Err(anyhow::anyhow!("Invalid nonce"));
@@ -120,7 +165,7 @@ pub fn verify_token_nonce(public_key: &VerifyingKey, token: &str, nonce: &[u8]) 
 }
 
 pub fn verify_token_with_result(
-    public_key: &VerifyingKey,
+    public_key: &dyn VerifyingTokenKey,
     token: &str,
     verify_salt: impl Fn(&[u8]) -> anyhow::Result<()>,
 ) -> anyhow::Result<()> {
@@ -144,8 +189,8 @@ pub fn verify_token_with_result(
     };
 
     let digest = {
-        let public_key_der = public_key.inner.to_public_key_der()?;
-        let hash_input = [public_key_der.as_bytes(), &salt].concat();
+        let public_key_der = public_key.to_der()?;
+        let hash_input = [public_key_der.as_slice(), &salt].concat();
         hash::sha256(&hash_input)
     };
 
@@ -157,10 +202,11 @@ pub fn verify_token_with_result(
         return Err(anyhow::anyhow!("Invalid signature base64 encoding"));
     };
 
-    match verify_signature(&public_key, &digest, &signature) {
-        true => Ok(()),
-        _ => Err(anyhow::anyhow!("Invalid signature")),
-    }
+    public_key
+        .verify(&digest, &signature)
+        .map_err(|_| anyhow::anyhow!("Invalid signature"))?;
+
+    Ok(())
 }
 
 #[cfg(test)]
@@ -181,7 +227,10 @@ mod tests {
         let key = generate_key();
         let data = b"hello world";
         let signature = key.inner.sign(data);
-        let verified = verify_signature(&key.as_verifying_key(), data, &signature.to_vec());
+        let verified = key
+            .to_verifying_key()
+            .verify(data, signature.to_vec().as_ref())
+            .is_ok();
         assert!(verified);
     }
 
@@ -189,7 +238,7 @@ mod tests {
     fn test_fingerprint() {
         let key = generate_key();
         let fingerprint = generate_token_timestamp(&key).unwrap();
-        let verified = verify_token_timestamp(&key.as_verifying_key(), &fingerprint);
+        let verified = verify_token_timestamp(&key.to_verifying_key(), &fingerprint);
         assert!(verified);
     }
 }

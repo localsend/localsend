@@ -16,10 +16,11 @@ hyper-util = { version = "0.1.10", features = ["server"], optional = true }
 pem = { version = "3.0.4", optional = true }
 reqwest = { version = "0.12", features = ["json", "rustls-tls-webpki-roots-no-provider", "stream"], optional = true }
 rand = "0.8.5"
+rsa = { version = "0.9.7", optional = true }
 rustls = { version = "0.23.21", default-features = false, features = ["ring", "tls12", "std"], optional = true }
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.135"
-sha2 = "0.10.8"
+sha2 = { version = "0.10.8", optional = true }
 thiserror = "2.0.11"
 tokio = { version = "1.43.0", features = ["full"] }
 tokio-rustls = { version = "0.26.1", default-features = false, features = ["ring", "tls12"], optional = true }
@@ -34,7 +35,7 @@ x509-parser = { version = "0.17.0", features = ["verify"], optional = true }
 
 [features]
 default = []
-crypto = ["ed25519-dalek"]
+crypto = ["ed25519-dalek", "rsa", "sha2"]
 http = ["crypto", "http-body-util", "hyper", "hyper-util", "pem", "reqwest", "rustls", "tokio-rustls", "x509-parser"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
