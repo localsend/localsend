@@ -195,7 +195,7 @@ async fn handle_socket(
                     }
 
                     match msg {
-                        WsClientMessage::Update(info) => {
+                        WsClientMessage::Update { info } => {
                             send_update_to_other_peers_with_lock(
                                 &tx_map_clone,
                                 &ip_group_clone,

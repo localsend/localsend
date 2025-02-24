@@ -238,7 +238,7 @@ mod tests {
     fn test_fingerprint() {
         let key = generate_key();
         let fingerprint = generate_token_timestamp(&key).unwrap();
-        let verified = verify_token_timestamp(&key.to_verifying_key(), &fingerprint);
+        let verified = verify_token_timestamp(&*key.to_verifying_key(), &fingerprint);
         assert!(verified);
     }
 }

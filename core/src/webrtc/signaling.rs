@@ -17,7 +17,7 @@ use uuid::Uuid;
 
 /// A message sent by the server to the client.
 #[derive(Clone, Deserialize, Eq, Serialize, Debug, PartialEq)]
-#[serde(tag = "type", rename_all = "camelCase")]
+#[serde(tag = "type", rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum WsServerMessage {
     /// The initial message sent to the client that has just connected.
     Hello {
@@ -115,7 +115,7 @@ impl ClientInfo {
 
 /// The data that is encoded as JSON which is again encoded as base64.
 /// Sent as query during websocket connection.
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ClientInfoWithoutId {
     /// The name of the peer.
@@ -151,15 +151,15 @@ impl From<ClientInfo> for ClientInfoWithoutId {
 }
 
 /// The HTTP request sent by the client to the server.
-#[derive(Clone, Deserialize, Serialize, Debug)]
-#[serde(tag = "type", rename_all = "camelCase")]
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+#[serde(tag = "type", rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum WsClientMessage {
-    Update(ClientInfoWithoutId),
+    Update { info: ClientInfoWithoutId },
     Offer(WsClientSdpMessage),
     Answer(WsClientSdpMessage),
 }
 
-#[derive(Clone, Deserialize, Serialize, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WsClientSdpMessage {
     /// The session id to correctly associate answers with offers.
@@ -371,7 +371,7 @@ impl ManagedSignalingConnection {
 }
 
 async fn send_update(tx: &mpsc::Sender<WsClientMessage>, info: ClientInfoWithoutId) -> Result<()> {
-    tx.send(WsClientMessage::Update(info)).await?;
+    tx.send(WsClientMessage::Update { info }).await?;
 
     tracing::debug!("Sent update to the server");
 
@@ -437,14 +437,14 @@ mod tests {
         assert_eq!(
             encoded,
             r#"{
-  "type": "hello",
+  "type": "HELLO",
   "client": {
     "id": "00000000-0000-0000-0000-000000000000",
     "alias": "Cute Apple",
     "version": "2.3",
     "deviceModel": "Dell",
     "deviceType": "desktop",
-    "fingerprint": "123"
+    "token": "123"
   },
   "peers": []
 }"#
@@ -475,13 +475,13 @@ mod tests {
         assert_eq!(
             encoded,
             r#"{
-  "type": "offer",
+  "type": "OFFER",
   "peer": {
     "id": "00000000-0000-0000-0000-000000000000",
     "alias": "Cute Apple",
     "version": "2.3",
     "deviceType": "desktop",
-    "fingerprint": "123"
+    "token": "123"
   },
   "sessionId": "456",
   "sdp": "my-sdp"
@@ -489,6 +489,39 @@ mod tests {
         );
 
         let decoded: WsServerMessage = serde_json::from_str(&encoded).unwrap();
+
+        assert_eq!(message, decoded);
+    }
+
+    #[test]
+    fn ws_client_update_message_encoding() {
+        let message = WsClientMessage::Update {
+            info: ClientInfoWithoutId {
+                alias: "Cute Apple".to_string(),
+                version: "2.3".to_string(),
+                device_model: Some("Dell".to_string()),
+                device_type: Some(DeviceType::Desktop),
+                token: "123".to_string(),
+            },
+        };
+
+        let encoded = serde_json::to_string_pretty(&message).unwrap();
+
+        assert_eq!(
+            encoded,
+            r#"{
+  "type": "UPDATE",
+  "info": {
+    "alias": "Cute Apple",
+    "version": "2.3",
+    "deviceModel": "Dell",
+    "deviceType": "desktop",
+    "token": "123"
+  }
+}"#
+        );
+
+        let decoded: WsClientMessage = serde_json::from_str(&encoded).unwrap();
 
         assert_eq!(message, decoded);
     }

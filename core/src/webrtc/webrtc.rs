@@ -47,7 +47,7 @@ struct RTCTokenRequest {
 /// also the status for the next step.
 /// After this step, the sending peer may close the connection due to `InvalidSignature`.
 #[derive(Debug, Deserialize, Serialize)]
-#[serde(tag = "status", rename_all = "camelCase")]
+#[serde(tag = "status", rename_all = "SCREAMING_SNAKE_CASE")]
 enum RTCTokenResponse {
     Ok { token: String },
     PinRequired { token: String },
@@ -67,7 +67,7 @@ struct RTCPinMessage {
 
 /// Response to the PIN message by the receiving peer.
 #[derive(Debug, Deserialize, Serialize)]
-#[serde(tag = "status", rename_all = "camelCase")]
+#[serde(tag = "status", rename_all = "SCREAMING_SNAKE_CASE")]
 enum RTCPinReceivingResponse {
     Ok,
     PinRequired,
@@ -76,7 +76,7 @@ enum RTCPinReceivingResponse {
 
 /// Response to the PIN message by the sending peer.
 #[derive(Debug, Deserialize, Serialize)]
-#[serde(tag = "status", rename_all = "camelCase")]
+#[serde(tag = "status", rename_all = "SCREAMING_SNAKE_CASE")]
 enum RTCPinSendingResponse {
     Ok { files: Vec<FileDto> },
     PinRequired,
@@ -84,8 +84,8 @@ enum RTCPinSendingResponse {
 }
 
 /// Sent by receiving peer after receiving `RTCPinSendingResponse::Ok`.
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(tag = "status", rename_all = "camelCase")]
+#[derive(Debug, PartialEq, Eq, Deserialize, Serialize)]
+#[serde(tag = "status", rename_all = "SCREAMING_SNAKE_CASE")]
 enum RTCFileListResponse {
     Ok {
         files: HashMap<String, String>,
@@ -100,7 +100,7 @@ enum RTCFileListResponse {
 
 /// Pair response by the sending peer.
 #[derive(Debug, Deserialize, Serialize)]
-#[serde(tag = "status", rename_all = "camelCase")]
+#[serde(tag = "status", rename_all = "SCREAMING_SNAKE_CASE")]
 enum RTCPairResponse {
     Ok {
         #[serde(rename = "publicKey")]
@@ -1375,5 +1375,26 @@ mod tests {
         assert_eq!(chunks[0].iter().all(|x| *x == 0), true);
         assert_eq!(chunks[1].iter().all(|x| *x == 1), true);
         assert_eq!(chunks[2].iter().all(|x| *x == 2), true);
+    }
+
+    #[test]
+    fn rtc_file_list_response_encoding() {
+        let response = RTCFileListResponse::Pair {
+            public_key: "123".to_string(),
+        };
+
+        let encoded = serde_json::to_string_pretty(&response).unwrap();
+
+        assert_eq!(
+            encoded,
+            r#"{
+  "status": "PAIR",
+  "publicKey": "123"
+}"#
+        );
+
+        let decoded: RTCFileListResponse = serde_json::from_str(&encoded).unwrap();
+
+        assert_eq!(response, decoded);
     }
 }

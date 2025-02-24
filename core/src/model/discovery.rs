@@ -29,6 +29,8 @@ pub struct RegisterResponseDto {
     pub download: bool,
 }
 
+// TODO: Change enums to SCREAMING_SNAKE_CASE for v3
+
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub enum DeviceType {
