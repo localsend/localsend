@@ -22,6 +22,8 @@ pub trait VerifyingTokenKey {
     fn verify(&self, msg: &[u8], signature: &[u8]) -> anyhow::Result<()>;
 
     fn to_der(&self) -> anyhow::Result<Vec<u8>>;
+
+    fn signature_method(&self) -> &'static str;
 }
 
 struct Ed25519VerifyingKey {
@@ -42,6 +44,10 @@ impl VerifyingTokenKey for Ed25519VerifyingKey {
     fn to_der(&self) -> anyhow::Result<Vec<u8>> {
         Ok(self.inner.to_public_key_der()?.into_vec())
     }
+
+    fn signature_method(&self) -> &'static str {
+        "ed25519"
+    }
 }
 
 impl VerifyingTokenKey for RsaPssVerifyingKey {
@@ -53,6 +59,10 @@ impl VerifyingTokenKey for RsaPssVerifyingKey {
 
     fn to_der(&self) -> anyhow::Result<Vec<u8>> {
         Ok(self.inner.to_public_key_der()?.into_vec())
+    }
+
+    fn signature_method(&self) -> &'static str {
+        "rsa-pss"
     }
 }
 
@@ -178,7 +188,7 @@ pub fn verify_token_with_result(
         return Err(anyhow::anyhow!("Invalid hash method"));
     }
 
-    if sign_method != "ed25519" {
+    if sign_method != public_key.signature_method() {
         return Err(anyhow::anyhow!("Invalid sign method"));
     }
 

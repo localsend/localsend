@@ -332,7 +332,7 @@ pub async fn send_offer(
                     |data_channel, result| {
                         let data_channel = Arc::clone(&data_channel);
                         async move {
-                            process_string_in_chunks(
+                            send_string_in_chunks(
                                 &data_channel,
                                 serde_json::to_string(&match result {
                                     VerifyPinResult::PinRequired => {
@@ -364,7 +364,7 @@ pub async fn send_offer(
                 // send file list message
                 let file_list_req = serde_json::to_string(&RTCPinSendingResponse::Ok { files })?;
 
-                let result = process_string_in_chunks(
+                let result = send_string_in_chunks(
                     Arc::clone(&data_channel),
                     file_list_req,
                     |data_channel, chunk| async move {
@@ -711,6 +711,7 @@ pub async fn accept_offer(
                     wait_buffer_empty(&data_channel).await;
                     return Err(anyhow::anyhow!("Invalid token signature or nonce"));
                 }
+                tracing::debug!("Token signature verified.");
             }
 
             {
@@ -753,15 +754,15 @@ pub async fn accept_offer(
                 )
                 .await?;
 
+                data_channel
+                    .send_text(
+                        serde_json::to_string(&RTCPinReceivingResponse::Ok)
+                            .expect("Failed to serialize"),
+                    )
+                    .await?;
+
                 tracing::debug!("PIN challenge done.");
             }
-
-            data_channel
-                .send_text(
-                    serde_json::to_string(&RTCPinReceivingResponse::Ok)
-                        .expect("Failed to serialize"),
-                )
-                .await?;
 
             tracing::debug!("Waiting for sender PIN status...");
 
@@ -834,7 +835,7 @@ pub async fn accept_offer(
 
             let Some(selected_files) = selected_files else {
                 // Declined by the user
-                process_string_in_chunks(
+                send_string_in_chunks(
                     Arc::clone(&data_channel),
                     serde_json::to_string(&RTCFileListResponse::Declined)?,
                     |data_channel, chunk| async move {
@@ -857,7 +858,7 @@ pub async fn accept_offer(
                 })
                 .collect::<HashMap<String, String>>();
 
-            process_string_in_chunks(
+            send_string_in_chunks(
                 Arc::clone(&data_channel),
                 serde_json::to_string(&RTCFileListResponse::Ok {
                     files: file_tokens.clone(),
@@ -1294,7 +1295,7 @@ where
 
 /// Convenience function for `process_in_chunks` that processes a string in chunks.
 /// Note: You need to send the delimiter (or any other string) after the last chunk.
-pub async fn process_string_in_chunks<T, F, Fut>(
+pub async fn send_string_in_chunks<T, F, Fut>(
     data_channel: T,
     string: String,
     callback: F,
