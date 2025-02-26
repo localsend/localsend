@@ -116,7 +116,7 @@
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "自動完成",
+      "autoFinish": "自動完成傳送任務",
       "destination": "儲存目錄",
       "downloads": "(下載)",
       "saveToGallery": "儲存媒體至相簿",
@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "傳送",
-      "shareViaLinkAutoAccept": "透過連結分享：自動接受"
+      "shareViaLinkAutoAccept": "透過連結分享：自動同意接收要求"
     },
     "network": {
       "title": "網路",
@@ -210,7 +210,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend 資料夾)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "因存在目錄而自動關閉。"
+    "saveToGalleryOff": "因內容存在資料夾而自動關閉。"
   },
   "sendPage": {
     "waiting": "正在等候回應…",
