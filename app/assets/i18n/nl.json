@@ -128,7 +128,7 @@
     },
     "network": {
       "title": "Netwerk",
-      "needRestart": "Start de server opnieuw op om de instellingen toe te passen.",
+      "needRestart": "Start de server opnieuw op om de instellingen toe te passen!",
       "server": "Server",
       "alias": "Apparaatnaam",
       "deviceType": "Apparaattype",
@@ -140,7 +140,12 @@
       "portWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepaste poort gebruikt. (Standaard: {defaultPort})",
       "encryption": "Versleuteling",
       "multicastGroup": "Multicast-adres",
-      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})"
+      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})",
+      "network": "Netwerk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Gefilterd"
+      }
     },
     "other": {
       "title": "Overig",
@@ -208,7 +213,7 @@
     "saveToGalleryOff": "Automatisch uitgezet omdat er mappen bij zitten."
   },
   "sendPage": {
-    "waiting": "Wachten op antwoord...",
+    "waiting": "Wachten op antwoord…",
     "rejected": "De ontvanger heeft het verzoek geweigerd.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "De ontvanger is bezig met een ander verzoek."
@@ -231,8 +236,8 @@
   },
   "webSharePage": {
     "title": "Delen via link",
-    "loading": "Server starten...",
-    "stopping": "Server stoppen...",
+    "loading": "Server starten…",
+    "stopping": "Server stoppen…",
     "error": "Er is een fout opgetreden bij het starten van de server.",
     "openLink": {
       "one": "Open deze link in je browser:",
@@ -243,7 +248,7 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Verzoeken automatisch accepteren",
     "requirePin": "Code vereisen",
-    "pinHint": "De code is '{pin}'.",
+    "pinHint": "De PINcode is \"{pin}\"",
     "encryptionHint": "LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.",
     "pendingRequests": "Openstaande verzoeken: {n}"
   },
@@ -292,7 +297,7 @@
     },
     "cannotOpenFile": {
       "title": "Kan bestand niet openen",
-      "content": "Het bestand '{file}' kan niet worden geopend. Het is mogelijk verplaatst, hernoemd of verwijderd."
+      "content": "Het bestand \"{file}\" kan niet worden geopend. Is het mogelijk verplaatst, hernoemd of verwijderd?"
     },
     "encryptionDisabledNotice": {
       "title": "Versleuteling uitgeschakeld",
@@ -412,7 +417,7 @@
     "size": "Grootte"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "Vertalingen voor de Mediaselectietool voor Android en iPhone",
     "confirm": "Bevestigen",
     "cancel": "Annuleren",
     "edit": "Bewerken",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "camera gebruiken",
     "sNameDurationLabel": "duur",
     "sUnitAssetCountLabel": "aantal"
+  },
+  "networkInterfacesPage": {
+    "preview": "Voorvertoning",
+    "title": "Netwerkinterfaces",
+    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. U kunt hier ongewenste netwerken uitsluiten. U moet de server opnieuw opstarten om de wijzigingen toe te passen.",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   }
 }
