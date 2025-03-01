@@ -14,7 +14,7 @@
     "copiedToClipboard": "Másolva a vágólapra",
     "decline": "Elutasít",
     "done": "Kész",
-    "delete": "Törlés",
+    "delete": "Töröl",
     "edit": "Szerkeszt",
     "error": "Hiba",
     "example": "Példa",
@@ -39,7 +39,7 @@
     "save": "Ment",
     "unchanged": "Változatlan",
     "unknown": "Ismeretlen",
-    "noItemInClipboard": "Nincs semmi a vágólapon"
+    "noItemInClipboard": "Nincs semmi a vágólapon."
   },
   "receiveTab": {
     "title": "Fogadás",
@@ -140,7 +140,12 @@
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
+      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})",
+      "network": "Hálózat",
+      "networkOptions": {
+        "all": "Mindegyik",
+        "filtered": "Szűrt"
+      }
     },
     "other": {
       "title": "Egyéb",
@@ -208,7 +213,7 @@
     "saveToGalleryOff": "Automatikusan kikapcsol, mert vannak könyvtárak."
   },
   "sendPage": {
-    "waiting": "Válaszra várva...",
+    "waiting": "Válaszra várva…",
     "rejected": "A fogadó elutasította a kérelmet.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "A fogadó más kéréssel van elfoglalva."
@@ -231,8 +236,8 @@
   },
   "webSharePage": {
     "title": "Megosztás linkben",
-    "loading": "Szerver indítása...",
-    "stopping": "Szerver leállítása...",
+    "loading": "Szerver indítása…",
+    "stopping": "Szerver leállítása…",
     "error": "Hiba történt a szerver indításakor.",
     "openLink": {
       "one": "Nyissa meg ezt a hivatkozást böngészőben:",
@@ -331,7 +336,7 @@
       "original": "Eredeti: {original}"
     },
     "historyClearDialog": {
-      "title": "Előzmény törlése",
+      "title": "Törölje az előzményt",
       "content": "Biztosan törölni szeretné a teljes előzményt?"
     },
     "localNetworkUnauthorized": {
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
+  },
+  "networkInterfacesPage": {
+    "title": "Hálózati interfészek",
+    "info": "Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
+    "preview": "Előnézet",
+    "whitelist": "Fehérlista",
+    "blacklist": "Tiltólista"
   }
 }
