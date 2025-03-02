@@ -20,11 +20,20 @@ class HttpClientCollection {
 final httpProvider = ViewProvider((ref) {
   final securityContext = ref.watch(securityProvider);
   final discoveryTimeout = ref.watch(settingsProvider.select((state) => state.discoveryTimeout));
+  final useProxy = ref.watch(settingsProvider.select((state) => state.useProxy));
+  final proxyServer = ref.watch(settingsProvider.select((state) => state.proxyServer));
+  ProxySettings? proxySettings;
+  if (useProxy == 'none') {
+    proxySettings = ProxySettings.noProxy();
+  } else if (useProxy == 'manual') {
+    proxySettings = ProxySettings.proxy(proxyServer);
+  }
   return HttpClientCollection(
-    discovery: createRhttpClient(Duration(milliseconds: discoveryTimeout), securityContext),
+    discovery: createRhttpClient(Duration(milliseconds: discoveryTimeout), securityContext, proxySettings),
     longLiving: createRhttpClient(
       const Duration(days: 30),
       securityContext,
+      proxySettings,
       interceptor: SimpleInterceptor(
         beforeRequest: (request) async {
           ref.notifier(httpLogsProvider).addLog('HTTP Request: ${request.method} ${request.url}');

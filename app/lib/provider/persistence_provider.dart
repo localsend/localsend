@@ -22,6 +22,7 @@ import 'package:localsend_app/util/shared_preferences/shared_preferences_file.da
 import 'package:localsend_app/util/shared_preferences/shared_preferences_portable.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:rhttp/rhttp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 import 'package:uuid/uuid.dart';
@@ -505,6 +506,33 @@ class PersistenceService {
 
   Future<void> setDeviceModel(String deviceModel) async {
     await _prefs.setString(_deviceModel, deviceModel);
+  }
+
+  String getUseProxy() {
+    return _prefs.getString('use_proxy') ?? 'none';
+  }
+
+  Future<void> setUseProxy(String useProxy) async {
+    await _prefs.setString('use_proxy', useProxy);
+  }
+
+  String getProxyServer() {
+    return _prefs.getString('proxy_server') ?? '';
+  }
+
+  Future<void> setProxyServer(String proxyServer) async {
+    await _prefs.setString('proxy_server', proxyServer);
+  }
+
+  ProxySettings? getProxySettings() {
+    final useProxy = getUseProxy();
+    final proxyServer = getProxyServer();
+    if (useProxy == 'none') {
+      return ProxySettings.noProxy();
+    } else if (useProxy == 'manual') {
+      return ProxySettings.proxy(proxyServer);
+    }
+    return null;
   }
 
   Future<void> clear() async {

@@ -8,7 +8,7 @@ class RhttpWrapper implements CustomHttpClient {
   RhttpWrapper._(this._client);
 
   factory RhttpWrapper.create(Duration timeout, StoredSecurityContext securityContext) {
-    final client = createRhttpClient(timeout, securityContext);
+    final client = createRhttpClient(timeout, securityContext, null);
     return RhttpWrapper._(client);
   }
 
@@ -67,7 +67,26 @@ class RhttpWrapper implements CustomHttpClient {
   }
 }
 
-RhttpClient createRhttpClient(Duration timeout, StoredSecurityContext securityContext, {Interceptor? interceptor}) {
+RhttpClient createRhttpClient(Duration timeout, StoredSecurityContext securityContext, ProxySettings? proxySettings, {Interceptor? interceptor}) {
+  if (proxySettings != null) {
+    return RhttpClient.createSync(
+      settings: ClientSettings(
+        proxySettings: proxySettings,
+        timeoutSettings: TimeoutSettings(
+          timeout: timeout,
+        ),
+        tlsSettings: TlsSettings(
+          verifyCertificates: false,
+          clientCertificate: ClientCertificate(
+            certificate: securityContext.certificate,
+            privateKey: securityContext.privateKey,
+          ),
+        ),
+      ),
+      interceptors: interceptor != null ? [interceptor] : [],
+    );
+  }
+
   return RhttpClient.createSync(
     settings: ClientSettings(
       timeoutSettings: TimeoutSettings(

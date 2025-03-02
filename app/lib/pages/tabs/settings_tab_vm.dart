@@ -15,6 +15,7 @@ class SettingsTabVm with SettingsTabVmMappable {
   final TextEditingController portController;
   final TextEditingController timeoutController;
   final TextEditingController multicastController;
+  final TextEditingController proxyServerController;
 
   final SettingsState settings;
   final ServerState? serverState;
@@ -42,6 +43,7 @@ class SettingsTabVm with SettingsTabVmMappable {
     required this.portController,
     required this.timeoutController,
     required this.multicastController,
+    required this.proxyServerController,
     required this.settings,
     required this.serverState,
     required this.deviceInfo,
