@@ -78,6 +78,8 @@ class TranslationsIt extends Translations {
   late final _TranslationsWebIt web = _TranslationsWebIt._(_root);
   @override
   late final _TranslationsAssetPickerIt assetPicker = _TranslationsAssetPickerIt._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageIt networkInterfacesPage = _TranslationsNetworkInterfacesPageIt._(_root);
 }
 
 // Path: general
@@ -128,11 +130,11 @@ class _TranslationsGeneralIt extends TranslationsGeneralEn {
   @override
   String get hide => 'Nascondi';
   @override
-  String get off => 'disattivato';
+  String get off => 'Disattivato';
   @override
   String get offline => 'Offline';
   @override
-  String get on => 'attivato';
+  String get on => 'Attivato';
   @override
   String get online => 'Online';
   @override
@@ -457,7 +459,7 @@ class _TranslationsAboutPageIt extends TranslationsAboutPageEn {
 
   // Translations
   @override
-  String get title => 'Riguardo LocalSend';
+  String get title => 'Informazioni su LocalSend';
   @override
   List<String> get description => [
         'LocalSend è un\'app gratuita e open-source che consente di condividere file e messaggi in modo sicuro con dispositivi vicini sulla tua rete locale, senza bisogno di una connessione internet.',
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerIt extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'conteggio';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageIt extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageIt._(TranslationsIt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsIt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfacce di rete';
+  @override
+  String get info =>
+      'Per impostazione predefinita, LocalSend utilizza tutte le interfacce di rete disponibili. È possibile escludere le reti indesiderate. È necessario riavviare il server per applicare le modifiche.';
+  @override
+  String get preview => 'Anteprima';
+  @override
+  String get whitelist => 'Whitelist';
+  @override
+  String get blacklist => 'Blacklist';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxIt extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxIt._(TranslationsIt root)
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkIt extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: ${defaultMulticast})';
+  @override
+  String get network => 'Rete';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsIt networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsIt._(_root);
 }
 
 // Path: settingsTab.other
@@ -1485,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsIt extends TranslationsSetti
   // Translations
   @override
   String get system => 'Sistema';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsIt extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsIt._(TranslationsIt root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsIt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Tutto';
+  @override
+  String get filtered => 'Filtrato';
 }
 
 // Path: progressPage.total.title

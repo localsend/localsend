@@ -218,9 +218,9 @@ class _TranslationsSendTabZhCn extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => '提示';
   @override
-  String get help => '请确保目标连接的是同一个 Wi‑Fi 网络。';
+  String get help => '请确保目标连接到同一个 Wi‑Fi 网络。';
   @override
-  String get placeItems => '列出要分享的项目';
+  String get placeItems => '列出要分享的项目。';
 }
 
 // Path: settingsTab
@@ -287,7 +287,7 @@ class _TranslationsReceiveHistoryPageZhCn extends TranslationsReceiveHistoryPage
   @override
   String get openFolder => '打开目录';
   @override
-  String get deleteHistory => '删除历史';
+  String get deleteHistory => '删除历史记录';
   @override
   String get empty => '无历史记录。';
   @override
@@ -367,7 +367,7 @@ class _TranslationsReceiveOptionsPageZhCn extends TranslationsReceiveOptionsPage
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => '由于存在目录，已自动关闭。';
+  String get saveToGalleryOff => '由于分享内容中存在文件夹，已自动关闭。';
 }
 
 // Path: sendPage
@@ -440,7 +440,7 @@ class _TranslationsWebSharePageZhCn extends TranslationsWebSharePageEn {
   @override
   String get autoAccept => '自动接受请求';
   @override
-  String get requirePin => '需要一个 PIN';
+  String get requirePin => '启用 PIN 密码';
   @override
   String pinHint({required Object pin}) => 'PIN 为 “${pin}”';
   @override
@@ -683,7 +683,7 @@ class _TranslationsTrayZhCn extends TranslationsTrayEn {
   @override
   String get close => '退出 LocalSend';
   @override
-  String get closeWindows => '离开';
+  String get closeWindows => '退出';
 }
 
 // Path: web
@@ -745,9 +745,9 @@ class _TranslationsAssetPickerZhCn extends TranslationsAssetPickerEn {
   @override
   String get unableToAccessAll => '无法访问设备上的所有文件';
   @override
-  String get viewingLimitedAssetsTip => '应用程序仅能查看可访问的文件和相册。';
+  String get viewingLimitedAssetsTip => '应用程序仅能查看您允许的文件和相册。';
   @override
-  String get changeAccessibleLimitedAssets => '单击以更新可访问文件';
+  String get changeAccessibleLimitedAssets => '点击以更改可访问文件范围';
   @override
   String get accessAllTip => '应用程序只能访问设备上的部分文件，请转到系统设置并允许该应用访问设备上的所有媒体文件。';
   @override
@@ -792,7 +792,7 @@ class _TranslationsNetworkInterfacesPageZhCn extends TranslationsNetworkInterfac
   @override
   String get title => '网络接口';
   @override
-  String get info => '默认情况下，LocalSend使用所有可用的网络接口。您可以在此处排除不需要的网络。您需要重新启动服务器以应用更改。';
+  String get info => '默认情况下，LocalSend 使用所有可用的网络接口。您可以在此处排除不需要的网络接口。您需要重新启动服务器以应用更改。';
   @override
   String get preview => '预览';
   @override
@@ -815,7 +815,7 @@ class _TranslationsReceiveTabInfoBoxZhCn extends TranslationsReceiveTabInfoBoxEn
   @override
   String get port => '端口：';
   @override
-  String get alias => '别名（设备名称）：';
+  String get alias => '设备名称：';
 }
 
 // Path: receiveTab.quickSave
@@ -949,7 +949,7 @@ class _TranslationsSettingsTabReceiveZhCn extends TranslationsSettingsTabReceive
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
-  String get autoFinish => '自动完成';
+  String get autoFinish => '自动完成传输任务';
   @override
   String get destination => '保存目录';
   @override
@@ -972,7 +972,7 @@ class _TranslationsSettingsTabSendZhCn extends TranslationsSettingsTabSendEn {
   @override
   String get title => '发送';
   @override
-  String get shareViaLinkAutoAccept => '通过链接分享：自动接受';
+  String get shareViaLinkAutoAccept => '通过链接分享：自动同意接收请求';
 }
 
 // Path: settingsTab.network
@@ -991,7 +991,7 @@ class _TranslationsSettingsTabNetworkZhCn extends TranslationsSettingsTabNetwork
   @override
   String get server => '服务器';
   @override
-  String get alias => '别名';
+  String get alias => '设备名称';
   @override
   String get deviceType => '设备类型';
   @override
@@ -1009,9 +1009,9 @@ class _TranslationsSettingsTabNetworkZhCn extends TranslationsSettingsTabNetwork
   @override
   String get encryption => '加密';
   @override
-  String get multicastGroup => '多线程广播';
+  String get multicastGroup => '多播';
   @override
-  String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多线程广播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
+  String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
   @override
   String get network => '网络';
   @override
@@ -1051,7 +1051,7 @@ class _TranslationsTroubleshootPageFirewallZhCn extends TranslationsTroubleshoot
   @override
   String get symptom => '此设备可以发送文件至其他设备，但其它设备无法发送文件到此设备。';
   @override
-  String solution({required Object port}) => '这最可能是由防火墙规则设定引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP）的传入请求来解决这个问题。';
+  String solution({required Object port}) => '这最可能是由防火墙规则设定引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP 的）传入请求来解决这个问题。';
   @override
   String get openFirewall => '打开防火墙';
 }
@@ -1068,7 +1068,7 @@ class _TranslationsTroubleshootPageNoDiscoveryZhCn extends TranslationsTroublesh
   @override
   String get symptom => '此设备未能发现其他设备。';
   @override
-  String get solution => '确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多线程广播地址、加密选项）。您可以尝试手动输入目标设备的 IP 地址。如果起到了效果，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。';
+  String get solution => '确保所有设备都处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。您可以尝试手动输入目标设备的 IP 地址。如果起到了效果，请考虑将此设备添加到收藏夹中，以便将来可以自动发现。';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1083,7 +1083,7 @@ class _TranslationsTroubleshootPageNoConnectionZhCn extends TranslationsTroubles
   @override
   String get symptom => '双方设备均无法发现对方或者分享文件。';
   @override
-  String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多线程广播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点 (AP) 隔离”选项。';
+  String get solution => '当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点(AP)隔离”选项。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1134,9 +1134,9 @@ class _TranslationsDialogsAddFileZhCn extends TranslationsDialogsAddFileEn {
 
   // Translations
   @override
-  String get title => '加入文件';
+  String get title => '添加文件';
   @override
-  String get content => '你想加入什么文件？';
+  String get content => '你想添加什么文件？';
 }
 
 // Path: dialogs.openFile
@@ -1336,7 +1336,7 @@ class _TranslationsDialogsHistoryClearDialogZhCn extends TranslationsDialogsHist
   @override
   String get title => '清空历史记录';
   @override
-  String get content => '要清空全部历史记录吗？';
+  String get content => '确定要清空全部历史记录吗？';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1543,9 +1543,9 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsZhCn extends TranslationsS
   @override
   String get system => '跟随系统';
   @override
-  String get dark => '暗色';
+  String get dark => '深色';
   @override
-  String get light => '亮色';
+  String get light => '浅色';
 }
 
 // Path: settingsTab.general.colorOptions
