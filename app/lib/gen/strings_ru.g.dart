@@ -380,7 +380,7 @@ class _TranslationsSendPageRu extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Ожидание ответа...';
+  String get waiting => 'Ожидание ответа…';
   @override
   String get rejected => 'Получатель отклонил запрос.';
   @override
@@ -420,9 +420,9 @@ class _TranslationsWebSharePageRu extends TranslationsWebSharePageEn {
   @override
   String get title => 'Поделиться по ссылке';
   @override
-  String get loading => 'Запуск сервера...';
+  String get loading => 'Запуск сервера…';
   @override
-  String get stopping => 'Остановка сервера...';
+  String get stopping => 'Остановка сервера…';
   @override
   String get error => 'При запуске сервера произошла ошибка.';
   @override

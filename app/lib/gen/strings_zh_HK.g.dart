@@ -31,7 +31,7 @@ class TranslationsZhHk extends Translations {
 
   // Translations
   @override
-  String get locale => '繁體中文 – 香港';
+  String get locale => '繁體中文 (香港)';
   @override
   String get appName => 'LocalSend';
   @override
@@ -813,7 +813,7 @@ class _TranslationsSettingsTabGeneralZhHk extends TranslationsSettingsTabGeneral
   @override
   late final _TranslationsSettingsTabGeneralBrightnessOptionsZhHk brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsZhHk._(_root);
   @override
-  String get color => '顏色';
+  String get color => '色彩';
   @override
   late final _TranslationsSettingsTabGeneralColorOptionsZhHk colorOptions = _TranslationsSettingsTabGeneralColorOptionsZhHk._(_root);
   @override

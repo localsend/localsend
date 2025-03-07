@@ -146,7 +146,7 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get renamed => '이름 변경됨';
   @override
-  String get reset => '리셋';
+  String get reset => '변경사항 되돌리기';
   @override
   String get restart => '재시작';
   @override
@@ -160,11 +160,11 @@ class _TranslationsGeneralKo extends TranslationsGeneralEn {
   @override
   String get save => '저장';
   @override
-  String get unchanged => '변경 안 됨';
+  String get unchanged => '변경사항 없음';
   @override
   String get unknown => '알 수 없음';
   @override
-  String get noItemInClipboard => '클립보드가 비어있습니다';
+  String get noItemInClipboard => '클립보드가 비어있습니다.';
 }
 
 // Path: receiveTab
@@ -206,7 +206,7 @@ class _TranslationsSendTabKo extends TranslationsSendTabEn {
   @override
   String get thisDevice => '이 기기';
   @override
-  String get scan => '기기를 검색하는 중';
+  String get scan => '기기 검색';
   @override
   String get manualSending => '수동 전송';
   @override
@@ -216,7 +216,7 @@ class _TranslationsSendTabKo extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => '설명';
   @override
-  String get help => '보내려는 기기가 동일한 Wi-Fi 네트워크에 연결되어 있는지 확인해 주세요';
+  String get help => '파일을 전송받을 기기도 동일한 Wi-Fi 네트워크에 연결되어 있어야 합니다.';
   @override
   String get placeItems => '드롭하여 공유하기';
 }
@@ -258,7 +258,7 @@ class _TranslationsTroubleshootPageKo extends TranslationsTroubleshootPageEn {
   @override
   String get title => '문제 해결';
   @override
-  String get subTitle => '앱이 제대로 작동하지 않나요? 이 곳에서 일반적인 문제들에 대한 도움말을 찾을 수 있습니다.';
+  String get subTitle => '앱이 제대로 작동하지 않나요? 이 곳에서 자주 발생하는 문제들에 대한 도움말을 찾을 수 있습니다.';
   @override
   String get solution => '도움말:';
   @override
@@ -460,7 +460,7 @@ class _TranslationsAboutPageKo extends TranslationsAboutPageEn {
   String get title => 'LocalSend 정보';
   @override
   List<String> get description => [
-        'LocalSend는 인터넷에 연결하지 않고도 로컬 네트워크를 통해 주변 기기들과 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 앱입니다.',
+        'LocalSend는 인터넷에 연결하지 않고도 로컬 네트워크를 통해 주변 기기들과 파일 및 메시지를 안전하게 공유할 수 있는 무료 오픈소스 애플리케이션입니다.',
         '이 앱은 Android, iOS, macOS, Windows 및 Linux에서 사용할 수 있습니다. 모든 다운로드 옵션은 공식 홈페이지에서 확인할 수 있습니다.',
       ];
   @override
@@ -1054,7 +1054,7 @@ class _TranslationsDialogsOpenFileKo extends TranslationsDialogsOpenFileEn {
   @override
   String get title => '파일 열기';
   @override
-  String get content => '수신받은 파일을 여시겠습니까?';
+  String get content => '전송받은 파일을 여시겠습니까?';
 }
 
 // Path: dialogs.addressInput
@@ -1118,7 +1118,7 @@ class _TranslationsDialogsEncryptionDisabledNoticeKo extends TranslationsDialogs
   @override
   String get title => '암호화 비활성화';
   @override
-  String get content => '이제부터 암호화되지 않은 HTTP 프로토콜로 통신이 이루어집니다. HTTPS 프로토콜을 사용하려면 암호화를 다시 활성화해주세요.';
+  String get content => '이제부터 암호화되지 않은 HTTP 프로토콜을 사용해 파일을 주고 받습니다. HTTPS 프로토콜을 사용하려면 암호화를 다시 활성화해주세요.';
 }
 
 // Path: dialogs.errorDialog
@@ -1367,7 +1367,7 @@ class _TranslationsDialogsQuickSaveNoticeKo extends TranslationsDialogsQuickSave
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => '파일 요청이 자동으로 수락됩니다. 로컬 네트워크 상에 존재하는 모두가 파일을 보낼 수 있다는 점을 명심하세요.';
+  String get content => '이제부터 파일 전송 요청이 자동으로 승인됩니다. 로컬 네트워크 상에 존재하는 모두가 당신에게 파일을 보낼 수 있다는 점을 명심하세요.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1383,9 +1383,9 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeKo extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-        '이제 당신의 즐겨찾기 목록에 포함된 기기로부터 파일을 자동으로 전송받을 수 있습니다.',
-        '경고! 해당 기능은 아직 보안 측면에 있어서 완전하지 않습니다. 즐겨찾기 목록에 포함된 기기의 식별 정보를 가지고 있는 해커라면 아무런 제약없이 당신의 기기로 파일을 전송할 수 있습니다.',
-        '그러나, 로컬 네트워크 상에 존재하는 모든 사용자들로부터 파일을 전송할 수 있도록 허용하는 것보다는 여전히 안전합니다.',
+        '이제부터 즐겨찾기 목록에 있는 기기에서 보내는 파일 전송 요청이 자동으로 승인됩니다.',
+        '다만, 이 기능은 아직 보안이 완벽하지 않으므로 주의가 필요합니다. 만약 해커가 즐겨찾기 기기의 식별 정보를 알아낸다면, 별다른 제한 없이 파일을 전송할 수도 있습니다.',
+        '그럼에도 불구하고, 로컬 네트워크 상에 존재하는 모든 기기로부터 파일 전송을 허용하는 것보다는 더 안전한 방법입니다.',
       ];
 }
 

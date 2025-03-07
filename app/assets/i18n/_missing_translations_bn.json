@@ -8,79 +8,79 @@
       "requirePin": "@:webSharePage.requirePin"
     },
     "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "title": "সেন্ড",
+      "shareViaLinkAutoAccept": "\"Share via link\" মোডের রিকুয়েস্ট অটো এক্সেপ্ট করুন"
     },
     "network": {
-      "network": "Network",
+      "network": "নেটওয়ার্ক",
       "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
+        "all": "সব",
+        "filtered": "ফিল্টারড"
       },
-      "discoveryTimeout": "Discovery Timeout",
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "discoveryTimeout": "ডিসকভারি টাইমআউট",
+      "useSystemName": "সিস্টেমের নাম ব্যবহার করুন",
+      "generateRandomAlias": "এলিয়াস তৈরি করুন"
     }
   },
   "troubleshootPage": {
     "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "symptom": "এই ডিভাইসটি অন্য ডিভাইস ডিসকভার করতে পারছে না",
+      "solution": "সব ডিভাইস একই ওয়াই-ফাই নেটওয়ার্কে আছে তা নিশ্চিত করুন এবং একই কনফিগারেশন ব্যাবহার করছে (পোর্ট, মাল্টিকাস্ট অ্যাড্রেস, এনক্রিপশন)। টার্গেট ডিভাইসের আইপি ম্যানুয়ালি টাইপ করতে পারেন। যদি এটা কাজ করে, তাহলে ভবিষ্যতে এই ডিভাইসটি অটোমেটিকালি ডিসকভার করা হবে, তা নিশ্চিত করতে এই ডিভাইসটি ফেভারিটে অ্যাড করুন।"
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "title": "নেটওয়ার্ক ইন্টারফেস",
+    "info": "LocalSend সব অ্যাভেলেবেল নেটওয়ার্ক ইন্টারফেস ব্যবহার করে। আপনি এখানে অপ্রয়োজনীয় নেটওয়ার্ক বাদ দিতে পারেন। কোন পরিবর্তন আনলে সার্ভারটি পুনরায় চালু করতে হবে।",
+    "preview": "প্রিভিউ",
+    "whitelist": "হোয়াইটলিস্ট",
+    "blacklist": "ব্ল্যাকলিস্ট"
   },
   "receiveHistoryPage": {
     "entryActions": {
-      "showInFolder": "Show in folder"
+      "showInFolder": "ফোল্ডারে দেখুন"
     }
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "autoAccept": "Automatically accept requests",
-    "requirePin": "Require PIN",
-    "pinHint": "The PIN is \"{pin}\""
+    "autoAccept": "রিকুয়েস্ট অটো এক্সেপ্ট করুন",
+    "requirePin": "পিন প্রয়োজন",
+    "pinHint": "পিনটি \"{pin}\""
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "প্যাকেজেস"
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "ফাইল খুলুন",
+      "content": "আপনি কি ফাইলটি খুলতে চান?"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "আপনার ফেভারিট তালিকায় থাকা ডিভাইস থেকে ফাইল অটোমেটিক রিসিভ করা হয়",
+        "সতর্কতা! বর্তমানে, এটা সম্পূর্ণভাবে নিরাপদ নয়, কোন হ্যাকারের কাছে আপনার ফেভারিট তালিকার কোনও ডিভাইসের ফিঙ্গারপ্রিন্ট থাকে তাহলে সে সীমাবদ্ধতা ছাড়াই আপনাকে ফাইল পাঠাতে পারে।",
+        "তবে, এই অপশনটি এখনও লোকাল নেটওয়ার্কের ব্যবহারকারীদের কোনও সীমাবদ্ধতা ছাড়াই আপনাকে ফাইল পাঠাতে দেয়।"
       ]
     },
     "pin": {
-      "title": "Enter PIN"
+      "title": "পিন দিন"
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "ফাইলের নাম খালি রাখা যাবে না",
+    "invalid": "ফাইলের নামে ইনভেলিড অক্ষর রয়েছে"
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "সব উইন্ডো বন্ধ করুন"
   },
   "web": {
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts"
+    "enterPin": "পিন দিন",
+    "invalidPin": "পিনটি সঠিক নয়",
+    "tooManyAttempts": "অনেক বার ভুল পিন দেওয়া হয়েছে"
   }
 }

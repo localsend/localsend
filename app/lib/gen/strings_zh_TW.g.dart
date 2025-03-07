@@ -31,7 +31,7 @@ class TranslationsZhTw extends Translations {
 
   // Translations
   @override
-  String get locale => '繁體中文 – 台灣';
+  String get locale => '繁體中文 (台灣)';
   @override
   String get appName => 'LocalSend';
   @override
@@ -148,7 +148,7 @@ class _TranslationsGeneralZhTw extends TranslationsGeneralEn {
   @override
   String get renamed => '已重新命名';
   @override
-  String get reset => '重設';
+  String get reset => '復原變更';
   @override
   String get restart => '重新啟動';
   @override
@@ -262,7 +262,7 @@ class _TranslationsTroubleshootPageZhTw extends TranslationsTroubleshootPageEn {
   @override
   String get subTitle => '這個應用程式並未如預期運作？在這裡您可以找到常見的解決方案。';
   @override
-  String get solution => '解決方案:';
+  String get solution => '解決方案：';
   @override
   String get fixButton => '自動修正';
   @override
@@ -289,7 +289,7 @@ class _TranslationsReceiveHistoryPageZhTw extends TranslationsReceiveHistoryPage
   @override
   String get deleteHistory => '刪除歷史記錄';
   @override
-  String get empty => '沒有歷史記錄.';
+  String get empty => '沒有歷史記錄。';
   @override
   late final _TranslationsReceiveHistoryPageEntryActionsZhTw entryActions = _TranslationsReceiveHistoryPageEntryActionsZhTw._(_root);
 }
@@ -367,7 +367,7 @@ class _TranslationsReceiveOptionsPageZhTw extends TranslationsReceiveOptionsPage
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => '因存在目錄而自動關閉。';
+  String get saveToGalleryOff => '因內容存在資料夾而自動關閉。';
 }
 
 // Path: sendPage
@@ -444,7 +444,7 @@ class _TranslationsWebSharePageZhTw extends TranslationsWebSharePageEn {
   @override
   String pinHint({required Object pin}) => 'PIN 碼是「${pin}」';
   @override
-  String get encryptionHint => 'LocalSend 使用自簽名憑證。您需要在瀏覽器中接受它。';
+  String get encryptionHint => 'LocalSend 使用自簽署憑證。您需要在瀏覽器中接受它。';
   @override
   String pendingRequests({required Object n}) => '待處理的要求：${n}';
 }
@@ -470,9 +470,9 @@ class _TranslationsAboutPageZhTw extends TranslationsAboutPageEn {
   @override
   String get contributors => '貢獻者';
   @override
-  String get packagers => '打包者';
+  String get packagers => '封裝人員';
   @override
-  String get translators => '翻譯者';
+  String get translators => '翻譯人員';
 }
 
 // Path: donationPage
@@ -491,9 +491,9 @@ class _TranslationsDonationPageZhTw extends TranslationsDonationPageEn {
   @override
   String donate({required Object amount}) => '贊助 ${amount}';
   @override
-  String get thanks => '非常感謝您!';
+  String get thanks => '非常感謝您！';
   @override
-  String get restore => '回復購買';
+  String get restore => '復原購買';
 }
 
 // Path: changelogPage
@@ -832,11 +832,11 @@ class _TranslationsSettingsTabGeneralZhTw extends TranslationsSettingsTabGeneral
   @override
   String get title => '一般';
   @override
-  String get brightness => '亮度';
+  String get brightness => '主題';
   @override
   late final _TranslationsSettingsTabGeneralBrightnessOptionsZhTw brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsZhTw._(_root);
   @override
-  String get color => '顏色';
+  String get color => '色彩';
   @override
   late final _TranslationsSettingsTabGeneralColorOptionsZhTw colorOptions = _TranslationsSettingsTabGeneralColorOptionsZhTw._(_root);
   @override
@@ -856,7 +856,7 @@ class _TranslationsSettingsTabGeneralZhTw extends TranslationsSettingsTabGeneral
   @override
   String get showInContextMenu => '在檔案功能表「傳送到」項目中顯示 LocalSend';
   @override
-  String get animations => '動畫效果';
+  String get animations => '動畫';
 }
 
 // Path: settingsTab.receive
@@ -877,7 +877,7 @@ class _TranslationsSettingsTabReceiveZhTw extends TranslationsSettingsTabReceive
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
-  String get autoFinish => '自動完成';
+  String get autoFinish => '自動完成傳送任務';
   @override
   String get destination => '儲存目錄';
   @override
@@ -885,7 +885,7 @@ class _TranslationsSettingsTabReceiveZhTw extends TranslationsSettingsTabReceive
   @override
   String get saveToGallery => '儲存媒體至相簿';
   @override
-  String get saveToHistory => '儲存至歷史紀錄';
+  String get saveToHistory => '儲存至歷史記錄';
 }
 
 // Path: settingsTab.send
@@ -900,7 +900,7 @@ class _TranslationsSettingsTabSendZhTw extends TranslationsSettingsTabSendEn {
   @override
   String get title => '傳送';
   @override
-  String get shareViaLinkAutoAccept => '透過連結分享：自動接受';
+  String get shareViaLinkAutoAccept => '透過連結分享：自動同意接收要求';
 }
 
 // Path: settingsTab.network
@@ -958,7 +958,7 @@ class _TranslationsSettingsTabOtherZhTw extends TranslationsSettingsTabOtherEn {
   @override
   String get title => '其它';
   @override
-  String get support => '支持LocalSend';
+  String get support => '支持 LocalSend';
   @override
   String get donate => '贊助';
   @override
@@ -994,9 +994,9 @@ class _TranslationsTroubleshootPageNoDiscoveryZhTw extends TranslationsTroublesh
 
   // Translations
   @override
-  String get symptom => '本設備無法探索其他設備。';
+  String get symptom => '本裝置無法探索其他裝置。';
   @override
-  String get solution => '請確保所有裝置都在同一個 Wi‑Fi 網路上並分享相同的設定（通訊埠、多點傳送位址、加密選項）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。';
+  String get solution => '請確保所有裝置都在同一個 Wi‑Fi 網路上並共用相同的設定 (通訊埠、多點傳送位址、加密選項)。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1011,7 +1011,7 @@ class _TranslationsTroubleshootPageNoConnectionZhTw extends TranslationsTroubles
   @override
   String get symptom => '兩部裝置無法探索彼此，也無法分享檔案。';
   @override
-  String get solution => '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態（通訊埠、多點傳送位址、加密選項）。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。';
+  String get solution => '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密選項)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1026,7 +1026,7 @@ class _TranslationsReceiveHistoryPageEntryActionsZhTw extends TranslationsReceiv
   @override
   String get open => '開啟檔案';
   @override
-  String get showInFolder => '在檔案瀏覽器中顯示';
+  String get showInFolder => '在資料夾中顯示';
   @override
   String get info => '資訊';
   @override
@@ -1169,9 +1169,9 @@ class _TranslationsDialogsFavoriteDialogZhTw extends TranslationsDialogsFavorite
 
   // Translations
   @override
-  String get title => '收藏';
+  String get title => '最愛';
   @override
-  String get noFavorites => '還沒有收藏的裝置。';
+  String get noFavorites => '還沒有最愛的裝置。';
   @override
   String get addFavorite => '新增';
 }
@@ -1186,9 +1186,9 @@ class _TranslationsDialogsFavoriteDeleteDialogZhTw extends TranslationsDialogsFa
 
   // Translations
   @override
-  String get title => '從收藏中刪除';
+  String get title => '從最愛中刪除';
   @override
-  String content({required Object name}) => '您確定要從收藏中刪除 "${name}" 嗎?';
+  String content({required Object name}) => '您確定要從最愛中刪除「${name}」嗎？';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1201,11 +1201,11 @@ class _TranslationsDialogsFavoriteEditDialogZhTw extends TranslationsDialogsFavo
 
   // Translations
   @override
-  String get titleAdd => '新增收藏';
+  String get titleAdd => '新增至最愛';
   @override
-  String get titleEdit => '調整';
+  String get titleEdit => '設定';
   @override
-  String get name => '別名';
+  String get name => '裝置名稱';
   @override
   String get auto => '(自動)';
   @override
@@ -1262,7 +1262,7 @@ class _TranslationsDialogsHistoryClearDialogZhTw extends TranslationsDialogsHist
 
   // Translations
   @override
-  String get title => '清除紀錄';
+  String get title => '清除歷史記錄';
   @override
   String get content => '您真的要刪除整個歷史記錄嗎?';
 }
@@ -1354,7 +1354,7 @@ class _TranslationsDialogsQrZhTw extends TranslationsDialogsQrEn {
 
   // Translations
   @override
-  String get title => 'QR Code';
+  String get title => 'QR 圖碼';
 }
 
 // Path: dialogs.quickActions
@@ -1408,8 +1408,8 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw extends TranslationsD
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-        '自動接受來自您最愛列表中裝置傳送的檔案。',
-        '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。',
+        '自動接受來自您最愛清單中裝置傳送的檔案。',
+        '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。',
         '但仍然比允許任何裝置更安全。',
       ];
 }
