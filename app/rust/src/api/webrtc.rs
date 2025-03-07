@@ -1,27 +1,62 @@
 use crate::frb_generated::StreamSink;
 use bytes::Bytes;
 use flutter_rust_bridge::{frb, DartFnFuture};
-use localsend::model::transfer::FileDto;
 use localsend::model::discovery::DeviceType;
+use localsend::model::transfer::FileDto;
 pub use localsend::webrtc::signaling::{
-    ClientInfo, ClientInfoWithoutId, ManagedSignalingConnection,
-    SignalingConnection, WsServerMessage, WsServerSdpMessage,
+    ClientInfo, ClientInfoWithoutId, ManagedSignalingConnection, SignalingConnection,
+    WsServerMessage, WsServerSdpMessage,
 };
 pub use localsend::webrtc::webrtc::{
     PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus,
 };
 use std::collections::HashSet;
 use std::sync::Arc;
+use std::time::Duration;
+use localsend::crypto::token::SigningTokenKey;
 use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio::time;
 use uuid::Uuid;
+
+pub struct ProposingClientInfo {
+    pub alias: String,
+    pub version: String,
+    pub device_model: Option<String>,
+    pub device_type: Option<DeviceType>,
+}
+
+impl ProposingClientInfo {
+    fn sign(&self, signing_key: &SigningTokenKey) -> anyhow::Result<ClientInfoWithoutId> {
+        Ok(
+            ClientInfoWithoutId {
+                alias: self.alias.clone(),
+                version: self.version.clone(),
+                device_model: self.device_model.clone(),
+                device_type: self.device_type.clone(),
+                token: localsend::crypto::token::generate_token_timestamp(&signing_key)?,
+            }
+        )
+    }
+}
 
 pub async fn connect(
     sink: StreamSink<WsServerMessage>,
     uri: String,
-    info: ClientInfoWithoutId,
+    info: ProposingClientInfo,
+    private_key: String,
     on_connection: impl Fn(LsSignalingConnection) -> DartFnFuture<()>,
 ) {
-    let connection = match SignalingConnection::connect(uri, &info.into()).await {
+    let Ok(signing_key) = localsend::crypto::token::parse_private_key(&private_key) else {
+        let _ = sink.add_error(anyhow::anyhow!("Invalid private key"));
+        return;
+    };
+
+    let Ok(client_info) = info.sign(&signing_key) else {
+        let _ = sink.add_error(anyhow::anyhow!("Invalid client info"));
+        return;
+    };
+
+    let connection = match SignalingConnection::connect(uri, &client_info).await {
         Ok(connection) => connection,
         Err(e) => {
             let _ = sink.add_error(e.to_string());
@@ -34,6 +69,18 @@ pub async fn connect(
         inner: Arc::new(managed_connection),
     })
     .await;
+
+    tokio::spawn(async move {
+        let mut interval = time::interval(Duration::from_secs(30 * 60));
+
+        interval.tick().await;
+
+        loop {
+            let _ = managed_connection.send_update(info)
+
+            interval.tick().await;
+        }
+    });
 
     while let Some(message) = rx.recv().await {
         let _ = sink.add(message.into());
@@ -54,26 +101,43 @@ impl LsSignalingConnection {
         &self,
         stun_servers: Vec<String>,
         target: Uuid,
+        private_key: &str,
+        expecting_public_key: Option<ExpectingPublicKey>,
+        pin: Option<PinConfig>,
         files: Vec<FileDto>,
     ) -> anyhow::Result<RTCSendController> {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
         let (selected_tx, selected_rx) = oneshot::channel::<HashSet<String>>();
         let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(1);
-        let (pin_tx, pin_rx) = mpsc::channel::<String>(1);
+        let (pin_tx, mut pin_rx) = mpsc::channel::<oneshot::Sender<String>>(1);
+        let (pair_tx, pair_rx) = oneshot::channel::<oneshot::Sender<bool>>();
         let (send_tx, send_rx) = mpsc::channel::<RTCFile>(1);
 
         let managed_connection = self.inner.clone();
+
+        let signing_key = localsend::crypto::token::parse_private_key(private_key)?;
+        let expecting_public_key = match expecting_public_key {
+            Some(key) => Some(localsend::crypto::token::parse_public_key(
+                &key.public_key,
+                &key.kind,
+            )?),
+            None => None,
+        };
 
         tokio::spawn(async move {
             let result = localsend::webrtc::webrtc::send_offer(
                 &managed_connection,
                 stun_servers,
                 target,
+                signing_key,
+                expecting_public_key,
+                pin,
                 files,
                 status_tx.clone(),
                 selected_tx,
                 error_tx,
-                pin_rx,
+                pin_tx,
+                pair_tx,
                 send_rx,
             )
             .await;
@@ -83,11 +147,31 @@ impl LsSignalingConnection {
             }
         });
 
+        tokio::spawn(async move {
+            // TODO: support pairing
+            let Ok(pair_tx) = pair_rx.await else {
+                return;
+            };
+
+            let _ = pair_tx.send(false);
+        });
+
+        let pin_sender = Arc::new(Mutex::new(None));
+
+        tokio::spawn({
+            let pin_sender = Arc::clone(&pin_sender);
+            async move {
+                while let Some(pin_tx) = pin_rx.recv().await {
+                    *pin_sender.lock().await = Some(pin_tx);
+                }
+            }
+        });
+
         Ok(RTCSendController {
             status_rx,
             selected_rx: Arc::new(Mutex::new(Some(selected_rx))),
             error_rx,
-            pin_tx,
+            pin_tx: pin_sender,
             send_tx,
         })
     }
@@ -96,6 +180,8 @@ impl LsSignalingConnection {
         &self,
         stun_servers: Vec<String>,
         offer: WsServerSdpMessage,
+        private_key: &str,
+        expecting_public_key: Option<ExpectingPublicKey>,
         pin: Option<PinConfig>,
     ) -> anyhow::Result<RTCReceiveController> {
         let (status_tx, status_rx) = mpsc::channel::<RTCStatus>(1);
@@ -103,20 +189,33 @@ impl LsSignalingConnection {
         let (selected_tx, selected_rx) = oneshot::channel::<Option<HashSet<String>>>();
         let (error_tx, error_rx) = mpsc::channel::<RTCFileError>(1);
         let (receiving_tx, receiving_rx) = mpsc::channel::<RTCFile>(1);
+        let (pin_tx, mut pin_rx) = mpsc::channel::<oneshot::Sender<String>>(1);
         let (file_status_tx, file_status_rx) = mpsc::channel::<RTCSendFileResponse>(1);
 
         let managed_connection = self.inner.clone();
+
+        let signing_key = localsend::crypto::token::parse_private_key(private_key)?;
+        let expecting_public_key = match expecting_public_key {
+            Some(key) => Some(localsend::crypto::token::parse_public_key(
+                &key.public_key,
+                &key.kind,
+            )?),
+            None => None,
+        };
 
         tokio::spawn(async move {
             let result = localsend::webrtc::webrtc::accept_offer(
                 &managed_connection,
                 stun_servers,
                 &offer,
+                signing_key,
+                expecting_public_key,
                 pin,
                 status_tx.clone(),
                 files_tx,
                 selected_rx,
                 error_tx,
+                pin_tx,
                 receiving_tx,
                 file_status_rx,
             )
@@ -127,22 +226,41 @@ impl LsSignalingConnection {
             }
         });
 
+        let pin_sender = Arc::new(Mutex::new(None));
+
+        tokio::spawn({
+            let pin_sender = Arc::clone(&pin_sender);
+            async move {
+                while let Some(pin_tx) = pin_rx.recv().await {
+                    *pin_sender.lock().await = Some(pin_tx);
+                }
+            }
+        });
+
         Ok(RTCReceiveController {
             status_rx: Arc::new(Mutex::new(Some(status_rx))),
             files_rx: Arc::new(Mutex::new(Some(files_rx))),
             selected_tx: Arc::new(Mutex::new(Some(selected_tx))),
             error_rx: Arc::new(Mutex::new(Some(error_rx))),
+            pin_tx: pin_sender,
             receiving_rx: Arc::new(Mutex::new(Some(receiving_rx))),
             file_status_tx,
         })
     }
 }
 
+pub struct ExpectingPublicKey {
+    pub public_key: String,
+
+    /// "ed25519" or "rsa-pss"
+    pub kind: String,
+}
+
 pub struct RTCSendController {
     status_rx: mpsc::Receiver<RTCStatus>,
     selected_rx: Arc<Mutex<Option<oneshot::Receiver<HashSet<String>>>>>,
     error_rx: mpsc::Receiver<RTCFileError>,
-    pin_tx: mpsc::Sender<String>,
+    pin_tx: Arc<Mutex<Option<oneshot::Sender<String>>>>,
     send_tx: mpsc::Sender<RTCFile>,
 }
 
@@ -172,7 +290,14 @@ impl RTCSendController {
     }
 
     pub async fn send_pin(&self, pin: String) -> anyhow::Result<()> {
-        self.pin_tx.send(pin).await?;
+        let Some(pin_tx) = self.pin_tx.lock().await.take() else {
+            return Err(anyhow::anyhow!("Pin already sent"));
+        };
+
+        pin_tx
+            .send(pin)
+            .map_err(|_| anyhow::anyhow!("Pin channel closed"))?;
+
         Ok(())
     }
 
@@ -205,6 +330,7 @@ pub struct RTCReceiveController {
     files_rx: Arc<Mutex<Option<oneshot::Receiver<Vec<FileDto>>>>>,
     selected_tx: Arc<Mutex<Option<oneshot::Sender<Option<HashSet<String>>>>>>,
     error_rx: Arc<Mutex<Option<mpsc::Receiver<RTCFileError>>>>,
+    pin_tx: Arc<Mutex<Option<oneshot::Sender<String>>>>,
     receiving_rx: Arc<Mutex<Option<mpsc::Receiver<RTCFile>>>>,
     file_status_tx: mpsc::Sender<RTCSendFileResponse>,
 }
@@ -230,6 +356,18 @@ impl RTCReceiveController {
         };
 
         Ok(files)
+    }
+
+    pub async fn send_pin(&self, pin: String) -> anyhow::Result<()> {
+        let Some(pin_tx) = self.pin_tx.lock().await.take() else {
+            return Err(anyhow::anyhow!("Pin already sent"));
+        };
+
+        pin_tx
+            .send(pin)
+            .map_err(|_| anyhow::anyhow!("Pin channel closed"))?;
+
+        Ok(())
     }
 
     pub async fn send_selection(&self, selection: HashSet<String>) -> anyhow::Result<()> {
@@ -345,7 +483,7 @@ pub struct _ClientInfo {
     pub version: String,
     pub device_model: Option<String>,
     pub device_type: Option<DeviceType>,
-    pub fingerprint: String,
+    pub token: String,
 }
 
 #[frb(mirror(ClientInfoWithoutId))]
@@ -354,7 +492,7 @@ pub struct _ClientInfoWithoutId {
     pub version: String,
     pub device_model: Option<String>,
     pub device_type: Option<DeviceType>,
-    pub fingerprint: String,
+    pub token: String,
 }
 
 #[frb(mirror(WsServerSdpMessage))]

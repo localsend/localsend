@@ -1,7 +1,9 @@
-use std::collections::HashMap;
 use flutter_rust_bridge::frb;
 pub use localsend::model::discovery::{DeviceType, ProtocolType, RegisterDto, RegisterResponseDto};
-pub use localsend::model::transfer::{FileDto, FileMetadata, PrepareUploadRequestDto, PrepareUploadResponseDto};
+pub use localsend::model::transfer::{
+    FileDto, FileMetadata, PrepareUploadRequestDto, PrepareUploadResponseDto,
+};
+use std::collections::HashMap;
 
 #[frb(mirror(RegisterDto))]
 pub struct _RegisterDto {

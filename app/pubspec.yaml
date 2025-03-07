@@ -29,7 +29,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.7.4+2
-  flutter_rust_bridge: 2.7.0
+  flutter_rust_bridge: 2.7.1
   freezed_annotation: 2.4.4
   gal: 2.3.0
   glob: ^2.1.2
