@@ -40,6 +40,10 @@ Future<List<FileInfo>?> pickFilesAndroid() async {
   return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
 }
 
+Future<bool> getSystemAnimationsStatusAndroid() async {
+  return await _methodChannel.invokeMethod('isAnimationsEnabled') ?? true;
+}
+
 Future<void> createDirectory({
   required String documentUri,
   required String directoryName,
