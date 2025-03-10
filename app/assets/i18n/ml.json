@@ -15,7 +15,7 @@
     "example": "ഉദാഹരണം",
     "files": "ഫയലുകൾ",
     "finished": "പൂർത്തിയാക്കി",
-    "hide": "ഹൈഡ്",
+    "hide": "മറയ്ക്കുക",
     "save": "സേവ്",
     "close": "അവസാനിപ്പിക്കുക",
     "copiedToClipboard": "ക്ലിപ്പ്ബോർഡിലേക്ക് കോപ്പി ചെയ്തു",
@@ -45,7 +45,9 @@
     "shareIntentInfo": "താങ്കൾക്ക് മൊബൈലിലെ ഷെയർ ഫീച്ചർ ഉപയോഗിച്ചു എളുപ്പത്തിൽ ഫയൽസ് സെലക്ട് ചെയ്യാം.",
     "title": "അയക്കുക",
     "selection": {
-      "title": "തിരഞ്ഞെടുക്കപ്പെട്ടത്"
+      "title": "തിരഞ്ഞെടുക്കപ്പെട്ടത്",
+      "files": "ഫയലുകൾ",
+      "size": "വലുപ്പം : {വലുപ്പം }"
     },
     "picker": {
       "file": "ഫയൽ",
@@ -130,7 +132,10 @@
       "autoFinish": "ഓട്ടോമാറ്റിക് ആയി ഫിനിഷ് ചെയ്യുക",
       "destination": "ഫോൾഡറിലേക്കു സേവ് ചെയ്യുക",
       "downloads": "(ഡൗൻലോഡ്)",
-      "saveToHistory": "ഹിസ്റ്ററിയിലേക്കു സേവ് ചെയ്യുക"
+      "saveToHistory": "ഹിസ്റ്ററിയിലേക്കു സേവ് ചെയ്യുക",
+      "requirePin": "@:webSharePage.requirePin",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "send": {
       "shareViaLinkAutoAccept": "\"ലിങ്ക് വഴി ഷെയർ\" ചെയ്യുമ്പോൾ ഓട്ടോമാറ്റിക് ആയി സ്വീകരിക്കുക",
