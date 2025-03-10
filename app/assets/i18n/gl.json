@@ -1,5 +1,5 @@
 {
-  "locale": "Inglés",
+  "locale": "Galego",
   "appName": "LocalSend",
   "general": {
     "accept": "Aceptar",
@@ -105,7 +105,115 @@
       },
       "saveWindowPlacement": "Garda a posición da xanela despois de saír",
       "saveWindowPlacementWindows": "Garda a posición da xanela despois da saída",
-      "minimizeToTray": "Minimizar á Bandexa do Sistema/Barra de Menú ao Pechar"
+      "minimizeToTray": "Minimizar á Bandexa do Sistema/Barra de Menú ao Pechar",
+      "launchAtStartup": "Arrancar automáticamente despois do inicio de sesión",
+      "launchMinimized": "Arranque automático: Iniciar minimizada",
+      "showInContextMenu": "Amosar LocalSend no menú contextual",
+      "animations": "Animacións"
+    },
+    "receive": {
+      "title": "Recibir",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Finalizar automáticamente",
+      "destination": "Gardar no cartafol",
+      "downloads": "(Descargas)",
+      "saveToGallery": "Gardar multimedia na galería",
+      "saveToHistory": "Gardar no historial"
+    },
+    "network": {
+      "deviceType": "Tipo de dispositivo",
+      "title": "Rede",
+      "needRestart": "Reinicia o servidor para aplicar os axustes!",
+      "server": "Servidor",
+      "alias": "Nome do dispositivo",
+      "deviceModel": "Modelo de dispositivo",
+      "port": "Porto",
+      "discoveryTimeout": "Tempo límite de Descubrimento",
+      "multicastGroup": "Enderezo multicast",
+      "network": "Rede",
+      "networkOptions": {
+        "all": "Todo",
+        "filtered": "Filtrado"
+      },
+      "encryption": "Encriptación",
+      "useSystemName": "Usar o nome do sistema",
+      "generateRandomAlias": "Xerar alias aleatorio",
+      "portWarning": "Pode que non sexas detectado por outros dispositivos porque estás a empregar un porto personalizado. (Porto por defecto: {defaultPort})",
+      "multicastGroupWarning": "Pode que non sexas detectado por outros dispositivos porque estás a empregar un enderezo multicast personalizada. (Por defecto: {defaultMulticast})"
+    },
+    "send": {
+      "title": "Enviar",
+      "shareViaLinkAutoAccept": "Aceptar automáticamente peticións no modo \"Compartir mediante ligazón\""
+    },
+    "other": {
+      "title": "Outros",
+      "support": "Apoia a LocalSend",
+      "donate": "Doar",
+      "privacyPolicy": "Política de privacidade",
+      "termsOfUse": "Condicións de uso"
+    },
+    "advancedSettings": "Configuración avanzada"
+  },
+  "troubleshootPage": {
+    "noDiscovery": {
+      "solution": "Por favor asegúrese de que todos os dispositivos están na mesma rede Wi-Fi e que co partan a mesma configuración (porto, enderezo multicast, encriptación). Podes tentar escribir o enderezo IP do dispositivo de destino manualmente. Se funciona, considera agregar o dispositivo a favoritos para poder descubrilo automaticamente no futuro.",
+      "symptom": "Este dispositivo non pode descubrir outros dispositivos."
+    },
+    "firewall": {
+      "solution": "O máis probábel é que se trate dun problema do firewall. Podes resolver este problema permitindo conexións entrantes (UDP e TCP) no porto {port}.",
+      "openFirewall": "Abrir Firewall",
+      "symptom": "Este dispositivo pode enviar ficheiros a outros dispositivos, pero outros dispositivos non lle poden enviar ficheiros."
+    },
+    "noConnection": {
+      "symptom": "Ambos dispositivos non poden descubrirse nin enviarse ficheiros."
+    },
+    "title": "Solucionar problemas",
+    "subTitle": "A aplicación non funciona segundo o esperado? Aquó podes atopar algunhas solucións comúns aos problemas.",
+    "solution": "Solución:",
+    "fixButton": "Corrixir automáticamente"
+  },
+  "apkPickerPage": {
+    "title": "Aplicacións (APK)",
+    "excludeSystemApps": "Excluír aplicacións do sistema",
+    "excludeAppsWithoutLaunchIntent": "Excluír aplicacións non executábels",
+    "apps": "{n} Aplicacións"
+  },
+  "networkInterfacesPage": {
+    "preview": "Vista previa",
+    "title": "Interfaces de rede",
+    "whitelist": "Lista de permitidos",
+    "blacklist": "Lista negra"
+  },
+  "receiveHistoryPage": {
+    "title": "Historial",
+    "empty": "O historial está vacío.",
+    "openFolder": "Abrir cartafol",
+    "deleteHistory": "Borrar historial",
+    "entryActions": {
+      "info": "Información",
+      "open": "Abrir ficheiro",
+      "showInFolder": "Amosar no cartafol",
+      "deleteFromHistory": "Borrar do historial"
     }
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Eliminar todo"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "quere enviarte un ficheiro",
+      "other": "quere enviarte {n} ficheiros"
+    },
+    "subTitleMessage": "envioute unha mensaxe:",
+    "subTitleLink": "envioute unha ligazón:",
+    "canceled": "O remitente cancelou a petición."
+  },
+  "receiveOptionsPage": {
+    "title": "Opcións",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(Cartafol Localsend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery"
   }
 }
