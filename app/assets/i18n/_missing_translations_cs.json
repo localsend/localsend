@@ -5,16 +5,16 @@
   ],
   "settingsTab": {
     "network": {
-      "network": "Network",
+      "network": "Síť",
       "networkOptions": {
-        "filtered": "Filtered"
+        "filtered": "Filtrované"
       }
     }
   },
   "networkInterfacesPage": {
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "info": "Ve výchozím nastavení používá LocalSend všechna dostupná síťová rozhraní. Zde můžete vyloučit nežádoucí sítě. Chcete-li použít změny, musíte restartovat server.",
+    "preview": "Náhled",
+    "whitelist": "Seznam povolených",
+    "blacklist": "Seznam zakázaných"
   }
 }
