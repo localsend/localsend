@@ -55,7 +55,7 @@
     }
   },
   "sendTab": {
-    "title": "Изпрати",
+    "title": "Изпращане",
     "selection": {
       "title": "Избор",
       "files": "Файлове: {files}",
@@ -105,10 +105,10 @@
       },
       "saveWindowPlacement": "Запази позицията на прозореца след напускане",
       "saveWindowPlacementWindows": "Запази позицията на прозореца след излизане",
-      "minimizeToTray": "Минимизиране до Системна област/Лента с менюта при затваряне",
+      "minimizeToTray": "Минимизирай в Системна област/Лента с менюта при затваряне",
       "launchAtStartup": "Автоматично стартиране след влизане",
       "launchMinimized": "Автоматично стартиране: Стартирай скрито",
-      "showInContextMenu": "Показване на LocalSend в контекстното меню",
+      "showInContextMenu": "Покажи LocalSend в контекстното меню",
       "animations": "Анимации"
     },
     "receive": {
@@ -123,7 +123,7 @@
       "saveToHistory": "Запази в история"
     },
     "send": {
-      "title": "Изпрати",
+      "title": "Изпращане",
       "shareViaLinkAutoAccept": "Автоматично приемане на заявки в режим \"Споделяне чрез връзка\""
     },
     "network": {
@@ -131,7 +131,7 @@
       "needRestart": "Рестартирай сървъра, за да приложите настройките!",
       "server": "Сървър",
       "alias": "Име на устройството",
-      "deviceType": "Тип устройството",
+      "deviceType": "Тип на устройството",
       "deviceModel": "Модел на устройството",
       "port": "Порт",
       "discoveryTimeout": "Изчакване за откриване",
@@ -177,14 +177,14 @@
   },
   "receiveHistoryPage": {
     "title": "История",
-    "openFolder": "Отворете папка",
-    "deleteHistory": "Изтриване на историята",
+    "openFolder": "Отвори папка",
+    "deleteHistory": "Изтрий историята",
     "empty": "Историята е празна.",
     "entryActions": {
-      "open": "Отворете файл",
-      "showInFolder": "Показване в папка",
+      "open": "Отвори файл",
+      "showInFolder": "Покажи в папка",
       "info": "Информация",
-      "deleteFromHistory": "Изтриване от историята"
+      "deleteFromHistory": "Изтрий от историята"
     }
   },
   "apkPickerPage": {
@@ -282,7 +282,7 @@
       "content": "Какво искате да добавите?"
     },
     "openFile": {
-      "title": "Отворете файл",
+      "title": "Отвори файл",
       "content": "Искате ли да отворите получения файл?"
     },
     "addressInput": {
@@ -345,7 +345,7 @@
       "gotoSettings": "Настройки"
     },
     "messageInput": {
-      "title": "Въведете съобщение",
+      "title": "Вид съобщение",
       "multiline": "Многоредов"
     },
     "noFiles": {
@@ -443,7 +443,7 @@
     "sActionPreviewHint": "преглед",
     "sActionSelectHint": "избери",
     "sActionSwitchPathLabel": "промяна на пътя",
-    "sActionUseCameraHint": "използвайте камера",
+    "sActionUseCameraHint": "използвай камера",
     "sNameDurationLabel": "продължителност",
     "sUnitAssetCountLabel": "брой"
   },

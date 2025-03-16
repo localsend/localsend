@@ -1,5 +1,5 @@
 {
-  "locale": "繁體中文 – 香港",
+  "locale": "繁體中文 (香港)",
   "appName": "LocalSend",
   "general": {
     "accept": "接受",
@@ -94,7 +94,7 @@
         "dark": "暗色",
         "light": "亮色"
       },
-      "color": "顏色",
+      "color": "色彩",
       "colorOptions": {
         "system": "跟機",
         "oled": "OLED"

@@ -78,6 +78,8 @@ class TranslationsNl extends Translations {
   late final _TranslationsWebNl web = _TranslationsWebNl._(_root);
   @override
   late final _TranslationsAssetPickerNl assetPicker = _TranslationsAssetPickerNl._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageNl networkInterfacesPage = _TranslationsNetworkInterfacesPageNl._(_root);
 }
 
 // Path: general
@@ -378,7 +380,7 @@ class _TranslationsSendPageNl extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Wachten op antwoord...';
+  String get waiting => 'Wachten op antwoord…';
   @override
   String get rejected => 'De ontvanger heeft het verzoek geweigerd.';
   @override
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageNl extends TranslationsWebSharePageEn {
   @override
   String get title => 'Delen via link';
   @override
-  String get loading => 'Server starten...';
+  String get loading => 'Server starten…';
   @override
-  String get stopping => 'Server stoppen...';
+  String get stopping => 'Server stoppen…';
   @override
   String get error => 'Er is een fout opgetreden bij het starten van de server.';
   @override
@@ -440,7 +442,7 @@ class _TranslationsWebSharePageNl extends TranslationsWebSharePageEn {
   @override
   String get requirePin => 'Code vereisen';
   @override
-  String pinHint({required Object pin}) => 'De code is \'${pin}\'.';
+  String pinHint({required Object pin}) => 'De PINcode is "${pin}"';
   @override
   String get encryptionHint => 'LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.';
   @override
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerNl extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'aantal';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageNl extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageNl._(TranslationsNl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get preview => 'Voorvertoning';
+  @override
+  String get title => 'Netwerkinterfaces';
+  @override
+  String get info =>
+      'Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. U kunt hier ongewenste netwerken uitsluiten. U moet de server opnieuw opstarten om de wijzigingen toe te passen.';
+  @override
+  String get whitelist => 'Whitelist';
+  @override
+  String get blacklist => 'Blacklist';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxNl extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxNl._(TranslationsNl root)
@@ -894,7 +918,7 @@ class _TranslationsSettingsTabNetworkNl extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Netwerk';
   @override
-  String get needRestart => 'Start de server opnieuw op om de instellingen toe te passen.';
+  String get needRestart => 'Start de server opnieuw op om de instellingen toe te passen!';
   @override
   String get server => 'Server';
   @override
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkNl extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: ${defaultMulticast})';
+  @override
+  String get network => 'Netwerk';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsNl networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsNl._(_root);
 }
 
 // Path: settingsTab.other
@@ -1109,7 +1137,7 @@ class _TranslationsDialogsCannotOpenFileNl extends TranslationsDialogsCannotOpen
   @override
   String get title => 'Kan bestand niet openen';
   @override
-  String content({required Object file}) => 'Het bestand \'${file}\' kan niet worden geopend. Het is mogelijk verplaatst, hernoemd of verwijderd.';
+  String content({required Object file}) => 'Het bestand "${file}" kan niet worden geopend. Is het mogelijk verplaatst, hernoemd of verwijderd?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1486,6 +1514,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsNl extends TranslationsSetti
   // Translations
   @override
   String get system => 'Systeem';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsNl extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsNl._(TranslationsNl root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Alle';
+  @override
+  String get filtered => 'Gefilterd';
 }
 
 // Path: progressPage.total.title

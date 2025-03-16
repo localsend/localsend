@@ -213,7 +213,7 @@
     "saveToGalleryOff": "Отключено автоматически, поскольку есть папки."
   },
   "sendPage": {
-    "waiting": "Ожидание ответа...",
+    "waiting": "Ожидание ответа…",
     "rejected": "Получатель отклонил запрос.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Получатель занят другим запросом."
@@ -236,8 +236,8 @@
   },
   "webSharePage": {
     "title": "Поделиться по ссылке",
-    "loading": "Запуск сервера...",
-    "stopping": "Остановка сервера...",
+    "loading": "Запуск сервера…",
+    "stopping": "Остановка сервера…",
     "error": "При запуске сервера произошла ошибка.",
     "openLink": {
       "one": "Откройте эту ссылку в браузере:",
@@ -274,7 +274,7 @@
     "title": "История изменений"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1"
+    "@info": "Разные локализации могут использовать разные слова, поэтому соответствие может быть не 1 к 1"
   },
   "dialogs": {
     "addFile": {
@@ -417,7 +417,7 @@
     "size": "Размер"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "Переводы для инструмента выбора медиа для Android и iPhone",
     "confirm": "Подтвердить",
     "cancel": "Отменить",
     "edit": "Редактировать",

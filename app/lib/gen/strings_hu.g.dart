@@ -78,6 +78,8 @@ class TranslationsHu extends Translations {
   late final _TranslationsWebHu web = _TranslationsWebHu._(_root);
   @override
   late final _TranslationsAssetPickerHu assetPicker = _TranslationsAssetPickerHu._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageHu networkInterfacesPage = _TranslationsNetworkInterfacesPageHu._(_root);
 }
 
 // Path: general
@@ -114,7 +116,7 @@ class _TranslationsGeneralHu extends TranslationsGeneralEn {
   @override
   String get done => 'Kész';
   @override
-  String get delete => 'Törlés';
+  String get delete => 'Töröl';
   @override
   String get edit => 'Szerkeszt';
   @override
@@ -164,7 +166,7 @@ class _TranslationsGeneralHu extends TranslationsGeneralEn {
   @override
   String get unknown => 'Ismeretlen';
   @override
-  String get noItemInClipboard => 'Nincs semmi a vágólapon';
+  String get noItemInClipboard => 'Nincs semmi a vágólapon.';
 }
 
 // Path: receiveTab
@@ -378,7 +380,7 @@ class _TranslationsSendPageHu extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Válaszra várva...';
+  String get waiting => 'Válaszra várva…';
   @override
   String get rejected => 'A fogadó elutasította a kérelmet.';
   @override
@@ -418,9 +420,9 @@ class _TranslationsWebSharePageHu extends TranslationsWebSharePageEn {
   @override
   String get title => 'Megosztás linkben';
   @override
-  String get loading => 'Szerver indítása...';
+  String get loading => 'Szerver indítása…';
   @override
-  String get stopping => 'Szerver leállítása...';
+  String get stopping => 'Szerver leállítása…';
   @override
   String get error => 'Hiba történt a szerver indításakor.';
   @override
@@ -708,6 +710,28 @@ class _TranslationsAssetPickerHu extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'számol';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageHu extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageHu._(TranslationsHu root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Hálózati interfészek';
+  @override
+  String get info =>
+      'Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.';
+  @override
+  String get preview => 'Előnézet';
+  @override
+  String get whitelist => 'Fehérlista';
+  @override
+  String get blacklist => 'Tiltólista';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxHu extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxHu._(TranslationsHu root)
@@ -921,6 +945,10 @@ class _TranslationsSettingsTabNetworkHu extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: ${defaultMulticast})';
+  @override
+  String get network => 'Hálózat';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsHu networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsHu._(_root);
 }
 
 // Path: settingsTab.other
@@ -1243,7 +1271,7 @@ class _TranslationsDialogsHistoryClearDialogHu extends TranslationsDialogsHistor
 
   // Translations
   @override
-  String get title => 'Előzmény törlése';
+  String get title => 'Törölje az előzményt';
   @override
   String get content => 'Biztosan törölni szeretné a teljes előzményt?';
 }
@@ -1485,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsHu extends TranslationsSetti
   // Translations
   @override
   String get system => 'Rendszer';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsHu extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsHu._(TranslationsHu root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Mindegyik';
+  @override
+  String get filtered => 'Szűrt';
 }
 
 // Path: progressPage.total.title

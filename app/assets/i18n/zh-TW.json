@@ -1,5 +1,5 @@
 {
-  "locale": "繁體中文 – 台灣",
+  "locale": "繁體中文 (台灣)",
   "appName": "LocalSend",
   "general": {
     "accept": "接受",
@@ -30,7 +30,7 @@
     "quickSave": "自動儲存",
     "quickSaveFromFavorites": "自動儲存來自「最愛」裝置的檔案",
     "renamed": "已重新命名",
-    "reset": "重設",
+    "reset": "復原變更",
     "restart": "重新啟動",
     "settings": "設定",
     "skipped": "已跳過",
@@ -88,13 +88,13 @@
     "title": "設定",
     "general": {
       "title": "一般",
-      "brightness": "亮度",
+      "brightness": "主題",
       "brightnessOptions": {
         "system": "系統",
         "dark": "深色",
         "light": "淺色"
       },
-      "color": "顏色",
+      "color": "色彩",
       "colorOptions": {
         "system": "系統",
         "oled": "OLED"
@@ -109,22 +109,22 @@
       "launchAtStartup": "登入後自動啟動",
       "launchMinimized": "自動啟動至系統匣",
       "showInContextMenu": "在檔案功能表「傳送到」項目中顯示 LocalSend",
-      "animations": "動畫效果"
+      "animations": "動畫"
     },
     "receive": {
       "title": "接收",
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "自動完成",
+      "autoFinish": "自動完成傳送任務",
       "destination": "儲存目錄",
       "downloads": "(下載)",
       "saveToGallery": "儲存媒體至相簿",
-      "saveToHistory": "儲存至歷史紀錄"
+      "saveToHistory": "儲存至歷史記錄"
     },
     "send": {
       "title": "傳送",
-      "shareViaLinkAutoAccept": "透過連結分享：自動接受"
+      "shareViaLinkAutoAccept": "透過連結分享：自動同意接收要求"
     },
     "network": {
       "title": "網路",
@@ -149,7 +149,7 @@
     },
     "other": {
       "title": "其它",
-      "support": "支持LocalSend",
+      "support": "支持 LocalSend",
       "donate": "贊助",
       "privacyPolicy": "隱私權政策",
       "termsOfUse": "使用條款"
@@ -159,7 +159,7 @@
   "troubleshootPage": {
     "title": "疑難排解",
     "subTitle": "這個應用程式並未如預期運作？在這裡您可以找到常見的解決方案。",
-    "solution": "解決方案:",
+    "solution": "解決方案：",
     "fixButton": "自動修正",
     "firewall": {
       "symptom": "此應用程式可以向其他裝置傳送檔案，但其他裝置無法向此裝置傳送檔案。",
@@ -167,22 +167,22 @@
       "openFirewall": "開啟防火牆"
     },
     "noDiscovery": {
-      "symptom": "本設備無法探索其他設備。",
-      "solution": "請確保所有裝置都在同一個 Wi‑Fi 網路上並分享相同的設定（通訊埠、多點傳送位址、加密選項）。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。"
+      "symptom": "本裝置無法探索其他裝置。",
+      "solution": "請確保所有裝置都在同一個 Wi‑Fi 網路上並共用相同的設定 (通訊埠、多點傳送位址、加密選項)。您可以嘗試手動輸入目標裝置的 IP 位址。如果這樣可以運作，考慮將此裝置新增至最愛，以便未來可以自動偵測到。"
     },
     "noConnection": {
       "symptom": "兩部裝置無法探索彼此，也無法分享檔案。",
-      "solution": "雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態（通訊埠、多點傳送位址、加密選項）。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。"
+      "solution": "雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密選項)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。"
     }
   },
   "receiveHistoryPage": {
     "title": "歷史記錄",
     "openFolder": "開啟資料夾",
     "deleteHistory": "刪除歷史記錄",
-    "empty": "沒有歷史記錄.",
+    "empty": "沒有歷史記錄。",
     "entryActions": {
       "open": "開啟檔案",
-      "showInFolder": "在檔案瀏覽器中顯示",
+      "showInFolder": "在資料夾中顯示",
       "info": "資訊",
       "deleteFromHistory": "從歷史記錄刪除"
     }
@@ -210,7 +210,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend 資料夾)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "因存在目錄而自動關閉。"
+    "saveToGalleryOff": "因內容存在資料夾而自動關閉。"
   },
   "sendPage": {
     "waiting": "正在等候回應…",
@@ -249,7 +249,7 @@
     "autoAccept": "自動接受請求",
     "requirePin": "需要 PIN 碼",
     "pinHint": "PIN 碼是「{pin}」",
-    "encryptionHint": "LocalSend 使用自簽名憑證。您需要在瀏覽器中接受它。",
+    "encryptionHint": "LocalSend 使用自簽署憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
   },
   "aboutPage": {
@@ -260,15 +260,15 @@
     ],
     "author": "作者",
     "contributors": "貢獻者",
-    "packagers": "打包者",
-    "translators": "翻譯者"
+    "packagers": "封裝人員",
+    "translators": "翻譯人員"
   },
   "donationPage": {
     "title": "贊助",
     "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。",
     "donate": "贊助 {amount}",
-    "thanks": "非常感謝您!",
-    "restore": "回復購買"
+    "thanks": "非常感謝您！",
+    "restore": "復原購買"
   },
   "changelogPage": {
     "title": "變更記錄"
@@ -307,18 +307,18 @@
       "title": "@:general.error"
     },
     "favoriteDialog": {
-      "title": "收藏",
-      "noFavorites": "還沒有收藏的裝置。",
+      "title": "最愛",
+      "noFavorites": "還沒有最愛的裝置。",
       "addFavorite": "新增"
     },
     "favoriteDeleteDialog": {
-      "title": "從收藏中刪除",
-      "content": "您確定要從收藏中刪除 \"{name}\" 嗎?"
+      "title": "從最愛中刪除",
+      "content": "您確定要從最愛中刪除「{name}」嗎？"
     },
     "favoriteEditDialog": {
-      "titleAdd": "新增收藏",
-      "titleEdit": "調整",
-      "name": "別名",
+      "titleAdd": "新增至最愛",
+      "titleEdit": "設定",
+      "name": "裝置名稱",
       "auto": "(自動)",
       "ip": "IP 位址",
       "port": "連接埠"
@@ -336,7 +336,7 @@
       "original": "原始檔案名稱：{original}"
     },
     "historyClearDialog": {
-      "title": "清除紀錄",
+      "title": "清除歷史記錄",
       "content": "您真的要刪除整個歷史記錄嗎?"
     },
     "localNetworkUnauthorized": {
@@ -361,7 +361,7 @@
       "content": "此功能僅適用於："
     },
     "qr": {
-      "title": "QR Code"
+      "title": "QR 圖碼"
     },
     "quickActions": {
       "title": "快速動作",
@@ -378,8 +378,8 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "自動接受來自您最愛列表中裝置傳送的檔案。",
-        "警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您發送檔案。",
+        "自動接受來自您最愛清單中裝置傳送的檔案。",
+        "警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。",
         "但仍然比允許任何裝置更安全。"
       ]
     },

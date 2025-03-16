@@ -283,7 +283,7 @@ class ReceiveController {
               path: null,
               savedToGallery: false,
               isMessage: true,
-              fileSize: message.length,
+              fileSize: utf8.encode(message).length,
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
             ));
