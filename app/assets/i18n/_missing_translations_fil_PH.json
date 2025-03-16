@@ -7,15 +7,15 @@
     "network": {
       "network": "Network",
       "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
+        "all": "Lahat",
+        "filtered": "Na-filter"
       }
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
+    "title": "Mga Interface ng Network",
+    "info": "Bilang default, ang LocalSend ay gumagamit ng lahat ng mga available na network interface. Maaari mong ibukod ang mga hindi mo gustong network dito. Kinakailangang i-restart ang server upang mai-apply ang mga pagbabago",
+    "preview": "Silipin",
     "whitelist": "Whitelist",
     "blacklist": "Blacklist"
   }
