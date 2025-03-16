@@ -165,7 +165,7 @@ class PersistenceService {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
     }
 
-    if(isFirstAppStart){
+    if (isFirstAppStart) {
       _logger.info('Is FirstStartUp');
       await prefs.setBool(_enableAnimations, await getSystemAnimationsStatus());
     }
