@@ -166,8 +166,11 @@ class PersistenceService {
     }
 
     if (isFirstAppStart) {
-      _logger.info('Is FirstStartUp');
-      await prefs.setBool(_enableAnimations, await getSystemAnimationsStatus());
+      final systemAnimations = await getSystemAnimationsStatus();
+      if (!systemAnimations) {
+        _logger.info('System animations are disabled, disabling animations in the app.');
+        await prefs.setBool(_enableAnimations, false);
+      }
     }
 
     if (prefs.getString(_colorKey) == null) {
