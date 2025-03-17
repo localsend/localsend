@@ -206,6 +206,8 @@ class AppDelegate: FlutterAppDelegate {
             }
         case "isLaunchedAsLoginItem":
             result(isLaunchedAsLoginItem)
+        case "isReduceMotionEnabled":
+            result(NSWorkspace.shared.accessibilityDisplayShouldReduceMotion)
         default:
             result(FlutterMethodNotImplemented)
         }
