@@ -45,6 +45,8 @@ class TranslationsFilPh extends Translations {
   @override
   late final _TranslationsTroubleshootPageFilPh troubleshootPage = _TranslationsTroubleshootPageFilPh._(_root);
   @override
+  late final _TranslationsNetworkInterfacesPageFilPh networkInterfacesPage = _TranslationsNetworkInterfacesPageFilPh._(_root);
+  @override
   late final _TranslationsReceiveHistoryPageFilPh receiveHistoryPage = _TranslationsReceiveHistoryPageFilPh._(_root);
   @override
   late final _TranslationsApkPickerPageFilPh apkPickerPage = _TranslationsApkPickerPageFilPh._(_root);
@@ -269,6 +271,28 @@ class _TranslationsTroubleshootPageFilPh extends TranslationsTroubleshootPageEn 
   late final _TranslationsTroubleshootPageNoDiscoveryFilPh noDiscovery = _TranslationsTroubleshootPageNoDiscoveryFilPh._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionFilPh noConnection = _TranslationsTroubleshootPageNoConnectionFilPh._(_root);
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageFilPh extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageFilPh._(TranslationsFilPh root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mga Interface ng Network';
+  @override
+  String get info =>
+      'Bilang default, ang LocalSend ay gumagamit ng lahat ng mga available na network interface. Maaari mong ibukod ang mga hindi mo gustong network dito. Kinakailangang i-restart ang server upang mai-apply ang mga pagbabago';
+  @override
+  String get preview => 'Silipin';
+  @override
+  String get whitelist => 'Whitelist';
+  @override
+  String get blacklist => 'Blacklist';
 }
 
 // Path: receiveHistoryPage
@@ -980,6 +1004,10 @@ class _TranslationsSettingsTabNetworkFilPh extends TranslationsSettingsTabNetwor
   @override
   String get port => 'Port';
   @override
+  String get network => 'Network';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsFilPh networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsFilPh._(_root);
+  @override
   String get discoveryTimeout => 'Nag Timeout ang Discovery';
   @override
   String get useSystemName => 'Gamitin ang pangalan ng system';
@@ -1561,6 +1589,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsFilPh extends TranslationsSe
   // Translations
   @override
   String get system => 'System';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsFilPh extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsFilPh._(TranslationsFilPh root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Lahat';
+  @override
+  String get filtered => 'Na-filter';
 }
 
 // Path: progressPage.total.title

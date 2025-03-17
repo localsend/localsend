@@ -45,6 +45,8 @@ class TranslationsKo extends Translations {
   @override
   late final _TranslationsTroubleshootPageKo troubleshootPage = _TranslationsTroubleshootPageKo._(_root);
   @override
+  late final _TranslationsNetworkInterfacesPageKo networkInterfacesPage = _TranslationsNetworkInterfacesPageKo._(_root);
+  @override
   late final _TranslationsReceiveHistoryPageKo receiveHistoryPage = _TranslationsReceiveHistoryPageKo._(_root);
   @override
   late final _TranslationsApkPickerPageKo apkPickerPage = _TranslationsApkPickerPageKo._(_root);
@@ -269,6 +271,27 @@ class _TranslationsTroubleshootPageKo extends TranslationsTroubleshootPageEn {
   late final _TranslationsTroubleshootPageNoDiscoveryKo noDiscovery = _TranslationsTroubleshootPageNoDiscoveryKo._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionKo noConnection = _TranslationsTroubleshootPageNoConnectionKo._(_root);
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageKo extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageKo._(TranslationsKo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '네트워크 인터페이스';
+  @override
+  String get info => '기본적으로 LocalSend는 활용할 수 있는 모든 네트워크 인터페이스를 사용하도록 되어 있습니다. 원하지 않는 네트워크가 있다면 이 곳에서 비활성화할 수 있습니다. 변경사항을 적용하려면 서버를 다시 시작해야 합니다.';
+  @override
+  String get preview => '미리보기';
+  @override
+  String get whitelist => '허용 목록';
+  @override
+  String get blacklist => '거부 목록';
 }
 
 // Path: receiveHistoryPage
@@ -904,6 +927,10 @@ class _TranslationsSettingsTabNetworkKo extends TranslationsSettingsTabNetworkEn
   @override
   String get port => '포트';
   @override
+  String get network => '네트워크';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsKo networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsKo._(_root);
+  @override
   String get discoveryTimeout => '탐색 제한시간';
   @override
   String get useSystemName => '시스템 이름 사용';
@@ -1477,6 +1504,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsKo extends TranslationsSetti
   // Translations
   @override
   String get system => '시스템';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsKo extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsKo._(TranslationsKo root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => '전체 허용';
+  @override
+  String get filtered => '일부 허용';
 }
 
 // Path: progressPage.total.title

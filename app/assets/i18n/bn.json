@@ -28,6 +28,7 @@
     "open": "খুলুন",
     "queue": "কিউ",
     "quickSave": "কুইক সেভ করুন",
+    "quickSaveFromFavorites": "\"ফেভারিট\"দের জন্য কুইক সেভ করুন",
     "renamed": "নাম পরিবর্তন করা হয়েছে",
     "reset": "রিসেট করুন",
     "restart": "পুনরায় চালু করুন",
@@ -38,8 +39,7 @@
     "save": "সেভ করুন",
     "unchanged": "অপরিবর্তিত",
     "unknown": "আননোন",
-    "noItemInClipboard": "ক্লিপবোর্ডে কোনো আইটেম নেই",
-    "quickSaveFromFavorites": "\"ফেভারিট\"দের জন্য কুইক সেভ করুন"
+    "noItemInClipboard": "ক্লিপবোর্ডে কোনো আইটেম নেই"
   },
   "receiveTab": {
     "title": "রিসিভ",
@@ -83,7 +83,7 @@
     "sendModeHelp": "ব্যাখ্যা",
     "help": "অনুগ্রহ করে নিশ্চিত করুন যে পছন্দসই লক্ষ্যটিও একই ওয়াইফাই নেটওয়ার্কে রয়েছে।",
     "placeItems": "শেয়ার করার জন্য আইটেম রাখুন।"
-    },
+  },
   "settingsTab": {
     "title": "সেটিংস",
     "general": {
@@ -104,23 +104,23 @@
         "system": "সিস্টেম"
       },
       "saveWindowPlacement": "বের হোন: উইন্ডো প্লেসমেন্ট সেভ করুন",
+      "saveWindowPlacementWindows": "বের হবার পরে উইন্ডোর অবস্থান সেভ করুন",
       "minimizeToTray": "বের হোন: ট্রেতে মিনিমাইজ করুন",
       "launchAtStartup": "লগইন করার পরে অটোস্টার্ট করুন",
       "launchMinimized": "অটোস্টার্ট: হিডেন রেখে শুরু করুন",
-      "animations": "অ্যানিমেশন",
-      "saveWindowPlacementWindows": "বের হবার পরে উইন্ডোর অবস্থান সেভ করুন",
-      "showInContextMenu": "কনটেক্সট মেনুতে LocalSend দেখান"
+      "showInContextMenu": "কনটেক্সট মেনুতে LocalSend দেখান",
+      "animations": "অ্যানিমেশন"
     },
     "receive": {
       "title": "রিসিভ",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "অটো ফিনিশ",
       "destination": "ডেস্টিনেশন",
       "downloads": "(Downloads)",
       "saveToGallery": "মিডিয়া গ্যালারিতে সেভ করুন",
-      "saveToHistory": "হিস্ট্রি সেভ করুন",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+      "saveToHistory": "হিস্ট্রি সেভ করুন"
     },
     "send": {
       "title": "সেন্ড",
@@ -176,12 +176,12 @@
     }
   },
   "networkInterfacesPage": {
-   "title": "নেটওয়ার্ক ইন্টারফেস",
-  "info": "LocalSend সব অ্যাভেলেবেল নেটওয়ার্ক ইন্টারফেস ব্যবহার করে। আপনি এখানে অপ্রয়োজনীয় নেটওয়ার্ক বাদ দিতে পারেন। কোন পরিবর্তন আনলে সার্ভারটি পুনরায় চালু করতে হবে।",
-  "preview": "প্রিভিউ",
-  "whitelist": "হোয়াইটলিস্ট",
-  "blacklist": "ব্ল্যাকলিস্ট"
-  },  
+    "title": "নেটওয়ার্ক ইন্টারফেস",
+    "info": "LocalSend সব অ্যাভেলেবেল নেটওয়ার্ক ইন্টারফেস ব্যবহার করে। আপনি এখানে অপ্রয়োজনীয় নেটওয়ার্ক বাদ দিতে পারেন। কোন পরিবর্তন আনলে সার্ভারটি পুনরায় চালু করতে হবে।",
+    "preview": "প্রিভিউ",
+    "whitelist": "হোয়াইটলিস্ট",
+    "blacklist": "ব্ল্যাকলিস্ট"
+  },
   "receiveHistoryPage": {
     "title": "হিস্ট্রি",
     "openFolder": "ফোল্ডার খুলুন",
