@@ -81,7 +81,7 @@
       "link": "Compartir enlace"
     },
     "sendModeHelp": "Explicación",
-    "help": "Por favor asegúrese que el destino elegido esté en la misma red Wi-Fi.",
+    "help": "Por favor asegúrese que el objetivo deseado esté en la misma red Wi-Fi.",
     "placeItems": "Selecciona elementos para compartir."
   },
   "settingsTab": {
@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "Enviar",
-      "shareViaLinkAutoAccept": "Enviar enlace: Aceptar automáticamente"
+      "shareViaLinkAutoAccept": "Aceptar automáticamente solicitudes en el modo \"Compartir mediante enlace\""
     },
     "network": {
       "title": "Red",
@@ -188,10 +188,10 @@
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
+    "title": "Aplicaciones (APK)",
     "excludeSystemApps": "Excluir apps de sistema",
     "excludeAppsWithoutLaunchIntent": "Excluir apps no ejecutables",
-    "apps": "{n} Apps"
+    "apps": "{n} Aplicaciones"
   },
   "selectedFilesPage": {
     "deleteAll": "Eliminar todo"
@@ -208,7 +208,7 @@
   "receiveOptionsPage": {
     "title": "Opciones",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(carpeta @:appName)",
+    "appDirectory": "(Carpeta LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Desactivado automáticamente porque hay carpetas."
   },
@@ -439,7 +439,7 @@
     "sTypeImageLabel": "Imagen",
     "sTypeVideoLabel": "Video",
     "sTypeOtherLabel": "Otros medios",
-    "sActionPlayHint": "play",
+    "sActionPlayHint": "reproducir",
     "sActionPreviewHint": "vista previa",
     "sActionSelectHint": "selecccionar",
     "sActionSwitchPathLabel": "cambiar ruta",
