@@ -20,6 +20,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_portable.dart';
+import 'package:localsend_app/util/ui/animations_status.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -166,6 +167,14 @@ class PersistenceService {
 
     if (prefs.getString(_securityContext) == null) {
       await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+    }
+
+    if (isFirstAppStart) {
+      final systemAnimations = await getSystemAnimationsStatus();
+      if (!systemAnimations) {
+        _logger.info('System animations are disabled, disabling animations in the app.');
+        await prefs.setBool(_enableAnimations, false);
+      }
     }
 
     if (prefs.getString(_colorKey) == null) {

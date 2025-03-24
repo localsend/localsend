@@ -2,21 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ko>.",
     "After editing this file, you can run 'dart run slang apply --locale=ko' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "network": {
-      "network": "네트워크",
-      "networkOptions": {
-        "all": "전체 허용",
-        "filtered": "일부 허용"
-      }
-    }
-  },
-  "networkInterfacesPage": {
-    "title": "네트워크 인터페이스",
-    "info": "기본적으로 LocalSend는 활용할 수 있는 모든 네트워크 인터페이스를 사용하도록 되어 있습니다. 원하지 않는 네트워크가 있다면 이 곳에서 비활성화할 수 있습니다. 변경사항을 적용하려면 서버를 다시 시작해야 합니다.",
-    "preview": "미리보기",
-    "whitelist": "허용 목록",
-    "blacklist": "거부 목록"
-  }
+  ]
 }

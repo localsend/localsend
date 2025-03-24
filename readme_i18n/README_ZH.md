@@ -1,9 +1,15 @@
 # LocalSend
 
 [![CI 状态][ci-badge]][ci-workflow]
+[![Translations][translate-badge]][translate-link]
+[![Packaging status][packaging-badge]][packaging-link]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
+[translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
+[translate-link]: https://hosted.weblate.org/engage/localsend/
+[packaging-badge]: https://repology.org/badge/tiny-repos/localsend.svg
+[packaging-link]: https://repology.org/project/localsend/versions
 
 [主页][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
@@ -26,6 +32,7 @@ LocalSend 是一个自由、开源的应用程序，允许你在本地网络上�
 - [贡献](#贡献)
   - [翻译](#翻译)
   - [Bug修复和改进](#bug修复和改进)
+- [故障排查](#故障排查)
 - [构建](#构建)
   - [Android](#android)
   - [iOS](#ios)

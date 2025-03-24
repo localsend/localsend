@@ -118,7 +118,7 @@ class _TranslationsGeneralBn extends TranslationsGeneralEn {
   @override
   String get delete => 'ডিলিট';
   @override
-  String get edit => 'বের হন';
+  String get edit => 'এডিট';
   @override
   String get error => 'ভুল হয়েছে';
   @override
@@ -144,6 +144,8 @@ class _TranslationsGeneralBn extends TranslationsGeneralEn {
   @override
   String get quickSave => 'কুইক সেভ করুন';
   @override
+  String get quickSaveFromFavorites => '"ফেভারিট"দের জন্য কুইক সেভ করুন';
+  @override
   String get renamed => 'নাম পরিবর্তন করা হয়েছে';
   @override
   String get reset => 'রিসেট করুন';
@@ -165,8 +167,6 @@ class _TranslationsGeneralBn extends TranslationsGeneralEn {
   String get unknown => 'আননোন';
   @override
   String get noItemInClipboard => 'ক্লিপবোর্ডে কোনো আইটেম নেই';
-  @override
-  String get quickSaveFromFavorites => '"ফেভারিট"দের জন্য কুইক সেভ করুন';
 }
 
 // Path: receiveTab
@@ -923,17 +923,17 @@ class _TranslationsSettingsTabGeneralBn extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'বের হোন: উইন্ডো প্লেসমেন্ট সেভ করুন';
   @override
+  String get saveWindowPlacementWindows => 'বের হবার পরে উইন্ডোর অবস্থান সেভ করুন';
+  @override
   String get minimizeToTray => 'বের হোন: ট্রেতে মিনিমাইজ করুন';
   @override
   String get launchAtStartup => 'লগইন করার পরে অটোস্টার্ট করুন';
   @override
   String get launchMinimized => 'অটোস্টার্ট: হিডেন রেখে শুরু করুন';
   @override
-  String get animations => 'অ্যানিমেশন';
-  @override
-  String get saveWindowPlacementWindows => 'বের হবার পরে উইন্ডোর অবস্থান সেভ করুন';
-  @override
   String get showInContextMenu => 'কনটেক্সট মেনুতে LocalSend দেখান';
+  @override
+  String get animations => 'অ্যানিমেশন';
 }
 
 // Path: settingsTab.receive
@@ -950,6 +950,8 @@ class _TranslationsSettingsTabReceiveBn extends TranslationsSettingsTabReceiveEn
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'অটো ফিনিশ';
@@ -961,8 +963,6 @@ class _TranslationsSettingsTabReceiveBn extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'মিডিয়া গ্যালারিতে সেভ করুন';
   @override
   String get saveToHistory => 'হিস্ট্রি সেভ করুন';
-  @override
-  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 }
 
 // Path: settingsTab.send

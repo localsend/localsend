@@ -6,6 +6,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.provider.DocumentsContract
+import android.provider.Settings;
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -54,9 +55,18 @@ class MainActivity : FlutterActivity() {
                     result.success(null)
                 }
 
+                "isAnimationsEnabled" -> {
+                    result.success(isAnimationsEnabled())
+                }
+
                 else -> result.notImplemented()
             }
         }
+    }
+
+    private fun isAnimationsEnabled() : Boolean {
+        return Settings.Global.getFloat(this.getContentResolver(),
+            Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f) != 0.0f;
     }
 
     private fun openDirectoryPicker(onlyPath: Boolean) {

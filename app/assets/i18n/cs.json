@@ -134,16 +134,18 @@
       "deviceType": "Typ zařízení",
       "deviceModel": "Model zařízení",
       "port": "Port",
+      "network": "Síť",
+      "networkOptions": {
+        "all": "Vše",
+        "filtered": "Filtrované"
+      },
       "discoveryTimeout": "Časový limit zjišťování",
       "useSystemName": "Použít název systému",
       "generateRandomAlias": "Generovat náhodný alias",
       "portWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní port. (výchozí: {defaultPort})",
       "encryption": "Šifrování",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: {defaultMulticast})",
-      "networkOptions": {
-        "all": "Vše"
-      }
+      "multicastGroupWarning": "Je možné, že vás ostatní zařízení nezjistí, protože používáte vlastní adresu vícesměrového vysílání. (výchozí: {defaultMulticast})"
     },
     "other": {
       "title": "Ostatní",
@@ -172,6 +174,13 @@
       "symptom": "Obě zařízení se nemohou navzájem objevit ani nemohou sdílet soubory.",
       "solution": "Problém je na obou stranách? Pak se musíte ujistit, že jsou obě zařízení ve stejné wifi síti a sdílejí stejnou konfiguraci (port, multicastová adresa, šifrování). Wifi nemusí umožňovat komunikaci mezi účastníky. V takovém případě musí být tato možnost povolena na routeru."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Síťová rozhraní",
+    "info": "Ve výchozím nastavení používá LocalSend všechna dostupná síťová rozhraní. Zde můžete vyloučit nežádoucí sítě. Chcete-li použít změny, musíte restartovat server.",
+    "preview": "Náhled",
+    "whitelist": "Seznam povolených",
+    "blacklist": "Seznam zakázaných"
   },
   "receiveHistoryPage": {
     "title": "Historie",
@@ -444,8 +453,5 @@
     "sActionUseCameraHint": "použít kameru",
     "sNameDurationLabel": "doba trvání",
     "sUnitAssetCountLabel": "počet"
-  },
-  "networkInterfacesPage": {
-    "title": "Síťová rozhraní"
   }
 }
