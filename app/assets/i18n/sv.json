@@ -105,7 +105,7 @@
       },
       "saveWindowPlacement": "Avsluta: Spara fönsterplacering",
       "saveWindowPlacementWindows": "Spara fönsterposition efter avslut",
-      "minimizeToTray": "Lämna: minimera till tray",
+      "minimizeToTray": "Lämna: minimera till systemfält",
       "launchAtStartup": "Starta automatiskt efter inloggning",
       "launchMinimized": "Starta automatiskt: starta gömd",
       "showInContextMenu": "Visa LocalSend i snabbmenyn",
