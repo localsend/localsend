@@ -61,6 +61,7 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #destinationDirectory: _f$destinationDirectory,
     #cacheDirectory: _f$cacheDirectory,
     #saveToGallery: _f$saveToGallery,
+    #saveAsLivePhoto: _f$saveAsLivePhoto,
     #createdDirectories: _f$createdDirectories,
     #responseHandler: _f$responseHandler,
   };

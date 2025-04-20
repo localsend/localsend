@@ -20,7 +20,7 @@ class SettingsState with SettingsStateMappable {
   final String multicastGroup;
   final String? destination; // null = default
   final bool saveToGallery; // only Android, iOS
-  final bool saveAsLivePhoto; // 按实况照片保存，如果可以的话
+  final bool saveAsLivePhoto; // save as Live Photo, if available
   final bool saveToHistory;
   final bool quickSave; // automatically accept file requests
   final bool quickSaveFromFavorites; // automatically accept file requests from favorites

@@ -44,7 +44,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static bool _$saveToGallery(SettingsState v) => v.saveToGallery;
   static const Field<SettingsState, bool> _f$saveToGallery = Field('saveToGallery', _$saveToGallery);
   static bool _$saveAsLivePhoto(SettingsState v) => v.saveAsLivePhoto;
-  static const Field<SettingsState, bool> _f$saveAsLivePhoto = Field('saveToGallery', _$saveAsLivePhoto);
+  static const Field<SettingsState, bool> _f$saveAsLivePhoto = Field('saveAsLivePhoto', _$saveAsLivePhoto);
   static bool _$saveToHistory(SettingsState v) => v.saveToHistory;
   static const Field<SettingsState, bool> _f$saveToHistory = Field('saveToHistory', _$saveToHistory);
   static bool _$quickSave(SettingsState v) => v.quickSave;
@@ -89,6 +89,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #multicastGroup: _f$multicastGroup,
     #destination: _f$destination,
     #saveToGallery: _f$saveToGallery,
+    #saveAsLivePhoto: _f$saveAsLivePhoto,
     #saveToHistory: _f$saveToHistory,
     #quickSave: _f$quickSave,
     #quickSaveFromFavorites: _f$quickSaveFromFavorites,
@@ -195,6 +196,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
       String? multicastGroup,
       String? destination,
       bool? saveToGallery,
+      bool? saveAsLivePhoto,
       bool? saveToHistory,
       bool? quickSave,
       bool? quickSaveFromFavorites,
@@ -240,6 +242,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
           String? multicastGroup,
           Object? destination = $none,
           bool? saveToGallery,
+          bool? saveAsLivePhoto,
           bool? saveToHistory,
           bool? quickSave,
           bool? quickSaveFromFavorites,
@@ -267,6 +270,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
         if (multicastGroup != null) #multicastGroup: multicastGroup,
         if (destination != $none) #destination: destination,
         if (saveToGallery != null) #saveToGallery: saveToGallery,
+        if (saveAsLivePhoto != null) #saveAsLivePhoto: saveAsLivePhoto,
         if (saveToHistory != null) #saveToHistory: saveToHistory,
         if (quickSave != null) #quickSave: quickSave,
         if (quickSaveFromFavorites != null) #quickSaveFromFavorites: quickSaveFromFavorites,

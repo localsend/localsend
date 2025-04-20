@@ -8,14 +8,12 @@ import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart'
     as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
+import 'package:localsend_app/util/native/live_photo_cache.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:saf_stream/saf_stream.dart';
 import 'package:saf_stream/saf_stream_platform_interface.dart';
-
-import 'live_photo_cache.dart';
-import 'live_photo_saver.dart';
 
 final _logger = Logger('FileSaver');
 
@@ -152,35 +150,35 @@ Future<void> _saveFile({
 
     await flush?.call();
     await close();
-
+    _logger.info('是否保存到相册：$saveToGallery。是否保存为 live$saveAsLivePhoto');
     // 保存到相册
     if (saveToGallery) {
       if (saveAsLivePhoto) {
-        // 添加到缓存并等待配对
-        await LivePhotoCache().addFile(destinationPath);
-        final pair = await LivePhotoCache().waitForPair(destinationPath);
+        _logger.info('准备处理 Live Photo: $destinationPath');
+        try {
+          // 添加到缓存，但不保存到相册
+          await LivePhotoCache().addFile(destinationPath);
+          _logger.info('已添加到 Live Photo 缓存: $destinationPath');
+          _logger.info('文件已保存到缓存，等待配对文件');
 
-        if (pair != null) {
+          // 注意：这里不再调用 Gal.putImage 或 Gal.putVideo
+          // 而是在 LivePhotoCache 中处理配对完成后再保存
+        } catch (e, st) {
+          _logger.severe('处理文件过程中出错', e, st);
+          // 如果处理过程中出错，尝试作为普通文件保存
+          _logger.info('尝试作为普通文件保存: $destinationPath');
           try {
-            // 调用实况照片保存方法
-            await LivePhotoSaver.putLivePhoto(
-              imagePath: pair.cachedImagePath,
-              videoPath: pair.cachedVideoPath,
-            );
-          } finally {
-            // 清理原始文件和缓存
-            await Future.wait([
-              File(pair.imagePath).delete().catchError(
-                  (e) => _logger.warning('Failed to delete original image', e)),
-              File(pair.videoPath).delete().catchError(
-                  (e) => _logger.warning('Failed to delete original video', e)),
-            ]);
-            await LivePhotoCache()
-                .clearCache(p.basenameWithoutExtension(destinationPath));
+            isImage
+                ? await Gal.putImage(destinationPath)
+                : await Gal.putVideo(destinationPath);
+            await File(destinationPath).delete();
+          } catch (e2) {
+            _logger.warning('作为普通文件保存失败', e2);
           }
         }
       } else {
         // 原生方法
+        _logger.info('作为普通文件保存到相册: $destinationPath');
         isImage
             ? await Gal.putImage(destinationPath)
             : await Gal.putVideo(destinationPath);

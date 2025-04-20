@@ -150,6 +150,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     );
   }
 
+  Future<void> setSaveAsLivePhoto(bool saveAsLivePhoto) async {
+    await _persistence.setSaveAsLivePhoto(saveAsLivePhoto);
+    state = state.copyWith(
+      saveAsLivePhoto: saveAsLivePhoto,
+    );
+  }
+
   Future<void> setSaveToHistory(bool saveToHistory) async {
     await _persistence.setSaveToHistory(saveToHistory);
     state = state.copyWith(

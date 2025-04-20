@@ -284,7 +284,7 @@ class ReceiveController {
               path: null,
               savedToGallery: false,
               isMessage: true,
-              fileSize: utf8.encode(message).length,
+              fileSize: message.length,
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
             ));
@@ -458,6 +458,7 @@ class ReceiveController {
       } else {
         saveAsLivePhoto = false;
       }
+      _logger.info('saveAsLivePhoto:fileName=$receivingFile.file.fileName,result=$saveAsLivePhoto');
     } else {
       saveAsLivePhoto = false;
     }
@@ -838,4 +839,9 @@ extension on ReceiveSessionState {
         ),
     );
   }
+}
+
+String _getFileNameWithoutExtension(String fileName) {
+  final lastDotIndex = fileName.lastIndexOf('.');
+  return lastDotIndex == -1 ? fileName : fileName.substring(0, lastDotIndex);
 }
