@@ -297,6 +297,10 @@ class ReceiveController {
                 timestamp: DateTime.now().toUtc(),
               ),
             );
+      } else {
+        server.ref.notifier(selectedReceivingFilesProvider).setFiles(
+          server.getState().session!.files.values.map((f) => f.file).toList(),
+        );
       }
 
       final receiveProvider = ViewProvider((ref) {
