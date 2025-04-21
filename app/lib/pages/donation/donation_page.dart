@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/purchase_state.dart';
 import 'package:localsend_app/pages/donation/donation_page_vm.dart';
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
+import 'package:localsend_app/widget/custom_macOS_appbar.dart';
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -21,9 +24,11 @@ class DonationPage extends StatelessWidget {
       // [FOSS_REMOVE_END]
       builder: (context, vm) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(t.donationPage.title),
-          ),
+          appBar: Platform.isMacOS
+          ? appBarMac(t.donationPage.title)
+          : AppBar(
+              title: Text(t.donationPage.title),
+            ),
           body: Stack(
             children: [
               ResponsiveListView(

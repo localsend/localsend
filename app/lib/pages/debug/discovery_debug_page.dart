@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/widget/copyable_text.dart';
+import 'package:localsend_app/widget/custom_macOS_appbar.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -16,9 +19,11 @@ class DiscoveryDebugPage extends StatelessWidget {
     final ref = context.ref;
     final logs = ref.watch(discoveryLoggerProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Discovery Debugging'),
-      ),
+      appBar: Platform.isMacOS
+          ? appBarMac('Discovery Debugging')
+          : AppBar(
+              title: Text('Discovery Debugging'),
+            ),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         children: [
