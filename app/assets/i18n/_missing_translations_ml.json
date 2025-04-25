@@ -37,10 +37,10 @@
   "troubleshootPage": {
     "title": "Troubleshoot",
     "subTitle": "Does the app not work as expected? Here you can find some common solutions to problems.",
-    "solution": "Solution:",
-    "fixButton": "Fix automatically",
+    "solution": "പരിഹാരം:",
+    "fixButton": "സ്വയമേവ പരിഹരിക്കുക",
     "firewall": {
-      "symptom": "This device can send files to other devices but other devices cannot send files to this device.",
+      "symptom": "ഈ ഉപകരണത്തിന് മറ്റ് ഉപകരണങ്ങളിലേക്ക് ഫയലുകൾ അയയ്ക്കാൻ കഴിയും, പക്ഷേ മറ്റ് ഉപകരണങ്ങൾക്ക് ഈ ഉപകരണത്തിലേക്ക് ഫയലുകൾ അയയ്ക്കാൻ കഴിയില്ല.",
       "solution": "This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port {port}.",
       "openFirewall": "Open Firewall"
     },
@@ -49,7 +49,7 @@
       "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
     },
     "noConnection": {
-      "symptom": "Both devices cannot discover each other nor can they share files.",
+      "symptom": "രണ്ട് ഉപകരണങ്ങൾക്കും പരസ്പരം കണ്ടെത്താനോ ഫയലുകൾ പങ്കിടാനോ കഴിയില്ല.",
       "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The Wi-Fi network may not allow communication between participants due to Access Point (AP) Isolation. In this case, this option must be disabled on the router."
     }
   },
@@ -60,14 +60,14 @@
     "blacklist": "Blacklist"
   },
   "receiveHistoryPage": {
-    "title": "History",
+    "title": "ചരിത്രം",
     "openFolder": "Open folder",
-    "deleteHistory": "Delete history",
-    "empty": "The history is empty.",
+    "deleteHistory": "ചരിത്രം ഇല്ലാതാക്കുക",
+    "empty": "ചരിത്രം ശൂന്യമാണ്.",
     "entryActions": {
-      "open": "Open file",
+      "open": "ഫയൽ തുറക്കുക",
       "showInFolder": "Show in folder",
-      "info": "Information",
+      "info": "വിവരങ്ങൾ",
       "deleteFromHistory": "Delete from history"
     }
   },
@@ -78,14 +78,14 @@
     "apps": "{n} Apps"
   },
   "selectedFilesPage": {
-    "deleteAll": "Delete all"
+    "deleteAll": "എല്ലാം ഇല്ലാതാക്കുക"
   },
   "receivePage": {
     "subTitle": {
-      "one": "wants to send you a file",
-      "other": "wants to send you {n} files"
+      "one": "നിങ്ങൾക്ക് ഒരു ഫയൽ അയയ്ക്കാൻ ആഗ്രഹിക്കുന്നു",
+      "other": "നിങ്ങൾക്ക് {n} ഫയലുകൾ അയയ്ക്കാൻ ആഗ്രഹിക്കുന്നു"
     },
-    "subTitleMessage": "sent you a message:",
+    "subTitleMessage": "നിങ്ങൾക്ക് ഒരു സന്ദേശം അയച്ചു:",
     "subTitleLink": "sent you a link:",
     "canceled": "The sender has canceled the request."
   },
@@ -97,7 +97,7 @@
     "saveToGalleryOff": "Turned off automatically because there are folders."
   },
   "sendPage": {
-    "waiting": "Waiting for response…",
+    "waiting": "പ്രതികരണത്തിനായി കാത്തിരിക്കുന്നു…",
     "rejected": "The recipient has rejected the request.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "The recipient is busy with another request."
