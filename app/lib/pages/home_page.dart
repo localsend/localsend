@@ -13,11 +13,12 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 
 enum HomeTab {
-  receive(Icons.wifi),
+  receive(LucideIcons.wifi),
   send(Icons.send),
-  settings(Icons.settings);
+  settings(LucideIcons.cog);
 
   const HomeTab(this.icon);
 

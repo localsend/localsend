@@ -14,6 +14,7 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 
 enum _QuickSaveMode {
   off,
@@ -169,7 +170,7 @@ class _CornerButtons extends StatelessWidget {
                   onPressed: () async {
                     await context.push(() => const ReceiveHistoryPage());
                   },
-                  child: const Icon(Icons.history),
+                  child: const Icon(LucideIcons.history),
                 ),
               ),
             CustomIconButton(

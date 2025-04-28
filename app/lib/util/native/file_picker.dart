@@ -30,17 +30,18 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 
 final _logger = Logger('FilePickerHelper');
 final _uriContent = UriContent();
 
 enum FilePickerOption {
-  file(Icons.description),
-  folder(Icons.folder),
-  media(Icons.image),
-  text(Icons.subject),
-  app(Icons.apps),
-  clipboard(Icons.paste);
+  file(LucideIcons.file),
+  folder(LucideIcons.folder),
+  media(LucideIcons.fileImage),
+  text(LucideIcons.text),
+  app(LucideIcons.layoutGrid),
+  clipboard(LucideIcons.clipboard);
 
   const FilePickerOption(this.icon);
 

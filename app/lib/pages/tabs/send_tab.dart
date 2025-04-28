@@ -33,6 +33,7 @@ import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 
 const _horizontalPadding = 15.0;
 final _options = FilePickerOption.getOptionsForPlatform();
@@ -179,14 +180,14 @@ class SendTab extends StatelessWidget {
                   message: t.sendTab.manualSending,
                   child: CustomIconButton(
                     onPressed: () async => vm.onTapAddress(context),
-                    child: const Icon(Icons.ads_click),
+                    child: const Icon(LucideIcons.squareMousePointer),
                   ),
                 ),
                 Tooltip(
                   message: t.dialogs.favoriteDialog.title,
                   child: CustomIconButton(
                     onPressed: () async => await vm.onTapFavorite(context),
-                    child: const Icon(Icons.favorite),
+                    child: const Icon(LucideIcons.heart),
                   ),
                 ),
                 _SendModeButton(
@@ -327,7 +328,7 @@ class _ScanButton extends StatelessWidget {
               context.redux(nearbyDevicesProvider).dispatch(ClearFoundDevicesAction());
               await context.global.dispatchAsync(StartSmartScan(forceLegacy: true));
             },
-            child: Icon(Icons.sync, color: iconColor),
+            child: Icon(LucideIcons.refreshCcw, color: iconColor),
           ),
         ),
       );
@@ -363,7 +364,7 @@ class _ScanButton extends StatelessWidget {
         reverse: true,
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Icon(Icons.sync, color: iconColor),
+          child: Icon(LucideIcons.refreshCcw, color: iconColor),
         ),
       ),
     );
@@ -383,7 +384,7 @@ class _RotatingSyncIcon extends StatelessWidget {
       duration: const Duration(seconds: 2),
       spinning: scanningIps.contains(ip),
       reverse: true,
-      child: const Icon(Icons.sync),
+      child: const Icon(LucideIcons.refreshCcw),
     );
   }
 }
@@ -427,7 +428,7 @@ class _SendModeButton extends StatelessWidget {
                     maintainSize: true,
                     maintainAnimation: true,
                     maintainState: true,
-                    child: const Icon(Icons.check_circle),
+                    child: const Icon(LucideIcons.circleCheck),
                   );
                 },
               ),
@@ -449,7 +450,7 @@ class _SendModeButton extends StatelessWidget {
                     maintainSize: true,
                     maintainAnimation: true,
                     maintainState: true,
-                    child: const Icon(Icons.check_circle),
+                    child: const Icon(LucideIcons.circleCheck),
                   );
                 },
               ),
@@ -468,7 +469,7 @@ class _SendModeButton extends StatelessWidget {
                 maintainSize: true,
                 maintainAnimation: true,
                 maintainState: true,
-                child: Icon(Icons.check_circle),
+                child: Icon(LucideIcons.circleCheck),
               ),
               const SizedBox(width: 10),
               Text(t.sendTab.sendModes.link),
@@ -483,7 +484,7 @@ class _SendModeButton extends StatelessWidget {
             children: [
               const Directionality(
                 textDirection: TextDirection.ltr,
-                child: Icon(Icons.help),
+                child: Icon(LucideIcons.badgeHelp),
               ),
               const SizedBox(width: 10),
               Text(t.sendTab.sendModeHelp),
@@ -493,7 +494,7 @@ class _SendModeButton extends StatelessWidget {
       ],
       child: const Padding(
         padding: EdgeInsets.all(8),
-        child: Icon(Icons.settings),
+        child: Icon(LucideIcons.folderTree),
       ),
     );
   }
