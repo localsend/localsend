@@ -21,6 +21,7 @@
 		E90D52B8096B253F54908565 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0628E22A788D91D99A60B3EB /* Pods_Runner.framework */; };
 		FEC635D32D8EB58E00B053A8 /* LivePhotoSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */; };
 		FEC635D42D8EB58E00B053A8 /* LivePhotoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */; };
+		FEF4DF5F2DCA53810052666D /* LivePhotoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		E27045CC3CCE78EFE26BEAA2 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoHandler.swift; sourceTree = "<group>"; };
 		FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoSaver.swift; sourceTree = "<group>"; };
+		FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 		FEC635D12D8EB58E00B053A8 /* LivePhoto */ = {
 			isa = PBXGroup;
 			children = (
+				FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */,
 				FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */,
 				FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */,
 			);
@@ -447,6 +450,7 @@
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				FEC635D32D8EB58E00B053A8 /* LivePhotoSaver.swift in Sources */,
+				FEF4DF5F2DCA53810052666D /* LivePhotoUtils.swift in Sources */,
 				FEC635D42D8EB58E00B053A8 /* LivePhotoHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
