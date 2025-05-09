@@ -19,6 +19,9 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		E90D52B8096B253F54908565 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0628E22A788D91D99A60B3EB /* Pods_Runner.framework */; };
+		FEAC3B7E2DCCEB3800838618 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC3B7C2DCCEB3800838618 /* Logger.swift */; };
+		FEAC3B7F2DCCEB3800838618 /* ErrorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC3B7A2DCCEB3800838618 /* ErrorUtils.swift */; };
+		FEAC3B802DCCEB3800838618 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC3B7B2DCCEB3800838618 /* FileUtils.swift */; };
 		FEC635D32D8EB58E00B053A8 /* LivePhotoSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */; };
 		FEC635D42D8EB58E00B053A8 /* LivePhotoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */; };
 		FEF4DF5F2DCA53810052666D /* LivePhotoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */; };
@@ -88,6 +91,9 @@
 		A2BF1CF158EF83DE50B03565 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		B97818B16CFBA751581F52D0 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		E27045CC3CCE78EFE26BEAA2 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		FEAC3B7A2DCCEB3800838618 /* ErrorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorUtils.swift; sourceTree = "<group>"; };
+		FEAC3B7B2DCCEB3800838618 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		FEAC3B7C2DCCEB3800838618 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoHandler.swift; sourceTree = "<group>"; };
 		FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoSaver.swift; sourceTree = "<group>"; };
 		FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoUtils.swift; sourceTree = "<group>"; };
@@ -197,6 +203,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FEAC3B7D2DCCEB3800838618 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FEAC3B7A2DCCEB3800838618 /* ErrorUtils.swift */,
+				FEAC3B7B2DCCEB3800838618 /* FileUtils.swift */,
+				FEAC3B7C2DCCEB3800838618 /* Logger.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		FEC635D12D8EB58E00B053A8 /* LivePhoto */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +226,7 @@
 		FEC635D22D8EB58E00B053A8 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				FEAC3B7D2DCCEB3800838618 /* Utils */,
 				FEC635D12D8EB58E00B053A8 /* LivePhoto */,
 			);
 			path = Plugins;
@@ -449,6 +466,9 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				FEAC3B7E2DCCEB3800838618 /* Logger.swift in Sources */,
+				FEAC3B7F2DCCEB3800838618 /* ErrorUtils.swift in Sources */,
+				FEAC3B802DCCEB3800838618 /* FileUtils.swift in Sources */,
 				FEC635D32D8EB58E00B053A8 /* LivePhotoSaver.swift in Sources */,
 				FEF4DF5F2DCA53810052666D /* LivePhotoUtils.swift in Sources */,
 				FEC635D42D8EB58E00B053A8 /* LivePhotoHandler.swift in Sources */,
