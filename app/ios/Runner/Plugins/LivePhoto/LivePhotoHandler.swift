@@ -17,21 +17,24 @@ enum VideoProcessingError: Error {
 
 @objc class LivePhotoHandler: NSObject {
     private let livePhotoUtils = LivePhotoUtils()
+    private let logger = Logger(module: "LivePhotoHandler")
     
     @objc func saveLivePhoto(imagePath: String, videoPath: String, completion: @escaping (Error?) -> Void) {
-        print("LivePhotoHandler: Starting to save live photo")
-        print("LivePhotoHandler: Image path: \(imagePath)")
-        print("LivePhotoHandler: Video path: \(videoPath)")
+        logger.info("开始保存 Live Photo")
+        logger.debug("图片路径: \(imagePath)")
+        logger.debug("视频路径: \(videoPath)")
         
         // 检查文件是否存在
-        guard FileManager.default.fileExists(atPath: imagePath) else {
-            let error = NSError(domain: "LivePhotoHandler", code: -1, userInfo: [NSLocalizedDescriptionKey: "Image file does not exist"])
+        if !FileUtils.fileExists(at: imagePath) {
+            let error = AppErrorType.fileNotFound(path: imagePath)
+            logger.error("图片文件不存在: \(imagePath)")
             completion(error)
             return
         }
         
-        guard FileManager.default.fileExists(atPath: videoPath) else {
-            let error = NSError(domain: "LivePhotoHandler", code: -1, userInfo: [NSLocalizedDescriptionKey: "Video file does not exist"])
+        if !FileUtils.fileExists(at: videoPath) {
+            let error = AppErrorType.fileNotFound(path: videoPath)
+            logger.error("视频文件不存在: \(videoPath)")
             completion(error)
             return
         }
@@ -40,42 +43,41 @@ enum VideoProcessingError: Error {
         let imageURL = URL(fileURLWithPath: imagePath)
         let videoURL = URL(fileURLWithPath: videoPath)
         
-        do {
-            let imageAttributes = try FileManager.default.attributesOfItem(atPath: imagePath)
-            let videoAttributes = try FileManager.default.attributesOfItem(atPath: videoPath)
+        // 检查文件大小
+        if let imageSize = FileUtils.fileSize(at: imagePath), 
+           let videoSize = FileUtils.fileSize(at: videoPath) {
+            logger.debug("图片大小: \(imageSize) 字节")
+            logger.debug("视频大小: \(videoSize) 字节")
             
-            if let imageSize = imageAttributes[.size] as? NSNumber, 
-               let videoSize = videoAttributes[.size] as? NSNumber {
-                print("LivePhotoHandler: Image size: \(imageSize.int64Value) bytes")
-                print("LivePhotoHandler: Video size: \(videoSize.int64Value) bytes")
-                
-                // 检查文件是否为空
-                if imageSize.int64Value == 0 {
-                    let error = NSError(domain: "LivePhotoHandler", code: -2, userInfo: [NSLocalizedDescriptionKey: "Image file is empty"])
-                    completion(error)
-                    return
-                }
-                
-                if videoSize.int64Value == 0 {
-                    let error = NSError(domain: "LivePhotoHandler", code: -2, userInfo: [NSLocalizedDescriptionKey: "Video file is empty"])
-                    completion(error)
-                    return
-                }
+            // 检查文件是否为空
+            if FileUtils.isFileEmpty(at: imagePath) {
+                let error = AppErrorType.fileEmpty(path: imagePath)
+                logger.error("图片文件为空")
+                completion(error)
+                return
             }
-        } catch {
-            print("LivePhotoHandler: Error getting file attributes: \(error.localizedDescription)")
+            
+            if FileUtils.isFileEmpty(at: videoPath) {
+                let error = AppErrorType.fileEmpty(path: videoPath)
+                logger.error("视频文件为空")
+                completion(error)
+                return
+            }
+        } else {
+            logger.warning("无法获取文件大小信息")
         }
         
         // 检查文件扩展名
         let imageExtension = imageURL.pathExtension.lowercased()
         let videoExtension = videoURL.pathExtension.lowercased()
         
-        print("LivePhotoHandler: Image extension: \(imageExtension)")
-        print("LivePhotoHandler: Video extension: \(videoExtension)")
+        logger.debug("图片扩展名: \(imageExtension)")
+        logger.debug("视频扩展名: \(videoExtension)")
         
         // 验证文件格式
-        if !["jpg", "jpeg", "heic"].contains(imageExtension) {
-            let error = NSError(domain: "LivePhotoHandler", code: -3, userInfo: [NSLocalizedDescriptionKey: "Image format not supported, need jpg/jpeg/heic"])
+        if !FileUtils.isFileExtensionSupported(path: imagePath, supportedExtensions: ["jpg", "jpeg", "heic"]) {
+            let error = AppErrorType.fileFormatNotSupported(extension: imageExtension)
+            logger.error("不支持的图片格式，需要 jpg/jpeg/heic")
             completion(error)
             return
         }
@@ -84,45 +86,48 @@ enum VideoProcessingError: Error {
         let identifier = UUID().uuidString
         
         // 创建临时文件路径
-        let tempDirectory = NSTemporaryDirectory()
-        let imageFileName = imageURL.deletingPathExtension().lastPathComponent
-        let videoFileName = videoURL.deletingPathExtension().lastPathComponent
-        let tempImageURL = URL(fileURLWithPath: tempDirectory).appendingPathComponent("\(imageFileName).\(imageExtension)")
-        let tempVideoURL = URL(fileURLWithPath: tempDirectory).appendingPathComponent("\(videoFileName).mov")
+        let tempImageURL = FileUtils.createTempFilePath(originalURL: imageURL, prefix: nil, suffix: nil)
+        let tempVideoURL = FileUtils.createTempFilePath(originalURL: videoURL, prefix: nil, suffix: "mov")
         
-        print("LivePhotoHandler: Temp image path: \(tempImageURL.path)")
-        print("LivePhotoHandler: Temp video path: \(tempVideoURL.path)")
+        logger.debug("临时图片路径: \(tempImageURL.path)")
+        logger.debug("临时视频路径: \(tempVideoURL.path)")
         
         // 处理图片和视频
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 // 处理图片
-                print("LivePhotoHandler: Starting to process image")
+                self.logger.info("开始处理图片")
                 let processedImageURL = try self.livePhotoUtils.addPhotoIdentifier(
                     identifier,
                     fromPhotoURL: imageURL,
                     to: tempImageURL
                 )
-                print("LivePhotoHandler: Image processed successfully")
+                self.logger.info("图片处理成功")
                 
                 // 处理视频
-                print("LivePhotoHandler: Starting to process video")
+                self.logger.info("开始处理视频")
                 self.livePhotoUtils.addVideoIdentifier(
                     identifier,
                     fromVideoURL: videoURL,
                     to: tempVideoURL
                 ) { progress in
-                    print("LivePhotoHandler: Video conversion progress: \(progress * 100)%")
+                    self.logger.debug("视频转换进度: \(Int(progress * 100))%")
                 } completion: { result in
                     switch result {
                     case .success(let processedVideoURL):
-                        print("LivePhotoHandler: Video processed successfully")
+                        self.logger.info("视频处理成功")
                         
                         // 保存前检查文件是否存在
-                        guard FileManager.default.fileExists(atPath: processedImageURL.path),
-                              FileManager.default.fileExists(atPath: processedVideoURL.path) else {
-                            let error = NSError(domain: "LivePhotoHandler", code: -5, userInfo: [NSLocalizedDescriptionKey: "Processed files do not exist"])
-                            completion(error)
+                        if !FileUtils.fileExists(at: processedImageURL.path) || !FileUtils.fileExists(at: processedVideoURL.path) {
+                            let error = AppErrorType.fileNotFound(path: "处理后的文件")
+                            ErrorUtils.logError(error, context: "Live Photo处理")
+                            
+                            // 清理临时文件
+                            self.cleanupTempFiles(tempImageURL, tempVideoURL)
+                            
+                            DispatchQueue.main.async {
+                                completion(error)
+                            }
                             return
                         }
                         
@@ -132,13 +137,13 @@ enum VideoProcessingError: Error {
                         var saveError: Error? = nil
                         var saveSuccess = false
                         
-                        print("LivePhotoHandler: Starting to save to Photos library")
+                        self.logger.info("开始保存到相册")
                         PHPhotoLibrary.shared().performChanges({
                             let request = PHAssetCreationRequest.forAsset()
                             let options = PHAssetResourceCreationOptions()
                             options.shouldMoveFile = false
                             
-                            print("LivePhotoHandler: Adding resources to Photos library")
+                            self.logger.debug("添加资源到相册")
                             request.addResource(with: .photo, fileURL: processedImageURL, options: options)
                             request.addResource(with: .pairedVideo, fileURL: processedVideoURL, options: options)
                             
@@ -146,7 +151,8 @@ enum VideoProcessingError: Error {
                             saveSuccess = success
                             saveError = error
                             if let error = error {
-                                print("LivePhotoHandler: Photos library reported error: \(error.localizedDescription)")
+                                self.logger.error("相册报告错误: \(error.localizedDescription)")
+                                ErrorUtils.logError(error, context: "保存到相册")
                             }
                             semaphore.signal()
                         }
@@ -159,37 +165,40 @@ enum VideoProcessingError: Error {
                         // 通过主线程回调
                         DispatchQueue.main.async {
                             if saveSuccess {
-                                print("LivePhotoHandler: Live Photo saved successfully")
+                                self.logger.info("Live Photo 保存成功")
                                 completion(nil)
                             } else if let error = saveError {
-                                print("LivePhotoHandler: Failed to save Live Photo: \(error.localizedDescription)")
+                                self.logger.error("Live Photo 保存失败: \(error.localizedDescription)")
                                 completion(error)
                             } else {
-                                let error = NSError(domain: "LivePhotoHandler", code: -6, userInfo: [NSLocalizedDescriptionKey: "Failed to save live photo"])
+                                let error = AppErrorType.internalError(reason: "保存到相册失败")
+                                self.logger.error("保存失败")
                                 completion(error)
                             }
                         }
                         
                     case .failure(let error):
-                        print("LivePhotoHandler: Video processing failed: \(error.localizedDescription)")
+                        self.logger.error("视频处理失败: \(error.localizedDescription)")
+                        ErrorUtils.logError(error, context: "视频处理")
+                        
                         // 清理临时文件
                         self.cleanupTempFiles(tempImageURL, tempVideoURL)
                         
                         // 通过主线程回调错误
                         DispatchQueue.main.async {
-                            print("LivePhotoHandler: Processing failed: \(error.localizedDescription)")
                             completion(error)
                         }
                     }
                 }
             } catch {
-                print("LivePhotoHandler: Image processing failed: \(error.localizedDescription)")
+                self.logger.error("图片处理失败: \(error.localizedDescription)")
+                ErrorUtils.logError(error, context: "图片处理")
+                
                 // 清理临时文件
                 self.cleanupTempFiles(tempImageURL, tempVideoURL)
                 
                 // 通过主线程回调错误
                 DispatchQueue.main.async {
-                    print("LivePhotoHandler: Processing failed: \(error.localizedDescription)")
                     completion(error)
                 }
             }
@@ -198,13 +207,7 @@ enum VideoProcessingError: Error {
     
     private func cleanupTempFiles(_ files: URL...) {
         for file in files {
-            if FileManager.default.fileExists(atPath: file.path) {
-                do {
-                    try FileManager.default.removeItem(at: file)
-                } catch {
-                    print("LivePhotoHandler: Failed to delete temporary file: \(file.path)")
-                }
-            }
+            FileUtils.cleanupTempFile(file)
         }
     }
 }
@@ -213,7 +216,8 @@ enum VideoProcessingError: Error {
 extension AVAsset {
     func frameCount() throws -> Int {
         guard let videoTrack = tracks(withMediaType: .video).first else {
-            throw NSError(domain: "LivePhotoHandler", code: -13, userInfo: [NSLocalizedDescriptionKey: "No video track found"])
+            let error = AppErrorType.mediaTrackMissing(type: "视频")
+            throw error
         }
         let frameRate = videoTrack.nominalFrameRate
         return Int(Float(duration.value) * frameRate / Float(duration.timescale))
