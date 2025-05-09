@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:common/model/device.dart';
 import 'package:common/model/session_status.dart';
@@ -12,6 +13,7 @@ import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/animations/initial_slide_transition.dart';
+import 'package:localsend_app/widget/custom_macOS_appbar.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -86,7 +88,9 @@ class _SendPageState extends State<SendPage> with Refena {
       },
       canPop: true,
       child: Scaffold(
-        appBar: widget.showAppBar ? AppBar() : null,
+        appBar: widget.showAppBar ? Platform.isMacOS
+          ? appBarMac('')
+          : AppBar() : null,
         body: SafeArea(
           child: Center(
             child: ConstrainedBox(

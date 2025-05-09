@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:common/isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,6 +36,9 @@ Future<void> main(List<String> args) async {
       child: const LocalSendApp(),
     ),
   ));
+  doWhenWindowReady(() {
+    // necessary for bitsdojo
+  });
 }
 
 class LocalSendApp extends StatelessWidget {

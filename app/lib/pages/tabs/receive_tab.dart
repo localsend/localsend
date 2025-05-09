@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -30,6 +33,8 @@ class ReceiveTab extends StatelessWidget {
 
     return Stack(
       children: [
+        Platform.isMacOS?
+        SizedBox(height: 50, child: MoveWindow()) : SizedBox(height: 0, width: 0),  // makes the top part that's not occupied by another widget draggable
         Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
