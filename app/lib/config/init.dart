@@ -118,7 +118,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     if (startHidden) {
       unawaited(hideToTray());
     } else {
-      await WindowManager.instance.show();
+      unawaited(showFromTray());
     }
 
     if (defaultTargetPlatform == TargetPlatform.macOS) {
