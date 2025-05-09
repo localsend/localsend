@@ -159,7 +159,6 @@ Future<void> _saveFile({
           // 添加到缓存，但不保存到相册
           await LivePhotoCache().addFile(destinationPath);
           _logger.info('已添加到 Live Photo 缓存: $destinationPath');
-          _logger.info('文件已保存到缓存，等待配对文件');
 
           // 注意：这里不再调用 Gal.putImage 或 Gal.putVideo
           // 而是在 LivePhotoCache 中处理配对完成后再保存
