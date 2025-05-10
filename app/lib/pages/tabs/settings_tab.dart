@@ -39,7 +39,7 @@ class SettingsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder(
-      provider: settingsTabControllerProvider,
+      provider: (ref) => settingsTabControllerProvider,
       builder: (context, vm) {
         final ref = context.ref;
         return ResponsiveListView(

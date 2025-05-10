@@ -46,6 +46,7 @@ Device _target({
   required bool https,
 }) {
   return Device(
+    signalingId: null,
     ip: '0.0.0.0',
     version: version,
     port: 8080,
@@ -55,5 +56,6 @@ Device _target({
     deviceModel: 'deviceModel',
     deviceType: DeviceType.desktop,
     download: false,
+    discoveryMethods: {},
   );
 }
