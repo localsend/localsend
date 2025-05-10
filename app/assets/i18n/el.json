@@ -207,15 +207,12 @@
   },
   "receiveOptionsPage": {
     "title": "Επιλογές",
-    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(Φάκελος LocalSend)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι."
   },
   "sendPage": {
     "waiting": "Αναμονή για απάντηση…",
     "rejected": "Ο παραλήπτης απέρριψε το αίτημα.",
-    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Ο παραλήπτης είναι απασχολημένος με άλλο αίτημα."
   },
   "progressPage": {
@@ -245,7 +242,6 @@
     },
     "requests": "Αιτήματα",
     "noRequests": "Κανένα αίτμηα ακόμα.",
-    "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Αυτόματη αποδοχή αιτημάτων",
     "requirePin": "Απαίτηση PIN",
     "pinHint": "Το PIN είναι \"{pin}\"",
@@ -274,7 +270,7 @@
     "title": "Καταγραφή αλλαγών"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "Διαφορετικές τοποθεσίες μπορεί να έχουν διαφορετικές λέξεις, μπορεί να μην ταιριάζουν 1:1",
     "adjectives": [
       "Λατρευτό",
       "Πανεμορφο",
@@ -357,7 +353,6 @@
     },
     "addressInput": {
       "title": "Εισαγωγή διεύθυνσης",
-      "hashtag": "Hashtag",
       "ip": "Διεύθυνση IP",
       "recentlyUsed": "Χρησιμοποιήθηκε πρόσφατα: "
     },
@@ -411,11 +406,11 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "description": "Το LocalSend δεν μπορεί να βρει άλλες συσκευές χωρίς την άδεια σάρωσης του τοπικού δικτύου. Παρακαλείστε να παραχωρήσετε αυτό το δικαίωμα στις ρυθμίσεις.",
       "gotoSettings": "Ρυθμίσεις"
     },
     "messageInput": {
-      "title": "Τύπος μηνύματος",
+      "title": "Πληκτρολογήστε το μήνυμα",
       "multiline": "Πολλαπλών γραμμών"
     },
     "noFiles": {
@@ -442,11 +437,9 @@
       "random": "Τυχαία"
     },
     "quickSaveNotice": {
-      "title": "@:general.quickSave",
       "content": "Τα αιτήματα αρχείων γίνονται αυτόματα δεκτά. Έχετε υπόψη σας ότι όλοι στο τοπικό δίκτυο μπορούν να σας στείλουν αρχεία."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
       "content": [
         "Τα αιτήματα αρχείων γίνονται τώρα αυτόματα αποδεκτά από τις συσκευές της λίστας των αγαπημένων σας.",
         "Προειδοποίηση! Επί του παρόντος, αυτό δεν είναι απολύτως ασφαλές, ένας χάκερ που έχει το δακτυλικό αποτύπωμα οποιασδήποτε συσκευής από τη λίστα των αγαπημένων σας μπορεί να σας στείλει αρχεία χωρίς περιορισμό.",
