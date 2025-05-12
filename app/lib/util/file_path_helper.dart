@@ -1,7 +1,7 @@
 import 'package:common/model/file_type.dart';
 
-/// Matches myFile-123 -> 123
-final _fileNumberRegex = RegExp(r'^(.*)(?:-(\d+))$');
+/// Matches myFile (123) -> "myFile", " (123)"
+final _fileNumberRegex = RegExp(r'^(.*)(?:(\s\(\d+\)))$');
 
 extension FilePathStringExt on String {
   String get extension {
@@ -43,9 +43,9 @@ extension FilePathStringExt on String {
 
     final match = _fileNumberRegex.firstMatch(fileName);
     if (match != null) {
-      return '${match.group(1)}-$count'.withExtension(extension);
+      return '${match.group(1)} ($count)'.withExtension(extension);
     } else {
-      return '$fileName-$count'.withExtension(extension);
+      return '$fileName ($count)'.withExtension(extension);
     }
   }
 
