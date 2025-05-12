@@ -46,12 +46,13 @@ class SelectedFilesPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  FilledButton(
+                  FilledButton.icon(
                     onPressed: () {
                       ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
                       context.popUntilRoot();
                     },
-                    child: Text(t.selectedFilesPage.deleteAll),
+                    icon: const Icon(Icons.deselect),
+                    label: const Text('Deselect All'),
                   ),
                 ],
               ),
