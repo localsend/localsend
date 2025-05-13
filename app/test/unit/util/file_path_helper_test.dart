@@ -3,15 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('fileName with counter', () async {
-    final fileName = 'myFile';
-
-    final fileNameWithCounter1 = 'myFile (1)';
-    final fileNameWithCounter2 = 'myFile (2)';
-
-    final fileNameAddCounter1 = fileName.withCount(1);
-    final fileNameAddCounter2 = fileNameWithCounter1.withCount(2);
-
-    expect(fileNameWithCounter1, fileNameAddCounter1);
-    expect(fileNameWithCounter2, fileNameAddCounter2);
+    expect('myFile'.withCount(1), 'myFile (1)');
+    expect('myFile (1)'.withCount(2), 'myFile (2)');
   });
 }
