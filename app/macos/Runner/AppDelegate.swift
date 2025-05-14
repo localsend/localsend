@@ -3,6 +3,7 @@ import FlutterMacOS
 import Defaults
 import DockProgress
 import LaunchAtLogin
+import bitsdojo_window_macos
 
 enum DockIcon: CaseIterable {
     case regular
