@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/live_photo_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
@@ -91,7 +92,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                 ),
               ],
             ),
-          if (checkPlatformWithGallery() && receiveSession.saveToGallery)
+          if (checkPlatformWithGallery() && receiveSession.saveToGallery && ref.read(livePhotoSupportProvider))
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
