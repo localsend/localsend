@@ -69,11 +69,13 @@ class ReceiveController {
     required String showToken,
   }) {
     router.get(ApiRoute.info.v1, (HttpRequest request) async {
-      return await _infoHandler(request: request, alias: alias, fingerprint: fingerprint);
+      return await _infoHandler(
+          request: request, alias: alias, fingerprint: fingerprint);
     });
 
     router.get(ApiRoute.info.v2, (HttpRequest request) async {
-      return await _infoHandler(request: request, alias: alias, fingerprint: fingerprint);
+      return await _infoHandler(
+          request: request, alias: alias, fingerprint: fingerprint);
     });
 
     // An upgraded version of /info

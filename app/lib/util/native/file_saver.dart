@@ -5,8 +5,7 @@ import 'dart:typed_data';
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/channel/android_channel.dart'
-    as android_channel;
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/live_photo_cache.dart';
 import 'package:logging/logging.dart';
@@ -40,8 +39,7 @@ Future<void> saveFile({
     SafWriteStreamInfo? safInfo;
 
     if (documentUri != null || destinationPath.startsWith('content://')) {
-      _logger.info(
-          'Using SAF to save file to ${documentUri ?? destinationPath} as $name');
+      _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
       safInfo = await _saf.startWriteStream(
         documentUri ?? destinationPath,
         name,
@@ -51,8 +49,7 @@ Future<void> saveFile({
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {
         // Use Android SAF to save the file to the SD card
-        final uriString =
-            ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
+        final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
         _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
           'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString',
@@ -150,37 +147,12 @@ Future<void> _saveFile({
 
     await flush?.call();
     await close();
-    _logger.info('是否保存到相册：$saveToGallery。是否保存为 live$saveAsLivePhoto');
-    // 保存到相册
+
     if (saveToGallery) {
       if (saveAsLivePhoto) {
-        _logger.info('准备处理 Live Photo: $destinationPath');
-        try {
-          // 添加到缓存，但不保存到相册
-          await LivePhotoCache().addFile(destinationPath);
-          _logger.info('已添加到 Live Photo 缓存: $destinationPath');
-
-          // 注意：这里不再调用 Gal.putImage 或 Gal.putVideo
-          // 而是在 LivePhotoCache 中处理配对完成后再保存
-        } catch (e, st) {
-          _logger.severe('处理文件过程中出错', e, st);
-          // 如果处理过程中出错，尝试作为普通文件保存
-          _logger.info('尝试作为普通文件保存: $destinationPath');
-          try {
-            isImage
-                ? await Gal.putImage(destinationPath)
-                : await Gal.putVideo(destinationPath);
-            await File(destinationPath).delete();
-          } catch (e2) {
-            _logger.warning('作为普通文件保存失败', e2);
-          }
-        }
+        await LivePhotoCache().addFile(destinationPath);
       } else {
-        // 原生方法
-        _logger.info('作为普通文件保存到相册: $destinationPath');
-        isImage
-            ? await Gal.putImage(destinationPath)
-            : await Gal.putVideo(destinationPath);
+        isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
         await File(destinationPath).delete();
       }
     }
@@ -190,7 +162,6 @@ Future<void> _saveFile({
     try {
       await close();
       await File(destinationPath).delete();
-      // 清理相关的缓存
       await LivePhotoCache()
           .clearCache(p.basenameWithoutExtension(destinationPath));
     } catch (e) {
@@ -210,33 +181,25 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     final String documentUri;
     if (fileName.contains('/')) {
       try {
-        await android_channel.createMissingDirectoriesAndroid(
-            parentUri: parentDirectory,
-            fileName: fileName,
-            createdDirectories: createdDirectories);
+        await android_channel.createMissingDirectoriesAndroid(parentUri: parentDirectory, fileName: fileName, createdDirectories: createdDirectories);
       } catch (e) {
         _logger.warning('Could not create missing directories', e);
       }
-      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(
-          treeUri: parentDirectory, suffix: fileName.parentPath());
+      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: fileName.parentPath());
     } else {
       // root directory
-      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(
-          treeUri: parentDirectory, suffix: null);
+      documentUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: null);
     }
 
     // destinationUri is for the history
     // documentUri is for SAF to save the file, it should point to the parent directory
-    final destinationUri = ContentUriHelper.convertTreeUriToDocumentUri(
-        treeUri: parentDirectory, suffix: fileName);
+    final destinationUri = ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentDirectory, suffix: fileName);
     return (destinationUri, documentUri, p.basename(fileName));
   }
 
-  final actualFileName =
-      legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
+  final actualFileName = legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
   final fileNameParts = p.split(fileName);
-  final dir = p.joinAll(
-      [parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
+  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 
   if (fileNameParts.length > 1) {
     // Check path traversal
@@ -254,16 +217,13 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   String destinationPath;
   int counter = 1;
   do {
-    destinationPath = counter == 1
-        ? p.join(dir, actualFileName)
-        : p.join(dir, actualFileName.withCount(counter));
+    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
     counter++;
   } while (await File(destinationPath).exists());
   return (destinationPath, null, p.basename(destinationPath));
 }
 
-final _sdCardPathRegex =
-    RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
+final _sdCardPathRegex = RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
 
 class SdCardPath {
   final String sdCardId;

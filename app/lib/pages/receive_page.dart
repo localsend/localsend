@@ -117,7 +117,6 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                 ),
                               ],
                               const SizedBox(height: 40),
-                              // 弹出的接收页面
                               Text(
                                 vm.message != null
                                     ? (vm.isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
@@ -229,7 +228,6 @@ class _Actions extends StatelessWidget {
     if (vm.status == SessionStatus.canceledBySender) {
       return Column(
         children: [
-          // 发送者取消发送
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Text(

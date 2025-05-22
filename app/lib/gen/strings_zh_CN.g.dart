@@ -868,7 +868,7 @@ class _TranslationsSendTabPickerZhCn extends TranslationsSendTabPickerEn {
   @override
   String get media => '媒体';
   @override
-  String get live => '实况';
+  String get live => '实况照片';
   @override
   String get text => '文本';
   @override

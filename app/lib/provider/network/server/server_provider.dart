@@ -185,7 +185,7 @@ class ServerService extends Notifier<ServerState?> {
     _receiveController.setSessionSaveToGallery(saveToGallery);
   }
 
-  void setSessionSaveAslivePhoto(bool saveAsLivePhoto) {
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
     _receiveController.setSessionSaveAsLivePhoto(saveAsLivePhoto);
   }
 

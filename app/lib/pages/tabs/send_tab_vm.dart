@@ -53,9 +53,7 @@ class SendTabVm {
 }
 
 final sendTabVmProvider = ViewProvider((ref) {
-  // 当前的传输模式  1. 单个文件 2. 多个文件 3. 链接
   final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
-  // 当前选择的文件
   final selectedFiles = ref.watch(selectedSendingFilesProvider);
   final localIps = ref.watch(localIpProvider).localIps;
   final nearbyDevices = ref.watch(nearbyDevicesProvider).devices.values;
