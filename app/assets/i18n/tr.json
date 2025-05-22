@@ -384,6 +384,13 @@
     "openFile": {
       "title": "Dosya Aç",
       "content": "Alınan dosyayı açmak istiyor musunuz?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.",
+        "Uyarı! Şu an, bu tamamen güvenli değildir çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip olan hackerlar sınırlama olmadan size dosyalar gönderebilir.",
+        "Ancak, bu seçenek yinede ağdaki tüm kullanıcıların size sınırlandırma olmadan dosya göndermesine izin vermekten daha güvenlidir."
+      ]
     }
   },
   "sanitization": {
@@ -441,6 +448,7 @@
     "title": "Ağ Arayüzleri",
     "preview": "Önizle",
     "whitelist": "Beyaz liste",
-    "blacklist": "Kara liste"
+    "blacklist": "Kara liste",
+    "info": "Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir."
   }
 }
