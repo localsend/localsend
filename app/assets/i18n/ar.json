@@ -208,8 +208,8 @@
   "receiveOptionsPage": {
     "title": "خيارات",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "appDirectory": "(مجلد LocalSend)",
+    "saveToGallery": "@: إعدادات علامة التبويب. استقبال. حفظ إلى المعرض",
     "saveToGalleryOff": "تم إيقافه تلقائيًا لوجود دلائل."
   },
   "sendPage": {
