@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
+import 'package:localsend_app/util/native/live_photo_helper.dart';
 
 bool checkPlatform(List<TargetPlatform> platforms, {bool web = false}) {
   if (web && kIsWeb) {
@@ -35,6 +36,10 @@ bool checkPlatformWithFolderSelect() {
 /// This platform has a gallery
 bool checkPlatformWithGallery() {
   return checkPlatform([TargetPlatform.android, TargetPlatform.iOS]);
+}
+
+bool checkPlatformSupportSaveAsLivePhoto() {
+  return checkPlatformWithGallery() && LivePhotoHelper.isLivePhotoSupported();
 }
 
 /// This platform has access to file system

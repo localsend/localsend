@@ -1,11 +1,20 @@
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 
-final _logger = Logger('LivePhotoSaver');
+final _logger = Logger('LivePhotoHelper');
 
-class LivePhotoSaver {
+class LivePhotoHelper {
   static const _methodChannel =
       MethodChannel('org.localsend.localsend_app/live_photo');
+
+  static Future<bool> isLivePhotoSupported() async {
+    try {
+      final result = await _methodChannel.invokeMethod<bool>('isLivePhotoSupported');
+      return result ?? false;
+    } catch (e) {
+      return false;
+    }
+  }
 
   static Future<void> putLivePhoto({
     required String imagePath,
