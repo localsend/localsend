@@ -439,7 +439,7 @@ class PersistenceService {
   }
 
   bool isSaveAsLivePhoto() {
-    return _prefs.getBool(_saveAsLivePhoto) ?? true;
+    return _prefs.getBool(_saveAsLivePhoto) ?? false;
   }
 
   Future<void> setSaveAsLivePhoto(bool saveAsLivePhoto) async {
