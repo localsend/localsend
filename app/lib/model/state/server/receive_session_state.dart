@@ -36,9 +36,8 @@ class ReceiveSessionState with ReceiveSessionStateMappable implements SessionSta
 
   final String destinationDirectory;
   final String cacheDirectory;
-  // 保存到相册的开关
   final bool saveToGallery;
-  // 按实况照片保存，如果可以的话
+  // save as live photo, if it possible
   final bool saveAsLivePhoto;
 
   /// On Android, we need to manually create missing directories.

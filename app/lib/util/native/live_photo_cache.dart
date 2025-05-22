@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:localsend_app/util/native/live_photo_saver.dart';
+import 'package:localsend_app/util/native/live_photo_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -17,7 +17,7 @@ class LivePhotoCache {
   final Duration _timeout = const Duration(minutes: 5); // 5分钟超时
   Directory? _cacheDir;
 
-  /// 初始化缓存系统
+  /// init cache
   Future<void> init() async {
     try {
       final tempDir = await getTemporaryDirectory();
@@ -145,7 +145,7 @@ class LivePhotoCache {
       _logger.info('图片路径: ${entry.imagePath}');
       _logger.info('视频路径: ${entry.videoPath}');
 
-      await LivePhotoSaver.putLivePhoto(
+      await LivePhotoHelper.putLivePhoto(
         imagePath: entry.imagePath!,
         videoPath: entry.videoPath!,
       );

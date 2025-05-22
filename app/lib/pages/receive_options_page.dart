@@ -119,7 +119,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (b) => ref.notifier(serverProvider).setSessionSaveAslivePhoto(b),
+                      onChanged: (b) => ref.notifier(serverProvider).setSessionSaveAsLivePhoto(b),
                     )
                   ],
                 ),

@@ -14,7 +14,6 @@ import 'package:saf_stream/saf_stream.dart';
 import 'package:saf_stream/saf_stream_platform_interface.dart';
 
 import 'live_photo_cache.dart';
-import 'live_photo_saver.dart';
 
 final _logger = Logger('FileSaver');
 
@@ -180,36 +179,14 @@ Future<(bool, String?)> _saveFile({
       try {
         if (saveAsLivePhoto) {
           await LivePhotoCache().addFile(destinationPath);
-          final pair = await LivePhotoCache().waitForPair(destinationPath);
-
-          if (pair != null) {
-            try {
-              await LivePhotoSaver.putLivePhoto(
-                imagePath: pair.cachedImagePath,
-                videoPath: pair.cachedVideoPath,
-              );
-              onProgress(savedBytes);
-              return (true, null);
-            } finally {
-              await Future.wait([
-                File(pair.imagePath).delete().catchError(
-                  (e) => _logger.warning('Failed to delete original image', e),
-                ),
-                File(pair.videoPath).delete().catchError(
-                  (e) => _logger.warning('Failed to delete original video', e),
-                ),
-              ]);
-              await LivePhotoCache().clearCache(
-                p.basenameWithoutExtension(destinationPath),
-              );
-            }
-          }
+          onProgress(savedBytes);
+          return (false, destinationPath);
         } else {
           isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
           await File(destinationPath).delete();
+          onProgress(savedBytes);
+          return (true, null);
         }
-        onProgress(savedBytes);
-        return saveAsLivePhoto ? (false, destinationPath) : (true, null);
       } on GalException catch (e) {
         if (e.type == GalExceptionType.notSupportedFormat) {
           _logger.info('File format not supported by gallery, moving to destination directory');
