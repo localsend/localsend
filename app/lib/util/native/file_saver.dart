@@ -2,12 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:common/model/file_type.dart';
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
+import 'package:localsend_app/provider/cache/live_photo_cache_provider.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
-import 'package:localsend_app/util/native/live_photo_cache.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
@@ -26,7 +27,7 @@ Future<void> saveFile({
   required String name,
   required bool saveToGallery,
   required bool saveAsLivePhoto,
-  required bool isImage,
+  required FileType fileType,
   required Stream<Uint8List> stream,
   required int? androidSdkInt,
   required DateTime? lastModified,
@@ -43,7 +44,7 @@ Future<void> saveFile({
       safInfo = await _saf.startWriteStream(
         documentUri ?? destinationPath,
         name,
-        lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
+        lookupMimeType(name) ?? (fileType == FileType.image ? 'image/*' : '*/*'),
       );
     } else {
       final sdCardPath = getSdCardPath(destinationPath);
@@ -54,7 +55,7 @@ Future<void> saveFile({
         safInfo = await _saf.startWriteStream(
           'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString',
           name,
-          lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
+          lookupMimeType(name) ?? (fileType == FileType.image ? 'image/*' : '*/*'),
         );
       }
     }
@@ -65,7 +66,7 @@ Future<void> saveFile({
         destinationPath: destinationPath,
         saveToGallery: saveToGallery,
         saveAsLivePhoto: saveAsLivePhoto,
-        isImage: isImage,
+        fileType: fileType,
         stream: stream,
         onProgress: onProgress,
         write: null,
@@ -87,7 +88,7 @@ Future<void> saveFile({
     destinationPath: destinationPath,
     saveToGallery: saveToGallery,
     saveAsLivePhoto: saveAsLivePhoto,
-    isImage: isImage,
+    fileType: fileType,
     stream: stream,
     onProgress: onProgress,
     write: sink.add,
@@ -113,7 +114,7 @@ Future<void> _saveFile({
   required String destinationPath,
   required bool saveToGallery,
   required bool saveAsLivePhoto,
-  required bool isImage,
+  required FileType fileType,
   required Stream<Uint8List> stream,
   required void Function(int savedBytes) onProgress,
   required void Function(Uint8List data)? write,
@@ -150,9 +151,9 @@ Future<void> _saveFile({
 
     if (saveToGallery) {
       if (saveAsLivePhoto) {
-        await LivePhotoCache().addFile(destinationPath);
+        await LivePhotoCacheProvider().addFile(fileType, destinationPath);
       } else {
-        isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
+        fileType == FileType.image ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
         await File(destinationPath).delete();
       }
     }
@@ -162,8 +163,7 @@ Future<void> _saveFile({
     try {
       await close();
       await File(destinationPath).delete();
-      await LivePhotoCache()
-          .clearCache(p.basenameWithoutExtension(destinationPath));
+      await LivePhotoCacheProvider().clearCache(destinationPath);
     } catch (e) {
       _logger.warning('Could not delete file or clear cache', e);
     }

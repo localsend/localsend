@@ -44,6 +44,7 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
@@ -56,6 +57,9 @@ final _logger = Logger('ReceiveController');
 /// Handles all requests for receiving files.
 class ReceiveController {
   final ServerUtils server;
+
+  // cache Each Session Live Photo Pairs
+  static final Map<String, Map<String, bool>> _sessionLivePhotoCache = {};
 
   ReceiveController(this.server);
 
@@ -379,6 +383,11 @@ class ReceiveController {
       }
     }
 
+    // init Live Photo Pairs
+    if (settings.saveToGallery && settings.saveAsLivePhoto) {
+      _cacheLivePhotoPairs(sessionId, server.getState().session!.files);
+    }
+
     if (v2) {
       return await request.respondJson(200,
           body: PrepareUploadResponseDto(
@@ -449,21 +458,7 @@ class ReceiveController {
     );
     final fileType = receivingFile.file.fileType;
     final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
-    final bool saveAsLivePhoto;
-    if (saveToGallery && receiveState.saveAsLivePhoto) {
-      if (receivingFile.file.fileType == FileType.image) {
-        // 如果当前文件是图片，寻找同名的视频
-        saveAsLivePhoto = receiveState.files.values.any((f) => f.file.fileType == FileType.video && f.file.fileName == receivingFile.file.fileName);
-      } else if (receivingFile.file.fileType == FileType.video) {
-        // 如果当前文件是视频，寻找同名的图片
-        saveAsLivePhoto = receiveState.files.values.any((f) => f.file.fileType == FileType.image && f.file.fileName == receivingFile.file.fileName);
-      } else {
-        saveAsLivePhoto = false;
-      }
-      _logger.info('saveAsLivePhoto:fileName=$receivingFile.file.fileName,result=$saveAsLivePhoto');
-    } else {
-      saveAsLivePhoto = false;
-    }
+    final saveAsLivePhoto = _sessionLivePhotoCache[receiveState.sessionId]?[fileId] ?? false;
 
     String? outerDestinationPath;
     try {
@@ -483,7 +478,7 @@ class ReceiveController {
         name: finalName,
         saveToGallery: saveToGallery,
         saveAsLivePhoto: saveAsLivePhoto,
-        isImage: fileType == FileType.image,
+        fileType: fileType,
         stream: request,
         androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
         lastModified: receivingFile.file.metadata?.lastModified,
@@ -798,6 +793,39 @@ class ReceiveController {
       ),
     );
     server.ref.notifier(progressProvider).removeSession(sessionId);
+
+    // clear Live Photo Cache
+    _sessionLivePhotoCache.remove(sessionId);
+  }
+
+  /// calculate and cache Live Photo pairs
+  void _cacheLivePhotoPairs(String sessionId, Map<String, ReceivingFile> files) {
+    final cache = <String, bool>{};
+    final filesByName = <String, ReceivingFile>{};
+
+    // single loop: group files and check for pairs
+    for (final file in files.values) {
+      final baseName = path.basenameWithoutExtension(file.file.fileName);
+      final fileType = file.file.fileType;
+
+      // add to group
+      if (filesByName[baseName] == null) {
+        filesByName[baseName] = file;
+      } else {
+        final existingFileType = filesByName[baseName]!.file.fileType;
+        if (existingFileType == FileType.image && fileType == FileType.video) {
+          cache[file.file.id] = true;
+          cache[filesByName[baseName]!.file.id] = true;
+          filesByName.remove(baseName);
+        } else if (existingFileType == FileType.video && fileType == FileType.image) {
+          cache[file.file.id] = true;
+          cache[filesByName[baseName]!.file.id] = true;
+          filesByName.remove(baseName);
+        }
+      }
+    }
+
+    _sessionLivePhotoCache[sessionId] = cache;
   }
 }
 
@@ -841,9 +869,4 @@ extension on ReceiveSessionState {
         ),
     );
   }
-}
-
-String _getFileNameWithoutExtension(String fileName) {
-  final lastDotIndex = fileName.lastIndexOf('.');
-  return lastDotIndex == -1 ? fileName : fileName.substring(0, lastDotIndex);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 
 final _logger = Logger('LivePhotoHelper');
@@ -9,6 +10,9 @@ class LivePhotoHelper {
 
   /// Checks if the device supports Live Photo feature
   static Future<bool> isLivePhotoSupported() async {
+    if (!checkPlatformWithGallery()) {
+      return false;
+    }
     try {
       final result = await _methodChannel.invokeMethod<bool>('isLivePhotoSupported');
       return result ?? false;
