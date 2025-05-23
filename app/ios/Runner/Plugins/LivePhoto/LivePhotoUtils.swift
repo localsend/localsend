@@ -22,23 +22,23 @@ class LivePhotoUtils {
               let imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, nil),
               var imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [AnyHashable : Any] else {
             let error = ImageProcessingError.invalidImageSource
-            logger.error("无法创建图像源")
+            logger.error("Unable to create image source")
             throw error
         }
         let identifierInfo = ["17" : identifier]
         imageProperties[kCGImagePropertyMakerAppleDictionary] = identifierInfo
         guard let imageDestination = CGImageDestinationCreateWithURL(destinationURL as CFURL, kUTTypeJPEG, 1, nil) else {
             let error = ImageProcessingError.unableToReadImage
-            logger.error("无法创建图像目标")
+            logger.error("Unable to create image destination")
             throw error
         }
         CGImageDestinationAddImage(imageDestination, imageRef, imageProperties as CFDictionary)
         if CGImageDestinationFinalize(imageDestination) {
-            logger.info("成功处理图像: \(destinationURL.lastPathComponent)")
+            logger.info("Successfully processed image: \(destinationURL.lastPathComponent)")
             return destinationURL
         } else {
             let error = ImageProcessingError.unableToWriteImage
-            logger.error("无法写入图像")
+            logger.error("Unable to write image")
             throw error
         }
     }
@@ -80,9 +80,9 @@ class LivePhotoUtils {
         return item
     }
     
-    // 获取视频码率函数
+    // Get video bitrate function
     private func getVideoBitRate(from videoTrack: AVAssetTrack) -> Int {
-        // 获取原始码率
+        // Get original bitrate
         let bitRate = videoTrack.estimatedDataRate
         
         return Int(bitRate)
@@ -95,7 +95,7 @@ class LivePhotoUtils {
         progress: ((Float) -> Void)? = nil,
         completion: @escaping (Result<URL, Error>) -> Void
     ) {
-        logger.info("开始处理视频文件: \(videoURL.path)")
+        logger.info("Starting to process video file: \(videoURL.path)")
         
         let asset = AVURLAsset(url: videoURL)
         
@@ -103,9 +103,9 @@ class LivePhotoUtils {
         
         // Create the video reader
         guard let videoReader = try? AVAssetReader(asset: asset) else {
-            logger.error("创建视频读取器失败")
+            logger.error("Failed to create video reader")
             let error = VideoProcessingError.loadTracksFailed
-            ErrorUtils.logError(error, context: "视频读取")
+            ErrorUtils.logError(error, context: "Video reading")
             completion(.failure(error))
             return
         }
@@ -113,14 +113,14 @@ class LivePhotoUtils {
         // Create the video reader output
         let videoTracks = asset.tracks(withMediaType: .video)
         guard let videoTrack = videoTracks.first else {
-            logger.error("视频文件中没有找到视频轨道")
+            logger.error("No video track found in video file")
             let error = VideoProcessingError.loadTracksFailed
-            ErrorUtils.logError(error, context: "视频轨道")
+            ErrorUtils.logError(error, context: "Video track")
             completion(.failure(error))
             return
         }
         
-        logger.info("找到视频轨道，尺寸: \(videoTrack.naturalSize), 帧率: \(videoTrack.nominalFrameRate)")
+        logger.info("Found video track, size: \(videoTrack.naturalSize), frame rate: \(videoTrack.nominalFrameRate)")
         
         let videoReaderOutputSettings : [String : Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32BGRA]
         let videoReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderOutputSettings)
@@ -130,9 +130,9 @@ class LivePhotoUtils {
         
         // Create the audio reader
         guard let audioReader = try? AVAssetReader(asset: asset) else {
-            logger.error("创建音频读取器失败")
+            logger.error("Failed to create audio reader")
             let error = VideoProcessingError.loadTracksFailed
-            ErrorUtils.logError(error, context: "音频读取")
+            ErrorUtils.logError(error, context: "Audio reading")
             completion(.failure(error))
             return
         }
@@ -140,7 +140,7 @@ class LivePhotoUtils {
         // Check if there are audio tracks
         let audioTracks = asset.tracks(withMediaType: .audio)
         if audioTracks.isEmpty {
-            logger.warning("视频文件中没有音频轨道，将创建没有音频的 Live Photo")
+            logger.warning("No audio track found in video file, will create Live Photo without audio")
         }
         
         var audioReaderOutput: AVAssetReaderTrackOutput? = nil
@@ -150,16 +150,16 @@ class LivePhotoUtils {
             audioTrack = firstAudioTrack
             audioReaderOutput = AVAssetReaderTrackOutput(track: firstAudioTrack, outputSettings: nil)
             audioReader.add(audioReaderOutput!)
-            logger.info("找到音频轨道")
+            logger.info("Found audio track")
         }
         
         // --- Writer ---
         
         // Create the asset writer
         guard let assetWriter = try? AVAssetWriter(outputURL: destinationURL, fileType: .mov) else {
-            logger.error("创建视频写入器失败")
+            logger.error("Failed to create video writer")
             let error = VideoProcessingError.unableToWriteVideo
-            ErrorUtils.logError(error, context: "视频写入")
+            ErrorUtils.logError(error, context: "Video writing")
             completion(.failure(error))
             return
         }
@@ -171,7 +171,7 @@ class LivePhotoUtils {
             AVVideoWidthKey : videoTrack.naturalSize.width,
             AVVideoHeightKey : videoTrack.naturalSize.height,
             AVVideoCompressionPropertiesKey : [
-                AVVideoAverageBitRateKey : bitRate // 使用原始码率
+                AVVideoAverageBitRateKey : bitRate // Use original bitrate
             ]
         ]
         
@@ -243,13 +243,13 @@ class LivePhotoUtils {
                     }
                     if !videoWriterInput.append(sampleBuffer) {
                         videoReader.cancelReading()
-                        self.logger.error("写入视频数据失败")
+                        self.logger.error("Failed to write video data")
                         let error = VideoProcessingError.unableToWriteVideo
                         completion(.failure(error))
                         return
                     }
                 } else {
-                    self.logger.info("视频处理完成")
+                    self.logger.info("Video processing completed")
                     videoWriterInput.markAsFinished()
                     group.leave()
                     break
@@ -264,13 +264,13 @@ class LivePhotoUtils {
                     if let sampleBuffer = audioReaderOutput.copyNextSampleBuffer() {
                         if !audioWriterInput.append(sampleBuffer) {
                             audioReader.cancelReading()
-                            self.logger.error("写入音频数据失败")
+                            self.logger.error("Failed to write audio data")
                             let error = VideoProcessingError.unableToWriteVideo
                             completion(.failure(error))
                             return
                         }
                     } else {
-                        self.logger.info("音频处理完成")
+                        self.logger.info("Audio processing completed")
                         audioWriterInput.markAsFinished()
                         group.leave()
                         break
@@ -284,23 +284,23 @@ class LivePhotoUtils {
             assetWriter.finishWriting {
                 switch assetWriter.status {
                 case .completed:
-                    self.logger.info("视频转换成功完成")
+                    self.logger.info("Video conversion completed successfully")
                     completion(.success(destinationURL))
                 case .failed:
-                    self.logger.error("视频转换失败: \(assetWriter.error?.localizedDescription ?? "未知错误")")
+                    self.logger.error("Video conversion failed: \(assetWriter.error?.localizedDescription ?? "unknown error")")
                     if let error = assetWriter.error {
-                        ErrorUtils.logError(error, context: "视频转换")
+                        ErrorUtils.logError(error, context: "Video conversion")
                         completion(.failure(error))
                     } else {
                         let error = VideoProcessingError.unableToWriteVideo
                         completion(.failure(error))
                     }
                 case .cancelled:
-                    self.logger.error("视频转换被取消")
+                    self.logger.error("Video conversion was cancelled")
                     let error = VideoProcessingError.unableToWriteVideo
                     completion(.failure(error))
                 default:
-                    self.logger.error("视频转换状态未知: \(assetWriter.status.rawValue)")
+                    self.logger.error("Video conversion status unknown: \(assetWriter.status.rawValue)")
                     let error = VideoProcessingError.unableToWriteVideo
                     completion(.failure(error))
                 }
@@ -314,25 +314,25 @@ class LivePhotoUtils {
             if status == .authorized {
                 let semaphore = DispatchSemaphore(value: 0)
 
-                // 检查文件是否存在
+                // Check if files exist
                 if !FileUtils.fileExists(at: imageURL.path) || !FileUtils.fileExists(at: videoURL.path) {
-                    self.logger.error("文件不存在：\(imageURL) 或 \(videoURL)")
-                    let error = AppErrorType.fileNotFound(path: "\(imageURL) 或 \(videoURL)")
+                    self.logger.error("Files do not exist: \(imageURL) or \(videoURL)")
+                    let error = AppErrorType.fileNotFound(path: "\(imageURL) or \(videoURL)")
                     completion(false, error)
                     return
                 }
 
-                // 保存 Live Photo
+                // Save Live Photo
                 PHPhotoLibrary.shared().performChanges({
                     let request = PHAssetCreationRequest.forAsset()
                     request.addResource(with: .photo, fileURL: imageURL, options: nil)
                     request.addResource(with: .pairedVideo, fileURL: videoURL, options: nil)
                 }) { success, error in
                     if success {
-                        self.logger.info("Live Photo 保存成功：\(imageURL.lastPathComponent)")
+                        self.logger.info("Live Photo saved successfully: \(imageURL.lastPathComponent)")
                     } else if let error = error {
-                        self.logger.error("保存失败：\(error.localizedDescription)")
-                        ErrorUtils.logError(error, context: "保存Live Photo")
+                        self.logger.error("Save failed: \(error.localizedDescription)")
+                        ErrorUtils.logError(error, context: "Save Live Photo")
                     }
                     completion(success, error)
                     semaphore.signal()
@@ -340,8 +340,8 @@ class LivePhotoUtils {
 
                 semaphore.wait()
             } else {
-                let error = AppErrorType.permissionDenied(type: "相册访问")
-                self.logger.error("未授权访问相册")
+                let error = AppErrorType.permissionDenied(type: "photo library access")
+                self.logger.error("Unauthorized access to photo library")
                 completion(false, error)
             }
         }

@@ -6,8 +6,8 @@ import 'dart:isolate';
 import 'package:common/util/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/provider/cache/live_photo_cache_provider.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/live_photo_cache.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,7 +35,7 @@ Future<void> _clear(RootIsolateToken token) async {
   final futures = (
     FilePicker.platform.clearTemporaryFiles(),
     PhotoManager.clearFileCache(),
-    LivePhotoCache().clearAllCache(),
+    LivePhotoCacheProvider().clearAllCache(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
         ? getTemporaryDirectory().then((cacheDir) {
             cacheDir.list().listen((event) {
