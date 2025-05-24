@@ -8,7 +8,7 @@ import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
-import 'package:localsend_app/widget/custom_macOS_appbar.dart';
+import 'package:localsend_app/widget/custom_macos_appbar.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';

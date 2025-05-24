@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:local_hero/local_hero.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/widget/custom_macOS_appbar.dart';
+import 'package:localsend_app/widget/custom_macos_appbar.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';

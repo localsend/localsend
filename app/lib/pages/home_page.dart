@@ -110,10 +110,11 @@ class _HomePageState extends State<HomePage> with Refena {
                         backgroundColor: Theme.of(context).cardColorWithElevation,
                         leading: sizingInformation.isDesktop
                             ? Column(
-                            children: [
+                                children: [
                                   Platform.isMacOS
                                       ? // considered adding some extra space so it looks more natural
-                                      SizedBox(height: 40) : SizedBox(height: 20),
+                                      SizedBox(height: 40)
+                                      : SizedBox(height: 20),
                                   const Text(
                                     'LocalSend',
                                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),

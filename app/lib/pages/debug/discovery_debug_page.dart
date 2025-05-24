@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/widget/copyable_text.dart';
-import 'package:localsend_app/widget/custom_macOS_appbar.dart';
+import 'package:localsend_app/widget/custom_macos_appbar.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 

@@ -11,7 +11,7 @@ import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
-import 'package:localsend_app/widget/custom_macOS_appbar.dart';
+import 'package:localsend_app/widget/custom_macos_appbar.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/dialogs/zoom_dialog.dart';
@@ -103,10 +103,10 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
       canPop: false,
       child: Scaffold(
         appBar: Platform.isMacOS
-          ? appBarMac(t.webSharePage.title)
-          : AppBar(
-              title: Text(t.webSharePage.title),
-            ),
+            ? appBarMac(t.webSharePage.title)
+            : AppBar(
+                title: Text(t.webSharePage.title),
+              ),
         body: Builder(
           builder: (context) {
             if (_stateEnum != _ServerState.running) {

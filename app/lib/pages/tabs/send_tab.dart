@@ -4,7 +4,6 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collection/collection.dart';
 import 'package:common/model/device.dart';
 import 'package:common/model/session_status.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -262,7 +261,12 @@ class SendTab extends StatelessWidget {
               ],
             ),
             // make the top draggable on Desktop
-            Platform.isMacOS ? SizedBox(height: 50, child: MoveWindow()) : SizedBox(height: 0, width: 0,),
+            Platform.isMacOS
+                ? SizedBox(height: 50, child: MoveWindow())
+                : SizedBox(
+                    height: 0,
+                    width: 0,
+                  ),
           ],
         );
       },

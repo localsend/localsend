@@ -6,7 +6,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
-import 'package:localsend_app/widget/custom_macOS_appbar.dart';
+import 'package:localsend_app/widget/custom_macos_appbar.dart';
 
 class ChangelogPage extends StatelessWidget {
   const ChangelogPage();

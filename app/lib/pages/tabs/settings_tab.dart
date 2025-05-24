@@ -47,7 +47,8 @@ class SettingsTab extends StatelessWidget {
         return Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(right: MediaQuery.of(context).padding.right), // So camera or 3-button navigation doesn't interfere on the right, rest is handled
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).padding.right), // So camera or 3-button navigation doesn't interfere on the right, rest is handled
               child: ResponsiveListView(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
                 children: [
@@ -187,7 +188,7 @@ class SettingsTab extends StatelessWidget {
                                 generateRandom: false,
                               ),
                             );
-              
+
                             if (newPin != null && newPin.isNotEmpty) {
                               await ref.notifier(settingsProvider).setReceivePin(newPin);
                             }
@@ -211,7 +212,7 @@ class SettingsTab extends StatelessWidget {
                                 }
                                 return;
                               }
-              
+
                               final directory = await pickDirectoryPath();
                               if (directory != null) {
                                 if (defaultTargetPlatform == TargetPlatform.macOS) {
@@ -336,10 +337,10 @@ class SettingsTab extends StatelessWidget {
                                 onPressed: () async {
                                   // Generates random alias
                                   final newAlias = generateRandomAlias();
-              
+
                                   // Update the TextField with the new alias
                                   vm.aliasController.text = newAlias;
-              
+
                                   // Persist the new alias using the settingsProvider
                                   await ref.notifier(settingsProvider).setAlias(newAlias);
                                 },
@@ -352,7 +353,7 @@ class SettingsTab extends StatelessWidget {
                                 onPressed: () async {
                                   // Uses dart.io to find the systems hostname
                                   final newAlias = Platform.localHostname;
-              
+
                                   vm.aliasController.text = newAlias;
                                   await ref.notifier(settingsProvider).setAlias(newAlias);
                                 },
@@ -508,7 +509,7 @@ class SettingsTab extends StatelessWidget {
                           );
                         },
                       ),
-                       if (checkPlatform([TargetPlatform.iOS, TargetPlatform.macOS]))
+                      if (checkPlatform([TargetPlatform.iOS, TargetPlatform.macOS]))
                         _ButtonEntry(
                           label: t.settingsTab.other.termsOfUse,
                           buttonLabel: t.general.open,
@@ -581,9 +582,7 @@ class SettingsTab extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8),
-                          child: Text(t.settingsTab.title,
-                              style: Theme.of(context).textTheme.titleLarge,
-                              textAlign: TextAlign.center),
+                          child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
                         ),
                       ),
                     ),

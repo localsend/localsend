@@ -11,6 +11,7 @@ environment:
 
 dependencies:
   basic_utils: 5.7.0
+  bitsdojo_window: ^0.1.6
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   common:
     path: ../common
@@ -75,7 +76,6 @@ dependencies:
   window_manager: 0.4.3
   windows_taskbar: 1.1.2
   yaru: 5.3.2
-  bitsdojo_window: ^0.1.6
 
 dev_dependencies:
   build_runner: 2.4.13

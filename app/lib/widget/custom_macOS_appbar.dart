@@ -49,9 +49,12 @@ PreferredSizeWidget appBarMac(String title) {
                 // Originally leading Icon
                 CustomBackButton(),
                 // Center Title
-                Expanded(child: Padding(
+                Expanded(
+                    child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Center(child: FittedBox(fit: BoxFit.scaleDown,child: Text(title, style: TextStyle(fontSize: 100, fontWeight: FontWeight.normal))),),
+                  child: Center(
+                    child: FittedBox(fit: BoxFit.scaleDown, child: Text(title, style: TextStyle(fontSize: 100, fontWeight: FontWeight.normal))),
+                  ),
                 )),
                 // For true centering of the icon since it shifted
                 const SizedBox(width: 60),
