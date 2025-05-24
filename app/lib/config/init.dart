@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:common/api_route_builder.dart';
 import 'package:common/constants.dart';
 import 'package:common/isolate.dart';
@@ -114,12 +115,14 @@ Future<RefenaContainer> preInit(List<String> args) async {
     } else if (defaultTargetPlatform == TargetPlatform.macOS) {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
-
-    if (startHidden) {
-      unawaited(hideToTray());
-    } else {
-      unawaited(showFromTray());
-    }
+    
+    doWhenWindowReady(() {
+      if (startHidden) {
+        unawaited(hideToTray());
+      } else {
+        unawaited(showFromTray());
+      }
+    });
 
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       await setupStatusBar();
