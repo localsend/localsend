@@ -1,9 +1,3 @@
-//
-//  LivePhotoUtils.swift
-//  live_easier_cmd
-//
-//  Created by zerun on 2024/11/3.
-//
 import Foundation
 import ImageIO
 import MobileCoreServices
