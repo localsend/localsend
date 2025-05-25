@@ -120,7 +120,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       if (startHidden) {
         unawaited(hideToTray());
       } else {
-        WindowManager.instance.show();
+        unawaited(showFromTray());
       }
     });
 

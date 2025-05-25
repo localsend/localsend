@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:collection/collection.dart';
 import 'package:common/util/network_interfaces.dart';
 import 'package:flutter/gestures.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:local_hero/local_hero.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/widget/custom_macos_appbar.dart';
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -46,11 +44,7 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
         ? context.notifier(settingsProvider).setNetworkWhitelist
         : context.notifier(settingsProvider).setNetworkBlacklist;
     return Scaffold(
-      appBar: Platform.isMacOS
-          ? appBarMac(t.networkInterfacesPage.title)
-          : AppBar(
-              title: Text(t.networkInterfacesPage.title),
-            ),
+      appBar: basicLocalSendAppbar(t.networkInterfacesPage.title),
       body: LocalHeroScope(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collection/collection.dart';
 import 'package:common/model/device.dart';
@@ -261,7 +259,7 @@ class SendTab extends StatelessWidget {
               ],
             ),
             // make the top draggable on Desktop
-            Platform.isMacOS
+            checkPlatform([TargetPlatform.macOS])
                 ? SizedBox(height: 50, child: MoveWindow())
                 : SizedBox(
                     height: 0,

@@ -12,6 +12,7 @@ import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> with Refena {
                         leading: sizingInformation.isDesktop
                             ? Column(
                                 children: [
-                                  Platform.isMacOS
+                                  checkPlatform([TargetPlatform.macOS])
                                       ? // considered adding some extra space so it looks more natural
                                       SizedBox(height: 40)
                                       : SizedBox(height: 20),
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> with Refena {
                                   SizedBox(height: 20),
                                 ],
                               )
-                            : Platform.isMacOS
+                            : checkPlatform([TargetPlatform.macOS])
                                 ? SizedBox(
                                     height: 20,
                                   )

@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/debug/debug_page.dart';
-import 'package:localsend_app/widget/custom_macos_appbar.dart';
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
@@ -26,11 +24,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
-      appBar: Platform.isMacOS
-          ? appBarMac(t.aboutPage.title)
-          : AppBar(
-              title: Text(t.aboutPage.title),
-            ),
+      appBar: basicLocalSendAppbar(t.aboutPage.title),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: [

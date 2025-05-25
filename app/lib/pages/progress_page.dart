@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -21,7 +20,7 @@ import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
-import 'package:localsend_app/widget/custom_macos_appbar.dart';
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -222,13 +221,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       },
       canPop: false,
       child: Scaffold(
-        appBar: widget.showAppBar
-            ? Platform.isMacOS
-                ? appBarMac(title)
-                : AppBar(
-                    title: Text(title),
-                  )
-            : null,
+        appBar: widget.showAppBar ? basicLocalSendAppbar(title) : null,
         body: Stack(
           children: [
             ListView.builder(
@@ -505,7 +498,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                 ),
               ),
             ),
-            Platform.isMacOS
+            checkPlatform([TargetPlatform.macOS])
                 ? Positioned(
                     top: 0,
                     left: 0,

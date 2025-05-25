@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
-import 'package:localsend_app/widget/custom_macos_appbar.dart';
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -24,11 +23,7 @@ class SelectedFilesPage extends StatelessWidget {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
 
     return Scaffold(
-      appBar: Platform.isMacOS
-          ? appBarMac(t.sendTab.selection.title)
-          : AppBar(
-              title: Text(t.sendTab.selection.title),
-            ),
+      appBar: basicLocalSendAppbar(t.sendTab.selection.title),
       body: ResponsiveListView.single(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         tabletPadding: const EdgeInsets.symmetric(horizontal: 15),
