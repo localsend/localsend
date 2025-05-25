@@ -1,14 +1,4 @@
 {
-  "appPolicies" : {
-    "eula" : "",
-    "policies" : [
-      {
-        "locale" : "en_US",
-        "policyText" : "",
-        "policyURL" : ""
-      }
-    ]
-  },
   "identifier" : "D8FDEAE9",
   "nonRenewingSubscriptions" : [
 
@@ -134,7 +124,7 @@
 
   ],
   "version" : {
-    "major" : 4,
+    "major" : 3,
     "minor" : 0
   }
 }

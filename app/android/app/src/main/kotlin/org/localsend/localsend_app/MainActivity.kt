@@ -11,9 +11,12 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import org.localsend.localsend_app.livephoto.LivePhotoManager
+import org.localsend.localsend_app.livephoto.LivePhotoException
 
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
+private const val LIVE_PHOTO_CHANNEL = "org.localsend.localsend_app/live_photo"
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
 private const val REQUEST_CODE_PICK_FILE = 3
@@ -59,6 +62,25 @@ class MainActivity : FlutterActivity() {
                     result.success(isAnimationsEnabled())
                 }
 
+                else -> result.notImplemented()
+            }
+        }
+
+        // LivePhoto channel
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            LIVE_PHOTO_CHANNEL
+        ).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "isLivePhotoSupported" -> {
+                    try {
+                        val isSupported = LivePhotoManager.isLivePhotoSupported(this@MainActivity)
+                        result.success(isSupported)
+                    } catch (e: Exception) {
+                        result.error("CHECK_FAILED", "Failed to check LivePhoto support status", e.message)
+                    }
+                }
+
                 "putLivePhoto" -> {
                     val imagePath = call.argument<String>("imagePath")
                     val videoPath = call.argument<String>("videoPath")
@@ -70,10 +92,12 @@ class MainActivity : FlutterActivity() {
                     }
 
                     try {
-                        LivePhotoHandler(this).saveLivePhoto(imagePath, videoPath, album)
+                        LivePhotoManager.saveLivePhoto(this@MainActivity, imagePath, videoPath, album)
                         result.success(null)
+                    } catch (e: LivePhotoException) {
+                        result.error("SAVE_FAILED", "Failed to save LivePhoto", e.message)
                     } catch (e: Exception) {
-                        result.error("SAVE_FAILED", "Failed to save live photo", e.message)
+                        result.error("UNKNOWN_ERROR", "Unknown error occurred while saving LivePhoto", e.message)
                     }
                 }
 
