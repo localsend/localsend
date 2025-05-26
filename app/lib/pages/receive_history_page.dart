@@ -13,6 +13,7 @@ import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/dialogs/history_clear_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -61,11 +62,8 @@ class ReceiveHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = context.watch(receiveHistoryProvider);
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.receiveHistoryPage.title),
-      ),
+      appBar: basicLocalSendAppbar(t.receiveHistoryPage.title),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         children: [
