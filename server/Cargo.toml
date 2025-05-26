@@ -1,0 +1,18 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.95"
+axum = { version = "0.8.1", features = ["ws"] }
+base64 = "0.22.1"
+futures-util = "0.3.31"
+localsend = { path = "../core" }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.135"
+tokio = { version = "1.43.0", features = ["full"] }
+tokio-cron-scheduler = "0.13.0"
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19" }
+uuid = {version = "1.11.0", features = ["serde", "v4"]}
