@@ -2,7 +2,6 @@ package org.localsend.localsend_app.livephoto
 
 import android.content.Context
 import android.util.Log
-import java.util.WeakHashMap
 
 /**
  * LivePhoto manager
@@ -12,24 +11,15 @@ object LivePhotoManager {
     
     private const val TAG = "LivePhotoManager"
     
-    private val strategyCache = WeakHashMap<Context, LivePhotoStrategy>()
-    
-    /**
-     * Get or create strategy for the given context
-     */
-    private fun getStrategy(context: Context): LivePhotoStrategy {
-        return strategyCache.getOrPut(context.applicationContext) {
-            LivePhotoStrategyFactory.createStrategy(context.applicationContext)
-        }
-    }
+    private val strategy: LivePhotoStrategy
+        get() = LivePhotoStrategyFactory.getStrategy()
     
     /**
      * Check if current device supports LivePhoto functionality
      */
-    fun isLivePhotoSupported(context: Context): Boolean {
+    fun isLivePhotoSupported(): Boolean {
         return try {
-            val strategy = getStrategy(context)
-            strategy.isSupported()
+            strategy.isSupported(DeviceInfo.current())
         } catch (e: Exception) {
             Log.e(TAG, "Error occurred while checking LivePhoto support status", e)
             false
@@ -49,8 +39,7 @@ object LivePhotoManager {
         Log.i(TAG, "Starting to save LivePhoto: image=$imagePath, video=$videoPath, album=$album")
         
         try {
-            val strategy = getStrategy(context)
-            strategy.saveLivePhoto(imagePath, videoPath, album)
+            strategy.saveLivePhoto(context, imagePath, videoPath, album)
             Log.i(TAG, "LivePhoto saved successfully")
         } catch (e: LivePhotoException) {
             Log.e(TAG, "Failed to save LivePhoto", e)
