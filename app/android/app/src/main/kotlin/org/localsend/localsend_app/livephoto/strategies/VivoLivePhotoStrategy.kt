@@ -4,28 +4,30 @@ import android.content.Context
 import android.os.Build
 import org.localsend.localsend_app.livephoto.BaseLivePhotoStrategy
 import org.localsend.localsend_app.livephoto.DeviceInfo
+import org.localsend.localsend_app.livephoto.LivePhotoException
 import org.localsend.localsend_app.livephoto.VersionRange
 
 /**
  * VIVO device LivePhoto strategy
  * Supports devices with OriginOS
  */
-class VivoLivePhotoStrategy(context: Context) : BaseLivePhotoStrategy(context) {
+class VivoLivePhotoStrategy : BaseLivePhotoStrategy() {
     
-    companion object {
-        private val SUPPORTED_MANUFACTURERS = setOf("VIVO", "IQOO")
-        private val SUPPORTED_VERSION_RANGE = VersionRange.atLeast(Build.VERSION_CODES.Q) // Android 10+
-        
-        /**
-         * Check if device is VIVO brand
-         */
-        fun isVivoDevice(deviceInfo: DeviceInfo): Boolean {
-            return SUPPORTED_MANUFACTURERS.contains(deviceInfo.manufacturer)
-        }
+    override fun getSupportedManufacturers(): Set<String> {
+        return setOf("VIVO", "IQOO")
     }
     
-    override fun isSupported(): Boolean {
-        val deviceInfo = DeviceInfo.current()
-        return isVivoDevice(deviceInfo) && SUPPORTED_VERSION_RANGE.contains(deviceInfo.sdkVersion)
+    override fun getSupportedVersionRange(): VersionRange {
+        return VersionRange.atLeast(Build.VERSION_CODES.Q) // Android 10+
+    }
+
+    override fun isDeviceSupported(deviceInfo: DeviceInfo): Boolean {
+        // TODO: Implementation coming soon
+        return false
+    }
+
+    override fun saveLivePhoto(context: Context, imagePath: String, videoPath: String, album: String?) {
+        // TODO: Implementation coming soon
+        throw LivePhotoException("VIVO LivePhoto implementation is not yet available")
     }
 } 

@@ -74,7 +74,7 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 "isLivePhotoSupported" -> {
                     try {
-                        val isSupported = LivePhotoManager.isLivePhotoSupported(this@MainActivity)
+                        val isSupported = LivePhotoManager.isLivePhotoSupported()
                         result.success(isSupported)
                     } catch (e: Exception) {
                         result.error("CHECK_FAILED", "Failed to check LivePhoto support status", e.message)
