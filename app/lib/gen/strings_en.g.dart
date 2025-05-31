@@ -255,6 +255,7 @@ class TranslationsReceiveOptionsPageEn {
   String get appDirectory => '(LocalSend folder)';
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   String get saveToGalleryOff => 'Turned off automatically because there are folders.';
+  String get saveAsLivePhoto => _root.settingsTab.receive.saveAsLivePhoto;
 }
 
 // Path: sendPage
@@ -590,6 +591,7 @@ class TranslationsSendTabPickerEn {
   String get file => 'File';
   String get folder => 'Folder';
   String get media => 'Media';
+  String get live => 'Live Photo';
   String get text => 'Text';
   String get app => 'App';
   String get clipboard => 'Paste';
@@ -645,6 +647,7 @@ class TranslationsSettingsTabReceiveEn {
   String get destination => 'Save to folder';
   String get downloads => '(Downloads)';
   String get saveToGallery => 'Save media to gallery';
+  String get saveAsLivePhoto => 'Save as live photo';
   String get saveToHistory => 'Save to history';
 }
 
