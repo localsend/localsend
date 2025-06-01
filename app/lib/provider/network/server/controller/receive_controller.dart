@@ -455,6 +455,19 @@ class ReceiveController {
         createdDirectories: receiveState.createdDirectories,
       );
 
+      server.setState(
+        (oldState) => oldState?.copyWith(
+          session: oldState.session?.copyWith(
+            files: {
+              ...oldState.session!.files,
+              fileId: oldState.session!.files[fileId]!.copyWith(
+                path: saveToGallery ? null : destinationPath,
+              ),
+            },
+          ),
+        ),
+      );
+
       outerDestinationPath = destinationPath;
 
       _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
@@ -742,7 +755,8 @@ class ReceiveController {
       // the server is not running
       return;
     }
-
+     _cleanupPartialFiles(session);
+    
     // notify sender
     try {
       // ignore: unawaited_futures
@@ -784,14 +798,45 @@ void _cancelBySender(ServerUtils server) {
     Routerino.context.popUntil(ReceivePage);
   }
 
+  // Add cleanup for partial files
+  // Clean up any partially transferred files
+   _cleanupPartialFiles(receiveSession);
+
+  // Update state
   server.setState((oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
           status: SessionStatus.canceledBySender,
           endTime: DateTime.now().millisecondsSinceEpoch,
         ),
       ));
+
+  // Update UI to reflect cancellation
+  server.ref.notifier(progressProvider).removeSession(receiveSession.sessionId);
 }
 
+// Add a new method to clean up partial files/// Cleans up partially transferred files for a given receiving session
+void _cleanupPartialFiles(ReceiveSessionState receiveSession) {
+  if (receiveSession == null) {
+    return;
+  }
+
+  for (final receivingFile in receiveSession.files.values) {
+    if (receivingFile.status == FileStatus.sending || receivingFile.status == FileStatus.failed) {
+      try {
+        final path = receivingFile.path;
+        if (path != null) {
+          final file = File(path);
+          if (file.existsSync()) {
+            file.deleteSync();
+            _logger.info('Cleaned up partial file: $path');
+          }
+        }
+      } catch (e) {
+        _logger.warning('Failed to clean up partial file: ${e.toString()}');
+      }
+    }
+  }
+}
 extension on ReceiveSessionState {
   ReceiveSessionState fileFinished({
     required String fileId,
