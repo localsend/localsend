@@ -27,8 +27,6 @@ import Flutter
       print("Flutter engine is nil!")
     }
 
-    let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
-
     // register live-photo channel
     let livePhotoChannel = FlutterMethodChannel(
       name: "org.localsend.localsend_app/live_photo",
@@ -39,6 +37,10 @@ import Flutter
     livePhotoChannel.setMethodCallHandler({
       (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
       switch call.method {
+      case "isLivePhotoSupported":
+        // iOS devices support Live Photo by default
+        result(true)
+        
       case "putLivePhoto":
         guard let args = call.arguments as? [String: Any],
               let imagePath = args["imagePath"] as? String,
@@ -49,12 +51,9 @@ import Flutter
           return
         }
 
-        let album = args["album"] as? String
-
         livePhotoHandler.saveLivePhoto(
           imagePath: imagePath,
-          videoPath: videoPath,
-          album: album
+          videoPath: videoPath
         ) { error in
           if let error = error {
             result(FlutterError(code: "SAVE_FAILED",

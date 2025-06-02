@@ -384,8 +384,9 @@ class ReceiveController {
     }
 
     // init Live Photo Pairs
-    if (settings.saveToGallery && settings.saveAsLivePhoto) {
-      _cacheLivePhotoPairs(sessionId, server.getState().session!.files);
+    final receiveState = server.getState().session;
+    if (receiveState != null && receiveState.saveToGallery && receiveState.saveAsLivePhoto) {
+      _cacheLivePhotoPairs(sessionId, receiveState.files);
     }
 
     if (v2) {
