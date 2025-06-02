@@ -14,6 +14,7 @@ import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/settings/network_interfaces_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
+import 'package:localsend_app/provider/live_photo_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -235,6 +236,14 @@ class SettingsTab extends StatelessWidget {
                             await ref.notifier(settingsProvider).setSaveToGallery(b);
                           },
                         ),
+                        if (vm.settings.saveToGallery && ref.read(livePhotoSupportProvider))
+                          _BooleanEntry(
+                            label: t.settingsTab.receive.saveAsLivePhoto,
+                            value: vm.settings.saveAsLivePhoto,
+                            onChanged: (b) async {
+                              await ref.notifier(settingsProvider).setSaveAsLivePhoto(b);
+                            },
+                          ),
                       _BooleanEntry(
                         label: t.settingsTab.receive.autoFinish,
                         value: vm.settings.autoFinish,

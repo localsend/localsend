@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/live_photo_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
@@ -87,6 +88,37 @@ class ReceiveOptionsPage extends StatelessWidget {
                         child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
                       ),
                     ]
+                  ],
+                ),
+              ],
+            ),
+          if (checkPlatformWithGallery() && receiveSession.saveToGallery && ref.read(livePhotoSupportProvider))
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text(t.receiveOptionsPage.saveAsLivePhoto, style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    CustomDropdownButton<bool>(
+                      value: receiveSession.saveAsLivePhoto,
+                      expanded: false,
+                      items: [false, true].map((b) {
+                        return DropdownMenuItem(
+                          value: b,
+                          alignment: Alignment.center,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minWidth: 80),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(b ? t.general.on : t.general.off),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (b) => ref.notifier(serverProvider).setSessionSaveAsLivePhoto(b),
+                    )
                   ],
                 ),
               ],
