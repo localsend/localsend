@@ -80,38 +80,41 @@ Read more about [distribution channels][].
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
-**Compatibility**
+**Compatibilità**
 
-| Platform | Minimum Version | Note                                                                                                                        |
-|----------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
-| Android  | 5.0             | -                                                                                                                           |
-| iOS      | 12.0            | -                                                                                                                           |
-| macOS    | 11 Big Sur      | Use OpenCore Legacy Patcher 2.0.2 (See [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
-| Windows  | 10              | The last version to support Windows 7 is v1.15.4. There might be backports of newer versions for Windows 7 in the future.   |
-| Linux    | N.A.            | -                                                                                                                           |
+| Piattaforma | Version Minima | Note                                                                                                                         |
+|-------------|----------------|------------------------------------------------------------------------------------------------------------------------------|
+| Android     | 5.0            | -                                                                                                                            |
+| iOS         | 12.0           | -                                                                                                                            |
+| macOS       | 11 Big Sur     | Usa OpenCore Legacy Patcher 2.0.2 (Vedi [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows     | 10             | L'ultima versione a supportare Windows 7 è la v1.15.4. Possibile un futuro sviluppo di backport più recenti per Windows 7.   |
+| Linux       | N.A.           | -                                                                                                                            |
+
 ## Installazione
 
 Nella maggior parte dei casi, LocalSend dovrebbe funzionare immediatamente. Tuttavia, se si riscontrano problemi nell'invio o nella ricezione di file, potrebbe essere necessario configurare il firewall per consentire a LocalSend di comunicare su rete locale.
-| Tipo di traffico | Protocollo | Porta | Azione    |
-|------------------|------------|-------|-----------|
-| In entrata       | TCP, UDP   | 53317 | Consenti  |
-| In uscita        | TCP, UDP   | Any   | Consenti  |
+
+| Tipo di traffico | Protocollo | Porta | Azione   |
+|------------------|------------|-------|----------|
+| In entrata       | TCP, UDP   | 53317 | Consenti |
+| In uscita        | TCP, UDP   | Any   | Consenti |
 
 Assicuratevi di disabilitare l'isolamento AP sul vostro router. Dovrebbe essere disattivato per impostazione predefinita ma su alcuni router potrebbe essere attivo (in particolare su reti ospiti).
+Per ulteriori informazioni, vedere [Risoluzione dei problemi](#risoluzione-problemi).
 
 **Modalità portatile**
 
 (Introdotta nella versione v1.13.0)
 
-Crea un file chiamato `settings.json` che si trova nella stessa cartella dell'eseguibile.
+Crea un file con nome `settings.json` nella stessa cartella dell'eseguibile.
 Questo file può essere vuoto.
-Anziché utilizzare la posizione predefinita l'app utilizzerà questo file per memorizzare le impostazioni.
+L'app memorizzerà le impostazioni in questo file anziché nella posizione predefinita.
 
 **Avvio minimizzato**
 
-
 (Aggiornato in versione v1.15.0)
-Per avviare in modalità minimizzata l'app (solo nella barra delle applicazioni), usa il flag `--hidden` (per esempio: `localsend_app.exe --hidden`).
+
+Per avviare l'app in modalità minimizzata (solo nella barra delle applicazioni), usa il flag `--hidden` (esempio: `localsend_app.exe --hidden`).
 
 Nella versione v1.14.0 e precedenti, l'app parte minimizzata se è impostato il flag `autostart` e l'impostazione nascosta è abilitata.
 
@@ -135,7 +138,7 @@ Segui questi passi per compilare LocalSend dal codice sorgente:
 > [!NOTE]
 > Attualmente LocalSend richiede una versione più datata di Flutter (specificata in [.fvmrc](.fvmrc))
 > quindi i problemi di compilazione potrebbero essere causati da una mancata corrispondenza tra la versione di Flutter richiesta e quella installata (a livello di sistema).
-> Per rendere lo sviluppo più consistente LocalSend utilizza [fvm](https://fvm.app) per gestire la versione di Flutter del progetto.
+> Per rendere lo sviluppo più consistente, LocalSend utilizza [fvm](https://fvm.app) per gestire la versione di Flutter del progetto.
 > Dopo aver installato `fvm`, esegui `fvm flutter` anziché `flutter`.
 
 ## Come contribuire
@@ -165,18 +168,13 @@ Per più informazioni, vedi la [guida ai contributi](https://github.com/localsen
 
 ## Risoluzione dei problemi
 
-| Problema                 | Piattaforma (invio) | Piattaforma (ricezione) | Soluzione                                                                                                                                |
-|--------------------------|---------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-
-| Dispositivo non visibile | Qualsiasi  | Qualsiasi | Assicurarsi di disabilitare AP-Isolation sul router. Se è abilitata, le connessioni tra i dispositivi sono vietate.                                             |
-
-| Dispositivo non visibile | Qualsiasi  | Windows   | Assicurarsi di configurare la rete come rete "privata". Windows potrebbe essere più restrittivo se la rete è configurata come pubblica.                         |
-
-| Dispositivo non visibile | macOS, iOS | Qualsiasi | Si può provare a disattivare l'autorizzazione "Rete locale" in "Privacy" nelle impostazioni del sistema operativo.                                              |
-
-| Velocità troppo lenta    | Qualsiasi  | Qualsiasi | Utilizzare 5 Ghz; disabilitare la crittografia su entrambi i dispositivi                                                                                        |
-
-| Velocità troppo lenta    | Qualsiasi  | Android   | Problema noto. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                                           |
+| Problema                 | Piattaforma (invio) | Piattaforma (ricezione) | Soluzione                                                                                                                               |
+|--------------------------|---------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Dispositivo non visibile | Qualsiasi           | Qualsiasi               | Assicurarsi di disabilitare AP-Isolation sul router. Se è abilitata, le connessioni tra i dispositivi sono vietate.                     |
+| Dispositivo non visibile | Qualsiasi           | Windows                 | Assicurarsi di configurare la rete come rete "privata". Windows potrebbe essere più restrittivo se la rete è configurata come pubblica. |
+| Dispositivo non visibile | macOS, iOS          | Qualsiasi               | Si può provare a disattivare l'autorizzazione "Rete locale" in "Privacy" nelle impostazioni del sistema operativo.                      |
+| Velocità troppo lenta    | Qualsiasi           | Qualsiasi               | Utilizzare 5 Ghz; disabilitare la crittografia su entrambi i dispositivi                                                                |
+| Velocità troppo lenta    | Qualsiasi           | Android                 | Problema noto. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                   |
 
 ## Compilazione
 
@@ -244,7 +242,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Sentitevi liberi di aprire una richiesta di pull. C'è un branch `snap` con cui sperimentare.
+Istruzioni in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributori
 
