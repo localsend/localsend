@@ -1,58 +1,93 @@
 name: Bug report
-description: Create a report to help us improve
-title: Bug report
-labels: ["bug :bug:"]
+description: Create a report to help us address issues you are facing
+title: "bug: "
+labels: [bug]
 body:
+  - type: checkboxes
+    id: duplication
+    attributes:
+      label: ⠀
+      options:
+        - label: This issue is not duplicated with any other open or closed issues
+          required: true
+
+  - type: checkboxes
+    id: latest
+    attributes:
+      label: ⠀
+      options:
+        - label: I am using the latest version from the release
+          required: true
+
   - type: textarea
-    id: bug_report_description
+    id: description
     attributes:
       label: Describe the bug
       description: A clear and concise description of what the bug is
+      placeholder: |
+        App crashes on startup every time after changing settings.
+        /
+        App crashes when sending/receiving massive files.
     validations:
       required: true
+
   - type: textarea
-    id: bug_report_reproduce
-    attributes:
-      label: To reproduce
-      description: Steps to reproduce the behavior
-      value: |
-        1. Go to '...'
-        2. Click on '...'
-        3. Scroll down to '...'
-        4. See error
-    validations:
-      required: true
-  - type: textarea
-    id: bug_report_expected_behavior
+    id: expected
     attributes:
       label: Expected behavior
       description: A clear and concise description of what you expected to happen
+      placeholder: |
+        App started normally, everything worked fine.
     validations:
       required: true
+
   - type: textarea
-    id: bug_report_screenshots
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Steps to reproduce the bug
+      placeholder: |
+        1. Turn on "What" in "What settings"
+        2. Restart the app
+        3. Crash
+        /
+        1. Transfer a "What" file is What size takes What long
+        2. Observe What
+        3. Crash
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Device information
+      description: Provide details about your system environment
+      placeholder: |
+        Device: (Pixel 9 Pro/Lenovo Yoga 9i)
+        System: (Android 16 BP31.2505/Windows 11 24H2)
+        Special things: (Rooted/Hardware damaged)
+        If applicable, both info of sender and receiver.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
     attributes:
       label: Screenshots
-      description: |
-        If applicable, add screenshots to help explain your problem
-        Tip: You can attach images by clicking this area to highlight it and then dragging files in.
-  - type: textarea
-    id: bug_report_desktop
-    attributes:
-      label: Desktop (please complete the following information)
+      description: If applicable, add screenshots to help explain your problem
       placeholder: |
-        - OS: [e.g. iOS]
-        - Version: [e.g. 1.6.2]
+        modified_setting_items.jpg
+        files_to_send.jpg
+        crashed_screen.jpg
+    validations:
+      required: false
+
   - type: textarea
-    id: bug_report_smartphone
-    attributes:
-      label: Smartphone (please complete the following information)
-      placeholder: |
-        - Device: [e.g. iPhone6]
-        - OS: [e.g. iOS8.1]
-        - Version: [e.g. 1.6.2]
-  - type: textarea
-    id: bug_report_additional_context
+    id: additional
     attributes:
       label: Additional context
       description: Add any other context about the problem here
+      placeholder: |
+        Crash report or other helpful information
+    validations:
+      required: false
