@@ -1,0 +1,132 @@
+name: Build windows zip
+
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.24.5"
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build_windows_zip:
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - name: Fix long file paths
+        run: git config --system core.longpaths true
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 添加这个以获取完整历史记录，便于应用补丁
+
+      - uses: subosito/flutter-action@v2.12.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      # ===== 新增的引擎替换步骤 =====
+      - name: Replace engine with rustdesk custom flutter engine
+        run: |
+          Write-Host "Replacing Flutter engine for Windows 7 compatibility..."
+          flutter doctor -v
+          flutter precache --windows
+          
+          # 下载支持 Win7 的定制引擎
+          Invoke-WebRequest -Uri "https://github.com/rustdesk/engine/releases/download/main/windows-x64-release.zip" -OutFile windows-x64-release.zip
+          Expand-Archive -Path windows-x64-release.zip -DestinationPath windows-x64-release
+          
+          # 定位 Flutter 安装目录
+          $flutterPath = (Get-Command flutter).Path
+          $flutterDir = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($flutterPath))
+          $engineDir = Join-Path $flutterDir "bin\cache\artifacts\engine\windows-x64-release"
+          
+          Write-Host "Replacing engine in: $engineDir"
+          # 清空目标目录并复制新引擎
+          Remove-Item -Recurse -Force $engineDir -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Path $engineDir | Out-Null
+          Copy-Item -Path windows-x64-release\* -Destination $engineDir -Recurse
+          
+          Write-Host "Engine replacement completed successfully"
+
+      # ===== 新增的补丁应用步骤 =====
+      - name: Patch flutter
+        shell: bash
+        run: |
+          echo "Applying Windows 7 compatibility patch..."
+          FLUTTER_ROOT=$(dirname $(dirname $(which flutter)))
+          echo "Flutter directory: $FLUTTER_ROOT"
+          
+          # 复制补丁文件到 Flutter 目录
+          cp .github/patches/flutter_3.24.4_dropdown_menu_enableFilter.diff "$FLUTTER_ROOT"
+          
+          # 应用补丁
+          cd "$FLUTTER_ROOT"
+          if [[ "3.24.5" == "$FLUTTER_VERSION" ]]; then
+            echo "Applying patch for Flutter 3.24.5..."
+            git apply --ignore-space-change --ignore-whitespace flutter_3.24.4_dropdown_menu_enableFilter.diff
+            if [ $? -eq 0 ]; then
+              echo "Patch applied successfully"
+            else
+              echo "Patch application failed"
+              # 尝试修复行尾符后重试
+              dos2unix flutter_3.24.4_dropdown_menu_enableFilter.diff
+              git apply --ignore-space-change --ignore-whitespace flutter_3.24.4_dropdown_menu_enableFilter.diff
+              if [ $? -eq 0 ]; then
+                echo "Patch applied successfully after line ending fix"
+              else
+                echo "Patch application still failed"
+                exit 1
+              fi
+            fi
+          else
+            echo "Skipping patch for Flutter version $FLUTTER_VERSION"
+          fi
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Compile for Windows
+        working-directory: app
+        run: flutter build windows
+
+      - name: Create empty settings.json
+        working-directory: app
+        run: echo {} > build/windows/x64/runner/Release/settings.json
+
+      - name: Add DLL files
+        working-directory: app
+        run: |
+          # 基础VC运行库
+          Copy-Item ../scripts/windows/x64/msvcp140.dll build/windows/x64/runner/Release/
+          Copy-Item ../scripts/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
+          Copy-Item ../scripts/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
+          
+          # Win7必备图形库
+          #Copy-Item ../scripts/windows/x64/d3dcompiler_47.dll build/windows/x64/runner/Release/
+          #Copy-Item ../scripts/windows/x64/opengl32.dll build/windows/x64/runner/Release/
+
+      - name: Zip compiled files
+        working-directory: app
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-zip-x86-64-result
+          path: app/LocalSend.zip
