@@ -118,7 +118,7 @@ jobs:
           Copy-Item ../scripts/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
           
           # Win7必备图形库
-          Copy-Item ../scripts/windows/x64/d3dcompiler_47.dll build/windows/x64/runner/Release/
+          #Copy-Item ../scripts/windows/x64/d3dcompiler_47.dll build/windows/x64/runner/Release/
           #Copy-Item ../scripts/windows/x64/opengl32.dll build/windows/x64/runner/Release/
 
       - name: Zip compiled files
