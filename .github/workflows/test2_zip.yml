@@ -67,7 +67,7 @@ jobs:
           cd $flutterDir
           
           # 应用 LocalSend 专用补丁
-          git apply --ignore-space-change --ignore-whitespace "$env:GITHUB_WORKSPACE/.github/patches/flutter_win7_compat.diff"
+          git apply --ignore-space-change --ignore-whitespace "$env:GITHUB_WORKSPACE/.github/patches/flutter_3.24.4_dropdown_menu_enableFilter.diff"
           Write-Host "Win7 compatibility patch applied successfully"
       # ========== Win7 支持核心修改结束 ==========
 
