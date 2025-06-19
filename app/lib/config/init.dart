@@ -74,7 +74,6 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    //final client = createRhttpClient(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
 
     try {
       await client.post(
