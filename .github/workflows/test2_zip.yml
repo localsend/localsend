@@ -1,4 +1,4 @@
-name: Build windows2 zip
+name: Build windows zip
 
 on:
   workflow_dispatch:
@@ -31,45 +31,30 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # 获取完整历史记录
 
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
-      # ========== Win7 支持核心修改 ==========
       - name: Replace Flutter engine for Win7 support
         run: |
-          Write-Host "Replacing Flutter engine for Windows 7 compatibility..."
           flutter doctor -v
           flutter precache --windows
-          
-          # 下载支持 Win7 的定制引擎
           Invoke-WebRequest -Uri "https://github.com/rustdesk/engine/releases/download/main/windows-x64-release.zip" -OutFile windows-x64-release.zip
           Expand-Archive windows-x64-release.zip -DestinationPath windows-x64-release
-          
-          # 定位 Flutter 安装目录
-          $flutterPath = (Get-Command flutter).Path
-          $flutterDir = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($flutterPath))
+          $flutterDir = (Get-Command flutter).Path | Split-Path | Split-Path
           $engineDir = Join-Path $flutterDir "bin\cache\artifacts\engine\windows-x64-release"
-          
-          Write-Host "Replacing engine in: $engineDir"
-          Remove-Item -Recurse -Force $engineDir -ErrorAction SilentlyContinue
-          New-Item -ItemType Directory -Path $engineDir | Out-Null
+          Remove-Item -Recurse -Force $engineDir
+          New-Item -ItemType Directory -Path $engineDir
           Copy-Item -Path windows-x64-release\* -Destination $engineDir -Recurse
 
       - name: Apply Win7 compatibility patch
         run: |
-          $flutterPath = (Get-Command flutter).Path
-          $flutterDir = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($flutterPath))
+          $flutterDir = (Get-Command flutter).Path | Split-Path | Split-Path
+          Copy-Item -Path ".github/patches/flutter_3.24.4_dropdown_menu_enableFilter.diff" -Destination $flutterDir
           cd $flutterDir
-          
-          # 应用 LocalSend 专用补丁
-          git apply --ignore-space-change --ignore-whitespace "$env:GITHUB_WORKSPACE/.github/patches/flutter_3.24.4_dropdown_menu_enableFilter.diff"
-          Write-Host "Win7 compatibility patch applied successfully"
-      # ========== Win7 支持核心修改结束 ==========
+          git apply --ignore-space-change --ignore-whitespace flutter_3.24.4_dropdown_menu_enableFilter.diff
 
       - name: Dependencies
         working-directory: app
@@ -86,14 +71,9 @@ jobs:
       - name: Add DLL files
         working-directory: app
         run: |
-          # 基础VC运行库
           Copy-Item ../scripts/windows/x64/msvcp140.dll build/windows/x64/runner/Release/
           Copy-Item ../scripts/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
           Copy-Item ../scripts/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
-          
-          # Win7必备图形库
-          Copy-Item ../scripts/windows/x64/d3dcompiler_47.dll build/windows/x64/runner/Release/
-          Copy-Item ../scripts/windows/x64/opengl32.dll build/windows/x64/runner/Release/
 
       - name: Zip compiled files
         working-directory: app
