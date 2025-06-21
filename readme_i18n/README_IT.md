@@ -30,7 +30,7 @@ LocalSend è un'applicazione gratuita e open-source che consente di condividere 
 - [Come contribuire](#come-contribuire)
   - [Traduzione](#traduzione)
   - [Correzione di bug e miglioramenti](#correzione-di-bug-e-miglioramenti)
-- [Risoluzione dei problemi](#risoluzione-problemi)
+- [Risoluzione dei problemi](#risoluzione-dei-problemi)
 - [Compilazione](#compilazione)
   - [Android](#android)
   - [iOS](#ios)
@@ -57,12 +57,12 @@ LocalSend è un'applicazione multipiattaforma che permette di comunicare in modo
 | [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
 | [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
-| [EXE Installer][latest] |                         | [AUR][]            |                |               |            |
-| [Portable ZIP][latest]  |                         | [TAR][latest]      |                |               |            |
+| [Installer EXE][latest] |                         | [AUR][]            |                |               |            |
+| [ZIP Portatile][latest] |                         | [TAR][latest]      |                |               |            |
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Read more about [distribution channels][].
+Leggi di più sui [canali di distribuzione][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -78,17 +78,17 @@ Read more about [distribution channels][].
 [snap]: https://snapcraft.io/localsend
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
-[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[canali di distribuzione]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
 **Compatibilità**
 
-| Piattaforma | Version Minima | Note                                                                                                                         |
-|-------------|----------------|------------------------------------------------------------------------------------------------------------------------------|
-| Android     | 5.0            | -                                                                                                                            |
-| iOS         | 12.0           | -                                                                                                                            |
-| macOS       | 11 Big Sur     | Usa OpenCore Legacy Patcher 2.0.2 (Vedi [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
-| Windows     | 10             | L'ultima versione a supportare Windows 7 è la v1.15.4. Possibile un futuro sviluppo di backport più recenti per Windows 7.   |
-| Linux       | N.A.           | -                                                                                                                            |
+| Piattaforma | Versione minima | Note                                                                                                                         |
+|-------------|-----------------|------------------------------------------------------------------------------------------------------------------------------|
+| Android     | 5.0             | -                                                                                                                            |
+| iOS         | 12.0            | -                                                                                                                            |
+| macOS       | 11 Big Sur      | Usa OpenCore Legacy Patcher 2.0.2 (Vedi [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows     | 10              | L'ultima versione a supportare Windows 7 è la v1.15.4. Possibile un futuro sviluppo di backport più recenti per Windows 7.   |
+| Linux       | N.A.            | -                                                                                                                            |
 
 ## Installazione
 
@@ -100,7 +100,7 @@ Nella maggior parte dei casi, LocalSend dovrebbe funzionare immediatamente. Tutt
 | In uscita        | TCP, UDP   | Any   | Consenti |
 
 Assicuratevi di disabilitare l'isolamento AP sul vostro router. Dovrebbe essere disattivato per impostazione predefinita ma su alcuni router potrebbe essere attivo (in particolare su reti ospiti).
-Per ulteriori informazioni, vedere [Risoluzione dei problemi](#risoluzione-problemi).
+Per ulteriori informazioni, vedere [Risoluzione dei problemi](#risoluzione-dei-problemi).
 
 **Modalità portatile**
 
@@ -128,7 +128,7 @@ Per maggiori informazioni sul Protocollo LocalSend, consulta la [documentazione]
 
 Segui questi passi per compilare LocalSend dal codice sorgente:
 
-1. Installa Flutter [direttamente](https://flutter.dev) o utilizzando [fvm](https://fvm.app) (vedi [versione richiesta](.fvmrc))
+1. Installa Flutter [direttamente](https://flutter.dev) o utilizza [fvm](https://fvm.app) (vedi [versione richiesta](.fvmrc))
 2. Installa [Rust](https://www.rust-lang.org/tools/install)
 3. Clona la repository di `LocalSend`
 4. Esegui `cd app` per entrare nella cartella dell'applicazione
@@ -154,10 +154,10 @@ In alternativa, è possibile contribuire anche creando un fork di questa reposit
 Le traduzioni si trovano nella cartella [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Modificare il file `_missing_translations_<locale>.json` o `strings_<locale>.i18n.json` per aggiungere o aggiornare le traduzioni.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
-<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Status traduzione" />
 </a>
 
-**_Prendi nota:_ I campi decorati con `@` non vanno tradotti; non sono usati in alcuna maniera nell'app. Si tratta semplicemente di testo informativo riguardante il file o per dare un contesto al traduttore.**
+**_Nota bene:_ I campi decorati con `@` non vanno tradotti; non sono usati in alcuna maniera nell'app. Si tratta semplicemente di testo informativo riguardante il file o per dare un contesto al traduttore.**
 
 ### Correzione di bug e miglioramenti
 
@@ -242,7 +242,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Istruzioni in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+Istruzioni su [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributori
 
