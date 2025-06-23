@@ -755,8 +755,8 @@ class ReceiveController {
       // the server is not running
       return;
     }
-     _cleanupPartialFiles(session);
-    
+    _cleanupPartialFiles(session);
+
     // notify sender
     try {
       // ignore: unawaited_futures
@@ -800,7 +800,7 @@ void _cancelBySender(ServerUtils server) {
 
   // Add cleanup for partial files
   // Clean up any partially transferred files
-   _cleanupPartialFiles(receiveSession);
+  _cleanupPartialFiles(receiveSession);
 
   // Update state
   server.setState((oldState) => oldState?.copyWith(
@@ -816,10 +816,6 @@ void _cancelBySender(ServerUtils server) {
 
 // Add a new method to clean up partial files/// Cleans up partially transferred files for a given receiving session
 void _cleanupPartialFiles(ReceiveSessionState receiveSession) {
-  if (receiveSession == null) {
-    return;
-  }
-
   for (final receivingFile in receiveSession.files.values) {
     if (receivingFile.status == FileStatus.sending || receivingFile.status == FileStatus.failed) {
       try {
@@ -837,6 +833,7 @@ void _cleanupPartialFiles(ReceiveSessionState receiveSession) {
     }
   }
 }
+
 extension on ReceiveSessionState {
   ReceiveSessionState fileFinished({
     required String fileId,
