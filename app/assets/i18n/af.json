@@ -1,0 +1,527 @@
+{
+  "locale": "Afrikaans",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Aanvaar",
+    "accepted": "Aanvaar",
+    "add": "Voeg by",
+    "advanced": "Gevorderd",
+    "cancel": "Kanselleer",
+    "close": "Sluit",
+    "confirm": "Bevestig",
+    "continueStr": "Gaan voort",
+    "copy": "Kopieer",
+    "copiedToClipboard": "Gekopieer na Knipbord",
+    "decline": "Weier",
+    "done": "Klaar",
+    "delete": "Vee uit",
+    "edit": "Wysig",
+    "error": "Fout",
+    "example": "Voorbeeld",
+    "files": "Lêers",
+    "finished": "Voltooi",
+    "hide": "Versteek",
+    "off": "Af",
+    "offline": "Vanlyn",
+    "on": "Aan",
+    "online": "Aanlyn",
+    "open": "Oopmaak",
+    "queue": "Waglys",
+    "quickSave": "Vinnig Stoor",
+    "quickSaveFromFavorites": "Vinnig Stoor vir \"Gunstelinge\"",
+    "renamed": "Hernoem",
+    "reset": "Maak veranderinge ongedaan",
+    "restart": "Herbegin",
+    "settings": "Instellings",
+    "skipped": "Oorgeslaan",
+    "start": "Begin",
+    "stop": "Stop",
+    "save": "Stoor",
+    "unchanged": "Ongewysig",
+    "unknown": "Onbekend",
+    "noItemInClipboard": "Geen items in Knipbord."
+  },
+  "receiveTab": {
+    "title": "Ontvang",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Poort:",
+      "alias": "Toestelnaam:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Gunstelinge",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Stuur",
+    "selection": {
+      "title": "Keuse",
+      "files": "Lêers: {files}",
+      "size": "Grootte: {size}"
+    },
+    "picker": {
+      "file": "Lêer",
+      "folder": "Vouer",
+      "media": "Media",
+      "text": "Teks",
+      "app": "Toepassing",
+      "clipboard": "Plak"
+    },
+    "shareIntentInfo": "Jy kan ook die \"Deel\"-funksie van jou mobiele toestel gebruik om lêers makliker te kies.",
+    "nearbyDevices": "Nabygeleë toestelle",
+    "thisDevice": "Hierdie toestel",
+    "scan": "Soek toestelle",
+    "manualSending": "Handmatige stuur",
+    "sendMode": "Stuurmodus",
+    "sendModes": {
+      "single": "Enkel ontvanger",
+      "multiple": "Meervoudige ontvangers",
+      "link": "Deel via skakel"
+    },
+    "sendModeHelp": "Verduideliking",
+    "help": "Maak asseblief seker dat die verlangde teiken ook op dieselfde Wi-Fi-netwerk is.",
+    "placeItems": "Plaas items om te deel."
+  },
+  "settingsTab": {
+    "title": "Instellings",
+    "general": {
+      "title": "Algemeen",
+      "brightness": "Tema",
+      "brightnessOptions": {
+        "system": "Stelsel",
+        "dark": "Donker",
+        "light": "Lig"
+      },
+      "color": "Kleur",
+      "colorOptions": {
+        "system": "Stelsel",
+        "oled": "OLED"
+      },
+      "language": "Taal",
+      "languageOptions": {
+        "system": "Stelsel"
+      },
+      "saveWindowPlacement": "Stoor vensterposisie na afsluit",
+      "saveWindowPlacementWindows": "Stoor vensterposisie na uitgang",
+      "minimizeToTray": "Minimaliseer na Stelselbalk/Menubalk wanneer gesluit word",
+      "launchAtStartup": "Outostart na aanmelding",
+      "launchMinimized": "Outostart: Begin versteek",
+      "showInContextMenu": "Wys LocalSend in kontekskieslys",
+      "animations": "Animasies"
+    },
+    "receive": {
+      "title": "Ontvang",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Outo Voltooi",
+      "destination": "Stoor na vouer",
+      "downloads": "(Aflaaiings)",
+      "saveToGallery": "Stoor media na gallery",
+      "saveToHistory": "Stoor na geskiedenis"
+    },
+    "send": {
+      "title": "Stuur",
+      "shareViaLinkAutoAccept": "Aanvaar versoeke outomaties in \"Deel via skakel\"-modus"
+    },
+    "network": {
+      "title": "Netwerk",
+      "needRestart": "Herbegin die bediener om die instellings toe te pas!",
+      "server": "Bediener",
+      "alias": "Toestelnaam",
+      "deviceType": "Toesteltipe",
+      "deviceModel": "Toestelmodel",
+      "port": "Poort",
+      "network": "Netwerk",
+      "networkOptions": {
+        "all": "Alles",
+        "filtered": "Gefilter"
+      },
+      "discoveryTimeout": "Ontdekking Tydverstreke",
+      "useSystemName": "Gebruik stelselnaam",
+      "generateRandomAlias": "Genereer ewekansige alias",
+      "portWarning": "Jy sal dalk nie deur ander toestelle opgespoor word nie omdat jy 'n pasgemaakte poort gebruik. (verstek: {defaultPort})",
+      "encryption": "Enkripsie",
+      "multicastGroup": "Multicast-adres",
+      "multicastGroupWarning": "Jy sal dalk nie deur ander toestelle opgespoor word nie omdat jy 'n pasgemaakte multicast-adres gebruik. (verstek: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Ander",
+      "support": "Ondersteun LocalSend",
+      "donate": "Skenk",
+      "privacyPolicy": "Privaatheidsbeleid",
+      "termsOfUse": "Gebruiksvoorwaardes"
+    },
+    "advancedSettings": "Gevorderde instellings"
+  },
+  "troubleshootPage": {
+    "title": "Foutsporing",
+    "subTitle": "Werk die toepassing nie soos verwag nie? Hier kan jy 'n paar algemene oplossings vir probleme vind.",
+    "solution": "Oplossing:",
+    "fixButton": "Maak outomaties reg",
+    "firewall": {
+      "symptom": "Hierdie toestel kan lêers na ander toestelle stuur, maar ander toestelle kan nie lêers na hierdie toestel stuur nie.",
+      "solution": "Dit is waarskynlik 'n firewall-probleem. Jy kan dit oplos deur inkomende verbindings (UDP en TCP) op poort {port} toe te laat.",
+      "openFirewall": "Maak Firewall oop"
+    },
+    "noDiscovery": {
+      "symptom": "Hierdie toestel kan nie ander toestelle ontdek nie.",
+      "solution": "Maak asseblief seker dat alle toestelle op dieselfde Wi-Fi-netwerk is en dieselfde konfigurasie (poort, multicast-adres, enkripsie) deel. Jy kan probeer om die IP-adres van die teikentoestel handmatig in te tik. As dit werk, oorweeg dit om hierdie toestel by die gunstelinge te voeg sodat dit in die toekoms outomaties opgespoor kan word."
+    },
+    "noConnection": {
+      "symptom": "Beide toestelle kan mekaar nie ontdek nie en kan ook nie lêers deel nie.",
+      "solution": "Bestaat die probleem aan beide kante? Indien wel, moet jy seker maak dat beide toestelle op dieselfde Wi-Fi-netwerk is en dieselfde konfigurasie (poort, multicast-adres, enkripsie) deel. Die Wi-Fi-netwerk mag dalk nie kommunikasie tussen deelnemers toelaat as gevolg van Toegangspunt (AP) Isolasie nie. In hierdie geval moet hierdie opsie op die roeteerder gedeaktiveer word."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Netwerkkoppelvlakke",
+    "info": "LocalSend gebruik by verstek alle beskikbare netwerkkoppelvlakke. Jy kan ongewenste netwerke hier uitsluit. Jy moet die bediener herbegin om die veranderinge toe te pas.",
+    "preview": "Voorskou",
+    "whitelist": "Witlys",
+    "blacklist": "Swartlys"
+  },
+  "receiveHistoryPage": {
+    "title": "Geskiedenis",
+    "openFolder": "Maak vouer oop",
+    "deleteHistory": "Vee geskiedenis uit",
+    "empty": "Die geskiedenis is leeg.",
+    "entryActions": {
+      "open": "Maak lêer oop",
+      "showInFolder": "Wys in vouer",
+      "info": "Inligting",
+      "deleteFromHistory": "Vee uit geskiedenis"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Programme (APK)",
+    "excludeSystemApps": "Sluit stelseltoepassings uit",
+    "excludeAppsWithoutLaunchIntent": "Sluit nie-bekendstelbare toepassings uit",
+    "apps": "{n} Toepassings"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Vee alles uit"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "wil vir jou 'n lêer stuur",
+      "other": "wil vir jou {n} lêers stuur"
+    },
+    "subTitleMessage": "het vir jou 'n boodskap gestuur:",
+    "subTitleLink": "het vir jou 'n skakel gestuur:",
+    "canceled": "Die sender het die versoek gekanselleer."
+  },
+  "receiveOptionsPage": {
+    "title": "Opsies",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend vouer)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Outomaties afgeskakel omdat daar vouers is."
+  },
+  "sendPage": {
+    "waiting": "Wag vir reaksie…",
+    "rejected": "Die ontvanger het die versoek geweier.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Die ontvanger is besig met 'n ander versoek."
+  },
+  "progressPage": {
+    "titleSending": "Stuur lêers",
+    "titleReceiving": "Ontvang lêers",
+    "savedToGallery": "Gestoor in Foto's",
+    "total": {
+      "title": {
+        "sending": "Totale vordering ({time})",
+        "finishedError": "Voltooi met fout",
+        "canceledSender": "Gekanselleer deur sender",
+        "canceledReceiver": "Gekanselleer deur ontvanger"
+      },
+      "count": "Lêers: {curr} / {n}",
+      "size": "Grootte: {curr} / {n}",
+      "speed": "Spoed: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Deel via skakel",
+    "loading": "Bediener begin…",
+    "stopping": "Bediener stop…",
+    "error": "’n Fout het voorgekom tydens die begin van die bediener.",
+    "openLink": {
+      "one": "Maak hierdie skakel in jou blaaier oop:",
+      "other": "Maak een van hierdie skakels in jou blaaier oop:"
+    },
+    "requests": "Versoeke",
+    "noRequests": "Nog geen versoeke nie.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Aanvaar versoeke outomaties",
+    "requirePin": "Vereis PIN",
+    "pinHint": "Die PIN is \"{pin}\"",
+    "encryptionHint": "LocalSend gebruik 'n self-ondertekende sertifikaat. Jy moet dit in jou blaaier aanvaar.",
+    "pendingRequests": "Hangende versoeke: {n}"
+  },
+  "aboutPage": {
+    "title": "Oor LocalSend",
+    "description": [
+      "LocalSend is 'n gratis, oopbron-toepassing wat jou toelaat om lêers en boodskappe veilig met nabygeleë toestelle oor jou plaaslike netwerk te deel sonder om 'n internetverbinding nodig te hê.",
+      "Hierdie toepassing is beskikbaar op Android, iOS, macOS, Windows en Linux. Jy kan alle aflaaiprogramme op die amptelike tuisblad vind."
+    ],
+    "author": "Outeur",
+    "contributors": "Bydraers",
+    "packagers": "Verpakkers",
+    "translators": "Vertalers"
+  },
+  "donationPage": {
+    "title": "Skenk",
+    "info": "LocalSend is gratis, oopbron en sonder enige advertensies. As jy van die toepassing hou, kan jy die ontwikkeling ondersteun met 'n skenking.",
+    "donate": "Skenk {amount}",
+    "thanks": "Baie dankie!",
+    "restore": "Herstel aankoop"
+  },
+  "changelogPage": {
+    "title": "Veranderingslog"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Oulik",
+      "Mooi",
+      "Groot",
+      "Helder",
+      "Skoon",
+      "Slim",
+      "Cool",
+      "Oulik",
+      "Slagvaardig",
+      "Vasbeslote",
+      "Energies",
+      "Doeltreffend",
+      "Fantasties",
+      "Vinnig",
+      "Fyn",
+      "Vars",
+      "Goed",
+      "Pragtig",
+      "Groot",
+      "Aantreklik",
+      "Warm",
+      "Vriendelik",
+      "Lieflik",
+      "Misties",
+      "Netjies",
+      "Gaaf",
+      "Geduldig",
+      "Mooi",
+      "Kragtig",
+      "Ryk",
+      "Geheim",
+      "Slim",
+      "Solied",
+      "Spesiaal",
+      "Strategiese",
+      "Sterk",
+      "Netjies",
+      "Wys"
+    ],
+    "fruits": [
+      "Appel",
+      "Avokado",
+      "Piesang",
+      "Braam",
+      "Bloubessie",
+      "Broccoli",
+      "Wortel",
+      "Kersie",
+      "Klapper",
+      "Druif",
+      "Suurlemoen",
+      "Slaai",
+      "Mango",
+      "Spanspek",
+      "Sampioen",
+      "Ui",
+      "Lemoen",
+      "Papaja",
+      "Perske",
+      "Peer",
+      "Pynappel",
+      "Aartappel",
+      "Pampoen",
+      "Framboos",
+      "Aarbei",
+      "Tamaties"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Voeg by keuse",
+      "content": "Wat wil jy byvoeg?"
+    },
+    "openFile": {
+      "title": "Maak lêer oop",
+      "content": "Wil jy die ontvangde lêer oopmaak?"
+    },
+    "addressInput": {
+      "title": "Voer adres in",
+      "hashtag": "Hashtag",
+      "ip": "IP-adres",
+      "recentlyUsed": "Onlangs gebruik: "
+    },
+    "cancelSession": {
+      "title": "Kanselleer lêeroordrag",
+      "content": "Wil jy regtig die lêeroordrag kanselleer?"
+    },
+    "cannotOpenFile": {
+      "title": "Kan nie lêer oopmaak nie",
+      "content": "Kon nie \"{file}\" oopmaak nie. Is hierdie lêer verskuif, hernoem of uitgevee?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Enkripsie gedeaktiveer",
+      "content": "Kommunikasie vind nou via die ongeënkripteerde HTTP-protokol plaas. Om HTTPS-protokol te gebruik, aktiveer enkripsie weer."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Gunstelinge",
+      "noFavorites": "Nog geen gunstelingtoestelle nie.",
+      "addFavorite": "Voeg by"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Vee uit gunstelinge",
+      "content": "Wil jy regtig uit gunstelinge \"{name}\" verwyder?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Voeg by gunstelinge",
+      "titleEdit": "Instellings",
+      "name": "Toestelnaam",
+      "auto": "(outo)",
+      "ip": "IP-adres",
+      "port": "Poort"
+    },
+    "fileInfo": {
+      "title": "Lêerinligting",
+      "fileName": "Lêernaam:",
+      "path": "Pad:",
+      "size": "Grootte:",
+      "sender": "Sender:",
+      "time": "Tyd:"
+    },
+    "fileNameInput": {
+      "title": "Voer lêernaam in",
+      "original": "Oorspronklik: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Vee geskiedenis uit",
+      "content": "Wil jy regtig die hele geskiedenis uitvee?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend kan nie ander toestelle vind sonder die toestemming om die plaaslike netwerk te skandeer nie. Gee asseblief hierdie toestemming in die instellings.",
+      "gotoSettings": "Instellings"
+    },
+    "messageInput": {
+      "title": "Tik boodskap",
+      "multiline": "Meerreëls"
+    },
+    "noFiles": {
+      "title": "Geen lêers gekies",
+      "content": "Kies asseblief ten minste een lêer."
+    },
+    "noPermission": {
+      "title": "Geen toestemming",
+      "content": "Jy het nie die nodige toestemmings toegestaan nie. Gee dit asseblief in die instellings."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Nie beskikbaar",
+      "content": "Hierdie funksie is slegs beskikbaar op:"
+    },
+    "qr": {
+      "title": "QR-kode"
+    },
+    "quickActions": {
+      "title": "Vinnige Aksies",
+      "counter": "Teller",
+      "prefix": "Voorvoegsel",
+      "padZero": "Vul met nulle",
+      "sortBeforeCount": "Sorteer alfabeties vooraf (A-Z)",
+      "random": "Ewekansig"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Lêerversoeke word nou outomaties aanvaar. Wees bewus daarvan dat enigiemand op die plaaslike netwerk vir jou lêers kan stuur."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Lêerversoeke word nou outomaties van toestelle in jou gunstelinglys aanvaar.",
+        "Waarskuwing! Tans is dit nie heeltemal veilig nie, aangesien 'n hacker wat die vingerafdruk van enige toestel uit jou gunstelinglys het, jou lêers onbeperk kan stuur.",
+        "Hierdie opsie is egter steeds veiliger as om alle gebruikers op die plaaslike netwerk toe te laat om jou lêers onbeperk te stuur."
+      ]
+    },
+    "pin": {
+      "title": "Voer PIN in"
+    },
+    "sendModeHelp": {
+      "title": "Stuurmodusse",
+      "single": "Stuur lêers na een ontvanger. Keuse sal uitgevee word nadat lêeroordrag voltooi is.",
+      "multiple": "Stuur lêers na verskeie ontvangers. Keuse sal nie uitgevee word nadat lêeroordrag voltooi is nie.",
+      "link": "Ontvangers wat nie LocalSend geïnstalleer het nie, kan die geselekteerde lêers aflaai deur die skakel in hul blaaier oop te maak."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Lêernaam kan nie leeg wees nie",
+    "invalid": "Lêernaam bevat ongeldige karakters"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
+    "open": "@:general.open",
+    "close": "Verlaat LocalSend",
+    "closeWindows": "Verlaat"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Voer PIN in",
+    "invalidPin": "Ongeldige PIN",
+    "tooManyAttempts": "Te veel pogings",
+    "rejected": "Geweier",
+    "files": "Lêers",
+    "fileName": "Lêernaam",
+    "size": "Grootte"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "confirm": "Bevestig",
+    "cancel": "Kanselleer",
+    "edit": "Wysig",
+    "gifIndicator": "GIF",
+    "loadFailed": "Laai misluk",
+    "original": "Oorspronklik",
+    "preview": "Voorskou",
+    "select": "Kies",
+    "emptyList": "Leë lys",
+    "unSupportedAssetType": "Onondersteunde lêertipe.",
+    "unableToAccessAll": "Kan nie toegang tot alle lêers op die toestel kry nie",
+    "viewingLimitedAssetsTip": "Slegs lêers en albums wat vir die toepassing toeganklik is, word vertoon.",
+    "changeAccessibleLimitedAssets": "Klik om toeganklike lêers op te dateer",
+    "accessAllTip": "Toepassing kan slegs toegang tot sommige lêers op die toestel kry. Gaan na stelselinstellings en laat die toepassing toe om toegang tot alle media op die toestel te kry.",
+    "goToSystemSettings": "Gaan na stelselinstellings",
+    "accessLimitedAssets": "Gaan voort met beperkte toegang",
+    "accessiblePathName": "Toeganklike lêers",
+    "sTypeAudioLabel": "Oudio",
+    "sTypeImageLabel": "Prent",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Ander media",
+    "sActionPlayHint": "speel",
+    "sActionPreviewHint": "voorskou",
+    "sActionSelectHint": "kies",
+    "sActionSwitchPathLabel": "verander pad",
+    "sActionUseCameraHint": "gebruik kamera",
+    "sNameDurationLabel": "duur",
+    "sUnitAssetCountLabel": "telling"
+  }
+  }
