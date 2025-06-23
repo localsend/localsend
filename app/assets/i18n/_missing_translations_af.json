@@ -1,1 +1,6 @@
-
+{
+  "@@info": [
+    "Here are translations that exist in <en> but not in <af>.",
+    "After editing this file, you can run 'dart run slang apply --locale=af' to quickly apply the newly added translations."
+  ]
+}
