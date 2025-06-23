@@ -45,6 +45,8 @@ class TranslationsMn extends Translations {
   @override
   late final _TranslationsTroubleshootPageMn troubleshootPage = _TranslationsTroubleshootPageMn._(_root);
   @override
+  late final _TranslationsNetworkInterfacesPageMn networkInterfacesPage = _TranslationsNetworkInterfacesPageMn._(_root);
+  @override
   late final _TranslationsReceiveHistoryPageMn receiveHistoryPage = _TranslationsReceiveHistoryPageMn._(_root);
   @override
   late final _TranslationsApkPickerPageMn apkPickerPage = _TranslationsApkPickerPageMn._(_root);
@@ -68,6 +70,16 @@ class TranslationsMn extends Translations {
   late final _TranslationsChangelogPageMn changelogPage = _TranslationsChangelogPageMn._(_root);
   @override
   late final _TranslationsAliasGeneratorMn aliasGenerator = _TranslationsAliasGeneratorMn._(_root);
+  @override
+  late final _TranslationsDialogsMn dialogs = _TranslationsDialogsMn._(_root);
+  @override
+  late final _TranslationsSanitizationMn sanitization = _TranslationsSanitizationMn._(_root);
+  @override
+  late final _TranslationsTrayMn tray = _TranslationsTrayMn._(_root);
+  @override
+  late final _TranslationsWebMn web = _TranslationsWebMn._(_root);
+  @override
+  late final _TranslationsAssetPickerMn assetPicker = _TranslationsAssetPickerMn._(_root);
 }
 
 // Path: general
@@ -131,6 +143,8 @@ class _TranslationsGeneralMn extends TranslationsGeneralEn {
   String get queue => 'Хүлээгдэж байгаа';
   @override
   String get quickSave => 'Шууд хадгалах';
+  @override
+  String get quickSaveFromFavorites => 'Дурласан төхөөрөмжүүдийн жагсаалтаас түргэн хадгалах';
   @override
   String get renamed => 'Дахин нэрлэсэн';
   @override
@@ -259,6 +273,28 @@ class _TranslationsTroubleshootPageMn extends TranslationsTroubleshootPageEn {
   late final _TranslationsTroubleshootPageNoConnectionMn noConnection = _TranslationsTroubleshootPageNoConnectionMn._(_root);
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageMn extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Сүлжээний интерфэйсүүд';
+  @override
+  String get info =>
+      'Анхдагчаар LocalSend нь бүх боломжит сүлжээний интерфэйсүүдийг ашигладаг. Энд та шаардлагагүй сүлжээг хасаж болно. Өөрчлөлтийг хэрэгжүүлэхийн тулд серверийг дахин ачааллах шаардлагатай.';
+  @override
+  String get preview => 'Урьдчилсан харагдац';
+  @override
+  String get whitelist => 'Цагаан жагсаалт';
+  @override
+  String get blacklist => 'Хар жагсаалт';
+}
+
 // Path: receiveHistoryPage
 class _TranslationsReceiveHistoryPageMn extends TranslationsReceiveHistoryPageEn {
   _TranslationsReceiveHistoryPageMn._(TranslationsMn root)
@@ -370,6 +406,8 @@ class _TranslationsSendPageMn extends TranslationsSendPageEn {
   @override
   String get rejected => 'Хүлээн авагч хүсэлтйиг татгалзлаа.';
   @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
+  @override
   String get busy => 'Хүлээн авагч өөр хүсэлт авсан тул завгүй байна.';
 }
 
@@ -404,6 +442,10 @@ class _TranslationsWebSharePageMn extends TranslationsWebSharePageEn {
   @override
   String get title => 'Линкээр хуваалцах';
   @override
+  String get loading => 'Серверийг эхлүүлж байна…';
+  @override
+  String get stopping => 'Серверийг зогсоож байна…';
+  @override
   String get error => 'Сервер асаахад алдаа гарлаа.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('mn'))(
@@ -415,6 +457,8 @@ class _TranslationsWebSharePageMn extends TranslationsWebSharePageEn {
   String get requests => 'Хүсэлтүүд';
   @override
   String get noRequests => 'Одоогоор хүсэлт байхгүй байна.';
+  @override
+  String get encryption => _root.settingsTab.network.encryption;
   @override
   String get autoAccept => 'Хүсэлтийг автоматаар авах';
   @override
@@ -447,6 +491,8 @@ class _TranslationsAboutPageMn extends TranslationsAboutPageEn {
   String get author => 'Эзэмшигч';
   @override
   String get contributors => 'Хамт тусалсан';
+  @override
+  String get packagers => 'Багцлагчид';
   @override
   String get translators => 'Орчуулагч нар';
 }
@@ -495,6 +541,195 @@ class _TranslationsAliasGeneratorMn extends TranslationsAliasGeneratorEn {
   final TranslationsMn _root; // ignore: unused_field
 
   // Translations
+}
+
+// Path: dialogs
+class _TranslationsDialogsMn extends TranslationsDialogsEn {
+  _TranslationsDialogsMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _TranslationsDialogsAddFileMn addFile = _TranslationsDialogsAddFileMn._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileMn openFile = _TranslationsDialogsOpenFileMn._(_root);
+  @override
+  late final _TranslationsDialogsAddressInputMn addressInput = _TranslationsDialogsAddressInputMn._(_root);
+  @override
+  late final _TranslationsDialogsCancelSessionMn cancelSession = _TranslationsDialogsCancelSessionMn._(_root);
+  @override
+  late final _TranslationsDialogsCannotOpenFileMn cannotOpenFile = _TranslationsDialogsCannotOpenFileMn._(_root);
+  @override
+  late final _TranslationsDialogsEncryptionDisabledNoticeMn encryptionDisabledNotice = _TranslationsDialogsEncryptionDisabledNoticeMn._(_root);
+  @override
+  late final _TranslationsDialogsErrorDialogMn errorDialog = _TranslationsDialogsErrorDialogMn._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDialogMn favoriteDialog = _TranslationsDialogsFavoriteDialogMn._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteDeleteDialogMn favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogMn._(_root);
+  @override
+  late final _TranslationsDialogsFavoriteEditDialogMn favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogMn._(_root);
+  @override
+  late final _TranslationsDialogsFileInfoMn fileInfo = _TranslationsDialogsFileInfoMn._(_root);
+  @override
+  late final _TranslationsDialogsFileNameInputMn fileNameInput = _TranslationsDialogsFileNameInputMn._(_root);
+  @override
+  late final _TranslationsDialogsHistoryClearDialogMn historyClearDialog = _TranslationsDialogsHistoryClearDialogMn._(_root);
+  @override
+  late final _TranslationsDialogsLocalNetworkUnauthorizedMn localNetworkUnauthorized = _TranslationsDialogsLocalNetworkUnauthorizedMn._(_root);
+  @override
+  late final _TranslationsDialogsMessageInputMn messageInput = _TranslationsDialogsMessageInputMn._(_root);
+  @override
+  late final _TranslationsDialogsNoFilesMn noFiles = _TranslationsDialogsNoFilesMn._(_root);
+  @override
+  late final _TranslationsDialogsNoPermissionMn noPermission = _TranslationsDialogsNoPermissionMn._(_root);
+  @override
+  late final _TranslationsDialogsNotAvailableOnPlatformMn notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformMn._(_root);
+  @override
+  late final _TranslationsDialogsQrMn qr = _TranslationsDialogsQrMn._(_root);
+  @override
+  late final _TranslationsDialogsQuickActionsMn quickActions = _TranslationsDialogsQuickActionsMn._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveNoticeMn quickSaveNotice = _TranslationsDialogsQuickSaveNoticeMn._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeMn quickSaveFromFavoritesNotice =
+      _TranslationsDialogsQuickSaveFromFavoritesNoticeMn._(_root);
+  @override
+  late final _TranslationsDialogsPinMn pin = _TranslationsDialogsPinMn._(_root);
+  @override
+  late final _TranslationsDialogsSendModeHelpMn sendModeHelp = _TranslationsDialogsSendModeHelpMn._(_root);
+  @override
+  late final _TranslationsDialogsZoomMn zoom = _TranslationsDialogsZoomMn._(_root);
+}
+
+// Path: sanitization
+class _TranslationsSanitizationMn extends TranslationsSanitizationEn {
+  _TranslationsSanitizationMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'Файлын нэр хоосон байж болохгүй';
+  @override
+  String get invalid => 'Файлын нэрд хууль бус тэмдэгт орсон байна';
+}
+
+// Path: tray
+class _TranslationsTrayMn extends TranslationsTrayEn {
+  _TranslationsTrayMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get open => _root.general.open;
+  @override
+  String get close => 'LocalSend-ыг хаах';
+  @override
+  String get closeWindows => 'Гарах';
+}
+
+// Path: web
+class _TranslationsWebMn extends TranslationsWebEn {
+  _TranslationsWebMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get waiting => _root.sendPage.waiting;
+  @override
+  String get enterPin => 'PIN код оруулах';
+  @override
+  String get invalidPin => 'Хүчин төгөлдөр бус PIN';
+  @override
+  String get tooManyAttempts => 'Оролдлогын хязгаар хэтэрсэн';
+  @override
+  String get rejected => 'Татгалзсан';
+  @override
+  String get files => 'Файлууд';
+  @override
+  String get fileName => 'Файлын нэр';
+  @override
+  String get size => 'Хэмжээ';
+}
+
+// Path: assetPicker
+class _TranslationsAssetPickerMn extends TranslationsAssetPickerEn {
+  _TranslationsAssetPickerMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get confirm => 'Батлах';
+  @override
+  String get cancel => 'Цуцлах';
+  @override
+  String get edit => 'Засах';
+  @override
+  String get gifIndicator => 'GIF';
+  @override
+  String get loadFailed => 'Ачааллахад алдаа гарлаа';
+  @override
+  String get original => 'Эх';
+  @override
+  String get preview => 'Урьдчилсан харагдац';
+  @override
+  String get select => 'Сонгох';
+  @override
+  String get emptyList => 'Жагсаалт хоосон';
+  @override
+  String get unSupportedAssetType => 'Дэмжигдээгүй файл төрлөөс.';
+  @override
+  String get unableToAccessAll => 'Төхөөрөмж дээрх бүх файлд хандаж чадахгүй байна';
+  @override
+  String get viewingLimitedAssetsTip => 'Программд хандах боломжтой файлууд болон цомгуудыг л харж байна.';
+  @override
+  String get changeAccessibleLimitedAssets => 'Хандах боломжтой файлуудыг шинэчлэхийн тулд товшино уу';
+  @override
+  String get accessAllTip =>
+      'Программ нь төхөөрөмж дээрх зарим файлуудад л хандаж чадна. Системийн тохиргоо руу орж бүх мультимедиа файлуудыг хандах эрх олгоно уу.';
+  @override
+  String get goToSystemSettings => 'Системийн тохиргоо руу орох';
+  @override
+  String get accessLimitedAssets => 'Хязгаарлагдмал хандалттай үргэлжлүүлэх';
+  @override
+  String get accessiblePathName => 'Хандах боломжтой файлууд';
+  @override
+  String get sTypeAudioLabel => 'Аудио';
+  @override
+  String get sTypeImageLabel => 'Зураг';
+  @override
+  String get sTypeVideoLabel => 'Видео';
+  @override
+  String get sTypeOtherLabel => 'Бусад мультимедиа';
+  @override
+  String get sActionPlayHint => 'Тоглуулах';
+  @override
+  String get sActionPreviewHint => 'Урьдчилсан харах';
+  @override
+  String get sActionSelectHint => 'Сонгох';
+  @override
+  String get sActionSwitchPathLabel => 'Замыг солих';
+  @override
+  String get sActionUseCameraHint => 'Камер ашиглах';
+  @override
+  String get sNameDurationLabel => 'Үргэлжилэх хугацаа';
+  @override
+  String get sUnitAssetCountLabel => 'Тоо';
 }
 
 // Path: receiveTab.infoBox
@@ -641,6 +876,8 @@ class _TranslationsSettingsTabReceiveMn extends TranslationsSettingsTabReceiveEn
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'Авто-дуусгах';
@@ -693,9 +930,15 @@ class _TranslationsSettingsTabNetworkMn extends TranslationsSettingsTabNetworkEn
   @override
   String get port => 'Порт';
   @override
+  String get network => 'Сүлжээ';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsMn networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsMn._(_root);
+  @override
   String get discoveryTimeout => 'Хайх хүчинтэй хугацаа';
   @override
   String get useSystemName => 'Системийн нэр ашиглах';
+  @override
+  String get generateRandomAlias => 'Санамсаргүй нэр үүсгэх';
   @override
   String portWarning({required Object defaultPort}) =>
       'Та өөр порт ашиглаж байгаа тул бусад төхөөрөмжинд олдохгүй байж магадгүй . (өгөгдмөл: ${defaultPort})';
@@ -817,6 +1060,416 @@ class _TranslationsProgressPageTotalMn extends TranslationsProgressPageTotalEn {
   String speed({required Object speed}) => 'Хурд: ${speed}/s';
 }
 
+// Path: dialogs.addFile
+class _TranslationsDialogsAddFileMn extends TranslationsDialogsAddFileEn {
+  _TranslationsDialogsAddFileMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Сонголтод нэмэх';
+  @override
+  String get content => 'Юуг нэмэх вэ?';
+}
+
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileMn extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Файлыг нээх';
+  @override
+  String get content => 'Хүлээн авсан файлыг нээх үү?';
+}
+
+// Path: dialogs.addressInput
+class _TranslationsDialogsAddressInputMn extends TranslationsDialogsAddressInputEn {
+  _TranslationsDialogsAddressInputMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Хаяг оруулах';
+  @override
+  String get hashtag => 'Хэштэг';
+  @override
+  String get ip => 'IP хаяг';
+  @override
+  String get recentlyUsed => 'Саяхан ашигласан: ';
+}
+
+// Path: dialogs.cancelSession
+class _TranslationsDialogsCancelSessionMn extends TranslationsDialogsCancelSessionEn {
+  _TranslationsDialogsCancelSessionMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Файлын дамжуулалтыг цуцлах';
+  @override
+  String get content => 'Та үнэхээр файлын дамжуулалтыг цуцлах уу?';
+}
+
+// Path: dialogs.cannotOpenFile
+class _TranslationsDialogsCannotOpenFileMn extends TranslationsDialogsCannotOpenFileEn {
+  _TranslationsDialogsCannotOpenFileMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Файл нээж чадахгүй';
+  @override
+  String content({required Object file}) =>
+      '"${file}" файлыг нээж чадаагүй. Энэ файл шилжүүлэгдсэн, нэр өөрчлөгдсөн эсвэл устгагдсан эсэхийг шалгана уу.';
+}
+
+// Path: dialogs.encryptionDisabledNotice
+class _TranslationsDialogsEncryptionDisabledNoticeMn extends TranslationsDialogsEncryptionDisabledNoticeEn {
+  _TranslationsDialogsEncryptionDisabledNoticeMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Шифрлэлт идэвхгүй';
+  @override
+  String get content => 'Харилцаа одоо шифрлэгдээгүй HTTP протоколоор явагдаж байна. HTTPS протокол ашиглахын тулд шифрлэлтээ дахин идэвхжүүлнэ үү.';
+}
+
+// Path: dialogs.errorDialog
+class _TranslationsDialogsErrorDialogMn extends TranslationsDialogsErrorDialogEn {
+  _TranslationsDialogsErrorDialogMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.error;
+}
+
+// Path: dialogs.favoriteDialog
+class _TranslationsDialogsFavoriteDialogMn extends TranslationsDialogsFavoriteDialogEn {
+  _TranslationsDialogsFavoriteDialogMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Дуртай төхөөрөмжүүд';
+  @override
+  String get noFavorites => 'Одоогоор дуртай төхөөрөмжүүд алга байна.';
+  @override
+  String get addFavorite => 'Нэмэх';
+}
+
+// Path: dialogs.favoriteDeleteDialog
+class _TranslationsDialogsFavoriteDeleteDialogMn extends TranslationsDialogsFavoriteDeleteDialogEn {
+  _TranslationsDialogsFavoriteDeleteDialogMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Дуртайгаасаа устгах';
+  @override
+  String content({required Object name}) => 'Та үнэхээр "${name}"-ийг дуртайгаасаа устгах уу?';
+}
+
+// Path: dialogs.favoriteEditDialog
+class _TranslationsDialogsFavoriteEditDialogMn extends TranslationsDialogsFavoriteEditDialogEn {
+  _TranslationsDialogsFavoriteEditDialogMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get titleAdd => 'Дуртайдаа нэмэх';
+  @override
+  String get titleEdit => 'Тохиргоо';
+  @override
+  String get name => 'Төхөөрөмжийн нэр';
+  @override
+  String get auto => '(авто)';
+  @override
+  String get ip => 'IP хаяг';
+  @override
+  String get port => 'Порт';
+}
+
+// Path: dialogs.fileInfo
+class _TranslationsDialogsFileInfoMn extends TranslationsDialogsFileInfoEn {
+  _TranslationsDialogsFileInfoMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Файл мэдээлэл';
+  @override
+  String get fileName => 'Файлын нэр:';
+  @override
+  String get path => 'Зам:';
+  @override
+  String get size => 'Хэмжээ:';
+  @override
+  String get sender => 'Илгээгч:';
+  @override
+  String get time => 'Цаг:';
+}
+
+// Path: dialogs.fileNameInput
+class _TranslationsDialogsFileNameInputMn extends TranslationsDialogsFileNameInputEn {
+  _TranslationsDialogsFileNameInputMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Файлын нэр оруулах';
+  @override
+  String original({required Object original}) => 'Анхны: ${original}';
+}
+
+// Path: dialogs.historyClearDialog
+class _TranslationsDialogsHistoryClearDialogMn extends TranslationsDialogsHistoryClearDialogEn {
+  _TranslationsDialogsHistoryClearDialogMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Түүхийг арилгах';
+  @override
+  String get content => 'Та үнэхээр бүх түүхийг устгах уу?';
+}
+
+// Path: dialogs.localNetworkUnauthorized
+class _TranslationsDialogsLocalNetworkUnauthorizedMn extends TranslationsDialogsLocalNetworkUnauthorizedEn {
+  _TranslationsDialogsLocalNetworkUnauthorizedMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.dialogs.noPermission.title;
+  @override
+  String get description =>
+      'LocalSend нь локал сүлжээг скан хийх зөвшөөрөлгүй учраас бусад төхөөрөмжийг олж чадахгүй байна. Зөвшөөрлийг тохиргоонд өгнө үү.';
+  @override
+  String get gotoSettings => 'Тохиргоо';
+}
+
+// Path: dialogs.messageInput
+class _TranslationsDialogsMessageInputMn extends TranslationsDialogsMessageInputEn {
+  _TranslationsDialogsMessageInputMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мессеж бичих';
+  @override
+  String get multiline => 'Олон мөрт';
+}
+
+// Path: dialogs.noFiles
+class _TranslationsDialogsNoFilesMn extends TranslationsDialogsNoFilesEn {
+  _TranslationsDialogsNoFilesMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Файлууд сонгогдоогүй';
+  @override
+  String get content => 'Дор хаяж нэг файлыг сонгоно уу.';
+}
+
+// Path: dialogs.noPermission
+class _TranslationsDialogsNoPermissionMn extends TranslationsDialogsNoPermissionEn {
+  _TranslationsDialogsNoPermissionMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Зөвшөөрөл байхгүй';
+  @override
+  String get content => 'Танд шаардлагатай зөвшөөрөл олгогдоогүй байна. Тохиргооноос зөвшөөрөл олгоно уу.';
+}
+
+// Path: dialogs.notAvailableOnPlatform
+class _TranslationsDialogsNotAvailableOnPlatformMn extends TranslationsDialogsNotAvailableOnPlatformEn {
+  _TranslationsDialogsNotAvailableOnPlatformMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Боломжгүй';
+  @override
+  String get content => 'Энэ функц дараах платформ дээр л боломжтой:';
+}
+
+// Path: dialogs.qr
+class _TranslationsDialogsQrMn extends TranslationsDialogsQrEn {
+  _TranslationsDialogsQrMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'QR код';
+}
+
+// Path: dialogs.quickActions
+class _TranslationsDialogsQuickActionsMn extends TranslationsDialogsQuickActionsEn {
+  _TranslationsDialogsQuickActionsMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Хурдан үйлдлүүд';
+  @override
+  String get counter => 'Тоо';
+  @override
+  String get prefix => 'Өгүүлэмж';
+  @override
+  String get padZero => 'Тэгээр нөхөх';
+  @override
+  String get sortBeforeCount => 'Тоогоор эрэмблэхээс өмнө (A-Z)';
+  @override
+  String get random => 'Санамсаргүй';
+}
+
+// Path: dialogs.quickSaveNotice
+class _TranslationsDialogsQuickSaveNoticeMn extends TranslationsDialogsQuickSaveNoticeEn {
+  _TranslationsDialogsQuickSaveNoticeMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSave;
+  @override
+  String get content =>
+      'Файл илгээх хүсэлтүүд одоо автоматаар хүлээн авна. Локал сүлжээнд байгаа бүх хүн танд файл илгээх боломжтой гэдгийг анхаарна уу.';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeMn extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+        'Дуртай төхөөрөмжүүдийн жагсаалтад байгаа төхөөрөмжүүдээс ирсэн файл илгээх хүсэлтүүд одоо автоматаар хүлээн авна.',
+        'Анхаар! Одоогоор энэ нь бүрэн найдвартай биш байна, учир нь дуртай төхөөрөмжүүдийн жагсаалтад байгаа аливаа төхөөрөмжийн хуруу мөрийн мэдээллийг эзэмшсэн халдагч хязгааргүй файл илгээх боломжтой.',
+        'Гэсэн хэдий ч энэ сонголт нь локал сүлжээнд байгаа бүх хэрэглэгчдэд хязгааргүй файл илгээхийг зөвшөөрөхөөс илүү аюулгүй хэвээр байна.',
+      ];
+}
+
+// Path: dialogs.pin
+class _TranslationsDialogsPinMn extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'PIN код оруулах';
+}
+
+// Path: dialogs.sendModeHelp
+class _TranslationsDialogsSendModeHelpMn extends TranslationsDialogsSendModeHelpEn {
+  _TranslationsDialogsSendModeHelpMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Илгээх горимууд';
+  @override
+  String get single => 'Файлуудыг ганц хүлээн авагчид илгээнэ. Дамжуулалт дуусах үед сонголт автоматаар арилна.';
+  @override
+  String get multiple => 'Файлуудыг хэд хэдэн хүлээн авагчдад илгээнэ. Дамжуулалт дууссаны дараа сонголт устахгүй.';
+  @override
+  String get link => 'LocalSend суулгагдаагүй хүлээн авагчид холбоосыг нээж сонгосон файлуудыг браузераар татаж авах боломжтой.';
+}
+
+// Path: dialogs.zoom
+class _TranslationsDialogsZoomMn extends TranslationsDialogsZoomEn {
+  _TranslationsDialogsZoomMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'URL';
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsMn extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
   _TranslationsSettingsTabGeneralBrightnessOptionsMn._(TranslationsMn root)
@@ -860,6 +1513,21 @@ class _TranslationsSettingsTabGeneralLanguageOptionsMn extends TranslationsSetti
   // Translations
   @override
   String get system => 'Систем';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsMn extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsMn._(TranslationsMn root)
+      : this._root = root,
+        super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Бүгд';
+  @override
+  String get filtered => 'Шүүсэн';
 }
 
 // Path: progressPage.total.title
