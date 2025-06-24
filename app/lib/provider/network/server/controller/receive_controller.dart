@@ -461,7 +461,7 @@ class ReceiveController {
             files: {
               ...oldState.session!.files,
               fileId: oldState.session!.files[fileId]!.copyWith(
-                path: saveToGallery ? null : destinationPath,
+                path: destinationPath,
               ),
             },
           ),
@@ -798,7 +798,6 @@ void _cancelBySender(ServerUtils server) {
     Routerino.context.popUntil(ReceivePage);
   }
 
-  // Add cleanup for partial files
   // Clean up any partially transferred files
   _cleanupPartialFiles(receiveSession);
 
@@ -814,7 +813,7 @@ void _cancelBySender(ServerUtils server) {
   server.ref.notifier(progressProvider).removeSession(receiveSession.sessionId);
 }
 
-// Add a new method to clean up partial files/// Cleans up partially transferred files for a given receiving session
+// Cleans up partially transferred files for a given receiving session
 void _cleanupPartialFiles(ReceiveSessionState receiveSession) {
   for (final receivingFile in receiveSession.files.values) {
     if (receivingFile.status == FileStatus.sending || receivingFile.status == FileStatus.failed) {
