@@ -1,20 +1,26 @@
 # LocalSend
 
 [![CI status][ci-badge]][ci-workflow]
+[![Translations][translate-badge]][translate-link]
+[![Packaging status][packaging-badge]][packaging-link]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
+[translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
+[translate-link]: https://hosted.weblate.org/engage/localsend/
+[packaging-badge]: https://repology.org/badge/tiny-repos/localsend.svg
+[packaging-link]: https://repology.org/project/localsend/versions
 
 [Sito web][sito web] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Türkçe](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [sito web]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend è un'applicazione gratuita e open-source che consente di condividere file e messaggi in modo sicuro con i dispositivi vicini attraverso la rete locale, senza bisogno di una connessione a Internet.
+LocalSend è un'applicazione gratuita e open-source che consente di condividere file e messaggi, in modo sicuro, con i dispositivi vicini attraverso la rete locale, senza bisogno di una connessione a Internet.
 
 - [Panoramica](#panoramica)
 - [Screenshot](#screenshot)
@@ -24,6 +30,7 @@ LocalSend è un'applicazione gratuita e open-source che consente di condividere 
 - [Come contribuire](#come-contribuire)
   - [Traduzione](#traduzione)
   - [Correzione di bug e miglioramenti](#correzione-di-bug-e-miglioramenti)
+- [Risoluzione dei problemi](#risoluzione-dei-problemi)
 - [Compilazione](#compilazione)
   - [Android](#android)
   - [iOS](#ios)
@@ -41,19 +48,21 @@ LocalSend è un'applicazione multipiattaforma che permette di comunicare in modo
 
 ## Download
 
-Raccomandiamo di scaricare l'app tramite un app store o un manager di pacchetti poiché è sprovvista di aggiornamento automatico.
+[![Packaging status](https://repology.org/badge/tiny-repos/localsend.svg)](https://repology.org/project/localsend/versions)
+
+È consigliabile il download tramite un app store o un gestore di pacchetti poiché l'applicazione è sprovvista di aggiornamento automatico.
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |-------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
 | [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
-| [EXE Installer][latest] |                         | [AUR][]            |                |               |            |
-| [Portable ZIP][latest]  |                         | [TAR][latest]      |                |               |            |
+| [Installer EXE][latest] |                         | [AUR][]            |                |               |            |
+| [ZIP Portatile][latest] |                         | [TAR][latest]      |                |               |            |
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Read more about [distribution channels][].
+Leggi di più sui [canali di distribuzione][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -69,32 +78,44 @@ Read more about [distribution channels][].
 [snap]: https://snapcraft.io/localsend
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
-[distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[canali di distribuzione]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+
+**Compatibilità**
+
+| Piattaforma | Versione minima | Note                                                                                                                         |
+|-------------|-----------------|------------------------------------------------------------------------------------------------------------------------------|
+| Android     | 5.0             | -                                                                                                                            |
+| iOS         | 12.0            | -                                                                                                                            |
+| macOS       | 11 Big Sur      | Usa OpenCore Legacy Patcher 2.0.2 (Vedi [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows     | 10              | L'ultima versione a supportare Windows 7 è la v1.15.4. Possibile un futuro sviluppo di backport più recenti per Windows 7.   |
+| Linux       | N.A.            | -                                                                                                                            |
 
 ## Installazione
 
-Nella maggior parte dei casi, LocalSend dovrebbe funzionare subito. Tuttavia, se si riscontrano problemi nell'invio o nella ricezione di file, potrebbe essere necessario configurare il firewall per consentire a LocalSend di comunicare su rete locale.
+Nella maggior parte dei casi, LocalSend dovrebbe funzionare immediatamente. Tuttavia, se si riscontrano problemi nell'invio o nella ricezione di file, potrebbe essere necessario configurare il firewall per consentire a LocalSend di comunicare su rete locale.
 
-| Tipo di traffico | Protocollo | Porta | Azione    |
-|------------------|------------|-------|-----------|
-| In arrivo        | TCP, UDP   | 53317 | Consenti  |
-| In uscita        | TCP, UDP   | Any   | Consenti  |
+| Tipo di traffico | Protocollo | Porta | Azione   |
+|------------------|------------|-------|----------|
+| In entrata       | TCP, UDP   | 53317 | Consenti |
+| In uscita        | TCP, UDP   | Any   | Consenti |
 
 Assicuratevi di disabilitare l'isolamento AP sul vostro router. Dovrebbe essere disattivato per impostazione predefinita ma su alcuni router potrebbe essere attivo (in particolare su reti ospiti).
+Per ulteriori informazioni, vedere [Risoluzione dei problemi](#risoluzione-dei-problemi).
 
 **Modalità portatile**
 
 (Introdotta nella versione v1.13.0)
 
-Crea un file chiamato `settings.json` che si trova nella stessa cartella dell'eseguibile.
+Crea un file con nome `settings.json` nella stessa cartella dell'eseguibile.
 Questo file può essere vuoto.
-Anziché utilizzare la posizione predefinita l'app utilizzerà questo file per memorizzare le impostazioni.
+L'app memorizzerà le impostazioni in questo file anziché nella posizione predefinita.
 
 **Avvio minimizzato**
 
 (Aggiornato in versione v1.15.0)
 
-Per avviare in modo minimizzato l'app (solo nella barra delle applicazioni), usa il flag `--hidden` (per esempio: `localsend_app.exe --hidden`).
+Per avviare l'app in modalità minimizzata (solo nella barra delle applicazioni), usa il flag `--hidden` (esempio: `localsend_app.exe --hidden`).
+
 Nella versione v1.14.0 e precedenti, l'app parte minimizzata se è impostato il flag `autostart` e l'impostazione nascosta è abilitata.
 
 ## Come funziona
@@ -107,16 +128,17 @@ Per maggiori informazioni sul Protocollo LocalSend, consulta la [documentazione]
 
 Segui questi passi per compilare LocalSend dal codice sorgente:
 
-1. Installa Flutter [direttamente](https://flutter.dev) o utilizzando [fvm](https://fvm.app) (vedi [versione richiesta](.fvmrc))
-2. Clona la repository di `LocalSend`
-3. Esegui `cd app` per entrare nella cartella dell'applicazione
-4. Esegui `flutter pub get` per scaricare le dipendenze
-5. Esegui `flutter run` per avviare l'app
+1. Installa Flutter [direttamente](https://flutter.dev) o utilizza [fvm](https://fvm.app) (vedi [versione richiesta](.fvmrc))
+2. Installa [Rust](https://www.rust-lang.org/tools/install)
+3. Clona la repository di `LocalSend`
+4. Esegui `cd app` per entrare nella cartella dell'applicazione
+5. Esegui `flutter pub get` per scaricare le dipendenze
+6. Esegui `flutter run` per avviare l'app
 
 > [!NOTE]
-> Attualmente LocalSend richiede una versione più vecchia di Flutter (specificata in [.fvmrc](.fvmrc))
+> Attualmente LocalSend richiede una versione più datata di Flutter (specificata in [.fvmrc](.fvmrc))
 > quindi i problemi di compilazione potrebbero essere causati da una mancata corrispondenza tra la versione di Flutter richiesta e quella installata (a livello di sistema).
-> Per rendere lo sviluppo più consistente LocalSend utilizza [fvm](https://fvm.app) per gestire la versione di Flutter del progetto.
+> Per rendere lo sviluppo più consistente, LocalSend utilizza [fvm](https://fvm.app) per gestire la versione di Flutter del progetto.
 > Dopo aver installato `fvm`, esegui `fvm flutter` anziché `flutter`.
 
 ## Come contribuire
@@ -125,24 +147,17 @@ Accogliamo con piacere i contributi di chiunque sia interessato a migliorare Loc
 
 ### Traduzione
 
-Puoi aiutare a traddure l'app in altre lingue!
+È possibile contribuire traducendo LocalSend in altre lingue. Per la gestione delle traduzioni utilizziamo la piattaforma [Weblate](https://hosted.weblate.org/projects/localsend/app).
 
-1. Crea un fork di questa repository
-2. Scegli se:
-   - Aggiungere le traduzioni mancanti nei linguaggi esistenti: aggiorna solo `_missing_translations_<locale>.json` in [app/assets/i18n][i18n]
-   - Correggere le traduzioni esistenti: aggiorna `strings_<locale>.i18n.json` in [app/assets/i18n][i18n]
-   - Aggiungi nuove lingue: crea un nuovo file, vedi anche: [locale codes][].
-3. Opzionale: esegui nuovamente l'app
-   1. Esegui `cd app` per entrare nella cartella dell'applicazione.
-   2. Assicurati di aver [eseguito](#primi-passi) quest'app almeno una volta.
-   3. Aggiorna le traduzioni con `flutter pub run slang`
-   5. Esegui l'app con `flutter run`
-   6. Apri una pull request
+In alternativa, è possibile contribuire anche creando un fork di questa repository, aggiungendo manualmente le traduzioni.
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[codici di localizzazione]: https://saimana.com/list-of-country-locale-code/
+Le traduzioni si trovano nella cartella [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Modificare il file `_missing_translations_<locale>.json` o `strings_<locale>.i18n.json` per aggiungere o aggiornare le traduzioni.
 
-**_Prendi nota:_ I campi decorati con `@` non vanno tradotti; non sono usati in alcuna maniera nell'app. Si tratta semplicemente di testo informativo riguardante il file o per dare un contesto al traduttore.**
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Status traduzione" />
+</a>
+
+**_Nota bene:_ I campi decorati con `@` non vanno tradotti; non sono usati in alcuna maniera nell'app. Si tratta semplicemente di testo informativo riguardante il file o per dare un contesto al traduttore.**
 
 ### Correzione di bug e miglioramenti
 
@@ -150,6 +165,16 @@ Puoi aiutare a traddure l'app in altre lingue!
 - **Miglioramenti:** Hai un'idea su come poter migliorare LocalSend? Prima di tutto crea una "issue" per discutere il motivi per cui il miglioramento è necessario.
 
 Per più informazioni, vedi la [guida ai contributi](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
+
+## Risoluzione dei problemi
+
+| Problema                 | Piattaforma (invio) | Piattaforma (ricezione) | Soluzione                                                                                                                               |
+|--------------------------|---------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Dispositivo non visibile | Qualsiasi           | Qualsiasi               | Assicurarsi di disabilitare AP-Isolation sul router. Se è abilitata, le connessioni tra i dispositivi sono vietate.                     |
+| Dispositivo non visibile | Qualsiasi           | Windows                 | Assicurarsi di configurare la rete come rete "privata". Windows potrebbe essere più restrittivo se la rete è configurata come pubblica. |
+| Dispositivo non visibile | macOS, iOS          | Qualsiasi               | Si può provare a disattivare l'autorizzazione "Rete locale" in "Privacy" nelle impostazioni del sistema operativo.                      |
+| Velocità troppo lenta    | Qualsiasi           | Qualsiasi               | Utilizzare 5 Ghz; disabilitare la crittografia su entrambi i dispositivi                                                                |
+| Velocità troppo lenta    | Qualsiasi           | Android                 | Problema noto. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                   |
 
 ## Compilazione
 
@@ -217,7 +242,7 @@ appimage-builder --recipe AppImageBuilder.yml
 
 **Snap**
 
-Sentitevi liberi di aprire una richiesta di pull. C'è un branch `snap` con cui sperimentare.
+Istruzioni su [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributori
 
