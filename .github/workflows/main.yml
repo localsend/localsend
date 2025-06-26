@@ -27,17 +27,6 @@ jobs:
           channel: "stable"
           cache: true
           cache-key: flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
-
-      - name: Restore dependencies cache
-        uses: actions/cache@v3
-        id: pub-cache
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-
-      - name: Show pub-cache restore result
-        run: echo "Cache restored: ${{ steps.pub-cache.outputs.cache-hit }}"
-
       - name: Install dependencies
         run: flutter pub get
 
@@ -66,11 +55,9 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `❌ **CI/CD Failed**
-
-- Flutter analysis or tests failed
-- Merge is blocked
-
-🔍 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`
+              - Flutter analysis or tests failed
+              - Merge is blocked
+              🔍 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`
             });
 
       - name: Notify PR on success
@@ -85,9 +72,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `✅ **All checks passed**
-
-- Flutter analysis: success
-- Tests: success
-
-Ready for merge! 🚀`
+              - Flutter analysis: success
+              - Tests: successReady for merge! 🚀`
             });
