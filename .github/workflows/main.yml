@@ -1,0 +1,101 @@
+name: Flutter CI/CD (Merge Queue Compatible)
+
+on:
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+jobs:
+  analyze_test_build:
+    name: "Flutter: Analyze, Test, Build"
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.19.0"
+          channel: "stable"
+          cache: true
+          cache-key: flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v3
+        id: pub-cache
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: Show pub-cache restore result
+        run: echo "Cache restored: ${{ steps.pub-cache.outputs.cache-hit }}"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run Flutter Analyze
+        run: flutter analyze || (echo "::error::Flutter Analyze failed" && exit 1)
+
+      - name: Run Unit Tests
+        run: flutter test --coverage || (echo "::error::Unit Tests failed" && exit 1)
+
+      - name: Build APK (Debug)
+        run: flutter build apk --debug
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/
+
+      - name: Notify PR on failure
+        if: ${{ github.event_name == 'pull_request' && failure() }}
+        uses: actions/github-script@v6
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: process.env.PR_NUMBER,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+❌ **CI/CD Failed**
+
+- Flutter analysis or tests failed
+- Merge is blocked
+
+🔍 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              `
+            })
+
+      - name: Notify PR on success
+        if: ${{ github.event_name == 'pull_request' && success() }}
+        uses: actions/github-script@v6
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: process.env.PR_NUMBER,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+✅ **All checks passed**
+
+- Flutter analysis: success
+- Tests: success
+- Build: success
+
+Ready for merge! 🚀
+              `
+            })
