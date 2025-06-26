@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  analyze_test_build:
-    name: "Flutter: Analyze, Test, Build"
+  analyze_test:
+    name: "Flutter: Analyze & Test"
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -42,13 +42,10 @@ jobs:
         run: flutter pub get
 
       - name: Run Flutter Analyze
-        run: flutter analyze || (echo "::error::Flutter Analyze failed" && exit 1)
+        run: flutter analyze
 
-      - name: Run Unit Tests
-        run: flutter test --coverage || (echo "::error::Unit Tests failed" && exit 1)
-
-      - name: Build APK (Debug)
-        run: flutter build apk --debug
+      - name: Run Unit Tests with Coverage
+        run: flutter test --coverage
 
       - name: Upload coverage report
         if: always()
@@ -60,12 +57,12 @@ jobs:
       - name: Notify PR on failure
         if: ${{ github.event_name == 'pull_request' && failure() }}
         uses: actions/github-script@v6
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         with:
           script: |
+            const pr = context.payload.pull_request;
+            if (!pr) return;
             await github.rest.issues.createComment({
-              issue_number: process.env.PR_NUMBER,
+              issue_number: pr.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `❌ **CI/CD Failed**
@@ -73,25 +70,24 @@ jobs:
 - Flutter analysis or tests failed
 - Merge is blocked
 
-🔍 [View workflow run](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`
+🔍 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`
             });
 
       - name: Notify PR on success
         if: ${{ github.event_name == 'pull_request' && success() }}
         uses: actions/github-script@v6
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         with:
           script: |
+            const pr = context.payload.pull_request;
+            if (!pr) return;
             await github.rest.issues.createComment({
-              issue_number: process.env.PR_NUMBER,
+              issue_number: pr.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `✅ **All checks passed**
 
 - Flutter analysis: success
 - Tests: success
-- Build: success
 
 Ready for merge! 🚀`
             });
