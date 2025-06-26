@@ -68,15 +68,13 @@ jobs:
               issue_number: process.env.PR_NUMBER,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `
-❌ **CI/CD Failed**
+              body: `❌ **CI/CD Failed**
 
 - Flutter analysis or tests failed
 - Merge is blocked
 
-🔍 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-              `
-            })
+🔍 [View workflow run](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`
+            });
 
       - name: Notify PR on success
         if: ${{ github.event_name == 'pull_request' && success() }}
@@ -89,13 +87,11 @@ jobs:
               issue_number: process.env.PR_NUMBER,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `
-✅ **All checks passed**
+              body: `✅ **All checks passed**
 
 - Flutter analysis: success
 - Tests: success
 - Build: success
 
-Ready for merge! 🚀
-              `
-            })
+Ready for merge! 🚀`
+            });
