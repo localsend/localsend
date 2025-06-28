@@ -153,7 +153,7 @@ class LivePhotoCacheProvider {
       final currentEntry = _cache[fileName];
       if (currentEntry == entry && !entry.isComplete) {
         _logger.warning('Live Photo pair timeout: $fileName');
-        _cleanupEntry(entry); // ignore 
+        _cleanupEntry(entry); // ignore
         _cache.remove(fileName);
       }
     });
