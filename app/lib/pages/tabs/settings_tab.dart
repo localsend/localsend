@@ -236,14 +236,14 @@ class SettingsTab extends StatelessWidget {
                             await ref.notifier(settingsProvider).setSaveToGallery(b);
                           },
                         ),
-                        if (vm.settings.saveToGallery && ref.read(livePhotoSupportProvider))
-                          _BooleanEntry(
-                            label: t.settingsTab.receive.saveAsLivePhoto,
-                            value: vm.settings.saveAsLivePhoto,
-                            onChanged: (b) async {
-                              await ref.notifier(settingsProvider).setSaveAsLivePhoto(b);
-                            },
-                          ),
+                      if (vm.settings.saveToGallery && ref.read(livePhotoSupportProvider))
+                        _BooleanEntry(
+                          label: t.settingsTab.receive.saveAsLivePhoto,
+                          value: vm.settings.saveAsLivePhoto,
+                          onChanged: (b) async {
+                            await ref.notifier(settingsProvider).setSaveAsLivePhoto(b);
+                          },
+                        ),
                       _BooleanEntry(
                         label: t.settingsTab.receive.autoFinish,
                         value: vm.settings.autoFinish,
