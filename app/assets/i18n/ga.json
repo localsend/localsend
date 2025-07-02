@@ -1,0 +1,527 @@
+{
+  "locale": "Gaeilge",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Glac",
+    "accepted": "Glactha",
+    "add": "Cuir",
+    "advanced": "Casta",
+    "cancel": "Cealaigh",
+    "close": "Dún",
+    "confirm": "Deimhnigh",
+    "continueStr": "Lean ar aghaidh",
+    "copy": "Cóipeáil",
+    "copiedToClipboard": "Cóipeáilte chuig an nGearrthaisce",
+    "decline": "Diúltú",
+    "done": "Déanta",
+    "delete": "Scrios",
+    "edit": "Cuir in Eagar",
+    "error": "Earráid",
+    "example": "Sampla",
+    "files": "Comhaid",
+    "finished": "Críochnaithe",
+    "hide": "Folaigh",
+    "off": "As",
+    "offline": "As líne",
+    "on": "Ar",
+    "online": "Ar Líne",
+    "open": "Oscail",
+    "queue": "Scuaine",
+    "quickSave": "Sábháil Thapa",
+    "quickSaveFromFavorites": "Sábháil Tapa do \"Ceanáin\"",
+    "renamed": "Athainmnithe",
+    "reset": "Cealaigh athruithe",
+    "restart": "Atosaigh",
+    "settings": "Socruithe",
+    "skipped": "Scipeáilte",
+    "start": "Tosaigh",
+    "stop": "Stad",
+    "save": "Sábháil",
+    "unchanged": "Gan athrú",
+    "unknown": "Anaithnid",
+    "noItemInClipboard": "Gan aon mhíreanna sa Ghearrthaisce."
+  },
+  "receiveTab": {
+    "title": "Faigh",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Ainm an ghléis:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Ceanáin",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Seol",
+    "selection": {
+      "title": "Rogha",
+      "files": "Comhaid: {files}",
+      "size": "Méid: {size}"
+    },
+    "picker": {
+      "file": "Comhad",
+      "folder": "Fillteán",
+      "media": "Meáin",
+      "text": "Téacs",
+      "app": "Aip",
+      "clipboard": "Greamaigh"
+    },
+    "shareIntentInfo": "Is féidir leat an ghné \"Comhroinn\" de do ghléas soghluaiste a úsáid freisin chun comhaid a roghnú ar bhealach níos éasca.",
+    "nearbyDevices": "Gléasanna in aice láimhe",
+    "thisDevice": "An Gléas seo",
+    "scan": "Cuardaigh gléasanna",
+    "manualSending": "Seoladh de láimh",
+    "sendMode": "Mód seolta",
+    "sendModes": {
+      "single": "Faighteoir aonair",
+      "multiple": "Faighteoirí iolracha",
+      "link": "Comhroinn trí nasc"
+    },
+    "sendModeHelp": "Míniú",
+    "help": "Cinntigh le do thoil go bhfuil an sprioc atá uait ar an líonra Wi-Fi céanna freisin.",
+    "placeItems": "Cuir míreanna le roinnt."
+  },
+  "settingsTab": {
+    "title": "Socruithe",
+    "general": {
+      "title": "Ginearálta",
+      "brightness": "Téama",
+      "brightnessOptions": {
+        "system": "Córas",
+        "dark": "Dorcha",
+        "light": "Solas"
+      },
+      "color": "Dath",
+      "colorOptions": {
+        "system": "Córas",
+        "oled": "OLED"
+      },
+      "language": "Teanga",
+      "languageOptions": {
+        "system": "Córas"
+      },
+      "saveWindowPlacement": "Sábháil suíomh na fuinneoige tar éis scoir",
+      "saveWindowPlacementWindows": "Sábháil suíomh na fuinneoige tar éis imeachta",
+      "minimizeToTray": "Íoslaghdaigh go dtí an Tráidire Córais/Barra Roghchláir agus é á dhúnadh",
+      "launchAtStartup": "Uaththosú tar éis logáil isteach",
+      "launchMinimized": "Uaththosú: Tosaigh i bhfolach",
+      "showInContextMenu": "Taispeáin LocalSend sa roghchlár comhthéacs",
+      "animations": "Beochana"
+    },
+    "receive": {
+      "title": "Faigh",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Críochnú Uathoibríoch",
+      "destination": "Sábháil chuig fillteán",
+      "downloads": "(Íoslódálacha)",
+      "saveToGallery": "Sábháil meáin chuig an ngailearaí",
+      "saveToHistory": "Sábháil chuig an stair"
+    },
+    "send": {
+      "title": "Seol",
+      "shareViaLinkAutoAccept": "Glac le hiarratais go huathoibríoch sa mhód \"Comhroinn trí nasc\""
+    },
+    "network": {
+      "title": "Líonra",
+      "needRestart": "Atosaigh an freastalaí chun na socruithe a chur i bhfeidhm!",
+      "server": "Freastalaí",
+      "alias": "Ainm an ghléis",
+      "deviceType": "Cineál gléis",
+      "deviceModel": "Múnla gléis",
+      "port": "Port",
+      "network": "Líonra",
+      "networkOptions": {
+        "all": "Gach",
+        "filtered": "Scagtha"
+      },
+      "discoveryTimeout": "Am Teorann Fionnachtana",
+      "useSystemName": "Úsáid ainm an chórais",
+      "generateRandomAlias": "Gin leasainm randamach",
+      "portWarning": "B’fhéidir nach mbraithfidh gléasanna eile thú mar go bhfuil port saincheaptha in úsáid agat. (réamhshocrú: {defaultPort})",
+      "encryption": "Criptiú",
+      "multicastGroup": "Seoladh ilchraolta",
+      "multicastGroupWarning": "B’fhéidir nach mbraithfidh gléasanna eile thú mar go bhfuil seoladh ilchraolta saincheaptha in úsáid agat. (réamhshocrú: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Eile",
+      "support": "Tacaigh le LocalSend",
+      "donate": "Tabhair Síntiús",
+      "privacyPolicy": "Polasaí Príobháideachais",
+      "termsOfUse": "Téarmaí Úsáide"
+    },
+    "advancedSettings": "Socruithe ardleibhéil"
+  },
+  "troubleshootPage": {
+    "title": "Fabhtcheartú",
+    "subTitle": "Nach bhfuil an aip ag obair mar a bhíothas ag súil leis? Anseo, is féidir leat roinnt réitigh choitianta ar fhadhbanna a fháil.",
+    "solution": "Réiteach:",
+    "fixButton": "Deisigh go huathoibríoch",
+    "firewall": {
+      "symptom": "Is féidir leis an ngléas seo comhaid a sheoladh chuig gléasanna eile ach ní féidir le gléasanna eile comhaid a sheoladh chuig an ngléas seo.",
+      "solution": "Is dóichí gur fadhb le balla dóiteáin atá ann. Is féidir leat é seo a réiteach trí naisc isteach (UDP agus TCP) a cheadú ar phort {port}.",
+      "openFirewall": "Oscail Balla Dóiteáin"
+    },
+    "noDiscovery": {
+      "symptom": "Ní féidir leis an ngléas seo gléasanna eile a aimsiú.",
+      "solution": "Cinntigh go bhfuil na gléasanna uile ar an líonra Wi-Fi céanna agus go roinneann siad an chumraíocht chéanna (port, seoladh ilchraolta, criptiú). Is féidir leat iarracht a dhéanamh seoladh IP an ghléis sprice a chlóscríobh de láimh. Má oibríonn sé seo, smaoinigh ar an ngléas seo a chur leis na cinn is fearr leat ionas gur féidir é a aimsiú go huathoibríoch amach anseo."
+    },
+    "noConnection": {
+      "symptom": "Ní féidir leis an dá fheiste a chéile a aimsiú ná ní féidir leo comhaid a roinnt.",
+      "solution": "An bhfuil an fhadhb ann ar an dá thaobh? Más ea, ní mór duit a chinntiú go bhfuil an dá fheiste ar an líonra Wi-Fi céanna agus go bhfuil an chumraíocht chéanna acu (port, seoladh ilchraolta, criptiú). B’fhéidir nach gceadaíonn an líonra Wi-Fi cumarsáid idir rannpháirtithe mar gheall ar Leithlisiú Pointe Rochtana (AP). Sa chás seo, ní mór an rogha seo a dhíchumasú ar an ródaire."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Comhéadain Líonra",
+    "info": "De réir réamhshocraithe, úsáideann LocalSend na comhéadain líonra go léir atá ar fáil. Is féidir leat líonraí nach dteastaíonn a eisiamh anseo. Ní mór duit an freastalaí a atosú chun na hathruithe a chur i bhfeidhm.",
+    "preview": "Réamhamharc",
+    "whitelist": "Liosta bán",
+    "blacklist": "Liosta Dubh"
+  },
+  "receiveHistoryPage": {
+    "title": "Stair",
+    "openFolder": "Oscail fillteán",
+    "deleteHistory": "Scrios stair",
+    "empty": "Tá an stair folamh.",
+    "entryActions": {
+      "open": "Oscail comhad",
+      "showInFolder": "Taispeáin sa bhfillteán",
+      "info": "Eolas",
+      "deleteFromHistory": "Scrios ón stair"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Aipeanna (APK)",
+    "excludeSystemApps": "Eisiamh aip chóraiss",
+    "excludeAppsWithoutLaunchIntent": "Eisiamh aipeanna nach féidir a sheoladh",
+    "apps": "{n} Aipeanna"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Scrios gach rud"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ag iarraidh comhad a sheoladh chugat",
+      "other": "ag iarraidh {n} comhad a sheoladh chugat"
+    },
+    "subTitleMessage": "teachtaireacht curtha chugat:",
+    "subTitleLink": "sheol nasc chugat:",
+    "canceled": "Tá an t-iarratas curtha ar ceal ag an seoltóir."
+  },
+  "receiveOptionsPage": {
+    "title": "Roghanna",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(Fillteán LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Múchta go huathoibríoch mar go bhfuil fillteáin ann."
+  },
+  "sendPage": {
+    "waiting": "Ag fanacht le freagra…",
+    "rejected": "Dhiúltaigh an faighteoir don iarratas.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Tá an faighteoir gnóthach le hiarratas eile."
+  },
+  "progressPage": {
+    "titleSending": "Ag seoladh comhad",
+    "titleReceiving": "Ag fáil comhad",
+    "savedToGallery": "Sábháilte i nGrianghraif",
+    "total": {
+      "title": {
+        "sending": "Dul chun cinn iomlán ({time})",
+        "finishedError": "Críochnaithe le hearráid",
+        "canceledSender": "Cealaithe ag an seoltóir",
+        "canceledReceiver": "Cealaithe ag an nglacadóir"
+      },
+      "count": "Comhaid: {curr} / {n}",
+      "size": "Méid: {curr} / {n}",
+      "speed": "Luas: {speed}/s"
+    }
+  },
+  "webSharePage": {
+    "title": "Comhroinn trí nasc",
+    "loading": "Ag tosú an fhreastalaí…",
+    "stopping": "Ag stopadh an fhreastalaí…",
+    "error": "Tharla earráid agus an freastalaí á thosú.",
+    "openLink": {
+      "one": "Oscail an nasc seo i do bhrabhsálaí:",
+      "other": "Oscail ceann de na naisc seo i do bhrabhsálaí:"
+    },
+    "requests": "Iarratais",
+    "noRequests": "Gan aon iarratais fós.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Glac le hiarratais go huathoibríoch",
+    "requirePin": "Éiligh UAP",
+    "pinHint": "Is é an UAP ná \"{pin}\"",
+    "encryptionHint": "Úsáideann LocalSend teastas féinshínithe. Ní mór duit glacadh leis i do bhrabhsálaí.",
+    "pendingRequests": "Iarratais ar feitheamh: {n}"
+  },
+  "aboutPage": {
+    "title": "Maidir le LocalSend",
+    "description": [
+      "Is aip foinse oscailte saor in aisce é LocalSend a ligeann duit comhaid agus teachtaireachtaí a roinnt go slán le gléasanna in aice láimhe thar do líonra áitiúil gan nasc idirlín a bheith ag teastáil.",
+      "Tá an aip seo ar fáil ar Android, iOS, macOS, Windows agus Linux. Is féidir leat na roghanna íoslódála go léir a fháil ar an leathanach baile oifigiúil."
+    ],
+    "author": "Údar",
+    "contributors": "Rannpháirtithe",
+    "packagers": "Pacálaithe",
+    "translators": "Aistritheoirí"
+  },
+  "donationPage": {
+    "title": "Tabhair Síntiús",
+    "info": "Tá LocalSend saor in aisce, foinse oscailte agus gan aon fhógraí. Más maith leat an aip, is féidir leat tacú leis an bhforbairt le síntiús.",
+    "donate": "Tabhair síntiús {amount}",
+    "thanks": "Go raibh míle maith agat!",
+    "restore": "Athchóirigh an ceannachán"
+  },
+  "changelogPage": {
+    "title": "Log Athruithe"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "D’fhéadfadh focail éagsúla a bheith ag logáin éagsúla, agus b’fhéidir nach mbeadh siad ag teacht le chéile 1:1.",
+    "adjectives": [
+      "Glóireach",
+      "Álainn",
+      "Mór",
+      "Geal",
+      "Glan",
+      "Cliste",
+      "Fionnuar",
+      "Gleoite",
+      "Cliste",
+      "Díograiseach",
+      "Fuinniúil",
+      "Éifeachtach",
+      "Iontach",
+      "Gasta",
+      "Breá",
+      "Úr",
+      "Maith",
+      "Taibhseach",
+      "Iontach",
+      "Dathúil",
+      "Te",
+      "Cineálta",
+      "Álainn",
+      "Mistic",
+      "Neata",
+      "Deas",
+      "Foighneach",
+      "Deas",
+      "Cumhachtach",
+      "Saibhir",
+      "Rúnda",
+      "Cliste",
+      "Soladach",
+      "Speisialta",
+      "Straitéiseach",
+      "Láidir",
+      "Slachtmhar",
+      "Ciallmhar"
+    ],
+    "fruits": [
+      "Úll",
+      "Abhcáid",
+      "Banana",
+      "Sméar Dubh",
+      "Fraochán Gorm",
+      "Brocailí",
+      "Cairéad",
+      "Silíní",
+      "Cnó Cócó",
+      "Fíonchaor",
+      "Líomóid",
+      "Leitís",
+      "Mangó",
+      "Mealbhacán",
+      "Beacán",
+      "Oinniún",
+      "Oráiste",
+      "Paipéir",
+      "Péitseog",
+      "Piorra",
+      "Anann",
+      "Práta",
+      "Pumpkin",
+      "Sú craobh",
+      "Sútha talún",
+      "Tráta"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "I roinnt teangacha, ní mór an aidiacht a bheith sa dara háit."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Cuir leis an rogha",
+      "content": "Cad ba mhaith leat a chur leis?"
+    },
+    "openFile": {
+      "title": "Oscail comhad",
+      "content": "Ar mhaith leat an comhad a fuarthas a oscailt?"
+    },
+    "addressInput": {
+      "title": "Iontráil seoladh",
+      "hashtag": "Haischlib",
+      "ip": "Seoladh IP",
+      "recentlyUsed": "Úsáidte le déanaí: "
+    },
+    "cancelSession": {
+      "title": "Cealaigh aistriú comhad",
+      "content": "An bhfuil tú cinnte gur mhaith leat an t-aistriú comhad a chealú?"
+    },
+    "cannotOpenFile": {
+      "title": "Ní féidir an comhad a oscailt",
+      "content": "Níorbh fhéidir \"{file}\" a oscailt. An ndearnadh an comhad seo a bhogadh, a athainmniú nó a scriosadh?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Criptiú díchumasaithe",
+      "content": "Déantar cumarsáid anois tríd an bprótacal HTTP neamhchriptithe. Chun prótacal HTTPS a úsáid, cumasaigh criptiú arís."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Ceanáin",
+      "noFavorites": "Níl aon ghléasanna is fearr leat fós.",
+      "addFavorite": "Cuir"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Scrios ó cheanáin",
+      "content": "An bhfuil tú cinnte gur mhaith leat \"{name}\" a scriosadh ó na cinn is fearr leat?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Cuir le ceanáin",
+      "titleEdit": "Socruithe",
+      "name": "Ainm an ghléis",
+      "auto": "(uathoibríoch)",
+      "ip": "Seoladh IP",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Eolas comhaid",
+      "fileName": "Ainm comhaid:",
+      "path": "Cosán:",
+      "size": "Méid:",
+      "sender": "Seoltóir:",
+      "time": "Am:"
+    },
+    "fileNameInput": {
+      "title": "Cuir isteach ainm comhaid",
+      "original": "Bunaidh: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Glan stair",
+      "content": "An bhfuil tú cinnte gur mhaith leat an stair ar fad a scriosadh?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "Ní féidir le LocalSend gléasanna eile a aimsiú gan cead a bheith aige an líonra áitiúil a scanadh. Deonaigh an cead seo sna socruithe le do thoil.",
+      "gotoSettings": "Socruithe"
+    },
+    "messageInput": {
+      "title": "Clóscríobh teachtaireacht",
+      "multiline": "Il-líne"
+    },
+    "noFiles": {
+      "title": "Níl aon chomhaid roghnaithe",
+      "content": "Roghnaigh comhad amháin ar a laghad."
+    },
+    "noPermission": {
+      "title": "Gan cead",
+      "content": "Níor dheonaigh tú na ceadanna riachtanacha. Deonaigh iad sna socruithe le do thoil."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Níl sé ar fáil",
+      "content": "Níl an ghné seo ar fáil ach ar:"
+    },
+    "qr": {
+      "title": "Cód QR"
+    },
+    "quickActions": {
+      "title": "Gníomhartha Tapa",
+      "counter": "Áiritheoir",
+      "prefix": "Réimír",
+      "padZero": "Ceap le nialais",
+      "sortBeforeCount": "Sórtáil in ord aibítre roimh ré (A-Z)",
+      "random": "Randamach"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Glactar le hiarratais ar chomhaid go huathoibríoch anois. Tabhair faoi deara gur féidir le gach duine ar an líonra áitiúil comhaid a sheoladh chugat."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Glactar le hiarratais chomhaid go huathoibríoch anois ó ghléasanna i do liosta is fearr leat.",
+        "Rabhadh! Faoi láthair, níl sé seo slán go hiomlán, mar is féidir le haiceálaí a bhfuil méarloirg aon ghléis aige ó do liosta is fearr leat comhaid a sheoladh chugat gan srian.",
+        "Mar sin féin, tá an rogha seo níos sábháilte fós ná ligean do gach úsáideoir ar an líonra áitiúil comhaid a sheoladh chugat gan srian."
+      ]
+    },
+    "pin": {
+      "title": "Iontráil UAP"
+    },
+    "sendModeHelp": {
+      "title": "Modhanna seolta",
+      "single": "Seolann sé comhaid chuig faighteoir amháin. Glanfar an rogha tar éis aistriú comhad a bheith críochnaithe.",
+      "multiple": "Seolann sé comhaid chuig ilfhaighteoirí. Ní ghlanfar an rogha tar éis aistriú comhad a bheith críochnaithe.",
+      "link": "Is féidir le faighteoirí nach bhfuil LocalSend suiteáilte acu na comhaid roghnaithe a íoslódáil tríd an nasc a oscailt ina mbrabhsálaí."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Ní féidir ainm comhaid a fhágáil folamh",
+    "invalid": "Tá carachtair neamhbhailí san ainm comhaid"
+  },
+  "tray": {
+    "@info": "Tá Treoirlínte Apple an-dian maidir leis an bhfoclaíocht \"dún\".",
+    "open": "@:general.open",
+    "close": "Scoir LocalSend",
+    "closeWindows": "Scoir"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Iontráil UAP",
+    "invalidPin": "UAP neamhbhailí",
+    "tooManyAttempts": "Iarrachtaí an iomarca",
+    "rejected": "Diúltaithe",
+    "files": "Comhaid",
+    "fileName": "Ainm comhaid",
+    "size": "Méid"
+  },
+  "assetPicker": {
+    "@info": "Aistriúcháin don uirlis roghnúcháin Meán le haghaidh Android agus iPhone",
+    "confirm": "Deimhnigh",
+    "cancel": "Cealaigh",
+    "edit": "Cuir in Eagar",
+    "gifIndicator": "GIF",
+    "loadFailed": "Theip ar an luchtú",
+    "original": "Bunús",
+    "preview": "Réamhamharc",
+    "select": "Roghnaigh",
+    "emptyList": "Liosta folamh",
+    "unSupportedAssetType": "Cineál comhaid gan tacaíocht.",
+    "unableToAccessAll": "Ní féidir rochtain a fháil ar gach comhad ar an ngléas",
+    "viewingLimitedAssetsTip": "Féach ar chomhaid agus albaim amháin atá inrochtana ag an aip.",
+    "changeAccessibleLimitedAssets": "Cliceáil chun comhaid inrochtana a nuashonrú",
+    "accessAllTip": "Ní féidir leis an aip rochtain a fháil ach ar roinnt comhad ar an ngléas. Téigh chuig socruithe an chórais agus lig don aip rochtain a fháil ar na meáin go léir ar an ngléas.",
+    "goToSystemSettings": "Téigh chuig socruithe an chórais",
+    "accessLimitedAssets": "Lean ar aghaidh le rochtain theoranta",
+    "accessiblePathName": "Comhaid inrochtana",
+    "sTypeAudioLabel": "Fuaim",
+    "sTypeImageLabel": "Íomhá",
+    "sTypeVideoLabel": "Físeán",
+    "sTypeOtherLabel": "Meáin eile",
+    "sActionPlayHint": "seinn",
+    "sActionPreviewHint": "réamhamharc",
+    "sActionSelectHint": "roghnaigh",
+    "sActionSwitchPathLabel": "athraigh cosán",
+    "sActionUseCameraHint": "bain úsáid as an gceamara",
+    "sNameDurationLabel": "fad",
+    "sUnitAssetCountLabel": "comhaireamh"
+  }
+}
