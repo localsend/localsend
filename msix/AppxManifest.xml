@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+        xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+        xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" 
+        xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" 
+        xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" 
+        xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6" 
+        xmlns:uap7="http://schemas.microsoft.com/appx/manifest/uap/windows10/7" 
+        xmlns:uap8="http://schemas.microsoft.com/appx/manifest/uap/windows10/8" 
+        xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10" 
+        xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" 
+        xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" 
+        xmlns:desktop2="http://schemas.microsoft.com/appx/manifest/desktop/windows10/2" 
+        xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
+        xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
+        xmlns:desktop6="http://schemas.microsoft.com/appx/manifest/desktop/windows10/6" 
+        xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
+        xmlns:rescap3="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities/3" 
+        xmlns:rescap6="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities/6" 
+        xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10" 
+        xmlns:com2="http://schemas.microsoft.com/appx/manifest/com/windows10/2" 
+        xmlns:com3="http://schemas.microsoft.com/appx/manifest/com/windows10/3" 
+        IgnorableNamespaces="uap3 desktop">
+  <Identity Name="11157TienDoNam.LocalSend" Version="1.14.0.0"
+            Publisher="CN=Tien Do Nam, O=Tien Do Nam, S=Sachsen, C=DE" ProcessorArchitecture="x64" />
+  <Properties>
+    <DisplayName>LocalSend MSIX Helper</DisplayName>
+    <PublisherDisplayName>Tien Do Nam</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+    <Description>An open source cross-platform alternative to AirDrop</Description>
+    <uap10:AllowExternalContent>true</uap10:AllowExternalContent>
+  </Properties>
+  <Resources>
+    <Resource Language="en" /><Resource Language="ar" /><Resource Language="bn" /><Resource Language="cs" /><Resource Language="da" /><Resource Language="de" /><Resource Language="el" /><Resource Language="es-ES" /><Resource Language="eu" /><Resource Language="fa" /><Resource Language="fr" /><Resource Language="he" /><Resource Language="hu" /><Resource Language="in" /><Resource Language="it" /><Resource Language="ja" /><Resource Language="ko" /><Resource Language="ne" /><Resource Language="nl" /><Resource Language="pl" /><Resource Language="pt-BR" /><Resource Language="ru" /><Resource Language="sv" /><Resource Language="th" /><Resource Language="tr" /><Resource Language="uk" /><Resource Language="vi" /><Resource Language="zh-CN" /><Resource Language="zh-HK" /><Resource Language="zh-TW" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.22621.2506" />
+  </Dependencies>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="localsendapp" Executable="localsend_app.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements AppListEntry="none" BackgroundColor="transparent"
+        DisplayName="LocalSend" Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png" Description="An open source cross-platform alternative to AirDrop">
+        <uap:DefaultTile ShortName="LocalSend" Square310x310Logo="Images\LargeTile.png"
+          Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\Wide310x150Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Images\SplashScreen.png"/>
+        <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
+      </uap:VisualElements>
+      <Extensions>
+        <desktop:Extension Category="windows.startupTask" Executable="localsend_app.exe" EntryPoint="Windows.FullTrustApplication" uap10:Parameters="autostart">
+          <desktop:StartupTask TaskId="localsend" Enabled="false" DisplayName="LocalSend"/>
+        </desktop:Extension>
+        <uap:Extension Category="windows.shareTarget">
+          <uap:ShareTarget Description="Send to Localsend">
+            <uap:SupportedFileTypes>
+              <uap:SupportsAnyFileType />
+            </uap:SupportedFileTypes>
+            <uap:DataFormat>Text</uap:DataFormat>
+            <uap:DataFormat>Uri</uap:DataFormat>
+            <uap:DataFormat>StorageItems</uap:DataFormat>
+          </uap:ShareTarget>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+</Package>
