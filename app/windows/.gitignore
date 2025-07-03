@@ -15,3 +15,5 @@ x86/
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
+
+localsend_msix_helper.msix

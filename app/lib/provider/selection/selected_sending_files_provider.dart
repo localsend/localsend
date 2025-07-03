@@ -1,4 +1,4 @@
-import 'dart:convert' show utf8;
+import 'dart:convert' show jsonDecode, utf8;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -13,6 +13,7 @@ import 'package:localsend_app/util/send_ignore.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
 
 final _logger = Logger('SelectedSendingFiles');
@@ -287,7 +288,27 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
   @override
   Future<(List<CrossFile>, bool)> reduce() async {
     bool filesAdded = false;
+    bool nextShare = false;
     for (final arg in args) {
+      if (arg == '--share') {
+        nextShare = true;
+        continue;
+      }
+      if (nextShare) {
+        nextShare = false;
+        final json = jsonDecode(arg);
+        final SharedMedia payload = SharedMedia.decode(json);
+        final message = payload.content;
+        if (message != null && message.trim().isNotEmpty) {
+          dispatch(AddMessageAction(message: message));
+        }
+        await dispatchAsync(AddFilesAction(
+              files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+              converter: CrossFileConverters.convertSharedAttachment,
+            ));
+        filesAdded = true;
+        continue;
+      }
       if (arg.startsWith('-')) {
         continue;
       }
