@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:localsend_app/provider/logging/http_logs_provider.dart';
 import 'package:localsend_app/widget/copyable_text.dart';
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -14,9 +15,7 @@ class HttpLogsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logs = context.ref.watch(httpLogsProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HTTP Logs'),
-      ),
+      appBar: basicLocalSendAppbar('HTTP Logs'),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         children: [
