@@ -44,6 +44,7 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
@@ -56,6 +57,9 @@ final _logger = Logger('ReceiveController');
 /// Handles all requests for receiving files.
 class ReceiveController {
   final ServerUtils server;
+
+  // cache Each Session Live Photo Pairs
+  static final Map<String, Map<String, bool>> _sessionLivePhotoCache = {};
 
   ReceiveController(this.server);
 
@@ -248,6 +252,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          saveAsLivePhoto: checkPlatformWithGallery() && settings.saveAsLivePhoto && dto.files.values.every((f) => !f.fileName.contains('/')),
           createdDirectories: {},
           responseHandler: streamController,
         ),
@@ -283,7 +288,7 @@ class ReceiveController {
               path: null,
               savedToGallery: false,
               isMessage: true,
-              fileSize: utf8.encode(message).length,
+              fileSize: message.length,
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
             ));
@@ -376,6 +381,12 @@ class ReceiveController {
       }
     }
 
+    // init Live Photo Pairs
+    final receiveState = server.getState().session;
+    if (receiveState != null && receiveState.saveToGallery && receiveState.saveAsLivePhoto) {
+      _cacheLivePhotoPairs(sessionId, receiveState.files);
+    }
+
     if (v2) {
       return await request.respondJson(200,
           body: PrepareUploadResponseDto(
@@ -446,6 +457,7 @@ class ReceiveController {
     );
     final fileType = receivingFile.file.fileType;
     final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+    final saveAsLivePhoto = _sessionLivePhotoCache[receiveState.sessionId]?[fileId] ?? false;
 
     String? outerDestinationPath;
     try {
@@ -464,7 +476,8 @@ class ReceiveController {
         documentUri: documentUri,
         name: finalName,
         saveToGallery: saveToGallery,
-        isImage: fileType == FileType.image,
+        saveAsLivePhoto: saveAsLivePhoto,
+        fileType: fileType,
         stream: request,
         androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
         lastModified: receivingFile.file.metadata?.lastModified,
@@ -733,6 +746,16 @@ class ReceiveController {
     );
   }
 
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(
+          saveAsLivePhoto: saveAsLivePhoto,
+        ),
+      ),
+    );
+  }
+
   /// In addition to [closeSession], this method also
   /// - cancels incoming requests (TODO)
   /// - notifies the sender that the session has been canceled
@@ -769,6 +792,39 @@ class ReceiveController {
       ),
     );
     server.ref.notifier(progressProvider).removeSession(sessionId);
+
+    // clear Live Photo Cache
+    _sessionLivePhotoCache.remove(sessionId);
+  }
+
+  /// calculate and cache Live Photo pairs
+  void _cacheLivePhotoPairs(String sessionId, Map<String, ReceivingFile> files) {
+    final cache = <String, bool>{};
+    final filesByName = <String, ReceivingFile>{};
+
+    // single loop: group files and check for pairs
+    for (final file in files.values) {
+      final baseName = path.basenameWithoutExtension(file.file.fileName);
+      final fileType = file.file.fileType;
+
+      // add to group
+      if (filesByName[baseName] == null) {
+        filesByName[baseName] = file;
+      } else {
+        final existingFileType = filesByName[baseName]!.file.fileType;
+        if (existingFileType == FileType.image && fileType == FileType.video) {
+          cache[file.file.id] = true;
+          cache[filesByName[baseName]!.file.id] = true;
+          filesByName.remove(baseName);
+        } else if (existingFileType == FileType.video && fileType == FileType.image) {
+          cache[file.file.id] = true;
+          cache[filesByName[baseName]!.file.id] = true;
+          filesByName.remove(baseName);
+        }
+      }
+    }
+
+    _sessionLivePhotoCache[sessionId] = cache;
   }
 }
 

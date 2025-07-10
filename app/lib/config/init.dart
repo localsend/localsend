@@ -20,6 +20,7 @@ import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/live_photo_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -39,6 +40,7 @@ import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
+import 'package:localsend_app/util/native/live_photo_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
@@ -115,7 +117,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     } else if (defaultTargetPlatform == TargetPlatform.macOS) {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
-    
+
     doWhenWindowReady(() {
       if (startHidden) {
         unawaited(hideToTray());
@@ -136,6 +138,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     overrides: [
       persistenceProvider.overrideWithValue(persistenceService),
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
+      livePhotoSupportProvider.overrideWithValue(await supportLivePhoto()),
       appArgumentsProvider.overrideWithValue(args),
       tvProvider.overrideWithValue(await checkIfTv()),
       dynamicColorsProvider.overrideWithValue(dynamicColors),

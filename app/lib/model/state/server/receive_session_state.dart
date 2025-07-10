@@ -23,6 +23,8 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
   final String destinationDirectory;
   final String cacheDirectory;
   final bool saveToGallery;
+  // save as live photo, if it possible
+  final bool saveAsLivePhoto;
 
   /// On Android, we need to manually create missing directories.
   /// To improve performance, we cache the created directories so we don't need to check them again.
@@ -42,6 +44,7 @@ class ReceiveSessionState with ReceiveSessionStateMappable {
     required this.destinationDirectory,
     required this.cacheDirectory,
     required this.saveToGallery,
+    required this.saveAsLivePhoto,
     required this.createdDirectories,
     required this.responseHandler,
   });

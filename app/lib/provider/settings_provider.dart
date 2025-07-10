@@ -48,6 +48,7 @@ class SettingsService extends PureNotifier<SettingsState> {
         multicastGroup: _persistence.getMulticastGroup(),
         destination: _persistence.getDestination(),
         saveToGallery: _persistence.isSaveToGallery(),
+        saveAsLivePhoto: _persistence.isSaveAsLivePhoto(),
         saveToHistory: _persistence.isSaveToHistory(),
         quickSave: _persistence.isQuickSave(),
         quickSaveFromFavorites: _persistence.isQuickSaveFromFavorites(),
@@ -146,6 +147,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setSaveToGallery(saveToGallery);
     state = state.copyWith(
       saveToGallery: saveToGallery,
+    );
+  }
+
+  Future<void> setSaveAsLivePhoto(bool saveAsLivePhoto) async {
+    await _persistence.setSaveAsLivePhoto(saveAsLivePhoto);
+    state = state.copyWith(
+      saveAsLivePhoto: saveAsLivePhoto,
     );
   }
 

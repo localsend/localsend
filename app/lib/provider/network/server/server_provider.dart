@@ -185,6 +185,10 @@ class ServerService extends Notifier<ServerState?> {
     _receiveController.setSessionSaveToGallery(saveToGallery);
   }
 
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
+    _receiveController.setSessionSaveAsLivePhoto(saveAsLivePhoto);
+  }
+
   /// In addition to [closeSession], this method also cancels incoming requests.
   void cancelSession() {
     _receiveController.cancelSession();
