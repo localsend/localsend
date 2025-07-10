@@ -83,7 +83,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
         version: protocolVersion,
         deviceModel: deviceInfo.deviceModel,
         deviceType: deviceInfo.deviceType.toRustDeviceType(),
-        fingerprint: security.certificateHash,
+        token: security.certificateHash,
       ),
       onConnection: (c) {
         connection = c;
@@ -125,6 +125,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
                 offer: message.field0,
                 settings: ref.read(settingsProvider),
                 favorites: ref.read(favoritesProvider),
+                key: ref.read(securityProvider),
               );
             });
 
@@ -186,7 +187,7 @@ extension ClientInfoExt on ClientInfo {
       version: version,
       port: -1,
       https: false,
-      fingerprint: fingerprint,
+      fingerprint: token,
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType?.toDeviceType() ?? DeviceType.desktop,

@@ -1,6 +1,7 @@
 use crate::frb_generated::StreamSink;
 use bytes::Bytes;
 use flutter_rust_bridge::{frb, DartFnFuture};
+use localsend::crypto::token::SigningTokenKey;
 use localsend::model::discovery::DeviceType;
 use localsend::model::transfer::FileDto;
 pub use localsend::webrtc::signaling::{
@@ -13,7 +14,6 @@ pub use localsend::webrtc::webrtc::{
 use std::collections::HashSet;
 use std::sync::Arc;
 use std::time::Duration;
-use localsend::crypto::token::SigningTokenKey;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio::time;
 use uuid::Uuid;
@@ -27,15 +27,13 @@ pub struct ProposingClientInfo {
 
 impl ProposingClientInfo {
     fn sign(&self, signing_key: &SigningTokenKey) -> anyhow::Result<ClientInfoWithoutId> {
-        Ok(
-            ClientInfoWithoutId {
-                alias: self.alias.clone(),
-                version: self.version.clone(),
-                device_model: self.device_model.clone(),
-                device_type: self.device_type.clone(),
-                token: localsend::crypto::token::generate_token_timestamp(&signing_key)?,
-            }
-        )
+        Ok(ClientInfoWithoutId {
+            alias: self.alias.clone(),
+            version: self.version.clone(),
+            device_model: self.device_model.clone(),
+            device_type: self.device_type.clone(),
+            token: localsend::crypto::token::generate_token_timestamp(&signing_key)?,
+        })
     }
 }
 
@@ -76,7 +74,7 @@ pub async fn connect(
         interval.tick().await;
 
         loop {
-            let _ = managed_connection.send_update(info)
+            let _ = managed_connection.send_update(info).await;
 
             interval.tick().await;
         }

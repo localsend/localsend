@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:common/model/dto/file_dto.dart' as dart_model;
 import 'package:common/model/file_status.dart';
 import 'package:common/model/session_status.dart';
+import 'package:common/model/stored_security_context.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
@@ -40,6 +41,7 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   final WsServerSdpMessage _offer;
   final SettingsState _settings;
   final List<FavoriteDevice> _favorites;
+  final StoredSecurityContext _key;
 
   WebRTCReceiveService({
     required String signalingServer,
@@ -48,12 +50,14 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
     required WsServerSdpMessage offer,
     required SettingsState settings,
     required List<FavoriteDevice> favorites,
+    required StoredSecurityContext key,
   })  : _signalingServer = signalingServer,
         _stunServers = stunServers,
         _connection = connection,
         _offer = offer,
         _settings = settings,
-        _favorites = favorites;
+        _favorites = favorites,
+        _key = key;
 
   @override
   WebRTCReceiveState init() {
@@ -73,6 +77,7 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
     final controller = await state.connection.acceptOffer(
       stunServers: notifier._stunServers,
       offer: state.offer,
+      privateKey: notifier._key.privateKey,
     );
 
     controller.listenStatus().listen((status) {
