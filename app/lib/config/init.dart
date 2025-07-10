@@ -22,6 +22,7 @@ import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
+import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 
 // [FOSS_REMOVE_START]
@@ -32,6 +33,8 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
+import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
+import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
@@ -59,6 +62,16 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
+
+  await RustLib.init();
+
+  if (kDebugMode) {
+    try {
+      await rust_logging.enableDebugLogging();
+    } catch (e) {
+      _logger.warning('Enabling debug logging failed', e);
+    }
+  }
 
   await Rhttp.init();
 
@@ -205,6 +218,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   } catch (e) {
     _logger.warning('Starting multicast listener failed', e);
   }
+
+  ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {

@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
@@ -184,7 +185,15 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
-    final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
+    final SessionState? commonSessionState = receiveSession ?? sendSession;
+
+    if (commonSessionState == null) {
+      return Scaffold(
+        body: Container(),
+      );
+    }
+
+    final status = commonSessionState.status;
 
     if (status == SessionStatus.sending) {
       // ignore: discarded_futures
@@ -195,15 +204,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       TaskbarHelper.visualizeStatus(status);
     }
 
-    if (status == null) {
-      return Scaffold(
-        body: Container(),
-      );
-    }
-
     final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
-    final startTime = receiveSession?.startTime ?? sendSession?.startTime;
-    final endTime = receiveSession?.endTime ?? sendSession?.endTime;
+    final startTime = commonSessionState.startTime;
+    final endTime = commonSessionState.endTime;
     final int? speedInBytes;
     if (startTime != null && currBytes >= 500 * 1024) {
       speedInBytes = getFileSpeed(start: startTime, end: endTime ?? DateTime.now().millisecondsSinceEpoch, bytes: currBytes);

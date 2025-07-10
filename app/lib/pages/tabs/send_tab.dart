@@ -44,7 +44,7 @@ class SendTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder(
-      provider: sendTabVmProvider,
+      provider: (ref) => sendTabVmProvider,
       init: (context) async => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
         final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
@@ -546,7 +546,7 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       progress: progress,
       isFavorite: isFavorite,
       nameOverride: nameOverride,
-      onFavoriteTap: () async => await vm.onToggleFavorite(context, device),
+      onFavoriteTap: device.ip == null ? null : () async => await vm.onToggleFavorite(context, device),
       onTap: () async => await vm.onTapDeviceMultiSend(context, device),
     );
   }

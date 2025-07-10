@@ -8,18 +8,32 @@ import 'package:localsend_app/model/state/server/receiving_file.dart';
 
 part 'receive_session_state.mapper.dart';
 
+abstract class SessionState {
+  SessionStatus get status;
+  int? get startTime;
+  int? get endTime;
+}
+
 @MappableClass()
-class ReceiveSessionState with ReceiveSessionStateMappable {
+class ReceiveSessionState with ReceiveSessionStateMappable implements SessionState {
   final String sessionId;
+
+  @override
   final SessionStatus status;
+
   final Device sender;
 
   // Might not be the same as sender.alias since it can be overridden as a favorite
   final String senderAlias;
 
   final Map<String, ReceivingFile> files; // file id as key
+
+  @override
   final int? startTime;
+
+  @override
   final int? endTime;
+
   final String destinationDirectory;
   final String cacheDirectory;
   final bool saveToGallery;
