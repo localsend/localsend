@@ -68,18 +68,6 @@ pub async fn connect(
     })
     .await;
 
-    tokio::spawn(async move {
-        let mut interval = time::interval(Duration::from_secs(30 * 60));
-
-        interval.tick().await;
-
-        loop {
-            let _ = managed_connection.send_update(info).await;
-
-            interval.tick().await;
-        }
-    });
-
     while let Some(message) = rx.recv().await {
         let _ = sink.add(message.into());
     }

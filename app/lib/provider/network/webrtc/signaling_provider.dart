@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/network/webrtc/webrtc_receiver.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/rust/api/crypto.dart' as crypto;
 import 'package:localsend_app/rust/api/model.dart' as rust;
 import 'package:localsend_app/rust/api/webrtc.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -75,16 +76,20 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
     final deviceInfo = ref.read(deviceInfoProvider);
     final security = ref.read(securityProvider);
 
+    // TODO: Use persistent key
+    final key = await crypto.generateKeyPair();
+    print('private key: ${key.privateKey}');
+
     LsSignalingConnection? connection;
     final stream = connect(
       uri: 'wss://public.localsend.org/v1/ws',
-      info: ClientInfoWithoutId(
+      info: ProposingClientInfo(
         alias: settings.alias,
         version: protocolVersion,
         deviceModel: deviceInfo.deviceModel,
         deviceType: deviceInfo.deviceType.toRustDeviceType(),
-        token: security.certificateHash,
       ),
+      privateKey: key.privateKey,
       onConnection: (c) {
         connection = c;
 

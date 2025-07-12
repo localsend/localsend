@@ -30,7 +30,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.7.4+2
-  flutter_rust_bridge: 2.7.1
+  flutter_rust_bridge: 2.11.1
   freezed_annotation: 2.4.4
   gal: 2.3.0
   glob: ^2.1.2
@@ -58,7 +58,7 @@ dependencies:
   pretty_qr_code: 3.3.0
   refena_flutter: 3.1.0
   refena_inspector_client: 2.1.0
-  rhttp: 0.10.0
+  rhttp: 0.13.0
   routerino: 0.8.0
   rust_lib_localsend_app:
     path: rust_builder

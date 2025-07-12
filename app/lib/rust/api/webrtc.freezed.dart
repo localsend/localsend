@@ -94,11 +94,13 @@ mixin _$RTCStatus {
 
 /// @nodoc
 abstract class $RTCStatusCopyWith<$Res> {
-  factory $RTCStatusCopyWith(RTCStatus value, $Res Function(RTCStatus) then) = _$RTCStatusCopyWithImpl<$Res, RTCStatus>;
+  factory $RTCStatusCopyWith(RTCStatus value, $Res Function(RTCStatus) then) =
+      _$RTCStatusCopyWithImpl<$Res, RTCStatus>;
 }
 
 /// @nodoc
-class _$RTCStatusCopyWithImpl<$Res, $Val extends RTCStatus> implements $RTCStatusCopyWith<$Res> {
+class _$RTCStatusCopyWithImpl<$Res, $Val extends RTCStatus>
+    implements $RTCStatusCopyWith<$Res> {
   _$RTCStatusCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -112,14 +114,19 @@ class _$RTCStatusCopyWithImpl<$Res, $Val extends RTCStatus> implements $RTCStatu
 
 /// @nodoc
 abstract class _$$RTCStatus_SdpExchangedImplCopyWith<$Res> {
-  factory _$$RTCStatus_SdpExchangedImplCopyWith(_$RTCStatus_SdpExchangedImpl value, $Res Function(_$RTCStatus_SdpExchangedImpl) then) =
+  factory _$$RTCStatus_SdpExchangedImplCopyWith(
+          _$RTCStatus_SdpExchangedImpl value,
+          $Res Function(_$RTCStatus_SdpExchangedImpl) then) =
       __$$RTCStatus_SdpExchangedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_SdpExchangedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_SdpExchangedImpl>
+class __$$RTCStatus_SdpExchangedImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_SdpExchangedImpl>
     implements _$$RTCStatus_SdpExchangedImplCopyWith<$Res> {
-  __$$RTCStatus_SdpExchangedImplCopyWithImpl(_$RTCStatus_SdpExchangedImpl _value, $Res Function(_$RTCStatus_SdpExchangedImpl) _then)
+  __$$RTCStatus_SdpExchangedImplCopyWithImpl(
+      _$RTCStatus_SdpExchangedImpl _value,
+      $Res Function(_$RTCStatus_SdpExchangedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of RTCStatus
@@ -138,7 +145,9 @@ class _$RTCStatus_SdpExchangedImpl extends RTCStatus_SdpExchanged {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_SdpExchangedImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RTCStatus_SdpExchangedImpl);
   }
 
   @override
@@ -250,14 +259,18 @@ abstract class RTCStatus_SdpExchanged extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_ConnectedImplCopyWith<$Res> {
-  factory _$$RTCStatus_ConnectedImplCopyWith(_$RTCStatus_ConnectedImpl value, $Res Function(_$RTCStatus_ConnectedImpl) then) =
+  factory _$$RTCStatus_ConnectedImplCopyWith(_$RTCStatus_ConnectedImpl value,
+          $Res Function(_$RTCStatus_ConnectedImpl) then) =
       __$$RTCStatus_ConnectedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_ConnectedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_ConnectedImpl>
+class __$$RTCStatus_ConnectedImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_ConnectedImpl>
     implements _$$RTCStatus_ConnectedImplCopyWith<$Res> {
-  __$$RTCStatus_ConnectedImplCopyWithImpl(_$RTCStatus_ConnectedImpl _value, $Res Function(_$RTCStatus_ConnectedImpl) _then) : super(_value, _then);
+  __$$RTCStatus_ConnectedImplCopyWithImpl(_$RTCStatus_ConnectedImpl _value,
+      $Res Function(_$RTCStatus_ConnectedImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of RTCStatus
   /// with the given fields replaced by the non-null parameter values.
@@ -275,7 +288,9 @@ class _$RTCStatus_ConnectedImpl extends RTCStatus_Connected {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_ConnectedImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RTCStatus_ConnectedImpl);
   }
 
   @override
@@ -387,14 +402,18 @@ abstract class RTCStatus_Connected extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_PinRequiredImplCopyWith<$Res> {
-  factory _$$RTCStatus_PinRequiredImplCopyWith(_$RTCStatus_PinRequiredImpl value, $Res Function(_$RTCStatus_PinRequiredImpl) then) =
+  factory _$$RTCStatus_PinRequiredImplCopyWith(
+          _$RTCStatus_PinRequiredImpl value,
+          $Res Function(_$RTCStatus_PinRequiredImpl) then) =
       __$$RTCStatus_PinRequiredImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_PinRequiredImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_PinRequiredImpl>
+class __$$RTCStatus_PinRequiredImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_PinRequiredImpl>
     implements _$$RTCStatus_PinRequiredImplCopyWith<$Res> {
-  __$$RTCStatus_PinRequiredImplCopyWithImpl(_$RTCStatus_PinRequiredImpl _value, $Res Function(_$RTCStatus_PinRequiredImpl) _then)
+  __$$RTCStatus_PinRequiredImplCopyWithImpl(_$RTCStatus_PinRequiredImpl _value,
+      $Res Function(_$RTCStatus_PinRequiredImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of RTCStatus
@@ -413,7 +432,9 @@ class _$RTCStatus_PinRequiredImpl extends RTCStatus_PinRequired {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_PinRequiredImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RTCStatus_PinRequiredImpl);
   }
 
   @override
@@ -525,14 +546,19 @@ abstract class RTCStatus_PinRequired extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_TooManyAttemptsImplCopyWith<$Res> {
-  factory _$$RTCStatus_TooManyAttemptsImplCopyWith(_$RTCStatus_TooManyAttemptsImpl value, $Res Function(_$RTCStatus_TooManyAttemptsImpl) then) =
+  factory _$$RTCStatus_TooManyAttemptsImplCopyWith(
+          _$RTCStatus_TooManyAttemptsImpl value,
+          $Res Function(_$RTCStatus_TooManyAttemptsImpl) then) =
       __$$RTCStatus_TooManyAttemptsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_TooManyAttemptsImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_TooManyAttemptsImpl>
+class __$$RTCStatus_TooManyAttemptsImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_TooManyAttemptsImpl>
     implements _$$RTCStatus_TooManyAttemptsImplCopyWith<$Res> {
-  __$$RTCStatus_TooManyAttemptsImplCopyWithImpl(_$RTCStatus_TooManyAttemptsImpl _value, $Res Function(_$RTCStatus_TooManyAttemptsImpl) _then)
+  __$$RTCStatus_TooManyAttemptsImplCopyWithImpl(
+      _$RTCStatus_TooManyAttemptsImpl _value,
+      $Res Function(_$RTCStatus_TooManyAttemptsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of RTCStatus
@@ -551,7 +577,9 @@ class _$RTCStatus_TooManyAttemptsImpl extends RTCStatus_TooManyAttempts {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_TooManyAttemptsImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RTCStatus_TooManyAttemptsImpl);
   }
 
   @override
@@ -663,14 +691,18 @@ abstract class RTCStatus_TooManyAttempts extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_DeclinedImplCopyWith<$Res> {
-  factory _$$RTCStatus_DeclinedImplCopyWith(_$RTCStatus_DeclinedImpl value, $Res Function(_$RTCStatus_DeclinedImpl) then) =
+  factory _$$RTCStatus_DeclinedImplCopyWith(_$RTCStatus_DeclinedImpl value,
+          $Res Function(_$RTCStatus_DeclinedImpl) then) =
       __$$RTCStatus_DeclinedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_DeclinedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_DeclinedImpl>
+class __$$RTCStatus_DeclinedImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_DeclinedImpl>
     implements _$$RTCStatus_DeclinedImplCopyWith<$Res> {
-  __$$RTCStatus_DeclinedImplCopyWithImpl(_$RTCStatus_DeclinedImpl _value, $Res Function(_$RTCStatus_DeclinedImpl) _then) : super(_value, _then);
+  __$$RTCStatus_DeclinedImplCopyWithImpl(_$RTCStatus_DeclinedImpl _value,
+      $Res Function(_$RTCStatus_DeclinedImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of RTCStatus
   /// with the given fields replaced by the non-null parameter values.
@@ -688,7 +720,8 @@ class _$RTCStatus_DeclinedImpl extends RTCStatus_Declined {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_DeclinedImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RTCStatus_DeclinedImpl);
   }
 
   @override
@@ -800,14 +833,18 @@ abstract class RTCStatus_Declined extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_SendingImplCopyWith<$Res> {
-  factory _$$RTCStatus_SendingImplCopyWith(_$RTCStatus_SendingImpl value, $Res Function(_$RTCStatus_SendingImpl) then) =
+  factory _$$RTCStatus_SendingImplCopyWith(_$RTCStatus_SendingImpl value,
+          $Res Function(_$RTCStatus_SendingImpl) then) =
       __$$RTCStatus_SendingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_SendingImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_SendingImpl>
+class __$$RTCStatus_SendingImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_SendingImpl>
     implements _$$RTCStatus_SendingImplCopyWith<$Res> {
-  __$$RTCStatus_SendingImplCopyWithImpl(_$RTCStatus_SendingImpl _value, $Res Function(_$RTCStatus_SendingImpl) _then) : super(_value, _then);
+  __$$RTCStatus_SendingImplCopyWithImpl(_$RTCStatus_SendingImpl _value,
+      $Res Function(_$RTCStatus_SendingImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of RTCStatus
   /// with the given fields replaced by the non-null parameter values.
@@ -825,7 +862,8 @@ class _$RTCStatus_SendingImpl extends RTCStatus_Sending {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_SendingImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RTCStatus_SendingImpl);
   }
 
   @override
@@ -937,14 +975,18 @@ abstract class RTCStatus_Sending extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_FinishedImplCopyWith<$Res> {
-  factory _$$RTCStatus_FinishedImplCopyWith(_$RTCStatus_FinishedImpl value, $Res Function(_$RTCStatus_FinishedImpl) then) =
+  factory _$$RTCStatus_FinishedImplCopyWith(_$RTCStatus_FinishedImpl value,
+          $Res Function(_$RTCStatus_FinishedImpl) then) =
       __$$RTCStatus_FinishedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RTCStatus_FinishedImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_FinishedImpl>
+class __$$RTCStatus_FinishedImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_FinishedImpl>
     implements _$$RTCStatus_FinishedImplCopyWith<$Res> {
-  __$$RTCStatus_FinishedImplCopyWithImpl(_$RTCStatus_FinishedImpl _value, $Res Function(_$RTCStatus_FinishedImpl) _then) : super(_value, _then);
+  __$$RTCStatus_FinishedImplCopyWithImpl(_$RTCStatus_FinishedImpl _value,
+      $Res Function(_$RTCStatus_FinishedImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of RTCStatus
   /// with the given fields replaced by the non-null parameter values.
@@ -962,7 +1004,8 @@ class _$RTCStatus_FinishedImpl extends RTCStatus_Finished {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RTCStatus_FinishedImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RTCStatus_FinishedImpl);
   }
 
   @override
@@ -1074,16 +1117,20 @@ abstract class RTCStatus_Finished extends RTCStatus {
 
 /// @nodoc
 abstract class _$$RTCStatus_ErrorImplCopyWith<$Res> {
-  factory _$$RTCStatus_ErrorImplCopyWith(_$RTCStatus_ErrorImpl value, $Res Function(_$RTCStatus_ErrorImpl) then) =
+  factory _$$RTCStatus_ErrorImplCopyWith(_$RTCStatus_ErrorImpl value,
+          $Res Function(_$RTCStatus_ErrorImpl) then) =
       __$$RTCStatus_ErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$RTCStatus_ErrorImplCopyWithImpl<$Res> extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_ErrorImpl>
+class __$$RTCStatus_ErrorImplCopyWithImpl<$Res>
+    extends _$RTCStatusCopyWithImpl<$Res, _$RTCStatus_ErrorImpl>
     implements _$$RTCStatus_ErrorImplCopyWith<$Res> {
-  __$$RTCStatus_ErrorImplCopyWithImpl(_$RTCStatus_ErrorImpl _value, $Res Function(_$RTCStatus_ErrorImpl) _then) : super(_value, _then);
+  __$$RTCStatus_ErrorImplCopyWithImpl(
+      _$RTCStatus_ErrorImpl _value, $Res Function(_$RTCStatus_ErrorImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of RTCStatus
   /// with the given fields replaced by the non-null parameter values.
@@ -1117,7 +1164,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RTCStatus_ErrorImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType &&
+            other is _$RTCStatus_ErrorImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
   }
 
   @override
@@ -1128,7 +1177,9 @@ class _$RTCStatus_ErrorImpl extends RTCStatus_Error {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$RTCStatus_ErrorImplCopyWith<_$RTCStatus_ErrorImpl> get copyWith => __$$RTCStatus_ErrorImplCopyWithImpl<_$RTCStatus_ErrorImpl>(this, _$identity);
+  _$$RTCStatus_ErrorImplCopyWith<_$RTCStatus_ErrorImpl> get copyWith =>
+      __$$RTCStatus_ErrorImplCopyWithImpl<_$RTCStatus_ErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1238,7 +1289,8 @@ abstract class RTCStatus_Error extends RTCStatus {
   /// Create a copy of RTCStatus
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RTCStatus_ErrorImplCopyWith<_$RTCStatus_ErrorImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$RTCStatus_ErrorImplCopyWith<_$RTCStatus_ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1315,11 +1367,14 @@ mixin _$WsServerMessage {
 
 /// @nodoc
 abstract class $WsServerMessageCopyWith<$Res> {
-  factory $WsServerMessageCopyWith(WsServerMessage value, $Res Function(WsServerMessage) then) = _$WsServerMessageCopyWithImpl<$Res, WsServerMessage>;
+  factory $WsServerMessageCopyWith(
+          WsServerMessage value, $Res Function(WsServerMessage) then) =
+      _$WsServerMessageCopyWithImpl<$Res, WsServerMessage>;
 }
 
 /// @nodoc
-class _$WsServerMessageCopyWithImpl<$Res, $Val extends WsServerMessage> implements $WsServerMessageCopyWith<$Res> {
+class _$WsServerMessageCopyWithImpl<$Res, $Val extends WsServerMessage>
+    implements $WsServerMessageCopyWith<$Res> {
   _$WsServerMessageCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -1333,16 +1388,20 @@ class _$WsServerMessageCopyWithImpl<$Res, $Val extends WsServerMessage> implemen
 
 /// @nodoc
 abstract class _$$WsServerMessage_HelloImplCopyWith<$Res> {
-  factory _$$WsServerMessage_HelloImplCopyWith(_$WsServerMessage_HelloImpl value, $Res Function(_$WsServerMessage_HelloImpl) then) =
+  factory _$$WsServerMessage_HelloImplCopyWith(
+          _$WsServerMessage_HelloImpl value,
+          $Res Function(_$WsServerMessage_HelloImpl) then) =
       __$$WsServerMessage_HelloImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ClientInfo client, List<ClientInfo> peers});
 }
 
 /// @nodoc
-class __$$WsServerMessage_HelloImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_HelloImpl>
+class __$$WsServerMessage_HelloImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_HelloImpl>
     implements _$$WsServerMessage_HelloImplCopyWith<$Res> {
-  __$$WsServerMessage_HelloImplCopyWithImpl(_$WsServerMessage_HelloImpl _value, $Res Function(_$WsServerMessage_HelloImpl) _then)
+  __$$WsServerMessage_HelloImplCopyWithImpl(_$WsServerMessage_HelloImpl _value,
+      $Res Function(_$WsServerMessage_HelloImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of WsServerMessage
@@ -1369,7 +1428,8 @@ class __$$WsServerMessage_HelloImplCopyWithImpl<$Res> extends _$WsServerMessageC
 /// @nodoc
 
 class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
-  const _$WsServerMessage_HelloImpl({required this.client, required final List<ClientInfo> peers})
+  const _$WsServerMessage_HelloImpl(
+      {required this.client, required final List<ClientInfo> peers})
       : _peers = peers,
         super._();
 
@@ -1398,15 +1458,17 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, client, const DeepCollectionEquality().hash(_peers));
+  int get hashCode => Object.hash(
+      runtimeType, client, const DeepCollectionEquality().hash(_peers));
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_HelloImplCopyWith<_$WsServerMessage_HelloImpl> get copyWith =>
-      __$$WsServerMessage_HelloImplCopyWithImpl<_$WsServerMessage_HelloImpl>(this, _$identity);
+  _$$WsServerMessage_HelloImplCopyWith<_$WsServerMessage_HelloImpl>
+      get copyWith => __$$WsServerMessage_HelloImplCopyWithImpl<
+          _$WsServerMessage_HelloImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1502,7 +1564,9 @@ class _$WsServerMessage_HelloImpl extends WsServerMessage_Hello {
 }
 
 abstract class WsServerMessage_Hello extends WsServerMessage {
-  const factory WsServerMessage_Hello({required final ClientInfo client, required final List<ClientInfo> peers}) = _$WsServerMessage_HelloImpl;
+  const factory WsServerMessage_Hello(
+      {required final ClientInfo client,
+      required final List<ClientInfo> peers}) = _$WsServerMessage_HelloImpl;
   const WsServerMessage_Hello._() : super._();
 
   ClientInfo get client;
@@ -1511,21 +1575,26 @@ abstract class WsServerMessage_Hello extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_HelloImplCopyWith<_$WsServerMessage_HelloImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_HelloImplCopyWith<_$WsServerMessage_HelloImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$WsServerMessage_JoinImplCopyWith<$Res> {
-  factory _$$WsServerMessage_JoinImplCopyWith(_$WsServerMessage_JoinImpl value, $Res Function(_$WsServerMessage_JoinImpl) then) =
+  factory _$$WsServerMessage_JoinImplCopyWith(_$WsServerMessage_JoinImpl value,
+          $Res Function(_$WsServerMessage_JoinImpl) then) =
       __$$WsServerMessage_JoinImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ClientInfo peer});
 }
 
 /// @nodoc
-class __$$WsServerMessage_JoinImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_JoinImpl>
+class __$$WsServerMessage_JoinImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_JoinImpl>
     implements _$$WsServerMessage_JoinImplCopyWith<$Res> {
-  __$$WsServerMessage_JoinImplCopyWithImpl(_$WsServerMessage_JoinImpl _value, $Res Function(_$WsServerMessage_JoinImpl) _then) : super(_value, _then);
+  __$$WsServerMessage_JoinImplCopyWithImpl(_$WsServerMessage_JoinImpl _value,
+      $Res Function(_$WsServerMessage_JoinImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -1559,7 +1628,9 @@ class _$WsServerMessage_JoinImpl extends WsServerMessage_Join {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_JoinImpl && (identical(other.peer, peer) || other.peer == peer));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_JoinImpl &&
+            (identical(other.peer, peer) || other.peer == peer));
   }
 
   @override
@@ -1570,8 +1641,10 @@ class _$WsServerMessage_JoinImpl extends WsServerMessage_Join {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_JoinImplCopyWith<_$WsServerMessage_JoinImpl> get copyWith =>
-      __$$WsServerMessage_JoinImplCopyWithImpl<_$WsServerMessage_JoinImpl>(this, _$identity);
+  _$$WsServerMessage_JoinImplCopyWith<_$WsServerMessage_JoinImpl>
+      get copyWith =>
+          __$$WsServerMessage_JoinImplCopyWithImpl<_$WsServerMessage_JoinImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1667,7 +1740,8 @@ class _$WsServerMessage_JoinImpl extends WsServerMessage_Join {
 }
 
 abstract class WsServerMessage_Join extends WsServerMessage {
-  const factory WsServerMessage_Join({required final ClientInfo peer}) = _$WsServerMessage_JoinImpl;
+  const factory WsServerMessage_Join({required final ClientInfo peer}) =
+      _$WsServerMessage_JoinImpl;
   const WsServerMessage_Join._() : super._();
 
   ClientInfo get peer;
@@ -1675,21 +1749,27 @@ abstract class WsServerMessage_Join extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_JoinImplCopyWith<_$WsServerMessage_JoinImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_JoinImplCopyWith<_$WsServerMessage_JoinImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$WsServerMessage_UpdateImplCopyWith<$Res> {
-  factory _$$WsServerMessage_UpdateImplCopyWith(_$WsServerMessage_UpdateImpl value, $Res Function(_$WsServerMessage_UpdateImpl) then) =
+  factory _$$WsServerMessage_UpdateImplCopyWith(
+          _$WsServerMessage_UpdateImpl value,
+          $Res Function(_$WsServerMessage_UpdateImpl) then) =
       __$$WsServerMessage_UpdateImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ClientInfo peer});
 }
 
 /// @nodoc
-class __$$WsServerMessage_UpdateImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_UpdateImpl>
+class __$$WsServerMessage_UpdateImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_UpdateImpl>
     implements _$$WsServerMessage_UpdateImplCopyWith<$Res> {
-  __$$WsServerMessage_UpdateImplCopyWithImpl(_$WsServerMessage_UpdateImpl _value, $Res Function(_$WsServerMessage_UpdateImpl) _then)
+  __$$WsServerMessage_UpdateImplCopyWithImpl(
+      _$WsServerMessage_UpdateImpl _value,
+      $Res Function(_$WsServerMessage_UpdateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of WsServerMessage
@@ -1724,7 +1804,9 @@ class _$WsServerMessage_UpdateImpl extends WsServerMessage_Update {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_UpdateImpl && (identical(other.peer, peer) || other.peer == peer));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_UpdateImpl &&
+            (identical(other.peer, peer) || other.peer == peer));
   }
 
   @override
@@ -1735,8 +1817,9 @@ class _$WsServerMessage_UpdateImpl extends WsServerMessage_Update {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_UpdateImplCopyWith<_$WsServerMessage_UpdateImpl> get copyWith =>
-      __$$WsServerMessage_UpdateImplCopyWithImpl<_$WsServerMessage_UpdateImpl>(this, _$identity);
+  _$$WsServerMessage_UpdateImplCopyWith<_$WsServerMessage_UpdateImpl>
+      get copyWith => __$$WsServerMessage_UpdateImplCopyWithImpl<
+          _$WsServerMessage_UpdateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1832,7 +1915,8 @@ class _$WsServerMessage_UpdateImpl extends WsServerMessage_Update {
 }
 
 abstract class WsServerMessage_Update extends WsServerMessage {
-  const factory WsServerMessage_Update({required final ClientInfo peer}) = _$WsServerMessage_UpdateImpl;
+  const factory WsServerMessage_Update({required final ClientInfo peer}) =
+      _$WsServerMessage_UpdateImpl;
   const WsServerMessage_Update._() : super._();
 
   ClientInfo get peer;
@@ -1840,21 +1924,26 @@ abstract class WsServerMessage_Update extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_UpdateImplCopyWith<_$WsServerMessage_UpdateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_UpdateImplCopyWith<_$WsServerMessage_UpdateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$WsServerMessage_LeftImplCopyWith<$Res> {
-  factory _$$WsServerMessage_LeftImplCopyWith(_$WsServerMessage_LeftImpl value, $Res Function(_$WsServerMessage_LeftImpl) then) =
+  factory _$$WsServerMessage_LeftImplCopyWith(_$WsServerMessage_LeftImpl value,
+          $Res Function(_$WsServerMessage_LeftImpl) then) =
       __$$WsServerMessage_LeftImplCopyWithImpl<$Res>;
   @useResult
   $Res call({UuidValue peerId});
 }
 
 /// @nodoc
-class __$$WsServerMessage_LeftImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_LeftImpl>
+class __$$WsServerMessage_LeftImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_LeftImpl>
     implements _$$WsServerMessage_LeftImplCopyWith<$Res> {
-  __$$WsServerMessage_LeftImplCopyWithImpl(_$WsServerMessage_LeftImpl _value, $Res Function(_$WsServerMessage_LeftImpl) _then) : super(_value, _then);
+  __$$WsServerMessage_LeftImplCopyWithImpl(_$WsServerMessage_LeftImpl _value,
+      $Res Function(_$WsServerMessage_LeftImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -1888,7 +1977,9 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_LeftImpl && (identical(other.peerId, peerId) || other.peerId == peerId));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_LeftImpl &&
+            (identical(other.peerId, peerId) || other.peerId == peerId));
   }
 
   @override
@@ -1899,8 +1990,10 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_LeftImplCopyWith<_$WsServerMessage_LeftImpl> get copyWith =>
-      __$$WsServerMessage_LeftImplCopyWithImpl<_$WsServerMessage_LeftImpl>(this, _$identity);
+  _$$WsServerMessage_LeftImplCopyWith<_$WsServerMessage_LeftImpl>
+      get copyWith =>
+          __$$WsServerMessage_LeftImplCopyWithImpl<_$WsServerMessage_LeftImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1996,7 +2089,8 @@ class _$WsServerMessage_LeftImpl extends WsServerMessage_Left {
 }
 
 abstract class WsServerMessage_Left extends WsServerMessage {
-  const factory WsServerMessage_Left({required final UuidValue peerId}) = _$WsServerMessage_LeftImpl;
+  const factory WsServerMessage_Left({required final UuidValue peerId}) =
+      _$WsServerMessage_LeftImpl;
   const WsServerMessage_Left._() : super._();
 
   UuidValue get peerId;
@@ -2004,21 +2098,26 @@ abstract class WsServerMessage_Left extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_LeftImplCopyWith<_$WsServerMessage_LeftImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_LeftImplCopyWith<_$WsServerMessage_LeftImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$WsServerMessage_OfferImplCopyWith<$Res> {
-  factory _$$WsServerMessage_OfferImplCopyWith(_$WsServerMessage_OfferImpl value, $Res Function(_$WsServerMessage_OfferImpl) then) =
+  factory _$$WsServerMessage_OfferImplCopyWith(
+          _$WsServerMessage_OfferImpl value,
+          $Res Function(_$WsServerMessage_OfferImpl) then) =
       __$$WsServerMessage_OfferImplCopyWithImpl<$Res>;
   @useResult
   $Res call({WsServerSdpMessage field0});
 }
 
 /// @nodoc
-class __$$WsServerMessage_OfferImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_OfferImpl>
+class __$$WsServerMessage_OfferImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_OfferImpl>
     implements _$$WsServerMessage_OfferImplCopyWith<$Res> {
-  __$$WsServerMessage_OfferImplCopyWithImpl(_$WsServerMessage_OfferImpl _value, $Res Function(_$WsServerMessage_OfferImpl) _then)
+  __$$WsServerMessage_OfferImplCopyWithImpl(_$WsServerMessage_OfferImpl _value,
+      $Res Function(_$WsServerMessage_OfferImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of WsServerMessage
@@ -2053,7 +2152,9 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_OfferImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_OfferImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
   }
 
   @override
@@ -2064,8 +2165,9 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_OfferImplCopyWith<_$WsServerMessage_OfferImpl> get copyWith =>
-      __$$WsServerMessage_OfferImplCopyWithImpl<_$WsServerMessage_OfferImpl>(this, _$identity);
+  _$$WsServerMessage_OfferImplCopyWith<_$WsServerMessage_OfferImpl>
+      get copyWith => __$$WsServerMessage_OfferImplCopyWithImpl<
+          _$WsServerMessage_OfferImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2161,7 +2263,8 @@ class _$WsServerMessage_OfferImpl extends WsServerMessage_Offer {
 }
 
 abstract class WsServerMessage_Offer extends WsServerMessage {
-  const factory WsServerMessage_Offer(final WsServerSdpMessage field0) = _$WsServerMessage_OfferImpl;
+  const factory WsServerMessage_Offer(final WsServerSdpMessage field0) =
+      _$WsServerMessage_OfferImpl;
   const WsServerMessage_Offer._() : super._();
 
   WsServerSdpMessage get field0;
@@ -2169,21 +2272,27 @@ abstract class WsServerMessage_Offer extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_OfferImplCopyWith<_$WsServerMessage_OfferImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_OfferImplCopyWith<_$WsServerMessage_OfferImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$WsServerMessage_AnswerImplCopyWith<$Res> {
-  factory _$$WsServerMessage_AnswerImplCopyWith(_$WsServerMessage_AnswerImpl value, $Res Function(_$WsServerMessage_AnswerImpl) then) =
+  factory _$$WsServerMessage_AnswerImplCopyWith(
+          _$WsServerMessage_AnswerImpl value,
+          $Res Function(_$WsServerMessage_AnswerImpl) then) =
       __$$WsServerMessage_AnswerImplCopyWithImpl<$Res>;
   @useResult
   $Res call({WsServerSdpMessage field0});
 }
 
 /// @nodoc
-class __$$WsServerMessage_AnswerImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_AnswerImpl>
+class __$$WsServerMessage_AnswerImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_AnswerImpl>
     implements _$$WsServerMessage_AnswerImplCopyWith<$Res> {
-  __$$WsServerMessage_AnswerImplCopyWithImpl(_$WsServerMessage_AnswerImpl _value, $Res Function(_$WsServerMessage_AnswerImpl) _then)
+  __$$WsServerMessage_AnswerImplCopyWithImpl(
+      _$WsServerMessage_AnswerImpl _value,
+      $Res Function(_$WsServerMessage_AnswerImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of WsServerMessage
@@ -2218,7 +2327,9 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_AnswerImpl && (identical(other.field0, field0) || other.field0 == field0));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_AnswerImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
   }
 
   @override
@@ -2229,8 +2340,9 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_AnswerImplCopyWith<_$WsServerMessage_AnswerImpl> get copyWith =>
-      __$$WsServerMessage_AnswerImplCopyWithImpl<_$WsServerMessage_AnswerImpl>(this, _$identity);
+  _$$WsServerMessage_AnswerImplCopyWith<_$WsServerMessage_AnswerImpl>
+      get copyWith => __$$WsServerMessage_AnswerImplCopyWithImpl<
+          _$WsServerMessage_AnswerImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2326,7 +2438,8 @@ class _$WsServerMessage_AnswerImpl extends WsServerMessage_Answer {
 }
 
 abstract class WsServerMessage_Answer extends WsServerMessage {
-  const factory WsServerMessage_Answer(final WsServerSdpMessage field0) = _$WsServerMessage_AnswerImpl;
+  const factory WsServerMessage_Answer(final WsServerSdpMessage field0) =
+      _$WsServerMessage_AnswerImpl;
   const WsServerMessage_Answer._() : super._();
 
   WsServerSdpMessage get field0;
@@ -2334,21 +2447,26 @@ abstract class WsServerMessage_Answer extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_AnswerImplCopyWith<_$WsServerMessage_AnswerImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_AnswerImplCopyWith<_$WsServerMessage_AnswerImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$WsServerMessage_ErrorImplCopyWith<$Res> {
-  factory _$$WsServerMessage_ErrorImplCopyWith(_$WsServerMessage_ErrorImpl value, $Res Function(_$WsServerMessage_ErrorImpl) then) =
+  factory _$$WsServerMessage_ErrorImplCopyWith(
+          _$WsServerMessage_ErrorImpl value,
+          $Res Function(_$WsServerMessage_ErrorImpl) then) =
       __$$WsServerMessage_ErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int code});
 }
 
 /// @nodoc
-class __$$WsServerMessage_ErrorImplCopyWithImpl<$Res> extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_ErrorImpl>
+class __$$WsServerMessage_ErrorImplCopyWithImpl<$Res>
+    extends _$WsServerMessageCopyWithImpl<$Res, _$WsServerMessage_ErrorImpl>
     implements _$$WsServerMessage_ErrorImplCopyWith<$Res> {
-  __$$WsServerMessage_ErrorImplCopyWithImpl(_$WsServerMessage_ErrorImpl _value, $Res Function(_$WsServerMessage_ErrorImpl) _then)
+  __$$WsServerMessage_ErrorImplCopyWithImpl(_$WsServerMessage_ErrorImpl _value,
+      $Res Function(_$WsServerMessage_ErrorImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of WsServerMessage
@@ -2383,7 +2501,9 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WsServerMessage_ErrorImpl && (identical(other.code, code) || other.code == code));
+        (other.runtimeType == runtimeType &&
+            other is _$WsServerMessage_ErrorImpl &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @override
@@ -2394,8 +2514,9 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$WsServerMessage_ErrorImplCopyWith<_$WsServerMessage_ErrorImpl> get copyWith =>
-      __$$WsServerMessage_ErrorImplCopyWithImpl<_$WsServerMessage_ErrorImpl>(this, _$identity);
+  _$$WsServerMessage_ErrorImplCopyWith<_$WsServerMessage_ErrorImpl>
+      get copyWith => __$$WsServerMessage_ErrorImplCopyWithImpl<
+          _$WsServerMessage_ErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2491,7 +2612,8 @@ class _$WsServerMessage_ErrorImpl extends WsServerMessage_Error {
 }
 
 abstract class WsServerMessage_Error extends WsServerMessage {
-  const factory WsServerMessage_Error({required final int code}) = _$WsServerMessage_ErrorImpl;
+  const factory WsServerMessage_Error({required final int code}) =
+      _$WsServerMessage_ErrorImpl;
   const WsServerMessage_Error._() : super._();
 
   int get code;
@@ -2499,5 +2621,6 @@ abstract class WsServerMessage_Error extends WsServerMessage {
   /// Create a copy of WsServerMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WsServerMessage_ErrorImplCopyWith<_$WsServerMessage_ErrorImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$WsServerMessage_ErrorImplCopyWith<_$WsServerMessage_ErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
