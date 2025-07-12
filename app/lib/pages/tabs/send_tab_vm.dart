@@ -56,7 +56,7 @@ final sendTabVmProvider = ViewProvider((ref) {
   final sendMode = ref.watch(settingsProvider.select((s) => s.sendMode));
   final selectedFiles = ref.watch(selectedSendingFilesProvider);
   final localIps = ref.watch(localIpProvider).localIps;
-  final nearbyDevices = ref.watch(nearbyDevicesProvider).devices.values;
+  final nearbyDevices = ref.watch(nearbyDevicesProvider).allDevices.values;
   final favoriteDevices = ref.watch(favoritesProvider);
 
   return SendTabVm(

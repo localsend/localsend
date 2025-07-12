@@ -52,6 +52,7 @@ void main() {
 
 Device _createDevice(String ip) {
   return Device(
+    signalingId: null,
     ip: ip,
     version: '1',
     port: 123,
@@ -61,5 +62,6 @@ Device _createDevice(String ip) {
     deviceModel: 'A',
     deviceType: DeviceType.mobile,
     download: false,
+    discoveryMethods: {},
   );
 }

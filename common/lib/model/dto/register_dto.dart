@@ -31,8 +31,9 @@ class RegisterDto with RegisterDtoMappable {
 }
 
 extension RegisterDtoExt on RegisterDto {
-  Device toDevice(String ip, int ownPort, bool ownHttps) {
+  Device toDevice(String ip, int ownPort, bool ownHttps, DiscoveryMethod method) {
     return Device(
+      signalingId: null,
       ip: ip,
       version: version ?? fallbackProtocolVersion,
       port: port ?? ownPort,
@@ -42,6 +43,7 @@ extension RegisterDtoExt on RegisterDto {
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
+      discoveryMethods: {method},
     );
   }
 }

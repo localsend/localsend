@@ -278,7 +278,7 @@ packages:
     source: hosted
     version: "2.0.1"
   convert:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: convert
       sha256: b30acd5944035672bc15c6b7a8b47d773e41e2f17de064350988c5d02adb1c68
@@ -584,13 +584,13 @@ packages:
     source: hosted
     version: "2.0.23"
   flutter_rust_bridge:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_rust_bridge
-      sha256: "3292ad6085552987b8b3b9a7e5805567f4013372d302736b702801acb001ee00"
+      sha256: "37ef40bc6f863652e865f0b2563ea07f0d3c58d8efad803cc01933a4b2ee067e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.1"
+    version: "2.11.1"
   flutter_test:
     dependency: transitive
     description: flutter
@@ -601,8 +601,16 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      sha256: "44c19278dd9d89292cf46e97dc0c1e52ce03275f40a97c5a348e802a924bf40e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.7"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: freezed_annotation
       sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
@@ -1351,42 +1359,42 @@ packages:
     dependency: transitive
     description:
       name: refena
-      sha256: "1446e9622451e0cffef2af5b3fd57a52f0688d7c9eb848e969c16ccc2d14e833"
+      sha256: "69b2744196f7c752b66a20a360d6c188f52cccb7b4d6f5bcf61bede3a7764a35"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "3.1.0"
   refena_flutter:
     dependency: "direct main"
     description:
       name: refena_flutter
-      sha256: "2e57bab72667f37b55f26675d46c0a362e6eb115a70605c90163736b85e97a42"
+      sha256: "5f090b0ecc7079161d6fff4bad3644df3984bc23b42aabc171d638caf5d6a264"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "3.1.0"
   refena_inspector:
     dependency: "direct dev"
     description:
       name: refena_inspector
-      sha256: "717a19f70d9667e2459fd8dfd6a72b1306bd2c04bfc255bada4f2eb429ca4757"
+      sha256: "2b2b8dc85c908c4c1ce733f53b4d505496c67944a98fb3586eb2eb7a4e62d7a7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.3"
+    version: "2.1.0"
   refena_inspector_client:
     dependency: "direct main"
     description:
       name: refena_inspector_client
-      sha256: "8bcc1e169bfc0e5ba448f4920067a0579c0b4a42fff39dbdfd4a743bf2b235a6"
+      sha256: "88f41a0b55aae12a88ad40c33b0b1593581ead0c32b0bcfed1115daf6d54e6ce"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
   rhttp:
     dependency: "direct main"
     description:
       name: rhttp
-      sha256: "3deabc6c3384b4efa252dfb4a5059acc6530117fdc1b10f5f67ff9768c9af75a"
+      sha256: e8f0a8756a931598b7d9c4107a4afe93c2b81cbf8c45e532ba9dc52e12bbaa35
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.0"
+    version: "0.13.0"
   routerino:
     dependency: "direct main"
     description:
@@ -1395,6 +1403,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.0"
+  rust_lib_localsend_app:
+    dependency: "direct main"
+    description:
+      path: rust_builder
+      relative: true
+    source: path
+    version: "0.0.1"
   saf_stream:
     dependency: "direct main"
     description:
