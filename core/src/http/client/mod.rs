@@ -1,4 +1,3 @@
-use crate::http::StatusCodeError;
 use crate::model::discovery::{ProtocolType, RegisterDto, RegisterResponseDto};
 use crate::model::transfer::{PrepareUploadRequestDto, PrepareUploadResponseDto};
 use futures_util::StreamExt;
@@ -6,6 +5,7 @@ use reqwest::{Response, StatusCode};
 use serde::{Deserialize, Serialize};
 use tokio::sync::mpsc;
 use tokio_stream::wrappers::ReceiverStream;
+use crate::http::StatusCodeError;
 
 const BASE_PATH: &str = "/api/localsend/v2";
 

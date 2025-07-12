@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
         .with_max_level(Level::DEBUG)
         .init();
 
-    webrtc_test().await?;
+    server_test().await?;
 
     Ok(())
 }
@@ -117,10 +117,11 @@ MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 async fn server_test() -> Result<()> {
     let server = http::server::LsHttpServer::start_with_port(
         53317,
-        Some(TlsConfig {
-            cert: CERT.to_string(),
-            private_key: PRIVATE_KEY.to_string(),
-        }),
+        // Some(TlsConfig {
+        //     cert: CERT.to_string(),
+        //     private_key: PRIVATE_KEY.to_string(),
+        // }),
+        None,
     )
     .await?;
     tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
