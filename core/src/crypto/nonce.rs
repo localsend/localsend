@@ -2,7 +2,7 @@ use rand::RngCore;
 
 pub fn generate_nonce() -> Vec<u8> {
     let mut nonce = vec![0; 32];
-    rand::thread_rng().fill_bytes(&mut nonce);
+    rand::rng().fill_bytes(&mut nonce);
     nonce
 }
 
