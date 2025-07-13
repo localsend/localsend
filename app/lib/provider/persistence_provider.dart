@@ -47,6 +47,10 @@ const _version = 'ls_version';
 // Security keys (generated on first app start)
 const _securityContext = 'ls_security_context';
 
+// WebRTC
+const _signalingServers = 'ls_signaling_servers';
+const _stunServers = 'ls_stun_servers';
+
 // Received file history
 const _receiveHistory = 'ls_receive_history';
 
@@ -215,6 +219,32 @@ class PersistenceService {
 
   Future<void> setSecurityContext(StoredSecurityContext context) async {
     await _prefs.setString(_securityContext, jsonEncode(context));
+  }
+
+  List<String>? getSignalingServers() {
+    final serversRaw = _prefs.getString(_signalingServers);
+    if (serversRaw == null) {
+      return null;
+    }
+
+    return (jsonDecode(serversRaw) as List).cast<String>();
+  }
+
+  Future<void> setSignalingServers(List<String> servers) async {
+    await _prefs.setString(_signalingServers, jsonEncode(servers));
+  }
+
+  List<String>? getStunServers() {
+    final serversRaw = _prefs.getString(_stunServers);
+    if (serversRaw == null) {
+      return null;
+    }
+
+    return (jsonDecode(serversRaw) as List).cast<String>();
+  }
+
+  Future<void> setStunServers(List<String> servers) async {
+    await _prefs.setString(_stunServers, jsonEncode(servers));
   }
 
   List<ReceiveHistoryEntry> getReceiveHistory() {

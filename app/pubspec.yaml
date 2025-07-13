@@ -16,6 +16,7 @@ dependencies:
   common:
     path: ../common
   connectivity_plus: 6.1.0
+  convert: 3.1.2
   dart_mappable: 4.3.0
   desktop_drop: 0.5.0
   device_apps: 2.2.0
@@ -29,6 +30,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.7.4+2
+  flutter_rust_bridge: 2.11.1
+  freezed_annotation: 2.4.4
   gal: 2.3.0
   glob: ^2.1.2
   image: 4.3.0
@@ -53,10 +56,12 @@ dependencies:
   path_provider_foundation: 2.4.0
   permission_handler: 11.3.1
   pretty_qr_code: 3.3.0
-  refena_flutter: 2.1.1
-  refena_inspector_client: 2.0.1
-  rhttp: 0.10.0
+  refena_flutter: 3.1.0
+  refena_inspector_client: 2.1.0
+  rhttp: 0.13.0
   routerino: 0.8.0
+  rust_lib_localsend_app:
+    path: rust_builder
   saf_stream: 0.10.0
   screen_retriever: 0.2.0
   share_handler: 0.0.22
@@ -82,8 +87,9 @@ dev_dependencies:
   dart_mappable_builder: 4.3.0
   flutter_gen_runner: 5.8.0
   flutter_lints: 5.0.0
+  freezed: 2.5.7
   mockito: 5.4.4
-  refena_inspector: 2.0.3
+  refena_inspector: 2.1.0
   slang_build_runner: 4.5.0
   test: ^1.24.8
 
